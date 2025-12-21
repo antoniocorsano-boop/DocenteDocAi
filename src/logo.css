@@ -1,0 +1,114 @@
+.app-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.5s var(--motion-expressive);
+  position: relative;
+}
+
+.app-logo-container:hover {
+  transform: scale(1.05);
+}
+
+.logo-d-ring {
+  fill: none;
+  stroke: var(--sys-primary);
+  stroke-width: 4;
+  stroke-linecap: round;
+  opacity: 0.4;
+  transition: all 0.6s ease;
+}
+
+.logo-d-body {
+  fill: var(--sys-primary);
+  transition: fill 0.4s ease, transform 0.4s ease;
+  filter: drop-shadow(0 4px 6px rgba(103, 80, 164, 0.2));
+}
+
+.logo-d-stem {
+  fill: var(--sys-outline);
+  opacity: 0.8;
+}
+
+.logo-main-text {
+  fill: var(--sys-on-surface);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 950;
+  font-size: 26px;
+  letter-spacing: -1.2px;
+}
+
+.logo-ai-text {
+  fill: var(--sys-tertiary);
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 900;
+  font-size: 14px;
+  filter: drop-shadow(0 0 2px var(--sys-tertiary));
+}
+
+.logo-sparkle {
+  fill: var(--sys-tertiary);
+  filter: drop-shadow(0 0 8px var(--sys-tertiary));
+  animation: logo-sparkle-glow 3s ease-in-out infinite;
+}
+
+@keyframes logo-sparkle-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
+
+/* Stato Thinking AI */
+.app-logo-container.thinking .logo-d-ring {
+  stroke-dasharray: 8, 8;
+  animation: logo-rotate 4s linear infinite;
+  opacity: 1;
+}
+
+@keyframes logo-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Big Bang universe overlay */
+.universe-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.universe-overlay.chaos {
+  opacity: 0.4;
+  background: radial-gradient(circle, var(--sys-primary-container) 0%, transparent 70%);
+  animation: chaos-shake 0.1s infinite;
+}
+
+.universe-overlay.implosion {
+  opacity: 1;
+  background: white;
+  transform: scale(0);
+  animation: implosion-zoom 0.4s var(--motion-standard) forwards;
+}
+
+.universe-overlay.peace {
+  opacity: 0;
+  background: var(--sys-primary-container);
+  transform: scale(2);
+  transition: all 2s var(--motion-standard);
+}
+
+@keyframes chaos-shake {
+  0% { transform: translate(2px, 2px); }
+  50% { transform: translate(-2px, -2px); }
+  100% { transform: translate(2px, -2px); }
+}
+
+@keyframes implosion-zoom {
+  from { transform: scale(3); opacity: 0; }
+  to { transform: scale(0); opacity: 1; }
+}

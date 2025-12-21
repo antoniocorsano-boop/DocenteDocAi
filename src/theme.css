@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0');
+
+:root {
+  --font-family: 'Roboto', sans-serif;
+
+  /* --- PALETTE M3 EXPRESSIVE (AURA) --- */
+  --sys-primary: #6750A4;
+  --sys-on-primary: #FFFFFF;
+  --sys-primary-container: #EADDFF;
+  --sys-on-primary-container: #21005D;
+
+  --sys-secondary: #625B71;
+  --sys-on-secondary: #FFFFFF;
+  --sys-secondary-container: #E8DEF8;
+  --sys-on-secondary-container: #1D192B;
+
+  --sys-tertiary: #7D5260;
+  --sys-on-tertiary: #FFFFFF;
+  --sys-tertiary-container: #FFD8E4;
+  --sys-on-tertiary-container: #31111D;
+
+  --sys-background: #FDFBFF;
+  --sys-on-background: #1C1B1F;
+  --sys-surface: #FDFBFF;
+  --sys-on-surface: #1C1B1F;
+
+  /* Superfici Aura - Containers */
+  --sys-surface-container-lowest: #FFFFFF;
+  --sys-surface-container-low: #F7F2FA;
+  --sys-surface-container: #F3EDF7;
+  --sys-surface-container-high: #ECE6F0;
+  --sys-surface-container-highest: #E6E0E9;
+
+  --sys-outline: #79747E;
+  --sys-outline-variant: #C4C7C5;
+  --sys-error: #B3261E;
+  --sys-on-error: #FFFFFF;
+
+  /* Glassmorphism Presentation Layer */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-blur: blur(30px);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.4);
+
+  /* Layout Metrics Presentation Layer */
+  --header-height: 64px;
+  --nav-height: 80px;
+  --safe-area-bottom: 100px;
+  --content-max-width: 1200px;
+
+  /* Forme M3 */
+  --shape-none: 0px;
+  --shape-xs: 4px;
+  --shape-s: 12px;
+  --shape-m: 16px;
+  --shape-l: 24px;
+  --shape-xl: 32px;
+  --shape-full: 9999px;
+
+  /* Elevazione & Ombre */
+  --elevation-1: 0px 4px 12px rgba(103, 80, 164, 0.04);
+  --elevation-2: 0px 8px 24px rgba(103, 80, 164, 0.08);
+  --elevation-3: 0px 16px 48px rgba(103, 80, 164, 0.12);
+
+  --aura-gradient: linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%);
+  --motion-expressive: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --motion-standard: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-dark {
+  --sys-primary: #D0BCFF;
+  --sys-on-primary: #381E72;
+  --sys-primary-container: #4F378B;
+  --sys-on-primary-container: #EADDFF;
+  --sys-background: #141218;
+  --sys-surface: #1C1B1F;
+  --sys-on-surface: #E6E1E5;
+  --sys-surface-container: #25232A;
+  --sys-surface-container-highest: #36343B;
+  --aura-gradient: linear-gradient(145deg, #141218 0%, #25232A 100%);
+  --glass-bg: rgba(20, 18, 24, 0.8);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background: var(--aura-gradient);
+  background-attachment: fixed;
+  color: var(--sys-on-background);
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.aura-view-entrance {
+  animation: aura-slide-up 0.5s var(--motion-expressive) forwards;
+}
+
+@keyframes aura-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* --- EXPRESSIVE ANIMATIONS --- */
+@keyframes shine {
+  from {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+
+  to {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+.animate-shine {
+  animation: shine 1.5s ease-in-out infinite;
+}
+
+@keyframes aura-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+    filter: blur(140px);
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.6;
+    filter: blur(160px);
+  }
+}
+
+.animate-aura-pulse {
+  animation: aura-pulse 8s ease-in-out infinite;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes aura-slide-up {
+  from {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Glassmorphism Classes */
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+}
+
+/* --- M3 TYPOGRAPHY UTILITIES --- */
+.m3-display-large {
+  font-family: var(--typography-display-large-fontFamily);
+  font-size: var(--typography-display-large-fontSize);
+  font-weight: var(--typography-display-large-fontWeight);
+  line-height: var(--typography-display-large-lineHeight);
+}
+
+.m3-display-medium {
+  font-family: var(--typography-display-medium-fontFamily);
+  font-size: var(--typography-display-medium-fontSize);
+  font-weight: var(--typography-display-medium-fontWeight);
+  line-height: var(--typography-display-medium-lineHeight);
+}
+
+.m3-display-small {
+  font-family: var(--typography-display-small-fontFamily);
+  font-size: var(--typography-display-small-fontSize);
+  font-weight: var(--typography-display-small-fontWeight);
+  line-height: var(--typography-display-small-lineHeight);
+}
+
+.m3-headline-large {
+  font-family: var(--typography-headline-large-fontFamily);
+  font-size: var(--typography-headline-large-fontSize);
+  font-weight: var(--typography-headline-large-fontWeight);
+  line-height: var(--typography-headline-large-lineHeight);
+}
+
+.m3-headline-medium {
+  font-family: var(--typography-headline-medium-fontFamily);
+  font-size: var(--typography-headline-medium-fontSize);
+  font-weight: var(--typography-headline-medium-fontWeight);
+  line-height: var(--typography-headline-medium-lineHeight);
+}
+
+.m3-headline-small {
+  font-family: var(--typography-headline-small-fontFamily);
+  font-size: var(--typography-headline-small-fontSize);
+  font-weight: var(--typography-headline-small-fontWeight);
+  line-height: var(--typography-headline-small-lineHeight);
+}
+
+.m3-title-large {
+  font-family: var(--typography-title-large-fontFamily);
+  font-size: var(--typography-title-large-fontSize);
+  font-weight: var(--typography-title-large-fontWeight);
+  line-height: var(--typography-title-large-lineHeight);
+}
+
+.m3-title-medium {
+  font-family: var(--typography-title-medium-fontFamily);
+  font-size: var(--typography-title-medium-fontSize);
+  font-weight: var(--typography-title-medium-fontWeight);
+  line-height: var(--typography-title-medium-lineHeight);
+}
+
+.m3-title-small {
+  font-family: var(--typography-title-small-fontFamily);
+  font-size: var(--typography-title-small-fontSize);
+  font-weight: var(--typography-title-small-fontWeight);
+  line-height: var(--typography-title-small-lineHeight);
+}
+
+.m3-body-large {
+  font-family: var(--typography-body-large-fontFamily);
+  font-size: var(--typography-body-large-fontSize);
+  font-weight: var(--typography-body-large-fontWeight);
+  line-height: var(--typography-body-large-lineHeight);
+}
+
+.m3-body-medium {
+  font-family: var(--typography-body-medium-fontFamily);
+  font-size: var(--typography-body-medium-fontSize);
+  font-weight: var(--typography-body-medium-fontWeight);
+  line-height: var(--typography-body-medium-lineHeight);
+}
+
+.m3-body-small {
+  font-family: var(--typography-body-small-fontFamily);
+  font-size: var(--typography-body-small-fontSize);
+  font-weight: var(--typography-body-small-fontWeight);
+  line-height: var(--typography-body-small-lineHeight);
+}
+
+.m3-label-large {
+  font-family: var(--typography-label-large-fontFamily);
+  font-size: var(--typography-label-large-fontSize);
+  font-weight: var(--typography-label-large-fontWeight);
+  line-height: var(--typography-label-large-lineHeight);
+}
+
+.m3-label-medium {
+  font-family: var(--typography-label-medium-fontFamily);
+  font-size: var(--typography-label-medium-fontSize);
+  font-weight: var(--typography-label-medium-fontWeight);
+  line-height: var(--typography-label-medium-lineHeight);
+}
+
+.m3-label-small {
+  font-family: var(--typography-label-small-fontFamily);
+  font-size: var(--typography-label-small-fontSize);
+  font-weight: var(--typography-label-small-fontWeight);
+  line-height: var(--typography-label-small-lineHeight);
+}

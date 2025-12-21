@@ -1,0 +1,280 @@
+
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { LiveServerMessage, Modality, Tool, Type, FunctionDeclaration, GoogleGenAI } from '@google/genai';
+import { LiveAssistantProps, TranscriptEntry } from '../types.ts';
+import { getGoogleAIClient } from '../services/aiClient.ts';
+import { performWebSearch } from '../services/aiService.ts';
+import { AiMemoryChip } from './M3Components.tsx';
+
+// --- AUDIO ENCODING & DECODING ---
+function encode(bytes: Uint8Array): string {
+  let binary = '';
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+function decode(base64: string): Uint8Array {
+  const binaryString = atob(base64);
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes;
+}
+
+async function decodeAudioData(
+  data: Uint8Array,
+  ctx: AudioContext,
+  sampleRate: number,
+  numChannels: number,
+): Promise<AudioBuffer> {
+  const dataInt16 = new Int16Array(data.buffer);
+  const frameCount = dataInt16.length / numChannels;
+  // FIX: Provide valid AudioBufferOptions for createBuffer
+  const buffer = ctx.createBuffer(numChannels, frameCount, sampleRate);
+
+  for (let channel = 0; channel < numChannels; channel++) {
+    const channelData = buffer.getChannelData(channel);
+    for (let i = 0; i < frameCount; i++) {
+      channelData[i] = dataInt16[i * numChannels + channel] / 32768.0;
+    }
+  }
+  return buffer;
+}
+
+const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
+  const isUser = entry.speaker === 'user';
+  const isSystem = entry.text.startsWith('[') && entry.text.endsWith(']');
+
+  if (isSystem) {
+    return (
+      <div className="flex justify-center my-2 animate-in fade-in">
+        <div className="bg-surface-container-highest px-3 py-1.5 rounded-full text-xs font-medium text-on-surface-variant flex items-center gap-2 border border-outline-variant shadow-sm">
+          <span className="material-symbols-outlined text-sm">check_circle</span>
+          {entry.text.replace(/\[|\]/g, '')}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} mb-3`}>
+      <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm ${isUser
+        ? 'bg-primary text-on-primary rounded-tr-sm'
+        : 'bg-surface-container-high text-on-surface rounded-tl-sm border border-outline-variant'
+        }`}>
+        <p className="whitespace-pre-wrap">{entry.text}</p>
+        {entry.sources && (
+          <div className="mt-2 pt-2 border-t border-white/20">
+            <p className="text-[10px] opacity-80 font-bold mb-1">FONTI:</p>
+            <div className="flex flex-wrap gap-1">
+              {entry.sources.map((s, i) => (
+                <a key={i} href={s.uri} target="_blank" rel="noreferrer" className="text-[10px] underline opacity-90 hover:opacity-100 truncate max-w-[150px] block">
+                  {s.title}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+        {!isUser && entry.contextLabel && <AiMemoryChip label={entry.contextLabel} />}
+      </div>
+    </div>
+  );
+};
+
+export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
+  const {
+    onNavigate,
+    onAddNote,
+    onAddEvaluation,
+    onCreateEvent,
+    onScheduleLesson,
+    onMarkAttendance,
+    students,
+    userContext
+  } = props;
+
+  const [isConnected, setIsConnected] = useState(false);
+  const [status, setStatus] = useState<string>('Pronto');
+  const [transcripts, setTranscripts] = useState<TranscriptEntry[]>([]);
+
+  const inputAudioContextRef = useRef<AudioContext | null>(null);
+  const outputAudioContextRef = useRef<AudioContext | null>(null);
+  const sessionPromiseRef = useRef<Promise<any> | null>(null);
+  const nextStartTimeRef = useRef<number>(0);
+  const sourcesRef = useRef<Set<AudioBufferSourceNode>>(new Set());
+
+  const tools: any[] = useMemo(() => [{
+    functionDeclarations: [
+      {
+        name: 'navigate',
+        description: 'Cambia schermata dell\'app.',
+        parameters: { type: Type.OBJECT, properties: { destination: { type: Type.STRING } }, required: ['destination'] }
+      },
+      {
+        name: 'addNote',
+        description: 'Aggiunge nota al registro.',
+        parameters: { type: Type.OBJECT, properties: { note: { type: Type.STRING }, studentName: { type: Type.STRING } }, required: ['note'] }
+      },
+      {
+        name: 'addEvaluation',
+        description: 'Aggiunge un voto.',
+        parameters: { type: Type.OBJECT, properties: { studentName: { type: Type.STRING }, grade: { type: Type.STRING } }, required: ['studentName', 'grade'] }
+      },
+      {
+        name: 'searchWeb',
+        description: 'Cerca info online.',
+        parameters: { type: Type.OBJECT, properties: { query: { type: Type.STRING } }, required: ['query'] }
+      }
+    ]
+  }], []);
+
+  const handleToolExecution = async (name: string, args: any): Promise<any> => {
+    let result: any = { status: 'ok' };
+    if (name === 'navigate' && onNavigate) {
+      onNavigate(args.destination);
+      result = { message: 'Navigazione avviata.' };
+    } else if (name === 'searchWeb') {
+      const searchRes = await performWebSearch({ model: 'gemini-2.5-flash' }, args.query);
+      result = { summary: searchRes.text };
+      // FIX: Add sources to transcript
+      setTranscripts(prev => [...prev, { speaker: 'ai', text: searchRes.text, sources: searchRes.sources, contextLabel: userContext?.displayName || 'Web' }]);
+    }
+    return result;
+  };
+
+  const startSession = async () => {
+    if (isConnected) return;
+
+    // GUIDELINE: Create AI instance right before connection using process.env.API_KEY
+    // FIX: Use GoogleGenAI named import
+    const ai: GoogleGenAI = getGoogleAIClient(); // FIX: Use getGoogleAIClient, which correctly initializes
+
+    const inputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
+    const outputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
+
+    inputAudioContextRef.current = inputCtx;
+    outputAudioContextRef.current = outputCtx;
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const outputNode = outputCtx.createGain();
+    outputNode.connect(outputCtx.destination);
+
+    const sessionPromise = ai.live.connect({
+      model: 'gemini-2.5-flash-native-audio-preview-09-2025',
+      config: {
+        // GUIDELINE: responseModalities MUST contain exactly one modality, which must be AUDIO
+        responseModalities: [Modality.AUDIO], // FIX: Use Modality enum directly
+        systemInstruction: `Sei OrarioDoc AI. Rispondi in italiano in modo conciso. Studenti: ${students.map(s => s.cognome).join(',')}`,
+        tools: tools,
+        speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Kore' } } },
+      },
+      callbacks: {
+        onopen: () => {
+          setIsConnected(true);
+          setStatus('In ascolto...');
+          const source = inputCtx.createMediaStreamSource(stream);
+          const processor = inputCtx.createScriptProcessor(4096, 1, 1);
+
+          processor.onaudioprocess = (e) => {
+            const inputData = e.inputBuffer.getChannelData(0);
+            const l = inputData.length;
+            const int16 = new Int16Array(l);
+            for (let i = 0; i < l; i++) {
+              int16[i] = inputData[i] * 32768;
+            }
+            const pcmBlob = {
+              data: encode(new Uint8Array(int16.buffer)),
+              mimeType: 'audio/pcm;rate=16000',
+            };
+            // GUIDELINE: Initiate sendRealtimeInput after live.connect call resolves.
+            sessionPromise.then(session => session.sendRealtimeInput({ media: pcmBlob }));
+          };
+
+          source.connect(processor);
+          processor.connect(inputCtx.destination);
+        },
+        onmessage: async (msg: LiveServerMessage) => {
+          const base64Audio = msg.serverContent?.modelTurn?.parts?.[0]?.inlineData?.data;
+          if (base64Audio) {
+            nextStartTimeRef.current = Math.max(nextStartTimeRef.current, outputCtx.currentTime);
+            const buffer = await decodeAudioData(decode(base64Audio), outputCtx, 24000, 1);
+            const source = outputCtx.createBufferSource();
+            source.buffer = buffer;
+            source.connect(outputNode);
+
+            source.addEventListener('ended', () => {
+              sourcesRef.current.delete(source);
+            });
+
+            // GUIDELINE: Always schedule the next audio chunk to start at the exact end time of the previous one
+            source.start(nextStartTimeRef.current);
+            nextStartTimeRef.current += buffer.duration;
+            sourcesRef.current.add(source);
+          }
+
+          if (msg.toolCall && msg.toolCall.functionCalls) {
+            for (const fc of msg.toolCall.functionCalls) {
+              if (fc.name && fc.id) {
+                const result = await handleToolExecution(fc.name, fc.args);
+                // FIX: session.sendToolResponse expects an array of FunctionResponse objects
+                sessionPromise.then(session => session.sendToolResponse({
+                  functionResponses: [{ id: fc.id, name: fc.name, response: { result } }]
+                }));
+              }
+            }
+          }
+
+          if (msg.serverContent?.interrupted) {
+            // FIX: Iterate over Set correctly
+            for (const source of sourcesRef.current.values()) {
+              source.stop();
+            }
+            sourcesRef.current.clear();
+            nextStartTimeRef.current = 0;
+          }
+        },
+        onclose: () => setIsConnected(false),
+        onerror: (e: any) => { console.error('Live Error', e); setIsConnected(false); }
+      }
+    });
+    sessionPromiseRef.current = sessionPromise;
+  };
+
+  const stopSession = () => {
+    if (sessionPromiseRef.current) sessionPromiseRef.current.then((s: any) => s.close());
+    if (inputAudioContextRef.current) inputAudioContextRef.current.close();
+    if (outputAudioContextRef.current) outputAudioContextRef.current.close();
+    setIsConnected(false);
+    setStatus('Pronto');
+  };
+
+  return (
+    <div className="flex flex-col h-full bg-surface-container-low overflow-hidden">
+      <div className="flex-grow overflow-y-auto p-4 space-y-4">
+        {transcripts.map((t, i) => <ChatBubble key={i} entry={t} />)}
+        {transcripts.length === 0 && (
+          <div className="flex flex-col items-center justify-center h-full opacity-40">
+            <span className="material-symbols-outlined text-6xl">graphic_eq</span>
+            <p className="mt-4 m3-title-medium">L'assistente è pronto ad ascoltarti.</p>
+          </div>
+        )}
+      </div>
+      <div className="p-6 bg-surface border-t border-outline-variant flex flex-col items-center gap-4">
+        <p className="text-sm font-bold text-primary animate-pulse">{status}</p>
+        <button
+          onClick={isConnected ? stopSession : startSession}
+          className={`w-20 h-20 rounded-full flex items-center justify-center shadow-lg transition-all ${isConnected ? 'bg-error text-on-error animate-pulse' : 'bg-primary text-on-primary hover:scale-105'
+            }`}
+          style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}
+        >
+          <span className="material-symbols-outlined text-4xl">{isConnected ? 'mic_off' : 'mic'}</span>
+        </button>
+      </div>
+    </div>
+  );
+};

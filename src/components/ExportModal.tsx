@@ -1,0 +1,386 @@
+import React, { useState, useMemo } from 'react';
+import { jsPDF } from 'jspdf';
+import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, Competenza } from '../types';
+import { calculatePerformance } from '../utils/evaluationUtils';
+import { RATING_TO_VALUE } from '../constants';
+import { viewPdfInNewTab } from '../utils/documentUtils';
+import { TabGroup, M3Dialog, TextField, SectionHeader } from './M3Components';
+
+type Prova = {
+    id: string;
+    titolo: string;
+    data: string;
+    materia: string;
+    tipo: Valutazione['tipo'];
+    voti: Record<string, Valutazione>;
+};
+
+interface ExportModalProps {
+    onClose: () => void;
+    students: Studente[];
+    evaluations: Valutazione[];
+    competencyEvaluations: ValutazioneCompetenza[];
+    settings: TimetableSettings;
+    selectedClass: string;
+    prove: Prova[];
+}
+
+const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluations, competencyEvaluations, settings, selectedClass }) => {
+    const [exportOptions, setExportOptions] = useState({
+        format: 'pdf',
+        schoolYear: `${new Date().getFullYear()}/${new Date().getFullYear() + 1}`,
+        exportDate: new Date().toISOString().split('T')[0],
+    });
+    const [subjectScope, setSubjectScope] = useState<'teacher' | 'all'>('teacher');
+    const [isExporting, setIsExporting] = useState(false);
+
+    const handleOptionChange = (field: keyof typeof exportOptions, value: any) => {
+        setExportOptions(prev => ({ ...prev, [field]: value }));
+    };
+
+    const { studentSummaries, uniqueSubjects, uniqueCompetencies } = useMemo(() => {
+        const classEvals = evaluations.filter(e => students.some(s => s.id === e.studenteId));
+        const allSubjectsWithData = [...new Set(classEvals.map(e => e.materia))].sort();
+
+        const uniqueSubjects = subjectScope === 'teacher' ? settings.disciplines.sort() : allSubjectsWithData;
+        const uniqueCompetencies = settings.competenze;
+
+        const studentSummaries = students.map(student => {
+            const studentEvals = classEvals.filter(e => e.studenteId === student.id);
+
+            const evalsForOverallAverage = subjectScope === 'teacher'
+                ? studentEvals.filter(e => settings.disciplines.includes(e.materia))
+                : studentEvals;
+
+            const { grade, trend } = calculatePerformance(student.id, 'Complessivo', evalsForOverallAverage);
+
+            const subjectGrades: Record<string, string> = {};
+            uniqueSubjects.forEach(subj => {
+                const subjectEvalsForStudent = studentEvals.filter(e => e.materia === subj);
+                const numericGrades = subjectEvalsForStudent.map(e => RATING_TO_VALUE[e.voto]).filter(v => v !== undefined);
+                if (numericGrades.length > 0) {
+                    const avg = numericGrades.reduce((sum, v) => sum + v, 0) / numericGrades.length;
+                    subjectGrades[subj] = avg.toFixed(1);
+                } else {
+                    subjectGrades[subj] = '-';
+                }
+            });
+
+            const competencyLevels: Record<string, string> = {};
+            uniqueCompetencies.forEach(comp => {
+                const latestEval = competencyEvaluations
+                    .filter(e => e.studenteId === student.id && e.competenzaId === comp.id)
+                    .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
+
+                if (latestEval) {
+                    const level = comp.livelli.find(l => l.id === latestEval.livelloId);
+                    competencyLevels[comp.id] = level ? level.nome.charAt(0) : '-';
+                } else {
+                    competencyLevels[comp.id] = '-';
+                }
+            });
+
+            return {
+                student,
+                overallGrade: grade || 'N/A',
+                trend,
+                subjectGrades,
+                competencyLevels,
+            };
+        });
+
+        return { studentSummaries, uniqueSubjects, uniqueCompetencies };
+    }, [students, evaluations, competencyEvaluations, settings.competenze, settings.disciplines, subjectScope]);
+
+    const triggerDownload = (blob: Blob, fileName: string) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+
+    const exportToCSV = () => {
+        const headers = [
+            'Cognome', 'Nome', 'Media Generale', 'Trend',
+            ...uniqueSubjects,
+            ...uniqueCompetencies.map(c => c.nome)
+        ];
+
+        const rows = studentSummaries.map(summary => [
+            summary.student.cognome,
+            summary.student.nome,
+            summary.overallGrade,
+            summary.trend === 'up' ? 'In crescita' : summary.trend === 'down' ? 'In calo' : 'Stabile',
+            ...uniqueSubjects.map((subj: string) => summary.subjectGrades[subj] || '-'),
+            ...uniqueCompetencies.map((comp: Competenza) => {
+                const levelChar = summary.competencyLevels[comp.id];
+                const level = comp.livelli.find(l => l.nome.charAt(0) === levelChar);
+                return level ? level.nome : '-';
+            })
+        ]);
+
+        const escapeCsvCell = (cell: any) => {
+            const str = String(cell);
+            if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+                return `"${str.replace(/"/g, '""')}"`;
+            }
+            return str;
+        };
+
+        const csvContent = [
+            headers.map(escapeCsvCell).join(','),
+            ...rows.map(row => row.map(escapeCsvCell).join(','))
+        ].join('\n');
+
+        const blob = new Blob([`\uFEFF${csvContent}`], { type: 'text/csv;charset=utf-8;' });
+        triggerDownload(blob, `Report_Valutazioni_${selectedClass}.csv`);
+    };
+
+    const exportToPDF = async () => {
+        const doc = new jsPDF({ orientation: 'landscape', unit: 'mm' });
+        const FONT = 'helvetica';
+        const PAGE_WIDTH = doc.internal.pageSize.getWidth();
+        const PAGE_HEIGHT = doc.internal.pageSize.getHeight();
+        const MARGIN = 15;
+        const CELL_PADDING = 2;
+        let y = MARGIN;
+
+        // --- HEADER ---
+        doc.setFont(FONT, 'bold').setFontSize(18).text(`Report Riepilogativo - Classe ${selectedClass}`, MARGIN, y);
+        y += 8;
+        doc.setFont(FONT, 'normal').setFontSize(10).setTextColor(100);
+        doc.text(`Docente: ${settings.nomeInsegnante || 'N/A'} | A.S. ${exportOptions.schoolYear}`, MARGIN, y);
+        doc.text(`Data: ${new Date(exportOptions.exportDate).toLocaleDateString('it-IT')}`, PAGE_WIDTH - MARGIN, y, { align: 'right' });
+        y += 12;
+
+        // --- TABLE ---
+        const ROW_HEIGHT = 10;
+        const HEADER_BG = '#6750A4';
+        const HEADER_COLOR = '#FFFFFF';
+        const EVEN_ROW_BG = '#F3EDF7';
+
+        const subjectAbbr = uniqueSubjects.map(s => s.substring(0, 3).toUpperCase());
+        const competencyCodes = uniqueCompetencies.map(c => c.codice);
+        const headers = ['Studente', 'Σ', 'Trend', ...subjectAbbr, ...competencyCodes];
+
+        const colWidths: number[] = [60, 12, 12];
+        const remainingWidth = PAGE_WIDTH - (MARGIN * 2) - colWidths.reduce((a, b) => a + b, 0);
+        const dynamicColWidth = remainingWidth / (subjectAbbr.length + competencyCodes.length);
+        headers.slice(3).forEach(() => colWidths.push(dynamicColWidth));
+
+        // Draw header
+        doc.setFillColor(HEADER_BG).rect(MARGIN, y, PAGE_WIDTH - (MARGIN * 2), ROW_HEIGHT, 'F');
+        doc.setTextColor(HEADER_COLOR).setFont(FONT, 'bold').setFontSize(9);
+        let x = MARGIN;
+        headers.forEach((header, i) => {
+            doc.text(header, x + colWidths[i] / 2, y + ROW_HEIGHT / 2 + 2, { align: 'center' });
+            x += colWidths[i];
+        });
+        y += ROW_HEIGHT;
+
+        const LEGEND_HEIGHT = 40;
+
+        // Draw rows
+        studentSummaries.forEach((summary, rowIndex) => {
+            if (y + ROW_HEIGHT > PAGE_HEIGHT - MARGIN - LEGEND_HEIGHT) {
+                doc.addPage();
+                y = MARGIN;
+                doc.setFillColor(HEADER_BG).rect(MARGIN, y, PAGE_WIDTH - (MARGIN * 2), ROW_HEIGHT, 'F');
+                doc.setTextColor(HEADER_COLOR).setFont(FONT, 'bold').setFontSize(9);
+                let headerX = MARGIN;
+                headers.forEach((header, i) => {
+                    doc.text(header, headerX + colWidths[i] / 2, y + ROW_HEIGHT / 2 + 2, { align: 'center' });
+                    headerX += colWidths[i];
+                });
+                y += ROW_HEIGHT;
+            }
+
+            x = MARGIN;
+            if (rowIndex % 2 !== 0) {
+                doc.setFillColor(EVEN_ROW_BG).rect(x, y, PAGE_WIDTH - (MARGIN * 2), ROW_HEIGHT, 'F');
+            }
+            doc.setDrawColor(200).rect(x, y, PAGE_WIDTH - (MARGIN * 2), ROW_HEIGHT);
+
+            doc.setTextColor(0).setFont(FONT, 'normal').setFontSize(9);
+            doc.text(`${summary.student.cognome} ${summary.student.nome}`, x + CELL_PADDING, y + ROW_HEIGHT / 2 + 2);
+            x += colWidths[0];
+
+            doc.setFont(FONT, 'bold').text(summary.overallGrade, x + colWidths[1] / 2, y + ROW_HEIGHT / 2 + 2, { align: 'center' });
+            x += colWidths[1];
+
+            const trendIcon = summary.trend === 'up' ? '!' : summary.trend === 'down' ? '!!' : "'";
+            const trendColor = summary.trend === 'up' ? '#388E3C' : summary.trend === 'down' ? '#D32F2F' : '#757575';
+            doc.setTextColor(trendColor).setFontSize(14).text(trendIcon, x + colWidths[2] / 2, y + ROW_HEIGHT / 2 + 3, { align: 'center' });
+            x += colWidths[2];
+
+            doc.setTextColor(0).setFont(FONT, 'normal').setFontSize(9);
+            uniqueSubjects.forEach((subj, i) => {
+                doc.text(summary.subjectGrades[subj] || '-', x + colWidths[3 + i] / 2, y + ROW_HEIGHT / 2 + 2, { align: 'center' });
+                x += colWidths[3 + i];
+            });
+
+            const levelColors: Record<string, { bg: string, text: string }> = {
+                'A': { bg: '#FFD700', text: '#000000' },
+                'B': { bg: '#C0C0C0', text: '#000000' },
+                'C': { bg: '#66BB6A', text: '#FFFFFF' },
+                'D': { bg: '#EF5350', text: '#FFFFFF' },
+            };
+            uniqueCompetencies.forEach((comp, i) => {
+                const levelChar = summary.competencyLevels[comp.id];
+                if (levelChar && levelChar !== '-') {
+                    const colors = levelColors[levelChar] || { bg: '#E0E0E0', text: '#000000' };
+                    const circleX = x + colWidths[3 + uniqueSubjects.length + i] / 2;
+                    const circleY = y + ROW_HEIGHT / 2;
+                    doc.setFillColor(colors.bg).circle(circleX, circleY, 3.5, 'F');
+                    doc.setTextColor(colors.text).setFont(FONT, 'bold').setFontSize(8);
+                    doc.text(levelChar, circleX, circleY + 1.5, { align: 'center' });
+                } else {
+                    doc.setTextColor(150).setFont(FONT, 'normal').setFontSize(9);
+                    doc.text('-', x + colWidths[3 + uniqueSubjects.length + i] / 2, y + ROW_HEIGHT / 2 + 2, { align: 'center' });
+                }
+                x += colWidths[3 + uniqueSubjects.length + i];
+            });
+
+            y += ROW_HEIGHT;
+        });
+
+        let legendY = PAGE_HEIGHT - MARGIN - 25;
+        doc.setFont(FONT, 'bold').setFontSize(10).text('Legenda:', MARGIN, legendY);
+        legendY += 6;
+        doc.setFont(FONT, 'normal').setFontSize(8).setTextColor(80);
+
+        const legendItems: string[] = [
+            'Σ: Media Voti',
+            "': Trend Stabile",
+            '!: Trend Positivo',
+            '!!: Trend Negativo',
+            ...uniqueSubjects.map((subj, i) => `${subjectAbbr[i]}: ${subj}`),
+            ...uniqueCompetencies.map((comp, i) => `${competencyCodes[i]}: ${comp.nome}`)
+        ];
+
+        let legendX = MARGIN;
+        const itemMaxWidth = 55;
+        legendItems.forEach(item => {
+            if (legendX + itemMaxWidth > PAGE_WIDTH - MARGIN) {
+                legendX = MARGIN;
+                legendY += 5;
+            }
+            doc.text(item, legendX, legendY);
+            legendX += itemMaxWidth;
+        });
+        legendY += 5;
+
+        legendX = MARGIN;
+        doc.text('Livelli Competenza:', legendX, legendY); legendX += 28;
+        doc.setFillColor('#FFD700').circle(legendX, legendY - 1, 2, 'F'); doc.text('A: Avanzato', legendX + 3, legendY); legendX += 25;
+        doc.setFillColor('#C0C0C0').circle(legendX, legendY - 1, 2, 'F'); doc.text('B: Intermedio', legendX + 3, legendY); legendX += 28;
+        doc.setFillColor('#66BB6A').circle(legendX, legendY - 1, 2, 'F'); doc.text('C: Base', legendX + 3, legendY); legendX += 20;
+        doc.setFillColor('#EF5350').circle(legendX, legendY - 1, 2, 'F'); doc.text('D: Iniziale', legendX + 3, legendY);
+
+        const blob = doc.output('blob');
+        viewPdfInNewTab(blob);
+    };
+
+    const handleExport = async () => {
+        setIsExporting(true);
+        await new Promise(resolve => setTimeout(resolve, 50));
+        try {
+            if (exportOptions.format === 'csv') {
+                exportToCSV();
+            } else {
+                await exportToPDF();
+            }
+        } catch (error: any) {
+            console.error("Export failed:", error);
+            alert(`Esportazione fallita:\n${error.message}`);
+        } finally {
+            setIsExporting(false);
+            onClose();
+        }
+    };
+
+
+    return (
+        <M3Dialog
+            isOpen={true}
+            onClose={onClose}
+            title="Esporta Report Classe"
+            actions={
+                <>
+                    <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all" disabled={isExporting}>Annulla</button>
+                    <button type="button" onClick={handleExport} className="button button-filled rounded-lg hover:shadow-md transition-all" disabled={isExporting}>
+                        <span className="material-symbols-outlined mr-2">download</span>
+                        {isExporting ? 'Esportazione...' : `Esporta ${exportOptions.format.toUpperCase()}`}
+                    </button>
+                </>
+            }
+        >
+            <div className="space-y-6 pt-2">
+                <section>
+                    <SectionHeader title="1. Intestazione Documento" icon="edit" colorClass="text-primary" />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <TextField
+                            id="schoolYear"
+                            name="schoolYear"
+                            label="Anno Scolastico"
+                            value={exportOptions.schoolYear}
+                            onChange={e => handleOptionChange('schoolYear', e.target.value)}
+                        />
+                        <TextField
+                            id="exportDate"
+                            name="exportDate"
+                            label="Data Esportazione"
+                            type="date"
+                            value={exportOptions.exportDate}
+                            onChange={e => handleOptionChange('exportDate', e.target.value)}
+                        />
+                    </div>
+                </section>
+
+                <section>
+                    <SectionHeader title="2. Discipline da Includere" icon="filter_list" colorClass="text-secondary" />
+                    <TabGroup
+                        tabs={[
+                            { id: 'teacher', label: 'Solo le mie' },
+                            { id: 'all', label: 'Tutte con dati' }
+                        ]}
+                        activeTab={subjectScope}
+                        onTabChange={(id) => setSubjectScope(id as 'teacher' | 'all')}
+                        variant="secondary"
+                        className="w-full mb-2"
+                    />
+                    <p className="m3-body-small text-on-surface-variant">
+                        {subjectScope === 'teacher'
+                            ? "Il report includerà solo le tue discipline configurate in Impostazioni. La media generale (Σ) sarà calcolata solo su queste materie."
+                            : "Il report includerà tutte le discipline che hanno almeno una valutazione per questa classe. La media generale (Σ) sarà calcolata su tutte le materie."}
+                    </p>
+                </section>
+
+                <section>
+                    <SectionHeader title="3. Formato di Esportazione" icon="output" colorClass="text-tertiary" />
+                    <TabGroup
+                        tabs={[
+                            { id: 'pdf', label: 'PDF Grafico' },
+                            { id: 'csv', label: 'CSV (Dati)' }
+                        ]}
+                        activeTab={exportOptions.format}
+                        onTabChange={(id) => handleOptionChange('format', id)}
+                        variant="secondary"
+                        className="w-full mb-2"
+                    />
+                    <p className="m3-body-small text-on-surface-variant">
+                        {exportOptions.format === 'pdf'
+                            ? 'Genera un report grafico di una pagina, ideale per la stampa e la condivisione.'
+                            : 'Genera un file CSV con i dati riepilogativi, utile per analisi in fogli di calcolo.'}
+                    </p>
+                </section>
+            </div>
+        </M3Dialog>
+    );
+};
+
+export default ExportModal;

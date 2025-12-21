@@ -1,0 +1,1 @@
+// FILE ELIMINATO: Il componente principale è situato in components/App.tsx
