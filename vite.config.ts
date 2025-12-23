@@ -1,3 +1,6 @@
+// CRITICAL: Import build-time polyfill FIRST to prevent SSR errors
+import './src/build-polyfill.js';
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -6,11 +9,12 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    VitePWA({
-      registerType: 'autoUpdate',
-      injectRegister: 'auto',
-      manifest: false, // Usiamo il file statico in public
-    }),
+    // Temporarily disabled PWA due to service worker URL error in Vercel
+    // VitePWA({
+    //   registerType: 'autoUpdate',
+    //   injectRegister: 'auto',
+    //   manifest: false, // Usiamo il file statico in public
+    // }),
   ],
   base: './',
   build: {
