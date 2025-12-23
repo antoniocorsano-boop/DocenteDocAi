@@ -3,20 +3,43 @@ import { createRoot } from 'react-dom/client';
 import { App } from './components/App';
 import ErrorBoundary from './components/ErrorBoundary';
 
-// CRITICAL: Initialize document polyfill FIRST, before any library loads
+// CRITICAL: Initialize comprehensive document polyfill FIRST, before any library loads
 if (typeof window !== 'undefined') {
-  if (typeof document === 'undefined') {
-    (window as any).document = {};
+  // Robust document polyfill with full API
+  if (typeof document === 'undefined' || !document.createElement) {
+    (window as any).document = {
+      createElement: (tag: string) => ({ tagName: tag }),
+      createElementNS: (ns: string, tag: string) => ({ tagName: tag }),
+      createTextNode: (text: string) => ({ nodeValue: text }),
+      getElementById: () => null,
+      querySelector: () => null,
+      querySelectorAll: () => [],
+      addEventListener: () => {},
+      body: { appendChild: () => {}, insertBefore: () => {} },
+      head: { appendChild: () => {} },
+      documentElement: {}
+    };
   }
-  // Ensure DOMParser is available
+  
+  // Robust DOMParser polyfill
   if (typeof DOMParser === 'undefined') {
-    (window as any).DOMParser = (() => {
-      return class DOMParser {
-        parseFromString() {
-          return { body: { childNodes: [] } };
-        }
-      };
-    })();
+    (window as any).DOMParser = class DOMParser {
+      parseFromString(str: string, type: string) {
+        return { 
+          body: { childNodes: [] },
+          documentElement: {},
+          querySelector: () => null
+        };
+      }
+    };
+  }
+  
+  // Ensure Node and HTMLElement
+  if (typeof Node === 'undefined') {
+    (window as any).Node = class {};
+  }
+  if (typeof HTMLElement === 'undefined') {
+    (window as any).HTMLElement = class {};
   }
 }
 
