@@ -3,6 +3,11 @@ import { createRoot } from 'react-dom/client';
 import { App } from './components/App';
 import ErrorBoundary from './components/ErrorBoundary';
 
+// Polyfill for document global in case of SSR or edge runtime
+if (typeof document === 'undefined') {
+  (global as any).document = typeof window !== 'undefined' ? window.document : {};
+}
+
 // CSS Architecture
 import './theme.css';
 import './layout.css';
