@@ -5,19 +5,54 @@ import ErrorBoundary from './components/ErrorBoundary';
 
 // CRITICAL: Initialize comprehensive document polyfill FIRST, before any library loads
 if (typeof window !== 'undefined') {
+  // Create a comprehensive document mock that handles all docx library needs
+  const safeElement = {
+    tagName: 'DIV',
+    className: '',
+    id: '',
+    style: {},
+    attributes: {},
+    childNodes: [],
+    children: [],
+    parentNode: null,
+    textContent: '',
+    innerHTML: '',
+    nodeType: 1,
+    appendChild: function(n: any) { if (this.childNodes) this.childNodes.push(n); return this; },
+    insertBefore: function(n: any, r: any) { if (this.childNodes) this.childNodes.unshift(n); return this; },
+    removeChild: function(n: any) { return this; },
+    replaceChild: function(n: any, r: any) { return this; },
+    addEventListener: function() { return undefined; },
+    removeEventListener: function() { return undefined; },
+    getAttribute: function(n: string) { return this.attributes?.[n] || ''; },
+    setAttribute: function(n: string, v: any) { if (!this.attributes) this.attributes = {}; this.attributes[n] = v; },
+    removeAttribute: function(n: string) { if (this.attributes) delete this.attributes[n]; },
+    querySelector: function() { return null; },
+    querySelectorAll: function() { return []; }
+  };
+
   // Robust document polyfill with full API
   if (typeof document === 'undefined' || !document.createElement) {
     (window as any).document = {
-      createElement: (tag: string) => ({ tagName: tag }),
-      createElementNS: (ns: string, tag: string) => ({ tagName: tag }),
-      createTextNode: (text: string) => ({ nodeValue: text }),
+      createElement: (tag: string) => ({ ...safeElement, tagName: tag.toUpperCase() }),
+      createElementNS: (ns: string, tag: string) => ({ ...safeElement, tagName: tag.toUpperCase() }),
+      createTextNode: (text: string) => ({ nodeValue: text, nodeType: 3 }),
+      createDocumentFragment: () => ({ ...safeElement, nodeType: 11 }),
+      createAttribute: (n: string) => ({ name: n, value: '' }),
       getElementById: () => null,
       querySelector: () => null,
       querySelectorAll: () => [],
+      getElementsByTagName: () => [],
+      getElementsByClassName: () => [],
+      getElementsByName: () => [],
       addEventListener: () => {},
-      body: { appendChild: () => {}, insertBefore: () => {} },
-      head: { appendChild: () => {} },
-      documentElement: {}
+      removeEventListener: () => {},
+      adoptNode: (n: any) => n,
+      importNode: (n: any) => n,
+      body: { ...safeElement },
+      head: { ...safeElement },
+      documentElement: { ...safeElement, nodeType: 9 },
+      nodeType: 9
     };
   }
   
@@ -26,20 +61,37 @@ if (typeof window !== 'undefined') {
     (window as any).DOMParser = class DOMParser {
       parseFromString(str: string, type: string) {
         return { 
-          body: { childNodes: [] },
-          documentElement: {},
-          querySelector: () => null
+          body: { ...safeElement },
+          documentElement: { ...safeElement },
+          querySelector: () => null,
+          querySelectorAll: () => [],
+          nodeType: 9
         };
       }
     };
   }
   
-  // Ensure Node and HTMLElement
+  // Ensure Node and HTMLElement with proper constants
   if (typeof Node === 'undefined') {
-    (window as any).Node = class {};
+    (window as any).Node = {
+      ELEMENT_NODE: 1,
+      ATTRIBUTE_NODE: 2,
+      TEXT_NODE: 3,
+      CDATA_SECTION_NODE: 4,
+      ENTITY_REFERENCE_NODE: 5,
+      ENTITY_NODE: 6,
+      PROCESSING_INSTRUCTION_NODE: 7,
+      COMMENT_NODE: 8,
+      DOCUMENT_NODE: 9,
+      DOCUMENT_TYPE_NODE: 10,
+      DOCUMENT_FRAGMENT_NODE: 11
+    };
   }
   if (typeof HTMLElement === 'undefined') {
-    (window as any).HTMLElement = class {};
+    (window as any).HTMLElement = class HTMLElement {};
+  }
+  if (typeof Element === 'undefined') {
+    (window as any).Element = class Element {};
   }
 }
 

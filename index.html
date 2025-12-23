@@ -169,6 +169,32 @@
 
 <body>
   <div id="root"></div>
+  
+  <!-- Module polyfill - runs before main.tsx -->
+  <script type="module">
+    // Ensure document exists before any imports
+    if (typeof document === 'undefined') {
+      window.document = {
+        createElement: () => ({ tagName: 'div', appendChild: () => {}, setAttribute: () => {} }),
+        createElementNS: () => ({ tagName: 'div', appendChild: () => {}, setAttribute: () => {} }),
+        createTextNode: () => ({ nodeValue: '' }),
+        createDocumentFragment: () => ({ appendChild: () => {}, childNodes: [] }),
+        documentElement: { style: {} },
+        body: { appendChild: () => {}, setAttribute: () => {}, style: {} },
+        head: { appendChild: () => {}, setAttribute: () => {} },
+        querySelector: () => null,
+        querySelectorAll: () => [],
+        getElementById: () => null,
+        getElementsByTagName: () => [],
+        getElementsByClassName: () => [],
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        adoptNode: (n) => n,
+        importNode: (n) => n
+      };
+    }
+  </script>
+  
   <script type="module" src="/src/main.tsx"></script>
 </body>
 
