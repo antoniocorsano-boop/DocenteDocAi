@@ -158,43 +158,26 @@ export const validateTheme = (theme: unknown): theme is Theme => {
 
 export const createTheme = (config: { name: string; mode: 'light' | 'dark'; colors?: Partial<ColorTokens> }): Theme => {
   const baseTheme = config.mode === 'light' ? defaultLightTheme : defaultDarkTheme;
-  const newColors = { ...baseTheme.colors };
 
-  const primarySeed = (config.colors && config.colors.primary) ? config.colors.primary : baseTheme.colors.primary;
-
-  const neutralPalette = generateNeutralPalette(primarySeed, config.mode);
-  if (neutralPalette) {
-      Object.assign(newColors, neutralPalette);
+  // If no custom colors provided, return base theme with updated name
+  if (!config.colors || Object.keys(config.colors).length === 0) {
+    return {
+      name: config.name,
+      mode: config.mode,
+      colors: { ...baseTheme.colors },
+    };
   }
 
-  const roles = ['primary', 'secondary', 'tertiary', 'error'] as const;
-  
-  roles.forEach(role => {
-      const roleSeed = (config.colors && config.colors[role]) ? config.colors[role] : (baseTheme.colors as any)[role]; // Cast to any to handle indexing
-      const palette = generateRolePalette(roleSeed || (baseTheme.colors as any)[role], config.mode, role); // Cast to any to handle indexing
-      
-      if (palette) {
-          const mainKey = role;
-          const containerKey = `${role}Container` as keyof ColorTokens;
-          const onMainKey = `on${role.charAt(0).toUpperCase() + role.slice(1)}` as keyof ColorTokens;
-          const onContainerKey = `on${role.charAt(0).toUpperCase() + role.slice(1)}Container` as keyof ColorTokens;
-
-          if (!(config.colors as any)?.[mainKey]) (newColors as any)[mainKey] = palette.main;
-          if (!(config.colors as any)?.[containerKey]) (newColors as any)[containerKey] = palette.container;
-          if (!(config.colors as any)?.[onMainKey]) (newColors as any)[onMainKey] = palette.onMain;
-          if (!(config.colors as any)?.[onContainerKey]) (newColors as any)[onContainerKey] = palette.onContainer;
+  // Start from base theme and only override explicitly provided tokens
+  const newColors: ColorTokens = { ...baseTheme.colors } as ColorTokens;
+  for (const key in config.colors) {
+    if (Object.prototype.hasOwnProperty.call(config.colors, key)) {
+      const tokenKey = key as keyof ColorTokens;
+      const value = config.colors[tokenKey];
+      if (typeof value === 'string' && value.length > 0) {
+        (newColors as any)[tokenKey] = value;
       }
-  });
-
-  if (config.colors) {
-      for (const key in config.colors) {
-          if (Object.prototype.hasOwnProperty.call(config.colors, key)) {
-              const tokenKey = key as keyof ColorTokens;
-              if (config.colors[tokenKey]) {
-                  (newColors as any)[tokenKey] = config.colors[tokenKey]!; // Cast to any
-              }
-          }
-      }
+    }
   }
 
   return {

@@ -1,7 +1,7 @@
 
 // @ts-nocheck
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { generateHtmlDocxBlob, extractTextFromFile } from '../../utils/documentUtils';
+import { generateHtmlDocxBlob, extractTextFromFile } from '../../../src/utils/documentUtils';
 import * as pdfLib from 'pdf-lib';
 import * as docx from 'docx';
 import mammoth from 'mammoth';
@@ -65,23 +65,34 @@ describe('documentUtils', () => {
 
   describe('extractTextFromFile', () => {
     it('dovrebbe estrarre testo da un file .txt', async () => {
-      const file = new File(['contenuto testo'], 'test.txt', { type: 'text/plain' });
-      const text = await extractTextFromFile(file);
+      const mockFile = {
+        name: 'test.txt',
+        type: 'text/plain',
+        text: vi.fn().mockResolvedValue('contenuto testo'),
+      };
+      const text = await extractTextFromFile(mockFile as any);
       expect(text).toBe('contenuto testo');
     });
 
     it('dovrebbe usare mammoth per file .docx', async () => {
-      const file = new File(['fake docx content'], 'test.docx', { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+      const mockFile = {
+        name: 'test.docx',
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        arrayBuffer: vi.fn().mockResolvedValue(new ArrayBuffer(10)),
+      };
       (mammoth.extractRawText as vi.Mock).mockResolvedValue({ value: 'Testo estratto da DOCX' });
       
-      const text = await extractTextFromFile(file);
+      const text = await extractTextFromFile(mockFile as any);
       expect(mammoth.extractRawText).toHaveBeenCalled();
       expect(text).toBe('Testo estratto da DOCX');
     });
 
     it('dovrebbe lanciare errore per tipi non supportati', async () => {
-      const file = new File(['binary'], 'test.exe', { type: 'application/x-msdownload' });
-      await expect(extractTextFromFile(file)).rejects.toThrow('Tipo di file non supportato');
+      const mockFile = {
+        name: 'test.exe',
+        type: 'application/x-msdownload',
+      };
+      await expect(extractTextFromFile(mockFile as any)).rejects.toThrow(/file non supportato/i);
     });
   });
 });

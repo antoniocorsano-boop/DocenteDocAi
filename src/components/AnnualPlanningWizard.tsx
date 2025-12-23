@@ -556,4 +556,4 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     );
 };
 
-export default AnnualPlanningWizard;
+export default React.memo(AnnualPlanningWizard);

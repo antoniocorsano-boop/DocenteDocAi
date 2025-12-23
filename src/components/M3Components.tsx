@@ -122,7 +122,10 @@ export const TabGroup: React.FC<{ tabs: { id: string, label: string, icon?: stri
                 <button
                     key={tab.id}
                     onClick={() => onTabChange(tab.id)}
-                    className={`px-6 py-3 rounded-full text-[11px] font-black tracking-widest transition-all duration-300 flex items-center gap-2 ${isActive ? `${bgClass} shadow-xl scale-[1.05]` : 'text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02]'}`}
+                    className={`px-6 py-3 rounded-full text-[11px] font-black tracking-widest flex items-center gap-2 ${isActive ? `${bgClass} shadow-xl scale-[1.05]` : 'text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02]'}`}
+                    style={{
+                        transition: `all ${isActive ? 'var(--motion-duration-short4)' : 'var(--motion-duration-short3)'} var(--motion-easing-standard)`
+                    }}
                 >
                     {tab.icon && <span className="material-symbols-outlined text-xl">{tab.icon}</span>}
                     {!isIconOnly && <span className="uppercase">{tab.label}</span>}
@@ -191,15 +194,15 @@ export const EmptyState: React.FC<{ title: string; description: string; icon?: s
 
 // --- MANUAL & USE CASE ---
 export const ManualSection: React.FC<{ title: string; icon: string; colorClass?: string; children: React.ReactNode; defaultOpen?: boolean }> = ({ title, icon, colorClass = '', children, defaultOpen = false }) => (
-    <details className="m3-expansion-panel group border-none bg-surface-container-low/50 backdrop-blur-sm rounded-[32px] mb-4 overflow-hidden transition-all duration-300" open={defaultOpen}>
-        <summary className="m3-expansion-summary !px-6 !py-5 hover:bg-surface-container-high/80 cursor-pointer list-none flex justify-between items-center transition-colors">
+    <details className="m3-expansion-panel group border-none bg-surface-container-low/50 backdrop-blur-sm rounded-[32px] mb-4 overflow-hidden" open={defaultOpen} style={{ transition: 'all var(--motion-duration-medium2) var(--motion-easing-standard)' }}>
+        <summary className="m3-expansion-summary !px-6 !py-5 hover:bg-surface-container-high/80 cursor-pointer list-none flex justify-between items-center" style={{ transition: 'background-color var(--motion-duration-short3) var(--motion-easing-standard)' }}>
             <div className={`flex items-center gap-5 ${colorClass}`}>
-                <div className="p-3 rounded-2xl bg-surface-container-highest shadow-sm group-hover:scale-110 transition-transform">
+                <div className="p-3 rounded-2xl bg-surface-container-highest shadow-sm group-hover:scale-110" style={{ transition: 'transform var(--motion-duration-short3) var(--motion-easing-standard)' }}>
                     <span className="material-symbols-outlined text-2xl">{icon}</span>
                 </div>
                 <h3 className="m3-title-large font-black tracking-tight">{title}</h3>
             </div>
-            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-outline-variant/20 group-open:rotate-180 transition-all">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-outline-variant/20 group-open:rotate-180" style={{ transition: 'transform var(--motion-duration-medium2) var(--motion-easing-emphasized)' }}>
                 <span className="material-symbols-outlined">expand_more</span>
             </div>
         </summary>
@@ -314,4 +317,107 @@ export const M3ListItem: React.FC<{
         {trailingElement && <div className="flex-shrink-0 flex items-center gap-2 self-center">{trailingElement}</div>}
     </div>
 );
+
+// --- M3 ICON BUTTON (Accessible wrapper) ---
+export const M3IconButton: React.FC<{ 
+    icon: string; 
+    onClick?: () => void;
+    ariaLabel: string;
+    disabled?: boolean;
+    className?: string;
+    title?: string;
+    type?: 'button' | 'submit' | 'reset';
+}> = ({ icon, onClick, ariaLabel, disabled = false, className = '', title, type = 'button' }) => (
+    <button
+        type={type}
+        onClick={onClick}
+        disabled={disabled}
+        aria-label={ariaLabel}
+        title={title || ariaLabel}
+        className={`icon-button ${className}`}
+    >
+        <span className="material-symbols-outlined" aria-hidden="true">{icon}</span>
+    </button>
+);
+
+// --- M3 ANIMATED ICON (Spin, Pulse, Bounce) ---
+export const M3AnimatedIcon: React.FC<{
+    icon: string;
+    animation?: 'spin' | 'pulse' | 'bounce' | 'fade';
+    color?: string;
+    size?: 'sm' | 'md' | 'lg' | 'xl';
+}> = ({ icon, animation = 'spin', color = 'text-primary', size = 'md' }) => {
+    const sizeMap = {
+        sm: 'text-lg',
+        md: 'text-2xl',
+        lg: 'text-4xl',
+        xl: 'text-6xl'
+    };
+    const animationMap = {
+        spin: 'animate-spin',
+        pulse: 'animate-pulse',
+        bounce: 'animate-bounce',
+        fade: 'animate-fade'
+    };
+    return (
+        <span className={`material-symbols-outlined ${sizeMap[size]} ${color} ${animationMap[animation]}`}>
+            {icon}
+        </span>
+    );
+};
+
+// --- M3 BADGED ICON (For notifications) ---
+export const M3BadgedIcon: React.FC<{
+    icon: string;
+    badge?: number | string;
+    badgeColor?: string;
+    size?: 'sm' | 'md' | 'lg';
+    color?: string;
+}> = ({ icon, badge, badgeColor = 'bg-error text-on-error', size = 'md', color = 'text-on-surface' }) => {
+    const sizeMap = {
+        sm: { container: 'text-lg', badge: 'text-xs px-1.5 py-0.5' },
+        md: { container: 'text-2xl', badge: 'text-sm px-2 py-1' },
+        lg: { container: 'text-4xl', badge: 'text-base px-2.5 py-1' }
+    };
+    return (
+        <div className="relative inline-flex items-center justify-center">
+            <span className={`material-symbols-outlined ${sizeMap[size].container} ${color}`}>
+                {icon}
+            </span>
+            {badge !== undefined && badge !== null && (
+                <span className={`absolute -top-1 -right-1 ${badgeColor} rounded-full font-bold ${sizeMap[size].badge} flex items-center justify-center min-w-6`}>
+                    {typeof badge === 'number' && badge > 99 ? '99+' : badge}
+                </span>
+            )}
+        </div>
+    );
+};
+
+// --- M3 STATUS ICON (For status indicators) ---
+export const M3StatusIcon: React.FC<{
+    status: 'pending' | 'success' | 'error' | 'warning' | 'info' | 'loading';
+    size?: 'sm' | 'md' | 'lg';
+    label?: string;
+}> = ({ status, size = 'md', label }) => {
+    const statusConfig = {
+        pending: { icon: 'pending', color: 'text-warning', label: 'In attesa' },
+        success: { icon: 'check_circle', color: 'text-success', label: 'Completato' },
+        error: { icon: 'error', color: 'text-error', label: 'Errore' },
+        warning: { icon: 'warning', color: 'text-warning', label: 'Attenzione' },
+        info: { icon: 'info', color: 'text-secondary', label: 'Informazione' },
+        loading: { icon: 'pending', color: 'text-primary animate-spin', label: 'Caricamento' }
+    };
+    
+    const config = statusConfig[status];
+    const sizeMap = { sm: 'text-lg', md: 'text-2xl', lg: 'text-4xl' };
+    
+    return (
+        <div className="flex items-center gap-2">
+            <span className={`material-symbols-outlined ${sizeMap[size]} ${config.color}`} style={status === 'loading' ? { animation: 'spin 1s linear infinite' } : {}}>
+                {config.icon}
+            </span>
+            {label && <span className="text-sm font-semibold">{label}</span>}
+        </div>
+    );
+};
 

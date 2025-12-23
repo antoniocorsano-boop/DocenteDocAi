@@ -8,7 +8,7 @@
 
 .hero-header {
     display: flex;
-    gap: 16px;
+    gap: var(--spacing-4);
     align-items: flex-start;
     position: relative;
     z-index: 10;
@@ -29,7 +29,7 @@
     background-color: var(--sys-primary-container);
     color: var(--sys-on-primary-container);
     border-radius: var(--shape-xl);
-    padding: 20px;
+    padding: var(--spacing-6);
     cursor: pointer;
     transition: all var(--motion-duration-short) var(--motion-easing-standard);
     position: relative;
@@ -53,13 +53,13 @@
 .expressive-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px;
+    gap: var(--spacing-3);
 }
 
 @media(min-width: 768px) {
     .expressive-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
+        gap: var(--spacing-4);
     }
 
     .col-span-2 {
@@ -70,7 +70,7 @@
 .expressive-wide-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: var(--spacing-3);
 }
 
 @media(min-width: 768px) {
@@ -82,7 +82,7 @@
 .expressive-card {
     background-color: var(--sys-surface-container);
     border-radius: var(--shape-xl);
-    padding: 20px;
+    padding: var(--spacing-6);
     position: relative;
     cursor: pointer;
     transition: all var(--motion-duration-short) var(--motion-easing-standard);
@@ -132,7 +132,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 12px;
+    margin-bottom: var(--spacing-3);
     box-shadow: var(--elevation-1);
 }
 
@@ -157,7 +157,7 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    padding: 16px;
+    padding: var(--spacing-4);
     border-radius: var(--shape-l);
     background-color: var(--sys-surface-container-low);
     border: 1px solid var(--sys-outline-variant);
@@ -220,17 +220,17 @@
 
 .tool-icon {
     font-size: 24px;
-    margin-bottom: 8px;
+    margin-bottom: var(--spacing-2);
 }
 
 .tool-title {
     font-weight: 700;
-    font-size: 14px;
+    font-size: var(--typography-body-medium-fontSize);
     line-height: 1.2;
 }
 
 .tool-subtitle {
-    font-size: 11px;
+    font-size: var(--typography-label-small-fontSize);
     opacity: 0.8;
     margin-top: 2px;
 }
@@ -261,7 +261,7 @@
 
 
 .class-card-header {
-    padding: 12px 16px;
+    padding: var(--spacing-3) var(--spacing-4);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -282,16 +282,16 @@
 }
 
 .class-card-body {
-    padding: 16px;
+    padding: var(--spacing-4);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--spacing-2);
 }
 
 .class-stat-row {
     display: flex;
     justify-content: space-between;
-    font-size: 13px;
+    font-size: var(--typography-body-medium-fontSize);
     align-items: center;
 }
 
@@ -313,7 +313,7 @@
     width: 20px;
     height: 20px;
     border-radius: var(--shape-full);
-    font-size: 11px;
+    font-size: var(--typography-label-small-fontSize);
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -324,7 +324,7 @@
 /* --- 4. AGENDA WIDGET (Horizontal Scroll) --- */
 .global-agenda-grid {
     display: flex;
-    gap: 12px;
+    gap: var(--spacing-3);
     overflow-x: auto;
     padding-bottom: 8px;
     scroll-behavior: smooth;
@@ -342,7 +342,7 @@
     background-color: var(--sys-surface-container-low);
     border: 1px solid var(--sys-outline-variant);
     border-radius: var(--shape-l);
-    padding: 12px;
+    padding: var(--spacing-3);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -366,7 +366,7 @@
 }
 
 .agenda-event-date {
-    font-size: 10px;
+    font-size: var(--typography-label-small-fontSize);
     font-weight: 700;
     color: var(--sys-primary);
     text-transform: uppercase;
@@ -375,20 +375,20 @@
 
 .agenda-event-title {
     font-weight: 700;
-    font-size: 13px;
-    margin: 4px 0 2px;
+    font-size: var(--typography-body-medium-fontSize);
+    margin: var(--spacing-1) 0 var(--spacing-1);
     color: var(--sys-on-surface);
     line-height: 1.2;
 }
 
 .agenda-event-subtitle {
-    font-size: 11px;
+    font-size: var(--typography-label-small-fontSize);
     color: var(--sys-on-surface-variant);
 }
 
 .agenda-event-class {
     align-self: flex-start;
-    font-size: 10px;
+    font-size: var(--typography-label-small-fontSize);
     background-color: var(--sys-surface-container-high);
     padding: 2px 6px;
     border-radius: var(--shape-s);
@@ -422,7 +422,7 @@
 .google-cal-header-cell {
     padding: 8px 0;
     text-align: center;
-    font-size: 11px;
+    font-size: var(--typography-label-small-fontSize);
     font-weight: 700;
     color: var(--sys-on-surface-variant);
     letter-spacing: 0.5px;
@@ -497,7 +497,7 @@
     .google-cal-event {
         border-radius: var(--shape-s);
         padding: 2px 8px;
-        font-size: 12px;
+        font-size: var(--typography-body-small-fontSize);
     }
 }
 
@@ -551,7 +551,7 @@
 .matrix-header-time {
     background-color: var(--sys-surface-container-highest);
     color: var(--sys-on-surface-variant);
-    font-size: 10px;
+    font-size: var(--typography-label-small-fontSize);
     padding: 8px 2px;
     display: flex;
     align-items: center;
@@ -563,7 +563,7 @@
 .matrix-time-label {
     background-color: var(--sys-surface-container-highest);
     color: var(--sys-on-surface-variant);
-    font-size: 11px;
+    font-size: var(--typography-label-small-fontSize);
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -635,7 +635,7 @@
 }
 
 .tile-subject {
-    font-size: 10px;
+    font-size: var(--typography-label-small-fontSize);
     text-transform: uppercase;
     opacity: 0.8;
     white-space: nowrap;
@@ -674,7 +674,7 @@
 }
 
 .indicator-warning {
-    background-color: #E65100;
+    background-color: var(--sys-warning);
 }
 
 .indicator-info {
@@ -1261,7 +1261,7 @@
 .consiglio-table td {
     white-space: nowrap;
     padding: 8px 12px;
-    font-size: 13px;
+    font-size: var(--typography-body-medium-fontSize);
 }
 
 .sticky-header th {

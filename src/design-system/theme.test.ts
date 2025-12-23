@@ -1,13 +1,13 @@
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
-import { describe, it, expect, beforeAll, afterAll, jest } from '@jest/globals';
+import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 import { baseDesignSystem, defaultLightTheme, defaultDarkTheme, validateTheme, createTheme } from './index';
 import { Theme } from '../types'; // FIX: Updated import path to types
 
 let consoleErrorSpy: any;
 beforeAll(() => {
-  consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 });
 afterAll(() => {
   consoleErrorSpy.mockRestore();
@@ -17,7 +17,8 @@ afterAll(() => {
 describe('Design System Core', () => {
 
     it('should have a valid version number', () => {
-        expect(baseDesignSystem.version).toMatch(/^\d+\.\d+\.\d+$/);
+        // Accept semantic versions with optional pre-release/build metadata
+        expect(baseDesignSystem.version).toMatch(/^\d+\.\d+\.\d+(?:-[A-Za-z0-9.]+)?$/);
     });
 
     it('baseDesignSystem should be immutable (frozen)', () => {

@@ -151,7 +151,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                 }
                 const base64AudioContent = base64data.split(',')[1];
 
-                const ai = getGoogleAIClient();
+                const ai = await getGoogleAIClient();
                 const response = await ai.models.generateContent({
                     model: 'gemini-2.5-flash',
                     contents: {

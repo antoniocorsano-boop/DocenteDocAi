@@ -36,6 +36,8 @@
   --sys-outline-variant: #C4C7C5;
   --sys-error: #B3261E;
   --sys-on-error: #FFFFFF;
+  --sys-warning: #E65100;
+  --sys-on-warning: #FFFFFF;
 
   /* Glassmorphism Presentation Layer */
   --glass-bg: rgba(255, 255, 255, 0.75);
@@ -47,6 +49,14 @@
   --nav-height: 80px;
   --safe-area-bottom: 100px;
   --content-max-width: 1200px;
+
+  /* Spacing Tokens M3 */
+  --spacing-1: 4px;      /* Extra small spacing */
+  --spacing-2: 8px;      /* Small spacing */
+  --spacing-3: 12px;     /* Compact spacing */
+  --spacing-4: 16px;     /* Medium spacing (default) */
+  --spacing-6: 24px;     /* Large spacing */
+  --spacing-8: 32px;     /* Extra large spacing */
 
   /* Forme M3 */
   --shape-none: 0px;
@@ -63,8 +73,45 @@
   --elevation-3: 0px 16px 48px rgba(103, 80, 164, 0.12);
 
   --aura-gradient: linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%);
-  --motion-expressive: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --motion-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Motion Tokens M3 Expressive */
+  /* Easing Curves */
+  --motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --motion-easing-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --motion-easing-expressive: cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* Duration Tokens (milliseconds) */
+  --motion-duration-short1: 50ms;
+  --motion-duration-short2: 100ms;
+  --motion-duration-short3: 150ms;
+  --motion-duration-short4: 200ms;
+  --motion-duration-medium1: 250ms;
+  --motion-duration-medium2: 300ms;
+  --motion-duration-medium3: 350ms;
+  --motion-duration-medium4: 400ms;
+  --motion-duration-long1: 450ms;
+  --motion-duration-long2: 500ms;
+  --motion-duration-long3: 550ms;
+  --motion-duration-long4: 600ms;
+  
+  /* Icon Size Tokens */
+  --icon-size-small: 20px;        /* Extra small icons (compact UI) */
+  --icon-size-medium: 24px;       /* Medium icons (M3 default) */
+  --icon-size-large: 32px;        /* Large icons (prominent) */
+  --icon-size-xl: 48px;           /* Extra large (hero displays) */
+  
+  /* Icon Tailwind Classes (for convenience) */
+  --icon-small: text-sm;          /* 14px base */
+  --icon-medium: text-lg;         /* 18px base */
+  --icon-default: text-2xl;       /* 24px base */
+  --icon-large: text-4xl;         /* 36px base */
+  --icon-xl: text-6xl;            /* 48px base */
+  
+  /* Backward compatibility */
+  --motion-expressive: var(--motion-easing-expressive);
+  --motion-standard: var(--motion-easing-standard);
 }
 
 .theme-dark {
@@ -131,6 +178,43 @@ body {
   to {
     transform: translateX(200%) skewX(-15deg);
   }
+}
+
+/* Icon Animation Classes */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes fade {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+.animate-fade {
+  animation: fade 1.5s ease-in-out infinite;
 }
 
 .animate-shine {

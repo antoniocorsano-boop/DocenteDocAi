@@ -129,6 +129,38 @@ export const downloadBackup = async (fileId: string): Promise<any> => {
     return await res.json();
 };
 
-export const pickGoogleDriveFolder = async (apiKey?: string): Promise<{ id: string; name: string } | null> => { return null; };
-export const createAppFolder = async () => ({ id: '', name: '' });
-export const getBackupMetadata = async (id: string) => null;
+export const pickGoogleDriveFolder = async (apiKey?: string): Promise<{ id: string; name: string } | null> => {
+    if (!apiKey) throw new Error('API Key mancante. Inseriscila nelle impostazioni Drive.');
+    if (!accessToken) throw new Error('Autenticazione richiesta.');
+    
+    return new Promise((resolve, reject) => {
+        gapi.load('picker', () => {
+            const pickerBuilder = new gapi.picker.PickerBuilder()
+                .addView(new gapi.picker.DocsView().setSelectFolderEnabled(true).setMimeTypes('application/vnd.google-apps.folder'))
+                .setOAuthToken(accessToken)
+                .setDeveloperKey(apiKey)
+                .setCallback((data: any) => {
+                    if (data.action === gapi.picker.Action.PICKED) {
+                        resolve(data.docs[0]);
+                    } else if (data.action === gapi.picker.Action.CANCEL) {
+                        resolve(null);
+                    }
+                });
+            pickerBuilder.build().setVisible(true);
+        });
+    });
+};
+
+export const createAppFolder = async () => {
+    const folder = await searchFolder(DEFAULT_BACKUP_FOLDER_NAME);
+    if (folder) return folder;
+    return await createFolder(DEFAULT_BACKUP_FOLDER_NAME);
+};
+
+export const getBackupMetadata = async (folderId: string) => {
+    const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(`name='${BACKUP_FILE_NAME}' and '${folderId}' in parents and trashed=false`)}&fields=files(id,modifiedTime)`;
+    const res = await fetch(url, { headers: { 'Authorization': `Bearer ${accessToken}` } });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data.files?.[0] ? { modifiedTime: data.files[0].modifiedTime } : null;
+};

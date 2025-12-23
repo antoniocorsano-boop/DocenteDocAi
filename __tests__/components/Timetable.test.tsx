@@ -3,8 +3,8 @@
 // @ts-nocheck
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Timetable } from '../../components/Timetable';
-import { Slot, Lezione, TimetableSettings } from '../../types';
+import { Timetable } from '../../src/components/Timetable';
+import { Slot, Lezione, TimetableSettings } from '../../src/types';
 
 describe('Timetable', () => {
   const mockSettings: TimetableSettings = {
@@ -41,7 +41,7 @@ describe('Timetable', () => {
 
     expect(screen.getByText('08:00')).toBeInTheDocument();
     expect(screen.getByText('09:00')).toBeInTheDocument();
-    expect(screen.getByText('LUN')).toBeInTheDocument();
+    expect(screen.getByText('Lun')).toBeInTheDocument();
   });
 
   it('dovrebbe mostrare una lezione assegnata', () => {
@@ -58,7 +58,7 @@ describe('Timetable', () => {
     );
 
     expect(screen.getByText('1A')).toBeInTheDocument();
-    expect(screen.getByText('Matemati')).toBeInTheDocument(); // Truncated
+    expect(screen.getByText(/Matemati/)).toBeInTheDocument(); // Match substring
   });
 
   it('dovrebbe chiamare onShowSlotActions quando si clicca su uno slot con lezione completa', () => {

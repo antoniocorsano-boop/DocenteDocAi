@@ -422,4 +422,4 @@ const EvaluationModule: React.FC<EvaluationModulePropsExtended> = ({ students, e
     );
 };
 
-export default EvaluationModule;
+export default React.memo(EvaluationModule);

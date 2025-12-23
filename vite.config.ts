@@ -21,10 +21,26 @@ export default defineConfig({
       input: {
         main: './index.html',
       },
-      output: {
+        output: {
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
+        assetFileNames: 'assets/[name]-[hash].[ext]',
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom')) return 'vendor-react';
+            if (id.includes('@google/genai')) return 'vendor-genai';
+            if (id.includes('pdf-lib')) return 'vendor-pdf-lib';
+            if (id.includes('pdfjs-dist')) return 'vendor-pdfjs';
+            if (id.includes('jspdf') || id.includes('jspdf-autotable')) return 'vendor-jspdf';
+            if (id.includes('mammoth')) return 'vendor-mammoth';
+            if (id.includes('docx')) return 'vendor-docx';
+            if (id.includes('html2canvas')) return 'vendor-html2canvas';
+            if (id.includes('zustand') || id.includes('purify') || id.includes('lodash')) return 'vendor-utils';
+            // fallback for other large doc-related libraries
+            if (id.match(/node_modules\/.*(pdf|doc|mammoth|jspdf|pdfjs|html2canvas)/)) return 'vendor-docs';
+            return 'vendor';
+          }
+        }
       },
     },
   },

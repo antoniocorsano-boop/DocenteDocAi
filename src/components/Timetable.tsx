@@ -110,7 +110,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                           const slot = slots[slotKey];
                           const lesson = slot?.lezioneId ? lessons[slot.lezioneId] : undefined;
                           return (
-                              <div key={slotKey} className="matrix-cell-wrapper">
+                              <div key={slotKey} className="matrix-cell-wrapper" onClick={() => handleCellClick(day, time)}>
                                   <TimetableCell 
                                       slot={slot || { giorno: day, ora: time }} 
                                       lesson={lesson}

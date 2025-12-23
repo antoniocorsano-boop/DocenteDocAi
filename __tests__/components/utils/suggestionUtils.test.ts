@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { analyzeSystemState } from '../../utils/suggestionUtils';
-import { Studente, Slot, Uda, EventoCalendario, Valutazione } from '../../types';
+import { analyzeSystemState } from '../../../src/utils/suggestionUtils';
+import { Studente, Slot, Uda, EventoCalendario, Valutazione } from '../../../src/types';
 
 describe('analyzeSystemState', () => {
   const emptyStudents: Studente[] = [];

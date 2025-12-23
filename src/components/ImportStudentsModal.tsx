@@ -76,8 +76,8 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
         const file = acceptedFiles[0];
 
         try {
-            if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.name.endsWith('.xlsx')) {
-                const ai = getGoogleAIClient();
+                if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.name.endsWith('.xlsx')) {
+                const ai = await getGoogleAIClient();
                 const prompt = `
 Sei un assistente AI amichevole e molto chiaro. Un utente ha caricato un file .xlsx, ma l'applicazione accetta solo file .csv. 
 Genera una risposta in formato Markdown con istruzioni semplici e separate per Microsoft Excel e Google Sheets su come salvare il file in formato CSV.

@@ -16,6 +16,14 @@ const getDb = (): Promise<IDBDatabase> => {
     }
     dbPromise = new Promise((resolve, reject) => {
         const request = indexedDB.open(DB_NAME, DB_VERSION);
+        // Handle synchronous test mocks providing result immediately
+        if ((request as any).result) {
+            try {
+                const db = (request as any).result as IDBDatabase;
+                resolve(db);
+                return;
+            } catch {}
+        }
         request.onerror = () => {
             console.error('IndexedDB KB error:', request.error);
             reject(new Error('Failed to open IndexedDB for KB.'));

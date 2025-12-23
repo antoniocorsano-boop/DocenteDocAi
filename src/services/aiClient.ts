@@ -1,22 +1,17 @@
 
-import { GoogleGenAI } from "@google/genai";
-
-/**
- * Inizializza il client Google GenAI.
- * Seguendo le istruzioni di sistema:
- * - Usa ESCLUSIVAMENTE process.env.API_KEY.
- * - Non genera UI per l'inserimento della chiave.
- * - Utilizza il parametro nominato { apiKey }.
- */
-export const getGoogleAIClient = (): GoogleGenAI => {
-    // Vite uses import.meta.env for environment variables. 
-    // We expect VITE_GEMINI_API_KEY to be defined in .env.local
+// Lazy-load the Google GenAI SDK to avoid bundling it in the main chunk
+let _cachedGenAiModule: any = null;
+export const getGoogleAIClient = async (): Promise<any> => {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
     if (!apiKey) {
         throw new Error('API_KEY non configurata. Assicurati che VITE_GEMINI_API_KEY sia presente in .env.local.');
     }
 
+    if (!_cachedGenAiModule) {
+        _cachedGenAiModule = await import('@google/genai');
+    }
+    const mod = _cachedGenAiModule;
+    const GoogleGenAI = mod?.GoogleGenAI || mod?.default || mod;
     return new GoogleGenAI({ apiKey });
 };
 

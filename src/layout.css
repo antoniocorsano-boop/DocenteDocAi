@@ -141,7 +141,7 @@
     background-color: var(--sys-primary-container);
     color: var(--sys-on-primary-container);
     transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 8px 16px rgba(103, 80, 164, 0.15);
+    box-shadow: var(--elevation-2);
 }
 
 .nav-label {
