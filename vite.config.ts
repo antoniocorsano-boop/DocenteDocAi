@@ -11,6 +11,15 @@ export default defineConfig({
       injectRegister: 'auto',
       manifest: false, // Usiamo il file statico in public
     }),
+    // Plugin to ensure docx is only loaded dynamically
+    {
+      name: 'docx-lazy-load',
+      resolveId(id) {
+        if (id === 'docx') {
+          return { id, external: false, moduleSideEffects: false };
+        }
+      },
+    },
   ],
   base: './',
   build: {

@@ -3,9 +3,21 @@ import { createRoot } from 'react-dom/client';
 import { App } from './components/App';
 import ErrorBoundary from './components/ErrorBoundary';
 
-// Polyfill for document global in case of SSR or edge runtime
-if (typeof document === 'undefined') {
-  (global as any).document = typeof window !== 'undefined' ? window.document : {};
+// CRITICAL: Initialize document polyfill FIRST, before any library loads
+if (typeof window !== 'undefined') {
+  if (typeof document === 'undefined') {
+    (window as any).document = {};
+  }
+  // Ensure DOMParser is available
+  if (typeof DOMParser === 'undefined') {
+    (window as any).DOMParser = (() => {
+      return class DOMParser {
+        parseFromString() {
+          return { body: { childNodes: [] } };
+        }
+      };
+    })();
+  }
 }
 
 // CSS Architecture
