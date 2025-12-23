@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { GoogleGenAI } from '@google/genai';
+// Load Google GenAI dynamically to avoid bundling it in the main chunk
 import { M3Dialog, TextArea } from './M3Components';
 
 interface VideoAnalysisModalProps {
@@ -66,8 +66,10 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
         setLoadingMessage(loadingMessages[0]);
 
         try {
-            // GUIDELINE: Create new GoogleGenAI instance right before call
-            const ai = new GoogleGenAI(import.meta.env.VITE_GEMINI_API_KEY);
+            // GUIDELINE: Create new GoogleGenAI instance right before call (lazy-loaded)
+            const genaiModule = await import('@google/genai');
+            const GoogleGenAI = (genaiModule && (genaiModule.GoogleGenAI || genaiModule.default)) || genaiModule;
+            const ai = new (GoogleGenAI as any)(import.meta.env.VITE_GEMINI_API_KEY);
 
             // Veo model parameters
             let operation = await (ai as any).models.generateVideos({

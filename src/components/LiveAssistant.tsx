@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { LiveServerMessage, Modality, Tool, Type, FunctionDeclaration, GoogleGenAI } from '@google/genai';
+import { LiveServerMessage, Modality, Tool, Type, FunctionDeclaration } from '@google/genai';
 import { LiveAssistantProps, TranscriptEntry } from '../types.ts';
 import { getGoogleAIClient } from '../services/aiClient.ts';
 import { performWebSearch } from '../services/aiService.ts';
@@ -151,8 +151,8 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
     if (isConnected) return;
 
     // GUIDELINE: Create AI instance right before connection using process.env.API_KEY
-    // FIX: Use GoogleGenAI named import
-    const ai: GoogleGenAI = getGoogleAIClient(); // FIX: Use getGoogleAIClient, which correctly initializes
+    // Use async getGoogleAIClient which lazy-loads the SDK
+    const ai: any = await getGoogleAIClient(); // getGoogleAIClient is async now
 
     const inputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
     const outputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
@@ -180,7 +180,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
           const source = inputCtx.createMediaStreamSource(stream);
           const processor = inputCtx.createScriptProcessor(4096, 1, 1);
 
-          processor.onaudioprocess = (e) => {
+          processor.onaudioprocess = (e: AudioProcessingEvent) => {
             const inputData = e.inputBuffer.getChannelData(0);
             const l = inputData.length;
             const int16 = new Int16Array(l);
@@ -192,7 +192,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
               mimeType: 'audio/pcm;rate=16000',
             };
             // GUIDELINE: Initiate sendRealtimeInput after live.connect call resolves.
-            sessionPromise.then(session => session.sendRealtimeInput({ media: pcmBlob }));
+            sessionPromise.then((session: any) => session.sendRealtimeInput({ media: pcmBlob }));
           };
 
           source.connect(processor);
@@ -222,7 +222,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
               if (fc.name && fc.id) {
                 const result = await handleToolExecution(fc.name, fc.args);
                 // FIX: session.sendToolResponse expects an array of FunctionResponse objects
-                sessionPromise.then(session => session.sendToolResponse({
+                sessionPromise.then((session: any) => session.sendToolResponse({
                   functionResponses: [{ id: fc.id, name: fc.name, response: { result } }]
                 }));
               }

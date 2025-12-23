@@ -309,7 +309,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
             isOpen={true}
             onClose={onClose}
             title="Esporta Report Classe"
-            actions={
+            buttons={
                 <>
                     <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all" disabled={isExporting}>Annulla</button>
                     <button type="button" onClick={handleExport} className="button button-filled rounded-lg hover:shadow-md transition-all" disabled={isExporting}>

@@ -44,7 +44,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
             isOpen={true}
             onClose={onClose}
             title={studentToEdit ? 'Modifica Studente' : 'Aggiungi Studente'}
-            actions={
+            buttons={
                 <>
                     <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Annulla</button>
                     <button type="button" onClick={handleSaveClick} className="button button-filled rounded-lg hover:shadow-md transition-all">Salva Studente</button>

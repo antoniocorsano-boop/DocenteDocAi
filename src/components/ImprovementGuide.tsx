@@ -62,7 +62,7 @@ const ImprovementGuide: React.FC<ImprovementGuideProps> = ({
                 // Short delay to allow UI to render "Reading data..." before heavy AI op
                 await new Promise(r => setTimeout(r, 600));
 
-                const ai = getGoogleAIClient();
+                const ai = await getGoogleAIClient();
 
                 // 1. Pre-process data for the AI
                 const dataSummary = {

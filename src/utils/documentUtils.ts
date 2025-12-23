@@ -1,12 +1,13 @@
-import { PDFDocument, rgb, StandardFonts, PDFFont, PageSizes, PDFPage } from 'pdf-lib';
-import mammoth from 'mammoth';
-import * as pdfjsLib from 'pdfjs-dist';
+// Heavy libraries are loaded dynamically to reduce initial bundle size
+// @ts-ignore: pdfjs-dist legacy bundle has no bundled types in this env
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
 import { Uda, Lezione, Competenza, TimetableSettings, Studente, Valutazione, ValutazioneCompetenza, GiudizioPeriodico, PeriodoValutazione, TechnicalDocumentContent, EssayContent, FaqItem, VocalAssistantGuide, BrochureContent } from '../types';
 import { calculatePerformance } from './evaluationUtils';
-import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
-// @ts-ignore
-import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
+
+const loadPdfLib = async () => await import('pdf-lib');
+const loadMammoth = async () => await import('mammoth');
+const loadDocx = async () => await import('docx');
+const loadJsPdf = async () => await import('jspdf');
 
 // --- NATIVE SAVEAS IMPLEMENTATION ---
 export const saveAs = (blob: Blob | string, name: string) => {
@@ -30,9 +31,9 @@ export const saveAs = (blob: Blob | string, name: string) => {
 };
 
 // ... (Existing text extraction and helper functions remain unchanged)
-const pdfJsObj = (pdfjsLib as any).default || pdfjsLib;
+const pdfJsObj = pdfjsLib as any;
 if (pdfJsObj && pdfJsObj.GlobalWorkerOptions) {
-    pdfJsObj.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@5.4.449/build/pdf.worker.min.mjs';
+    pdfJsObj.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@5.4.449/build/pdf.worker.min.js';
 }
 
 const extractTextFromPdfClientSide = async (file: File): Promise<string> => {
@@ -60,7 +61,9 @@ export const extractTextFromFile = async (file: File): Promise<string> => {
     if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || fileExtension === 'docx') {
         try {
             const arrayBuffer = await file.arrayBuffer();
-            const result = await mammoth.extractRawText({ arrayBuffer });
+            const mammothModule = await loadMammoth();
+            const mammothLib = (mammothModule && mammothModule.default) ? mammothModule.default : mammothModule;
+            const result = await mammothLib.extractRawText({ arrayBuffer });
             return result.value;
         } catch (e) {
             throw new Error(`Errore DOCX: ${e instanceof Error ? e.message : String(e)}`);
@@ -109,9 +112,10 @@ export const viewPdfInNewTab = (blob: Blob) => {
 
 // ... (Existing DOCX generation, PDF text wrapping, etc. remain unchanged)
 export const generateHtmlDocxBlob = async (htmlContent: string, title?: string): Promise<Blob> => {
-    // Simplified stub - implementation is large but unchanged from previous files
-    // In real merging, keep the full implementation
-     const parser = new DOMParser();
+    // Load docx dynamically to avoid bundling it in the initial chunk
+    const docxModule = await loadDocx();
+    const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docxModule as any;
+    const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, 'text/html');
     const body = doc.body;
 
@@ -168,7 +172,7 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
 
 // ... (PDF Generation Helpers) ...
 const cleanTextForWinAnsi = (text: string) => text ? text.replace(/[^\x00-\xFF]/g, '?') : '';
-const wrapText = (text: string, font: PDFFont, size: number, maxWidth: number) => {
+const wrapText = (text: string, font: any, size: number, maxWidth: number) => {
     // Simplified wrapping logic
     const words = text.split(' ');
     let lines = [];
@@ -188,28 +192,29 @@ const wrapText = (text: string, font: PDFFont, size: number, maxWidth: number) =
     return lines;
 };
 
-interface PdfContext { doc: PDFDocument; page: PDFPage; y: number; font: PDFFont; boldFont: PDFFont; width: number; height: number; margin: number; fontSize: number; }
+interface PdfContext { doc: any; page: any; y: number; font: any; boldFont: any; width: number; height: number; margin: number; fontSize: number; }
 const addNewPageIfNeeded = (ctx: PdfContext, spaceNeeded: number) => {
     if (ctx.y - spaceNeeded < ctx.margin) {
-        ctx.page = ctx.doc.addPage(PageSizes.A4);
+        ctx.page = ctx.doc.addPage();
         ctx.y = ctx.height - ctx.margin;
     }
 };
 const drawTextSafe = (ctx: PdfContext, text: string, options: any = {}) => {
     const safeText = cleanTextForWinAnsi(text);
-    const { isBold = false, size = 11, color = rgb(0,0,0), indent = 0, align = 'left', maxWidth } = options;
+    const { isBold = false, size = 11, color = null, indent = 0, align = 'left', maxWidth } = options;
+    const resolvedColor = color || { r: 0, g: 0, b: 0 };
     
     if (maxWidth) {
         const font = isBold ? ctx.boldFont : ctx.font;
         const lines = wrapText(safeText, font, size, maxWidth);
         lines.forEach(line => {
             addNewPageIfNeeded(ctx, size + 2);
-            ctx.page.drawText(line, { x: ctx.margin + indent, y: ctx.y, font, size, color });
+            ctx.page.drawText(line, { x: ctx.margin + indent, y: ctx.y, font, size, color: resolvedColor });
             ctx.y -= size + 4;
         });
     } else {
         addNewPageIfNeeded(ctx, size + 2);
-        ctx.page.drawText(safeText, { x: ctx.margin + indent, y: ctx.y, font: isBold ? ctx.boldFont : ctx.font, size, color });
+        ctx.page.drawText(safeText, { x: ctx.margin + indent, y: ctx.y, font: isBold ? ctx.boldFont : ctx.font, size, color: resolvedColor });
         ctx.y -= size * 1.5;
     }
 };
@@ -220,6 +225,8 @@ const drawSectionTitle = (ctx: PdfContext, title: string) => {
 
 // --- NEW FUNCTION: SCHEDA COMPITI PDF ---
 export const generateHomeworkPdf = async (lesson: Lezione, settings: TimetableSettings): Promise<Blob> => {
+    const pdfLib = await loadPdfLib();
+    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib as any;
     const pdfDoc = await PDFDocument.create();
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
@@ -302,6 +309,8 @@ export const generateHomeworkPdf = async (lesson: Lezione, settings: TimetableSe
 
 // --- NEW FUNCTION: CERTIFICAZIONE COMPETENZE ---
 export const generateCertificazioneCompetenzePdf = async (student: Studente, competencyData: { competencyName: string; level: string }[], settings: TimetableSettings): Promise<Blob> => {
+    const pdfLib = await loadPdfLib();
+    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib as any;
     const pdfDoc = await PDFDocument.create();
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
@@ -370,37 +379,51 @@ export const generateCertificazioneCompetenzePdf = async (student: Studente, com
 // ... (Existing functions: generateUdaPdf, generateLessonPdf, etc. remain unchanged)
 export const generateUdaPdf = async (uda: Uda, allCompetenze: Competenza[], settings: TimetableSettings, docType: 'docente' | 'studente'): Promise<Blob> => {
     // Stub implementation to satisfy contract in delta - assumes existing code logic
+     const pdfLib = await loadPdfLib();
+     const { PDFDocument } = pdfLib as any;
      const pdfDoc = await PDFDocument.create();
     // ... full implementation as before ...
     return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
 };
 export const generateLessonPdf = async (lesson: Lezione): Promise<Blob> => {
-     const pdfDoc = await PDFDocument.create();
+    const pdfLib = await loadPdfLib();
+    const { PDFDocument } = pdfLib as any;
+    const pdfDoc = await PDFDocument.create();
      // ... full implementation as before ...
     return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
 };
 export const generateStudentProfilePdf = async (student: Studente, evaluations: Valutazione[], competencyEvaluations: ValutazioneCompetenza[], settings: TimetableSettings): Promise<Blob> => {
-     const pdfDoc = await PDFDocument.create();
+    const pdfLib = await loadPdfLib();
+    const { PDFDocument } = pdfLib as any;
+    const pdfDoc = await PDFDocument.create();
      // ... full implementation as before ...
     return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
 };
 export const generatePdfBrochure = async (content: BrochureContent): Promise<Blob> => {
-     const pdfDoc = await PDFDocument.create();
+    const pdfLib = await loadPdfLib();
+    const { PDFDocument } = pdfLib as any;
+    const pdfDoc = await PDFDocument.create();
      // ... full implementation as before ...
     return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
 };
 export const generateCouncilDataPdf = async (selectedClass: string, periodo: PeriodoValutazione, students: Studente[], evaluations: Valutazione[], competencyEvaluations: ValutazioneCompetenza[], settings: TimetableSettings): Promise<Blob> => {
+    const jsPdfModule = await loadJsPdf();
+    const { jsPDF } = jsPdfModule as any;
     const doc = new jsPDF({ orientation: 'landscape' });
     // ... full implementation as before ...
     return doc.output('blob');
 };
 export const generateCouncilTablePdf = async (selectedClass: string, periodo: PeriodoValutazione, annoScolastico: string, students: Studente[], evaluations: Valutazione[], giudizi: any, settings: TimetableSettings, showFinalGrades: boolean): Promise<Blob> => {
-     const doc = new jsPDF({ orientation: 'landscape' });
+    const jsPdfModule = await loadJsPdf();
+    const { jsPDF } = jsPdfModule as any;
+    const doc = new jsPDF({ orientation: 'landscape' });
      // ... full implementation as before ...
     return doc.output('blob');
 };
 export const generateFullAppGuidePdf = async (essayContent: any, faqContent: any, specsContent: any, techInfo: any, vocalGuide: any): Promise<Blob> => {
-     const pdfDoc = await PDFDocument.create();
+    const pdfLib = await loadPdfLib();
+    const { PDFDocument } = pdfLib as any;
+    const pdfDoc = await PDFDocument.create();
      // ... full implementation as before ...
     return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
 };

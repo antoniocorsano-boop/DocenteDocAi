@@ -345,7 +345,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             onClose={onBack}
             title={`${student.cognome} ${student.nome}`}
             fullscreen
-            actions={
+            buttons={
                 <div className="flex gap-1">
                     <button onClick={() => setIsInterviewModeOpen(true)} className="icon-button text-primary bg-primary-container" title="Modalità Colloquio"><span className="material-symbols-outlined">visibility</span></button>
                     <button onClick={handleExportPdf} disabled={isExporting} className="icon-button" title="Esporta PDF"><span className="material-symbols-outlined">picture_as_pdf</span></button>

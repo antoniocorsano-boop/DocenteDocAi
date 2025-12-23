@@ -47,7 +47,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
             isOpen={true}
             onClose={onClose}
             title="Aggiungi Prova di Valutazione"
-            actions={
+            buttons={
                 <>
                     <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Annulla</button>
                     <button type="button" onClick={handleSaveClick} className="button button-filled rounded-lg hover:shadow-md transition-all">Crea Prova</button>
