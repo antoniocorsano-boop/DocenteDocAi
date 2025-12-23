@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import { jsPDF } from 'jspdf';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, Competenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { RATING_TO_VALUE } from '../constants';
@@ -141,6 +140,10 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
     };
 
     const exportToPDF = async () => {
+        // Lazy load jsPDF to avoid document access during module initialization
+        const jsPdfModule = await import('jspdf');
+        const { jsPDF } = jsPdfModule as any;
+        
         const doc = new jsPDF({ orientation: 'landscape', unit: 'mm' });
         const FONT = 'helvetica';
         const PAGE_WIDTH = doc.internal.pageSize.getWidth();
