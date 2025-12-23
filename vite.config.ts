@@ -25,7 +25,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: process.env.NODE_ENV === 'development' ? true : false,
     rollupOptions: {
       input: {
         main: './index.html',
