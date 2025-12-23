@@ -1,44 +1,49 @@
 /**
- * CRITICAL: Ultra-robust DOM polyfill for Vercel SSR compatibility
+ * CRITICAL: Ultra-robust DOM polyfill for Vercel SSR compatibility AND browser protection
  * This file runs FIRST, before any imports or React code
  * Ensures 'document' exists for libraries like docx that access it during import
+ * Also protects against undefined document in browser runtime
  */
 
+// Create safe element factory that covers all possible DOM operations
+const createSafeElement = (): any => ({
+  tagName: 'DIV',
+  className: '',
+  id: '',
+  style: {},
+  attributes: {},
+  childNodes: [],
+  children: [],
+  parentNode: null,
+  textContent: '',
+  innerHTML: '',
+  nodeType: 1,
+  appendChild: function(n: any) { if (this.childNodes) this.childNodes.push(n); return this; },
+  insertBefore: function(n: any, r: any) { if (this.childNodes) this.childNodes.unshift(n); return this; },
+  removeChild: function(n: any) { return this; },
+  replaceChild: function(n: any, r: any) { return this; },
+  addEventListener: function() { return undefined; },
+  removeEventListener: function() { return undefined; },
+  getAttribute: function(n: string) { return this.attributes?.[n] || ''; },
+  setAttribute: function(n: string, v: any) { if (!this.attributes) this.attributes = {}; this.attributes[n] = v; },
+  removeAttribute: function(n: string) { if (this.attributes) delete this.attributes[n]; },
+  querySelector: function() { return null; },
+  querySelectorAll: function() { return []; },
+  getElementById: function() { return null; },
+  getElementsByTagName: function() { return []; },
+  getElementsByClassName: function() { return []; },
+  getElementsByName: function() { return []; },
+  cloneNode: function() { return { ...createSafeElement(), childNodes: [], children: [] }; },
+  contains: function() { return false; },
+});
+
+// ALWAYS apply polyfill, even in browser to catch edge cases
 if (typeof window !== 'undefined') {
   // Create a comprehensive document mock that handles all docx library needs
-  const safeElement: any = {
-    tagName: 'DIV',
-    className: '',
-    id: '',
-    style: {},
-    attributes: {},
-    childNodes: [],
-    children: [],
-    parentNode: null,
-    textContent: '',
-    innerHTML: '',
-    nodeType: 1,
-    appendChild: function(n: any) { if (this.childNodes) this.childNodes.push(n); return this; },
-    insertBefore: function(n: any, r: any) { if (this.childNodes) this.childNodes.unshift(n); return this; },
-    removeChild: function(n: any) { return this; },
-    replaceChild: function(n: any, r: any) { return this; },
-    addEventListener: function() { return undefined; },
-    removeEventListener: function() { return undefined; },
-    getAttribute: function(n: string) { return this.attributes?.[n] || ''; },
-    setAttribute: function(n: string, v: any) { if (!this.attributes) this.attributes = {}; this.attributes[n] = v; },
-    removeAttribute: function(n: string) { if (this.attributes) delete this.attributes[n]; },
-    querySelector: function() { return null; },
-    querySelectorAll: function() { return []; },
-    getElementById: function() { return null; },
-    getElementsByTagName: function() { return []; },
-    getElementsByClassName: function() { return []; },
-    getElementsByName: function() { return []; },
-    cloneNode: function() { return { ...safeElement, childNodes: [], children: [] }; },
-    contains: function() { return false; },
-  };
+  const safeElement: any = createSafeElement();
 
   // Robust document polyfill with full API
-  if (typeof document === 'undefined' || !document.createElement) {
+  if (!window.document || typeof window.document.createElement !== 'function' || !window.document.body) {
     const mockDoc: any = {
       ...safeElement,
       nodeType: 9,
@@ -68,12 +73,17 @@ if (typeof window !== 'undefined') {
     if (typeof Proxy !== 'undefined') {
       (window as any).document = new Proxy(mockDoc, {
         get: function(target: any, prop: any, receiver: any) {
+          // First check if target has the property
           if (target[prop] !== undefined) {
             return target[prop];
           }
           // Return safe defaults for any unknown property
           if (typeof prop === 'string' && (prop.toLowerCase().includes('get') || prop.toLowerCase().includes('query') || prop.toLowerCase().includes('element'))) {
             return function() { return null; };
+          }
+          // For write operations on style, create safe object
+          if (prop === 'style' || prop === 'attributes') {
+            return {};
           }
           return target[prop];
         },
@@ -85,6 +95,11 @@ if (typeof window !== 'undefined') {
     } else {
       (window as any).document = mockDoc;
     }
+  }
+  
+  // Ensure window.document is properly defined even if it was partially broken
+  if (!window.document) {
+    (window as any).document = createSafeElement();
   }
   
   // Robust DOMParser polyfill
