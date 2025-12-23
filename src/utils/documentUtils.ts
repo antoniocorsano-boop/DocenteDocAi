@@ -1,5 +1,11 @@
 // Heavy libraries are loaded dynamically to reduce initial bundle size
 // Lazily load PDF.js to avoid bundling it in the initial chunk
+
+// Safety check: ensure we're in a browser environment
+if (typeof window === 'undefined' || typeof document === 'undefined') {
+  console.warn('documentUtils: Browser APIs not available, some features will be disabled');
+}
+
 import { Uda, Lezione, Competenza, TimetableSettings, Studente, Valutazione, ValutazioneCompetenza, GiudizioPeriodico, PeriodoValutazione, TechnicalDocumentContent, EssayContent, FaqItem, VocalAssistantGuide, BrochureContent } from '../types';
 import { calculatePerformance } from './evaluationUtils';
 
@@ -120,12 +126,18 @@ export const viewPdfInNewTab = (blob: Blob) => {
 
 // ... (Existing DOCX generation, PDF text wrapping, etc. remain unchanged)
 export const generateHtmlDocxBlob = async (htmlContent: string, title?: string): Promise<Blob> => {
-    // Load docx dynamically to avoid bundling it in the initial chunk
-    const docxModule = await loadDocx();
-    const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docxModule as any;
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlContent, 'text/html');
-    const body = doc.body;
+    try {
+        // Safety check for browser environment
+        if (typeof document === 'undefined' || typeof DOMParser === 'undefined') {
+            throw new Error('Document API not available - DOCX generation requires browser environment');
+        }
+        
+        // Load docx dynamically to avoid bundling it in the initial chunk
+        const docxModule = await loadDocx();
+        const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docxModule as any;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlContent, 'text/html');
+        const body = doc.body;
 
     const children: any[] = [];
     if (title) {
@@ -176,6 +188,11 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
     
     const docx = new Document({ sections: [{ properties: {}, children: children }] });
     return await Packer.toBlob(docx);
+    } catch (error) {
+        console.error('Error generating DOCX:', error);
+        // Fallback: return empty blob
+        return new Blob(['Unable to generate DOCX file'], { type: 'text/plain' });
+    }
 };
 
 // ... (PDF Generation Helpers) ...
