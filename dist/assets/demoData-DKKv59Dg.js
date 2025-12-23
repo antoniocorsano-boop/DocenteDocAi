@@ -88,4 +88,3 @@ Crea una cartella \`orariodoc-bridge\` sul tuo computer e inserisci i file del m
 2. Copia il codice JSON.
 3. Vai sul registro elettronico, apri l'estensione e clicca "Compila".
 `,category:"normativa",isGenerated:!0}],d={students:e,udas:i,lessons:a,slots:o,evaluations:t,competencyEvaluations:n,eventi:r,rubriche:l,pianiInclusione:s,knowledgeBase:c};export{d as DEMO_DATA};
-//# sourceMappingURL=demoData-DKKv59Dg.js.map
