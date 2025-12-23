@@ -6,46 +6,142 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>DocenteDoc AI</title>
 
-  <!-- Comprehensive Document/DOM polyfill for SSR/Edge compatibility - MUST be before any scripts -->
+  <!-- Bulletproof DOM Polyfill for Vercel SSR -->
   <script>
-    if (typeof window !== 'undefined') {
-      // Ensure document exists with createElement
-      if (typeof document === 'undefined') {
-        window.document = {
-          createElement: function(tag) { return {}; },
-          createElementNS: function(ns, tag) { return {}; },
-          createTextNode: function(text) { return {}; },
-          getElementById: function(id) { return null; },
-          querySelector: function(selector) { return null; },
-          querySelectorAll: function(selector) { return []; },
-          addEventListener: function() {},
-          body: { appendChild: function() {}, insertBefore: function() {} },
-          head: { appendChild: function() {} }
+    (function() {
+      if (typeof window === 'undefined') return;
+      
+      // Safe element factory that won't throw
+      const createSafeElement = function() {
+        return {
+          tagName: 'DIV',
+          className: '',
+          id: '',
+          style: {},
+          attributes: {},
+          childNodes: [],
+          children: [],
+          parentNode: null,
+          textContent: '',
+          innerHTML: '',
+          nodeType: 1,
+          
+          // All methods return self or safe values
+          appendChild: function(n) { return this; },
+          insertBefore: function(n, r) { return this; },
+          removeChild: function(n) { return this; },
+          replaceChild: function(n, r) { return this; },
+          addEventListener: function() { return undefined; },
+          removeEventListener: function() { return undefined; },
+          getAttribute: function(n) { return ''; },
+          setAttribute: function(n, v) { return undefined; },
+          removeAttribute: function(n) { return undefined; },
+          getElementById: function() { return null; },
+          querySelector: function() { return null; },
+          querySelectorAll: function() { return []; },
+          getElementsByTagName: function() { return []; },
+          getElementsByClassName: function() { return []; },
+          cloneNode: function() { return createSafeElement(); },
+          contains: function() { return false; },
         };
+      };
+      
+      // Create bulletproof document mock
+      if (typeof document === 'undefined' || !document.createElement || typeof document.createElement !== 'function') {
+        const mockDoc = createSafeElement();
+        mockDoc.documentElement = createSafeElement();
+        mockDoc.body = createSafeElement();
+        mockDoc.head = createSafeElement();
+        mockDoc.nodeType = 9;
+        
+        mockDoc.createElement = function(tag) {
+          const el = createSafeElement();
+          el.tagName = (tag || 'div').toUpperCase();
+          return el;
+        };
+        
+        mockDoc.createElementNS = function(ns, tag) {
+          return mockDoc.createElement(tag);
+        };
+        
+        mockDoc.createTextNode = function(text) {
+          return { nodeValue: text, nodeType: 3, textContent: text };
+        };
+        
+        mockDoc.createDocumentFragment = function() {
+          return createSafeElement();
+        };
+        
+        mockDoc.createComment = function() {
+          return { nodeType: 8 };
+        };
+        
+        // Use Proxy to catch ALL property access and return safe values
+        if (typeof Proxy !== 'undefined') {
+          window.document = new Proxy(mockDoc, {
+            get: function(target, prop, receiver) {
+              if (target[prop] !== undefined) {
+                return target[prop];
+              }
+              // Return safe defaults for any unknown property
+              if (typeof prop === 'string' && (prop.toLowerCase().includes('get') || prop.toLowerCase().includes('query') || prop.toLowerCase().includes('element'))) {
+                return function() { return null; };
+              }
+              return target[prop];
+            },
+            set: function(target, prop, value) {
+              target[prop] = value;
+              return true;
+            }
+          });
+        } else {
+          window.document = mockDoc;
+        }
       }
       
-      // Ensure DOMParser exists
+      // Polyfill all critical globals
       if (typeof DOMParser === 'undefined') {
-        window.DOMParser = class {
-          parseFromString(str, type) {
-            return { body: { childNodes: [] }, documentElement: {} };
-          }
+        window.DOMParser = function() {};
+        window.DOMParser.prototype.parseFromString = function() {
+          return {
+            documentElement: createSafeElement(),
+            body: createSafeElement(),
+            head: createSafeElement(),
+          };
         };
       }
       
-      // Ensure Node and HTMLElement exist
       if (typeof Node === 'undefined') {
-        window.Node = class {};
-      }
-      if (typeof HTMLElement === 'undefined') {
-        window.HTMLElement = class {};
+        window.Node = {
+          ELEMENT_NODE: 1,
+          ATTRIBUTE_NODE: 2,
+          TEXT_NODE: 3,
+          CDATA_SECTION_NODE: 4,
+          ENTITY_REFERENCE_NODE: 5,
+          ENTITY_NODE: 6,
+          PROCESSING_INSTRUCTION_NODE: 7,
+          COMMENT_NODE: 8,
+          DOCUMENT_NODE: 9,
+          DOCUMENT_TYPE_NODE: 10,
+          DOCUMENT_FRAGMENT_NODE: 11
+        };
       }
       
-      // Ensure window.navigator exists
-      if (typeof window.navigator === 'undefined') {
+      if (typeof HTMLElement === 'undefined') {
+        window.HTMLElement = function() {};
+        window.HTMLElement.prototype = Object.create(Object.prototype);
+      }
+      
+      if (typeof Element === 'undefined') {
+        window.Element = function() {};
+        window.Element.prototype = Object.create(Object.prototype);
+      }
+      
+      // Safe navigator
+      if (!window.navigator) {
         window.navigator = { userAgent: '' };
       }
-    }
+    })();
   </script>
 
   <!-- PWA & Mobile App Meta Tags -->
@@ -69,7 +165,7 @@
   <!-- Material Symbols Font -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <script type="module" crossorigin src="./assets/main-BzJ_IbW1.js"></script>
+  <script type="module" crossorigin src="./assets/main-DRljnHSH.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/vendor-docs-iegULsyi.js">
   <link rel="modulepreload" crossorigin href="./assets/vendor-C3i9INEc.js">
   <link rel="modulepreload" crossorigin href="./assets/vendor-react-DNhuZ2LV.js">
@@ -81,6 +177,9 @@
 
 <body>
   <div id="root"></div>
+  
+  <!-- Module polyfill - runs before main.tsx -->
+  
 </body>
 
 </html>
