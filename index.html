@@ -6,46 +6,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>DocenteDoc AI</title>
 
-  <!-- Comprehensive Document/DOM polyfill for SSR/Edge compatibility - MUST be before any scripts -->
+  <!-- Ultra-comprehensive DOM polyfill for SSR/Edge - MUST run before any scripts -->
   <script>
-    if (typeof window !== 'undefined') {
-      // Ensure document exists with createElement
-      if (typeof document === 'undefined') {
-        window.document = {
-          createElement: function(tag) { return {}; },
-          createElementNS: function(ns, tag) { return {}; },
-          createTextNode: function(text) { return {}; },
+    (function() {
+      if (typeof window === 'undefined') return;
+      
+      // Mock Element class
+      const MockElement = function() {
+        this.tagName = 'DIV';
+        this.className = '';
+        this.id = '';
+        this.style = {};
+        this.attributes = {};
+        this.childNodes = [];
+        this.children = [];
+        this.parentNode = null;
+        this.textContent = '';
+        this.innerHTML = '';
+      };
+      MockElement.prototype.appendChild = function(node) { 
+        this.childNodes.push(node); 
+        return node;
+      };
+      MockElement.prototype.insertBefore = function(node, ref) { 
+        return this.appendChild(node); 
+      };
+      MockElement.prototype.removeChild = function(node) { 
+        const idx = this.childNodes.indexOf(node);
+        if (idx >= 0) this.childNodes.splice(idx, 1);
+        return node;
+      };
+      MockElement.prototype.getAttribute = function(name) { 
+        return this.attributes[name] || null; 
+      };
+      MockElement.prototype.setAttribute = function(name, value) { 
+        this.attributes[name] = value; 
+      };
+      MockElement.prototype.addEventListener = function() {};
+      MockElement.prototype.removeEventListener = function() {};
+      MockElement.prototype.querySelector = function() { return null; };
+      MockElement.prototype.querySelectorAll = function() { return []; };
+      MockElement.prototype.getElementById = function() { return null; };
+      
+      // Mock TextNode
+      const MockTextNode = function(text) {
+        this.nodeValue = text;
+        this.textContent = text;
+        this.nodeType = 3; // TEXT_NODE
+      };
+      
+      // Create comprehensive document mock
+      if (typeof document === 'undefined' || !document.createElement) {
+        const mockDoc = {
+          nodeType: 9,
+          documentElement: new MockElement(),
+          body: new MockElement(),
+          head: new MockElement(),
+          
+          createElement: function(tag) {
+            const el = new MockElement();
+            el.tagName = tag.toUpperCase();
+            return el;
+          },
+          createElementNS: function(ns, tag) {
+            return this.createElement(tag);
+          },
+          createTextNode: function(text) {
+            return new MockTextNode(text);
+          },
+          createDocumentFragment: function() {
+            return new MockElement();
+          },
+          
           getElementById: function(id) { return null; },
-          querySelector: function(selector) { return null; },
-          querySelectorAll: function(selector) { return []; },
+          querySelector: function() { return null; },
+          querySelectorAll: function() { return []; },
+          getElementsByTagName: function() { return []; },
+          getElementsByClassName: function() { return []; },
+          
           addEventListener: function() {},
-          body: { appendChild: function() {}, insertBefore: function() {} },
-          head: { appendChild: function() {} }
+          removeEventListener: function() {},
+          
+          adoptNode: function(node) { return node; },
+          importNode: function(node) { return node; },
         };
+        
+        window.document = mockDoc;
       }
       
-      // Ensure DOMParser exists
+      // Ensure all critical globals exist
       if (typeof DOMParser === 'undefined') {
-        window.DOMParser = class {
-          parseFromString(str, type) {
-            return { body: { childNodes: [] }, documentElement: {} };
-          }
+        window.DOMParser = function() {};
+        window.DOMParser.prototype.parseFromString = function() {
+          return {
+            documentElement: new MockElement(),
+            body: new MockElement(),
+            querySelector: function() { return null; },
+            querySelectorAll: function() { return []; }
+          };
         };
       }
       
-      // Ensure Node and HTMLElement exist
       if (typeof Node === 'undefined') {
-        window.Node = class {};
-      }
-      if (typeof HTMLElement === 'undefined') {
-        window.HTMLElement = class {};
+        window.Node = {
+          ELEMENT_NODE: 1,
+          TEXT_NODE: 3,
+          DOCUMENT_NODE: 9,
+          DOCUMENT_FRAGMENT_NODE: 11
+        };
       }
       
-      // Ensure window.navigator exists
-      if (typeof window.navigator === 'undefined') {
+      if (typeof HTMLElement === 'undefined') {
+        window.HTMLElement = MockElement;
+      }
+      
+      if (typeof Element === 'undefined') {
+        window.Element = MockElement;
+      }
+      
+      // Polyfill window.navigator
+      if (!window.navigator) {
         window.navigator = { userAgent: '' };
       }
-    }
+    })();
   </script>
 
   <!-- PWA & Mobile App Meta Tags -->
