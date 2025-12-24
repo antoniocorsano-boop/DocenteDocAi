@@ -18,7 +18,13 @@ interface SettingsState {
     }
 }
 
-export const useSettingsStore = create<SettingsState>((set) => ({
+// Lazy initialization wrapper to prevent zustand from accessing React.useState before React is ready
+let _useSettingsStoreInstance: any = null;
+
+function initializeSettingsStore() {
+    if (_useSettingsStoreInstance) return _useSettingsStoreInstance;
+    
+    _useSettingsStoreInstance = create<SettingsState>((set) => ({
     settings: DEFAULT_TIMETABLE_SETTINGS,
     aiSettings: { model: 'gemini-3-flash-preview' },
     themeState: { mode: 'light', customizationName: 'M3 Default' },
@@ -52,3 +58,17 @@ export const useSettingsStore = create<SettingsState>((set) => ({
         })
     }
 }));
+    
+    return _useSettingsStoreInstance;
+}
+
+// Export proxy that lazily initializes the store
+export const useSettingsStore = new Proxy({} as any, {
+    get(target, prop) {
+        const store = initializeSettingsStore();
+        return store[prop];
+    },
+    apply(target, thisArg, args) {
+        return initializeSettingsStore()(...args);
+    }
+});

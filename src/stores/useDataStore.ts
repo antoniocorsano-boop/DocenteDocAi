@@ -82,7 +82,13 @@ interface DataState {
     }
 }
 
-export const useDataStore = create<DataState>((set) => ({
+// Lazy initialization wrapper to prevent zustand from accessing React.useState before React is ready
+let _useDataStoreInstance: any = null;
+
+function initializeDataStore() {
+    if (_useDataStoreInstance) return _useDataStoreInstance;
+    
+    _useDataStoreInstance = create<DataState>((set) => ({
     // Initial State
     user: null,
     students: [],
@@ -168,3 +174,17 @@ export const useDataStore = create<DataState>((set) => ({
         })
     }
 }));
+    
+    return _useDataStoreInstance;
+}
+
+// Export proxy that lazily initializes the store
+export const useDataStore = new Proxy({} as any, {
+    get(target, prop) {
+        const store = initializeDataStore();
+        return store[prop];
+    },
+    apply(target, thisArg, args) {
+        return initializeDataStore()(...args);
+    }
+});

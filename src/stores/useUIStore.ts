@@ -68,7 +68,13 @@ interface UIState {
     }
 }
 
-export const useUIStore = create<UIState>((set) => ({
+// Lazy initialization wrapper to prevent zustand from accessing React.useState before React is ready
+let _useUIStoreInstance: any = null;
+
+function initializeUIStore() {
+    if (_useUIStoreInstance) return _useUIStoreInstance;
+    
+    _useUIStoreInstance = create<UIState>((set) => ({
     // Initial State
     modals: {
         isOperationsCenterOpen: false,
@@ -150,3 +156,17 @@ export const useUIStore = create<UIState>((set) => ({
         clearNavigationHistory: () => set({ navigationHistory: [] }),
     }
 }));
+    
+    return _useUIStoreInstance;
+}
+
+// Export proxy that lazily initializes the store
+export const useUIStore = new Proxy({} as any, {
+    get(target, prop) {
+        const store = initializeUIStore();
+        return store[prop];
+    },
+    apply(target, thisArg, args) {
+        return initializeUIStore()(...args);
+    }
+});
