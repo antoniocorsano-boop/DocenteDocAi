@@ -706,7 +706,7 @@ export const analyzeCircularDocument = async (
 ### Q4 2026 (Ottobre-Dicembre)
 
 **Focus: Maturità & Scalabilità**
-- [ ] Microf rontends architecture (opzionale)
+- [ ] Microfrontends architecture (opzionale)
 - [ ] API Gateway per AI calls
 - [ ] Multi-tenancy support
 - [ ] Advanced caching strategies
