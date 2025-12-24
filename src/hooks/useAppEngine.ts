@@ -10,27 +10,95 @@ import {
 import { loadBackup, deleteBackup } from '../services/backupService.ts';
 import { loadKbContentFromIndexedDB, saveKbContentToIndexedDB, clearIndexedDB } from '../services/indexedDbService.ts';
 import { initTokenClient, requestAccessToken, revokeAccessToken, uploadBackup, downloadBackup, getBackupMetadata, pickGoogleDriveFolder, createAppFolder } from '../services/googleDriveService.ts';
-// CRITICAL: Import store types but NOT the hooks directly - zustand will be loaded lazily
-import type { UIState } from '../stores/useUIStore.ts';
-import type { SettingsState } from '../stores/useSettingsStore.ts';
-import type { DataState } from '../stores/useDataStore.ts';
 import { usePersistence } from './usePersistence.ts';
 import { analyzeSystemState } from '../utils/suggestionUtils.ts';
 
+// Lazy import of stores to defer their initialization until React is ready
+// This prevents zustand's internal React.useState from running too early
+let storeCache: { useUIStore: any; useSettingsStore: any; useDataStore: any } | null = null;
+
+async function getStores() {
+    if (!storeCache) {
+        const [ui, settings, data] = await Promise.all([
+            import('../stores/useUIStore.ts'),
+            import('../stores/useSettingsStore.ts'),
+            import('../stores/useDataStore.ts')
+        ]);
+        storeCache = {
+            useUIStore: ui.useUIStore,
+            useSettingsStore: settings.useSettingsStore,
+            useDataStore: data.useDataStore
+        };
+    }
+    return storeCache;
+}
+
 export const useAppEngine = () => {
     // --- LOCAL STATE (NAVIGATION ONLY) ---
-    // These remain local because they are directly managed by the AppEngine
-    // to control the top-level view and its specific context.
     const [view, setView] = useState<View>('home');
     const [viewContext, setViewContext] = useState<any>(null);
-    const [isDataLoaded, setIsDataLoaded] = useState(false); // To coordinate initial load with persistence
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
+    const [storesReady, setStoresReady] = useState(false);
+    const [stores, setStores] = useState<{ useUIStore: any; useSettingsStore: any; useDataStore: any } | null>(null);
 
-    // --- ZUSTAND STORE HOOKS (Lazy loaded) ---
-    // Import stores lazily after React is ready
-    const { useUIStore } = require('../stores/useUIStore.ts');
-    const { useSettingsStore } = require('../stores/useSettingsStore.ts');
-    const { useDataStore } = require('../stores/useDataStore.ts');
-    
+    // Eagerly load stores on first render (inside React context)
+    useEffect(() => {
+        getStores().then(s => {
+            setStores(s);
+            setStoresReady(true);
+        });
+    }, []);
+
+    if (!storesReady || !stores) {
+        // Return a stub while stores are loading
+        return {
+            view, setView,
+            viewContext, setViewContext,
+            user: null,
+            students: [],
+            lessons: {},
+            slots: {},
+            evaluations: [],
+            competencyEvals: [],
+            udas: [],
+            eventi: [],
+            knowledgeBase: [],
+            corpora: [],
+            notifiche: [],
+            rubriche: [],
+            pianiInclusione: {},
+            giudizi: {},
+            reports: [],
+            feedSources: [],
+            draftRegister: {},
+            finalizedRegister: [],
+            notebookNotes: {},
+            memos: [],
+            curricula: [],
+            submissions: [],
+            suggestions: [],
+            activeSuggestion: null,
+            dismissedSuggestions: new Set(),
+            studentProfileContext: null,
+            selectedClassForDashboard: null,
+            // Settings & Theme
+            settings: {},
+            aiSettings: { model: 'gemini-3-flash-preview' },
+            themeState: { mode: 'light' as const, customizationName: 'M3 Default' },
+            // UI & System State
+            installPrompt: null,
+            canShowInstallPrompt: false,
+            isGlobalAiLoading: false,
+            navigationHistory: [],
+            backupState: { status: 'synced' as const, lastBackup: null },
+            driveSyncState: { isAuthenticated: false, isSyncing: false, lastSyncTime: null },
+            isDataLoaded: false
+        };
+    }
+
+    const { useUIStore, useSettingsStore, useDataStore } = stores;
+
+    // --- ZUSTAND STORE HOOKS ---
     const uiState = useUIStore();
     const uiActions = useUIStore(state => state.actions);
 
@@ -38,7 +106,6 @@ export const useAppEngine = () => {
     const settingsActions = useSettingsStore(state => state.actions);
 
     const dataState = useDataStore();
-    // FIX: Directly destructure all data actions for direct, stable references
     const {
         setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUdas,
         setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,
@@ -46,11 +113,7 @@ export const useAppEngine = () => {
         setMemos, setCurricula, setSubmissions, setSuggestions, setActiveSuggestion, dismissSuggestion,
         setStudentProfileContext, setSelectedClassForDashboard, loadFromBackup, resetAll
     } = useDataStore(state => state.actions);
-
-
-    // --- DERIVED STATE FROM STORES ---
-    // All these states are now read directly from the Zustand stores.
-    // The AppEngine is now a consumer of these states, not their manager.
+    
     const { user, students, lessons, slots, evaluations, competencyEvals, udas, eventi,
         knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports,
         feedSources, draftRegister, finalizedRegister, notebookNotes, memos,
@@ -117,7 +180,7 @@ export const useAppEngine = () => {
             }
         };
         load();
-    }, [loadFromBackup, resetAll, setKnowledgeBase, settingsActions, uiActions]);
+    }, []); // Empty deps: Only run once on mount
 
     // --- PWA INSTALL PROMPT HANDLER (Interacts with global window object) ---
     useEffect(() => {
@@ -128,7 +191,7 @@ export const useAppEngine = () => {
         };
         window.addEventListener('beforeinstallprompt', handler as EventListener);
         return () => window.removeEventListener('beforeinstallprompt', handler as EventListener);
-    }, [uiActions]);
+    }, []); // Only setup once on mount
 
     // --- SYSTEM SUGGESTION ENGINE (Coordinates data to produce UI suggestion) ---
     useEffect(() => {
@@ -142,7 +205,7 @@ export const useAppEngine = () => {
             evaluations
         );
         setActiveSuggestion(suggestion); // Use destructured action
-    }, [isDataLoaded, students, slots, udas, eventi, evaluations, setActiveSuggestion]);
+    }, [isDataLoaded, students, slots, udas, eventi, evaluations]);
 
     // --- CORE ACTIONS (COORDINATION AND UI DISPATCH) ---
     // These actions are managed by AppEngine but dispatch to Zustand stores.
@@ -152,7 +215,7 @@ export const useAppEngine = () => {
         setView(newView);
         setViewContext(context);
         window.scrollTo(0, 0);
-    }, [view, viewContext, uiActions]);
+    }, [view, viewContext]); // Remove uiActions from deps - it's stable from zustand
 
     const handleBack = useCallback((force = false) => {
         if (uiState.navigationHistory.length > 0) {
@@ -164,11 +227,11 @@ export const useAppEngine = () => {
             setView('home');
             setViewContext(null);
         }
-    }, [uiState.navigationHistory, uiActions, view, viewContext]);
+    }, [uiState.navigationHistory, view]);
 
     const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'info') => {
         uiActions.showToast(message, type);
-    }, [uiActions]);
+    }, []);
 
     const handleConnectDrive = useCallback(() => {
         const initialized = initTokenClient((tokenResponse) => {
@@ -178,13 +241,13 @@ export const useAppEngine = () => {
 
         if (initialized) requestAccessToken();
         else showToast('Errore inizializzazione Google Client.', 'error');
-    }, [settings.googleClientId, showToast, uiActions]);
+    }, [settings.googleClientId]);
 
     const handleDisconnectDrive = useCallback(() => {
         revokeAccessToken();
         uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
         showToast('Disconnesso da Drive.', 'info');
-    }, [showToast, uiActions]);
+    }, []);
 
     const handleSyncToDrive = useCallback(async (folderId?: string) => {
         const driveState = uiState.driveSyncState;
