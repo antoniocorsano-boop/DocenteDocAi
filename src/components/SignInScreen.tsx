@@ -6,6 +6,7 @@ import { DEFAULT_TIMETABLE_SETTINGS } from '../constants.ts';
 import { TextField } from './M3Components.tsx';
 
 const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }> = ({ onSignInSuccess }) => {
+  console.log('🟢 SignInScreen rendering');
   const [manualName, setManualName] = useState('');
   const signInButtonRef = useRef<HTMLDivElement>(null);
 

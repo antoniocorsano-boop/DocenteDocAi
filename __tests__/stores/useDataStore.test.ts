@@ -65,10 +65,10 @@ describe('useDataStore', () => {
       useDataStore.getState().actions.setStudents(initialStudents);
       
       // Aggiungi uno studente tramite funzione
-      useDataStore.getState().actions.setStudents((prev) => [
-        ...prev,
-        { id: 's2', nome: 'Luca', cognome: 'Bianchi', classe: 'III-A' },
-      ]);
+    useDataStore.getState().actions.setStudents((prev: Studente[]) => [
+      ...prev,
+      { id: 's2', nome: 'Luca', cognome: 'Bianchi', classe: 'III-A' },
+    ]);
 
       expect(useDataStore.getState().students.length).toBe(2);
     });
@@ -117,17 +117,17 @@ describe('useDataStore', () => {
 
       useDataStore.getState().actions.setEvaluations([firstEval]);
       
-      useDataStore.getState().actions.setEvaluations((prev) => [
-        ...prev,
-        {
-          id: 'v2',
-          studenteId: 's1',
-          materia: 'Matematica',
-          tipo: 'Orale',
-          voto: '7',
-          data: '2024-12-19',
-        },
-      ]);
+    useDataStore.getState().actions.setEvaluations((prev: Valutazione[]) => [
+      ...prev,
+      {
+        id: 'v2',
+        studenteId: 's1',
+        materia: 'Matematica',
+        tipo: 'Orale',
+        voto: '7',
+        data: '2024-12-19',
+      },
+    ]);
 
       expect(useDataStore.getState().evaluations.length).toBe(2);
     });
@@ -191,16 +191,16 @@ describe('useDataStore', () => {
 
       useDataStore.getState().actions.setLessons(initialLessons);
       
-      useDataStore.getState().actions.setLessons((prev) => ({
-        ...prev,
-        'lez2': {
-          id: 'lez2',
-          classe: 'III-A',
-          materia: 'Italiano',
-          contenuto: '<p>Contenuto 2</p>',
-          svolta: false,
-        },
-      }));
+    useDataStore.getState().actions.setLessons((prev: Record<string, Lezione>) => ({
+      ...prev,
+      'lez2': {
+        id: 'lez2',
+        classe: 'III-A',
+        materia: 'Italiano',
+        contenuto: '<p>Contenuto 2</p>',
+        svolta: false,
+      },
+    }));
 
       expect(Object.keys(useDataStore.getState().lessons).length).toBe(2);
     });
@@ -222,10 +222,10 @@ describe('useDataStore', () => {
         content: 'Questo è importante',
       };
 
-      useDataStore.getState().actions.setKnowledgeBase((prev) => [
-        ...prev,
-        newEntry,
-      ]);
+    useDataStore.getState().actions.setKnowledgeBase((prev: KnowledgeBaseEntry[]) => [
+      ...prev,
+      newEntry,
+    ]);
 
       const newKB = useDataStore.getState().knowledgeBase;
       expect(newKB.length).toBe(initialKB.length + 1);
@@ -441,14 +441,14 @@ describe('useDataStore', () => {
 
       useDataStore.getState().actions.setMemos([initialMemo]);
       
-      useDataStore.getState().actions.setMemos((prev) => [
-        ...prev,
-        {
-          id: 'memo2',
-          text: 'Compito 2',
-          done: false,
-        },
-      ]);
+    useDataStore.getState().actions.setMemos((prev: ToDoItem[]) => [
+      ...prev,
+      {
+        id: 'memo2',
+        text: 'Compito 2',
+        done: false,
+      },
+    ]);
 
       expect(useDataStore.getState().memos.length).toBe(2);
     });
