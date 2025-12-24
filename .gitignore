@@ -9,6 +9,7 @@ node_modules/
 # Build output
 dist/
 build/
+.next/
 
 # Logs
 logs/
@@ -24,3 +25,6 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Flowise specific
+.flowise/
