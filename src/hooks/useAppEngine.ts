@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
     AppState, AppActions, UserProfile, TimetableSettings, AiSettings, AppThemeState,
@@ -11,9 +10,10 @@ import {
 import { loadBackup, deleteBackup } from '../services/backupService.ts';
 import { loadKbContentFromIndexedDB, saveKbContentToIndexedDB, clearIndexedDB } from '../services/indexedDbService.ts';
 import { initTokenClient, requestAccessToken, revokeAccessToken, uploadBackup, downloadBackup, getBackupMetadata, pickGoogleDriveFolder, createAppFolder } from '../services/googleDriveService.ts';
-import { useUIStore } from '../stores/useUIStore.ts';
-import { useSettingsStore } from '../stores/useSettingsStore.ts';
-import { useDataStore } from '../stores/useDataStore.ts';
+// CRITICAL: Import store types but NOT the hooks directly - zustand will be loaded lazily
+import type { UIState } from '../stores/useUIStore.ts';
+import type { SettingsState } from '../stores/useSettingsStore.ts';
+import type { DataState } from '../stores/useDataStore.ts';
 import { usePersistence } from './usePersistence.ts';
 import { analyzeSystemState } from '../utils/suggestionUtils.ts';
 
@@ -25,7 +25,12 @@ export const useAppEngine = () => {
     const [viewContext, setViewContext] = useState<any>(null);
     const [isDataLoaded, setIsDataLoaded] = useState(false); // To coordinate initial load with persistence
 
-    // --- ZUSTAND STORE HOOKS ---
+    // --- ZUSTAND STORE HOOKS (Lazy loaded) ---
+    // Import stores lazily after React is ready
+    const { useUIStore } = require('../stores/useUIStore.ts');
+    const { useSettingsStore } = require('../stores/useSettingsStore.ts');
+    const { useDataStore } = require('../stores/useDataStore.ts');
+    
     const uiState = useUIStore();
     const uiActions = useUIStore(state => state.actions);
 

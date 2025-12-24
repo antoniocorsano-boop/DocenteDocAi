@@ -1,9 +1,32 @@
 
 import { useEffect, useRef } from 'react';
-import { useDataStore } from '../stores/useDataStore.ts';
-import { useSettingsStore } from '../stores/useSettingsStore.ts';
-import { useUIStore } from '../stores/useUIStore.ts';
-import { saveBackup } from '../services/backupService.ts';
+// Lazy load stores to avoid zustand being in main bundle
+let useDataStore: any, useSettingsStore: any, useUIStore: any;
+
+const loadStores = async () => {
+  if (!useDataStore) {
+    const ds = await import('../stores/useDataStore.ts');
+    useDataStore = ds.useDataStore;
+  }
+  if (!useSettingsStore) {
+    const ss = await import('../stores/useSettingsStore.ts');
+    useSettingsStore = ss.useSettingsStore;
+  }
+  if (!useUIStore) {
+    const us = await import('../stores/useUIStore.ts');
+    useUIStore = us.useUIStore;
+  }
+};
+
+// Pre-load stores synchronously with require to avoid async issues
+try {
+  useDataStore = require('../stores/useDataStore.ts').useDataStore;
+  useSettingsStore = require('../stores/useSettingsStore.ts').useSettingsStore;
+  useUIStore = require('../stores/useUIStore.ts').useUIStore;
+} catch (e) {
+  // Will load lazily on first use
+}
+
 import { saveKbContentToIndexedDB } from '../services/indexedDbService.ts';
 import { KnowledgeBaseEntry } from '../types.ts';
 
