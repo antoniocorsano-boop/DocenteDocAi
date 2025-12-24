@@ -30,6 +30,13 @@ export const usePersistence = (isDataLoaded: boolean) => {
             try {
                 // CRITICAL FIX: Estraiamo solo i dati dagli store, ESCLUDENDO le funzioni (actions)
                 // IndexedDB fallisce con errore "could not be cloned" se rileva funzioni nell'oggetto.
+                // Protect against zustand not being ready yet
+                if (typeof useDataStore?.getState !== 'function' || 
+                    typeof useSettingsStore?.getState !== 'function' || 
+                    typeof useUIStore?.getState !== 'function') {
+                    return; // Not ready yet
+                }
+                
                 const { actions: _dataActions, ...dataStateRaw } = useDataStore.getState();
                 const { actions: _settingsActions, ...settingsStateRaw } = useSettingsStore.getState();
                 const { actions: _uiActions, ...uiStateRaw } = useUIStore.getState();

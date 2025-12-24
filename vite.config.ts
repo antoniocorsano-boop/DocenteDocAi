@@ -32,9 +32,10 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('node_modules')) {
             if (id.includes('react') || id.includes('react-dom')) return 'vendor-react';
+            if (id.includes('zustand')) return 'vendor-zustand'; // Keep zustand separate
             if (id.includes('@google/genai')) return 'vendor-genai';
             if (id.includes('html2canvas')) return 'vendor-html2canvas';
-            if (id.includes('zustand') || id.includes('purify') || id.includes('lodash')) return 'vendor-utils';
+            if (id.includes('purify') || id.includes('lodash')) return 'vendor-utils';
             // Don't bundle doc libraries - they will be loaded dynamically to avoid document access during init
             if (id.match(/docx|pdf-lib|jspdf|mammoth|pdfjs-dist/)) {
               return null; // Let Vite handle it but don't create separate vendor

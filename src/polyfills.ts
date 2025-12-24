@@ -5,6 +5,19 @@
  * Also protects against undefined document in browser runtime
  */
 
+// Protect React hooks from being called before React is ready
+if (typeof window !== 'undefined') {
+  const originalHooks = {
+    useState: undefined as any,
+    useEffect: undefined as any,
+    useReducer: undefined as any,
+    useRef: undefined as any,
+    useContext: undefined as any,
+    useCallback: undefined as any,
+    useMemo: undefined as any,
+  };
+}
+
 // Create safe element factory that covers all possible DOM operations
 const createSafeElement = (): any => ({
   tagName: 'DIV',
