@@ -21,6 +21,9 @@ const mockDb = {
         onerror: null,
     })),
     close: vi.fn(),
+    objectStoreNames: {
+        contains: vi.fn(() => true),
+    },
 };
 
 const mockRequest = {
@@ -42,16 +45,22 @@ describe('backupService (IndexedDB app_state)', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         
-        global.indexedDB = {
-            open: vi.fn(() => mockRequest),
-            deleteDatabase: vi.fn(),
-        };
-
         // Reset mockDb properly - ensure result is set immediately for sync mock
         mockRequest.result = mockDb;
         mockRequest.onsuccess = null;
         mockRequest.onerror = null;
         mockRequest.onupgradeneeded = null;
+        
+        global.indexedDB = {
+            open: vi.fn(() => {
+                // Trigger onsuccess asynchronously but before timers advance
+                setTimeout(() => {
+                    if (mockRequest.onsuccess) mockRequest.onsuccess({ target: mockRequest } as any);
+                }, 0);
+                return mockRequest;
+            }),
+            deleteDatabase: vi.fn(),
+        };
 
         // Resetta i mock per ogni operazione di IndexedDB
         mockDb.transaction.mockClear();
@@ -106,7 +115,7 @@ describe('backupService (IndexedDB app_state)', () => {
         await vi.runAllTimersAsync();
         await savePromise;
 
-        expect(global.indexedDB.open).toHaveBeenCalledWith('OrarioDocAI_BackupDB', 1);
+        expect(global.indexedDB.open).toHaveBeenCalledWith('OrarioDocAI_BackupDB', 3);
         const transaction = mockDb.transaction.mock.results[0].value;
         expect(transaction.objectStore).toHaveBeenCalledWith('app_state');
         expect(transaction.objectStore().put).toHaveBeenCalledWith(testState, 'latest_backup');
@@ -162,7 +171,13 @@ describe('indexedDbService (IndexedDB kb_content)', () => {
         vi.clearAllMocks();
         
         global.indexedDB = {
-            open: vi.fn(() => mockRequest),
+            open: vi.fn(() => {
+                // Trigger onsuccess asynchronously but before timers advance
+                setTimeout(() => {
+                    if (mockRequest.onsuccess) mockRequest.onsuccess({ target: mockRequest } as any);
+                }, 0);
+                return mockRequest;
+            }),
             deleteDatabase: vi.fn(),
         };
 

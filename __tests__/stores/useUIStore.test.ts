@@ -232,7 +232,9 @@ describe('useUIStore', () => {
     it('dovrebbe cancellare toast', () => {
       useUIStore.getState().actions.showToast('Messaggio', 'success');
       useUIStore.getState().actions.clearToast();
-      expect(useUIStore.getState().toast).toBeNull();
+      const toast = useUIStore.getState().toast;
+      expect(toast?.visible).toBe(false);
+      expect(toast?.message).toBe('');
     });
   });
 

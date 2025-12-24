@@ -251,7 +251,7 @@ describe('useAppEngine', () => {
       });
 
       // Toast should be visible after showToast
-      expect(result.current.modals.toast).toEqual({ message: 'Test Message', type: 'success' });
+      expect(result.current.modals.toast).toMatchObject({ message: 'Test Message', type: 'success', visible: true });
     });
 
     it('dovrebbe nascondere i toast quando clearToast viene chiamato', () => {
@@ -261,14 +261,14 @@ describe('useAppEngine', () => {
         result.current.actions.showToast('Test Message', 'success');
       });
 
-      expect(result.current.modals.toast).toEqual({ message: 'Test Message', type: 'success' });
+      expect(result.current.modals.toast).toMatchObject({ message: 'Test Message', type: 'success', visible: true });
 
       // Manually call clearToast instead of waiting for timeout
       act(() => {
         result.current.actions.clearToast();
       });
 
-      expect(result.current.modals.toast).toBeNull();
+      expect(result.current.modals.toast?.visible).toBe(false);
     });
   });
 });

@@ -28,3 +28,6 @@ Thumbs.db
 
 # Flowise specific
 .flowise/
+
+# Deprecated files
+.deprecated/
