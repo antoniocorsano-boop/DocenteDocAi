@@ -1,33 +1,7 @@
 
 import { useEffect, useRef } from 'react';
-// Lazy load stores to avoid zustand being in main bundle
-let useDataStore: any, useSettingsStore: any, useUIStore: any;
-
-const loadStores = async () => {
-  if (!useDataStore) {
-    const ds = await import('../stores/useDataStore.ts');
-    useDataStore = ds.useDataStore;
-  }
-  if (!useSettingsStore) {
-    const ss = await import('../stores/useSettingsStore.ts');
-    useSettingsStore = ss.useSettingsStore;
-  }
-  if (!useUIStore) {
-    const us = await import('../stores/useUIStore.ts');
-    useUIStore = us.useUIStore;
-  }
-};
-
-// Pre-load stores synchronously with require to avoid async issues
-try {
-  useDataStore = require('../stores/useDataStore.ts').useDataStore;
-  useSettingsStore = require('../stores/useSettingsStore.ts').useSettingsStore;
-  useUIStore = require('../stores/useUIStore.ts').useUIStore;
-} catch (e) {
-  // Will load lazily on first use
-}
-
 import { saveKbContentToIndexedDB } from '../services/indexedDbService.ts';
+import { saveBackup } from '../services/backupService.ts';
 import { KnowledgeBaseEntry } from '../types.ts';
 
 /**
@@ -35,16 +9,51 @@ import { KnowledgeBaseEntry } from '../types.ts';
  * Gestisce il salvataggio automatico su IndexedDB e previene conflitti durante il ripristino.
  */
 export const usePersistence = (isDataLoaded: boolean) => {
-    const setBackupState = useUIStore(state => state.actions.setBackupState);
+    const storesRef = useRef<{ useDataStore: any; useSettingsStore: any; useUIStore: any } | null>(null);
     const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isSavingRef = useRef(false);
 
-    // Stato di ripristino globale per evitare loop di scrittura
-    const isRestoring = useUIStore(state => state.modals.isRestoring);
+    // Lazy load stores inside the hook to ensure React context is ready
+    useEffect(() => {
+        Promise.all([
+            import('../stores/useDataStore.ts'),
+            import('../stores/useSettingsStore.ts'),
+            import('../stores/useUIStore.ts')
+        ]).then(([data, settings, ui]) => {
+            storesRef.current = {
+                useDataStore: data.useDataStore,
+                useSettingsStore: settings.useSettingsStore,
+                useUIStore: ui.useUIStore
+            };
+        }).catch(err => {
+            console.error('Failed to load stores for persistence:', err);
+        });
+    }, []);
 
     useEffect(() => {
+        // Wait until stores are loaded
+        if (!storesRef.current) return;
+        
+        const { useDataStore, useSettingsStore, useUIStore } = storesRef.current;
+        
+        // Safety check: ensure store functions exist
+        if (typeof useDataStore !== 'function' || typeof useSettingsStore !== 'function' || typeof useUIStore !== 'function') {
+            return;
+        }
+        
+        let setBackupState: any;
+        let isRestoring: boolean;
+        
+        try {
+            setBackupState = useUIStore(state => state.actions?.setBackupState);
+            isRestoring = useUIStore(state => state.modals?.isRestoring) ?? false;
+        } catch (e) {
+            console.error('Failed to access store state:', e);
+            return;
+        }
+
         // Non avviare salvataggi se i dati non sono pronti o è in corso un restore
-        if (!isDataLoaded || isRestoring) return;
+        if (!isDataLoaded || !setBackupState || isRestoring) return;
 
         const handleSave = async () => {
             if (isSavingRef.current) return;
@@ -53,13 +62,6 @@ export const usePersistence = (isDataLoaded: boolean) => {
             try {
                 // CRITICAL FIX: Estraiamo solo i dati dagli store, ESCLUDENDO le funzioni (actions)
                 // IndexedDB fallisce con errore "could not be cloned" se rileva funzioni nell'oggetto.
-                // Protect against zustand not being ready yet
-                if (typeof useDataStore?.getState !== 'function' || 
-                    typeof useSettingsStore?.getState !== 'function' || 
-                    typeof useUIStore?.getState !== 'function') {
-                    return; // Not ready yet
-                }
-                
                 const { actions: _dataActions, ...dataStateRaw } = useDataStore.getState();
                 const { actions: _settingsActions, ...settingsStateRaw } = useSettingsStore.getState();
                 const { actions: _uiActions, ...uiStateRaw } = useUIStore.getState();
@@ -114,7 +116,10 @@ export const usePersistence = (isDataLoaded: boolean) => {
                 setBackupState({ status: 'synced', lastBackup: new Date() });
             } catch (error) {
                 console.error("Auto-save Bridge failed:", error);
-                setBackupState({ status: 'error' });
+                if (storesRef.current) {
+                    const setBackupState = storesRef.current.useUIStore(state => state.actions.setBackupState);
+                    setBackupState({ status: 'error' });
+                }
             } finally {
                 isSavingRef.current = false;
             }
@@ -137,5 +142,5 @@ export const usePersistence = (isDataLoaded: boolean) => {
             unsubUi();
             if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
         };
-    }, [isDataLoaded, isRestoring, setBackupState]);
+    }, [isDataLoaded]);
 };

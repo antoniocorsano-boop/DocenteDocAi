@@ -21,6 +21,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     sourcemap: process.env.NODE_ENV === 'development' ? true : false,
+    chunkSizeWarningLimit: 800, // Increase limit - we have large dependencies (PDFs, genAI, etc.)
     rollupOptions: {
       input: {
         main: './index.html',
@@ -30,16 +31,31 @@ export default defineConfig({
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks(id) {
+          // Split large dependencies into separate chunks
           if (id.includes('node_modules')) {
+            // React ecosystem - core dependency
             if (id.includes('react') || id.includes('react-dom')) return 'vendor-react';
-            if (id.includes('zustand')) return 'vendor-zustand'; // Keep zustand separate
+            
+            // State management - separated to load after React
+            if (id.includes('zustand')) return 'vendor-zustand';
+            
+            // AI model library - large, can be lazy-loaded
             if (id.includes('@google/genai')) return 'vendor-genai';
+            
+            // Canvas rendering - large library
             if (id.includes('html2canvas')) return 'vendor-html2canvas';
+            
+            // Document conversion libraries - very large, lazy-loaded on demand
+            if (id.includes('jspdf')) return 'vendor-jspdf';
+            if (id.includes('pdf-lib')) return 'vendor-pdf-lib';
+            if (id.includes('docx')) return 'vendor-docx';
+            if (id.includes('mammoth')) return 'vendor-mammoth';
+            if (id.includes('pdfjs-dist')) return 'vendor-pdfjs';
+            
+            // Utility libraries
             if (id.includes('purify') || id.includes('lodash')) return 'vendor-utils';
-            // Don't bundle doc libraries - they will be loaded dynamically to avoid document access during init
-            if (id.match(/docx|pdf-lib|jspdf|mammoth|pdfjs-dist/)) {
-              return null; // Let Vite handle it but don't create separate vendor
-            }
+            
+            // Default vendor chunk for other node_modules
             return 'vendor';
           }
         }
