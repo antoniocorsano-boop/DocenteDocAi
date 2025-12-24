@@ -74,6 +74,7 @@ let _useUIStoreInstance: any = null;
 function initializeUIStore() {
     if (_useUIStoreInstance) return _useUIStoreInstance;
     
+    // This code only runs when the store is actually accessed
     _useUIStoreInstance = create<UIState>((set) => ({
     // Initial State
     modals: {

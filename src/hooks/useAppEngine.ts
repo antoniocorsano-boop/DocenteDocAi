@@ -12,121 +12,29 @@ import { loadKbContentFromIndexedDB, saveKbContentToIndexedDB, clearIndexedDB } 
 import { initTokenClient, requestAccessToken, revokeAccessToken, uploadBackup, downloadBackup, getBackupMetadata, pickGoogleDriveFolder, createAppFolder } from '../services/googleDriveService.ts';
 import { usePersistence } from './usePersistence.ts';
 import { analyzeSystemState } from '../utils/suggestionUtils.ts';
-
-// Lazy import of stores to defer their initialization until React is ready
-// This prevents zustand's internal React.useState from running too early
-let storeCache: { useUIStore: any; useSettingsStore: any; useDataStore: any } | null = null;
-
-async function getStores() {
-    if (!storeCache) {
-        const [ui, settings, data] = await Promise.all([
-            import('../stores/useUIStore.ts'),
-            import('../stores/useSettingsStore.ts'),
-            import('../stores/useDataStore.ts')
-        ]);
-        storeCache = {
-            useUIStore: ui.useUIStore,
-            useSettingsStore: settings.useSettingsStore,
-            useDataStore: data.useDataStore
-        };
-    }
-    return storeCache;
-}
+import { useUIStore } from '../stores/useUIStore';
+import { useDataStore } from '../stores/useDataStore';
+import { useSettingsStore } from '../stores/useSettingsStore';
 
 export const useAppEngine = () => {
-    // --- LOCAL STATE (NAVIGATION ONLY) ---
-    const [view, setView] = useState<View>('home');
-    const [viewContext, setViewContext] = useState<any>(null);
-    const [isDataLoaded, setIsDataLoaded] = useState(false);
-    const [storesReady, setStoresReady] = useState(false);
-    const [stores, setStores] = useState<{ useUIStore: any; useSettingsStore: any; useDataStore: any } | null>(null);
+    // --- STORES (Accessed directly via Proxy lazy-init pattern) ---
+    const { user, students, lessons, slots, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, dismissedSuggestions, studentProfileContext, selectedClassForDashboard, actions: dataActions } = useDataStore();
+    const { modals, circularAnalysisModal, syncConflictModal, createLessonContext, editingSlotKey, activeSlotKey, lessonViewContext, loadingModalMessage, toast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, navigationHistory, backupState, driveSyncState, actions: uiActions } = useUIStore();
+    const { settings, aiSettings, themeState, actions: settingsActions } = useSettingsStore();
 
-    // Eagerly load stores on first render (inside React context)
-    useEffect(() => {
-        getStores().then(s => {
-            setStores(s);
-            setStoresReady(true);
-        });
-    }, []);
-
-    if (!storesReady || !stores) {
-        // Return a stub while stores are loading
-        return {
-            view, setView,
-            viewContext, setViewContext,
-            user: null,
-            students: [],
-            lessons: {},
-            slots: {},
-            evaluations: [],
-            competencyEvals: [],
-            udas: [],
-            eventi: [],
-            knowledgeBase: [],
-            corpora: [],
-            notifiche: [],
-            rubriche: [],
-            pianiInclusione: {},
-            giudizi: {},
-            reports: [],
-            feedSources: [],
-            draftRegister: {},
-            finalizedRegister: [],
-            notebookNotes: {},
-            memos: [],
-            curricula: [],
-            submissions: [],
-            suggestions: [],
-            activeSuggestion: null,
-            dismissedSuggestions: new Set(),
-            studentProfileContext: null,
-            selectedClassForDashboard: null,
-            // Settings & Theme
-            settings: {},
-            aiSettings: { model: 'gemini-3-flash-preview' },
-            themeState: { mode: 'light' as const, customizationName: 'M3 Default' },
-            // UI & System State
-            installPrompt: null,
-            canShowInstallPrompt: false,
-            isGlobalAiLoading: false,
-            navigationHistory: [],
-            backupState: { status: 'synced' as const, lastBackup: null },
-            driveSyncState: { isAuthenticated: false, isSyncing: false, lastSyncTime: null },
-            isDataLoaded: false
-        };
-    }
-
-    const { useUIStore, useSettingsStore, useDataStore } = stores;
-
-    // --- ZUSTAND STORE HOOKS ---
-    const uiState = useUIStore();
-    const uiActions = useUIStore(state => state.actions);
-
-    const settingsState = useSettingsStore();
-    const settingsActions = useSettingsStore(state => state.actions);
-
-    const dataState = useDataStore();
-    const {
+    // --- DESTRUTTURE ACTIONS ---
+    const { 
         setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUdas,
         setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,
         setGiudizi, setReports, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
         setMemos, setCurricula, setSubmissions, setSuggestions, setActiveSuggestion, dismissSuggestion,
         setStudentProfileContext, setSelectedClassForDashboard, loadFromBackup, resetAll
-    } = useDataStore(state => state.actions);
-    
-    const { user, students, lessons, slots, evaluations, competencyEvals, udas, eventi,
-        knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports,
-        feedSources, draftRegister, finalizedRegister, notebookNotes, memos,
-        curricula, submissions, suggestions, activeSuggestion, dismissedSuggestions,
-        studentProfileContext, selectedClassForDashboard } = dataState;
+    } = dataActions;
 
-    // UI-related states directly from UIStore
-    const { installPrompt, canShowInstallPrompt, isGlobalAiLoading, navigationHistory,
-        backupState, driveSyncState, lessonViewContext, editingSlotKey, activeSlotKey
-    } = uiState;
-
-    const { settings, aiSettings, themeState } = settingsState;
-
+    // --- LOCAL STATE (NAVIGATION ONLY) ---
+    const [view, setView] = useState<View>('home');
+    const [viewContext, setViewContext] = useState<any>(null);
+    const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     // Persistence Hook: Now receives isDataLoaded to prevent saving during initial load
     usePersistence(isDataLoaded);

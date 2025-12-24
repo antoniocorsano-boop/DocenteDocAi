@@ -27,7 +27,7 @@ const Logo: React.FC<LogoProps> = ({ title, isAiThinking = false }) => { // FIX:
 
   return (
     <>
-      {animState !== 'idle' && animState !== 'peace' && ReactDOM.createPortal(
+      {animState !== 'idle' && animState !== 'peace' && document.body && ReactDOM.createPortal(
         <div className={`universe-overlay ${animState}`}></div>,
         document.body
       )}
