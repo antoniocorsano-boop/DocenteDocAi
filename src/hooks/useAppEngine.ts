@@ -55,9 +55,13 @@ export const useAppEngine = () => {
                 if (localData) {
                     console.log('[useAppEngine] Valid backup data found, restoring...');
                     // Dispatch to DataStore
-                    loadFromBackup(localData);
+                    loadFromBackup(localData as any);
                     // Dispatch to SettingsStore
-                    settingsActions.loadFromBackup(localData);
+                    settingsActions.loadFromBackup({
+                        settings: (localData as any).settings,
+                        aiSettings: (localData as any).aiSettings,
+                        themeState: (localData as any).themeState
+                    });
                     // Dispatch UI-related states to UIStore
                     uiActions.setBackupState(localData.backupState as BackupState || { status: 'synced', lastBackup: null });
                     uiActions.setDriveSyncState(localData.driveSyncState as DriveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
@@ -250,7 +254,11 @@ export const useAppEngine = () => {
                 // Dispatch to DataStore
                 loadFromBackup(restoredData); // Use destructured action
                 // Dispatch to SettingsStore
-                settingsActions.loadFromBackup(restoredData);
+                settingsActions.loadFromBackup({
+                    settings: (restoredData as any).settings,
+                    aiSettings: (restoredData as any).aiSettings,
+                    themeState: (restoredData as any).themeState
+                });
                 // Dispatch UI-related states to UIStore
                 uiActions.setBackupState(restoredData.backupState || { status: 'synced', lastBackup: new Date() });
                 uiActions.setDriveSyncState(restoredData.driveSyncState || { isAuthenticated: true, isSyncing: false, lastSyncTime: new Date() });
@@ -446,7 +454,11 @@ export const useAppEngine = () => {
             try {
                 const data = JSON.parse(e.target?.result as string);
                 loadFromBackup(data); // Use destructured action
-                settingsActions.loadFromBackup(data);
+                settingsActions.loadFromBackup({
+                    settings: data.settings,
+                    aiSettings: data.aiSettings,
+                    themeState: data.themeState
+                });
                 uiActions.setBackupState(data.backupState || { status: 'synced', lastBackup: null });
                 uiActions.setDriveSyncState(data.driveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
                 uiActions.setNavigationHistory(data.navigationHistory || []);
@@ -639,8 +651,26 @@ export const useAppEngine = () => {
         addNavigationEntry: uiActions.addNavigationEntry,
         popNavigationEntry: uiActions.popNavigationEntry,
         clearNavigationHistory: uiActions.clearNavigationHistory,
-        setBackupState: uiActions.setBackupState,
-        setDriveSyncState: uiActions.setDriveSyncState,
+        setBackupState: (input: Partial<BackupState> | ((prev: BackupState) => Partial<BackupState>)) => {
+            if (typeof input === 'function') {
+                uiActions.setBackupState((prev: BackupState) => {
+                    const partial = input(prev);
+                    return { ...prev, ...partial } as BackupState;
+                });
+            } else {
+                uiActions.setBackupState(prev => ({ ...prev, ...input } as BackupState));
+            }
+        },
+        setDriveSyncState: (input: Partial<DriveSyncState> | ((prev: DriveSyncState) => Partial<DriveSyncState>)) => {
+            if (typeof input === 'function') {
+                uiActions.setDriveSyncState((prev: DriveSyncState) => {
+                    const partial = input(prev);
+                    return { ...prev, ...partial } as DriveSyncState;
+                });
+            } else {
+                uiActions.setDriveSyncState(prev => ({ ...prev, ...input } as DriveSyncState));
+            }
+        },
         setCircularAnalysisModal: uiActions.setCircularAnalysisModal,
         setIsLoadingModalOpen: (val: boolean) => uiActions.setLoading(val),
         setLoadingModalMessage: (m: string) => uiActions.setLoading(true, m),

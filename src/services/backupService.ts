@@ -136,8 +136,10 @@ export const saveBackup = async (state: object): Promise<void> => {
                 const transaction = db.transaction(STORE_NAME, 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
                 
-                // Serializza i dati in modo sicuro per evitare errori di clonazione
-                const safeState = JSON.parse(JSON.stringify(state));
+                // Clona lo stato in modo sicuro usando structuredClone quando disponibile
+                const safeState = typeof structuredClone === 'function'
+                    ? structuredClone(state)
+                    : state;
                 const request = store.put(safeState, BACKUP_KEY);
                 
                 transaction.oncomplete = () => {

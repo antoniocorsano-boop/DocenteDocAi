@@ -27,7 +27,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                         onClick={onIgnore}
                         className="button button-text"
                     >
-                        Mantieni Locali
+                        Mantieni Dati Locali
                     </button>
                     <button
                         onClick={onRestore}
