@@ -36,8 +36,8 @@ export const usePersistence = (isDataLoaded: boolean) => {
         
         const { useDataStore, useSettingsStore, useUIStore } = storesRef.current;
         
-        // Safety check: ensure store functions exist
-        if (typeof useDataStore !== 'function' || typeof useSettingsStore !== 'function' || typeof useUIStore !== 'function') {
+        // Safety check: ensure store functions exist and have getState
+        if (!useDataStore?.getState || !useSettingsStore?.getState || !useUIStore?.getState) {
             return;
         }
         
@@ -45,8 +45,10 @@ export const usePersistence = (isDataLoaded: boolean) => {
         let isRestoring: boolean;
         
         try {
-            setBackupState = useUIStore(state => state.actions?.setBackupState);
-            isRestoring = useUIStore(state => state.modals?.isRestoring) ?? false;
+            // Use getState() instead of hook syntax inside useEffect
+            const uiState = useUIStore.getState();
+            setBackupState = uiState.actions?.setBackupState;
+            isRestoring = uiState.modals?.isRestoring ?? false;
         } catch (e) {
             console.error('Failed to access store state:', e);
             return;
@@ -117,8 +119,8 @@ export const usePersistence = (isDataLoaded: boolean) => {
             } catch (error) {
                 console.error("Auto-save Bridge failed:", error);
                 if (storesRef.current) {
-                    const setBackupState = storesRef.current.useUIStore(state => state.actions.setBackupState);
-                    setBackupState({ status: 'error' });
+                    const uiState = storesRef.current.useUIStore.getState();
+                    uiState.actions?.setBackupState({ status: 'error' });
                 }
             } finally {
                 isSavingRef.current = false;

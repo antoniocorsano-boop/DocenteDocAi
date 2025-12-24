@@ -114,22 +114,18 @@ export const SectionHeader: React.FC<{ title: string; icon?: string; colorClass?
 
 // --- TAB GROUP ---
 export const TabGroup: React.FC<{ tabs: { id: string, label: string, icon?: string, badge?: number | string }[]; activeTab: string; onTabChange: (id: string) => void; variant?: string; className?: string; isIconOnly?: boolean }> = ({ tabs, activeTab, onTabChange, variant = 'primary', className = '', isIconOnly = false }) => (
-    <div className={`flex bg-surface-container-low/50 backdrop-blur-md p-1.5 rounded-full border border-outline-variant/30 w-fit shadow-inner ${className}`}>
+    <div className={`tab-group ${variant} ${className}`}>
         {tabs.map(tab => {
             const isActive = activeTab === tab.id;
-            const bgClass = variant === 'primary' ? 'bg-primary text-on-primary' : variant === 'secondary' ? 'bg-secondary text-on-secondary' : 'bg-tertiary text-on-tertiary';
             return (
                 <button
                     key={tab.id}
                     onClick={() => onTabChange(tab.id)}
-                    className={`px-6 py-3 rounded-full text-[11px] font-black tracking-widest flex items-center gap-2 ${isActive ? `${bgClass} shadow-xl scale-[1.05]` : 'text-on-surface-variant hover:bg-surface-container-high hover:scale-[1.02]'}`}
-                    style={{
-                        transition: `all ${isActive ? 'var(--motion-duration-short4)' : 'var(--motion-duration-short3)'} var(--motion-easing-standard)`
-                    }}
+                    className={`tab ${isActive ? 'active' : ''}`}
                 >
-                    {tab.icon && <span className="material-symbols-outlined text-xl">{tab.icon}</span>}
-                    {!isIconOnly && <span className="uppercase">{tab.label}</span>}
-                    {tab.badge !== undefined && <span className="ml-1 px-2 py-0.5 rounded-full bg-black/10 text-[9px] font-black">{tab.badge}</span>}
+                    {tab.icon && <span className="material-symbols-outlined">{tab.icon}</span>}
+                    {!isIconOnly && <span>{tab.label}</span>}
+                    {tab.badge !== undefined && <span className="tab-badge">{tab.badge}</span>}
                 </button>
             )
         })}

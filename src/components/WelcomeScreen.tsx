@@ -37,24 +37,23 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   };
 
   const renderSelection = () => (
-      <div className="m3-auth-card !max-w-2xl animate-in fade-in zoom-in-95 duration-300">
-          <div className="mb-12 transform scale-125">
-            {/* FIX: Add title prop to Logo */}
-            <Logo title="OrarioDoc AI" />
+      <div className="m3-auth-card !max-w-lg md:!max-w-2xl animate-in fade-in zoom-in-95 duration-300">
+          <div className="mb-8 md:mb-12 transform scale-110 md:scale-125">
+            <Logo title="DocenteDoc AI" />
           </div>
           <h1 className="m3-headline-medium font-black mb-2">Benvenuto, Docente</h1>
-          <p className="m3-body-large font-bold opacity-50 uppercase tracking-[0.2em] text-[11px] mb-12">
+          <p className="m3-body-medium md:m3-body-large font-bold opacity-50 uppercase tracking-[0.15em] md:tracking-[0.2em] text-[10px] md:text-[11px] mb-8 md:mb-12">
               Configuriamo il tuo spazio di lavoro
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 w-full">
               <ActionTile 
                 title="Wizard Guidato"
                 subtitle="Passo dopo passo"
                 icon="auto_fix_high"
                 variant="primary"
                 onClick={() => setMode('wizard')}
-                className="!py-10 !rounded-[40px] shadow-lg"
+                className="!py-8 md:!py-10 !rounded-[28px] md:!rounded-[40px] shadow-lg"
               />
               <ActionTile 
                 title="Accesso Rapido"
@@ -62,7 +61,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="bolt"
                 variant="surface"
                 onClick={() => setMode('quick')}
-                className="!py-10 !rounded-[40px] shadow-lg"
+                className="!py-8 md:!py-10 !rounded-[28px] md:!rounded-[40px] shadow-lg"
               />
           </div>
           
@@ -71,7 +70,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             description="Tutto ciò che inserisci rimane salvato localmente sul tuo dispositivo. Nessun dato personale viene inviato ai nostri server."
             icon="security"
             variant="surface"
-            className="mt-12 !p-6 !rounded-[32px]"
+            className="mt-8 md:mt-12 !p-4 md:!p-6 !rounded-[24px] md:!rounded-[32px]"
           />
       </div>
   );
@@ -158,18 +157,17 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
 
   const renderQuick = () => (
       <form onSubmit={handleQuickSubmit} className="m3-auth-card">
-          <button type="button" onClick={() => setMode('selection')} className="absolute top-6 left-6 icon-button">
+          <button type="button" onClick={() => setMode('selection')} className="absolute top-4 left-4 md:top-6 md:left-6 icon-button">
                 <span className="material-symbols-outlined">arrow_back</span>
           </button>
           
-          <div className="mb-12 transform scale-125">
-            {/* FIX: Add title prop to Logo */}
-            <Logo title="OrarioDoc AI" />
+          <div className="mb-8 md:mb-12 transform scale-110 md:scale-125">
+            <Logo title="DocenteDoc AI" />
           </div>
           
-          <h1 className="m3-headline-medium font-black mb-8">Accesso Rapido</h1>
+          <h1 className="m3-headline-medium font-black mb-6 md:mb-8">Accesso Rapido</h1>
           
-          <div className="w-full mb-10">
+          <div className="w-full mb-8 md:mb-10">
             <TextField 
                 id="quick-name"
                 label="Nome Docente"

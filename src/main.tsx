@@ -46,9 +46,7 @@ if (!rootElement) throw new Error("Root element missing");
 
 const root = createRoot(rootElement);
 root.render(
-  <React.StrictMode>
-    <ErrorBoundary>
-        <App />
-    </ErrorBoundary>
-  </React.StrictMode>
+  <ErrorBoundary>
+    <App />
+  </ErrorBoundary>
 );

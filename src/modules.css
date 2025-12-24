@@ -397,10 +397,347 @@
     margin-top: auto;
 }
 
-/* --- 9. GOOGLE CALENDAR STYLE (Refined) --- */
+/* --- 9. CALENDAR M3 EXPRESSIVE --- */
 
 /* Calendar Container */
-.google-cal-container {
+.calendar-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--sys-surface-container-lowest);
+    overflow: hidden;
+}
+
+/* Calendar Header */
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4) var(--spacing-6);
+    background: var(--sys-surface);
+    border-bottom: 1px solid var(--sys-outline-variant);
+    flex-shrink: 0;
+}
+
+.calendar-header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+}
+
+.calendar-header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+}
+
+.calendar-nav-group {
+    display: flex;
+    align-items: center;
+    background: var(--sys-surface-container-high);
+    border-radius: var(--shape-full);
+    padding: var(--spacing-1);
+    border: 1px solid var(--sys-outline-variant);
+}
+
+.calendar-today-btn {
+    padding: var(--spacing-2) var(--spacing-4);
+    font-size: var(--typography-label-medium-fontSize);
+    font-weight: 700;
+    color: var(--sys-primary);
+    background: transparent;
+    border: none;
+    border-radius: var(--shape-full);
+    cursor: pointer;
+    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+}
+
+.calendar-today-btn:hover {
+    background: var(--sys-primary-container);
+}
+
+.calendar-title {
+    font-size: var(--typography-headline-small-fontSize);
+    font-weight: 700;
+    color: var(--sys-on-surface);
+    margin: 0;
+    text-transform: capitalize;
+}
+
+.calendar-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    padding-left: var(--spacing-3);
+    border-left: 1px solid var(--sys-outline-variant);
+}
+
+/* Calendar Body */
+.calendar-body {
+    flex: 1;
+    overflow: auto;
+    padding: var(--spacing-6);
+}
+
+/* Month View */
+.calendar-month {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--sys-surface);
+    border-radius: var(--shape-xl);
+    border: 1px solid var(--sys-outline-variant);
+    overflow: hidden;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: var(--sys-surface-container-high);
+    border-bottom: 1px solid var(--sys-outline-variant);
+}
+
+.calendar-weekday {
+    padding: var(--spacing-3) var(--spacing-2);
+    text-align: center;
+    font-size: var(--typography-label-small-fontSize);
+    font-weight: 700;
+    color: var(--sys-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    flex: 1;
+}
+
+.calendar-day {
+    min-height: 100px;
+    padding: var(--spacing-2);
+    border-right: 1px solid var(--sys-outline-variant);
+    border-bottom: 1px solid var(--sys-outline-variant);
+    background: var(--sys-surface);
+    cursor: pointer;
+    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+}
+
+.calendar-day:nth-child(7n) {
+    border-right: none;
+}
+
+.calendar-day:hover {
+    background: var(--sys-surface-container-low);
+}
+
+.calendar-day.other-month {
+    background: var(--sys-surface-container-lowest);
+    opacity: 0.5;
+}
+
+.calendar-day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    font-size: var(--typography-body-medium-fontSize);
+    font-weight: 500;
+    color: var(--sys-on-surface);
+    border-radius: var(--shape-full);
+}
+
+.calendar-day-number.today {
+    background: var(--sys-primary);
+    color: var(--sys-on-primary);
+    font-weight: 700;
+}
+
+.calendar-day-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: var(--spacing-2);
+}
+
+.calendar-event {
+    padding: 2px var(--spacing-2);
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: var(--shape-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transition: filter var(--motion-duration-short) var(--motion-easing-standard);
+}
+
+.calendar-event:hover {
+    filter: brightness(0.9);
+}
+
+.calendar-event-default {
+    background: var(--sys-secondary-container);
+    color: var(--sys-on-secondary-container);
+}
+
+.calendar-event-urgente {
+    background: var(--sys-error-container);
+    color: var(--sys-on-error-container);
+}
+
+.calendar-event-scadenza {
+    background: var(--sys-tertiary-container);
+    color: var(--sys-on-tertiary-container);
+}
+
+.calendar-event-riunione {
+    background: var(--sys-primary-container);
+    color: var(--sys-on-primary-container);
+}
+
+.calendar-more {
+    font-size: 10px;
+    color: var(--sys-on-surface-variant);
+    padding: 2px var(--spacing-2);
+}
+
+/* Agenda View */
+.calendar-agenda {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-6);
+}
+
+.agenda-group {
+    background: var(--sys-surface);
+    border-radius: var(--shape-l);
+    overflow: hidden;
+    border: 1px solid var(--sys-outline-variant);
+}
+
+.agenda-date {
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--sys-surface-container-high);
+    font-size: var(--typography-title-small-fontSize);
+    font-weight: 700;
+    color: var(--sys-on-surface);
+    text-transform: capitalize;
+    border-bottom: 1px solid var(--sys-outline-variant);
+}
+
+.agenda-events {
+    display: flex;
+    flex-direction: column;
+}
+
+.agenda-event {
+    display: flex;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4);
+    border-bottom: 1px solid var(--sys-outline-variant);
+    cursor: pointer;
+    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+}
+
+.agenda-event:last-child {
+    border-bottom: none;
+}
+
+.agenda-event:hover {
+    background: var(--sys-surface-container-low);
+}
+
+.agenda-event-time {
+    flex-shrink: 0;
+    width: 80px;
+    font-size: var(--typography-body-small-fontSize);
+    font-weight: 600;
+    color: var(--sys-primary);
+}
+
+.agenda-event-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.agenda-event-title {
+    font-size: var(--typography-body-medium-fontSize);
+    font-weight: 600;
+    color: var(--sys-on-surface);
+}
+
+.agenda-event-desc {
+    font-size: var(--typography-body-small-fontSize);
+    color: var(--sys-on-surface-variant);
+    margin-top: var(--spacing-1);
+}
+
+/* Empty State */
+.calendar-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-4);
+    padding: var(--spacing-16);
+    text-align: center;
+    color: var(--sys-on-surface-variant);
+}
+
+.calendar-empty .material-symbols-outlined {
+    font-size: 48px;
+    opacity: 0.5;
+}
+
+.calendar-empty p {
+    font-size: var(--typography-body-large-fontSize);
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .calendar-header {
+        flex-direction: column;
+        gap: var(--spacing-3);
+        padding: var(--spacing-3) var(--spacing-4);
+    }
+    
+    .calendar-header-left,
+    .calendar-header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .calendar-title {
+        font-size: var(--typography-title-medium-fontSize);
+    }
+    
+    .calendar-day {
+        min-height: 60px;
+        padding: var(--spacing-1);
+    }
+    
+    .calendar-day-number {
+        width: 24px;
+        height: 24px;
+        font-size: var(--typography-body-small-fontSize);
+    }
+    
+    .calendar-event {
+        font-size: 10px;
+        padding: 1px var(--spacing-1);
+    }
+    
+    .calendar-body {
+        padding: var(--spacing-3);
+    }
+}
+
+/* Legacy Google Cal Classes - for backwards compatibility */
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -1558,4 +1895,248 @@
     height: 100%;
     background-color: var(--sys-outline-variant);
     opacity: 0.5;
+}
+
+/* ==========================================================================
+   SETTINGS COMPONENTS
+   ========================================================================== */
+
+/* Settings Card (Accordion) */
+.settings-card {
+    background: var(--sys-surface);
+    border-radius: var(--shape-xl);
+    border: 1px solid var(--sys-outline-variant);
+    overflow: hidden;
+    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+}
+
+.settings-card[open] {
+    box-shadow: var(--elevation-1);
+}
+
+.settings-card.variant-primary {
+    border-color: var(--sys-primary);
+    background: linear-gradient(135deg, var(--sys-primary-container) 0%, var(--sys-surface) 100%);
+}
+
+.settings-card.variant-secondary {
+    border-color: var(--sys-secondary);
+}
+
+.settings-card.variant-tertiary {
+    border-color: var(--sys-tertiary);
+}
+
+/* Settings Summary (Header) */
+.settings-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-4);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: background-color var(--motion-duration-short3) var(--motion-easing-standard);
+}
+
+.settings-summary::-webkit-details-marker {
+    display: none;
+}
+
+.settings-summary:hover {
+    background: var(--sys-surface-container-low);
+}
+
+.settings-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--shape-l);
+    background: var(--sys-primary-container);
+    color: var(--sys-on-primary-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.settings-card.variant-secondary .settings-icon-box {
+    background: var(--sys-secondary-container);
+    color: var(--sys-on-secondary-container);
+}
+
+.settings-card.variant-tertiary .settings-icon-box {
+    background: var(--sys-tertiary-container);
+    color: var(--sys-on-tertiary-container);
+}
+
+.settings-title {
+    font-size: var(--typography-title-medium);
+    font-weight: 700;
+    color: var(--sys-on-surface);
+    margin: 0;
+}
+
+.settings-subtitle {
+    font-size: var(--typography-body-small);
+    color: var(--sys-on-surface-variant);
+    margin: var(--spacing-1) 0 0 0;
+}
+
+.settings-chevron {
+    color: var(--sys-on-surface-variant);
+    transition: transform var(--motion-duration-short4) var(--motion-easing-standard);
+}
+
+/* Settings Content */
+.settings-content {
+    padding: 0 var(--spacing-4) var(--spacing-4);
+    border-top: 1px solid var(--sys-outline-variant);
+}
+
+/* ==========================================================================
+   THEME BUBBLE (Color Picker)
+   ========================================================================== */
+
+.m3-theme-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3);
+    background: var(--sys-surface-container);
+    border: 2px solid var(--sys-outline-variant);
+    border-radius: var(--shape-xl);
+    cursor: pointer;
+    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+    min-width: 100px;
+}
+
+.m3-theme-card:hover {
+    border-color: var(--sys-outline);
+    background: var(--sys-surface-container-high);
+    transform: translateY(-2px);
+    box-shadow: var(--elevation-1);
+}
+
+.m3-theme-card.selected {
+    border-color: var(--sys-primary);
+    background: var(--sys-primary-container);
+    box-shadow: var(--elevation-2);
+}
+
+.m3-theme-preview {
+    position: relative;
+    width: 64px;
+    height: 48px;
+    border-radius: var(--shape-m);
+    overflow: hidden;
+}
+
+.theme-preview-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.9;
+}
+
+.theme-preview-circle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--shape-full);
+    top: 8px;
+    left: 8px;
+    box-shadow: var(--elevation-1);
+}
+
+.theme-preview-bar {
+    position: absolute;
+    width: 32px;
+    height: 8px;
+    border-radius: var(--shape-xs);
+    bottom: 8px;
+    right: 8px;
+}
+
+.theme-check-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.3);
+    color: white;
+    opacity: 0;
+    transition: opacity var(--motion-duration-short3) var(--motion-easing-standard);
+}
+
+.m3-theme-card.selected .theme-check-icon {
+    opacity: 1;
+}
+
+.m3-theme-label {
+    font-size: var(--typography-label-small);
+    font-weight: 600;
+    color: var(--sys-on-surface);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.m3-theme-card.selected .m3-theme-label {
+    color: var(--sys-on-primary-container);
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   FORM COMPONENTS ENHANCEMENTS
+   ========================================================================== */
+
+/* Card Inner Section */
+.card-inner {
+    padding: var(--spacing-4);
+    background: var(--sys-surface-container);
+    border-radius: var(--shape-l);
+    border: 1px solid var(--sys-outline-variant);
+}
+
+/* Button variants for settings */
+.button-outlined-error {
+    background: transparent;
+    color: var(--sys-error);
+    border: 1px solid var(--sys-error);
+}
+
+.button-outlined-error:hover {
+    background: var(--sys-error-container);
+}
+
+.button-drop {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: var(--shape-full);
+    border: 1px solid var(--sys-outline-variant);
+    background: var(--sys-surface);
+    color: var(--sys-on-surface);
+    font-size: var(--typography-label-medium);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+}
+
+.button-drop:hover {
+    background: var(--sys-surface-container-high);
+}
+
+.button-drop.danger {
+    color: var(--sys-error);
+    border-color: var(--sys-error);
+}
+
+.button-drop.danger:hover {
+    background: var(--sys-error-container);
 }

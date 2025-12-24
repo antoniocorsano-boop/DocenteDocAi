@@ -4,11 +4,12 @@ import { KnowledgeBaseEntry } from '../types'; // FIX: Updated import path for t
 // to/from IndexedDB for robust automatic backups.
 
 const DB_NAME = 'OrarioDocAI_BackupDB';
-const DB_VERSION = 1;
+const DB_VERSION = 3; // Incremented to force store recreation
 const STORE_NAME = 'app_state';
 const BACKUP_KEY = 'latest_backup';
 
-let dbPromise: Promise<IDBDatabase> | null = null;
+let dbInstance: IDBDatabase | null = null;
+let dbInitPromise: Promise<IDBDatabase> | null = null;
 
 // --- PERSISTENCE MANAGER ---
 export const initPersistentStorage = async (): Promise<boolean> => {
@@ -27,36 +28,94 @@ export const checkStorageQuota = async () => {
     return null;
 };
 
+/**
+ * Inizializza il database IndexedDB in modo sicuro
+ * - Singleton pattern per evitare connessioni multiple
+ * - Gestione robusta degli errori con auto-recovery
+ */
 const getDb = (): Promise<IDBDatabase> => {
-    if (dbPromise) {
-        return dbPromise;
+    // Se abbiamo già un'istanza valida, riutilizzala
+    if (dbInstance && dbInstance.objectStoreNames.contains(STORE_NAME)) {
+        return Promise.resolve(dbInstance);
     }
-    dbPromise = new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-        // Support synchronous test mocks that provide result immediately
-        // If result is already available, resolve without waiting for onsuccess
-        if ((request as any).result) {
-            try {
-                const db = (request as any).result as IDBDatabase;
-                resolve(db);
-                return;
-            } catch {}
-        }
-        request.onerror = () => {
-            console.error('IndexedDB error:', request.error);
-            reject(new Error('Failed to open IndexedDB.'));
-        };
-        request.onsuccess = () => {
-            resolve(request.result);
-        };
-        request.onupgradeneeded = (event) => {
-            const db = (event.target as IDBOpenDBRequest).result;
-            if (!db.objectStoreNames.contains(STORE_NAME)) {
+
+    // Se c'è già un'inizializzazione in corso, attendi quella
+    if (dbInitPromise) {
+        return dbInitPromise;
+    }
+
+    dbInitPromise = new Promise((resolve, reject) => {
+        try {
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            
+            request.onerror = () => {
+                console.error('[BackupService] Database open error:', request.error);
+                dbInitPromise = null;
+                reject(new Error(`Database open failed: ${request.error?.message || 'Unknown error'}`));
+            };
+            
+            request.onsuccess = () => {
+                dbInstance = request.result;
+                
+                // Verifica che lo store esista
+                if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
+                    console.warn('[BackupService] Store not found, recreating database...');
+                    dbInstance.close();
+                    dbInstance = null;
+                    dbInitPromise = null;
+                    
+                    // Elimina e ricrea il database
+                    const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
+                    deleteRequest.onsuccess = () => {
+                        // Riprova l'apertura
+                        getDb().then(resolve).catch(reject);
+                    };
+                    deleteRequest.onerror = () => {
+                        reject(new Error('Failed to recreate database'));
+                    };
+                    return;
+                }
+                
+                // Gestisci chiusura inaspettata
+                dbInstance.onclose = () => {
+                    console.warn('[BackupService] Database connection closed unexpectedly');
+                    dbInstance = null;
+                    dbInitPromise = null;
+                };
+                
+                dbInstance.onerror = (event) => {
+                    console.error('[BackupService] Database error:', event);
+                };
+
+                resolve(dbInstance);
+            };
+            
+            request.onupgradeneeded = (event) => {
+                const db = (event.target as IDBOpenDBRequest).result;
+                
+                // Elimina store esistente se presente (per upgrade pulito)
+                if (db.objectStoreNames.contains(STORE_NAME)) {
+                    db.deleteObjectStore(STORE_NAME);
+                }
+                
+                // Crea nuovo store
                 db.createObjectStore(STORE_NAME);
-            }
-        };
+                console.log('[BackupService] Object store created/upgraded');
+            };
+
+            request.onblocked = () => {
+                console.warn('[BackupService] Database upgrade blocked - close other tabs');
+                dbInitPromise = null;
+                reject(new Error('Database upgrade blocked'));
+            };
+
+        } catch (error) {
+            dbInitPromise = null;
+            reject(error);
+        }
     });
-    return dbPromise;
+
+    return dbInitPromise;
 };
 
 /**
@@ -67,25 +126,35 @@ const getDb = (): Promise<IDBDatabase> => {
 export const saveBackup = async (state: object): Promise<void> => {
     try {
         // Try to request persistence on save if not already granted implicitly
-        // We don't await this to avoid blocking the save
         if (!navigator.storage?.persisted || !(await navigator.storage.persisted())) {
-            initPersistentStorage().catch(console.error);
+            initPersistentStorage().catch(() => {}); // Ignora errori silenziosamente
         }
 
         const db = await getDb();
         return new Promise((resolve, reject) => {
-            const transaction = db.transaction(STORE_NAME, 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.put(state, BACKUP_KEY);
-            transaction.oncomplete = () => resolve();
-            transaction.onerror = () => {
-                console.error('Save backup transaction error:', transaction.error);
-                reject(transaction.error);
-            };
+            try {
+                const transaction = db.transaction(STORE_NAME, 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                
+                // Serializza i dati in modo sicuro per evitare errori di clonazione
+                const safeState = JSON.parse(JSON.stringify(state));
+                const request = store.put(safeState, BACKUP_KEY);
+                
+                transaction.oncomplete = () => {
+                    console.log('[BackupService] Backup saved successfully');
+                    resolve();
+                };
+                transaction.onerror = () => {
+                    console.error('[BackupService] Save transaction error:', transaction.error);
+                    reject(transaction.error);
+                };
+            } catch (error) {
+                reject(error);
+            }
         });
     } catch (error) {
-        console.error("Failed to initiate save backup:", error);
-        throw error; // Re-throw to be caught by the caller
+        console.error("[BackupService] Failed to save backup:", error);
+        throw error;
     }
 };
 
@@ -97,20 +166,35 @@ export const loadBackup = async (): Promise<any | null> => {
     try {
         const db = await getDb();
         return new Promise((resolve, reject) => {
-            const transaction = db.transaction(STORE_NAME, 'readonly');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.get(BACKUP_KEY);
-            request.onsuccess = () => {
-                resolve(request.result || null);
-            };
-            request.onerror = () => {
-                console.error('Load backup request error:', request.error);
-                reject(request.error);
-            };
+            try {
+                const transaction = db.transaction(STORE_NAME, 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get(BACKUP_KEY);
+                
+                request.onsuccess = () => {
+                    if (request.result) {
+                        console.log('[BackupService] Backup loaded successfully');
+                    } else {
+                        console.log('[BackupService] No backup found');
+                    }
+                    resolve(request.result || null);
+                };
+                request.onerror = () => {
+                    console.error('[BackupService] Load request error:', request.error);
+                    reject(request.error);
+                };
+                
+                transaction.onerror = () => {
+                    console.error('[BackupService] Load transaction error:', transaction.error);
+                    reject(transaction.error);
+                };
+            } catch (error) {
+                reject(error);
+            }
         });
     } catch (error) {
-        console.error("Failed to initiate load backup:", error);
-        return null;
+        console.error("[BackupService] Failed to load backup:", error);
+        return null; // Ritorna null invece di throw per non bloccare l'app
     }
 };
 
@@ -122,17 +206,37 @@ export const deleteBackup = async (): Promise<void> => {
     try {
         const db = await getDb();
         return new Promise((resolve, reject) => {
-            const transaction = db.transaction(STORE_NAME, 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.delete(BACKUP_KEY);
-            transaction.oncomplete = () => resolve();
-            transaction.onerror = () => {
-                console.error('Delete backup transaction error:', transaction.error);
-                reject(transaction.error);
-            };
+            try {
+                const transaction = db.transaction(STORE_NAME, 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.delete(BACKUP_KEY);
+                
+                transaction.oncomplete = () => {
+                    console.log('[BackupService] Backup deleted');
+                    resolve();
+                };
+                transaction.onerror = () => {
+                    console.error('[BackupService] Delete transaction error:', transaction.error);
+                    reject(transaction.error);
+                };
+            } catch (error) {
+                reject(error);
+            }
         });
     } catch (error) {
-        console.error("Failed to initiate delete backup:", error);
+        console.error("[BackupService] Failed to delete backup:", error);
         throw error;
+    }
+};
+
+/**
+ * Chiude la connessione al database (utile per cleanup)
+ */
+export const closeDatabase = (): void => {
+    if (dbInstance) {
+        dbInstance.close();
+        dbInstance = null;
+        dbInitPromise = null;
+        console.log('[BackupService] Database connection closed');
     }
 };

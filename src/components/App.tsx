@@ -14,12 +14,8 @@ import { applyTheme, createTheme } from '../design-system';
 export const App: React.FC = () => {
     try {
         const result = useAppEngine();
-        console.log('✅ useAppEngine OK:', result ? 'got result' : 'null result');
-        
         const { view, viewContext, appState, actions, modals } = result;
         const { user, themeState, isGlobalAiLoading, notifiche, activeSuggestion, installPrompt } = appState;
-
-        console.log('✅ Destructured, user:', user ? 'exists' : 'null');
 
         // Sincronizzazione immediata del tema (prevent flickering)
         useLayoutEffect(() => {
@@ -33,16 +29,32 @@ export const App: React.FC = () => {
             }
         }, [themeState]);
 
+        // Show loading screen during restore
+        if (modals.isRestoring) {
+            return (
+                <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    height: '100vh',
+                    background: 'var(--aura-gradient, linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%))'
+                }}>
+                    <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔄</div>
+                        <p style={{ color: 'var(--sys-on-surface, #1C1B1F)' }}>Caricamento...</p>
+                    </div>
+                </div>
+            );
+        }
+
         if (!user) {
-            console.log('✅ Rendering SignInScreen');
             return <SignInScreen onSignInSuccess={(profile) => actions.setUser(profile)} />;
         }
 
-        console.log('✅ Rendering full App');
-
-        // Struttura Flexbox rigida per garantire stabilità visiva
+        // App Shell M3 Expressive
         return (
-            <div className="app-container flex flex-col h-screen h-[100dvh] w-screen overflow-hidden bg-background text-on-surface">
+            <div className="app-shell">
+                {/* Fixed Header */}
                 <Header
                     title="DocenteDoc AI"
                     showBackButton={view !== 'home'}
@@ -52,6 +64,7 @@ export const App: React.FC = () => {
                     onNavigateToLiveAssistant={() => modals.setIsLiveAssistantModalOpen(true)}
                     onOpenHelp={() => modals.setIsHelpOpen(true)}
                     user={user}
+                    settings={appState.settings}
                     notifiche={notifiche}
                     setNotifiche={actions.setNotifiche}
                     onOpenCircularAnalysis={(url, title) => modals.setCircularAnalysisModal({ isOpen: true, url, title })}
@@ -63,18 +76,20 @@ export const App: React.FC = () => {
                     hasSuggestion={!!activeSuggestion}
                 />
 
-                {/* Viewport dinamico con padding di sicurezza per la navigazione inferiore */}
-                <main className="flex-grow overflow-y-auto relative w-full custom-scrollbar" style={{ paddingBottom: 'var(--nav-height)' }}>
-                    <ViewManager
-                        view={view}
-                        viewContext={viewContext}
-                        appState={appState}
-                        actions={actions}
-                        modals={modals}
-                    />
+                {/* Main Scrollable Content */}
+                <main className="main-content custom-scrollbar">
+                    <div className="content-container">
+                        <ViewManager
+                            view={view}
+                            viewContext={viewContext}
+                            appState={appState}
+                            actions={actions}
+                            modals={modals}
+                        />
+                    </div>
                 </main>
 
-                {/* Navigazione Fissa e Modali in sovrimpressione */}
+                {/* Bottom Navigation */}
                 <Menu currentView={view} onNavigate={actions.handleNavigate} />
                 <ModalManager appState={appState} actions={actions} modals={modals} />
             </div>

@@ -126,6 +126,7 @@ export interface HeaderProps {
     onNavigateToLiveAssistant: () => void;
     onOpenHelp: () => void;
     user: UserProfile | null;
+    settings: Settings;
     notifiche: Notifica[];
     setNotifiche: (input: Notifica[] | ((prev: Notifica[]) => Notifica[])) => void;
     onOpenCircularAnalysis: (url: string, title: string) => void;

@@ -8,20 +8,20 @@ import { TabGroup, ManualSection, UseCaseCard } from './M3Components';
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa' | 'presentation';
 
 // --- CONTENUTO DEL MANUALE INTEGRALE (Whitepaper Tecnico-Operativo) ---
-const MANUAL_MARKDOWN_CONTENT = `# OrarioDoc AI: Documento Tecnico e Manuale Integrale
-**Versione 4.0 RC1 - Stability & Performance Edition**
+const MANUAL_MARKDOWN_CONTENT = `# DocenteDoc AI: Documento Tecnico e Manuale Integrale
+**Versione 4.1.0 - M3 Expressive Edition**
 
 ---
 
 ## 📑 Sommario Esecutivo
-Questo documento costituisce la guida di riferimento completa per **OrarioDoc AI**, definendo non solo le procedure operative, ma il perimetro normativo, tecnologico e strategico della soluzione. È destinato a Docenti, Animatori Digitali, DPO e Dirigenti Scolastici.
+Questo documento costituisce la guida di riferimento completa per **DocenteDoc AI**, definendo non solo le procedure operative, ma il perimetro normativo, tecnologico e strategico della soluzione. È destinato a Docenti, Animatori Digitali, DPO e Dirigenti Scolastici.
 
 ---
 
 ## 1. ⚖️ Quadro Normativo e Sicurezza (Compliance)
 
 ### 1.1 Conformità GDPR (Regolamento UE 2016/679)
-OrarioDoc AI adotta un approccio radicale di **Privacy by Design**:
+DocenteDoc AI adotta un approccio radicale di **Privacy by Design**:
 *   **Sovranità del Dato:** L'applicazione opera secondo il paradigma "Local-First". Nessun dato personale (studenti, voti, note) viene inviato a server proprietari del fornitore del software. Il *Titolare del Trattamento* rimane esclusivamente l'utente (Docente/Scuola).
 *   **Minimizzazione:** L'AI accede ai dati solo su esplicita richiesta dell'utente e solo per il contesto necessario (es. analizzare una singola classe), senza addestramento dei modelli sui dati inseriti (Zero-Retention Policy delle API Enterprise).
 *   **Diritto all'Oblio:** La cancellazione dei dati dal dispositivo (tramite il tasto "Reset Totale" o pulizia cache) è definitiva e irreversibile da parte di terzi.
@@ -84,7 +84,7 @@ Generazione in formato aperto (PDF, DOCX) di:
 ## 4. 🚀 Visione Strategica (Per gli Stakeholders)
 
 ### Per il Dirigente Scolastico
-OrarioDoc AI non è un costo, ma un **investimento organizzativo**. Standardizza la qualità della documentazione prodotta dai docenti e garantisce che la progettazione (UDA) sia effettivamente svolta e monitorata, riducendo il contenzioso grazie a valutazioni trasparenti e basate su rubriche.
+DocenteDoc AI non è un costo, ma un **investimento organizzativo**. Standardizza la qualità della documentazione prodotta dai docenti e garantisce che la progettazione (UDA) sia effettivamente svolta e monitorata, riducendo il contenzioso grazie a valutazioni trasparenti e basate su rubriche.
 
 ### Per l'Ambiente Didattico (Animatore Digitale)
 L'adozione favorisce lo sviluppo delle competenze digitali dei docenti (DigCompEdu) in un ambiente sicuro ("Sandbox"). L'uso dell'AI come "copilota" demistifica la tecnologia e ne mostra l'utilità pratica immediata, riducendo la resistenza al cambiamento.
@@ -93,23 +93,23 @@ L'adozione favorisce lo sviluppo delle competenze digitali dei docenti (DigCompE
 L'ecosistema è pronto per l'evoluzione verso il **"Classroom OS"**: un sistema operativo della classe che integrerà sempre più funzioni di accessibilità (speech-to-text per studenti) e interoperabilità con i registri nazionali.
 
 ---
-*Documento generato automaticamente da OrarioDoc AI v4.0 RC1*`;
+*Documento generato automaticamente da DocenteDoc AI v4.1.0*`;
 
 const faqContentData = [
-    { q: "Cos'è il Centro Operativo (Fulmine)?", a: "È il nuovo cuore pulsante dell'app. Cliccando l'icona ⚡ in alto, accedi a tutti i flussi di lavoro (Lezione, Voti, Progettazione) organizzati per contesto. Se vedi un pallino rosso, significa che l'AI ha un suggerimento prioritario per te." },
-    { q: "I documenti della KB vengono salvati su Drive come file PDF?", a: "<strong>No, non come file singoli.</strong> Il backup crea un unico archivio completo (`OrarioDoc_Backup.json`) che contiene <em>tutto</em>: voti, lezioni e anche i file della Knowledge Base. Questo mantiene il tuo Drive ordinato e garantisce che ripristinando il backup ritrovi tutto esattamente com'era." },
+    { q: "Cos'è il Centro Operativo (Fulmine)?", a: "È il cuore pulsante dell'app. Cliccando l'icona ⚡ in alto, accedi a tutti i flussi di lavoro (Lezione, Voti, Progettazione) organizzati per contesto. Se vedi un pallino rosso, significa che l'AI ha un suggerimento prioritario per te." },
+    { q: "I documenti della KB vengono salvati su Drive come file PDF?", a: "<strong>No, non come file singoli.</strong> Il backup crea un unico archivio completo (`DocenteDoc_Backup.json`) che contiene <em>tutto</em>: voti, lezioni e anche i file della Knowledge Base. Questo mantiene il tuo Drive ordinato e garantisce che ripristinando il backup ritrovi tutto esattamente com'era." },
     { q: "A cosa servono i 'Traguardi' nella Home?", a: "Sono un sistema di <em>Gamification</em> per aiutarti a scoprire l'app. Completando azioni chiave (es. inserire la prima classe, creare un orario), sblocchi dei badge colorati. È un modo per monitorare i tuoi progressi nell'uso dello strumento." },
     { q: "Cosa posso chiedere all'Assistente Vocale?", a: "L'Assistente è ora connesso ai tuoi dati e al Web. Chiedi: 'Come va Rossi?', 'Cerca le ultime normative sull'esame di stato', 'Cerca nel regolamento d'istituto'. Può anche scrivere note e voti per te." },
     { q: "Il backup si blocca a metà?", a: "Abbiamo risolto un problema critico di 'Race Condition' che poteva interrompere il ripristino. Ora il sistema blocca il salvataggio automatico durante l'importazione per garantire l'integrità dei dati." },
 ];
 
 const specsContentData = [
-    "<strong>Architettura:</strong> PWA Client-Side (React 18 + TypeScript).",
-    "<strong>Workflow Engine:</strong> Centro Operativo centralizzato con Action Tiles M3.",
-    "<strong>Storage Ibrido:</strong> IndexedDB (File/KB) + LocalStorage (Dati rapidi).",
-    "<strong>Cloud Sync:</strong> Integrazione Google Drive API (OAuth 2.0) per backup snapshot.",
-    "<strong>Design System:</strong> M3 Expressive con componenti adattivi (View Selector) e Zero-FOUC.",
-    "<strong>AI Engine:</strong> Google Gemini 3 Pro & Flash per testo/visione e Search Grounding.",
+    "<strong>Architettura:</strong> PWA Client-Side (React 18 + TypeScript + Zustand).",
+    "<strong>Workflow Engine:</strong> Centro Operativo centralizzato con Action Tiles M3 Expressive.",
+    "<strong>Storage Ibrido:</strong> IndexedDB (File/KB) + LocalStorage (Dati rapidi) con backup automatico.",
+    "<strong>Cloud Sync:</strong> Integrazione Google Drive API (OAuth 2.0) per backup snapshot crittografato.",
+    "<strong>Design System:</strong> M3 Expressive con layout adattivo, motion system e Zero-FOUC.",
+    "<strong>AI Engine:</strong> Google Gemini 2.0 Pro & Flash per generazione testo/visione e Search Grounding.",
 ];
 
 const vocalAssistantGuideData = {
@@ -201,7 +201,7 @@ const DigitalTeacherManual = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-outline-variant pb-4">
                 <div>
                     <h2 className="m3-headline-small">Manuale Integrale e Normativa</h2>
-                    <p className="m3-body-medium text-on-surface-variant">Versione 4.0 RC1 - Documento Tecnico</p>
+                    <p className="m3-body-medium text-on-surface-variant">Versione 4.1.0 - M3 Expressive Edition</p>
                 </div>
                 <button onClick={downloadManual} className="button button-outlined">
                     <span className="material-symbols-outlined mr-2">download</span>
@@ -339,7 +339,7 @@ const UserGuide = () => (
 
 const TechnicalSpecs = () => (
     <>
-        <h2 className="m3-headline-small">Specifiche Tecniche v4.0 RC1</h2>
+        <h2 className="m3-headline-small">Specifiche Tecniche v4.1.0</h2>
         <ul className="list-disc pl-5 space-y-2 mt-4">
             {specsContentData.map((spec, index) => (
                 <li key={index} dangerouslySetInnerHTML={{ __html: spec }}></li>
@@ -484,7 +484,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                     <span className="material-symbols-outlined text-primary">{icon}</span>
                     <h4 className="m3-title-medium">{title}</h4>
                 </div>
-                <span className={`guide-card-badge status-new`}>Novità v4.0 RC1</span>
+                <span className={`guide-card-badge status-new`}>Novità v4.1.0</span>
             </div>
             <p className="m3-body-medium mt-2 mb-3 opacity-90">{children}</p>
             {actionView && actionView !== 'home' && (
@@ -499,29 +499,39 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
         </div>
     );
     return (
-        <div className="space-y-6">
-            <h2 className="m3-headline-small">Release Candidate (RC1) Updates</h2>
+        <div className="space-y-4">
+            <h2 className="m3-headline-small">Novità della versione 4.1.0</h2>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <ImprovementCard title="Design M3 Expressive" actionView="settings" icon="palette">
+                    Interfaccia completamente rinnovata con il nuovo design system Material 3 Expressive: layout adattivi, motion system e colori dinamici.
+                </ImprovementCard>
 
-            <ImprovementCard title="Stabilità Backup" actionView="settings" icon="cloud_sync">
-                Risolto un problema critico ("Race Condition") che poteva interrompere il ripristino dati. Ora il salvataggio automatico viene messo in pausa durante l'importazione.
-            </ImprovementCard>
+                <ImprovementCard title="Calendario Migliorato" actionView="calendar" icon="calendar_month">
+                    Vista calendario completamente ridisegnata con migliore leggibilità, navigazione fluida e integrazione eventi più chiara.
+                </ImprovementCard>
 
-            <ImprovementCard title="Assistente Vocale iOS" actionView="live-assistant" icon="mic">
-                Corretto il blocco dell'audio su Safari/iPhone. L'assistente ora si inizializza correttamente al tocco.
-            </ImprovementCard>
+                <ImprovementCard title="Stabilità Backup" actionView="settings" icon="cloud_sync">
+                    Risolto problema critico di sincronizzazione. Il salvataggio automatico viene sospeso durante l'importazione dati.
+                </ImprovementCard>
 
-            <ImprovementCard title="Zero-FOUC Theme" actionView="settings" icon="palette">
-                Eliminato lo sfarfallio dei colori all'avvio dell'app. Il tema personalizzato viene caricato istantaneamente.
-            </ImprovementCard>
+                <ImprovementCard title="Assistente Vocale iOS" actionView="live-assistant" icon="mic">
+                    Corretto il blocco dell'audio su Safari/iPhone. L'assistente ora si inizializza correttamente al tocco.
+                </ImprovementCard>
 
-            <ImprovementCard title="Diario Studente" actionView="student-dashboard" icon="school">
-                Il portale studenti ora mostra correttamente solo i compiti assegnati per le lezioni già svolte o in calendario, evitando confusione con le bozze.
-            </ImprovementCard>
+                <ImprovementCard title="Zero-FOUC Theme" actionView="settings" icon="dark_mode">
+                    Il tema personalizzato viene caricato istantaneamente all'avvio, eliminando lo sfarfallio dei colori.
+                </ImprovementCard>
 
-            <div className="card mt-8 bg-primary-container text-on-primary-container">
+                <ImprovementCard title="Header & Avatar Migliorati" actionView="settings" icon="account_circle">
+                    L'avatar ora mostra le iniziali del nome docente. Header più compatto e informativo.
+                </ImprovementCard>
+            </div>
+
+            <div className="card mt-6 bg-primary-container text-on-primary-container">
                 <h3 className="m3-title-large">Manuale Completo PDF</h3>
                 <p className="m3-body-medium mt-2 mb-4 opacity-90">
-                    Scarica il manuale PDF aggiornato alla versione 4.0 con la guida al Centro Operativo e le specifiche tecniche.
+                    Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
                 </p>
                  <button onClick={onGenerate} disabled={isGenerating} className="button bg-primary text-on-primary w-full justify-center border-none shadow-sm hover:shadow-md">
                     <span className="material-symbols-outlined mr-2">{isGenerating ? 'pending' : 'download'}</span>

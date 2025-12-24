@@ -12,6 +12,7 @@ import { loadKbContentFromIndexedDB, saveKbContentToIndexedDB, clearIndexedDB } 
 import { initTokenClient, requestAccessToken, revokeAccessToken, uploadBackup, downloadBackup, getBackupMetadata, pickGoogleDriveFolder, createAppFolder } from '../services/googleDriveService.ts';
 import { usePersistence } from './usePersistence.ts';
 import { analyzeSystemState } from '../utils/suggestionUtils.ts';
+import { validateBackupData } from '../utils/dataValidator.ts';
 import { useUIStore } from '../stores/useUIStore';
 import { useDataStore } from '../stores/useDataStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
@@ -47,37 +48,46 @@ export const useAppEngine = () => {
             try {
                 setIsDataLoaded(false);
                 uiActions.setIsRestoring(true);
-                const localData = await loadBackup();
+                
+                const rawData = await loadBackup();
+                const localData = rawData ? validateBackupData(rawData) : null;
+                
                 if (localData) {
+                    console.log('[useAppEngine] Valid backup data found, restoring...');
                     // Dispatch to DataStore
-                    loadFromBackup(localData); // Use destructured action
+                    loadFromBackup(localData);
                     // Dispatch to SettingsStore
                     settingsActions.loadFromBackup(localData);
                     // Dispatch UI-related states to UIStore
-                    uiActions.setBackupState(localData.backupState || { status: 'synced', lastBackup: null });
-                    uiActions.setDriveSyncState(localData.driveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
-                    uiActions.setNavigationHistory(localData.navigationHistory || []);
-                    uiActions.setInstallPrompt(localData.installPrompt || null);
-                    uiActions.setCanShowInstallPrompt(localData.canShowInstallPrompt || false);
-                    uiActions.setIsGlobalAiLoading(localData.isGlobalAiLoading || false);
+                    uiActions.setBackupState(localData.backupState as BackupState || { status: 'synced', lastBackup: null });
+                    uiActions.setDriveSyncState(localData.driveSyncState as DriveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
+                    uiActions.setNavigationHistory(localData.navigationHistory as any[] || []);
+                    uiActions.setInstallPrompt(null); // Non-serializable, always start fresh
+                    uiActions.setCanShowInstallPrompt(false);
+                    uiActions.setIsGlobalAiLoading(false);
 
                     // Handle heavy KB content from IndexedDB separately
-                    const kbContentMap = await loadKbContentFromIndexedDB();
-                    const fullKb = (localData.knowledgeBase || []).map((entry: KnowledgeBaseEntry) => ({
-                        ...entry,
-                        ...(kbContentMap[entry.id] || {})
-                    }));
-                    setKnowledgeBase(fullKb); // Use destructured action
+                    try {
+                        const kbContentMap = await loadKbContentFromIndexedDB();
+                        const fullKb = (localData.knowledgeBase || []).map((entry: any) => ({
+                            ...entry,
+                            ...(kbContentMap[entry.id] || {})
+                        }));
+                        setKnowledgeBase(fullKb);
+                    } catch (kbError) {
+                        console.warn('[useAppEngine] KB content load failed, using light data:', kbError);
+                    }
                 } else {
+                    console.log('[useAppEngine] No valid backup, loading demo data...');
                     // AUTO LOAD DEMO DATA IF EMPTY (Only on first run)
                     setTimeout(() => {
                         handleLoadDemoData();
                     }, 500);
                 }
             } catch (e) {
-                console.error("Initial data load failed (Race Condition protection active):", e);
-                // In case of critical error, clear all data stores to start fresh (optional, for robustness)
-                resetAll(); // Use destructured action
+                console.error("[useAppEngine] Initial data load failed:", e);
+                // In case of critical error, start fresh
+                resetAll();
                 settingsActions.reset();
                 uiActions.clearNavigationHistory();
                 uiActions.setBackupState({ status: 'error', lastBackup: null });
@@ -126,8 +136,8 @@ export const useAppEngine = () => {
     }, [view, viewContext]); // Remove uiActions from deps - it's stable from zustand
 
     const handleBack = useCallback((force = false) => {
-        if (uiState.navigationHistory.length > 0) {
-            const last = uiState.navigationHistory[uiState.navigationHistory.length - 1];
+        if (navigationHistory.length > 0) {
+            const last = navigationHistory[navigationHistory.length - 1];
             uiActions.popNavigationEntry();
             setView(last.view);
             setViewContext(last.context);
@@ -135,7 +145,7 @@ export const useAppEngine = () => {
             setView('home');
             setViewContext(null);
         }
-    }, [uiState.navigationHistory, view]);
+    }, [navigationHistory, view]);
 
     const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'info') => {
         uiActions.showToast(message, type);
@@ -158,7 +168,7 @@ export const useAppEngine = () => {
     }, []);
 
     const handleSyncToDrive = useCallback(async (folderId?: string) => {
-        const driveState = uiState.driveSyncState;
+        const driveState = driveSyncState;
         if (!driveState.isAuthenticated) return;
 
         uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: true, error: undefined }));
@@ -166,9 +176,12 @@ export const useAppEngine = () => {
             const remoteMeta = await getBackupMetadata(folderId || settings.backupFolderId || '') as any;
             if (remoteMeta && remoteMeta.modifiedTime && driveState.lastSyncTime && new Date(remoteMeta.modifiedTime) > new Date(driveState.lastSyncTime)) {
                 uiActions.setSyncConflictModal({
-                    remoteTime: new Date(remoteMeta.modifiedTime).getTime(),
-                    localTime: new Date(driveState.lastSyncTime).getTime(),
-                    isOpen: true
+                    isOpen: true,
+                    data: {
+                        remoteTime: new Date(remoteMeta.modifiedTime).getTime(),
+                        localTime: new Date(driveState.lastSyncTime).getTime(),
+                        isOpen: true
+                    }
                 });
                 uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false }));
                 return;
@@ -176,20 +189,44 @@ export const useAppEngine = () => {
 
             // Create a serializable payload from all Zustand stores
             const payload = {
-                ...dataState,
-                settings: settingsState.settings,
-                aiSettings: settingsState.aiSettings,
-                themeState: settingsState.themeState,
+                user,
+                students,
+                lessons,
+                slots,
+                evaluations,
+                competencyEvals,
+                udas,
+                eventi,
+                knowledgeBase,
+                corpora,
+                notifiche,
+                rubriche,
+                pianiInclusione,
+                giudizi,
+                reports,
+                feedSources,
+                draftRegister,
+                finalizedRegister,
+                notebookNotes,
+                memos,
+                curricula,
+                submissions,
+                suggestions,
+                activeSuggestion,
+                studentProfileContext,
+                selectedClassForDashboard,
+                settings: settings,
+                aiSettings: aiSettings,
+                themeState: themeState,
                 // Convert Set to Array for serialization
                 dismissedSuggestions: Array.from(dismissedSuggestions),
-                // These are now handled in uiState, but for the full payload, we include their current values
-                // as `usePersistence` needs to capture them correctly.
-                backupState: uiState.backupState,
-                driveSyncState: uiState.driveSyncState,
-                navigationHistory: uiState.navigationHistory,
-                installPrompt: uiState.installPrompt,
-                canShowInstallPrompt: uiState.canShowInstallPrompt,
-                isGlobalAiLoading: uiState.isGlobalAiLoading,
+                // Include current values from UI state
+                backupState: backupState,
+                driveSyncState: driveSyncState,
+                navigationHistory: navigationHistory,
+                installPrompt: installPrompt,
+                canShowInstallPrompt: canShowInstallPrompt,
+                isGlobalAiLoading: isGlobalAiLoading,
             };
 
             await uploadBackup(payload, folderId || settings.backupFolderId);
@@ -199,10 +236,10 @@ export const useAppEngine = () => {
             showToast('Errore backup Drive: ' + e.message, 'error');
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false, error: e.message }));
         }
-    }, [dataState, settingsState, uiState.driveSyncState, uiState.navigationHistory, uiActions, settings.backupFolderId, showToast, uiState.installPrompt, uiState.canShowInstallPrompt, uiState.isGlobalAiLoading, dismissedSuggestions]);
+    }, [user, students, lessons, slots, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, studentProfileContext, selectedClassForDashboard, settings, aiSettings, themeState, driveSyncState, navigationHistory, uiActions, showToast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions, backupState]);
 
     const handleRestoreFromDrive = useCallback(async (folderId?: string) => {
-        if (!uiState.driveSyncState.isAuthenticated) return;
+        if (!driveSyncState.isAuthenticated) return;
 
         uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: true, error: undefined }));
         uiActions.setIsRestoring(true);
@@ -235,7 +272,7 @@ export const useAppEngine = () => {
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false }));
             uiActions.setIsRestoring(false);
         }
-    }, [loadFromBackup, setKnowledgeBase, settingsActions, uiState.driveSyncState, uiActions, settings.backupFolderId, showToast]);
+    }, [loadFromBackup, setKnowledgeBase, settingsActions, driveSyncState, uiActions, settings.backupFolderId, showToast]);
 
     const handleConfigureDrive = useCallback((clientId: string, apiKey?: string) => {
         settingsActions.updateSettings({ googleClientId: clientId, googleApiKey: apiKey });
@@ -354,17 +391,42 @@ export const useAppEngine = () => {
 
     const handleExportData = useCallback(async () => {
         const snapshot = {
-            ...dataState,
-            settings: settingsState.settings,
-            aiSettings: settingsState.aiSettings,
-            themeState: settingsState.themeState,
+            user,
+            students,
+            lessons,
+            slots,
+            evaluations,
+            competencyEvals,
+            udas,
+            eventi,
+            knowledgeBase,
+            corpora,
+            notifiche,
+            rubriche,
+            pianiInclusione,
+            giudizi,
+            reports,
+            feedSources,
+            draftRegister,
+            finalizedRegister,
+            notebookNotes,
+            memos,
+            curricula,
+            submissions,
+            suggestions,
+            activeSuggestion,
+            studentProfileContext,
+            selectedClassForDashboard,
+            settings: settings,
+            aiSettings: aiSettings,
+            themeState: themeState,
             dismissedSuggestions: Array.from(dismissedSuggestions),
-            navigationHistory: uiState.navigationHistory,
-            installPrompt: uiState.installPrompt,
-            canShowInstallPrompt: uiState.canShowInstallPrompt,
-            isGlobalAiLoading: uiState.isGlobalAiLoading,
-            backupState: uiState.backupState,
-            driveSyncState: uiState.driveSyncState,
+            navigationHistory: navigationHistory,
+            installPrompt: installPrompt,
+            canShowInstallPrompt: canShowInstallPrompt,
+            isGlobalAiLoading: isGlobalAiLoading,
+            backupState: backupState,
+            driveSyncState: driveSyncState,
         };
         const dataStr = JSON.stringify(snapshot);
         const blob = new Blob([dataStr], { type: "application/json" });
@@ -376,7 +438,7 @@ export const useAppEngine = () => {
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-    }, [dataState, settingsState, uiState.navigationHistory, uiState.backupState, uiState.driveSyncState, uiState.installPrompt, uiState.canShowInstallPrompt, uiState.isGlobalAiLoading, dismissedSuggestions]);
+    }, [user, students, lessons, slots, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, settings, aiSettings, themeState, navigationHistory, backupState, driveSyncState, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions]);
 
     const handleImportData = useCallback((file: File) => {
         const reader = new FileReader();
@@ -400,23 +462,23 @@ export const useAppEngine = () => {
     }, [showToast, loadFromBackup, settingsActions, uiActions]);
 
     const handleInstallApp = useCallback(() => {
-        if (uiState.installPrompt) {
-            uiState.installPrompt.prompt();
-            uiState.installPrompt.userChoice.then((choiceResult: any) => {
+        if (installPrompt) {
+            installPrompt.prompt();
+            installPrompt.userChoice.then((choiceResult: any) => {
                 if (choiceResult.outcome === 'accepted') {
                     uiActions.setInstallPrompt(null);
                     uiActions.setCanShowInstallPrompt(false);
                 }
             });
         }
-    }, [uiState.installPrompt, uiActions]);
+    }, [installPrompt, uiActions]);
 
     const handleEnterStudentMode = useCallback(() => {
         handleNavigate('student-dashboard');
     }, [handleNavigate]);
 
     const handleStartClassroom = useCallback((classe: string, materia: string, slotKey: string, lesson: Lezione) => {
-        if (!dataState.draftRegister[slotKey]) {
+        if (!draftRegister[slotKey]) {
             const newEntry: RegisterEntry = {
                 id: `reg-${Date.now()}`,
                 date: new Date().toISOString(),
@@ -430,7 +492,7 @@ export const useAppEngine = () => {
             setDraftRegister(prev => ({ ...prev, [slotKey]: newEntry })); // Use destructured action
         }
         handleNavigate('aula-session', { draftKey: slotKey });
-    }, [dataState.draftRegister, handleNavigate, setDraftRegister]);
+    }, [draftRegister, handleNavigate, setDraftRegister]);
 
     const handleEditSlot = useCallback((giorno: string, ora: string) => {
         uiActions.setEditingSlotKey(`${giorno}-${ora}`);
@@ -465,7 +527,7 @@ export const useAppEngine = () => {
 
     const onMarkAttendance = useCallback((data: { studentName: string, status: string }) => {
         const draftKey = viewContext?.draftKey;
-        if (draftKey && dataState.draftRegister[draftKey]) {
+        if (draftKey && draftRegister[draftKey]) {
             setDraftRegister(prev => ({
                 ...prev,
                 [draftKey]: {
@@ -480,7 +542,7 @@ export const useAppEngine = () => {
         } else {
             showToast('Errore: Registrazione non attiva', 'error');
         }
-    }, [setDraftRegister, viewContext, dataState.draftRegister, showToast]);
+    }, [setDraftRegister, viewContext, draftRegister, showToast]);
 
     const handleOpenBackupInfo = useCallback(() => {
         uiActions.toggleModal('isBackupInfoModalOpen', true);
@@ -624,39 +686,41 @@ export const useAppEngine = () => {
     // --- PROXY FOR MODALS (FORWARDING ZUSTAND UI ACTIONS) ---
     // This memoized object provides a clean interface for modal visibility and data.
     const modalsProxy = useMemo(() => ({
-        isOperationsCenterOpen: uiState.modals.isOperationsCenterOpen,
+        isOperationsCenterOpen: modals.isOperationsCenterOpen,
         setIsOperationsCenterOpen: uiActions.toggleModal.bind(null, 'isOperationsCenterOpen'),
-        isImageAnalysisOpen: uiState.modals.isImageAnalysisOpen,
+        isImageAnalysisOpen: modals.isImageAnalysisOpen,
         setIsImageAnalysisOpen: uiActions.toggleModal.bind(null, 'isImageAnalysisOpen'),
-        isLiveAssistantModalOpen: uiState.modals.isLiveAssistantModalOpen,
+        isLiveAssistantModalOpen: modals.isLiveAssistantModalOpen,
         setIsLiveAssistantModalOpen: uiActions.toggleModal.bind(null, 'isLiveAssistantModalOpen'),
-        isHelpOpen: uiState.modals.isHelpOpen,
+        isHelpOpen: modals.isHelpOpen,
         setIsHelpOpen: uiActions.toggleModal.bind(null, 'isHelpOpen'),
-        circularAnalysisModal: uiState.circularAnalysisModal,
+        circularAnalysisModal: circularAnalysisModal,
         setCircularAnalysisModal: uiActions.setCircularAnalysisModal,
-        isLoadingModalOpen: uiState.modals.isLoadingModalOpen,
+        isLoadingModalOpen: modals.isLoadingModalOpen,
         setIsLoadingModalOpen: uiActions.setLoading.bind(null, true),
-        loadingModalMessage: uiState.loadingModalMessage,
+        loadingModalMessage: loadingModalMessage,
         setLoadingModalMessage: (msg: string) => uiActions.setLoading(true, msg),
-        editingSlotKey: uiState.editingSlotKey,
+        editingSlotKey: editingSlotKey,
         setEditingSlotKey: uiActions.setEditingSlotKey,
-        activeSlotKey: uiState.activeSlotKey,
+        activeSlotKey: activeSlotKey,
         setActiveSlotKey: uiActions.setActiveSlotKey,
-        lessonViewContext: uiState.lessonViewContext,
+        lessonViewContext: lessonViewContext,
         setLessonViewContext: uiActions.setLessonViewContext,
-        toast: uiState.toast,
-        isBackupInfoModalOpen: uiState.modals.isBackupInfoModalOpen,
+        toast: toast,
+        isBackupInfoModalOpen: modals.isBackupInfoModalOpen,
         setIsBackupInfoModalOpen: uiActions.toggleModal.bind(null, 'isBackupInfoModalOpen'),
-        syncConflictModal: uiState.syncConflictModal,
+        syncConflictModal: syncConflictModal,
         setSyncConflictModal: uiActions.setSyncConflictModal,
-        createLessonContext: uiState.createLessonContext,
+        createLessonContext: createLessonContext,
         setCreateLessonContext: uiActions.setCreateLessonContext,
-        isYearTransitionOpen: uiState.modals.isYearTransitionOpen,
+        isYearTransitionOpen: modals.isYearTransitionOpen,
         setIsYearTransitionOpen: uiActions.toggleModal.bind(null, 'isYearTransitionOpen'),
+        isVideoAnalysisOpen: modals.isVideoAnalysisOpen,
         setIsVideoAnalysisOpen: uiActions.setIsVideoAnalysisOpen,
+        isRestoring: modals.isRestoring,
         setIsRestoring: uiActions.setIsRestoring,
         setNotifiche: setNotifiche,
-    }), [uiState, uiActions, setNotifiche]);
+    }), [modals, circularAnalysisModal, syncConflictModal, createLessonContext, editingSlotKey, activeSlotKey, lessonViewContext, loadingModalMessage, toast, uiActions, setNotifiche]);
 
 
     return {

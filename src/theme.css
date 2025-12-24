@@ -47,16 +47,77 @@
   /* Layout Metrics Presentation Layer */
   --header-height: 64px;
   --nav-height: 80px;
-  --safe-area-bottom: 100px;
+  --nav-offset-bottom: 24px;
+  --safe-area-bottom: 104px; /* nav-height + nav-offset-bottom */
   --content-max-width: 1200px;
+  --content-padding: 16px;
+  --content-padding-md: 24px;
+
+  /* Z-Index Layer System */
+  --z-base: 0;
+  --z-raised: 1;
+  --z-sticky: 10;
+  --z-fixed: 100;
+  --z-nav: 1000;
+  --z-header: 1100;
+  --z-drawer: 1200;
+  --z-modal-backdrop: 1300;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-tooltip: 1600;
+  --z-toast: 1700;
+  --z-max: 9999;
 
   /* Spacing Tokens M3 */
-  --spacing-1: 4px;      /* Extra small spacing */
-  --spacing-2: 8px;      /* Small spacing */
-  --spacing-3: 12px;     /* Compact spacing */
-  --spacing-4: 16px;     /* Medium spacing (default) */
-  --spacing-6: 24px;     /* Large spacing */
-  --spacing-8: 32px;     /* Extra large spacing */
+  --spacing-0: 0px;
+  --spacing-1: 4px;      /* Extra small */
+  --spacing-2: 8px;      /* Small */
+  --spacing-3: 12px;     /* Compact */
+  --spacing-4: 16px;     /* Medium (default) */
+  --spacing-5: 20px;     /* Medium-large */
+  --spacing-6: 24px;     /* Large */
+  --spacing-8: 32px;     /* Extra large */
+  --spacing-10: 40px;    /* 2x large */
+  --spacing-12: 48px;    /* Section gap */
+  --spacing-16: 64px;    /* Page section */
+
+  /* Typography Scale M3 */
+  /* Typography Scale M3 - Simple Variables */
+  --typography-display-large: 57px;
+  --typography-display-medium: 45px;
+  --typography-display-small: 36px;
+  --typography-headline-large: 32px;
+  --typography-headline-medium: 28px;
+  --typography-headline-small: 24px;
+  --typography-title-large: 22px;
+  --typography-title-medium: 16px;
+  --typography-title-small: 14px;
+  --typography-body-large: 16px;
+  --typography-body-medium: 14px;
+  --typography-body-small: 12px;
+  --typography-label-large: 14px;
+  --typography-label-medium: 12px;
+  --typography-label-small: 11px;
+
+  /* Typography Scale M3 - Extended Variables */
+  --typography-headline-small-fontSize: 24px;
+  --typography-title-small-fontSize: 14px;
+  --typography-title-medium-fontSize: 16px;
+  --typography-body-large-fontSize: 16px;
+  --typography-body-medium-fontSize: 14px;
+  --typography-body-small-fontSize: 12px;
+  --typography-label-large-fontSize: 14px;
+  --typography-label-medium-fontSize: 12px;
+  --typography-label-small-fontSize: 11px;
+  --typography-label-large-fontFamily: inherit;
+  --typography-label-medium-fontFamily: inherit;
+  --typography-label-small-fontFamily: inherit;
+  --typography-label-large-fontWeight: 500;
+  --typography-label-medium-fontWeight: 500;
+  --typography-label-small-fontWeight: 500;
+  --typography-label-large-lineHeight: 1.4;
+  --typography-label-medium-lineHeight: 1.4;
+  --typography-label-small-lineHeight: 1.45;
 
   /* Forme M3 */
   --shape-none: 0px;

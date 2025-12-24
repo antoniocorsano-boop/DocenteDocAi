@@ -6,7 +6,6 @@ import { DEFAULT_TIMETABLE_SETTINGS } from '../constants.ts';
 import { TextField } from './M3Components.tsx';
 
 const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }> = ({ onSignInSuccess }) => {
-  console.log('🟢 SignInScreen rendering');
   const [manualName, setManualName] = useState('');
   const signInButtonRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +53,7 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
   }, [onSignInSuccess]);
 
   return (
-    <div className="auth-screen">
+    <div className="auth-screen" data-testid="signin-screen">
       {/* Dynamic Ornaments - M3 Expressive Aura */}
       <div className="auth-ornament auth-ornament-1"></div>
       <div className="auth-ornament auth-ornament-2"></div>
@@ -64,7 +63,7 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
         <div className="auth-card-highlight"></div>
 
         <div className="auth-header">
-          <div style={{ transform: 'scale(1.25)', paddingTop: '16px' }}>
+          <div className="auth-logo">
             <Logo />
           </div>
           <div>

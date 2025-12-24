@@ -156,24 +156,24 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
                 <BackupInfoModal onClose={() => modals.setIsBackupInfoModalOpen(false)} />
             )}
 
-            {modals.syncConflictModal && (
+            {modals.syncConflictModal?.isOpen && modals.syncConflictModal?.data && (
                 <SyncConflictModal
-                    data={modals.syncConflictModal}
+                    data={modals.syncConflictModal.data}
                     onRestore={() => {
                         actions.handleRestoreFromDrive();
-                        modals.setSyncConflictModal(null);
+                        modals.setSyncConflictModal({ isOpen: false, data: null });
                     }}
                     onIgnore={() => {
                         actions.handleSyncToDrive();
-                        modals.setSyncConflictModal(null);
+                        modals.setSyncConflictModal({ isOpen: false, data: null });
                     }}
                 />
             )}
 
-            {modals.createLessonContext && (
+            {modals.createLessonContext?.isOpen && modals.createLessonContext?.lezione && (
                 <CreateLessonFromAiModal
-                    content={modals.createLessonContext}
-                    onClose={() => modals.setCreateLessonContext(null)}
+                    content={modals.createLessonContext.lezione}
+                    onClose={() => modals.setCreateLessonContext({ isOpen: false, slotKey: null, lezione: null })}
                     onSave={(lessonData) => {
                         const newLesson = {
                             ...lessonData,

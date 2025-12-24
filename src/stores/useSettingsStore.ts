@@ -1,16 +1,14 @@
-
 import { create } from 'zustand';
-import { TimetableSettings, AiSettings, AppThemeState } from '../types.ts';
-import { DEFAULT_TIMETABLE_SETTINGS } from '../constants.ts';
+import { TimetableSettings, AiSettings, AppThemeState } from '../types';
+import { DEFAULT_TIMETABLE_SETTINGS } from '../constants';
 
 interface SettingsState {
     settings: TimetableSettings;
     aiSettings: AiSettings;
     themeState: AppThemeState;
-
     actions: {
         setSettings: (value: TimetableSettings | ((prev: TimetableSettings) => TimetableSettings)) => void;
-        updateSettings: (updates: Partial<TimetableSettings>) => void;
+        updateSettings: (partial: Partial<TimetableSettings>) => void;
         setAiSettings: (value: AiSettings | ((prev: AiSettings) => AiSettings)) => void;
         setThemeState: (value: AppThemeState | ((prev: AppThemeState) => AppThemeState)) => void;
         loadFromBackup: (data: Partial<SettingsState>) => void;
@@ -18,13 +16,7 @@ interface SettingsState {
     }
 }
 
-// Lazy initialization wrapper to prevent zustand from accessing React.useState before React is ready
-let _useSettingsStoreInstance: any = null;
-
-function initializeSettingsStore() {
-    if (_useSettingsStoreInstance) return _useSettingsStoreInstance;
-    
-    _useSettingsStoreInstance = create<SettingsState>((set) => ({
+export const useSettingsStore = create<SettingsState>((set) => ({
     settings: DEFAULT_TIMETABLE_SETTINGS,
     aiSettings: { model: 'gemini-3-flash-preview' },
     themeState: { mode: 'light', customizationName: 'M3 Default' },
@@ -33,8 +25,8 @@ function initializeSettingsStore() {
         setSettings: (value) => set((state) => ({
             settings: typeof value === 'function' ? value(state.settings) : value
         })),
-        updateSettings: (updates) => set((state) => ({
-            settings: { ...state.settings, ...updates }
+        updateSettings: (partial) => set((state) => ({
+            settings: { ...state.settings, ...partial }
         })),
         setAiSettings: (value) => set((state) => ({
             aiSettings: typeof value === 'function' ? value(state.aiSettings) : value
@@ -44,12 +36,9 @@ function initializeSettingsStore() {
         })),
         loadFromBackup: (data) => set((state) => ({
             ...state,
-            settings: {
-                ...DEFAULT_TIMETABLE_SETTINGS,
-                ...data.settings,
-            },
-            aiSettings: data.aiSettings || { model: 'gemini-3-flash-preview' },
-            themeState: data.themeState || { mode: 'light', customizationName: 'M3 Default' }
+            settings: data.settings || state.settings,
+            aiSettings: data.aiSettings || state.aiSettings,
+            themeState: data.themeState || state.themeState
         })),
         reset: () => set({
             settings: DEFAULT_TIMETABLE_SETTINGS,
@@ -58,17 +47,3 @@ function initializeSettingsStore() {
         })
     }
 }));
-    
-    return _useSettingsStoreInstance;
-}
-
-// Export proxy that lazily initializes the store
-export const useSettingsStore = new Proxy({} as any, {
-    get(target, prop) {
-        const store = initializeSettingsStore();
-        return store[prop];
-    },
-    apply(target, thisArg, args) {
-        return initializeSettingsStore()(...args);
-    }
-});

@@ -155,14 +155,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </SettingsGroup>
 
                 <SettingsGroup id="profile" title="Profilo & Identità" subtitle="Dati docente e istituto" icon="badge" variant="surface">
-                    <div className="flex flex-col md:flex-row items-center gap-6 mb-6 card-inner">
-                        <Avatar name={localSettings.nomeInsegnante} surname={localSettings.cognomeInsegnante} size="xl" className="shadow-md" />
-                        <div className="flex-grow text-center md:text-left w-full">
-                            <div className="grid grid-cols-2 gap-3">
-                                <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} containerClassName="!bg-surface" />
-                                <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} containerClassName="!bg-surface" />
-                            </div>
-                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
+                        <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} />
                     </div>
                     <div className="space-y-4">
                         <TextField label="Email Istituzionale" type="email" value={localSettings.email || ''} onChange={e => handleChange('email', e.target.value)} placeholder="nome.cognome@scuola.edu.it" />

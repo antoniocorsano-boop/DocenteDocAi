@@ -15,7 +15,7 @@ interface CalendarProps {
 
 type CalendarView = 'month' | 'week' | 'day' | 'agenda';
 
-const DAYS_SHORT = ['DOM', 'LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB'];
+const DAYS_SHORT = ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB', 'DOM'];
 const MONTHS_LONG = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
 
 const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, activeSuggestion, onNavigate }) => {
@@ -119,101 +119,194 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, acti
             : `${MONTHS_LONG[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
         return (
-            <header className="flex flex-col md:flex-row items-center justify-between px-6 py-4 bg-surface z-20 flex-shrink-0 gap-4 border-b border-outline-variant shadow-sm">
-                <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-start">
-                    <div className="flex items-center bg-surface-container-high rounded-full p-1 border border-outline-variant">
-                        <button onClick={() => handleNavigate('prev')} className="icon-button !w-10 !h-10 hover:bg-surface-container-highest transition-colors rounded-full" title="Precedente">
+            <header className="calendar-header">
+                <div className="calendar-header-left">
+                    <div className="calendar-nav-group">
+                        <button onClick={() => handleNavigate('prev')} className="icon-button" title="Precedente">
                             <span className="material-symbols-outlined">chevron_left</span>
                         </button>
-                        <button onClick={() => handleNavigate('today')} className="px-4 py-1 text-sm font-bold text-primary hover:bg-primary/10 rounded-full transition-colors">
+                        <button onClick={() => handleNavigate('today')} className="calendar-today-btn">
                             Oggi
                         </button>
-                        <button onClick={() => handleNavigate('next')} className="icon-button !w-10 !h-10 hover:bg-surface-container-highest transition-colors rounded-full" title="Successivo">
+                        <button onClick={() => handleNavigate('next')} className="icon-button" title="Successivo">
                             <span className="material-symbols-outlined">chevron_right</span>
                         </button>
                     </div>
-
-                    <h2 className="m3-headline-small capitalize text-on-surface font-bold truncate md:ml-4">
-                        {title}
-                    </h2>
+                    <h2 className="calendar-title">{title}</h2>
                 </div>
 
-                <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-                    {/* M3 TabGroup for View Selection (Desktop) */}
-                    <div className="hidden md:flex">
-                        <TabGroup
-                            tabs={[
-                                { id: 'month', label: 'Mese' },
-                                { id: 'week', label: 'Settimana' },
-                                { id: 'day', label: 'Giorno' },
-                                { id: 'agenda', label: 'Agenda' }
-                            ]}
-                            activeTab={viewMode}
-                            onTabChange={(id) => setViewMode(id as CalendarView)}
-                            variant="secondary"
-                        />
-                    </div>
+                <div className="calendar-header-right">
+                    <TabGroup
+                        tabs={[
+                            { id: 'month', label: 'Mese' },
+                            { id: 'week', label: 'Settimana' },
+                            { id: 'day', label: 'Giorno' },
+                            { id: 'agenda', label: 'Agenda' }
+                        ]}
+                        activeTab={viewMode}
+                        onTabChange={(id) => setViewMode(id as CalendarView)}
+                        variant="primary"
+                    />
 
-                    <div className="md:hidden flex-grow">
-                        <select
-                            value={viewMode}
-                            onChange={(e) => setViewMode(e.target.value as CalendarView)}
-                            className="form-select !h-12 !py-2 !pl-4 !pr-10 text-sm rounded-2xl bg-surface-container-high w-full font-medium"
-                        >
-                            <option value="month">Mese</option>
-                            <option value="week">Settimana</option>
-                            <option value="day">Giorno</option>
-                            <option value="agenda">Agenda</option>
-                        </select>
-                    </div>
-
-                    <div className="flex gap-2 border-l border-outline-variant pl-3">
-                        <button onClick={() => setIsAiParserOpen(true)} className="icon-button-tonal !w-10 !h-10" title="Analizza Circolare con AI">
+                    <div className="calendar-actions">
+                        <button onClick={() => setIsAiParserOpen(true)} className="icon-button primary" title="Analizza Circolare con AI">
                             <span className="material-symbols-outlined">auto_awesome</span>
                         </button>
-                        <button onClick={() => setEditingEvent({})} className="button button-filled !rounded-xl !h-10 px-4 shadow-md font-bold text-sm">
-                            <span className="material-symbols-outlined mr-2">add</span> Nuovo Evento
+                        <button onClick={() => setEditingEvent({})} className="button button-filled">
+                            <span className="material-symbols-outlined">add</span>
+                            <span>Nuovo Evento</span>
                         </button>
                     </div>
                 </div>
-
-                {/* Event Modals and Popovers placeholder - normally would be separate components */}
-                {editingEvent && (
-                    <EventModal
-                        eventToEdit={editingEvent}
-                        onClose={() => setEditingEvent(null)}
-                        onSave={(ev) => {
-                            if (ev.id) {
-                                setEventi(prev => prev.map(e => e.id === ev.id ? ev : e));
-                            } else {
-                                setEventi(prev => [...prev, { ...ev, id: `evt-${Date.now()}` }]);
-                            }
-                            setEditingEvent(null);
-                        }}
-                        onDelete={(id) => {
-                            setEventi(prev => prev.filter(e => e.id !== id));
-                            setEditingEvent(null);
-                        }}
-                    />
-                )}
             </header>
         );
     };
 
-    return (
-        <div className="calendar-container flex flex-col h-full bg-surface-container-lowest overflow-hidden">
-            {renderHeader()}
-            <div className="flex-grow overflow-hidden p-6">
-                {/* Simplified Calendar Body for Build Test */}
-                <div className="grid grid-cols-7 gap-px bg-outline-variant rounded-3xl overflow-hidden border border-outline-variant">
-                    {DAYS_SHORT.map(d => <div key={d} className="bg-surface-container-high p-4 text-center font-black text-xs opacity-50">{d}</div>)}
-                    {monthDates.map((date, i) => (
-                        <div key={i} className={`bg-surface min-h-[120px] p-2 hover:bg-surface-container-low transition-colors ${date.getMonth() !== currentDate.getMonth() ? 'opacity-30' : ''}`}>
-                            <div className="text-sm font-bold opacity-40 mb-2">{date.getDate()}</div>
-                        </div>
-                    ))}
-                </div>
+    const renderMonthView = () => (
+        <div className="calendar-month">
+            <div className="calendar-weekdays">
+                {DAYS_SHORT.map(d => (
+                    <div key={d} className="calendar-weekday">{d}</div>
+                ))}
             </div>
+            <div className="calendar-days">
+                {monthDates.map((date, i) => {
+                    const isCurrentMonth = date.getMonth() === currentDate.getMonth();
+                    const isToday = date.toDateString() === new Date().toDateString();
+                    const dayEvents = eventi.filter(e => e.data === date.toISOString().split('T')[0]);
+                    
+                    return (
+                        <div 
+                            key={i} 
+                            className={`calendar-day ${!isCurrentMonth ? 'other-month' : ''} ${isToday ? 'today' : ''}`}
+                            onClick={() => {
+                                setCurrentDate(date);
+                                setViewMode('day');
+                            }}
+                        >
+                            <span className={`calendar-day-number ${isToday ? 'today' : ''}`}>
+                                {date.getDate()}
+                            </span>
+                            <div className="calendar-day-events">
+                                {dayEvents.slice(0, 3).map((ev, idx) => (
+                                    <div 
+                                        key={ev.id || idx} 
+                                        className={`calendar-event calendar-event-${ev.tipo || 'default'}`}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setEditingEvent(ev);
+                                        }}
+                                    >
+                                        {ev.titolo}
+                                    </div>
+                                ))}
+                                {dayEvents.length > 3 && (
+                                    <div className="calendar-more">+{dayEvents.length - 3} altri</div>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+
+    const renderAgendaView = () => (
+        <div className="calendar-agenda">
+            {Object.keys(agendaGroups).length === 0 ? (
+                <div className="calendar-empty">
+                    <span className="material-symbols-outlined">event_busy</span>
+                    <p>Nessun evento questo mese</p>
+                </div>
+            ) : (
+                Object.entries(agendaGroups).map(([date, evts]) => (
+                    <div key={date} className="agenda-group">
+                        <div className="agenda-date">
+                            {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
+                        </div>
+                        <div className="agenda-events">
+                            {evts.map(ev => (
+                                <div 
+                                    key={ev.id} 
+                                    className={`agenda-event agenda-event-${ev.tipo || 'default'}`}
+                                    onClick={() => setEditingEvent(ev)}
+                                >
+                                    <div className="agenda-event-time">
+                                        {ev.oraInizio || 'Tutto il giorno'}
+                                    </div>
+                                    <div className="agenda-event-content">
+                                        <div className="agenda-event-title">{ev.titolo}</div>
+                                        {ev.descrizione && <div className="agenda-event-desc">{ev.descrizione}</div>}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))
+            )}
+        </div>
+    );
+
+    return (
+        <div className="calendar-container">
+            {renderHeader()}
+            
+            <div className="calendar-body">
+                {viewMode === 'month' && renderMonthView()}
+                {viewMode === 'agenda' && renderAgendaView()}
+                {(viewMode === 'week' || viewMode === 'day') && (
+                    <div className="calendar-empty">
+                        <span className="material-symbols-outlined">view_week</span>
+                        <p>Vista {viewMode === 'week' ? 'Settimana' : 'Giorno'} in arrivo</p>
+                    </div>
+                )}
+            </div>
+
+            {editingEvent && (
+                <EventModal
+                    eventToEdit={editingEvent}
+                    onClose={() => setEditingEvent(null)}
+                    onSave={(ev) => {
+                        if (ev.id) {
+                            setEventi(prev => prev.map(e => e.id === ev.id ? ev : e));
+                        } else {
+                            setEventi(prev => [...prev, { ...ev, id: `evt-${Date.now()}` }]);
+                        }
+                        setEditingEvent(null);
+                    }}
+                    onDelete={(id) => {
+                        setEventi(prev => prev.filter(e => e.id !== id));
+                        setEditingEvent(null);
+                    }}
+                />
+            )}
+
+            {isAiParserOpen && (
+                <AiEventParserModal
+                    aiSettings={aiSettings}
+                    onClose={() => setIsAiParserOpen(false)}
+                    onEventParsed={(eventData: Partial<EventoCalendario>) => {
+                        setEventi(prev => [...prev, { ...eventData, id: `evt-${Date.now()}` } as EventoCalendario]);
+                        setIsAiParserOpen(false);
+                    }}
+                />
+            )}
+
+            {popoverState && (
+                <EventActionPopover
+                    event={popoverState.event}
+                    anchorEl={popoverState.anchorEl}
+                    onClose={() => setPopoverState(null)}
+                    onEdit={() => {
+                        setEditingEvent(popoverState.event);
+                        setPopoverState(null);
+                    }}
+                    onDelete={() => {
+                        setEventi(prev => prev.filter(e => e.id !== popoverState.event.id));
+                        setPopoverState(null);
+                    }}
+                />
+            )}
         </div>
     );
 };

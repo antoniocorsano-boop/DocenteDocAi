@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 import { 
     UserProfile, Studente, Lezione, Slot, Valutazione, ValutazioneCompetenza, Uda, 
@@ -9,7 +8,6 @@ import {
 import { INITIAL_KB_GUIDE } from '../constants.ts';
 
 interface DataState {
-    // Core Entities
     user: UserProfile | null;
     students: Studente[];
     lessons: Record<string, Lezione>;
@@ -25,26 +23,18 @@ interface DataState {
     giudizi: Record<string, GiudizioPeriodico>;
     reports: Report[];
     feedSources: FeedSource[];
-    
-    // Runtime / Register
     draftRegister: Record<string, RegisterEntry>;
     finalizedRegister: RegisterEntry[];
     notebookNotes: Record<string, NotebookNote[]>;
     memos: ToDoItem[];
     curricula: CurriculumSubject[];
     submissions: HomeworkSubmission[];
-
-    // UI-related Data (Now in DataStore for persistence)
-    notifiche: Notifica[]; // Notifications for persistent storage
-
-    // AI Suggestions & Context
+    notifiche: Notifica[];
     suggestions: AiSuggestion[];
     activeSuggestion: SystemSuggestion | null;
     dismissedSuggestions: Set<string>;
     studentProfileContext: Studente | null;
     selectedClassForDashboard: string | null;
-
-    // Actions
     actions: {
         setUser: (user: UserProfile | null) => void;
         setStudents: (students: Studente[] | ((prev: Studente[]) => Studente[])) => void;
@@ -56,7 +46,7 @@ interface DataState {
         setEventi: (eventi: EventoCalendario[] | ((prev: EventoCalendario[]) => EventoCalendario[])) => void;
         setKnowledgeBase: (kb: KnowledgeBaseEntry[] | ((prev: KnowledgeBaseEntry[]) => KnowledgeBaseEntry[])) => void;
         setCorpora: (corpora: Corpus[] | ((prev: Corpus[]) => Corpus[])) => void;
-        setNotifiche: (notifiche: Notifica[] | ((prev: Notifica[]) => Notifica[])) => void; // Action for notifications
+        setNotifiche: (notifiche: Notifica[] | ((prev: Notifica[]) => Notifica[])) => void;
         setRubriche: (rubriche: Rubrica[] | ((prev: Rubrica[]) => Rubrica[])) => void;
         setPianiInclusione: (piani: Record<string, PianoInclusione> | ((prev: Record<string, PianoInclusione>) => Record<string, PianoInclusione>)) => void;
         setGiudizi: (giudizi: Record<string, GiudizioPeriodico> | ((prev: Record<string, GiudizioPeriodico>) => Record<string, GiudizioPeriodico>)) => void;
@@ -68,28 +58,17 @@ interface DataState {
         setMemos: (memos: ToDoItem[] | ((prev: ToDoItem[]) => ToDoItem[])) => void;
         setCurricula: (curr: CurriculumSubject[] | ((prev: CurriculumSubject[]) => CurriculumSubject[])) => void;
         setSubmissions: (subs: HomeworkSubmission[] | ((prev: HomeworkSubmission[]) => HomeworkSubmission[])) => void;
-        
-        // AI Suggestions & Context Actions
         setSuggestions: (suggestions: AiSuggestion[]) => void;
         setActiveSuggestion: (activeSuggestion: SystemSuggestion | null) => void;
         dismissSuggestion: (id: string) => void;
         setStudentProfileContext: (student: Studente | null) => void;
         setSelectedClassForDashboard: (className: string | null) => void;
-
-        // Bulk Load (for Backup Restore)
         loadFromBackup: (data: Partial<DataState>) => void;
         resetAll: () => void;
     }
 }
 
-// Lazy initialization wrapper to prevent zustand from accessing React.useState before React is ready
-let _useDataStoreInstance: any = null;
-
-function initializeDataStore() {
-    if (_useDataStoreInstance) return _useDataStoreInstance;
-    
-    _useDataStoreInstance = create<DataState>((set) => ({
-    // Initial State
+export const useDataStore = create<DataState>((set) => ({
     user: null,
     students: [],
     lessons: {},
@@ -112,8 +91,6 @@ function initializeDataStore() {
     memos: [],
     curricula: [],
     submissions: [],
-
-    // AI Suggestions & Context
     suggestions: [],
     activeSuggestion: null,
     dismissedSuggestions: new Set(),
@@ -143,8 +120,6 @@ function initializeDataStore() {
         setMemos: (input) => set((state) => ({ memos: typeof input === 'function' ? input(state.memos) : input })),
         setCurricula: (input) => set((state) => ({ curricula: typeof input === 'function' ? input(state.curricula) : input })),
         setSubmissions: (input) => set((state) => ({ submissions: typeof input === 'function' ? input(state.submissions) : input })),
-
-        // AI Suggestions & Context Actions
         setSuggestions: (suggestions) => set({ suggestions }),
         setActiveSuggestion: (activeSuggestion) => set({ activeSuggestion }),
         dismissSuggestion: (id) => set((state) => {
@@ -154,16 +129,13 @@ function initializeDataStore() {
         }),
         setStudentProfileContext: (student) => set({ studentProfileContext: student }),
         setSelectedClassForDashboard: (className) => set({ selectedClassForDashboard: className }),
-
         loadFromBackup: (data) => set((state) => ({
             ...state,
             ...data,
-            // Special handling for Set (dismissedSuggestions) during load
             dismissedSuggestions: data.dismissedSuggestions 
                 ? new Set(Array.from(data.dismissedSuggestions))
                 : new Set(),
         })),
-
         resetAll: () => set({
             user: null,
             students: [], lessons: {}, slots: {}, evaluations: [], competencyEvals: [],
@@ -174,17 +146,3 @@ function initializeDataStore() {
         })
     }
 }));
-    
-    return _useDataStoreInstance;
-}
-
-// Export proxy that lazily initializes the store
-export const useDataStore = new Proxy({} as any, {
-    get(target, prop) {
-        const store = initializeDataStore();
-        return store[prop];
-    },
-    apply(target, thisArg, args) {
-        return initializeDataStore()(...args);
-    }
-});

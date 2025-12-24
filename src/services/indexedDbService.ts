@@ -4,41 +4,94 @@ import { KnowledgeBaseEntry } from '../types';
 // to/from IndexedDB in a dedicated store.
 
 const DB_NAME = 'OrarioDocAI_Data'; // Separate DB for heavy content
-const DB_VERSION = 1;
+const DB_VERSION = 2; // Incremented to force store recreation
 const STORE_NAME = 'kb_content';
 const MAIN_DB_NAME = 'OrarioDocAI_BackupDB'; // Main app state DB
 
-let dbPromise: Promise<IDBDatabase> | null = null;
+let dbInstance: IDBDatabase | null = null;
+let dbInitPromise: Promise<IDBDatabase> | null = null;
 
+/**
+ * Inizializza il database IndexedDB per KB content in modo sicuro
+ */
 const getDb = (): Promise<IDBDatabase> => {
-    if (dbPromise) {
-        return dbPromise;
+    // Se abbiamo già un'istanza valida, riutilizzala
+    if (dbInstance && dbInstance.objectStoreNames.contains(STORE_NAME)) {
+        return Promise.resolve(dbInstance);
     }
-    dbPromise = new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
-        // Handle synchronous test mocks providing result immediately
-        if ((request as any).result) {
-            try {
-                const db = (request as any).result as IDBDatabase;
-                resolve(db);
-                return;
-            } catch {}
-        }
-        request.onerror = () => {
-            console.error('IndexedDB KB error:', request.error);
-            reject(new Error('Failed to open IndexedDB for KB.'));
-        };
-        request.onsuccess = () => {
-            resolve(request.result);
-        };
-        request.onupgradeneeded = (event) => {
-            const db = (event.target as IDBOpenDBRequest).result;
-            if (!db.objectStoreNames.contains(STORE_NAME)) {
+
+    // Se c'è già un'inizializzazione in corso, attendi quella
+    if (dbInitPromise) {
+        return dbInitPromise;
+    }
+
+    dbInitPromise = new Promise((resolve, reject) => {
+        try {
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            
+            request.onerror = () => {
+                console.error('[IndexedDbService] Database open error:', request.error);
+                dbInitPromise = null;
+                reject(new Error(`KB Database open failed: ${request.error?.message || 'Unknown error'}`));
+            };
+            
+            request.onsuccess = () => {
+                dbInstance = request.result;
+                
+                // Verifica che lo store esista
+                if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
+                    console.warn('[IndexedDbService] Store not found, recreating database...');
+                    dbInstance.close();
+                    dbInstance = null;
+                    dbInitPromise = null;
+                    
+                    // Elimina e ricrea il database
+                    const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
+                    deleteRequest.onsuccess = () => {
+                        getDb().then(resolve).catch(reject);
+                    };
+                    deleteRequest.onerror = () => {
+                        reject(new Error('Failed to recreate KB database'));
+                    };
+                    return;
+                }
+                
+                // Gestisci chiusura inaspettata
+                dbInstance.onclose = () => {
+                    console.warn('[IndexedDbService] Database connection closed unexpectedly');
+                    dbInstance = null;
+                    dbInitPromise = null;
+                };
+
+                resolve(dbInstance);
+            };
+            
+            request.onupgradeneeded = (event) => {
+                const db = (event.target as IDBOpenDBRequest).result;
+                
+                // Elimina store esistente se presente (per upgrade pulito)
+                if (db.objectStoreNames.contains(STORE_NAME)) {
+                    db.deleteObjectStore(STORE_NAME);
+                }
+                
+                // Crea nuovo store
                 db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-            }
-        };
+                console.log('[IndexedDbService] KB object store created/upgraded');
+            };
+
+            request.onblocked = () => {
+                console.warn('[IndexedDbService] Database upgrade blocked - close other tabs');
+                dbInitPromise = null;
+                reject(new Error('KB Database upgrade blocked'));
+            };
+
+        } catch (error) {
+            dbInitPromise = null;
+            reject(error);
+        }
     });
-    return dbPromise;
+
+    return dbInitPromise;
 };
 
 /**
@@ -47,33 +100,45 @@ const getDb = (): Promise<IDBDatabase> => {
  * @param kbEntries The KnowledgeBaseEntry array to save.
  */
 export const saveKbContentToIndexedDB = async (kbEntries: KnowledgeBaseEntry[]): Promise<void> => {
+    // Skip if no entries to save
+    if (!kbEntries || kbEntries.length === 0) {
+        return;
+    }
+    
     try {
         const db = await getDb();
         return new Promise((resolve, reject) => {
-            const transaction = db.transaction(STORE_NAME, 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
+            try {
+                const transaction = db.transaction(STORE_NAME, 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
 
-            kbEntries.forEach(entry => {
-                if (entry.content || entry.htmlContent || entry.fileContent) {
-                    const contentToSave = {
-                        id: entry.id,
-                        content: entry.content || '',
-                        htmlContent: entry.htmlContent || '',
-                        fileContent: entry.fileContent || undefined
-                    };
-                    store.put(contentToSave);
-                }
-            });
+                kbEntries.forEach(entry => {
+                    if (entry.content || entry.htmlContent || entry.fileContent) {
+                        const contentToSave = {
+                            id: entry.id,
+                            content: entry.content || '',
+                            htmlContent: entry.htmlContent || '',
+                            fileContent: entry.fileContent || undefined
+                        };
+                        store.put(contentToSave);
+                    }
+                });
 
-            transaction.oncomplete = () => resolve();
-            transaction.onerror = () => {
-                console.error('Save KB transaction error:', transaction.error);
-                reject(transaction.error);
-            };
+                transaction.oncomplete = () => {
+                    console.log('[IndexedDbService] KB content saved successfully');
+                    resolve();
+                };
+                transaction.onerror = () => {
+                    console.error('[IndexedDbService] Save KB transaction error:', transaction.error);
+                    reject(transaction.error);
+                };
+            } catch (error) {
+                reject(error);
+            }
         });
     } catch (error) {
-        console.error("Failed to initiate save KB content:", error);
-        throw error;
+        console.error("[IndexedDbService] Failed to save KB content:", error);
+        // Non bloccare l'app se il salvataggio KB fallisce
     }
 };
 
@@ -85,28 +150,41 @@ export const loadKbContentFromIndexedDB = async (): Promise<Record<string, Parti
     try {
         const db = await getDb();
         return new Promise((resolve, reject) => {
-            const transaction = db.transaction(STORE_NAME, 'readonly');
-            const store = transaction.objectStore(STORE_NAME);
-            const request = store.getAll();
-            request.onsuccess = () => {
-                const result: Record<string, Partial<KnowledgeBaseEntry>> = {};
-                request.result.forEach(entry => {
-                    result[entry.id] = {
-                        content: entry.content,
-                        htmlContent: entry.htmlContent,
-                        fileContent: entry.fileContent
-                    };
-                });
-                resolve(result);
-            };
-            request.onerror = () => {
-                console.error('Load KB request error:', request.error);
-                reject(request.error);
-            };
+            try {
+                const transaction = db.transaction(STORE_NAME, 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.getAll();
+                
+                request.onsuccess = () => {
+                    const result: Record<string, Partial<KnowledgeBaseEntry>> = {};
+                    if (request.result) {
+                        request.result.forEach(entry => {
+                            result[entry.id] = {
+                                content: entry.content,
+                                htmlContent: entry.htmlContent,
+                                fileContent: entry.fileContent
+                            };
+                        });
+                    }
+                    console.log('[IndexedDbService] KB content loaded, entries:', Object.keys(result).length);
+                    resolve(result);
+                };
+                request.onerror = () => {
+                    console.error('[IndexedDbService] Load KB request error:', request.error);
+                    reject(request.error);
+                };
+                
+                transaction.onerror = () => {
+                    console.error('[IndexedDbService] Load KB transaction error:', transaction.error);
+                    reject(transaction.error);
+                };
+            } catch (error) {
+                reject(error);
+            }
         });
     } catch (error) {
-        console.error("Failed to initiate load KB content:", error);
-        return {};
+        console.error("[IndexedDbService] Failed to load KB content:", error);
+        return {}; // Ritorna oggetto vuoto invece di throw
     }
 };
 
