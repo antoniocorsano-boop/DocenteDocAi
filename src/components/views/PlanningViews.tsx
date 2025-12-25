@@ -33,7 +33,7 @@ export interface PlanningViewsProps {
     settings: TimetableSettings;
     aiSettings: AiSettings;
     curricula: CurriculumSubject[];
-    viewContext?: unknown;
+    viewContext?: { action?: string; student?: Studente };
     onNavigate: (view: string, context?: unknown) => void;
     onSaveUda: (uda: Uda) => void;
     onSaveRubrica: (rubrica: Rubrica) => void;
@@ -132,7 +132,7 @@ export const PlanningViewsRenderer: React.FC<{
                     competencyEvaluations={props.competencyEvals}
                     settings={props.settings}
                     studentToEdit={props.viewContext?.student}
-                    onClearStudentToEdit={() => props.setViewContext(prev => ({ ...prev, student: undefined }))}
+                    onClearStudentToEdit={() => props.setViewContext(prev => ({ ...(prev ?? {}), student: undefined }))}
                     showToast={props.showToast}
                     showGuidanceTips={props.showGuidanceTips}
                     onAiProcessing={props.setIsGlobalAiLoading}

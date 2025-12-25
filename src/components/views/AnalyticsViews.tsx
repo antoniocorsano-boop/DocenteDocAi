@@ -31,7 +31,7 @@ export interface AnalyticsViewsProps {
     settings: TimetableSettings;
     aiSettings: AiSettings;
     udas: Uda[];
-    viewContext?: unknown;
+    viewContext?: string;
     onNavigate: (view: string, context?: unknown) => void;
     onDeleteReport: (id: string) => void;
     onSaveReport: (report: Report) => void;
@@ -85,7 +85,7 @@ export const AnalyticsViewsRenderer: React.FC<{
         case 'improvement-guide':
             return (
                 <ImprovementGuide
-                    selectedClass={props.viewContext}
+                    selectedClass={props.viewContext ?? ''}
                     students={props.students}
                     evaluations={props.evaluations}
                     competencyEvaluations={props.competencyEvals}
@@ -98,7 +98,7 @@ export const AnalyticsViewsRenderer: React.FC<{
         case 'consiglio-di-classe':
             return (
                 <ConsiglioClasse
-                    selectedClass={props.viewContext}
+                    selectedClass={props.viewContext ?? ''}
                     students={props.students}
                     evaluations={props.evaluations}
                     giudizi={props.giudizi}

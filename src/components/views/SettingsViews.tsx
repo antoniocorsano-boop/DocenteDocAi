@@ -18,6 +18,7 @@ import {
     Lezione, KnowledgeBaseEntry, Corpus, Studente,
     Valutazione, ValutazioneCompetenza, RegisterEntry, AiSuggestion,
     TimetableSettings, AppThemeState, AiSettings, BackupState, DriveSyncState,
+    AppState, Slot,
     Notifica, ToDoItem, BeforeInstallPromptEvent
 } from '../../types';
 
@@ -31,7 +32,7 @@ export interface SettingsViewsProps {
     corpora: Corpus[];
     notifiche: Notifica[];
     memos: ToDoItem[];
-    slots: Record<string, unknown>;
+    slots: Record<string, Slot>;
     lessons: Record<string, Lezione>;
     studenti: Studente[];
     students: Studente[];
@@ -70,7 +71,7 @@ export interface SettingsViewsProps {
     setMemos: (updater: (prev: ToDoItem[]) => ToDoItem[]) => void;
     setIsGlobalAiLoading: (loading: boolean) => void;
     onStartClassroom: (classe: string, materia: string, draftKey: string, lesson: Lezione) => void;
-    onSuggestionAction: (action: { type: string; payload?: unknown }) => void;
+    onSuggestionAction: (action: string) => void;
     onOpenOperations: () => void;
 }
 
@@ -114,7 +115,7 @@ export const SettingsViewsRenderer: React.FC<{
                         backupState: props.backupState,
                         driveSyncState: props.driveSyncState,
                         installPrompt: props.installPrompt,
-                    } as unknown as Record<string, unknown>}
+                    } as unknown as AppState}
                     onSuggestionAction={(action: { type: string; payload?: unknown }) => props.onSuggestionAction(action.type)}
                     onStartClassroom={props.onStartClassroom}
                     finalizedRegister={props.finalizedRegister}

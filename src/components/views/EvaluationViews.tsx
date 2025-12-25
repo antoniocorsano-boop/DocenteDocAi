@@ -25,7 +25,7 @@ export interface EvaluationViewsProps {
     finalizedRegister: RegisterEntry[];
     settings: TimetableSettings;
     aiSettings: AiSettings;
-    viewContext?: unknown;
+    viewContext?: string;
     selectedClass?: string;
     onNavigate: (view: string, context?: unknown) => void;
     setEvaluations: (updater: (prev: Valutazione[]) => Valutazione[]) => void;

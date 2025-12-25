@@ -12,11 +12,11 @@ import Calendar from '../Calendar';
 import LessonsPage from '../LessonsPage';
 import {
     Lezione, EventoCalendario, CurriculumSubject, TimetableSettings,
-    AiSettings, SystemSuggestion
+    AiSettings, SystemSuggestion, Slot
 } from '../../types';
 
 export interface SchedulingViewsProps {
-    slots: Record<string, unknown>;
+    slots: Record<string, Slot>;
     lessons: Record<string, Lezione>;
     settings: TimetableSettings;
     eventi: EventoCalendario[];
