@@ -15,9 +15,40 @@ interface NKAForceMapProps {
 
 
 
+export function separatePositions<T extends { x: number; y: number }>(positions: T[], minDistance: number): T[] {
+  // Simple iterative repulsion to resolve small overlaps
+  const pts = positions.map(p => ({ ...p }));
+  const maxIter = 100;
+  for (let iter = 0; iter < maxIter; iter++) {
+    let moved = false;
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i + 1; j < pts.length; j++) {
+        const dx = pts[j].x - pts[i].x;
+        const dy = pts[j].y - pts[i].y;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+        if (dist < minDistance) {
+          const overlap = (minDistance - dist) / 2;
+          const nx = dx / dist;
+          const ny = dy / dist;
+          pts[i].x -= nx * overlap;
+          pts[i].y -= ny * overlap;
+          pts[j].x += nx * overlap;
+          pts[j].y += ny * overlap;
+          moved = true;
+        }
+      }
+    }
+    if (!moved) break;
+  }
+  return pts;
+}
+
 const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 340, height = 220 }: NKAForceMapProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const [positions, setPositions] = React.useState<(NKANode & { x: number; y: number })[]>(getAINeuralLayout(nodes, width, height));
+  const nodeRadius = Math.max(18, Math.min(32, Math.min(width, height) / 15));
+  const [positions, setPositions] = React.useState<(NKANode & { x: number; y: number })[]>(
+    separatePositions(getAINeuralLayout(nodes, width, height), nodeRadius * 2 + 8)
+  );
   const [loading, setLoading] = React.useState(false);
   const sound = useNKAStore((s) => s.settings.sound);
 
@@ -25,7 +56,11 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
     let cancelled = false;
     setLoading(true);
     getLLMNeuralLayout(nodes, width, height, {}).then(pos => {
-      if (!cancelled) setPositions(pos);
+      if (!cancelled) {
+        // Apply separation to avoid overlaps
+        const separated = separatePositions(pos as any, nodeRadius * 2 + 8);
+        setPositions(separated as any);
+      }
     }).finally(() => {
       if (!cancelled) setLoading(false);
     });
