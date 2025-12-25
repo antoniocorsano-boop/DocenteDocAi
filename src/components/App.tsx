@@ -31,28 +31,29 @@ export const App: React.FC = () => {
             }
         }, [themeState]);
 
-        // Show loading screen during restore
-        if (modals.isRestoring) {
-            return (
-                <div style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    height: '100vh',
-                    background: 'var(--aura-gradient, linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%))'
-                }}>
-                    <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔄</div>
-                        <p style={{ color: 'var(--sys-on-surface, #1C1B1F)' }}>Caricamento...</p>
-                    </div>
-                </div>
-            );
-        }
-
-        // Fallback: se nessun utente e nessun errore, mostra login
-        if (!user) {
-            return <SignInScreen onSignInSuccess={(profile) => actions.setUser(profile)} />;
-        }
+        // Dev-only: unregister service workers to avoid stale service-worker intercept causing fetch failures
+        React.useEffect(() => {
+            try {
+                if ((import.meta && (import.meta as any).env && (import.meta as any).env.DEV) && 'serviceWorker' in navigator && !(window as any).__sw_unregistered) {
+                    (window as any).__sw_unregistered = true;
+                    navigator.serviceWorker.getRegistrations()
+                        .then(regs => {
+                            if (!regs || regs.length === 0) return false;
+                            return Promise.all(regs.map(r => r.unregister())).then(results => results.some(Boolean));
+                        })
+                        .then(unregistered => {
+                            if (unregistered) {
+                                console.info('[dev] Service workers unregistered — reloading');
+                                // Hard reload to clear caches affected by the SW
+                                setTimeout(() => window.location.reload(), 50);
+                            }
+                        })
+                        .catch(err => console.warn('[dev] SW unregister failed', err));
+                }
+            } catch (err) {
+                // ignore in environments where import.meta may be absent
+            }
+        }, []);
 
         // Keep FAB in sync with assistant state (notification & listening)
         React.useEffect(() => {
@@ -80,6 +81,30 @@ export const App: React.FC = () => {
                 window.removeEventListener('assistant:recording', onRecording as EventListener);
             };
         }, [activeSuggestion]);
+
+        // Show loading screen during restore
+        if (modals.isRestoring) {
+            return (
+                <div style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    height: '100vh',
+                    background: 'var(--aura-gradient, linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%))'
+                }}>
+                    <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔄</div>
+                        <p style={{ color: 'var(--sys-on-surface, #1C1B1F)' }}>Caricamento...</p>
+                    </div>
+                </div>
+            );
+        }
+
+        // Fallback: se nessun utente e nessun errore, mostra login
+        if (!user) {
+            return <SignInScreen onSignInSuccess={(profile) => actions.setUser(profile)} />;
+        }
+
 
         // App Shell M3 Expressive
         return (
