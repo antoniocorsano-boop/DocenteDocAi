@@ -33,15 +33,15 @@ export interface PlanningViewsProps {
     settings: TimetableSettings;
     aiSettings: AiSettings;
     curricula: CurriculumSubject[];
-    viewContext?: any;
-    onNavigate: (view: string, context?: any) => void;
+    viewContext?: unknown;
+    onNavigate: (view: string, context?: unknown) => void;
     onSaveUda: (uda: Uda) => void;
     onSaveRubrica: (rubrica: Rubrica) => void;
     onSavePiano: (piano: PianoInclusione) => void;
     onDeleteRubrica: (id: string) => void;
     onDeletePiano: (id: string) => void;
     onDeleteUda: (id: string) => void;
-    onSaveReport: (report: any) => void;
+    onSaveReport: (report: unknown) => void;
     onSaveEvent: (event: EventoCalendario) => void;
     onAddLessons: (lessons: Lezione[]) => void;
     setUdas: (updater: (prev: Uda[]) => Uda[]) => void;
@@ -53,7 +53,7 @@ export interface PlanningViewsProps {
     setIsLoadingModalOpen: (open: boolean) => void;
     setLoadingModalMessage: (message: string) => void;
     setIsGlobalAiLoading: (loading: boolean) => void;
-    setViewContext: (updater: (prev: any) => any) => void;
+    setViewContext: (updater: (prev: unknown) => unknown) => void;
     onUpdateCompetencies?: (comp: Competenza[]) => void;
 }
 

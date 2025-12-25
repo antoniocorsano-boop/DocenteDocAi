@@ -11,23 +11,23 @@ import { Timetable } from '../Timetable';
 import Calendar from '../Calendar';
 import LessonsPage from '../LessonsPage';
 import {
-    Lezione, EventoCalendario, Competenza, CurriculumSubject, TimetableSettings,
-    AiSettings
+    Lezione, EventoCalendario, CurriculumSubject, TimetableSettings,
+    AiSettings, SystemSuggestion
 } from '../../types';
 
 export interface SchedulingViewsProps {
-    slots: Record<string, any>;
+    slots: Record<string, unknown>;
     lessons: Record<string, Lezione>;
     settings: TimetableSettings;
     eventi: EventoCalendario[];
     aiSettings: AiSettings;
-    activeSuggestion: any;
+    activeSuggestion: SystemSuggestion | null;
     curricula: CurriculumSubject[];
     onEditSlot: (giorno: string, ora: string) => void;
     onShowSlotActions: (giorno: string, ora: string, slotKey: string) => void;
     onAiSuggest: () => void;
-    onNavigate: (view: string, context?: any) => void;
-    onScheduleLesson: (data: any) => void;
+    onNavigate: (view: string, context?: unknown) => void;
+    onScheduleLesson: (data: unknown) => void;
     onAddLessons: (lessons: Lezione[]) => void;
     onUpdateLesson: (lesson: Lezione) => void;
     onStartClassroom: (classe: string, materia: string, draftKey: string, lesson: Lezione) => void;
@@ -50,7 +50,7 @@ export const SchedulingViewsRenderer: React.FC<{
                     lessons={props.lessons}
                     settings={props.settings}
                     onEditSlot={props.onEditSlot}
-                    onShowSlotActions={(slot: any, lesson: Lezione) => {
+                    onShowSlotActions={(slot: { giorno: string; ora: string }) => {
                         props.onShowSlotActions(slot.giorno, slot.ora, `${slot.giorno}-${slot.ora}`);
                     }}
                     onAiSuggest={props.onAiSuggest}

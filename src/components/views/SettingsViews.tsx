@@ -15,7 +15,7 @@ import KnowledgeBase from '../KnowledgeBase';
 import { Studio } from '../Studio';
 import FeedManager from '../FeedManager';
 import {
-    Lezione, EventoCalendario, KnowledgeBaseEntry, Corpus, Studente,
+    Lezione, KnowledgeBaseEntry, Corpus, Studente,
     Valutazione, ValutazioneCompetenza, RegisterEntry, AiSuggestion,
     TimetableSettings, AppThemeState, AiSettings, BackupState, DriveSyncState,
     Notifica, ToDoItem, BeforeInstallPromptEvent
@@ -31,7 +31,7 @@ export interface SettingsViewsProps {
     corpora: Corpus[];
     notifiche: Notifica[];
     memos: ToDoItem[];
-    slots: Record<string, any>;
+    slots: Record<string, unknown>;
     lessons: Record<string, Lezione>;
     studenti: Studente[];
     students: Studente[];
@@ -42,8 +42,8 @@ export interface SettingsViewsProps {
     suggestions: AiSuggestion[];
     isGlobalAiLoading: boolean;
     installPrompt: BeforeInstallPromptEvent | null;
-    viewContext?: any;
-    onNavigate: (view: string, context?: any) => void;
+    viewContext?: unknown;
+    onNavigate: (view: string, context?: unknown) => void;
     onUpdateSettings: (settings: TimetableSettings) => void;
     onUpdateTheme: (theme: AppThemeState) => void;
     onUpdateAiSettings: (settings: AiSettings) => void;
@@ -70,7 +70,7 @@ export interface SettingsViewsProps {
     setMemos: (updater: (prev: ToDoItem[]) => ToDoItem[]) => void;
     setIsGlobalAiLoading: (loading: boolean) => void;
     onStartClassroom: (classe: string, materia: string, draftKey: string, lesson: Lezione) => void;
-    onSuggestionAction: (action: string) => void;
+    onSuggestionAction: (action: { type: string; payload?: unknown }) => void;
     onOpenOperations: () => void;
 }
 
@@ -114,8 +114,8 @@ export const SettingsViewsRenderer: React.FC<{
                         backupState: props.backupState,
                         driveSyncState: props.driveSyncState,
                         installPrompt: props.installPrompt,
-                    } as any}
-                    onSuggestionAction={(action: { type: string; payload?: any }) => props.onSuggestionAction(action.type)}
+                    } as unknown as Record<string, unknown>}
+                    onSuggestionAction={(action: { type: string; payload?: unknown }) => props.onSuggestionAction(action.type)}
                     onStartClassroom={props.onStartClassroom}
                     finalizedRegister={props.finalizedRegister}
                     draftRegister={props.draftRegister}

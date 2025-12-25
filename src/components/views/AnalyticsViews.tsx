@@ -31,8 +31,8 @@ export interface AnalyticsViewsProps {
     settings: TimetableSettings;
     aiSettings: AiSettings;
     udas: Uda[];
-    viewContext?: any;
-    onNavigate: (view: string, context?: any) => void;
+    viewContext?: unknown;
+    onNavigate: (view: string, context?: unknown) => void;
     onDeleteReport: (id: string) => void;
     onSaveReport: (report: Report) => void;
     onSaveGiudizio: (giudizio: GiudizioPeriodico) => void;
