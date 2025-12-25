@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { EventoCalendario, TipoEvento } from '../types';
 import { TextField, TextArea, M3ChoiceCard } from './M3Components';
 
@@ -50,9 +51,27 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
         onSave(eventToSave);
     };
 
+    // Accessibility & UX
+    const overlayRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLFormElement>(null);
+    useModalAccessibility({
+        isOpen: true,
+        onClose,
+        overlayRef,
+        containerRef,
+        onOverlayClick: onClose
+    });
+
     return (
-        <div className="dialog-backdrop">
-            <form onSubmit={handleSubmit} className="dialog-container w-full max-w-lg shadow-3xl">
+        <div className="dialog-backdrop animate-fade-in" ref={overlayRef}>
+            <form
+                ref={containerRef}
+                role="dialog"
+                aria-modal="true"
+                tabIndex={-1}
+                onSubmit={handleSubmit}
+                className="dialog-container w-full max-w-lg sm:max-w-full md:max-w-lg max-h-[90vh] overflow-y-auto shadow-3xl p-4 sm:p-2 md:p-6 animate-scale-in"
+            >
                 <div className="dialog-header border-b border-outline-variant bg-surface-container-high p-6">
                     <h2 className="m3-headline-small font-black">{event.id ? 'Modifica Evento' : 'Nuovo Evento'}</h2>
                     <button type="button" onClick={onClose} className="icon-button">

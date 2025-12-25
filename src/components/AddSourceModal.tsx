@@ -1,5 +1,6 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { useDropzone } from 'react-dropzone';
 import { KnowledgeBaseEntry, Corpus } from '../types';
 import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
@@ -51,9 +52,26 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
     const onDrop = useCallback((acceptedFiles: File[]) => processFiles(acceptedFiles), [selectedCategory, selectedCorpusId, processFiles]);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, disabled: isLoading || !selectedCategory });
     
+    // Accessibility & UX
+    const overlayRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    useModalAccessibility({
+        isOpen: true,
+        onClose,
+        overlayRef,
+        containerRef,
+        onOverlayClick: onClose
+    });
+
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-3xl h-[90vh] flex flex-col overflow-hidden shadow-3xl">
+        <div className="dialog-backdrop animate-fade-in" ref={overlayRef}>
+            <div
+                ref={containerRef}
+                role="dialog"
+                aria-modal="true"
+                tabIndex={-1}
+                className="dialog-container w-full max-w-3xl sm:max-w-full md:max-w-2xl max-h-[90vh] flex flex-col overflow-y-auto shadow-3xl p-4 sm:p-2 md:p-8 animate-scale-in"
+            >
                 <div className="dialog-header border-b border-outline-variant p-6 bg-surface-container-high">
                     <h2 className="m3-headline-small font-black">Aggiungi Documenti</h2>
                     <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>

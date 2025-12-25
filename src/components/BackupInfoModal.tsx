@@ -1,10 +1,29 @@
-import React from 'react';
+import * as React from 'react';
+import { useRef } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { BackupInfoModalProps } from '../types';
 
 const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
+    // Accessibility & UX
+    const overlayRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    useModalAccessibility({
+        isOpen: true,
+        onClose,
+        overlayRef,
+        containerRef,
+        onOverlayClick: onClose
+    });
+
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-2xl h-[90vh]">
+        <div className="dialog-backdrop animate-fade-in" ref={overlayRef}>
+            <div
+                ref={containerRef}
+                role="dialog"
+                aria-modal="true"
+                tabIndex={-1}
+                className="dialog-container w-full max-w-2xl sm:max-w-full md:max-w-xl max-h-[90vh] overflow-y-auto p-4 sm:p-2 md:p-6 animate-scale-in"
+            >
                 <div className="dialog-header">
                     <h2 className="m3-headline-medium">Informazioni sul Backup</h2>
                     <button onClick={onClose} className="icon-button">

@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { messages } from '../messages';
 import { TimetableSettings, AiSettings, AppThemeState } from '../types';
 import { AI_PROFILES } from '../constants';
 import { generateThemeFromPrompt } from '../services/aiService';
@@ -55,7 +56,7 @@ export const useSettingsLogic = ({
         // Basic comparison to avoid saving if nothing changed
         if(JSON.stringify(debouncedSettings) !== JSON.stringify(settings)) {
              onSaveSettings(debouncedSettings);
-             showToast('Impostazioni salvate', 'success'); 
+             showToast(messages.toast.save, 'success'); 
         }
     }, [debouncedSettings, settings, onSaveSettings, showToast]);
 
@@ -73,12 +74,12 @@ export const useSettingsLogic = ({
 
     const handleResetAiCache = useCallback(() => {
         handleAiProfileChange('rapido');
-        showToast('Cache AI resettata e modello reimpostato.', 'info');
+        showToast(messages.toast.retry, 'info');
     }, [handleAiProfileChange, showToast]);
 
     const handleGenerateThemeFromPrompt = useCallback(async () => {
         if (!themePrompt.trim()) {
-            showToast('Inserisci un prompt per generare il tema.', 'error');
+            showToast(messages.generic.error, 'error');
             return;
         }
         setIsGeneratingTheme(true);
@@ -91,9 +92,9 @@ export const useSettingsLogic = ({
                 generatedName: generatedTheme.name,
                 generatedColors: { primary: generatedTheme.primary, secondary: generatedTheme.secondary, tertiary: generatedTheme.tertiary },
             });
-            showToast('Tema generato con successo!', 'success');
+            showToast(messages.toast.success, 'success');
         } catch (error) {
-            showToast('Errore durante la generazione del tema.', 'error');
+            showToast(messages.toast.error, 'error');
         } finally {
             setIsGeneratingTheme(false);
         }

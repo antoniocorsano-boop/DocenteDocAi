@@ -16,6 +16,7 @@
  */
 
 import * as React from 'react';
+import { messages } from '../../messages';
 import { SchedulingViewsRenderer } from './SchedulingViews';
 import { EvaluationViewsRenderer } from './EvaluationViews';
 import { PlanningViewsRenderer } from './PlanningViews';
@@ -99,7 +100,7 @@ export const ViewRouter: React.FC<ViewRouterProps> = ({ viewName, props }) => {
     const routing = getViewRouter(viewName);
     
     if (!routing) {
-        return <div>Vista '{viewName}' non trovata</div>;
+        return <div>{messages.generic.error} ({viewName})</div>;
     }
 
     const { category, viewType } = routing;

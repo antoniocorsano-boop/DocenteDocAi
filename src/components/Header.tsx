@@ -86,12 +86,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 className="!rounded-lg"
             />
 
-            <M3ListItem
-                headline="Assistente Live"
-                leadingElement={<span className="material-symbols-outlined text-secondary">mic</span>}
-                onClick={() => handleActionClick(onNavigateToLiveAssistant)}
-                className="!rounded-lg"
-            />
+
 
             <div className="h-px bg-outline-variant/10 my-1 mx-4"></div>
 

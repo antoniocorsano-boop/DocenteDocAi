@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { GlobalFab } from './GlobalFab';
 import { useAppEngine } from '../hooks/useAppEngine';
 import { Header } from './Header';
 const AssistantDevTools = React.lazy(() => import('./AssistantDevTools'));
@@ -125,7 +126,7 @@ export const App: React.FC = () => {
                     onBack={actions.handleBack}
                     onOpenImageAnalysis={() => modals.setIsImageAnalysisOpen(true)}
                     onOpenVideoAnalysis={() => modals.setIsVideoAnalysisOpen(true)}
-                    onNavigateToLiveAssistant={() => modals.setIsLiveAssistantModalOpen(true)}
+                    // RIMOSSO: onNavigateToLiveAssistant
                     onOpenHelp={() => modals.setIsHelpOpen(true)}
                     user={user}
                     settings={appState.settings}
@@ -152,6 +153,12 @@ export const App: React.FC = () => {
                         />
                     </div>
                 </main>
+
+                {/* FAB Assistente Vocale unico, flottante e spostabile */}
+                <GlobalFab
+                    currentView={view}
+                    onAction={() => modals.setIsLiveAssistantModalOpen(true)}
+                />
 
                 {/* Bottom Navigation */}
                 <Menu currentView={view} onNavigate={actions.handleNavigate} />

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState, useRef } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { Studente, Valutazione } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
 import { M3ChoiceCard, SelectField, TextField, TextArea } from './M3Components';
@@ -21,7 +23,12 @@ const getTestTypeIcon = (tipo: string) => {
     }
 };
 
-const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({ students, discipline, onClose, onSave }) => {
+const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
+    students,
+    discipline,
+    onClose,
+    onSave
+}: AddEvaluationModalProps) => {
     const [selectedStudentId, setSelectedStudentId] = useState<string>('');
     const [selectedMateria, setSelectedMateria] = useState<string>(discipline[0] || '');
     const [tipo, setTipo] = useState<Valutazione['tipo']>('Orale');
@@ -47,9 +54,28 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({ students, disci
         onClose();
     };
 
+    // Accessibility & UX
+    const overlayRef = useRef<HTMLDivElement>(null);
+    // useModalAccessibility expects containerRef as RefObject<HTMLDivElement>
+    const containerRef = useRef<HTMLDivElement>(null);
+    useModalAccessibility({
+        isOpen: true,
+        onClose,
+        overlayRef,
+        containerRef,
+        onOverlayClick: onClose
+    });
+
     return (
-        <div className="dialog-backdrop">
-            <form onSubmit={handleSubmit} className="dialog-container w-full max-w-lg">
+        <div className="dialog-backdrop animate-fade-in" ref={overlayRef}>
+            <form
+                ref={containerRef as unknown as React.RefObject<HTMLFormElement>}
+                role="dialog"
+                aria-modal="true"
+                tabIndex={-1}
+                onSubmit={handleSubmit}
+                className="dialog-container w-full max-w-lg sm:max-w-full md:max-w-lg max-h-[90vh] overflow-y-auto p-4 sm:p-2 md:p-6 animate-scale-in"
+            >
                 <div className="dialog-header">
                     <h2 className="m3-headline-medium font-black">Aggiungi Valutazione</h2>
                     <button type="button" onClick={onClose} className="icon-button rounded-lg hover:shadow-md transition-all">
@@ -61,11 +87,11 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({ students, disci
                         id="eval-student-select"
                         label="Studente"
                         value={selectedStudentId}
-                        onChange={e => setSelectedStudentId(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStudentId(e.target.value)}
                         required
                     >
                         <option value="">Seleziona studente...</option>
-                        {students.map(s => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
+                        {students.map((s: Studente) => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
                     </SelectField>
 
                     <div className="grid grid-cols-2 gap-4">
@@ -73,21 +99,21 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({ students, disci
                             id="eval-materia-select"
                             label="Materia"
                             value={selectedMateria}
-                            onChange={e => setSelectedMateria(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedMateria(e.target.value)}
                             required
                         >
                             <option value="">Seleziona...</option>
-                            {discipline.map(d => <option key={d} value={d}>{d}</option>)}
+                            {discipline.map((d: string) => <option key={d} value={d}>{d}</option>)}
                         </SelectField>
                         <SelectField
                             id="eval-voto-select"
                             label="Voto / Giudizio"
                             value={voto}
-                            onChange={e => setVoto(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVoto(e.target.value)}
                             required
                         >
                             <option value="">Seleziona...</option>
-                            {RATING_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                            {RATING_OPTIONS.map((o: string) => <option key={o} value={o}>{o}</option>)}
                         </SelectField>
                     </div>
 
@@ -110,7 +136,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({ students, disci
                         id="eval-argomento-input"
                         label="Argomento"
                         value={argomento}
-                        onChange={e => setArgomento(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setArgomento(e.target.value)}
                         placeholder="Es. 'Il Barocco in Italia'"
                     />
 
@@ -118,7 +144,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({ students, disci
                         id="eval-note-textarea"
                         label="Note Aggiuntive"
                         value={note}
-                        onChange={e => setNote(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNote(e.target.value)}
                         rows={2}
                     />
                 </div>

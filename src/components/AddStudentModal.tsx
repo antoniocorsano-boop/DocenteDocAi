@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { Studente } from '../types';
 import { TextField, SelectField, M3Dialog } from './M3Components';
 
@@ -39,21 +40,29 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
         onClose();
     };
 
+    // Accessibility & UX
+    const overlayRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    useModalAccessibility({
+        isOpen: true,
+        onClose,
+        overlayRef,
+        containerRef,
+        onOverlayClick: onClose
+    });
+
     return (
-        <M3Dialog
-            isOpen={true}
-            onClose={onClose}
-            title={studentToEdit ? 'Modifica Studente' : 'Aggiungi Studente'}
-            buttons={
-                <>
-                    <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Annulla</button>
-                    <button type="button" onClick={handleSaveClick} className="button button-filled rounded-lg hover:shadow-md transition-all">Salva Studente</button>
-                </>
-            }
-        >
-            <div className="space-y-6 pt-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <TextField
+        <div className="dialog-backdrop animate-fade-in" ref={overlayRef}>
+            <div
+                ref={containerRef}
+                role="dialog"
+                aria-modal="true"
+                tabIndex={-1}
+                className="dialog-container w-full max-w-lg sm:max-w-full md:max-w-lg max-h-[90vh] overflow-y-auto p-4 sm:p-2 md:p-6 animate-scale-in"
+            >
+                <div className="space-y-6 pt-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
+                        <TextField
                         id="student-cognome-input"
                         name="cognome"
                         label="Cognome"

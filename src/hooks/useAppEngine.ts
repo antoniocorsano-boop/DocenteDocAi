@@ -14,6 +14,7 @@ import { usePersistence } from './usePersistence.ts';
 import { analyzeSystemState } from '../utils/suggestionUtils.ts';
 import { validateBackupData } from '../utils/dataValidator.ts';
 import { useUIStore } from '../stores/useUIStore';
+import { messages } from '../messages';
 import { useDataStore } from '../stores/useDataStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 
@@ -151,24 +152,27 @@ export const useAppEngine = () => {
         }
     }, [navigationHistory, view]);
 
-    const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'info') => {
-        uiActions.showToast(message, type);
+    // Centralized toast dispatcher using messages.ts
+    const showToast = useCallback((messageKey: string, type: 'success' | 'error' | 'info' = 'info') => {
+        // If the messageKey is a known key in messages.toast, use it, else fallback to the string
+        const msg = (messages.toast as any)[messageKey] || messageKey;
+        uiActions.showToast(msg, type);
     }, []);
 
     const handleConnectDrive = useCallback(() => {
         const initialized = initTokenClient((tokenResponse) => {
             uiActions.setDriveSyncState(prev => ({ ...prev, isAuthenticated: true }));
-            showToast('Connesso a Google Drive!', 'success');
+            showToast('driveConnected', 'success');
         }, settings.googleClientId);
 
         if (initialized) requestAccessToken();
-        else showToast('Errore inizializzazione Google Client.', 'error');
+        else showToast('driveInitError', 'error');
     }, [settings.googleClientId]);
 
     const handleDisconnectDrive = useCallback(() => {
         revokeAccessToken();
         uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
-        showToast('Disconnesso da Drive.', 'info');
+        showToast('driveDisconnected', 'info');
     }, []);
 
     const handleSyncToDrive = useCallback(async (folderId?: string) => {
@@ -235,9 +239,9 @@ export const useAppEngine = () => {
 
             await uploadBackup(payload, folderId || settings.backupFolderId);
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false, lastSyncTime: new Date() }));
-            showToast('Backup completato!', 'success');
+            showToast('success', 'success');
         } catch (e: any) {
-            showToast('Errore backup Drive: ' + e.message, 'error');
+            showToast('error', 'error');
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false, error: e.message }));
         }
     }, [user, students, lessons, slots, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, studentProfileContext, selectedClassForDashboard, settings, aiSettings, themeState, driveSyncState, navigationHistory, uiActions, showToast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions, backupState]);
@@ -271,10 +275,10 @@ export const useAppEngine = () => {
                     await saveKbContentToIndexedDB(restoredData.knowledgeBase);
                     setKnowledgeBase(restoredData.knowledgeBase); // Use destructured action
                 }
-                showToast('Dati ripristinati da Drive!', 'success');
+                showToast('restoreSuccess', 'success');
             }
         } catch (e: any) {
-            showToast('Errore ripristino: ' + e.message, 'error');
+            showToast('restoreError', 'error');
             uiActions.setDriveSyncState(prev => ({ ...prev, error: e.message }));
         } finally {
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false }));
@@ -284,7 +288,7 @@ export const useAppEngine = () => {
 
     const handleConfigureDrive = useCallback((clientId: string, apiKey?: string) => {
         settingsActions.updateSettings({ googleClientId: clientId, googleApiKey: apiKey });
-        showToast('Configurazione Drive aggiornata.', 'success');
+        showToast('driveConfigUpdated', 'success');
     }, [showToast, settingsActions]);
 
     const handleLoadDemoData = useCallback(() => {
@@ -299,7 +303,7 @@ export const useAppEngine = () => {
             uiActions.setCanShowInstallPrompt(false);
             uiActions.setIsGlobalAiLoading(false);
             uiActions.clearNavigationHistory();
-            showToast('Dati demo caricati!', 'success');
+            showToast('demoLoaded', 'success');
         });
     }, [showToast, loadFromBackup, setNotifiche, settingsActions, uiActions]);
 
@@ -316,7 +320,7 @@ export const useAppEngine = () => {
             uiActions.setInstallPrompt(null); // Reset PWA state on clear
             uiActions.setCanShowInstallPrompt(false);
             uiActions.setIsGlobalAiLoading(false);
-            showToast('Dati eliminati.', 'success');
+            showToast('delete', 'success');
         }
     }, [showToast, resetAll, setNotifiche, settingsActions, uiActions]);
 
@@ -347,7 +351,7 @@ export const useAppEngine = () => {
             }
             return [...prev, uda];
         });
-        showToast('UDA salvata con successo', 'success');
+        showToast('udaSaved', 'success');
     }, [setUdas, showToast]);
 
     const onSaveReport = useCallback((report: Report) => {
@@ -465,9 +469,9 @@ export const useAppEngine = () => {
                 uiActions.setInstallPrompt(data.installPrompt || null);
                 uiActions.setCanShowInstallPrompt(data.canShowCanShowInstallPrompt || false);
                 uiActions.setIsGlobalAiLoading(data.isGlobalAiLoading || false);
-                showToast('Dati importati!', 'success');
+                showToast('imported', 'success');
             } catch (err) {
-                showToast('File non valido.', 'error');
+                showToast('invalidFile', 'error');
             }
         };
         reader.readAsText(file);
@@ -520,7 +524,7 @@ export const useAppEngine = () => {
             prompt: `Suggerisci un'attività didattica creativa per la prossima lezione di ${slot.materia} nella classe ${slot.classe}.`,
             targetSlot: slot
         });
-        showToast("Preparazione suggerimento AI nello Studio...", "info");
+        showToast('aiSuggestionPrep', 'info');
     }, [handleNavigate, showToast]);
 
     const handleAddNote = useCallback((data: { note: string, studentName?: string }) => {
@@ -534,7 +538,7 @@ export const useAppEngine = () => {
             ...prev,
             [category]: [newNote, ...(prev[category] || [])]
         }));
-        showToast('Nota aggiunta al notebook', 'success');
+        showToast('noteAdded', 'success');
     }, [setNotebookNotes, showToast, viewContext]);
 
     const onMarkAttendance = useCallback((data: { studentName: string, status: string }) => {
@@ -550,9 +554,9 @@ export const useAppEngine = () => {
                     }
                 }
             }));
-            showToast(`Presenza di ${data.studentName} aggiornata`, 'success');
+            showToast('attendanceUpdated', 'success');
         } else {
-            showToast('Errore: Registrazione non attiva', 'error');
+            showToast('registerError', 'error');
         }
     }, [setDraftRegister, viewContext, draftRegister, showToast]);
 
@@ -582,7 +586,7 @@ export const useAppEngine = () => {
     const handlePromoteStudents = useCallback((promotedStudents: Studente[], archiveYear: string) => {
         setStudents(promotedStudents); // Use destructured action
         settingsActions.updateSettings({ annoScolasticoCorrente: archiveYear });
-        showToast("Studenti promossi.", "success");
+        showToast('studentsPromoted', 'success');
     }, [setStudents, settingsActions, showToast]);
 
     const handleResetYearData = useCallback(async () => {
@@ -597,7 +601,7 @@ export const useAppEngine = () => {
         setSubmissions([]); // Use destructured action
         setPianiInclusione({}); // Use destructured action
         setGiudizi({}); // Use destructured action
-        showToast("Database operativo resettato.", "info");
+        showToast('dbReset', 'info');
     }, [setEvaluations, setCompetencyEvals, setDraftRegister, setFinalizedRegister, setEventi, setReports, setUdas, setMemos, setSubmissions, setPianiInclusione, setGiudizi, showToast]);
 
     const dismissSuggestionWrapper = useCallback((id: string) => {
