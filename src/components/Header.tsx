@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
+import NKABottomSheet from '../nka/NKABottomSheet';
+import { useNKAStore } from '../nka/useNKAStore';
 import Logo from './Logo';
 import { HeaderProps } from '../types';
 import NotificationsPopover from './NotificationsPopover';
@@ -131,6 +134,35 @@ export const Header: React.FC<HeaderProps> = (props) => {
         setNotifiche(prev => prev.map(n => ({ ...n, letta: true })));
     };
 
+
+    // NKA integration logic: componente interno
+    const NKAHeaderIntegration: React.FC = () => {
+        const enabled = useNKAStore(s => s.enabled);
+        const nodes = useNKAStore(s => s.nodes);
+        const [open, setOpen] = React.useState(false);
+        const [tooltip, setTooltip] = React.useState(false);
+        // Simulate badge if new node exists
+        const hasNewNode = nodes.length > 0 && nodes.some(n => n.depth > 0.9);
+        return enabled ? (
+            <>
+                <NKAHeaderAuraButton
+                    hasNewNode={hasNewNode}
+                    onClick={() => setOpen(true)}
+                    onLongPress={() => setTooltip(true)}
+                />
+                {tooltip && (
+                    <div role="tooltip" className="nka-tooltip">Esplora la tua aura di conoscenza</div>
+                )}
+                <NKABottomSheet
+                    open={open}
+                    nodes={nodes}
+                    onClose={() => setOpen(false)}
+                    onNodeSelect={() => {}}
+                />
+            </>
+        ) : null;
+    };
+
     return (
         <>
             <header className="app-header">
@@ -178,7 +210,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     </div>
 
                     {/* Right: Actions */}
-                    <div className="header-trailing">
+                    <div className="header-trailing" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         {/* Settings - visible on tablet+ */}
                         <button
                             onClick={() => onNavigate('settings')}
@@ -187,6 +219,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         >
                             <span className="material-symbols-outlined">settings</span>
                         </button>
+
+                        {/* NKA Aura Button (M3, a destra dell'avatar) */}
+                        <NKAHeaderIntegration />
 
                         {/* Menu button */}
                         <button

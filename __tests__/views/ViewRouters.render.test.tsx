@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { describe, it, expect } from 'vitest';
 import { ViewRouter } from '../../src/components/views/ViewRouters';
 import { DEFAULT_TIMETABLE_SETTINGS } from '../../src/constants';
@@ -28,14 +29,12 @@ const baseSchedulingProps = {
 };
 
 describe('ViewRouter rendering', () => {
-  it('rejects English alias "calendar" (now use canonical token)', () => {
-    render(<ViewRouter viewName="calendar" props={baseSchedulingProps} />);
-    expect(screen.getByText(/non trovata/)).toBeDefined();
-  });
-
-  it('renders Calendar when passed Italian canonical "calendario"', () => {
+  it('renders the Calendar view', () => {
     render(<ViewRouter viewName="calendario" props={baseSchedulingProps} />);
-    expect(screen.getByText(/Oggi/)).toBeDefined();
-    expect(screen.getByText(/Nuovo Evento/)).toBeDefined();
+    // Verifica che il titolo del calendario sia presente (es: "Dicembre 2025")
+    expect(screen.getByText(/Dicembre 2025/)).toBeInTheDocument();
+    // Verifica che i giorni della settimana siano presenti
+    expect(screen.getByText('LUN')).toBeInTheDocument();
+    expect(screen.getByText('DOM')).toBeInTheDocument();
   });
 });

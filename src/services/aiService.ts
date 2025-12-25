@@ -1,3 +1,18 @@
+// Funzione generica per generazione contenuti AI (usata da NKA wizard)
+export const generateContent = async (prompt: string, options: { temperature?: number; maxTokens?: number; stop?: string | undefined }) => {
+    const ai = await getGoogleAIClient();
+    const response = await ai.models.generateContent({
+        model: 'gemini-3-pro-preview',
+        contents: prompt,
+        generationConfig: {
+            temperature: options.temperature ?? 0.7,
+            maxOutputTokens: options.maxTokens ?? 1000,
+            stopSequences: options.stop ? [options.stop] : undefined
+        }
+    });
+    // Gemini API: text or content
+    return { content: response.text || response.content || '' };
+};
 import { GoogleGenAI, Type } from "@google/genai";
 import { AiSettings, Lezione, Uda, Valutazione, ValutazioneCompetenza, Competenza, Studente, Livello, KnowledgeBaseEntry, AiSuggestion, PianoInclusione, CircularAnalysisResult, EventoCalendario, ChatMessage, GeneratedQuiz, LessonAnalysisResult, CurriculumSubject, TechnicalDocumentContent, EssayContent } from '../types';
 import { getGoogleAIClient, callAiWithRetry } from './aiClient';

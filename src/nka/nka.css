@@ -1,0 +1,106 @@
+/* NKA custom styles (M3-compliant overrides only) */
+.nka-aura-btn {
+  position: relative;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aura-glow {
+  background: radial-gradient(circle, var(--md-sys-color-primary80) 0%, transparent 70%);
+  animation: m3-emphasized-pulse 2s infinite;
+}
+@keyframes m3-emphasized-pulse {
+  0%   { transform: scale(1);  opacity: 0.4; }
+  50%  { transform: scale(1.08); opacity: 0.2; }
+  100% { transform: scale(1);  opacity: 0.4; }
+}
+.nka-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 10px;
+  height: 10px;
+  background: var(--md-sys-color-primary30);
+  border-radius: 50%;
+  border: 2px solid var(--md-sys-color-surface);
+}
+.nka-bottom-sheet {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: var(--md-sys-color-surface-container-lowest);
+  box-shadow: var(--md-sys-elevation3);
+  border-radius: 24px 24px 0 0;
+  z-index: 1000;
+  min-height: 40vh;
+  padding: 16px;
+  animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1);
+}
+.nka-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+}
+.nka-node-card {
+  margin: 12px 0;
+  padding: 16px;
+  background: var(--md-sys-color-surface);
+  box-shadow: var(--md-sys-elevation1);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.2s;
+}
+.nka-shape-circle {
+  border-radius: 50%;
+}
+.nka-shape-pill {
+  border-radius: 999px;
+}
+.nka-node-label {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.nka-node-depth {
+  font-size: 0.95rem;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-bottom: 8px;
+}
+.nka-node-actions {
+  display: flex;
+  gap: 8px;
+}
+.nka-action-btn {
+  background: none;
+  border: none;
+  color: var(--md-sys-color-primary);
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.nka-action-btn:hover {
+  background: var(--md-sys-color-primary10);
+}
+.nka-settings-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 16px 0;
+}
+.nka-settings-subtitle {
+  font-size: 0.95rem;
+  color: var(--md-sys-color-on-surface-variant);
+}

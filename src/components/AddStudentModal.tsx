@@ -63,36 +63,37 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
                 <div className="space-y-6 pt-2">
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
                         <TextField
-                        id="student-cognome-input"
-                        name="cognome"
-                        label="Cognome"
-                        value={formData.cognome}
-                        onChange={e => setFormData({ ...formData, cognome: e.target.value })}
-                        placeholder="Es. Rossi"
+                            id="student-cognome-input"
+                            name="cognome"
+                            label="Cognome"
+                            value={formData.cognome}
+                            onChange={e => setFormData({ ...formData, cognome: e.target.value })}
+                            placeholder="Es. Rossi"
+                            required
+                        />
+                        <TextField
+                            id="student-nome-input"
+                            name="nome"
+                            label="Nome"
+                            value={formData.nome}
+                            onChange={e => setFormData({ ...formData, nome: e.target.value })}
+                            placeholder="Es. Mario"
+                            required
+                        />
+                    </div>
+                    <SelectField
+                        id="student-classe-select"
+                        name="classe"
+                        label="Classe"
+                        value={formData.classe}
+                        onChange={e => setFormData({ ...formData, classe: e.target.value })}
                         required
-                    />
-                    <TextField
-                        id="student-nome-input"
-                        name="nome"
-                        label="Nome"
-                        value={formData.nome}
-                        onChange={e => setFormData({ ...formData, nome: e.target.value })}
-                        placeholder="Es. Mario"
-                        required
-                    />
+                    >
+                        {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
+                    </SelectField>
                 </div>
-                <SelectField
-                    id="student-classe-select"
-                    name="classe"
-                    label="Classe"
-                    value={formData.classe}
-                    onChange={e => setFormData({ ...formData, classe: e.target.value })}
-                    required
-                >
-                    {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                </SelectField>
             </div>
-        </M3Dialog>
+        </div>
     );
 };
 
