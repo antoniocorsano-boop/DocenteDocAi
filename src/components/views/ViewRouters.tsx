@@ -15,7 +15,7 @@
  * - Settings (Home, Settings, KnowledgeBase, Studio, FeedManager)
  */
 
-import React from 'react';
+import * as React from 'react';
 import { SchedulingViewsRenderer } from './SchedulingViews';
 import { EvaluationViewsRenderer } from './EvaluationViews';
 import { PlanningViewsRenderer } from './PlanningViews';

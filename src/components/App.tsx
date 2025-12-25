@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import * as React from 'react';
 import { useAppEngine } from '../hooks/useAppEngine';
 import { Header } from './Header';
 const AssistantDevTools = React.lazy(() => import('./AssistantDevTools'));
@@ -22,7 +22,7 @@ export const App: React.FC = () => {
         const { user, themeState, isGlobalAiLoading, notifiche, activeSuggestion, installPrompt } = appState;
 
         // Sincronizzazione immediata del tema (prevent flickering)
-        useLayoutEffect(() => {
+        React.useLayoutEffect(() => {
             if (themeState) {
                 const theme = createTheme({
                     name: themeState.customizationName,
@@ -111,7 +111,7 @@ export const App: React.FC = () => {
 
         // Fallback: se nessun utente e nessun errore, mostra login
         if (!user) {
-            return <SignInScreen onSignInSuccess={(profile) => actions.setUser(profile)} />;
+            return <SignInScreen onSignInSuccess={(profile: any) => actions.setUser(profile)} />;
         }
 
 
@@ -131,7 +131,7 @@ export const App: React.FC = () => {
                     settings={appState.settings}
                     notifiche={notifiche}
                     setNotifiche={actions.setNotifiche}
-                    onOpenCircularAnalysis={(url, title) => modals.setCircularAnalysisModal({ isOpen: true, url, title })}
+                    onOpenCircularAnalysis={(url: string, title: string) => modals.setCircularAnalysisModal({ isOpen: true, url, title })}
                     onNavigate={actions.handleNavigate}
                     isAiProcessing={isGlobalAiLoading}
                     installPrompt={installPrompt}
@@ -159,9 +159,10 @@ export const App: React.FC = () => {
                 {/* Dev tools to simulate assistant behaviors */}
                 {process.env.NODE_ENV === 'development' && (
                   // lazy load to avoid shipping in prod bundles
-                  <React.Suspense fallback={null}>
-                    <AssistantDevTools actions={actions} />
-                  </React.Suspense>
+                                    <React.Suspense fallback={null}>
+                                        {/* @ts-ignore: AssistantDevTools may not have explicit props type, ignore for now */}
+                                        <AssistantDevTools actions={actions} />
+                                    </React.Suspense>
                 )}
             </div>
         );
