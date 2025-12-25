@@ -78,10 +78,30 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose }) => {
     }
   };
 
-  // Focus input when opened
+  // Focus input when opened and restore focus on close; handle Escape to close
+  const lastActiveRef = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
-    if (open && inputRef.current) inputRef.current.focus();
+    if (open) {
+      lastActiveRef.current = document.activeElement as HTMLElement | null;
+      if (inputRef.current) inputRef.current.focus();
+    } else {
+      if (lastActiveRef.current) {
+        lastActiveRef.current.focus();
+      }
+    }
   }, [open]);
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    if (open) {
+      window.addEventListener('keydown', handleKey);
+      return () => window.removeEventListener('keydown', handleKey);
+    }
+    return;
+  }, [open, onClose]);
 
   const handleSend = async () => {
     const text = (isRecording ? transcript : input).trim();
