@@ -7,7 +7,9 @@ import Menu from './Menu';
 import ViewManager from './ViewManager';
 import SignInScreen from './SignInScreen';
 import { ModalManager } from './ModalManager';
+
 import { applyTheme, createTheme } from '../design-system';
+import RestoreAssistController, { useRestoreAssist } from './useRestoreAssist';
 
 /**
  * App.tsx - Il core del Presentation Layer.
@@ -82,6 +84,7 @@ export const App: React.FC = () => {
             };
         }, [activeSuggestion]);
 
+
         // Show loading screen during restore
         if (modals.isRestoring) {
             return (
@@ -98,6 +101,12 @@ export const App: React.FC = () => {
                     </div>
                 </div>
             );
+        }
+
+        // Assisted restore UI if app is empty or backup failed
+        const restoreAssist = useRestoreAssist(appState, actions, modals);
+        if (restoreAssist.show) {
+            return <RestoreAssistController {...restoreAssist} />;
         }
 
         // Fallback: se nessun utente e nessun errore, mostra login

@@ -20,19 +20,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Google Identity Services for Drive Sync -->
+  <!-- Google Identity Services for Drive Sync (loaded conditionally in production by `main.tsx`) -->
   <script>
-    // Signal when Google API is loaded
+    // Flags used by the app if the scripts are present; in dev these remain false.
     window.__googleApiReady = false;
     window.__googleGsiReady = false;
-    window.onGoogleGsiScriptLoad = function() {
-      window.__googleGsiReady = true;
-      console.log('✅ Google GSI script loaded');
-    };
   </script>
-  <script src="https://accounts.google.com/gsi/client" async onload="window.onGoogleGsiScriptLoad()"></script>
-  <!-- Google API Client for Picker -->
-  <script src="https://apis.google.com/js/api.js" async onload="window.__googleApiReady = true; console.log('✅ Google API script loaded')"></script>
 
   <!-- Material Symbols Font -->
   <link rel="stylesheet"

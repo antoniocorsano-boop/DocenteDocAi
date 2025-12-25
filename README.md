@@ -36,6 +36,34 @@ FLOWISE_PASSWORD=your_password
 npm start
 ```
 
+### Enabling Google Sign-In (GSI) in development
+By default the app **skips** loading Google Identity (GSI) in development to avoid noisy 403s when the OAuth Client ID is not configured for localhost. To enable GSI in dev set the following in a local `.env` file (not checked into git):
+
+```bash
+VITE_ENABLE_GSI_DEV=true
+VITE_GSI_CLIENT_ID=your-dev-client-id.apps.googleusercontent.com
+```
+
+Then restart the dev server. The app will load GSI scripts and use `VITE_GSI_CLIENT_ID` as the client id when `VITE_ENABLE_GSI_DEV` is true.
+
+### Running the GSI E2E test
+You can run the new E2E test that verifies GSI loads in development. Provide a valid `VITE_GSI_CLIENT_ID` and enable the toggle when running the test.
+
+POSIX/macOS/Linux:
+
+```bash
+VITE_ENABLE_GSI_DEV=true VITE_GSI_CLIENT_ID=your-dev-client-id npx playwright test e2e/gsi.spec.ts
+```
+
+Windows (PowerShell):
+
+```powershell
+$env:VITE_ENABLE_GSI_DEV = 'true'; $env:VITE_GSI_CLIENT_ID = 'your-dev-client-id'; npx playwright test e2e/gsi.spec.ts
+```
+
+The project also includes convenient npm scripts:
+- `npm run e2e:gsi` (POSIX) and `npm run e2e:gsi:win` (Windows) which use a placeholder client id — replace it with your real dev client id in `.env` or the script before running.
+
 ### View names & Linting ✅
 
 - Use canonical Italian view names when adding new views (examples: `calendario`, `uda`, `reportistica`, `didattica-inclusiva`, `consiglio-di-classe`).

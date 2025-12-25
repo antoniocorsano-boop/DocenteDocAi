@@ -10,9 +10,14 @@ const urlsToCache = [
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
+  // Be tolerant to failures when precaching (e.g., during local dev or offline)
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll(urlsToCache))
+      .catch(err => {
+        // Do not fail install if precache fails (dev or network issues).
+        console.warn('[SW] cache.addAll failed (dev/offline):', err);
+      })
   );
 });
 
@@ -36,7 +41,12 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   event.respondWith(
     caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+      if (response) return response;
+      return fetch(event.request).catch(err => {
+        // Network unavailable or resource unreachable: fall back to cached '/' (if present) or return an error-like response
+        console.warn('[SW] network fetch failed:', event.request.url, err);
+        return caches.match('./').then(fallback => fallback || new Response('', { status: 504, statusText: 'Gateway Timeout' }));
+      });
     })
   );
 });

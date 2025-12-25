@@ -31,3 +31,4 @@ Thumbs.db
 
 # Deprecated files
 .deprecated/
+node_modules

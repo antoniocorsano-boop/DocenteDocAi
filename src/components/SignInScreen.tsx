@@ -17,10 +17,25 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
   };
 
   useEffect(() => {
+    // Only load/initialize the GSI script in production on allowed hosts, OR in dev when explicitly enabled
+    const isProd = import.meta && (import.meta as any).env && (import.meta as any).env.PROD;
+    const isDev = import.meta && (import.meta as any).env && (import.meta as any).env.DEV;
+    const enableGsiDev = import.meta && (import.meta as any).env && (import.meta as any).env.VITE_ENABLE_GSI_DEV === 'true';
+    const devClientId = import.meta && (import.meta as any).env && (import.meta as any).env.VITE_GSI_CLIENT_ID;
+
+    const allowedHosts = ['docentedoc.app', 'your-production-domain.example'];
+    const host = window.location.hostname;
+
+    // If not allowed in production and not explicitly allowed in dev, skip
+    if (!(isProd && allowedHosts.includes(host)) && !(isDev && enableGsiDev && !!devClientId)) {
+      console.debug('[SignIn] GSI skipped in non-production/unauthorized origin', host);
+      return;
+    }
+
     const initGSI = () => {
       if (typeof google === 'undefined') return;
 
-      const clientId = DEFAULT_TIMETABLE_SETTINGS.googleClientId;
+      const clientId = (isDev && enableGsiDev && devClientId) ? devClientId : DEFAULT_TIMETABLE_SETTINGS.googleClientId;
 
       google.accounts.id.initialize({
         client_id: clientId,
@@ -41,8 +56,16 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
         google.accounts.id.renderButton(signInButtonRef.current, {
           theme: 'outline', size: 'large', shape: 'pill', width: 300
         });
+        // mark that GSI has been initialized so tests can detect the button
+        try { signInButtonRef.current.setAttribute('data-gsi-loaded', 'true'); } catch(e) { /* ignore */ }
       }
     };
+
+    // Avoid double-injecting when script already present
+    if (typeof (window as any).google !== 'undefined') {
+      initGSI();
+      return;
+    }
 
     const script = document.createElement('script');
     script.src = 'https://accounts.google.com/gsi/client';

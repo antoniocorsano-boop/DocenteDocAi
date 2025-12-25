@@ -10,6 +10,8 @@
     "test:unit": "vitest run",
     "test:unit:src": "vitest run --include src/**/*.{test,spec}.{ts,tsx}",
     "e2e": "playwright test",
+    "e2e:gsi": "VITE_ENABLE_GSI_DEV=true VITE_GSI_CLIENT_ID=dev-client-id npx playwright test e2e/gsi.spec.ts",
+    "e2e:gsi:win": "set VITE_ENABLE_GSI_DEV=true&& set VITE_GSI_CLIENT_ID=dev-client-id&& npx playwright test e2e/gsi.spec.ts",
     "lint": "eslint 'src/**/*.{ts,tsx}' --ext .ts,.tsx"
   },
   "dependencies": {

@@ -20,24 +20,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Google Identity Services for Drive Sync -->
+  <!-- Google Identity Services for Drive Sync (loaded conditionally in production by `main.tsx`) -->
   <script>
-    // Signal when Google API is loaded
+    // Flags used by the app if the scripts are present; in dev these remain false.
     window.__googleApiReady = false;
     window.__googleGsiReady = false;
-    window.onGoogleGsiScriptLoad = function() {
-      window.__googleGsiReady = true;
-      console.log('✅ Google GSI script loaded');
-    };
   </script>
-  <script src="https://accounts.google.com/gsi/client" async onload="window.onGoogleGsiScriptLoad()"></script>
-  <!-- Google API Client for Picker -->
-  <script src="https://apis.google.com/js/api.js" async onload="window.__googleApiReady = true; console.log('✅ Google API script loaded')"></script>
 
   <!-- Material Symbols Font -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <script type="module" crossorigin src="./assets/main-Dh-LnGQz.js"></script>
+  <script type="module" crossorigin src="./assets/main-CPktONJ2.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/vendor-DMo4BzGi.js">
   <link rel="modulepreload" crossorigin href="./assets/vendor-react-8r6WzCFF.js">
   <link rel="modulepreload" crossorigin href="./assets/vendor-jspdf-DHEjD0df.js">

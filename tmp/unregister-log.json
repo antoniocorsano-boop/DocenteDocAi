@@ -1,0 +1,134 @@
+{
+  "consoleLogs": [
+    {
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold"
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "log",
+      "text": "[BackupService] Object store created/upgraded"
+    },
+    {
+      "type": "log",
+      "text": "[BackupService] No backup found"
+    },
+    {
+      "type": "log",
+      "text": "[useAppEngine] No valid backup, loading demo data..."
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "log",
+      "text": "[BackupService] No backup found"
+    },
+    {
+      "type": "log",
+      "text": "[useAppEngine] No valid backup, loading demo data..."
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "log",
+      "text": "[BackupService] No backup found"
+    },
+    {
+      "type": "log",
+      "text": "[useAppEngine] No valid backup, loading demo data..."
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    },
+    {
+      "type": "debug",
+      "text": "[SignIn] GSI skipped in non-production/unauthorized origin 127.0.0.1"
+    }
+  ],
+  "pageErrors": [],
+  "sw": []
+}
