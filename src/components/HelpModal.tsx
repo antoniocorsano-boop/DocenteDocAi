@@ -507,7 +507,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                     Interfaccia completamente rinnovata con il nuovo design system Material 3 Expressive: layout adattivi, motion system e colori dinamici.
                 </ImprovementCard>
 
-                <ImprovementCard title="Calendario Migliorato" actionView="calendar" icon="calendar_month">
+                <ImprovementCard title="Calendario Migliorato" actionView="calendario" icon="calendar_month">
                     Vista calendario completamente ridisegnata con migliore leggibilità, navigazione fluida e integrazione eventi più chiara.
                 </ImprovementCard>
 

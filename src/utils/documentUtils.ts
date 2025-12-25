@@ -39,7 +39,7 @@ export const saveAs = (blob: Blob | string, name: string) => {
 let cachedPdfJs: any | null = null;
 const getPdfJs = async () => {
     if (cachedPdfJs) return cachedPdfJs;
-    // @ts-ignore: pdfjs-dist legacy bundle has incomplete types
+    // @ts-expect-error - `pdfjs-dist` legacy bundle has incomplete/incorrect types
     const mod = await import('pdfjs-dist/legacy/build/pdf');
     const pdfJsObj = (mod && (mod as any).default) ? (mod as any).default : (mod as any);
     if (pdfJsObj && pdfJsObj.GlobalWorkerOptions && !pdfJsObj.GlobalWorkerOptions.workerSrc) {

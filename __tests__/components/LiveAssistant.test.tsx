@@ -78,7 +78,7 @@ describe('LiveAssistant', () => {
 
     // Mock AudioContext
     global.AudioContext = vi.fn(() => mockAudioContext) as any;
-    // @ts-ignore
+    // @ts-expect-error - `webkitAudioContext` may not be available in TypeScript lib defs
     global.webkitAudioContext = global.AudioContext; // For cross-browser compatibility
 
     // Mock requestAnimationFrame

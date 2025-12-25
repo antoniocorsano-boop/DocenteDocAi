@@ -21,7 +21,7 @@ import {
     Notifica, ToDoItem, BeforeInstallPromptEvent
 } from '../../types';
 
-interface SettingsViewsProps {
+export interface SettingsViewsProps {
     settings: TimetableSettings;
     themeState: AppThemeState;
     aiSettings: AiSettings;

@@ -9,7 +9,8 @@
     "test": "vitest",
     "test:unit": "vitest run",
     "test:unit:src": "vitest run --include src/**/*.{test,spec}.{ts,tsx}",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "lint": "eslint 'src/**/*.{ts,tsx}' --ext .ts,.tsx"
   },
   "dependencies": {
     "@google/genai": "^1.34.0",
@@ -34,8 +35,11 @@
     "@types/jest": "^30.0.0",
     "@types/react": "18.2.66",
     "@types/react-dom": "18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "@vitejs/plugin-react": "4.2.1",
     "@vitest/coverage-v8": "^4.0.16",
+    "eslint": "^8.57.1",
     "jsdom": "^27.3.0",
     "typescript": "5.2.2",
     "vite": "5.2.0",

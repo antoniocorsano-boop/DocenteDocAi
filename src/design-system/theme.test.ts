@@ -24,7 +24,7 @@ describe('Design System Core', () => {
     it('baseDesignSystem should be immutable (frozen)', () => {
         expect(Object.isFrozen(baseDesignSystem)).toBe(true);
         expect(() => {
-            // @ts-ignore
+            // @ts-expect-error - intentional mutation to assert object is frozen
             baseDesignSystem.version = '2.0.0';
         }).toThrow();
     });

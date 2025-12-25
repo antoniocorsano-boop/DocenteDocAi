@@ -18,7 +18,7 @@ import {
     TimetableSettings, AiSettings, EventoCalendario
 } from '../../types';
 
-interface AnalyticsViewsProps {
+export interface AnalyticsViewsProps {
     students: Studente[];
     evaluations: Valutazione[];
     competencyEvals: ValutazioneCompetenza[];

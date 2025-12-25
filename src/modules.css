@@ -738,6 +738,7 @@
 }
 
 /* Legacy Google Cal Classes - for backwards compatibility */
+.google-cal {
     display: flex;
     flex-direction: column;
     height: 100%;

@@ -17,7 +17,7 @@ import {
     TimetableSettings, AiSettings
 } from '../../types';
 
-interface EvaluationViewsProps {
+export interface EvaluationViewsProps {
     students: Studente[];
     evaluations: Valutazione[];
     competencyEvals: ValutazioneCompetenza[];

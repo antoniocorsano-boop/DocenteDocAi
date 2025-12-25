@@ -471,7 +471,7 @@ export interface AiSuggestion {
 export interface SystemSuggestion {
     id: string;
     message: string;
-    targetView: string;
+    targetView?: string; // made optional to allow generic suggestions
     actionLabel: string;
     action: { type: string; payload?: any }; // Changed to required and structured
 }

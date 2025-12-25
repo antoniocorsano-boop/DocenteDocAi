@@ -20,7 +20,7 @@ import {
     TimetableSettings, AiSettings, CurriculumSubject
 } from '../../types';
 
-interface PlanningViewsProps {
+export interface PlanningViewsProps {
     udas: Uda[];
     eventi: EventoCalendario[];
     rubriche: Rubrica[];

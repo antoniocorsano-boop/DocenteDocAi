@@ -126,7 +126,7 @@ export interface HeaderProps {
     onNavigateToLiveAssistant: () => void;
     onOpenHelp: () => void;
     user: UserProfile | null;
-    settings: Settings;
+    settings: TimetableSettings;
     notifiche: Notifica[];
     setNotifiche: (input: Notifica[] | ((prev: Notifica[]) => Notifica[])) => void;
     onOpenCircularAnalysis: (url: string, title: string) => void;
@@ -469,7 +469,7 @@ export interface AiSuggestion {
 export interface SystemSuggestion {
     id: string;
     message: string;
-    targetView: string;
+    targetView?: string; // made optional to allow generic suggestions
     actionLabel: string;
     action?: any;
 }

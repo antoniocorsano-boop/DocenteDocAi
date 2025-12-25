@@ -15,7 +15,7 @@ import {
     AiSettings
 } from '../../types';
 
-interface SchedulingViewsProps {
+export interface SchedulingViewsProps {
     slots: Record<string, any>;
     lessons: Record<string, Lezione>;
     settings: TimetableSettings;

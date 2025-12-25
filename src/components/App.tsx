@@ -1,6 +1,8 @@
 import React, { useLayoutEffect } from 'react';
 import { useAppEngine } from '../hooks/useAppEngine';
 import { Header } from './Header';
+const AssistantDevTools = React.lazy(() => import('./AssistantDevTools'));
+
 import Menu from './Menu';
 import ViewManager from './ViewManager';
 import SignInScreen from './SignInScreen';
@@ -47,9 +49,37 @@ export const App: React.FC = () => {
             );
         }
 
+        // Fallback: se nessun utente e nessun errore, mostra login
         if (!user) {
             return <SignInScreen onSignInSuccess={(profile) => actions.setUser(profile)} />;
         }
+
+        // Keep FAB in sync with assistant state (notification & listening)
+        React.useEffect(() => {
+            const syncNotification = () => {
+                const has = !!activeSuggestion;
+                const fab = document.querySelector('.live-assistant-fab, .fab') as HTMLElement | null;
+                if (fab) {
+                    if (has) fab.setAttribute('data-has-notification', 'true');
+                    else fab.removeAttribute('data-has-notification');
+                }
+            };
+            // initial sync
+            syncNotification();
+            // listen to global event from voice recorder
+            const onRecording = (e: CustomEvent<{ recording: boolean }>) => {
+                const recording = e?.detail?.recording;
+                const fab = document.querySelector('.live-assistant-fab, .fab') as HTMLElement | null;
+                if (!fab) return;
+                if (recording) fab.classList.add('listening');
+                else fab.classList.remove('listening');
+            };
+            window.addEventListener('assistant:recording', onRecording as EventListener);
+
+            return () => {
+                window.removeEventListener('assistant:recording', onRecording as EventListener);
+            };
+        }, [activeSuggestion]);
 
         // App Shell M3 Expressive
         return (
@@ -92,10 +122,21 @@ export const App: React.FC = () => {
                 {/* Bottom Navigation */}
                 <Menu currentView={view} onNavigate={actions.handleNavigate} />
                 <ModalManager appState={appState} actions={actions} modals={modals} />
+                {/* Dev tools to simulate assistant behaviors */}
+                {process.env.NODE_ENV === 'development' && (
+                  // lazy load to avoid shipping in prod bundles
+                  <React.Suspense fallback={null}>
+                    <AssistantDevTools actions={actions} />
+                  </React.Suspense>
+                )}
             </div>
         );
     } catch (err) {
-        console.error('🔴 App error:', err);
-        return <div style={{ color: 'red', padding: '20px', fontFamily: 'monospace', whiteSpace: 'pre-wrap' }}>ERROR: {String(err)}</div>;
+        // Fallback visibile: errore di caricamento o runtime
+        return <div style={{ color: 'red', padding: '32px', fontFamily: 'monospace', background: '#fff0f0', fontSize: '1.2rem', whiteSpace: 'pre-wrap' }}>
+            <b>ERRORE FATALE:</b> {String(err)}
+            <br />
+            <span>Controlla la console per dettagli tecnici.</span>
+        </div>;
     }
 };

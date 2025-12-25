@@ -89,7 +89,7 @@ beforeEach(() => {
 afterEach(() => {
   delete global.google;
   delete global.gapi;
-  // @ts-ignore
+  // @ts-expect-error - `fetch` may not be defined in some test environments
   delete global.fetch;
 });
 

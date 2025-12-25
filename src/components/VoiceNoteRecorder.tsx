@@ -94,6 +94,8 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             mediaRecorder.onstop = handleStopRecording;
             mediaRecorder.start();
             setIsRecording(true);
+            // Notify global UI that assistant is listening
+            try { window.dispatchEvent(new CustomEvent('assistant:recording', { detail: { recording: true } })); } catch(e) {}
             visualize();
 
         } catch (error) {
@@ -130,6 +132,8 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
 
     const handleStopRecording = async () => {
         setIsRecording(false); // Update UI state
+        // Notify global UI that assistant stopped listening
+        try { window.dispatchEvent(new CustomEvent('assistant:recording', { detail: { recording: false } })); } catch(e) {}
 
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
 
