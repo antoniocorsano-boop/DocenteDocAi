@@ -20,7 +20,7 @@ import {
     TimetableSettings, AiSettings, CurriculumSubject
 } from '../../types';
 
-interface PlanningViewsProps {
+export interface PlanningViewsProps {
     udas: Uda[];
     eventi: EventoCalendario[];
     rubriche: Rubrica[];
@@ -33,15 +33,15 @@ interface PlanningViewsProps {
     settings: TimetableSettings;
     aiSettings: AiSettings;
     curricula: CurriculumSubject[];
-    viewContext?: any;
-    onNavigate: (view: string, context?: any) => void;
+    viewContext?: { action?: string; student?: Studente };
+    onNavigate: (view: string, context?: unknown) => void;
     onSaveUda: (uda: Uda) => void;
     onSaveRubrica: (rubrica: Rubrica) => void;
     onSavePiano: (piano: PianoInclusione) => void;
     onDeleteRubrica: (id: string) => void;
     onDeletePiano: (id: string) => void;
     onDeleteUda: (id: string) => void;
-    onSaveReport: (report: any) => void;
+    onSaveReport: (report: unknown) => void;
     onSaveEvent: (event: EventoCalendario) => void;
     onAddLessons: (lessons: Lezione[]) => void;
     setUdas: (updater: (prev: Uda[]) => Uda[]) => void;
@@ -53,7 +53,7 @@ interface PlanningViewsProps {
     setIsLoadingModalOpen: (open: boolean) => void;
     setLoadingModalMessage: (message: string) => void;
     setIsGlobalAiLoading: (loading: boolean) => void;
-    setViewContext: (updater: (prev: any) => any) => void;
+    setViewContext: (updater: (prev: unknown) => unknown) => void;
     onUpdateCompetencies?: (comp: Competenza[]) => void;
 }
 
@@ -132,7 +132,7 @@ export const PlanningViewsRenderer: React.FC<{
                     competencyEvaluations={props.competencyEvals}
                     settings={props.settings}
                     studentToEdit={props.viewContext?.student}
-                    onClearStudentToEdit={() => props.setViewContext(prev => ({ ...prev, student: undefined }))}
+                    onClearStudentToEdit={() => props.setViewContext(prev => ({ ...(prev ?? {}), student: undefined }))}
                     showToast={props.showToast}
                     showGuidanceTips={props.showGuidanceTips}
                     onAiProcessing={props.setIsGlobalAiLoading}

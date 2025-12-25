@@ -17,7 +17,7 @@ import {
     TimetableSettings, AiSettings
 } from '../../types';
 
-interface EvaluationViewsProps {
+export interface EvaluationViewsProps {
     students: Studente[];
     evaluations: Valutazione[];
     competencyEvals: ValutazioneCompetenza[];
@@ -25,9 +25,9 @@ interface EvaluationViewsProps {
     finalizedRegister: RegisterEntry[];
     settings: TimetableSettings;
     aiSettings: AiSettings;
-    viewContext?: any;
+    viewContext?: string;
     selectedClass?: string;
-    onNavigate: (view: string, context?: any) => void;
+    onNavigate: (view: string, context?: unknown) => void;
     setEvaluations: (updater: (prev: Valutazione[]) => Valutazione[]) => void;
     setCompetencyEvals: (updater: (prev: ValutazioneCompetenza[]) => ValutazioneCompetenza[]) => void;
     onOpenInclusionPlanEditor?: (student: Studente) => void;

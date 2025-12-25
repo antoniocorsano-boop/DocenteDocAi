@@ -36,6 +36,12 @@ FLOWISE_PASSWORD=your_password
 npm start
 ```
 
+### View names & Linting ✅
+
+- Use canonical Italian view names when adding new views (examples: `calendario`, `uda`, `reportistica`, `didattica-inclusiva`, `consiglio-di-classe`).
+- English aliases are accepted for backward compatibility but **prefer** the Italian canonical token.
+- An ESLint rule enforces this: run `npm run lint` to validate strings in the codebase. If you introduce a new view name, update `ViewRouters.tsx` and adjust lint rules in `.eslintrc.cjs` if a new alias is required.
+
 ## Licenza
 
 MIT
