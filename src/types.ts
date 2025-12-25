@@ -1,3 +1,13 @@
+// --- NKA NODE ---
+export interface NKANode {
+    id: string;
+    label: string;
+    color: string;
+    elevation: number;
+    depth: number;
+    shape: 'circle' | 'square' | 'hex' | string;
+    actions: string[];
+}
 import React from 'react';
 
 // --- GLOBAL INTERFACES FOR PWA ---

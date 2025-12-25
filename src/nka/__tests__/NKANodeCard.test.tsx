@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import NKANodeCard from '../NKANodeCard';
-import type { NKANode } from '../../types';
+import type { NKANode } from '../types';
 
 describe('NKANodeCard', () => {
 
