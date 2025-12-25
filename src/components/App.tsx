@@ -154,7 +154,7 @@ export const App: React.FC = () => {
                     </div>
                 </main>
 
-                {/* FAB Assistente Vocale unico, flottante e spostabile */}
+                {/* FAB Assistente AI: apre il nuovo modal AssistantModal */}
                 <GlobalFab
                     currentView={view}
                     onAction={() => modals.setIsLiveAssistantModalOpen(true)}

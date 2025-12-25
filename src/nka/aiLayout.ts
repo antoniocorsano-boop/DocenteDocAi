@@ -10,7 +10,7 @@ export interface NodePosition extends NKANode {
  * Given a list of nodes and context, returns optimal positions for a neural map.
  * This is a stub: replace with LLM/AI logic as needed.
  */
-export function getAINeuralLayout(nodes: NKANode[], width: number, height: number, context?: any): NodePosition[] {
+export function getAINeuralLayout(nodes: readonly NKANode[], width: number, height: number, context?: any): NodePosition[] {
   // Placeholder: arrange in a spiral for demo
   const angleStep = (2 * Math.PI) / Math.max(nodes.length, 1);
   return nodes.map((node, i) => ({

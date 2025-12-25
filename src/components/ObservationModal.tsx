@@ -38,7 +38,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
 
     return (
         <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-md shadow-3xl">
+            <div className="dialog-container w-full max-w-md shadow-xl">
                 <div className="dialog-header border-b border-outline-variant bg-tertiary-container text-on-tertiary-container p-6">
                     <div>
                         <h2 className="m3-headline-small font-black">Osservazione Formativa</h2>

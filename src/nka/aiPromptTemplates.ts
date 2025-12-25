@@ -1,7 +1,7 @@
 // Prompt templates for AI-driven neural map layout (LLM integration)
 import { NKANode } from './types';
 
-export function buildLayoutPrompt(nodes: NKANode[], userContext: any): string {
+export function buildLayoutPrompt(nodes: readonly NKANode[], userContext: any): string {
   return `
 Sei un assistente AI per docenti. Genera una disposizione ottimale e "viva" per una mappa neurale didattica in stile Material 3 Expressive.
 

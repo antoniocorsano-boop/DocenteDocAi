@@ -46,7 +46,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
 
     return (
         <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-lg shadow-3xl">
+            <div className="dialog-container w-full max-w-lg shadow-xl">
                 <div className="dialog-header border-b border-outline-variant p-6">
                     <h2 className="m3-headline-small font-black">Esporta per Registro</h2>
                     <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>

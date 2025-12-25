@@ -37,7 +37,7 @@ export const TextArea: React.FC<TextareaHTMLAttributes<HTMLTextAreaElement> & { 
 export const AiMemoryChip: React.FC<{ label: string }> = ({ label }) => (
     <div className="flex items-center gap-1.5 mt-2 opacity-60 hover:opacity-100 transition-opacity select-none cursor-help bg-tertiary-container/20 px-3 py-1 rounded-full border border-tertiary/10" title="Contesto utilizzato dall'AI">
         <span className="material-symbols-outlined text-[14px] text-tertiary font-bold animate-pulse">psychology</span>
-        <span className="text-[10px] font-black text-tertiary uppercase tracking-widest">{label}</span>
+        <span className="text-[10px] font-extrabold text-tertiary uppercase tracking-widest">{label}</span>
     </div>
 );
 
@@ -52,7 +52,7 @@ export const ActionTile: React.FC<{ title: string; subtitle?: string; icon: stri
             <span className="material-symbols-outlined">{icon}</span>
         </div>
         <div className="op-tile-content">
-            <div className="op-tile-title font-black text-left group-hover:text-primary transition-colors">{title}</div>
+            <div className="op-tile-title font-extrabold text-left group-hover:text-primary transition-colors">{title}</div>
             {subtitle && <div className="op-tile-subtitle text-[11px] font-extrabold text-left opacity-60 uppercase tracking-widest">{subtitle}</div>}
         </div>
         <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
@@ -85,7 +85,7 @@ export const InfoCard: React.FC<{ title: string; description: string; icon?: str
                     </div>
                 )}
                 <div className="flex-grow">
-                    <h3 className="m3-headline-small font-black mb-3 tracking-tight">{title}</h3>
+                    <h3 className="m3-headline-small font-extrabold mb-3 tracking-tight">{title}</h3>
                     <p className="m3-body-large opacity-90 leading-relaxed font-bold italic">"{description}"</p>
                     {action && <div className="mt-8 flex justify-end">{action}</div>}
                 </div>
@@ -107,7 +107,7 @@ export const SectionHeader: React.FC<{ title: string; icon?: string; colorClass?
                 <span className="material-symbols-outlined text-xl font-bold">{icon}</span>
             </div>
         )}
-        <h3 className="text-[11px] font-black uppercase tracking-[0.5em] opacity-40">{title}</h3>
+        <h3 className="text-[11px] font-extrabold uppercase tracking-[0.5em] opacity-40">{title}</h3>
         <div className="flex-grow h-px bg-gradient-to-r from-outline-variant/50 to-transparent ml-4"></div>
     </div>
 );
@@ -140,7 +140,7 @@ export const PinPad: React.FC<{ onInput: (digit: string) => void; onDelete: () =
             {keys.map((key, i) => {
                 if (key === '') return <div key={i}></div>;
                 if (key === 'back') return <button key={i} onClick={onDelete} className="w-20 h-20 rounded-[32px] flex items-center justify-center hover:bg-surface-container-high transition-all active:scale-90"><span className="material-symbols-outlined text-3xl font-light">backspace</span></button>;
-                return <button key={i} onClick={() => onInput(key)} className="w-20 h-20 rounded-[32px] bg-surface-container text-3xl font-black border-2 border-outline-variant/30 hover:border-primary hover:bg-surface hover:shadow-xl active:scale-90 transition-all">{key}</button>;
+                return <button key={i} onClick={() => onInput(key)} className="w-20 h-20 rounded-[32px] bg-surface-container text-3xl font-extrabold border-2 border-outline-variant/30 hover:border-primary hover:bg-surface hover:shadow-xl active:scale-90 transition-all">{key}</button>; 
             })}
         </div>
     );
@@ -155,7 +155,7 @@ export const M3ChoiceCard: React.FC<{ icon: string; label: string; onClick: () =
         <div className={`w-16 h-16 rounded-[24px] flex items-center justify-center transition-all ${selected ? 'bg-primary text-on-primary shadow-lg' : 'bg-surface text-primary group-hover:scale-110'}`}>
             <span className="material-symbols-outlined text-4xl">{icon}</span>
         </div>
-        <span className="text-[11px] font-black uppercase tracking-[0.2em]">{label}</span>
+        <span className="text-[11px] font-extrabold uppercase tracking-[0.2em]">{label}</span>
     </button>
 );
 
@@ -183,7 +183,7 @@ export const EmptyState: React.FC<{ title: string; description: string; icon?: s
         <div className="w-24 h-24 rounded-full bg-surface-container-high flex items-center justify-center mb-8 text-on-surface-variant/30 shadow-inner">
             <span className="material-symbols-outlined text-6xl font-light">{icon}</span>
         </div>
-        <h3 className="m3-headline-small text-on-surface font-black tracking-tight">{title}</h3>
+        <h3 className="m3-headline-small text-on-surface font-extrabold tracking-tight">{title}</h3>
         <p className="m3-body-large text-on-surface-variant max-w-sm mx-auto mt-4 font-bold opacity-60 italic">"{description}"</p>
     </div>
 );
@@ -214,7 +214,7 @@ export const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: st
             </div>
             <p className="m3-label-small text-primary uppercase font-black tracking-[0.2em] opacity-70">Scenario</p>
         </div>
-        <p className="m3-title-large font-black mb-5 leading-tight italic">"{scenario}"</p>
+        <p className="m3-title-large font-extrabold mb-5 leading-tight italic">"{scenario}"</p>
         <ol className="space-y-4">
             {steps.map((step, i) => (
                 <li key={i} className="flex gap-4 items-start group">

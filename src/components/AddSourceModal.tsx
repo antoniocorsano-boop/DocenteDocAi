@@ -70,31 +70,31 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                 role="dialog"
                 aria-modal="true"
                 tabIndex={-1}
-                className="dialog-container w-full max-w-3xl sm:max-w-full md:max-w-2xl max-h-[90vh] flex flex-col overflow-y-auto shadow-3xl p-4 sm:p-2 md:p-8 animate-scale-in"
+                className="dialog-container w-full max-w-3xl sm:max-w-full md:max-w-2xl max-h-[90vh] flex flex-col overflow-y-auto shadow-xl p-4 sm:p-2 md:p-8 animate-scale-in"
             >
                 <div className="dialog-header border-b border-outline-variant p-6 bg-surface-container-high">
-                    <h2 className="m3-headline-small font-black">Aggiungi Documenti</h2>
+                    <h2 className="m3-headline-small font-extrabold">Aggiungi Documenti</h2>
                     <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>
                 </div>
                 
                 <div className="dialog-content overflow-y-auto p-8 space-y-12 bg-surface">
                     {isLoading ? (
-                        <div className="flex flex-col items-center justify-center h-64"><div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div><p className="m3-title-large mt-8 text-primary animate-pulse font-black uppercase tracking-widest">{loadingMessage}</p></div>
+                        <div className="flex flex-col items-center justify-center h-64"><div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div><p className="m3-title-large mt-8 text-primary animate-pulse font-extrabold uppercase tracking-widest">{loadingMessage}</p></div>
                     ) : (
                         <>
                             <section>
-                                <h3 className="m3-title-medium font-black mb-6 flex items-center gap-3"><span className="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-xs font-black">1</span> Seleziona Destinazione</h3>
+                                <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-3"><span className="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-xs font-extrabold">1</span> Seleziona Destinazione</h3>
                                 <div className="category-selection-grid grid grid-cols-2 sm:grid-cols-4 gap-3">
                                     {KB_CATEGORIES.map(cat => <CategoryCard key={cat.id} id={cat.id} label={cat.label} icon={cat.icon} color={cat.color} isSelected={selectedCategory === cat.id} onClick={() => setSelectedCategory(cat.id)} />)}
                                 </div>
                             </section>
 
                             <section className={`transition-all duration-500 ${!selectedCategory ? 'opacity-30 grayscale pointer-events-none' : ''}`}>
-                                <h3 className="m3-title-medium font-black mb-6 flex items-center gap-3"><span className="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center text-xs font-black">2</span> Carica File</h3>
+                                <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-3"><span className="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-xs font-extrabold">2</span> Carica File</h3>
                                 <div {...getRootProps()} className={`dropzone-area h-48 !rounded-[40px] border-2 border-dashed ${isDragActive ? 'border-primary bg-primary-container/10 scale-[1.02]' : 'border-outline-variant'} transition-all`}>
                                     <input {...getInputProps()} />
                                     <span className="material-symbols-outlined text-5xl text-primary mb-4">{isDragActive ? 'download' : 'upload_file'}</span>
-                                    <p className="m3-body-large font-black">Trascina i file qui o clicca per sfogliare</p>
+                                    <p className="m3-body-large font-extrabold">Trascina i file qui o clicca per sfogliare</p>
                                     <p className="text-[10px] opacity-60 mt-2 font-bold uppercase tracking-widest">Supporto PDF, DOCX, TXT</p>
                                 </div>
                             </section>

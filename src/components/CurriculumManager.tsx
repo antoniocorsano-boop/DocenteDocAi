@@ -132,14 +132,14 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 const newNuclei = [...selectedCurriculum.nuclei];
                                 newNuclei[nIdx].objectives.push({ id: `obj-${Date.now()}`, text: '', type: 'knowledge' });
                                 handleUpdate({...selectedCurriculum, nuclei: newNuclei});
-                            }} className="button button-text !h-9 !px-4 text-[11px] font-black uppercase tracking-[0.2em] mt-2 bg-surface-container-high/50 rounded-full"><span className="material-symbols-outlined text-sm mr-2">add</span> Aggiungi Obiettivo</button>
+                            }} className="button button-text !h-9 !px-4 text-[11px] font-extrabold uppercase tracking-[0.2em] mt-2 bg-surface-container-high/50 rounded-full"><span className="material-symbols-outlined text-sm mr-2">add</span> Aggiungi Obiettivo</button>
                         </div>
                     </div>
                 ))}
                 <button onClick={() => {
                     const newNucleus: CurriculumNucleo = { id: `nuc-${Date.now()}`, title: 'Nuovo Nucleo', objectives: [] };
                     handleUpdate({...selectedCurriculum, nuclei: [...selectedCurriculum.nuclei, newNucleus]});
-                }} className="button button-outlined w-full border-dashed !rounded-[32px] py-6 border-2 font-black"><span className="material-symbols-outlined mr-2">add_circle</span> Nuovo Nucleo Fondante</button>
+                }} className="button button-outlined w-full border-dashed !rounded-[32px] py-6 border-2 font-extrabold"><span className="material-symbols-outlined mr-2">add_circle</span> Nuovo Nucleo Fondante</button>
             </div>
         );
     };
@@ -150,7 +150,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                 <div className="w-80 border-r border-outline-variant flex flex-col bg-surface-container-low flex-shrink-0">
                     <div className="p-6 border-b border-outline-variant flex items-center gap-4">
                         <button onClick={() => onNavigate('home')} className="icon-button"><span className="material-symbols-outlined">arrow_back</span></button>
-                        <h1 className="m3-title-large font-black tracking-tight">Curricoli</h1>
+                        <h1 className="m3-title-large font-extrabold tracking-tight">Curricoli</h1>
                     </div>
                     <div className="p-6 border-b border-outline-variant bg-surface-container/30 space-y-5">
                         <SelectField label="Materia" value={newSubject} onChange={e => setNewSubject(e.target.value)}>
@@ -163,8 +163,8 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         {curricula.map(curr => (
                             <div key={curr.id} onClick={() => setSelectedCurriculumId(curr.id)} className={`p-4 rounded-[24px] cursor-pointer transition-all flex justify-between items-center group ${selectedCurriculumId === curr.id ? 'bg-primary text-on-primary shadow-xl scale-[1.03]' : 'hover:bg-surface-container-high'}`}>
                                 <div className="min-w-0">
-                                    <p className="font-black text-sm truncate leading-none mb-1">{curr.subject}</p>
-                                    <p className="text-[10px] opacity-70 uppercase font-black tracking-widest">{curr.gradeLevel}</p>
+                                    <p className="font-extrabold text-sm truncate leading-none mb-1">{curr.subject}</p>
+                                    <p className="text-[10px] opacity-70 uppercase font-extrabold tracking-widest">{curr.gradeLevel}</p>
                                 </div>
                                 <button onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }} className={`icon-button !w-8 !h-8 ${selectedCurriculumId === curr.id ? 'text-on-primary hover:bg-white/20' : 'text-error opacity-0 group-hover:opacity-100'}`}><span className="material-symbols-outlined text-sm">delete</span></button>
                             </div>
@@ -175,10 +175,10 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     {selectedCurriculum ? (
                         <>
                             <div className="px-8 py-6 border-b border-outline-variant flex justify-between items-center bg-surface shadow-sm z-10">
-                                <div><h2 className="m3-headline-small font-black">{selectedCurriculum.subject}</h2><p className="text-[10px] text-primary font-black uppercase tracking-[0.3em] mt-1">{selectedCurriculum.gradeLevel}</p></div>
+                                <div><h2 className="m3-headline-small font-extrabold">{selectedCurriculum.subject}</h2><p className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em] mt-1">{selectedCurriculum.gradeLevel}</p></div>
                                 <div className="flex gap-2">
                                      <TabGroup activeTab={activeTab} onTabChange={(id) => setActiveTab(id as any)} variant="secondary" tabs={[{ id: 'editor', label: 'Editor', icon: 'edit' }, { id: 'coverage', label: 'Analisi', icon: 'analytics' }]} />
-                                    {activeTab === 'editor' && <button onClick={() => setIsImporting(true)} className="button button-tonal ml-2 !px-6 font-black"><span className="material-symbols-outlined mr-2">auto_awesome</span> AI Import</button>}
+                                    {activeTab === 'editor' && <button onClick={() => setIsImporting(true)} className="button button-tonal ml-2 !px-6 font-extrabold"><span className="material-symbols-outlined mr-2">auto_awesome</span> AI Import</button>}
                                 </div>
                             </div>
                             {activeTab === 'editor' ? renderEditor() : <div className="p-12"><EmptyState title="Analisi Copertura" description="La funzione di copertura basata sulle lezioni svolte è in arrivo." icon="analytics" /></div>}

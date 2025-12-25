@@ -7,7 +7,7 @@ import { buildLayoutPrompt } from './aiPromptTemplates';
  * Call an LLM to get optimal node positions for the neural map.
  * Replace fetch logic with your preferred AI service (Gemini, OpenAI, etc).
  */
-export async function getLLMNeuralLayout(nodes: NKANode[], width: number, height: number, userContext: any): Promise<NodePosition[]> {
+export async function getLLMNeuralLayout(nodes: readonly NKANode[], width: number, height: number, userContext: any): Promise<NodePosition[]> {
   const prompt = buildLayoutPrompt(nodes, userContext);
   // TODO: Replace with real LLM call
   // Example: const response = await generateContent(prompt, { ... });

@@ -39,7 +39,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
         <div ref={popoverRef} className="m3-popup-menu header-actions-popover flex flex-col gap-1 !p-2 w-80 max-w-[calc(100vw-32px)]">
             <div className="flex justify-between items-center p-4 mb-2 border-b border-outline-variant/10">
                 <div className="flex flex-col">
-                    <p className="m3-label-large font-black text-primary truncate max-w-[180px]">{props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}` : props.settings?.nomeInsegnante || user?.displayName || 'Menu'}</p>
+                    <p className="m3-label-large font-extrabold text-primary truncate max-w-[180px]">{props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}` : props.settings?.nomeInsegnante || user?.displayName || 'Menu'}</p>
                     <p className="m3-body-small text-on-surface-variant font-medium">{props.settings?.nomeIstituto || 'Docente'}</p>
                 </div>
                 <button onClick={onClose} className="w-8 h-8 rounded-full hover:bg-surface-container-highest flex items-center justify-center transition-colors" aria-label="Chiudi menu">
@@ -73,7 +73,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
             )}
 
             <div className="h-px bg-outline-variant/10 my-1 mx-4"></div>
-            <div className="px-4 py-2 text-[11px] font-black uppercase tracking-wider text-primary/60">Strumenti AI</div>
+            <div className="px-4 py-2 text-[11px] font-extrabold uppercase tracking-wider text-primary/60">Strumenti AI</div>
 
             <M3ListItem
                 headline="Analisi Immagine"

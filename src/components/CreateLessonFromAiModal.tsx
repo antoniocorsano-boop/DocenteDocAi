@@ -174,10 +174,10 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
 
     return (
         <div className="dialog-backdrop">
-            <form onSubmit={handleSubmit} className="dialog-container w-full max-w-lg h-[90vh] flex flex-col shadow-3xl">
+            <form onSubmit={handleSubmit} className="dialog-container w-full max-w-lg h-[90vh] flex flex-col shadow-xl">
                 <div className="dialog-header border-b border-outline-variant p-6 bg-surface-container-high flex-shrink-0">
                     <div>
-                        <h2 className="m3-headline-small font-black">Crea Bozza Lezione</h2>
+                        <h2 className="m3-headline-small font-extrabold">Crea Bozza Lezione</h2>
                          <p className="m3-body-medium text-on-surface-variant font-bold uppercase tracking-widest text-[10px] mt-1">Finalizza i dettagli e salva nell'archivio.</p>
                     </div>
                     <button type="button" onClick={onClose} className="icon-button">
@@ -204,12 +204,12 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
 
                      <div>
                         <div className="flex justify-between items-center mb-2">
-                            <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-2 !mb-0">Obiettivi</label>
+                            <label className="text-[11px] text-primary font-extrabold uppercase tracking-[0.2em] px-2 !mb-0">Obiettivi</label>
                             {matchingCurriculum && (
                                 <button 
                                     type="button" 
                                     onClick={() => setIsObjectivePickerOpen(true)}
-                                    className="button button-tonal !h-8 !px-3 !text-xs font-black uppercase tracking-widest rounded-full"
+                                    className="button button-tonal !h-8 !px-3 !text-xs font-extrabold uppercase tracking-widest rounded-full"
                                     title="Seleziona dal curricolo"
                                 >
                                     <span className="material-symbols-outlined mr-1 text-sm">library_add</span>
@@ -245,7 +245,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                         className={`chip !h-10 !px-4 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-surface-container-high'}`}
                                     >
                                         {selectedSlotKey === key && <span className="material-symbols-outlined text-base">check</span>}
-                                        <span className="font-black text-xs">{slot.giorno} {slot.ora}</span>
+                                        <span className="font-extrabold text-xs">{slot.giorno} {slot.ora}</span>
                                     </button>
                                 ))}
                             </div>
@@ -293,11 +293,11 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
             {/* NESTED OBJECTIVE PICKER MODAL */}
             {isObjectivePickerOpen && matchingCurriculum && (
                 <div className="dialog-backdrop" style={{zIndex: 2200}}>
-                    <div className="dialog-container w-full max-w-2xl h-[80vh] flex flex-col bg-surface !rounded-[40px] shadow-3xl">
+                    <div className="dialog-container w-full max-w-2xl h-[80vh] flex flex-col bg-surface !rounded-[40px] shadow-xl">
                         <div className="dialog-header border-b border-outline-variant p-6">
                             <div>
-                                <h3 className="m3-title-large font-black">Seleziona Obiettivi</h3>
-                                <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em] mt-1">{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
+                                <h3 className="m3-title-large font-extrabold">Seleziona Obiettivi</h3>
+                                <p className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em] mt-1">{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
                             </div>
                              <button type="button" onClick={() => setIsObjectivePickerOpen(false)} className="icon-button">
                                 <span className="material-symbols-outlined">close</span>
