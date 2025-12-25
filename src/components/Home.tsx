@@ -95,38 +95,40 @@ const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSug
                     <div className="hero-card aura-view-entrance relative">
                         <div className="flex flex-col lg:flex-row justify-between items-center gap-12 relative z-10">
                             <div className="space-y-6 text-center lg:text-left flex-grow">
-                                <div className="inline-flex items-center gap-3 bg-primary text-on-primary px-6 py-2.5 rounded-full font-black tracking-[0.2em] uppercase text-[10px] shadow-2xl">
-                                    <span className="relative flex h-2.5 w-2.5">
+                                <div className="inline-flex items-center gap-3 bg-primary-container text-on-primary-container px-6 py-2.5 rounded-full font-extrabold tracking-[0.2em] uppercase text-[10px] shadow-lg" aria-hidden="true">
+                                    <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
                                     </span>
                                     Sessione Corrente
                                 </div>
-                                <h1 className="m3-display-medium md:m3-display-large font-black text-on-primary-container leading-[1.1] tracking-tighter">
+                                <h1 className="m3-display-medium md:m3-display-large font-extrabold text-on-primary-container leading-[1.1] tracking-tighter">
                                     {activeLessonForHero.lesson.materia} <span className="opacity-30">•</span> {activeLessonForHero.lesson.classe}
                                 </h1>
                                 <p className="m3-headline-small text-on-primary-container opacity-80 font-bold italic drop-shadow-sm">
                                     "{activeLessonForHero.lesson.contenuto}"
                                 </p>
                             </div>
-                            <div className="w-40 h-40 rounded-[48px] bg-white/30 backdrop-blur-2xl border border-white/40 flex items-center justify-center text-on-primary-container shadow-3xl transform hover:rotate-6 hover:scale-110 transition-all duration-700 group/icon">
-                                <span className="material-symbols-outlined text-8xl font-light group-hover/icon:animate-float">school</span>
+                            <div className="w-40 h-40 rounded-[48px] bg-white/30 backdrop-blur-2xl border border-white/40 flex items-center justify-center text-on-primary-container shadow-xl transform hover:rotate-6 hover:scale-110 transition-all duration-700 group/icon" aria-hidden="true">
+                                <span className="material-symbols-outlined text-8xl font-light group-hover/icon:animate-float" aria-hidden="true">school</span>
                             </div>
                         </div>
 
                         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <button
                                 onClick={handleHeroClick}
-                                className="button button-filled bg-primary text-on-primary !h-20 !rounded-[40px] font-black text-xl shadow-2xl hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4 group"
+                                aria-label="Gestisci Classe"
+                                className="button button-filled bg-primary-container text-on-primary-container !h-20 !rounded-[40px] font-extrabold text-xl shadow-lg hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                             >
                                 Gestisci Classe
-                                <span className="material-symbols-outlined text-3xl group-hover:translate-x-1 transition-transform">play_circle</span>
+                                <span className="material-symbols-outlined text-3xl group-hover:translate-x-1 transition-transform" aria-hidden="true">play_circle</span>
                             </button>
                             <button
                                 onClick={() => onNavigate('aula')}
-                                className="button button-filled bg-tertiary text-on-tertiary !h-20 !rounded-[40px] font-black text-xl shadow-xl hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4"
+                                aria-label="Apri Registro"
+                                className="button button-filled bg-tertiary-container text-on-tertiary-container !h-20 !rounded-[40px] font-extrabold text-xl shadow-lg hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
                             >
-                                <span className="material-symbols-outlined text-3xl">auto_stories</span>
+                                <span className="material-symbols-outlined text-3xl" aria-hidden="true">auto_stories</span>
                                 Apri Registro
                             </button>
                         </div>
@@ -135,22 +137,23 @@ const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSug
                     <div className="hero-card aura-view-entrance bg-surface-variant/40 backdrop-blur-3xl text-on-surface-variant border-outline-variant/30">
                         <div className="flex flex-col lg:flex-row justify-between items-center gap-12 relative z-10">
                             <div className="space-y-6 text-center lg:text-left flex-grow">
-                                <h1 className="m3-display-medium md:m3-display-large font-black leading-[1.1] tracking-tighter">
+                                <h1 className="m3-display-medium md:m3-display-large font-extrabold leading-[1.1] tracking-tighter">
                                     Pianifica il Futuro, <span className="text-primary">{user?.displayName?.split(' ')[0] || 'Docente'}</span>
                                 </h1>
                                 <p className="m3-headline-small opacity-70 font-bold italic">
                                     Utilizza l'AI per generare Unità di Apprendimento innovative in pochi istanti.
                                 </p>
                             </div>
-                            <div className="w-40 h-40 rounded-[48px] bg-primary/10 backdrop-blur-xl border border-primary/20 flex items-center justify-center text-primary shadow-2xl transition-all duration-700 animate-float">
-                                <span className="material-symbols-outlined text-8xl font-extralight">auto_fix_high</span>
+                            <div className="w-40 h-40 rounded-[48px] bg-primary/10 backdrop-blur-xl border border-primary/20 flex items-center justify-center text-primary shadow-lg transition-all duration-700 animate-float" aria-hidden="true">
+                                <span className="material-symbols-outlined text-8xl font-extralight" aria-hidden="true">auto_fix_high</span>
                             </div>
                         </div>
                         <button
                             onClick={() => onNavigate('progettazione-hub', { action: 'annual-planning' })}
-                            className="button button-filled bg-secondary text-on-secondary mt-16 w-full !h-20 !rounded-[40px] font-black text-xl shadow-2xl hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4 group"
+                            aria-label="Inizia a Progettare"
+                            className="button button-filled bg-secondary-container text-on-secondary-container mt-16 w-full !h-20 !rounded-[40px] font-extrabold text-xl shadow-lg hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
                         >
-                            <span className="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform">calendar_month</span> Inizia a Progettare
+                            <span className="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform" aria-hidden="true">calendar_month</span> Inizia a Progettare
                         </button>
                     </div>
                 )}
@@ -197,7 +200,7 @@ const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSug
                         icon="diversity_3"
                         variant="tertiary"
                         className="hover:scale-[1.02] transition-transform duration-500"
-                        action={<button onClick={() => onNavigate('didattica-inclusiva')} className="button button-filled bg-tertiary !px-10 !h-12 rounded-full font-black">Gestisci PDP</button>}
+                        action={<button onClick={() => onNavigate('didattica-inclusiva')} aria-label="Gestisci PDP" className="button button-filled bg-tertiary-container text-on-tertiary-container !px-10 !h-12 rounded-full font-extrabold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary">Gestisci PDP</button>}
                     />
                     <InfoCard
                         title="Statistiche Rendimento"
@@ -205,7 +208,7 @@ const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSug
                         icon="query_stats"
                         variant="secondary"
                         className="hover:scale-[1.02] transition-transform duration-500"
-                        action={<button onClick={() => onNavigate('analytics')} className="button button-filled bg-secondary !px-10 !h-12 rounded-full font-black">Apri Analytics</button>}
+                        action={<button onClick={() => onNavigate('analytics')} aria-label="Apri Analytics" className="button button-filled bg-secondary-container text-on-secondary-container !px-10 !h-12 rounded-full font-extrabold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">Apri Analytics</button>}
                     />
                 </div>
             </section>

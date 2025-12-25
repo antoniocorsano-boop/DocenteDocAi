@@ -6,10 +6,10 @@ import { playNkaSound } from './sound';
 
 
 interface GameModeProps {
-  nodes?: NKANode[];
+  nodes?: readonly NKANode[];
 }
 
-const GameMode: React.FC<GameModeProps> = ({ nodes = [] }) => {
+const GameMode: React.FC<GameModeProps> = ({ nodes = [] as readonly NKANode[] }) => {
   const [state, setState] = useState<GameState>(() => getInitialGameState(nodes));
   const handleUnlock = (nodeId: string) => {
     setState(prev => {

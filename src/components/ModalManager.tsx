@@ -1,7 +1,7 @@
 import React from 'react';
 import OperationsCenter from './OperationsCenter';
 import ImageAnalysisModal from './ImageAnalysisModal';
-import LiveAssistantModal from './LiveAssistantModal';
+import AssistantModal from './AssistantModal';
 import HelpModal from './HelpModal';
 import CircolareAnalysisModal from './CircolareAnalysisModal';
 import LoadingModal from './LoadingModal';
@@ -85,27 +85,9 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
             )}
 
             {modals.isLiveAssistantModalOpen && (
-                <LiveAssistantModal
+                <AssistantModal
+                    open={modals.isLiveAssistantModalOpen}
                     onClose={() => modals.setIsLiveAssistantModalOpen(false)}
-                    students={students}
-                    evaluations={evaluations}
-                    slots={slots}
-                    lessons={lessons}
-                    pianiInclusione={pianiInclusione}
-                    knowledgeBase={knowledgeBase}
-                    onNavigate={handleNavigate}
-                    onScheduleLesson={onScheduleLesson}
-                    onAddEvaluation={handleAddEvaluation}
-                    onCreateUda={handleCreateUda}
-                    onAddNote={handleAddNote}
-                    onMarkAttendance={onMarkAttendance}
-                    onLoadDemoData={handleLoadDemoData}
-                    userContext={appState.user}
-                    onCreateEvent={(eventData) => {
-                        const newEvent: EventoCalendario = { ...eventData, id: `evt-${Date.now()}-${Math.random()}` };
-                        actions.setEventi(prev => [...prev, newEvent]);
-                        actions.showToast('Evento creato!', 'success');
-                    }}
                 />
             )}
 

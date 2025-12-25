@@ -5,10 +5,10 @@ import { NKANode, NKASettings } from './types';
 
 interface NKAState {
   enabled: boolean;
-  nodes: NKANode[];
+  nodes: readonly NKANode[];
   settings: NKASettings;
   setEnabled: (enabled: boolean) => void;
-  setNodes: (nodes: NKANode[]) => void;
+  setNodes: (nodes: readonly NKANode[]) => void;
   setSettings: (settings: NKASettings) => void;
 }
 

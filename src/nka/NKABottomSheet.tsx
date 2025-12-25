@@ -12,7 +12,7 @@ import GameMode from './GameMode';
 
 interface NKABottomSheetProps {
   open: boolean;
-  nodes: NKANode[];
+  nodes: readonly NKANode[];
   onClose: () => void;
   onNodeSelect: (node: NKANode) => void;
 }
@@ -25,18 +25,25 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
   const [wizardSteps, setWizardSteps] = React.useState<NKAWizardStep[]>([]);
   const [wizardLoading, setWizardLoading] = React.useState<boolean>(false);
   const [showGame, setShowGame] = React.useState<boolean>(false);
-  const handleNodeSelect = React.useCallback(async (node: NKANode) => {
+  const handleNodeSelect = React.useCallback((node: NKANode) => {
     playNkaSound('node');
     setSelectedNode(node);
     setShowWizard(true);
-    setWizardLoading(true);
-    try {
-      const steps = await generateWizardForNodeLLM(node, {});
-      setWizardSteps(steps);
-    } finally {
-      setWizardLoading(false);
-    }
+    // Call onNodeSelect synchronously so callers don't depend on async LLM generation
     onNodeSelect(node);
+    setWizardLoading(true);
+
+    // Fire-and-forget: generate wizard steps asynchronously and update state when ready
+    (async () => {
+      try {
+        const steps = await generateWizardForNodeLLM(node, {});
+        setWizardSteps(steps);
+      } catch (e) {
+        // swallow LLM errors; UI will show fallback if needed
+      } finally {
+        setWizardLoading(false);
+      }
+    })();
   }, [onNodeSelect]);
 
   if (!open) return null;

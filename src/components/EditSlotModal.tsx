@@ -90,11 +90,11 @@ export const EditSlotModal: React.FC<EditSlotModalProps> = ({
 
   return (
       <div className="dialog-backdrop">
-          <div className="dialog-container w-full max-w-xl shadow-3xl animate-in zoom-in-95 duration-400 overflow-hidden">
+          <div className="dialog-container w-full max-w-xl shadow-xl animate-in zoom-in-95 duration-400 overflow-hidden">
               <div className="dialog-header border-b border-outline-variant bg-surface-container-high p-6">
                   <div>
-                      <h2 className="m3-headline-small font-black leading-none text-on-surface">Pianificazione Slot</h2>
-                      <p className="m3-body-medium text-primary mt-2 font-black uppercase tracking-[0.2em]">{slot.giorno} • {slot.ora}</p>
+                      <h2 className="m3-headline-small font-extrabold leading-none text-on-surface">Pianificazione Slot</h2>
+                      <p className="m3-body-medium text-primary mt-2 font-extrabold uppercase tracking-[0.2em]">{slot.giorno} • {slot.ora}</p>
                   </div>
                   <button onClick={onClose} className="icon-button">
                       <span className="material-symbols-outlined">close</span>
@@ -103,7 +103,7 @@ export const EditSlotModal: React.FC<EditSlotModalProps> = ({
               
               <div className="dialog-content p-6 space-y-8 bg-surface-container-low">
                   <section>
-                      <label className="text-[11px] text-on-surface-variant font-black uppercase tracking-[0.3em] mb-4 block px-1">Tipologia Attività</label>
+                      <label className="text-[11px] text-on-surface-variant font-extrabold uppercase tracking-[0.3em] mb-4 block px-1">Tipologia Attività</label>
                       <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
                           <M3ChoiceCard icon="school" label="Lezione" selected={activityType === 'standard'} onClick={() => setActivityType('standard')} />
                           <M3ChoiceCard icon="pending_actions" label="Disp." selected={activityType === 'disposizione'} onClick={() => setActivityType('disposizione')} />

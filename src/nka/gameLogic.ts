@@ -7,7 +7,7 @@ export interface GameState {
   badges: string[];
 }
 
-export function getInitialGameState(nodes: NKANode[]): GameState {
+export function getInitialGameState(nodes: readonly NKANode[]): GameState {
   return {
     unlocked: [],
     progress: 0,

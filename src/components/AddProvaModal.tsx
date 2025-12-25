@@ -92,7 +92,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                 </div>
 
                 <div>
-                    <label className="text-[10px] text-primary font-black uppercase tracking-[0.3em] px-5 text-left opacity-70 mb-2 block">Tipo Prova</label>
+                    <label className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em] px-5 text-left opacity-70 mb-2 block">Tipo Prova</label>
                     <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
                         {EVALUATION_TYPES.map(t => (
                             <M3ChoiceCard

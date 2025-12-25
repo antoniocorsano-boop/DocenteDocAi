@@ -53,7 +53,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
 
     return (
         <div className="m3-auth-screen bg-aura-gradient">
-            <div className="m3-auth-card !max-w-lg relative shadow-3xl">
+            <div className="m3-auth-card !max-w-lg relative shadow-xl">
                  <div className="mb-10 transform scale-125">
                     <Logo />
                 </div>

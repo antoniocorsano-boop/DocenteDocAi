@@ -61,7 +61,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
 
     return (
         <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-xl shadow-3xl animate-in zoom-in-95">
+            <div className="dialog-container w-full max-w-xl shadow-xl animate-in zoom-in-95">
                 <div className="dialog-header border-b border-outline-variant p-6 bg-surface-container-high">
                     <h2 className="m3-headline-small font-black flex items-center gap-3">
                         <span className="material-symbols-outlined text-tertiary filled-icon">lightbulb</span>

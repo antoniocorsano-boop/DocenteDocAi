@@ -7,7 +7,7 @@ import { getAINeuralLayout } from './aiLayout';
 import { getLLMNeuralLayout } from './aiLayoutLLM';
 
 interface NKAForceMapProps {
-  nodes: NKANode[];
+  nodes: readonly NKANode[];
   onNodeSelect: (node: NKANode) => void;
   width?: number;
   height?: number;

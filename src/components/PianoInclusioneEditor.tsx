@@ -68,7 +68,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
 
     return (
         <div className="dialog-backdrop">
-            <form onSubmit={handleSubmit} className="dialog-container w-full max-w-2xl shadow-3xl">
+            <form onSubmit={handleSubmit} className="dialog-container w-full max-w-2xl shadow-xl">
                 <div className="dialog-header border-b border-outline-variant p-6 bg-surface-container-high">
                     <div>
                         <h2 className="m3-headline-medium font-black">Piano di Inclusione</h2>

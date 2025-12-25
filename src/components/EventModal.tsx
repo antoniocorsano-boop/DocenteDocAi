@@ -70,10 +70,10 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                 aria-modal="true"
                 tabIndex={-1}
                 onSubmit={handleSubmit}
-                className="dialog-container w-full max-w-lg sm:max-w-full md:max-w-lg max-h-[90vh] overflow-y-auto shadow-3xl p-4 sm:p-2 md:p-6 animate-scale-in"
+                className="dialog-container w-full max-w-lg sm:max-w-full md:max-w-lg max-h-[90vh] overflow-y-auto shadow-xl p-4 sm:p-2 md:p-6 animate-scale-in"
             >
                 <div className="dialog-header border-b border-outline-variant bg-surface-container-high p-6">
-                    <h2 className="m3-headline-small font-black">{event.id ? 'Modifica Evento' : 'Nuovo Evento'}</h2>
+                    <h2 className="m3-headline-small font-extrabold">{event.id ? 'Modifica Evento' : 'Nuovo Evento'}</h2>
                     <button type="button" onClick={onClose} className="icon-button">
                         <span className="material-symbols-outlined">close</span>
                     </button>
@@ -81,7 +81,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                 
                 <div className="dialog-content p-6 space-y-6">
                     <div>
-                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.25em] px-2 mb-4 block">Tipo Evento</label>
+                        <label className="text-[11px] text-primary font-extrabold uppercase tracking-[0.25em] px-2 mb-4 block">Tipo Evento</label>
                         <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
                             {eventTypes.map(t => (
                                 <M3ChoiceCard
@@ -138,12 +138,12 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
 
                 <div className="dialog-footer bg-surface-container-high p-6 border-t border-outline-variant">
                     {event.id && (
-                        <button type="button" onClick={() => onDelete(event.id!)} className="button button-text !text-error mr-auto font-black">
+                        <button type="button" onClick={() => onDelete(event.id!)} className="button button-text !text-error mr-auto font-extrabold">
                             Elimina
                         </button>
                     )}
                     <button type="button" onClick={onClose} className="button button-text font-bold">Annulla</button>
-                    <button type="submit" className="button button-filled shadow-lg font-black !px-10">Salva</button>
+                    <button type="submit" className="button button-filled shadow-lg font-extrabold !px-10">Salva</button>
                 </div>
             </form>
         </div>
