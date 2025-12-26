@@ -1,3 +1,35 @@
+export interface ChipInputListProps {
+    items: string[];
+    onAdd: (item: string) => void;
+    onRemove: (index: number) => void;
+    placeholder: string;
+    icon: string;
+    label: string;
+    variant?: 'class' | 'subject' | 'default';
+}
+export interface DialogProps {
+    open: boolean;
+    onClose: () => void;
+    title?: string;
+    children: React.ReactNode;
+    actions?: React.ReactNode;
+    ariaLabel?: string;
+    width?: string | number;
+    maxWidth?: string | number;
+}
+// --- BUTTON COMPONENTS ---
+export interface NKAHeaderAuraButtonProps {
+    hasNewNode: boolean;
+    onClick: () => void;
+    onLongPress: () => void;
+}
+// --- CARD COMPONENT ---
+export interface EditableContentCardProps {
+    title: string;
+    content: string;
+    onSave: (newContent: string) => void;
+    icon?: string;
+}
 // --- NKA NODE ---
 export interface NKANode {
     id: string;

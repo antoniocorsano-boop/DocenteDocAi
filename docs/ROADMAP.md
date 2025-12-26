@@ -35,8 +35,10 @@ Stato di avanzamento delle funzionalità di OrarioDoc AI.
 *   **[FATTO] Sicurezza Kiosk:** Implementazione Web Lock API per la modalità studente.
 *   **[FATTO] Resilienza AI:** Retry logic automatica per le chiamate Gemini API.
 *   **[FATTO] Testing E2E:** Suite completa con Playwright per i flussi critici.
-*   **[DA FARE] Refactoring Stato:** Migrazione da "God Object" a Context/Zustand per performance estreme.
-*   **[DA FARE] Audit Finale:** Verifica accessibilità e performance.
+*   **[FATTO] Refactoring Stato:** Migrazione da "God Object" a Context/Zustand per performance estreme.
+*   **[FATTO] Audit Finale:** Verifica accessibilità, micro-interazioni (Tooltip, Snackbar, Loader, Badge), validazione Problems panel e performance.
+*   **[DA FARE] Documentazione finale:** Aggiorna screenshot, CHANGELOG, guida migrazione.
+*   **[DA FARE] Release:** Deploy versione stabile (Vercel).
 
 ---
 *Ultimo aggiornamento: v4.0 RC2*

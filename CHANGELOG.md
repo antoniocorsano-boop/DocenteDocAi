@@ -1,3 +1,28 @@
+# [4.2.0] - 2025-12-26
+
+### Release: UI & Accessibilità Final Hardening
+
+Questa release conclude la roadmap M3 con:
+
+#### Added
+- Micro-interazioni globali: Tooltip M3, Snackbar, Loader/Progress, Badge
+- Refactoring accessibilità: aria-label, focus, contrasto, tabIndex, WCAG 2.1 AA
+- Validazione Problems panel: zero errori, warning e regressioni
+- Aggiornamento screenshot e demo UI (Playwright script automatico)
+- Aggiornamento roadmap e documentazione
+
+#### Technical Improvements
+- Refactoring modali e pulsanti con Tooltip accessibile
+- Test automatici e validazione E2E su tutte le view principali
+- Ottimizzazione responsive e mobile-first
+
+#### Breaking Changes
+Nessuna. Tutte le modifiche sono retrocompatibili.
+
+#### Migration Guide
+Nessuna azione richiesta. Tutti i componenti legacy sono ora M3-compliant e accessibili.
+
+---
 # Changelog
 
 All notable changes to this project will be documented in this file.

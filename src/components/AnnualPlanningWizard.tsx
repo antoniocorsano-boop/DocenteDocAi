@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import Tooltip from './Tooltip';
 import { Studente, Uda, TimetableSettings, AiSettings, Report, EventoCalendario, Lezione, KnowledgeBaseEntry, PianoInclusione } from '../types';
 import { generateClassPlanningDocument, generateSituazionePartenza, suggestAnnualPlan, generateMethodologyStrategies } from '../services/aiService';
 import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
@@ -323,7 +324,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             <div className="dialog-container w-full max-w-4xl h-[90vh]">
                 <div className="dialog-header">
                     <h2 className="m3-headline-medium">Progettazione Annuale Guidata</h2>
-                    <button onClick={onClose} className="icon-button" title="Chiudi Wizard"><span className="material-symbols-outlined">close</span></button>
+                                        <Tooltip label="Chiudi wizard">
+                                            <button onClick={onClose} className="icon-button" aria-label="Chiudi wizard"><span className="material-symbols-outlined">close</span></button>
+                                        </Tooltip>
                 </div>
                 
                 <div className="dialog-content">

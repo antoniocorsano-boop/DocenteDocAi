@@ -105,39 +105,51 @@ const StudentManager: React.FC<StudentManagerProps> = ({
 
                 <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1 custom-scrollbar">
                     {filteredStudents.length > 0 ? filteredStudents.map(student => (
-                        <div key={student.id} className={`flex items-center gap-4 p-3 rounded-xl transition-all hover:bg-surface-container-highest/50 group ${student.isArchived ? 'opacity-70 grayscale' : ''}`}>
-                            <Avatar name={student.nome} surname={student.cognome} size="medium" />
-                            <div className="flex-grow min-w-0">
-                                <h3 className="m3-title-medium truncate font-bold">{student.cognome} {student.nome}</h3>
-                                <div className="flex items-center gap-2">
-                                    <span className="m3-body-small text-on-surface-variant">Classe {student.classe}</span>
-                                    {student.isArchived && (
-                                        <span className="text-[10px] bg-surface-container-high px-1.5 rounded border border-outline-variant font-medium">
-                                            {student.archiveYear ? `Archiviato ${student.archiveYear}` : 'ARCHIVIATO'}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
+                        <div
+                          key={student.id}
+                          className={`flex items-center gap-4 p-3 rounded-xl transition-all hover:bg-surface-container-highest/50 group relative focus-visible:ring-2 focus-visible:ring-primary focus:outline-none ${student.isArchived ? 'opacity-70 grayscale' : ''}`}
+                          aria-label={`Studente ${student.cognome} ${student.nome}, classe ${student.classe}${student.isArchived ? ', archiviato' : ''}`}
+                          tabIndex={0}
+                          onKeyDown={e => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              setEditingStudent(student);
+                              e.preventDefault();
+                            }
+                          }}
+                        >
+                          <span className="m3-ripple" aria-hidden="true" />
+                          <Avatar name={student.nome} surname={student.cognome} size="medium" />
+                          <div className="flex-grow min-w-0">
+                              <h3 className="m3-title-medium truncate font-bold">{student.cognome} {student.nome}</h3>
+                              <div className="flex items-center gap-2">
+                                  <span className="m3-body-small text-on-surface-variant">Classe {student.classe}</span>
+                                  {student.isArchived && (
+                                      <span className="text-[10px] bg-surface-container-high px-1.5 rounded border border-outline-variant font-medium">
+                                          {student.archiveYear ? `Archiviato ${student.archiveYear}` : 'ARCHIVIATO'}
+                                      </span>
+                                  )}
+                              </div>
+                          </div>
 
-                            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                {student.isArchived ? (
-                                    <button onClick={() => handleRestoreStudent(student)} className="icon-button text-primary" title="Ripristina Studente">
-                                        <span className="material-symbols-outlined">restore_from_trash</span>
-                                    </button>
-                                ) : (
-                                    <>
-                                        <button onClick={() => setTransferringStudent(student)} className="icon-button text-secondary" title="Cambio Classe / Trasferimento">
-                                            <span className="material-symbols-outlined">transfer_within_a_station</span>
-                                        </button>
-                                        <button onClick={() => setEditingStudent(student)} className="icon-button" title="Modifica">
-                                            <span className="material-symbols-outlined">edit</span>
-                                        </button>
-                                    </>
-                                )}
-                                <button onClick={() => { if (confirm("Eliminare definitivamente studente?")) onDeleteStudent(student.id); }} className="icon-button text-error" title="Elimina Definitivamente">
-                                    <span className="material-symbols-outlined">delete</span>
-                                </button>
-                            </div>
+                          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              {student.isArchived ? (
+                                  <button onClick={() => handleRestoreStudent(student)} className="icon-button text-primary" title="Ripristina Studente">
+                                      <span className="material-symbols-outlined">restore_from_trash</span>
+                                  </button>
+                              ) : (
+                                  <>
+                                      <button onClick={() => setTransferringStudent(student)} className="icon-button text-secondary" title="Cambio Classe / Trasferimento">
+                                          <span className="material-symbols-outlined">transfer_within_a_station</span>
+                                      </button>
+                                      <button onClick={() => setEditingStudent(student)} className="icon-button" title="Modifica">
+                                          <span className="material-symbols-outlined">edit</span>
+                                      </button>
+                                  </>
+                              )}
+                              <button onClick={() => { if (confirm("Eliminare definitivamente studente?")) onDeleteStudent(student.id); }} className="icon-button text-error" title="Elimina Definitivamente">
+                                  <span className="material-symbols-outlined">delete</span>
+                              </button>
+                          </div>
                         </div>
                     )) : (
                         <EmptyState

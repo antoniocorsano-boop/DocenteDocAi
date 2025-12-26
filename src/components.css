@@ -1,3 +1,40 @@
+.loading-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.18);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.large-spinner {
+  width: 56px;
+  height: 56px;
+  border: 6px solid var(--sys-primary-container);
+  border-top: 6px solid var(--sys-primary);
+  border-radius: 50%;
+  animation: m3-spin 1s linear infinite;
+  margin-bottom: 1.5rem;
+}
+@keyframes m3-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.m3-ripple {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(circle, var(--sys-primary) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.18s var(--motion-easing-standard);
+  z-index: 0;
+}
+.group:active .m3-ripple,
+.group:focus-visible .m3-ripple {
+  opacity: 0.10;
+}
 /* --- ACTION TILES (Bento Style Hardened) --- */
 .op-tile {
   background-color: var(--sys-surface-container);

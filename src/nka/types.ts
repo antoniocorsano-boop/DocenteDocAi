@@ -1,13 +1,6 @@
-// Shared types for NKA module
-export interface NKANode {
-  id: string;
-  label: string;
-  color: string; // M3 tonalità
-  elevation: number; // M3 elevation
-  depth: number; // 0-1
-  shape: 'circle' | 'pill';
-  actions: string[];
-}
+
+// Re-export NKANode from central types
+export type { NKANode } from '../types';
 
 export interface NKASettings {
   sound: boolean;

@@ -2,36 +2,91 @@ import React, { InputHTMLAttributes, SelectHTMLAttributes, TextareaHTMLAttribute
 
 // --- INPUTS M3 EXPRESSIVE (AURA) ---
 
-export const TextField: React.FC<InputHTMLAttributes<HTMLInputElement> & { label: string; error?: boolean; leadingIcon?: string; containerClassName?: string }> = ({ label, error, leadingIcon, containerClassName = '', ...props }) => (
-    <div className={`m3-field-container ${containerClassName}`}>
-        <label htmlFor={props.id} className="m3-field-label">{label}</label>
-        <div className={`m3-field-wrapper ${error ? 'error' : ''} group`}>
-            {leadingIcon && <span className="material-symbols-outlined opacity-60 group-focus-within:opacity-100 group-focus-within:text-primary transition-all">{leadingIcon}</span>}
-            <input {...props} className="m3-field-input" />
+export const TextField: React.FC<InputHTMLAttributes<HTMLInputElement> & { label: string; error?: boolean; errorMessage?: string; leadingIcon?: string; containerClassName?: string }> = ({ label, error, errorMessage, leadingIcon, containerClassName = '', ...props }) => {
+    const describedBy = error && errorMessage ? `${props.id}-error` : undefined;
+    return (
+        <div className={`m3-field-container ${containerClassName}`}>
+            <label htmlFor={props.id} className="m3-field-label">{label}</label>
+            <div className={`m3-field-wrapper ${error ? 'error' : ''} group`}>
+                {leadingIcon && <span className="material-symbols-outlined opacity-60 group-focus-within:opacity-100 group-focus-within:text-primary transition-all">{leadingIcon}</span>}
+                <input
+                    {...props}
+                    className="m3-field-input"
+                    aria-label={label}
+                    aria-invalid={error ? 'true' : undefined}
+                    aria-describedby={describedBy}
+                />
+                {error && errorMessage && (
+                    <span className="material-symbols-outlined text-error ml-2" aria-hidden="true">error</span>
+                )}
+            </div>
+            {error && errorMessage && (
+                <div id={describedBy} className="m3-field-error text-error text-xs mt-1 flex items-center gap-1">
+                    <span className="material-symbols-outlined text-error text-sm">error</span>
+                    {errorMessage}
+                </div>
+            )}
         </div>
-    </div>
-);
+    );
+};
 
-export const SelectField: React.FC<SelectHTMLAttributes<HTMLSelectElement> & { label: string; containerClassName?: string }> = ({ label, containerClassName = '', children, ...props }) => (
-    <div className={`m3-field-container ${containerClassName}`}>
-        <label htmlFor={props.id} className="m3-field-label">{label}</label>
-        <div className="m3-field-wrapper relative group">
-            <select {...props} className="m3-field-select">
-                {children}
-            </select>
-            <span className="material-symbols-outlined absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-40 group-focus-within:text-primary group-focus-within:opacity-100 transition-all">expand_more</span>
+export const SelectField: React.FC<SelectHTMLAttributes<HTMLSelectElement> & { label: string; error?: boolean; errorMessage?: string; containerClassName?: string }> = ({ label, error, errorMessage, containerClassName = '', children, ...props }) => {
+    const describedBy = error && errorMessage ? `${props.id}-error` : undefined;
+    return (
+        <div className={`m3-field-container ${containerClassName}`}>
+            <label htmlFor={props.id} className="m3-field-label">{label}</label>
+            <div className={`m3-field-wrapper relative group${error ? ' error' : ''}`}>
+                <select
+                    {...props}
+                    className="m3-field-select"
+                    aria-label={label}
+                    aria-invalid={error ? 'true' : undefined}
+                    aria-describedby={describedBy}
+                >
+                    {children}
+                </select>
+                <span className="material-symbols-outlined absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-40 group-focus-within:text-primary group-focus-within:opacity-100 transition-all">expand_more</span>
+                {error && errorMessage && (
+                    <span className="material-symbols-outlined text-error ml-2 absolute left-2 top-1/2 -translate-y-1/2" aria-hidden="true">error</span>
+                )}
+            </div>
+            {error && errorMessage && (
+                <div id={describedBy} className="m3-field-error text-error text-xs mt-1 flex items-center gap-1">
+                    <span className="material-symbols-outlined text-error text-sm">error</span>
+                    {errorMessage}
+                </div>
+            )}
         </div>
-    </div>
-);
+    );
+};
 
-export const TextArea: React.FC<TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; containerClassName?: string }> = ({ label, containerClassName = '', ...props }) => (
-    <div className={`m3-field-container ${containerClassName}`}>
-        <label htmlFor={props.id} className="m3-field-label">{label}</label>
-        <div className={`m3-field-wrapper group`}>
-            <textarea {...props} className="m3-field-input resize-none" rows={props.rows || 3} />
+export const TextArea: React.FC<TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; error?: boolean; errorMessage?: string; containerClassName?: string }> = ({ label, error, errorMessage, containerClassName = '', ...props }) => {
+    const describedBy = error && errorMessage ? `${props.id}-error` : undefined;
+    return (
+        <div className={`m3-field-container ${containerClassName}`}>
+            <label htmlFor={props.id} className="m3-field-label">{label}</label>
+            <div className={`m3-field-wrapper group${error ? ' error' : ''}`}>
+                <textarea
+                    {...props}
+                    className="m3-field-input resize-none"
+                    aria-label={label}
+                    aria-invalid={error ? 'true' : undefined}
+                    aria-describedby={describedBy}
+                    rows={props.rows || 3}
+                />
+                {error && errorMessage && (
+                    <span className="material-symbols-outlined text-error ml-2 absolute left-2 top-1/2 -translate-y-1/2" aria-hidden="true">error</span>
+                )}
+            </div>
+            {error && errorMessage && (
+                <div id={describedBy} className="m3-field-error text-error text-xs mt-1 flex items-center gap-1">
+                    <span className="material-symbols-outlined text-error text-sm">error</span>
+                    {errorMessage}
+                </div>
+            )}
         </div>
-    </div>
-);
+    );
+};
 
 // --- AI MEMORY CHIP ---
 export const AiMemoryChip: React.FC<{ label: string }> = ({ label }) => (

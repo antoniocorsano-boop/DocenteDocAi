@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import NKABottomSheet from '../NKABottomSheet';
 import { NKANode } from '../types';
-import { vi } from 'vitest';
+import { vi } from "vitest";
 
 describe('NKABottomSheet', () => {
   const nodes: NKANode[] = [

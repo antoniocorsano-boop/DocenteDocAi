@@ -1,3 +1,17 @@
+.m3-ripple {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(circle, var(--sys-primary) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.18s var(--motion-easing-standard);
+    z-index: 0;
+}
+.timetable-tile:active .m3-ripple,
+.timetable-tile:focus-visible .m3-ripple {
+    opacity: 0.10;
+}
 /* ==========================================================================
    MODULES.CSS
    Complex Feature-Specific Styles (Restored & Centralized)
@@ -952,6 +966,7 @@
     outline: 2px solid var(--sys-primary);
     outline-offset: -2px;
     z-index: 10;
+    box-shadow: 0 0 0 4px var(--sys-primary-container);
 }
 
 .timetable-tile.empty {

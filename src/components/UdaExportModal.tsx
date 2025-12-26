@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import Tooltip from './Tooltip';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
 import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
@@ -139,7 +140,9 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                 <div className="dialog-container w-full max-w-2xl">
                     <div className="dialog-header">
                         <h2 className="m3-headline-medium">Report Generato</h2>
-                        <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>
+                                                <Tooltip label="Chiudi">
+                                                    <button onClick={onClose} className="icon-button" aria-label="Chiudi"><span className="material-symbols-outlined">close</span></button>
+                                                </Tooltip>
                     </div>
                     <div className="dialog-content">
                         <p className="m3-body-medium text-on-surface-variant mb-2">Copia questo testo e incollalo in Google Docs, Word o un altro editor di testo.</p>
@@ -164,9 +167,11 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         <h2 className="m3-headline-medium">Esporta Progetto</h2>
                         <p className="m3-body-medium text-on-surface-variant">{uda.title}</p>
                     </div>
-                    <button type="button" onClick={onClose} className="icon-button" disabled={isExporting}>
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
+                                        <Tooltip label="Chiudi">
+                                            <button type="button" onClick={onClose} className="icon-button" aria-label="Chiudi" disabled={isExporting}>
+                                                <span className="material-symbols-outlined">close</span>
+                                            </button>
+                                        </Tooltip>
                 </div>
                 <div className="dialog-content space-y-4">
                     <div className="segmented-button-group">

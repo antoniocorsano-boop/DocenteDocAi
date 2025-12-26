@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Tooltip from './Tooltip';
 import { Slot, Lezione } from '../types';
 import { LESSON_TYPE_ICONS } from '../constants';
 
@@ -27,9 +28,11 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
             <h2 className="m3-headline-small">Lezione Programmata</h2>
             <p className="m3-body-small text-on-surface-variant">{slot.giorno}, {slot.ora}</p>
           </div>
-          <button type="button" onClick={onClose} className="icon-button">
-            <span className="material-symbols-outlined">close</span>
-          </button>
+                    <Tooltip label="Chiudi">
+                        <button type="button" onClick={onClose} className="icon-button" aria-label="Chiudi">
+                            <span className="material-symbols-outlined">close</span>
+                        </button>
+                    </Tooltip>
         </div>
         
         <div className="dialog-content px-4 pb-4">

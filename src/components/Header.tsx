@@ -165,16 +165,36 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
     return (
         <>
-            <header className="app-header">
-                <div className="header-content">
-
+            <header
+                className="app-header"
+                style={{
+                    background: 'var(--sys-surface)',
+                    boxShadow: 'var(--depth-shadow-2)',
+                    fontFamily: 'var(--font-variable)',
+                    fontVariationSettings: 'var(--font-variation-settings)',
+                    WebkitFontSmoothing: 'var(--typography-font-smoothing)',
+                    fontFeatureSettings: 'var(--typography-font-feature-settings)',
+                    zIndex: 'var(--z-header)',
+                }}
+            >
+                <div className="header-content" style={{
+                    minHeight: 'var(--header-height)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0 var(--content-padding)',
+                    background: 'var(--sys-surface-tint)',
+                    boxShadow: 'var(--depth-shadow-1)',
+                }}>
                     {/* Left: Back/Home + Operations */}
-                    <div className="header-leading">
+                    <div className="header-leading" style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
                         {showBackButton ? (
                             <button
                                 onClick={onBack}
                                 className="icon-button"
                                 aria-label="Indietro"
+                                tabIndex={0}
+                                style={{ background: 'var(--state-layer-hover)' }}
                             >
                                 <span className="material-symbols-outlined">arrow_back</span>
                             </button>
@@ -183,15 +203,18 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                 onClick={() => onNavigate('home')}
                                 className="icon-button primary"
                                 aria-label="Home"
+                                tabIndex={0}
+                                style={{ background: 'var(--state-layer-hover)' }}
                             >
                                 <span className="material-symbols-outlined">home</span>
                             </button>
                         )}
-
                         <button
                             onClick={onOpenOperations}
                             className="icon-button primary"
                             aria-label="Centro Operativo"
+                            tabIndex={0}
+                            style={{ background: 'var(--state-layer-hover)', position: 'relative' }}
                         >
                             <span className="material-symbols-outlined filled-icon">bolt</span>
                             {hasSuggestion && (
@@ -199,35 +222,36 @@ export const Header: React.FC<HeaderProps> = (props) => {
                             )}
                         </button>
                     </div>
-
-                    {/* Center: Logo */}
-                    <div 
-                        className="header-center cursor-pointer" 
+                    {/* Center: Logo (preservato, centrato, non modificato) */}
+                    <div
+                        className="header-center cursor-pointer"
                         onClick={() => !showBackButton && onNavigate('home')}
+                        style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
                     >
                         <Logo title="DocenteDoc AI" isAiThinking={isAiProcessing} />
                         {isAiProcessing && <AiThinkingGem size="small" />}
                     </div>
-
                     {/* Right: Actions */}
-                    <div className="header-trailing" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <div className="header-trailing" style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
                         {/* Settings - visible on tablet+ */}
                         <button
                             onClick={() => onNavigate('settings')}
                             className="icon-button hidden sm:flex"
                             aria-label="Impostazioni"
+                            tabIndex={0}
+                            style={{ background: 'var(--state-layer-hover)' }}
                         >
                             <span className="material-symbols-outlined">settings</span>
                         </button>
-
                         {/* NKA Aura Button (M3, a destra dell'avatar) */}
                         <NKAHeaderIntegration />
-
                         {/* Menu button */}
                         <button
                             className="icon-button relative"
                             onClick={() => setIsActionsOpen(p => !p)}
                             aria-label="Menu"
+                            tabIndex={0}
+                            style={{ background: 'var(--state-layer-hover)' }}
                         >
                             {/* Mobile: hamburger icon, Desktop: avatar */}
                             <span className="material-symbols-outlined sm:hidden">menu</span>

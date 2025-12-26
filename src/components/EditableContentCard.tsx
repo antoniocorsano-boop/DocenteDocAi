@@ -40,15 +40,26 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
     }
 
     return (
-        <div className="editable-card">
+        <div
+            className="m3-card surface-container-high elevation-1 rounded-m p-4 transition-shadow duration-300 focus-within:elevation-2"
+            tabIndex={0}
+            aria-label={title}
+            style={{ outline: 'none' }}
+        >
             <div className="flex justify-between items-start">
-                <h3 className="m3-title-medium flex items-center gap-2">
-                    {icon && <span className="material-symbols-outlined text-on-surface-variant">{icon}</span>}
+                <h3 className="m3-title-medium flex items-center gap-2 text-on-surface">
+                    {icon && <span className="material-symbols-outlined text-on-surface-variant" aria-hidden="true">{icon}</span>}
                     {title}
                 </h3>
                 {!isEditing && (
-                    <button onClick={() => setIsEditing(true)} className="icon-button" aria-label="Modifica">
-                        <span className="material-symbols-outlined">edit</span>
+                    <button
+                        onClick={() => setIsEditing(true)}
+                        className="icon-button m3-interactive"
+                        aria-label="Modifica contenuto"
+                        tabIndex={0}
+                        style={{ background: 'var(--sys-surface-container-high)', borderRadius: 'var(--shape-s)' }}
+                    >
+                        <span className="material-symbols-outlined" aria-hidden="true">edit</span>
                     </button>
                 )}
             </div>
@@ -59,17 +70,19 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
                         <textarea
                             value={currentContent}
                             onChange={(e) => setCurrentContent(e.target.value)}
-                            className="form-textarea w-full"
+                            className="form-textarea w-full m3-interactive"
                             rows={Math.max(5, currentContent.split('\n').length)}
                             autoFocus
+                            aria-label="Modifica contenuto"
+                            style={{ borderRadius: 'var(--shape-s)', background: 'var(--sys-surface-container)', color: 'var(--sys-on-surface)' }}
                         />
                         <div className="flex justify-end gap-2">
-                            <button onClick={handleCancel} className="button button-text">Annulla</button>
-                            <button onClick={handleSave} className="button button-filled">Salva</button>
+                            <button onClick={handleCancel} className="button button-text m3-interactive" aria-label="Annulla modifica">Annulla</button>
+                            <button onClick={handleSave} className="button button-filled m3-interactive" aria-label="Salva contenuto">Salva</button>
                         </div>
                     </div>
                 ) : (
-                    <div className="prose">
+                    <div className="prose text-on-surface-variant">
                         {renderContent()}
                     </div>
                 )}

@@ -10,6 +10,7 @@ import SignInScreen from './SignInScreen';
 import { ModalManager } from './ModalManager';
 
 import { applyTheme, createTheme } from '../design-system';
+import Snackbar from './Snackbar';
 import RestoreAssistController, { useRestoreAssist } from './useRestoreAssist';
 
 /**
@@ -144,6 +145,7 @@ export const App: React.FC = () => {
                 {/* Main Scrollable Content */}
                 <main className="main-content custom-scrollbar">
                     <div className="content-container">
+                        <Snackbar />
                         <ViewManager
                             view={view}
                             viewContext={viewContext}
@@ -163,14 +165,16 @@ export const App: React.FC = () => {
                 {/* Bottom Navigation */}
                 <Menu currentView={view} onNavigate={actions.handleNavigate} />
                 <ModalManager appState={appState} actions={actions} modals={modals} />
+                <Snackbar />
                 {/* Dev tools to simulate assistant behaviors */}
-                {process.env.NODE_ENV === 'development' && (
-                  // lazy load to avoid shipping in prod bundles
+                                {import.meta.env.DEV && (
+                                    // lazy load to avoid shipping in prod bundles
                                     <React.Suspense fallback={null}>
                                         {/* @ts-ignore: AssistantDevTools may not have explicit props type, ignore for now */}
                                         <AssistantDevTools actions={actions} />
                                     </React.Suspense>
-                )}
+                                )}
+                <Snackbar />
             </div>
         );
     } catch (err) {
