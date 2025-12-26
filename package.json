@@ -28,6 +28,10 @@
     "react-dropzone": "^14.3.8",
     "zustand": "4.4.7"
   },
+  "resolutions": {
+  "react": "^18.2.0",
+  "react-dom": "^18.2.0"
+  },  
   "devDependencies": {
     "@jest/globals": "^30.2.0",
     "@playwright/test": "^1.57.0",
