@@ -70,6 +70,8 @@ export default defineConfig({
     }
   },
   resolve: {
+    // Ensure single React instance across the bundle and deps
+    dedupe: ['react'],
     alias: {
       '@': path.resolve(process.cwd(), './src'),
     },

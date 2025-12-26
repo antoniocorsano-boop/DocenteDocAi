@@ -114,24 +114,7 @@ const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSug
                             </div>
                         </div>
 
-                        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <button
-                                onClick={handleHeroClick}
-                                aria-label="Gestisci Classe"
-                                className="button button-filled bg-primary-container text-on-primary-container !h-20 !rounded-[40px] font-extrabold text-xl shadow-lg hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                            >
-                                Gestisci Classe
-                                <span className="material-symbols-outlined text-3xl group-hover:translate-x-1 transition-transform" aria-hidden="true">play_circle</span>
-                            </button>
-                            <button
-                                onClick={() => onNavigate('aula')}
-                                aria-label="Apri Registro"
-                                className="button button-filled bg-tertiary-container text-on-tertiary-container !h-20 !rounded-[40px] font-extrabold text-xl shadow-lg hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary"
-                            >
-                                <span className="material-symbols-outlined text-3xl" aria-hidden="true">auto_stories</span>
-                                Apri Registro
-                            </button>
-                        </div>
+                        {/* I bottoni legacy per l'assistente live sono stati rimossi. Il FAB flottante è ora l'unico accesso all'assistente live. */}
                     </div>
                 ) : (
                     <div className="hero-card aura-view-entrance bg-surface-variant/40 backdrop-blur-3xl text-on-surface-variant border-outline-variant/30">
