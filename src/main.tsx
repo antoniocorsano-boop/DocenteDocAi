@@ -54,7 +54,10 @@ if (import.meta && (import.meta as any).env && (import.meta as any).env.PROD && 
     const enableGsiDev = import.meta && (import.meta as any).env && (import.meta as any).env.VITE_ENABLE_GSI_DEV === 'true';
     const gsiClientId = import.meta && (import.meta as any).env && (import.meta as any).env.VITE_GSI_CLIENT_ID;
 
-    const allowedHosts = ['docentedoc.app', 'your-production-domain.example'];
+    // Allow listing for scripts and service worker registration.
+    // Use VITE_ALLOWED_HOSTS env var as comma-separated list, fallback to known hosts.
+    const envHosts = (import.meta && (import.meta as any).env && (import.meta as any).env.VITE_ALLOWED_HOSTS) || '';
+    const allowedHosts = envHosts ? envHosts.split(',').map(s => s.trim()).filter(Boolean) : ['docentedoc.app', 'your-production-domain.example'];
     const host = window.location.hostname;
 
     const shouldLoadGsi = (isProd && allowedHosts.includes(host)) || (isDev && enableGsiDev && !!gsiClientId);
