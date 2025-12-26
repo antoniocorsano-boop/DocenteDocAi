@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SW Cleanup Bookmarklet</title>
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:40px}a{display:inline-block;padding:12px 18px;background:#0b74de;color:#fff;border-radius:6px;text-decoration:none}</style>
+</head>
+<body>
+  <h1>SW Cleanup Bookmarklet</h1>
+  <p>Drag the button below to your bookmarks bar (or right-click → Add to bookmarks).</p>
+  <p><a id="bm" href="javascript:(async()=>{try{const regs=await navigator.serviceWorker.getRegistrations();for(const r of regs){console.log('Unregistering',r.scope);await r.unregister()}const keys=await caches.keys();await Promise.all(keys.map(k=>caches.delete(k)));localStorage.clear();sessionStorage.clear();alert('Service Workers unregistered and caches cleared');}catch(e){alert('Cleanup error: '+e)}})();">SW cleanup — drag to bookmarks</a></p>
+  <hr>
+  <p>Usage: open the site where you see the issue, then click the bookmark you just saved. After the alert, close all tabs for that site and open a single Incognito tab to verify the page loads cleanly.</p>
+</body>
+</html>
