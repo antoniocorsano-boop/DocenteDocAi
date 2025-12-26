@@ -37,7 +37,7 @@ export async function getSettingsStore() {
 // Synchronous getters that return cached or error if not loaded
 export function getDataStoreSync() {
   if (!cachedDataStore) {
-    throw new Error('DataStore not loaded yet. Use getDataStore() or ensure it\'s imported in App.');
+    throw new Error('DataStore not loaded yet. Use getDataStore() or ensure it\'s imported in App. If you see this in production, check Service Worker cache and preload order.');
   }
   return cachedDataStore;
 }
@@ -58,9 +58,26 @@ export function getSettingsStoreSync() {
 
 // Pre-load all stores (call this once in main.tsx after React is ready)
 export async function preloadAllStores() {
-  await Promise.all([
-    getDataStore(),
-    getUIStore(),
-    getSettingsStore(),
-  ]);
+  // Load stores one by one and log progress to aid diagnostics in production failures
+  try {
+    await getDataStore();
+    console.debug('[lazyStores] data store loaded');
+  } catch (e) {
+    console.error('[lazyStores] failed loading data store', e);
+    throw e;
+  }
+  try {
+    await getUIStore();
+    console.debug('[lazyStores] ui store loaded');
+  } catch (e) {
+    console.error('[lazyStores] failed loading ui store', e);
+    throw e;
+  }
+  try {
+    await getSettingsStore();
+    console.debug('[lazyStores] settings store loaded');
+  } catch (e) {
+    console.error('[lazyStores] failed loading settings store', e);
+    throw e;
+  }
 }

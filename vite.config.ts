@@ -34,7 +34,16 @@ export default defineConfig({
           // Split large dependencies into separate chunks
           if (id.includes('node_modules')) {
             // React ecosystem - core dependency
-            if (id.includes('react') || id.includes('react-dom')) return 'vendor-react';
+            // Ensure scheduler, jsx-runtime and sync-external-store live with react to avoid circular cross-chunk imports
+            if (
+              id.includes('react') ||
+              id.includes('react-dom') ||
+              id.includes('scheduler') ||
+              id.includes('use-sync-external-store') ||
+              id.includes('use-sync-external-store-shim') ||
+              id.includes('react/jsx-runtime')
+            )
+              return 'vendor-react';
             // State management - separated to load after React
             if (id.includes('zustand')) return 'vendor-zustand';
             // AI model library - large, can be lazy-loaded

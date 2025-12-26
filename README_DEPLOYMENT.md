@@ -193,6 +193,9 @@ Before deploying, verify:
 **Option 4: Step-by-step with details**  
 → Go to [COMPREHENSIVE_DEPLOYMENT_GUIDE.md](./COMPREHENSIVE_DEPLOYMENT_GUIDE.md)
 
+**Troubleshooting:**  
+→ See [Schermo bianco: useState diagnostic](./docs/TROUBLESHOOT_USESTATE.md)
+
 ---
 
 ## 🎯 Success Criteria Met

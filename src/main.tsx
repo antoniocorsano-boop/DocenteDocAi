@@ -3,7 +3,6 @@ import './polyfills';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from './components/App';
 import ErrorBoundary from './components/ErrorBoundary';
 
 // CSS Architecture
@@ -88,10 +87,38 @@ const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error("Root element missing");
 
 const root = createRoot(rootElement);
-root.render(
-  <ErrorBoundary>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </ErrorBoundary>
-);
+
+// Ensure Zustand stores are preloaded before importing the App
+async function bootstrapApp() {
+  try {
+    const lazy = await import('./stores/lazyStores');
+    await lazy.preloadAllStores();
+
+    // Dynamically import App after stores are ready to avoid initialization races
+    const { App } = await import('./components/App');
+
+    root.render(
+      <ErrorBoundary>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </ErrorBoundary>
+    );
+  } catch (e) {
+    // Critical bootstrap error — log full stack and render a minimal fallback
+    console.error('[main] bootstrap failed', e);
+    try {
+      root.render(
+        <ErrorBoundary>
+          <div style={{padding:20,fontFamily:'sans-serif'}}>
+            Errore di inizializzazione dell'applicazione. Aprire la console per dettagli.
+          </div>
+        </ErrorBoundary>
+      );
+    } catch (renderErr) {
+      console.error('[main] render fallback failed', renderErr);
+    }
+  }
+}
+
+bootstrapApp();
