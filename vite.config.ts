@@ -16,7 +16,7 @@ export default defineConfig({
     //   manifest: false, // Usiamo il file statico in public
     // }),
   ],
-  base: './',
+  base: '/',
   build: {
     outDir: 'dist',
     emptyOutDir: true,
@@ -66,6 +66,8 @@ export default defineConfig({
   resolve: {
     dedupe: ['react', 'react-dom'],
     alias: {
+      react: require.resolve('react'),
+      'react-dom': require.resolve('react-dom'),
       '@': path.resolve(process.cwd(), './src'),
     },
   },
