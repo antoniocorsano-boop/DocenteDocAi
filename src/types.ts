@@ -173,7 +173,6 @@ export interface HeaderProps {
     onBack?: () => void;
     onOpenImageAnalysis: () => void;
     onOpenVideoAnalysis: () => void;
-    onNavigateToLiveAssistant: () => void;
     onOpenHelp: () => void;
     user: UserProfile | null;
     settings: TimetableSettings;

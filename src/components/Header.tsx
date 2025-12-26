@@ -17,7 +17,7 @@ interface ActionsPopoverProps extends HeaderProps {
 }
 
 const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
-    const { onClose, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp, user, onShareClick, unreadCount, onOpenNotifications, installPrompt, onInstallApp, onNavigateToLiveAssistant, onNavigate } = props;
+    const { onClose, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp, user, onShareClick, unreadCount, onOpenNotifications, installPrompt, onInstallApp, onNavigate } = props;
     const popoverRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -111,14 +111,11 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
 };
 
 export const Header: React.FC<HeaderProps> = (props) => {
-    const { showBackButton, onBack, user, settings, notifiche, setNotifiche, onOpenCircularAnalysis, onNavigate, isAiProcessing, installPrompt, onInstallApp, onOpenOperations, hasSuggestion, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp, onNavigateToLiveAssistant } = props;
+    const { showBackButton, onBack, user, settings, notifiche, setNotifiche, onOpenCircularAnalysis, onNavigate, isAiProcessing, installPrompt, onInstallApp, onOpenOperations, hasSuggestion, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp } = props;
 
     // Get display name from settings (teacher name/surname) or fallback to user
     const teacherName = settings?.nomeInsegnante || '';
     const teacherSurname = settings?.cognomeInsegnante || '';
-    const displayName = teacherSurname && teacherName 
-        ? `${teacherSurname} ${teacherName}`
-        : teacherName || user?.displayName || 'Docente';
 
     const [isActionsOpen, setIsActionsOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -286,7 +283,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         onOpenImageAnalysis={onOpenImageAnalysis}
                         onOpenVideoAnalysis={onOpenVideoAnalysis}
                         onOpenHelp={onOpenHelp}
-                        onNavigateToLiveAssistant={onNavigateToLiveAssistant}
                     />
                 </>
             )}

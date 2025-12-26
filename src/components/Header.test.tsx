@@ -53,8 +53,11 @@ const baseProps = {
 describe('Header M3 Expressive', () => {
   it('renders logo and teacher name', () => {
     render(<Header {...baseProps} />);
-    expect(screen.getByText('DocenteDoc AI')).toBeInTheDocument();
-    expect(screen.getByText('Rossi Mario')).toBeInTheDocument();
+    // Cerca il testo SVG separatamente
+    expect(screen.getByText('DocenteDoc')).toBeInTheDocument();
+    expect(screen.getByText('AI')).toBeInTheDocument();
+    // Cerca le iniziali nell'avatar
+    expect(screen.getByText('RM')).toBeInTheDocument();
   });
 
   it('shows back button and handles click', () => {
@@ -73,7 +76,7 @@ describe('Header M3 Expressive', () => {
   it('shows menu and avatar', () => {
     render(<Header {...baseProps} />);
     expect(screen.getByLabelText('Menu')).toBeInTheDocument();
-    expect(screen.getByText('Rossi Mario')).toBeInTheDocument();
+    expect(screen.getByText('RM')).toBeInTheDocument();
   });
 
   it('applies M3 tokens and accessibility', () => {
