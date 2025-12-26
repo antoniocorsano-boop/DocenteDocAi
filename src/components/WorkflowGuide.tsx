@@ -1,3 +1,11 @@
+        <section className="workflow-section">
+            <div className="mt-4 mb-2 p-2 rounded-lg bg-surface-container-high text-sm">
+                <b>Novità Dicembre 2025:</b><br />
+                • Tutti i pulsanti ora seguono Material Design 3 (filled, tonal, outlined, icon, segmented)<br />
+                • Migliorata accessibilità, responsive e coerenza visiva<br />
+                • Focus visibile, aria-label obbligatorio, test aggiornati<br />
+                • Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener">guida M3 aggiornata</a> per dettagli e best practice
+            </div>
 
 import React from 'react';
 import { View } from '../types';

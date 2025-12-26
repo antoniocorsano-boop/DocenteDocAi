@@ -430,10 +430,17 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
     <div className="dialog-backdrop">
       <div className="dialog-container w-full max-w-4xl h-[90vh]">
         <div className="dialog-header">
-          <h2 className="m3-headline-medium">Guida, Novità e Manuale</h2>
-          <button onClick={onClose} className="icon-button" disabled={isGenerating}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
+                    <h2 className="m3-headline-medium">Guida, Novità e Manuale</h2>
+                    <button onClick={onClose} className="icon-button" disabled={isGenerating}>
+                        <span className="material-symbols-outlined">close</span>
+                    </button>
+                    <div className="mt-4 mb-2 p-2 rounded-lg bg-surface-container-high text-sm">
+                        <b>Novità Dicembre 2025:</b><br />
+                        • Tutti i pulsanti ora seguono Material Design 3 (filled, tonal, outlined, icon, segmented)<br />
+                        • Migliorata accessibilità, responsive e coerenza visiva<br />
+                        • Focus visibile, aria-label obbligatorio, test aggiornati<br />
+                        • Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener">guida M3 aggiornata</a> per dettagli e best practice
+                    </div>
         </div>
         
         <div className="px-4 pb-4">

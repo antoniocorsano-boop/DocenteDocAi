@@ -1,3 +1,53 @@
+## Riepilogo Migrazione M3 (Dicembre 2025)
+
+La migrazione dei pulsanti legacy ai componenti Material Design 3 è stata completata seguendo la checklist ingegnerizzata:
+
+- Analisi e mappatura pattern legacy
+- Definizione componenti M3 standard
+- Stima effort e priorità per file
+- Checklist di refactoring per ogni file
+- Automatizzazione con codemod/script
+- Refactoring manuale dove necessario
+- Aggiornamento e verifica test
+- Verifica accessibilità e responsive
+- Aggiornamento documentazione e comunicazione novità
+
+### Stato checklist (Dicembre 2025)
+
+| Step | Stato |
+|------|-------|
+| Analizza pattern legacy | ✅ |
+| Definisci componenti M3 | ✅ |
+| Mappa file/pattern | ✅ |
+| Stima effort/priorità | ✅ |
+| Checklist refactoring | ✅ |
+| Automatizza sostituzione | ✅ |
+| Refactoring manuale | ✅ |
+| Aggiorna test | ✅ |
+| Verifica accessibilità/responsive | ✅ |
+| Aggiorna documentazione/checklist | ✅ |
+
+---
+
+## Comunicazione Novità e Aggiornamento Modali Workflow
+
+- Aggiorna la sezione "Guida e Novità" dell’app per informare gli utenti:
+	- Tutti i pulsanti ora seguono Material Design 3
+	- Migliorata accessibilità, responsive e coerenza visiva
+	- Nuove varianti: filled, tonal, outlined, icon, segmented
+	- Focus visibile, aria-label obbligatorio, test aggiornati
+- Aggiorna il modale dei workflow per riflettere:
+	- Nuovi pattern di interazione con pulsanti M3
+	- Esempi di utilizzo e best practice
+	- Link alla guida aggiornata
+
+---
+
+## Prossimi Step
+
+- Monitoraggio feedback utenti
+- Ottimizzazione UI/UX su base reale
+- Aggiornamento continuo della documentazione
 ## Checklist di refactoring per file prioritari
 
 Esegui i seguenti step per ogni file elencato (adatta se necessario):

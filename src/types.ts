@@ -1,3 +1,10 @@
+// --- NAVIGATION PARAMS ---
+export interface NavigationParams {
+    classe?: string;
+    materia?: string;
+    slotKey?: string;
+    [key: string]: unknown;
+}
 export interface ChipInputListProps {
     items: string[];
     onAdd: (item: string) => void;
@@ -151,7 +158,7 @@ export interface Notifica {
     data: string;
     letta: boolean;
     type: 'circular' | 'reminder' | 'suggestion';
-    payload?: any;
+    payload?: Record<string, unknown>;
 }
 
 // FIX: Added 'title' to LogoProps
@@ -173,7 +180,7 @@ export interface HeaderProps {
     notifiche: Notifica[];
     setNotifiche: (input: Notifica[] | ((prev: Notifica[]) => Notifica[])) => void;
     onOpenCircularAnalysis: (url: string, title: string) => void;
-    onNavigate: (view: View, context?: any) => void;
+    onNavigate: (view: View, context?: NavigationParams) => void;
     isAiProcessing: boolean;
     installPrompt: BeforeInstallPromptEvent | null;
     onInstallApp: () => void;
@@ -506,7 +513,7 @@ export interface AiSuggestion {
     icon: string;
     title: string;
     description: string;
-    action: { type: string; payload?: any };
+    action: { type: string; payload?: Record<string, unknown> };
 }
 
 // FIX: Corrected 'action' type to be always present and structured
@@ -515,7 +522,7 @@ export interface SystemSuggestion {
     message: string;
     targetView?: string; // made optional to allow generic suggestions
     actionLabel: string;
-    action: { type: string; payload?: any }; // Changed to required and structured
+    action: { type: string; payload?: Record<string, unknown> }; // Changed to required and structured
 }
 
 export interface RegisterEntry {
@@ -593,7 +600,7 @@ export interface AppState {
     installPrompt: BeforeInstallPromptEvent | null;
     canShowInstallPrompt: boolean;
     isGlobalAiLoading: boolean;
-    navigationHistory: { view: View; context: any | null }[];
+    navigationHistory: { view: View; context: NavigationParams | null }[];
     // AI Suggestions & Context (Moved to Data Store, but aggregated here for AppState)
     suggestions: AiSuggestion[];
     studentProfileContext: Studente | null;
@@ -640,8 +647,8 @@ export interface AppActions {
     setInstallPrompt: (prompt: BeforeInstallPromptEvent | null) => void;
     setCanShowInstallPrompt: (canShow: boolean) => void;
     setIsGlobalAiLoading: (isLoading: boolean) => void;
-    setNavigationHistory: (history: { view: View; context: any | null }[]) => void;
-    addNavigationEntry: (entry: { view: View; context: any | null }) => void;
+    setNavigationHistory: (history: { view: View; context: NavigationParams | null }[]) => void;
+    addNavigationEntry: (entry: { view: View; context: NavigationParams | null }) => void;
     popNavigationEntry: () => void;
     clearNavigationHistory: () => void;
     setBackupState: (input: Partial<BackupState> | ((prev: BackupState) => Partial<BackupState>)) => void;
@@ -684,7 +691,7 @@ export interface AppActions {
     handleImportData: (file: File) => void;
     handleAiSuggestionFromHome: (action: AiSuggestion['action']) => void;
     handleOpenOperations: () => void;
-    setViewContext: (context: any) => void;
+    setViewContext: (context: NavigationParams | null) => void;
     onAddLessons: (lessons: Lezione[]) => void;
     onSaveUda: (uda: Uda) => void;
     onSaveReport: (report: Report) => void;
@@ -722,7 +729,7 @@ export interface LessonAnalysisResult {
 export interface DesignSystemDefinition {
     version: string;
     colors: Record<string, { value: string; description: string; cssVar: string }>;
-    typography: Record<string, { value: any; description: string; cssVar: string }>;
+    typography: Record<string, { value: string | number | boolean | object; description: string; cssVar: string }>;
     spacing: Record<string, { value: string; description: string; cssVar: string }>;
 }
 
@@ -756,9 +763,9 @@ export interface Prova {
 export interface EvaluationModuleProps {
     students: Studente[];
     evaluations: Valutazione[];
-    setEvaluations: any;
+    setEvaluations: (input: Valutazione[] | ((prev: Valutazione[]) => Valutazione[])) => void;
     competencyEvaluations: ValutazioneCompetenza[];
-    setCompetencyEvaluations: any;
+    setCompetencyEvaluations: (input: ValutazioneCompetenza[] | ((prev: ValutazioneCompetenza[]) => ValutazioneCompetenza[])) => void;
     userClasses: string[];
     settings: TimetableSettings;
     aiSettings: AiSettings;
@@ -778,7 +785,7 @@ export interface LiveAssistantProps {
     lessons: Record<string, Lezione>;
     pianiInclusione: Record<string, PianoInclusione>;
     knowledgeBase: KnowledgeBaseEntry[];
-    onNavigate: (view: View, context?: any) => void;
+    onNavigate: (view: View, context?: NavigationParams) => void;
     onCreateEvent: (event: Omit<EventoCalendario, 'id'>) => void;
     onScheduleLesson: (data: LessonScheduleInput) => void;
     onAddEvaluation: (data: EvaluationInput) => void;
@@ -787,7 +794,7 @@ export interface LiveAssistantProps {
     onMarkAttendance: (data: { studentName: string; status: string; }) => void;
     onLoadDemoData: () => void;
     isModalMode?: boolean;
-    lessonContext?: any;
+    lessonContext?: NavigationParams;
     userContext?: UserProfile | null;
 }
 
@@ -856,7 +863,7 @@ export interface ClassroomViewProps {
     onPromoteImpromptuLesson?: (lesson: Lezione) => void;
     onOpenLiveAssistant: () => void;
     setStudentProfileContext?: (student: Studente | null) => void;
-    onNavigate: (view: View, context?: any) => void;
+    onNavigate: (view: View, context?: NavigationParams) => void;
 }
 
 export interface LessonsPageProps {
@@ -919,7 +926,7 @@ export interface KnowledgeBaseProps {
 }
 
 export interface ProgettazioneHubProps {
-    onNavigate: (view: View, context?: any) => void;
+    onNavigate: (view: View, context?: NavigationParams) => void;
     udas: Uda[];
     events: EventoCalendario[];
     settings: TimetableSettings;

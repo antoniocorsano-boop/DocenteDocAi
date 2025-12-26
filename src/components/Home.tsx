@@ -1,39 +1,26 @@
 import React from 'react';
-import { View, Lezione, Slot, AppState, UserProfile, AiSuggestion, RegisterEntry, TimetableSettings } from '../types';
-import { ActionTile, SectionHeader, InfoCard } from './M3Components';
-import ContextualStrip from './ContextualStrip';
+import { View, Lezione, Slot, AppState, NavigationParams } from '../types';
+import { ActionTile, SectionHeader, InfoCard, M3IconButton } from './M3Components';
 
 interface HomeProps {
     slots: Record<string, Slot>;
     lessons: Record<string, Lezione>;
-    onNavigate: (view: View, context?: any) => void;
-    appState: AppState; // Full app state
-    onSuggestionAction: (action: AiSuggestion['action']) => void;
-    onStartClassroom: (classe: string, materia: string, slotKey: string, lesson: Lezione) => void;
-    finalizedRegister: RegisterEntry[];
-    draftRegister: Record<string, RegisterEntry>;
-    showGuidanceTips: boolean;
-    suggestions: AiSuggestion[];
-    onAiProcessing: (processing: boolean) => void;
-    user: UserProfile | null;
-    onUpdateMemos: (memos: any) => void;
-    onConnectDrive: () => void;
-    aiSettings: AppState['aiSettings'];
-    settings: TimetableSettings;
-    dismissSuggestion: (id: string) => void; // FIX: Added missing prop
-    handleOpenOperations: () => void; // FIX: Added missing prop
+    onNavigate: (view: View, params?: NavigationParams) => void;
+    appState: AppState;
+        // ...props rimossi perché non utilizzati
+    dismissSuggestion: (id: string) => void;
 }
 
-const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSuggestionAction, onStartClassroom, finalizedRegister, draftRegister, showGuidanceTips, suggestions, onAiProcessing, user, onUpdateMemos, onConnectDrive, aiSettings, settings, dismissSuggestion, handleOpenOperations }) => {
-    // Determine current lesson for the hero card
-    const now = new Date();
-    const currentDayRaw = now.toLocaleDateString('it-IT', { weekday: 'long' });
-    const currentDay = currentDayRaw.charAt(0).toUpperCase() + currentDayRaw.slice(1).toLowerCase();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
+const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, dismissSuggestion }) => {
+        // Determine current lesson for the hero card
+        const now = new Date();
+        const currentDayRaw = now.toLocaleDateString('it-IT', { weekday: 'long' });
+        const currentDay = currentDayRaw.charAt(0).toUpperCase() + currentDayRaw.slice(1).toLowerCase();
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
 
-    const todaysSlots = Object.values(slots).filter((s: Slot) => s.giorno === currentDay);
-    const upcomingLessons = todaysSlots
+        const todaysSlots = Object.values(slots).filter((s: Slot) => s.giorno === currentDay);
+        const upcomingLessons = todaysSlots
         .map((slot: Slot) => ({
             slot,
             lesson: slot.lezioneId ? lessons[slot.lezioneId] : null
@@ -46,48 +33,63 @@ const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSug
             return m1 - m2;
         });
 
-    // Find a lesson that is current or immediately next
-    const activeLessonForHero = upcomingLessons.find(item => {
-        const [h, m] = (item.slot as Slot).ora.split(':').map(Number);
-        const lessonStartMinutes = h * 60 + m;
-        const lessonEndMinutes = lessonStartMinutes + 60; // Assume 1 hour
-        const nowInMinutes = currentHour * 60 + currentMinute;
-        return nowInMinutes >= lessonStartMinutes && nowInMinutes < lessonEndMinutes;
-    }) || upcomingLessons[0]; // If no current, take the very next one
+        // Find a lesson that is current or immediately next
+        const activeLessonForHero = upcomingLessons.find(item => {
+            const [h, m] = (item.slot as Slot).ora.split(':').map(Number);
+            const lessonStartMinutes = h * 60 + m;
+            const lessonEndMinutes = lessonStartMinutes + 60; // Assume 1 hour
+            const nowInMinutes = currentHour * 60 + currentMinute;
+            return nowInMinutes >= lessonStartMinutes && nowInMinutes < lessonEndMinutes;
+        }) || upcomingLessons[0]; // If no current, take the very next one
 
-
-    const handleHeroClick = () => {
-        if (activeLessonForHero?.lesson) {
-            onStartClassroom(
-                (activeLessonForHero.lesson as Lezione).classe,
-                (activeLessonForHero.lesson as Lezione).materia,
-                `${(activeLessonForHero.slot as Slot).giorno}-${(activeLessonForHero.slot as Slot).ora}`,
-                activeLessonForHero.lesson as Lezione
-            );
-        } else {
-            handleOpenOperations(); // Fallback to operations center if no specific lesson
-        }
-    };
+            // ...funzione handleHeroClick rimossa perché non utilizzata
 
     const activeSuggestion = appState.activeSuggestion;
     const dismissedSuggestions = appState.dismissedSuggestions;
+    // Gestione suggerimento AI
+    const showAiSuggestion = activeSuggestion && !dismissedSuggestions?.has(activeSuggestion.id);
+    // ...existing code...
 
-
+    // Ritorno il JSX
     return (
-        <div className="page-layout p-6 md:p-12 space-y-16 max-w-7xl mx-auto overflow-x-hidden">
-
-            {activeSuggestion && !dismissedSuggestions.has(activeSuggestion.id) && (
-                <div className="animate-in fade-in slide-in-from-top-4 duration-500">
-                    <ContextualStrip
-                        message={activeSuggestion.message}
-                        actionLabel={activeSuggestion.actionLabel}
-                        onAction={() => onSuggestionAction(activeSuggestion.action)}
-                        onDismiss={() => dismissSuggestion(activeSuggestion.id)}
-                        visible={true}
-                    />
-                </div>
+        <>
+            {/* --- AI SUGGESTION CARD --- */}
+            {showAiSuggestion && (
+                <section className="animate-in fade-in slide-in-from-bottom-8 delay-100 duration-700 mb-6">
+                    <div className="bg-tertiary-container text-on-tertiary-container rounded-3xl shadow-lg p-6 flex flex-col md:flex-row items-center gap-6 border border-tertiary/20">
+                        <span className="material-symbols-outlined text-4xl mr-4 text-tertiary">psychology</span>
+                        <div className="flex-1">
+                            <div className="font-bold text-lg mb-2">Suggerimento AI</div>
+                            <div className="mb-2 text-base">{activeSuggestion.message}</div>
+                            {activeSuggestion.actionLabel && (
+                                <button
+                                    className="mt-2 px-6 py-2 rounded-full bg-primary text-on-primary font-bold shadow hover:scale-105 transition-all"
+                                    onClick={() => {
+                                        // Esegui l'azione suggerita
+                                        if (activeSuggestion.action?.type === 'navigate' && activeSuggestion.targetView) {
+                                            onNavigate(activeSuggestion.targetView as View, activeSuggestion.action?.payload);
+                                        } else if (activeSuggestion.action?.type) {
+                                            // Altre azioni custom
+                                            // TODO: integrare altre azioni AI
+                                        }
+                                        dismissSuggestion(activeSuggestion.id);
+                                    }}
+                                    aria-label={activeSuggestion.actionLabel}
+                                >
+                                    {activeSuggestion.actionLabel}
+                                </button>
+                            )}
+                            <button
+                                className="mt-2 ml-4 px-4 py-2 rounded-full bg-outline-variant text-on-surface-variant font-medium hover:bg-outline-variant/30 transition-all"
+                                onClick={() => dismissSuggestion(activeSuggestion.id)}
+                                aria-label="Ignora suggerimento"
+                            >
+                                Ignora
+                            </button>
+                        </div>
+                    </div>
+                </section>
             )}
-
             {/* --- COMMAND CENTER HERO (Expressive Aura) --- */}
             <section className="relative group">
                 <div className="absolute -inset-4 bg-primary/5 rounded-[64px] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
@@ -114,30 +116,31 @@ const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSug
                             </div>
                         </div>
 
-                        {/* I bottoni legacy per l'assistente live sono stati rimossi. Il FAB flottante è ora l'unico accesso all'assistente live. */}
+                        {/* Nessun pulsante assistente visibile: accesso solo tramite FAB galleggiante. */}
                     </div>
                 ) : (
+                    // Sezione hero senza lezione attiva
                     <div className="hero-card aura-view-entrance bg-surface-variant/40 backdrop-blur-3xl text-on-surface-variant border-outline-variant/30">
-                        <div className="flex flex-col lg:flex-row justify-between items-center gap-12 relative z-10">
-                            <div className="space-y-6 text-center lg:text-left flex-grow">
-                                <h1 className="m3-display-medium md:m3-display-large font-extrabold leading-[1.1] tracking-tighter">
-                                    Pianifica il Futuro, <span className="text-primary">{user?.displayName?.split(' ')[0] || 'Docente'}</span>
-                                </h1>
-                                <p className="m3-headline-small opacity-70 font-bold italic">
-                                    Utilizza l'AI per generare Unità di Apprendimento innovative in pochi istanti.
-                                </p>
-                            </div>
-                            <div className="w-40 h-40 rounded-[48px] bg-primary/10 backdrop-blur-xl border border-primary/20 flex items-center justify-center text-primary shadow-lg transition-all duration-700 animate-float" aria-hidden="true">
-                                <span className="material-symbols-outlined text-8xl font-extralight" aria-hidden="true">auto_fix_high</span>
-                            </div>
+                      <div className="flex flex-col lg:flex-row justify-between items-center gap-12 relative z-10">
+                        <div className="space-y-6 text-center lg:text-left flex-grow">
+                          <h1 className="m3-display-medium md:m3-display-large font-extrabold leading-[1.1] tracking-tighter">
+                            Pianifica il Futuro, <span className="text-primary">{appState.user?.displayName?.split(' ')[0] || 'Docente'}</span>
+                          </h1>
+                          <p className="m3-headline-small opacity-70 font-bold italic">
+                            Utilizza l'AI per generare Unità di Apprendimento innovative in pochi istanti.
+                          </p>
                         </div>
-                        <button
-                            onClick={() => onNavigate('progettazione-hub', { action: 'annual-planning' })}
-                            aria-label="Inizia a Progettare"
-                            className="button button-filled bg-secondary-container text-on-secondary-container mt-16 w-full !h-20 !rounded-[40px] font-extrabold text-xl shadow-lg hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
-                        >
-                            <span className="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform" aria-hidden="true">calendar_month</span> Inizia a Progettare
-                        </button>
+                        <div className="w-40 h-40 rounded-[48px] bg-primary/10 backdrop-blur-xl border border-primary/20 flex items-center justify-center text-primary shadow-lg transition-all duration-700 animate-float" aria-hidden="true">
+                          <span className="material-symbols-outlined text-8xl font-extralight" aria-hidden="true">auto_fix_high</span>
+                        </div>
+                      </div>
+                      <button
+                        className="mt-16 w-full !h-20 !rounded-[40px] font-extrabold text-xl shadow-lg hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-4 group bg-secondary text-on-secondary"
+                        onClick={() => onNavigate('progettazione-hub', { action: 'annual-planning' })}
+                        aria-label="Inizia a Progettare"
+                      >
+                        <span className="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform" aria-hidden="true">calendar_month</span> Inizia a Progettare
+                      </button>
                     </div>
                 )}
             </section>
@@ -183,7 +186,7 @@ const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSug
                         icon="diversity_3"
                         variant="tertiary"
                         className="hover:scale-[1.02] transition-transform duration-500"
-                        action={<button onClick={() => onNavigate('didattica-inclusiva')} aria-label="Gestisci PDP" className="button button-filled bg-tertiary-container text-on-tertiary-container !px-10 !h-12 rounded-full font-extrabold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tertiary">Gestisci PDP</button>}
+                        action={<button className="!px-10 !h-12 rounded-full font-extrabold bg-tertiary text-on-tertiary" onClick={() => onNavigate('didattica-inclusiva')} aria-label="Gestisci PDP">Gestisci PDP</button>}
                     />
                     <InfoCard
                         title="Statistiche Rendimento"
@@ -191,11 +194,23 @@ const Home: React.FC<HomeProps> = ({ slots, lessons, onNavigate, appState, onSug
                         icon="query_stats"
                         variant="secondary"
                         className="hover:scale-[1.02] transition-transform duration-500"
-                        action={<button onClick={() => onNavigate('analytics')} aria-label="Apri Analytics" className="button button-filled bg-secondary-container text-on-secondary-container !px-10 !h-12 rounded-full font-extrabold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">Apri Analytics</button>}
+                        action={<button className="!px-10 !h-12 rounded-full font-extrabold bg-secondary text-on-secondary" onClick={() => onNavigate('analytics')} aria-label="Apri Analytics">Apri Analytics</button>}
                     />
                 </div>
             </section>
-        </div>
+
+            {/* Floating Action Button per Assistente Live */}
+            <div className="fixed bottom-8 right-8 z-50">
+                <M3IconButton
+                    icon="psychology"
+                    ariaLabel="Apri Assistente Live"
+                    className="shadow-lg bg-primary text-on-primary rounded-full w-16 h-16 flex items-center justify-center hover:scale-110 transition-all"
+                    onClick={() => onNavigate('live-assistant')}
+                    title="Assistente Live"
+                />
+            </div>
+        </>
     );
-};
+}
+
 export default Home;

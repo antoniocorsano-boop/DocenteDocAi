@@ -79,9 +79,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
     <form onSubmit={handleWizardSubmit} className="m3-auth-card">
         <div className="w-full mb-10">
             <div className="flex justify-between items-center mb-8">
-                <button type="button" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} className="icon-button">
-                    <span className="material-symbols-outlined">arrow_back</span>
-                </button>
+                <M3IconButton icon={<span className="material-symbols-outlined">arrow_back</span>} ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} />
                 <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">Passo {step} di 3</span>
                 <div className="w-10"></div>
             </div>
@@ -132,24 +130,30 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
 
         <div className="w-full flex gap-4">
             {step < 3 ? (
-                <button 
+                <M3Button 
                     type="button" 
+                    variant="filled"
+                    color="primary"
+                    className="w-full !h-14 font-black"
                     onClick={() => setStep(s => s + 1)} 
                     disabled={(step === 1 && !name) || (step === 3 && !className)}
-                    className="button button-filled w-full !h-14 font-black"
+                    aria-label="Continua"
                 >
                     Continua
                     <span className="material-symbols-outlined ml-2 font-black">arrow_forward</span>
-                </button>
+                </M3Button>
             ) : (
-                <button 
+                <M3Button 
                     type="submit" 
+                    variant="filled"
+                    color="primary"
+                    className="w-full !h-14 font-black"
                     disabled={!className}
-                    className="button button-filled w-full !h-14 font-black"
+                    aria-label="Inizia Ora"
                 >
                     Inizia Ora
                     <span className="material-symbols-outlined ml-2 font-black">check</span>
-                </button>
+                </M3Button>
             )}
         </div>
     </form>
@@ -157,9 +161,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
 
   const renderQuick = () => (
       <form onSubmit={handleQuickSubmit} className="m3-auth-card">
-          <button type="button" onClick={() => setMode('selection')} className="absolute top-4 left-4 md:top-6 md:left-6 icon-button">
-                <span className="material-symbols-outlined">arrow_back</span>
-          </button>
+            <M3IconButton icon={<span className="material-symbols-outlined">arrow_back</span>} ariaLabel="Indietro" onClick={() => setMode('selection')} className="absolute top-4 left-4 md:top-6 md:left-6" />
           
           <div className="mb-8 md:mb-12 transform scale-110 md:scale-125">
             <Logo title="DocenteDoc AI" />
@@ -179,9 +181,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             />
           </div>
 
-          <button type="submit" className="button button-filled w-full !h-16 font-black shadow-xl">
-            Entra nella Dashboard
-          </button>
+                    <M3Button type="submit" variant="filled" color="primary" className="w-full !h-16 font-black shadow-xl" aria-label="Entra nella Dashboard">
+                        Entra nella Dashboard
+                    </M3Button>
       </form>
   );
 
