@@ -12,12 +12,26 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
   // Be tolerant to failures when precaching (e.g., during local dev or offline)
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(urlsToCache))
-      .catch(err => {
-        // Do not fail install if precache fails (dev or network issues).
-        console.warn('[SW] cache.addAll failed (dev/offline):', err);
-      })
+    caches.open(CACHE_NAME).then(async (cache) => {
+      // Fetch each resource and cache individually; ignore failures per-resource
+      const results = await Promise.allSettled(
+        urlsToCache.map(async (url) => {
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res || !res.ok) throw new Error(`Fetch failed: ${url} (${res && res.status})`);
+            await cache.put(url, res.clone());
+            return { url, ok: true };
+          } catch (err) {
+            console.warn('[SW] precache failed for', url, err);
+            return { url, ok: false, err };
+          }
+        })
+      );
+      const failed = results.filter(r => r.status === 'rejected' || (r.status === 'fulfilled' && r.value && r.value.ok === false));
+      if (failed.length > 0) {
+        console.warn('[SW] Some precache resources failed:', failed.map(f => f.value ? f.value.url : (f.reason && f.reason.url) || String(f)));
+      }
+    })
   );
 });
 
