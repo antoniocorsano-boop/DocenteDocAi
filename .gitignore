@@ -44,3 +44,5 @@ Icon?
 node_modules
 # Misc
 scripts/*.local.*
+.vercel
+.env*.local
