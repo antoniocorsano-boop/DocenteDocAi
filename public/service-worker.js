@@ -1,4 +1,4 @@
-const CACHE_NAME = 'docentedoc-ai-v48'; 
+const CACHE_NAME = 'docentedoc-ai-v49'; 
 
 const urlsToCache = [
   './',
