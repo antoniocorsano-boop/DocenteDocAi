@@ -30,8 +30,10 @@ import './modules.css';
 })();
 
 // PWA Service Worker con gestione Origin Mismatch per AI Studio / Iframe
-// Register the service worker only in production builds to avoid dev-time cache/fetch issues
-if (import.meta && (import.meta as any).env && (import.meta as any).env.PROD && 'serviceWorker' in navigator) {
+// Register the service worker only when explicitly enabled via env var to avoid
+// accidental serving of stale cached assets from edge service workers.
+const enableSW = import.meta && (import.meta as any).env && (import.meta as any).env.VITE_ENABLE_SW === 'true';
+if (enableSW && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     // Evitiamo il caricamento del SW se siamo in un dominio di sandbox/iframe non autorizzato per i manifest
     const isSandbox = window.location.hostname.includes('usercontent.goog') || window.self !== window.top;
@@ -42,8 +44,7 @@ if (import.meta && (import.meta as any).env && (import.meta as any).env.PROD && 
     }
   });
 } else {
-  // In dev, we intentionally do not register the SW so failed fetches don't block development
-  // (We keep the App-level unregister guard as an additional safety net.)
+  console.debug('[SW] disabled by VITE_ENABLE_SW flag');
 }
 
 // Conditionally load Google Identity and API scripts only in production and when origin is allowed
