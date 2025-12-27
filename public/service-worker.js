@@ -1,3 +1,5 @@
+/* eslint-env serviceworker */
+/* global self, caches, fetch, Response, console */
 const CACHE_NAME = 'docentedoc-ai-v49'; 
 
 const urlsToCache = [
