@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = 'http://localhost:5173'; // Cambia se la porta è diversa
+const BASE_URL = 'http://localhost:8080'; // Dev server Vite ascolta su 8080 in ambiente locale
 
 const SCREENSHOTS = [
   { path: 'dashboard.png', route: '/' },
