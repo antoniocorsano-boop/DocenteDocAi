@@ -73,3 +73,19 @@ The project also includes convenient npm scripts:
 ## Licenza
 
 MIT
+
+## Screenshot automation
+
+Quick instructions to capture UI screenshots (uses Playwright + an embedded static server):
+
+Build the project and run the script:
+
+```bash
+npm run build
+node scripts/capture-screenshots.cjs
+```
+
+Screenshots are written to `docs/screenshots/`.
+
+If you prefer to run the script in ESM environments, there's also a JS variant `scripts/capture-screenshots.js` which
+expects `node --experimental-specifier-resolution=node` or being executed in an environment that supports ES modules.
