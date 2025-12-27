@@ -23,6 +23,47 @@ export const App: React.FC = () => {
         const { view, viewContext, appState, actions, modals } = result;
         const { user, themeState, isGlobalAiLoading, notifiche, activeSuggestion, installPrompt } = appState;
 
+        // Runtime instrumentation for automated tests and diagnostics
+        React.useEffect(() => {
+            try {
+                (window as any).__app_instrumentation = (window as any).__app_instrumentation || {};
+                (window as any).__app_instrumentation.user = user ? { id: user.id, displayName: (user as any).displayName } : null;
+                console.info('[instrument] user', (window as any).__app_instrumentation.user);
+            } catch (e) {
+                /* ignore */
+            }
+        }, [user]);
+
+        React.useEffect(() => {
+            try {
+                (window as any).__app_instrumentation = (window as any).__app_instrumentation || {};
+                (window as any).__app_instrumentation.isRestoring = !!modals?.isRestoring;
+                console.info('[instrument] isRestoring', !!modals?.isRestoring);
+            } catch (e) {
+                /* ignore */
+            }
+        }, [modals?.isRestoring]);
+
+        React.useEffect(() => {
+            const check = () => {
+                const shell = document.querySelector('.app-shell');
+                if (shell) {
+                    try {
+                        document.documentElement.setAttribute('data-app-shell-mounted', 'true');
+                    } catch (e) { }
+                    (window as any).__app_instrumentation = (window as any).__app_instrumentation || {};
+                    (window as any).__app_instrumentation.appShellMounted = true;
+                    console.info('[instrument] app-shell-mounted');
+                    return true;
+                }
+                return false;
+            };
+            if (check()) return;
+            const obs = new MutationObserver(() => { if (check()) obs.disconnect(); });
+            obs.observe(document.body, { childList: true, subtree: true });
+            return () => obs.disconnect();
+        }, [user, modals?.isRestoring]);
+
         // Sincronizzazione immediata del tema (prevent flickering)
         React.useLayoutEffect(() => {
             if (themeState) {

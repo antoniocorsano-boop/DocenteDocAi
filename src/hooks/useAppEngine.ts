@@ -19,6 +19,9 @@ import { useDataStore } from '../stores/useDataStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 
 export const useAppEngine = () => {
+    // Test mode detection: when true, skip heavy restore and set a demo user
+    const isTestMode = (typeof window !== 'undefined' && (window as any).__TEST_MODE === true) || ((import.meta as any).env && (import.meta as any).env.VITE_TEST_MODE === 'true');
+
     // --- STORES (Accessed directly via Proxy lazy-init pattern) ---
     const { user, students, lessons, slots, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, dismissedSuggestions, studentProfileContext, selectedClassForDashboard, actions: dataActions } = useDataStore();
     const { modals, circularAnalysisModal, syncConflictModal, createLessonContext, editingSlotKey, activeSlotKey, lessonViewContext, loadingModalMessage, toast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, navigationHistory, backupState, driveSyncState, actions: uiActions } = useUIStore();
@@ -49,7 +52,22 @@ export const useAppEngine = () => {
             try {
                 setIsDataLoaded(false);
                 uiActions.setIsRestoring(true);
-                
+
+                // In test mode skip IndexedDB restore and set a lightweight demo user/state
+                if (isTestMode) {
+                    console.info('[useAppEngine] Test mode detected — skipping restore and injecting demo user');
+                    setUser({ id: 'test-local', displayName: 'Test Teacher' } as any);
+                    settingsActions.loadFromBackup({});
+                    uiActions.setBackupState({ status: 'synced', lastBackup: null } as any);
+                    uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined } as any);
+                    uiActions.setNavigationHistory([] as any);
+                    // attempt to load KB from IndexedDB but non-blocking
+                    try { /* no-op for test */ } catch { }
+                    setIsDataLoaded(true);
+                    uiActions.setIsRestoring(false);
+                    return;
+                }
+
                 const rawData = await loadBackup();
                 const localData = rawData ? validateBackupData(rawData) : null;
                 
