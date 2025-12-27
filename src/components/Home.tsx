@@ -9,16 +9,16 @@ interface HomeProps {
 }
 
 const MetricCard: React.FC<{ title: string; value: string | number; delta?: string }> = ({ title, value, delta }) => (
-    <div className="bg-surface-1 rounded-2xl p-4 shadow-sm border border-outline/10"> 
+    <div className="bg-surface-container rounded-2xl p-4 shadow-sm border border-outline-variant"> 
         <div className="text-sm text-on-surface-variant font-medium">{title}</div>
         <div className="text-2xl font-bold mt-1 text-on-surface">{value}</div>
-        {delta && <div className="text-xs text-success mt-1">{delta}</div>}
+        {delta && <div className="text-xs text-primary mt-1">{delta}</div>}
     </div>
 );
 
 const BadgeCard: React.FC<{ name: string; description?: string; earned?: boolean }> = ({ name, description, earned }) => (
-    <div className={`rounded-2xl p-3 flex items-center gap-3 shadow-sm border ${earned ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-2 text-on-surface-2'}`}>
-        <div className="w-12 h-12 rounded-full flex items-center justify-center bg-surface-3 text-on-surface-3 font-bold text-lg">
+    <div className={`rounded-2xl p-3 flex items-center gap-3 shadow-sm border ${earned ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container-low text-on-surface-variant'}`}>
+        <div className="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container-highest text-on-surface-variant font-bold text-lg">
             {name.charAt(0).toUpperCase()}
         </div>
         <div className="flex-1">
@@ -81,14 +81,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
             {/* Main grid: badges + recent + suggestions */}
             <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="rounded-3xl p-5 bg-surface-1 border border-outline/10 shadow-sm">
+                    <div className="rounded-3xl p-5 bg-surface-container border border-outline-variant shadow-sm">
                         <div className="flex items-center justify-between mb-4">
                             <h2 className="font-semibold text-lg">Attività Recenti</h2>
                             <button className="text-sm text-primary" onClick={() => onNavigate('analytics' as View)}>Vedi tutte</button>
                         </div>
                         <ul className="space-y-3">
                             {recentActivities.slice(0, 5).map((a) => (
-                                <li key={a.id} className="p-3 rounded-xl bg-surface-2 flex items-center justify-between">
+                                <li key={a.id} className="p-3 rounded-xl bg-surface-container-low flex items-center justify-between">
                                     <div>
                                         <div className="font-medium">{a.title}</div>
                                         <div className="text-sm text-on-surface-variant">{a.meta}</div>
@@ -132,7 +132,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                 </div>
 
                 <aside className="space-y-6">
-                    <div className="rounded-2xl p-4 bg-surface-1 border border-outline/10">
+                    <div className="rounded-2xl p-4 bg-surface-container border border-outline-variant">
                         <div className="flex items-center justify-between mb-3">
                             <div className="font-semibold">Badge Gaming</div>
                             <button className="text-sm text-primary" onClick={() => onNavigate('badges' as View)}>Tutti</button>
@@ -144,7 +144,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                         </div>
                     </div>
 
-                    <div className="rounded-2xl p-4 bg-surface-1 border border-outline/10">
+                    <div className="rounded-2xl p-4 bg-surface-container border border-outline-variant">
                         <div className="font-semibold mb-3">Azioni rapide</div>
                         <div className="grid grid-cols-1 gap-2">
                             <QuickAction label="Crea unità didattica" icon="description" onClick={() => onNavigate('uda' as View)} />
