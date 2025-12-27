@@ -89,3 +89,31 @@ Screenshots are written to `docs/screenshots/`.
 
 If you prefer to run the script in ESM environments, there's also a JS variant `scripts/capture-screenshots.js` which
 expects `node --experimental-specifier-resolution=node` or being executed in an environment that supports ES modules.
+
+## Deploying to Netlify
+
+Quick steps to deploy the `dist/` build to Netlify using the CLI. The repository includes helper scripts in `scripts/`.
+
+1. Create a Netlify personal access token and get your `SITE_ID`.
+2. Build the project:
+
+```bash
+npm run build
+```
+
+3. Run the deploy script (POSIX):
+
+```bash
+NETLIFY_AUTH_TOKEN=your_token NETLIFY_SITE_ID=your_site_id ./scripts/deploy-netlify.sh
+```
+
+Or on Windows PowerShell:
+
+```powershell
+#$env:NETLIFY_AUTH_TOKEN = 'your_token'
+#$env:NETLIFY_SITE_ID = 'your_site_id'
+./scripts/deploy-netlify.ps1
+```
+
+The scripts use `npx netlify` under the hood and will build the app if `dist/` is missing.
+
