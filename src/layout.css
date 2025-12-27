@@ -519,6 +519,32 @@
 .text-xl { font-size: 18px; }
 .text-2xl { font-size: 24px; }
 
+/* M3 Typography utilities (token-backed) */
+.m3-display-large { font-size: var(--typography-display-large); line-height: 1.05; font-weight: 700; }
+.m3-display-medium { font-size: var(--typography-display-medium); line-height: 1.06; font-weight: 700; }
+.m3-headline-large { font-size: var(--typography-headline-large); font-weight: 700; }
+.m3-headline-medium { font-size: var(--typography-headline-medium); font-weight: 700; }
+.m3-title-large { font-size: var(--typography-title-large); font-weight: 700; }
+.m3-title-medium { font-size: var(--typography-title-medium); font-weight: 600; }
+.m3-body-large { font-size: var(--typography-body-large); }
+.m3-label-medium { font-size: var(--typography-label-medium); font-weight: 500; }
+
+/* Motion & micro-interaction utilities */
+.m3-card {
+    transition: transform var(--motion-duration-medium2) var(--motion-easing-expressive), box-shadow var(--motion-duration-medium2) var(--motion-easing-expressive);
+    will-change: transform, box-shadow;
+}
+.m3-card:hover,
+.m3-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: var(--elevation-3);
+}
+.m3-quick-action {
+    transition: transform var(--motion-duration-short2) var(--motion-easing-standard), filter var(--motion-duration-short2) var(--motion-easing-standard);
+}
+.m3-quick-action:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.03); }
+.m3-focus-visible:focus { outline: 2px solid var(--sys-primary); outline-offset: 3px; }
+
 /* Font Weight */
 .font-medium { font-weight: 500; }
 .font-semibold { font-weight: 600; }

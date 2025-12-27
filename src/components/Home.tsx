@@ -9,15 +9,15 @@ interface HomeProps {
 }
 
 const MetricCard: React.FC<{ title: string; value: string | number; delta?: string }> = ({ title, value, delta }) => (
-    <div className="bg-surface-container rounded-2xl p-4 shadow-sm border border-outline-variant"> 
-        <div className="text-sm text-on-surface-variant font-medium">{title}</div>
-        <div className="text-2xl font-bold mt-1 text-on-surface">{value}</div>
+    <div className="m3-card bg-surface-container rounded-2xl p-4 shadow-sm border border-outline-variant" tabIndex={0} role="group">
+        <div className="m3-title-medium text-on-surface-variant font-medium">{title}</div>
+        <div className="m3-headline-medium text-on-surface font-bold mt-1">{value}</div>
         {delta && <div className="text-xs text-primary mt-1">{delta}</div>}
     </div>
 );
 
 const BadgeCard: React.FC<{ name: string; description?: string; earned?: boolean }> = ({ name, description, earned }) => (
-    <div className={`rounded-2xl p-3 flex items-center gap-3 shadow-sm border ${earned ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container-low text-on-surface-variant'}`}>
+    <div className={`m3-card rounded-2xl p-3 flex items-center gap-3 shadow-sm border ${earned ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container-low text-on-surface-variant'}`} tabIndex={0}>
         <div className="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container-highest text-on-surface-variant font-bold text-lg">
             {name.charAt(0).toUpperCase()}
         </div>
@@ -30,9 +30,9 @@ const BadgeCard: React.FC<{ name: string; description?: string; earned?: boolean
 );
 
 const QuickAction: React.FC<{ label: string; icon?: string; onClick?: () => void }> = ({ label, icon, onClick }) => (
-    <button onClick={onClick} className="rounded-xl px-4 py-3 bg-primary-container text-on-primary-container flex items-center gap-3 shadow hover:scale-102 transition-all">
+    <button onClick={onClick} className="m3-quick-action m3-focus-visible rounded-xl px-4 py-3 bg-primary-container text-on-primary-container flex items-center gap-3 shadow" aria-pressed="false">
         {icon && <span className="material-symbols-outlined">{icon}</span>}
-        <span className="font-medium">{label}</span>
+        <span className="m3-label-medium font-medium">{label}</span>
     </button>
 );
 
@@ -62,8 +62,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
             {/* Header */}
             <header className="flex items-center justify-between mb-6">
                 <div>
-                    <h1 className="text-3xl font-expressive-700">Cruscotto</h1>
-                    <div className="text-sm text-on-surface-variant">Panoramica rapida della tua classe e attività</div>
+                    <h1 className="m3-display-medium">Cruscotto</h1>
+                    <div className="m3-body-large text-on-surface-variant">Panoramica rapida della tua classe e attività</div>
                 </div>
                 <div className="flex items-center gap-3">
                     <QuickAction label="Nuova valutazione" icon="edit" onClick={() => onNavigate('evaluations' as View)} />
