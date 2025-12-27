@@ -28,6 +28,10 @@
     "react-dropzone": "^14.3.8",
     "zustand": "4.4.7"
   },
+  "author": {
+    "name": "Antonio Corsano",
+    "email": "antonio.corsano@gmail.com"
+  },
   "resolutions": {
   "react": "^18.2.0",
   "react-dom": "^18.2.0"

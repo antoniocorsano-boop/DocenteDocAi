@@ -11,7 +11,7 @@ interface TimetableCellProps {
   onClick?: () => void;
 }
 
-const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, onClick }) => {
+const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, onClick, onAiSuggest }) => {
   const { classe, materia } = slot;
   
   const isDisposition = lesson?.tipoLezione === 'Disposizione' || materia === 'Disposizione';
@@ -28,8 +28,8 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
       customStyle = { '--slot-hue': hue } as React.CSSProperties;
   }
   
-  const isDone = lesson?.svolta;
-  const hasAi = !!lesson?.externalLink;
+    const isDone = lesson?.svolta;
+    const hasAi = !!lesson?.externalLink;
   const typeIcon = lesson?.tipoLezione ? LESSON_TYPE_ICONS[lesson.tipoLezione] : (hasContent ? 'school' : null);
 
     if (!hasContent) {

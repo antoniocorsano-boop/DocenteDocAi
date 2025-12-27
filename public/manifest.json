@@ -1,5 +1,7 @@
 {
   "name": "DocenteDoc AI",
+  "author": "Antonio Corsano",
+  "owner": "antonio.corsano@gmail.com",
   "short_name": "DocenteDoc",
   "description": "L'ecosistema didattico intelligente per il docente moderno. Gestione orario, registro, progettazione UDA e assistente AI integrato.",
   "start_url": "./",

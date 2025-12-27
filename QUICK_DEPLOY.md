@@ -1,35 +1,46 @@
-# ⚡ QUICK REFERENCE - Deploy in 5 Minutes
 
-## The Problem ❌
-```
-Uncaught TypeError: Cannot read properties of undefined (reading 'document')
-```
+# ⚡ QUICK REFERENCE - Deploy DocenteDoc AI su Vercel (Owner: antonio.corsano@gmail.com)
 
-## The Solution ✅
-**Multi-layer polyfill system** protecting against undefined document in Vercel environment
+## 🚀 Deploy Vercel - 3 modalità
+
+### 1. Deploy automatico (raccomandato)
+- Effettua il push su main/master: Vercel esegue il deploy automatico.
+
+### 2. Deploy manuale via dashboard
+- Vai su: https://vercel.com/dashboard → docentedoc-ai
+- Tab Deployments → Click sull’ultima build → “Redeploy”
+
+### 3. Deploy da terminale (owner/account associato)
+```bash
+npx vercel --prod --yes
+```
+- Se richiesto, effettua login con Google (antonio.corsano@gmail.com).
+- Se compare errore di permessi, assicurati che il progetto sia associato al tuo account/team e che tu sia owner.
+
+---
+
+## ✅ Post-Deploy Checklist
+
+- [ ] Hard refresh (Ctrl+Shift+R)
+- [ ] F12 Console: No errors
+- [ ] No "document is undefined"
+- [ ] Service Worker ✓ registrato
+- [ ] manifest.json = 200
+- [ ] Navigazione e feature OK
 
 ---
 
-## 🚀 DEPLOY NOW (3 Steps)
+## 🛠️ Troubleshooting
 
-### Step 1: Go to Dashboard
-```
-https://vercel.com/dashboard → docentedoc-ai
-```
-
-### Step 2: Redeploy
-```
-Deployments Tab → Click latest → "Redeploy" → Confirm
-```
-
-### Step 3: Verify (After 30-60 seconds)
-```
-Hard Refresh: Ctrl+Shift+R
-DevTools: F12 → Console
-Check: NO errors
-```
+- Se vedi errori di permessi: controlla che il progetto sia nel team/account giusto su Vercel.
+- Se vedi errori “document is undefined”: assicurati che la build sia aggiornata (polyfill attivo).
+- Consulta i log su Vercel Dashboard → Deployments → Logs.
 
 ---
+
+**Status: 🟢 PRODUCTION READY**
+
+*Build verificato. Code testato localmente. Pronto al deploy.*
 
 ## ✅ What Changed
 

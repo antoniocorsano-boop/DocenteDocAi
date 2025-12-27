@@ -300,6 +300,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <div className="text-center text-[10px] text-on-surface-variant opacity-50 pt-8 pb-2">
                     DocenteDoc AI v4.0.8 • Stable
+                    <div className="pt-2">
+                        <span className="font-semibold">Owner:</span> Antonio Corsano
+                        <span className="block">antonio.corsano@gmail.com</span>
+                    </div>
                     <button onClick={onLogout} className="button-drop danger mt-4 mx-auto !h-10 !text-xs !bg-surface-container-high border-none rounded-lg hover:shadow-md transition-all"><span className="material-symbols-outlined text-sm">logout</span> Esci</button>
                 </div>
             </div>

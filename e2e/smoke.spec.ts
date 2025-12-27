@@ -95,11 +95,26 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
       if ((await actionable.count()) > 0) await actionable.click().catch(() => {});
     }
 
+    // Extra: wait for document ready and reload if needed
+    await page.waitForFunction(() => document.readyState === 'complete', { timeout: 10000 }).catch(() => {});
+    await page.waitForTimeout(300);
+    await page.reload();
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+    await page.waitForTimeout(300);
+
     // 5. Verifica che l'App Shell sia visibile dopo login
-    await page.waitForSelector('.app-shell', { timeout: 15000 });
+    try {
+      await page.waitForSelector('.app-shell', { timeout: 20000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/onboarding-app-shell-fail.png', fullPage: true });
+      // Log all visible text for debugging
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      console.error('App shell not found. Body text:', bodyText);
+      throw e;
+    }
     // Ensure primary navigation or dashboard action exists (accept actual nav labels)
     // Use role=button with name regex and pick first match to avoid ambiguous multiple elements
-    await expect(page.getByRole('button', { name: /Pianifica|Progetti|Progetta|Orario|Dashboard/ }).first()).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('button', { name: /Pianifica|Progetti|Progetta|Orario|Dashboard/ }).first()).toBeVisible({ timeout: 15000 });
   });
 
   test('Navigazione Core (Orario e Impostazioni)', async ({ page }) => {

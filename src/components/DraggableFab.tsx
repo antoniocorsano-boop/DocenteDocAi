@@ -105,6 +105,7 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
         <button
             ref={buttonRef}
             className="live-assistant-fab"
+            data-assistant="true"
             style={style}
             onPointerDown={handlePointerDown}
             onClick={handleClick}

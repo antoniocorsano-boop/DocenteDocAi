@@ -11,6 +11,7 @@ import SyncConflictModal from './SyncConflictModal';
 import { CreateLessonFromAiModal } from './CreateLessonFromAiModal';
 import PassaggioAnnoWizard from './PassaggioAnnoWizard';
 import VideoAnalysisModal from './VideoAnalysisModal';
+import { EditSlotModal } from './EditSlotModal';
 import { AppState, AppActions, EventoCalendario } from '../types'; // FIX: Corrected import path to ../types
 
 interface ModalManagerProps {
@@ -21,7 +22,7 @@ interface ModalManagerProps {
 
 export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, modals }) => {
     const { students, settings, evaluations, competencyEvals, finalizedRegister, draftRegister, slots, lessons, pianiInclusione, knowledgeBase, aiSettings } = appState;
-    const { handleNavigate, onScheduleLesson, handleAddEvaluation, handleCreateUda, handleAddNote, onMarkAttendance, handleLoadDemoData, handlePromoteStudents, handleResetYearData, handleExportData } = actions;
+    const { handleNavigate, onScheduleLesson, handleAddEvaluation, handleCreateUda, handleAddNote, onMarkAttendance, handleLoadDemoData, handlePromoteStudents, handleResetYearData, handleExportData, setLessons, setSlots, handleStartClassroom } = actions;
 
     const activeSlot = modals.activeSlotKey ? slots[modals.activeSlotKey] : null;
     const activeLesson = modals.lessonViewContext;
@@ -193,6 +194,63 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
                     }}
                 />
             )}
+
+            {/* Edit slot modal (open when user clicks an empty cell or chooses Edit) */}
+            {modals.editingSlotKey && (() => {
+                const slotKey = modals.editingSlotKey as string;
+                const slot = slots[slotKey] || { giorno: slotKey.split('-')[0] || '', ora: slotKey.split('-')[1] || '' };
+                const lesson = slot && slot.lezioneId ? lessons[slot.lezioneId] : undefined;
+
+                return (
+                    <EditSlotModal
+                        slot={slot}
+                        lesson={lesson}
+                        allLessons={lessons}
+                        allSlots={slots}
+                        udas={udas}
+                        onClose={() => { modals.setEditingSlotKey(null); }}
+                        onSave={(key: string, slotData) => {
+                            setSlots((prev: any) => ({ ...prev, [key]: slotData }));
+                            modals.setEditingSlotKey(null);
+                        }}
+                        onDelete={(key: string) => {
+                            // remove lesson association if exists
+                            const s = slots[key];
+                            if (s?.lezioneId) {
+                                const lid = s.lezioneId;
+                                setLessons((prev: any) => {
+                                    const cp = { ...prev };
+                                    delete cp[lid];
+                                    return cp;
+                                });
+                            }
+                            setSlots((prev: any) => {
+                                const cp = { ...prev };
+                                delete cp[key];
+                                return cp;
+                            });
+                            modals.setEditingSlotKey(null);
+                        }}
+                        onSaveLesson={(lessonData: any, key: string) => {
+                            const id = lessonData.id || `les-${Date.now()}`;
+                            const newLesson = { ...lessonData, id };
+                            setLessons((prev: any) => ({ ...prev, [id]: newLesson }));
+                            setSlots((prev: any) => ({ ...prev, [key]: { ...(prev[key] || {}), lezioneId: id, classe: newLesson.classe, materia: newLesson.materia } }));
+                            modals.setEditingSlotKey(null);
+                        }}
+                        onStartClassroom={(classe: string, materia: string, key: string, lessonObj: any) => {
+                            handleStartClassroom(classe, materia, key, lessonObj);
+                            modals.setEditingSlotKey(null);
+                        }}
+                        timetableSettings={settings}
+                        userClasses={settings.classi}
+                        aiSettings={aiSettings}
+                        students={students}
+                        knowledgeBase={knowledgeBase}
+                        pianiInclusione={pianiInclusione}
+                    />
+                );
+            })}
         </>
     );
 };

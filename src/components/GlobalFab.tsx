@@ -104,6 +104,7 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
         <button 
             ref={buttonRef}
             className="fab"
+            data-assistant="true"
             style={style}
             onPointerDown={handlePointerDown}
             onClick={handleClick}

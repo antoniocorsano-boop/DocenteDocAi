@@ -74,21 +74,37 @@ The project also includes convenient npm scripts:
 
 MIT
 
-## Screenshot automation
 
-Quick instructions to capture UI screenshots (uses Playwright + an embedded static server):
+## Deploy su Vercel (owner: antonio.corsano@gmail.com)
 
-Build the project and run the script:
+### 1. Deploy automatico (raccomandato)
+- Effettua il push su main/master: Vercel esegue il deploy automatico.
 
+### 2. Deploy manuale via dashboard
+- Vai su: https://vercel.com/dashboard → docentedoc-ai
+- Tab Deployments → Click sull’ultima build → “Redeploy”
+
+### 3. Deploy da terminale (owner/account associato)
 ```bash
-npm run build
-node scripts/capture-screenshots.cjs
+npx vercel --prod --yes
 ```
+- Se richiesto, effettua login con Google (antonio.corsano@gmail.com).
+- Se compare errore di permessi, assicurati che il progetto sia associato al tuo account/team e che tu sia owner.
 
-Screenshots are written to `docs/screenshots/`.
+### Checklist post-deploy
+- [ ] Hard refresh (Ctrl+Shift+R)
+- [ ] F12 Console: No errors
+- [ ] No "document is undefined"
+- [ ] Service Worker ✓ registrato
+- [ ] manifest.json = 200
+- [ ] Navigazione e feature OK
 
-If you prefer to run the script in ESM environments, there's also a JS variant `scripts/capture-screenshots.js` which
-expects `node --experimental-specifier-resolution=node` or being executed in an environment that supports ES modules.
+### Troubleshooting
+- Se vedi errori di permessi: controlla che il progetto sia nel team/account giusto su Vercel.
+- Se vedi errori “document is undefined”: assicurati che la build sia aggiornata (polyfill attivo).
+- Consulta i log su Vercel Dashboard → Deployments → Logs.
+
+---
 
 ## Deploying to Netlify
 

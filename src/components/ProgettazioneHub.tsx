@@ -120,9 +120,32 @@ interface TimelineProps {
 const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, startDate, endDate }) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    // Calculate Timeline Metrics
-    const start = useMemo(() => new Date(startDate), [startDate]);
-    const end = useMemo(() => new Date(endDate), [endDate]);
+    // Calculate Timeline Metrics with safe fallbacks when startDate/endDate are invalid
+    const inputStart = useMemo(() => new Date(startDate as string), [startDate]);
+    const inputEnd = useMemo(() => new Date(endDate as string), [endDate]);
+
+    const computedStart = useMemo(() => {
+        const candidates: number[] = [];
+        udas.forEach(u => { if (u.startDate) { const d = new Date(u.startDate).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        events.forEach(e => { if (e.data) { const d = new Date(e.data).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        if (candidates.length === 0) {
+            const d = new Date(); d.setDate(d.getDate() - 30); return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        }
+        return new Date(Math.min(...candidates));
+    }, [udas, events]);
+
+    const computedEnd = useMemo(() => {
+        const candidates: number[] = [];
+        udas.forEach(u => { if (u.endDate) { const d = new Date(u.endDate).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        events.forEach(e => { if (e.data) { const d = new Date(e.data).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        if (candidates.length === 0) {
+            const d = new Date(); d.setDate(d.getDate() + 30); return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        }
+        return new Date(Math.max(...candidates));
+    }, [udas, events]);
+
+    const start = !isNaN(inputStart.getTime()) ? inputStart : computedStart;
+    const end = !isNaN(inputEnd.getTime()) ? inputEnd : computedEnd;
     
     // Fix potential division by zero if dates are equal or invalid, ensuring minimum 1 day duration (86400000 ms)
     const totalDurationMs = useMemo(() => Math.max(86400000, end.getTime() - start.getTime()), [start, end]);

@@ -1,0 +1,59 @@
+{
+  "startedAt": "2025-12-27T11:24:06.926Z",
+  "pages": {
+    "home": {
+      "url": "http://localhost:8080/",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "fab": {
+        "found": false
+      }
+    },
+    "registro": {
+      "url": "http://localhost:8080/registro",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "fab": {
+        "found": false
+      }
+    },
+    "studenti": {
+      "url": "http://localhost:8080/studenti",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "fab": {
+        "found": false
+      }
+    },
+    "lezioni": {
+      "url": "http://localhost:8080/lezioni",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "fab": {
+        "found": false
+      }
+    },
+    "orario": {
+      "url": "http://localhost:8080/orario",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "fab": {
+        "found": false
+      }
+    },
+    "timeline": {
+      "url": "http://localhost:8080/timeline",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "requestFailures": [],
+      "fab": {
+        "found": false
+      }
+    }
+  }
+}

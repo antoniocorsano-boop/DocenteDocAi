@@ -1,0 +1,32 @@
+{
+  "startedAt": "2025-12-27T11:26:02.461Z",
+  "results": {
+    "orario": {
+      "url": "http://localhost:8080/orario",
+      "actions": [
+        {
+          "action": "fab_not_found"
+        }
+      ],
+      "screenshot": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\docs\\repro\\orario.png"
+    },
+    "timeline": {
+      "url": "http://localhost:8080/timeline",
+      "actions": [
+        {
+          "action": "fab_not_found"
+        }
+      ],
+      "screenshot": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\docs\\repro\\timeline.png"
+    },
+    "home": {
+      "url": "http://localhost:8080/",
+      "actions": [
+        {
+          "action": "fab_not_found"
+        }
+      ],
+      "screenshot": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\docs\\repro\\home.png"
+    }
+  }
+}
