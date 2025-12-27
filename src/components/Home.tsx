@@ -83,14 +83,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                 <div className="lg:col-span-2 space-y-6">
                     <div className="rounded-3xl p-5 bg-surface-container border border-outline-variant shadow-sm">
                         <div className="flex items-center justify-between mb-4">
-                            <h2 className="font-semibold text-lg">Attività Recenti</h2>
+                            <h2 className="m3-title-large">Attività Recenti</h2>
                             <button className="text-sm text-primary" onClick={() => onNavigate('analytics' as View)}>Vedi tutte</button>
                         </div>
                         <ul className="space-y-3">
                             {recentActivities.slice(0, 5).map((a) => (
                                 <li key={a.id} className="p-3 rounded-xl bg-surface-container-low flex items-center justify-between">
                                     <div>
-                                        <div className="font-medium">{a.title}</div>
+                                        <div className="m3-label-medium">{a.title}</div>
                                         <div className="text-sm text-on-surface-variant">{a.meta}</div>
                                     </div>
                                     <div className="text-sm text-on-surface-variant">{a.time}</div>
@@ -134,7 +134,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                 <aside className="space-y-6">
                     <div className="rounded-2xl p-4 bg-surface-container border border-outline-variant">
                         <div className="flex items-center justify-between mb-3">
-                            <div className="font-semibold">Badge Gaming</div>
+                            <div className="m3-title-medium">Badge Gaming</div>
                             <button className="text-sm text-primary" onClick={() => onNavigate('badges' as View)}>Tutti</button>
                         </div>
                         <div className="grid grid-cols-1 gap-3">
@@ -145,7 +145,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                     </div>
 
                     <div className="rounded-2xl p-4 bg-surface-container border border-outline-variant">
-                        <div className="font-semibold mb-3">Azioni rapide</div>
+                        <div className="m3-title-medium mb-3">Azioni rapide</div>
                         <div className="grid grid-cols-1 gap-2">
                             <QuickAction label="Crea unità didattica" icon="description" onClick={() => onNavigate('uda' as View)} />
                             <QuickAction label="Backup" icon="cloud_upload" onClick={() => onNavigate('settings' as View)} />
