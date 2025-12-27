@@ -49,3 +49,7 @@ scripts/*.local.*
 
 # Local Netlify folder
 .netlify
+
+# Playwright and screenshot artifacts
+playwright-report/
+docs/screenshots/
