@@ -185,3 +185,16 @@ Comprehensive Material Design 3 implementation with design tokens, component upd
 ## [3.0.0] - Previous Release
 
 See git history for details on earlier releases.
+
+## [4.2.1] - 2025-12-27
+
+### Minor: Home Dashboard
+
+#### Added
+- Reprogettata la `Home` come cruscotto dashboard M3 expressive: sezioni di overview, metriche rapide, "badge gaming", attività recenti e azioni rapide.
+- Ripristinati i suggerimenti AI e il pulsante assistente flottante.
+
+#### Technical Notes
+- Componenti interni leggeri: `MetricCard`, `BadgeCard`, `QuickAction` (tipizzati e compatibili con lo store esistente).
+- Nessuna modifica alla fase di onboarding tecnologica.
+
