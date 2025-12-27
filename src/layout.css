@@ -545,6 +545,26 @@
 .m3-quick-action:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.03); }
 .m3-focus-visible:focus { outline: 2px solid var(--sys-primary); outline-offset: 3px; }
 
+/* Responsive / Fluid typography using tokens */
+.m3-display-large { font-size: clamp(36px, 5.5vw, var(--typography-display-large)); }
+.m3-display-medium { font-size: clamp(28px, 4.0vw, var(--typography-display-medium)); }
+.m3-headline-large { font-size: clamp(22px, 3.2vw, var(--typography-headline-large)); }
+.m3-headline-medium { font-size: clamp(18px, 2.6vw, var(--typography-headline-medium)); }
+.m3-title-large { font-size: clamp(16px, 2.2vw, var(--typography-title-large)); }
+.m3-title-medium { font-size: clamp(14px, 1.8vw, var(--typography-title-medium)); }
+.m3-body-large { font-size: clamp(14px, 1.6vw, var(--typography-body-large)); }
+
+@media (max-width: 640px) {
+    .m3-display-large { font-size: calc(var(--typography-display-small) - 6px); }
+    .m3-display-medium { font-size: calc(var(--typography-headline-small) - 6px); }
+    .m3-headline-large { font-size: var(--typography-headline-small); }
+}
+
+@media (min-width: 1024px) {
+    .m3-display-large { font-size: var(--typography-display-large); }
+    .m3-display-medium { font-size: var(--typography-display-medium); }
+}
+
 /* Font Weight */
 .font-medium { font-weight: 500; }
 .font-semibold { font-weight: 600; }
