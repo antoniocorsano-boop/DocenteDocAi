@@ -7,6 +7,14 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      react: path.resolve(__dirname, 'node_modules/react'),
+      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+      '@': path.resolve(process.cwd(), './src'),
+    },
+    dedupe: ['react', 'react-dom'],
+  },
   plugins: [
     react(),
     // Temporarily disabled PWA due to service worker URL error in Vercel
@@ -72,10 +80,5 @@ export default defineConfig({
       overlay: false
     }
   },
-  resolve: {
-    dedupe: ['react', 'react-dom'],
-    alias: {
-      '@': path.resolve(process.cwd(), './src'),
-    },
-  },
+  // (removed duplicate resolve block)
 });
