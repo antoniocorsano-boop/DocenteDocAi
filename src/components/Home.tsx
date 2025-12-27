@@ -1,4 +1,5 @@
 import React from 'react';
+import UniversalModalDemo from './UniversalModalDemo';
 import { View, AppState, NavigationParams } from '../types';
 import { M3IconButton } from './M3Components';
 
@@ -20,6 +21,10 @@ const BadgeCard: React.FC<{ name: string; description?: string; earned?: boolean
     <div className={`m3-card rounded-2xl p-3 flex items-center gap-3 shadow-sm border ${earned ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container-low text-on-surface-variant'}`} tabIndex={0}>
         <div className="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container-highest text-on-surface-variant font-bold text-lg">
             {name.charAt(0).toUpperCase()}
+            {/* Demo Modale Universale */}
+            <div className="mt-16">
+                <UniversalModalDemo />
+            </div>
         </div>
         <div className="flex-1">
             <div className="font-semibold">{name}</div>

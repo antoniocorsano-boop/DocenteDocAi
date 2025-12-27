@@ -6,6 +6,10 @@ import SmartImportModal from './SmartImportModal';
 import { generateHueFromString } from '../utils/colorUtils';
 import { TabGroup } from './M3Components'; // Import TabGroup
 import CompetencyManager from './CompetencyManager'; // Import New Component
+// Drag & Drop
+import { DndContext, useDraggable, DragEndEvent, DragMoveEvent } from '@dnd-kit/core';
+import Tooltip from './Tooltip';
+
 
 interface ProgettazioneHubExtendedProps extends ProgettazioneHubProps {
     settings: TimetableSettings;
@@ -119,6 +123,9 @@ interface TimelineProps {
 
 const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, startDate, endDate }) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    // Fix test ReferenceError: showSnackbar is not defined
+    const [showSnackbar, setShowSnackbar] = useState(false);
+    const [lastMove, setLastMove] = useState<{ udaId: string; prevStart: string; prevEnd: string } | null>(null);
 
     // Calculate Timeline Metrics with safe fallbacks when startDate/endDate are invalid
     const inputStart = useMemo(() => new Date(startDate as string), [startDate]);
@@ -233,6 +240,50 @@ const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, start
     // Width ensuring full month display
     const minWidth = months.length * 80;
 
+    // Draggable Bar component for Gantt (accessible + keyboard shortcuts)
+    const GanttDraggableBar: React.FC<{ uda: any; minWidth: number; onClick: () => void }> = ({ uda, minWidth, onClick }) => {
+        const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: uda.id });
+
+        const handleKeyDown = (e: React.KeyboardEvent) => {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                const deltaDays = e.key === 'ArrowLeft' ? -1 : 1;
+                const durationMs = new Date(uda.endDate).getTime() - new Date(uda.startDate).getTime();
+                const newStartMs = new Date(uda.startDate).getTime() + (deltaDays * 86400000);
+                const newStartDate = new Date(newStartMs);
+                const newEndDate = new Date(newStartMs + durationMs);
+                onSaveUda({ ...uda, startDate: newStartDate.toISOString().split('T')[0], endDate: newEndDate.toISOString().split('T')[0] });
+            }
+        };
+
+        return (
+            <div
+                ref={setNodeRef}
+                {...attributes}
+                {...listeners}
+                role="button"
+                tabIndex={0}
+                aria-label={`Sposta UDA ${uda.title}`}
+                onKeyDown={handleKeyDown}
+                onClick={onClick}
+                className={`gantt-bar ${isDragging ? 'dragging' : ''}`}
+                style={{
+                    left: `${uda.startPos}%`,
+                    width: `${uda.width}%`,
+                    backgroundColor: uda.color,
+                    borderColor: uda.borderColor,
+                    color: uda.textColor,
+                    transform: transform ? `translateX(${transform.x}px)` : undefined,
+                    transition: isDragging ? 'none' : 'transform 0.12s linear',
+                    cursor: 'grab',
+                }}
+                title={`${uda.title} (${new Date(uda.startDate!).toLocaleDateString()} - ${new Date(uda.endDate!).toLocaleDateString()})`}
+            >
+                <div className="gantt-bar-inner truncate" style={{ padding: '6px 8px' }}>{uda.title}</div>
+            </div>
+        );
+    };
+
     // Auto-scroll to today
     useEffect(() => {
         if (todayPosition >= 0 && todayPosition <= 100 && scrollContainerRef.current) {
@@ -313,27 +364,86 @@ const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, start
                     </div>
 
                     {/* Swimlanes for UDAs */}
-                    {timelineData.map((lane, laneIndex) => (
-                        <div key={laneIndex} className="gantt-lane">
-                            {lane.map(uda => (
-                                <div
-                                    key={uda.id}
-                                    onClick={() => onUdaClick(uda)}
-                                    className="gantt-bar"
-                                    style={{
-                                        left: `${uda.startPos}%`,
-                                        width: `${uda.width}%`,
-                                        backgroundColor: uda.color,
-                                        borderColor: uda.borderColor,
-                                        color: uda.textColor
-                                    }}
-                                    title={`${uda.title} (${new Date(uda.startDate!).toLocaleDateString()} - ${new Date(uda.endDate!).toLocaleDateString()})`}
-                                >
-                                    {uda.title}
-                                </div>
-                            ))}
+                    <DndContext
+                        onDragStart={(e) => {
+                            const id = String(e.active.id);
+                            setDraggingUdaId(id);
+                            setPreviewMessage(null);
+                        }}
+                        onDragMove={(e: DragMoveEvent) => {
+                            const { active, delta } = e;
+                            if (!active) return;
+                            const udaId = String(active.id);
+                            const original = udas.find(u => u.id === udaId);
+                            if (!original || !original.startDate || !original.endDate) return;
+                            const deltaX = delta ? delta.x : 0;
+                            const percentShift = (deltaX / minWidth) * 100;
+                            const origStartPos = Math.max(0, getPositionPercentage(original.startDate));
+                            const newStartPos = Math.max(0, Math.min(100 - Math.max(0.5, (getPositionPercentage(original.endDate) - getPositionPercentage(original.startDate))), origStartPos + percentShift));
+                            const durationMs = new Date(original.endDate).getTime() - new Date(original.startDate).getTime();
+                            const newStartMs = start.getTime() + (newStartPos / 100) * totalDurationMs;
+                            const newStartDate = new Date(newStartMs);
+                            const newEndDate = new Date(newStartMs + durationMs);
+                            setPreviewMessage(`${original.title}: ${newStartDate.toLocaleDateString()} → ${newEndDate.toLocaleDateString()}`);
+                        }}
+                        onDragEnd={(e: DragEndEvent) => {
+                            const { active, delta } = e;
+                            setDraggingUdaId(null);
+                            setPreviewMessage(null);
+                            if (!active) return;
+                            const udaId = String(active.id);
+                            const original = udas.find(u => u.id === udaId);
+                            if (!original || !original.startDate || !original.endDate) return;
+                            const deltaX = delta ? delta.x : 0;
+                            const percentShift = (deltaX / minWidth) * 100;
+                            const origStartPos = Math.max(0, getPositionPercentage(original.startDate));
+                            const newStartPos = Math.max(0, Math.min(100 - Math.max(0.5, (getPositionPercentage(original.endDate) - getPositionPercentage(original.startDate))), origStartPos + percentShift));
+                            const durationMs = new Date(original.endDate).getTime() - new Date(original.startDate).getTime();
+                            const newStartMs = start.getTime() + (newStartPos / 100) * totalDurationMs;
+                            const newStartDate = new Date(newStartMs);
+                            const newEndDate = new Date(newStartMs + durationMs);
+                            // Persist change and offer undo
+                            onSaveUda({ ...original, startDate: newStartDate.toISOString().split('T')[0], endDate: newEndDate.toISOString().split('T')[0] });
+                            setLastMove({ udaId: original.id, prevStart: original.startDate, prevEnd: original.endDate });
+                            setShowSnackbar(true);
+                            setTimeout(() => setShowSnackbar(false), 6000);
+                        }}
+                    >
+                        {timelineData.map((lane, laneIndex) => (
+                            <div key={laneIndex} className="gantt-lane">
+                                {lane.map(uda => (
+                                    <Tooltip key={uda.id} label={`${uda.title}\n${new Date(uda.startDate!).toLocaleDateString()} - ${new Date(uda.endDate!).toLocaleDateString()}`} position="top">
+                                        <GanttDraggableBar key={uda.id} uda={uda} minWidth={minWidth} onClick={() => onUdaClick(uda)} />
+                                    </Tooltip>
+                                ))}
+                            </div>
+                        ))}
+                    </DndContext>
+
+                    {/* Snackbar preview / undo */}
+                    {showSnackbar && lastMove && (
+                        <div style={{ position: 'fixed', right: 24, bottom: 24, zIndex: 3200 }}>
+                            <div className="m3-card p-4 rounded-xl shadow-lg bg-surface-container-high border border-outline-variant flex items-center gap-4">
+                                <div className="flex-1">UDA spostata. <button className="text-primary font-bold underline ml-2" onClick={() => {
+                                    const original = udas.find(u => u.id === lastMove.udaId);
+                                    if (original) {
+                                        onSaveUda({ ...original, startDate: lastMove.prevStart, endDate: lastMove.prevEnd });
+                                        setShowSnackbar(false);
+                                        setLastMove(null);
+                                    }
+                                }}>Annulla</button></div>
+                                <button onClick={() => setShowSnackbar(false)} aria-label="Chiudi" className="icon-button"><span className="material-symbols-outlined">close</span></button>
+                            </div>
                         </div>
-                    ))}
+                    )}
+
+                    {/* Drag Preview Bubble */}
+                    {previewMessage && (
+                        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 8, zIndex: 3200 }}>
+                            <div className="px-3 py-1 rounded-lg bg-surface/92 text-on-surface border border-outline-variant text-sm shadow">{previewMessage}</div>
+                        </div>
+                    )}
+
                 </div>
             </div>
         </div>
@@ -347,6 +457,13 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
     
     // State for Main Tabs
     const [activeTab, setActiveTab] = useState<'dashboard' | 'frameworks'>('dashboard');
+
+    // Dragging / feedback state
+    const [draggingUdaId, setDraggingUdaId] = useState<string | null>(null);
+    const [previewMessage, setPreviewMessage] = useState<string | null>(null);
+    const [showSnackbar, setShowSnackbar] = useState(false);
+    const [lastMove, setLastMove] = useState<{ udaId: string; prevStart: string; prevEnd: string } | null>(null);
+
 
     useEffect(() => {
         if (initialAction === 'annual-planning') {

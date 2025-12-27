@@ -67,19 +67,61 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
     });
 
     return (
-        <div className="dialog-backdrop animate-fade-in" ref={overlayRef}>
+        <div
+            className="dialog-backdrop animate-fade-in"
+            ref={overlayRef}
+            style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 1000,
+                background: 'rgba(0,0,0,0.32)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+            onClick={e => {
+                if (e.target === overlayRef.current) onClose();
+            }}
+        >
             <form
                 ref={containerRef as unknown as React.RefObject<HTMLFormElement>}
                 role="dialog"
                 aria-modal="true"
+                aria-labelledby="add-eval-title"
                 tabIndex={-1}
                 onSubmit={handleSubmit}
-                className="dialog-container w-full max-w-lg sm:max-w-full md:max-w-lg max-h-[90vh] overflow-y-auto p-4 sm:p-2 md:p-6 animate-scale-in"
+                className="dialog-container animate-scale-in"
+                style={{
+                    background: 'var(--sys-surface)',
+                    borderRadius: 16,
+                    width: '100vw',
+                    maxWidth: 480,
+                    maxHeight: '90vh',
+                    padding: 24,
+                    position: 'relative',
+                    boxShadow: '0 4px 32px rgba(0,0,0,0.2)',
+                    outline: 'none',
+                }}
+                onClick={e => e.stopPropagation()}
             >
-                <div className="dialog-header">
-                    <h2 className="m3-headline-medium font-black">Aggiungi Valutazione</h2>
-                    <button type="button" onClick={onClose} className="icon-button rounded-lg hover:shadow-md transition-all">
-                        <span className="material-symbols-outlined">close</span>
+                <div className="dialog-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h2 id="add-eval-title" className="m3-headline-medium font-black">Aggiungi Valutazione</h2>
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        aria-label="Chiudi"
+                        style={{
+                            position: 'absolute',
+                            top: 16,
+                            right: 16,
+                            background: 'none',
+                            border: 'none',
+                            fontSize: 24,
+                            color: 'var(--sys-primary)',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        ×
                     </button>
                 </div>
                 <div className="dialog-content space-y-6">

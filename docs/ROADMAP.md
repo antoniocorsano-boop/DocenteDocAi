@@ -3,6 +3,26 @@
 
 Stato di avanzamento delle funzionalità di OrarioDoc AI.
 
+---
+## 🔴 Fase 7: Miglioramento Usabilità, Accessibilità e Audit (IN CORSO)
+
+**Obiettivo:** Allineamento a standard Material Design 3, WCAG 2.1 AA, privacy-first e audit processi.
+
+### Milestone principali
+
+* **UX Modale e Gantt:** Refactoring modali (full-screen mobile, focus, chiusura chiara), drag&drop e feedback visivo Gantt, stepper/breadcrumb wizard.
+* **Accessibilità Rubriche:** Navigazione tastiera, aria-label, colori a contrasto, tooltip e aiuti contestuali, test axe-core.
+* **Feedback Visivo Centro Operativo:** Snackbar/toast persistenti con undo, indicatori di stato, stato UI centralizzato.
+* **Microcopy e Help:** Uniformare testi, tooltip/help inline, centralizzazione per localizzazione.
+* **Export e Collegamento UDA/Lezioni:** Flusso drag&drop, selezione rapida, validazione export PDF/DOCX.
+* **Backup & Privacy:** Stato backup/restore visibile, gestione quota, notifiche errori/limiti.
+* **Testing & Coverage:** Estensione test unit/E2E su wizard, export, AI/KB, backup/restore, coverage >95%.
+
+### Collegamento con Audit
+Le milestone e le scadenze sono allineate alla tabella di sintesi azioni in `docs/AUDIT_PROCESSI_FUNZIONALITA.md`.
+
+---
+
 ### 🟢 Fase 1: Core & UI (COMPLETATA)
 *   **[FATTO] Design System M3 Expressive:** Refactoring completo CSS in architettura modulare (5 livelli).
 *   **[FATTO] Identità Visiva:** Nuovo logo interattivo e supporto Dark Mode.

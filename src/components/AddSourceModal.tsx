@@ -64,19 +64,62 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
     });
 
     return (
-        <div className="dialog-backdrop animate-fade-in" ref={overlayRef}>
+        <div
+            className="dialog-backdrop animate-fade-in"
+            ref={overlayRef}
+            style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 1000,
+                background: 'rgba(0,0,0,0.32)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+            onClick={e => {
+                if (e.target === overlayRef.current) onClose();
+            }}
+        >
             <div
                 ref={containerRef}
                 role="dialog"
                 aria-modal="true"
+                aria-labelledby="add-source-title"
                 tabIndex={-1}
-                className="dialog-container w-full max-w-3xl sm:max-w-full md:max-w-2xl max-h-[90vh] flex flex-col overflow-y-auto shadow-xl p-4 sm:p-2 md:p-8 animate-scale-in"
+                className="dialog-container animate-scale-in"
+                style={{
+                    background: 'var(--sys-surface)',
+                    borderRadius: 16,
+                    width: '100vw',
+                    maxWidth: 480,
+                    maxHeight: '90vh',
+                    padding: 24,
+                    position: 'relative',
+                    boxShadow: '0 4px 32px rgba(0,0,0,0.2)',
+                    outline: 'none',
+                }}
+                onClick={e => e.stopPropagation()}
             >
-                <div className="dialog-header border-b border-outline-variant p-6 bg-surface-container-high">
-                    <h2 className="m3-headline-small font-extrabold">Aggiungi Documenti</h2>
-                    <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>
+                <div className="dialog-header border-b border-outline-variant p-6 bg-surface-container-high" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h2 id="add-source-title" className="m3-headline-small font-extrabold">Aggiungi Documenti</h2>
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        aria-label="Chiudi"
+                        style={{
+                            position: 'absolute',
+                            top: 16,
+                            right: 16,
+                            background: 'none',
+                            border: 'none',
+                            fontSize: 24,
+                            color: 'var(--sys-primary)',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        ×
+                    </button>
                 </div>
-                
                 <div className="dialog-content overflow-y-auto p-8 space-y-12 bg-surface">
                     {isLoading ? (
                         <div className="flex flex-col items-center justify-center h-64"><div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div><p className="m3-title-large mt-8 text-primary animate-pulse font-extrabold uppercase tracking-widest">{loadingMessage}</p></div>
