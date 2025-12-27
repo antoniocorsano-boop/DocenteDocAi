@@ -170,7 +170,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
 
     return (
         <div className="page-container-full">
-            <h1 className="page-title">Didattica Inclusiva (PDP / PEI)</h1>
+            <h1 className="m3-display-medium">Didattica Inclusiva (PDP / PEI)</h1>
 
             <div className="card min-h-[60vh]">
                 <div className="mb-6">

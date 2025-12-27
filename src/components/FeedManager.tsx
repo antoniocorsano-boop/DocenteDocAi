@@ -125,7 +125,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
 
     return (
         <div className="space-y-4">
-            <h1 className="page-title">Fonti Esterne & Feed</h1>
+            <h1 className="m3-display-medium">Fonti Esterne & Feed</h1>
 
             <InfoCard
                 title="Funzionalità Feed Disabilitata"

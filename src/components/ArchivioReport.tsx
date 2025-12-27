@@ -30,7 +30,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reports, onDeleteReport
 
     return (
         <div className="space-y-4">
-            <h1 className="page-title">Archivio Report</h1>
+            <h1 className="m3-display-medium">Archivio Report</h1>
             <div className="card">
                 <div className="p-4">
                     <div className="search-input-container max-w-lg">

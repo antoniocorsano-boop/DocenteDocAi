@@ -210,7 +210,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
     return (
         <div className="page-layout pb-24">
             <div className="flex justify-between items-center">
-                <h1 className="page-title">Studio AI</h1>
+                <h1 className="m3-display-medium">Studio AI</h1>
             </div>
             
              <Guidance id="studio-ai-intro" icon="auto_fix_high" title="Il tuo Laboratorio Creativo" isGloballyEnabled={showGuidanceTips}>

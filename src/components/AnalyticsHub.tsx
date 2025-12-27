@@ -76,7 +76,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
     if (userClasses.length === 0) {
         return (
             <div className="page-container-full">
-                <h1 className="page-title">Analytics Hub</h1>
+                <h1 className="m3-display-medium">Analytics Hub</h1>
                 <EmptyState title="Nessuna classe" description="Configura le tue classi nelle Impostazioni." icon="bar_chart_off" />
             </div>
         );
@@ -84,7 +84,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
     return (
         <div className="page-container-full space-y-6">
-            <h1 className="page-title">Analytics Hub</h1>
+            <h1 className="m3-display-medium">Analytics Hub</h1>
 
             <div className="card !bg-surface-container-low shadow-md !rounded-[40px] !p-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">

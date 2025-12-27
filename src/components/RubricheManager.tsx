@@ -23,7 +23,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
     return (
         <div className="page-layout pb-24">
             <div className="flex flex-wrap justify-between items-center gap-4">
-                <h1 className="page-title">Rubriche di Valutazione</h1>
+                <h1 className="m3-display-medium">Rubriche di Valutazione</h1>
                 <button onClick={() => setEditingRubric('new')} className="button button-filled">
                     <span className="material-symbols-outlined mr-2">add</span>
                     Crea Nuova

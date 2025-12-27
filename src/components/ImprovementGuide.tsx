@@ -239,7 +239,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
         <div className="space-y-6">
             <div className="flex flex-wrap justify-between items-start gap-4">
                 <div>
-                    <h1 className="page-title">Analisi Classe {selectedClass}</h1>
+                    <h1 className="m3-display-medium">Analisi Classe {selectedClass}</h1>
                     <p className="m3-body-large text-on-surface-variant -mt-4">Report generato per il consiglio di classe.</p>
                 </div>
                 <div className="flex gap-2">

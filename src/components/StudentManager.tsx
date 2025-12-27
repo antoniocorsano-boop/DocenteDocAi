@@ -60,7 +60,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
     return (
         <div className="page-layout pb-20">
             <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
-                <h1 className="page-title">Gestione Studenti</h1>
+                <h1 className="m3-display-medium">Gestione Studenti</h1>
                 <div className="flex gap-2">
                     <button onClick={() => setIsImportModalOpen(true)} className="button button-tonal">
                         <span className="material-symbols-outlined mr-2">upload_file</span>
