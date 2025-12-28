@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, Competenza, Livello, EvaluationModuleProps, Prova, RegisterEntry, Lezione } from '../types';
+import React, { useState, useMemo } from 'react';
+import { Studente, Valutazione, ValutazioneCompetenza, EvaluationModuleProps, Prova, RegisterEntry, Lezione } from '../types';
 import AddProvaModal from './AddProvaModal';
 import StudentProfile from './StudentProfile';
 import ExportModal from './ExportModal';
@@ -32,7 +32,7 @@ const getTestTypeIcon = (tipo: string) => {
     }
 };
 
-const EvaluationModule: React.FC<EvaluationModulePropsExtended> = ({ students, evaluations, setEvaluations, competencyEvaluations, setCompetencyEvaluations, userClasses, settings, aiSettings, isModalMode = false, initialClass, initialStudentId, onClearInitialStudent, onOpenInclusionPlanEditor, showGuidanceTips, register, lessons }) => {
+const EvaluationModule: React.FC<EvaluationModulePropsExtended> = ({ students, evaluations, setEvaluations, competencyEvaluations, setCompetencyEvaluations, userClasses, settings, isModalMode = false, initialClass, initialStudentId, onClearInitialStudent, onOpenInclusionPlanEditor, register, lessons }) => {
     const [selectedClass, setSelectedClass] = useState<string>(initialClass || userClasses[0] || '1A');
     const [activeTab, setActiveTab] = useState<ViewTab>('grid');
     const [isAddProvaModalOpen, setIsAddProvaModalOpen] = useState(false);
@@ -156,7 +156,6 @@ const EvaluationModule: React.FC<EvaluationModulePropsExtended> = ({ students, e
             settings={settings}
             onBack={handleBackFromProfile}
             onDeleteEvaluation={(id: string) => setEvaluations((e: Valutazione[]) => e.filter(ev => ev.id !== id))}
-            onDeleteCompetencyEvaluation={(id: string) => setCompetencyEvaluations((e: ValutazioneCompetenza[]) => e.filter(ev => ev.id !== id))}
             onOpenInclusionPlanEditor={onOpenInclusionPlanEditor}
             register={register}
             lessons={lessons}
@@ -369,7 +368,7 @@ const EvaluationModule: React.FC<EvaluationModulePropsExtended> = ({ students, e
             {/* Centralized View Tabs */}
             <TabGroup
                 activeTab={activeTab}
-                onTabChange={(id) => setActiveTab(id as any)}
+                onTabChange={(id: string) => setActiveTab(id as ViewTab)}
                 variant="secondary"
                 className="mb-4"
                 tabs={[

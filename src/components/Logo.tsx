@@ -2,13 +2,12 @@ import React, { useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 
 interface LogoProps {
-  title?: string; // FIX: Added title to LogoProps
   isAiThinking?: boolean;
 }
 
 type AnimationState = 'idle' | 'chaos' | 'implosion' | 'peace';
 
-const Logo: React.FC<LogoProps> = ({ title, isAiThinking = false }) => { // FIX: Destructured title
+const Logo: React.FC<LogoProps> = ({ isAiThinking = false }) => {
   const [animState, setAnimState] = useState<AnimationState>('idle');
 
   const triggerBigBang = useCallback((e: React.MouseEvent) => {

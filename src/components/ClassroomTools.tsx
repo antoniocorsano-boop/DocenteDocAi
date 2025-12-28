@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Studente } from '../types';
 
 interface ClassroomToolsProps {
@@ -131,15 +131,6 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
     );
 };
 
-const GroupGeneratorWidget: React.FC = () => {
-    return (
-        <div className="bg-surface-container-low border border-dashed border-outline rounded-2xl p-4 flex flex-col items-center justify-center h-full min-h-[100px] opacity-60 hover:opacity-100 transition-opacity cursor-not-allowed">
-            <span className="material-symbols-outlined text-3xl mb-2 text-on-surface-variant">group_work</span>
-            <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Genera Gruppi</span>
-            <span className="text-[10px] text-on-surface-variant mt-1">(Presto disponibile)</span>
-        </div>
-    )
-}
 
 const ClassroomTools: React.FC<ClassroomToolsProps> = ({ students, studentAttendance }) => {
     const presentStudents = students.filter(s => studentAttendance[s.id] === 'presente');

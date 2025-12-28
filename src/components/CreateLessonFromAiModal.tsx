@@ -3,7 +3,7 @@ import { Lezione, AiSettings, Studente, PianoInclusione, Slot, CurriculumSubject
 import { generateInclusivityAdaptations } from '../services/aiService';
 import { DAYS_OF_WEEK } from '../constants';
 import { parseClassString } from '../utils/schoolUtils'; 
-import { TextField, SelectField, TextArea, TabGroup } from './M3Components';
+import { TextField, SelectField, TextArea } from './M3Components';
 import AiThinkingGem from './AiThinkingGem';
 
 interface CreateLessonFromAiModalProps {
@@ -65,7 +65,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
         // FIX: Casting esplicito di entries per TS
         const entries = Object.entries(slots) as [string, Slot][];
         return entries
-            .filter(([key, slot]) => !slot.lezioneId && (!slot.classe || slot.classe === classe)) // Filter out already assigned slots
+            .filter(([, slot]) => !slot.lezioneId && (!slot.classe || slot.classe === classe)) // Filter out already assigned slots
             .sort((a: [string, Slot], b: [string, Slot]) => {
                 const dayOrder = DAYS_OF_WEEK.indexOf(a[1].giorno) - DAYS_OF_WEEK.indexOf(b[1].giorno);
                 if (dayOrder !== 0) return dayOrder;
@@ -164,7 +164,8 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
             setAdattamenti(prev => prev ? `${prev}\n${adaptations}` : adaptations);
     
         } catch (error) {
-            console.error("Error generating inclusivity adaptations:", error);
+            const errorMsg = error instanceof Error ? error.message : 'Errore sconosciuto';
+            console.error("Error generating inclusivity adaptations:", errorMsg);
             alert("Si è verificato un errore durante la generazione dei suggerimenti per l'inclusività.");
         } finally {
             setIsAdaptationsLoading(false);

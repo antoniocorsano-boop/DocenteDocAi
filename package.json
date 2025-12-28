@@ -12,7 +12,7 @@
     "e2e": "playwright test",
     "e2e:gsi": "VITE_ENABLE_GSI_DEV=true VITE_GSI_CLIENT_ID=dev-client-id npx playwright test e2e/gsi.spec.ts",
     "e2e:gsi:win": "set VITE_ENABLE_GSI_DEV=true&& set VITE_GSI_CLIENT_ID=dev-client-id&& npx playwright test e2e/gsi.spec.ts",
-    "lint": "eslint 'src/**/*.{ts,tsx}' --ext .ts,.tsx"
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --ext .ts,.tsx"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -51,6 +51,7 @@
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.1.2",
+    "@types/file-saver": "^2.0.7",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.3",
     "@types/react": "^18.2.66",

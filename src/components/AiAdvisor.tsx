@@ -1,6 +1,6 @@
 
-import React, { useState, useMemo } from 'react';
-import { AiSettings, Competenza, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
+import React, { useState } from 'react';
+import { AiSettings, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getAIPedagogicalAdvice } from '../services/aiService';
 import AiThinkingGem from './AiThinkingGem';
 
@@ -30,7 +30,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
         setError('');
 
         try {
-            let studentData: any;
+            let studentData: unknown;
             if (selectedStudentId === 'all') {
                 studentData = {
                     nome: "Tutta la classe",
@@ -52,9 +52,10 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
 
             const result = await getAIPedagogicalAdvice(aiSettings, studentData, requestType, settings.competenze);
             setAdvice(result.suggerimenti);
-        } catch (err: any) {
+        } catch (err) {
+            const errorMsg = err instanceof Error ? err.message : "Si è verificato un errore durante la generazione del consiglio.";
             console.error(err);
-            setError(err.message || "Si è verificato un errore durante la generazione del consiglio.");
+            setError(errorMsg);
         } finally {
             setAdvisorStatus(null);
         }

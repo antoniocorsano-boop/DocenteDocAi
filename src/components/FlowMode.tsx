@@ -1,8 +1,8 @@
 
 import React, { useMemo, useState, useEffect } from 'react';
-import { Lezione, Slot, EventoCalendario, View, AppActions, AppState } from '../types';
+import { Lezione, Slot, EventoCalendario, AppActions, AppState } from '../types';
 import { DAYS_OF_WEEK } from '../constants';
-import { ActionTile } from './M3Components';
+
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 
 interface FlowModeProps {
@@ -42,7 +42,7 @@ interface GapTimelineItem extends BaseTimelineItem {
 type TimelineItem = LessonTimelineItem | EventTimelineItem | GapTimelineItem;
 
 const FlowMode: React.FC<FlowModeProps> = ({ appState, actions, onOpenOperations, onOpenLiveAssistant }) => {
-    const { slots, lessons, eventi, user } = appState;
+    const { slots, lessons, eventi } = appState;
     const { handleStartClassroom, handleNavigate, handleAddNote } = actions;
     
     // --- TIME LOGIC ---
@@ -134,7 +134,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ appState, actions, onOpenOperations
     }, [slots, lessons, eventi, now, todayName, currentMinutes, handleStartClassroom, handleNavigate]);
 
     // Find current active item
-    const activeItem = timelineItems.find(i => i.status === 'current');
+
 
     return (
         <div className="flex flex-col h-full bg-surface-container-low relative">

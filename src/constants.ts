@@ -1,4 +1,4 @@
-import type { TimetableSettings, Competenza, Valutazione, ColorTokens, Lezione, ParticipationBadge, KnowledgeBaseEntry, UserProfile, ThemeCustomization } from './types';
+import type { TimetableSettings, Competenza, Valutazione, Lezione, ParticipationBadge, KnowledgeBaseEntry, ThemeCustomization } from './types';
 
 export const DAYS_OF_WEEK: string[] = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato', 'Domenica'];
 

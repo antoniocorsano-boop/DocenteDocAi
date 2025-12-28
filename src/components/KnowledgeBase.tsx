@@ -1,28 +1,26 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { KnowledgeBaseEntry, Corpus, ChatMessage, AiSettings, TimetableSettings } from '../types';
+import React, { useState, useMemo } from 'react';
+import { KnowledgeBaseEntry, Corpus } from '../types';
 import AddSourceModal from './AddSourceModal';
 import DocumentViewerModal from './DocumentViewerModal'; 
 import ImageViewerModal from './ImageViewerModal';
 import { KB_CATEGORIES } from '../constants';
-import { ActionTile, SectionHeader, InfoCard, CategoryCard } from './M3Components';
+import { InfoCard, CategoryCard } from './M3Components';
 
 interface KnowledgeBaseProps {
     knowledgeBase: KnowledgeBaseEntry[];
     setKnowledgeBase: React.Dispatch<React.SetStateAction<KnowledgeBaseEntry[]>>;
     corpora: Corpus[];
     setCorpora: React.Dispatch<React.SetStateAction<Corpus[]>>;
-    aiSettings: AiSettings;
     showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
-    settings: TimetableSettings;
-    showGuidanceTips: boolean;
 }
 
-const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowledgeBase, corpora, setCorpora, aiSettings, showToast, settings, showGuidanceTips }) => {
+const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowledgeBase, corpora, setCorpora, showToast }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentView, setCurrentView] = useState<{ type: 'root' | 'category' | 'corpus', id: string }>({ type: 'root', id: '' });
     const [isAddSourceModalOpen, setIsAddSourceModalOpen] = useState(false);
     const [previewingEntry, setPreviewingEntry] = useState<KnowledgeBaseEntry | null>(null);
     const [viewingImage, setViewingImage] = useState<KnowledgeBaseEntry | null>(null);
+    // aiSettings, settings, showGuidanceTips sono ricevuti come props ma non usati attualmente
 
     const handleDeleteFile = (fileId: string) => {
         if (!window.confirm(`Sei sicuro di voler eliminare questo file?`)) return;

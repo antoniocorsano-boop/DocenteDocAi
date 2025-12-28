@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import type { jsPDF as JsPDFType } from 'jspdf';
 import { GeneratedQuiz } from '../types';
 import { generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
@@ -45,7 +46,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
     const handleExportPDF = async () => {
         // Lazy load jsPDF to avoid document access during module initialization
         const jsPdfModule = await import('jspdf');
-        const { jsPDF } = jsPdfModule as any;
+        const jsPDF = jsPdfModule.jsPDF as typeof JsPDFType;
         
         const doc = new jsPDF();
         const margin = 20;

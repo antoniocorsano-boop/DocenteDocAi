@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { AiSettings, Competenza, Lezione, RegisterEntry, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
+import { AiSettings, Lezione, RegisterEntry, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getGoogleAIClient } from '../services/aiClient';
 import { RATING_TO_VALUE, RATING_OPTIONS } from '../constants';
 import EditableContentCard from './EditableContentCard';

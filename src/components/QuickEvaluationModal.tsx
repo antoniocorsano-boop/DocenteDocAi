@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Studente, Lezione, TimetableSettings, Valutazione, ValutazioneCompetenza, Competenza } from '../types';
+import { Studente, Lezione, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
 import { TabGroup, M3ChoiceCard } from './M3Components';
 
@@ -161,7 +161,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                             { id: 'competenza', label: 'Competenza', icon: 'psychology' }
                         ]}
                         activeTab={activeTab}
-                        onTabChange={(id) => setActiveTab(id as any)}
+                        onTabChange={(id) => setActiveTab(id as 'voto' | 'competenza')}
                         variant="secondary"
                     />
                 </div>

@@ -35,14 +35,17 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
     const processFiles = async (files: File[]) => {
         if (!selectedCategory) { setError("Seleziona una cartella."); return; }
         setIsLoading(true);
-        let newEntries: KnowledgeBaseEntry[] = [];
+        const newEntries: KnowledgeBaseEntry[] = [];
         for (const file of files) {
             try {
                 setLoadingMessage(`Processo: ${file.name}`);
                 const textContent = await extractTextFromFile(file);
                 const fileData = await blobToBase64Parts(file);
                 newEntries.push({ id: `kb-${Date.now()}-${file.name}`, fileName: file.name, content: textContent, fileContent: fileData, corpusId: selectedCorpusId || undefined, category: selectedCategory });
-            } catch(e: any) { setError(prev => `${prev}\n❌ ${file.name}: ${e.message}`); }
+            } catch(e: unknown) {
+                const errMsg = e instanceof Error ? e.message : String(e);
+                setError(prev => `${prev}\n❌ ${file.name}: ${errMsg}`);
+            }
         }
         if (newEntries.length > 0) onAddEntries(newEntries);
         setIsLoading(false);

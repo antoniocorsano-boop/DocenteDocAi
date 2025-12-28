@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import { HomeworkSubmission, Studente, Lezione, Valutazione } from '../types';
+import { HomeworkSubmission, Studente, Lezione } from '../types';
 import Avatar from './Avatar';
-import { EmptyState } from './M3Components';
+
 import HomeworkSubmissionCard from './HomeworkSubmission'; 
 
 interface TeacherInboxProps {

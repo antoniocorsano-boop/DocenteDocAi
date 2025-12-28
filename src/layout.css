@@ -75,6 +75,8 @@
     -webkit-overflow-scrolling: touch;
 }
 
+    padding-bottom: 96px; /* Spazio extra per non coprire contenuti dal footer nav */
+
 @media (min-width: 840px) {
     .main-content {
         padding-left: var(--content-padding-md);
@@ -86,6 +88,7 @@
     max-width: var(--content-max-width);
     margin: 0 auto;
     padding: var(--spacing-4) 0;
+    padding-bottom: 48px;
 }
 
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Studente, PianoInclusione, AiSettings, Valutazione, ValutazioneCompetenza, TimetableSettings, PianoInclusioneEditorProps } from '../types';
+import { PianoInclusione, PianoInclusioneEditorProps } from '../types';
 import { getPIPSuggestion } from '../services/aiService';
-import { TextField, TextArea } from './M3Components';
+import { TextArea } from './M3Components';
 import AiThinkingGem from './AiThinkingGem';
 
 type SectionKey = 'puntiDiForza' | 'areeDiIntervento' | 'misureCompensative' | 'misureDispensative' | 'criteriValutazionePersonalizzati';
@@ -38,8 +38,12 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                 section
             );
             handleChange(section, text);
-        } catch (error: any) {
-            console.error(`Error generating text for ${section}`, error);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error(`Error generating text for ${section}`, error);
+            } else {
+                console.error(`Error generating text for ${section}`, String(error));
+            }
             showToast("Si è verificato un errore durante la generazione del testo.", "error");
         } finally {
             setLoadingSection(null);

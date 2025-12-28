@@ -59,7 +59,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                     <TabGroup
                         tabs={[{ id: 'easy', label: 'Base' }, { id: 'medium', label: 'Intermedio' }, { id: 'hard', label: 'Avanzato' }]}
                         activeTab={difficulty}
-                        onTabChange={(id) => setDifficulty(id as any)}
+                        onTabChange={(id) => setDifficulty(id as 'easy' | 'medium' | 'hard')}
                         variant="primary"
                         className="w-full"
                     />

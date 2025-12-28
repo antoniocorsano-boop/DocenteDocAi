@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { CurriculumSubject, CurriculumNucleo, CurriculumObjective, AiSettings, TimetableSettings, View, Lezione } from '../types';
+import React, { useState } from 'react';
+import { CurriculumSubject, CurriculumNucleo, AiSettings, TimetableSettings, View } from '../types';
 import { parseCurriculumFromText } from '../services/aiService';
 import { extractTextFromFile } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
@@ -12,10 +12,9 @@ interface CurriculumManagerProps {
     settings: TimetableSettings;
     aiSettings: AiSettings;
     onNavigate: (view: View) => void;
-    lessons: Lezione[]; 
 }
 
-const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpdateCurricula, settings, aiSettings, onNavigate, lessons }) => {
+const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpdateCurricula, settings, aiSettings, onNavigate }) => {
     const [selectedCurriculumId, setSelectedCurriculumId] = useState<string | null>(null);
     const [isImporting, setIsImporting] = useState(false);
     const [importText, setImportText] = useState('');
@@ -64,8 +63,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
             handleUpdate(updated);
             setIsImporting(false);
             setImportText('');
-        } catch (e: any) {
-            alert("Errore AI: " + e.message);
+        } catch (e) {
+            const errorMsg = e instanceof Error ? e.message : 'Errore sconosciuto';
+            alert("Errore AI: " + errorMsg);
         } finally {
             setIsProcessingAI(false);
         }
@@ -78,7 +78,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
         }
     };
 
-    const { getRootProps, getInputProps, isDragActive } = useFileDrop({ onDrop, accept: 'application/pdf,text/plain', multiple: false });
+    const { getRootProps, getInputProps } = useFileDrop({ onDrop, accept: 'application/pdf,text/plain', multiple: false });
 
     const renderEditor = () => {
         if (!selectedCurriculum) return null;
@@ -177,7 +177,17 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             <div className="px-8 py-6 border-b border-outline-variant flex justify-between items-center bg-surface shadow-sm z-10">
                                 <div><h2 className="m3-headline-small font-extrabold">{selectedCurriculum.subject}</h2><p className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em] mt-1">{selectedCurriculum.gradeLevel}</p></div>
                                 <div className="flex gap-2">
-                                     <TabGroup activeTab={activeTab} onTabChange={(id) => setActiveTab(id as any)} variant="secondary" tabs={[{ id: 'editor', label: 'Editor', icon: 'edit' }, { id: 'coverage', label: 'Analisi', icon: 'analytics' }]} />
+                                     <TabGroup
+                                         activeTab={activeTab}
+                                         onTabChange={(id: string) => {
+                                             if (id === 'editor' || id === 'coverage') setActiveTab(id);
+                                         }}
+                                         variant="secondary"
+                                         tabs={[
+                                             { id: 'editor', label: 'Editor', icon: 'edit' },
+                                             { id: 'coverage', label: 'Analisi', icon: 'analytics' }
+                                         ]}
+                                     />
                                     {activeTab === 'editor' && <button onClick={() => setIsImporting(true)} className="button button-tonal ml-2 !px-6 font-extrabold"><span className="material-symbols-outlined mr-2">auto_awesome</span> AI Import</button>}
                                 </div>
                             </div>

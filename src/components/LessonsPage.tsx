@@ -1,8 +1,8 @@
 
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
-import { Lezione, AiSettings, Uda, KnowledgeBaseEntry, LessonsPageProps, CurriculumSubject, TimetableSettings } from '../types';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Lezione, LessonsPageProps, CurriculumSubject, TimetableSettings } from '../types';
 import { generateLessonSequenceForClass } from '../services/aiService';
-import LessonView from './LessonView';
+// import LessonView from './LessonView';
 import IdeaGeneratorModal from './IdeaGeneratorModal';
 import { CreateLessonFromAiModal } from './CreateLessonFromAiModal';
 
@@ -12,7 +12,7 @@ interface LessonsPageExtendedProps extends LessonsPageProps {
     settings?: TimetableSettings; // Added optional settings prop
 }
 
-const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowledgeBase, userClasses, onViewLesson, onAddLessons, onUpdateLesson, onStartClassroom, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula = [], settings }) => {
+const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowledgeBase, userClasses, onViewLesson, onAddLessons, onStartClassroom, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula = [], settings }) => {
     const [error, setError] = useState('');
     const [selectedUdaIds, setSelectedUdaIds] = useState<string[]>([]);
     const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
@@ -87,9 +87,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
             setSelectedUdaIds([]);
             setSelectedClasses([]);
 
-        } catch (err: any) {
+        } catch (err) {
             console.error(err);
-            setError(err.message || "Errore durante la generazione delle sequenze di lezioni.");
+            setError(err instanceof Error ? err.message : "Errore durante la generazione delle sequenze di lezioni.");
         } finally {
             setIsLoadingModalOpen(false);
         }

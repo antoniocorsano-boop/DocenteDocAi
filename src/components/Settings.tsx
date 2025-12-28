@@ -1,11 +1,11 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { SettingsProps } from '../types';
-import { SCHOOL_TYPES_DISCIPLINES, THEME_CUSTOMIZATIONS, AI_PROFILES } from '../constants';
+import { THEME_CUSTOMIZATIONS, AI_PROFILES } from '../constants';
 import { generateNextSchoolYear } from '../utils/schoolUtils';
-import AiThinkingGem from './AiThinkingGem';
-import { InfoCard, TextField, SelectField, TabGroup } from './M3Components';
-import Avatar from './Avatar';
+// import AiThinkingGem from './AiThinkingGem';
+import { TextField, SelectField, TabGroup } from './M3Components';
+// import Avatar from './Avatar';
 import ThemeBubble from './ThemeBubble';
 import ChipInputList from './ChipInputList';
 import ResetConfirmModal from './ResetConfirmModal';
@@ -64,10 +64,10 @@ const SettingsGroup: React.FC<SettingsGroupProps> = ({
 const Settings: React.FC<SettingsProps> = (props) => {
     const {
         settings, themeState, aiSettings, onSaveSettings, onSaveTheme, onSaveAiSettings,
-        onExportData, onImportData, showToast, onDownloadDemoData, onCleanDemoData,
-        backupState, onRestoreFromBackup, onLogout, installPrompt, onInstallApp, onEnterStudentMode,
-        driveState, onConnectDrive, onDisconnectDrive, onSyncToDrive, onRestoreFromDrive,
-        onConfigureDrive, onSelectBackupFolder, onCreateAppFolder, onClose, onOpenBackupInfo,
+        onExportData, onImportData, showToast, onCleanDemoData,
+        onLogout,
+        driveState, onConnectDrive, onSyncToDrive,
+        onClose,
     } = props;
 
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -104,11 +104,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
         try {
             if ('serviceWorker' in navigator) {
                 const regs = await navigator.serviceWorker.getRegistrations();
-                for (let reg of regs) await reg.unregister();
+                for (const reg of regs) await reg.unregister();
             }
             if ('caches' in window) {
                 const keys = await caches.keys();
-                for (let key of keys) await caches.delete(key);
+                for (const key of keys) await caches.delete(key);
             }
             window.location.reload();
         } catch (e) { window.location.reload(); }
@@ -250,7 +250,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <TabGroup
                             tabs={[{ id: 'light', label: 'Chiaro', icon: 'light_mode' }, { id: 'dark', label: 'Scuro', icon: 'dark_mode' }, { id: 'system', label: 'Sistema', icon: 'brightness_auto' }]}
                             activeTab={themeState.mode}
-                            onTabChange={(id) => onSaveTheme({ ...themeState, mode: id as any })}
+                            onTabChange={(id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode })}
                             variant="primary"
                             className="w-full"
                         />
@@ -262,7 +262,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <ThemeBubble
                                     key={theme.name}
                                     name={theme.name}
-                                    colors={theme.colors as any}
+                                    colors={{
+                                        primary: theme.colors.primary ?? '#000000',
+                                        secondary: theme.colors.secondary ?? '#000000',
+                                        tertiary: theme.colors.tertiary ?? '#000000'
+                                    }}
                                     isSelected={themeState.customizationName === theme.name}
                                     onClick={() => onSaveTheme({ ...themeState, customizationName: theme.name, customColors: theme.colors })}
                                 />

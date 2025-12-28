@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Studente, RegisterEntry, Lezione, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ObservationEntry, Valutazione, ParticipationEntry } from '../types';
+import { Studente, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ParticipationEntry } from '../types';
 import { PARTICIPATION_BADGES } from '../constants';
 import ClassroomTools from './ClassroomTools';
 import ShareModal from './ShareModal';
@@ -8,7 +8,7 @@ import VoiceNoteRecorder from './VoiceNoteRecorder';
 import ObservationModal from './ObservationModal';
 import CopyForRegisterModal from './CopyForRegisterModal';
 import QuickEvaluationModal from './QuickEvaluationModal';
-import { TabGroup, InfoCard } from './M3Components';
+import { TabGroup } from './M3Components';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import Avatar from './Avatar';
 import StudentProfile from './StudentProfile';
@@ -30,7 +30,6 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     onCloseView,
     onSaveOralEvaluation,
     onOpenLiveAssistant,
-    onNavigate,
     settings,
 }) => {
     const [activeTab, setActiveTab] = useState<ClassroomTab>('register');
@@ -155,7 +154,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     {/* FIX: Add activeTab and onTabChange props to TabGroup */}
                     <TabGroup
                         activeTab={activeTab}
-                        onTabChange={(id) => setActiveTab(id as any)}
+                        onTabChange={(id) => setActiveTab(id as ClassroomTab)}
                         variant="primary"
                         tabs={[
                             { id: 'register', label: 'Registro', icon: 'how_to_reg' },
@@ -433,7 +432,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     settings={settings}
                     onClose={() => setQuickEvalStudent(null)}
                     onSaveEvaluation={(data) => { onSaveOralEvaluation(data); setQuickEvalStudent(null); }}
-                    onSaveCompetencyEvaluation={(data) => { /* Logic handled in parent or modal directly if needed */ }}
+                    onSaveCompetencyEvaluation={() => { /* Logic handled in parent or modal directly if needed */ }}
                 />
             )}
 
@@ -458,8 +457,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         competencyEvaluations={competencyEvaluations.filter(e => e.studenteId === viewingStudentProfile.id)}
                         settings={settings}
                         onBack={() => setViewingStudentProfile(null)}
-                        onDeleteEvaluation={(id) => {/* Handle delete */ }}
-                        onDeleteCompetencyEvaluation={(id) => {/* Handle delete */ }}
+                        onDeleteEvaluation={() => {/* Handle delete */ }}
                         register={[]}
                         lessons={lessons}
                     />

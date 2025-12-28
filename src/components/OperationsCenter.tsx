@@ -4,7 +4,7 @@ import { ActionTile, SectionHeader } from './M3Components';
 
 interface OperationsCenterProps {
     onClose: () => void;
-    onNavigate: (view: View, context?: any) => void;
+    onNavigate: (view: View, context?: unknown) => void;
     onAction: (action: string) => void;
     activeSuggestion?: string | null;
     students?: Studente[];
@@ -28,7 +28,7 @@ interface ProcessDef {
     category: 'daily' | 'planning' | 'system';
     actionType: 'navigate' | 'function' | 'modal';
     target: string; 
-    payload?: any;
+    payload?: unknown;
 }
 
 const PROCESS_DEFINITIONS: ProcessDef[] = [
@@ -151,7 +151,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
         if (!process) return;
         
         if (process.actionType === 'navigate') {
-            onNavigate(process.target as any, process.payload);
+            onNavigate(process.target as View, process.payload);
             onClose();
         } else {
             onAction(process.target);
@@ -161,7 +161,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 
     const suggestedProcess = useMemo(() => {
         if (!activeSuggestion) return null;
-        const idToSearch = typeof activeSuggestion === 'string' ? activeSuggestion : (activeSuggestion as any).id;
+        const idToSearch = typeof activeSuggestion === 'string' ? activeSuggestion : (typeof activeSuggestion === 'object' && activeSuggestion !== null && 'id' in activeSuggestion ? (activeSuggestion as { id: string }).id : undefined);
         return PROCESS_DEFINITIONS.find(p => p.id === idToSearch);
     }, [activeSuggestion]);
 

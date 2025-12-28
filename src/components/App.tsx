@@ -27,7 +27,7 @@ import { ModalManager } from './ModalManager';
 
 import { applyTheme, createTheme } from '../design-system';
 import Snackbar from './Snackbar';
-import RestoreAssistController, { useRestoreAssist } from './useRestoreAssist';
+import { useRestoreAssist } from './useRestoreAssist';
 import type { UserProfile } from '../types';
 
 import type { AiSuggestion, SystemSuggestion } from '../types';
@@ -241,7 +241,16 @@ export const App: React.FC = () => {
         // Assisted restore UI if app is empty or backup failed
         const restoreAssist = useRestoreAssist(appState, actions, modals);
         if (restoreAssist.show) {
-            return <RestoreAssistController isOpen={restoreAssist.show} {...restoreAssist} />;
+            // Mostra una UI di restore assist se necessario (placeholder)
+            return (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: 'var(--aura-gradient, linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%))' }}>
+                    <div style={{ textAlign: 'center' }}>
+                        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛠️</div>
+                        <p style={{ color: 'var(--sys-on-surface, #1C1B1F)' }}>Assistenza ripristino dati</p>
+                        {/* Puoi personalizzare questa UI o importare un componente se disponibile */}
+                    </div>
+                </div>
+            );
         }
 
         // Fallback: se nessun utente e nessun errore, mostra login

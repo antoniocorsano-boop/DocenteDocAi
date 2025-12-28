@@ -69,7 +69,9 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                     <TabGroup 
                         tabs={[{ id: 'text', label: 'Manuale', icon: 'content_paste' }, { id: 'json', label: 'Bridge AI', icon: 'extension' }]}
                         activeTab={activeTab}
-                        onTabChange={(id) => setActiveTab(id as any)}
+                        onTabChange={(id: string) => {
+                            if (id === 'text' || id === 'json') setActiveTab(id);
+                        }}
                         variant="primary"
                         className="w-full"
                     />

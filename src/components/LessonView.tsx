@@ -142,8 +142,10 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
               description: `${lesson.obiettivi || ''} ${lesson.contesto || ''}`
           });
           setAnalysisResult(result);
-      } catch (error: any) {
-          alert(error.message);
+      } catch (error: unknown) {
+          let message = 'Errore sconosciuto';
+          if (error instanceof Error) message = error.message;
+          alert(message);
       } finally {
           setIsAnalyzing(false);
       }

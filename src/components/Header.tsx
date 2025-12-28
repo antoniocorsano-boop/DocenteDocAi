@@ -225,7 +225,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         onClick={() => !showBackButton && onNavigate('home')}
                         style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
                     >
-                        <Logo title="DocenteDoc AI" isAiThinking={isAiProcessing} />
+                        <Logo isAiThinking={isAiProcessing} />
                         {isAiProcessing && <AiThinkingGem size="small" />}
                     </div>
                     {/* Right: Actions */}

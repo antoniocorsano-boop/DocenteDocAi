@@ -1,6 +1,6 @@
 
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AiSettings, Corpus, ChatMessage, KnowledgeBaseEntry } from '../types';
 import { generateAnswerFromCorpus } from '../services/aiService';
 
@@ -58,11 +58,12 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
             const modelResponse = await generateAnswerFromCorpus(aiSettings, corpusContent, text); // FIX: Use 'text' parameter here
             setMessages(prev => [...prev, modelResponse]); // Update local state directly
 
-        } catch (error: any) {
-            console.error("Error generating answer from corpus:", error);
+        } catch (error) {
+            const errorMsg = error instanceof Error ? error.message : 'Riprova.';
+            console.error("Error generating answer from corpus:", errorMsg);
             const errorMessage: ChatMessage = {
                 role: 'model',
-                text: `Si è verificato un errore: ${error.message || "Riprova."}`
+                text: `Si è verificato un errore: ${errorMsg}`
             };
             setMessages(prev => [...prev, errorMessage]);
         } finally {

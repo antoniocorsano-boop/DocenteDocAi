@@ -33,7 +33,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
     const [subjectScope, setSubjectScope] = useState<'teacher' | 'all'>('teacher');
     const [isExporting, setIsExporting] = useState(false);
 
-    const handleOptionChange = (field: keyof typeof exportOptions, value: any) => {
+    const handleOptionChange = (field: keyof typeof exportOptions, value: string) => {
         setExportOptions(prev => ({ ...prev, [field]: value }));
     };
 
@@ -122,7 +122,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
             })
         ]);
 
-        const escapeCsvCell = (cell: any) => {
+        const escapeCsvCell = (cell: unknown) => {
             const str = String(cell);
             if (str.includes(',') || str.includes('"') || str.includes('\n')) {
                 return `"${str.replace(/"/g, '""')}"`;
@@ -142,7 +142,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
     const exportToPDF = async () => {
         // Lazy load jsPDF to avoid document access during module initialization
         const jsPdfModule = await import('jspdf');
-        const { jsPDF } = jsPdfModule as any;
+        const { jsPDF } = jsPdfModule as { jsPDF: typeof import('jspdf').jsPDF };
         
         const doc = new jsPDF({ orientation: 'landscape', unit: 'mm' });
         const FONT = 'helvetica';
@@ -297,9 +297,11 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
             } else {
                 await exportToPDF();
             }
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Export failed:", error);
-            alert(`Esportazione fallita:\n${error.message}`);
+            let message = 'Errore sconosciuto.';
+            if (error instanceof Error) message = error.message;
+            alert(`Esportazione fallita:\n${message}`);
         } finally {
             setIsExporting(false);
             onClose();

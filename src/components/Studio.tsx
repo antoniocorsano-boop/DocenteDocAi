@@ -1,5 +1,6 @@
+// ...vite-env.d.ts should not be imported directly...
 import React, { useState, useEffect } from 'react';
-import { AiSettings, Corpus, KnowledgeBaseEntry, StudioProps, GeneratedQuiz } from '../types'; 
+import { KnowledgeBaseEntry, StudioProps, GeneratedQuiz } from '../types'; 
 import { generateStudioOutput, generateFormattedDocument, generateImageFromPrompt, generateQuiz } from '../services/aiService';
 import DocumentGeneratorModal from './DocumentGeneratorModal';
 import ImageGeneratorModal from './ImageGeneratorModal';
@@ -57,8 +58,8 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
         const localKey = localStorage.getItem('gemini_api_key');
         if (localKey) {
             setHasApiKey(true);
-        } else if (window.aistudio) {
-            window.aistudio.hasSelectedApiKey().then(setHasApiKey);
+        } else if ((window as any).aistudio) {
+            (window as any).aistudio.hasSelectedApiKey().then(setHasApiKey);
         } else {
             setHasApiKey(false);
         }
@@ -74,7 +75,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
         );
     };
 
-    const runTask = async (task: StudioTask, prompt?: string, extraConfig?: any) => {
+    const runTask = async (task: StudioTask, prompt?: string, extraConfig?: unknown) => {
         const action = studioActions.find(a => a.id === task);
         if (action?.requiresContent && selectedFileIds.length === 0) {
             showToast('Seleziona almeno un documento dalla Knowledge Base per eseguire questa azione.', 'error');
@@ -85,7 +86,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             setIsKeySelectionOpen(true);
             return;
         }
-        
+
         setIsLoading(true);
         setLoadingTaskName(action?.title || 'Elaborazione...');
         if (onAiProcessing) onAiProcessing(true); // Start Animation
@@ -154,12 +155,16 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                 htmlContent = await generateStudioOutput(aiSettings, contextContent, task);
             }
             onOpenCreateLesson({ title, htmlContent });
-        } catch (error: any) {
-            showToast(error.message || 'Si è verificato un errore.', 'error');
-            if (error.message.includes("Requested entity was not found.") || error.message.includes("API Key")) {
-                setHasApiKey(false); // Assume API key issue
-                setIsKeySelectionOpen(true);
+        } catch (error: unknown) {
+            let message = 'Si è verificato un errore.';
+            if (error instanceof Error) {
+                message = error.message;
+                if (error.message.includes("Requested entity was not found.") || error.message.includes("API Key")) {
+                    setHasApiKey(false); // Assume API key issue
+                    setIsKeySelectionOpen(true);
+                }
             }
+            showToast(message, 'error');
         } finally {
             setIsLoading(false);
             setLoadingTaskName('');
@@ -198,8 +203,8 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
     );
 
     const handleSelectKey = async () => {
-        if (window.aistudio) {
-            await window.aistudio.openSelectKey();
+        if ((window as any).aistudio) {
+            await (window as any).aistudio.openSelectKey();
             setHasApiKey(true);
         } else {
             showToast("Per favore configura l'API Key nelle Impostazioni.", "error");
@@ -238,7 +243,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         </div>
                         <div className="dialog-footer">
                             <button onClick={() => setIsKeySelectionOpen(false)} className="button button-text">Annulla</button>
-                            {typeof window.aistudio !== 'undefined' && (
+                            {typeof (window as any).aistudio !== 'undefined' && (
                                 <button onClick={handleSelectKey} className="button button-filled">Seleziona API Key (Demo)</button>
                             )}
                         </div>

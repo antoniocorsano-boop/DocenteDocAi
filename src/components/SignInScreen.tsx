@@ -18,10 +18,11 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
 
   useEffect(() => {
     // Only load/initialize the GSI script in production on allowed hosts, OR in dev when explicitly enabled
-    const isProd = import.meta && (import.meta as any).env && (import.meta as any).env.PROD;
-    const isDev = import.meta && (import.meta as any).env && (import.meta as any).env.DEV;
-    const enableGsiDev = import.meta && (import.meta as any).env && (import.meta as any).env.VITE_ENABLE_GSI_DEV === 'true';
-    const devClientId = import.meta && (import.meta as any).env && (import.meta as any).env.VITE_GSI_CLIENT_ID;
+    const env = (import.meta as ImportMeta).env;
+    const isProd = env && env.PROD;
+    const isDev = env && env.DEV;
+    const enableGsiDev = env && env.VITE_ENABLE_GSI_DEV === 'true';
+    const devClientId = env && env.VITE_GSI_CLIENT_ID;
 
     const allowedHosts = ['docentedoc.app', 'your-production-domain.example'];
     const host = window.location.hostname;
@@ -39,7 +40,7 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
 
       google.accounts.id.initialize({
         client_id: clientId,
-        callback: (res: any) => {
+        callback: (res: { credential?: string }) => {
           if (res.credential) {
             const payload = JSON.parse(atob(res.credential.split('.')[1]));
             onSignInSuccess({
@@ -62,7 +63,7 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
     };
 
     // Avoid double-injecting when script already present
-    if (typeof (window as any).google !== 'undefined') {
+    if (typeof (window as unknown as { google?: unknown }).google !== 'undefined') {
       initGSI();
       return;
     }

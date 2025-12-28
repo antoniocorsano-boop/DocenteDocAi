@@ -1,23 +1,4 @@
-/// <reference types="vite/client" />
-
-interface ImportMetaEnv {
-    readonly VITE_GOOGLE_CLIENT_ID: string
-    readonly VITE_GOOGLE_API_KEY: string
-    // more env variables...
-}
-
-interface ImportMeta {
-    readonly env: ImportMetaEnv
-}
-
-declare const google: any;
-declare const gapi: any;
-
-interface Window {
-    aistudio?: {
-        hasSelectedApiKey: () => Promise<boolean>;
-        openSelectKey: () => Promise<void>;
-    };
+// File rimosso: vite-env.d.ts deve essere solo nella root del progetto.
     gapi?: any;
     google?: any;
 }

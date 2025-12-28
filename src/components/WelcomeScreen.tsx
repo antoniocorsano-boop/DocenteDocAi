@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Logo from './Logo';
 import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
-import { ActionTile, InfoCard, TextField, SelectField } from './M3Components';
+import { ActionTile, InfoCard, TextField, SelectField, M3Button, M3IconButton } from './M3Components';
 
 interface WelcomeScreenProps {
   onSetupComplete: (data: { name: string; schoolType?: string; firstClass?: string; isGuided: boolean }) => void;
@@ -79,7 +79,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
     <form onSubmit={handleWizardSubmit} className="m3-auth-card">
         <div className="w-full mb-10">
             <div className="flex justify-between items-center mb-8">
-                <M3IconButton icon={<span className="material-symbols-outlined">arrow_back</span>} ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} />
+                <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} />
                 <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">Passo {step} di 3</span>
                 <div className="w-10"></div>
             </div>
@@ -161,7 +161,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
 
   const renderQuick = () => (
       <form onSubmit={handleQuickSubmit} className="m3-auth-card">
-            <M3IconButton icon={<span className="material-symbols-outlined">arrow_back</span>} ariaLabel="Indietro" onClick={() => setMode('selection')} className="absolute top-4 left-4 md:top-6 md:left-6" />
+            <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => setMode('selection')} className="absolute top-4 left-4 md:top-6 md:left-6" />
           
           <div className="mb-8 md:mb-12 transform scale-110 md:scale-125">
             <Logo title="DocenteDoc AI" />
@@ -195,3 +195,5 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
     </div>
   );
 };
+
+export default WelcomeScreen;

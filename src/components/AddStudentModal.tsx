@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { Studente } from '../types';
-import { TextField, SelectField, M3Dialog } from './M3Components';
+import { TextField, SelectField } from './M3Components';
 
 interface AddStudentModalProps {
     studentToEdit?: Studente;
@@ -10,7 +10,7 @@ interface AddStudentModalProps {
     onSave: (student: Studente) => void;
 }
 
-const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userClasses, onClose, onSave }) => {
+const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userClasses, onClose }) => {
     const [formData, setFormData] = useState({
         cognome: '',
         nome: '',
@@ -27,18 +27,6 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
         }
     }, [studentToEdit]);
 
-    const handleSaveClick = () => {
-        if (!formData.cognome || !formData.nome || !formData.classe) {
-            alert("Per favore, compila tutti i campi.");
-            return;
-        }
-        const studentData: Studente = {
-            id: studentToEdit?.id || `stud-${Date.now()}`,
-            ...formData
-        };
-        onSave(studentData);
-        onClose();
-    };
 
     // Accessibility & UX
     const overlayRef = useRef<HTMLDivElement>(null);

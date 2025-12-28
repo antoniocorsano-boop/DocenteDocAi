@@ -34,8 +34,9 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
             // We pass fileContent instead of url to enforce text-only analysis
             const analysisResult = await analyzeCircularDocument(aiSettings, { fileContent: manualText });
             setResult(analysisResult);
-        } catch (error: any) {
-            setError(error.message || 'Si è verificato un errore sconosciuto durante l\'analisi.');
+        } catch (error) {
+            const errorMsg = error instanceof Error ? error.message : 'Si è verificato un errore sconosciuto durante l\'analisi.';
+            setError(errorMsg);
         } finally {
             setIsLoading(false);
         }

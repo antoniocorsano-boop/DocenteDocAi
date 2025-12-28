@@ -21,7 +21,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
     const [customClass, setCustomClass] = useState('');
 
     const handleSave = () => {
-        let updatedStudent = { ...student };
+        const updatedStudent = { ...student };
         const currentDate = new Date().toISOString().split('T')[0];
 
         if (mode === 'change_class') {

@@ -1,13 +1,12 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Studente, PianoInclusione, DidatticaInclusivaProps, EvaluationInput, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
+import { Studente, DidatticaInclusivaProps } from '../types';
 import PianoInclusioneEditor from './PianoInclusioneEditor';
-import Guidance from './Guidance';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import Avatar from './Avatar';
 import { InfoCard, EmptyState, TabGroup } from './M3Components';
 
 const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
-    const { students, pianiInclusione, onSavePiano, onDeletePiano, studentToEdit, onClearStudentToEdit, showToast, evaluations } = props;
+    const { students, pianiInclusione, onSavePiano, studentToEdit, onClearStudentToEdit, evaluations } = props;
     const [editingStudent, setEditingStudent] = useState<Studente | null>(null);
     const [activeTab, setActiveTab] = useState<'overview' | 'active' | 'suggested'>('overview');
 
@@ -43,7 +42,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
             const { grade } = calculatePerformance(s.id, 'Complessivo', studentEvals);
             return grade && parseFloat(grade) < 6;
         });
-    }, [students, pianiInclusione, props.evaluations]); // FIX: Add props.evaluations to dependency array
+    }, [students, pianiInclusione, evaluations]);
 
     const sortedClasses = Object.keys(studentsByClass).sort();
 
@@ -176,7 +175,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 <div className="mb-6">
                     <TabGroup
                         activeTab={activeTab}
-                        onTabChange={(id) => setActiveTab(id as any)}
+                        onTabChange={(id: string) => setActiveTab(id as 'overview' | 'active' | 'suggested')}
                         variant="tertiary"
                         tabs={[
                             { id: 'overview', label: 'Panoramica', icon: 'grid_view' },

@@ -185,8 +185,12 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             
             insertHtmlAtCursor(safeText);
             
-        } catch (e: any) {
-            alert("Errore AI: " + e.message);
+        } catch (e: unknown) {
+            let message = 'Errore AI.';
+            if (e instanceof Error) {
+                message = "Errore AI: " + e.message;
+            }
+            alert(message);
         } finally {
             setIsAiThinking(false);
             setAiMenuPosition(null);
@@ -206,8 +210,12 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             // Insert table followed by a break to allow typing after it
             insertHtmlAtCursor(safeTable + '<p><br></p>'); 
             
-        } catch (e: any) {
-            alert("Errore AI: " + e.message);
+        } catch (e: unknown) {
+            let message = 'Errore AI.';
+            if (e instanceof Error) {
+                message = "Errore AI: " + e.message;
+            }
+            alert(message);
         } finally {
             setIsAiThinking(false);
         }
@@ -219,9 +227,13 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             const htmlContent = editorRef.current.innerHTML;
             const blob = await generateHtmlDocxBlob(htmlContent, editorTitle);
             saveAs(blob, `${editorTitle.replace(/\s/g, '_')}.docx`);
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error("Export error:", e);
-            alert("Errore esportazione DOCX. Riprova.");
+            let message = 'Errore esportazione DOCX. Riprova.';
+            if (e instanceof Error) {
+                message = "Errore esportazione DOCX: " + e.message;
+            }
+            alert(message);
         }
     }, [editorRef, editorTitle]);
     

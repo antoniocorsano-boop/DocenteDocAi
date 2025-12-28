@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { RegisterEntry, Lezione, Studente, RegisterViewProps } from '../types';
+import { RegisterEntry, RegisterViewProps } from '../types';
 
 const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students, isModalMode = false, initialClass }) => {
   const [selectedEntry, setSelectedEntry] = useState<RegisterEntry | null>(null);

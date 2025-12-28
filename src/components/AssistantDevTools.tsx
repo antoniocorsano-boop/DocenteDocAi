@@ -13,7 +13,7 @@ interface Props {
 const sampleSuggestion: SystemSuggestion = {
   id: 'dev-suggestion-1',
   message: "Prova: organizza una verifica di fine modulo per la classe.",
-  action: { type: 'navigate', payload: 'improvement-guide' },
+  action: { type: 'navigate', payload: { view: 'improvement-guide' } },
   actionLabel: 'Apri guida'
 };
 

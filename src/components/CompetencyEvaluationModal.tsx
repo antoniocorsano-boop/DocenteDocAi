@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Studente, Competenza, ValutazioneCompetenza, TimetableSettings, AiSettings, Livello } from '../types';
+import { Studente, Competenza, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
 import { generateCompetencyNote } from '../services/aiService';
 
 interface CompetencyEvaluationModalProps {
@@ -46,7 +46,8 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
             const generatedNote = await generateCompetencyNote(aiSettings, student, competenza, selectedLevel);
             setNota(generatedNote);
         } catch (error) {
-            console.error("Error generating competency note:", error);
+            const errorMsg = error instanceof Error ? error.message : 'Errore sconosciuto';
+            console.error("Error generating competency note:", errorMsg);
             alert("Errore durante la generazione della nota. Riprova.");
         } finally {
             setIsGeneratingNote(false);

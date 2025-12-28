@@ -66,7 +66,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             streamRef.current = stream;
 
             // Use the updated global definition for webkitAudioContext
-            const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+            const AudioContextClass = window.AudioContext || (window as Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
             const audioCtx = new AudioContextClass();
             await audioCtx.resume(); // CRITICAL: Ensure context is active (User Interaction policy)
 
@@ -95,7 +95,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             mediaRecorder.start();
             setIsRecording(true);
             // Notify global UI that assistant is listening
-            try { window.dispatchEvent(new CustomEvent('assistant:recording', { detail: { recording: true } })); } catch(e) {}
+            try { window.dispatchEvent(new CustomEvent('assistant:recording', { detail: { recording: true } })); } catch(e) { /* ignore */ }
             visualize();
 
         } catch (error) {
@@ -133,7 +133,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
     const handleStopRecording = async () => {
         setIsRecording(false); // Update UI state
         // Notify global UI that assistant stopped listening
-        try { window.dispatchEvent(new CustomEvent('assistant:recording', { detail: { recording: false } })); } catch(e) {}
+        try { window.dispatchEvent(new CustomEvent('assistant:recording', { detail: { recording: false } })); } catch(e) { /* ignore */ }
 
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
 

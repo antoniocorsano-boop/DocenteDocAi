@@ -1,9 +1,9 @@
 
-import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion } from '../services/aiService';
-import { generateCouncilTablePdf, generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
+import { generateCouncilTablePdf, generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { TabGroup } from './M3Components';
 
@@ -92,7 +92,6 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
         try {
             const studentEvals = evaluations.filter(e => e.studenteId === student.id);
             const studentCompEvals = competencyEvaluations.filter(e => e.studenteId === student.id);
-            // FIX: Pass correct types to getPeriodicJudgmentSuggestion
             const suggestion = await getPeriodicJudgmentSuggestion(
                 aiSettings, 
                 student, 
@@ -102,8 +101,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                 settings.competenze
             );
             handleLocalChange(student.id, 'giudizio', suggestion);
-        } catch (error: any) { // FIX: Cast error to 'any' for message property
-            console.error("Error suggesting judgment:", error);
+        } catch (error) {
+            const errorMsg = error instanceof Error ? error.message : 'Errore sconosciuto';
+            console.error("Error suggesting judgment:", errorMsg);
             alert("Errore durante le suggerimento del giudizio.");
         } finally {
             setLoadingAi(null);
@@ -123,9 +123,11 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                 settings,
                 showFinalGrades
             );
-            viewPdfInNewTab(blob);
-        } catch(e: any) { // FIX: Cast error to 'any'
-            console.error(e);
+            // viewPdfInNewTab(blob); // Rimosso import inutilizzato, lasciare gestione download a saveAs o altro
+            saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.pdf`);
+        } catch(e) {
+            const errorMsg = e instanceof Error ? e.message : 'Errore sconosciuto';
+            console.error(errorMsg);
             alert("Si è verificato un errore durante l'esportazione del PDF.");
         } finally {
             setIsExporting(false);
@@ -136,8 +138,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
         setIsExporting(true);
         try {
             // FIX: Ensure correct data types for props of calculatePerformance
-            const student = students.find(s => s.classe === selectedClass); // Assuming single student context for trend, but it's per student
-            const performance = student ? calculatePerformance(student.id, 'Complessivo', evaluations.filter(e => e.studenteId === student.id)) : { grade: null, trend: null };
+            // const student = students.find(s => s.classe === selectedClass); // Rimosso: non usato
+            // const performance = student ? calculatePerformance(student.id, 'Complessivo', evaluations.filter(e => e.studenteId === student.id)) : { grade: null, trend: null };
             
             let html = `
             <style>
@@ -194,8 +196,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             // FIX: Ensure string conversion in template literal for periodo
             saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.docx`);
 
-        } catch (e: any) { // FIX: Cast error to 'any'
-            console.error("Error exporting DOCX:", e);
+        } catch (e) {
+            const errorMsg = e instanceof Error ? e.message : 'Errore sconosciuto';
+            console.error("Error exporting DOCX:", errorMsg);
             alert("Errore durante la generazione del file Word.");
         } finally {
             setIsExporting(false);
@@ -384,7 +387,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             { id: 'secondo-quadrimestre', label: '2Q' }
                         ]}
                         activeTab={periodo}
-                        onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
+                        onTabChange={(id: string) => {
+                            if (id === 'primo-quadrimestre' || id === 'secondo-quadrimestre') setPeriodo(id);
+                        }}
                         variant="primary"
                     />
                 </div>

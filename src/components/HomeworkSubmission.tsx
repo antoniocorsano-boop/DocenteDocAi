@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types'; // FIX: Corrected import path to ../types
 import Avatar from './Avatar';
 import { saveAs } from '../utils/documentUtils';
-import { TextField, SelectField, TextArea } from './M3Components';
+import { TextField, SelectField } from './M3Components';
 import { RATING_OPTIONS } from '../constants';
 
 interface HomeworkSubmissionProps {

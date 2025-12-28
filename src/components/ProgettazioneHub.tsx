@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { View, ProgettazioneHubProps, Uda, EventoCalendario, TimetableSettings, AiSettings, Report, Lezione, KnowledgeBaseEntry, Competenza } from '../types';
+import { ProgettazioneHubProps, Uda, EventoCalendario, TimetableSettings, AiSettings, Report, Lezione, KnowledgeBaseEntry, Competenza } from '../types';
 import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import { generateHueFromString } from '../utils/colorUtils';
@@ -68,7 +68,7 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
                     <div>
                         <h3 className="m3-title-medium mb-2">Fasi di Lavoro</h3>
                         <div className="relative border-l-2 border-primary/30 ml-3 space-y-6 py-2">
-                            {uda.phases.map((phase, idx) => (
+                            {uda.phases.map((phase) => (
                                 <div key={phase.id} className="relative pl-6">
                                     <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface"></div>
                                     <div className="flex justify-between items-start">
@@ -114,7 +114,7 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
 }
 
 // --- NEW GANTT TIMELINE 2.0 (DYNAMIC REAL-TIME) ---
-interface TimelineProps {
+interface TimelineViewProps {
     udas: Uda[];
     events: EventoCalendario[];
     onUdaClick: (uda: Uda) => void;
@@ -122,9 +122,10 @@ interface TimelineProps {
     endDate: string;
     previewMessage: string | null;
     setPreviewMessage: (msg: string | null) => void;
+    onSaveUda: (uda: Uda) => void;
 }
 
-const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, startDate, endDate, previewMessage, setPreviewMessage }) => {
+const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, startDate, endDate, previewMessage, setPreviewMessage, onSaveUda }) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     // Fix test ReferenceError: showSnackbar is not defined
     const [showSnackbar, setShowSnackbar] = useState(false);
@@ -215,7 +216,7 @@ const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, start
         
         validUdas.forEach(uda => {
             let placed = false;
-            for (let lane of lanes) {
+            for (const lane of lanes) {
                 const lastInLane = lane[lane.length - 1];
                 // If current starts after last ends (with slight buffer), place here
                 if (uda.startPos > (lastInLane.startPos + lastInLane.width + 0.5)) {
@@ -244,18 +245,20 @@ const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, start
     const minWidth = months.length * 80;
 
     // Draggable Bar component for Gantt (accessible + keyboard shortcuts)
-    const GanttDraggableBar: React.FC<{ uda: any; minWidth: number; onClick: () => void }> = ({ uda, minWidth, onClick }) => {
+    const GanttDraggableBar: React.FC<{ uda: Uda & { startPos: number; width: number; color: string; borderColor: string; textColor: string }; onClick: () => void; onSaveUda: (uda: Uda) => void }> = ({ uda, onClick, onSaveUda }) => {
         const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: uda.id });
 
         const handleKeyDown = (e: React.KeyboardEvent) => {
             if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
                 e.preventDefault();
                 const deltaDays = e.key === 'ArrowLeft' ? -1 : 1;
-                const durationMs = new Date(uda.endDate).getTime() - new Date(uda.startDate).getTime();
-                const newStartMs = new Date(uda.startDate).getTime() + (deltaDays * 86400000);
-                const newStartDate = new Date(newStartMs);
-                const newEndDate = new Date(newStartMs + durationMs);
-                onSaveUda({ ...uda, startDate: newStartDate.toISOString().split('T')[0], endDate: newEndDate.toISOString().split('T')[0] });
+                if (uda.startDate && uda.endDate) {
+                    const durationMs = new Date(uda.endDate).getTime() - new Date(uda.startDate).getTime();
+                    const newStartMs = new Date(uda.startDate).getTime() + (deltaDays * 86400000);
+                    const newStartDate = new Date(newStartMs);
+                    const newEndDate = new Date(newStartMs + durationMs);
+                    onSaveUda({ ...uda, startDate: newStartDate.toISOString().split('T')[0], endDate: newEndDate.toISOString().split('T')[0] });
+                }
             }
         };
 
@@ -368,9 +371,7 @@ const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, start
 
                     {/* Swimlanes for UDAs */}
                     <DndContext
-                        onDragStart={(e) => {
-                            const id = String(e.active.id);
-                            setDraggingUdaId(id);
+                        onDragStart={() => {
                             setPreviewMessage(null);
                         }}
                         onDragMove={(e: DragMoveEvent) => {
@@ -391,7 +392,6 @@ const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, start
                         }}
                         onDragEnd={(e: DragEndEvent) => {
                             const { active, delta } = e;
-                            setDraggingUdaId(null);
                             setPreviewMessage(null);
                             if (!active) return;
                             const udaId = String(active.id);
@@ -416,7 +416,7 @@ const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, start
                             <div key={laneIndex} className="gantt-lane">
                                 {lane.map(uda => (
                                     <Tooltip key={uda.id} label={`${uda.title}\n${new Date(uda.startDate!).toLocaleDateString()} - ${new Date(uda.endDate!).toLocaleDateString()}`} position="top">
-                                        <GanttDraggableBar key={uda.id} uda={uda} minWidth={minWidth} onClick={() => onUdaClick(uda)} />
+                                        <GanttDraggableBar key={uda.id} uda={uda} onClick={() => onUdaClick(uda)} onSaveUda={onSaveUda} />
                                     </Tooltip>
                                 ))}
                             </div>
@@ -462,10 +462,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
     const [activeTab, setActiveTab] = useState<'dashboard' | 'frameworks'>('dashboard');
 
     // Dragging / feedback state
-    const [draggingUdaId, setDraggingUdaId] = useState<string | null>(null);
     const [previewMessage, setPreviewMessage] = useState<string | null>(null);
-    const [showSnackbar, setShowSnackbar] = useState(false);
-    const [lastMove, setLastMove] = useState<{ udaId: string; prevStart: string; prevEnd: string } | null>(null);
 
 
     useEffect(() => {
@@ -497,7 +494,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
             <div className="mb-6">
                  <TabGroup 
                     activeTab={activeTab}
-                    onTabChange={(id) => setActiveTab(id as any)}
+                    onTabChange={(id: string) => setActiveTab(id as 'dashboard' | 'frameworks')}
                     variant="primary"
                     tabs={[
                         { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
@@ -533,6 +530,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                         endDate={settings.activityEndDate}
                         previewMessage={previewMessage}
                         setPreviewMessage={setPreviewMessage}
+                        onSaveUda={onSaveUda}
                     />
 
                     {/* 3. BENTO GRID */}

@@ -76,17 +76,33 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             supportingText={
                                 <div>
                                     <p className="line-clamp-2 opacity-90">{notifica.messaggio}</p>
-                                    {notifica.type === 'circular' && (
-                                        <div className="flex gap-2 mt-2">
-                                            <button
-                                                onClick={(e) => { e.stopPropagation(); onOpenCircularAnalysis(notifica.payload.url, notifica.payload.title); onClose(); }}
-                                                className="flex items-center gap-1.5 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-lg text-xs font-bold hover:brightness-95 transition-all"
-                                            >
-                                                <span className="material-symbols-outlined text-sm">auto_awesome</span>
-                                                Analizza
-                                            </button>
-                                        </div>
-                                    )}
+                                    {(() => {
+                                        function isCircularPayload(payload: unknown): payload is { url: string; title: string } {
+                                            return (
+                                                !!payload &&
+                                                typeof payload === 'object' &&
+                                                'url' in payload &&
+                                                'title' in payload &&
+                                                typeof (payload as { url: unknown }).url === 'string' &&
+                                                typeof (payload as { title: unknown }).title === 'string'
+                                            );
+                                        }
+                                        if (notifica.type === 'circular' && isCircularPayload(notifica.payload)) {
+                                            const { url, title } = notifica.payload;
+                                            return (
+                                                <div className="flex gap-2 mt-2">
+                                                    <button
+                                                        onClick={(e) => { e.stopPropagation(); onOpenCircularAnalysis(url, title); onClose(); }}
+                                                        className="flex items-center gap-1.5 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-lg text-xs font-bold hover:brightness-95 transition-all"
+                                                    >
+                                                        <span className="material-symbols-outlined text-sm">auto_awesome</span>
+                                                        Analizza
+                                                    </button>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })()}
                                 </div>
                             }
                             trailingElement={

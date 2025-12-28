@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { LiveAssistant } from './LiveAssistant'; // Corrected named import
-import { LiveAssistantModalProps, EventoCalendario } from '../types';
+import { LiveAssistantModalProps } from '../types';
 
 const LiveAssistantModal: React.FC<LiveAssistantModalProps> = ({ 
     onClose, 

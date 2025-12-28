@@ -59,9 +59,11 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
             setColumnMap({ cognome: cognomeCol, nome: nomeCol, classe: classeCol });
             setStep('mapping');
 
-        } catch (err: any) {
+        } catch (err: unknown) {
+            let message = 'Errore durante l\'analisi del file.';
+            if (err instanceof Error) message = err.message;
             console.error(err);
-            setError(err.message || "Errore durante l'analisi del file.");
+            setError(message);
             setStep('upload');
         }
     }, []);
@@ -99,9 +101,11 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
             const fileContent = await file.text();
             processFileContent(fileContent, file.name);
 
-        } catch (err: any) {
+        } catch (err: unknown) {
+            let message = 'Errore durante l\'analisi del file.';
+            if (err instanceof Error) message = err.message;
             console.error(err);
-            setError(err.message || "Errore durante l'analisi del file.");
+            setError(message);
             setStep('upload');
         } finally {
             setIsLoading(false);
@@ -198,7 +202,7 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
                         <TabGroup
                             tabs={[{ id: 'file', label: 'Carica File' }, { id: 'kb', label: 'Da Knowledge Base' }]}
                             activeTab={importSource}
-                            onTabChange={(id) => setImportSource(id as any)}
+                            onTabChange={(id: string) => setImportSource(id as 'file' | 'kb')}
                             variant="secondary"
                             className="w-full"
                         />

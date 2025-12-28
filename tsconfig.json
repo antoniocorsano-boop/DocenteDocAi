@@ -35,14 +35,14 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "types": [
-      "vite/client"
-    ]
+    // "types": [
+    //   "vite/client"
+    // ]
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/vite-env.d.ts"
+    "vite-env.d.ts"
   ],
   "exclude": [
     "node_modules",

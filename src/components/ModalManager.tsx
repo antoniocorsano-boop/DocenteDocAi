@@ -11,7 +11,7 @@ import { CreateLessonFromAiModal } from './CreateLessonFromAiModal';
 import PassaggioAnnoWizard from './PassaggioAnnoWizard';
 import VideoAnalysisModal from './VideoAnalysisModal';
 
-import { EditSlotModal } from './EditSlotModal';
+import EditSlotModal from './EditSlotModal';
 import type { AppState, AppActions, Modals } from '../types';
 
 interface ModalManagerProps {

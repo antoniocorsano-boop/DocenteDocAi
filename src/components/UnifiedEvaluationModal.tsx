@@ -1,6 +1,6 @@
 
-import React, { useState, useMemo } from 'react';
-import { Studente, Prova, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
+import { useState, useMemo } from 'react';
+import type { Studente, Prova, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
 import { RATING_OPTIONS } from '../constants';
 import { M3Dialog, SelectField } from './M3Components';
 
@@ -109,7 +109,11 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                         {selectedLevels[competenza.id] && (
                                             <button
                                                 type="button"
-                                                onClick={() => setSelectedLevels(prev => { const { [competenza.id]: _, ...rest } = prev; return rest; })}
+                                                onClick={() => setSelectedLevels(prev => {
+                                                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                                                    const { [competenza.id]: _removed, ...rest } = prev;
+                                                    return rest;
+                                                })}
                                                 className="text-xs text-error font-medium hover:underline opacity-80"
                                             >
                                                 Rimuovi

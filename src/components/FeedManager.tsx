@@ -12,15 +12,10 @@ interface FeedManagerProps {
     onOpenCircularAnalysis: (url: string, title: string) => void;
 }
 
-interface NewItem {
-    guid: string;
-    title: string;
-    url: string;
-}
 
-const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToast, onOpenCircularAnalysis }) => {
+
+const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToast }) => {
     const [pageUrl, setPageUrl] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     
     // The following states are no longer actively used due to disabled functionality,
     // but kept for reference or potential re-enabling.
@@ -44,7 +39,6 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
             return;
         }
 
-        setIsLoading(true);
         try {
             // This will likely throw due to aiService.ts design
             const { feedUrl, title } = await discoverAndCreateFeed(correctedUrl);
@@ -57,11 +51,11 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
             setSources(prev => [...prev.filter(s => s.pageUrl !== correctedUrl), newSource]);
             setPageUrl('');
             showToast(`Fonte "${title}" aggiunta con successo!`, 'success');
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Error adding feed source:", error);
-            showToast(error.message || "Si è verificato un errore sconosciuto.", "error");
-        } finally {
-            setIsLoading(false);
+            let message = "Si è verificato un errore sconosciuto.";
+            if (error instanceof Error) message = error.message;
+            showToast(message, "error");
         }
     };
 
@@ -78,8 +72,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
         // setCheckStatus(prev => ({ ...prev, [source.id]: 'info' }));
 
         try {
-            // This will throw the error from aiService.ts directly
-            const items = await fetchAndParseRssFeed(source.feedUrl);
+            await fetchAndParseRssFeed(source.feedUrl);
             
             // The following logic would only run if fetchAndParseRssFeed succeeded,
             // which it currently does not due to design.
@@ -114,10 +107,10 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                  showToast('Nessun nuovo articolo trovato.', 'info');
             }
             */
-        } catch (error: any) {
-             // setCheckMessage(prev => ({ ...prev, [source.id]: `Errore: ${error.message}` }));
-             // setCheckStatus(prev => ({ ...prev, [source.id]: 'error' }));
-             showToast(`Errore: ${error.message}`, 'error');
+        } catch (error: unknown) {
+            let message = 'Errore sconosciuto.';
+            if (error instanceof Error) message = error.message;
+            showToast(`Errore: ${message}`, 'error');
         } finally {
             // setCheckingSourceId(null);
         }

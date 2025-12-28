@@ -4,14 +4,13 @@ import { generateHueFromString } from '../utils/colorUtils';
 import { LESSON_TYPE_ICONS } from '../constants';
 
 interface TimetableCellProps {
-  slot: Slot;
-  lesson?: Lezione;
-  className?: string;
-  onAiSuggest: (slot: Slot) => void;
-  onClick?: () => void;
+    slot: Slot;
+    lesson?: Lezione;
+    className?: string;
+    onClick?: () => void;
 }
 
-const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, onClick, onAiSuggest }) => {
+const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, onClick }) => {
   const { classe, materia } = slot;
   
   const isDisposition = lesson?.tipoLezione === 'Disposizione' || materia === 'Disposizione';

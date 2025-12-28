@@ -1,16 +1,16 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { Report, View, Studente, Lezione, Uda, TimetableSettings, Valutazione, ValutazioneCompetenza, AiSettings, KnowledgeBaseEntry, PianoInclusione, EventoCalendario } from '../types';
+import { Report, Studente, Lezione, Uda, TimetableSettings, Valutazione, ValutazioneCompetenza, AiSettings, KnowledgeBaseEntry, PianoInclusione, EventoCalendario } from '../types';
 import { saveAs } from '../utils/documentUtils';
 import ArchivioReport from './ArchivioReport';
 import { UdaExportModal } from './UdaExportModal';
-import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob, viewPdfInNewTab, generatePdfBrochure, generateCouncilDataPdf } from '../utils/documentUtils';
+import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob, viewPdfInNewTab, generatePdfBrochure } from '../utils/documentUtils';
 import ConsiglioClasseWizard from './ConsiglioClasseWizard';
 import ClassPlanningWizard from './ClassPlanningWizard';
 import SmartDocumentEditor from './SmartDocumentEditor';
 import DocumentViewerModal from './DocumentViewerModal'; 
 import { getDocumentTemplate } from '../utils/templateUtils';
-import { ActionTile, SectionHeader, InfoCard, TabGroup, EmptyState } from './M3Components';
+import { ActionTile, SectionHeader, InfoCard, TabGroup } from './M3Components';
 
 // --- TYPE DEFINITIONS FOR REGISTRY ---
 type DocPhase = 'avvio' | 'itinere' | 'valutazione' | 'chiusura';
@@ -506,7 +506,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     onClose={resetWizard}
                     userClasses={props.userClasses}
                     students={props.students}
-                    udas={props.udas}
                     knowledgeBase={props.knowledgeBase}
                     pianiInclusione={props.pianiInclusione}
                     settings={props.settings}
@@ -547,8 +546,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     title={viewingDoc.fileName}
                     htmlContent={viewingDoc.htmlContent || `<pre>${viewingDoc.content}</pre>`}
                     onClose={() => setViewingDoc(null)}
-                    onOpenCreateLesson={(content) => {
-                        // Handle lesson creation flow if needed, or just close viewer
+                    onOpenCreateLesson={() => {
                         setViewingDoc(null);
                     }}
                 />
@@ -556,7 +554,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
 
             <div className="mt-12">
                 <SectionHeader title="Archivio Report (PDF/Snapshot)" icon="history" />
-                <ArchivioReport reports={props.reports} onDeleteReport={props.onDeleteReport} onSaveReportToKb={(r) => { /* Reuse save logic or custom */ }} />
+                <ArchivioReport reports={props.reports} onDeleteReport={props.onDeleteReport} onSaveReportToKb={() => { /* Reuse save logic or custom */ }} />
             </div>
         </div>
     );

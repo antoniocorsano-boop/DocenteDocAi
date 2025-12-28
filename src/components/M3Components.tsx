@@ -1,3 +1,4 @@
+export { default as M3Button } from './M3Button';
 import React, { InputHTMLAttributes, SelectHTMLAttributes, TextareaHTMLAttributes } from 'react';
 
 // --- INPUTS M3 EXPRESSIVE (AURA) ---

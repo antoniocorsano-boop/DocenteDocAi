@@ -1,5 +1,6 @@
+
 import React, { useState, useMemo } from 'react';
-import { Studente, Lezione, KnowledgeBaseEntry, HomeworkSubmission, RegisterEntry, TimetableSettings, ParticipationEntry, HomeworkStatus } from '../types';
+import { Studente, Lezione, KnowledgeBaseEntry, HomeworkSubmission, RegisterEntry, TimetableSettings } from '../types';
 import { blobToBase64Parts, generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
 import Avatar from './Avatar';
@@ -162,7 +163,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             <div className="p-2 bg-surface-container-low">
                  <TabGroup 
                     activeTab={activeTab}
-                    onTabChange={(id) => setActiveTab(id as any)}
+                    onTabChange={(id) => setActiveTab(id as 'feed' | 'homework' | 'materials')}
                     variant="secondary"
                     tabs={[
                         { id: 'feed', label: 'Attività', icon: 'feed' },

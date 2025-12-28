@@ -63,7 +63,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
         setAiInsight(null);
         try {
             const ai = await getGoogleAIClient();
-            let prompt = `Analizza i dati didattici del grafico (${chartType}) per Classe ${selectedClass}. Materia: ${selectedSubject === 'all' ? 'Tutte' : selectedSubject}. Fornisci interpretazione pedagogica concisa (max 3 frasi).`;
+            const prompt = `Analizza i dati didattici del grafico (${chartType}) per Classe ${selectedClass}. Materia: ${selectedSubject === 'all' ? 'Tutte' : selectedSubject}. Fornisci interpretazione pedagogica concisa (max 3 frasi).`;
             const response = await ai.models.generateContent({ model: aiSettings.model, contents: prompt });
             setAiInsight(response.text?.trim() || "Analisi non disponibile. L'AI non ha restituito testo.");
         } catch (error) {

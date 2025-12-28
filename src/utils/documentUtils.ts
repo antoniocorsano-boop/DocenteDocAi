@@ -200,7 +200,7 @@ const cleanTextForWinAnsi = (text: string) => text ? text.replace(/[^\x00-\xFF]/
 const wrapText = (text: string, font: any, size: number, maxWidth: number) => {
     // Simplified wrapping logic
     const words = text.split(' ');
-    let lines = [];
+    const lines = [];
     let currentLine = words[0];
 
     for (let i = 1; i < words.length; i++) {

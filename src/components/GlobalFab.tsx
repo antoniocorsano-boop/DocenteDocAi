@@ -1,5 +1,5 @@
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { View } from '../types';
 
 interface GlobalFabProps {
@@ -10,9 +10,9 @@ interface GlobalFabProps {
 export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) => {
     
     // FAB Logic: Super AI Assistant (nuovo design)
-    let icon = 'smart_toy';
-    let label = 'Super AI Assistant';
-    let action = 'super-ai-assistant';
+    const icon = 'smart_toy';
+    const label = 'Super AI Assistant';
+    const action = 'super-ai-assistant';
     let shouldRender = true;
 
     if ([

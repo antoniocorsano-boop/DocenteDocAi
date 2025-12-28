@@ -2,11 +2,11 @@
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
+import { saveAs } from 'file-saver';
 import { generateStudentProfilePdf, generateHtmlDocxBlob, viewPdfInNewTab, generateCertificazioneCompetenzePdf } from '../utils/documentUtils';
 import { DEFAULT_COMPETENZE } from '../constants';
-import { saveAs } from '../utils/documentUtils';
+// ...existing code...
 import StudentInterviewModal from './StudentInterviewModal';
-import Avatar from './Avatar';
 import { TabGroup, EmptyState, M3Card, M3Dialog, M3ListItem } from './M3Components';
 
 interface StudentProfileProps {
@@ -16,15 +16,14 @@ interface StudentProfileProps {
     settings: TimetableSettings;
     onBack: () => void;
     onDeleteEvaluation: (evalId: string) => void;
-    onDeleteCompetencyEvaluation: (evalId: string) => void;
     onOpenInclusionPlanEditor?: (student: Studente) => void;
     register?: RegisterEntry[];
     lessons?: Record<string, Lezione>;
 }
 
-type ProfileTab = 'overview' | 'grades' | 'competencies' | 'notes' | 'history';
+export type ProfileTab = 'overview' | 'grades' | 'competencies' | 'notes' | 'history';
 
-const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, competencyEvaluations, settings, onBack, onDeleteEvaluation, onDeleteCompetencyEvaluation, onOpenInclusionPlanEditor, register = [], lessons = {} }) => {
+const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, competencyEvaluations, settings, onBack, onDeleteEvaluation, onOpenInclusionPlanEditor, register = [], lessons = {} }) => {
     const [activeTab, setActiveTab] = useState<ProfileTab>('overview');
     const [isExporting, setIsExporting] = useState(false);
     const [isInterviewModeOpen, setIsInterviewModeOpen] = useState(false);
@@ -86,9 +85,13 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
         try {
             const blob = await generateStudentProfilePdf(student, evaluations, competencyEvaluations, settings);
             viewPdfInNewTab(blob);
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error("PDF Export failed", e);
-            alert(`Errore durante la creazione del PDF: ${e.message}`);
+            let message = 'Errore durante la creazione del PDF.';
+            if (e instanceof Error) {
+                message = `Errore durante la creazione del PDF: ${e.message}`;
+            }
+            alert(message);
         } finally {
             setIsExporting(false);
         }
@@ -114,9 +117,13 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
 
             const blob = await generateCertificazioneCompetenzePdf(student, certData, settings);
             viewPdfInNewTab(blob);
-        } catch (e: any) {
+        } catch (e: unknown) {
             console.error("Certificazione failed", e);
-            alert(`Errore creazione certificazione: ${e.message}`);
+            let message = 'Errore creazione certificazione.';
+            if (e instanceof Error) {
+                message = `Errore creazione certificazione: ${e.message}`;
+            }
+            alert(message);
         } finally {
             setIsExporting(false);
         }
@@ -126,12 +133,15 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     const handleExportDocx = async () => {
         setIsExporting(true);
         try {
-            const trendText = performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile';
-            let html = `<h1>Scheda Studente: ${student.cognome} ${student.nome}</h1>...`; // Simplified for brevity
+            const html = `<h1>Scheda Studente: ${student.cognome} ${student.nome}</h1>...`; // Simplified for brevity
             const blob = await generateHtmlDocxBlob(html, `Scheda ${student.cognome}`);
             saveAs(blob, `Scheda_${student.cognome}_${student.nome}.docx`);
-        } catch (e: any) {
-            alert(`Errore DOCX: ${e.message}`);
+        } catch (e: unknown) {
+            let message = 'Errore DOCX.';
+            if (e instanceof Error) {
+                message = `Errore DOCX: ${e.message}`;
+            }
+            alert(message);
         } finally {
             setIsExporting(false);
         }
@@ -357,7 +367,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 <div className="px-4 pt-4 pb-2 bg-surface-container-low border-b border-outline-variant/50 sticky top-0 z-10">
                     <TabGroup
                         activeTab={activeTab}
-                        onTabChange={(id) => setActiveTab(id as any)}
+                        onTabChange={(id) => setActiveTab(id as ProfileTab)}
                         variant="primary"
                         tabs={[
                             { id: 'overview', label: 'Panoramica', icon: 'dashboard' },

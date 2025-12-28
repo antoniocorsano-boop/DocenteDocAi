@@ -1,5 +1,5 @@
-import React from 'react';
-import RestoreAssistController from './RestoreAssistController';
+
+import type { AppState, AppActions, Modals } from '../types';
 
 export interface UseRestoreAssistState {
   show: boolean;
@@ -10,7 +10,11 @@ export interface UseRestoreAssistState {
   onClose: () => void;
 }
 
-export const useRestoreAssist = (appState: any, actions: any, modals: any): UseRestoreAssistState => {
+export const useRestoreAssist = (
+  appState: AppState,
+  actions: AppActions,
+  modals: Partial<Modals>
+): UseRestoreAssistState => {
   // Heuristic: show if no studenti, no lezioni, no user, and not restoring
   const isEmpty = (!appState.students || appState.students.length === 0) &&
     (!appState.lessons || Object.keys(appState.lessons).length === 0) &&
@@ -24,10 +28,19 @@ export const useRestoreAssist = (appState: any, actions: any, modals: any): UseR
     show: isEmpty,
     error,
     onLoadDemo: actions.handleLoadDemoData,
-    onRestoreFile: actions.handleImportData,
+    onRestoreFile: () => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json,application/json';
+      input.onchange = (e: Event) => {
+        const file = (e.target as HTMLInputElement).files?.[0];
+        if (file) actions.handleImportData(file);
+      };
+      input.click();
+    },
     onConnectDrive: actions.handleConnectDrive,
     onClose: () => window.location.reload(),
   };
 };
 
-export default RestoreAssistController;
+

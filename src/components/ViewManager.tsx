@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import Home from './Home';
-import DemoExpressiveCard from './DemoExpressiveCard';
+
 import { Timetable } from './Timetable';
-// import Calendar from './Calendar';
+
+
 // import Settings from './Settings';
 import ClassSelection from './ClassSelection';
 import ClassDashboard from './ClassDashboard';
@@ -100,8 +101,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                             appState={appState}
                             dismissSuggestion={dismissSuggestion}
                         />
-                        {/* DEMO: Card expressive MUI */}
-                        <DemoExpressiveCard />
+
                     </AuraView>
                 )}
                 {view === 'timetable' && (
@@ -113,7 +113,6 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                             onEditSlot={handleEditSlot}
                             onShowSlotActions={(slot, lesson) => { actions.setActiveSlotKey(slot.giorno + '-' + slot.ora); (modals.setLessonViewContext as (lesson: Lezione) => void)(lesson); }}
                             showGuidanceTips={settings.showGuidanceTips}
-                            onAiSuggest={handleAiSuggest}
                         />
                     </AuraView>
                 )}
@@ -197,10 +196,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     setKnowledgeBase={setKnowledgeBase}
                     corpora={corpora}
                     setCorpora={setCorpora}
-                    aiSettings={aiSettings}
                     showToast={showToast}
-                    settings={settings}
-                    showGuidanceTips={settings.showGuidanceTips}
                 /></AuraView>}
                 {view === 'studio' && <AuraView><Studio
                     corpora={corpora}
@@ -254,7 +250,6 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     competenze={settings.competenze}
                     rubriche={rubriche}
                     onSaveRubrica={(r: Rubrica) => setRubriche(prev => { const newRubrics = prev.filter(ru => ru.id !== r.id); return [...newRubrics, r]; })}
-                    onDeleteRubrica={(id: string) => setRubriche(prev => prev.filter(r => r.id !== id))}
                     onNavigate={handleNavigate}
                 /></AuraView>}
                 {view === 'didattica-inclusiva' && <AuraView><DidatticaInclusiva
@@ -390,7 +385,6 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     settings={settings}
                     aiSettings={aiSettings}
                     onNavigate={handleNavigate}
-                    lessons={Object.values(lessons)}
                 /></AuraView>}
                 {view === 'live-assistant' && <AuraView fullWidth><LiveAssistant
                     students={students}

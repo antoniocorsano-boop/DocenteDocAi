@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { saveAs } from '../utils/documentUtils';
 import { sanitizeHTML } from '../utils/securityUtils';
 
 interface DocumentViewerModalProps {

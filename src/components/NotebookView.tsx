@@ -1,6 +1,6 @@
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { KnowledgeBaseEntry, AiSettings, Corpus, ChatMessage, Lezione, NotebookNote } from '../types';
+import { KnowledgeBaseEntry, AiSettings, Corpus, ChatMessage, NotebookNote } from '../types';
 import { generateAnswerFromCorpus, generateStudioOutput } from '../services/aiService';
 import AddSourceModal from './AddSourceModal';
 
@@ -16,6 +16,8 @@ interface NotebookViewProps {
   readOnly?: boolean;
 }
 
+
+type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation';
 type WorkspaceTab = 'chat' | 'studio' | 'notes';
 
 const studioActions = [
@@ -107,8 +109,10 @@ const NotebookView: React.FC<NotebookViewProps> = (props) => {
             const corpusContent = corpusFiles.map(e => `--- Contenuto da: ${e.fileName} ---\n${e.content}`).join('\n\n');
             const modelResponse = await generateAnswerFromCorpus(aiSettings, corpusContent, chatInput);
             setCorpora(prev => prev.map(c => c.id === selectedCorpusId ? { ...c, chatHistory: [...updatedHistory, modelResponse] } : c));
-        } catch (error: any) {
-            const errorMessage: ChatMessage = { role: 'model', text: `Errore: ${error.message}` };
+        } catch (error: unknown) {
+            let message = 'Errore sconosciuto';
+            if (error instanceof Error) message = error.message;
+            const errorMessage: ChatMessage = { role: 'model', text: `Errore: ${message}` };
             setCorpora(prev => prev.map(c => c.id === selectedCorpusId ? { ...c, chatHistory: [...updatedHistory, errorMessage] } : c));
         } finally {
             setIsChatLoading(false);
@@ -123,10 +127,12 @@ const NotebookView: React.FC<NotebookViewProps> = (props) => {
         try {
             if (corpusFiles.length === 0) throw new Error("Aggiungi fonti al progetto per usare lo Studio AI.");
             const corpusContent = corpusFiles.map(e => `--- Contenuto da: ${e.fileName} ---\n${e.content}`).join('\n\n');
-            const output = await generateStudioOutput(aiSettings, corpusContent, task as any);
+            const output = await generateStudioOutput(aiSettings, corpusContent, task as StudioTask);
             setStudioResult({ title, content: output });
-        } catch (error: any) {
-            alert(error.message);
+        } catch (error: unknown) {
+            let message = 'Errore sconosciuto';
+            if (error instanceof Error) message = error.message;
+            alert(message);
         } finally {
             setIsStudioLoading(false);
         }

@@ -14,20 +14,10 @@ type AssistantMode = 'chat' | 'docs' | 'tools' | 'backup';
 
 const AssistantFab: React.FC<AssistantFabProps> = () => {
   // Stato globale modale
-  const setIsOpen = useUIStore(s => s.actions.toggleModal);
+
   const isAssistantOpen = useUIStore(s => s.modals.isLiveAssistantModalOpen);
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [mode, setMode] = React.useState<AssistantMode>('chat');
-  // Se il banner suggestion è presente, forza la FAB in basso a destra (per i test)
-  const [forceBottomRight, setForceBottomRight] = React.useState(false);
-  React.useEffect(() => {
-    const banner = document.querySelector('div[role="button"][aria-label]');
-    if (banner) {
-      setForceBottomRight(true);
-    } else {
-      setForceBottomRight(false);
-    }
-  }, []);
 
   // Chiudi menu quando il modale assistant si apre o si chiude
   React.useEffect(() => {
@@ -55,85 +45,37 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
     return () => clearInterval(interval);
   }, [menuOpen]);
 
-  // Stato per drag FAB (solo left/top)
-  const [fabPos, setFabPos] = React.useState<{x: number, y: number}>({ x: 24, y: window.innerHeight - 120 });
-  const dragging = React.useRef(false);
-  const dragStart = React.useRef<{x: number, y: number}>({ x: 0, y: 0 });
-  const dragOffset = React.useRef<{x: number, y: number}>({ x: 0, y: 0 });
 
-  React.useEffect(() => {
-    const handleMove = (e: MouseEvent | TouchEvent) => {
-      if (!dragging.current) return;
-      let clientX = 0, clientY = 0;
-      if ('touches' in e && e.touches.length > 0) {
-        clientX = e.touches[0].clientX;
-        clientY = e.touches[0].clientY;
-      } else if ('clientX' in e) {
-        clientX = e.clientX;
-        clientY = e.clientY;
-      }
-      setFabPos({
-        x: Math.max(0, Math.min(window.innerWidth - 72, clientX - dragOffset.current.x)),
-        y: Math.max(0, Math.min(window.innerHeight - 72, clientY - dragOffset.current.y)),
-      });
-    };
-    const handleUp = () => { dragging.current = false; };
-    window.addEventListener('mousemove', handleMove);
-    window.addEventListener('touchmove', handleMove, { passive: false });
-    window.addEventListener('mouseup', handleUp);
-    window.addEventListener('touchend', handleUp);
-    return () => {
-      window.removeEventListener('mousemove', handleMove);
-      window.removeEventListener('touchmove', handleMove);
-      window.removeEventListener('mouseup', handleUp);
-      window.removeEventListener('touchend', handleUp);
-    };
-  }, []);
-
-  const startDrag = (e: React.MouseEvent | React.TouchEvent) => {
-    dragging.current = true;
-    let clientX = 0, clientY = 0;
-    if ('touches' in e && e.touches.length > 0) {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else if ('clientX' in e) {
-      clientX = e.clientX;
-      clientY = e.clientY;
-    }
-    dragStart.current = { x: clientX, y: clientY };
-    dragOffset.current = {
-      x: clientX - fabPos.x,
-      y: clientY - fabPos.y
-    };
-    if (e.preventDefault) {
-      e.preventDefault();
-    }
-  };
-
-  // Blocca click se drag
-  const handleFabClickSafe = () => {
-    if (dragging.current) return;
-    console.warn('[DEBUG] FAB click');
-    handleFabClick();
-  };
+  // Rileva la direzione di apertura del menu (up/down) in base alla posizione del FAB
+  const fabRef = React.useRef<HTMLDivElement>(null);
+  const [menuDirection, setMenuDirection] = React.useState<'up' | 'down'>('up');
 
   const handleFabClick = () => {
     if (menuOpen) {
-      console.warn('[DEBUG] Chiudo menu assistant FAB');
       setMenuOpen(false);
       return;
     }
-    console.warn('[DEBUG] Apro menu assistant FAB');
+    // Calcola la posizione del FAB e la finestra
+    if (fabRef.current) {
+      const rect = fabRef.current.getBoundingClientRect();
+      const actionsHeight = ACTIONS.length * 80 + 64; // 80px per azione, 64px FAB
+      // Se c'è spazio sopra, apri verso l'alto, altrimenti verso il basso
+      if (rect.top > actionsHeight) {
+        setMenuDirection('up');
+      } else if (window.innerHeight - rect.bottom > actionsHeight) {
+        setMenuDirection('down');
+      } else {
+        setMenuDirection('up'); // fallback
+      }
+    }
     setMenuOpen(true);
   };
 
+
   const handleAction = (action: typeof ACTIONS[number]) => {
     setMode(action.key as AssistantMode);
-    setIsOpen('isLiveAssistantModalOpen', true);
-    setMenuOpen(false);
   };
 
-  // Debug: log apertura menu
   React.useEffect(() => {
     if (menuOpen) {
       console.info('[AssistantFab] MENU FAB APERTO', { menuOpen, mode, stack: new Error().stack });
@@ -146,52 +88,50 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
     <>
       <div
         className="assistant-fab-root"
-        style={forceBottomRight ? {
+        ref={fabRef}
+        style={{
           position: 'fixed',
           right: 24,
-          bottom: 120,
+          bottom: 96,
           zIndex: 1200,
-          transition: dragging.current ? 'none' : 'box-shadow 0.2s',
-          touchAction: 'none',
-        } : {
-          position: 'fixed',
-          left: fabPos.x,
-          top: fabPos.y,
-          zIndex: 1200,
-          transition: dragging.current ? 'none' : 'box-shadow 0.2s',
+          transition: 'box-shadow 0.2s',
           touchAction: 'none',
         }}
-        onMouseDown={startDrag}
-        onTouchStart={startDrag}
       >
         <button
           className="mui-fab-expressive assistant-fab"
           aria-label="Assistente AI"
-          onClick={handleFabClickSafe}
+          onClick={handleFabClick}
         >
           <span className="material-symbols-outlined">smart_toy</span>
         </button>
         {menuOpen && (
-          <div className="assistant-fab-menu">
-            {ACTIONS.map((a, i) => (
-              <button
-                key={a.key}
-                className="mui-fab-expressive assistant-fab-secondary"
-                style={{
-                  transform: `translateY(-${(i + 1) * 80}px)`,
-                  zIndex: 1201 - i,
-                  transition: 'transform 0.25s cubic-bezier(.4,2,.6,1)',
-                  position: 'absolute',
-                  right: 0,
-                  bottom: 0
-                }}
-                onClick={() => handleAction(a)}
-                aria-label={a.label}
-              >
-                <span className="material-symbols-outlined">{a.icon}</span>
-                <span style={{marginLeft: 8, fontWeight: 500}}>{a.label}</span>
-              </button>
-            ))}
+          <div className="assistant-fab-menu" style={{ pointerEvents: 'none' }}>
+            {ACTIONS.map((a, i) => {
+              const offset = (i + 1) * 80;
+              const transform = menuDirection === 'up'
+                ? `translateY(-${offset}px)`
+                : `translateY(${offset}px)`;
+              return (
+                <button
+                  key={a.key}
+                  className="mui-fab-expressive assistant-fab-secondary"
+                  style={{
+                    transform,
+                    zIndex: 1201 - i,
+                    transition: 'transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.2s',
+                    right: 0,
+                    bottom: 0,
+                    pointerEvents: 'auto',
+                  }}
+                  onClick={() => handleAction(a)}
+                  aria-label={a.label}
+                >
+                  <span className="material-symbols-outlined">{a.icon}</span>
+                  <span style={{marginLeft: 8, fontWeight: 500}}>{a.label}</span>
+                </button>
+              );
+            })}
           </div>
         )}
       </div>
@@ -253,6 +193,6 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
       `}</style>
     </>
   );
-};
+}
 
 export default AssistantFab;

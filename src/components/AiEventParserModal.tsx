@@ -25,8 +25,9 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
         try {
             const parsedData = await extractEventFromText(aiSettings, text);
             onEventParsed(parsedData);
-        } catch (e: any) {
-            setError(e.message || "Si è verificato un errore durante l'analisi.");
+        } catch (e) {
+            const errorMsg = e instanceof Error ? e.message : "Si è verificato un errore durante l'analisi.";
+            setError(errorMsg);
         } finally {
             setIsLoading(false);
         }

@@ -21,29 +21,15 @@ const getTestTypeIcon = (tipo: string) => {
     }
 };
 
-const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onSave }) => {
+const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose }) => {
     const [materia, setMateria] = useState<string>((disciplines && disciplines[0]) || '');
     const [tipo, setTipo] = useState<Valutazione['tipo']>('Scritto');
     const [data, setData] = useState<string>(new Date().toISOString().split('T')[0]);
     const [argomento, setArgomento] = useState<string>('');
 
-    const handleSaveClick = () => {
-        if (!materia || !tipo || !data || !argomento) {
-            alert("Compila tutti i campi per definire la prova.");
-            return;
-        }
-        onSave({
-            materia,
-            data,
-            tipo,
-            argomento,
-            note: '',
-        });
-        onClose();
-    };
 
     return (
-        <M3Dialog open onClose={onClose} aria-labelledby="add-prova-title">
+        <M3Dialog isOpen onClose={onClose} title="Aggiungi Prova di Valutazione" aria-labelledby="add-prova-title">
             <div
                 className="dialog-container animate-scale-in"
                 style={{

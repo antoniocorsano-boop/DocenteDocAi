@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, AiSettings, HelpModalProps, FaqItem, EssayContent, TechnicalDocumentContent, VocalAssistantGuide, BrochureContent } from '../types';
+import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
 import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
-import TeacherPresentationView from './TeacherPresentationView';
-import { TabGroup, ManualSection, UseCaseCard } from './M3Components';
+import { ManualSection, UseCaseCard } from './M3Components';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa' | 'presentation';
 

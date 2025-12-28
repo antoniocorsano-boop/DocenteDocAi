@@ -1,7 +1,7 @@
 
-import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { LiveServerMessage, Modality, Tool, Type, FunctionDeclaration } from '@google/genai';
-import { LiveAssistantProps, TranscriptEntry } from '../types.ts';
+import React, { useState, useRef, useMemo } from 'react';
+import { LiveServerMessage, Modality, Type } from '@google/genai';
+import { LiveAssistantProps, TranscriptEntry, View } from '../types.ts';
 import { getGoogleAIClient } from '../services/aiClient.ts';
 import { performWebSearch } from '../services/aiService.ts';
 import { AiMemoryChip } from './M3Components.tsx';
@@ -89,11 +89,6 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
 export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
   const {
     onNavigate,
-    onAddNote,
-    onAddEvaluation,
-    onCreateEvent,
-    onScheduleLesson,
-    onMarkAttendance,
     students,
     userContext
   } = props;
@@ -104,11 +99,11 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
 
   const inputAudioContextRef = useRef<AudioContext | null>(null);
   const outputAudioContextRef = useRef<AudioContext | null>(null);
-  const sessionPromiseRef = useRef<Promise<any> | null>(null);
+  const sessionPromiseRef = useRef<Promise<unknown> | null>(null);
   const nextStartTimeRef = useRef<number>(0);
   const sourcesRef = useRef<Set<AudioBufferSourceNode>>(new Set());
 
-  const tools: any[] = useMemo(() => [{
+  const tools = useMemo(() => [{
     functionDeclarations: [
       {
         name: 'navigate',
@@ -133,13 +128,18 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
     ]
   }], []);
 
-  const handleToolExecution = async (name: string, args: any): Promise<any> => {
-    let result: any = { status: 'ok' };
+  const handleToolExecution = async (name: string, args: Record<string, unknown>): Promise<{ status?: string; message?: string; summary?: string }> => {
+    let result: { status?: string; message?: string; summary?: string } = { status: 'ok' };
     if (name === 'navigate' && onNavigate) {
-      onNavigate(args.destination);
+      const validViews: string[] = [
+        'home','timetable','calendario','settings','aula','studenti','progettazione-hub','reportistica','knowledge-base','studio','lessons','uda','rubriche','didattica-inclusiva','feed-manager','evaluations','register','improvement-guide','consiglio-di-classe','class-competency-dashboard','analytics','student-dashboard','student-workspace','aula-session','competency-levels','live-assistant','welcome','curriculum-manager','teacher-inbox','video-analysis','teacher-presentation-view'
+      ];
+      const dest = typeof args.destination === 'string' && validViews.includes(args.destination) ? (args.destination as View) : 'home';
+      onNavigate(dest);
       result = { message: 'Navigazione avviata.' };
     } else if (name === 'searchWeb') {
-      const searchRes = await performWebSearch({ model: 'gemini-2.5-flash' }, args.query);
+      const query = typeof args.query === 'string' ? args.query : '';
+      const searchRes = await performWebSearch({ model: 'gemini-2.5-flash' }, query);
       result = { summary: searchRes.text };
       // FIX: Add sources to transcript
       setTranscripts(prev => [...prev, { speaker: 'ai', text: searchRes.text, sources: searchRes.sources, contextLabel: userContext?.displayName || 'Web' }]);
@@ -152,10 +152,10 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
 
     // GUIDELINE: Create AI instance right before connection using process.env.API_KEY
     // Use async getGoogleAIClient which lazy-loads the SDK
-    const ai: any = await getGoogleAIClient(); // getGoogleAIClient is async now
+    const ai = await getGoogleAIClient(); // getGoogleAIClient is async now
 
-    const inputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 16000 });
-    const outputCtx = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
+    const inputCtx = new (window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext)({ sampleRate: 16000 });
+    const outputCtx = new (window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext)({ sampleRate: 24000 });
 
     inputAudioContextRef.current = inputCtx;
     outputAudioContextRef.current = outputCtx;
@@ -192,7 +192,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
               mimeType: 'audio/pcm;rate=16000',
             };
             // GUIDELINE: Initiate sendRealtimeInput after live.connect call resolves.
-            sessionPromise.then((session: any) => session.sendRealtimeInput({ media: pcmBlob }));
+            sessionPromise.then((session: unknown) => (session as { sendRealtimeInput: (input: unknown) => void }).sendRealtimeInput({ media: pcmBlob }));
           };
 
           source.connect(processor);
@@ -220,9 +220,9 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
           if (msg.toolCall && msg.toolCall.functionCalls) {
             for (const fc of msg.toolCall.functionCalls) {
               if (fc.name && fc.id) {
-                const result = await handleToolExecution(fc.name, fc.args);
+                const result = await handleToolExecution(fc.name, fc.args ?? {});
                 // FIX: session.sendToolResponse expects an array of FunctionResponse objects
-                sessionPromise.then((session: any) => session.sendToolResponse({
+                sessionPromise.then((session: unknown) => (session as { sendToolResponse: (input: unknown) => void }).sendToolResponse({
                   functionResponses: [{ id: fc.id, name: fc.name, response: { result } }]
                 }));
               }
@@ -239,14 +239,14 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
           }
         },
         onclose: () => setIsConnected(false),
-        onerror: (e: any) => { console.error('Live Error', e); setIsConnected(false); }
+        onerror: (e: unknown) => { console.error('Live Error', e); setIsConnected(false); }
       }
     });
     sessionPromiseRef.current = sessionPromise;
   };
 
   const stopSession = () => {
-    if (sessionPromiseRef.current) sessionPromiseRef.current.then((s: any) => s.close());
+    if (sessionPromiseRef.current) sessionPromiseRef.current.then((s: unknown) => (s as { close: () => void }).close());
     if (inputAudioContextRef.current) inputAudioContextRef.current.close();
     if (outputAudioContextRef.current) outputAudioContextRef.current.close();
     setIsConnected(false);

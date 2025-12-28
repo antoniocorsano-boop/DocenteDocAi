@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { EventoCalendario, AiSettings, SystemSuggestion, View } from '../types';
+import '../modules.css';
+import { EventoCalendario, AiSettings } from '../types';
 import EventModal from './EventModal';
 import AiEventParserModal from './AiEventParserModal';
 import EventActionPopover from './EventActionPopover';
@@ -10,8 +11,6 @@ interface CalendarProps {
     eventi: EventoCalendario[];
     setEventi: React.Dispatch<React.SetStateAction<EventoCalendario[]>>;
     aiSettings: AiSettings;
-    activeSuggestion?: SystemSuggestion | null;
-    onNavigate?: (view: View, context?: any) => void;
 }
 
 type CalendarView = 'month' | 'week' | 'day' | 'agenda';
@@ -19,7 +18,7 @@ type CalendarView = 'month' | 'week' | 'day' | 'agenda';
 const DAYS_SHORT = ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB', 'DOM'];
 const MONTHS_LONG = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
 
-const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, activeSuggestion, onNavigate }) => {
+const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [viewMode, setViewMode] = useState<CalendarView>('month');
     const [editingEvent, setEditingEvent] = useState<Partial<EventoCalendario> | null>(null);
@@ -79,21 +78,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, acti
         return dates;
     }, [currentDate]);
 
-    const weekDates = useMemo(() => {
-        const anchor = new Date(currentDate);
-        const dayOfWeek = anchor.getDay();
-        const distToMonday = (dayOfWeek + 6) % 7;
-        const monday = new Date(anchor);
-        monday.setDate(anchor.getDate() - distToMonday);
-        monday.setHours(0, 0, 0, 0);
-        const dates = [];
-        for (let i = 0; i < 7; i++) {
-            const d = new Date(monday);
-            d.setDate(monday.getDate() + i);
-            dates.push(d);
-        }
-        return dates;
-    }, [currentDate]);
+    // weekDates non usato
 
     const agendaGroups = useMemo(() => {
         const sorted = [...eventi].sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
@@ -123,9 +108,13 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, acti
             <header className="calendar-header">
                 <div className="calendar-header-left">
                     <div className="calendar-nav-group">
-                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Precedente" startIcon={<span className="material-symbols-outlined">chevron_left</span>} />
+                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Precedente" startIcon={<span className="material-symbols-outlined">chevron_left</span>}>
+                            <span className="visually-hidden">Precedente</span>
+                        </M3Button>
                         <M3Button variant="tonal" onClick={() => handleNavigate('today')} >Oggi</M3Button>
-                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Successivo" endIcon={<span className="material-symbols-outlined">chevron_right</span>} />
+                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Successivo" endIcon={<span className="material-symbols-outlined">chevron_right</span>}>
+                            <span className="visually-hidden">Successivo</span>
+                        </M3Button>
                     </div>
                     <h2 className="calendar-title">{title}</h2>
                 </div>
@@ -144,7 +133,9 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, acti
                     />
 
                     <div className="calendar-actions">
-                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza Circolare con AI" startIcon={<span className="material-symbols-outlined">auto_awesome</span>} />
+                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza Circolare con AI" startIcon={<span className="material-symbols-outlined">auto_awesome</span>}>
+                            <span className="visually-hidden">Analizza Circolare con AI</span>
+                        </M3Button>
                         <M3Button variant="filled" onClick={() => setEditingEvent({})} startIcon={<span className="material-symbols-outlined">add</span>}>
                             Nuovo Evento
                         </M3Button>

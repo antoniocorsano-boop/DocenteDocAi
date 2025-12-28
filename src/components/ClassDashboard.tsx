@@ -27,8 +27,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     onStartImpromptuSession,
     students,
     evaluations,
-    competencyEvaluations,
-    settings,
+    // competencyEvaluations, // not used
+    // settings, // not used
     slots,
     lessons,
     onStartPlannedLesson,
@@ -177,9 +177,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 
                     <div className="space-y-2 flex-grow overflow-y-auto pr-1 max-h-[600px] custom-scrollbar">
                         {filteredStudents.length > 0 ? filteredStudents.map(student => {
-                            const { trend } = calculatePerformance(student.id, 'Complessivo', evaluations);
-                            const trendIcon = trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : null;
-                            const trendClass = trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-on-surface-variant/70';
+							const { trend } = calculatePerformance(student.id, 'Complessivo', evaluations);
 
                             return (
                                 <M3ListItem

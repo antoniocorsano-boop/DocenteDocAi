@@ -1,7 +1,7 @@
 
 import React, { useState, useCallback, useMemo } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { extractTextFromFile, generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
+import { extractTextFromFile, generateHtmlDocxBlob } from '../utils/documentUtils';
 import { refactorProgrammazione } from '../services/aiService';
 import { AiSettings } from '../types';
 import { saveAs } from '../utils/documentUtils';
@@ -38,9 +38,13 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
             setRefactoredHtml(sanitizeHTML(html));
 
             setStep('result');
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error(error);
-            alert("Errore durante l'elaborazione: " + error.message);
+            let message = 'Errore durante l\'elaborazione.';
+            if (error instanceof Error) {
+                message = "Errore durante l'elaborazione: " + error.message;
+            }
+            alert(message);
             setStep('upload');
         }
     }, [aiSettings]);

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { View, AppState, NavigationParams } from '../types';
-import { M3IconButton, InfoCard, ActionTile } from './M3Components';
+import { InfoCard, ActionTile } from './M3Components';
 import M3ExpressiveCard from './M3ExpressiveCard';
 
 interface HomeProps {
@@ -16,7 +16,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
     const showAiSuggestion = activeSuggestion && !dismissedSuggestions?.has(activeSuggestion.id);
 
     // Demo: recupero nome docente (in reale da appState.user)
-    const user = (appState as any).user || { nome: 'Mario', cognome: 'Rossi' };
+    const user = (typeof appState.user === 'object' && appState.user && 'nome' in appState.user && 'cognome' in appState.user)
+        ? appState.user as { nome: string; cognome: string }
+        : { nome: 'Mario', cognome: 'Rossi' };
 
     interface RecentActivity { id: string; title: string; meta?: string; time?: string }
     interface BadgeType { id: string; name: string; description?: string; earned?: boolean }
@@ -47,9 +49,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
 
             {/* Metriche principali */}
             <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <M3ExpressiveCard icon="group" title="Studenti" description={`${metrics.studenti}`} />
-                <M3ExpressiveCard icon="assignment" title="Verifiche oggi" description={`${metrics.verificheOggi}`} />
-                <M3ExpressiveCard icon="check_circle" title="Presenze" description={`${metrics.presenze}`} />
+                <M3ExpressiveCard icon="group" title="Studenti" description={`${metrics.studenti}`} color="primary" />
+                <M3ExpressiveCard icon="assignment" title="Verifiche oggi" description={`${metrics.verificheOggi}`} color="secondary" />
+                <M3ExpressiveCard icon="check_circle" title="Presenze" description={`${metrics.presenze}`} color="tertiary" />
             </section>
 
             {/* Main grid: attività, suggerimenti, badge, azioni */}
@@ -60,6 +62,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                         title="Attività Recenti"
                         description="Ultime azioni svolte"
                         className="mb-2"
+                        color="surface"
                     >
                         <div className="mt-4">
                             <ul className="space-y-3">
@@ -112,6 +115,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                         icon="military_tech"
                         title="Badge"
                         description="Obiettivi e traguardi"
+                        color="secondary"
                     >
                         <div className="mt-4 grid grid-cols-1 gap-3">
                             {badges.map((b) => (
@@ -131,12 +135,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                         icon="flash_on"
                         title="Azioni rapide"
                         description="Accesso veloce alle funzioni principali"
+                        color="primary"
                     >
                         <div className="mt-4 grid grid-cols-1 gap-2">
-                            <ActionTile label="Nuova valutazione" icon="edit" onClick={() => onNavigate('evaluations' as View)} />
-                            <ActionTile label="Crea unità didattica" icon="description" onClick={() => onNavigate('uda' as View)} />
-                            <ActionTile label="Backup" icon="cloud_upload" onClick={() => onNavigate('settings' as View)} />
-                            <ActionTile label="Importa studenti" icon="group_add" onClick={() => onNavigate('studenti' as View)} />
+                            <ActionTile title="Nuova valutazione" icon="edit" onClick={() => onNavigate('evaluations' as View)} />
+                            <ActionTile title="Crea unità didattica" icon="description" onClick={() => onNavigate('uda' as View)} />
+                            <ActionTile title="Backup" icon="cloud_upload" onClick={() => onNavigate('settings' as View)} />
+                            <ActionTile title="Importa studenti" icon="group_add" onClick={() => onNavigate('studenti' as View)} />
                         </div>
                     </M3ExpressiveCard>
                 </aside>

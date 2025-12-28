@@ -52,8 +52,10 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
             const result = await generateLessonFromIdea(aiSettings, ideaText, targetClass, kbContent);
             onGenerate(result);
             onClose();
-        } catch (err: any) {
-            setError(err.message || "Errore generazione lezione.");
+        } catch (err: unknown) {
+                let message = 'Errore durante la generazione delle idee.';
+                if (err instanceof Error) message = err.message;
+                setError(message);
         } finally {
             setIsLoading(false);
         }

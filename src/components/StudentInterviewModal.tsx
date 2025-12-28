@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import BarChart from './charts/BarChart';
-import Avatar from './Avatar';
+// import Avatar from './Avatar';
 import { M3Dialog, M3Card } from './M3Components';
 
 interface StudentInterviewModalProps {
@@ -124,7 +124,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                                     <p className="text-xs font-bold opacity-70 uppercase tracking-wider mb-1">{c?.name}</p>
                                     <div className="flex justify-between items-baseline">
                                         <span className="text-xl font-bold">{c?.level}</span>
-                                        <span className="text-xs opacity-60 font-mono">{new Date(c?.date!).toLocaleDateString()}</span>
+                                        <span className="text-xs opacity-60 font-mono">{c?.date ? new Date(c.date).toLocaleDateString() : ''}</span>
                                     </div>
                                     <p className="text-sm mt-1 opacity-90 leading-snug">{c?.desc}</p>
                                 </div>

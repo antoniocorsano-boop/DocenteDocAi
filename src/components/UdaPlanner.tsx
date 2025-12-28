@@ -1,10 +1,8 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Uda, AiSettings, KnowledgeBaseEntry, Lezione, Competenza, TimetableSettings, Report, UdaPlannerProps, EventoCalendario, CurriculumSubject } from '../types';
-import { validateUdaVerticalCurriculum } from '../services/aiService';
+import React, { useState } from 'react';
+import { Uda, Competenza, UdaPlannerProps } from '../types';
 import { UdaExportModal } from './UdaExportModal';
 import Guidance from './Guidance';
-import { parseClassString } from '../utils/schoolUtils';
-import { InfoCard, TextField, TextArea, SelectField, EmptyState } from './M3Components';
+import { TextField, TextArea, EmptyState } from './M3Components';
 
 const createNewUda = (): Uda => ({
     id: `uda-${Date.now()}`,
@@ -26,17 +24,13 @@ interface UdaEditorProps {
     onDeleteUda: (id: string) => void;
     onClose: () => void;
     competenze: Competenza[];
-    knowledgeBase: KnowledgeBaseEntry[];
-    aiSettings: AiSettings;
-    eventi: EventoCalendario[];
-    curricula: CurriculumSubject[]; 
 }
 
-const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, onClose, competenze, knowledgeBase, aiSettings, eventi, curricula }) => {
+const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, onClose, competenze }) => {
     const [currentUda, setCurrentUda] = useState<Uda>(udaProp === 'new' ? createNewUda() : { ...udaProp });
     const [isCompetencyPickerOpen, setIsCompetencyPickerOpen] = useState(false);
 
-    const handleFieldChange = (field: keyof Uda, value: any) => setCurrentUda(prev => ({ ...prev, [field]: value }));
+    const handleFieldChange = (field: keyof Uda, value: unknown) => setCurrentUda(prev => ({ ...prev, [field]: value }));
     
     const handleCompetencyToggle = (id: string) => setCurrentUda(prev => ({ 
         ...prev, 
@@ -165,7 +159,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
 };
 
 const UdaPlanner: React.FC<UdaPlannerProps> = (props) => {
-    const { udas, onSaveUda, onDeleteUda, aiSettings, knowledgeBase, competenze, settings, onSaveReport, onNavigate, showGuidanceTips, eventi, curricula = [] } = props;
+    const { udas, onSaveUda, onDeleteUda, aiSettings, competenze, settings, onSaveReport, showGuidanceTips } = props;
     const [editingUda, setEditingUda] = useState<Uda | 'new' | null>(null);
     const [exportingUda, setExportingUda] = useState<Uda | null>(null);
 
@@ -189,10 +183,6 @@ const UdaPlanner: React.FC<UdaPlannerProps> = (props) => {
                     onDeleteUda={onDeleteUda} 
                     onClose={() => setEditingUda(null)} 
                     competenze={competenze}
-                    knowledgeBase={knowledgeBase}
-                    aiSettings={aiSettings}
-                    eventi={eventi}
-                    curricula={curricula}
                 />
             ) : (
                 <div className="card !p-0 overflow-hidden">

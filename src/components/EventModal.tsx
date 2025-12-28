@@ -24,7 +24,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
         ...eventToEdit
     });
 
-    const handleChange = (field: keyof EventoCalendario, value: any) => {
+    const handleChange = (field: keyof EventoCalendario, value: unknown) => {
         const newEvent = { ...event, [field]: value };
         if (field === 'data' && newEvent.dataFine && newEvent.dataFine < (newEvent.data || '')) {
             newEvent.dataFine = newEvent.data;
@@ -53,7 +53,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
 
     // Accessibility & UX
     const overlayRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLFormElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     useModalAccessibility({
         isOpen: true,
         onClose,
@@ -64,14 +64,14 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
 
     return (
         <div className="dialog-backdrop animate-fade-in" ref={overlayRef}>
-            <form
+            <div
                 ref={containerRef}
                 role="dialog"
                 aria-modal="true"
                 tabIndex={-1}
-                onSubmit={handleSubmit}
                 className="dialog-container w-full max-w-lg sm:max-w-full md:max-w-lg max-h-[90vh] overflow-y-auto shadow-xl p-4 sm:p-2 md:p-6 animate-scale-in"
             >
+                <form onSubmit={handleSubmit}>
                 <div className="dialog-header border-b border-outline-variant bg-surface-container-high p-6">
                     <h2 className="m3-headline-small font-extrabold">{event.id ? 'Modifica Evento' : 'Nuovo Evento'}</h2>
                     <button type="button" onClick={onClose} className="icon-button">
@@ -145,7 +145,8 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                     <button type="button" onClick={onClose} className="button button-text font-bold">Annulla</button>
                     <button type="submit" className="button button-filled shadow-lg font-extrabold !px-10">Salva</button>
                 </div>
-            </form>
+                </form>
+            </div>
         </div>
     );
 };

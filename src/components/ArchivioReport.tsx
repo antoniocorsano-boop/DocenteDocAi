@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Report } from '../types';
 import { saveAs } from '../utils/documentUtils';
 
+import M3IconButton from './M3IconButton';
+
 interface ArchivioReportProps {
     reports: Report[];
     onDeleteReport: (reportId: string) => void;

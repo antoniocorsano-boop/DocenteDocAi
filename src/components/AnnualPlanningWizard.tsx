@@ -24,7 +24,7 @@ interface AnnualPlanningWizardProps {
 type WizardStep = 'context' | 'situation' | 'methodology' | 'sequence' | 'preview' | 'document';
 
 const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
-    onClose, userClasses, settings, aiSettings, udas, onSaveUda, onAddLessons, onSaveReport, onSaveEvent, knowledgeBase, students, pianiInclusione
+    onClose, userClasses, settings, aiSettings, onSaveUda, onAddLessons, onSaveReport, onSaveEvent, knowledgeBase, students, pianiInclusione
 }) => {
     const [step, setStep] = useState<WizardStep>('context');
     
@@ -168,7 +168,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
     const calculateSchedule = () => {
         // Start around mid-September
-        let currentDate = new Date(`${currentYear}-09-12`); 
+        const currentDate = new Date(`${currentYear}-09-12`); 
         
         const schedule = plannedUdas.map(pUda => {
             const safeHoursPerWeek = Math.max(1, hoursPerWeek);
@@ -291,8 +291,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             saveAs(blob, fileName);
             
             onClose();
-        } catch (e: any) {
-            alert("Errore generazione documento: " + e.message);
+        } catch (e: unknown) {
+            const errMsg = e instanceof Error ? e.message : String(e);
+            alert("Errore generazione documento: " + errMsg);
         } finally {
             setProcessingStatus(null);
         }

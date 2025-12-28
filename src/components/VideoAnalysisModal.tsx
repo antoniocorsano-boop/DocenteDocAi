@@ -68,11 +68,11 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
         try {
             // GUIDELINE: Create new GoogleGenAI instance right before call (lazy-loaded)
             const genaiModule = await import('@google/genai');
-            const GoogleGenAI = (genaiModule && (genaiModule.GoogleGenAI || genaiModule.default)) || genaiModule;
-            const ai = new (GoogleGenAI as any)(import.meta.env.VITE_GEMINI_API_KEY);
+            const GoogleGenAI = genaiModule.GoogleGenAI;
+            const ai = new GoogleGenAI(import.meta.env.VITE_GEMINI_API_KEY);
 
             // Veo model parameters
-            let operation = await (ai as any).models.generateVideos({
+            let operation = await ai.models.generateVideos({
                 model: 'veo-3.1-fast-generate-preview',
                 prompt: prompt,
                 config: {
@@ -84,17 +84,18 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
 
             while (!operation.done) {
                 await new Promise(resolve => setTimeout(resolve, 10000));
-                operation = await (ai as any).operations.getVideosOperation({ operation: operation });
+                operation = await ai.operations.getVideosOperation({ operation });
             }
 
             if (operation.error) {
                 // GUIDELINE: Reset key if "Requested entity was not found" error occurs
-                if (operation.error.message.includes("Requested entity was not found.")) {
+                const errorMessage = typeof operation.error.message === 'string' ? operation.error.message : 'Errore durante la generazione del video.';
+                if (errorMessage.includes("Requested entity was not found.")) {
                     setError("API Key non valida o permessi mancanti. Per favore, seleziona nuovamente la chiave.");
                     setHasApiKey(false);
                     return;
                 }
-                throw new Error(operation.error.message || 'Errore durante la generazione del video.');
+                throw new Error(errorMessage);
             }
 
             const downloadLink = operation.response?.generatedVideos?.[0]?.video?.uri;
