@@ -14,7 +14,7 @@ interface UIState {
         isRestoring: boolean;
     };
     circularAnalysisModal: { isOpen: boolean; url: string; title: string; } | null;
-    syncConflictModal: { isOpen: boolean; data: SyncConflictData | null };
+    syncConflictModal: { isOpen: boolean; data: SyncConflictData | null } | null;
     createLessonContext: { isOpen: boolean; slotKey: string | null; lezione: Lezione | null };
     editingSlotKey: string | null;
     activeSlotKey: string | null;
@@ -24,13 +24,13 @@ interface UIState {
     installPrompt: BeforeInstallPromptEvent | null;
     canShowInstallPrompt: boolean;
     isGlobalAiLoading: boolean;
-    navigationHistory: { view: View; context: any | null }[];
+    navigationHistory: { view: View; context: import('../types').NavigationParams | null }[];
     backupState: BackupState;
     driveSyncState: DriveSyncState;
     actions: {
         toggleModal: (modalKey: keyof UIState['modals'], value?: boolean) => void;
         setCircularAnalysisModal: (modal: UIState['circularAnalysisModal']) => void;
-        setSyncConflictModal: (modal: UIState['syncConflictModal']) => void;
+        setSyncConflictModal: (modal: UIState['syncConflictModal'] | null) => void;
         setCreateLessonContext: (context: UIState['createLessonContext']) => void;
         setEditingSlotKey: (key: string | null) => void;
         setActiveSlotKey: (key: string | null) => void;
@@ -44,7 +44,7 @@ interface UIState {
         setCanShowInstallPrompt: (can: boolean) => void;
         setIsGlobalAiLoading: (loading: boolean) => void;
         setNavigationHistory: (history: UIState['navigationHistory']) => void;
-        addNavigationEntry: (entry: { view: View; context: any | null }) => void;
+        addNavigationEntry: (entry: { view: View; context: import('../types').NavigationParams | null }) => void;
         popNavigationEntry: () => void;
         clearNavigationHistory: () => void;
         setBackupState: (state: BackupState | ((prev: BackupState) => BackupState)) => void;
@@ -67,7 +67,7 @@ export const useUIStore = create<UIState>((set) => ({
         isRestoring: false,
     },
     circularAnalysisModal: null,
-    syncConflictModal: { isOpen: false, data: null },
+    syncConflictModal: null,
     createLessonContext: { isOpen: false, slotKey: null, lezione: null },
     editingSlotKey: null,
     activeSlotKey: null,
@@ -82,9 +82,24 @@ export const useUIStore = create<UIState>((set) => ({
     driveSyncState: { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined },
 
     actions: {
-        toggleModal: (modalKey, value) => set((state) => ({
-            modals: { ...state.modals, [modalKey]: value !== undefined ? value : !state.modals[modalKey] }
-        })),
+        toggleModal: (modalKey, value) => {
+            // Log persistente per debug apertura Assistant
+            if (modalKey === 'isLiveAssistantModalOpen' && value === true) {
+                if (typeof window !== 'undefined') {
+                    const logs = JSON.parse(localStorage.getItem('assistant_open_debug') || '[]');
+                    logs.push({
+                        ts: new Date().toISOString(),
+                        stack: new Error().stack,
+                        location: window.location.href
+                    });
+                    localStorage.setItem('assistant_open_debug', JSON.stringify(logs.slice(-30)));
+                    console.warn('[DEBUG][Assistant] Apertura modale Assistant tracciata', logs.at(-1));
+                }
+            }
+            return set((state) => ({
+                modals: { ...state.modals, [modalKey]: value !== undefined ? value : !state.modals[modalKey] }
+            }));
+        },
         setCircularAnalysisModal: (modal) => set({ circularAnalysisModal: modal }),
         setSyncConflictModal: (modal) => set({ syncConflictModal: modal }),
         setCreateLessonContext: (context) => set({ createLessonContext: context }),
