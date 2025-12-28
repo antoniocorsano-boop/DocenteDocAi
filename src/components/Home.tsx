@@ -142,15 +142,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                 </aside>
             </section>
 
-            <div className="fixed bottom-8 right-8 z-50">
-                <M3IconButton
-                    icon="psychology"
-                    ariaLabel="Apri Assistente AI"
-                    className="shadow-lg bg-primary text-on-primary rounded-full w-16 h-16 flex items-center justify-center hover:scale-110 transition-all"
-                    onClick={() => onNavigate('live-assistant')}
-                    title="Assistente AI"
-                />
-            </div>
+            {/* FAB Assistente AI rimosso: ora gestito globalmente da App.tsx/GlobalFab */}
         </div>
     );
 };
