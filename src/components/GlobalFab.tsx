@@ -9,13 +9,18 @@ interface GlobalFabProps {
 
 export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) => {
     
-    // FAB Logic: Default to Agent unless excluded
-    let icon = 'mic';
-    let label = 'Assistente Vocale';
-    let action = 'live-assistant';
+    // FAB Logic: Super AI Assistant (nuovo design)
+    let icon = 'smart_toy';
+    let label = 'Super AI Assistant';
+    let action = 'super-ai-assistant';
     let shouldRender = true;
 
-    if (['settings', 'aula-session', 'welcome'].includes(currentView)) {
+    if ([
+        'settings',
+        'aula-session',
+        'welcome',
+        // aggiungi altre view dove il FAB non deve apparire
+    ].includes(currentView)) {
         shouldRender = false;
     }
 

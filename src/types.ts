@@ -47,7 +47,6 @@ export interface NKANode {
     shape: 'circle' | 'square' | 'hex' | string;
     actions: string[];
 }
-import React from 'react';
 
 // --- GLOBAL INTERFACES FOR PWA ---
 export interface BeforeInstallPromptEvent extends Event {
@@ -57,6 +56,14 @@ export interface BeforeInstallPromptEvent extends Event {
         platform: string;
     }>;
     prompt(): Promise<void>;
+}
+
+// --- USER INTERFACE (for App.tsx, SignInScreen, etc.) ---
+export interface User {
+    id: string;
+    displayName?: string;
+    email?: string;
+    photoURL?: string;
 }
 
 // --- INPUT INTERFACES (DTOs) ---

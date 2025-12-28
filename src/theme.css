@@ -47,9 +47,6 @@
 
   /* Layout Metrics Presentation Layer */
   --header-height: 64px;
-  --nav-height: 80px;
-  --nav-offset-bottom: 24px;
-  --safe-area-bottom: 104px; /* nav-height + nav-offset-bottom */
   --content-max-width: 1200px;
   --content-padding: 16px;
   --content-padding-md: 24px;

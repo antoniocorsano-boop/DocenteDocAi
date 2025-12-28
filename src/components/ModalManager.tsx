@@ -86,8 +86,7 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
                 <VideoAnalysisModal onClose={() => modals.setIsVideoAnalysisOpen(false)} />
             )}
 
-            {/* AssistantFab: nuovo sistema FAB AI potenziato */}
-            <AssistantFab />
+
 
             {modals.isHelpOpen && (
                 <HelpModal

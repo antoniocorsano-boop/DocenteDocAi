@@ -89,29 +89,7 @@
 }
 
 /* --- BOTTOM NAVIGATION (FLOATING PILL) --- */
-.bottom-nav-bar {
-    position: fixed;
-    bottom: var(--nav-offset-bottom);
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - var(--spacing-8));
-    max-width: 480px;
-    height: var(--nav-height);
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: var(--glass-border);
-    border-radius: calc(var(--nav-height) / 2);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: var(--elevation-3);
-    z-index: var(--z-nav);
-    padding: 0 var(--spacing-3);
-    box-sizing: border-box;
-    transition: transform var(--motion-duration-medium2) var(--motion-easing-expressive),
-                opacity var(--motion-duration-short4) var(--motion-easing-standard);
-}
+
 
 /* --- NAV ITEMS --- */
 .nav-item {

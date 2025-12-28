@@ -1,9 +1,21 @@
 import * as React from 'react';
 import M3ExpressiveProvider from '../design-system/M3ExpressiveProvider';
-import { GlobalFab } from './GlobalFab';
+
+// Extend the Window interface to include __app_instrumentation and __sw_unregistered
+declare global {
+    interface Window {
+        __app_instrumentation?: {
+            user?: { id: string; displayName?: string };
+            isRestoring?: boolean;
+            appShellMounted?: boolean;
+        };
+        __sw_unregistered?: boolean;
+    }
+}
+
+import AssistantFab from './AssistantFab';
 import { useAppEngine } from '../hooks/useAppEngine';
 import { Header } from './Header';
-const AssistantDevTools = React.lazy(() => import('./AssistantDevTools'));
 
 import Menu from './Menu';
 import ViewManager from './ViewManager';
@@ -13,6 +25,7 @@ import { ModalManager } from './ModalManager';
 import { applyTheme, createTheme } from '../design-system';
 import Snackbar from './Snackbar';
 import RestoreAssistController, { useRestoreAssist } from './useRestoreAssist';
+import type { UserProfile } from '../types';
 
 /**
  * App.tsx - Il core del Presentation Layer.
@@ -27,9 +40,9 @@ export const App: React.FC = () => {
         // Runtime instrumentation for automated tests and diagnostics
         React.useEffect(() => {
             try {
-                (window as any).__app_instrumentation = (window as any).__app_instrumentation || {};
-                (window as any).__app_instrumentation.user = user ? { id: user.id, displayName: (user as any).displayName } : null;
-                console.info('[instrument] user', (window as any).__app_instrumentation.user);
+                window.__app_instrumentation = window.__app_instrumentation || {};
+                window.__app_instrumentation.user = user ? { id: user.id, displayName: (user as { id: string; displayName?: string }).displayName } : undefined;
+                console.info('[instrument] user', window.__app_instrumentation.user);
             } catch (e) {
                 /* ignore */
             }
@@ -37,8 +50,8 @@ export const App: React.FC = () => {
 
         React.useEffect(() => {
             try {
-                (window as any).__app_instrumentation = (window as any).__app_instrumentation || {};
-                (window as any).__app_instrumentation.isRestoring = !!modals?.isRestoring;
+                window.__app_instrumentation = window.__app_instrumentation || {};
+                window.__app_instrumentation.isRestoring = !!modals?.isRestoring;
                 console.info('[instrument] isRestoring', !!modals?.isRestoring);
             } catch (e) {
                 /* ignore */
@@ -51,9 +64,9 @@ export const App: React.FC = () => {
                 if (shell) {
                     try {
                         document.documentElement.setAttribute('data-app-shell-mounted', 'true');
-                    } catch (e) { }
-                    (window as any).__app_instrumentation = (window as any).__app_instrumentation || {};
-                    (window as any).__app_instrumentation.appShellMounted = true;
+                    } catch (e) { /* ignore error */ }
+                    window.__app_instrumentation = window.__app_instrumentation || {};
+                    window.__app_instrumentation.appShellMounted = true;
                     console.info('[instrument] app-shell-mounted');
                     return true;
                 }
@@ -71,7 +84,7 @@ export const App: React.FC = () => {
                 const theme = createTheme({
                     name: themeState.customizationName,
                     mode: themeState.mode === 'system' ? 'light' : themeState.mode,
-                    colors: themeState.customColors
+
                 });
                 applyTheme(theme);
             }
@@ -80,8 +93,8 @@ export const App: React.FC = () => {
         // Dev-only: unregister service workers to avoid stale service-worker intercept causing fetch failures
         React.useEffect(() => {
             try {
-                if ((import.meta && (import.meta as any).env && (import.meta as any).env.DEV) && 'serviceWorker' in navigator && !(window as any).__sw_unregistered) {
-                    (window as any).__sw_unregistered = true;
+                if ((import.meta && (import.meta as unknown as { env?: { DEV?: boolean } }).env && (import.meta as unknown as { env?: { DEV?: boolean } }).env?.DEV) && 'serviceWorker' in navigator && !window.__sw_unregistered) {
+                    window.__sw_unregistered = true;
                     navigator.serviceWorker.getRegistrations()
                         .then(regs => {
                             if (!regs || regs.length === 0) return false;
@@ -150,12 +163,12 @@ export const App: React.FC = () => {
         // Assisted restore UI if app is empty or backup failed
         const restoreAssist = useRestoreAssist(appState, actions, modals);
         if (restoreAssist.show) {
-            return <RestoreAssistController {...restoreAssist} />;
+            return <RestoreAssistController isOpen={restoreAssist.show} {...restoreAssist} />;
         }
 
         // Fallback: se nessun utente e nessun errore, mostra login
         if (!user) {
-            return <SignInScreen onSignInSuccess={(profile: any) => actions.setUser(profile)} />;
+            return <SignInScreen onSignInSuccess={(profile: UserProfile) => actions.setUser(profile)} />;
         }
 
 
@@ -199,24 +212,25 @@ export const App: React.FC = () => {
                     </div>
                 </main>
 
-                {/* FAB Assistente AI: apre il nuovo modal AssistantModal */}
-                <GlobalFab
-                    currentView={view}
-                    onAction={() => modals.setIsLiveAssistantModalOpen(true)}
-                />
 
-                {/* Bottom Navigation */}
-                <Menu currentView={view} onNavigate={actions.handleNavigate} />
+                                {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
+                                {/* Super AI Assistant FAB: floating, multi-action, modal */}
+                                <div style={{position: 'fixed', right: '2.2rem', bottom: '5.5rem', zIndex: 1300, pointerEvents: 'auto'}}>
+                                    <AssistantFab />
+                                </div>
+
+                                {/* Footer Menu flottante in basso, sotto il FAB */}
+                                <div style={{position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 1200, pointerEvents: 'none'}}>
+                                    <div style={{display: 'flex', justifyContent: 'center', pointerEvents: 'auto'}}>
+                                        <Menu
+                                            currentView={view}
+                                            onNavigate={actions.handleNavigate}
+                                        />
+                                    </div>
+                                </div>
+
                 <ModalManager appState={appState} actions={actions} modals={modals} />
                 <Snackbar />
-                {/* Dev tools to simulate assistant behaviors */}
-                                {import.meta.env.DEV && (
-                                    // lazy load to avoid shipping in prod bundles
-                                    <React.Suspense fallback={null}>
-                                        {/* @ts-ignore: AssistantDevTools may not have explicit props type, ignore for now */}
-                                        <AssistantDevTools actions={actions} />
-                                    </React.Suspense>
-                                )}
                 <Snackbar />
             </div>
             </M3ExpressiveProvider>

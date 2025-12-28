@@ -18,10 +18,6 @@ const theme = createTheme({
       default: '#FDFBFF',
       paper: '#F3EDF7',
     },
-    surface: {
-      main: '#F3EDF7',
-      contrastText: '#1C1B1F',
-    },
     error: {
       main: '#B3261E',
       contrastText: '#fff',

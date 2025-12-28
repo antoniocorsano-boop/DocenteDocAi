@@ -162,24 +162,7 @@
 }
 
 /* --- NAVIGATION GLASS BAR --- */
-.bottom-nav-bar {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: var(--glass-border);
-  border-radius: var(--shape-full);
-  height: 76px;
-  display: flex;
-  align-items: center;
-  padding: 0 var(--spacing-6);
-  gap: var(--spacing-3);
-  box-shadow: var(--elevation-3);
-  z-index: var(--z-nav);
-}
+
 
 /* --- M3 POPUP MENU (Expressive Glass) --- */
 .m3-popup-menu {
