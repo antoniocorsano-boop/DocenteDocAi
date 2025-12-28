@@ -1,7 +1,7 @@
 
 import React, { useState, useCallback, useRef } from 'react';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
-import { useDropzone } from 'react-dropzone';
+import { useFileDrop } from '../hooks/useFileDrop';
 import { KnowledgeBaseEntry, Corpus } from '../types';
 import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
 import { KB_CATEGORIES } from '../constants';
@@ -50,7 +50,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
     };
 
     const onDrop = useCallback((acceptedFiles: File[]) => processFiles(acceptedFiles), [selectedCategory, selectedCorpusId, processFiles]);
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, disabled: isLoading || !selectedCategory });
+    const { getRootProps, getInputProps, isDragActive } = useFileDrop({ onDrop, disabled: isLoading || !selectedCategory });
     
     // Accessibility & UX
     const overlayRef = useRef<HTMLDivElement>(null);

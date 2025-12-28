@@ -51,7 +51,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
         <div className="space-y-4">
             <InfoCard
                 title="Gestione Piani Centralizzata"
-                description="Seleziona uno studente per creare o modificare il suo Piano Didattico Personalizzato (PDP) o Piano Educativo Individualizzato (PEI). L'AI ti assisterà nella compilazione."
+                description="Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione."
                 icon="folder_shared"
                 variant="tertiary"
             />

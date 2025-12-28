@@ -19,7 +19,20 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
 
     return (
         <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-lg">
+            <div
+                className="dialog-container w-full max-w-lg"
+                style={{
+                    maxWidth: '95vw',
+                    width: '100%',
+                    maxHeight: '95vh',
+                    margin: '0 auto',
+                    padding: '0',
+                    overflowY: 'auto',
+                    borderRadius: '16px',
+                    boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
+                    background: 'var(--sys-surface)',
+                }}
+            >
                 <div className="dialog-header">
                     <h2 className="m3-headline-medium">Genera Immagine</h2>
                     <button type="button" onClick={onClose} className="icon-button rounded-lg hover:shadow-md transition-all">

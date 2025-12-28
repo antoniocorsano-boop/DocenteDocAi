@@ -2,6 +2,7 @@ import React from 'react';
 import OperationsCenter from './OperationsCenter';
 import ImageAnalysisModal from './ImageAnalysisModal';
 import AssistantModal from './AssistantModal';
+import AssistantFab from './AssistantFab';
 import HelpModal from './HelpModal';
 import CircolareAnalysisModal from './CircolareAnalysisModal';
 import LoadingModal from './LoadingModal';
@@ -85,12 +86,8 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
                 <VideoAnalysisModal onClose={() => modals.setIsVideoAnalysisOpen(false)} />
             )}
 
-            {modals.isLiveAssistantModalOpen && (
-                <AssistantModal
-                    open={modals.isLiveAssistantModalOpen}
-                    onClose={() => modals.setIsLiveAssistantModalOpen(false)}
-                />
-            )}
+            {/* AssistantFab: nuovo sistema FAB AI potenziato */}
+            <AssistantFab />
 
             {modals.isHelpOpen && (
                 <HelpModal

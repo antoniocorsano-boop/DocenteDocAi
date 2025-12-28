@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo, useCallback } from 'react';
 import { KnowledgeBaseEntry, MaterialeDidattico } from '../types';
-import { useDropzone } from 'react-dropzone';
+import { useFileDrop } from '../hooks/useFileDrop';
 import { blobToBase64Parts } from '../utils/documentUtils';
 
 interface MaterialPickerModalProps {
@@ -45,7 +45,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
         setIsUploading(false);
     }, []);
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+    const { getRootProps, getInputProps, isDragActive } = useFileDrop({ onDrop });
 
     const handleToggleKb = (kbEntry: KnowledgeBaseEntry) => {
         const existing = materials.find(m => m.type === 'kb' && m.kbId === kbEntry.id);

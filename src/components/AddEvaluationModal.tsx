@@ -91,17 +91,17 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                 tabIndex={-1}
                 onSubmit={handleSubmit}
                 className="dialog-container animate-scale-in"
-                style={{
-                    background: 'var(--sys-surface)',
-                    borderRadius: 16,
-                    width: '100vw',
-                    maxWidth: 480,
-                    maxHeight: '90vh',
-                    padding: 24,
-                    position: 'relative',
-                    boxShadow: '0 4px 32px rgba(0,0,0,0.2)',
-                    outline: 'none',
-                }}
+                    style={{
+                        maxWidth: '95vw',
+                        width: '100%',
+                        maxHeight: '95vh',
+                        margin: '0 auto',
+                        padding: '0',
+                        overflowY: 'auto',
+                        borderRadius: '16px',
+                        boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
+                        background: 'var(--sys-surface)',
+                    }}
                 onClick={e => e.stopPropagation()}
             >
                 <div className="dialog-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

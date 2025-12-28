@@ -4,6 +4,7 @@ import EventModal from './EventModal';
 import AiEventParserModal from './AiEventParserModal';
 import EventActionPopover from './EventActionPopover';
 import { TabGroup } from './M3Components';
+import M3Button from './M3Button';
 
 interface CalendarProps {
     eventi: EventoCalendario[];
@@ -122,15 +123,9 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, acti
             <header className="calendar-header">
                 <div className="calendar-header-left">
                     <div className="calendar-nav-group">
-                        <button onClick={() => handleNavigate('prev')} className="icon-button" title="Precedente">
-                            <span className="material-symbols-outlined">chevron_left</span>
-                        </button>
-                        <button onClick={() => handleNavigate('today')} className="calendar-today-btn">
-                            Oggi
-                        </button>
-                        <button onClick={() => handleNavigate('next')} className="icon-button" title="Successivo">
-                            <span className="material-symbols-outlined">chevron_right</span>
-                        </button>
+                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Precedente" startIcon={<span className="material-symbols-outlined">chevron_left</span>} />
+                        <M3Button variant="tonal" onClick={() => handleNavigate('today')} >Oggi</M3Button>
+                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Successivo" endIcon={<span className="material-symbols-outlined">chevron_right</span>} />
                     </div>
                     <h2 className="calendar-title">{title}</h2>
                 </div>
@@ -149,13 +144,10 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, acti
                     />
 
                     <div className="calendar-actions">
-                        <button onClick={() => setIsAiParserOpen(true)} className="icon-button primary" title="Analizza Circolare con AI">
-                            <span className="material-symbols-outlined">auto_awesome</span>
-                        </button>
-                        <button onClick={() => setEditingEvent({})} className="button button-filled">
-                            <span className="material-symbols-outlined">add</span>
-                            <span>Nuovo Evento</span>
-                        </button>
+                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza Circolare con AI" startIcon={<span className="material-symbols-outlined">auto_awesome</span>} />
+                        <M3Button variant="filled" onClick={() => setEditingEvent({})} startIcon={<span className="material-symbols-outlined">add</span>}>
+                            Nuovo Evento
+                        </M3Button>
                     </div>
                 </div>
             </header>

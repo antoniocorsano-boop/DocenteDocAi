@@ -155,7 +155,7 @@ export const EditSlotModal: React.FC<EditSlotModalProps> = ({
 
                   {activityType === 'disposizione' && (
                     <div className="animate-in slide-in-from-bottom-4 space-y-4">
-                        <InfoCard title="Ora di Disposizione" description="Registra la tua presenza per sostituzioni o attività di plesso." icon="pending_actions" variant="secondary" className="!p-6 !rounded-[32px]" />
+                        <InfoCard title="Ora di Disposizione" description="Registra la tua presenza per sostituzioni o attività di plesso." icon="pending_actions" variant="secondary" />
                         {/* FIX: Changed 'note' to 'nota' to match Lezione interface */}
                         <TextField 
                             id="slot-disp-nota"
@@ -169,7 +169,7 @@ export const EditSlotModal: React.FC<EditSlotModalProps> = ({
 
                   {activityType === 'ricevimento' && (
                     <div className="animate-in slide-in-from-bottom-4 space-y-4">
-                        <InfoCard title="Colloquio Genitori" description="Spazio dedicato al ricevimento delle famiglie." icon="diversity_3" variant="tertiary" className="!p-6 !rounded-[32px]" />
+                        <InfoCard title="Colloquio Genitori" description="Spazio dedicato al ricevimento delle famiglie." icon="diversity_3" variant="tertiary" />
                         {/* FIX: Changed 'note' to 'nota' to match Lezione interface */}
                         <TextField 
                             id="slot-ricev-nota"

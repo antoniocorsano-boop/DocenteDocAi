@@ -122,26 +122,33 @@ export const ActionTile: React.FC<{ title: string; subtitle?: string; icon: stri
 // --- INFO CARD (Expressive Glass) ---
 export const InfoCard: React.FC<{ title: string; description: string; icon?: string; variant?: string; className?: string; action?: React.ReactNode; onClose?: () => void }> = ({ title, description, icon, variant = 'surface', className = '', action, onClose }) => {
     const variantMap: Record<string, string> = {
-        primary: 'bg-primary-container/80 text-on-primary-container border-primary/20',
-        tertiary: 'bg-tertiary-container/80 text-on-tertiary-container border-tertiary/20',
-        error: 'bg-error-container/80 text-on-error-container border-error/20',
-        surface: 'bg-surface-container/80 text-on-surface border-outline-variant/20'
+        primary: 'bg-primary-container/80 text-on-primary-container border-primary/10',
+        tertiary: 'bg-tertiary-container/80 text-on-tertiary-container border-tertiary/10',
+        error: 'bg-error-container/80 text-on-error-container border-error/10',
+        surface: 'bg-surface-container/80 text-on-surface border-outline-variant/10'
     };
     const variantClasses = variantMap[variant] || variantMap.surface;
 
     return (
-        <div className={`p-8 rounded-[40px] shadow-2xl backdrop-blur-xl border overflow-hidden relative group transition-all duration-500 hover:shadow-primary/10 ${variantClasses} ${className}`}>
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-white/20 transition-all duration-700"></div>
+        <div
+            className={`p-6 md:p-10 rounded-3xl md:rounded-[40px] shadow-xl md:shadow-2xl backdrop-blur-2xl border border-white/10 dark:border-black/10 overflow-hidden relative group transition-all duration-500 hover:shadow-primary/10 ${variantClasses} ${className}`}
+            style={{
+                boxShadow: '0 6px 32px 0 rgba(60, 30, 90, 0.10), 0 1.5px 6px 0 rgba(60,30,90,0.08)',
+                border: '1.5px solid rgba(80,80,120,0.10)',
+                backgroundClip: 'padding-box',
+            }}
+        >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-white/20 transition-all duration-700 pointer-events-none"></div>
 
             <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
                 {icon && (
-                    <div className="p-5 rounded-[24px] bg-white/30 dark:bg-black/20 backdrop-blur-md flex items-center justify-center shadow-inner border border-white/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                    <div className="p-5 rounded-2xl bg-white/30 dark:bg-black/20 backdrop-blur-md flex items-center justify-center shadow-inner border border-white/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                         <span className="material-symbols-outlined text-4xl">{icon}</span>
                     </div>
                 )}
                 <div className="flex-grow">
                     <h3 className="m3-headline-small font-extrabold mb-3 tracking-tight">{title}</h3>
-                    <p className="m3-body-large opacity-90 leading-relaxed font-bold italic">"{description}"</p>
+                    <p className="m3-body-large opacity-90 leading-relaxed">{description}</p>
                     {action && <div className="mt-8 flex justify-end">{action}</div>}
                 </div>
                 {onClose && (

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import M3Button from './M3Button';
 import { SystemSuggestion } from '../types';
 
 interface AssistantDevToolsActions {
@@ -37,12 +38,12 @@ const AssistantDevTools: React.FC<Props> = ({ actions }) => {
   return (
     <div className="assistant-dev-tools" aria-hidden={false}>
       <div style={{ display: 'flex', gap: 8 }}>
-        <button className="button button-outlined" onClick={toggleSuggestion}>
+        <M3Button variant="outlined" onClick={toggleSuggestion}>
           {suggestionOn ? 'Rimuovi suggerimento' : 'Simula suggerimento'}
-        </button>
-        <button className={`button ${listening ? 'button-filled' : 'button-outlined'}`} onClick={toggleListening}>
+        </M3Button>
+        <M3Button variant={listening ? 'filled' : 'outlined'} onClick={toggleListening}>
           {listening ? 'Stop Listen (dev)' : 'Start Listen (dev)'}
-        </button>
+        </M3Button>
       </div>
     </div>
   );

@@ -11,9 +11,15 @@ export default defineConfig({
     alias: {
       react: path.resolve(__dirname, 'node_modules/react'),
       'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
-      '@': path.resolve(process.cwd(), './src'),
+      underscore: 'lodash', // Shim underscore to lodash
     },
     dedupe: ['react', 'react-dom'],
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'lodash', 'lodash-es', 'underscore'],
+    esbuildOptions: {
+      mainFields: ['module', 'jsnext:main', 'jsnext'],
+    },
   },
   plugins: [
     react(),
@@ -31,13 +37,11 @@ export default defineConfig({
     sourcemap: process.env.NODE_ENV === 'development' ? true : false,
     chunkSizeWarningLimit: 800, // Increase limit - we have large dependencies (PDFs, genAI, etc.)
     rollupOptions: {
+      external: ['mammoth', 'jspdf', 'pdf-lib', 'docx'],
       input: {
         main: './index.html',
       },
       output: {
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]',
         manualChunks(id: string) {
           // Split large dependencies into separate chunks
           if (id.includes('node_modules')) {
@@ -50,8 +54,7 @@ export default defineConfig({
               id.includes('use-sync-external-store') ||
               id.includes('use-sync-external-store-shim') ||
               id.includes('react/jsx-runtime')
-            )
-              return 'vendor-react';
+            ) return 'vendor-react';
             // State management - separated to load after React
             if (id.includes('zustand')) return 'vendor-zustand';
             // AI model library - large, can be lazy-loaded
@@ -65,7 +68,9 @@ export default defineConfig({
             if (id.includes('mammoth')) return 'vendor-mammoth';
             if (id.includes('pdfjs-dist')) return 'vendor-pdfjs';
             // Utility libraries
-            if (id.includes('purify') || id.includes('lodash')) return 'vendor-utils';
+            if (id.includes('lodash-es') || id.includes('lodash')) return 'vendor-lodash';
+            if (id.includes('underscore')) return 'vendor-underscore';
+            if (id.includes('purify')) return 'vendor-utils';
             // Default vendor chunk for other node_modules
             return 'vendor';
           }
@@ -73,12 +78,4 @@ export default defineConfig({
       },
     },
   },
-  server: {
-    port: 8080,
-    host: '0.0.0.0',
-    hmr: {
-      overlay: false
-    }
-  },
-  // (removed duplicate resolve block)
 });

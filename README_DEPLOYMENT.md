@@ -1,9 +1,46 @@
-
-# 🚀 Deploy DocenteDoc AI su Vercel (Owner: antonio.corsano@gmail.com)
+# 🚀 Deploy DocenteDoc AI su Netlify (Owner: antonio.corsano@gmail.com)
 
 **Status:** 🟢 **PRODUCTION READY v4.1.0**
 
+**URL Production:** https://docentedoc-ia.netlify.app
+
 ---
+
+## 📌 Deploy Netlify - Guida Razionalizzata
+
+### 1. Build locale (opzionale)
+```bash
+npm install
+npm run build
+```
+
+### 2. Deploy automatico (raccomandato)
+- Effettua il push su main/master: Netlify esegue il deploy automatico.
+
+### 3. Deploy manuale immediato
+- Vai su: https://app.netlify.com/sites/docentedoc-ia/deploys
+- Click "Trigger deploy" → "Deploy site"
+
+### 4. Deploy da terminale (owner/account associato)
+```bash
+npx netlify-cli deploy --prod --dir=dist
+```
+- Assicurati di essere loggato: `npx netlify-cli login`
+
+### 5. Verifica post-deploy
+- Hard refresh (Ctrl+Shift+R)
+- Console F12: nessun errore rosso
+- Service Worker registrato
+- manifest.json = 200
+- Navigazione e feature OK
+
+### 6. Troubleshooting
+- Se vedi errori di build: controlla i log su Netlify Dashboard
+- Se vedi errori runtime: consulta la sezione troubleshooting avanzato
+- Site ID: `8700a995-d714-42f5-b368-a492bd5dfc27`
+
+### ⚠️ Nota importante: Migrazione da Vercel a Netlify
+A causa di errori persistenti di interop ESM/CJS su Vercel che non potevano essere risolti con configurazioni Vite, il progetto è stato migrato a Netlify. Netlify gestisce meglio le dipendenze esterne e i moduli CommonJS/ESM misti.
 
 ## 📌 Deploy Vercel - Guida Razionalizzata
 
@@ -39,6 +76,62 @@ npx vercel --prod --yes
 - Se vedi errori di permessi: controlla che il progetto sia nel team/account giusto su Vercel.
 - Se vedi errori “document is undefined”: assicurati che la build sia aggiornata (polyfill attivo).
 - Consulta i log su Vercel Dashboard → Deployments → Logs.
+
+---
+
+## 🛠️ Problematica critica: errore "Failed to resolve module specifier '@google/genai'"
+
+### Sintomo
+- In produzione (Netlify/Vercel) l’app si blocca con errore:
+  > TypeError: Failed to resolve module specifier "@google/genai". Relative references must start with either "/", "./", or "../".
+
+### Causa
+- In `vite.config.ts` la dipendenza `@google/genai` era inserita in `rollupOptions.external`.
+- Questo dice a Vite/Rollup di NON includere la libreria nel bundle, aspettandosi che il browser la risolva come modulo ESM nativo.
+- Ma `@google/genai` **NON esiste** come ESM pubblico su CDN/browser: solo Node/bundle!
+
+### Soluzione definitiva
+1. **Rimuovere `@google/genai` da `rollupOptions.external`** in `vite.config.ts`:
+   ```js
+   // PRIMA
+   external: ['mammoth', 'jspdf', 'pdf-lib', 'docx', '@google/genai'],
+   // DOPO
+   external: ['mammoth', 'jspdf', 'pdf-lib', 'docx'],
+   ```
+2. Ricostruire e ridistribuire l’app.
+
+### Perché funziona
+- Così Vite include `@google/genai` nel bundle finale, rendendolo disponibile anche in produzione/browser.
+- **Non mettere mai in external** moduli npm che non esistono come ESM/CDN pubblici!
+
+### Debug rapido
+- Se vedi errori simili con altre dipendenze, verifica sempre se sono in external e se esistono come ESM/CDN pubblici.
+- Se non esistono, vanno sempre bundle-izzati.
+
+---
+
+## 🛠️ Troubleshooting avanzato: errori moduli esterni (interop ESM/CJS)
+
+### Errore: "Cannot read properties of undefined (reading 'default')" (vendor-react)
+
+**Causa:**
+- Problema di interop tra CommonJS/ESM nei bundle vendor, spesso causato da dipendenze pesanti come @google/genai, docx, jspdf, pdf-lib, mammoth, react-dropzone.
+- Queste librerie hanno dipendenze legacy che causano conflitti quando bundleizzate insieme a React.
+
+**Soluzione adottata (versione finale):**
+1. **Rimozione completa** di `react-dropzone` dal progetto per evitare conflitti di interop ESM/CJS.
+2. **Sostituzione** con hook custom `useFileDrop` che implementa drag & drop nativo HTML5.
+3. **Aggiornamento** di 7 componenti per usare il nuovo hook.
+4. Migrazione da Vercel a Netlify per migliore gestione dell'interop ESM/CJS.
+5. Build e deploy su Netlify:
+   - `npm run build` (210 moduli trasformati)
+   - `npx netlify-cli deploy --prod --dir=dist`
+
+**Vantaggi della soluzione:**
+- ✅ Nessuna dipendenza esterna problematica
+- ✅ Codice più leggero e controllabile
+- ✅ Compatibilità garantita con tutti i browser moderni
+- ✅ Netlify gestisce meglio le dipendenze esterne
 
 ---
 

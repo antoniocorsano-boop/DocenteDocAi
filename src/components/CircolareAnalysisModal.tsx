@@ -1,5 +1,6 @@
 
 import React, { useState, useMemo } from 'react';
+import M3Button from './M3Button';
 import { AiSettings, CircularAnalysisResult, EventoCalendario } from '../types';
 import { analyzeCircularDocument } from '../services/aiService';
 import { M3Dialog, TextArea } from './M3Components';
@@ -59,7 +60,6 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
         if (allEvents.length > 0) {
             onImportEvents(allEvents);
         }
-
         if (result.notes && result.notes.title && result.notes.content) {
             onSaveToKb(result.notes);
         }
@@ -71,11 +71,11 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
         if (!result) {
             return (
                 <>
-                    <button onClick={onClose} className="button button-text" disabled={isLoading}>Annulla</button>
-                    <button onClick={handleAnalyze} disabled={isLoading || !manualText.trim()} className="button button-filled">
+                    <M3Button variant="text" onClick={onClose} disabled={isLoading}>Annulla</M3Button>
+                    <M3Button variant="filled" onClick={handleAnalyze} disabled={isLoading || !manualText.trim()}>
                         {isLoading ? (
                             <>
-                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-on-primary mr-2"></div>
+                                <span className="material-symbols-outlined animate-spin mr-2">progress_activity</span>
                                 Analisi...
                             </>
                         ) : (
@@ -84,17 +84,17 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                                 Analizza Testo
                             </>
                         )}
-                    </button>
+                    </M3Button>
                 </>
             );
         } else {
             return (
                 <>
-                    <button onClick={() => setResult(null)} className="button button-text">Indietro</button>
-                    <button onClick={handleImport} className="button button-filled">
+                    <M3Button variant="text" onClick={() => setResult(null)}>Indietro</M3Button>
+                    <M3Button variant="filled" onClick={handleImport}>
                         <span className="material-symbols-outlined mr-2">save</span>
                         Salva Eventi e Note
-                    </button>
+                    </M3Button>
                 </>
             );
         }

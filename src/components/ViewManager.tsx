@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import Home from './Home';
+import DemoExpressiveCard from './DemoExpressiveCard';
 import { Timetable } from './Timetable';
 import Calendar from './Calendar';
 import Settings from './Settings';
@@ -99,26 +100,32 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
     const renderView = useMemo(() => {
         return (
             <>
-                {view === 'home' && <AuraView><Home
-                    slots={slots}
-                    lessons={lessons}
-                    onNavigate={handleNavigate}
-                    appState={appState}
-                    onSuggestionAction={handleAiSuggestionFromHome}
-                    onStartClassroom={handleStartClassroom}
-                    finalizedRegister={finalizedRegister}
-                    draftRegister={draftRegister}
-                    showGuidanceTips={settings.showGuidanceTips}
-                    suggestions={suggestions}
-                    dismissSuggestion={dismissSuggestion}
-                    onAiProcessing={setIsGlobalAiLoading}
-                    user={user}
-                    onUpdateMemos={setMemos}
-                    onConnectDrive={handleConnectDrive}
-                    aiSettings={aiSettings}
-                    settings={settings}
-                    handleOpenOperations={handleOpenOperations}
-                /></AuraView>}
+                                {view === 'home' && (
+                                    <AuraView>
+                                        <Home
+                                            slots={slots}
+                                            lessons={lessons}
+                                            onNavigate={handleNavigate}
+                                            appState={appState}
+                                            onSuggestionAction={handleAiSuggestionFromHome}
+                                            onStartClassroom={handleStartClassroom}
+                                            finalizedRegister={finalizedRegister}
+                                            draftRegister={draftRegister}
+                                            showGuidanceTips={settings.showGuidanceTips}
+                                            suggestions={suggestions}
+                                            dismissSuggestion={dismissSuggestion}
+                                            onAiProcessing={setIsGlobalAiLoading}
+                                            user={user}
+                                            onUpdateMemos={setMemos}
+                                            onConnectDrive={handleConnectDrive}
+                                            aiSettings={aiSettings}
+                                            settings={settings}
+                                            handleOpenOperations={handleOpenOperations}
+                                        />
+                                        {/* DEMO: Card expressive MUI */}
+                                        <DemoExpressiveCard />
+                                    </AuraView>
+                                )}
                 {view === 'timetable' && <AuraView><Timetable
                     slots={slots}
                     lessons={lessons}

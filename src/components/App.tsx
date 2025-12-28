@@ -1,4 +1,5 @@
 import * as React from 'react';
+import M3ExpressiveProvider from '../design-system/M3ExpressiveProvider';
 import { GlobalFab } from './GlobalFab';
 import { useAppEngine } from '../hooks/useAppEngine';
 import { Header } from './Header';
@@ -160,6 +161,7 @@ export const App: React.FC = () => {
 
         // App Shell M3 Expressive
         return (
+            <M3ExpressiveProvider>
             <div className="app-shell">
                 {/* Fixed Header */}
                 <Header
@@ -217,6 +219,7 @@ export const App: React.FC = () => {
                                 )}
                 <Snackbar />
             </div>
+            </M3ExpressiveProvider>
         );
     } catch (err) {
         // Fallback visibile: errore di caricamento o runtime

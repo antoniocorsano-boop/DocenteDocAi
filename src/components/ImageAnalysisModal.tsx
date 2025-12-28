@@ -1,6 +1,6 @@
 
 import React, { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useFileDrop } from '../hooks/useFileDrop';
 import { analyzeImage } from '../services/aiService';
 import { AiSettings } from '../types';
 
@@ -43,9 +43,9 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
     }
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useFileDrop({
     onDrop,
-    accept: { 'image/*': ['.jpeg', '.png', '.gif', '.webp'] },
+    accept: 'image/*',
     multiple: false,
   });
   
@@ -71,7 +71,20 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
 
   return (
     <div className="dialog-backdrop">
-      <div className="dialog-container w-full max-w-4xl h-[90vh]">
+      <div
+        className="dialog-container w-full max-w-4xl h-[90vh]"
+        style={{
+          maxWidth: '95vw',
+          width: '100%',
+          maxHeight: '95vh',
+          margin: '0 auto',
+          padding: '0',
+          overflowY: 'auto',
+          borderRadius: '16px',
+          boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
+          background: 'var(--sys-surface)',
+        }}
+      >
         <div className="dialog-header">
           <h2 className="m3-headline-medium">Analisi Immagine con AI</h2>
           <button onClick={onClose} className="icon-button">

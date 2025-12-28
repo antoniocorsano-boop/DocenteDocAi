@@ -6,6 +6,7 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateCouncilDataPdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { TabGroup } from './M3Components';
+import M3ClassCard from './M3ClassCard';
 
 interface ClassSelectionProps {
     userClasses: string[];
@@ -87,7 +88,6 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ userClasses, onSelectCl
                         {userClasses.map((className) => {
                             const classStudents = students.filter(s => s.classe === className);
                             const studentCount = classStudents.length;
-                            
                             let insufficientCount = 0;
                             const studentAverages = classStudents.map(s => {
                                 const sEvals = evaluations.filter(e => e.studenteId === s.id);
@@ -96,63 +96,23 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ userClasses, onSelectCl
                                 if (numGrade && numGrade < 6) insufficientCount++;
                                 return numGrade;
                             }).filter((v): v is number => v !== null);
-
                             const classAverage = studentAverages.length > 0 
                                 ? (studentAverages.reduce((a, b) => a + b, 0) / studentAverages.length).toFixed(1)
                                 : '-';
-
-                            const numericAverage = parseFloat(classAverage);
-                            const hasClassWarning = !isNaN(numericAverage) && numericAverage < 6;
-
                             const hue = generateHueFromString(className);
                             const accentColor = `hsl(${hue}, 65%, 50%)`;
                             const dynamicBg = `hsl(${hue}, 60%, 50%, 0.08)`;
-
                             return (
-                                <div
+                                <M3ClassCard
                                     key={className}
+                                    className={className}
+                                    studentCount={studentCount}
+                                    classAverage={classAverage}
+                                    accentColor={accentColor}
+                                    dynamicBg={dynamicBg}
+                                    insufficientCount={insufficientCount}
                                     onClick={() => onSelectClass(className)}
-                                    className="class-card-widget group"
-                                    style={{ 
-                                        borderLeft: `6px solid ${accentColor}`,
-                                        backgroundColor: dynamicBg
-                                    }}
-                                >
-                                    <div className="class-card-header">
-                                        <span className="class-card-title text-on-surface">{className}</span>
-                                        <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/50 backdrop-blur-sm shadow-sm">
-                                            <span className="material-symbols-outlined" style={{ color: accentColor }}>
-                                                groups
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    <div className="class-card-body">
-                                        {insufficientCount > 0 && (
-                                            <div className="class-notification-badge" title={`${insufficientCount} studenti con media insufficiente`}>
-                                                {insufficientCount}
-                                            </div>
-                                        )}
-
-                                        <div className="space-y-2">
-                                            <div className="class-stat-row">
-                                                <span className="class-stat-label">Studenti</span>
-                                                <span className="class-stat-value">{studentCount}</span>
-                                            </div>
-                                            <div className="class-stat-row">
-                                                <span className="class-stat-label">Media Classe</span>
-                                                <span className={`class-stat-value ${hasClassWarning ? 'text-error' : ''}`}>
-                                                    {classAverage}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="flex justify-end mt-auto pt-4">
-                                            <span className="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:translate-x-1 transition-transform">
-                                                arrow_forward
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                />
                             );
                         })}
                     </div>

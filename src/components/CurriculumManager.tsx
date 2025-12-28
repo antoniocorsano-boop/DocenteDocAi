@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { CurriculumSubject, CurriculumNucleo, CurriculumObjective, AiSettings, TimetableSettings, View, Lezione } from '../types';
 import { parseCurriculumFromText } from '../services/aiService';
 import { extractTextFromFile } from '../utils/documentUtils';
-import { useDropzone } from 'react-dropzone';
+import { useFileDrop } from '../hooks/useFileDrop';
 import AiThinkingGem from './AiThinkingGem';
 import { TabGroup, EmptyState, TextField, TextArea, SelectField } from './M3Components';
 
@@ -78,7 +78,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
         }
     };
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: {'application/pdf': ['.pdf'], 'text/plain': ['.txt']}, multiple: false });
+    const { getRootProps, getInputProps, isDragActive } = useFileDrop({ onDrop, accept: 'application/pdf,text/plain', multiple: false });
 
     const renderEditor = () => {
         if (!selectedCurriculum) return null;

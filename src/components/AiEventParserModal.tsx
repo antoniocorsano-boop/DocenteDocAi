@@ -50,7 +50,18 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                 role="dialog"
                 aria-modal="true"
                 tabIndex={-1}
-                className="dialog-container w-full max-w-2xl sm:max-w-full md:max-w-xl max-h-[90vh] overflow-y-auto p-4 sm:p-2 md:p-6 animate-scale-in"
+                    className="dialog-container"
+                    style={{
+                        maxWidth: '95vw',
+                        width: '100%',
+                        maxHeight: '95vh',
+                        margin: '0 auto',
+                        padding: '0',
+                        overflowY: 'auto',
+                        borderRadius: '16px',
+                        boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
+                        background: 'var(--sys-surface)',
+                    }}
             >
                 <div className="dialog-header">
                     <h2 className="m3-headline-medium">Crea Evento da Testo con AI</h2>

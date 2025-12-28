@@ -198,8 +198,23 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 
     return (
         <div className="dialog-backdrop" onClick={onClose}>
-            <div className="dialog-container w-full max-w-4xl h-[90vh] bg-surface" onClick={e => e.stopPropagation()}>
-                <div className="dialog-header border-b border-outline-variant p-6">
+            <div
+                className="dialog-container w-full max-w-4xl h-[90vh] bg-surface"
+                style={{
+                    maxWidth: '100vw',
+                    width: '95vw',
+                    height: '95vh',
+                    padding: '0',
+                    borderRadius: 24,
+                    boxSizing: 'border-box',
+                    overflow: 'hidden',
+                }}
+                onClick={e => e.stopPropagation()}
+            >
+                <div
+                    className="dialog-header border-b border-outline-variant"
+                    style={{ padding: 'clamp(12px, 3vw, 32px)' }}
+                >
                     <div>
                         <h2 className="m3-headline-small font-black flex items-center gap-3">
                             <span className="material-symbols-outlined text-primary filled-icon text-3xl">bolt</span>
@@ -208,7 +223,10 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                     </div>
                     <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>
                 </div>
-                <div className="dialog-content p-6 bg-surface-container-lowest overflow-y-auto no-scrollbar">
+                <div
+                    className="dialog-content bg-surface-container-lowest overflow-y-auto no-scrollbar"
+                    style={{ padding: 'clamp(12px, 3vw, 32px)', maxHeight: 'calc(95vh - 90px)' }}
+                >
                     {selectedProcess ? renderProcessDetail() : (
                         <div className="space-y-10">
                             {suggestedProcess && (

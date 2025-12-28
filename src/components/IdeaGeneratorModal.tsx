@@ -76,7 +76,20 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     </SelectField>
 
                     <div className="relative">
-                         <div className="absolute right-4 top-10 z-10">
+            <div
+                className="dialog-container"
+                style={{
+                    maxWidth: '95vw',
+                    width: '100%',
+                    maxHeight: '95vh',
+                    margin: '0 auto',
+                    padding: '0',
+                    overflowY: 'auto',
+                    borderRadius: '16px',
+                    boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
+                    background: 'var(--sys-surface)',
+                }}
+            >
                             <VoiceNoteRecorder onTranscription={handleTranscription} compact />
                         </div>
                         <TextArea 

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, KnowledgeBaseEntry, HomeworkSubmission, RegisterEntry, TimetableSettings, ParticipationEntry, HomeworkStatus } from '../types';
 import { blobToBase64Parts, generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
-import { useDropzone } from 'react-dropzone';
+import { useFileDrop } from '../hooks/useFileDrop';
 import Avatar from './Avatar';
 import { TabGroup } from './M3Components';
 import PinPadModal from './PinPadModal';
@@ -106,7 +106,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
         const onDrop = (acceptedFiles: File[]) => {
             if (acceptedFiles.length > 0) handleUpload(acceptedFiles[0], lessonId);
         };
-        const { getRootProps, getInputProps } = useDropzone({ onDrop, multiple: false });
+        const { getRootProps, getInputProps } = useFileDrop({ onDrop, multiple: false });
         return (
             <div {...getRootProps()} className="cursor-pointer border-2 border-dashed border-primary/50 bg-primary/5 rounded-xl p-4 text-center hover:bg-primary/10 transition-colors mt-2">
                 <input {...getInputProps()} />

@@ -5,6 +5,7 @@ import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import { generateHueFromString } from '../utils/colorUtils';
 import { TabGroup } from './M3Components'; // Import TabGroup
+import M3ExpressiveCard from './M3ExpressiveCard';
 import CompetencyManager from './CompetencyManager'; // Import New Component
 // Drag & Drop
 import { DndContext, useDraggable, DragEndEvent, DragMoveEvent } from '@dnd-kit/core';
@@ -119,9 +120,11 @@ interface TimelineProps {
     onUdaClick: (uda: Uda) => void;
     startDate: string;
     endDate: string;
+    previewMessage: string | null;
+    setPreviewMessage: (msg: string | null) => void;
 }
 
-const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, startDate, endDate }) => {
+const TimelineView: React.FC<TimelineProps> = ({ udas, events, onUdaClick, startDate, endDate, previewMessage, setPreviewMessage }) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     // Fix test ReferenceError: showSnackbar is not defined
     const [showSnackbar, setShowSnackbar] = useState(false);
@@ -528,118 +531,75 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                         onUdaClick={(uda) => setSelectedUda(uda)}
                         startDate={settings.activityStartDate}
                         endDate={settings.activityEndDate}
+                        previewMessage={previewMessage}
+                        setPreviewMessage={setPreviewMessage}
                     />
 
                     {/* 3. BENTO GRID */}
                     <div className="expressive-grid">
                         
-                        {/* Planner UDA */}
-                        <div 
-                            onClick={() => onNavigate('uda')} 
-                            className="expressive-card theme-secondary col-span-2 md:col-span-2 relative overflow-hidden group"
-                        >
-                            <div className="flex flex-col h-full justify-between relative z-10">
-                                <div className="expressive-card-icon-container">
-                                    <span className="material-symbols-outlined">assignment</span>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold mb-1">Planner UDA</h3>
-                                    <p className="m3-body-medium opacity-90">
-                                        Gestisci le Unità di Apprendimento, le fasi di lavoro e le competenze target.
-                                    </p>
-                                </div>
-                            </div>
-                            <span className="material-symbols-outlined expressive-card-arrow">arrow_forward</span>
-                        </div>
+                        <M3ExpressiveCard
+                            icon="assignment"
+                            title="Planner UDA"
+                            description="Gestisci le Unità di Apprendimento, le fasi di lavoro e le competenze target."
+                            color="var(--md-sys-color-secondary-container, #e8def8)"
+                            onClick={() => onNavigate('uda')}
+                            className="col-span-2 md:col-span-2"
+                        />
 
-                        {/* Studio AI */}
-                        <div 
-                            onClick={() => onNavigate('studio')} 
-                            className="expressive-card theme-tertiary col-span-2 md:col-span-1 group"
-                        >
-                            <div className="flex flex-col h-full justify-between">
-                                <div className="expressive-card-icon-container">
-                                    <span className="material-symbols-outlined">auto_fix_high</span>
-                                </div>
-                                <div>
-                                    <h3 className="font-bold mb-1">Studio AI</h3>
-                                    <p className="m3-body-medium opacity-90">
-                                        Genera quiz, riassunti e materiali dai tuoi documenti.
-                                    </p>
-                                </div>
-                            </div>
-                            <span className="material-symbols-outlined expressive-card-arrow">arrow_forward</span>
-                        </div>
+                        <M3ExpressiveCard
+                            icon="auto_fix_high"
+                            title="Studio AI"
+                            description="Genera quiz, riassunti e materiali dai tuoi documenti."
+                            color="var(--md-sys-color-tertiary-container, #ffd8e4)"
+                            onClick={() => onNavigate('studio')}
+                            className="col-span-2 md:col-span-1"
+                        />
 
-                        {/* Import & Refactor (NEW) */}
-                        <div 
-                            onClick={() => setIsSmartImportOpen(true)} 
-                            className="expressive-card theme-surface col-span-1 group border-primary/50 border-dashed"
-                        >
-                            <div className="expressive-card-icon-container !bg-primary-container/50 !text-primary">
-                                <span className="material-symbols-outlined">transform</span>
-                            </div>
-                            <div>
-                                <h3 className="font-bold mb-1">Importa & Ristruttura</h3>
-                                <p className="m3-body-small text-on-surface-variant">
-                                    Converti vecchi file in documenti standard.
-                                </p>
-                            </div>
-                        </div>
+                        <M3ExpressiveCard
+                            icon="transform"
+                            title="Importa & Ristruttura"
+                            description="Converti vecchi file in documenti standard."
+                            color="var(--md-sys-color-surface-container, #f7f2fa)"
+                            onClick={() => setIsSmartImportOpen(true)}
+                            className="col-span-1 border-primary/50 border-dashed"
+                        />
 
-                        {/* Knowledge Base */}
-                        <div 
-                            onClick={() => onNavigate('knowledge-base')} 
-                            className="expressive-card theme-surface col-span-1 group"
-                        >
-                            <div className="expressive-card-icon-container">
-                                <span className="material-symbols-outlined">folder_open</span>
-                            </div>
-                            <div>
-                                <h3 className="font-bold mb-1">Knowledge Base</h3>
-                                <p className="m3-body-small text-on-surface-variant">
-                                    Archivio documenti.
-                                </p>
-                            </div>
-                        </div>
+                        <M3ExpressiveCard
+                            icon="folder_open"
+                            title="Knowledge Base"
+                            description="Archivio documenti."
+                            color="var(--md-sys-color-surface-container, #f7f2fa)"
+                            onClick={() => onNavigate('knowledge-base')}
+                            className="col-span-1"
+                        />
 
-                        {/* Lezioni */}
-                        <div 
-                            onClick={() => onNavigate('lessons')} 
-                            className="expressive-card theme-surface col-span-1 group"
-                        >
-                            <div className="expressive-card-icon-container">
-                                <span className="material-symbols-outlined">history_edu</span>
-                            </div>
-                            <div>
-                                <h3 className="font-bold mb-1">Lezioni</h3>
-                                <p className="m3-body-small text-on-surface-variant">
-                                    Piani di lezione.
-                                </p>
-                            </div>
-                        </div>
+                        <M3ExpressiveCard
+                            icon="history_edu"
+                            title="Lezioni"
+                            description="Piani di lezione."
+                            color="var(--md-sys-color-surface-container, #f7f2fa)"
+                            onClick={() => onNavigate('lessons')}
+                            className="col-span-1"
+                        />
 
-                        {/* Rubriche */}
-                        <div onClick={() => onNavigate('rubriche')} className="expressive-card theme-surface col-span-1 group">
-                            <div className="expressive-card-icon-container">
-                                <span className="material-symbols-outlined">schema</span>
-                            </div>
-                            <div>
-                                <h3 className="font-bold mb-1">Rubriche</h3>
-                                <p className="m3-body-small text-on-surface-variant">Griglie valutazione.</p>
-                            </div>
-                        </div>
+                        <M3ExpressiveCard
+                            icon="schema"
+                            title="Rubriche"
+                            description="Griglie valutazione."
+                            color="var(--md-sys-color-surface-container, #f7f2fa)"
+                            onClick={() => onNavigate('rubriche')}
+                            className="col-span-1"
+                        />
 
-                        {/* Report */}
-                        <div onClick={() => onNavigate('reportistica')} className="expressive-card theme-surface col-span-1 group">
-                            <div className="expressive-card-icon-container">
-                                <span className="material-symbols-outlined">print</span>
-                            </div>
-                            <div>
-                                <h3 className="font-bold mb-1">Report</h3>
-                                <p className="m3-body-small text-on-surface-variant">Stampe & PDF.</p>
-                            </div>
-                        </div>
+                        <M3ExpressiveCard
+                            icon="print"
+                            title="Report"
+                            description="Stampe & PDF."
+                            color="var(--md-sys-color-surface-container, #f7f2fa)"
+                            onClick={() => onNavigate('reportistica')}
+                            className="col-span-1"
+                        />
 
                     </div>
                 </>

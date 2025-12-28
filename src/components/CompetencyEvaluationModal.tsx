@@ -56,7 +56,20 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
 
     return (
         <div className="dialog-backdrop">
-            <form onSubmit={handleSubmit} className="dialog-container w-full max-w-2xl">
+            <form onSubmit={handleSubmit}
+                className="dialog-container w-full max-w-2xl"
+                style={{
+                    maxWidth: '95vw',
+                    width: '100%',
+                    maxHeight: '95vh',
+                    margin: '0 auto',
+                    padding: '0',
+                    overflowY: 'auto',
+                    borderRadius: '16px',
+                    boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
+                    background: 'var(--sys-surface)',
+                }}
+            >
                 <div className="dialog-header">
                     <div>
                         <h2 className="m3-headline-medium">Valuta Competenza</h2>

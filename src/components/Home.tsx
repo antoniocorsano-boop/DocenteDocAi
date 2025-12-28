@@ -1,7 +1,8 @@
+
 import React from 'react';
-import UniversalModalDemo from './UniversalModalDemo';
 import { View, AppState, NavigationParams } from '../types';
-import { M3IconButton } from './M3Components';
+import { M3IconButton, InfoCard, ActionTile } from './M3Components';
+import M3ExpressiveCard from './M3ExpressiveCard';
 
 interface HomeProps {
     onNavigate: (view: View, params?: NavigationParams) => void;
@@ -9,42 +10,13 @@ interface HomeProps {
     dismissSuggestion: (id: string) => void;
 }
 
-const MetricCard: React.FC<{ title: string; value: string | number; delta?: string }> = ({ title, value, delta }) => (
-    <div className="m3-card bg-surface-container rounded-2xl p-4 shadow-sm border border-outline-variant" tabIndex={0} role="group">
-        <div className="m3-title-medium text-on-surface-variant font-medium">{title}</div>
-        <div className="m3-headline-medium text-on-surface font-bold mt-1">{value}</div>
-        {delta && <div className="text-xs text-primary mt-1">{delta}</div>}
-    </div>
-);
-
-const BadgeCard: React.FC<{ name: string; description?: string; earned?: boolean }> = ({ name, description, earned }) => (
-    <div className={`m3-card rounded-2xl p-3 flex items-center gap-3 shadow-sm border ${earned ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container-low text-on-surface-variant'}`} tabIndex={0}>
-        <div className="w-12 h-12 rounded-full flex items-center justify-center bg-surface-container-highest text-on-surface-variant font-bold text-lg">
-            {name.charAt(0).toUpperCase()}
-            {/* Demo Modale Universale */}
-            <div className="mt-16">
-                <UniversalModalDemo />
-            </div>
-        </div>
-        <div className="flex-1">
-            <div className="font-semibold">{name}</div>
-            {description && <div className="text-sm text-on-surface-variant">{description}</div>}
-        </div>
-        <div className="text-sm font-medium">{earned ? 'Ottenuto' : '—'}</div>
-    </div>
-);
-
-const QuickAction: React.FC<{ label: string; icon?: string; onClick?: () => void }> = ({ label, icon, onClick }) => (
-    <button onClick={onClick} className="m3-quick-action m3-focus-visible rounded-xl px-4 py-3 bg-primary-container text-on-primary-container flex items-center gap-3 shadow" aria-pressed="false">
-        {icon && <span className="material-symbols-outlined">{icon}</span>}
-        <span className="m3-label-medium font-medium">{label}</span>
-    </button>
-);
-
 const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) => {
     const activeSuggestion = appState.activeSuggestion;
     const dismissedSuggestions = appState.dismissedSuggestions;
     const showAiSuggestion = activeSuggestion && !dismissedSuggestions?.has(activeSuggestion.id);
+
+    // Demo: recupero nome docente (in reale da appState.user)
+    const user = (appState as any).user || { nome: 'Mario', cognome: 'Rossi' };
 
     interface RecentActivity { id: string; title: string; meta?: string; time?: string }
     interface BadgeType { id: string; name: string; description?: string; earned?: boolean }
@@ -64,98 +36,109 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
 
     return (
         <div className="p-6">
-            {/* Header */}
-            <header className="flex items-center justify-between mb-6">
-                <div>
-                    <h1 className="m3-display-medium">Cruscotto</h1>
-                    <div className="m3-body-large text-on-surface-variant">Panoramica rapida della tua classe e attività</div>
-                </div>
-                <div className="flex items-center gap-3">
-                    <QuickAction label="Nuova valutazione" icon="edit" onClick={() => onNavigate('evaluations' as View)} />
-                    <M3IconButton icon="settings" ariaLabel="Impostazioni" onClick={() => onNavigate('settings')} />
-                </div>
-            </header>
+            {/* Saluto docente */}
+            <InfoCard
+                title={`Buongiorno Prof. ${user.cognome}!`}
+                description="Ecco il tuo cruscotto docente. L’AI ti suggerirà azioni e ti aiuterà nella gestione quotidiana."
+                icon="waving_hand"
+                variant="primary"
+                className="mb-8"
+            />
 
-            {/* Top metrics */}
-            <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <MetricCard title="Studenti" value={metrics.studenti} />
-                <MetricCard title="Verifiche oggi" value={metrics.verificheOggi} />
-                <MetricCard title="Presenze" value={metrics.presenze} delta="+1.2%" />
+            {/* Metriche principali */}
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <M3ExpressiveCard icon="group" title="Studenti" description={`${metrics.studenti}`} />
+                <M3ExpressiveCard icon="assignment" title="Verifiche oggi" description={`${metrics.verificheOggi}`} />
+                <M3ExpressiveCard icon="check_circle" title="Presenze" description={`${metrics.presenze}`} />
             </section>
 
-            {/* Main grid: badges + recent + suggestions */}
-            <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 space-y-6">
-                    <div className="rounded-3xl p-5 bg-surface-container border border-outline-variant shadow-sm">
-                        <div className="flex items-center justify-between mb-4">
-                            <h2 className="m3-title-large">Attività Recenti</h2>
-                            <button className="text-sm text-primary" onClick={() => onNavigate('analytics' as View)}>Vedi tutte</button>
+            {/* Main grid: attività, suggerimenti, badge, azioni */}
+            <section className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="lg:col-span-2 space-y-8">
+                    <M3ExpressiveCard
+                        icon="history"
+                        title="Attività Recenti"
+                        description="Ultime azioni svolte"
+                        className="mb-2"
+                    >
+                        <div className="mt-4">
+                            <ul className="space-y-3">
+                                {recentActivities.slice(0, 5).map((a) => (
+                                    <li key={a.id} className="p-3 rounded-xl bg-surface-container-low flex items-center justify-between">
+                                        <div>
+                                            <div className="m3-label-medium">{a.title}</div>
+                                            <div className="text-sm text-on-surface-variant">{a.meta}</div>
+                                        </div>
+                                        <div className="text-sm text-on-surface-variant">{a.time}</div>
+                                    </li>
+                                ))}
+                                {recentActivities.length === 0 && (
+                                    <li className="text-sm text-on-surface-variant">Nessuna attività recente</li>
+                                )}
+                            </ul>
                         </div>
-                        <ul className="space-y-3">
-                            {recentActivities.slice(0, 5).map((a) => (
-                                <li key={a.id} className="p-3 rounded-xl bg-surface-container-low flex items-center justify-between">
-                                    <div>
-                                        <div className="m3-label-medium">{a.title}</div>
-                                        <div className="text-sm text-on-surface-variant">{a.meta}</div>
-                                    </div>
-                                    <div className="text-sm text-on-surface-variant">{a.time}</div>
-                                </li>
-                            ))}
-                            {recentActivities.length === 0 && (
-                                <li className="text-sm text-on-surface-variant">Nessuna attività recente</li>
-                            )}
-                        </ul>
-                    </div>
+                    </M3ExpressiveCard>
 
                     {showAiSuggestion && (
-                        <div className="rounded-3xl p-4 bg-tertiary-container text-on-tertiary-container border border-tertiary/20">
-                            <div className="flex items-start gap-4">
-                                <span className="material-symbols-outlined text-3xl">psychology</span>
-                                <div className="flex-1">
-                                    <div className="font-bold">Suggerimento AI</div>
-                                    <div className="mt-2">{activeSuggestion.message}</div>
-                                    <div className="mt-3 flex gap-3">
-                                        {activeSuggestion.actionLabel && (
-                                            <button
-                                                className="px-4 py-2 rounded-full bg-primary text-on-primary font-bold"
-                                                onClick={() => {
-                                                    if (activeSuggestion.action?.type === 'navigate' && activeSuggestion.targetView) {
-                                                        onNavigate(activeSuggestion.targetView as View, activeSuggestion.action?.payload as NavigationParams);
-                                                    }
-                                                    dismissSuggestion(activeSuggestion.id);
-                                                }}
-                                            >
-                                                {activeSuggestion.actionLabel}
-                                            </button>
-                                        )}
-                                        <button className="px-4 py-2 rounded-full bg-outline-variant text-on-surface-variant" onClick={() => dismissSuggestion(activeSuggestion.id)}>Ignora</button>
-                                    </div>
+                        <InfoCard
+                            title="Suggerimento AI"
+                            description={activeSuggestion.message}
+                            icon="psychology"
+                            variant="tertiary"
+                            action={
+                                <div className="flex gap-3">
+                                    {activeSuggestion.actionLabel && (
+                                        <button
+                                            className="px-4 py-2 rounded-full bg-primary text-on-primary font-bold"
+                                            onClick={() => {
+                                                if (activeSuggestion.action?.type === 'navigate' && activeSuggestion.targetView) {
+                                                    onNavigate(activeSuggestion.targetView as View, activeSuggestion.action?.payload as NavigationParams);
+                                                }
+                                                dismissSuggestion(activeSuggestion.id);
+                                            }}
+                                        >
+                                            {activeSuggestion.actionLabel}
+                                        </button>
+                                    )}
+                                    <button className="px-4 py-2 rounded-full bg-outline-variant text-on-surface-variant" onClick={() => dismissSuggestion(activeSuggestion.id)}>Ignora</button>
                                 </div>
-                            </div>
-                        </div>
+                            }
+                        />
                     )}
                 </div>
 
-                <aside className="space-y-6">
-                    <div className="rounded-2xl p-4 bg-surface-container border border-outline-variant">
-                        <div className="flex items-center justify-between mb-3">
-                            <div className="m3-title-medium">Badge Gaming</div>
-                            <button className="text-sm text-primary" onClick={() => onNavigate('badges' as View)}>Tutti</button>
-                        </div>
-                        <div className="grid grid-cols-1 gap-3">
+                <aside className="space-y-8">
+                    <M3ExpressiveCard
+                        icon="military_tech"
+                        title="Badge"
+                        description="Obiettivi e traguardi"
+                    >
+                        <div className="mt-4 grid grid-cols-1 gap-3">
                             {badges.map((b) => (
-                                <BadgeCard key={b.id} name={b.name} description={b.description} earned={b.earned} />
+                                <div key={b.id} className={`rounded-xl p-3 flex items-center gap-3 shadow-sm border ${b.earned ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container-low text-on-surface-variant'}`} tabIndex={0}>
+                                    <span className="material-symbols-outlined text-2xl">{b.earned ? 'emoji_events' : 'star_outline'}</span>
+                                    <div className="flex-1">
+                                        <div className="font-semibold">{b.name}</div>
+                                        {b.description && <div className="text-sm text-on-surface-variant">{b.description}</div>}
+                                    </div>
+                                    <div className="text-sm font-medium">{b.earned ? 'Ottenuto' : '—'}</div>
+                                </div>
                             ))}
                         </div>
-                    </div>
+                    </M3ExpressiveCard>
 
-                    <div className="rounded-2xl p-4 bg-surface-container border border-outline-variant">
-                        <div className="m3-title-medium mb-3">Azioni rapide</div>
-                        <div className="grid grid-cols-1 gap-2">
-                            <QuickAction label="Crea unità didattica" icon="description" onClick={() => onNavigate('uda' as View)} />
-                            <QuickAction label="Backup" icon="cloud_upload" onClick={() => onNavigate('settings' as View)} />
+                    <M3ExpressiveCard
+                        icon="flash_on"
+                        title="Azioni rapide"
+                        description="Accesso veloce alle funzioni principali"
+                    >
+                        <div className="mt-4 grid grid-cols-1 gap-2">
+                            <ActionTile label="Nuova valutazione" icon="edit" onClick={() => onNavigate('evaluations' as View)} />
+                            <ActionTile label="Crea unità didattica" icon="description" onClick={() => onNavigate('uda' as View)} />
+                            <ActionTile label="Backup" icon="cloud_upload" onClick={() => onNavigate('settings' as View)} />
+                            <ActionTile label="Importa studenti" icon="group_add" onClick={() => onNavigate('studenti' as View)} />
                         </div>
-                    </div>
+                    </M3ExpressiveCard>
                 </aside>
             </section>
 

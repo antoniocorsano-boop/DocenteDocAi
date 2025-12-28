@@ -1,6 +1,6 @@
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useFileDrop } from '../hooks/useFileDrop';
 import { extractTextFromFile, generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
 import { refactorProgrammazione } from '../services/aiService';
 import { AiSettings } from '../types';
@@ -45,13 +45,9 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
         }
     }, [aiSettings]);
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive } = useFileDrop({
         onDrop,
-        accept: {
-            'application/pdf': ['.pdf'],
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
-            'text/plain': ['.txt']
-        },
+        accept: 'application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain',
         multiple: false
     });
 

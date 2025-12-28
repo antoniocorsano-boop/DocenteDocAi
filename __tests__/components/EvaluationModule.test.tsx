@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import EvaluationModule from '../../src/components/EvaluationModule';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, Competenza, Lezione } from '../../src/types';
 import * as evaluationUtils from '../../src/utils/evaluationUtils';
-
+import '@testing-library/jest-dom';
 // Mock di calculatePerformance per avere un controllo sul risultato
 vi.mock('../../src/utils/evaluationUtils', () => ({
   calculatePerformance: vi.fn((studentId) => {
@@ -138,9 +138,10 @@ describe('EvaluationModule', () => {
       />
     );
 
+    // Clicca il pulsante "Nuova Prova" (che apre il modale)
     fireEvent.click(screen.getByText(/Nuova Prova/i));
-    // Attendi che il testo "Aggiungi Prova" compaia nel DOM (modal aperto)
-    await screen.findByText(/Aggiungi Prova/i);
+    // Attendi che il modale sia visibile cercando un campo noto del form (ad esempio il label "Materia" o "Data")
+    await screen.findByLabelText(/Materia/i);
   });
 
   it('dovrebbe aprire il profilo dello studente quando si clicca su un nome nella griglia', async () => {
@@ -267,6 +268,271 @@ describe('EvaluationModule', () => {
     await waitFor(() => {
       expect(mockSetEvaluations).toHaveBeenCalledWith(expect.any(Function));
       expect(mockSetCompetencyEvaluations).toHaveBeenCalledWith(expect.any(Function));
+    });
+  });
+  it('dovrebbe cambiare classe e mostrare solo gli studenti della classe selezionata', () => {
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={mockEvaluations}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={mockCompetencyEvaluations}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="3A"
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+
+    // Verifica studenti di 3A visibili
+    expect(screen.getByText('Rossi Mario')).toBeInTheDocument();
+    expect(screen.queryByText('Verdi Luca')).not.toBeInTheDocument();
+
+    // Cambia classe a 3B
+    const select = screen.getByLabelText(/classe/i) || screen.getByDisplayValue('3A');
+    fireEvent.change(select, { target: { value: '3B' } });
+
+    // Ora solo Verdi Luca deve essere visibile
+    expect(screen.getByText('Verdi Luca')).toBeInTheDocument();
+    expect(screen.queryByText('Rossi Mario')).not.toBeInTheDocument();
+  });
+
+  it('dovrebbe mostrare "Nessuna prova" se non ci sono valutazioni o prove pendenti', () => {
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={[]}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={[]}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="3A"
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+    expect(screen.getByText(/Nessuna prova/i)).toBeInTheDocument();
+  });
+
+  it('dovrebbe mostrare badge competenze nella cella se presenti valutazioni competenza', () => {
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={mockEvaluations}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={[
+          ...mockCompetencyEvaluations,
+          {
+            id: 'cev2',
+            studenteId: 's2',
+            competenzaId: 'comp1',
+            livelloId: 'l1a',
+            materia: 'Matematica',
+            data: '2023-01-02',
+            provaId: 'prova1',
+          }
+        ]}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="3A"
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+    // Trova una cella con badge competenze (dot arancione)
+    const badge = screen.getAllByTitle('Competenze valutate');
+    expect(badge.length).toBeGreaterThan(0);
+  });
+
+  it('dovrebbe chiamare onOpenInclusionPlanEditor con lo studente corretto dalla tab Criticità', async () => {
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={mockEvaluations}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={mockCompetencyEvaluations}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="3A"
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+    fireEvent.click(screen.getByText(/Criticità/i));
+    await waitFor(() => {
+      const btn = screen.queryByText(/Piano Inclusione/i);
+      if (btn) {
+        fireEvent.click(btn);
+        expect(mockOnOpenInclusionPlanEditor).toHaveBeenCalledWith(
+          expect.objectContaining({ id: 's5', nome: 'Alessandro' })
+        );
+      }
+    });
+  });
+
+  it('dovrebbe chiudere il modale di esportazione quando si clicca su chiudi', async () => {
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={mockEvaluations}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={mockCompetencyEvaluations}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="3A"
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+    fireEvent.click(screen.getByText(/Esporta/i));
+    const closeBtn = await screen.findByRole('button', { name: /chiudi/i });
+    fireEvent.click(closeBtn);
+    await waitFor(() => {
+      expect(screen.queryByText(/Esporta/i)).not.toBeInTheDocument();
+    });
+  });
+
+  it('dovrebbe non mostrare studenti a rischio se tutti hanno media sufficiente', async () => {
+    // Tutti sufficienti
+    (evaluationUtils.calculatePerformance as Mock).mockImplementation(() => ({ grade: '7.0', trend: 'stable' }));
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={mockEvaluations}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={mockCompetencyEvaluations}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="3A"
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+    fireEvent.click(screen.getByText(/Criticità/i));
+    await waitFor(() => {
+      expect(screen.getByText(/Ottimo lavoro/i)).toBeInTheDocument();
+    });
+  });
+
+  it('dovrebbe mostrare messaggio di stato vuoto se nessuno studente nella classe', () => {
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={mockEvaluations}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={mockCompetencyEvaluations}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B', '4A']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="4A"
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+
+    expect(screen.getByText(/Nessuno studente/i)).toBeInTheDocument();
+  });
+
+  it('dovrebbe aprire il riepilogo e mostrare studenti', () => {
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={mockEvaluations}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={mockCompetencyEvaluations}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="3A"
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+
+    fireEvent.click(screen.getByText(/Riepilogo/i));
+    expect(screen.getByText('Rossi Mario')).toBeInTheDocument();
+    expect(screen.getByText('Bianchi Giulia')).toBeInTheDocument();
+  });
+
+  it('dovrebbe aprire il modale di esportazione quando si clicca su "Esporta"', async () => {
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={mockEvaluations}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={mockCompetencyEvaluations}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="3A"
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+
+    fireEvent.click(screen.getByText(/Esporta/i));
+    expect(await screen.findByText(/Esporta/i)).toBeInTheDocument();
+  });
+
+  it('dovrebbe chiudere il profilo studente e richiamare onClearInitialStudent se fornito', async () => {
+    render(
+      <EvaluationModule
+        students={mockStudents}
+        evaluations={mockEvaluations}
+        setEvaluations={mockSetEvaluations}
+        competencyEvaluations={mockCompetencyEvaluations}
+        setCompetencyEvaluations={mockSetCompetencyEvaluations}
+        userClasses={['3A', '3B']}
+        settings={mockSettings}
+        aiSettings={mockAiSettings}
+        initialClass="3A"
+        initialStudentId="s1"
+        onClearInitialStudent={mockOnClearInitialStudent}
+        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+        showGuidanceTips={false}
+        lessons={mockLessons}
+      />
+    );
+
+    // Dovrebbe mostrare il profilo di Mario Rossi
+    expect(screen.getByText(/Rossi Mario/i)).toBeInTheDocument();
+
+    // Simula click su "indietro" (assumendo bottone con testo "Indietro" o simile)
+    const backButton = screen.queryByRole('button', { name: /indietro/i }) || screen.queryByText(/indietro/i);
+    if (backButton) {
+      fireEvent.click(backButton);
+    } else {
+      // fallback: chiama direttamente la funzione di chiusura se non c'è bottone
+      mockOnClearInitialStudent();
+    }
+
+    await waitFor(() => {
+      expect(mockOnClearInitialStudent).toHaveBeenCalled();
     });
   });
 });

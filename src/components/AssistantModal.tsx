@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 
 interface AssistantModalProps {
   open: boolean;
   onClose: () => void;
+  mode?: 'chat' | 'docs' | 'tools' | 'backup';
 }
 
 const SUGGESTED_PROMPTS = [
@@ -12,8 +14,63 @@ const SUGGESTED_PROMPTS = [
   'Spiegami questa schermata',
 ];
 
-const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose }) => {
+const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = 'chat' }) => {
   const [input, setInput] = useState('');
+  // NotebookLM state
+  const [nbFiles, setNbFiles] = useState<NotebookLMFile[]>([]);
+  const [nbLoading, setNbLoading] = useState(false);
+  const [nbError, setNbError] = useState<string | null>(null);
+  const nbFileInput = useRef<HTMLInputElement>(null);
+
+  // Carica elenco file NotebookLM all'apertura modale docs
+  useEffect(() => {
+    if (mode === 'docs' && open) {
+      setNbLoading(true);
+      fetchNotebookFiles().then(setNbFiles).catch(() => setNbError('Errore caricamento files')).finally(() => setNbLoading(false));
+    }
+  }, [mode, open]);
+
+  const handleNbUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files?.length) return;
+    setNbLoading(true);
+    setNbError(null);
+    try {
+      const file = e.target.files[0];
+      const uploaded = await uploadNotebookFile(file);
+      setNbFiles(files => [uploaded, ...files]);
+    } catch (err) {
+      setNbError('Errore upload file');
+    } finally {
+      setNbLoading(false);
+      if (nbFileInput.current) nbFileInput.current.value = '';
+    }
+  };
+
+  const handleNbDelete = async (id: string) => {
+    setNbLoading(true);
+    setNbError(null);
+    try {
+      await deleteNotebookFile(id);
+      setNbFiles(files => files.filter(f => f.id !== id));
+    } catch (err) {
+      setNbError('Errore eliminazione file');
+    } finally {
+      setNbLoading(false);
+    }
+  };
+
+  const handleNbSync = async () => {
+    setNbLoading(true);
+    setNbError(null);
+    try {
+      const files = await fetchNotebookFiles();
+      setNbFiles(files);
+    } catch (err) {
+      setNbError('Errore sincronizzazione');
+    } finally {
+      setNbLoading(false);
+    }
+  };
   const [messages, setMessages] = useState<Array<{ role: 'user' | 'ai'; text: string }>>([]);
   const [loading, setLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -31,7 +88,6 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose }) => {
       setVoiceError('Il riconoscimento vocale non è supportato su questo browser.');
       return;
     }
-    setVoiceSupported(true);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
@@ -130,56 +186,102 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose }) => {
 
   return (
     <div className="assistant-modal-overlay" role="dialog" aria-modal="true" aria-label="Assistente AI">
-      <div className="assistant-modal">
+      <div className="assistant-modal mui-elevation-3">
         <header className="assistant-modal-header">
-          <span className="material-symbols-outlined">smart_toy</span>
-          <h3>Assistente DocenteDoc AI</h3>
+          <span className="material-symbols-outlined" style={{fontSize: '2rem', marginRight: 8}}>smart_toy</span>
+          <h3 className="assistant-modal-title">Assistente DocenteDoc AI</h3>
           <button className="assistant-exit-btn" onClick={onClose} aria-label="Chiudi">
             <span className="material-symbols-outlined">close</span>
           </button>
         </header>
         <div className="assistant-modal-body">
-          <div className="assistant-messages">
-            {messages.length === 0 && (
-              <div className="assistant-empty">Come posso aiutarti?</div>
-            )}
-            {messages.map((msg, i) => (
-              <div key={i} className={`assistant-msg assistant-msg-${msg.role}`}>{msg.text}</div>
-            ))}
-            {loading && <div className="assistant-msg assistant-msg-ai loading">Sto pensando…</div>}
-          </div>
-          <div className="assistant-prompts">
-            {SUGGESTED_PROMPTS.map((p) => (
-              <button key={p} className="assistant-prompt-btn" onClick={() => handlePrompt(p)}>{p}</button>
-            ))}
-          </div>
+          {mode === 'chat' && (
+            <>
+              <div className="assistant-messages">
+                {messages.length === 0 && (
+                  <div className="assistant-empty">Come posso aiutarti?</div>
+                )}
+                {messages.map((msg, i) => (
+                  <div key={i} className={`assistant-msg assistant-msg-${msg.role}`}>{msg.text}</div>
+                ))}
+                {loading && <div className="assistant-msg assistant-msg-ai loading">Sto pensando…</div>}
+              </div>
+              <div className="assistant-prompts">
+                {SUGGESTED_PROMPTS.map((p) => (
+                  <button key={p} className="assistant-prompt-btn" onClick={() => handlePrompt(p)}>{p}</button>
+                ))}
+              </div>
+            </>
+          )}
+          {mode === 'docs' && (
+            <div className="assistant-docs">
+              <div className="assistant-docs-header">
+                <span className="material-symbols-outlined">import_contacts</span>
+                <span style={{fontWeight:600, fontSize:'1.08rem'}}>NotebookLM</span>
+                <button className="mui-fab-expressive assistant-docs-sync" onClick={handleNbSync} title="Sincronizza" disabled={nbLoading}>
+                  <span className="material-symbols-outlined">sync</span>
+                </button>
+                <input type="file" ref={nbFileInput} style={{display:'none'}} onChange={handleNbUpload} accept=".txt,.md,.pdf,.docx" />
+                <button className="mui-fab-expressive assistant-docs-upload" onClick={()=>nbFileInput.current?.click()} title="Carica file" disabled={nbLoading}>
+                  <span className="material-symbols-outlined">upload</span>
+                </button>
+              </div>
+              {nbError && <div className="assistant-docs-error">{nbError}</div>}
+              {nbLoading && <div className="assistant-docs-loading">Caricamento…</div>}
+              <div className="assistant-docs-list">
+                {nbFiles.length === 0 && !nbLoading && <div className="assistant-empty">Nessun file NotebookLM caricato.</div>}
+                {nbFiles.map(f => (
+                  <div key={f.id} className="assistant-docs-file mui-elevation-1">
+                    <span className="material-symbols-outlined">description</span>
+                    <span className="assistant-docs-filename">{f.name}</span>
+                    <span className="assistant-docs-date">{new Date(f.lastModified).toLocaleDateString()}</span>
+                    <button className="assistant-docs-delete" onClick={()=>handleNbDelete(f.id)} title="Elimina">
+                      <span className="material-symbols-outlined">delete</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {mode === 'tools' && (
+            <div className="assistant-tools">
+              <div className="assistant-empty">Analisi classe/studente, Ricerca web AI, Tools rapidi…</div>
+            </div>
+          )}
+          {mode === 'backup' && (
+            <div className="assistant-backup">
+              <div className="assistant-empty">Backup locale, Google Drive, Restore…</div>
+            </div>
+          )}
         </div>
-        <form className="assistant-modal-footer" onSubmit={e => { e.preventDefault(); handleSend(); }}>
-          <input
-            ref={inputRef}
-            type="text"
-            className={`assistant-input${isRecording ? ' listening' : ''}`}
-            placeholder={isRecording ? "Sto ascoltando..." : "Scrivi una domanda o un comando..."}
-            value={isRecording ? transcript : input}
-            onChange={e => setInput(e.target.value)}
-            disabled={loading || isRecording}
-            aria-label="Scrivi una domanda o comando per l'assistente"
-            style={isRecording ? { background: 'var(--sys-secondary-container, #f0f0f0)', color: '#b00020', fontWeight: 600 } : {}}
-          />
-          <button
-            type="button"
-            className={`assistant-mic-btn${isRecording ? ' recording' : ''}`}
-            onClick={isRecording ? stopVoiceInput : startVoiceInput}
-            aria-label={isRecording ? 'Ferma dettatura' : 'Detta domanda'}
-            disabled={loading || !voiceSupported}
-            title={voiceSupported ? (isRecording ? 'Ferma dettatura' : 'Detta domanda') : 'Riconoscimento vocale non supportato'}
-          >
-            <span className="material-symbols-outlined">{isRecording ? 'stop_circle' : 'mic'}</span>
-          </button>
-          <button type="submit" className="assistant-send-btn" disabled={loading || !input.trim() || isRecording}>
-            <span className="material-symbols-outlined">send</span>
-          </button>
-        </form>
+        {mode === 'chat' && (
+          <form className="assistant-modal-footer" onSubmit={e => { e.preventDefault(); handleSend(); }}>
+            <input
+              ref={inputRef}
+              type="text"
+              className={`assistant-input${isRecording ? ' listening' : ''}`}
+              placeholder={isRecording ? "Sto ascoltando..." : "Scrivi una domanda o un comando..."}
+              value={isRecording ? transcript : input}
+              onChange={e => setInput(e.target.value)}
+              disabled={loading || isRecording}
+              aria-label="Scrivi una domanda o comando per l'assistente"
+              style={isRecording ? { background: 'var(--sys-secondary-container, #f0f0f0)', color: '#b00020', fontWeight: 600 } : {}}
+            />
+            <button
+              type="button"
+              className={`assistant-mic-btn${isRecording ? ' recording' : ''}`}
+              onClick={isRecording ? stopVoiceInput : startVoiceInput}
+              aria-label={isRecording ? 'Ferma dettatura' : 'Detta domanda'}
+              disabled={loading || !voiceSupported}
+              title={voiceSupported ? (isRecording ? 'Ferma dettatura' : 'Detta domanda') : 'Riconoscimento vocale non supportato'}
+            >
+              <span className="material-symbols-outlined">{isRecording ? 'stop_circle' : 'mic'}</span>
+            </button>
+            <button type="submit" className="assistant-send-btn" disabled={loading || !input.trim() || isRecording}>
+              <span className="material-symbols-outlined">send</span>
+            </button>
+          </form>
+        )}
         {isRecording && (
           <div className="assistant-voice-feedback">
             <span className="material-symbols-outlined pulse">graphic_eq</span>
@@ -193,6 +295,31 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose }) => {
         )}
       </div>
       <style>{`
+        .assistant-docs-header {
+          display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem;
+        }
+        .assistant-docs-upload, .assistant-docs-sync {
+          background: var(--sys-primary, #1976d2); color: var(--sys-on-primary, #fff); border: none; border-radius: 50%; width: 2.2rem; height: 2.2rem; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-left: 0.2rem; cursor: pointer; transition: background 0.18s;
+        }
+        .assistant-docs-upload:hover, .assistant-docs-sync:hover {
+          background: var(--sys-primary-container, #1565c0);
+        }
+        .assistant-docs-list {
+          display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;
+        }
+        .assistant-docs-file {
+          display: flex; align-items: center; gap: 0.7rem; background: var(--sys-surface, #fff); border-radius: 1.1rem; padding: 0.5rem 1rem; font-size: 1.01rem; color: var(--sys-on-surface, #222); position: relative;
+        }
+        .assistant-docs-filename { flex: 1; font-weight: 500; }
+        .assistant-docs-date { font-size: 0.97rem; color: #888; margin-right: 0.7rem; }
+        .assistant-docs-delete {
+          background: none; border: none; color: var(--sys-error, #b00020); font-size: 1.3rem; cursor: pointer; border-radius: 50%; padding: 0.2rem; transition: background 0.18s;
+        }
+        .assistant-docs-delete:hover { background: #ffeaea; }
+        .assistant-docs-error { color: var(--sys-error, #b00020); margin-bottom: 0.5rem; }
+        .assistant-docs-loading { color: var(--sys-primary, #1976d2); margin-bottom: 0.5rem; }
+        .mui-elevation-3 { box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+        .assistant-modal-title { font-size: 1.18rem; font-weight: 600; flex: 1; margin: 0; }
         .assistant-modal-overlay {
           position: fixed; inset: 0; background: rgba(0,0,0,0.18); z-index: 1000; display: flex; align-items: center; justify-content: center;
         }
@@ -265,6 +392,6 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose }) => {
       `}</style>
     </div>
   );
-};
+}
 
 export default AssistantModal;

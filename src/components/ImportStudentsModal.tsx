@@ -1,6 +1,6 @@
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useFileDrop } from '../hooks/useFileDrop';
 import { Studente, KnowledgeBaseEntry } from '../types';
 import { parseCSVWithHeaders } from '../utils/csvUtils';
 import { getGoogleAIClient } from '../services/aiClient';
@@ -108,12 +108,9 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
         }
     }, [processFileContent]);
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive } = useFileDrop({
         onDrop,
-        accept: {
-            'text/csv': ['.csv'],
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx']
-        },
+        accept: 'text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         multiple: false,
         disabled: isLoading
     });
