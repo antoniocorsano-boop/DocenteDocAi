@@ -34,21 +34,6 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
   return (
     <nav
       className="bottom-nav-bar m3-navigation-drawer"
-      style={{
-        background: 'var(--sys-surface-tint)',
-        boxShadow: 'var(--depth-shadow-2)',
-        borderRadius: 'var(--shape-l)',
-        fontFamily: 'var(--font-variable)',
-        fontVariationSettings: 'var(--font-variation-settings)',
-        WebkitFontSmoothing: 'var(--typography-font-smoothing)',
-        fontFeatureSettings: 'var(--typography-font-feature-settings)',
-        zIndex: 'var(--z-nav)',
-        padding: 'var(--spacing-2) var(--spacing-4)',
-        minHeight: '64px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}
       aria-label="Navigazione principale"
       role="navigation"
     >
@@ -62,26 +47,41 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
             aria-label={item.label}
             tabIndex={0}
             style={{
-              background: active ? 'var(--state-layer-pressed)' : 'var(--state-layer-hover)',
+              background: active ? 'rgba(25, 118, 210, 0.10)' : 'rgba(255,255,255,0.10)',
               color: active ? 'var(--sys-primary)' : 'var(--sys-on-surface-variant)',
-              boxShadow: active ? 'var(--depth-shadow-1)' : 'none',
               borderRadius: 'var(--shape-m)',
               outline: 'none',
               transition: 'background 0.2s, color 0.2s',
-              padding: 'var(--spacing-2) var(--spacing-1)',
+              padding: '0.5rem 0.7rem',
               minWidth: '56px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
+              boxShadow: active ? '0 2px 8px rgba(25,118,210,0.10)' : 'none',
+              backdropFilter: active ? 'blur(2px)' : undefined,
             }}
-            onFocus={e => e.currentTarget.style.background = 'var(--state-layer-focus)'}
-            onBlur={e => e.currentTarget.style.background = active ? 'var(--state-layer-pressed)' : 'var(--state-layer-hover)'}
+            onFocus={e => e.currentTarget.style.background = 'rgba(25, 118, 210, 0.18)'}
+            onBlur={e => e.currentTarget.style.background = active ? 'rgba(25, 118, 210, 0.10)' : 'rgba(255,255,255,0.10)'}
           >
-            <div className="nav-icon-container" style={{ marginBottom: 'var(--spacing-1)' }}>
+            <div
+              className="nav-icon-container"
+              style={{
+                marginBottom: '0.15rem',
+                background: active ? 'var(--sys-primary-container, #e3f2fd)' : 'transparent',
+                borderRadius: '50%',
+                padding: '0.6rem', // aumentato per area touch
+                boxShadow: active ? 'var(--elevation-1, 0 2px 8px rgba(25,118,210,0.10))' : 'none',
+                transition: 'background 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                pointerEvents: 'none', // lascia il click al button
+              }}
+            >
               <span
                 className={`material-symbols-outlined ${active ? 'filled-icon' : ''}`}
-                style={{ fontSize: '24px', color: active ? 'var(--sys-primary)' : 'var(--sys-on-surface-variant)' }}
+                style={{ fontSize: '28px', color: active ? 'var(--sys-primary)' : 'var(--sys-on-surface-variant)', pointerEvents: 'none' }}
                 aria-hidden="true"
               >
                 {active ? item.activeIcon : item.icon}

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
+import { generateContent } from '../services/aiService';
 
 interface AssistantModalProps {
   open: boolean;
@@ -21,6 +22,24 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   const [nbLoading, setNbLoading] = useState(false);
   const [nbError, setNbError] = useState<string | null>(null);
   const nbFileInput = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (open) {
+      // Log persistente anche a livello di render/modal
+      if (typeof window !== 'undefined') {
+        const logs = JSON.parse(localStorage.getItem('assistant_open_debug') || '[]');
+        logs.push({
+          ts: new Date().toISOString(),
+          stack: new Error().stack,
+          location: window.location.href,
+          source: 'AssistantModal render',
+          mode
+        });
+        localStorage.setItem('assistant_open_debug', JSON.stringify(logs.slice(-30)));
+        console.warn('[DEBUG][AssistantModal] Modal aperta (render)', logs.at(-1));
+      }
+      console.warn('[DEBUG] AssistantModal opened', { mode, width: window.innerWidth, height: window.innerHeight, stack: new Error().stack });
+    }
+  }, [open, mode]);
 
   // Carica elenco file NotebookLM all'apertura modale docs
   useEffect(() => {
@@ -164,17 +183,14 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
     if (!text) return;
     setMessages((msgs) => [...msgs, { role: 'user', text }]);
     setLoading(true);
-    // clear inputs
     setInput('');
     setTranscript('');
     try {
-      // Simulate AI response (replace with real API call)
-      setTimeout(() => {
-        setMessages((msgs) => [...msgs, { role: 'ai', text: 'Risposta AI (demo): ' + text }]);
-        setLoading(false);
-      }, 900);
+      const aiResponse = await generateContent(text, { temperature: 0.7, maxTokens: 1000 });
+      setMessages((msgs) => [...msgs, { role: 'ai', text: aiResponse.content || 'Nessuna risposta.' }]);
     } catch (err) {
       setMessages((msgs) => [...msgs, { role: 'ai', text: 'Si è verificato un errore nella generazione della risposta.' }]);
+    } finally {
       setLoading(false);
     }
   };
@@ -190,7 +206,11 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         <header className="assistant-modal-header">
           <span className="material-symbols-outlined" style={{fontSize: '2rem', marginRight: 8}}>smart_toy</span>
           <h3 className="assistant-modal-title">Assistente DocenteDoc AI</h3>
-          <button className="assistant-exit-btn" onClick={onClose} aria-label="Chiudi">
+          <button
+            className="assistant-exit-btn"
+            onClick={e => { e.stopPropagation(); onClose(); }}
+            aria-label="Chiudi"
+          >
             <span className="material-symbols-outlined">close</span>
           </button>
         </header>
@@ -321,11 +341,11 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         .mui-elevation-3 { box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
         .assistant-modal-title { font-size: 1.18rem; font-weight: 600; flex: 1; margin: 0; }
         .assistant-modal-overlay {
-          position: fixed; inset: 0; background: rgba(0,0,0,0.18); z-index: 1000; display: flex; align-items: center; justify-content: center;
+          position: fixed; inset: 0; background: rgba(0,0,0,0.18); z-index: 2000; display: flex; align-items: center; justify-content: center;
         }
         .assistant-modal {
           background: var(--sys-surface, #fff); color: var(--sys-on-surface, #222); border-radius: 1.2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-          width: 95vw; max-width: 420px; min-height: 340px; display: flex; flex-direction: column; overflow: hidden;
+          width: 95vw; max-width: 420px; min-height: 340px; display: flex; flex-direction: column; overflow: hidden; z-index: 2000;
         }
         .assistant-modal-header { display: flex; align-items: center; gap: 0.5rem; padding: 1rem 1.2rem 0.5rem 1.2rem; border-bottom: 1px solid var(--sys-outline-variant, #eee); position: relative; }
         .assistant-modal-header h3 { flex: 1; font-size: 1.1rem; font-weight: 600; margin: 0; }
@@ -384,8 +404,8 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           display: flex; align-items: center; gap: 0.4rem; color: var(--sys-error, #b00020); background: #fff0f0; border-radius: 0.7rem; padding: 0.3rem 0.8rem; margin: 0.3rem 0 0.2rem 0.2rem; font-size: 0.98rem;
         }
         @media (max-width: 600px) {
-          .assistant-modal-overlay { align-items: stretch; justify-content: stretch; }
-          .assistant-modal { width: 100vw; min-height: 100vh; max-width: 100vw; border-radius: 0; box-shadow: none; }
+          .assistant-modal-overlay { align-items: stretch; justify-content: stretch; z-index: 2000; }
+          .assistant-modal { width: 100vw; min-height: 100vh; max-width: 100vw; border-radius: 0; box-shadow: none; z-index: 2000; }
           .assistant-modal-header, .assistant-modal-body, .assistant-modal-footer { padding-left: 1rem; padding-right: 1rem; }
           .assistant-exit-btn { right: 0.7rem; top: 0.7rem; }
         }

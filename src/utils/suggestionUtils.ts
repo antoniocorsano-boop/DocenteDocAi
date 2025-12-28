@@ -41,7 +41,7 @@ export const analyzeSystemState = (
             targetView: 'live-assistant', // Opens modal usually, but logic handles view mapping
             actionLabel: 'Avvia',
             // FIX: Add missing 'action' property
-            action: { type: 'modal', payload: 'isLiveAssistantModalOpen' }
+            action: { type: 'modal', payload: 'isLiveAssistantModalOpen', debug: '[DEBUG] Trigger: suggestionUtils -> analyzeSystemState (no valutazioni)' }
         };
     }
     

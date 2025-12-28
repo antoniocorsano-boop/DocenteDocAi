@@ -1,3 +1,6 @@
+// ...existing code...
+import AssistantModal from './AssistantModal';
+import '../font-setup';
 import * as React from 'react';
 import M3ExpressiveProvider from '../design-system/M3ExpressiveProvider';
 
@@ -27,14 +30,89 @@ import Snackbar from './Snackbar';
 import RestoreAssistController, { useRestoreAssist } from './useRestoreAssist';
 import type { UserProfile } from '../types';
 
+import type { AiSuggestion, SystemSuggestion } from '../types';
+type SuggestionBannerProps = { suggestion: AiSuggestion | SystemSuggestion; onAction: () => void };
+// Banner Suggestion Assistant
+const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onAction }) => {
+    // Support both AiSuggestion and SystemSuggestion
+    const message = 'message' in suggestion ? suggestion.message : suggestion.description;
+    const actionLabel = 'actionLabel' in suggestion ? suggestion.actionLabel : 'Apri';
+    return (
+    <div
+        style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 2500,
+            background: 'var(--sys-primary-container, #e3f2fd)',
+            color: 'var(--sys-on-primary-container, #1C1B1F)',
+            padding: '0.4rem 0.7rem 0.4rem 0.5rem',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.7rem',
+            fontSize: '0.98rem',
+            cursor: 'pointer',
+            borderBottomLeftRadius: '0.7rem',
+            borderBottomRightRadius: '0.7rem',
+            maxWidth: '100vw',
+            minHeight: '2.2rem',
+            pointerEvents: 'auto',
+            boxSizing: 'border-box',
+            width: '100vw',
+        }}
+            onClick={onAction}
+            role="button"
+            aria-label={actionLabel || 'Apri suggerimento'}
+        >
+            <span style={{ fontSize: '1.2rem', marginRight: '0.3rem' }} aria-hidden="true">💡</span>
+            <span style={{ fontWeight: 600, flex: 1, textAlign: 'left', fontSize: '0.98rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {message || 'Hai un suggerimento!'}
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
+                <span style={{
+                    background: 'var(--sys-primary, #1976d2)',
+                    color: 'var(--sys-on-primary, #fff)',
+                    border: 'none',
+                    borderRadius: '0.9rem',
+                    padding: '0.3rem 0.7rem',
+                    fontWeight: 600,
+                    fontSize: '0.95rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.2rem',
+                    cursor: 'pointer',
+                    boxShadow: '0 1px 3px rgba(25,118,210,0.07)'
+                }}>
+                    {actionLabel}
+                    <span style={{ fontSize: '1.1rem', marginLeft: '0.1rem' }} aria-hidden="true">↗️</span>
+                </span>
+            </span>
+        </div>
+    );
+};
+
 /**
  * App.tsx - Il core del Presentation Layer.
  * Gestisce l'App Shell e la sincronizzazione del tema.
  */
 export const App: React.FC = () => {
+    // Stato assistant mode centralizzato (opzionale: puoi usare Zustand o context se vuoi cambiare modalità da altri punti)
+    const [assistantMode] = React.useState<'chat' | 'docs' | 'tools' | 'backup'>('chat');
+    // AssistantModal montato una sola volta a livello root, usa solo modals proxy
     try {
         const result = useAppEngine();
         const { view, viewContext, appState, actions, modals } = result;
+
+        // Forza chiusura modal Assistant su mount (debug)
+        React.useEffect(() => {
+            if (modals.setIsLiveAssistantModalOpen) {
+                modals.setIsLiveAssistantModalOpen(false);
+                console.warn('[DEBUG] Forzata chiusura modal Assistant su mount');
+            }
+        }, []);
         const { user, themeState, isGlobalAiLoading, notifiche, activeSuggestion, installPrompt } = appState;
 
         // Runtime instrumentation for automated tests and diagnostics
@@ -199,9 +277,17 @@ export const App: React.FC = () => {
                 />
 
                 {/* Main Scrollable Content */}
+
                 <main className="main-content custom-scrollbar">
                     <div className="content-container">
                         <Snackbar />
+                        {/* Banner Suggestion Assistant (solo se suggestion richiede modale) */}
+                        {activeSuggestion && activeSuggestion.action?.type === 'modal' && typeof activeSuggestion.action?.payload === 'string' && activeSuggestion.action.payload === 'isLiveAssistantModalOpen' && !modals.isLiveAssistantModalOpen && (
+                          <SuggestionBanner
+                            suggestion={activeSuggestion}
+                            onAction={() => modals.setIsLiveAssistantModalOpen(true)}
+                          />
+                        )}
                         <ViewManager
                             view={view}
                             viewContext={viewContext}
@@ -230,6 +316,9 @@ export const App: React.FC = () => {
                                 </div>
 
                 <ModalManager appState={appState} actions={actions} modals={modals} />
+                                {modals.isLiveAssistantModalOpen && (
+                                    <AssistantModal open={true} onClose={() => modals.setIsLiveAssistantModalOpen(false)} mode={assistantMode} />
+                                )}
                 <Snackbar />
                 <Snackbar />
             </div>

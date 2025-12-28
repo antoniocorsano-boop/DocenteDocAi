@@ -88,7 +88,35 @@
     padding: var(--spacing-4) 0;
 }
 
-/* --- BOTTOM NAVIGATION (FLOATING PILL) --- */
+
+
+/* --- BOTTOM NAVIGATION (FLOATING CARD) --- */
+.bottom-nav-bar {
+    box-shadow: var(--elevation-3, 0 8px 24px 0 rgba(0,0,0,0.18));
+    background: var(--glass-bg, rgba(255,255,255,0.82));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--shape-xl);
+    min-height: 64px;
+    margin: 0 auto 1.2rem auto;
+    max-width: 420px;
+    z-index: var(--z-nav, 1200);
+    transition: box-shadow 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.3rem 1.2rem 0.3rem 1.2rem;
+    pointer-events: auto;
+}
+.bottom-nav-bar {
+    box-shadow: var(--elevation-2, 0 4px 16px 0 rgba(0,0,0,0.12));
+    background: var(--sys-surface);
+    border-top-left-radius: var(--shape-l);
+    border-top-right-radius: var(--shape-l);
+    min-height: 64px;
+    z-index: var(--z-nav, 1200);
+    transition: box-shadow 0.2s;
+}
 
 
 /* --- NAV ITEMS --- */

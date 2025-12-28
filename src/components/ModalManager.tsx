@@ -1,8 +1,6 @@
 import React from 'react';
 import OperationsCenter from './OperationsCenter';
 import ImageAnalysisModal from './ImageAnalysisModal';
-import AssistantModal from './AssistantModal';
-import AssistantFab from './AssistantFab';
 import HelpModal from './HelpModal';
 import CircolareAnalysisModal from './CircolareAnalysisModal';
 import LoadingModal from './LoadingModal';
@@ -12,18 +10,19 @@ import SyncConflictModal from './SyncConflictModal';
 import { CreateLessonFromAiModal } from './CreateLessonFromAiModal';
 import PassaggioAnnoWizard from './PassaggioAnnoWizard';
 import VideoAnalysisModal from './VideoAnalysisModal';
+
 import { EditSlotModal } from './EditSlotModal';
-import { AppState, AppActions, EventoCalendario } from '../types'; // FIX: Corrected import path to ../types
+import type { AppState, AppActions, Modals } from '../types';
 
 interface ModalManagerProps {
     appState: AppState;
     actions: AppActions;
-    modals: any;
+    modals: Partial<Modals>;
 }
 
 export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, modals }) => {
     const { students, settings, evaluations, competencyEvals, finalizedRegister, draftRegister, slots, lessons, pianiInclusione, knowledgeBase, aiSettings } = appState;
-    const { handleNavigate, onScheduleLesson, handleAddEvaluation, handleCreateUda, handleAddNote, onMarkAttendance, handleLoadDemoData, handlePromoteStudents, handleResetYearData, handleExportData, setLessons, setSlots, handleStartClassroom } = actions;
+    const { handleNavigate, onScheduleLesson, handleLoadDemoData, handlePromoteStudents, handleResetYearData, handleExportData, setLessons, setSlots, handleStartClassroom } = actions;
 
     const activeSlot = modals.activeSlotKey ? slots[modals.activeSlotKey] : null;
     const activeLesson = modals.lessonViewContext;
@@ -35,18 +34,19 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
         <>
             {modals.isOperationsCenterOpen && (
                 <OperationsCenter
-                    onClose={() => modals.setIsOperationsCenterOpen(false)}
+                    onClose={() => modals.setIsOperationsCenterOpen?.(false)}
                     onNavigate={handleNavigate}
                     onAction={(action) => {
                         if (action === 'year-transition-modal') {
-                            modals.setIsYearTransitionOpen(true);
+                            modals.setIsYearTransitionOpen?.(true);
                         } else if (action === 'load-demo') {
                             handleLoadDemoData();
-                            modals.setIsOperationsCenterOpen(false);
+                            modals.setIsOperationsCenterOpen?.(false);
                         } else if (action === 'live-assistant') {
-                            modals.setIsLiveAssistantModalOpen(true);
+                            console.warn('[DEBUG] Trigger: ModalManager -> OperationsCenter -> live-assistant');
+                            modals.setIsLiveAssistantModalOpen?.(true);
                         } else if (action === 'video-analysis') {
-                            modals.setIsVideoAnalysisOpen(true);
+                            modals.setIsVideoAnalysisOpen?.(true);
                         }
                     }}
                     activeSuggestion={appState.activeSuggestion?.id}
@@ -63,7 +63,7 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
 
             {modals.isYearTransitionOpen && (
                 <PassaggioAnnoWizard
-                    onClose={() => modals.setIsYearTransitionOpen(false)}
+                    onClose={() => modals.setIsYearTransitionOpen?.(false)}
                     students={students}
                     settings={settings}
                     evaluations={evaluations}
@@ -77,45 +77,48 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
 
             {modals.isImageAnalysisOpen && (
                 <ImageAnalysisModal
-                    onClose={() => modals.setIsImageAnalysisOpen(false)}
+                    onClose={() => modals.setIsImageAnalysisOpen?.(false)}
                     aiSettings={aiSettings}
                 />
             )}
 
             {modals.isVideoAnalysisOpen && (
-                <VideoAnalysisModal onClose={() => modals.setIsVideoAnalysisOpen(false)} />
+                <VideoAnalysisModal onClose={() => modals.setIsVideoAnalysisOpen?.(false)} />
             )}
 
 
 
             {modals.isHelpOpen && (
                 <HelpModal
-                    onClose={() => modals.setIsHelpOpen(false)}
+                    onClose={() => modals.setIsHelpOpen?.(false)}
                     onNavigate={handleNavigate}
                     aiSettings={aiSettings}
-                    setIsLoadingModalOpen={modals.setIsLoadingModalOpen}
-                    setLoadingModalMessage={modals.setLoadingModalMessage}
+                    setIsLoadingModalOpen={modals.setIsLoadingModalOpen ?? (() => {})}
+                    setLoadingModalMessage={modals.setLoadingModalMessage ?? (() => {})}
                 />
             )}
 
             {modals.circularAnalysisModal?.isOpen && (
                 <CircolareAnalysisModal
-                    url={modals.circularAnalysisModal.url}
-                    title={modals.circularAnalysisModal.title}
-                    onClose={() => modals.setCircularAnalysisModal(null)}
+                    url={modals.circularAnalysisModal.url ?? ''}
+                    title={modals.circularAnalysisModal.title ?? ''}
+                    onClose={() => modals.setCircularAnalysisModal?.(null)}
                     aiSettings={aiSettings}
                     onImportEvents={(events) => {
-                        actions.setEventi(prev => {
+                        actions.setEventi((prev: typeof appState.eventi) => {
                             const newEvents = events.map(e => ({
                                 ...e,
-                                id: `evt-${Date.now()}-${Math.random()}`
-                            } as any));
+                                id: `evt-${Date.now()}-${Math.random()}`,
+                                titolo: e.titolo ?? '',
+                                data: e.data ?? '',
+                                tipo: e.tipo ?? 'impegno',
+                            }));
                             return [...prev, ...newEvents];
                         });
                         actions.showToast(`${events.length} eventi importati.`, 'success');
                     }}
                     onSaveToKb={(note) => {
-                        actions.setKnowledgeBase(prev => [...prev, {
+                        actions.setKnowledgeBase((prev: typeof appState.knowledgeBase) => [...prev, {
                             id: `kb-note-${Date.now()}`,
                             fileName: note.title + '.txt',
                             content: note.content,
@@ -128,11 +131,11 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
             )}
 
             {modals.isLoadingModalOpen && (
-                <LoadingModal message={modals.loadingModalMessage} />
+                <LoadingModal message={modals.loadingModalMessage ?? ''} />
             )}
 
             {modals.isBackupInfoModalOpen && (
-                <BackupInfoModal onClose={() => modals.setIsBackupInfoModalOpen(false)} />
+                <BackupInfoModal onClose={() => modals.setIsBackupInfoModalOpen?.(false)} />
             )}
 
             {modals.syncConflictModal?.isOpen && modals.syncConflictModal?.data && (
@@ -140,26 +143,26 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
                     data={modals.syncConflictModal.data}
                     onRestore={() => {
                         actions.handleRestoreFromDrive();
-                        modals.setSyncConflictModal({ isOpen: false, data: null });
+                        modals.setSyncConflictModal?.({ isOpen: false, data: null });
                     }}
                     onIgnore={() => {
                         actions.handleSyncToDrive();
-                        modals.setSyncConflictModal({ isOpen: false, data: null });
+                        modals.setSyncConflictModal?.({ isOpen: false, data: null });
                     }}
                 />
             )}
 
             {modals.createLessonContext?.isOpen && modals.createLessonContext?.lezione && (
                 <CreateLessonFromAiModal
-                    content={modals.createLessonContext.lezione}
-                    onClose={() => modals.setCreateLessonContext({ isOpen: false, slotKey: null, lezione: null })}
+                    content={{ title: '', htmlContent: '', ...(modals.createLessonContext.lezione as object) }}
+                    onClose={() => modals.setCreateLessonContext?.({ isOpen: false, slotKey: null, lezione: null })}
                     onSave={(lessonData) => {
                         const newLesson = {
                             ...lessonData,
                             id: `lesson-ai-${Date.now()}`,
                             svolta: false
                         };
-                        actions.setLessons(prev => ({ ...prev, [newLesson.id]: newLesson }));
+                        actions.setLessons((prev: typeof appState.lessons) => ({ ...prev, [newLesson.id]: newLesson }));
                         actions.showToast('Lezione creata da AI!', 'success');
                     }}
                     userClasses={settings.classi}
@@ -178,65 +181,67 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
                     slot={activeSlot}
                     lesson={activeLesson}
                     isDraftExisting={isDraftExisting}
-                    onClose={() => { modals.setActiveSlotKey(null); modals.setLessonViewContext(null); }}
-                    onEdit={() => { modals.setEditingSlotKey(modals.activeSlotKey); modals.setActiveSlotKey(null); }}
+                    onClose={() => { modals.setActiveSlotKey?.(null); modals.setLessonViewContext?.(null); }}
+                    onEdit={() => { modals.setEditingSlotKey?.(modals.activeSlotKey ?? null); modals.setActiveSlotKey?.(null); }}
                     onStart={() => {
                         actions.handleStartClassroom(activeSlot.classe!, activeSlot.materia!, modals.activeSlotKey!, activeLesson);
-                        modals.setActiveSlotKey(null);
+                        modals.setActiveSlotKey?.(null);
                     }}
                     onView={() => {
                         actions.handleNavigate('lessons');
-                        modals.setActiveSlotKey(null);
+                        modals.setActiveSlotKey?.(null);
                     }}
                 />
             )}
 
             {/* Edit slot modal (open when user clicks an empty cell or chooses Edit) */}
-            {modals.editingSlotKey && (() => {
+            {modals.editingSlotKey ? (() => {
                 const slotKey = modals.editingSlotKey as string;
+                if (!slotKey) return null;
                 const slot = slots[slotKey] || { giorno: slotKey.split('-')[0] || '', ora: slotKey.split('-')[1] || '' };
                 const lesson = slot && slot.lezioneId ? lessons[slot.lezioneId] : undefined;
-
                 return (
                     <EditSlotModal
                         slot={slot}
                         lesson={lesson}
                         allLessons={lessons}
                         allSlots={slots}
-                        udas={udas}
-                        onClose={() => { modals.setEditingSlotKey(null); }}
-                        onSave={(key: string, slotData) => {
-                            setSlots((prev: any) => ({ ...prev, [key]: slotData }));
-                            modals.setEditingSlotKey(null);
+                        udas={appState.udas}
+                        onClose={() => { modals.setEditingSlotKey?.(null); }}
+                        onSave={(key: string, slotData: typeof slot) => {
+                            setSlots((prev: typeof slots) => ({ ...prev, [key]: slotData }));
+                            modals.setEditingSlotKey?.(null);
                         }}
                         onDelete={(key: string) => {
                             // remove lesson association if exists
                             const s = slots[key];
                             if (s?.lezioneId) {
                                 const lid = s.lezioneId;
-                                setLessons((prev: any) => {
+                                setLessons((prev: typeof lessons) => {
                                     const cp = { ...prev };
                                     delete cp[lid];
                                     return cp;
                                 });
                             }
-                            setSlots((prev: any) => {
+                            setSlots((prev: typeof slots) => {
                                 const cp = { ...prev };
                                 delete cp[key];
                                 return cp;
                             });
-                            modals.setEditingSlotKey(null);
+                            modals.setEditingSlotKey?.(null);
                         }}
-                        onSaveLesson={(lessonData: any, key: string) => {
+                        onSaveLesson={(lessonData: typeof lesson, key: string) => {
+                            if (!lessonData) return;
                             const id = lessonData.id || `les-${Date.now()}`;
                             const newLesson = { ...lessonData, id };
-                            setLessons((prev: any) => ({ ...prev, [id]: newLesson }));
-                            setSlots((prev: any) => ({ ...prev, [key]: { ...(prev[key] || {}), lezioneId: id, classe: newLesson.classe, materia: newLesson.materia } }));
-                            modals.setEditingSlotKey(null);
+                            setLessons((prev: typeof lessons) => ({ ...prev, [id]: newLesson }));
+                            setSlots((prev: typeof slots) => ({ ...prev, [key]: { ...(prev[key] || {}), lezioneId: id, classe: newLesson.classe ?? '', materia: newLesson.materia ?? '' } }));
+                            modals.setEditingSlotKey?.(null);
                         }}
-                        onStartClassroom={(classe: string, materia: string, key: string, lessonObj: any) => {
+                        onStartClassroom={(classe: string, materia: string, key: string, lessonObj: typeof lesson) => {
+                            if (!lessonObj) return;
                             handleStartClassroom(classe, materia, key, lessonObj);
-                            modals.setEditingSlotKey(null);
+                            modals.setEditingSlotKey?.(null);
                         }}
                         timetableSettings={settings}
                         userClasses={settings.classi}
@@ -246,7 +251,7 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
                         pianiInclusione={pianiInclusione}
                     />
                 );
-            })}
+            })() : null}
         </>
     );
 };

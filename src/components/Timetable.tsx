@@ -6,17 +6,16 @@ import Guidance from './Guidance';
 import { TabGroup } from './M3Components';
 
 interface TimetableProps {
-  slots: Record<string, Slot>;
-  lessons: Record<string, Lezione>;
-  settings: TimetableSettings;
-  onEditSlot: (giorno: string, ora: string) => void;
-  onShowSlotActions: (slot: Slot, lesson: Lezione) => void;
-  onAiSuggest: (slot: Slot) => void;
-  activeSlotKey?: string | null;
-  showGuidanceTips: boolean;
+    slots: Record<string, Slot>;
+    lessons: Record<string, Lezione>;
+    settings: TimetableSettings;
+    onEditSlot: (giorno: string, ora: string) => void;
+    onShowSlotActions: (slot: Slot, lesson: Lezione) => void;
+    onAiSuggest: (slot: Slot) => void;
+    showGuidanceTips: boolean;
 }
 
-export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons, settings, onEditSlot, onShowSlotActions, onAiSuggest, activeSlotKey, showGuidanceTips }) => {
+export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons, settings, onEditSlot, onShowSlotActions, onAiSuggest, showGuidanceTips }) => {
   const daysToShow = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
   const todayIndex = (new Date().getDay() + 6) % 7; 
 
@@ -66,7 +65,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                   <TabGroup 
                     tabs={[{id:'week', label:'Settimana', icon:'view_week'}, {id:'day', label:'Giorno', icon:'calendar_view_day'}]}
                     activeTab={viewMode}
-                    onTabChange={(id) => setViewMode(id as any)}
+                    onTabChange={(id: string) => setViewMode(id as 'week' | 'day')}
                     variant="primary"
                   />
                   

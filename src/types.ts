@@ -1,3 +1,41 @@
+// --- MODALS INTERFACE (for ViewManager) ---
+export interface Modals {
+    setCreateLessonContext: (context: { isOpen: boolean; slotKey: string | null; lezione: Lezione | null; }) => void;
+    setLessonViewContext: (lesson: Lezione | null) => void;
+    setIsLiveAssistantModalOpen: (open: boolean) => void;
+    activeSlotKey?: string | null;
+    // Proxy modals additions (opzionali per compatibilità proxy)
+    isOperationsCenterOpen?: boolean | null;
+    setIsOperationsCenterOpen?: ((value?: boolean) => void) | null;
+    isImageAnalysisOpen?: boolean | null;
+    setIsImageAnalysisOpen?: ((value?: boolean) => void) | null;
+    isLiveAssistantModalOpen?: boolean | null;
+    isHelpOpen?: boolean | null;
+    setIsHelpOpen?: ((value?: boolean) => void) | null;
+    circularAnalysisModal?: { isOpen: boolean; url: string; title: string } | null;
+    setCircularAnalysisModal?: ((modal: { isOpen: boolean; url: string; title: string } | null) => void) | null;
+    isLoadingModalOpen?: boolean | null;
+    setIsLoadingModalOpen?: ((value?: boolean) => void) | null;
+    loadingModalMessage?: string | null;
+    setLoadingModalMessage?: ((msg: string) => void) | null;
+    editingSlotKey?: string | null;
+    setEditingSlotKey?: ((key: string | null) => void) | null;
+    setActiveSlotKey?: ((key: string | null) => void) | null;
+    lessonViewContext?: Lezione | null;
+    toast?: { message: string; type?: 'success' | 'error' | 'info' } | null;
+    isBackupInfoModalOpen?: boolean | null;
+    setIsBackupInfoModalOpen?: ((value?: boolean) => void) | null;
+    syncConflictModal?: { isOpen: boolean; data: SyncConflictData | null } | null;
+    setSyncConflictModal?: ((modal: { isOpen: boolean; data: SyncConflictData | null } | null) => void) | null;
+    createLessonContext?: { isOpen: boolean; slotKey: string | null; lezione: Lezione | null } | null;
+    isYearTransitionOpen?: boolean | null;
+    setIsYearTransitionOpen?: ((value?: boolean) => void) | null;
+    isVideoAnalysisOpen?: boolean | null;
+    setIsVideoAnalysisOpen?: ((value?: boolean) => void) | null;
+    isRestoring?: boolean | null;
+    setIsRestoring?: ((value: boolean) => void) | null;
+    setNotifiche?: ((notifiche: Notifica[]) => void) | null;
+}
 // --- NAVIGATION PARAMS ---
 export interface NavigationParams {
     classe?: string;

@@ -188,7 +188,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
         let html = `
         <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; }
+            body { font-family: 'Roboto', sans-serif; line-height: 1.6; }
             h1 { color: #2E74B5; }
             h2 { color: #2E74B5; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 20px; }
             p { margin-bottom: 10px; }

@@ -61,6 +61,8 @@ export const useAppEngine = () => {
                     uiActions.setBackupState({ status: 'synced', lastBackup: null } as any);
                     uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined } as any);
                     uiActions.setNavigationHistory([] as any);
+                    // Impedisci apertura automatica modale Assistant in test
+                    if (uiActions.toggleModal) uiActions.toggleModal('isLiveAssistantModalOpen', false);
                     // attempt to load KB from IndexedDB but non-blocking
                     try { /* no-op for test */ } catch { }
                     setIsDataLoaded(true);
@@ -749,9 +751,9 @@ export const useAppEngine = () => {
         circularAnalysisModal: circularAnalysisModal,
         setCircularAnalysisModal: uiActions.setCircularAnalysisModal,
         isLoadingModalOpen: modals.isLoadingModalOpen,
-        setIsLoadingModalOpen: uiActions.setLoading.bind(null, true),
+        setIsLoadingModalOpen: (value?: boolean) => uiActions.setLoading(!!value),
         loadingModalMessage: loadingModalMessage,
-        setLoadingModalMessage: (msg: string) => uiActions.setLoading(true, msg),
+        setLoadingModalMessage: (msg?: string) => uiActions.setLoading(true, msg ?? ''),
         editingSlotKey: editingSlotKey,
         setEditingSlotKey: uiActions.setEditingSlotKey,
         activeSlotKey: activeSlotKey,
@@ -762,13 +764,13 @@ export const useAppEngine = () => {
         isBackupInfoModalOpen: modals.isBackupInfoModalOpen,
         setIsBackupInfoModalOpen: uiActions.toggleModal.bind(null, 'isBackupInfoModalOpen'),
         syncConflictModal: syncConflictModal,
-        setSyncConflictModal: uiActions.setSyncConflictModal,
+        setSyncConflictModal: (modal) => uiActions.setSyncConflictModal(modal),
         createLessonContext: createLessonContext,
         setCreateLessonContext: uiActions.setCreateLessonContext,
         isYearTransitionOpen: modals.isYearTransitionOpen,
         setIsYearTransitionOpen: uiActions.toggleModal.bind(null, 'isYearTransitionOpen'),
         isVideoAnalysisOpen: modals.isVideoAnalysisOpen,
-        setIsVideoAnalysisOpen: uiActions.setIsVideoAnalysisOpen,
+        setIsVideoAnalysisOpen: (value?: boolean) => uiActions.setIsVideoAnalysisOpen(typeof value === 'boolean' ? value : false),
         isRestoring: modals.isRestoring,
         setIsRestoring: uiActions.setIsRestoring,
         setNotifiche: setNotifiche,

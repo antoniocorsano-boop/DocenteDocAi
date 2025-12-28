@@ -141,11 +141,11 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             
             let html = `
             <style>
-                table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; }
+                table { width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif; }
                 th, td { border: 1px solid #000; padding: 8px; text-align: left; vertical-align: top; }
                 th { background-color: #f2f2f2; font-weight: bold; }
-                h1 { font-family: Arial, sans-serif; color: #2E74B5; }
-                p { font-family: Arial, sans-serif; }
+                h1 { font-family: 'Roboto', sans-serif; color: #2E74B5; }
+                p { font-family: 'Roboto', sans-serif; }
             </style>
             `;
             

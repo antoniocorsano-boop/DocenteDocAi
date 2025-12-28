@@ -83,11 +83,12 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
     }
 
     return (
-        <div className="page-container-full space-y-6">
-            <h1 className="m3-display-medium">Analytics Hub</h1>
+        <div className="page-container-full space-y-6 flex flex-col items-center px-2 sm:px-4 md:px-6 lg:px-0" style={{width:'100%', maxWidth:'100vw'}}>
+            <h1 className="m3-display-medium w-full max-w-[1200px] mx-auto px-2 sm:px-4 md:px-6">Analytics Hub</h1>
 
-            <div className="card !bg-surface-container-low shadow-md !rounded-[40px] !p-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+            {/* Responsive Card: Filters */}
+            <div className="card !bg-surface-container-low shadow-md !rounded-[32px] w-full max-w-[1200px] mx-auto px-2 sm:px-4 md:px-6 py-4 md:py-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 items-end">
                     <SelectField label="Classe" value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setSelectedStudentId('all'); }}>
                         {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                     </SelectField>
@@ -99,9 +100,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         <option value="all">Tutte le Materie</option>
                         {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                     </SelectField>
-                    <div className="space-y-3">
+                    <div className="space-y-2 md:space-y-3">
                         <label className="text-[11px] text-primary font-black uppercase tracking-[0.25em] px-2 block">Modalità Vista</label>
-                        <div className="segmented-button-group w-full !mb-0 shadow-sm border-outline-variant">
+                        <div className="segmented-button-group w-full !mb-0 shadow-sm border-outline-variant flex">
                             <button onClick={() => setChartType('trend')} className={`segmented-button flex-1 ${chartType === 'trend' ? 'active' : ''}`} title="Trend Temporale"><span className="material-symbols-outlined">show_chart</span></button>
                             <button onClick={() => setChartType('radar')} className={`segmented-button flex-1 ${chartType === 'radar' ? 'active' : ''}`} title="Radar Competenze"><span className="material-symbols-outlined">radar</span></button>
                             <button onClick={() => setChartType('dist')} className={`segmented-button flex-1 ${chartType === 'dist' ? 'active' : ''}`} title="Distribuzione Voti"><span className="material-symbols-outlined">bar_chart</span></button>
@@ -110,8 +111,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 </div>
             </div>
 
-            <div className="card min-h-[450px] flex flex-col relative shadow-2xl !rounded-[48px] !p-8">
-                <div className="flex justify-between items-center mb-10">
+            {/* Responsive Card: Chart & AI */}
+            <div className="card flex flex-col relative shadow-2xl !rounded-[40px] w-full max-w-[1200px] mx-auto px-2 sm:px-4 md:px-8 py-4 md:py-8 min-h-[320px] md:min-h-[420px] lg:min-h-[450px]">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-0 mb-6 md:mb-10">
                     <h2 className="m3-title-large font-black uppercase tracking-[0.2em] text-on-surface/50">
                         {chartType === 'trend' && 'Andamento Temporale'}
                         {chartType === 'radar' && 'Radar Competenze'}
@@ -121,22 +123,22 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         <span className="material-symbols-outlined text-lg mr-2">auto_awesome</span> ANALISI AI
                     </button>
                 </div>
-                <div className="flex-grow flex items-center justify-center p-4">
+                <div className="flex-grow flex items-center justify-center p-2 sm:p-4 w-full min-h-[180px] md:min-h-[260px] lg:min-h-[320px]">
                     {chartType === 'trend' && <LineChart data={trendData} color="var(--sys-primary)" />}
                     {chartType === 'radar' && <RadarChart data={radarData} color="var(--sys-tertiary)" />}
                     {chartType === 'dist' && <div className="w-full max-w-2xl"><BarChart data={distData} color="var(--sys-secondary)" /></div>}
                 </div>
                 {(isAiLoading || aiInsight) && (
-                    <div className="mt-10 p-8 bg-surface-container-high rounded-[40px] border border-outline-variant animate-in slide-in-from-bottom-4 shadow-inner">
+                    <div className="mt-6 md:mt-10 p-4 md:p-8 bg-surface-container-high rounded-[32px] md:rounded-[40px] border border-outline-variant animate-in slide-in-from-bottom-4 shadow-inner w-full max-w-2xl mx-auto">
                         {isAiLoading ? <AiThinkingGem size="small" text="Elaborazione Insight..." inline /> : (
                             <div className="flex flex-col gap-4">
-                                <div className="flex gap-5">
-                                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <div className="flex gap-4 md:gap-5">
+                                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                         <span className="material-symbols-outlined text-primary">lightbulb</span>
                                     </div>
                                     <p className="m3-body-medium font-bold leading-relaxed text-on-surface">{aiInsight}</p>
                                 </div>
-                                <div className="pl-16">
+                                <div className="pl-10 md:pl-16">
                                     <AiMemoryChip label={`Insight AI • Dati Classe ${selectedClass}`} />
                                 </div>
                             </div>

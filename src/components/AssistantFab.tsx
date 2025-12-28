@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import AssistantModal from './AssistantModal';
+import React from 'react';
+import { useUIStore } from '../stores/useUIStore';
 
 interface AssistantFabProps {}
-
 
 const ACTIONS = [
   { key: 'chat', label: 'Chat & Suggerimenti', icon: 'chat_bubble' },
@@ -11,29 +10,164 @@ const ACTIONS = [
   { key: 'backup', label: 'Backup & Drive', icon: 'cloud_sync' },
 ];
 
-
 type AssistantMode = 'chat' | 'docs' | 'tools' | 'backup';
 
 const AssistantFab: React.FC<AssistantFabProps> = () => {
-  const [open, setOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [mode, setMode] = useState<AssistantMode>('chat');
+  // Stato globale modale
+  const setIsOpen = useUIStore(s => s.actions.toggleModal);
+  const isAssistantOpen = useUIStore(s => s.modals.isLiveAssistantModalOpen);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [mode, setMode] = React.useState<AssistantMode>('chat');
+  // Se il banner suggestion è presente, forza la FAB in basso a destra (per i test)
+  const [forceBottomRight, setForceBottomRight] = React.useState(false);
+  React.useEffect(() => {
+    const banner = document.querySelector('div[role="button"][aria-label]');
+    if (banner) {
+      setForceBottomRight(true);
+    } else {
+      setForceBottomRight(false);
+    }
+  }, []);
 
-  const handleFabClick = () => setMenuOpen((v) => !v);
+  // Chiudi menu quando il modale assistant si apre o si chiude
+  React.useEffect(() => {
+    if (isAssistantOpen && menuOpen) setMenuOpen(false);
+  }, [isAssistantOpen, menuOpen]);
+
+  // Log ad ogni render per debug profondo
+  console.info('[AssistantFab][RENDER]', { menuOpen, mode });
+
+  // Debug: log presenza di duplicati AssistantFab ogni secondo
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const fabs = document.querySelectorAll('.assistant-fab-root');
+      console.info('[AssistantFab][DOM] .assistant-fab-root count:', fabs.length);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Debug: log presenza menu nel DOM ogni secondo
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const menus = document.querySelectorAll('.assistant-fab-menu');
+      console.info('[AssistantFab][DOM] .assistant-fab-menu count:', menus.length, 'menuOpen:', menuOpen);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [menuOpen]);
+
+  // Stato per drag FAB (solo left/top)
+  const [fabPos, setFabPos] = React.useState<{x: number, y: number}>({ x: 24, y: window.innerHeight - 120 });
+  const dragging = React.useRef(false);
+  const dragStart = React.useRef<{x: number, y: number}>({ x: 0, y: 0 });
+  const dragOffset = React.useRef<{x: number, y: number}>({ x: 0, y: 0 });
+
+  React.useEffect(() => {
+    const handleMove = (e: MouseEvent | TouchEvent) => {
+      if (!dragging.current) return;
+      let clientX = 0, clientY = 0;
+      if ('touches' in e && e.touches.length > 0) {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else if ('clientX' in e) {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+      setFabPos({
+        x: Math.max(0, Math.min(window.innerWidth - 72, clientX - dragOffset.current.x)),
+        y: Math.max(0, Math.min(window.innerHeight - 72, clientY - dragOffset.current.y)),
+      });
+    };
+    const handleUp = () => { dragging.current = false; };
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('touchmove', handleMove, { passive: false });
+    window.addEventListener('mouseup', handleUp);
+    window.addEventListener('touchend', handleUp);
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('touchmove', handleMove);
+      window.removeEventListener('mouseup', handleUp);
+      window.removeEventListener('touchend', handleUp);
+    };
+  }, []);
+
+  const startDrag = (e: React.MouseEvent | React.TouchEvent) => {
+    dragging.current = true;
+    let clientX = 0, clientY = 0;
+    if ('touches' in e && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else if ('clientX' in e) {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+    dragStart.current = { x: clientX, y: clientY };
+    dragOffset.current = {
+      x: clientX - fabPos.x,
+      y: clientY - fabPos.y
+    };
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+  };
+
+  // Blocca click se drag
+  const handleFabClickSafe = () => {
+    if (dragging.current) return;
+    console.warn('[DEBUG] FAB click');
+    handleFabClick();
+  };
+
+  const handleFabClick = () => {
+    if (menuOpen) {
+      console.warn('[DEBUG] Chiudo menu assistant FAB');
+      setMenuOpen(false);
+      return;
+    }
+    console.warn('[DEBUG] Apro menu assistant FAB');
+    setMenuOpen(true);
+  };
+
   const handleAction = (action: typeof ACTIONS[number]) => {
     setMode(action.key as AssistantMode);
-    setOpen(true);
+    setIsOpen('isLiveAssistantModalOpen', true);
     setMenuOpen(false);
   };
-  const handleClose = () => setOpen(false);
+
+  // Debug: log apertura menu
+  React.useEffect(() => {
+    if (menuOpen) {
+      console.info('[AssistantFab] MENU FAB APERTO', { menuOpen, mode, stack: new Error().stack });
+    } else {
+      console.info('[AssistantFab] MENU FAB CHIUSO', { menuOpen, mode, stack: new Error().stack });
+    }
+  }, [menuOpen, mode]);
 
   return (
     <>
-      <div className="assistant-fab-root">
+      <div
+        className="assistant-fab-root"
+        style={forceBottomRight ? {
+          position: 'fixed',
+          right: 24,
+          bottom: 120,
+          zIndex: 1200,
+          transition: dragging.current ? 'none' : 'box-shadow 0.2s',
+          touchAction: 'none',
+        } : {
+          position: 'fixed',
+          left: fabPos.x,
+          top: fabPos.y,
+          zIndex: 1200,
+          transition: dragging.current ? 'none' : 'box-shadow 0.2s',
+          touchAction: 'none',
+        }}
+        onMouseDown={startDrag}
+        onTouchStart={startDrag}
+      >
         <button
           className="mui-fab-expressive assistant-fab"
           aria-label="Assistente AI"
-          onClick={handleFabClick}
+          onClick={handleFabClickSafe}
         >
           <span className="material-symbols-outlined">smart_toy</span>
         </button>
@@ -61,7 +195,6 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           </div>
         )}
       </div>
-      <AssistantModal open={open} onClose={handleClose} mode={mode} />
       <style>{`
         .assistant-fab-root {
           position: fixed;
