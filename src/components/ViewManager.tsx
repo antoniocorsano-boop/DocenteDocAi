@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import Home from './Home';
 
 import { Timetable } from './Timetable';
+import Calendar from './Calendar';
 import Settings from './Settings';
 
 
@@ -32,6 +33,7 @@ import CurriculumManager from './CurriculumManager';
 import TeacherPresentationView from './TeacherPresentationView';
 import { Studio } from './Studio';
 import { LiveAssistant } from './LiveAssistant';
+import ErrorBoundary from './ErrorBoundary';
 import { AppState, AppActions, View, EventoCalendario, Lezione, RegisterEntry, Studente, KnowledgeBaseEntry, Rubrica, PianoInclusione, GiudizioPeriodico, Competenza, LessonScheduleInput, EvaluationInput, UdaCreateInput } from '../types';
 // import { initPersistentStorage } from '../services/backupService';
 
@@ -115,6 +117,17 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                             onShowSlotActions={(slot, lesson) => { actions.setActiveSlotKey(slot.giorno + '-' + slot.ora); (modals.setLessonViewContext as (lesson: Lezione) => void)(lesson); }}
                             showGuidanceTips={settings.showGuidanceTips}
                         />
+                    </AuraView>
+                )}
+                {view === 'calendario' && (
+                    <AuraView>
+                        <ErrorBoundary>
+                            <Calendar
+                                eventi={eventi}
+                                setEventi={setEventi}
+                                aiSettings={aiSettings}
+                            />
+                        </ErrorBoundary>
                     </AuraView>
                 )}
                 {view === 'settings' && (

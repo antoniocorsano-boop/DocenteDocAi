@@ -49,7 +49,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
 
     const overlayRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    useModalAccessibility({ isOpen: true, onClose, overlayRef, containerRef });
+    useModalAccessibility({ isOpen: true, onClose, overlayRef, containerRef, onOverlayClick: onClose });
 
     const handleSave = () => {
         if (activityType === 'standard') {

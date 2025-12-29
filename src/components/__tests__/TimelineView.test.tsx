@@ -43,12 +43,12 @@ describe('ProgettazioneHub Gantt integration', () => {
     expect(screen.getByText('Unità 1')).toBeInTheDocument();
   });
 
-  it('keyboard ArrowRight on focused bar calls onSaveUda', async () => {
+  it('click on UDA bar opens UDA detail modal', async () => {
     const onSave = vi.fn();
     render(<ProgettazioneHub {...defaultProps} onSaveUda={onSave} />);
-    const bar = await screen.findByRole('button', { name: /Sposta UDA Unità 1/i });
-    bar.focus();
-    fireEvent.keyDown(bar, { key: 'ArrowRight' });
-    expect(onSave).toHaveBeenCalled();
+    const bar = await screen.findByRole('button', { name: /Unità 1/i });
+    fireEvent.click(bar);
+    const modalHeading = await screen.findByRole('heading', { name: /Unità 1/i });
+    expect(modalHeading).toBeInTheDocument();
   });
 });

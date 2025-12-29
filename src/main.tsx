@@ -46,23 +46,45 @@ if (!isTestMode) {
 } else {
   console.info('[main] Test mode active — preserving localStorage and IndexedDB for E2E');
 }
-// In test mode avoid alert() (blocks Playwright). Log errors to console instead.
-window.onerror = (msg, src, line, col, err) => {
-  console.error('[main] JS ERROR:', msg, err?.stack || '');
-  return false;
-};
-window.onunhandledrejection = (e) => {
-  console.error('[main] Promise ERROR:', e.reason?.message || e.reason);
-  return false;
-};
-window.onerror = (msg, src, line, col, err) => {
-  alert('JS ERROR: ' + msg + '\n' + (err?.stack || ''));
-  return false;
-};
-window.onunhandledrejection = (e) => {
-  alert('Promise ERROR: ' + (e.reason?.message || e.reason));
-  return false;
-};
+// Improved global error handlers.
+// - Ignore errors originating from browser extensions (chrome-extension://)
+// - Avoid blocking alerts (which break automated tests)
+// - Log useful diagnostic info for local debugging
+function isExtensionSource(src?: string | null) {
+  return typeof src === 'string' && src.startsWith('chrome-extension://');
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('error', (ev: ErrorEvent) => {
+    try {
+      if (isExtensionSource(ev.filename)) {
+        // Ignore noisy extension-injected errors
+        console.debug('[main] ignored extension error', ev.message, ev.filename);
+        ev.preventDefault?.();
+        return;
+      }
+      console.error('[main] window.error', ev.message, ev.filename, ev.lineno, ev.colno, ev.error?.stack || '');
+    } catch (err) {
+      // swallow to avoid cascading failures
+      console.error('[main] error handler failed', err);
+    }
+  });
+
+  window.addEventListener('unhandledrejection', (ev: PromiseRejectionEvent) => {
+    try {
+      const reason: any = ev.reason;
+      const stack = reason && typeof reason === 'object' ? reason.stack : String(reason);
+      if (stack && stack.indexOf('chrome-extension://') !== -1) {
+        console.debug('[main] ignored extension rejection', stack);
+        ev.preventDefault?.();
+        return;
+      }
+      console.error('[main] unhandledrejection', reason);
+    } catch (err) {
+      console.error('[main] unhandledrejection handler failed', err);
+    }
+  });
+}
 
 // PWA Service Worker con gestione Origin Mismatch per AI Studio / Iframe
 // Register the service worker only when explicitly enabled via env var to avoid
