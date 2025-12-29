@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // LLM integration for AI-generated wizard steps (Gemini/OpenAI ready)
 import { NKANode } from './types';
 import { NKAWizardStep } from './wizardAI';

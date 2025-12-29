@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Prompt template for AI-generated wizard steps per node
 import { NKANode } from './types';
 

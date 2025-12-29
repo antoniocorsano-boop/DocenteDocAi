@@ -31,11 +31,30 @@ import './modules.css';
 })();
 
 // --- DEBUG: Forza reset storage locale e log errori globali ---
-localStorage.clear();
-if (typeof window !== 'undefined' && 'indexedDB' in window) {
-  indexedDB.deleteDatabase('OrarioDocAI_BackupDB');
-  indexedDB.deleteDatabase('OrarioDocAI_Data');
+// Avoid clearing storage when running E2E tests so test harness can inject data
+const isTestMode = (typeof window !== 'undefined' && (window as any).__TEST_MODE === true) || ((import.meta as any).env && (import.meta as any).env.VITE_TEST_MODE === 'true');
+if (!isTestMode) {
+  try {
+    localStorage.clear();
+    if (typeof window !== 'undefined' && 'indexedDB' in window) {
+      indexedDB.deleteDatabase('OrarioDocAI_BackupDB');
+      indexedDB.deleteDatabase('OrarioDocAI_Data');
+    }
+  } catch (e) {
+    // Ignore errors during cleanup in non-test runs
+  }
+} else {
+  console.info('[main] Test mode active — preserving localStorage and IndexedDB for E2E');
 }
+// In test mode avoid alert() (blocks Playwright). Log errors to console instead.
+window.onerror = (msg, src, line, col, err) => {
+  console.error('[main] JS ERROR:', msg, err?.stack || '');
+  return false;
+};
+window.onunhandledrejection = (e) => {
+  console.error('[main] Promise ERROR:', e.reason?.message || e.reason);
+  return false;
+};
 window.onerror = (msg, src, line, col, err) => {
   alert('JS ERROR: ' + msg + '\n' + (err?.stack || ''));
   return false;

@@ -1,9 +1,8 @@
 
-// @ts-nocheck
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import AnnualPlanningWizard from '../../src/components/AnnualPlanningWizard';
-import { TimetableSettings, AiSettings, Uda, Lezione, Report, EventoCalendario, KnowledgeBaseEntry, Studente, PianoInclusione } from '../../src/types';
+import { TimetableSettings, AiSettings, Uda, KnowledgeBaseEntry, Studente, PianoInclusione } from '../../src/types';
 import * as aiService from '../../src/services/aiService';
 import * as documentUtils from '../../src/utils/documentUtils';
 
@@ -28,7 +27,7 @@ describe('AnnualPlanningWizard', () => {
   const mockOnSaveReport = vi.fn();
   const mockOnSaveEvent = vi.fn();
 
-  const mockSettings: TimetableSettings = {
+  const mockSettings: Partial<TimetableSettings> = {
     classi: ['1A', '2B'],
     disciplines: ['Matematica', 'Storia'],
     nomeInsegnante: 'Prof. Rossi',
@@ -46,14 +45,14 @@ describe('AnnualPlanningWizard', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (aiService.generateSituazionePartenza as vi.Mock).mockResolvedValue('Analisi di partenza generata.');
-    (aiService.generateMethodologyStrategies as vi.Mock).mockResolvedValue('Metodologie suggerite.');
-    (aiService.suggestAnnualPlan as vi.Mock).mockResolvedValue([
+    (aiService.generateSituazionePartenza as unknown as ReturnType<typeof vi.fn>).mockResolvedValue('Analisi di partenza generata.');
+    (aiService.generateMethodologyStrategies as unknown as ReturnType<typeof vi.fn>).mockResolvedValue('Metodologie suggerite.');
+    (aiService.suggestAnnualPlan as unknown as ReturnType<typeof vi.fn>).mockResolvedValue([
       { title: 'UDA 1', hours: 20, topic: 'Topic 1' },
       { title: 'UDA 2', hours: 15, topic: 'Topic 2' },
     ]);
-    (aiService.generateClassPlanningDocument as vi.Mock).mockResolvedValue('<html><h1>Documento di Pianificazione</h1></html>');
-    (documentUtils.generateHtmlDocxBlob as vi.Mock).mockResolvedValue(new Blob(['docx content']));
+    (aiService.generateClassPlanningDocument as unknown as ReturnType<typeof vi.fn>).mockResolvedValue('<html><h1>Documento di Pianificazione</h1></html>');
+    (documentUtils.generateHtmlDocxBlob as unknown as ReturnType<typeof vi.fn>).mockResolvedValue(new Blob(['docx content']));
 
     // Mock della funzione confirm per evitare popup nei test
     global.confirm = vi.fn(() => true);
@@ -69,8 +68,8 @@ describe('AnnualPlanningWizard', () => {
     render(
       <AnnualPlanningWizard
         onClose={mockOnClose}
-        userClasses={mockSettings.classi}
-        settings={mockSettings}
+        userClasses={mockSettings.classi as string[]}
+          settings={mockSettings as TimetableSettings}
         aiSettings={mockAiSettings}
         udas={mockUdas}
         onSaveUda={mockOnSaveUda}

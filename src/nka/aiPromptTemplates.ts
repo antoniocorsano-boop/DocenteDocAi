@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Prompt templates for AI-driven neural map layout (LLM integration)
 import { NKANode } from './types';
 

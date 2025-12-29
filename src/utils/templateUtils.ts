@@ -1,4 +1,4 @@
-import { Studente, Lezione, Uda, TimetableSettings } from '../components/types'; // FIX: Updated import path for types
+import { Studente, Lezione, Uda } from '../components/types'; // FIX: Updated import path for types
 
 interface TemplateContext {
     teacherName: string;

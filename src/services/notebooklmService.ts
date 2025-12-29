@@ -25,6 +25,7 @@ export const fetchNotebookFiles = async (): Promise<NotebookLMFile[]> => {
 
 export const deleteNotebookFile = async (id: string): Promise<void> => {
   // TODO: implementa delete reale
+  void id;
 };
 
 export const syncNotebookFiles = async (): Promise<void> => {

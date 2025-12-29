@@ -39,7 +39,7 @@ const getDb = (): Promise<IDBDatabase> => {
                 dbInstance = request.result;
                 
                 // Verifica che lo store esista
-                if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
+                    if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
                     console.warn('[IndexedDbService] Store not found, recreating database...');
                     dbInstance.close();
                     dbInstance = null;
@@ -198,7 +198,7 @@ export const deleteKbContentFromIndexedDB = async (id: string): Promise<void> =>
         return new Promise((resolve, reject) => {
             const transaction = db.transaction(STORE_NAME, 'readwrite');
             const store = transaction.objectStore(STORE_NAME);
-            const request = store.delete(id);
+            void store.delete(id);
             transaction.oncomplete = () => resolve();
             transaction.onerror = () => {
                 console.error('Delete KB entry transaction error:', transaction.error);
@@ -220,7 +220,7 @@ export const clearIndexedDB = async (): Promise<void> => {
         return new Promise((resolve, reject) => {
             const transaction = db.transaction(STORE_NAME, 'readwrite');
             const store = transaction.objectStore(STORE_NAME);
-            const request = store.clear();
+            void store.clear();
             transaction.oncomplete = () => resolve();
             transaction.onerror = () => {
                 console.error('Clear KB store transaction error:', transaction.error);
@@ -241,13 +241,13 @@ export const deleteMainAppBackup = async (): Promise<void> => {
             const request = indexedDB.open(MAIN_DB_NAME, 1); // Assuming main DB uses version 1
             request.onerror = () => reject(new Error('Failed to open main app backup DB.'));
             request.onsuccess = () => resolve(request.result);
-            request.onupgradeneeded = (event) => { /* no upgrade needed here */ };
+            request.onupgradeneeded = () => { /* no upgrade needed here */ };
         });
 
         return new Promise((resolve, reject) => {
             const transaction = db.transaction('app_state', 'readwrite'); // Assuming store name is 'app_state'
             const store = transaction.objectStore('app_state');
-            const request = store.delete('latest_backup'); // Assuming key is 'latest_backup'
+            void store.delete('latest_backup'); // Assuming key is 'latest_backup'
             transaction.oncomplete = () => resolve();
             transaction.onerror = () => {
                 console.error('Delete main app backup transaction error:', transaction.error);

@@ -1,9 +1,7 @@
 
-import { getAccessToken, loadGapiClient, requestAccessToken } from './googleDriveService.ts';
-
-const GMAIL_READ_SCOPE = 'https://www.googleapis.com/auth/gmail.readonly';
-const GMAIL_SEND_SCOPE = 'https://www.googleapis.com/auth/gmail.send';
-const GMAIL_MODIFY_SCOPE = 'https://www.googleapis.com/auth/gmail.modify'; 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { loadGapiClient, requestAccessToken } from './googleDriveService';
+const GMAIL_MODIFY_SCOPE = 'https://www.googleapis.com/auth/gmail.modify';
 
 /**
  * Initializes the Gmail API client.

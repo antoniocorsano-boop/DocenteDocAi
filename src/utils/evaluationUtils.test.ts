@@ -57,15 +57,7 @@ describe('Calcolo Performance Studente', () => {
     });
 
     it('dovrebbe rilevare un trend in calo (DOWN)', () => {
-        // Simulo voti che peggiorano
-        const evaluations = [
-            createEval('8', '2023-09-01'),
-            createEval('5', '2023-10-01')
-        ];
-        
-        // Nota: La funzione richiede almeno 4 voti per un trend affidabile, 
-        // altrimenti restituisce 'stable' o null se pochi dati.
-        // Aggiungiamo dati per attivare la logica
+        // Simulo voti che peggiorano. Aggiungiamo dati per attivare la logica
         const evaluationsLong = [
             createEval('9', '2023-09-01'),
             createEval('9', '2023-09-05'),

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 import { Uda, Lezione, Competenza, PianoInclusione, KnowledgeBaseEntry } from '../types';

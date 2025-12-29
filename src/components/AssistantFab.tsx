@@ -13,6 +13,19 @@ const ACTIONS = [
 type AssistantMode = 'chat' | 'docs' | 'tools' | 'backup';
 
 const AssistantFab: React.FC<AssistantFabProps> = () => {
+  // Helper to suppress logs in test/instrumented runs
+  const safeConsole = React.useCallback((method: 'log' | 'info' | 'warn' | 'error' | 'debug', ...args: unknown[]) => {
+    try {
+      if (typeof window === 'undefined') return;
+      const silent = (window.__TEST_MODE === true) || (window.__SILENCE_ASSISTANT_LOGS === true);
+      if (silent) return;
+      // eslint-disable-next-line no-console
+      const fn = (console as unknown as Record<'log'|'info'|'warn'|'error'|'debug', (...a: unknown[]) => void>)[method];
+      fn?.(...args);
+    } catch (e) {
+      // swallow
+    }
+  }, []);
   // Stato globale modale
 
   const isAssistantOpen = useUIStore(s => s.modals.isLiveAssistantModalOpen);
@@ -25,9 +38,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
   }, [isAssistantOpen, menuOpen]);
 
   // Log ad ogni render per debug profondo, saltato in test-mode
-  if (typeof window === 'undefined' || (window as any).__TEST_MODE !== true) {
-    console.info('[AssistantFab][RENDER]', { menuOpen, mode });
-  }
+  safeConsole('info', '[AssistantFab][RENDER]', { menuOpen, mode });
 
   // Use store hook for modal toggle and reduce noisy logging during tests
   const toggleModal = useUIStore(state => state.actions.toggleModal);
@@ -35,16 +46,16 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
   // Reduce debug logging and skip during test mode to avoid noisy console output
   React.useEffect(() => {
     if (typeof window === 'undefined') return;
-    const isTest = (window as any).__TEST_MODE === true;
+    const isTest = window.__TEST_MODE === true;
     if (isTest) return; // skip logging in test runs
 
     const intervalDom = setInterval(() => {
       const fabs = document.querySelectorAll('.assistant-fab-root');
-      console.debug('[AssistantFab][DOM] .assistant-fab-root count:', fabs.length);
+      safeConsole('debug', '[AssistantFab][DOM] .assistant-fab-root count:', fabs.length);
     }, 3000);
     const intervalMenu = setInterval(() => {
       const menus = document.querySelectorAll('.assistant-fab-menu');
-      console.debug('[AssistantFab][DOM] .assistant-fab-menu count:', menus.length, 'menuOpen:', menuOpen);
+      safeConsole('debug', '[AssistantFab][DOM] .assistant-fab-menu count:', menus.length, 'menuOpen:', menuOpen);
     }, 3000);
     return () => {
       clearInterval(intervalDom);
@@ -82,17 +93,24 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
   const handleAction = (action: typeof ACTIONS[number]) => {
     setMode(action.key as AssistantMode);
     // Open the global Assistant modal when an action is selected
+    try {
+      // Emit a concise runtime warning so Playwright traces capture the user action
+      // eslint-disable-next-line no-console
+      console.warn('[E2E][AssistantFab] action selected', { key: action.key, label: action.label });
+    } catch (e) {
+      // ignore
+    }
     if (toggleModal) toggleModal('isLiveAssistantModalOpen', true);
     // Close the FAB menu
     setMenuOpen(false);
   };
 
   React.useEffect(() => {
-    if ((window as any).__TEST_MODE === true) return;
+    if (window.__TEST_MODE === true) return;
     if (menuOpen) {
-      console.info('[AssistantFab] MENU FAB APERTO', { menuOpen, mode, stack: new Error().stack });
+      safeConsole('info', '[AssistantFab] MENU FAB APERTO', { menuOpen, mode, stack: new Error().stack });
     } else {
-      console.info('[AssistantFab] MENU FAB CHIUSO', { menuOpen, mode, stack: new Error().stack });
+      safeConsole('info', '[AssistantFab] MENU FAB CHIUSO', { menuOpen, mode, stack: new Error().stack });
     }
   }, [menuOpen, mode]);
 
@@ -118,22 +136,31 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           <span className="material-symbols-outlined">smart_toy</span>
         </button>
         {menuOpen && (
-          <div className="assistant-fab-menu" style={{ pointerEvents: 'none' }}>
+          <div className="assistant-fab-menu" style={{ pointerEvents: 'auto' }}>
+            {/* Close menu / quick close modal button */}
+            <button
+              aria-label="Chiudi menu"
+              title="Chiudi menu"
+              className="assistant-fab-menu-close"
+              onClick={() => setMenuOpen(false)}
+            >
+              <span className="material-symbols-outlined">close</span>
+            </button>
             {ACTIONS.map((a, i) => {
-              const offset = (i + 1) * 80;
-              const transform = menuDirection === 'up'
-                ? `translateY(-${offset}px)`
-                : `translateY(${offset}px)`;
+              const offset = (i + 1) * 72; // spacing between actions
+              const posStyle: React.CSSProperties = menuDirection === 'up'
+                ? { bottom: `${offset}px` }
+                : { top: `${offset}px` };
               return (
                 <button
                   key={a.key}
                   className="mui-fab-expressive assistant-fab-secondary"
                   style={{
-                    transform,
-                    zIndex: 1201 - i,
-                    transition: 'transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.2s',
+                    position: 'absolute',
                     right: 0,
-                    bottom: 0,
+                    ...posStyle,
+                    zIndex: 1201 - i,
+                    transition: 'all 0.18s ease',
                     pointerEvents: 'auto',
                   }}
                   onClick={() => handleAction(a)}
@@ -177,8 +204,26 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           position: absolute;
           right: 0;
           bottom: 0;
-          width: 100%;
-          pointer-events: none;
+          width: max-content;
+          min-width: 180px;
+          pointer-events: auto;
+          display: block;
+          padding: 8px 0;
+        }
+        .assistant-fab-menu-close {
+          position: absolute;
+          right: 8px;
+          top: 8px;
+          background: rgba(0,0,0,0.04);
+          border: none;
+          border-radius: 6px;
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 1300;
         }
         .mui-fab-expressive.assistant-fab-secondary {
           background: var(--sys-surface, #fff);

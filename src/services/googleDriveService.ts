@@ -1,14 +1,12 @@
 
 import { DEFAULT_TIMETABLE_SETTINGS } from '../constants';
-import { base64ToBlob, blobToBase64Parts } from '../utils/documentUtils';
 
 const BACKUP_FILE_NAME = 'OrarioDoc_Backup.json';
 const BACKUP_MIME_TYPE = 'application/json';
 const DEFAULT_BACKUP_FOLDER_NAME = 'OrarioDoc_Backups';
 const NOTEBOOKLM_FOLDER_NAME = 'OrarioDoc_NotebookLM';
-const FILES_SUBFOLDER_NAME = 'OrarioDoc_Files';
-
-let tokenClient: any = null;
+// removed unused `FILES_SUBFOLDER_NAME`
+let tokenClient: unknown = null;
 let accessToken: string | null = null;
 
 const getEnvClientId = () => {
@@ -16,11 +14,13 @@ const getEnvClientId = () => {
         if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GOOGLE_CLIENT_ID) {
             return import.meta.env.VITE_GOOGLE_CLIENT_ID;
         }
-    } catch (e) { }
+    } catch (e) {
+        // ignore environment read errors
+    }
     return undefined;
 };
 
-export const initTokenClient = (callback: (tokenResponse: any) => void, explicitClientId?: string): boolean => {
+export const initTokenClient = (callback: (tokenResponse: unknown) => void, explicitClientId?: string): boolean => {
     if (typeof google === 'undefined' || typeof google.accounts === 'undefined' || typeof google.accounts.oauth2 === 'undefined') {
         return false;
     }
@@ -29,8 +29,14 @@ export const initTokenClient = (callback: (tokenResponse: any) => void, explicit
     tokenClient = google.accounts.oauth2.initTokenClient({
         client_id: clientId,
         scope: 'https://www.googleapis.com/auth/drive.file',
-        callback: (tokenResponse: any) => {
-            accessToken = tokenResponse.access_token;
+        callback: (tokenResponse: unknown) => {
+            // tokenResponse shape is runtime-provided; guard before use
+            try {
+                const tr = tokenResponse as { access_token?: string } | undefined;
+                accessToken = tr?.access_token ?? accessToken;
+            } catch {
+                // ignore malformed response
+            }
             callback(tokenResponse);
         },
     });
@@ -79,7 +85,7 @@ const searchFolder = async (name: string, parentId?: string): Promise<{ id: stri
 };
 
 const createFolder = async (name: string, parentId?: string): Promise<{ id: string; name: string }> => {
-    const metadata: any = { name, mimeType: 'application/vnd.google-apps.folder' };
+    const metadata: Record<string, unknown> = { name, mimeType: 'application/vnd.google-apps.folder' };
     if (parentId) metadata.parents = [parentId];
     const res = await fetch('https://www.googleapis.com/drive/v3/files', {
         method: 'POST',
@@ -108,7 +114,7 @@ export const uploadNotebookSource = async (fileName: string, content: string): P
     if (!res.ok) throw new Error("Upload fallito.");
 };
 
-export const uploadBackup = async (data: any, folderId?: string): Promise<void> => {
+export const uploadBackup = async (data: unknown, folderId?: string): Promise<void> => {
     if (!accessToken) return;
     const fileContent = JSON.stringify(data);
     const metadata = { name: BACKUP_FILE_NAME, mimeType: BACKUP_MIME_TYPE, parents: folderId ? [folderId] : [] };
@@ -122,7 +128,7 @@ export const uploadBackup = async (data: any, folderId?: string): Promise<void> 
     });
 };
 
-export const downloadBackup = async (fileId: string): Promise<any> => {
+export const downloadBackup = async (fileId: string): Promise<unknown> => {
     const res = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
         headers: { 'Authorization': `Bearer ${accessToken}` },
     });
@@ -133,16 +139,26 @@ export const pickGoogleDriveFolder = async (apiKey?: string): Promise<{ id: stri
     if (!apiKey) throw new Error('API Key mancante. Inseriscila nelle impostazioni Drive.');
     if (!accessToken) throw new Error('Autenticazione richiesta.');
     
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         gapi.load('picker', () => {
             const pickerBuilder = new gapi.picker.PickerBuilder()
                 .addView(new gapi.picker.DocsView().setSelectFolderEnabled(true).setMimeTypes('application/vnd.google-apps.folder'))
                 .setOAuthToken(accessToken)
                 .setDeveloperKey(apiKey)
-                .setCallback((data: any) => {
-                    if (data.action === gapi.picker.Action.PICKED) {
-                        resolve(data.docs[0]);
-                    } else if (data.action === gapi.picker.Action.CANCEL) {
+                .setCallback((data: unknown) => {
+                    try {
+                        const dd = data as { action?: string; docs?: unknown[] } | undefined;
+                        if (dd?.action === gapi.picker.Action.PICKED) {
+                            const doc = dd.docs?.[0] as { id?: string; name?: string } | undefined;
+                            if (doc && typeof doc.id === 'string' && typeof doc.name === 'string') {
+                                resolve({ id: doc.id, name: doc.name });
+                            } else {
+                                resolve(null);
+                            }
+                        } else if (dd?.action === gapi.picker.Action.CANCEL) {
+                            resolve(null);
+                        }
+                    } catch (e) {
                         resolve(null);
                     }
                 });

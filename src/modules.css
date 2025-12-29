@@ -1898,6 +1898,31 @@
     z-index: 20;
 }
 
+/* Today indicator: vertical red line with small label */
+.gantt-today-indicator {
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: #d32f2f; /* red line */
+    transform: translateX(-50%);
+    z-index: 25;
+    pointer-events: none;
+}
+.gantt-today-indicator .gantt-today-label {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #d32f2f;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    z-index: 26;
+}
+
 .gantt-event-icon {
     font-size: 18px;
     color: var(--sys-error);

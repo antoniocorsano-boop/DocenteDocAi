@@ -4,17 +4,7 @@ import '../font-setup';
 import * as React from 'react';
 import M3ExpressiveProvider from '../design-system/M3ExpressiveProvider';
 
-// Extend the Window interface to include __app_instrumentation and __sw_unregistered
-declare global {
-    interface Window {
-        __app_instrumentation?: {
-            user?: { id: string; displayName?: string };
-            isRestoring?: boolean;
-            appShellMounted?: boolean;
-        };
-        __sw_unregistered?: boolean;
-    }
-}
+// Global runtime types are declared in `src/vite-env.d.ts`
 
 import AssistantFab from './AssistantFab';
 import { useAppEngine } from '../hooks/useAppEngine';
@@ -106,13 +96,11 @@ export const App: React.FC = () => {
         const result = useAppEngine();
         const { view, viewContext, appState, actions, modals } = result;
 
-        // Forza chiusura modal Assistant su mount (debug)
-        React.useEffect(() => {
-            if (modals.setIsLiveAssistantModalOpen) {
-                modals.setIsLiveAssistantModalOpen(false);
-                console.warn('[DEBUG] Forzata chiusura modal Assistant su mount');
-            }
-        }, []);
+        // NOTE: removed previous dev-only forced-close effect because it interfered
+        // with automated E2E flows (caused modal to be closed before tests could
+        // interact). If you need a dev-only helper, enable it via an explicit
+        // runtime flag (e.g. VITE_ENABLE_FORCE_CLOSE) rather than unconditionally
+        // running on mount.
         const { user, themeState, isGlobalAiLoading, notifiche, activeSuggestion, installPrompt } = appState;
 
         // Runtime instrumentation for automated tests and diagnostics
@@ -179,10 +167,19 @@ export const App: React.FC = () => {
                             return Promise.all(regs.map(r => r.unregister())).then(results => results.some(Boolean));
                         })
                         .then(unregistered => {
-                            if (unregistered) {
-                                console.info('[dev] Service workers unregistered — reloading');
-                                // Hard reload to clear caches affected by the SW
-                                setTimeout(() => window.location.reload(), 50);
+                            try {
+                                // During E2E/test runs we must avoid forcing a reload which
+                                // closes the Playwright page and interrupts the test flow.
+                                const isTest = window.__TEST_MODE === true;
+                                if (unregistered && !isTest) {
+                                    console.info('[dev] Service workers unregistered — reloading');
+                                    // Hard reload to clear caches affected by the SW
+                                    setTimeout(() => window.location.reload(), 50);
+                                } else if (unregistered && isTest) {
+                                    console.info('[dev] Service workers unregistered — skipping reload in test mode');
+                                }
+                            } catch (e) {
+                                // swallow
                             }
                         })
                         .catch(err => console.warn('[dev] SW unregister failed', err));

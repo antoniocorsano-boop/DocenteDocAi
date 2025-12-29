@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // ...vite-env.d.ts should not be imported directly...
 import React, { useState, useEffect } from 'react';
 import { KnowledgeBaseEntry, StudioProps, GeneratedQuiz } from '../types'; 

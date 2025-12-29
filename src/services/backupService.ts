@@ -1,4 +1,4 @@
-import { KnowledgeBaseEntry } from '../types'; // FIX: Updated import path for types
+// Removed unused import KnowledgeBaseEntry
 
 // This service manages storing and retrieving the entire application state
 // to/from IndexedDB for robust automatic backups.
@@ -45,8 +45,8 @@ const getDb = (): Promise<IDBDatabase> => {
     }
 
     dbInitPromise = new Promise((resolve, reject) => {
-        try {
-            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            try {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
             
             request.onerror = () => {
                 console.error('[BackupService] Database open error:', request.error);
@@ -140,7 +140,7 @@ export const saveBackup = async (state: object): Promise<void> => {
                 const safeState = typeof structuredClone === 'function'
                     ? structuredClone(state)
                     : state;
-                const request = store.put(safeState, BACKUP_KEY);
+                void store.put(safeState, BACKUP_KEY);
                 
                 transaction.oncomplete = () => {
                     console.log('[BackupService] Backup saved successfully');
@@ -164,7 +164,7 @@ export const saveBackup = async (state: object): Promise<void> => {
  * Loads the application state from IndexedDB.
  * @returns A promise that resolves with the saved state object, or null if no backup is found.
  */
-export const loadBackup = async (): Promise<any | null> => {
+export const loadBackup = async (): Promise<unknown | null> => {
     try {
         const db = await getDb();
         return new Promise((resolve, reject) => {
@@ -211,7 +211,7 @@ export const deleteBackup = async (): Promise<void> => {
             try {
                 const transaction = db.transaction(STORE_NAME, 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
-                const request = store.delete(BACKUP_KEY);
+                void store.delete(BACKUP_KEY);
                 
                 transaction.oncomplete = () => {
                     console.log('[BackupService] Backup deleted');

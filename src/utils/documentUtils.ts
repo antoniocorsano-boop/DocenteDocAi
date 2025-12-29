@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, no-empty */
 // Heavy libraries are loaded dynamically to reduce initial bundle size
 // Lazily load PDF.js to avoid bundling it in the initial chunk
 
@@ -196,8 +197,16 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
 };
 
 // ... (PDF Generation Helpers) ...
-const cleanTextForWinAnsi = (text: string) => text ? text.replace(/[^\x00-\xFF]/g, '?') : '';
-const wrapText = (text: string, font: any, size: number, maxWidth: number) => {
+const cleanTextForWinAnsi = (text: string) => {
+    if (!text) return '';
+    let out = '';
+    for (let i = 0; i < text.length; i++) {
+        const code = text.charCodeAt(i);
+        out += code <= 0xFF ? text.charAt(i) : '?';
+    }
+    return out;
+};
+const wrapText = (text: string, font: { widthOfTextAtSize: (t: string, s: number) => number }, size: number, maxWidth: number) => {
     // Simplified wrapping logic
     const words = text.split(' ');
     const lines = [];

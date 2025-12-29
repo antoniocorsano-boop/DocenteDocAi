@@ -1,5 +1,5 @@
 import { Studente, Valutazione, ValutazioneCompetenza, Competenza } from '../types'; // FIX: Updated import path for types
-import { RATING_TO_VALUE } from '../constants.ts';
+import { RATING_TO_VALUE } from '../constants';
 
 /**
  * Parses a grade string into a number handling Italian school conventions.
@@ -20,7 +20,7 @@ export const parseGrade = (voto: string | undefined): number | undefined => {
     
     // 2. Handle "Split" grades (e.g., "7/8" or "7-8")
     // Regex looks for Number [separator] Number
-    const rangeMatch = vStr.match(/^(\d+(?:[.,]\d+)?)\s*[\/-]\s*(\d+(?:[.,]\d+)?)$/);
+        const rangeMatch = vStr.match(/^(\d+(?:[.,]\d+)?)\s*[-/]\s*(\d+(?:[.,]\d+)?)$/);
     if (rangeMatch) {
         const n1 = parseFloat(rangeMatch[1].replace(',', '.'));
         const n2 = parseFloat(rangeMatch[2].replace(',', '.'));
@@ -65,7 +65,7 @@ export interface TimeSeriesPoint {
 
 export const calculateClassTrend = (
     evaluations: Valutazione[],
-    students: Studente[],
+    _students: Studente[],
     subject?: string
 ): TimeSeriesPoint[] => {
     // 1. Filter by subject if provided
@@ -125,7 +125,7 @@ export const calculateCompetencyRadar = (
         if (studentId) {
              evalsForComp.forEach(ev => {
                 const level = comp.livelli.find(l => l.id === ev.livelloId);
-                if (level) scores.push(parseInt(level.punteggio));
+                if (level) scores.push(parseInt(level.punteggio, 10));
             });
         } else {
             // Class Average logic
@@ -133,7 +133,7 @@ export const calculateCompetencyRadar = (
             evalsForComp.forEach(ev => {
                 const level = comp.livelli.find(l => l.id === ev.livelloId);
                 if (level) {
-                    const score = parseInt(level.punteggio);
+                    const score = parseInt(level.punteggio, 10);
                     studentLatest[ev.studenteId] = score; 
                 }
             });

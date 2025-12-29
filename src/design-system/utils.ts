@@ -64,9 +64,12 @@ export const hexToRgbString = (hex: string): string | null => {
 };
 
 export const rgbToHsl = (r: number, g: number, b: number): HSL => {
-  r /= 255, g /= 255, b /= 255;
-  const max = Math.max(r, g, b), min = Math.min(r, g, b);
-  let h = 0, s, l = (max + min) / 2;
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  let s = 0;
+  const l = (max + min) / 2;
 
   if (max === min) {
     h = s = 0; 

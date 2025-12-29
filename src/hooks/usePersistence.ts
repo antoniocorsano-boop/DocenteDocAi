@@ -1,4 +1,5 @@
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from 'react';
 import { saveKbContentToIndexedDB } from '../services/indexedDbService.ts';
 import { saveBackup } from '../services/backupService.ts';
@@ -64,8 +65,11 @@ export const usePersistence = (isDataLoaded: boolean) => {
             try {
                 // CRITICAL FIX: Estraiamo solo i dati dagli store, ESCLUDENDO le funzioni (actions)
                 // IndexedDB fallisce con errore "could not be cloned" se rileva funzioni nell'oggetto.
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
                 const { actions: _dataActions, ...dataStateRaw } = useDataStore.getState();
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
                 const { actions: _settingsActions, ...settingsStateRaw } = useSettingsStore.getState();
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
                 const { actions: _uiActions, ...uiStateRaw } = useUIStore.getState();
 
                 // Create clean, serializable versions of states

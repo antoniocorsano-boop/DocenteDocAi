@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import Home from './Home';
 
 import { Timetable } from './Timetable';
+import Settings from './Settings';
 
 
 // import Settings from './Settings';
@@ -113,6 +114,39 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                             onEditSlot={handleEditSlot}
                             onShowSlotActions={(slot, lesson) => { actions.setActiveSlotKey(slot.giorno + '-' + slot.ora); (modals.setLessonViewContext as (lesson: Lezione) => void)(lesson); }}
                             showGuidanceTips={settings.showGuidanceTips}
+                        />
+                    </AuraView>
+                )}
+                {view === 'settings' && (
+                    <AuraView>
+                        <Settings
+                            settings={settings}
+                            themeState={themeState}
+                            aiSettings={aiSettings}
+                            onSaveSettings={(s) => actions.setSettings(s)}
+                            onSaveTheme={(t) => actions.setThemeState(t)}
+                            onSaveAiSettings={(s) => actions.setAiSettings(s)}
+                            onExportData={() => actions.handleExportData?.()}
+                            onImportData={(f: File) => actions.handleImportData?.(f)}
+                            showToast={actions.showToast}
+                            onDownloadDemoData={() => actions.handleLoadDemoData?.()}
+                            onCleanDemoData={() => actions.handleCleanDemoData?.()}
+                            backupState={backupState}
+                            onRestoreFromBackup={() => actions.handleRestoreFromDrive?.()}
+                            onLogout={() => actions.handleNavigate('student-dashboard')}
+                            installPrompt={installPrompt}
+                            onInstallApp={() => actions.handleInstallApp?.()}
+                            onEnterStudentMode={() => actions.handleEnterStudentMode?.()}
+                            driveState={driveSyncState}
+                            onConnectDrive={() => actions.handleConnectDrive?.()}
+                            onDisconnectDrive={() => actions.handleDisconnectDrive?.()}
+                            onSyncToDrive={() => actions.handleSyncToDrive?.()}
+                            onRestoreFromDrive={() => actions.handleRestoreFromDrive?.()}
+                            onConfigureDrive={(clientId: string, apiKey?: string) => actions.handleConfigureDrive?.(clientId, apiKey)}
+                            onSelectBackupFolder={(apiKey: string) => actions.pickGoogleDriveFolder?.(apiKey)}
+                            onCreateAppFolder={() => actions.createAppFolder?.()}
+                            onClose={() => actions.handleBack?.()}
+                            onOpenBackupInfo={() => actions.handleOpenBackupInfo?.()}
                         />
                     </AuraView>
                 )}

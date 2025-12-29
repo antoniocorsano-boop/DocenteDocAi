@@ -8,6 +8,7 @@ export interface GameState {
 }
 
 export function getInitialGameState(nodes: readonly NKANode[]): GameState {
+  void nodes;
   return {
     unlocked: [],
     progress: 0,

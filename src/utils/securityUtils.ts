@@ -37,7 +37,7 @@ export const sanitizeHTML = (html: string): string => {
     allElements.forEach(el => {
         // Rimuovi attributi on* (event handlers)
         Array.from(el.attributes).forEach(attr => {
-            if (attr.name.toLowerCase().startsWith('on')) {
+            if (forbiddenAttrsPrefix.some(p => attr.name.toLowerCase().startsWith(p))) {
                 el.removeAttribute(attr.name);
             }
             

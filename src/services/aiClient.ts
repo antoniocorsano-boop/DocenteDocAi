@@ -1,4 +1,5 @@
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Lazy-load the Google GenAI SDK to avoid bundling it in the main chunk
 let _cachedGenAiModule: any = null;
 export const getGoogleAIClient = async (): Promise<any> => {

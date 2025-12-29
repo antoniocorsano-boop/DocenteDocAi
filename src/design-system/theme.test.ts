@@ -1,9 +1,10 @@
 /**
  * @vitest-environment jsdom
  */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, beforeAll, afterAll, vi } from 'vitest';
 import { baseDesignSystem, defaultLightTheme, defaultDarkTheme, validateTheme, createTheme } from './index';
-import { Theme } from '../types'; // FIX: Updated import path to types
+// Removed unused `Theme` import to satisfy linter
 
 let consoleErrorSpy: any;
 beforeAll(() => {

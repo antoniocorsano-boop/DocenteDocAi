@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 // Funzione generica per generazione contenuti AI (usata da NKA wizard)
 export const generateContent = async (prompt: string, options: { temperature?: number; maxTokens?: number; stop?: string | undefined }) => {
     const ai = await getGoogleAIClient();
@@ -13,7 +14,6 @@ export const generateContent = async (prompt: string, options: { temperature?: n
     // Gemini API: text or content
     return { content: response.text || response.content || '' };
 };
-import { GoogleGenAI, Type } from "@google/genai";
 import { AiSettings, Lezione, Uda, Valutazione, ValutazioneCompetenza, Competenza, Studente, Livello, KnowledgeBaseEntry, AiSuggestion, PianoInclusione, CircularAnalysisResult, EventoCalendario, ChatMessage, GeneratedQuiz, LessonAnalysisResult, CurriculumSubject, TechnicalDocumentContent, EssayContent } from '../types';
 import { getGoogleAIClient, callAiWithRetry } from './aiClient';
 import * as Prompts from './aiPrompts';

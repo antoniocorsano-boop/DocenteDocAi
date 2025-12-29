@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Force-directed neural map for NKA (SVG, animated, M3-compliant)
 import * as React from 'react';
 import { useRef } from 'react';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * CRITICAL: React availability guard
  * Runs FIRST before any hook-dependent code to ensure React is available

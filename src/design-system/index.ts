@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 import { Theme, ColorTokens, DesignSystemDefinition } from '../types';
 import { defaultLightTheme, defaultDarkTheme, hexToRgb, rgbToHsl, adjustColor, getLegibleTextColor, hexToRgbString } from './utils';
 

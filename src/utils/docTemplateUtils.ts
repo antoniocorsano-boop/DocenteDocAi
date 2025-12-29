@@ -1,6 +1,6 @@
 
-import { saveAs } from './documentUtils';
-import { Studente, Lezione, Uda, TimetableSettings } from '../types'; // FIX: Updated import path to types
+// Removed unused `saveAs` import (documentUtils) — not used in this module
+import { Studente, Lezione, Uda } from '../types'; // FIX: Updated import path to types
 
 /**
  * Converts a simple Markdown string to HTML.

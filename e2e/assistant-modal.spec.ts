@@ -26,8 +26,8 @@ test.describe('Assistant Modal', () => {
     await login(page);
     // Clicca la FAB per aprire il menu
     await page.click('.assistant-fab-root button');
-    // Clicca la voce "Chat & Suggerimenti" (prima azione)
-    await page.getByText('Chat & Suggerimenti').click();
+    // Clicca la voce "Chat & Suggerimenti" (prima azione) all'interno del menu flottante
+    await page.locator('.assistant-fab-menu').getByText('Chat & Suggerimenti').click();
     // La modale deve essere visibile
     await expect(page.locator('.assistant-modal-overlay')).toBeVisible();
     // Clicca la X per chiudere
@@ -39,7 +39,7 @@ test.describe('Assistant Modal', () => {
   test('La modale non si riapre subito dopo la chiusura', async ({ page }) => {
     await login(page);
     await page.click('.assistant-fab-root button');
-    await page.getByText('Chat & Suggerimenti').click();
+    await page.locator('.assistant-fab-menu').getByText('Chat & Suggerimenti').click();
     await expect(page.locator('.assistant-modal-overlay')).toBeVisible();
     await page.click('.assistant-exit-btn');
     // Attendi un attimo per eventuali effetti collaterali
@@ -51,7 +51,7 @@ test.describe('Assistant Modal', () => {
   test('La modale si chiude con ESC', async ({ page }) => {
     await login(page);
     await page.click('.assistant-fab-root button');
-    await page.getByText('Chat & Suggerimenti').click();
+    await page.locator('.assistant-fab-menu').getByText('Chat & Suggerimenti').click();
     await expect(page.locator('.assistant-modal-overlay')).toBeVisible();
     // Premi ESC
     await page.keyboard.press('Escape');

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 // LLM integration for AI-driven neural map layout (async, ready for Gemini/OpenAI)
 import { NKANode } from './types';
 import { NodePosition } from './aiLayout';

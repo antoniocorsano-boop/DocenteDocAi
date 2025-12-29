@@ -5,7 +5,7 @@ import { EventoCalendario } from '../../src/types';
 
 // Mock M3Components with proper implementation
 vi.mock('../../src/components/M3Components', () => ({
-  TextField: ({ label, value, onChange, type }: any) => (
+  TextField: ({ label, value, onChange, type }: { label?: string; value?: string; onChange?: (v: string) => void; type?: string }) => (
     <input
       placeholder={label}
       value={value || ''}
@@ -14,7 +14,7 @@ vi.mock('../../src/components/M3Components', () => ({
       data-testid={`input-${label?.toLowerCase()}`}
     />
   ),
-  TextArea: ({ label, value, onChange }: any) => (
+  TextArea: ({ label, value, onChange }: { label?: string; value?: string; onChange?: (v: string) => void }) => (
     <textarea
       placeholder={label}
       value={value || ''}
@@ -22,9 +22,9 @@ vi.mock('../../src/components/M3Components', () => ({
       data-testid={`textarea-${label?.toLowerCase()}`}
     />
   ),
-  M3ChoiceCard: ({ options = [], value, onChange }: any) => (
+  M3ChoiceCard: ({ options = [], value, onChange }: { options?: Array<{ label: string; value: string }>; value?: string; onChange?: (v: string) => void }) => (
     <div data-testid="choice-card">
-      {options.map((opt: any) => (
+      {options.map((opt) => (
         <button
           key={opt.value}
           data-testid={`choice-${opt.value}`}
