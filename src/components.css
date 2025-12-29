@@ -837,7 +837,7 @@
   z-index: 0;
 }
 
-/* eliminato: legacy, verrà reinserito blocco moderno */
+/* removed legacy; will re-add modern block */
 
 /* Mobile responsiveness */
 @media (max-width: 480px) {
@@ -1499,7 +1499,7 @@
   z-index: 0;
 }
 
-/* eliminato: legacy, verrà reinserito blocco moderno */
+/* removed legacy; will re-add modern block */
 
 /* Mobile responsiveness */
 @media (max-width: 480px) {

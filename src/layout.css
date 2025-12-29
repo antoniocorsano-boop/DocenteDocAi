@@ -75,7 +75,12 @@
     -webkit-overflow-scrolling: touch;
 }
 
-    padding-bottom: 96px; /* Spazio extra per non coprire contenuti dal footer nav */
+/* Spazio extra per non coprire contenuti dal footer nav: fallback aggiuntivo */
+/* Manteniamo una regola applicata al contenitore principale */
+.main-content {
+    /* Se necessario, aggiungere spazio extra sotto il contenuto */
+    padding-bottom: 96px;
+}
 
 @media (min-width: 840px) {
     .main-content {
