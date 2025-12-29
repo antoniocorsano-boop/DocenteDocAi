@@ -9,7 +9,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:5173', // Allineato alla porta Vite effettiva
+    baseURL: process.env.PW_BASE_URL || 'http://localhost:8080',
     trace: 'on-first-retry',
     video: 'on-first-retry',
   },
@@ -30,9 +30,9 @@ export default defineConfig({
     */
   ],
   webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:5173',
-    reuseExistingServer: !process.env.CI,
+    command: 'npm run preview -- --port 8080',
+    url: process.env.PW_BASE_URL || 'http://localhost:8080',
+    reuseExistingServer: true,
     timeout: 120 * 1000,
   },
 });

@@ -9,7 +9,7 @@ test.describe('Assistant Modal', () => {
     await page.addInitScript(() => {
       window.__TEST_MODE = true;
     });
-    await page.goto('http://localhost:5173/');
+    await page.goto('/');
     // Attendi FAB
     await page.waitForSelector('.assistant-fab-root');
     // Se il banner suggestion è presente, verifica che non blocchi la FAB

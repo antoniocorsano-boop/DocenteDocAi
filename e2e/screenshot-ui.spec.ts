@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test';
-
-const BASE_URL = 'http://localhost:8080'; // Dev server Vite ascolta su 8080 in ambiente locale
+import { setTestMode, seedIndexedDB, waitForAppShell } from './helpers';
 
 const SCREENSHOTS = [
   { path: 'dashboard.png', route: '/' },
@@ -15,7 +14,11 @@ const SCREENSHOTS = [
 test.describe('Screenshot UI principali', () => {
   for (const screen of SCREENSHOTS) {
     test(`Screenshot ${screen.path}`, async ({ page }) => {
-      await page.goto(BASE_URL + screen.route);
+      await setTestMode(page);
+      await seedIndexedDB(page);
+      await page.goto('/');
+      await waitForAppShell(page);
+      await page.goto(screen.route);
       // Attendi caricamento principale
       await page.waitForLoadState('networkidle');
       await page.waitForTimeout(600); // Breve attesa per animazioni

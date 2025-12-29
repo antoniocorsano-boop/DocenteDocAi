@@ -2,7 +2,11 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Gantt drag & undo', () => {
   test('drag UDA and undo via snackbar', async ({ page }) => {
-    await page.goto('http://localhost:5173');
+    // Enable test mode so app injects demo user
+    await page.addInitScript(() => { (window as any).__TEST_MODE = true; });
+    await page.goto('/');
+    // Wait for app shell to be present
+    await page.waitForSelector('.app-shell', { timeout: 15000 });
 
     // Open Progettazione
     await page.click('text=Progettazione');

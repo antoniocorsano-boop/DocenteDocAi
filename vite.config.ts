@@ -43,37 +43,10 @@ export default defineConfig({
       },
       output: {
         manualChunks(id: string) {
-          // Split large dependencies into separate chunks
-          if (id.includes('node_modules')) {
-            // React ecosystem - core dependency
-            // Ensure scheduler, jsx-runtime and sync-external-store live with react to avoid circular cross-chunk imports
-            if (
-              id.includes('react') ||
-              id.includes('react-dom') ||
-              id.includes('scheduler') ||
-              id.includes('use-sync-external-store') ||
-              id.includes('use-sync-external-store-shim') ||
-              id.includes('react/jsx-runtime')
-            ) return 'vendor-react';
-            // State management - separated to load after React
-            if (id.includes('zustand')) return 'vendor-zustand';
-            // AI model library - large, can be lazy-loaded
-            if (id.includes('@google/genai')) return 'vendor-genai';
-            // Canvas rendering - large library
-            if (id.includes('html2canvas')) return 'vendor-html2canvas';
-            // Document conversion libraries - very large, lazy-loaded on demand
-            if (id.includes('jspdf')) return 'vendor-jspdf';
-            if (id.includes('pdf-lib')) return 'vendor-pdf-lib';
-            if (id.includes('docx')) return 'vendor-docx';
-            if (id.includes('mammoth')) return 'vendor-mammoth';
-            if (id.includes('pdfjs-dist')) return 'vendor-pdfjs';
-            // Utility libraries
-            if (id.includes('lodash-es') || id.includes('lodash')) return 'vendor-lodash';
-            if (id.includes('underscore')) return 'vendor-underscore';
-            if (id.includes('purify')) return 'vendor-utils';
-            // Default vendor chunk for other node_modules
-            return 'vendor';
-          }
+          // Force all node_modules into a single vendor chunk to guarantee
+          // React and its consumers execute in a safe order and avoid
+          // cross-chunk circular-import / TDZ runtime errors in prod.
+          if (id.includes('node_modules')) return 'vendor';
         },
       },
     },

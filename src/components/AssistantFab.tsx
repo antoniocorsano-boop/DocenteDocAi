@@ -24,25 +24,32 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
     if (isAssistantOpen && menuOpen) setMenuOpen(false);
   }, [isAssistantOpen, menuOpen]);
 
-  // Log ad ogni render per debug profondo
-  console.info('[AssistantFab][RENDER]', { menuOpen, mode });
+  // Log ad ogni render per debug profondo, saltato in test-mode
+  if (typeof window === 'undefined' || (window as any).__TEST_MODE !== true) {
+    console.info('[AssistantFab][RENDER]', { menuOpen, mode });
+  }
 
-  // Debug: log presenza di duplicati AssistantFab ogni secondo
+  // Use store hook for modal toggle and reduce noisy logging during tests
+  const toggleModal = useUIStore(state => state.actions.toggleModal);
+
+  // Reduce debug logging and skip during test mode to avoid noisy console output
   React.useEffect(() => {
-    const interval = setInterval(() => {
+    if (typeof window === 'undefined') return;
+    const isTest = (window as any).__TEST_MODE === true;
+    if (isTest) return; // skip logging in test runs
+
+    const intervalDom = setInterval(() => {
       const fabs = document.querySelectorAll('.assistant-fab-root');
-      console.info('[AssistantFab][DOM] .assistant-fab-root count:', fabs.length);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Debug: log presenza menu nel DOM ogni secondo
-  React.useEffect(() => {
-    const interval = setInterval(() => {
+      console.debug('[AssistantFab][DOM] .assistant-fab-root count:', fabs.length);
+    }, 3000);
+    const intervalMenu = setInterval(() => {
       const menus = document.querySelectorAll('.assistant-fab-menu');
-      console.info('[AssistantFab][DOM] .assistant-fab-menu count:', menus.length, 'menuOpen:', menuOpen);
-    }, 1000);
-    return () => clearInterval(interval);
+      console.debug('[AssistantFab][DOM] .assistant-fab-menu count:', menus.length, 'menuOpen:', menuOpen);
+    }, 3000);
+    return () => {
+      clearInterval(intervalDom);
+      clearInterval(intervalMenu);
+    };
   }, [menuOpen]);
 
 
@@ -74,9 +81,14 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
 
   const handleAction = (action: typeof ACTIONS[number]) => {
     setMode(action.key as AssistantMode);
+    // Open the global Assistant modal when an action is selected
+    if (toggleModal) toggleModal('isLiveAssistantModalOpen', true);
+    // Close the FAB menu
+    setMenuOpen(false);
   };
 
   React.useEffect(() => {
+    if ((window as any).__TEST_MODE === true) return;
     if (menuOpen) {
       console.info('[AssistantFab] MENU FAB APERTO', { menuOpen, mode, stack: new Error().stack });
     } else {
