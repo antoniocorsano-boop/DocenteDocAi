@@ -272,7 +272,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
         const printWindow = window.open('', '', 'height=600,width=800');
         if (printWindow) {
             printWindow.document.write('<html><head><title>' + editorTitle + '</title>');
-            printWindow.document.write('<style>body{font-family:sans-serif; padding: 20px;} table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ccc;padding:8px;} h1,h2,h3{color:#333;}</style>');
+            printWindow.document.write('<style>@import url(\'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap\'); body{font-family:\'Roboto\',sans-serif; padding: 20px;} table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ccc;padding:8px;} h1,h2,h3{color:var(--sys-primary);}</style>'); // MD3 fix
             printWindow.document.write('</head><body>');
             printWindow.document.write(editorRef.current.innerHTML);
             printWindow.document.write('</body></html>');

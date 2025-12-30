@@ -34,7 +34,7 @@ import TeacherPresentationView from './TeacherPresentationView';
 import { Studio } from './Studio';
 import { LiveAssistant } from './LiveAssistant';
 import ErrorBoundary from './ErrorBoundary';
-import { AppState, AppActions, View, EventoCalendario, Lezione, RegisterEntry, Studente, KnowledgeBaseEntry, Rubrica, PianoInclusione, GiudizioPeriodico, Competenza, LessonScheduleInput, EvaluationInput, UdaCreateInput } from '../types';
+import { AppState, AppActions, View, EventoCalendario, Lezione, RegisterEntry, Studente, KnowledgeBaseEntry, Rubrica, PianoInclusione, GiudizioPeriodico, Competenza, LessonScheduleInput, EvaluationInput, UdaCreateInput, Uda, Report } from '../types';
 // import { initPersistentStorage } from '../services/backupService';
 
 import type { Modals } from '../types';
@@ -60,18 +60,31 @@ const AuraView: React.FC<{ children: React.ReactNode; fullWidth?: boolean }> = (
  * Implementa AuraView per transizioni fluide e layout Material 3 Hardened.
  */
 const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, actions, modals }) => {
+
     // Destructure appState (now directly contains states from Zustand stores)
     const {
         user, students, slots, activeSuggestion, dismissedSuggestions, isGlobalAiLoading, installPrompt, notifiche, settings, navigationHistory,
-        lessons, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, aiSettings, themeState, backupState, driveSyncState, suggestions, studentProfileContext, curricula, submissions
+        lessons, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, aiSettings, themeState, backupState, driveSyncState, suggestions, studentProfileContext, curricula, submissions
     } = appState;
 
-    // Destructure only used actions
+    // Prendi solo i setter dei modals da modals
     const {
-        setLessons, setEvaluations, setCompetencyEvals, setUdas,
+        setCreateLessonContext,
+        setLessonViewContext,
+        setIsLiveAssistantModalOpen,
+        setActiveSlotKey,
+        setEditingSlotKey,
+        setIsLoadingModalOpen,
+        setLoadingModalMessage,
+        setCircularAnalysisModal
+    } = modals;
+
+    // Tutte le altre azioni da actions
+    const {
+        setLessons, setEvaluations, setCompetencyEvals, setUda,
         setEventi, setKnowledgeBase, setCorpora, setRubriche, setPianiInclusione,
-        setGiudizi, setReports, setDraftRegister, setFinalizedRegister, setCurricula, setSubmissions, dismissSuggestion,
-        setStudentProfileContext, setCircularAnalysisModal, setIsLoadingModalOpen, setLoadingModalMessage, setEditingSlotKey, setIsVideoAnalysisOpen, setIsRestoring, showToast, clearToast,
+        setGiudizi, setReportistica, setDraftRegister, setFinalizedRegister, setCurricula, setSubmissions, dismissSuggestion,
+        setStudentProfileContext, showToast, clearToast,
         handleNavigate, handleBack, handleLoadDemoData, handleCleanDemoData,
         handleEditSlot, handleShowSlotActions,
         handleAiSuggest, onScheduleLesson, handleAddEvaluation,
@@ -114,7 +127,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                             lessons={lessons}
                             settings={settings}
                             onEditSlot={handleEditSlot}
-                            onShowSlotActions={(slot, lesson) => { actions.setActiveSlotKey(slot.giorno + '-' + slot.ora); (modals.setLessonViewContext as (lesson: Lezione) => void)(lesson); }}
+                            onShowSlotActions={(slot, lesson) => { setActiveSlotKey?.(slot.giorno + '-' + slot.ora); setLessonViewContext?.(lesson); }}
                             showGuidanceTips={settings.showGuidanceTips}
                         />
                     </AuraView>
@@ -174,8 +187,38 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     lessons={lessons}
                     onViewStudentProfile={setStudentProfileContext}
                     submissions={safeSubmissions}
-                    onStartImpromptuSession={() => {}}
-                    onStartPlannedLesson={() => {}}
+                    onStartImpromptuSession={(classe) => {
+                        // Start an impromptu lesson: create a new draft entry and navigate to aula-session
+                        const draftKey = `impromptu-${classe}-${Date.now()}`;
+                        const newDraft: RegisterEntry = {
+                            id: draftKey,
+                            date: new Date().toISOString(),
+                            slotKey: '',
+                            lessonId: '',
+                            classe,
+                            materia: 'Lezione Improvvisata',
+                            studentAttendance: {},
+                            status: 'draft',
+                        };
+                        actions.setDraftRegister((prev) => ({ ...prev, [draftKey]: newDraft }));
+                        handleNavigate('aula-session', { draftKey });
+                    }}
+                    onStartPlannedLesson={(classe, materia, slotKey, lesson) => {
+                        // Start a planned lesson: create a new draft entry and navigate to aula-session
+                        const draftKey = `${classe}-${materia}-${slotKey}`;
+                        const newDraft: RegisterEntry = {
+                            id: draftKey,
+                            date: new Date().toISOString(),
+                            slotKey,
+                            lessonId: lesson.id,
+                            classe,
+                            materia,
+                            studentAttendance: {},
+                            status: 'draft',
+                        };
+                        actions.setDraftRegister((prev) => ({ ...prev, [draftKey]: newDraft }));
+                        handleNavigate('aula-session', { draftKey });
+                    }}
                 /></AuraView> : <AuraView><ClassSelection
                     userClasses={settings.classi}
                     onSelectClass={(className) => handleNavigate('aula', className)}
@@ -196,7 +239,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                 /></AuraView>}
                 {view === 'progettazione-hub' && <AuraView><ProgettazioneHub
                     onNavigate={handleNavigate}
-                    udas={udas}
+                    uda={uda}
                     events={eventi}
                     settings={settings}
                     aiSettings={aiSettings}
@@ -212,22 +255,22 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     knowledgeBase={knowledgeBase}
                     showToast={showToast}
                     showGuidanceTips={settings.showGuidanceTips}
-                    setIsLoadingModalOpen={setIsLoadingModalOpen}
-                    setLoadingModalMessage={setLoadingModalMessage}
+                    setIsLoadingModalOpen={setIsLoadingModalOpen ?? (() => {})}
+                    setLoadingModalMessage={setLoadingModalMessage ?? (() => {})}
                     students={students}
                     pianiInclusione={pianiInclusione}
                     onUpdateCompetencies={(comp: Competenza[]) => actions.setSettings(prev => ({ ...prev, competenze: comp }))} // FIX: Use actions.setSettings
                     curricula={curricula}
                 /></AuraView>}
                 {view === 'reportistica' && <AuraView><ReportisticaHub
-                    reports={reports}
-                    onDeleteReport={(id: string) => setReports(prev => prev.filter(r => r.id !== id))}
+                    reportistica={reportistica}
+                    onDeleteReport={(id: string) => setReportistica((prev: Report[]) => prev.filter((r) => r.id !== id))}
                     userClasses={settings.classi}
                     students={students}
                     evaluations={evaluations}
                     competencyEvaluations={competencyEvals}
                     settings={settings}
-                    udas={udas}
+                    uda={uda}
                     lessons={lessons}
                     onSaveReport={onSaveReport}
                     aiSettings={aiSettings}
@@ -250,22 +293,22 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     knowledgeBase={knowledgeBase}
                     setKnowledgeBase={setKnowledgeBase}
                     aiSettings={aiSettings}
-                    onOpenCreateLesson={() => modals.setCreateLessonContext?.({ isOpen: true, slotKey: null, lezione: null })}
+                    onOpenCreateLesson={() => setCreateLessonContext?.({ isOpen: true, slotKey: null, lezione: null })}
                     showToast={showToast}
                     showGuidanceTips={settings.showGuidanceTips}
                     onAiProcessing={() => {}}
                 /></AuraView>}
                 {view === 'lessons' && <AuraView><LessonsPage
                     lessons={Object.values(lessons)}
-                    udas={udas}
+                    uda={uda}
                     knowledgeBase={knowledgeBase}
                     userClasses={settings.classi}
-                    onViewLesson={modals.setLessonViewContext ?? (() => {})}
+                    onViewLesson={setLessonViewContext ?? (() => {})}
                     onAddLessons={onAddLessons}
                     onUpdateLesson={(lesson: Lezione) => setLessons(prev => ({ ...prev, [lesson.id]: lesson }))}
                     aiSettings={aiSettings}
-                    setIsLoadingModalOpen={setIsLoadingModalOpen}
-                    setLoadingModalMessage={setLoadingModalMessage}
+                    setIsLoadingModalOpen={setIsLoadingModalOpen ?? (() => {})}
+                    setLoadingModalMessage={setLoadingModalMessage ?? (() => {})}
                     slots={slots}
                     onScheduleLesson={onScheduleLesson}
                     curricula={curricula}
@@ -273,9 +316,9 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     onStartClassroom={() => {}}
                 /></AuraView>}
                 {view === 'uda' && <AuraView><UdaPlanner
-                    udas={udas}
+                    uda={uda}
                     onSaveUda={onSaveUda}
-                    onDeleteUda={(id: string) => setUdas(prev => prev.filter(u => u.id !== id))}
+                    onDeleteUda={(id: string) => setUda((prev) => prev.filter((u: Uda) => u.id !== id))}
                     lessons={lessons}
                     onUpdateUdaLessons={() => {}}
                     aiSettings={aiSettings}
@@ -286,8 +329,8 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     onNavigate={handleNavigate}
                     showToast={showToast}
                     showGuidanceTips={settings.showGuidanceTips}
-                    setIsLoadingModalOpen={setIsLoadingModalOpen}
-                    setLoadingModalMessage={setLoadingModalMessage}
+                    setIsLoadingModalOpen={setIsLoadingModalOpen ?? (() => {})}
+                    setLoadingModalMessage={setLoadingModalMessage ?? (() => {})}
                     eventi={eventi}
                     onAddLessons={onAddLessons}
                     onSaveEvent={onSaveEvent}
@@ -483,7 +526,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                 onOpenStudentActionMenu={() => { }}
                                 onOpenAulaTool={() => { }}
                                 onPromoteImpromptuLesson={(lesson: Lezione) => setLessons(prev => ({ ...prev, [lesson.id]: lesson }))}
-                                onOpenLiveAssistant={() => { console.warn('[DEBUG] Trigger: ViewManager -> onOpenLiveAssistant'); modals.setIsLiveAssistantModalOpen?.(true); }}
+                                onOpenLiveAssistant={() => { console.warn('[DEBUG] Trigger: ViewManager -> onOpenLiveAssistant'); setIsLiveAssistantModalOpen?.(true); }}
                                 setStudentProfileContext={setStudentProfileContext}
                                 onNavigate={handleNavigate}
                             />
@@ -511,7 +554,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     )}
             </>
         );
-    }, [view, viewContext, appState, actions, modals, user, students, slots, activeSuggestion, dismissedSuggestions, isGlobalAiLoading, installPrompt, notifiche, settings, navigationHistory, lessons, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, aiSettings, themeState, backupState, driveSyncState, suggestions, studentProfileContext, curricula, submissions, dismissSuggestion, setStudentProfileContext, setCircularAnalysisModal, setIsLoadingModalOpen, setLoadingModalMessage, setEditingSlotKey, setIsVideoAnalysisOpen, setIsRestoring, showToast, clearToast, handleNavigate, handleBack, handleLoadDemoData, handleCleanDemoData, handleEditSlot, handleShowSlotActions, handleAiSuggest, onScheduleLesson, handleAddEvaluation, handleCreateUda, handleAddNote, onMarkAttendance, setViewContext, onSaveUda, onSaveReport, onSaveEvent, onAddLessons, handleGradeSubmission, handleOpenOperations]);
+    }, [view, viewContext, appState, actions, modals, user, students, slots, activeSuggestion, dismissedSuggestions, isGlobalAiLoading, installPrompt, notifiche, settings, navigationHistory, lessons, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, aiSettings, themeState, backupState, driveSyncState, suggestions, studentProfileContext, curricula, submissions, dismissSuggestion, setStudentProfileContext, setCircularAnalysisModal, setIsLoadingModalOpen, setLoadingModalMessage, setEditingSlotKey, showToast, clearToast, handleNavigate, handleBack, handleLoadDemoData, handleCleanDemoData, handleEditSlot, handleShowSlotActions, handleAiSuggest, onScheduleLesson, handleAddEvaluation, handleCreateUda, handleAddNote, onMarkAttendance, setViewContext, onSaveUda, onSaveReport, onSaveEvent, onAddLessons, handleGradeSubmission, handleOpenOperations]);
 
     return renderView;
 }

@@ -157,14 +157,20 @@ Sezioni richieste:
 TONO: Istituzionale e professionale.
 `;
 
-export const getProactiveSuggestionsPrompt = (studentContext: any[], studentsLength: number, evaluations: any[], competencyEvals: any[], udas: any[]) => `
+export const getProactiveSuggestionsPrompt = (
+        studentContext: any[],
+        studentsLength: number,
+        evaluations: any[],
+        competencyEvals: any[],
+        uda: any[]
+) => `
 TASK: Analisi Dati Classe e Suggerimenti Proattivi.
 
 **DATI:**
 - Studenti (${studentsLength}): ${JSON.stringify(studentContext)}
 - Voti Recenti: ${JSON.stringify(evaluations)}
 - Competenze: ${JSON.stringify(competencyEvals)}
-- UDA Attive: ${JSON.stringify(udas)}
+- UDA Attive: ${JSON.stringify(uda)}
 
 **OBIETTIVO:**
 Identifica 3-4 azioni prioritarie per il docente.
@@ -175,15 +181,17 @@ Esempi:
 - Pochi voti registrati -> Suggerisci 'PLAN_LESSON'.
 
 **FORMATO OUTPUT:** JSON ESCLUSIVO (Array)
-[{
-  "icon": "icona_m3 (es. warning, trending_up)",
-  "title": "Titolo breve",
-  "description": "Motivazione del suggerimento.",
-  "action": { 
-      "type": "VIEW_STUDENT" | "PLAN_LESSON" | "ANALYZE_CLASS" | "VIEW_UDA", 
-      "payload": { "studentId": "...", "class": "..." } 
-  }
-}]
+[
+    {
+        "icon": "icona_m3 (es. warning, trending_up)",
+        "title": "Titolo breve",
+        "description": "Motivazione del suggerimento.",
+        "action": {
+            "type": "VIEW_STUDENT" | "PLAN_LESSON" | "ANALYZE_CLASS" | "VIEW_UDA",
+            "payload": { "studentId": "...", "class": "..." }
+        }
+    }
+]
 `;
 
 export const getQuizPrompt = (config: any, corpusContent: string) => `

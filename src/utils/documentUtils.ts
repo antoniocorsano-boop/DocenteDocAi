@@ -37,14 +37,14 @@ export const saveAs = (blob: Blob | string, name: string) => {
 };
 
 // ... (Existing text extraction and helper functions remain unchanged)
-let cachedPdfJs: any | null = null;
+let cachedPdfJs: typeof import('pdfjs-dist') | null = null;
 const getPdfJs = async () => {
     if (cachedPdfJs) return cachedPdfJs;
     // @ts-expect-error - `pdfjs-dist` legacy bundle has incomplete/incorrect types
     const mod = await import('pdfjs-dist/legacy/build/pdf');
-    const pdfJsObj = (mod && (mod as any).default) ? (mod as any).default : (mod as any);
-    if (pdfJsObj && pdfJsObj.GlobalWorkerOptions && !pdfJsObj.GlobalWorkerOptions.workerSrc) {
-        pdfJsObj.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@5.4.449/build/pdf.worker.min.js';
+    const pdfJsObj = (mod && (mod as { default?: unknown }).default) ? (mod as { default: unknown }).default : mod;
+    if (pdfJsObj && (pdfJsObj as any).GlobalWorkerOptions && !(pdfJsObj as any).GlobalWorkerOptions.workerSrc) {
+        (pdfJsObj as any).GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@5.4.449/build/pdf.worker.min.js';
     }
     cachedPdfJs = pdfJsObj;
     return cachedPdfJs;
@@ -52,6 +52,7 @@ const getPdfJs = async () => {
 
 const extractTextFromPdfClientSide = async (file: File): Promise<string> => {
     const pdfJsObj = await getPdfJs();
+    if (!pdfJsObj) throw new Error('PDF.js not available');
     const arrayBuffer = await file.arrayBuffer();
     const loadingTask = pdfJsObj.getDocument({ data: new Uint8Array(arrayBuffer) });
     const pdf = await loadingTask.promise;
@@ -59,7 +60,10 @@ const extractTextFromPdfClientSide = async (file: File): Promise<string> => {
     for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
-        const pageText = textContent.items.map((item: any) => 'str' in item ? item.str : '').join(' ');
+        const pageText = textContent.items.map((item: unknown) => {
+            const itemObj = item as { str?: string };
+            return 'str' in itemObj ? itemObj.str : '';
+        }).join(' ');
         fullText += pageText + '\n';
     }
     return fullText;
@@ -135,7 +139,7 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
         
         // Load docx dynamically to avoid bundling it in the initial chunk
         const docxModule = await loadDocx();
-        const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docxModule as any;
+        const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docxModule;
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlContent, 'text/html');
         const body = doc.body;
@@ -146,8 +150,8 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
     }
     // ... Full implementation omitted for brevity in this delta, but it exists in project ...
     // Assuming extracting text logic
-     const extractTextRuns = (container: HTMLElement): any[] => {
-        const runs: any[] = [];
+      const extractTextRuns = (container: HTMLElement): any[] => {
+          const runs: any[] = [];
         container.childNodes.forEach(child => {
             if (child.nodeType === Node.TEXT_NODE) {
                  const txt = child.textContent || '';
@@ -187,7 +191,7 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
     }
     Array.from(body.childNodes).forEach(node => children.push(...processNode(node)));
     
-    const docx = new Document({ sections: [{ properties: {}, children: children }] });
+    const docx = new Document({ sections: [{ properties: {}, children: children as any }] });
     return await Packer.toBlob(docx);
     } catch (error) {
         console.error('Error generating DOCX:', error);
@@ -226,14 +230,32 @@ const wrapText = (text: string, font: { widthOfTextAtSize: (t: string, s: number
     return lines;
 };
 
-interface PdfContext { doc: any; page: any; y: number; font: any; boldFont: any; width: number; height: number; margin: number; fontSize: number; }
+interface PdfContext {
+    doc: import('pdf-lib').PDFDocument;
+    page: import('pdf-lib').PDFPage;
+    y: number;
+    font: import('pdf-lib').PDFFont;
+    boldFont: import('pdf-lib').PDFFont;
+    width: number;
+    height: number;
+    margin: number;
+    fontSize: number;
+}
 const addNewPageIfNeeded = (ctx: PdfContext, spaceNeeded: number) => {
     if (ctx.y - spaceNeeded < ctx.margin) {
         ctx.page = ctx.doc.addPage();
         ctx.y = ctx.height - ctx.margin;
     }
 };
-const drawTextSafe = (ctx: PdfContext, text: string, options: any = {}) => {
+type DrawTextOptions = {
+    isBold?: boolean;
+    size?: number;
+    color?: { r: number; g: number; b: number } | null;
+    indent?: number;
+    align?: 'left' | 'center' | 'right';
+    maxWidth?: number;
+};
+const drawTextSafe = (ctx: PdfContext, text: string, options: DrawTextOptions = {}) => {
     const safeText = cleanTextForWinAnsi(text);
     const { isBold = false, size = 11, color = null, indent = 0, align = 'left', maxWidth } = options;
     const resolvedColor = color || { r: 0, g: 0, b: 0 };
@@ -447,14 +469,20 @@ export const generateCouncilDataPdf = async (selectedClass: string, periodo: Per
     // ... full implementation as before ...
     return doc.output('blob');
 };
-export const generateCouncilTablePdf = async (selectedClass: string, periodo: PeriodoValutazione, annoScolastico: string, students: Studente[], evaluations: Valutazione[], giudizi: any, settings: TimetableSettings, showFinalGrades: boolean): Promise<Blob> => {
+export const generateCouncilTablePdf = async (selectedClass: string, periodo: PeriodoValutazione, annoScolastico: string, students: Studente[], evaluations: Valutazione[], giudizi: Record<string, GiudizioPeriodico>, settings: TimetableSettings, showFinalGrades: boolean): Promise<Blob> => {
     const jsPdfModule = await loadJsPdf();
     const { jsPDF } = jsPdfModule as any;
     const doc = new jsPDF({ orientation: 'landscape' });
      // ... full implementation as before ...
     return doc.output('blob');
 };
-export const generateFullAppGuidePdf = async (essayContent: any, faqContent: any, specsContent: any, techInfo: any, vocalGuide: any): Promise<Blob> => {
+export const generateFullAppGuidePdf = async (
+    essayContent: EssayContent | null,
+    faqContent: FaqItem[],
+    specsContent: TechnicalDocumentContent,
+    techInfo: Record<string, unknown>,
+    vocalGuide: VocalAssistantGuide
+): Promise<Blob> => {
     const pdfLib = await loadPdfLib();
     const { PDFDocument } = pdfLib as any;
     const pdfDoc = await PDFDocument.create();

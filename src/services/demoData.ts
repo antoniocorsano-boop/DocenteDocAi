@@ -12,8 +12,8 @@ const students: Studente[] = [
     { id: 's8', nome: 'Chiara', cognome: 'Viola', classe: '3A', dataNascita: '2010-12-05' },
 ];
 
-// --- UDAS (Programmazione Interdisciplinare) ---
-const udas: Uda[] = [
+// --- UDA (Programmazione Interdisciplinare) ---
+const uda: Uda[] = [
     {
         id: 'uda-1',
         title: 'Il Risorgimento Italiano',
@@ -322,7 +322,7 @@ Crea una cartella \`orariodoc-bridge\` sul tuo computer e inserisci i file del m
 
 export const DEMO_DATA = {
     students,
-    udas,
+    uda,
     lessons,
     slots,
     evaluations,

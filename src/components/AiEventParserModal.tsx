@@ -1,3 +1,4 @@
+import { M3Button } from './M3Components';
 
 import React, { useState, useRef } from 'react';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
@@ -91,10 +92,8 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                     {error && <p className="text-error text-center text-sm">{error}</p>}
                 </div>
                 <div className="dialog-footer">
-                    <button type="button" onClick={onClose} className="button button-text" disabled={isLoading}>
-                        Annulla
-                    </button>
-                    <button type="button" onClick={handleParse} className="button button-filled" disabled={isLoading || !text.trim()}>
+                    <M3Button variant="text" onClick={onClose} type="button" disabled={isLoading}>Annulla</M3Button>
+                    <M3Button variant="filled" onClick={handleParse} type="button" disabled={isLoading || !text.trim()}>
                         {isLoading ? (
                             <>
                                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-on-primary mr-2"></div>
@@ -106,7 +105,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                                 Analizza Testo
                             </>
                         )}
-                    </button>
+                    </M3Button>
                 </div>
             </div>
         </div>

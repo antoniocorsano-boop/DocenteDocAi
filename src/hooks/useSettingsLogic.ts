@@ -93,7 +93,7 @@ export const useSettingsLogic = ({
                 generatedName: generatedTheme.name,
                 generatedColors: { primary: generatedTheme.primary, secondary: generatedTheme.secondary, tertiary: generatedTheme.tertiary },
             });
-            showToast(messages.toast.success, 'success');
+            showToast(messages.toast.save, 'success');
         } catch (error) {
             showToast(messages.toast.error, 'error');
         } finally {

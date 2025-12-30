@@ -18,14 +18,14 @@ interface M3ExpressiveCardProps {
 }
 
 const StyledCard = styled(Card)<{ color: string }>(
-  ({ color, theme }) => ({
+  ({ color }) => ({
     borderRadius: 24,
     background: color,
-    boxShadow: theme.shadows[2],
+    boxShadow: 'var(--md-elevation-1)',
     cursor: 'pointer',
     transition: 'box-shadow 0.2s',
     '&:hover': {
-      boxShadow: theme.shadows[6],
+      boxShadow: 'var(--md-elevation-3)',
     },
     display: 'flex',
     flexDirection: 'column',

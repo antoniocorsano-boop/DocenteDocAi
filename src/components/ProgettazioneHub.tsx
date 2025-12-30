@@ -122,11 +122,11 @@ interface TimelineViewProps {
     startDate: string;
     endDate: string;
     previewMessage: string | null;
-    setPreviewMessage: (msg: string | null) => void;
+    // setPreviewMessage: (msg: string | null) => void;
     onSaveUda: (uda: Uda) => void;
 }
 
-const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, startDate, endDate, previewMessage, setPreviewMessage, onSaveUda }) => {
+const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, startDate, endDate, previewMessage, onSaveUda }) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     // Fix test ReferenceError: showSnackbar is not defined
     const [showSnackbar, setShowSnackbar] = useState(false);
@@ -398,7 +398,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
     const [activeTab, setActiveTab] = useState<'dashboard' | 'frameworks'>('dashboard');
 
     // Dragging / feedback state
-    const [previewMessage, setPreviewMessage] = useState<string | null>(null);
+    const [previewMessage] = useState<string | null>(null);
 
 
     useEffect(() => {
@@ -465,7 +465,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                         startDate={settings.activityStartDate}
                         endDate={settings.activityEndDate}
                         previewMessage={previewMessage}
-                        setPreviewMessage={setPreviewMessage}
+                        // setPreviewMessage={setPreviewMessage}
                         onSaveUda={onSaveUda}
                     />
 

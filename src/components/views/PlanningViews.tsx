@@ -21,7 +21,7 @@ import {
 } from '../../types';
 
 export interface PlanningViewsProps {
-    udas: Uda[];
+    uda: Uda[];
     eventi: EventoCalendario[];
     rubriche: Rubrica[];
     pianiInclusione: Record<string, PianoInclusione>;
@@ -66,7 +66,7 @@ export const PlanningViewsRenderer: React.FC<{
             return (
                 <ProgettazioneHub
                     onNavigate={props.onNavigate}
-                    udas={props.udas}
+                    uda={props.uda}
                     events={props.eventi}
                     settings={props.settings}
                     aiSettings={props.aiSettings}
@@ -89,7 +89,7 @@ export const PlanningViewsRenderer: React.FC<{
         case 'uda':
             return (
                 <UdaPlanner
-                    udas={props.udas}
+                    uda={props.uda}
                     onSaveUda={props.onSaveUda}
                     onDeleteUda={props.onDeleteUda}
                     lessons={props.lessons}
@@ -146,7 +146,7 @@ export const PlanningViewsRenderer: React.FC<{
                     settings={props.settings}
                     aiSettings={props.aiSettings}
                     onNavigate={props.onNavigate}
-                    lessons={Object.values(props.lessons)}
+
                 />
             );
         default:

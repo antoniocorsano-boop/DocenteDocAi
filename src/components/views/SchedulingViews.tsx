@@ -72,7 +72,7 @@ export const SchedulingViewsRenderer: React.FC<{
             return (
                 <LessonsPage
                     lessons={Object.values(props.lessons)}
-                    udas={[]}
+                    uda={[]}
                     knowledgeBase={[]}
                     userClasses={props.settings.classi}
                     onViewLesson={() => {}}

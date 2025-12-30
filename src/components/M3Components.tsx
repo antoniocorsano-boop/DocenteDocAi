@@ -103,6 +103,8 @@ export const ActionTile: React.FC<{ title: string; subtitle?: string; icon: stri
         onClick={onClick}
         className={`op-tile op-tile-variant-${variant} ${className} group overflow-hidden`}
         title={tooltip}
+        aria-label={`${title}${subtitle ? ` - ${subtitle}` : ''}`}
+        type="button"
     >
         <div className="op-tile-icon-container shadow-sm group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
             <span className="material-symbols-outlined">{icon}</span>
@@ -153,7 +155,7 @@ export const InfoCard: React.FC<{ title: string; description: string; icon?: str
                     {action && <div className="mt-8 flex justify-end">{action}</div>}
                 </div>
                 {onClose && (
-                    <button onClick={onClose} className="icon-button !w-12 !h-12 bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 rounded-full transition-all">
+                    <button onClick={onClose} className="icon-button !w-12 !h-12 bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 rounded-full transition-all" aria-label="Chiudi">
                         <span className="material-symbols-outlined">close</span>
                     </button>
                 )}
@@ -177,7 +179,7 @@ export const SectionHeader: React.FC<{ title: string; icon?: string; colorClass?
 
 // --- TAB GROUP ---
 export const TabGroup: React.FC<{ tabs: { id: string, label: string, icon?: string, badge?: number | string }[]; activeTab: string; onTabChange: (id: string) => void; variant?: string; className?: string; isIconOnly?: boolean }> = ({ tabs, activeTab, onTabChange, variant = 'primary', className = '', isIconOnly = false }) => (
-    <div className={`tab-group ${variant} ${className}`}>
+    <div className={`tab-group ${variant} ${className}`} role="tablist" aria-label="Sezioni di navigazione">
         {tabs.map(tab => {
             const isActive = activeTab === tab.id;
             return (
@@ -185,6 +187,11 @@ export const TabGroup: React.FC<{ tabs: { id: string, label: string, icon?: stri
                     key={tab.id}
                     onClick={() => onTabChange(tab.id)}
                     className={`tab ${isActive ? 'active' : ''}`}
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls={`panel-${tab.id}`}
+                    id={`tab-${tab.id}`}
+                    tabIndex={isActive ? 0 : -1}
                 >
                     {tab.icon && <span className="material-symbols-outlined">{tab.icon}</span>}
                     {!isIconOnly && <span>{tab.label}</span>}
@@ -452,31 +459,109 @@ export const M3BadgedIcon: React.FC<{
     );
 };
 
-// --- M3 STATUS ICON (For status indicators) ---
-export const M3StatusIcon: React.FC<{
-    status: 'pending' | 'success' | 'error' | 'warning' | 'info' | 'loading';
-    size?: 'sm' | 'md' | 'lg';
-    label?: string;
-}> = ({ status, size = 'md', label }) => {
-    const statusConfig = {
-        pending: { icon: 'pending', color: 'text-warning', label: 'In attesa' },
-        success: { icon: 'check_circle', color: 'text-success', label: 'Completato' },
-        error: { icon: 'error', color: 'text-error', label: 'Errore' },
-        warning: { icon: 'warning', color: 'text-warning', label: 'Attenzione' },
-        info: { icon: 'info', color: 'text-secondary', label: 'Informazione' },
-        loading: { icon: 'pending', color: 'text-primary animate-spin', label: 'Caricamento' }
-    };
-    
-    const config = statusConfig[status];
-    const sizeMap = { sm: 'text-lg', md: 'text-2xl', lg: 'text-4xl' };
-    
-    return (
-        <div className="flex items-center gap-2">
-            <span className={`material-symbols-outlined ${sizeMap[size]} ${config.color}`} style={status === 'loading' ? { animation: 'spin 1s linear infinite' } : {}}>
-                {config.icon}
-            </span>
-            {label && <span className="text-sm font-semibold">{label}</span>}
+// --- M3 SKELETON LOADERS (For content generation) ---
+
+// Document Skeleton Loader
+export const DocumentSkeleton: React.FC<{
+    lines?: number;
+    className?: string;
+}> = ({ lines = 5, className = '' }) => (
+    <div className={`space-y-3 ${className}`}>
+        {/* Title skeleton */}
+        <div className="h-8 bg-surface-container-high rounded-lg animate-pulse" style={{ width: '70%' }} />
+        
+        {/* Content lines skeleton */}
+        {Array.from({ length: lines }).map((_, i) => (
+            <div
+                key={i}
+                className="h-4 bg-surface-container-high rounded animate-pulse"
+                style={{
+                    width: i === lines - 1 ? '60%' : '100%',
+                    animationDelay: `${i * 0.1}s`
+                }}
+            />
+        ))}
+    </div>
+);
+
+// Table Skeleton Loader
+export const TableSkeleton: React.FC<{
+    rows?: number;
+    columns?: number;
+    className?: string;
+}> = ({ rows = 3, columns = 3, className = '' }) => (
+    <div className={`space-y-2 ${className}`}>
+        {/* Table header skeleton */}
+        <div className="flex gap-2">
+            {Array.from({ length: columns }).map((_, i) => (
+                <div
+                    key={i}
+                    className="h-6 bg-surface-container-high rounded animate-pulse flex-1"
+                    style={{ animationDelay: `${i * 0.05}s` }}
+                />
+            ))}
         </div>
-    );
-};
+        
+        {/* Table rows skeleton */}
+        {Array.from({ length: rows }).map((_, rowIndex) => (
+            <div key={rowIndex} className="flex gap-2">
+                {Array.from({ length: columns }).map((_, colIndex) => (
+                    <div
+                        key={colIndex}
+                        className="h-4 bg-surface-container-high rounded animate-pulse flex-1"
+                        style={{
+                            animationDelay: `${(rowIndex * columns + colIndex) * 0.05}s`,
+                            width: Math.random() > 0.5 ? '100%' : '80%'
+                        }}
+                    />
+                ))}
+            </div>
+        ))}
+    </div>
+);
+
+// Image Skeleton Loader
+export const ImageSkeleton: React.FC<{
+    aspectRatio?: string;
+    className?: string;
+}> = ({ aspectRatio = '16/9', className = '' }) => (
+    <div
+        className={`bg-surface-container-high rounded-lg animate-pulse flex items-center justify-center ${className}`}
+        style={{ aspectRatio }}
+    >
+        <div className="flex flex-col items-center gap-2 text-on-surface-variant/50">
+            <span className="material-symbols-outlined text-4xl">image</span>
+            <span className="text-sm font-medium">Generazione immagine...</span>
+        </div>
+    </div>
+);
+
+// Quiz/Test Skeleton Loader
+export const QuizSkeleton: React.FC<{
+    questions?: number;
+    className?: string;
+}> = ({ questions = 5, className = '' }) => (
+    <div className={`space-y-4 ${className}`}>
+        {Array.from({ length: questions }).map((_, i) => (
+            <div key={i} className="space-y-2">
+                {/* Question skeleton */}
+                <div className="h-5 bg-surface-container-high rounded animate-pulse" style={{ width: '85%' }} />
+                
+                {/* Answer options skeleton */}
+                <div className="space-y-1 ml-4">
+                    {Array.from({ length: 4 }).map((_, j) => (
+                        <div
+                            key={j}
+                            className="h-4 bg-surface-container-high rounded animate-pulse"
+                            style={{
+                                width: '70%',
+                                animationDelay: `${(i * 4 + j) * 0.05}s`
+                            }}
+                        />
+                    ))}
+                </div>
+            </div>
+        ))}
+    </div>
+);
 

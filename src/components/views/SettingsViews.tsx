@@ -83,8 +83,6 @@ export const SettingsViewsRenderer: React.FC<{
         case 'home':
             return (
                 <Home
-                    slots={props.slots}
-                    lessons={props.lessons}
                     onNavigate={props.onNavigate}
                     appState={{
                         user: null,

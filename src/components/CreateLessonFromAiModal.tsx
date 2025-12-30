@@ -5,6 +5,7 @@ import { DAYS_OF_WEEK } from '../constants';
 import { parseClassString } from '../utils/schoolUtils'; 
 import { TextField, SelectField, TextArea } from './M3Components';
 import AiThinkingGem from './AiThinkingGem';
+import './dialog-container.css';
 
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };

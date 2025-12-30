@@ -47,7 +47,15 @@ const M3Button: React.FC<M3ButtonProps> = ({
     type={type}
     fullWidth={fullWidth}
     disableElevation={variant !== 'elevated'}
-    sx={variant === 'tonal' ? { backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)' } : {}}
+    sx={{
+      ...(variant === 'tonal' && {
+        backgroundColor: 'var(--md-sys-color-secondary-container)',
+        color: 'var(--md-sys-color-on-secondary-container)'
+      }),
+      ...(variant === 'elevated' && {
+        boxShadow: 'var(--md-elevation-1)'
+      })
+    }}
     title={title}
   >
     {children}

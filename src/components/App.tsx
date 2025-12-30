@@ -1,4 +1,5 @@
 // ...existing code...
+// ...existing code...
 import AssistantModal from './AssistantModal';
 import '../font-setup';
 import * as React from 'react';
@@ -21,6 +22,7 @@ import { useRestoreAssist } from './useRestoreAssist';
 import type { UserProfile } from '../types';
 
 import type { AiSuggestion, SystemSuggestion } from '../types';
+import ErrorBoundary from './ErrorBoundary';
 type SuggestionBannerProps = { suggestion: AiSuggestion | SystemSuggestion; onAction: () => void };
 // Banner Suggestion Assistant
 const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onAction }) => {
@@ -258,8 +260,9 @@ export const App: React.FC = () => {
 
         // App Shell M3 Expressive
         return (
-            <M3ExpressiveProvider>
-            <div className="app-shell">
+            <ErrorBoundary>
+                <M3ExpressiveProvider themeState={appState.themeState}>
+                    <div className="app-shell">
                 {/* Fixed Header */}
                 <Header
                     title="DocenteDoc AI"
@@ -329,6 +332,7 @@ export const App: React.FC = () => {
                 <Snackbar />
             </div>
             </M3ExpressiveProvider>
+            </ErrorBoundary>
         );
     } catch (err) {
         // Fallback visibile: errore di caricamento o runtime

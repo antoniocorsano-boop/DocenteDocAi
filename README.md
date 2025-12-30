@@ -133,3 +133,38 @@ Or on Windows PowerShell:
 
 The scripts use `npx netlify` under the hood and will build the app if `dist/` is missing.
 
+---
+
+## Resolving React `useState` Undefined Error
+
+### Issue
+The application encountered a `useState` undefined error due to incorrect chunk loading order. React was not properly initialized before other chunks were executed.
+
+### Resolution Steps
+1. **Verify React Version Compatibility**:
+   - Ensure React and React DOM versions are compatible.
+   - Confirmed React `18.2.0` and React DOM `18.2.0` in `package.json`.
+
+2. **Inspect Chunk Loading Order**:
+   - Verified that React (`react-vendor-Do1_TdCA.js`) was included in the vendor chunk.
+   - Ensured React was loaded before other chunks.
+
+3. **Update `index.html`**:
+   - Modified the `index.html` file to explicitly load React before other chunks:
+     ```html
+     <script type="module" src="/assets/react-vendor-Do1_TdCA.js"></script>
+     <script type="module" src="/assets/vendor-BbBeWqvy.js"></script>
+     <script type="module" src="/assets/main-ztJSW1IK.js"></script>
+     ```
+
+4. **Test Locally**:
+   - Ran the application locally using `npm run dev`.
+   - Verified that the error was resolved.
+
+5. **Redeploy**:
+   - Deployed the updated application to Vercel using `npx vercel --prod --yes`.
+   - Confirmed the fix on the production URL.
+
+### Outcome
+The `useState` undefined error was successfully resolved, and the application is now functioning correctly in both local and production environments.
+

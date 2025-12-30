@@ -285,7 +285,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               onChange={e => setInput(e.target.value)}
               disabled={loading || isRecording}
               aria-label="Scrivi una domanda o comando per l'assistente"
-              style={isRecording ? { background: 'var(--sys-secondary-container, #f0f0f0)', color: '#b00020', fontWeight: 600 } : {}}
+              style={isRecording ? { background: 'var(--sys-secondary-container, #f0f0f0)', color: 'var(--sys-error)', fontWeight: 600 } : {}}
             />
             <button
               type="button"
@@ -331,21 +331,22 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           display: flex; align-items: center; gap: 0.7rem; background: var(--sys-surface, #fff); border-radius: 1.1rem; padding: 0.5rem 1rem; font-size: 1.01rem; color: var(--sys-on-surface, #222); position: relative;
         }
         .assistant-docs-filename { flex: 1; font-weight: 500; }
-        .assistant-docs-date { font-size: 0.97rem; color: #888; margin-right: 0.7rem; }
+        .assistant-docs-date { font-size: 0.97rem; color: var(--sys-primary); margin-right: 0.7rem; } // MD3 fix
         .assistant-docs-delete {
-          background: none; border: none; color: var(--sys-error, #b00020); font-size: 1.3rem; cursor: pointer; border-radius: 50%; padding: 0.2rem; transition: background 0.18s;
+          background: none; border: none; color: var(--sys-error); font-size: 1.3rem; cursor: pointer; border-radius: 50%; padding: 0.2rem; transition: background 0.18s;
         }
         .assistant-docs-delete:hover { background: #ffeaea; }
-        .assistant-docs-error { color: var(--sys-error, #b00020); margin-bottom: 0.5rem; }
+        .assistant-docs-error { color: var(--sys-error); margin-bottom: 0.5rem; }
         .assistant-docs-loading { color: var(--sys-primary, #1976d2); margin-bottom: 0.5rem; }
-        .mui-elevation-3 { box-shadow: 0 8px 32px rgba(0,0,0,0.18); }
+        .mui-elevation-3 { box-shadow: var(--md-elevation-1); /* MD3 fix */ }
+        .assistant-modal {
+          background: var(--sys-surface, #fff); color: var(--sys-on-surface, #222); border-radius: var(--md-corner-16); /* MD3 fix */ box-shadow: var(--md-elevation-1); /* MD3 fix */
+          width: 95vw; max-width: 420px; min-height: 340px; display: flex; flex-direction: column; overflow: hidden; z-index: 2000;
+        }
+        .assistant-empty { color: var(--sys-primary); /* MD3 fix */ text-align: center; margin: 2rem 0; }
         .assistant-modal-title { font-size: 1.18rem; font-weight: 600; flex: 1; margin: 0; }
         .assistant-modal-overlay {
           position: fixed; inset: 0; background: rgba(0,0,0,0.18); z-index: 2000; display: flex; align-items: center; justify-content: center;
-        }
-        .assistant-modal {
-          background: var(--sys-surface, #fff); color: var(--sys-on-surface, #222); border-radius: 1.2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-          width: 95vw; max-width: 420px; min-height: 340px; display: flex; flex-direction: column; overflow: hidden; z-index: 2000;
         }
         .assistant-modal-header { display: flex; align-items: center; gap: 0.5rem; padding: 1rem 1.2rem 0.5rem 1.2rem; border-bottom: 1px solid var(--sys-outline-variant, #eee); position: relative; }
         .assistant-modal-header h3 { flex: 1; font-size: 1.1rem; font-weight: 600; margin: 0; }
@@ -357,7 +358,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         .assistant-msg-user { align-self: flex-end; background: var(--sys-primary, #e3f2fd); color: var(--sys-on-primary, #222); }
         .assistant-msg-ai { align-self: flex-start; background: var(--sys-surface-variant, #f5f5f5); color: var(--sys-on-surface-variant, #444); }
         .assistant-msg-ai.loading { opacity: 0.7; font-style: italic; }
-        .assistant-empty { color: #888; text-align: center; margin: 2rem 0; }
+        .assistant-empty { color: var(--sys-primary); /* MD3 fix */ text-align: center; margin: 2rem 0; }
         .assistant-prompts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
         .assistant-prompt-btn { background: var(--sys-secondary-container, #f0f0f0); color: var(--sys-on-secondary-container, #333); border: none; border-radius: 1rem; padding: 0.3rem 0.9rem; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
         .assistant-prompt-btn:hover { background: var(--sys-secondary, #e3f2fd); }
@@ -366,9 +367,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         .assistant-send-btn { background: var(--sys-primary, #1976d2); color: var(--sys-on-primary, #fff); border: none; border-radius: 50%; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; transition: background 0.2s; }
         .assistant-send-btn:disabled { background: #ccc; cursor: not-allowed; }
         .assistant-input.listening {
-          border: 2px solid var(--sys-error, #b00020);
+          border: 2px solid var(--sys-error);
           background: var(--sys-secondary-container, #f0f0f0);
-          color: #b00020;
+          color: var(--sys-error);
           font-weight: 600;
         }
         .assistant-mic-btn {
@@ -388,24 +389,23 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         }
         .assistant-mic-btn.recording {
           background: var(--sys-error-container, #ffebee);
-          color: var(--sys-error, #b00020);
+          color: var(--sys-error);
           animation: pulse-mic 1.2s infinite;
         }
         @keyframes pulse-mic {
-          0% { box-shadow: 0 0 0 0 rgba(220,0,0,0.18); }
-          70% { box-shadow: 0 0 0 8px rgba(220,0,0,0.10); }
-          100% { box-shadow: 0 0 0 0 rgba(220,0,0,0.18); }
+          0% { box-shadow: var(--md-elevation-4); /* MD3 fix */ }
+          70% { box-shadow: var(--md-elevation-3); /* MD3 fix */ }
+          100% { box-shadow: var(--md-elevation-4); /* MD3 fix */ }
         }
         .assistant-voice-feedback {
-          display: flex; align-items: center; gap: 0.5rem; color: var(--sys-error, #b00020); font-weight: 600; margin: 0.5rem 0 0.2rem 0.2rem; font-size: 1.05rem;
+          display: flex; align-items: center; gap: 0.5rem; color: var(--sys-error); font-weight: 600; margin: 0.5rem 0 0.2rem 0.2rem; font-size: 1.05rem;
         }
         .assistant-voice-feedback .pulse { animation: pulse-mic 1.2s infinite; }
         .assistant-voice-error {
-          display: flex; align-items: center; gap: 0.4rem; color: var(--sys-error, #b00020); background: #fff0f0; border-radius: 0.7rem; padding: 0.3rem 0.8rem; margin: 0.3rem 0 0.2rem 0.2rem; font-size: 0.98rem;
+          display: flex; align-items: center; gap: 0.4rem; color: var(--sys-error); background: #fff0f0; border-radius: 0.7rem; padding: 0.3rem 0.8rem; margin: 0.3rem 0 0.2rem 0.2rem; font-size: 0.98rem;
         }
         @media (max-width: 600px) {
-          .assistant-modal-overlay { align-items: stretch; justify-content: stretch; z-index: 2000; }
-          .assistant-modal { width: 100vw; min-height: 100vh; max-width: 100vw; border-radius: 0; box-shadow: none; z-index: 2000; }
+          .assistant-modal { width: 100vw; min-height: 100vh; max-width: 100vw; border-radius: 0; box-shadow: var(--md-elevation-4); /* MD3 fix */ z-index: 2000; }
           .assistant-modal-header, .assistant-modal-body, .assistant-modal-footer { padding-left: 1rem; padding-right: 1rem; }
           .assistant-exit-btn { right: 0.7rem; top: 0.7rem; }
         }

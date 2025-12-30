@@ -10,7 +10,9 @@
     { "source": "/icons/(.*)", "destination": "/icons/$1" },
     { "source": "/icona/(.*)", "destination": "/icona/$1" },
     { "source": "/assets/(.*)", "destination": "/assets/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/((?!assets|icons|icona|manifest.json|favicon.ico|service-worker.js).*)", "destination": "/index.html" },
+    { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "headers": [
     {

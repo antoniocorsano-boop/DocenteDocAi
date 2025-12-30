@@ -1,6 +1,6 @@
 
 // Removed unused `saveAs` import (documentUtils) — not used in this module
-import { Studente, Lezione, Uda } from '../types'; // FIX: Updated import path to types
+import { Studente, Lezione, Uda } from '../types';
 
 /**
  * Converts a simple Markdown string to HTML.
@@ -31,7 +31,7 @@ interface TemplateContext {
     subject?: string;
     year?: string;
     students?: Studente[];
-    udas?: Uda[];
+    uda?: Uda[];
     lessons?: Lezione[];
 }
 
@@ -55,7 +55,7 @@ export const getDocumentTemplate = (templateId: string, context: TemplateContext
 
                 <h2>3. Unità di Apprendimento (UDA)</h2>
                 <p>Durante l'anno verranno svolte le seguenti UDA:</p>
-                ${context.udas ? `<ul>${context.udas.map(u => `<li><strong>${u.title}</strong>: ${u.introduction}</li>`).join('')}</ul>` : '<p>Da definire.</p>'}
+                ${context.uda ? `<ul>${context.uda.map(u => `<li><strong>${u.title}</strong>: ${u.introduction}</li>`).join('')}</ul>` : '<p>Da definire.</p>'}
 
                 <h2>4. Metodologie e Valutazione</h2>
                 <p>Si utilizzeranno lezioni frontali, lavori di gruppo e laboratori. La valutazione sarà formativa e sommativa.</p>

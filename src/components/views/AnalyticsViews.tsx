@@ -23,14 +23,14 @@ export interface AnalyticsViewsProps {
     evaluations: Valutazione[];
     competencyEvals: ValutazioneCompetenza[];
     lessons: Record<string, Lezione>;
-    reports: Report[];
+    reportistica: Report[];
     giudizi: Record<string, GiudizioPeriodico>;
     pianiInclusione: Record<string, PianoInclusione>;
     knowledgeBase: KnowledgeBaseEntry[];
     finalizedRegister: RegisterEntry[];
     settings: TimetableSettings;
     aiSettings: AiSettings;
-    udas: Uda[];
+    uda: Uda[];
     viewContext?: string;
     onNavigate: (view: string, context?: unknown) => void;
     onDeleteReport: (id: string) => void;
@@ -63,14 +63,14 @@ export const AnalyticsViewsRenderer: React.FC<{
         case 'reportistica':
             return (
                 <ReportisticaHub
-                    reports={props.reports}
+                    reportistica={props.reportistica}
                     onDeleteReport={props.onDeleteReport}
                     userClasses={props.settings.classi}
                     students={props.students}
                     evaluations={props.evaluations}
                     competencyEvaluations={props.competencyEvals}
                     settings={props.settings}
-                    udas={props.udas}
+                    uda={props.uda}
                     lessons={props.lessons}
                     onSaveReport={props.onSaveReport}
                     aiSettings={props.aiSettings}

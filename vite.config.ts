@@ -4,16 +4,15 @@ import './src/build-polyfill.js';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 // import { VitePWA } from 'vite-plugin-pwa';
-import path from 'path';
+import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig({
   resolve: {
     alias: {
-      react: path.resolve(__dirname, 'node_modules/react'),
-      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
+      react: 'react',
+      'react-dom': 'react-dom',
       underscore: 'lodash', // Shim underscore to lodash
     },
-    dedupe: ['react', 'react-dom'],
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'lodash', 'lodash-es', 'underscore'],
@@ -29,6 +28,9 @@ export default defineConfig({
     //   injectRegister: 'auto',
     //   manifest: false, // Usiamo il file statico in public
     // }),
+    createHtmlPlugin({
+      minify: true,
+    }),
   ],
   base: '/',
   build: {
@@ -36,19 +38,19 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: process.env.NODE_ENV === 'development' ? true : false,
     chunkSizeWarningLimit: 800, // Increase limit - we have large dependencies (PDFs, genAI, etc.)
+    assetsInlineLimit: 0, // Evita data URL per font e altri asset
     rollupOptions: {
-      external: ['mammoth', 'jspdf', 'pdf-lib', 'docx'],
-      input: {
-        main: './index.html',
-      },
       output: {
-        manualChunks(id: string) {
-          // Force all node_modules into a single vendor chunk to guarantee
-          // React and its consumers execute in a safe order and avoid
-          // cross-chunk circular-import / TDZ runtime errors in prod.
-          if (id.includes('node_modules')) return 'vendor';
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) return 'react-vendor';
+            if (id.includes('pdf-lib') || id.includes('jspdf') || id.includes('docx') || id.includes('mammoth')) return 'pdf-tools';
+            if (id.includes('@google/genai')) return 'genai';
+            if (id.includes('lodash') || id.includes('underscore')) return 'lodash-vendor';
+            return 'vendor';
+          }
         },
       },
-    },
+    }
   },
 });

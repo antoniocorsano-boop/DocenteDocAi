@@ -1,5 +1,6 @@
 // Bottom sheet modal for NKA map
 import * as React from 'react';
+import './nka-responsive.css';
 import { NKANode } from './types';
 import NKANodeCard from './NKANodeCard';
 import NKAForceMap from './NKAForceMap';

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { HomeworkSubmission, Studente, Lezione } from '../types';
 import Avatar from './Avatar';
@@ -72,7 +71,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     key={sub.id}
                                     onClick={() => setSelectedSubmission(sub)}
                                     className={`p-3 rounded-xl cursor-pointer transition-colors flex items-start gap-3 ${isSelected ? 'bg-primary-container text-on-primary-container' : 'hover:bg-surface-container-high'}`}
-                                    style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}
+                                    style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}
                                 >
                                     <Avatar name={studentInfo.name} surname={studentInfo.surname} size="small" />
                                     <div className="min-w-0">
@@ -97,7 +96,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     const studentInfo = getStudentDisplay(sub.studentId);
                                     const lessonInfo = getLessonDisplay(sub.lessonId);
                                     return (
-                                        <div key={sub.id} className="p-3 opacity-60 flex items-center gap-2" style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}>
+                                        <div key={sub.id} className="p-3 opacity-60 flex items-center gap-2" style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}>
                                             <span className="material-symbols-outlined text-sm">check_circle</span>
                                             <span className="text-xs truncate">{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
                                         </div>

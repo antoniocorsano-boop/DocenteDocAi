@@ -1,11 +1,7 @@
-import React, { useEffect, useRef } from 'react';
 
-interface UniversalModalProps {
-  open: boolean;
-  title: string;
-  onClose: () => void;
-  children: React.ReactNode;
-}
+import React, { useEffect, useRef } from 'react';
+import './dialog-container.css';
+import type { UniversalModalProps } from '../types';
 
 const UniversalModal: React.FC<UniversalModalProps> = ({
   open,

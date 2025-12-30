@@ -11,10 +11,12 @@ interface TimetableProps {
     settings: TimetableSettings;
     onEditSlot: (giorno: string, ora: string) => void;
     onShowSlotActions: (slot: Slot, lesson: Lezione) => void;
+    onAiSuggest?: () => void;
+    activeSlotKey?: string;
     showGuidanceTips: boolean;
 }
 
-export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons, settings, onEditSlot, onShowSlotActions, showGuidanceTips }) => {
+export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons, settings, onEditSlot, onShowSlotActions, onAiSuggest, activeSlotKey, showGuidanceTips }) => {
   const daysToShow = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
   const todayIndex = (new Date().getDay() + 6) % 7; 
 

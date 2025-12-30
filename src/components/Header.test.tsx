@@ -83,6 +83,6 @@ describe('Header M3 Expressive', () => {
     render(<Header {...baseProps} />);
     const header = screen.getByRole('banner');
     expect(header).toHaveStyle('background: var(--sys-surface)');
-    expect(header).toHaveStyle('box-shadow: var(--depth-shadow-2)');
+    expect(header).toHaveStyle('box-shadow: var(--md-elevation-4)'); // MD3 fix
   });
 });

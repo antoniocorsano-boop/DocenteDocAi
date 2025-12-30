@@ -1,89 +1,95 @@
-
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { useUIStore } from '../stores/useUIStore';
 
-interface Props {
-  children?: ReactNode;
+interface ErrorBoundaryProps {
+	children: ReactNode;
 }
 
-interface State {
-  hasError: boolean;
-  error: Error | null;
+interface ErrorBoundaryState {
+	hasError: boolean;
+	error?: Error;
 }
 
-class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false,
-    error: null
-  };
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+	constructor(props: ErrorBoundaryProps) {
+		super(props);
+		this.state = { hasError: false };
+	}
 
-  // Dichiarazione esplicita per soddisfare TypeScript strict mode
-  public readonly props: Readonly<Props>;
+	static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+		return { hasError: true, error };
+	}
 
-  public constructor(props: Props) {
-    super(props);
-    this.props = props;
-  }
+	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+		console.error('ErrorBoundary caught an error:', error, errorInfo);
 
-  public static getDerivedStateFromError(error: Error): State {
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true, error };
-  }
+		// In a real app, you might want to send this to an error reporting service
+		// For now, we'll just log it and show a user-friendly message
+	}
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
-  }
+	render() {
+		if (this.state.hasError) {
+			return <ErrorFallback error={this.state.error} />;
+		}
 
-  private handleReload = () => {
-      window.location.reload();
-  }
-
-  private handleHardReset = () => {
-      if(window.confirm("Questo cancellerà la cache locale per ripristinare l'app. I dati salvati su Drive sono al sicuro. Continuare?")) {
-          localStorage.clear();
-          window.location.reload();
-      }
-  }
-
-  public render(): ReactNode {
-    if (this.state.hasError) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-surface-container-low p-6">
-          <div className="max-w-md w-full bg-surface p-8 rounded-3xl shadow-lg border border-outline-variant text-center">
-            <div className="w-16 h-16 bg-error-container text-on-error-container rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="material-symbols-outlined text-4xl">dizzy</span>
-            </div>
-            <h1 className="text-2xl font-bold text-on-surface mb-2">Qualcosa è andato storto</h1>
-            <p className="text-on-surface-variant mb-6">
-              Si è verificato un errore imprevisto nell'interfaccia. Non preoccuparti, i tuoi dati sono al sicuro nel database locale.
-            </p>
-            
-            <div className="bg-surface-container-high p-3 rounded-lg text-left mb-6 overflow-hidden">
-                <p className="text-xs font-mono text-error break-words">
-                    {this.state.error?.toString()}
-                </p>
-            </div>
-
-            <div className="flex flex-col gap-3">
-                <button 
-                    onClick={this.handleReload}
-                    className="button button-filled w-full justify-center"
-                >
-                    <span className="material-symbols-outlined mr-2">refresh</span> Ricarica App
-                </button>
-                <button 
-                    onClick={this.handleHardReset}
-                    className="button button-text-error w-full justify-center"
-                >
-                    Reset Totale (Emergenza)
-                </button>
-            </div>
-          </div>
-        </div>
-      );
-    }
-    const { children } = this.props;
-    return children;
-  }
+		return this.props.children;
+	}
 }
 
+// Separate component to use hooks
+const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
+	const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
+
+	React.useEffect(() => {
+		showToast(
+			"Si è verificato un errore imprevisto. L'applicazione verrà ricaricata.",
+			"error"
+		);
+
+		// Auto-reload after a short delay to give user time to see the message
+		const timer = setTimeout(() => {
+			window.location.reload();
+		}, 3000);
+
+		return () => clearTimeout(timer);
+	}, [showToast]);
+
+	return (
+		<div className="min-h-screen flex items-center justify-center bg-surface p-6">
+			<div className="max-w-md w-full bg-surface-container-high rounded-[28px] p-8 shadow-xl border border-outline-variant/20 text-center">
+				<div className="w-16 h-16 bg-error-container rounded-full flex items-center justify-center mx-auto mb-6">
+					<span className="material-symbols-outlined text-3xl text-on-error-container">error</span>
+				</div>
+
+				<h2 className="m3-headline-small font-black text-on-surface mb-4">
+					Oops! Qualcosa è andato storto
+				</h2>
+
+				<p className="m3-body-large text-on-surface-variant mb-6">
+					Si è verificato un errore imprevisto nell'applicazione.
+					La pagina verrà ricaricata automaticamente tra pochi secondi.
+				</p>
+
+				<div className="flex items-center justify-center gap-2 text-sm text-on-surface-variant">
+					<span className="material-symbols-outlined animate-spin">refresh</span>
+					<span>Ricaricamento in corso...</span>
+				</div>
+
+				{process.env.NODE_ENV === 'development' && error && (
+					<details className="mt-6 text-left">
+						<summary className="cursor-pointer text-sm font-medium text-on-surface-variant hover:text-on-surface">
+							Dettagli errore (solo in sviluppo)
+						</summary>
+						<pre className="mt-2 p-3 bg-surface-container rounded-lg text-xs overflow-auto max-h-32 text-on-surface-variant">
+							{error.stack}
+						</pre>
+					</details>
+				)}
+			</div>
+		</div>
+	);
+};
+
+export { ErrorBoundary };
 export default ErrorBoundary;
+

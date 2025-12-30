@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
-import NKABottomSheet from '../nka/NKABottomSheet';
-import { useNKAStore } from '../nka/useNKAStore';
+// import NKABottomSheet from '../nka/NKABottomSheet';
+// import { useNKAStore } from '../nka/useNKAStore';
 import Logo from './Logo';
 import { HeaderProps } from '../types';
 import NotificationsPopover from './NotificationsPopover';
@@ -9,12 +9,7 @@ import Avatar from './Avatar';
 import AiThinkingGem from './AiThinkingGem';
 import { M3Dialog, M3ListItem } from './M3Components';
 
-interface ActionsPopoverProps extends HeaderProps {
-    onClose: () => void;
-    onShareClick: () => void;
-    unreadCount: number;
-    onOpenNotifications: () => void;
-}
+import type { ActionsPopoverProps } from '../types';
 
 const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
     const { onClose, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp, user, onShareClick, unreadCount, onOpenNotifications, installPrompt, onInstallApp, onNavigate } = props;
@@ -111,7 +106,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
 };
 
 export const Header: React.FC<HeaderProps> = (props) => {
-    const { showBackButton, onBack, user, settings, notifiche, setNotifiche, onOpenCircularAnalysis, onNavigate, isAiProcessing, installPrompt, onInstallApp, onOpenOperations, hasSuggestion, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp } = props;
+    const { showBackButton, user, settings, notifiche, setNotifiche, onOpenCircularAnalysis, onNavigate, isAiProcessing, installPrompt, onInstallApp, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp } = props;
 
     // Get display name from settings (teacher name/surname) or fallback to user
     const teacherName = settings?.nomeInsegnante || '';
@@ -131,144 +126,79 @@ export const Header: React.FC<HeaderProps> = (props) => {
         setNotifiche(prev => prev.map(n => ({ ...n, letta: true })));
     };
 
-
-    // NKA integration logic: componente interno
-    const NKAHeaderIntegration: React.FC = () => {
-        const enabled = useNKAStore(s => s.enabled);
-        const nodes = useNKAStore(s => s.nodes);
-        const [open, setOpen] = React.useState(false);
-        const [tooltip, setTooltip] = React.useState(false);
-        // Simulate badge if new node exists
-        const hasNewNode = nodes.length > 0 && nodes.some(n => n.depth > 0.9);
-        return enabled ? (
-            <>
-                <NKAHeaderAuraButton
-                    hasNewNode={hasNewNode}
-                    onClick={() => setOpen(true)}
-                    onLongPress={() => setTooltip(true)}
-                />
-                {tooltip && (
-                    <div role="tooltip" className="nka-tooltip">Esplora la tua aura di conoscenza</div>
-                )}
-                <NKABottomSheet
-                    open={open}
-                    nodes={nodes}
-                    onClose={() => setOpen(false)}
-                    onNodeSelect={() => {}}
-                />
-            </>
-        ) : null;
-    };
-
+    
     return (
         <>
-            <header
-                className="app-header"
-                style={{
-                    background: 'var(--sys-surface)',
-                    boxShadow: 'var(--depth-shadow-2)',
-                    fontFamily: 'var(--font-variable)',
-                    fontVariationSettings: 'var(--font-variation-settings)',
-                    WebkitFontSmoothing: 'var(--typography-font-smoothing)',
-                    fontFeatureSettings: 'var(--typography-font-feature-settings)',
-                    zIndex: 'var(--z-header)',
-                }}
-            >
-                <div className="header-content" style={{
-                    minHeight: 'var(--header-height)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '0 var(--content-padding)',
-                    background: 'var(--sys-surface-tint)',
-                    boxShadow: 'var(--depth-shadow-1)',
-                }}>
-                    {/* Left: Back/Home + Operations */}
-                    <div className="header-leading" style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
-                        {showBackButton ? (
-                            <button
-                                onClick={onBack}
-                                className="icon-button"
-                                aria-label="Indietro"
-                                tabIndex={0}
-                                style={{ background: 'var(--state-layer-hover)' }}
-                            >
-                                <span className="material-symbols-outlined">arrow_back</span>
-                            </button>
-                        ) : (
-                            <button
-                                onClick={() => onNavigate('home')}
-                                className="icon-button primary"
-                                aria-label="Home"
-                                tabIndex={0}
-                                style={{ background: 'var(--state-layer-hover)' }}
-                            >
-                                <span className="material-symbols-outlined">home</span>
-                            </button>
-                        )}
+            <header className="header-root" role="banner" style={{ background: 'var(--sys-surface)', boxShadow: 'var(--md-elevation-4)' }}>
+                <div className="header-left" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                    {showBackButton && (
                         <button
-                            onClick={onOpenOperations}
-                            className="icon-button primary"
-                            aria-label="Centro Operativo"
+                            aria-label="Indietro"
+                            className="icon-button"
+                            onClick={props.onBack}
                             tabIndex={0}
-                            style={{ background: 'var(--state-layer-hover)', position: 'relative' }}
+                            style={{ background: 'var(--state-layer-hover)' }}
                         >
-                            <span className="material-symbols-outlined filled-icon">bolt</span>
-                            {hasSuggestion && (
-                                <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface animate-pulse"></span>
-                            )}
+                            <span className="material-symbols-outlined">arrow_back</span>
                         </button>
+                    )}
+                    {/* Fulmine/Aura button - moved here */}
+                    <NKAHeaderAuraButton
+                        hasNewNode={props.hasSuggestion}
+                        onClick={props.onOpenOperations}
+                        onLongPress={() => {}}
+                    />
+                </div>
+                {/* Center: Logo (preservato, centrato, non modificato) */}
+                <div
+                    className="header-center cursor-pointer"
+                    onClick={() => !showBackButton && onNavigate('home')}
+                    aria-label={!showBackButton ? 'Home' : undefined}
+                >
+                    <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
+                        <Logo isAiThinking={isAiProcessing} className="header-logo" />
                     </div>
-                    {/* Center: Logo (preservato, centrato, non modificato) */}
-                    <div
-                        className="header-center cursor-pointer"
-                        onClick={() => !showBackButton && onNavigate('home')}
-                        style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+                    {isAiProcessing && <AiThinkingGem size="small" />}
+                </div>
+                {/* Right: Actions */}
+                <div className="header-right">
+                    {/* Settings - visible on tablet+ */}
+                    <button
+                        onClick={() => onNavigate('settings')}
+                        className="icon-button hidden sm:flex"
+                        aria-label="Impostazioni"
+                        tabIndex={0}
+                        style={{ background: 'var(--state-layer-hover)' }}
                     >
-                        <Logo isAiThinking={isAiProcessing} />
-                        {isAiProcessing && <AiThinkingGem size="small" />}
-                    </div>
-                    {/* Right: Actions */}
-                    <div className="header-trailing" style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
-                        {/* Settings - visible on tablet+ */}
-                        <button
-                            onClick={() => onNavigate('settings')}
-                            className="icon-button hidden sm:flex"
-                            aria-label="Impostazioni"
-                            tabIndex={0}
-                            style={{ background: 'var(--state-layer-hover)' }}
-                        >
-                            <span className="material-symbols-outlined">settings</span>
-                        </button>
-                        {/* NKA Aura Button (M3, a destra dell'avatar) */}
-                        <NKAHeaderIntegration />
-                        {/* Menu button */}
-                        <button
-                            className="icon-button relative"
-                            onClick={() => setIsActionsOpen(p => !p)}
-                            aria-label="Menu"
-                            tabIndex={0}
-                            style={{ background: 'var(--state-layer-hover)' }}
-                        >
-                            {/* Mobile: hamburger icon, Desktop: avatar */}
-                            <span className="material-symbols-outlined sm:hidden">menu</span>
-                            <div className="hidden sm:block">
-                                <Avatar
-                                    name={teacherName || 'Docente'}
-                                    surname={teacherSurname}
-                                    src={user?.photoURL}
-                                    size="small"
-                                    className="w-9 h-9 ring-2 ring-outline-variant/30"
-                                />
-                            </div>
-                            {unreadCount > 0 && (
-                                <span className="absolute top-0.5 right-0.5 w-3 h-3 bg-error rounded-full border-2 border-surface"></span>
-                            )}
-                        </button>
-                    </div>
+                        <span className="material-symbols-outlined">settings</span>
+                    </button>
+                    {/* Menu button */}
+                    <button
+                        className="icon-button relative"
+                        onClick={() => setIsActionsOpen(p => !p)}
+                        aria-label="Menu"
+                        tabIndex={0}
+                        style={{ background: 'var(--state-layer-hover)' }}
+                    >
+                        {/* Mobile: hamburger icon, Desktop: avatar */}
+                        <span className="material-symbols-outlined sm:hidden">menu</span>
+                        <div className="hidden sm:block">
+                            <Avatar
+                                name={teacherName || 'Docente'}
+                                surname={teacherSurname}
+                                src={user?.photoURL}
+                                size="small"
+                                className="w-9 h-9 ring-2 ring-outline-variant/30"
+                            />
+                        </div>
+                        {unreadCount > 0 && (
+                            <span className="absolute top-0.5 right-0.5 w-3 h-3 bg-error rounded-full border-2 border-surface"></span>
+                        )}
+                    </button>
                 </div>
             </header>
 
+            {/* Blocchi condizionali fuori dal <header> */}
             {isActionsOpen && (
                 <>
                     <div className="fixed inset-0" style={{ zIndex: 'var(--z-modal-backdrop)' }} onClick={() => setIsActionsOpen(false)}></div>
@@ -320,7 +250,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         <button
                             onClick={() => {
                                 navigator.clipboard.writeText(window.location.href);
-                                // Assuming a toast trigger here ideally, but for now simple feedback
+                                // Feedback semplice
                             }}
                             className="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors"
                             title="Copia"
@@ -332,4 +262,4 @@ export const Header: React.FC<HeaderProps> = (props) => {
             </M3Dialog>
         </>
     );
-};
+    }

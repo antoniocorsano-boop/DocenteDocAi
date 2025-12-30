@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { AiSettings, Lezione, RegisterEntry, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getGoogleAIClient } from '../services/aiClient';
@@ -187,15 +186,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
         if (!analysis) return;
 
         let html = `
-        <style>
-            body { font-family: 'Roboto', sans-serif; line-height: 1.6; }
-            h1 { color: #2E74B5; }
-            h2 { color: #2E74B5; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 20px; }
-            p { margin-bottom: 10px; }
-            ul { margin-bottom: 10px; }
-            strong { color: #333; }
-            .header-info { background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
-        </style>
+        <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body { font-family: 'Roboto', sans-serif; line-height: 1.6; } h1 { color: var(--sys-primary); /* MD3 fix */ } h2 { color: var(--sys-primary); /* MD3 fix */ border-bottom: 1px solid var(--sys-outline-variant); /* MD3 fix */ padding-bottom: 5px; margin-top: 20px; } p { margin-bottom: 10px; } ul { margin-bottom: 10px; } strong { color: var(--sys-primary); /* MD3 fix */ } .header-info { background-color: var(--sys-surface); /* MD3 fix */ padding: 12px; border-radius: var(--md-corner-4); /* MD3 fix */ margin-bottom: 20px; }</style>
         `;
 
         html += `<h1>Analisi Classe ${selectedClass}</h1>`;

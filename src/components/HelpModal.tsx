@@ -102,14 +102,17 @@ const faqContentData = [
     { q: "Il backup si blocca a metà?", a: "Abbiamo risolto un problema critico di 'Race Condition' che poteva interrompere il ripristino. Ora il sistema blocca il salvataggio automatico durante l'importazione per garantire l'integrità dei dati." },
 ];
 
-const specsContentData = [
-    "<strong>Architettura:</strong> PWA Client-Side (React 18 + TypeScript + Zustand).",
-    "<strong>Workflow Engine:</strong> Centro Operativo centralizzato con Action Tiles M3 Expressive.",
-    "<strong>Storage Ibrido:</strong> IndexedDB (File/KB) + LocalStorage (Dati rapidi) con backup automatico.",
-    "<strong>Cloud Sync:</strong> Integrazione Google Drive API (OAuth 2.0) per backup snapshot crittografato.",
-    "<strong>Design System:</strong> M3 Expressive con layout adattivo, motion system e Zero-FOUC.",
-    "<strong>AI Engine:</strong> Google Gemini 2.0 Pro & Flash per generazione testo/visione e Search Grounding.",
-];
+const specsContentData = {
+    title: "Specifiche Tecniche DocenteDoc AI",
+    specs: [
+        "<strong>Architettura:</strong> PWA Client-Side (React 18 + TypeScript + Zustand).",
+        "<strong>Workflow Engine:</strong> Centro Operativo centralizzato con Action Tiles M3 Expressive.",
+        "<strong>Storage Ibrido:</strong> IndexedDB (File/KB) + LocalStorage (Dati rapidi) con backup automatico.",
+        "<strong>Cloud Sync:</strong> Integrazione Google Drive API (OAuth 2.0) per backup snapshot crittografato.",
+        "<strong>Design System:</strong> M3 Expressive con layout adattivo, motion system e Zero-FOUC.",
+        "<strong>AI Engine:</strong> Google Gemini 2.0 Pro & Flash per generazione testo/visione e Search Grounding."
+    ]
+};
 
 const vocalAssistantGuideData = {
     title: "Prompt Book: Assistente Vocale",
@@ -338,9 +341,9 @@ const UserGuide = () => (
 
 const TechnicalSpecs = () => (
     <>
-        <h2 className="m3-headline-small">Specifiche Tecniche v4.1.0</h2>
+        <h2 className="m3-headline-small">{specsContentData.title}</h2>
         <ul className="list-disc pl-5 space-y-2 mt-4">
-            {specsContentData.map((spec, index) => (
+            {specsContentData.specs.map((spec, index) => (
                 <li key={index} dangerouslySetInnerHTML={{ __html: spec }}></li>
             ))}
         </ul>
@@ -385,10 +388,10 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
     try {
         setLoadingModalMessage('Generazione contenuti...');
         const essayContent = await generateAcademicEssayContent(aiSettings);
-        const techInfo = await generateTechnicalDocumentContent(aiSettings);
+        const techInfo = await generateTechnicalDocumentContent(aiSettings) || {};
         
         const pdfBlob = await generateFullAppGuidePdf(
-            essayContent, 
+            essayContent ?? null, 
             faqContentData, 
             specsContentData, 
             techInfo,

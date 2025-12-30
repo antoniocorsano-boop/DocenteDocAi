@@ -8,10 +8,11 @@ interface RubricheManagerProps {
     competenze: Competenza[];
     rubriche: Rubrica[];
     onSaveRubrica: (rubrica: Rubrica) => void;
+    onDeleteRubrica: (id: string) => void;
     onNavigate: (view: View) => void;
 }
 
-const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche, onSaveRubrica, onNavigate }) => {
+const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche, onSaveRubrica, onDeleteRubrica, onNavigate }) => {
     const [editingRubric, setEditingRubric] = useState<Rubrica | 'new' | null>(null);
 
     const handleSave = (rubrica: Rubrica) => {

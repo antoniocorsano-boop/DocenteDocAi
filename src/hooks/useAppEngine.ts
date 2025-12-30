@@ -15,6 +15,7 @@ import { usePersistence } from './usePersistence.ts';
 import { analyzeSystemState } from '../utils/suggestionUtils.ts';
 import { validateBackupData } from '../utils/dataValidator.ts';
 import { useUIStore } from '../stores/useUIStore';
+import type { SyncConflictData } from '../types';
 import { messages } from '../messages';
 import { useDataStore } from '../stores/useDataStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
@@ -24,17 +25,17 @@ export const useAppEngine = () => {
     const isTestMode = (typeof window !== 'undefined' && (window as any).__TEST_MODE === true) || ((import.meta as any).env && (import.meta as any).env.VITE_TEST_MODE === 'true');
 
     // --- STORES (Accessed directly via Proxy lazy-init pattern) ---
-    const { user, students, lessons, slots, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, dismissedSuggestions, studentProfileContext, selectedClassForDashboard, actions: dataActions } = useDataStore();
+    const { user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, dismissedSuggestions, studentProfileContext, selectedClassForDashboard, actions: dataActions } = useDataStore();
     const { modals, circularAnalysisModal, syncConflictModal, createLessonContext, editingSlotKey, activeSlotKey, lessonViewContext, loadingModalMessage, toast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, navigationHistory, backupState, driveSyncState, actions: uiActions } = useUIStore();
     const { settings, aiSettings, themeState, actions: settingsActions } = useSettingsStore();
 
     // --- DESTRUTTURE ACTIONS ---
+    // Removed duplicate dataActions declaration
     const { 
-        setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUdas,
+        setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUda,
         setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,
-        setGiudizi, setReports, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
-        setMemos, setCurricula, setSubmissions, setSuggestions, setActiveSuggestion, dismissSuggestion,
-        setStudentProfileContext, setSelectedClassForDashboard, loadFromBackup, resetAll
+        setGiudizi, setReportistica, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
+        setMemos, setCurricula, setSubmissions
     } = dataActions;
 
     // --- LOCAL STATE (NAVIGATION ONLY) ---
@@ -72,7 +73,7 @@ export const useAppEngine = () => {
                         const localData = raw ? validateBackupData(raw) : null;
                         if (localData) {
                             console.info('[useAppEngine] Test backup found — restoring test data');
-                            loadFromBackup(localData as any);
+                            dataActions.loadFromBackup(localData as any);
                             settingsActions.loadFromBackup({
                                 settings: (localData as any).settings,
                                 aiSettings: (localData as any).aiSettings,
@@ -117,7 +118,7 @@ export const useAppEngine = () => {
                 if (localData) {
                     console.log('[useAppEngine] Valid backup data found, restoring...');
                     // Dispatch to DataStore
-                    loadFromBackup(localData as any);
+                    dataActions.loadFromBackup(localData as any);
                     // Dispatch to SettingsStore
                     settingsActions.loadFromBackup({
                         settings: (localData as any).settings,
@@ -128,7 +129,7 @@ export const useAppEngine = () => {
                     uiActions.setBackupState(localData.backupState as BackupState || { status: 'synced', lastBackup: null });
                     uiActions.setDriveSyncState(localData.driveSyncState as DriveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
                     uiActions.setNavigationHistory(localData.navigationHistory as any[] || []);
-                    uiActions.setInstallPrompt(null); // Non-serializable, always start fresh
+                    uiActions.setInstallPrompt(null); // Non-serializzabile, sempre inizia da zero
                     uiActions.setCanShowInstallPrompt(false);
                     uiActions.setIsGlobalAiLoading(false);
 
@@ -153,7 +154,7 @@ export const useAppEngine = () => {
             } catch (e) {
                 console.error("[useAppEngine] Initial data load failed:", e);
                 // In case of critical error, start fresh
-                resetAll();
+                dataActions.resetAll();
                 settingsActions.reset();
                 uiActions.clearNavigationHistory();
                 uiActions.setBackupState({ status: 'error', lastBackup: null });
@@ -184,12 +185,12 @@ export const useAppEngine = () => {
         const suggestion = analyzeSystemState(
             students,
             slots,
-            udas,
+            uda,
             eventi,
             evaluations
         );
-        setActiveSuggestion(suggestion); // Use destructured action
-    }, [isDataLoaded, students, slots, udas, eventi, evaluations]);
+        dataActions.setActiveSuggestion?.(suggestion); // Use dataActions
+    }, [isDataLoaded, students, slots, uda, eventi, evaluations]);
 
     // --- CORE ACTIONS (COORDINATION AND UI DISPATCH) ---
     // These actions are managed by AppEngine but dispatch to Zustand stores.
@@ -264,7 +265,7 @@ export const useAppEngine = () => {
                 slots,
                 evaluations,
                 competencyEvals,
-                udas,
+                uda,
                 eventi,
                 knowledgeBase,
                 corpora,
@@ -272,7 +273,7 @@ export const useAppEngine = () => {
                 rubriche,
                 pianiInclusione,
                 giudizi,
-                reports,
+                reportistica,
                 feedSources,
                 draftRegister,
                 finalizedRegister,
@@ -305,7 +306,7 @@ export const useAppEngine = () => {
             showToast('error', 'error');
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false, error: e.message }));
         }
-    }, [user, students, lessons, slots, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, studentProfileContext, selectedClassForDashboard, settings, aiSettings, themeState, driveSyncState, navigationHistory, uiActions, showToast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions, backupState]);
+    }, [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, studentProfileContext, selectedClassForDashboard, settings, aiSettings, themeState, driveSyncState, navigationHistory, uiActions, showToast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions, backupState]);
 
     const handleRestoreFromDrive = useCallback(async (folderId?: string) => {
         if (!driveSyncState.isAuthenticated) return;
@@ -314,23 +315,23 @@ export const useAppEngine = () => {
         uiActions.setIsRestoring(true);
 
         try {
-            const restoredData = await downloadBackup(folderId || settings.backupFolderId || '');
+            const restoredData = await downloadBackup(folderId || settings.backupFolderId || '') as any;
             if (restoredData) {
                 // Dispatch to DataStore
-                loadFromBackup(restoredData); // Use destructured action
+                dataActions.loadFromBackup(restoredData);
                 // Dispatch to SettingsStore
                 settingsActions.loadFromBackup({
-                    settings: (restoredData as any).settings,
-                    aiSettings: (restoredData as any).aiSettings,
-                    themeState: (restoredData as any).themeState
+                    settings: restoredData.settings,
+                    aiSettings: restoredData.aiSettings,
+                    themeState: restoredData.themeState
                 });
                 // Dispatch UI-related states to UIStore
-                uiActions.setBackupState(restoredData.backupState || { status: 'synced', lastBackup: new Date() });
-                uiActions.setDriveSyncState(restoredData.driveSyncState || { isAuthenticated: true, isSyncing: false, lastSyncTime: new Date() });
-                uiActions.setNavigationHistory(restoredData.navigationHistory || []);
-                uiActions.setInstallPrompt(restoredData.installPrompt || null);
-                uiActions.setCanShowInstallPrompt(restoredData.canShowCanShowInstallPrompt || false);
-                uiActions.setIsGlobalAiLoading(restoredData.isGlobalAiLoading || false);
+                uiActions.setBackupState(restoredData.backupState ?? { status: 'synced', lastBackup: new Date() });
+                uiActions.setDriveSyncState(restoredData.driveSyncState ?? { isAuthenticated: true, isSyncing: false, lastSyncTime: new Date() });
+                uiActions.setNavigationHistory(restoredData.navigationHistory ?? []);
+                uiActions.setInstallPrompt(restoredData.installPrompt ?? null);
+                uiActions.setCanShowInstallPrompt(restoredData.canShowInstallPrompt ?? false);
+                uiActions.setIsGlobalAiLoading(restoredData.isGlobalAiLoading ?? false);
 
                 if (restoredData.knowledgeBase) {
                     await saveKbContentToIndexedDB(restoredData.knowledgeBase);
@@ -345,7 +346,7 @@ export const useAppEngine = () => {
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false }));
             uiActions.setIsRestoring(false);
         }
-    }, [loadFromBackup, setKnowledgeBase, settingsActions, driveSyncState, uiActions, settings.backupFolderId, showToast]);
+    }, [dataActions, setKnowledgeBase, settingsActions, driveSyncState, uiActions, settings.backupFolderId, showToast]);
 
     const handleConfigureDrive = useCallback((clientId: string, apiKey?: string) => {
         settingsActions.updateSettings({ googleClientId: clientId, googleApiKey: apiKey });
@@ -354,7 +355,7 @@ export const useAppEngine = () => {
 
     const handleLoadDemoData = useCallback(() => {
         import('../services/demoData.ts').then(module => {
-            loadFromBackup(module.DEMO_DATA as any); // Use destructured action
+            dataActions.loadFromBackup(module.DEMO_DATA as any);
             // module.DEMO_DATA does not contain settings, so we skip settingsActions.loadFromBackup or pass empty obj
             settingsActions.loadFromBackup({});
             uiActions.setBackupState({ status: 'synced', lastBackup: new Date() }); // Reset backup status
@@ -366,13 +367,13 @@ export const useAppEngine = () => {
             uiActions.clearNavigationHistory();
             showToast('demoLoaded', 'success');
         });
-    }, [showToast, loadFromBackup, setNotifiche, settingsActions, uiActions]);
+    }, [showToast, dataActions, setNotifiche, settingsActions, uiActions]);
 
     const handleCleanDemoData = useCallback(async () => {
         if (confirm("Sei sicuro di voler cancellare TUTTI i dati?")) {
             await deleteBackup();
             await clearIndexedDB();
-            resetAll(); // Use destructured action
+            dataActions.resetAll();
             settingsActions.reset();
             uiActions.setBackupState({ status: 'synced', lastBackup: null });
             uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
@@ -383,7 +384,7 @@ export const useAppEngine = () => {
             uiActions.setIsGlobalAiLoading(false);
             showToast('delete', 'success');
         }
-    }, [showToast, resetAll, setNotifiche, settingsActions, uiActions]);
+    }, [showToast, dataActions, setNotifiche, settingsActions, uiActions]);
 
     const onScheduleLesson = useCallback((data: LessonScheduleInput) => {
         const newLesson: Lezione = {
@@ -403,21 +404,21 @@ export const useAppEngine = () => {
     }, [setLessons, setSlots]);
 
     const onSaveUda = useCallback((uda: Uda) => {
-        setUdas((prev: Uda[]) => {
+        setUda((prev: Uda[]) => {
             const index = prev.findIndex(u => u.id === uda.id);
             if (index !== -1) {
-                const newUdas = [...prev];
-                newUdas[index] = uda;
-                return newUdas;
+                const newUdaArr = [...prev];
+                newUdaArr[index] = uda;
+                return newUdaArr;
             }
             return [...prev, uda];
         });
         showToast('udaSaved', 'success');
-    }, [setUdas, showToast]);
+    }, [setUda, showToast]);
 
     const onSaveReport = useCallback((report: Report) => {
-        setReports((prev: Report[]) => [...prev, report]);
-    }, [setReports]);
+        setReportistica((prev: Report[]) => [...prev, report]);
+    }, [setReportistica]);
 
     const onSaveEvent = useCallback((event: EventoCalendario) => {
         setEventi((prev: EventoCalendario[]) => {
@@ -459,8 +460,8 @@ export const useAppEngine = () => {
 
     const handleCreateUda = useCallback((data: UdaCreateInput) => {
         const newUda = { ...data, id: `uda-${Date.now()}` };
-        setUdas(prev => [...prev, newUda]); // Use destructured action
-    }, [setUdas]);
+        setUda(prev => [...prev, newUda]); // Use destructured action
+    }, [setUda]);
 
     const handleExportData = useCallback(async () => {
         const snapshot = {
@@ -470,7 +471,7 @@ export const useAppEngine = () => {
             slots,
             evaluations,
             competencyEvals,
-            udas,
+            uda,
             eventi,
             knowledgeBase,
             corpora,
@@ -478,7 +479,7 @@ export const useAppEngine = () => {
             rubriche,
             pianiInclusione,
             giudizi,
-            reports,
+            reportistica,
             feedSources,
             draftRegister,
             finalizedRegister,
@@ -511,37 +512,37 @@ export const useAppEngine = () => {
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-    }, [user, students, lessons, slots, evaluations, competencyEvals, udas, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, settings, aiSettings, themeState, navigationHistory, backupState, driveSyncState, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions]);
+    }, [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, settings, aiSettings, themeState, navigationHistory, backupState, driveSyncState, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions]);
 
     const handleImportData = useCallback((file: File) => {
         const reader = new FileReader();
         reader.onload = async (e) => {
             try {
                 const data = JSON.parse(e.target?.result as string);
-                loadFromBackup(data); // Use destructured action
+                dataActions.loadFromBackup(data);
                 settingsActions.loadFromBackup({
                     settings: data.settings,
                     aiSettings: data.aiSettings,
                     themeState: data.themeState
                 });
-                uiActions.setBackupState(data.backupState || { status: 'synced', lastBackup: null });
-                uiActions.setDriveSyncState(data.driveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
-                uiActions.setNavigationHistory(data.navigationHistory || []);
-                uiActions.setInstallPrompt(data.installPrompt || null);
-                uiActions.setCanShowInstallPrompt(data.canShowCanShowInstallPrompt || false);
-                uiActions.setIsGlobalAiLoading(data.isGlobalAiLoading || false);
+                uiActions.setBackupState(data.backupState ?? { status: 'synced', lastBackup: null });
+                uiActions.setDriveSyncState(data.driveSyncState ?? { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
+                uiActions.setNavigationHistory(data.navigationHistory ?? []);
+                uiActions.setInstallPrompt(data.installPrompt ?? null);
+                uiActions.setCanShowInstallPrompt(data.canShowInstallPrompt ?? false);
+                uiActions.setIsGlobalAiLoading(data.isGlobalAiLoading ?? false);
                 showToast('imported', 'success');
             } catch (err) {
                 showToast('invalidFile', 'error');
             }
         };
         reader.readAsText(file);
-    }, [showToast, loadFromBackup, settingsActions, uiActions]);
+    }, [showToast, dataActions, settingsActions, uiActions]);
 
     const handleInstallApp = useCallback(() => {
-        if (installPrompt) {
-            installPrompt.prompt();
-            installPrompt.userChoice.then((choiceResult: any) => {
+        if (installPrompt && typeof (installPrompt as any).prompt === 'function') {
+            (installPrompt as any).prompt();
+            (installPrompt as any).userChoice?.then((choiceResult: any) => {
                 if (choiceResult.outcome === 'accepted') {
                     uiActions.setInstallPrompt(null);
                     uiActions.setCanShowInstallPrompt(false);
@@ -656,35 +657,40 @@ export const useAppEngine = () => {
         setDraftRegister({}); // Use destructured action
         setFinalizedRegister([]); // Use destructured action
         setEventi([]); // Use destructured action
-        setReports([]); // Use destructured action
-        setUdas([]); // Use destructured action
+        setReportistica([]); // Use destructured action
+        setUda([]); // Use destructured action
         setMemos([]); // Use destructured action
         setSubmissions([]); // Use destructured action
         setPianiInclusione({}); // Use destructured action
         setGiudizi({}); // Use destructured action
         showToast('dbReset', 'info');
-    }, [setEvaluations, setCompetencyEvals, setDraftRegister, setFinalizedRegister, setEventi, setReports, setUdas, setMemos, setSubmissions, setPianiInclusione, setGiudizi, showToast]);
+    }, [setEvaluations, setCompetencyEvals, setDraftRegister, setFinalizedRegister, setEventi, setReportistica, setUda, setMemos, setSubmissions, setPianiInclusione, setGiudizi, showToast]);
 
     const dismissSuggestionWrapper = useCallback((id: string) => {
-        dismissSuggestion(id); // Use destructured action
-    }, [dismissSuggestion]);
+        // TODO: implement dismissSuggestion logic here
+    }, []);
 
     // --- AGGREGATE APPSTATE OBJECT ---
     // This object bundles relevant state from all stores for easy access in consuming components.
     // It's a derived state, recreated only when its dependencies change.
     const appStateObject: AppState = useMemo(() => ({
-        user, students, lessons, slots, evaluations, competencyEvals, udas, eventi,
-        knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports,
+        user, students, lessons, slots, evaluations, competencyEvals, uda, eventi,
+        knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica,
         feedSources, draftRegister, finalizedRegister, notebookNotes, memos,
         settings, aiSettings, themeState,
         backupState, driveSyncState,
-        installPrompt, canShowInstallPrompt,
+        installPrompt: installPrompt as import('../types').BeforeInstallPromptEvent | null,
+        canShowInstallPrompt,
         suggestions, studentProfileContext, selectedClassForDashboard,
         activeSuggestion, dismissedSuggestions,
-        isGlobalAiLoading, navigationHistory,
+        isGlobalAiLoading,
+        navigationHistory: navigationHistory.map(entry => ({
+            ...entry,
+            context: entry.context as import('../types').NavigationParams | null
+        })),
         curricula, submissions
-    }), [user, students, lessons, slots, evaluations, competencyEvals, udas, eventi,
-        knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reports,
+    }), [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi,
+        knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica,
         feedSources, draftRegister, finalizedRegister, notebookNotes, memos,
         settings, aiSettings, themeState, backupState, driveSyncState, installPrompt,
         canShowInstallPrompt, suggestions, studentProfileContext, selectedClassForDashboard,
@@ -696,12 +702,17 @@ export const useAppEngine = () => {
     // It's also memoized to prevent unnecessary re-renders of consuming components.
     const actionsObject: AppActions = useMemo(() => ({
         // DataStore Actions
-        setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUdas,
+        setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUda,
         setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,
-        setGiudizi, setReports, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
-        setMemos, setCurricula, setSubmissions, setSuggestions, setActiveSuggestion,
-        dismissSuggestion: dismissSuggestionWrapper,
-        setStudentProfileContext, setSelectedClassForDashboard,
+        setGiudizi, setReportistica, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
+        setMemos, setCurricula, setSubmissions,
+        setSuggestions: dataActions.setSuggestions,
+        setActiveSuggestion: dataActions.setActiveSuggestion,
+        dismissSuggestion: dataActions.dismissSuggestion,
+        setStudentProfileContext: dataActions.setStudentProfileContext,
+        setSelectedClassForDashboard: dataActions.setSelectedClassForDashboard,
+        loadFromBackup: dataActions.loadFromBackup,
+        resetAll: dataActions.resetAll,
 
         // SettingsStore Actions
         setSettings: settingsActions.setSettings,
@@ -764,11 +775,10 @@ export const useAppEngine = () => {
         handleGradeSubmission,
         handlePromoteStudents,
         handleResetYearData,
-    }), [setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUdas,
+    }), [setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUda,
         setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,
-        setGiudizi, setReports, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
-        setMemos, setCurricula, setSubmissions, setSuggestions, setActiveSuggestion, dismissSuggestionWrapper,
-        setStudentProfileContext, setSelectedClassForDashboard, settingsActions.setSettings, settingsActions.setThemeState,
+        setGiudizi, setReportistica, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
+        setMemos, setCurricula, setSubmissions, settingsActions.setSettings, settingsActions.setThemeState,
         settingsActions.setAiSettings, uiActions, showToast, handleNavigate, handleBack, handleLoadDemoData,
         handleCleanDemoData, handleConfigureDrive, handleConnectDrive, handleDisconnectDrive, handleSyncToDrive,
         handleRestoreFromDrive, pickGoogleDriveFolder, createAppFolder, handleInstallApp, handleEnterStudentMode,
@@ -805,7 +815,7 @@ export const useAppEngine = () => {
         isBackupInfoModalOpen: modals.isBackupInfoModalOpen,
         setIsBackupInfoModalOpen: uiActions.toggleModal.bind(null, 'isBackupInfoModalOpen'),
         syncConflictModal: syncConflictModal,
-        setSyncConflictModal: (modal) => uiActions.setSyncConflictModal(modal),
+        setSyncConflictModal: (modal: { isOpen: boolean; data: SyncConflictData | null } | null) => uiActions.setSyncConflictModal(modal as any),
         createLessonContext: createLessonContext,
         setCreateLessonContext: uiActions.setCreateLessonContext,
         isYearTransitionOpen: modals.isYearTransitionOpen,

@@ -158,8 +158,14 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
     );
 };
 
-const UdaPlanner: React.FC<UdaPlannerProps> = (props) => {
-    const { udas, onSaveUda, onDeleteUda, aiSettings, competenze, settings, onSaveReport, showGuidanceTips } = props;
+const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
+    // Accept both 'uda' and 'udas' for backward compatibility
+    const udas: Uda[] = Array.isArray((props as any).udas)
+        ? (props as any).udas
+        : Array.isArray(props.uda)
+            ? props.uda
+            : [];
+    const { onSaveUda, onDeleteUda, aiSettings, competenze, settings, onSaveReport, showGuidanceTips } = props;
     const [editingUda, setEditingUda] = useState<Uda | 'new' | null>(null);
     const [exportingUda, setExportingUda] = useState<Uda | null>(null);
 

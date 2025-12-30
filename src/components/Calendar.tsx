@@ -11,6 +11,8 @@ interface CalendarProps {
     eventi: EventoCalendario[];
     setEventi: React.Dispatch<React.SetStateAction<EventoCalendario[]>>;
     aiSettings: AiSettings;
+    activeSuggestion?: unknown;
+    onNavigate?: (view: string, context?: unknown) => void;
 }
 
 type CalendarView = 'month' | 'week' | 'day' | 'agenda';
@@ -18,7 +20,7 @@ type CalendarView = 'month' | 'week' | 'day' | 'agenda';
 const DAYS_SHORT = ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB', 'DOM'];
 const MONTHS_LONG = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
 
-const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) => {
+const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, activeSuggestion, onNavigate }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [viewMode, setViewMode] = useState<CalendarView>('month');
     const [editingEvent, setEditingEvent] = useState<Partial<EventoCalendario> | null>(null);

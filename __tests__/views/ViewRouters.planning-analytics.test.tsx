@@ -41,14 +41,14 @@ const planningProps = {
 };
 
 const analyticsProps = {
-  reports: [],
+  reportistica: [],
   onDeleteReport: () => {},
   userClasses: [],
   students: [],
   evaluations: [],
   competencyEvaluations: [],
   settings: DEFAULT_TIMETABLE_SETTINGS,
-  udas: [],
+  uda: [],
   lessons: {},
   onSaveReport: () => {},
   aiSettings: { model: 'gemini-3-flash-preview' },
@@ -57,7 +57,8 @@ const analyticsProps = {
   onAddKbEntry: () => {},
   onSaveUda: () => {},
   onAddLessons: () => {},
-  onSaveEvent: () => {}
+  onSaveEvent: () => {},
+  onSaveReportToKb: () => {},
 };
 
 describe('ViewRouter - Planning & Analytics renderers', () => {

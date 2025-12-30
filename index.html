@@ -6,6 +6,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+    script-src 'self' https://accounts.google.com https://apis.google.com;
+    connect-src 'self' https://www.googleapis.com https://oauth2.googleapis.com https://generativelanguage.googleapis.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src 'self' https://fonts.gstatic.com;
+    img-src 'self' https://fonts.gstatic.com https://www.gstatic.com;">
   <title>DocenteDoc AI</title>
 
 
@@ -23,20 +29,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- Google Identity Services for Drive Sync (loaded conditionally in production by `main.tsx`) -->
-  <script>
-    // Flags used by the app if the scripts are present; in dev these remain false.
-    window.__googleApiReady = false;
-    window.__googleGsiReady = false;
-  </script>
+  <script type="module" src="/init-flags.js"></script>
 
   <!-- Material Symbols Font (Google Fonts CDN) -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
+  <body>
+    <div id="root"></div>
+    <!-- Main entrypoint: lascia che Vite gestisca i chunk -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 
 </html>

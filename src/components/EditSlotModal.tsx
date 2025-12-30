@@ -3,6 +3,7 @@ import { Slot, Lezione, TimetableSettings, AiSettings, Uda, KnowledgeBaseEntry, 
 import { M3ChoiceCard, InfoCard, SectionHeader } from './M3Components';
 import { TextField as MuiTextField, Select as MuiSelect, MenuItem, FormControl, InputLabel, InputAdornment } from '@mui/material';
 import M3ExpressiveProvider from '../design-system/M3ExpressiveProvider';
+import { useSettingsStore } from '../stores/useSettingsStore';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
 
 interface EditSlotModalProps {
@@ -93,9 +94,10 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
         onClose();
     };
 
+    const themeState = useSettingsStore(state => state.themeState);
     return (
         <div className="dialog-backdrop" ref={overlayRef}>
-            <M3ExpressiveProvider>
+            <M3ExpressiveProvider themeState={themeState}>
                 <div
                     ref={containerRef}
                     role="dialog"

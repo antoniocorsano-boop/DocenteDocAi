@@ -36,8 +36,8 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
           font-size: 0.92rem;
           font-weight: 500;
           padding: 0.38em 1em;
-          border-radius: 8px;
-          box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+          border-radius: var(--md-corner-8); /* MD3 fix */
+          box-shadow: var(--md-elevation-1); /* MD3 fix */
           white-space: pre;
           pointer-events: none;
           opacity: 0.97;

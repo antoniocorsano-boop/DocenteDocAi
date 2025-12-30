@@ -16,31 +16,6 @@
 /* --- HEADER (TOP APP BAR) --- */
 .app-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: var(--header-height);
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border-bottom: 1px solid var(--sys-outline-variant);
-    z-index: var(--z-header);
-    display: flex;
-    align-items: center;
-    padding: 0 var(--content-padding);
-}
-
-@media (min-width: 840px) {
-    .app-header {
-        padding: 0 var(--content-padding-md);
-    }
-}
-
-.header-content {
-    width: 100%;
-    max-width: var(--content-max-width);
-    margin: 0 auto;
-    display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100%;
@@ -682,8 +657,8 @@
 .-translate-y-1\/2 { transform: translateY(-50%); }
 .translate-y-0 { transform: translateY(0); }
 
-/* --- EXISTING UTILITY CLASSES --- */
-.visually-hidden {
+/* Screen reader only - visually hidden but accessible */
+.sr-only {
     position: absolute;
     width: 1px;
     height: 1px;

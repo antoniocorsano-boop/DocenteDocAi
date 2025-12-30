@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from 'react';
+import M3Button from './M3Button';
 import Tooltip from './Tooltip';
 import { Studente, Uda, TimetableSettings, AiSettings, Report, EventoCalendario, Lezione, KnowledgeBaseEntry, PianoInclusione } from '../types';
 import { generateClassPlanningDocument, generateSituazionePartenza, suggestAnnualPlan, generateMethodologyStrategies } from '../services/aiService';
 import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
 import AiThinkingGem from './AiThinkingGem';
 import { InfoCard } from './M3Components';
+import { useUIStore } from '../stores/useUIStore';
 
 interface AnnualPlanningWizardProps {
     onClose: () => void;
@@ -27,6 +29,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     onClose, userClasses, settings, aiSettings, onSaveUda, onAddLessons, onSaveReport, onSaveEvent, knowledgeBase, students, pianiInclusione
 }) => {
     const [step, setStep] = useState<WizardStep>('context');
+    
+    // UI Store for toast notifications
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     
     // Step 1: Context
     const [selectedClass, setSelectedClass] = useState<string>(userClasses[0] || '');
@@ -99,7 +104,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             });
             setSituationText(text);
         } catch (e) {
-            alert("Errore generazione testo: " + e);
+            console.error("Errore generazione testo situazione:", e);
+            showToast("Errore durante la generazione del testo della situazione di partenza. Riprova.", "error");
         } finally {
             setSituationStatus(null);
         }
@@ -111,7 +117,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             const text = await generateMethodologyStrategies(aiSettings, situationText || "Classe standard");
             setMethodology(text);
         } catch (e) {
-            alert("Errore generazione: " + e);
+            console.error("Errore generazione metodologia:", e);
+            showToast("Errore durante la generazione delle strategie metodologiche. Riprova.", "error");
         } finally {
             setMethodologyStatus(null);
         }
@@ -124,7 +131,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             .join('\n\n');
         
         if (!kbContent) {
-            alert("Seleziona almeno un documento dalla KB (Step 1) per generare il piano.");
+            showToast("Seleziona almeno un documento dalla Knowledge Base (Step 1) per generare il piano.", "info");
             return;
         }
 
@@ -138,11 +145,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             if (plan.length > 0) {
                 setPlannedUdas(plan.map((u, i) => ({...u, id: `plan-gen-${i}`})));
             } else {
-                alert("L'AI non ha trovato UDA nel documento. Prova a inserirle manualmente.");
+                showToast("L'AI non ha trovato UDA nel documento. Puoi inserirle manualmente.", "info");
             }
         } catch (e) {
-            console.error(e);
-            alert("Errore durante l'analisi del documento.");
+            console.error("Errore durante l'analisi del documento:", e);
+            showToast("Errore durante l'analisi del documento. Riprova.", "error");
         } finally {
             setPlanGenerationStatus(null);
         }
@@ -238,8 +245,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
             setStep('document');
         } catch (error) {
-            console.error(error);
-            alert("Errore nel salvataggio dei dati.");
+            console.error("Errore nel salvataggio dei dati:", error);
+            showToast("Errore nel salvataggio dei dati. Riprova.", "error");
         } finally {
             setProcessingStatus(null);
         }
@@ -292,8 +299,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             
             onClose();
         } catch (e: unknown) {
-            const errMsg = e instanceof Error ? e.message : String(e);
-            alert("Errore generazione documento: " + errMsg);
+            console.error("Errore generazione documento:", e);
+            showToast("Errore durante la generazione del documento. Riprova.", "error");
         } finally {
             setProcessingStatus(null);
         }
@@ -326,7 +333,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                 <div className="dialog-header">
                     <h2 className="m3-headline-medium">Progettazione Annuale Guidata</h2>
                                         <Tooltip label="Chiudi wizard">
-                                            <button onClick={onClose} className="icon-button" aria-label="Chiudi wizard"><span className="material-symbols-outlined">close</span></button>
+                                            <M3Button variant="text" onClick={onClose} type="button" title="Chiudi wizard"><span className="material-symbols-outlined">close</span></M3Button>
                                         </Tooltip>
                 </div>
                 
@@ -395,9 +402,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <label htmlFor="wizard-situation-notes" className="form-label">Note Aggiuntive</label>
                                 <textarea id="wizard-situation-notes" name="wizard-situation-notes" className="form-textarea w-full" rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
                             </div>
-                            <button onClick={handleGenerateSituation} disabled={!!situationStatus} className="button button-tonal w-full flex justify-center gap-2" title="Usa l'AI per scrivere l'analisi">
+                            <M3Button variant="tonal" fullWidth onClick={handleGenerateSituation} disabled={!!situationStatus} title="Usa l'AI per scrivere l'analisi">
                                 {situationStatus ? <AiThinkingGem size="small" inline text={situationStatus} /> : 'Genera Analisi con AI'}
-                            </button>
+                            </M3Button>
                             {situationText && (
                                 <div className="space-y-2">
                                     <label htmlFor="wizard-situation-text" className="form-label">Testo Analisi (Modificabile)</label>
@@ -413,9 +420,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <div className="bg-secondary-container/30 p-4 rounded-xl border border-outline-variant">
                                 <div className="flex justify-between items-center mb-2">
                                     <label htmlFor="wizard-methodology-text" className="m3-title-medium">Strategie Didattiche</label>
-                                    <button onClick={handleGenerateMethodology} disabled={!!methodologyStatus} className="button button-text !h-auto !py-1 flex items-center gap-2" title="Suggerisci metodologie adatte al contesto">
+                                    <M3Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} className="!h-auto !py-1 flex items-center gap-2" title="Suggerisci metodologie adatte al contesto">
                                         {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span className="material-symbols-outlined text-base mr-1">lightbulb</span> Suggerisci</>}
-                                    </button>
+                                    </M3Button>
                                 </div>
                                 <textarea id="wizard-methodology-text" name="wizard-methodology-text" className="form-textarea w-full" rows={6} value={methodology} onChange={e => setMethodology(e.target.value)} />
                             </div>
@@ -440,9 +447,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <label htmlFor="wizard-hours-per-week" className="text-sm">Ore/Sett:</label>
                                         <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} className="w-10 bg-transparent text-center font-bold border-b border-outline-variant" title="Ore settimanali di lezione" />
                                     </div>
-                                    <button onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} className="button button-tonal flex items-center gap-2" title="Genera lista UDA dai documenti KB">
+                                    <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} className="flex items-center gap-2" title="Genera lista UDA dai documenti KB">
                                         {planGenerationStatus ? <AiThinkingGem size="small" inline text={planGenerationStatus} /> : 'Genera da KB'}
-                                    </button>
+                                    </M3Button>
                                 </div>
                             </div>
 
@@ -466,7 +473,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     <label htmlFor="wizard-new-uda-hours" className="form-label">Ore</label>
                                     <input id="wizard-new-uda-hours" name="wizard-new-uda-hours" type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} className="form-input w-full" />
                                 </div>
-                                <button onClick={addUdaToPlan} className="button button-filled mb-1" title="Aggiungi alla lista">Aggiungi</button>
+                                <M3Button variant="filled" onClick={addUdaToPlan} className="mb-1" title="Aggiungi alla lista">Aggiungi</M3Button>
                             </div>
                             {planGenerationStatus ? <div className="p-8 flex justify-center"><AiThinkingGem size="medium" text={planGenerationStatus} /></div> : (
                                 <div className="space-y-3 max-h-[350px] overflow-y-auto pr-2">
@@ -497,9 +504,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 <span className="text-xs text-on-surface-variant">ore</span>
                                             </div>
 
-                                            <button onClick={() => removeUdaFromPlan(idx)} className="icon-button text-error hover:bg-error-container !w-8 !h-8" title="Rimuovi UDA">
+                                            <M3Button variant="text" color="error" onClick={() => removeUdaFromPlan(idx)} className="!w-8 !h-8" title="Rimuovi UDA">
                                                 <span className="material-symbols-outlined text-lg">delete</span>
-                                            </button>
+                                            </M3Button>
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
@@ -534,9 +541,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                         <div className="space-y-6 flex flex-col items-center justify-center h-full text-center animate-in zoom-in-95">
                             <div className="w-20 h-20 rounded-full bg-green-100 text-green-700 flex items-center justify-center mb-4"><span className="material-symbols-outlined text-5xl">check_circle</span></div>
                             <h3 className="m3-headline-small">Pianificazione Completata!</h3>
-                            <button onClick={handleGenerateDoc} disabled={!!processingStatus} className="button button-filled flex items-center gap-2" title="Scarica il documento finale">
+                            <M3Button variant="filled" onClick={handleGenerateDoc} disabled={!!processingStatus} className="flex items-center gap-2" title="Scarica il documento finale">
                                 {processingStatus ? <AiThinkingGem size="small" inline text={processingStatus} /> : 'Genera Documento Programmazione'}
-                            </button>
+                            </M3Button>
                         </div>
                     )}
                 </div>
@@ -544,16 +551,16 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                 <div className="dialog-footer">
                     {step !== 'document' && (
                         <>
-                            {step !== 'context' && <button onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} className="button button-text" title="Torna indietro">Indietro</button>}
+                            {step !== 'context' && <M3Button variant="text" onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} title="Torna indietro">Indietro</M3Button>}
                             <div className="flex-grow"></div>
-                            {step === 'context' && <button onClick={() => setStep('situation')} className="button button-filled" title="Vai all'analisi">Avanti</button>}
-                            {step === 'situation' && <button onClick={() => setStep('methodology')} className="button button-filled" title="Vai alla metodologia">Avanti</button>}
-                            {step === 'methodology' && <button onClick={() => setStep('sequence')} className="button button-filled" title="Vai al piano">Avanti</button>}
-                            {step === 'sequence' && <button onClick={() => { calculateSchedule(); setStep('preview'); }} disabled={plannedUdas.length === 0} className="button button-filled" title="Calcola date">Calcola</button>}
-                            {step === 'preview' && <button onClick={handleFinalize} disabled={!!processingStatus} className="button button-filled flex items-center gap-2" title="Salva tutto nel database">{processingStatus ? <AiThinkingGem size="small" inline /> : 'Conferma'}</button>}
+                            {step === 'context' && <M3Button variant="filled" onClick={() => setStep('situation')} title="Vai all'analisi">Avanti</M3Button>}
+                            {step === 'situation' && <M3Button variant="filled" onClick={() => setStep('methodology')} title="Vai alla metodologia">Avanti</M3Button>}
+                            {step === 'methodology' && <M3Button variant="filled" onClick={() => setStep('sequence')} title="Vai al piano">Avanti</M3Button>}
+                            {step === 'sequence' && <M3Button variant="filled" onClick={() => { calculateSchedule(); setStep('preview'); }} disabled={plannedUdas.length === 0} title="Calcola date">Calcola</M3Button>}
+                            {step === 'preview' && <M3Button variant="filled" onClick={handleFinalize} disabled={!!processingStatus} className="flex items-center gap-2" title="Salva tutto nel database">{processingStatus ? <AiThinkingGem size="small" inline /> : 'Conferma'}</M3Button>}
                         </>
                     )}
-                    {step === 'document' && <button onClick={onClose} className="button button-text" title="Chiudi wizard">Chiudi</button>}
+                    {step === 'document' && <M3Button variant="text" onClick={onClose} title="Chiudi wizard">Chiudi</M3Button>}
                 </div>
             </div>
         </div>

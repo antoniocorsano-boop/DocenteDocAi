@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import M3Button from './M3Button';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion } from '../services/aiService';
@@ -142,13 +142,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             // const performance = student ? calculatePerformance(student.id, 'Complessivo', evaluations.filter(e => e.studenteId === student.id)) : { grade: null, trend: null };
             
             let html = `
-            <style>
-                table { width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif; }
-                th, td { border: 1px solid #000; padding: 8px; text-align: left; vertical-align: top; }
-                th { background-color: #f2f2f2; font-weight: bold; }
-                h1 { font-family: 'Roboto', sans-serif; color: #2E74B5; }
-                p { font-family: 'Roboto', sans-serif; }
-            </style>
+            <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); table { width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif; } th, td { border: 1px solid #000; padding: 8px; text-align: left; vertical-align: top; } th { background-color: var(--sys-primary); font-weight: bold; } /* MD3 fix */ h1 { font-family: 'Roboto', sans-serif; color: var(--sys-primary); } /* MD3 fix */ p { font-family: 'Roboto', sans-serif; }</style>
             `;
             
             html += `<h1>Tabellone Scrutinio: ${selectedClass}</h1>`;
@@ -251,9 +245,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         return (
                             <tr key={student.id}>
                                 <td className="sticky-col-student">
-                                    <button onClick={() => onViewStudentProfile(student)} className='link-button font-medium rounded-lg hover:shadow-md transition-all'>
+                                    <M3Button variant="text" onClick={() => onViewStudentProfile(student)} className="font-medium rounded-lg" type="button">
                                         {student.cognome} {student.nome}
-                                    </button>
+                                    </M3Button>
                                 </td>
                                 {expandedColumns.rendimento && <>
                                     <td className='text-center font-bold'>{performance.grade || 'N/D'}</td>
@@ -275,9 +269,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <td className={`min-w-[300px] ${getCellClassName('giudizio')}`}>
                                     <div className='flex items-start gap-1'>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)} className="form-textarea !py-1 flex-grow" rows={2} placeholder="Giudizio sintetico..."></textarea>
-                                        <button onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="icon-button rounded-lg hover:shadow-md transition-all" title="Suggerisci con AI">
+                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="rounded-lg" title="Suggerisci con AI" type="button">
                                             <span className="material-symbols-outlined text-base">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
-                                        </button>
+                                        </M3Button>
                                     </div>
                                 </td>}
                                 {showFinalGrades && expandedColumns.valutazione && <>
@@ -347,9 +341,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <div>
                                     <div className="flex justify-between items-center mb-1">
                                         <label htmlFor={`giudizio-${student.id}`} className="form-label !mb-0">Note/Giudizio</label>
-                                        <button type="button" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="button button-text !h-auto !py-1 !px-2 rounded-lg hover:shadow-md transition-all" title="Suggerisci con AI">
+                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="!h-auto !py-1 !px-2 rounded-lg" title="Suggerisci con AI" type="button">
                                             <span className="material-symbols-outlined text-base">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
-                                        </button>
+                                        </M3Button>
                                     </div>
                                     <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)} className="form-textarea w-full" rows={4} placeholder="Giudizio sintetico..."></textarea>
                                 </div>
@@ -414,14 +408,12 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         ))}
                     </div>
                     <div className="flex gap-2">
-                        <button onClick={handleExportDocx} disabled={isExporting} className="button button-outlined rounded-lg hover:shadow-md transition-all">
-                            <span className="material-symbols-outlined mr-2">description</span>
+                        <M3Button variant="outlined" onClick={handleExportDocx} disabled={isExporting} className="rounded-lg" startIcon={<span className="material-symbols-outlined mr-2">description</span>}>
                             Word
-                        </button>
-                        <button onClick={handleExportPdf} disabled={isExporting} className="button button-tonal rounded-lg hover:shadow-md transition-all">
-                            <span className="material-symbols-outlined mr-2">picture_as_pdf</span>
+                        </M3Button>
+                        <M3Button variant="tonal" onClick={handleExportPdf} disabled={isExporting} className="rounded-lg" startIcon={<span className="material-symbols-outlined mr-2">picture_as_pdf</span>}>
                             PDF
-                        </button>
+                        </M3Button>
                     </div>
                  </div>
                 {renderDesktopTable()}

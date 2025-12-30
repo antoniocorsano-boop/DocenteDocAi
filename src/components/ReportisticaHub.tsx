@@ -11,6 +11,9 @@ import SmartDocumentEditor from './SmartDocumentEditor';
 import DocumentViewerModal from './DocumentViewerModal'; 
 import { getDocumentTemplate } from '../utils/templateUtils';
 import { ActionTile, SectionHeader, InfoCard, TabGroup } from './M3Components';
+import { useUIStore } from '../stores/useUIStore';
+import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
+import BatchExportWizard from './BatchExportWizard';
 
 // --- TYPE DEFINITIONS FOR REGISTRY ---
 type DocPhase = 'avvio' | 'itinere' | 'valutazione' | 'chiusura';
@@ -27,14 +30,14 @@ interface DocTemplateDef {
 }
 
 interface ReportisticaHubProps {
-    reports: Report[];
+    reportistica: Report[];
     onDeleteReport: (reportId: string) => void;
     userClasses: string[];
     students: Studente[];
     evaluations: Valutazione[];
     competencyEvaluations: ValutazioneCompetenza[];
     settings: TimetableSettings;
-    udas: Uda[];
+    uda: Uda[];
     lessons: Record<string, Lezione>;
     onSaveReport: (report: Report) => void;
     aiSettings: AiSettings;
@@ -68,6 +71,27 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
     const [selectedLesson, setSelectedLesson] = useState<Lezione | null>(null);
     const [isGenerating, setIsGenerating] = useState(false);
 
+    // Batch Export State
+    const [isBatchExportOpen, setIsBatchExportOpen] = useState(false);
+
+    // UI Store for toast notifications
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
+
+    const resetWizard = () => {
+        setWizard(null);
+        setIsCouncilWizardOpen(false);
+        setUdaForReport(null);
+        setSelectedClass('');
+        setSelectedSubject('');
+        setSelectedStudent(null);
+        setSelectedLesson(null);
+        setIsGenerating(false);
+        setEditorOpen(false);
+    };
+
+    // Keyboard navigation hook for modals
+    const modalRef = useKeyboardNavigation(!!wizard, resetWizard);
+
     // Determine current suggested phase based on date
     const currentSuggestedPhase = useMemo((): DocPhase => {
         const month = new Date().getMonth(); // 0-11
@@ -96,18 +120,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             .slice(0, 4); // Show top 4
     }, [props.knowledgeBase]);
 
-    const resetWizard = () => {
-        setWizard(null);
-        setIsCouncilWizardOpen(false);
-        setUdaForReport(null);
-        setSelectedClass('');
-        setSelectedSubject('');
-        setSelectedStudent(null);
-        setSelectedLesson(null);
-        setIsGenerating(false);
-        setEditorOpen(false);
-    };
-
     // --- TEMPLATE OPENER ---
     const openEditorWithTemplate = (templateId: string, contextClass?: string) => {
         const ctxClass = contextClass || props.userClasses[0];
@@ -118,7 +130,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             className: ctxClass,
             subject: props.settings.disciplines[0] || '',
             students: ctxStudents,
-            udas: props.udas.filter(u => u.classe === ctxClass)
+            uda: props.uda.filter((u: Uda) => u.classe === ctxClass)
         });
         
         setEditorContent(content);
@@ -172,7 +184,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             viewPdfInNewTab(blob);
         } catch (e) {
             console.error("Failed to generate student PDF:", e);
-            alert("Errore durante la generazione del PDF dello studente.");
+            showToast("Errore durante la generazione del profilo studente. Riprova più tardi.", "error");
         } finally {
             setIsGenerating(false);
             resetWizard();
@@ -187,7 +199,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             viewPdfInNewTab(blob);
         } catch (e) {
             console.error("Failed to generate lesson PDF:", e);
-            alert("Errore durante la generazione del PDF della lezione.");
+            showToast("Errore durante la generazione del piano lezione. Riprova più tardi.", "error");
         } finally {
             setIsGenerating(false);
             resetWizard();
@@ -211,7 +223,8 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             const blob = await generatePdfBrochure(content);
             viewPdfInNewTab(blob);
         } catch (e) {
-            alert("Errore generazione brochure.");
+            console.error("Errore generazione brochure:", e);
+            showToast("Errore durante la generazione della brochure. Riprova più tardi.", "error");
         } finally {
             setIsGenerating(false);
         }
@@ -236,7 +249,8 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             const blob = await generateHtmlDocxBlob(html, `Programma Svolto ${selectedClass}`);
             saveAs(blob, `Programma_${selectedClass}_${selectedSubject}.docx`);
         } catch(e) {
-             alert("Errore generazione programma.");
+             console.error("Errore generazione programma:", e);
+             showToast("Errore durante la generazione del programma svolto. Riprova più tardi.", "error");
         } finally {
             setIsGenerating(false);
             resetWizard();
@@ -337,67 +351,110 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         const lessonsInClass = Object.values(props.lessons).filter((l: Lezione) => l.classe === selectedClass);
 
         return (
-            <div className="dialog-backdrop">
-                <div className="dialog-container w-full max-w-lg">
+            <div className="dialog-backdrop" role="presentation">
+                <div 
+                    ref={modalRef}
+                    className="dialog-container w-full max-w-lg" 
+                    role="dialog" 
+                    aria-modal="true"
+                    aria-labelledby="dialog-title"
+                >
                     <div className="dialog-header">
-                        <h2 className="m3-headline-medium">Configura Documento</h2>
-                        <button onClick={resetWizard} className="icon-button"><span className="material-symbols-outlined">close</span></button>
+                        <h2 id="dialog-title" className="m3-headline-medium">Configura Documento</h2>
+                        <button onClick={resetWizard} className="icon-button" aria-label="Chiudi finestra di configurazione">
+                            <span className="material-symbols-outlined">close</span>
+                        </button>
                     </div>
                     <div className="dialog-content space-y-4">
                         {wizard === 'uda' && (
                             <>
-                                <h3 className="m3-title-medium">Seleziona Progetto (UDA)</h3>
-                                <select value={udaForReport?.id || ''} onChange={e => setUdaForReport(props.udas.find(u => u.id === e.target.value) || null)} className="form-select w-full">
+                                <label htmlFor="uda-select" className="form-label">Seleziona Progetto (UDA)</label>
+                                <select 
+                                    id="uda-select"
+                                    value={udaForReport?.id || ''} 
+                                    onChange={e => setUdaForReport(props.uda.find((u: Uda) => u.id === e.target.value) || null)} 
+                                    className="form-select w-full"
+                                    aria-describedby="uda-help"
+                                >
                                     <option value="">Seleziona...</option>
-                                    {props.udas.map(u => <option key={u.id} value={u.id}>{u.title} ({u.classe})</option>)}
+                                    {props.uda.map((u: Uda) => <option key={u.id} value={u.id}>{u.title} ({u.classe})</option>)}
                                 </select>
+                                <div id="uda-help" className="sr-only">Seleziona il progetto UDA per cui generare la documentazione</div>
                             </>
                         )}
                         {(wizard === 'student' || wizard === 'lesson' || wizard === 'syllabus') && (
                             <div>
-                                <label className="form-label">1. Seleziona Classe</label>
-                                <select value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setSelectedStudent(null); setSelectedLesson(null); }} className="form-select w-full">
+                                <label htmlFor="class-select" className="form-label">1. Seleziona Classe</label>
+                                <select 
+                                    id="class-select"
+                                    value={selectedClass} 
+                                    onChange={e => { setSelectedClass(e.target.value); setSelectedStudent(null); setSelectedLesson(null); }} 
+                                    className="form-select w-full"
+                                    aria-describedby="class-help"
+                                >
                                     <option value="">Seleziona...</option>
                                     {props.userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                                 </select>
+                                <div id="class-help" className="sr-only">Seleziona la classe per cui configurare il documento</div>
                             </div>
                         )}
                         
                         {selectedClass && wizard === 'student' && (
                             <div>
-                                <label className="form-label">2. Seleziona Studente</label>
-                                <select value={selectedStudent?.id || ''} onChange={e => setSelectedStudent(studentsInClass.find(s => s.id === e.target.value) || null)} className="form-select w-full">
+                                <label htmlFor="student-select" className="form-label">2. Seleziona Studente</label>
+                                <select 
+                                    id="student-select"
+                                    value={selectedStudent?.id || ''} 
+                                    onChange={e => setSelectedStudent(studentsInClass.find(s => s.id === e.target.value) || null)} 
+                                    className="form-select w-full"
+                                    aria-describedby="student-help"
+                                >
                                     <option value="">Seleziona...</option>
                                     {studentsInClass.map(s => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
                                 </select>
+                                <div id="student-help" className="sr-only">Seleziona lo studente per cui generare il profilo</div>
                             </div>
                         )}
 
                         {selectedClass && wizard === 'lesson' && (
                             <div>
-                                <label className="form-label">2. Seleziona Lezione</label>
-                                <select value={selectedLesson?.id || ''} onChange={e => setSelectedLesson(lessonsInClass.find((l: Lezione) => l.id === e.target.value) || null)} className="form-select w-full">
+                                <label htmlFor="lesson-select" className="form-label">2. Seleziona Lezione</label>
+                                <select 
+                                    id="lesson-select"
+                                    value={selectedLesson?.id || ''} 
+                                    onChange={e => setSelectedLesson(lessonsInClass.find((l: Lezione) => l.id === e.target.value) || null)} 
+                                    className="form-select w-full"
+                                    aria-describedby="lesson-help"
+                                >
                                     <option value="">Seleziona...</option>
                                     {lessonsInClass.map((l: Lezione) => <option key={l.id} value={l.id}>{l.contenuto}</option>)}
                                 </select>
+                                <div id="lesson-help" className="sr-only">Seleziona la lezione per cui generare il piano</div>
                             </div>
                         )}
 
                         {selectedClass && wizard === 'syllabus' && (
                             <div>
-                                <label className="form-label">2. Seleziona Materia</label>
-                                <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} className="form-select w-full">
+                                <label htmlFor="subject-select" className="form-label">2. Seleziona Materia</label>
+                                <select 
+                                    id="subject-select"
+                                    value={selectedSubject} 
+                                    onChange={e => setSelectedSubject(e.target.value)} 
+                                    className="form-select w-full"
+                                    aria-describedby="subject-help"
+                                >
                                     <option value="">Seleziona...</option>
                                     {props.settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                                 </select>
+                                <div id="subject-help" className="sr-only">Seleziona la materia per cui generare il programma svolto</div>
                             </div>
                         )}
                     </div>
                     <div className="dialog-footer">
-                        <button onClick={resetWizard} className="button button-text" disabled={isGenerating}>Annulla</button>
-                        {(wizard === 'student' && selectedStudent) && <button onClick={() => handleGenerateStudentPdf(selectedStudent)} className="button button-filled" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</button>}
-                        {(wizard === 'lesson' && selectedLesson) && <button onClick={() => handleGenerateLessonPdf(selectedLesson)} className="button button-filled" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</button>}
-                        {(wizard === 'syllabus' && selectedClass && selectedSubject) && <button onClick={handleGenerateSyllabus} className="button button-filled" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Scarica DOC"}</button>}
+                        <button onClick={resetWizard} className="button button-text" disabled={isGenerating} aria-label="Annulla e chiudi la configurazione">Annulla</button>
+                        {(wizard === 'student' && selectedStudent) && <button onClick={() => handleGenerateStudentPdf(selectedStudent)} className="button button-filled" disabled={isGenerating} aria-label={`Genera profilo PDF per ${selectedStudent.cognome} ${selectedStudent.nome}`}>{isGenerating ? "Generazione..." : "Genera PDF"}</button>}
+                        {(wizard === 'lesson' && selectedLesson) && <button onClick={() => handleGenerateLessonPdf(selectedLesson)} className="button button-filled" disabled={isGenerating} aria-label={`Genera piano lezione PDF per "${selectedLesson.contenuto}"`}>{isGenerating ? "Generazione..." : "Genera PDF"}</button>}
+                        {(wizard === 'syllabus' && selectedClass && selectedSubject) && <button onClick={handleGenerateSyllabus} className="button button-filled" disabled={isGenerating} aria-label={`Scarica programma svolto per ${selectedClass} - ${selectedSubject}`}>{isGenerating ? "Generazione..." : "Scarica DOC"}</button>}
                     </div>
                 </div>
             </div>
@@ -418,6 +475,19 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 className="mb-6"
             />
 
+            {/* --- BATCH EXPORT QUICK ACTION --- */}
+            <div className="mb-8">
+                <ActionTile 
+                    title="Export Multiplo"
+                    subtitle="Genera più documenti insieme"
+                    icon="download"
+                    variant="secondary"
+                    onClick={() => setIsBatchExportOpen(true)}
+                    tooltip="Seleziona e genera più documenti contemporaneamente"
+                    className="w-full max-w-sm"
+                />
+            </div>
+
             {/* --- RECENT DOCS (KB) --- */}
             {recentDocs.length > 0 && (
                 <div className="mb-8 animate-in fade-in slide-in-from-top-4">
@@ -428,15 +498,20 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                                 key={doc.id} 
                                 className="bg-surface-container border border-outline-variant rounded-xl p-3 cursor-pointer hover:bg-surface-container-high transition-colors flex flex-col gap-2 group"
                                 onClick={() => setViewingDoc(doc)}
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setViewingDoc(doc); } }}
+                                tabIndex={0}
+                                role="button"
+                                aria-label={`Visualizza documento ${doc.fileName.replace('.html', '')}`}
                             >
                                 <div className="flex items-start justify-between">
-                                    <span className="material-symbols-outlined text-primary text-2xl">article</span>
+                                    <span className="material-symbols-outlined text-primary text-2xl" aria-hidden="true">article</span>
                                     <button 
                                         onClick={(e) => { e.stopPropagation(); openEditorForDoc(doc); }} 
                                         className="icon-button !w-8 !h-8 bg-surface/50 opacity-0 group-hover:opacity-100 transition-opacity"
                                         title="Modifica nell'Editor"
+                                        aria-label={`Modifica ${doc.fileName.replace('.html', '')} nell'editor`}
                                     >
-                                        <span className="material-symbols-outlined text-sm">edit</span>
+                                        <span className="material-symbols-outlined text-sm" aria-hidden="true">edit</span>
                                     </button>
                                 </div>
                                 <p className="font-bold text-sm truncate" title={doc.fileName}>{doc.fileName.replace('.html', '')}</p>
@@ -552,9 +627,23 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 />
             )}
 
+            {isBatchExportOpen && (
+                <BatchExportWizard
+                    onClose={() => setIsBatchExportOpen(false)}
+                    students={props.students}
+                    lessons={props.lessons}
+                    uda={props.uda}
+                    evaluations={props.evaluations}
+                    competencyEvaluations={props.competencyEvaluations}
+                    settings={props.settings}
+                    aiSettings={props.aiSettings}
+                    userClasses={props.userClasses}
+                />
+            )}
+
             <div className="mt-12">
                 <SectionHeader title="Archivio Report (PDF/Snapshot)" icon="history" />
-                <ArchivioReport reports={props.reports} onDeleteReport={props.onDeleteReport} onSaveReportToKb={() => { /* Reuse save logic or custom */ }} />
+                <ArchivioReport reportistica={props.reportistica} onDeleteReport={props.onDeleteReport} onSaveReportToKb={() => { /* Reuse save logic or custom */ }} />
             </div>
         </div>
     );

@@ -3,6 +3,7 @@ import { PianoInclusione, PianoInclusioneEditorProps } from '../types';
 import { getPIPSuggestion } from '../services/aiService';
 import { TextArea } from './M3Components';
 import AiThinkingGem from './AiThinkingGem';
+import './dialog-container.css';
 
 type SectionKey = 'puntiDiForza' | 'areeDiIntervento' | 'misureCompensative' | 'misureDispensative' | 'criteriValutazionePersonalizzati';
 

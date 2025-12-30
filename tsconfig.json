@@ -35,9 +35,10 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    // "types": [
-    //   "vite/client"
-    // ]
+        "typeRoots": [
+          "./node_modules/@types"
+        ]
+    
   },
   "include": [
     "src/**/*.ts",

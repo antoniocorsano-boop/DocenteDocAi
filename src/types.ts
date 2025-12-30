@@ -1,5 +1,93 @@
+// --- HEADER ACTIONS POPOVER ---
+export interface ActionsPopoverProps extends HeaderProps {
+    onClose: () => void;
+    onShareClick: () => void;
+    unreadCount: number;
+    onOpenNotifications: () => void;
+}
+// --- DATA STORE STATE & ACTIONS ---
+export interface DataState {
+    user: UserProfile | null;
+    students: Studente[];
+    lessons: Record<string, Lezione>;
+    slots: Record<string, Slot>;
+    evaluations: Valutazione[];
+    competencyEvals: ValutazioneCompetenza[];
+    uda: Uda[];
+    templates: DocumentTemplate[];
+    analyticsEvents: AnalyticsEvent[];
+    analyticsMetrics: AnalyticsMetrics;
+    analyticsSettings: AnalyticsSettings;
+    eventi: EventoCalendario[];
+    knowledgeBase: KnowledgeBaseEntry[];
+    corpora: Corpus[];
+    rubriche: Rubrica[];
+    pianiInclusione: Record<string, PianoInclusione>;
+    giudizi: Record<string, GiudizioPeriodico>;
+    reportistica: Report[];
+    feedSources: FeedSource[];
+    draftRegister: Record<string, RegisterEntry>;
+    finalizedRegister: RegisterEntry[];
+    notebookNotes: Record<string, NotebookNote[]>;
+    memos: ToDoItem[];
+    curricula: CurriculumSubject[];
+    submissions: HomeworkSubmission[];
+    notifiche: Notifica[];
+    suggestions: AiSuggestion[];
+    activeSuggestion: SystemSuggestion | null;
+    dismissedSuggestions: Set<string>;
+    studentProfileContext: Studente | null;
+    selectedClassForDashboard: string | null;
+    actions: DataActions;
+}
+
+export interface DataActions {
+        setSuggestions: (suggestions: AiSuggestion[]) => void;
+        setActiveSuggestion: (activeSuggestion: SystemSuggestion | null) => void;
+        setStudentProfileContext: (student: Studente | null) => void;
+        setSelectedClassForDashboard: (className: string | null) => void;
+        loadFromBackup: (data: Partial<DataState>) => void;
+        resetAll: () => void;
+        dismissSuggestion: (id: string) => void;
+    setUser: (user: UserProfile | null) => void;
+    setStudents: (students: Studente[] | ((prev: Studente[]) => Studente[])) => void;
+    setLessons: (lessons: Record<string, Lezione> | ((prev: Record<string, Lezione>) => Record<string, Lezione>)) => void;
+    setSlots: (slots: Record<string, Slot> | ((prev: Record<string, Slot>) => Record<string, Slot>)) => void;
+    setEvaluations: (evals: Valutazione[] | ((prev: Valutazione[]) => Valutazione[])) => void;
+    setCompetencyEvals: (evals: ValutazioneCompetenza[] | ((prev: ValutazioneCompetenza[]) => ValutazioneCompetenza[])) => void;
+    setUda: (uda: Uda[] | ((prev: Uda[]) => Uda[])) => void;
+    setTemplates: (templates: DocumentTemplate[] | ((prev: DocumentTemplate[]) => DocumentTemplate[])) => void;
+    setAnalyticsEvents: (events: AnalyticsEvent[] | ((prev: AnalyticsEvent[]) => AnalyticsEvent[])) => void;
+    setAnalyticsMetrics: (metrics: AnalyticsMetrics | ((prev: AnalyticsMetrics) => AnalyticsMetrics)) => void;
+    setAnalyticsSettings: (settings: AnalyticsSettings | ((prev: AnalyticsSettings) => AnalyticsSettings)) => void;
+    trackAnalyticsEvent: (eventType: AnalyticsEvent['eventType'], featureName: string, metadata?: Record<string, string | number | boolean>) => void;
+    setEventi: (eventi: EventoCalendario[] | ((prev: EventoCalendario[]) => EventoCalendario[])) => void;
+    setKnowledgeBase: (kb: KnowledgeBaseEntry[] | ((prev: KnowledgeBaseEntry[]) => KnowledgeBaseEntry[])) => void;
+    setCorpora: (corpora: Corpus[] | ((prev: Corpus[]) => Corpus[])) => void;
+    setNotifiche: (notifiche: Notifica[] | ((prev: Notifica[]) => Notifica[])) => void;
+    setRubriche: (rubriche: Rubrica[] | ((prev: Rubrica[]) => Rubrica[])) => void;
+    setPianiInclusione: (piani: Record<string, PianoInclusione> | ((prev: Record<string, PianoInclusione>) => Record<string, PianoInclusione>)) => void;
+    setGiudizi: (giudizi: Record<string, GiudizioPeriodico> | ((prev: Record<string, GiudizioPeriodico>) => Record<string, GiudizioPeriodico>)) => void;
+    setReportistica: (reportistica: Report[] | ((prev: Report[]) => Report[])) => void;
+    setFeedSources: (feeds: FeedSource[] | ((prev: FeedSource[]) => FeedSource[])) => void;
+    setDraftRegister: (reg: Record<string, RegisterEntry> | ((prev: Record<string, RegisterEntry>) => Record<string, RegisterEntry>)) => void;
+    setFinalizedRegister: (reg: RegisterEntry[] | ((prev: RegisterEntry[]) => RegisterEntry[])) => void;
+    setNotebookNotes: (notes: Record<string, NotebookNote[]> | ((prev: Record<string, NotebookNote[]>) => Record<string, NotebookNote[]>)) => void;
+    setMemos: (memos: ToDoItem[] | ((prev: ToDoItem[]) => ToDoItem[])) => void;
+    setCurricula: (curr: CurriculumSubject[] | ((prev: CurriculumSubject[]) => CurriculumSubject[])) => void;
+    setSubmissions: (subs: HomeworkSubmission[] | ((prev: HomeworkSubmission[]) => HomeworkSubmission[])) => void;
+}
+// --- UNIVERSAL MODAL ---
+export interface UniversalModalProps {
+    open: boolean;
+    title: string;
+    onClose: () => void;
+    children: React.ReactNode;
+}
 // --- MODALS INTERFACE (for ViewManager) ---
 export interface Modals {
+        showToast?: (message: string, type?: 'success' | 'error' | 'info') => void;
+        clearToast?: () => void;
     setCreateLessonContext: (context: { isOpen: boolean; slotKey: string | null; lezione: Lezione | null; }) => void;
     setLessonViewContext: (lesson: Lezione | null) => void;
     setIsLiveAssistantModalOpen: (open: boolean) => void;
@@ -84,6 +172,7 @@ export interface NKANode {
     depth: number;
     shape: 'circle' | 'square' | 'hex' | string;
     actions: string[];
+    isNew?: boolean;
 }
 
 // --- GLOBAL INTERFACES FOR PWA ---
@@ -306,6 +395,66 @@ export interface Uda {
     endDate?: string;
     linkedEventId?: string;
     externalLink?: string;
+}
+
+export interface DocumentTemplate {
+    id: string;
+    name: string;
+    type: 'student_profile' | 'lesson_plan' | 'uda';
+    description?: string;
+    createdAt: string;
+    updatedAt: string;
+    // Configurazioni specifiche per tipo
+    config: {
+        // Per profili studente
+        includeEvaluations?: boolean;
+        includeCompetencyEvaluations?: boolean;
+        customSections?: string[];
+        // Per piani lezione
+        includeObjectives?: boolean;
+        includeMaterials?: boolean;
+        customFields?: Record<string, string>;
+        // Per UDA
+        includePhases?: boolean;
+        includeEvaluation?: boolean;
+        customIntroduction?: string;
+        customConclusion?: string;
+    };
+    // Contenuto predefinito/template
+    content?: {
+        header?: string;
+        footer?: string;
+        customCss?: string;
+    };
+}
+
+export interface AnalyticsEvent {
+    id: string;
+    timestamp: string;
+    eventType: 'feature_usage' | 'document_generated' | 'template_created' | 'export_batch' | 'ai_interaction' | 'navigation';
+    featureName: string;
+    metadata?: Record<string, string | number | boolean>;
+    sessionId: string;
+}
+
+export interface AnalyticsMetrics {
+    totalDocumentsGenerated: number;
+    documentsByType: Record<string, number>;
+    featuresUsage: Record<string, number>;
+    templatesCreated: number;
+    exportBatchesCount: number;
+    aiInteractionsCount: number;
+    averageSessionDuration: number;
+    lastUpdated: string;
+}
+
+export interface AnalyticsSettings {
+    enabled: boolean;
+    collectFeatureUsage: boolean;
+    collectDocumentMetrics: boolean;
+    collectPerformanceMetrics: boolean;
+    retentionDays: number; // Giorni di conservazione dati
+    lastReset: string | null;
 }
 
 export interface Valutazione {
@@ -566,7 +715,7 @@ export interface SystemSuggestion {
     message: string;
     targetView?: string; // made optional to allow generic suggestions
     actionLabel: string;
-    action: { type: string; payload?: Record<string, unknown> }; // Changed to required and structured
+    action: { type: string; payload?: Record<string, unknown> | string }; // Changed to required and structured
 }
 
 export interface RegisterEntry {
@@ -619,7 +768,7 @@ export interface AppState {
     slots: Record<string, Slot>;
     evaluations: Valutazione[];
     competencyEvals: ValutazioneCompetenza[];
-    udas: Uda[];
+    uda: Uda[];
     eventi: EventoCalendario[];
     knowledgeBase: KnowledgeBaseEntry[];
     corpora: Corpus[];
@@ -627,7 +776,7 @@ export interface AppState {
     rubriche: Rubrica[];
     pianiInclusione: Record<string, PianoInclusione>;
     giudizi: Record<string, GiudizioPeriodico>;
-    reports: Report[];
+    reportistica: Report[];
     feedSources: FeedSource[];
     draftRegister: Record<string, RegisterEntry>;
     finalizedRegister: RegisterEntry[];
@@ -663,7 +812,7 @@ export interface AppActions {
     setSlots: (input: Record<string, Slot> | ((prev: Record<string, Slot>) => Record<string, Slot>)) => void;
     setEvaluations: (input: Valutazione[] | ((prev: Valutazione[]) => Valutazione[])) => void;
     setCompetencyEvals: (input: ValutazioneCompetenza[] | ((prev: ValutazioneCompetenza[]) => ValutazioneCompetenza[])) => void;
-    setUdas: (input: Uda[] | ((prev: Uda[]) => Uda[])) => void;
+    setUda: (input: Uda[] | ((prev: Uda[]) => Uda[])) => void;
     setEventi: (input: EventoCalendario[] | ((prev: EventoCalendario[]) => EventoCalendario[])) => void;
     setKnowledgeBase: (input: KnowledgeBaseEntry[] | ((prev: KnowledgeBaseEntry[]) => KnowledgeBaseEntry[])) => void;
     setCorpora: (input: Corpus[] | ((prev: Corpus[]) => Corpus[])) => void;
@@ -671,7 +820,7 @@ export interface AppActions {
     setRubriche: (input: Rubrica[] | ((prev: Rubrica[]) => Rubrica[])) => void;
     setPianiInclusione: (input: Record<string, PianoInclusione> | ((prev: Record<string, PianoInclusione>) => Record<string, PianoInclusione>)) => void;
     setGiudizi: (input: Record<string, GiudizioPeriodico> | ((prev: Record<string, GiudizioPeriodico>) => Record<string, GiudizioPeriodico>)) => void;
-    setReports: (input: Report[] | ((prev: Report[]) => Report[])) => void;
+    setReportistica: (input: Report[] | ((prev: Report[]) => Report[])) => void;
     setFeedSources: (input: FeedSource[] | ((prev: FeedSource[]) => FeedSource[])) => void;
     setDraftRegister: (input: Record<string, RegisterEntry> | ((prev: Record<string, RegisterEntry>) => Record<string, RegisterEntry>)) => void;
     setFinalizedRegister: (input: RegisterEntry[] | ((prev: RegisterEntry[]) => RegisterEntry[])) => void;
@@ -912,7 +1061,7 @@ export interface ClassroomViewProps {
 
 export interface LessonsPageProps {
     lessons: Lezione[];
-    udas: Uda[];
+    uda: Uda[];
     knowledgeBase: KnowledgeBaseEntry[];
     userClasses: string[];
     onViewLesson: (lesson: Lezione | null) => void;
@@ -937,7 +1086,7 @@ export interface RegisterViewProps {
 }
 
 export interface UdaPlannerProps {
-    udas: Uda[];
+    uda: Uda[];
     onSaveUda: (uda: Uda) => void;
     onDeleteUda: (id: string) => void;
     lessons: Record<string, Lezione>;
@@ -971,7 +1120,7 @@ export interface KnowledgeBaseProps {
 
 export interface ProgettazioneHubProps {
     onNavigate: (view: View, context?: NavigationParams) => void;
-    udas: Uda[];
+    uda: Uda[];
     events: EventoCalendario[];
     settings: TimetableSettings;
     aiSettings: AiSettings;

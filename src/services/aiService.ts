@@ -237,7 +237,7 @@ export const generateMarkdownReport = async (aiSettings: AiSettings, type: strin
     });
 };
 
-export const validateUdaVerticalCurriculum = async (aiSettings: AiSettings, uda: Uda, kb: KnowledgeBaseEntry[]) => {
+export const validateUdaVerticalCurriculum = async (aiSettings: AiSettings, uda: Uda, kb: KnowledgeBaseEntry[]): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -248,12 +248,17 @@ export const validateUdaVerticalCurriculum = async (aiSettings: AiSettings, uda:
     });
 };
 
-export const generateLessonSequenceForClass = async (aiSettings: AiSettings, udas: Uda[], cls: string, kb: string) => {
+export const generateLessonSequenceForClass = async (
+    aiSettings: AiSettings,
+    uda: Uda[],
+    classe: string,
+    kb: string
+): Promise<any[]> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: `Crea sequenza lezioni strutturata`,  // FIX: Ensure content is a string.
+            contents: `Crea sequenza lezioni strutturata`,
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<any[]>(r.text || '[]');

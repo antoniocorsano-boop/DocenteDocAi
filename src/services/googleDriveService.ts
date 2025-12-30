@@ -48,11 +48,11 @@ export const initTokenClient = (callback: (tokenResponse: unknown) => void, expl
  */
 // FIX: Updated requestAccessToken to accept an optional overrideScope parameter to satisfy gmailService requirements
 export const requestAccessToken = (overrideScope?: string) => {
-    if (tokenClient) {
+    if (tokenClient && typeof tokenClient === 'object' && 'requestAccessToken' in tokenClient) {
         if (overrideScope) {
-            tokenClient.requestAccessToken({ prompt: 'consent', scope: overrideScope });
+            (tokenClient as any).requestAccessToken({ prompt: 'consent', scope: overrideScope });
         } else {
-            tokenClient.requestAccessToken({ prompt: 'consent' });
+            (tokenClient as any).requestAccessToken({ prompt: 'consent' });
         }
     }
 };

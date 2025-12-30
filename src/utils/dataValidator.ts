@@ -3,6 +3,8 @@
  * Verifica che i dati caricati siano validi e li normalizza
  */
 
+import { Uda, Report } from '../types';
+
 export interface ValidatedBackupData {
   user: unknown | null;
   students: unknown[];
@@ -10,7 +12,7 @@ export interface ValidatedBackupData {
   slots: unknown[];
   evaluations: unknown[];
   competencyEvals: unknown[];
-  udas: unknown[];
+  uda: Uda[];
   eventi: unknown[];
   knowledgeBase: unknown[];
   corpora: unknown[];
@@ -18,7 +20,7 @@ export interface ValidatedBackupData {
   rubriche: unknown[];
   pianiInclusione: Record<string, unknown>;
   giudizi: Record<string, unknown>;
-  reports: unknown[];
+  reportistica: Report[];
   feedSources: unknown[];
   draftRegister: Record<string, unknown>;
   finalizedRegister: unknown[];
@@ -34,6 +36,7 @@ export interface ValidatedBackupData {
   navigationHistory: unknown[];
   backupState: unknown | null;
   driveSyncState: unknown | null;
+// ---
 }
 
 /**
@@ -78,7 +81,7 @@ export function validateBackupData(data: unknown): ValidatedBackupData | null {
       slots: ensureArray(backup.slots),
       evaluations: ensureArray(backup.evaluations),
       competencyEvals: ensureArray(backup.competencyEvals),
-      udas: ensureArray(backup.udas),
+      uda: ensureArray(backup.uda) as Uda[],
       eventi: ensureArray(backup.eventi),
       knowledgeBase: ensureArray(backup.knowledgeBase),
       corpora: ensureArray(backup.corpora),
@@ -86,7 +89,7 @@ export function validateBackupData(data: unknown): ValidatedBackupData | null {
       rubriche: ensureArray(backup.rubriche),
       pianiInclusione: ensureObject(backup.pianiInclusione),
       giudizi: ensureObject(backup.giudizi),
-      reports: ensureArray(backup.reports),
+      reportistica: ensureArray(backup.reportistica) as Report[],
       feedSources: ensureArray(backup.feedSources),
       draftRegister: ensureObject(backup.draftRegister),
       finalizedRegister: ensureArray(backup.finalizedRegister),

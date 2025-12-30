@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 
 interface LogoProps {
   isAiThinking?: boolean;
+  className?: string;
+  title?: string;
 }
 
 type AnimationState = 'idle' | 'chaos' | 'implosion' | 'peace';
 
-const Logo: React.FC<LogoProps> = ({ isAiThinking = false }) => {
+const Logo: React.FC<LogoProps> = ({ isAiThinking = false, className, title }) => {
   const [animState, setAnimState] = useState<AnimationState>('idle');
 
   const triggerBigBang = useCallback((e: React.MouseEvent) => {
@@ -32,7 +34,7 @@ const Logo: React.FC<LogoProps> = ({ isAiThinking = false }) => {
       )}
 
       <div 
-        className={`app-logo-container ${animState} ${isAiThinking ? 'thinking' : ''}`} 
+        className={`app-logo-container ${animState} ${isAiThinking ? 'thinking' : ''} ${className ? className : ''}`.trim()} 
         onClick={triggerBigBang}
       >
         <svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible">

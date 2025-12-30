@@ -6,15 +6,15 @@ import { saveAs } from '../utils/documentUtils';
 import M3IconButton from './M3IconButton';
 
 interface ArchivioReportProps {
-    reports: Report[];
+    reportistica: Report[];
     onDeleteReport: (reportId: string) => void;
     onSaveReportToKb: (report: Report) => void;
 }
 
-const ArchivioReport: React.FC<ArchivioReportProps> = ({ reports, onDeleteReport, onSaveReportToKb }) => {
+const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteReport, onSaveReportToKb }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
-    const filteredReports = reports.filter(r => 
+    const filteredReports = reportistica.filter(r => 
         r.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
         r.contesto.titolo.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -78,7 +78,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reports, onDeleteReport
                         </tbody>
                     </table>
                 </div>
-                {filteredReports.length === 0 && <p className="text-center p-4 text-on-surface-variant">{reports.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
+                {filteredReports.length === 0 && <p className="text-center p-4 text-on-surface-variant">{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
             </div>
         </div>
     );

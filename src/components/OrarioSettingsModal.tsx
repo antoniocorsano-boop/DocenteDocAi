@@ -10,13 +10,12 @@ interface OrarioSettingsModalProps {
   materia: string;
   argomento?: string;
   linkNotebook?: string;
+  userClasses: string[];
+  disciplines: string[];
   onChange: (field: string, value: string) => void;
 }
 
-const classi = ['1A', '2B', '3C']; // TODO: replace with real data
-const materie = ['Matematica', 'Italiano', 'Inglese']; // TODO: replace with real data
-
-const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({ tipo, classe, materia, argomento, linkNotebook, onChange }) => {
+const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({ tipo, classe, materia, argomento, linkNotebook, userClasses, disciplines, onChange }) => {
   return (
     <Card variant="elevation" sx={{ p: 3, borderRadius: 3, maxWidth: 600, mx: 'auto', my: 4 }}>
       <Typography variant="h6" sx={{ mb: 2 }}>
@@ -48,7 +47,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({ tipo, classe,
               label="Classe"
               onChange={e => onChange('classe', e.target.value)}
             >
-              {classi.map(c => (
+              {userClasses.map(c => (
                 <MenuItem key={c} value={c}>{c}</MenuItem>
               ))}
             </Select>
@@ -63,7 +62,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({ tipo, classe,
               label="Materia"
               onChange={e => onChange('materia', e.target.value)}
             >
-              {materie.map(m => (
+              {disciplines.map(m => (
                 <MenuItem key={m} value={m}>{m}</MenuItem>
               ))}
             </Select>

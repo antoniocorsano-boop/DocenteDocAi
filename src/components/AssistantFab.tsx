@@ -160,7 +160,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                     right: 0,
                     ...posStyle,
                     zIndex: 1201 - i,
-                    transition: 'all 0.18s ease',
+                    transition: 'var(--md-easing-standard)', // MD3 fix
                     pointerEvents: 'auto',
                   }}
                   onClick={() => handleAction(a)}
@@ -185,10 +185,10 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           background: var(--sys-primary, #1976d2);
           color: var(--sys-on-primary, #fff);
           border: none;
-          border-radius: 50%;
+          border-radius: var(--md-corner-28); // MD3 fix
           width: 64px;
           height: 64px;
-          box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+          box-shadow: var(--md-elevation-2); // MD3 fix
           font-size: 2.2rem;
           display: flex;
           align-items: center;
@@ -198,7 +198,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         }
         .mui-fab-expressive.assistant-fab:hover {
           background: var(--sys-primary-container, #1565c0);
-          box-shadow: 0 10px 32px rgba(0,0,0,0.22);
+          box-shadow: var(--md-elevation-0); // MD3 fix
         }
         .assistant-fab-menu {
           position: absolute;
@@ -216,7 +216,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           top: 8px;
           background: rgba(0,0,0,0.04);
           border: none;
-          border-radius: 6px;
+          border-radius: var(--md-corner-4); // MD3 fix
           width: 36px;
           height: 36px;
           display: flex;
@@ -229,8 +229,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           background: var(--sys-surface, #fff);
           color: var(--sys-on-surface, #222);
           border: none;
-          border-radius: 1.2rem;
-          box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+          border-radius: var(--md-corner-16); // MD3 fix
+          box-shadow: var(--md-elevation-2); // MD3 fix
           padding: 0.7rem 1.2rem;
           font-size: 1.1rem;
           display: flex;
@@ -242,7 +242,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         }
         .mui-fab-expressive.assistant-fab-secondary:hover {
           background: var(--sys-surface-variant, #f5f5f5);
-          box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+          box-shadow: var(--md-elevation-2); // MD3 fix
         }
         @media (max-width: 600px) {
           .assistant-fab-root { bottom: 1.1rem; right: 1.1rem; }

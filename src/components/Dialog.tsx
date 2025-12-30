@@ -76,7 +76,7 @@ const Dialog: React.FC<DialogProps> = ({ open, onClose, title, children, actions
           position: fixed; inset: 0; background: rgba(0,0,0,0.18); z-index: 1200; display: flex; align-items: center; justify-content: center;
         }
         .m3-dialog {
-          background: var(--sys-surface, #fff); color: var(--sys-on-surface, #222); border-radius: 1.2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18); width: 95vw; max-width: 420px; min-height: 120px; display: flex; flex-direction: column; overflow: hidden; outline: none;
+          background: var(--sys-surface, #fff); color: var(--sys-on-surface, #222); border-radius: var(--md-corner-16); /* MD3 fix */ box-shadow: var(--md-elevation-1); /* MD3 fix */ width: 95vw; max-width: 420px; min-height: 120px; display: flex; flex-direction: column; overflow: hidden; outline: none;
           animation: fade-in 0.22s var(--motion-expressive, cubic-bezier(0.34,1.56,0.64,1)) both;
         }
         .m3-dialog-header { border-bottom: 1px solid var(--sys-outline-variant, #eee); }
@@ -85,7 +85,7 @@ const Dialog: React.FC<DialogProps> = ({ open, onClose, title, children, actions
         .m3-dialog-content { flex: 1; }
         .m3-dialog-actions { border-top: 1px solid var(--sys-outline-variant, #eee); justify-content: flex-end; }
         @media (max-width: 600px) {
-          .m3-dialog { width: 100vw; max-width: 100vw; border-radius: 0; box-shadow: none; }
+          .m3-dialog { width: 100vw; max-width: 100vw; border-radius: 0; box-shadow: var(--md-elevation-4); /* MD3 fix */ }
         }
         @keyframes fade-in {
           from { opacity: 0; transform: translateY(24px) scale(0.98); }

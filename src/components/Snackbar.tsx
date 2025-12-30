@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useUIStore } from '../stores/useUIStore';
 
@@ -16,15 +17,19 @@ const SNACKBAR_COLORS = {
   }
 };
 
+
 const Snackbar: React.FC = () => {
-  const { toast, actions } = useUIStore(state => ({ toast: state.toast, actions: state.actions }));
+  const { toast, clearToast } = useUIStore(state => ({
+    toast: state.modals.toast,
+    clearToast: state.modals.clearToast
+  }));
 
   useEffect(() => {
-    if (toast.visible) {
-      const timeout = setTimeout(() => actions.clearToast(), 3500);
+    if (toast.visible && clearToast) {
+      const timeout = setTimeout(() => clearToast(), 3500);
       return () => clearTimeout(timeout);
     }
-  }, [toast.visible, actions]);
+  }, [toast.visible, clearToast]);
 
   if (!toast.visible) return null;
   const { bg, color } = SNACKBAR_COLORS[toast.type] || SNACKBAR_COLORS.info;
@@ -43,8 +48,9 @@ const Snackbar: React.FC = () => {
       <span>{toast.message}</span>
       <button
         className="snackbar-close-btn"
-        onClick={actions.clearToast}
+        onClick={clearToast}
         aria-label="Chiudi notifica"
+        disabled={!clearToast}
       >
         <span className="material-symbols-outlined">close</span>
       </button>
@@ -57,8 +63,8 @@ const Snackbar: React.FC = () => {
           min-width: 220px;
           max-width: 90vw;
           padding: 0.9rem 1.5rem 0.9rem 1.1rem;
-          border-radius: 18px;
-          box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+          border-radius: var(--md-corner-16); /* MD3 fix */
+          box-shadow: var(--md-elevation-2); /* MD3 fix */
           display: flex;
           align-items: center;
           gap: 0.7rem;

@@ -1,3 +1,35 @@
+/* Miglioramento spaziatura e logo header */
+.header-root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  min-height: 56px;
+  background: var(--sys-surface);
+}
+
+.header-left,
+.header-center,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-center {
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+}
+
+.header-logo {
+  max-height: 36px;
+  max-width: 120px;
+  height: auto;
+  width: auto;
+  margin-right: 8px;
+}
+/* Modal backdrop for loading */
 .loading-modal-backdrop {
   position: fixed;
   inset: 0;
@@ -262,28 +294,6 @@
   transition: all var(--motion-duration-short4) var(--motion-easing-standard);
 }
 
-.button:active {
-  transform: scale(0.96);
-  transition: transform var(--motion-duration-short1) var(--motion-easing-accelerate);
-}
-
-.button-filled {
-  background-color: var(--sys-primary);
-  color: var(--sys-on-primary);
-  box-shadow: var(--elevation-2);
-}
-
-.button-filled:hover {
-  background-color: color-mix(in srgb, var(--sys-primary), white 12%);
-  box-shadow: var(--elevation-3);
-  transform: translateY(-2px);
-}
-
-.button-tonal {
-  background-color: var(--sys-secondary-container);
-  color: var(--sys-on-secondary-container);
-}
-
 .button-tonal:hover {
   background-color: color-mix(in srgb, var(--sys-secondary-container), black 8%);
   box-shadow: var(--elevation-1);
@@ -312,6 +322,7 @@
 }
 
 /* --- M3 DIALOG & MODAL SYSTEM --- */
+/* Dialog modal backdrop */
 .dialog-backdrop {
   position: fixed;
   inset: 0;
@@ -593,6 +604,7 @@
    ========================================================================== */
 
 /* Header Actions Popover positioning */
+/* Header actions popover */
 .header-actions-popover {
   position: fixed;
   top: calc(var(--header-height, 64px) + 8px);

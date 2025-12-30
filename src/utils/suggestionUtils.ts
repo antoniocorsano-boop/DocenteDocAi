@@ -3,7 +3,7 @@ import { Studente, Slot, Uda, EventoCalendario, Valutazione, SystemSuggestion } 
 export const analyzeSystemState = (
     students: Studente[],
     slots: Record<string, Slot>,
-    udas: Uda[],
+    uda: Uda[],
     events: EventoCalendario[],
     evaluations: Valutazione[] = []
 ): SystemSuggestion | null => {
@@ -46,7 +46,7 @@ export const analyzeSystemState = (
     }
     
     // 4. Priority: Annual Planning (No UDAs)
-    if (udas.length === 0) {
+    if (uda.length === 0) {
         return {
             id: 'annual_wizard',
             message: 'Pianifica il tuo anno scolastico con il Wizard UDA.',

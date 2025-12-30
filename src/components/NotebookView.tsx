@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { KnowledgeBaseEntry, AiSettings, Corpus, ChatMessage, NotebookNote } from '../types';
 import { generateAnswerFromCorpus, generateStudioOutput } from '../services/aiService';
@@ -203,7 +202,7 @@ const NotebookView: React.FC<NotebookViewProps> = (props) => {
                 )}
                 <div className="notebook-project-list">
                     {corpora.map(corpus => (
-                        <div key={corpus.id} onClick={() => handleSelectCorpus(corpus.id)} className={`notebook-project-item ${selectedCorpusId === corpus.id ? 'active' : ''}`} style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}>
+                        <div key={corpus.id} onClick={() => handleSelectCorpus(corpus.id)} className={`notebook-project-item ${selectedCorpusId === corpus.id ? 'active' : ''}`} style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}>
                             <span className="material-symbols-outlined">folder</span>
                             <span className="m3-label-large truncate">{corpus.displayName}</span>
                         </div>
@@ -229,7 +228,7 @@ const NotebookView: React.FC<NotebookViewProps> = (props) => {
                             <h3 className="m3-title-medium px-2">Fonti ({corpusFiles.length})</h3>
                              <div className="notebook-sources-list">
                                 {corpusFiles.map(file => (
-                                    <div key={file.id} className="notebook-source-item" style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}>
+                                    <div key={file.id} className="notebook-source-item" style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}>
                                         <span className="material-symbols-outlined text-primary">{file.isGenerated ? 'auto_awesome' : 'description'}</span>
                                         <span className="m3-body-medium truncate">{file.fileName}</span>
                                     </div>
@@ -243,9 +242,9 @@ const NotebookView: React.FC<NotebookViewProps> = (props) => {
                         </div>
                         <div className="notebook-workspace">
                             <div className="notebook-tabs">
-                                <button onClick={() => setActiveTab('chat')} className={`notebook-tab ${activeTab === 'chat' ? 'active' : ''}`} style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}><span className="material-symbols-outlined">chat</span> Chat</button>
-                                <button onClick={() => setActiveTab('studio')} className={`notebook-tab ${activeTab === 'studio' ? 'active' : ''}`} style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}><span className="material-symbols-outlined">auto_fix_high</span> Studio</button>
-                                {!readOnly && <button onClick={() => setActiveTab('notes')} className={`notebook-tab ${activeTab === 'notes' ? 'active' : ''}`} style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}><span className="material-symbols-outlined">edit_note</span> Note</button>}
+                                <button onClick={() => setActiveTab('chat')} className={`notebook-tab ${activeTab === 'chat' ? 'active' : ''}`} style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}><span className="material-symbols-outlined">chat</span> Chat</button>
+                                <button onClick={() => setActiveTab('studio')} className={`notebook-tab ${activeTab === 'studio' ? 'active' : ''}`} style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}><span className="material-symbols-outlined">auto_fix_high</span> Studio</button>
+                                {!readOnly && <button onClick={() => setActiveTab('notes')} className={`notebook-tab ${activeTab === 'notes' ? 'active' : ''}`} style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}><span className="material-symbols-outlined">edit_note</span> Note</button>}
                             </div>
                             <div className="notebook-tab-content">
                                 {activeTab === 'chat' && (
@@ -267,7 +266,7 @@ const NotebookView: React.FC<NotebookViewProps> = (props) => {
                                     <div className="p-4 space-y-4">
                                         <div className="studio-action-grid">
                                             {studioActions.map(action => (
-                                                <button key={action.id} onClick={() => handleStudioAction(action.id, action.title)} className="studio-action-card" disabled={isStudioLoading} style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}>
+                                                <button key={action.id} onClick={() => handleStudioAction(action.id, action.title)} className="studio-action-card" disabled={isStudioLoading} style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}>
                                                     <div className="studio-action-card-icon"><span className="material-symbols-outlined">{action.icon}</span></div>
                                                     <div><p className="m3-title-medium">{action.title}</p><p className="m3-body-small text-on-surface-variant">{action.description}</p></div>
                                                 </button>
@@ -287,7 +286,7 @@ const NotebookView: React.FC<NotebookViewProps> = (props) => {
                                     <div className="note-list">
                                         <button onClick={handleCreateNote} className="button button-filled rounded-lg hover:shadow-md transition-all"><span className="material-symbols-outlined mr-2">add</span>Nuova Nota</button>
                                         {corpusNotes.map(note => (
-                                            <div key={note.id} className="note-card" style={{ borderRadius: '8px', transition: 'all 0.2s ease' }}>
+                                            <div key={note.id} className="note-card" style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}>
                                                 {editingNoteId === note.id ? (
                                                     <div className="space-y-2">
                                                         <textarea value={editingNoteContent} onChange={e => setEditingNoteContent(e.target.value)} className="form-textarea w-full rounded-lg" rows={8} />

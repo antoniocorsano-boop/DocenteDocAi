@@ -39,7 +39,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   const renderSelection = () => (
       <div className="m3-auth-card !max-w-lg md:!max-w-2xl animate-in fade-in zoom-in-95 duration-300">
           <div className="mb-8 md:mb-12 transform scale-110 md:scale-125">
-            <Logo title="DocenteDoc AI" />
+            <Logo />
           </div>
           <h1 className="m3-headline-medium font-black mb-2">Benvenuto, Docente</h1>
           <p className="m3-body-medium md:m3-body-large font-bold opacity-50 uppercase tracking-[0.15em] md:tracking-[0.2em] text-[10px] md:text-[11px] mb-8 md:mb-12">
@@ -164,7 +164,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => setMode('selection')} className="absolute top-4 left-4 md:top-6 md:left-6" />
           
           <div className="mb-8 md:mb-12 transform scale-110 md:scale-125">
-            <Logo title="DocenteDoc AI" />
+            <Logo />
           </div>
           
           <h1 className="m3-headline-medium font-black mb-6 md:mb-8">Accesso Rapido</h1>

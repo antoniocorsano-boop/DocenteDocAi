@@ -5,6 +5,7 @@ import { generateClassPlanningDocument, generateSituazionePartenza, suggestAnnua
 import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
 import AiThinkingGem from './AiThinkingGem';
 import { InfoCard } from './M3Components';
+import { useUIStore } from '../stores/useUIStore';
 
 interface AnnualPlanningWizardProps {
     onClose: () => void;
@@ -26,6 +27,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     onClose, userClasses, settings, aiSettings, onSaveUda, onAddLessons, onSaveReport, onSaveEvent, knowledgeBase, students, pianiInclusione
 }) => {
     const [step, setStep] = useState<WizardStep>('context');
+    
+    // UI Store for toast notifications
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     
     // Step 1: Context
     const [selectedClass, setSelectedClass] = useState<string>(userClasses[0] || '');
@@ -98,7 +102,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             });
             setSituationText(text);
         } catch (e) {
-            alert("Errore generazione testo: " + e);
+            console.error("Errore generazione testo situazione:", e);
+            showToast("Errore durante la generazione del testo della situazione di partenza. Riprova.", "error");
         } finally {
             setIsGeneratingSituation(false);
         }
@@ -110,7 +115,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             const text = await generateMethodologyStrategies(aiSettings, situationText || "Classe standard");
             setMethodology(text);
         } catch (e) {
-            alert("Errore generazione: " + e);
+            console.error("Errore generazione metodologia:", e);
+            showToast("Errore durante la generazione delle strategie metodologiche. Riprova.", "error");
         } finally {
             setIsGeneratingMethodology(false);
         }
@@ -123,7 +129,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             .join('\n\n');
         
         if (!kbContent) {
-            alert("Seleziona almeno un documento dalla KB (Step 1) per generare il piano.");
+            showToast("Seleziona almeno un documento dalla Knowledge Base (Step 1) per generare il piano.", "info");
             return;
         }
 
@@ -133,11 +139,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             if (plan.length > 0) {
                 setPlannedUdas(plan.map((u, i) => ({...u, id: `plan-gen-${i}`})));
             } else {
-                alert("L'AI non ha trovato UDA nel documento. Prova a inserirle manualmente.");
+                showToast("L'AI non ha trovato UDA nel documento. Puoi inserirle manualmente.", "info");
             }
         } catch (e) {
-            console.error(e);
-            alert("Errore durante l'analisi del documento.");
+            console.error("Errore durante l'analisi del documento:", e);
+            showToast("Errore durante l'analisi del documento. Riprova.", "error");
         } finally {
             setIsGeneratingPlan(false);
         }
@@ -233,8 +239,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
             setStep('document');
         } catch (error) {
-            console.error(error);
-            alert("Errore nel salvataggio dei dati.");
+            console.error("Errore nel salvataggio dei dati:", error);
+            showToast("Errore nel salvataggio dei dati. Riprova.", "error");
         } finally {
             setIsProcessing(false);
         }
@@ -286,8 +292,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             
             onClose();
         } catch (e: unknown) {
-            const errorMsg = e instanceof Error ? e.message : String(e);
-            alert("Errore generazione documento: " + errorMsg);
+            console.error("Errore generazione documento:", e);
+            showToast("Errore durante la generazione del documento. Riprova.", "error");
         } finally {
             setIsProcessing(false);
         }

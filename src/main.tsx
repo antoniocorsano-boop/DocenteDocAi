@@ -32,7 +32,7 @@ import './modules.css';
 
 // --- DEBUG: Forza reset storage locale e log errori globali ---
 // Avoid clearing storage when running E2E tests so test harness can inject data
-const isTestMode = (typeof window !== 'undefined' && (window as any).__TEST_MODE === true) || ((import.meta as any).env && (import.meta as any).env.VITE_TEST_MODE === 'true');
+const isTestMode = (typeof window !== 'undefined' && (window as { __TEST_MODE?: boolean }).__TEST_MODE === true) || ((import.meta as any).env?.VITE_TEST_MODE === 'true');
 if (!isTestMode) {
   try {
     localStorage.clear();
@@ -72,8 +72,8 @@ if (typeof window !== 'undefined') {
 
   window.addEventListener('unhandledrejection', (ev: PromiseRejectionEvent) => {
     try {
-      const reason: any = ev.reason;
-      const stack = reason && typeof reason === 'object' ? reason.stack : String(reason);
+      const reason = ev.reason;
+      const stack = reason && typeof reason === 'object' ? (reason as { stack?: string }).stack : String(reason);
       if (stack && stack.indexOf('chrome-extension://') !== -1) {
         console.debug('[main] ignored extension rejection', stack);
         ev.preventDefault?.();
@@ -113,7 +113,7 @@ interface ImportMetaTyped extends ImportMeta {
 const enableSW =
   typeof import.meta !== 'undefined' &&
   (import.meta as ImportMetaTyped).env &&
-  (import.meta as ImportMetaTyped).env.VITE_ENABLE_SW === 'true';
+  (import.meta as ImportMetaTyped).env.VITE_ENABLE_SW === 'true' && false; // Forza disabilitazione SW in produzione
 if (enableSW && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     // Evitiamo il caricamento del SW se siamo in un dominio di sandbox/iframe non autorizzato per i manifest

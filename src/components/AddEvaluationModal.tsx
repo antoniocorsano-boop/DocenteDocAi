@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { Studente, Valutazione } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
-import { M3ChoiceCard, SelectField, TextField, TextArea } from './M3Components';
+import { M3ChoiceCard, SelectField, TextField, TextArea, M3Button } from './M3Components';
 
 interface AddEvaluationModalProps {
     students: Studente[];
@@ -191,8 +191,8 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                     />
                 </div>
                 <div className="dialog-footer">
-                    <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Annulla</button>
-                    <button type="submit" className="button button-filled rounded-lg hover:shadow-md transition-all">Salva Valutazione</button>
+                    <M3Button variant="text" onClick={onClose} type="button">Annulla</M3Button>
+                    <M3Button variant="filled" type="submit">Salva Valutazione</M3Button>
                 </div>
             </form>
         </div>

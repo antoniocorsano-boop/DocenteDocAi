@@ -11,10 +11,13 @@ interface KnowledgeBaseProps {
     setKnowledgeBase: React.Dispatch<React.SetStateAction<KnowledgeBaseEntry[]>>;
     corpora: Corpus[];
     setCorpora: React.Dispatch<React.SetStateAction<Corpus[]>>;
+    aiSettings?: AiSettings;
     showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+    settings?: TimetableSettings;
+    showGuidanceTips?: boolean;
 }
 
-const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowledgeBase, corpora, setCorpora, showToast }) => {
+const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowledgeBase, corpora, setCorpora, aiSettings, showToast, settings, showGuidanceTips }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentView, setCurrentView] = useState<{ type: 'root' | 'category' | 'corpus', id: string }>({ type: 'root', id: '' });
     const [isAddSourceModalOpen, setIsAddSourceModalOpen] = useState(false);

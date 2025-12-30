@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { useUIStore } from '../../src/stores/useUIStore';
+import { useUIStore, normalizeLegacyState } from '../../src/stores/useUIStore.ts';
 import { View, Lezione } from '../../src/types';
 
 describe('useUIStore', () => {
   beforeEach(() => {
-    // Reset store state
-    useUIStore.setState({
+    // Reset store state (compatibilità legacy)
+    useUIStore.setState(normalizeLegacyState({
       modals: {
         isOperationsCenterOpen: false,
         isImageAnalysisOpen: false,
@@ -16,6 +16,24 @@ describe('useUIStore', () => {
         isLoadingModalOpen: false,
         isVideoAnalysisOpen: false,
         isRestoring: false,
+        setCreateLessonContext: () => {},
+        setLessonViewContext: () => {},
+        setIsLiveAssistantModalOpen: () => {},
+        setCircularAnalysisModal: () => {},
+        setIsLoadingModalOpen: () => {},
+        setLoadingModalMessage: () => {},
+        setEditingSlotKey: () => {},
+        setActiveSlotKey: () => {},
+        setIsBackupInfoModalOpen: () => {},
+        setSyncConflictModal: () => {},
+        setIsYearTransitionOpen: () => {},
+        setIsImageAnalysisOpen: () => {},
+        setIsHelpOpen: () => {},
+        setIsVideoAnalysisOpen: () => {},
+        setIsRestoring: () => {},
+        showToast: () => {},
+        clearToast: () => {},
+        toast: { message: '', type: 'success', visible: false },
       },
       circularAnalysisModal: null,
       syncConflictModal: null,
@@ -31,7 +49,7 @@ describe('useUIStore', () => {
       navigationHistory: [],
       backupState: { status: 'synced', lastBackup: null },
       driveSyncState: { isAuthenticated: false, isSyncing: false, lastSyncTime: null },
-    });
+    }));
   });
 
   // Modal Tests
@@ -136,12 +154,15 @@ describe('useUIStore', () => {
     });
 
     it('dovrebbe impostare dati sync conflict', () => {
-      const conflict = {
+      const conflictData = {
+        isOpen: true,
         remoteTime: Date.now(),
         localTime: Date.now() - 1000,
-        isOpen: true,
       };
-
+      const conflict = {
+        isOpen: true,
+        data: conflictData,
+      };
       useUIStore.getState().actions.setSyncConflictModal(conflict);
       expect(useUIStore.getState().syncConflictModal).toEqual(conflict);
     });
@@ -155,20 +176,20 @@ describe('useUIStore', () => {
 
     it('dovrebbe impostare context per creare lezione', () => {
       const context = {
-        title: 'Nuova Lezione',
-        htmlContent: '<p>Contenuto</p>',
+        isOpen: true,
+        slotKey: null,
+        lezione: null,
       };
-
       useUIStore.getState().actions.setCreateLessonContext(context);
       expect(useUIStore.getState().createLessonContext).toEqual(context);
     });
 
     it('dovrebbe cancellare lesson context', () => {
       const context = {
-        title: 'Nuova Lezione',
-        htmlContent: '<p>Contenuto</p>',
+        isOpen: true,
+        slotKey: null,
+        lezione: null,
       };
-
       useUIStore.getState().actions.setCreateLessonContext(context);
       useUIStore.getState().actions.setCreateLessonContext(null);
       expect(useUIStore.getState().createLessonContext).toBeNull();
@@ -247,7 +268,7 @@ describe('useUIStore', () => {
     });
 
     it('dovrebbe impostare stato backup in corso', () => {
-      useUIStore.getState().actions.setBackupState({ status: 'drive_pending' });
+      useUIStore.getState().actions.setBackupState({ status: 'drive_pending', lastBackup: null });
       const backupState = useUIStore.getState().backupState;
       expect(backupState.status).toBe('drive_pending');
     });
@@ -272,13 +293,14 @@ describe('useUIStore', () => {
     });
 
     it('dovrebbe impostare stato sync in corso', () => {
-      useUIStore.getState().actions.setDriveSyncState({ isSyncing: true });
+      useUIStore.getState().actions.setDriveSyncState({ isAuthenticated: false, isSyncing: true, lastSyncTime: null });
       const syncState = useUIStore.getState().driveSyncState;
       expect(syncState.isSyncing).toBe(true);
     });
 
     it('dovrebbe completare sync', () => {
       useUIStore.getState().actions.setDriveSyncState({
+        isAuthenticated: false,
         isSyncing: false,
         lastSyncTime: new Date().toISOString(),
       });

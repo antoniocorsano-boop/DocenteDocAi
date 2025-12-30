@@ -1,6 +1,7 @@
 // Aura button for header (M3 icon button + glow)
 import * as React from 'react';
 import './nka.css';
+import './nka-responsive.css';
 import { playNkaSound } from './sound';
 
 
@@ -47,18 +48,16 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
           e.preventDefault();
         }
         if (e.key === 'ArrowRight') {
-          // Focus next element (header navigation)
           (e.currentTarget.nextElementSibling as HTMLElement)?.focus();
         }
         if (e.key === 'ArrowLeft') {
-          // Focus previous element
           (e.currentTarget.previousElementSibling as HTMLElement)?.focus();
         }
       }}
       aria-haspopup="dialog"
       aria-expanded="false"
     >
-      <span className="material-symbols-rounded" aria-hidden="true">auto_awesome</span>
+      <span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span>
       {hasNewNode && <span className="nka-badge" aria-label="Nuovo nodo disponibile" />}
     </button>
   );

@@ -28,8 +28,8 @@ export interface EvaluationViewsProps {
     viewContext?: string;
     selectedClass?: string;
     onNavigate: (view: string, context?: unknown) => void;
-    setEvaluations: (updater: (prev: Valutazione[]) => Valutazione[]) => void;
-    setCompetencyEvals: (updater: (prev: ValutazioneCompetenza[]) => ValutazioneCompetenza[]) => void;
+    setEvaluations: (input: Valutazione[] | ((prev: Valutazione[]) => Valutazione[])) => void;
+    setCompetencyEvals: (input: ValutazioneCompetenza[] | ((prev: ValutazioneCompetenza[]) => ValutazioneCompetenza[])) => void;
     onOpenInclusionPlanEditor?: (student: Studente) => void;
     onViewStudentProfile?: (student: Studente) => void;
     showGuidanceTips: boolean;

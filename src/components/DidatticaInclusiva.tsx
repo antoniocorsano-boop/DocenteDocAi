@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import M3Button from './M3Button';
 import { Studente, DidatticaInclusivaProps } from '../types';
 import PianoInclusioneEditor from './PianoInclusioneEditor';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -117,9 +118,9 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 <p className="m3-body-small text-on-surface-variant">Classe {student.classe}</p>
                             </div>
                         </div>
-                        <button className="button button-outlined rounded-lg hover:shadow-md transition-all">
+                        <M3Button variant="outlined" className="rounded-lg" type="button">
                             Modifica Piano
-                        </button>
+                        </M3Button>
                     </div>
                 )
             }) : (
