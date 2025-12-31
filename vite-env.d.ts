@@ -10,5 +10,5 @@ declare global {
 	}
 }
 // Google One Tap/Identity Services
-declare const google: any;
-declare const gapi: any;
+declare const google: typeof import('google-one-tap');
+declare const gapi: typeof import('gapi-script');

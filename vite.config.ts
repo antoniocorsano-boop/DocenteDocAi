@@ -11,11 +11,12 @@ export default defineConfig({
     alias: {
       react: 'react',
       'react-dom': 'react-dom',
+      scheduler: 'scheduler',
       underscore: 'lodash', // Shim underscore to lodash
     },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'lodash', 'lodash-es', 'underscore'],
+    include: ['react', 'react-dom', 'scheduler', 'lodash', 'lodash-es', 'underscore', './src/services/demoData.ts'],
     esbuildOptions: {
       mainFields: ['module', 'jsnext:main', 'jsnext'],
     },

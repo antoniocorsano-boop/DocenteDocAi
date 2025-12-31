@@ -39,8 +39,12 @@
 - `src/` — Codice sorgente React/TypeScript
 - `index.html` — Entrypoint app
 
+
 ## Note
 - React e React DOM sono deduplicati tramite alias in Vite
 - Tutte le type definitions sono installate e risolte tramite `typeRoots`
 - Chunk splitting ottimizzato in `vite.config.ts`
+- Alias speciale per `scheduler` in `vite.config.ts`:
+   - `scheduler: 'scheduler/cjs/scheduler.production.min.js'`
+   - Questo forza l'import corretto del pacchetto Scheduler (interop CJS/ESM) e risolve errori di runtime in produzione con React 18
 - Per problemi di build, controlla sempre i log Vite e la configurazione degli alias

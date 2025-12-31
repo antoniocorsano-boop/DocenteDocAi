@@ -9,7 +9,7 @@
 // Protect React hooks from being called before React is ready
 if (typeof window !== 'undefined') {
   const originalHooks = {
-    useState: undefined as any,
+    useState: undefined as unknown,
     useEffect: undefined as any,
     useReducer: undefined as any,
     useRef: undefined as any,

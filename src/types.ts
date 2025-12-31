@@ -878,7 +878,7 @@ export interface AppActions {
     handleAddEvaluation: (data: EvaluationInput) => void;
     handleCreateUda: (data: UdaCreateInput) => void;
     handleAddNote: (data: { note: string, studentName?: string }) => void;
-    onMarkAttendance: (data: { studentName: string; status: string; }) => void;
+    onMarkAttendance: (data: { studentName: string; status: "presente" | "assente" | "ritardo"; }) => void;
     handleOpenBackupInfo: () => void;
     handleExportData: () => Promise<void>;
     handleImportData: (file: File) => void;

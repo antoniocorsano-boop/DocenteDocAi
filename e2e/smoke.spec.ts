@@ -1,8 +1,8 @@
-
 import { test, expect } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 
 // Helper: robust click with fallback to DOM click when locator fails
-async function safeClick(page: any, selectorOrLocator: any, label?: string) {
+async function safeClick(page: Page, selectorOrLocator: string | Locator, label?: string) {
   const isString = typeof selectorOrLocator === 'string';
   const locator = isString ? page.locator(selectorOrLocator) : selectorOrLocator;
   try {
@@ -17,12 +17,10 @@ async function safeClick(page: any, selectorOrLocator: any, label?: string) {
           if (el) el.click();
         }, selectorOrLocator);
       } else {
-        await locator.first().evaluate((el: any) => (el as HTMLElement).click());
+        await locator.first().evaluate((el: HTMLElement) => el.click());
       }
     } catch (e2) {
-      // best-effort: log and continue — test harness will capture failures
-      // eslint-disable-next-line no-console
-      console.warn('safeClick failed for', label || selectorOrLocator);
+      console.warn('safeClick failed for', label || selectorOrLocator, e2);
     }
   }
 }
@@ -41,18 +39,21 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
           if (text.indexOf(p) !== -1) return; // swallow noisy message
         }
         console.log(`PW_CONSOLE:${msg.type()}: ${msg.text()}`);
-      } catch (e) {}
+      } catch (e) {
+        console.error('Error processing console message:', e);
+      }
     });
     page.on('pageerror', err => {
-      try { console.error(`PW_PAGE_ERROR: ${err && err.message ? err.message : String(err)}`); } catch (e) {}
+      console.error(`PW_PAGE_ERROR: ${err && err.message ? err.message : String(err)}`);
     });
+
     page.on('close', () => {
-      try { console.error('PW_PAGE_CLOSED'); } catch (e) {}
+      console.error('PW_PAGE_CLOSED');
     });
 
     // Enable test-mode early so the app bootstrap fast-path will run
     await page.addInitScript(() => {
-      (window as any).__TEST_MODE = true;
+      (window as { __TEST_MODE?: boolean }).__TEST_MODE = true;
     });
     await page.evaluate(() => {
       return new Promise<void>((resolve) => {
@@ -96,7 +97,7 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
     await page.goto('/');
     await page.reload();
     // Wait for instrumentation to indicate the app shell mounted
-    await page.waitForFunction(() => !!(window as any).__app_instrumentation?.appShellMounted, { timeout: 30000 }).catch(() => {});
+    await page.waitForFunction(() => !!(window as { __app_instrumentation?: { appShellMounted?: boolean } }).__app_instrumentation?.appShellMounted, { timeout: 30000 }).catch(() => {});
   });
 
   test('Flusso di Onboarding (Accesso Rapido)', async ({ page }) => {

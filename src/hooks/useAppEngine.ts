@@ -22,7 +22,7 @@ import { useSettingsStore } from '../stores/useSettingsStore';
 
 export const useAppEngine = () => {
     // Test mode detection: when true, skip heavy restore and set a demo user
-    const isTestMode = (typeof window !== 'undefined' && (window as any).__TEST_MODE === true) || ((import.meta as any).env && (import.meta as any).env.VITE_TEST_MODE === 'true');
+    const isTestMode = (typeof window !== 'undefined' && (window as { __TEST_MODE?: boolean }).__TEST_MODE === true) || ((import.meta as ImportMeta).env?.VITE_TEST_MODE === 'true');
 
     // --- STORES (Accessed directly via Proxy lazy-init pattern) ---
     const { user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, dismissedSuggestions, studentProfileContext, selectedClassForDashboard, actions: dataActions } = useDataStore();
@@ -40,7 +40,7 @@ export const useAppEngine = () => {
 
     // --- LOCAL STATE (NAVIGATION ONLY) ---
     const [view, setView] = useState<View>('home');
-    const [viewContext, setViewContext] = useState<any>(null);
+    const [viewContext, setViewContext] = useState<Record<string, unknown> | null>(null);
     const [isDataLoaded, setIsDataLoaded] = useState(false);
 
     // Persistence Hook: Now receives isDataLoaded to prevent saving during initial load
@@ -59,11 +59,11 @@ export const useAppEngine = () => {
                 if (isTestMode) {
                     console.info('[useAppEngine] Test mode detected — attempting test backup restore or injecting demo user');
                     // Basic test user so traces and instrumentation have a user immediately
-                    setUser({ id: 'test-local', displayName: 'Test Teacher' } as any);
+                    setUser({ id: 'test-local', displayName: 'Test Teacher' } as { id: string; displayName: string });
                     settingsActions.loadFromBackup({});
-                    uiActions.setBackupState({ status: 'synced', lastBackup: null } as any);
+                    uiActions.setBackupState({ status: 'synced', lastBackup: null } as BackupState);
                     uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined } as any);
-                    uiActions.setNavigationHistory([] as any);
+                    uiActions.setNavigationHistory([] as { view: View; context: unknown }[]);
                     // Impedisci apertura automatica modale Assistant in test
                     if (uiActions.toggleModal) uiActions.toggleModal('isLiveAssistantModalOpen', false);
 
@@ -207,7 +207,7 @@ export const useAppEngine = () => {
             const last = navigationHistory[navigationHistory.length - 1];
             uiActions.popNavigationEntry();
             setView(last.view);
-            setViewContext(last.context);
+            setViewContext(last.context as Record<string, unknown> | null);
         } else if (view !== 'home' || force) {
             setView('home');
             setViewContext(null);
@@ -596,29 +596,31 @@ export const useAppEngine = () => {
             content: data.note,
         };
         const category = data.studentName || viewContext?.classe || 'Generale';
-        setNotebookNotes((prev: Record<string, NotebookNote[]>) => ({
-            ...prev,
-            [category]: [newNote, ...(prev[category] || [])]
-        }));
+        setNotebookNotes((prev: Record<string, NotebookNote[]>) => {
+            const updatedNotes = {
+                ...prev,
+                [category as string]: [newNote, ...(prev[category as string] || [])],
+            };
+            return updatedNotes;
+        });
         showToast('noteAdded', 'success');
     }, [setNotebookNotes, showToast, viewContext]);
 
-    const onMarkAttendance = useCallback((data: { studentName: string, status: string }) => {
+    const onMarkAttendance = useCallback((data: { studentName: string, status: "presente" | "assente" | "ritardo" }) => {
+        const { studentName, status } = data;
         const draftKey = viewContext?.draftKey;
-        if (draftKey && draftRegister[draftKey]) {
+        if (draftKey && draftRegister[draftKey as string]) {
             setDraftRegister(prev => ({
                 ...prev,
-                [draftKey]: {
-                    ...prev[draftKey],
+                [draftKey as string]: {
+                    ...prev[draftKey as string],
                     studentAttendance: {
-                        ...prev[draftKey].studentAttendance,
-                        [data.studentName]: data.status
-                    }
-                }
+                        ...prev[draftKey as string].studentAttendance,
+                        [studentName]: status,
+                    },
+                },
             }));
-            showToast('attendanceUpdated', 'success');
-        } else {
-            showToast('registerError', 'error');
+            showToast('attendanceMarked', 'success');
         }
     }, [setDraftRegister, viewContext, draftRegister, showToast]);
 

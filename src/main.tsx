@@ -32,7 +32,7 @@ import './modules.css';
 
 // --- DEBUG: Forza reset storage locale e log errori globali ---
 // Avoid clearing storage when running E2E tests so test harness can inject data
-const isTestMode = (typeof window !== 'undefined' && (window as { __TEST_MODE?: boolean }).__TEST_MODE === true) || ((import.meta as any).env?.VITE_TEST_MODE === 'true');
+const isTestMode = (typeof window !== 'undefined' && (window as { __TEST_MODE?: boolean }).__TEST_MODE === true) || ((import.meta as ImportMeta).env?.VITE_TEST_MODE === 'true');
 if (!isTestMode) {
   try {
     localStorage.clear();
