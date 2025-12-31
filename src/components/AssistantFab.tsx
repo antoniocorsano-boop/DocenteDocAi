@@ -19,7 +19,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
       if (typeof window === 'undefined') return;
       const silent = (window.__TEST_MODE === true) || (window.__SILENCE_ASSISTANT_LOGS === true);
       if (silent) return;
-      // eslint-disable-next-line no-console
+       
       const fn = (console as unknown as Record<'log'|'info'|'warn'|'error'|'debug', (...a: unknown[]) => void>)[method];
       fn?.(...args);
     } catch (e) {
@@ -95,7 +95,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
     // Open the global Assistant modal when an action is selected
     try {
       // Emit a concise runtime warning so Playwright traces capture the user action
-      // eslint-disable-next-line no-console
+       
       console.warn('[E2E][AssistantFab] action selected', { key: action.key, label: action.label });
     } catch (e) {
       // ignore

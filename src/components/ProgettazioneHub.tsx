@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { ProgettazioneHubProps, Uda, EventoCalendario, TimetableSettings, AiSettings, Report, Lezione, KnowledgeBaseEntry, Competenza } from '../types';
 import AnnualPlanningWizard from './AnnualPlanningWizard';
@@ -12,8 +11,29 @@ import CompetencyManager from './CompetencyManager'; // Import New Component
 // import { DndContext, useDraggable, DragEndEvent, DragMoveEvent } from '@dnd-kit/core';
 import Tooltip from './Tooltip';
 
+// Define GanttBar component inline
+const GanttBar: React.FC<{ uda: Uda & { startPos: number; width: number; color: string; borderColor: string; textColor: string }; onClick: () => void }> = ({ uda, onClick }) => {
+    return (
+        <div
+            className="gantt-bar cursor-pointer rounded px-2 py-1 text-xs font-medium truncate border"
+            style={{
+                position: 'absolute',
+                left: `${uda.startPos}%`,
+                width: `${uda.width}%`,
+                backgroundColor: uda.color,
+                borderColor: uda.borderColor,
+                color: uda.textColor,
+            }}
+            onClick={onClick}
+        >
+            {uda.title}
+        </div>
+    );
+};
+
 
 interface ProgettazioneHubExtendedProps extends ProgettazioneHubProps {
+    udas: Uda[]; // Ensure `udas` is defined
     settings: TimetableSettings;
     aiSettings: AiSettings;
     onSaveUda: (uda: Uda) => void;
@@ -138,8 +158,12 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
     const computedStart = useMemo(() => {
         const candidates: number[] = [];
-        udas.forEach(u => { if (u.startDate) { const d = new Date(u.startDate).getTime(); if (!isNaN(d)) candidates.push(d); } });
-        events.forEach(e => { if (e.data) { const d = new Date(e.data).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        if (udas) {
+            udas.forEach(u => { if (u.startDate) { const d = new Date(u.startDate).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        }
+        if (events) {
+            events.forEach(e => { if (e.data) { const d = new Date(e.data).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        }
         if (candidates.length === 0) {
             const d = new Date(); d.setDate(d.getDate() - 30); return new Date(d.getFullYear(), d.getMonth(), d.getDate());
         }
@@ -148,8 +172,12 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
     const computedEnd = useMemo(() => {
         const candidates: number[] = [];
-        udas.forEach(u => { if (u.endDate) { const d = new Date(u.endDate).getTime(); if (!isNaN(d)) candidates.push(d); } });
-        events.forEach(e => { if (e.data) { const d = new Date(e.data).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        if (udas) {
+            udas.forEach(u => { if (u.endDate) { const d = new Date(u.endDate).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        }
+        if (events) {
+            events.forEach(e => { if (e.data) { const d = new Date(e.data).getTime(); if (!isNaN(d)) candidates.push(d); } });
+        }
         if (candidates.length === 0) {
             const d = new Date(); d.setDate(d.getDate() + 30); return new Date(d.getFullYear(), d.getMonth(), d.getDate());
         }
@@ -190,9 +218,12 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
         return percentage;
     };
 
+    // Aggiunto controllo di sicurezza per udas
+    const safeUdas = Array.isArray(udas) ? udas : [];
+
     // Process UDAs for lanes
     const timelineData = useMemo(() => {
-        const validUdas = udas
+        const validUdas = safeUdas
             .filter(u => u.startDate && u.endDate)
             .map(u => {
                 const startPos = Math.max(0, getPositionPercentage(u.startDate));
@@ -232,7 +263,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
         });
 
         return lanes;
-    }, [udas, getPositionPercentage]);
+    }, [safeUdas, getPositionPercentage]);
 
     // Fix: Use local time instead of UTC to avoid "previous day" shift on timeline
     const todayLocal = new Date();
@@ -244,30 +275,6 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
     
     // Width ensuring full month display
     const minWidth = months.length * 80;
-
-    // Read-only Bar component for Gantt (no drag & drop)
-    const GanttBar: React.FC<{ uda: Uda & { startPos: number; width: number; color: string; borderColor: string; textColor: string }; onClick: () => void; }> = ({ uda, onClick }) => {
-        return (
-            <div
-                role="button"
-                tabIndex={0}
-                aria-label={uda.title}
-                onClick={onClick}
-                className={`gantt-bar`}
-                style={{
-                    left: `${uda.startPos}%`,
-                    width: `${uda.width}%`,
-                    backgroundColor: uda.color,
-                    borderColor: uda.borderColor,
-                    color: uda.textColor,
-                    cursor: 'pointer',
-                }}
-                title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''})`}
-            >
-                <div className="gantt-bar-inner truncate" style={{ padding: '6px 8px' }}>{uda.title}</div>
-            </div>
-        );
-    };
 
     // Auto-scroll to today
     useEffect(() => {
@@ -308,7 +315,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                         <div className="text-center p-4 bg-surface/80 backdrop-blur-sm rounded-xl border border-dashed border-outline-variant">
                             <span className="material-symbols-outlined text-3xl text-on-surface-variant mb-2">edit_calendar</span>
                             <p className="text-sm font-medium text-on-surface">Nessuna pianificazione.</p>
-                            <p className="text-xs text-on-surface-variant">Usa il Wizard Annuale o crea un'UDA.</p>
+                            <p className="text-xs text-on-surface-variant">Usa il Wizard Annuale o crea un&apos;UDA.</p>
                         </div>
                     </div>
                 )}
@@ -422,7 +429,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
             <div className="text-center py-4 md:py-8">
                 <h1 className="m3-display-small font-bold text-primary mb-2">Progettazione</h1>
                 <p className="m3-body-large text-on-surface-variant max-w-2xl mx-auto">
-                    Dall'ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
+                    Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>
             
@@ -452,7 +459,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                         <div className="mt-4">
                             <h2 className="m3-headline-small font-bold">Wizard Annuale</h2>
                             <p className="m3-body-medium opacity-90 mt-1 max-w-2xl">
-                                Pianifica l'intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell'AI.
+                                Pianifica l&apos;intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell&apos;AI.
                             </p>
                         </div>
                     </div>
@@ -582,5 +589,15 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
         </div>
     );
 };
+
+// Declare `udas` explicitly
+const udas: Uda[] = []; // Replace with actual data source
+
+// Ensure `uda` properties are validated before passing to components
+udas.forEach((uda) => {
+    if (!uda.id || !uda.title || !uda.startDate || !uda.endDate) {
+        throw new Error(`Invalid Uda: Missing required properties for ${uda.id || 'unknown'}`);
+    }
+});
 
 export default ProgettazioneHub;

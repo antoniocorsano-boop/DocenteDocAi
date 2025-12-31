@@ -49,13 +49,13 @@ try {
   // Try to access service worker registrations and unregister them
   try {
     const registrations = await page.evaluate(async () => {
-      /* eslint-disable no-undef, no-restricted-globals */
+       
       if (!('serviceWorker' in navigator)) return null;
       const regs = await navigator.serviceWorker.getRegistrations();
       const list = regs.map(r => ({ scope: r.scope, active: !!r.active }));
       await Promise.all(regs.map(r => r.unregister()));
       return list;
-      /* eslint-enable no-undef, no-restricted-globals */
+       
     });
     out.sw = registrations;
     globalThis.console.log('Service worker registrations (unregistered):', registrations);

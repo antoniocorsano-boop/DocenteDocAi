@@ -1,6 +1,6 @@
 # TODO/FIXME Priorità - DocenteDoc AI
 
-Ultimo aggiornamento: 30/12/2025
+Ultimo aggiornamento: 31/12/2025
 
 ## TODO/FIXME ancora utili e rilevanti
 

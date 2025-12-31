@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * CRITICAL: Lazy-load zustand stores to ensure React is initialized first
  * This prevents "Cannot read properties of undefined (reading 'useState')" errors

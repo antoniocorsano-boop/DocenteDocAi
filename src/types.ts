@@ -395,6 +395,13 @@ export interface Uda {
     endDate?: string;
     linkedEventId?: string;
     externalLink?: string;
+
+    // Properties for GanttBar visualization (now required)
+    startPos: number;
+    width: number;
+    color: string;
+    borderColor: string;
+    textColor: string;
 }
 
 export interface DocumentTemplate {

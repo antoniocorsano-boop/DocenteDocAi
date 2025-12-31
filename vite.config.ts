@@ -16,7 +16,14 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'scheduler', 'lodash', 'lodash-es', 'underscore', './src/services/demoData.ts'],
+    include: [
+      'react',
+      'react-dom',
+      'scheduler',
+      'lodash',
+      'underscore',
+      './src/services/demoData.ts'
+    ],
     esbuildOptions: {
       mainFields: ['module', 'jsnext:main', 'jsnext'],
     },
@@ -46,12 +53,15 @@ export default defineConfig({
           if (id.includes('node_modules')) {
             if (id.includes('react')) return 'react-vendor';
             if (id.includes('pdf-lib') || id.includes('jspdf') || id.includes('docx') || id.includes('mammoth')) return 'pdf-tools';
-            if (id.includes('@google/genai')) return 'genai';
+            if (id.includes('@google/genai')) return 'vendor'; // Unifica con vendor
             if (id.includes('lodash') || id.includes('underscore')) return 'lodash-vendor';
             return 'vendor';
           }
         },
       },
     }
+  },
+  server: {
+    hmr: false, // Disabilita l'Hot Module Replacement per catturare errori senza ricaricamenti
   },
 });

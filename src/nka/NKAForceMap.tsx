@@ -66,7 +66,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
       if (!cancelled) setLoading(false);
     });
     return () => { cancelled = true; };
-    // eslint-disable-next-line
+     
   }, [nodes, width, height]);
 
   // Respect reducedMotion: skip animation if true (placeholder)

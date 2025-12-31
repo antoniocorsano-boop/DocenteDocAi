@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, no-empty */
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 /**
  * CRITICAL: Ultra-robust DOM polyfill for Vercel SSR compatibility AND browser protection
  * This file runs FIRST, before any imports or React code
