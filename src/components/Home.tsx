@@ -50,9 +50,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
 
             {/* Metriche principali */}
             <section className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <M3ExpressiveCard icon="group" title="Studenti" description={`${metrics.studenti}`} color="primary" />
-                <M3ExpressiveCard icon="assignment" title="Verifiche oggi" description={`${metrics.verificheOggi}`} color="secondary" />
-                <M3ExpressiveCard icon="check_circle" title="Presenze" description={`${metrics.presenze}`} color="tertiary" />
+                <M3ExpressiveCard icon="group" title="Studenti" description={`${metrics.studenti}`} color="primary" onClick={() => onNavigate('studenti' as View)} />
+                <M3ExpressiveCard icon="assignment" title="Verifiche oggi" description={`${metrics.verificheOggi}`} color="secondary" onClick={() => onNavigate('evaluations' as View)} />
+                <M3ExpressiveCard icon="check_circle" title="Presenze" description={`${metrics.presenze}`} color="tertiary" onClick={() => onNavigate('studenti' as View)} />
             </section>
 
             {/* Main grid: attività, suggerimenti, badge, azioni */}

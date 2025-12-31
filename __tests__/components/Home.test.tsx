@@ -21,8 +21,8 @@ vi.mock('../../src/components/M3Components', () => ({
 }));
 
 vi.mock('../../src/components/M3ExpressiveCard', () => ({
-    default: ({ icon, title, description, color, children }: any) => (
-        <div data-testid="m3-card">
+    default: ({ icon, title, description, color, children, onClick }: any) => (
+        <div data-testid="m3-card" onClick={onClick}>
             <h3>{title}</h3>
             <p>{description}</p>
             {children}
@@ -58,7 +58,7 @@ describe('Home Component', () => {
             />
         );
 
-        expect(screen.getByText('Buongiorno Prof. Test User!')).toBeInTheDocument();
+        expect(screen.getByText('Buongiorno Prof. Rossi!')).toBeInTheDocument();
     });
 
     it('renders personalized suggestions', () => {
@@ -116,5 +116,30 @@ describe('Home Component', () => {
 
         expect(screen.getAllByTestId('action-tile')).toHaveLength(4);
         expect(screen.getByText('Nuova valutazione')).toBeInTheDocument();
+    });
+
+    it('handles metric card clicks', () => {
+        render(
+            <Home
+                onNavigate={mockOnNavigate}
+                appState={mockAppState}
+                dismissSuggestion={mockDismissSuggestion}
+            />
+        );
+
+        // Test Studenti card click
+        const studentiCard = screen.getByText('Studenti');
+        fireEvent.click(studentiCard);
+        expect(mockOnNavigate).toHaveBeenCalledWith('studenti');
+
+        // Test Verifiche card click
+        const verificheCard = screen.getByText('Verifiche oggi');
+        fireEvent.click(verificheCard);
+        expect(mockOnNavigate).toHaveBeenCalledWith('evaluations');
+
+        // Test Presenze card click
+        const presenzeCard = screen.getByText('Presenze');
+        fireEvent.click(presenzeCard);
+        expect(mockOnNavigate).toHaveBeenCalledWith('studenti');
     });
 });
