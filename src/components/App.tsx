@@ -289,7 +289,6 @@ export const App: React.FC = () => {
 
                 <main className="main-content custom-scrollbar">
                     <div className="content-container">
-                        <Snackbar />
                         {/* Banner Suggestion Assistant (solo se suggestion richiede modale) */}
                         {activeSuggestion && activeSuggestion.action?.type === 'modal' && typeof activeSuggestion.action?.payload === 'string' && activeSuggestion.action.payload === 'isLiveAssistantModalOpen' && !modals.isLiveAssistantModalOpen && (
                           <SuggestionBanner
@@ -328,7 +327,6 @@ export const App: React.FC = () => {
                                 {modals.isLiveAssistantModalOpen && (
                                     <AssistantModal open={true} onClose={() => modals.setIsLiveAssistantModalOpen(false)} mode={assistantMode} />
                                 )}
-                <Snackbar />
                 <Snackbar />
             </div>
             </M3ExpressiveProvider>

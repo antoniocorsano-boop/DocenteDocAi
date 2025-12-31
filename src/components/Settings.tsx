@@ -68,6 +68,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
         onLogout,
         driveState, onConnectDrive, onSyncToDrive,
         onClose,
+        dismissedSuggestions, onReactivateSuggestion,
     } = props;
 
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -211,6 +212,50 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     </div>
                 </SettingsGroup>
 
+                <SettingsGroup id="ai_suggestions" title="Suggerimenti AI" subtitle="Gestisci suggerimenti ignorati" icon="lightbulb" variant="tertiary">
+                    <div className="space-y-4">
+                        <p className="text-sm text-on-surface-variant">
+                            Qui puoi vedere i suggerimenti AI che hai ignorato e riattivarli se desideri.
+                        </p>
+                        {dismissedSuggestions.size === 0 ? (
+                            <p className="text-sm text-on-surface-variant italic">
+                                Nessun suggerimento ignorato.
+                            </p>
+                        ) : (
+                            <div className="space-y-3">
+                                {Array.from(dismissedSuggestions).map((id) => (
+                                    <div key={id} className="p-3 rounded-xl bg-surface-container-low border border-outline-variant flex items-center justify-between">
+                                        <div>
+                                            <div className="m3-label-medium font-semibold">Suggerimento {id}</div>
+                                            <div className="text-sm text-on-surface-variant">Ignorato in precedenza</div>
+                                        </div>
+                                        <button
+                                            onClick={() => onReactivateSuggestion(id)}
+                                            className="px-3 py-1.5 rounded-full bg-tertiary text-on-tertiary font-medium text-sm hover:shadow-md transition-all"
+                                        >
+                                            Riattiva
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        <div className="pt-4 border-t border-outline-variant">
+                            <button
+                                onClick={() => {
+                                    // Clear all dismissed suggestions
+                                    Array.from(dismissedSuggestions).forEach(id => onReactivateSuggestion(id));
+                                    showToast('Tutti i suggerimenti riattivati', 'success');
+                                }}
+                                disabled={dismissedSuggestions.size === 0}
+                                className="button button-outlined w-full justify-center !h-10 text-sm rounded-lg hover:shadow-md transition-all disabled:opacity-50"
+                            >
+                                <span className="material-symbols-outlined mr-2 text-sm">refresh</span>
+                                Riattiva Tutti
+                            </button>
+                        </div>
+                    </div>
+                </SettingsGroup>
+
                 <SettingsGroup id="cloud" title="Dati & Cloud" subtitle="Backup e Storage" icon="cloud_sync" variant="surface">
                     {storageInfo && (
                         <div className="mb-4 p-4 bg-surface-container rounded-xl border border-outline-variant">
@@ -224,6 +269,34 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <p className="text-[10px] text-on-surface-variant mt-2">Dati salvati in IndexedDB (senza limiti LocalStorage).</p>
                         </div>
                     )}
+
+                    {/* Reminder banner se backup cloud troppo vecchio */}
+                    {(() => {
+                        const DAYS_LIMIT = 30;
+                        let showReminder = false;
+                        let lastSyncDate: Date | null = null;
+                        if (driveState.lastSyncTime) {
+                            lastSyncDate = new Date(driveState.lastSyncTime);
+                            const now = new Date();
+                            const diffDays = Math.floor((now.getTime() - lastSyncDate.getTime()) / (1000 * 60 * 60 * 24));
+                            showReminder = diffDays >= DAYS_LIMIT;
+                        } else {
+                            showReminder = true;
+                        }
+                        if (showReminder) {
+                            return (
+                                <div className="mb-4 p-3 rounded-lg border border-warning bg-warning-container text-on-warning-container flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    <span className="material-symbols-outlined text-warning">warning</span>
+                                    <div>
+                                        <b>Backup cloud non aggiornato!</b><br />
+                                        Esegui un backup cloud e verifica il ripristino periodicamente per la sicurezza dei tuoi dati.
+                                    </div>
+                                </div>
+                            );
+                        }
+                        return null;
+                    })()}
+
                     <div className={`p-4 rounded-xl border mb-4 flex items-center justify-between transition-colors ${driveState.isAuthenticated ? 'bg-primary-container border-primary text-on-primary-container' : 'bg-surface-container border-outline-variant text-on-surface'}`}>
                         <div>
                             <h4 className="font-bold m3-title-medium flex items-center gap-2"><span className="material-symbols-outlined">{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>{driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}</h4>

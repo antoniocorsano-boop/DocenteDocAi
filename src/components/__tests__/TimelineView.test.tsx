@@ -46,7 +46,7 @@ describe('ProgettazioneHub Gantt integration', () => {
   it('click on UDA bar opens UDA detail modal', async () => {
     const onSave = vi.fn();
     render(<ProgettazioneHub {...defaultProps} onSaveUda={onSave} />);
-    const bar = await screen.findByRole('button', { name: /Unità 1/i });
+    const bar = await screen.findByText('Unità 1');
     fireEvent.click(bar);
     const modalHeading = await screen.findByRole('heading', { name: /Unità 1/i });
     expect(modalHeading).toBeInTheDocument();

@@ -18,6 +18,12 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
     setVisible(false);
   };
 
+  React.useEffect(() => {
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
   return (
     <span className="m3-tooltip-wrapper" onMouseEnter={show} onMouseLeave={hide} onFocus={show} onBlur={hide} tabIndex={0}>
       {children}

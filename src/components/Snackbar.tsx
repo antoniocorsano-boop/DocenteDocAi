@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useUIStore } from '../stores/useUIStore';
 
 const SNACKBAR_COLORS = {
@@ -24,11 +24,55 @@ const Snackbar: React.FC = () => {
     clearToast: state.modals.clearToast
   }));
 
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Debug: Log per verificare se clearToast è definito
+  useEffect(() => {
+    console.log('Snackbar Debug - toast.visible:', toast.visible);
+    console.log('Snackbar Debug - clearToast:', clearToast);
+    console.log('Snackbar Debug - typeof clearToast:', typeof clearToast);
+  }, [toast.visible, clearToast]);
+
+  const handleClose = () => {
+    console.log('Snackbar Debug - handleClose called');
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    if (clearToast) {
+      clearToast();
+      console.log('Snackbar Debug - clearToast executed');
+    } else {
+      console.warn('Snackbar Warning - clearToast is undefined, forcing close via store');
+      // Fallback: Chiudi manualmente il toast se clearToast fallisce
+      useUIStore.setState((state) => ({
+        modals: {
+          ...state.modals,
+          toast: { ...state.modals.toast, visible: false }
+        }
+      }));
+    }
+  };
+
   useEffect(() => {
     if (toast.visible && clearToast) {
-      const timeout = setTimeout(() => clearToast(), 3500);
-      return () => clearTimeout(timeout);
+      console.log('Snackbar Debug - Setting timeout');
+      timeoutRef.current = setTimeout(() => {
+        clearToast?.();
+        timeoutRef.current = null;
+        console.log('Snackbar Debug - Timeout executed');
+      }, 3500);
+    } else if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
   }, [toast.visible, clearToast]);
 
   if (!toast.visible) return null;
@@ -48,9 +92,10 @@ const Snackbar: React.FC = () => {
       <span>{toast.message}</span>
       <button
         className="snackbar-close-btn"
-        onClick={clearToast}
+        onClick={handleClose}
         aria-label="Chiudi notifica"
-        disabled={!clearToast}
+        // Rimuovi disabled per permettere il fallback
+        // disabled={!clearToast}
       >
         <span className="material-symbols-outlined">close</span>
       </button>
@@ -70,7 +115,7 @@ const Snackbar: React.FC = () => {
           gap: 0.7rem;
           font-size: 1rem;
           font-weight: 600;
-          z-index: 2000;
+          z-index: 3000;
           animation: snackbar-in 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
         }
         .snackbar-close-btn {

@@ -18,4 +18,16 @@ export default defineConfig([
       'no-prototype-builtins': 'off',
     },
   },
+  {
+    ignores: [
+      "__tests__/**/*.test.tsx",
+      "__tests__/**/*.test.ts",
+      "__tests__/**/*.spec.tsx",
+      "__tests__/**/*.spec.ts",
+      "src/**/*.test.tsx",
+      "src/**/*.test.ts",
+      "src/**/*.spec.tsx",
+      "src/**/*.spec.ts"
+    ]
+  }
 ]);

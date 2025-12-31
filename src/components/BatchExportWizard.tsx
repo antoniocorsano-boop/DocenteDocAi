@@ -6,6 +6,7 @@ import { useDataStore } from '../stores/useDataStore';
 import { useUIStore } from '../stores/useUIStore';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import TemplateManager from './TemplateManager';
+import JSZip from 'jszip';
 
 // Type guards migliorati
 const isStudent = (data: unknown): data is Studente => {
@@ -147,11 +148,16 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
   };
 
   const generateBatch = async () => {
+    console.log('generateBatch called');
+    console.log('Selected documents:', selectedDocuments);
+
     if (selectedDocuments.length === 0) {
-      showToast("Seleziona almeno un documento da generare", "info");
+      console.log('No documents selected, calling showToast');
+      showToast('Seleziona almeno un documento da generare', 'info');
       return;
     }
 
+    console.log('Proceeding with batch generation');
     setIsGenerating(true);
     setProgress({ current: 0, total: selectedDocuments.length, currentDoc: '' });
 
@@ -160,6 +166,9 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
       documentCount: selectedDocuments.length,
       documentTypes: selectedDocuments.map(d => d.type).join(', ')
     });
+
+    console.log("generateBatch called", selectedDocuments);
+    console.log("selectedDocuments state:", selectedDocuments);
 
     try {
       const generatedFiles: { name: string; blob: Blob }[] = [];
@@ -217,13 +226,15 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
         });
       }
 
-      // Se abbiamo un solo file, scaricalo direttamente
-      if (generatedFiles.length === 1) {
-        saveAs(generatedFiles[0].blob, generatedFiles[0].name);
-      } else {
-        // Per più file, dovremmo creare un ZIP (per ora scarichiamo il primo)
-        // TODO: Implementare compressione ZIP per download multipli
-        showToast(`Generati ${generatedFiles.length} documenti. Download multiplo in sviluppo.`, "info");
+      if (generatedFiles.length > 1) {
+        const zip = new JSZip();
+        generatedFiles.forEach(file => {
+          zip.file(file.name, file.blob);
+        });
+
+        const zipBlob = await zip.generateAsync({ type: 'blob' });
+        saveAs(zipBlob, 'Documenti_Export.zip');
+      } else if (generatedFiles.length === 1) {
         saveAs(generatedFiles[0].blob, generatedFiles[0].name);
       }
 

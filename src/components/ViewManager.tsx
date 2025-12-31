@@ -173,6 +173,8 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                             onCreateAppFolder={() => actions.createAppFolder?.()}
                             onClose={() => actions.handleBack?.()}
                             onOpenBackupInfo={() => actions.handleOpenBackupInfo?.()}
+                            dismissedSuggestions={dismissedSuggestions}
+                            onReactivateSuggestion={actions.reactivateSuggestion}
                         />
                     </AuraView>
                 )}

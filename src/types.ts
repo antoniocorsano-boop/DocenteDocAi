@@ -5,6 +5,18 @@ export interface ActionsPopoverProps extends HeaderProps {
     unreadCount: number;
     onOpenNotifications: () => void;
 }
+
+// --- KNOWLEDGE BASE ENTRY ---
+export interface KnowledgeBaseEntry {
+    id: string;
+    fileName: string;
+    content: string;
+    category?: string;
+    tags?: string[];
+    createdAt?: string;
+    updatedAt?: string;
+}
+
 // --- DATA STORE STATE & ACTIONS ---
 export interface DataState {
     user: UserProfile | null;
@@ -49,6 +61,7 @@ export interface DataActions {
         loadFromBackup: (data: Partial<DataState>) => void;
         resetAll: () => void;
         dismissSuggestion: (id: string) => void;
+        reactivateSuggestion: (id: string) => void;
     setUser: (user: UserProfile | null) => void;
     setStudents: (students: Studente[] | ((prev: Studente[]) => Studente[])) => void;
     setLessons: (lessons: Record<string, Lezione> | ((prev: Record<string, Lezione>) => Record<string, Lezione>)) => void;
@@ -319,6 +332,26 @@ export interface HeaderProps {
     onInstallApp: () => void;
     onOpenOperations: () => void;
     hasSuggestion: boolean;
+}
+
+export interface SettingsProps {
+    settings: TimetableSettings;
+    themeState: AppThemeState;
+    aiSettings: AiSettings;
+    onSaveSettings: (settings: TimetableSettings) => void;
+    onSaveTheme: (theme: AppThemeState) => void;
+    onSaveAiSettings: (settings: AiSettings) => void;
+    onExportData: () => void;
+    onImportData: (data: string) => void;
+    showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
+    onCleanDemoData: () => void;
+    onLogout: () => void;
+    driveState: DriveSyncState;
+    onConnectDrive: () => void;
+    onSyncToDrive: () => void;
+    onClose: () => void;
+    dismissedSuggestions: Set<string>;
+    onReactivateSuggestion: (id: string) => void;
 }
 
 export interface MaterialeDidattico {
@@ -618,6 +651,7 @@ export interface EventoCalendario {
     oraInizio?: string;
     oraFine?: string;
     descrizione?: string;
+    location?: string;
 }
 
 export interface KnowledgeBaseEntry {
@@ -807,6 +841,7 @@ export interface AppState {
     selectedClassForDashboard: string | null;
     activeSuggestion: SystemSuggestion | null;
     dismissedSuggestions: Set<string>;
+    selectedDocuments: Document[]; // Updated type from `any[]` to `Document[]`
 }
 
 export interface AppActions {
@@ -902,9 +937,12 @@ export interface AppActions {
 }
 
 export interface SyncConflictData {
-    remoteTime: number;
-    localTime: number;
-    isOpen: boolean;
+    fileId: string;
+    fileName: string;
+    localContent: string;
+    remoteContent: string;
+    lastModifiedLocal: string;
+    lastModifiedRemote: string;
 }
 
 export interface CircularAnalysisResult {
@@ -1217,4 +1255,9 @@ export interface EssayContent {
 export interface TechnicalDocumentContent {
     title: string;
     specs: string[];
+}
+
+// --- EXTENDED DATA STATE FOR TESTING ---
+export interface ExtendedDataState extends DataState {
+  selectedDocuments: DocumentTemplate[];
 }

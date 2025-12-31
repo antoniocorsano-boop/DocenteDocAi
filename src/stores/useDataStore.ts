@@ -130,6 +130,11 @@ export const useDataStore = create<DataState & { actions: DataActions }>((set) =
             newDismissed.add(id);
             return { dismissedSuggestions: newDismissed };
         }),
+        reactivateSuggestion: (id: string) => set((state) => {
+            const newDismissed = new Set(state.dismissedSuggestions);
+            newDismissed.delete(id);
+            return { dismissedSuggestions: newDismissed };
+        }),
         setStudentProfileContext: (student: DataState['studentProfileContext']) => set({ studentProfileContext: student }),
         setSelectedClassForDashboard: (className: DataState['selectedClassForDashboard']) => set({ selectedClassForDashboard: className }),
         loadFromBackup: (data: Partial<DataState>) => set((state) => ({

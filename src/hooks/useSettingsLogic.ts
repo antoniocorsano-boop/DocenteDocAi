@@ -94,7 +94,7 @@ export const useSettingsLogic = ({
                 generatedColors: { primary: generatedTheme.primary, secondary: generatedTheme.secondary, tertiary: generatedTheme.tertiary },
             });
             showToast(messages.toast.save, 'success');
-        } catch (error) {
+        } catch {
             showToast(messages.toast.error, 'error');
         } finally {
             setIsGeneratingTheme(false);

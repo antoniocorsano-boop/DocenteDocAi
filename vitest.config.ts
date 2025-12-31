@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 
@@ -10,7 +9,7 @@ export default defineConfig({
     setupFiles: ['./vitest.setup.ts'],
     include: [
       'src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
-      '__tests__/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+      '__tests__/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', // Include all files in __tests__
     ],
     exclude: ['node_modules', 'dist', 'e2e'],
   },

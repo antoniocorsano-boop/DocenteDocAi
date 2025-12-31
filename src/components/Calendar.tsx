@@ -11,8 +11,6 @@ interface CalendarProps {
     eventi: EventoCalendario[];
     setEventi: React.Dispatch<React.SetStateAction<EventoCalendario[]>>;
     aiSettings: AiSettings;
-    activeSuggestion?: unknown;
-    onNavigate?: (view: string, context?: unknown) => void;
 }
 
 type CalendarView = 'month' | 'week' | 'day' | 'agenda';
@@ -20,7 +18,7 @@ type CalendarView = 'month' | 'week' | 'day' | 'agenda';
 const DAYS_SHORT = ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB', 'DOM'];
 const MONTHS_LONG = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
 
-const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, activeSuggestion, onNavigate }) => {
+const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [viewMode, setViewMode] = useState<CalendarView>('month');
     const [editingEvent, setEditingEvent] = useState<Partial<EventoCalendario> | null>(null);
@@ -80,7 +78,25 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, acti
         return dates;
     }, [currentDate]);
 
-    // weekDates non usato
+    const weekDates = useMemo(() => {
+        const startOfWeek = new Date(currentDate);
+        const day = startOfWeek.getDay();
+        const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
+        startOfWeek.setDate(diff);
+        startOfWeek.setHours(0, 0, 0, 0);
+        
+        const dates: Date[] = [];
+        for (let i = 0; i < 7; i++) {
+            const d = new Date(startOfWeek);
+            d.setDate(startOfWeek.getDate() + i);
+            dates.push(d);
+        }
+        return dates;
+    }, [currentDate]);
+
+    const dayEvents = useMemo(() => {
+        return eventi.filter(e => e.data === currentDate.toISOString().split('T')[0]);
+    }, [eventi, currentDate]);
 
     const agendaGroups = useMemo(() => {
         const sorted = [...eventi].sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
@@ -196,6 +212,97 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, acti
         </div>
     );
 
+    const renderWeekView = () => (
+        <div className="calendar-week">
+            <div className="calendar-week-header">
+                {weekDates.map((date, i) => {
+                    const isToday = date.toDateString() === new Date().toDateString();
+                    return (
+                        <div key={i} className={`calendar-week-day-header ${isToday ? 'today' : ''}`}>
+                            <div className="calendar-week-day-name">
+                                {DAYS_SHORT[i]}
+                            </div>
+                            <div className={`calendar-week-day-number ${isToday ? 'today' : ''}`}>
+                                {date.getDate()}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+            <div className="calendar-week-body" ref={scrollContainerRef}>
+                {Array.from({ length: 24 }, (_, hour) => (
+                    <div key={hour} className="calendar-week-hour">
+                        <div className="calendar-week-hour-label">
+                            {hour.toString().padStart(2, '0')}:00
+                        </div>
+                        <div className="calendar-week-hour-slots">
+                            {weekDates.map((date, dayIndex) => {
+                                const dayEvents = eventi.filter(e => {
+                                    const eventDate = new Date(e.data);
+                                    return eventDate.toDateString() === date.toDateString() &&
+                                           e.oraInizio &&
+                                           parseInt(e.oraInizio.split(':')[0]) === hour;
+                                });
+                                
+                                return (
+                                    <div key={dayIndex} className="calendar-week-slot">
+                                        {dayEvents.map((ev, idx) => (
+                                            <div 
+                                                key={ev.id || idx} 
+                                                className={`calendar-week-event calendar-event-${ev.tipo || 'default'}`}
+                                                onClick={() => setEditingEvent(ev)}
+                                            >
+                                                <div className="calendar-week-event-title">{ev.titolo}</div>
+                                                <div className="calendar-week-event-time">{ev.oraInizio} - {ev.oraFine || 'N/A'}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+
+    const renderDayView = () => (
+        <div className="calendar-day">
+            <div className="calendar-day-header">
+                <h3 className="calendar-day-title">
+                    {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+                </h3>
+            </div>
+            <div className="calendar-day-body" ref={scrollContainerRef}>
+                {dayEvents.length === 0 ? (
+                    <div className="calendar-empty">
+                        <span className="material-symbols-outlined">event_busy</span>
+                        <p>Nessun evento per questo giorno</p>
+                    </div>
+                ) : (
+                    <div className="calendar-day-events">
+                        {dayEvents.map(ev => (
+                            <div 
+                                key={ev.id} 
+                                className={`calendar-day-event agenda-event-${ev.tipo || 'default'}`}
+                                onClick={() => setEditingEvent(ev)}
+                            >
+                                <div className="calendar-day-event-time">
+                                    {ev.oraInizio || 'Tutto il giorno'}
+                                </div>
+                                <div className="calendar-day-event-content">
+                                    <div className="calendar-day-event-title">{ev.titolo}</div>
+                                    {ev.descrizione && <div className="calendar-day-event-desc">{ev.descrizione}</div>}
+                                    {ev.location && <div className="calendar-day-event-location">📍 {ev.location}</div>}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+
     const renderAgendaView = () => (
         <div className="calendar-agenda">
             {Object.keys(agendaGroups).length === 0 ? (
@@ -238,13 +345,9 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings, acti
             
             <div className="calendar-body">
                 {viewMode === 'month' && renderMonthView()}
+                {viewMode === 'week' && renderWeekView()}
+                {viewMode === 'day' && renderDayView()}
                 {viewMode === 'agenda' && renderAgendaView()}
-                {(viewMode === 'week' || viewMode === 'day') && (
-                    <div className="calendar-empty">
-                        <span className="material-symbols-outlined">view_week</span>
-                        <p>Vista {viewMode === 'week' ? 'Settimana' : 'Giorno'} in arrivo</p>
-                    </div>
-                )}
             </div>
 
             {editingEvent && (

@@ -1,0 +1,120 @@
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Home from '../../src/components/Home';
+import { AppState } from '../../src/types';
+
+// Mock the M3Components
+vi.mock('../../src/components/M3Components', () => ({
+    InfoCard: ({ title, description, icon, variant, action, className }: any) => (
+        <div data-testid="info-card" className={className}>
+            <h2>{title}</h2>
+            <p>{description}</p>
+            {action && <div data-testid="info-card-action">{action}</div>}
+        </div>
+    ),
+    ActionTile: ({ title, icon, onClick }: any) => (
+        <button data-testid="action-tile" onClick={onClick}>
+            {title}
+        </button>
+    ),
+}));
+
+vi.mock('../../src/components/M3ExpressiveCard', () => ({
+    default: ({ icon, title, description, color, children }: any) => (
+        <div data-testid="m3-card">
+            <h3>{title}</h3>
+            <p>{description}</p>
+            {children}
+        </div>
+    ),
+}));
+
+const mockAppState = {
+    user: { id: 'test-user', displayName: 'Test User', nome: 'Mario', cognome: 'Rossi' } as any,
+    suggestions: [
+        {
+            id: 'test-suggestion-1',
+            icon: 'lightbulb',
+            title: 'Test Suggestion',
+            description: 'This is a test AI suggestion',
+            action: { type: 'navigate', payload: { view: 'home' } }
+        }
+    ],
+    activeSuggestion: null,
+    dismissedSuggestions: new Set(['ignored-suggestion']),
+} as any as AppState;
+
+const mockOnNavigate = vi.fn();
+const mockDismissSuggestion = vi.fn();
+
+describe('Home Component', () => {
+    it('renders welcome message', () => {
+        render(
+            <Home
+                onNavigate={mockOnNavigate}
+                appState={mockAppState}
+                dismissSuggestion={mockDismissSuggestion}
+            />
+        );
+
+        expect(screen.getByText('Buongiorno Prof. Test User!')).toBeInTheDocument();
+    });
+
+    it('renders personalized suggestions', () => {
+        render(
+            <Home
+                onNavigate={mockOnNavigate}
+                appState={mockAppState}
+                dismissSuggestion={mockDismissSuggestion}
+            />
+        );
+
+        expect(screen.getByText('Suggerimenti Personalizzati')).toBeInTheDocument();
+        expect(screen.getByText('Test Suggestion')).toBeInTheDocument();
+        expect(screen.getByText('This is a test AI suggestion')).toBeInTheDocument();
+    });
+
+    it('handles suggestion actions', () => {
+        render(
+            <Home
+                onNavigate={mockOnNavigate}
+                appState={mockAppState}
+                dismissSuggestion={mockDismissSuggestion}
+            />
+        );
+
+        const openButton = screen.getByText('Apri');
+        fireEvent.click(openButton);
+
+        expect(mockOnNavigate).toHaveBeenCalledWith('home', undefined);
+    });
+
+    it('handles dismiss suggestion', () => {
+        render(
+            <Home
+                onNavigate={mockOnNavigate}
+                appState={mockAppState}
+                dismissSuggestion={mockDismissSuggestion}
+            />
+        );
+
+        const ignoreButton = screen.getByText('Ignora');
+        fireEvent.click(ignoreButton);
+
+        expect(mockDismissSuggestion).toHaveBeenCalledWith('test-suggestion-1');
+    });
+
+    it('renders action tiles', () => {
+        render(
+            <Home
+                onNavigate={mockOnNavigate}
+                appState={mockAppState}
+                dismissSuggestion={mockDismissSuggestion}
+            />
+        );
+
+        expect(screen.getAllByTestId('action-tile')).toHaveLength(4);
+        expect(screen.getByText('Nuova valutazione')).toBeInTheDocument();
+    });
+});

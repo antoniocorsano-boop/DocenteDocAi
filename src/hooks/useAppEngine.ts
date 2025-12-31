@@ -192,6 +192,54 @@ export const useAppEngine = () => {
         dataActions.setActiveSuggestion?.(suggestion); // Use dataActions
     }, [isDataLoaded, students, slots, uda, eventi, evaluations]);
 
+    // --- AI SUGGESTIONS GENERATOR (Personalized suggestions with caching and scoring) ---
+    useEffect(() => {
+        // Only run once data is loaded and stable, and not in test mode to avoid AI calls
+        if (!isDataLoaded || isTestMode) return;
+
+        const generateSuggestions = async () => {
+            try {
+                const { generateAiSuggestions } = await import('../utils/aiSuggestionGenerator');
+                const aiSuggestions = await generateAiSuggestions({
+                    user,
+                    students,
+                    lessons,
+                    slots,
+                    evaluations,
+                    competencyEvals,
+                    uda,
+                    eventi,
+                    knowledgeBase,
+                    corpora,
+                    rubriche,
+                    pianiInclusione,
+                    giudizi,
+                    reportistica,
+                    feedSources,
+                    draftRegister,
+                    finalizedRegister,
+                    notebookNotes,
+                    memos,
+                    curricula,
+                    submissions,
+                    notifiche,
+                    suggestions,
+                    activeSuggestion,
+                    dismissedSuggestions,
+                    studentProfileContext,
+                    selectedClassForDashboard,
+                    actions: dataActions
+                } as AppState);
+                dataActions.setSuggestions(aiSuggestions);
+            } catch (error) {
+                console.error('[useAppEngine] AI suggestions generation failed:', error);
+                // Fallback is handled in aiSuggestionGenerator
+            }
+        };
+
+        generateSuggestions();
+    }, [isDataLoaded, isTestMode]); // Re-run if data changes significantly
+
     // --- CORE ACTIONS (COORDINATION AND UI DISPATCH) ---
     // These actions are managed by AppEngine but dispatch to Zustand stores.
 
@@ -251,7 +299,7 @@ export const useAppEngine = () => {
                         remoteTime: new Date(remoteMeta.modifiedTime).getTime(),
                         localTime: new Date(driveState.lastSyncTime).getTime(),
                         isOpen: true
-                    }
+                    } as any
                 });
                 uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false }));
                 return;
@@ -459,7 +507,23 @@ export const useAppEngine = () => {
     }, [setEvaluations]);
 
     const handleCreateUda = useCallback((data: UdaCreateInput) => {
-        const newUda = { ...data, id: `uda-${Date.now()}` };
+        const newUda: Uda = {
+            id: `uda-${Date.now()}`,
+            title: 'New UDA',
+            classe: 'Default Class',
+            materia: 'Default Subject',
+            introduction: 'Introduction text',
+            finalProduct: 'Final product description',
+            competencyIds: [],
+            phases: [],
+            evaluation: 'Evaluation text',
+            tools: 'Tools description',
+            startPos: 0,
+            width: 100,
+            color: '#FFFFFF',
+            borderColor: '#000000',
+            textColor: '#000000',
+        };
         setUda(prev => [...prev, newUda]); // Use destructured action
     }, [setUda]);
 
@@ -669,8 +733,12 @@ export const useAppEngine = () => {
     }, [setEvaluations, setCompetencyEvals, setDraftRegister, setFinalizedRegister, setEventi, setReportistica, setUda, setMemos, setSubmissions, setPianiInclusione, setGiudizi, showToast]);
 
     const dismissSuggestionWrapper = useCallback((id: string) => {
-        // TODO: implement dismissSuggestion logic here
-    }, []);
+        const updatedSuggestions = suggestions.filter((suggestion: AiSuggestion) => suggestion.id !== id);
+
+        dataActions.setSuggestions(updatedSuggestions);
+        dataActions.dismissSuggestion(id);
+        showToast('Suggestion dismissed', 'info');
+    }, [suggestions, showToast, dataActions]);
 
     // --- AGGREGATE APPSTATE OBJECT ---
     // This object bundles relevant state from all stores for easy access in consuming components.
@@ -690,7 +758,8 @@ export const useAppEngine = () => {
             ...entry,
             context: entry.context as import('../types').NavigationParams | null
         })),
-        curricula, submissions
+        curricula, submissions,
+        selectedDocuments: []
     }), [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi,
         knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica,
         feedSources, draftRegister, finalizedRegister, notebookNotes, memos,

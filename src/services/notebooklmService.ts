@@ -27,11 +27,33 @@ const NOTEBOOKLM_CONFIG = {
   scopes: ['https://www.googleapis.com/auth/notebooks'],
 };
 
-// Helper per ottenere token di autenticazione
+// --- Google OAuth helpers ---
+import {
+  loadTokens,
+  refreshAccessToken,
+  getGoogleAuthUrl,
+  saveTokens,
+  clearTokens,
+  GoogleOAuthTokens,
+  exchangeCodeForTokens
+} from './googleOAuthService';
+
+// Helper per ottenere token di autenticazione (gestisce refresh)
 const getAuthToken = async (): Promise<string | null> => {
-  // TODO: Implementare autenticazione OAuth con Google
-  // Per ora restituiamo null per simulare mancanza auth
-  return null;
+  let tokens = loadTokens();
+  if (!tokens) return null;
+  // Se scaduto, prova refresh
+  if (tokens.expiresAt < Date.now()) {
+    if (!tokens.refreshToken) return null;
+    try {
+      tokens = await refreshAccessToken(tokens.refreshToken);
+      saveTokens(tokens);
+    } catch {
+      clearTokens();
+      return null;
+    }
+  }
+  return tokens.accessToken;
 };
 
 // Helper per gestire errori API
@@ -160,29 +182,71 @@ export const deleteNotebookFile = async (id: string): Promise<void> => {
   }
 };
 
-export const syncNotebookFiles = async (): Promise<void> => {
+// Sincronizzazione con gestione conflitti tramite callback utente
+import { SyncConflictData } from '../types';
+
+export type ConflictHandler = (conflict: SyncConflictData) => Promise<'local' | 'remote'>;
+
+export const syncNotebookFiles = async (
+  getLocalFiles: () => Promise<NotebookLMFile[]>,
+  saveLocalFiles: (files: NotebookLMFile[]) => Promise<void>,
+  handleConflict?: ConflictHandler
+): Promise<void> => {
   try {
     const token = await getAuthToken();
     if (!token) {
       console.warn('NotebookLM non autenticato, sincronizzazione saltata');
       return;
     }
-
     console.log('Avvio sincronizzazione NotebookLM...');
-
-    // Recupera lista file remoti
     const remoteFiles = await fetchNotebookFiles();
-
-    // TODO: Confronta con file locali e sincronizza
-    // Per ora, solo log della sincronizzazione
-    console.log(`Sincronizzati ${remoteFiles.length} file da NotebookLM`);
-
-    // Potrebbe includere:
-    // - Upload file locali non presenti remotamente
-    // - Download metadata di file remoti
-    // - Risoluzione conflitti
-    // - Pulizia file locali eliminati remotamente
-
+    const localFiles = await getLocalFiles();
+    const mergedFiles: NotebookLMFile[] = [...localFiles];
+    // Mappa per confronto rapido
+    const remoteMap = new Map(remoteFiles.map(f => [f.id, f]));
+    const localMap = new Map(localFiles.map(f => [f.id, f]));
+    // Gestione conflitti e merge
+    for (const remote of remoteFiles) {
+      const local = localMap.get(remote.id);
+      if (local) {
+        // Conflitto: contenuto diverso e timestamp diversi
+        if (local.content !== remote.content && local.lastModified !== remote.lastModified && handleConflict) {
+          const conflict: SyncConflictData = {
+            fileId: remote.id,
+            fileName: remote.name,
+            localContent: local.content,
+            remoteContent: remote.content,
+            lastModifiedLocal: local.lastModified,
+            lastModifiedRemote: remote.lastModified,
+          };
+          const choice = await handleConflict(conflict);
+          if (choice === 'remote') {
+            // Sovrascrivi locale con remoto
+            const idx = mergedFiles.findIndex(f => f.id === remote.id);
+            if (idx !== -1) mergedFiles[idx] = remote;
+          }
+          // Se 'local', non fare nulla (mantieni locale)
+        } else if (local.lastModified !== remote.lastModified) {
+          // Se solo uno è più recente, scegli il più recente
+          const idx = mergedFiles.findIndex(f => f.id === remote.id);
+          if (new Date(local.lastModified) < new Date(remote.lastModified)) {
+            if (idx !== -1) mergedFiles[idx] = remote;
+          }
+        }
+      } else {
+        // Nuovo file remoto: aggiungi
+        mergedFiles.push(remote);
+      }
+    }
+    // Gestione file solo locali (eventuale upload)
+    const remoteIds = new Set(remoteFiles.map(f => f.id));
+    const onlyLocal = localFiles.filter(f => !remoteIds.has(f.id));
+    if (onlyLocal.length > 0) {
+      console.log('Da caricare su NotebookLM:', onlyLocal);
+      // TODO: upload su cloud se necessario
+    }
+    await saveLocalFiles(mergedFiles);
+    console.log(`Sync NotebookLM completata. Remoti: ${remoteFiles.length}, Locali: ${localFiles.length}`);
   } catch (error) {
     return handleApiError(error, 'sync');
   }
@@ -190,17 +254,28 @@ export const syncNotebookFiles = async (): Promise<void> => {
 
 // Utility per verificare stato autenticazione
 export const isNotebookLMAuthenticated = async (): Promise<boolean> => {
+  const token = await getAuthToken();
+  return token !== null;
+};
+
+// Utility per ottenere URL di autorizzazione
+export const getNotebookLMAuthUrl = (state: string = ''): string => {
+  return getGoogleAuthUrl(state);
+};
+
+// Gestione callback OAuth (da chiamare in /oauth-callback route)
+export const handleNotebookLMAuthCallback = async (code: string): Promise<boolean> => {
   try {
-    const token = await getAuthToken();
-    return token !== null;
-  } catch {
+    const tokens = await exchangeCodeForTokens(code);
+    saveTokens(tokens);
+    return true;
+  } catch (e) {
+    clearTokens();
     return false;
   }
 };
 
-// Utility per ottenere URL di autorizzazione
-export const getNotebookLMAuthUrl = (): string => {
-  // TODO: Implementare OAuth flow
-  // Per ora restituiamo un placeholder
-  return `https://accounts.google.com/oauth/authorize?scope=${encodeURIComponent(NOTEBOOKLM_CONFIG.scopes.join(' '))}&response_type=code&client_id=YOUR_CLIENT_ID`;
+// Logout helper
+export const notebookLMLogout = () => {
+  clearTokens();
 };

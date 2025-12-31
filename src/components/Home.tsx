@@ -13,6 +13,7 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) => {
     const activeSuggestion = appState.activeSuggestion;
     const dismissedSuggestions = appState.dismissedSuggestions;
+    const suggestions = appState.suggestions || [];
     const showAiSuggestion = activeSuggestion && !dismissedSuggestions?.has(activeSuggestion.id);
 
     // Demo: recupero nome docente (in reale da appState.user)
@@ -81,6 +82,52 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
                             </ul>
                         </div>
                     </M3ExpressiveCard>
+
+                    {suggestions.length > 0 && (
+                        <M3ExpressiveCard
+                            icon="lightbulb"
+                            title="Suggerimenti Personalizzati"
+                            description="Consigli AI basati sulla tua attività didattica"
+                            color="tertiary"
+                        >
+                            <div className="mt-4 space-y-3">
+                                {suggestions.slice(0, 3).map((suggestion) => (
+                                    <div key={suggestion.id} className="p-3 rounded-xl bg-surface-container-low border border-outline-variant">
+                                        <div className="flex items-start gap-3">
+                                            <span className="material-symbols-outlined text-2xl text-tertiary mt-1">
+                                                {suggestion.icon}
+                                            </span>
+                                            <div className="flex-1">
+                                                <div className="m3-label-large font-semibold">{suggestion.title}</div>
+                                                <div className="text-sm text-on-surface-variant mt-1">{suggestion.description}</div>
+                                                <div className="mt-3 flex gap-2">
+                                                    <button
+                                                        className="px-3 py-1.5 rounded-full bg-tertiary text-on-tertiary font-medium text-sm"
+                                                        onClick={() => {
+                                                            if (suggestion.action?.type === 'navigate' && suggestion.action.payload) {
+                                                                const payload = typeof suggestion.action.payload === 'string'
+                                                                    ? suggestion.action.payload
+                                                                    : (suggestion.action.payload as any).view || 'home';
+                                                                onNavigate(payload as View, (suggestion.action.payload as any).context);
+                                                            }
+                                                        }}
+                                                    >
+                                                        Apri
+                                                    </button>
+                                                    <button
+                                                        className="px-3 py-1.5 rounded-full bg-outline-variant text-on-surface-variant text-sm"
+                                                        onClick={() => dismissSuggestion(suggestion.id)}
+                                                    >
+                                                        Ignora
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </M3ExpressiveCard>
+                    )}
 
                     {showAiSuggestion && (
                         <InfoCard

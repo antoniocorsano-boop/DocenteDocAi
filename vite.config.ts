@@ -47,6 +47,7 @@ export default defineConfig({
     sourcemap: process.env.NODE_ENV === 'development' ? true : false,
     chunkSizeWarningLimit: 800, // Increase limit - we have large dependencies (PDFs, genAI, etc.)
     assetsInlineLimit: 0, // Evita data URL per font e altri asset
+    cssMinify: false, // Disable CSS minification to avoid syntax warnings from dependencies
     rollupOptions: {
       output: {
         manualChunks(id) {

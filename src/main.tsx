@@ -25,7 +25,7 @@ import './modules.css';
         localStorage.removeItem(key);
       }
     });
-  } catch (e) {
+  } catch {
     // Intentionally ignore legacy storage cleanup errors
   }
 })();
@@ -40,7 +40,7 @@ if (!isTestMode) {
       indexedDB.deleteDatabase('OrarioDocAI_BackupDB');
       indexedDB.deleteDatabase('OrarioDocAI_Data');
     }
-  } catch (e) {
+  } catch {
     // Ignore errors during cleanup in non-test runs
   }
 } else {
@@ -194,7 +194,7 @@ async function bootstrapApp() {
       root.render(
         <ErrorBoundary>
           <div style={{padding:20,fontFamily:'sans-serif'}}>
-            Errore di inizializzazione dell'applicazione. Aprire la console per dettagli.
+            Errore di inizializzazione dell&apos;applicazione. Aprire la console per dettagli.
           </div>
         </ErrorBoundary>
       );

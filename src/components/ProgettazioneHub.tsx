@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { ProgettazioneHubProps, Uda, EventoCalendario, TimetableSettings, AiSettings, Report, Lezione, KnowledgeBaseEntry, Competenza } from '../types';
+import NotebookLMImportModal from './NotebookLMImportModal';
+import { KnowledgeBaseEntry } from '../types';
+import { ProgettazioneHubProps, Uda, EventoCalendario, TimetableSettings, AiSettings, Report, Lezione, Competenza } from '../types';
 import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import { generateHueFromString } from '../utils/colorUtils';
@@ -43,6 +45,7 @@ interface ProgettazioneHubExtendedProps extends ProgettazioneHubProps {
     initialAction?: string; 
     knowledgeBase: KnowledgeBaseEntry[];
     onUpdateCompetencies?: (competenze: Competenza[]) => void; // New prop for updating settings
+    onUpdateKnowledgeBase?: (kb: KnowledgeBaseEntry[]) => void; // Add dispatcher for KB
 }
 
 // --- UDA DETAIL MODAL ---
@@ -396,9 +399,10 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
     );
 };
 
-const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate, udas, events, settings, aiSettings, onSaveUda, onAddLessons, onSaveReport, onSaveEvent, initialAction, knowledgeBase, students, pianiInclusione, onUpdateCompetencies }) => {
+const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate, udas, events, settings, aiSettings, onSaveUda, onAddLessons, onSaveReport, onSaveEvent, initialAction, knowledgeBase, students, pianiInclusione, onUpdateCompetencies, onUpdateKnowledgeBase }) => {
     const [isPlanningWizardOpen, setIsPlanningWizardOpen] = useState(false);
     const [isSmartImportOpen, setIsSmartImportOpen] = useState(false);
+    const [isNotebookLMImportOpen, setIsNotebookLMImportOpen] = useState(false);
     const [selectedUda, setSelectedUda] = useState<Uda | null>(null);
     
     // State for Main Tabs
@@ -506,6 +510,17 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                             className="col-span-1 border-primary/50 border-dashed"
                         />
 
+
+                        {/* Card Import da NotebookLM accanto a Knowledge Base */}
+                        <M3ExpressiveCard
+                            icon="cloud_download"
+                            title="Importa da NotebookLM"
+                            description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
+                            color="var(--md-sys-color-surface-container, #e3f2fd)"
+                            onClick={() => setIsNotebookLMImportOpen(true)}
+                            className="col-span-1 border-primary/50 border-dashed"
+                        />
+
                         <M3ExpressiveCard
                             icon="folder_open"
                             title="Knowledge Base"
@@ -582,7 +597,29 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                     onClose={() => setSelectedUda(null)}
                     onEdit={() => {
                         setSelectedUda(null);
-                        onNavigate('uda'); // Navigates to planner, user finds it there
+                        onNavigate('uda');
+                    }}
+                />
+            )}
+
+            {/* Modale Import NotebookLM */}
+            {isNotebookLMImportOpen && (
+                <NotebookLMImportModal
+                    open={isNotebookLMImportOpen}
+                    onClose={() => setIsNotebookLMImportOpen(false)}
+                    onImport={(importedFiles: KnowledgeBaseEntry[]) => {
+                        // Aggiorna la Knowledge Base con i materiali importati
+                        if (onUpdateKnowledgeBase && typeof onUpdateKnowledgeBase === 'function') {
+                            // Se è fornito un dispatcher esplicito
+                            onUpdateKnowledgeBase([
+                                ...knowledgeBase,
+                                ...importedFiles
+                            ]);
+                        } else {
+                            // Fallback: log e chiudi modale
+                            console.warn('onUpdateKnowledgeBase non fornito, impossibile aggiornare la Knowledge Base.');
+                        }
+                        setIsNotebookLMImportOpen(false);
                     }}
                 />
             )}

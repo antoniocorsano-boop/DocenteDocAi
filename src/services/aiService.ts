@@ -21,7 +21,19 @@ import * as Prompts from './aiPrompts';
 const SYSTEM_PERSONA_TEACHER = `SEI UN ASSISTANTE DIDATTICO ESPERTO (Target: Scuola Italiana).
 RUOLO: Pedagogista digitale, esperto in normative MIUR, didattica per competenze e inclusione (BES/DSA).
 FORMATO: Rispetta rigorosamente i formati richiesti (JSON/Markdown).`;
-
+// Utility function to ensure content passed to AI is always a string
+const ensureString = (content: unknown): string => {
+    if (typeof content === 'string') {
+        return content;
+    }
+    if (content === null || content === undefined) {
+        return '';
+    }
+    if (typeof content === 'object') {
+        return JSON.stringify(content);
+    }
+    return String(content);
+};
 export const buildSystemInstruction = (
     userContext?: { classContext?: string; subject?: string; schoolType?: string; teacherName?: string },
     systemInstructionOverride?: string
@@ -112,7 +124,7 @@ export const analyzeLessonPedagogy = async (aiSettings: AiSettings, lesson: any)
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: Prompts.getPedagogicalAnalysisPrompt(lesson), // FIX: Ensure content is a string.
+            contents: ensureString(Prompts.getPedagogicalAnalysisPrompt(lesson)),
             config: { responseMimeType: "application/json", systemInstruction: buildSystemInstruction() }
         });
         return cleanAndParseJson<LessonAnalysisResult>(response.text || '{}');
@@ -124,7 +136,7 @@ export const generateLessonFromIdea = async (aiSettings: AiSettings, ideaText: s
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
-            contents: Prompts.getLessonFromIdeaPrompt(ideaText, kbContent), // FIX: Ensure content is a string.
+            contents: ensureString(Prompts.getLessonFromIdeaPrompt(ideaText, kbContent)),
             config: { responseMimeType: 'application/json', systemInstruction: buildSystemInstruction({ classContext: targetClass }) }
         });
         return cleanAndParseJson(response.text || '{}');
@@ -136,7 +148,7 @@ export const generateSituazionePartenza = async (aiSettings: AiSettings, params:
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
-            contents: `Analisi situazione partenza per classe ${String(params.classe)}. Tags: ${params.tags.join(',')}`, // FIX: Ensure content is a string.
+            contents: ensureString(`Analisi situazione partenza per classe ${String(params.classe)}. Tags: ${params.tags.join(',')}`),
             config: { systemInstruction: buildSystemInstruction() }
         });
         return response.text || "";
@@ -208,7 +220,7 @@ export const generateAcademicEssayContent = async (aiSettings: AiSettings): Prom
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: "Genera saggio accademico JSON su innovazione", // FIX: Ensure content is a string.
+            contents: ensureString("Genera saggio accademico JSON su innovazione"),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<EssayContent>(r.text || '{}');
@@ -220,7 +232,7 @@ export const getPeriodicJudgmentSuggestion = async (aiSettings: AiSettings, s: S
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: `Scrivi giudizio sintetico ${String(per)} per ${String(s.cognome)}`  // FIX: Ensure content is a string.
+            contents: ensureString(`Scrivi giudizio sintetico ${String(per)} per ${String(s.cognome)}`)
         });
         return r.text || "";
     });
@@ -231,7 +243,7 @@ export const generateMarkdownReport = async (aiSettings: AiSettings, type: strin
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-flash-preview",
-            contents: `Crea report professionale markdown per ${String(type)}`  // FIX: Ensure content is a string.
+            contents: ensureString(`Crea report professionale markdown per ${String(type)}`)
         });
         return r.text || "";
     });
@@ -242,7 +254,7 @@ export const validateUdaVerticalCurriculum = async (aiSettings: AiSettings, uda:
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
-            contents: `Valida coerenza UDA ${String(uda.title)}`  // FIX: Ensure content is a string.
+            contents: ensureString(`Valida coerenza UDA ${String(uda.title)}`)
         });
         return r.text || "";
     });
@@ -304,7 +316,7 @@ export const generateFormattedDocument = async (aiSettings: AiSettings, corpus: 
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: String(prompt)  // FIX: Ensure content is a string.
+            contents: ensureString(prompt)
         });
         return r.text || "";
     });
@@ -315,7 +327,7 @@ export const generateQuiz = async (aiSettings: AiSettings, corpus: string, confi
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: "Genera quiz didattico", // FIX: Ensure content is a string.
+            contents: ensureString("Genera quiz didattico"),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<GeneratedQuiz>(r.text || '{}');
@@ -327,7 +339,7 @@ export const generateStudioOutput = async (aiSettings: AiSettings, corpus: strin
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: String(task)  // FIX: Ensure content is a string.
+            contents: ensureString(task)
         });
         return r.text || "";
     });
@@ -338,7 +350,7 @@ export const addContextToLesson = async (aiSettings: AiSettings, lesson: any) =>
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: 'gemini-3-flash-preview',
-            contents: `Arricchisci lezione`  // FIX: Ensure content is a string.
+            contents: ensureString(`Arricchisci lezione`)
         });
         return r.text || "";
     });
@@ -400,7 +412,7 @@ export const extractEventFromText = async (aiSettings: AiSettings, t: string) =>
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: 'gemini-3-flash-preview',
-            contents: String(t),  // FIX: Ensure content is a string.
+            contents: ensureString(t),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<any>(r.text || '{}');
@@ -412,7 +424,7 @@ export const refactorProgrammazione = async (aiSettings: AiSettings, t: string) 
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: String(t)  // FIX: Ensure content is a string.
+            contents: ensureString(t)
         });
         return r.text || "";
     });
@@ -428,7 +440,7 @@ export const analyzeImage = async (aiSettings: AiSettings, img: string, p: strin
 
         const r = await ai.models.generateContent({
             model: "gemini-2.5-flash",
-            contents: { parts: [{ inlineData: { data: base64Data, mimeType: mimeType } }, { text: String(p) }] }  // FIX: Ensure content is a string.
+            contents: { parts: [{ inlineData: { data: base64Data, mimeType: mimeType } }, { text: ensureString(p) }] }
         });
         return r.text || "";
     });
@@ -439,7 +451,7 @@ export const parseCurriculumFromText = async (aiSettings: AiSettings, t: string,
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
-            contents: String(t),  // FIX: Ensure content is a string.
+            contents: ensureString(t),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<CurriculumSubject>(r.text || '{}');
@@ -451,7 +463,7 @@ export const refineTextWithAi = async (aiSettings: AiSettings, t: string, i: str
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: String(i) + "\n\nTEXT:\n" + String(t)  // FIX: Ensure content is a string.
+            contents: ensureString(String(i) + "\n\nTEXT:\n" + String(t))
         });
         return r.text || "";
     });
@@ -462,7 +474,7 @@ export const generateDocumentTable = async (aiSettings: AiSettings, d: string) =
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-2.5-flash",
-            contents: `Genera una tabella HTML basata sulla seguente descrizione: ${String(d)}. La tabella dovrebbe essere ben formattata e usare i tag <table>, <thead>, <tbody>, <tr>, <th>, <td>.`  // FIX: Ensure content is a string.
+            contents: ensureString(`Genera una tabella HTML basata sulla seguente descrizione: ${String(d)}. La tabella dovrebbe essere ben formattata e usare i tag <table>, <thead>, <tbody>, <tr>, <th>, <td>.`)
         });
         return r.text || "";
     });
