@@ -6,21 +6,27 @@ import './polyfills';
 if (typeof window !== 'undefined') {
   // Ensure performance object exists
   if (!window.performance) {
-    (window as any).performance = {};
+    (window as unknown as { performance: Performance }).performance = {
+      now: () => Date.now(),
+    } as Performance;
   }
   
   // Ensure performance.now exists and is callable
   if (!window.performance.now || typeof window.performance.now !== 'function') {
-    (window.performance as any).now = () => Date.now();
+    const perf = window.performance as unknown as { now: () => number };
+    perf.now = () => Date.now();
   }
   
   // Ensure globalThis also has it (for module initialization)
   if (typeof globalThis !== 'undefined') {
     if (!globalThis.performance) {
-      (globalThis as any).performance = {};
+      (globalThis as unknown as { performance: Performance }).performance = {
+        now: () => Date.now(),
+      } as Performance;
     }
     if (!globalThis.performance.now || typeof globalThis.performance.now !== 'function') {
-      (globalThis.performance as any).now = () => Date.now();
+      const perfGlobal = globalThis.performance as unknown as { now: () => number };
+      perfGlobal.now = () => Date.now();
     }
   }
 }
