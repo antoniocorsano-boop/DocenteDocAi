@@ -124,7 +124,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     }
 
     return (
-        <div className="page-layout p-4 md:p-8 space-y-6">
+        <div className="pt-3 px-4 md:px-6 space-y-6">
             <header className="flex justify-between items-center">
                 <div>
                     <h1 className="m3-display-small font-black">Knowledge Base</h1>

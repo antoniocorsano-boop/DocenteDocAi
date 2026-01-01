@@ -3,6 +3,7 @@ import React from 'react';
 import { View, AppState, NavigationParams } from '../types';
 import { InfoCard, ActionTile } from './M3Components';
 import M3ExpressiveCard from './M3ExpressiveCard';
+import { useSettingsStore } from '../stores/useSettingsStore';
 
 interface HomeProps {
     onNavigate: (view: View, params?: NavigationParams) => void;
@@ -16,10 +17,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
     const suggestions = appState.suggestions || [];
     const showAiSuggestion = activeSuggestion && !dismissedSuggestions?.has(activeSuggestion.id);
 
-    // Demo: recupero nome docente (in reale da appState.user)
-    const user = (typeof appState.user === 'object' && appState.user && 'nome' in appState.user && 'cognome' in appState.user)
-        ? appState.user as { nome: string; cognome: string }
-        : { nome: 'Mario', cognome: 'Rossi' };
+    // Recupera nome docente dalle impostazioni
+    const settings = useSettingsStore((state) => state.settings);
+    const nomeInsegnante = settings.nomeInsegnante || 'Professore';
+    const cognomeInsegnante = settings.cognomeInsegnante || '';
 
     interface RecentActivity { id: string; title: string; meta?: string; time?: string }
     interface BadgeType { id: string; name: string; description?: string; earned?: boolean }
@@ -38,10 +39,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate, appState, dismissSuggestion }) 
     const recentActivities: RecentActivity[] = _dashboardPartials.recentActivities ?? [];
 
     return (
-        <div className="p-6">
+        <div className="pt-3 px-4 md:px-6">
             {/* Saluto docente */}
             <InfoCard
-                title={`Buongiorno Prof. ${user.cognome}!`}
+                title={`Buongiorno Prof. ${cognomeInsegnante || nomeInsegnante}!`}
                 description="Ecco il tuo cruscotto docente. L’AI ti suggerirà azioni e ti aiuterà nella gestione quotidiana."
                 icon="waving_hand"
                 variant="primary"

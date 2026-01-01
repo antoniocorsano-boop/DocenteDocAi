@@ -11,6 +11,7 @@ import ChipInputList from './ChipInputList';
 import ResetConfirmModal from './ResetConfirmModal';
 import { useSettingsLogic } from '../hooks/useSettingsLogic';
 import { TeachingAssignmentMatrix } from './TeachingAssignmentMatrix';
+import { errorLogger } from '../services/errorLogger';
 
 interface SettingsGroupProps {
     id: string;
@@ -144,7 +145,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </div>
             </div>
 
-            <div className="flex-grow overflow-y-auto p-4 md:p-6 pb-32 max-w-3xl mx-auto w-full space-y-6">
+            <div className="flex-grow overflow-y-auto pt-3 px-4 md:px-6 pb-32 max-w-3xl mx-auto w-full space-y-6">
 
                 <SettingsGroup id="manutenzione" title="Manutenzione Brand" subtitle="Risolvi problemi di logo e testo" icon="refresh" variant="primary" defaultOpen={true}>
                     <div className="p-4 bg-surface-container rounded-2xl border border-outline-variant">
@@ -357,6 +358,71 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <button onClick={handleGenerateThemeFromPrompt} disabled={isGeneratingTheme || !themePrompt.trim()} className="button button-tonal w-full rounded-lg hover:shadow-md transition-all">
                                 {isGeneratingTheme ? 'Generazione...' : 'Genera Tema'}
                             </button>
+                        </div>
+                    </div>
+                </SettingsGroup>
+
+                <SettingsGroup id="debug_logging" title="Debug & Logging" subtitle="Visualizza e gestisci i log degli errori" icon="bug_report" variant="surface">
+                    <div className="space-y-4">
+                        <div className="p-4 bg-surface-container rounded-xl border border-outline-variant">
+                            <div className="flex items-start justify-between gap-4 mb-3">
+                                <div>
+                                    <h4 className="m3-label-large font-bold text-on-surface">Log degli Errori</h4>
+                                    <p className="text-xs text-on-surface-variant mt-1">Visualizza tutti gli errori registrati durante l'utilizzo dell'app</p>
+                                </div>
+                                <span className="material-symbols-outlined text-error text-lg">{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
+                            </div>
+                            <div className="text-xs text-on-surface-variant mb-4 p-2 bg-surface-container-low rounded flex items-center gap-2">
+                                <span className="material-symbols-outlined text-sm">info</span>
+                                <span>{errorLogger.getErrorStats().total} log registrati</span>
+                            </div>
+                            <button 
+                                onClick={() => {
+                                    showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info');
+                                }}
+                                className="button button-filled w-full !h-10 rounded-lg hover:shadow-md transition-all mb-2"
+                            >
+                                <span className="material-symbols-outlined text-sm mr-1">terminal</span> Console Browser (F12)
+                            </button>
+                            <button 
+                                onClick={() => {
+                                    const json = errorLogger.exportLogsAsJson();
+                                    const blob = new Blob([json], { type: 'application/json' });
+                                    const url = URL.createObjectURL(blob);
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = `error-logs-${new Date().toISOString().slice(0, 10)}.json`;
+                                    a.click();
+                                    URL.revokeObjectURL(url);
+                                    showToast('Log esportati in JSON', 'success');
+                                }}
+                                className="button button-outlined w-full !h-10 rounded-lg hover:shadow-md transition-all mb-2"
+                            >
+                                <span className="material-symbols-outlined text-sm mr-1">download</span> Esporta JSON
+                            </button>
+                            <button 
+                                onClick={() => {
+                                    if (confirm('Sei sicuro di voler eliminare tutti i log?')) {
+                                        errorLogger.clearAllLogs();
+                                        showToast('Tutti i log sono stati eliminati', 'success');
+                                    }
+                                }}
+                                className="button button-outlined-error w-full !h-10 rounded-lg hover:shadow-md transition-all"
+                            >
+                                <span className="material-symbols-outlined text-sm mr-1">delete</span> Elimina Log
+                            </button>
+                        </div>
+
+                        <div className="p-3 bg-error/10 border border-error/20 rounded-xl text-xs text-on-surface-variant">
+                            <div className="flex gap-2 items-start">
+                                <span className="material-symbols-outlined text-error text-sm flex-shrink-0 mt-0.5">info</span>
+                                <div>
+                                    <strong>Come usare:</strong><br/>
+                                    1. Premi <kbd className="bg-surface px-1 py-0.5 rounded text-xs font-mono">F12</kbd> per aprire la console<br/>
+                                    2. Digita: <code className="bg-surface px-1 py-0.5 rounded text-xs font-mono">window.__errorLogger.getRecentErrors(10)</code><br/>
+                                    3. Visualizza gli ultimi 10 errori
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </SettingsGroup>

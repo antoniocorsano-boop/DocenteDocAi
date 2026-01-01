@@ -57,11 +57,13 @@ const Snackbar: React.FC = () => {
   useEffect(() => {
     if (toast.visible && clearToast) {
       console.log('Snackbar Debug - Setting timeout');
+      // Mostra gli errori per 5 secondi, altri per 3.5 secondi
+      const duration = toast.type === 'error' ? 5000 : 3500;
       timeoutRef.current = setTimeout(() => {
         clearToast?.();
         timeoutRef.current = null;
         console.log('Snackbar Debug - Timeout executed');
-      }, 3500);
+      }, duration);
     } else if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;

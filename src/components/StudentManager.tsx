@@ -58,7 +58,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
     };
 
     return (
-        <div className="page-layout pb-20">
+        <div className="pt-3 px-4 md:px-6 pb-20">
             <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
                 <h1 className="m3-display-medium">Gestione Studenti</h1>
                 <div className="flex gap-2">

@@ -56,7 +56,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     }, [submissions, filteredStudents]);
 
     return (
-        <div className="space-y-6 pb-20">
+        <div className="pt-3 px-4 md:px-6">
+            <div className="space-y-6 pb-20">
             <header className="page-header-block">
                 <h1 className="m3-display-small">Cruscotto Classe {selectedClass}</h1>
             </header>
@@ -200,6 +201,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         )}
                     </div>
                 </M3Card>
+            </div>
             </div>
         </div>
     );

@@ -19,6 +19,7 @@ import type { SyncConflictData } from '../types';
 import { messages } from '../messages';
 import { useDataStore } from '../stores/useDataStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
+import { errorLogger } from '../services/errorLogger.ts';
 
 export const useAppEngine = () => {
     // Test mode detection: when true, skip heavy restore and set a demo user
@@ -244,10 +245,22 @@ export const useAppEngine = () => {
     // These actions are managed by AppEngine but dispatch to Zustand stores.
 
     const handleNavigate = useCallback((newView: View, context: any = null) => {
-        uiActions.addNavigationEntry({ view, context: viewContext }); // Save current view to history
-        setView(newView);
-        setViewContext(context);
-        window.scrollTo(0, 0);
+        try {
+            uiActions.addNavigationEntry({ view, context: viewContext }); // Save current view to history
+            setView(newView);
+            setViewContext(context);
+            window.scrollTo(0, 0);
+            
+            // Log successful navigation
+            errorLogger.logInfo(
+                `Navigated to ${newView}`,
+                'navigation',
+                { fromView: view, toView: newView, hasContext: !!context }
+            );
+        } catch (error) {
+            errorLogger.logNavigationError(newView, error, view);
+            showToast('Errore durante la navigazione', 'error');
+        }
     }, [view, viewContext]); // Remove uiActions from deps - it's stable from zustand
 
     const handleBack = useCallback((force = false) => {

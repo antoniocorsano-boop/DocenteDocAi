@@ -30,8 +30,23 @@ vi.mock('../../src/components/M3ExpressiveCard', () => ({
     ),
 }));
 
+// Mock useSettingsStore
+vi.mock('../../src/stores/useSettingsStore', () => ({
+    useSettingsStore: vi.fn((selector) => {
+        const mockSettings = {
+            nomeInsegnante: 'Mario',
+            cognomeInsegnante: 'Rossi',
+            // ... other settings
+        };
+        return selector({
+            settings: mockSettings,
+            // ... other state
+        });
+    }),
+}));
+
 const mockAppState = {
-    user: { id: 'test-user', displayName: 'Test User', nome: 'Mario', cognome: 'Rossi' } as any,
+    user: { id: 'test-user', displayName: 'Test User' } as any,
     suggestions: [
         {
             id: 'test-suggestion-1',
