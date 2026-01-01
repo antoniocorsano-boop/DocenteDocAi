@@ -1,8 +1,8 @@
 # ✅ CHECKLIST M3 DIALOG MIGRATION - DocenteDoc AI
 
 **Last Updated:** Gennaio 2026  
-**Status:** 23/25 Completed (92%)  
-**Build:** ✅ SUCCESS (11.04s, zero errors)
+**Status:** 24/25 Completed (96%)  
+**Build:** ✅ SUCCESS (11.05s, zero errors)
 
 ---
 
@@ -90,19 +90,21 @@
 
 ---
 
-## 🟡 IN PROGRESS (2 modals remaining)
+## 🟡 REMAINING (1 modal - DEFERRED)
 
-### COMPLEX Batch Final (2 modals - DEFERRED)
-
-#### 1. **EditSlotModal.tsx** (242 lines) - ⏳ BLOCKED
-- Status: Attempted migration reverted
-- Issues: 
-  - Complex MUI TextField/Select components
-  - M3ExpressiveProvider wrapper interaction
-  - Nested conditional rendering causing JSX structure conflicts
-- Strategy: Revisit after core M3 infrastructure stabilizes
-- Workaround: Keep on legacy dialog-backdrop for now
-- Priority: HIGH (used frequently)
+### EditSlotModal.tsx (242 lines)
+- **Status:** ⏳ DEFERRED
+- **Complexity:** 🔴 VERY HIGH
+  - Nested M3ExpressiveProvider + complex JSX structure
+  - Multiple FormControl + MuiSelect/MuiTextField components
+  - 3 levels of conditional ternary rendering
+  - dialog-header/dialog-content/dialog-footer structure
+  - Difficult JSX nesting migration
+- **Reason for Deferral:** 
+  - Multiple failed migration attempts due to JSX structure conflicts
+  - Low urgency (less frequently used modal)
+  - Would require significant refactoring of MUI integration
+- **Future Strategy:** Consider refactoring MUI components or simplifying JSX structure before migration
 
 #### 2. **CreateLessonFromAiModal.tsx** - ✅ COMPLETE
 - Status: Migrated in session 2
