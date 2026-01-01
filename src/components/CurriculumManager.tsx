@@ -113,7 +113,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 <div key={obj.id} className="flex gap-2 items-center group">
                                     <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${obj.type === 'skill' ? 'bg-tertiary' : 'bg-secondary'}`}></span>
                                     <input 
-                                        className="flex-grow bg-transparent border-none focus:ring-0 text-sm py-2 font-bold text-on-surface border-b border-transparent hover:border-outline-variant focus:border-primary transition-all"
+                                        className="flex-grow bg-transparent border-none focus:ring-0 m3-body-small py-2 font-bold text-on-surface border-b border-transparent hover:border-outline-variant focus:border-primary transition-all"
                                         value={obj.text}
                                         onChange={(e) => {
                                             const newNuclei = [...selectedCurriculum.nuclei];
@@ -126,14 +126,14 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                         const newNuclei = [...selectedCurriculum.nuclei];
                                         newNuclei[nIdx].objectives = newNuclei[nIdx].objectives.filter(o => o.id !== obj.id);
                                         handleUpdate({...selectedCurriculum, nuclei: newNuclei});
-                                    }} className="opacity-0 group-hover:opacity-100 icon-button !w-8 !h-8 text-on-surface-variant hover:bg-error-container hover:text-on-error-container"><span className="material-symbols-outlined text-xs">close</span></button>
+                                    }} className="opacity-0 group-hover:opacity-100 icon-button !w-8 !h-8 text-on-surface-variant hover:bg-error-container hover:text-on-error-container"><span className="material-symbols-outlined m3-label-small">close</span></button>
                                 </div>
                             ))}
                             <button onClick={() => {
                                 const newNuclei = [...selectedCurriculum.nuclei];
                                 newNuclei[nIdx].objectives.push({ id: `obj-${Date.now()}`, text: '', type: 'knowledge' });
                                 handleUpdate({...selectedCurriculum, nuclei: newNuclei});
-                            }} className="button button-text !h-9 !px-4 text-[11px] font-extrabold uppercase tracking-[0.2em] mt-2 bg-surface-container-high/50 rounded-full"><span className="material-symbols-outlined text-sm mr-2">add</span> Aggiungi Obiettivo</button>
+                            }} className="button button-text !h-9 !px-4 text-[11px] font-extrabold uppercase tracking-[0.2em] mt-2 bg-surface-container-high/50 rounded-full"><span className="material-symbols-outlined m3-body-small mr-2">add</span> Aggiungi Obiettivo</button>
                         </div>
                     </div>
                 ))}

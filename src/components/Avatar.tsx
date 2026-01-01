@@ -30,10 +30,10 @@ export const Avatar: React.FC<AvatarProps> = ({ name, surname, src, size = 'medi
     initials = initials.toUpperCase();
 
     const sizeClasses = {
-        small: 'w-8 h-8 text-xs',
-        medium: 'w-10 h-10 text-sm',
-        large: 'w-14 h-14 text-lg',
-        xl: 'w-24 h-24 text-3xl md:w-32 md:h-32 md:text-4xl'
+        small: 'w-8 h-8 m3-label-small',
+        medium: 'w-10 h-10 m3-body-small',
+        large: 'w-14 h-14 m3-label-large',
+        xl: 'w-24 h-24 m3-headline-medium md:w-32 md:h-32 md:m3-display-small'
     };
 
     return (

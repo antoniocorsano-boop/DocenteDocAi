@@ -226,7 +226,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                             status === 'assente' ? 'bg-error-container text-error' : 'bg-tertiary-container text-tertiary'
                                                         }`}
                                                 >
-                                                    <span className="material-symbols-outlined text-lg">
+                                                    <span className="material-symbols-outlined m3-label-large">
                                                         {status === 'presente' ? 'check' : status === 'assente' ? 'close' : 'schedule'}
                                                     </span>
                                                 </button>
@@ -364,7 +364,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         ) : (
                             <div className="text-center p-8 opacity-60">
-                                <span className="material-symbols-outlined text-4xl mb-2">folder_off</span>
+                                <span className="material-symbols-outlined m3-headline-large mb-2">folder_off</span>
                                 <p className="m3-body-medium">Nessun materiale.</p>
                             </div>
                         )}

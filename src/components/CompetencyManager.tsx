@@ -74,7 +74,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                             className={`px-4 py-2 rounded-xl transition-colors text-sm font-medium flex items-center whitespace-nowrap ${activeFramework === fw ? 'bg-secondary-container text-on-secondary-container shadow-sm' : 'bg-surface hover:bg-surface-container-high border border-transparent hover:border-outline-variant'}`}
                         >
                             <span className="truncate mr-2">{fw}</span>
-                            {fw === 'DigCompEdu 2.2' && <span className="material-symbols-outlined text-base">smart_toy</span>}
+                            {fw === 'DigCompEdu 2.2' && <span className="material-symbols-outlined m3-body-medium">smart_toy</span>}
                         </button>
                     ))}
                 </div>
@@ -99,20 +99,20 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                     className={`w-6 h-6 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${active ? 'bg-primary border-primary text-on-primary' : 'border-outline text-on-surface-variant hover:bg-surface-container-high'}`}
                                     title={active ? `Disattiva ${comp.nome}` : `Attiva ${comp.nome}`}
                                 >
-                                    {active && <span className="material-symbols-outlined text-sm">check</span>}
+                                    {active && <span className="material-symbols-outlined m3-body-small">check</span>}
                                 </div>
                                 <div className="flex-grow min-w-0">
-                                    <span className="text-xs font-bold uppercase tracking-wider text-primary mb-1 block truncate">{comp.codice}</span>
+                                    <span className="m3-label-small font-bold uppercase tracking-wider text-primary mb-1 block truncate">{comp.codice}</span>
                                     <h3 className="m3-title-medium font-bold truncate">{comp.nome}</h3>
-                                    <p className="text-xs text-on-surface-variant mt-1 truncate">{comp.framework}</p>
+                                    <p className="m3-label-small text-on-surface-variant mt-1 truncate">{comp.framework}</p>
                                 </div>
                                 <span className="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform ml-auto">expand_more</span>
                             </summary>
                             <div className="m3-expansion-content !px-4 !pt-2 !pb-4">
-                                <p className="text-xs font-bold mb-2 text-on-surface-variant">DESCRITTORI LIVELLI:</p>
+                                <p className="m3-label-small font-bold mb-2 text-on-surface-variant">DESCRITTORI LIVELLI:</p>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                     {comp.livelli.map(lvl => (
-                                        <div key={lvl.id} className="bg-surface-container-low p-2 rounded text-xs">
+                                        <div key={lvl.id} className="bg-surface-container-low p-2 rounded m3-label-small">
                                             <strong>{lvl.nome}:</strong> <span className="opacity-80">{lvl.descrizione}</span>
                                         </div>
                                     ))}

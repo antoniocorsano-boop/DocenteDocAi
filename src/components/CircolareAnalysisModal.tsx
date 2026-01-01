@@ -119,7 +119,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                             <div className="space-y-2">
                                 <h3 className="m3-label-large font-bold">Procedura Manuale (Privacy-Safe)</h3>
                                 <p className="m3-body-small text-on-surface-variant">L'AI analizza solo il testo che incolli qui. Non accediamo direttamente ai link per privacy.</p>
-                                <ol className="list-decimal pl-5 space-y-1 text-xs text-on-surface-variant/80">
+                                <ol className="list-decimal pl-5 space-y-1 m3-label-small text-on-surface-variant/80">
                                     <li>
                                         <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold inline-flex items-center gap-1">
                                             Apri la circolare originale <span className="material-symbols-outlined text-[10px]">open_in_new</span>
@@ -142,8 +142,8 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                         />
 
                         {error && (
-                            <div className="flex items-center gap-2 p-3 bg-error-container text-on-error-container rounded-xl text-sm justify-center">
-                                <span className="material-symbols-outlined text-lg">error</span>
+                            <div className="flex items-center gap-2 p-3 bg-error-container text-on-error-container rounded-xl m3-body-small justify-center">
+                                <span className="material-symbols-outlined m3-label-large">error</span>
                                 {error}
                             </div>
                         )}
@@ -169,27 +169,27 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                                     {result.events.map((e, i) => (
                                         <div key={i} className="p-4 flex justify-between items-center hover:bg-surface-container-low transition-colors">
                                             <div className="flex items-center gap-3">
-                                                <span className="material-symbols-outlined text-primary bg-primary-container p-2 rounded-full text-sm">event</span>
-                                                <span className="font-medium text-sm">{e.titolo}</span>
+                                                <span className="material-symbols-outlined text-primary bg-primary-container p-2 rounded-full m3-body-small">event</span>
+                                                <span className="font-medium m3-body-small">{e.titolo}</span>
                                             </div>
-                                            <span className="font-mono text-xs bg-surface-container-high px-2 py-1 rounded border border-outline-variant/20">{e.data}</span>
+                                            <span className="font-mono m3-label-small bg-surface-container-high px-2 py-1 rounded border border-outline-variant/20">{e.data}</span>
                                         </div>
                                     ))}
                                     {result.deadlines.map((d, i) => (
                                         <div key={`d-${i}`} className="p-4 flex justify-between items-center bg-error-container/5 hover:bg-error-container/10 transition-colors">
                                             <div className="flex items-center gap-3">
-                                                <span className="material-symbols-outlined text-error bg-error-container p-2 rounded-full text-sm">flag</span>
-                                                <span className="font-medium text-sm text-on-surface">{d.title}</span>
+                                                <span className="material-symbols-outlined text-error bg-error-container p-2 rounded-full m3-body-small">flag</span>
+                                                <span className="font-medium m3-body-small text-on-surface">{d.title}</span>
                                             </div>
-                                            <span className="font-mono text-xs bg-error-container text-on-error-container px-2 py-1 rounded">{d.date}</span>
+                                            <span className="font-mono m3-label-small bg-error-container text-on-error-container px-2 py-1 rounded">{d.date}</span>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         ) : (
                             <div className="p-8 text-center border-2 border-dashed border-outline-variant/30 rounded-2xl">
-                                <span className="material-symbols-outlined text-4xl text-on-surface-variant/30 mb-2">event_busy</span>
-                                <p className="text-sm text-on-surface-variant italic">Nessun evento o scadenza rilevato nel testo.</p>
+                                <span className="material-symbols-outlined m3-display-small text-on-surface-variant/30 mb-2">event_busy</span>
+                                <p className="m3-body-small text-on-surface-variant italic">Nessun evento o scadenza rilevato nel testo.</p>
                             </div>
                         )}
                     </div>

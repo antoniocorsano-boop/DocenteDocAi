@@ -57,7 +57,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                         autoFocus
                     />
                 </div>
-                {error && <p className="text-error text-center text-sm">{error}</p>}
+                {error && <p className="text-error text-center m3-body-small">{error}</p>}
             </M3DialogContent>
             <M3DialogActions className="gap-2">
                 <M3Button variant="text" onClick={onClose} type="button" disabled={isLoading}>Annulla</M3Button>

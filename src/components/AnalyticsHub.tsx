@@ -119,8 +119,8 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         {chartType === 'radar' && 'Radar Competenze'}
                         {chartType === 'dist' && 'Distribuzione Voti'}
                     </h2>
-                    <button onClick={handleAskAi} disabled={isAiLoading} className="button button-tonal !h-10 !px-6 text-xs font-black shadow-md">
-                        <span className="material-symbols-outlined text-lg mr-2">auto_awesome</span> ANALISI AI
+                    <button onClick={handleAskAi} disabled={isAiLoading} className="button button-tonal !h-10 !px-6 m3-label-small font-black shadow-md">
+                        <span className="material-symbols-outlined m3-label-large mr-2">auto_awesome</span> ANALISI AI
                     </button>
                 </div>
                 <div className="flex-grow flex items-center justify-center p-2 sm:p-4 w-full min-h-[180px] md:min-h-[260px] lg:min-h-[320px]">

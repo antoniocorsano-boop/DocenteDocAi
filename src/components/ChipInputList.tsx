@@ -42,12 +42,12 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
         <div className="mb-6">
              <div className="flex items-center gap-2 mb-3">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center bg-${variant === 'class' ? 'secondary' : variant === 'subject' ? 'tertiary' : 'surface'}-container text-${variant === 'class' ? 'secondary' : variant === 'subject' ? 'tertiary' : 'primary'}`}>
-                    <span className="material-symbols-outlined text-sm">{icon}</span>
+                    <span className="material-symbols-outlined m3-body-small">{icon}</span>
                 </div>
-                <label className="text-sm font-bold text-on-surface uppercase tracking-wide">
+<label className="m3-body-small font-bold text-on-surface uppercase tracking-wide">
                     {label}
                 </label>
-                <span className="text-xs text-on-surface-variant opacity-60 ml-auto">{items.length} elementi</span>
+                <span className="m3-label-small text-on-surface-variant opacity-60 ml-auto">{items.length} elementi</span>
              </div>
              
              <div className="m3-chip-grid">
@@ -84,7 +84,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         className={`icon-button !w-6 !h-6 ${newItem.trim() ? 'text-primary' : 'text-outline-variant'}`}
                         disabled={!newItem.trim()}
                      >
-                        <span className="material-symbols-outlined text-sm">add</span>
+                        <span className="material-symbols-outlined m3-body-small">add</span>
                      </button>
                  </div>
             </div>

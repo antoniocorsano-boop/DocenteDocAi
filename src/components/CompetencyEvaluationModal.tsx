@@ -118,9 +118,9 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                     title="Genera nota con AI"
                                 >
                                     {isGeneratingNote ? (
-                                        <span className="material-symbols-outlined text-base animate-spin">sync</span>
+                                        <span className="material-symbols-outlined m3-body-medium animate-spin">sync</span>
                                     ) : (
-                                        <span className="material-symbols-outlined text-base">auto_awesome</span>
+                                        <span className="material-symbols-outlined m3-body-medium">auto_awesome</span>
                                     )}
                                     <span className="m3-label-medium">{isGeneratingNote ? 'Generando...' : 'Suggerisci nota'}</span>
                                 </button>

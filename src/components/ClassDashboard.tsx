@@ -116,14 +116,14 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                             >
                                 <div className="flex items-center gap-4">
                                     <div className="w-12 h-12 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center relative">
-                                        <span className="material-symbols-outlined text-2xl">mail</span>
-                                        <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-on-error rounded-full text-xs font-bold flex items-center justify-center border-2 border-tertiary-container">
+                                        <span className="material-symbols-outlined m3-headline-small">mail</span>
+                                        <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-on-error rounded-full m3-label-small font-bold flex items-center justify-center border-2 border-tertiary-container">
                                             {inboxCount}
                                         </span>
                                     </div>
                                     <div>
                                         <h3 className="m3-title-medium font-bold">Inbox Compiti</h3>
-                                        <p className="text-sm opacity-80">{inboxCount} elaborati consegnati da valutare.</p>
+                                        <p className="m3-body-small opacity-80">{inboxCount} elaborati consegnati da valutare.</p>
                                     </div>
                                 </div>
                                 <button className="icon-button bg-surface/20 hover:bg-surface/40 text-on-tertiary-container">
@@ -171,7 +171,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                 <M3Card className="h-full flex flex-col">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="m3-title-large">Studenti</h2>
-                        <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-sm font-bold">
+                        <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full m3-body-small font-bold">
                             {filteredStudents.length}
                         </span>
                     </div>
@@ -195,7 +195,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                             );
                         }) : (
                             <div className="flex flex-col items-center justify-center h-40 text-center text-on-surface-variant p-4 border-2 border-dashed border-outline-variant rounded-xl">
-                                <span className="material-symbols-outlined text-4xl mb-2">person_off</span>
+                                <span className="material-symbols-outlined m3-display-small mb-2">person_off</span>
                                 <p>Nessuno studente in elenco.</p>
                             </div>
                         )}

@@ -113,14 +113,14 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
 
             <div className="corpus-chat-shortcuts">
                 <div className="flex gap-2 p-2 justify-center">
-                    <button onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} className="button button-tonal !h-auto !py-1 !px-3 !text-xs">
-                        <span className="material-symbols-outlined text-base mr-1">summarize</span> Riassumi
+                    <button onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
+                        <span className="material-symbols-outlined m3-body-medium mr-1">summarize</span> Riassumi
                     </button>
-                    <button onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} className="button button-tonal !h-auto !py-1 !px-3 !text-xs">
-                        <span className="material-symbols-outlined text-base mr-1">quiz</span> Crea Quiz
+                    <button onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
+                        <span className="material-symbols-outlined m3-body-medium mr-1">quiz</span> Crea Quiz
                     </button>
-                    <button onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} className="button button-tonal !h-auto !py-1 !px-3 !text-xs">
-                        <span className="material-symbols-outlined text-base mr-1">key</span> Concetti Chiave
+                    <button onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
+                        <span className="material-symbols-outlined m3-body-medium mr-1">key</span> Concetti Chiave
                     </button>
                 </div>
             </div>

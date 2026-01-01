@@ -46,7 +46,7 @@ const TimerWidget: React.FC = () => {
             
             <div className="flex items-center gap-2 text-primary z-10">
                 <span className="material-symbols-outlined filled-icon">timer</span>
-                <span className="text-xs font-bold uppercase tracking-wider">Cronometro</span>
+                <span className="m3-label-small font-bold uppercase tracking-wider">Cronometro</span>
             </div>
             
             <div className="text-6xl font-mono font-bold tracking-widest text-on-surface z-10 text-center my-2 tabular-nums">
@@ -103,19 +103,19 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
 
             <div className="flex items-center gap-2 text-tertiary z-10">
                 <span className="material-symbols-outlined filled-icon">casino</span>
-                <span className="text-xs font-bold uppercase tracking-wider">Estrazione</span>
+                <span className="m3-label-small font-bold uppercase tracking-wider">Estrazione</span>
             </div>
 
             <div className="z-10 text-center w-full flex-grow flex items-center justify-center">
                 {selectedStudent ? (
                     <div className={`transition-all duration-200 ${isSelecting ? 'opacity-70 scale-95 blur-[1px]' : 'opacity-100 scale-100'}`}>
-                         <span className="text-2xl font-bold block leading-tight text-on-surface">{selectedStudent.cognome}</span>
-                         <span className="text-lg opacity-80 block text-on-surface-variant">{selectedStudent.nome}</span>
+                         <span className="m3-headline-small font-bold block leading-tight text-on-surface">{selectedStudent.cognome}</span>
+                         <span className="m3-label-large opacity-80 block text-on-surface-variant">{selectedStudent.nome}</span>
                     </div>
                 ) : (
                      <div className="text-on-surface-variant/40 flex flex-col items-center">
-                        <span className="material-symbols-outlined text-4xl mb-1">groups</span>
-                        <span className="text-sm font-medium">Pronto ad estrarre</span>
+                        <span className="material-symbols-outlined m3-display-small mb-1">groups</span>
+                        <span className="m3-body-small font-medium">Pronto ad estrarre</span>
                      </div>
                 )}
             </div>

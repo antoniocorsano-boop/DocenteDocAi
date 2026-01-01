@@ -448,7 +448,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                     <div className="hero-card-interactive bg-primary-container text-on-primary-container mb-6" onClick={() => setIsPlanningWizardOpen(true)}>
                         <div className="flex justify-between items-start">
                             <div className="p-2 bg-on-primary-container/10 rounded-2xl">
-                                <span className="material-symbols-outlined text-4xl">calendar_month</span>
+                                <span className="material-symbols-outlined m3-display-small">calendar_month</span>
                             </div>
                             <span className="material-symbols-outlined m3-headline-small opacity-50">arrow_outward</span>
                         </div>

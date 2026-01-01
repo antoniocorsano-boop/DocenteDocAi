@@ -64,7 +64,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                     <td>{new Date(report.dataCreazione).toLocaleDateString('it-IT')}</td>
                                     <td>{report.contesto.titolo}</td>
                                     <td>
-                                        <span className={`chip text-xs border-none ${report.modelloUsato.tipo === 'pdf' ? 'bg-error-container text-on-error-container' : 'bg-primary-container text-on-primary-container'}`}>
+                                        <span className={`chip m3-label-small border-none ${report.modelloUsato.tipo === 'pdf' ? 'bg-error-container text-on-error-container' : 'bg-primary-container text-on-primary-container'}`}>
                                             {report.modelloUsato.nome}
                                         </span>
                                     </td>

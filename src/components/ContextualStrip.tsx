@@ -24,7 +24,7 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
             {/* Icon & Message Group */}
             <div className="flex items-start gap-3 flex-grow min-w-0 py-1">
                 <div className="w-6 h-6 rounded-full bg-on-tertiary-container/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="material-symbols-outlined text-sm">auto_awesome</span>
+                    <span className="material-symbols-outlined m3-body-small">auto_awesome</span>
                 </div>
                 <p className="strip-text">{message}</p>
             </div>
@@ -39,7 +39,7 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
                     className="icon-button !w-10 !h-10 !text-on-tertiary-container opacity-70 hover:opacity-100 -mr-2"
                     aria-label="Chiudi suggerimento"
                 >
-                    <span className="material-symbols-outlined text-lg">close</span>
+                    <span className="material-symbols-outlined m3-label-large">close</span>
                 </button>
             </div>
         </div>

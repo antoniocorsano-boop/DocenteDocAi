@@ -99,7 +99,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({ open, onC
                 <label key={f.id} className="flex items-center gap-3 px-4 py-2 border-b last:border-b-0 cursor-pointer hover:bg-surface-container-low">
                   <input type="checkbox" checked={selected.has(f.id)} onChange={() => handleSelect(f.id)} />
                   <span className="flex-1 font-medium">{f.name}</span>
-                  <span className="text-xs text-on-surface-variant">{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
+                  <span className="m3-label-small text-on-surface-variant">{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
                 </label>
               ))}
             </div>
@@ -127,7 +127,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({ open, onC
 
         {step === 'done' && (
           <div className="py-8 text-center">
-            <span className="material-symbols-outlined text-4xl text-success mb-2">check_circle</span>
+            <span className="material-symbols-outlined m3-display-small text-success mb-2">check_circle</span>
             <div className="font-bold mb-2">Importazione completata!</div>
           </div>
         )}

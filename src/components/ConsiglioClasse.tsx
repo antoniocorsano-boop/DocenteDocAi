@@ -270,7 +270,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     <div className='flex items-start gap-1'>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)} className="form-textarea !py-1 flex-grow" rows={2} placeholder="Giudizio sintetico..."></textarea>
                                         <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="rounded-lg" title="Suggerisci con AI" type="button">
-                                            <span className="material-symbols-outlined text-base">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                            <span className="material-symbols-outlined m3-body-medium">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
                                 </td>}
@@ -311,7 +311,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                         <span className="m3-label-large">Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
                                             <span className={`flex items-center gap-1 m3-label-large ${trendClass}`}>
-                                                <span className="material-symbols-outlined text-base">{trendIcon}</span>
+                                                <span className="material-symbols-outlined m3-body-medium">{trendIcon}</span>
                                             </span>
                                         )}
                                     </div>
@@ -342,7 +342,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     <div className="flex justify-between items-center mb-1">
                                         <label htmlFor={`giudizio-${student.id}`} className="form-label !mb-0">Note/Giudizio</label>
                                         <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="!h-auto !py-1 !px-2 rounded-lg" title="Suggerisci con AI" type="button">
-                                            <span className="material-symbols-outlined text-base">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                            <span className="material-symbols-outlined m3-body-medium">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
                                     <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)} className="form-textarea w-full" rows={4} placeholder="Giudizio sintetico..."></textarea>
@@ -401,7 +401,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     onChange={() => setExpandedColumns(p => ({...p, [key]: !p[key as keyof typeof p]}))}
                                 />
                                 <label htmlFor={`col-toggle-${String(key)}`} className="chip rounded-lg hover:shadow-md transition-all">
-                                    {expandedColumns[key as keyof typeof expandedColumns] && <span className="material-symbols-outlined text-lg">check</span>}
+                                    {expandedColumns[key as keyof typeof expandedColumns] && <span className="material-symbols-outlined m3-label-large">check</span>}
                                     {key.charAt(0).toUpperCase() + key.slice(1)}
                                 </label>
                             </div>
