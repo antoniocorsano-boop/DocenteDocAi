@@ -349,8 +349,8 @@ export const Z_INDEX = {
 
 ### FASE 4: LAYOUT M3 EXPRESSIVE (3-4 settimane)
 
-**Status:** 🔴 NON INIZIATO  
-**Responsabile:** [TBD]  
+**Status:** ✅ COMPLETATO  
+**Responsabile:** team design-system  
 **Scadenza:** Week 6-8+
 
 #### Milestone 4.1: Spacing & Grid System
@@ -358,39 +358,18 @@ export const Z_INDEX = {
 **Obbiettivo:** Implementare 4px base unit grid
 
 **Task:**
-- [ ] Verifica: Token spacing già definiti in design-system/index.ts ✓
-- [ ] Creazione: [`src/design-system/spacing.css`](src/design-system/spacing.css)
-- [ ] Creazione: Grid utility classes (`.grid-*`, `.gap-*`)
-- [ ] Audit: Tutti gli usi di hardcoded px/rem
-- [ ] Migration: Layout file
+- [x] Verifica: Token spacing già definiti in design-system/index.ts ✓
+- [x] Creazione: [`src/design-system/spacing.css`](src/design-system/spacing.css) (367 linee)
+- [x] Creazione: Grid utility classes (`.grid-*`, `.gap-*` + padding/margin/space-between)
+- [ ] Audit: Tutti gli usi di hardcoded px/rem (da pianificare in Fase 5)
+- [ ] Migration: Layout file (da pianificare in Fase 5)
 
-**File Output:**
-```css
-/* src/design-system/spacing.css */
+**Output chiave:**
+- Variabili spacing `--spacing-0..24` (0-96px, passo 4px)
+- Utility complete: gap, padding, margin (incluse negative), space-x/y, grid-cols/rows, auto-flow
+- Varianti responsive: `.md:*` (≥600px), `.lg:*` (≥1024px)
+- Container responsive base
 
-:root {
-  --spacing-1: 4px;    /* 1 unit  */
-  --spacing-2: 8px;    /* 2 units */
-  --spacing-3: 12px;   /* 3 units */
-  --spacing-4: 16px;   /* 4 units */
-  --spacing-6: 24px;   /* 6 units */
-  --spacing-8: 32px;   /* 8 units */
-}
-
-/* Utility classes */
-.gap-1 { gap: var(--spacing-1); }
-.gap-2 { gap: var(--spacing-2); }
-.gap-4 { gap: var(--spacing-4); }
-.gap-6 { gap: var(--spacing-6); }
-
-.p-1 { padding: var(--spacing-1); }
-.p-2 { padding: var(--spacing-2); }
-.p-4 { padding: var(--spacing-4); }
-.p-6 { padding: var(--spacing-6); }
-
-.m-1 { margin: var(--spacing-1); }
-/* ... etc */
-```
 
 ---
 
@@ -399,11 +378,11 @@ export const Z_INDEX = {
 **Obbiettivo:** Creare Navigation Rail conforme M3 Expressive
 
 **Task:**
-- [ ] Design: Sketch wireframe (80px width, icon + label)
-- [ ] Componente: [`src/components/NavigationRail.tsx`](src/components/NavigationRail.tsx) (NUOVO)
-- [ ] CSS: `src/components/navigation-rail.css` (NUOVO)
-- [ ] Integration: App.tsx layout
-- [ ] Responsive: Collapsible su mobile
+- [x] Design: Sketch wireframe (80px width, icon + label)
+- [x] Componente: [`src/components/NavigationRail.tsx`](src/components/NavigationRail.tsx)
+- [x] CSS: [`src/components/navigation-rail.css`](src/components/navigation-rail.css)
+- [x] Integration: App.tsx layout
+- [x] Responsive: Collapsible su mobile
 
 **Specifica M3 Expressive:**
 - Width: 80px (icon + label stacked)
@@ -412,18 +391,11 @@ export const Z_INDEX = {
 - Elevation: 0px (flat) con --sys-surface-variant border
 - Animation: Smooth 0.3s easing
 
-**Componente Struttura:**
-```tsx
-interface NavigationRailProps {
-  items: Array<{ icon: string; label: string; href: string; badge?: number }>;
-  active: string;
-  onNavigate: (href: string) => void;
-}
-
-const NavigationRail: React.FC<NavigationRailProps> = ({ items, active, onNavigate }) => {
-  // 120 righe
-};
-```
+**Output chiave:**
+- Componente TSX con parent-map per view figlie, badge opzionale, aria-current
+- Stili M3: flat, primary-container sugli attivi, hover/focus, dark mode, reduced motion
+- Responsive: rail verticale desktop/tablet, bottom-nav su mobile (<600px)
+- Layout: margin-left contenuti adeguato in `layout.css`, FAB riposizionato
 
 ---
 
@@ -432,28 +404,20 @@ const NavigationRail: React.FC<NavigationRailProps> = ({ items, active, onNaviga
 **Obbiettivo:** M3 Expressive responsive design
 
 **Task:**
-- [ ] Definire breakpoints M3-compliant:
+- [x] Definire breakpoints M3-compliant:
   - Mobile: < 600px
   - Tablet: 600px - 1024px
   - Desktop: > 1024px
-- [ ] CSS: Media query refactor
-- [ ] Componenti: Responsive adjustments
+- [x] CSS: Media query refactor (`src/design-system/breakpoints.css`)
+- [ ] Componenti: Responsive adjustments (da migrare progressivamente in Fase 5)
 
-**File:**
-```css
-/* src/design-system/breakpoints.css */
+**Output chiave:**
+- Breakpoint M3: 600px, 840px, 1024px, 1240px, 1440px (legacy xs-2xl per transizione)
+- Utility responsive: show/hide per fascia, grid cols md/lg, width md/lg, flex direction, text align
+- Container responsive: max-width e padding per breakpoint
+- Adaptive spacing stack/inline, pointer/hover capabilities, print styles, orientation tweaks
 
-/* Mobile First */
-/* Base: mobile */
-
-@media (min-width: 600px) {
-  /* Tablet layout */
-}
-
-@media (min-width: 1024px) {
-  /* Desktop layout */
-}
-```
+**Note:** La migrazione delle componenti ai nuovi breakpoint verrà eseguita in Fase 5 insieme all'audit degli spacing hardcoded.
 
 ---
 
