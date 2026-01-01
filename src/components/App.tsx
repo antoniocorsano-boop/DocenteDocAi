@@ -4,6 +4,7 @@ import AssistantModal from './AssistantModal';
 import '../font-setup';
 import * as React from 'react';
 import M3ExpressiveProvider from '../design-system/M3ExpressiveProvider';
+import '../design-system/typography.css';
 
 // Global runtime types are declared in `src/vite-env.d.ts`
 
