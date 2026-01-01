@@ -3,6 +3,7 @@ import { DocumentTemplate } from '../types';
 import { useDataStore } from '../stores/useDataStore';
 import { useUIStore } from '../stores/useUIStore';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
+import { M3Dialog } from './M3Dialog';
 
 interface TemplateManagerProps {
   onClose: () => void;
@@ -121,24 +122,12 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
   };
 
   return (
-    <div className="dialog-backdrop" role="presentation">
-      <div
-        ref={modalRef}
-        className="dialog-container w-full max-w-5xl max-h-[90vh] overflow-y-auto"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="template-manager-title"
-      >
-        <div className="dialog-header">
-          <h2 id="template-manager-title" className="m3-headline-medium">
-            {editingTemplate ? (isCreating ? 'Crea Template' : 'Modifica Template') : 'Gestione Template'}
-          </h2>
-          <button onClick={onClose} className="icon-button" aria-label="Chiudi gestione template">
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
-
-        <div className="dialog-content space-y-6">
+    <M3Dialog
+      title={editingTemplate ? (isCreating ? 'Crea Template' : 'Modifica Template') : 'Gestione Template'}
+      onClose={onClose}
+      maxWidth="2xl"
+    >
+      <div className="space-y-6">
           {editingTemplate ? (
             <TemplateEditor
               template={editingTemplate}
@@ -267,18 +256,9 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
             </>
           )}
         </div>
-
-        {!editingTemplate && (
-          <div className="dialog-footer">
-            <button onClick={onClose} className="button button-text">
-              Chiudi
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
+      </M3Dialog>
+    );
+  };
 
 // Componente per editare/creare template
 interface TemplateEditorProps {
