@@ -327,6 +327,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             title="Progettazione Annuale Guidata"
             maxWidth="4xl"
         >
+            <div className="dialog-content overflow-y-auto">
                     {renderStepIndicator()}
 
                     {step === 'context' && (
@@ -522,7 +523,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             </button>
                         </div>
                     )}
-                </div>
+            </div>
 
                 <div className="dialog-footer">
                     {step !== 'document' && (

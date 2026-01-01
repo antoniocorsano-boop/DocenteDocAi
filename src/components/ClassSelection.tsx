@@ -282,7 +282,6 @@ const PrintCenterModal: React.FC<{
                             ))}
                         </div>
                     </div>
-                </div>
             </div>
         </M3Dialog>
     )

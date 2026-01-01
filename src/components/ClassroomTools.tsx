@@ -141,7 +141,7 @@ const ClassroomTools: React.FC<ClassroomToolsProps> = ({ students, studentAttend
             <RandomStudentWidget presentStudents={presentStudents} />
             
             {/* Placeholder for future tools to fill grid if needed */}
-            {/* <div className="sm:col-span-2"> ... </div> */}
+            {/* <div className="md:col-span-2"> ... </div> */}
         </div>
     );
 };

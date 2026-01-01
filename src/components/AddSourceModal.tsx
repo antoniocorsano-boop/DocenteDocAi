@@ -68,7 +68,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                     <>
                         <section>
                             <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-3"><span className="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center m3-label-small font-extrabold">1</span> Seleziona Destinazione</h3>
-                            <div className="category-selection-grid grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <div className="category-selection-grid grid grid-cols-2 md:grid-cols-4 gap-3">
                                 {KB_CATEGORIES.map(cat => <CategoryCard key={cat.id} id={cat.id} label={cat.label} icon={cat.icon} color={cat.color} isSelected={selectedCategory === cat.id} onClick={() => setSelectedCategory(cat.id)} />)}
                             </div>
                         </section>

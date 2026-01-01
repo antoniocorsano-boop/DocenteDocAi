@@ -94,7 +94,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                              <button type="button" onClick={() => setStep('class')} className="button button-tonal !h-10 !px-4 text-xs font-bold uppercase">Cambia</button>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <TextField 
                                 id="student-surname"
                                 name="student-surname"

@@ -419,6 +419,11 @@ export const Z_INDEX = {
 
 **Note:** La migrazione delle componenti ai nuovi breakpoint verrà eseguita in Fase 5 insieme all'audit degli spacing hardcoded.
 
+**Aggiornamento Fase 5 (checkpoint):**
+- Smantellate classi `sm/xl` legacy nei componenti (AddStudent/AddSource, StudentLogin, Welcome, LessonView export controls, Header, ClassroomTools).
+- Allineati wizard/modali M3Dialog con wrapper `dialog-content` e chiusure corrette (OperationsCenter, PassaggioAnnoWizard, ClassSelection, ReportisticaHub overlay, ClassPlanningWizard, AnnualPlanningWizard, BatchExportWizard) per build pulita.
+- Build di produzione: ✅ (vite build).
+
 ---
 
 ## 📈 METRICHE DI SUCCESSO

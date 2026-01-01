@@ -283,7 +283,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
         </>
       }
     >
-      <div className="space-y-6">
+      <div className="dialog-content overflow-y-auto space-y-6">
           {/* Progress Bar durante generazione */}
           {progress && (
             <div className="bg-surface-container p-4 rounded-xl">
@@ -375,7 +375,6 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
               </div>
             ))}
           </div>
-        </div>
       </div>
 
       {/* Template Manager */}

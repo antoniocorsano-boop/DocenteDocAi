@@ -449,7 +449,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                         {(wizard === 'lesson' && selectedLesson) && <button onClick={() => handleGenerateLessonPdf(selectedLesson)} className="button button-filled" disabled={isGenerating} aria-label={`Genera piano lezione PDF per "${selectedLesson.contenuto}"`}>{isGenerating ? "Generazione..." : "Genera PDF"}</button>}
                         {(wizard === 'syllabus' && selectedClass && selectedSubject) && <button onClick={handleGenerateSyllabus} className="button button-filled" disabled={isGenerating} aria-label={`Scarica programma svolto per ${selectedClass} - ${selectedSubject}`}>{isGenerating ? "Generazione..." : "Scarica DOC"}</button>}
                     </div>
-                </div>
             </M3Dialog>
         );
     };

@@ -334,6 +334,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             title="Progettazione Annuale Guidata"
             maxWidth="4xl"
         >
+            <div className="dialog-content overflow-y-auto">
                     {renderStepIndicator()}
 
                     {step === 'context' && (
@@ -542,7 +543,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             </M3Button>
                         </div>
                     )}
-                </div>
+            </div>
 
                 <div className="dialog-footer">
                     {step !== 'document' && (
@@ -558,7 +559,6 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     )}
                     {step === 'document' && <M3Button variant="text" onClick={onClose} title="Chiudi wizard">Chiudi</M3Button>}
                 </div>
-            </div>
         </M3Dialog>
     );
 };

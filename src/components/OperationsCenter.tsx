@@ -280,7 +280,6 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                             </div>
                         </div>
                     )}
-                </div>
             </div>
         </M3Dialog>
     );

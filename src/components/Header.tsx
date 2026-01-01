@@ -55,7 +55,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 headline="Impostazioni"
                 leadingElement={<span className="material-symbols-outlined">settings</span>}
                 onClick={() => handleActionClick(() => onNavigate('settings'))}
-                className="!rounded-lg sm:hidden"
+                className="!rounded-lg md:hidden"
             />
 
             {installPrompt && onInstallApp && (

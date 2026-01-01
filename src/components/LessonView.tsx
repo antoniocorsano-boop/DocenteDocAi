@@ -186,10 +186,10 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                   </div>
               </div>
               <div className="flex items-center gap-1 flex-shrink-0">
-                  <button onClick={handleExportDocx} disabled={isExporting} className="icon-button hidden sm:flex" title="Esporta Word">
+                  <button onClick={handleExportDocx} disabled={isExporting} className="icon-button hidden md:flex" title="Esporta Word">
                       <span className="material-symbols-outlined text-secondary">description</span>
                   </button>
-                  <button onClick={handleExport} disabled={isExporting} className="icon-button hidden sm:flex" title="Esporta PDF">
+                  <button onClick={handleExport} disabled={isExporting} className="icon-button hidden md:flex" title="Esporta PDF">
                       <span className="material-symbols-outlined text-primary">picture_as_pdf</span>
                   </button>
                    {/* Desktop Close Button */}

@@ -176,6 +176,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
             title="Passaggio Anno Scolastico"
             maxWidth="4xl"
         >
+            <div className="dialog-content overflow-y-auto">
                     {step === 'intro' && (
                         <div className="space-y-6 max-w-2xl mx-auto">
                             <InfoCard 
@@ -291,7 +292,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             </div>
                         </div>
                     )}
-                </div>
+            </div>
 
                 <div className="dialog-footer border-t border-outline-variant flex-shrink-0 bg-surface">
                     {step === 'intro' && (
