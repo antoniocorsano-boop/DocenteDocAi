@@ -485,7 +485,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             {recentDocs.length > 0 && (
                 <div className="mb-8 animate-in fade-in slide-in-from-top-4">
                     <SectionHeader title="Le tue Bozze Recenti" icon="edit_note" />
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                         {recentDocs.map(doc => (
                             <div 
                                 key={doc.id} 

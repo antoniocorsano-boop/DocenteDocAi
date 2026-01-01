@@ -136,7 +136,7 @@ const ClassroomTools: React.FC<ClassroomToolsProps> = ({ students, studentAttend
     const presentStudents = students.filter(s => studentAttendance[s.id] === 'presente');
     
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <TimerWidget />
             <RandomStudentWidget presentStudents={presentStudents} />
             

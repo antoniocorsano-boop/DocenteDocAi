@@ -55,9 +55,9 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
     });
 
     return (
-        <div className="space-y-4 animate-in fade-in w-full max-w-3xl mx-auto px-1 sm:px-2 md:px-4">
+        <div className="space-y-4 animate-in fade-in w-full max-w-3xl mx-auto px-2 md:px-4">
             {/* Intro Card */}
-            <div className="card bg-primary-container text-on-primary-container max-w-2xl mx-auto mb-2 p-4 sm:p-6">
+            <div className="card bg-primary-container text-on-primary-container max-w-2xl mx-auto mb-2 p-4 md:p-6">
                 <h2 className="m3-headline-small mb-2">Gestione Framework e Competenze</h2>
                 <p className="m3-body-medium opacity-90">
                     Seleziona le competenze che vuoi monitorare nel tuo registro. Puoi attivare interi framework come <strong>DigCompEdu 2.2</strong> (con focus IA) o le Competenze Chiave Europee.
@@ -110,7 +110,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                             </summary>
                             <div className="m3-expansion-content !px-4 !pt-2 !pb-4">
                                 <p className="m3-label-small font-bold mb-2 text-on-surface-variant">DESCRITTORI LIVELLI:</p>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                     {comp.livelli.map(lvl => (
                                         <div key={lvl.id} className="bg-surface-container-low p-2 rounded m3-label-small">
                                             <strong>{lvl.nome}:</strong> <span className="opacity-80">{lvl.descrizione}</span>
