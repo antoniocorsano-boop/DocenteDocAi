@@ -208,7 +208,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         )}
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             {studentStats.map(stat => {
                                 const student = stat.student;
                                 const status = studentAttendance[student.id] || 'presente';
@@ -217,9 +217,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
                                 return (
                                     <div key={student.id} className="bg-surface-container rounded-3xl shadow-lg border border-outline-variant p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer" onClick={() => setViewingStudentProfile(student)}>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-2 items-center">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-2 items-center">
                                             {/* Column 1: Avatar + Name + Presence + BES/DSA */}
-                                            <div className="flex items-center gap-2 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2">
+                                            <div className="flex items-center gap-2 col-span-1 md:col-span-2 lg:col-span-2">
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleAttendanceToggle(student.id); }}
                                                     className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors flex-shrink-0 ${status === 'presente' ? 'bg-primary-container text-primary' :

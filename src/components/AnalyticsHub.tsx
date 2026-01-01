@@ -83,12 +83,12 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
     }
 
     return (
-        <div className="page-container-full space-y-6 flex flex-col items-center px-2 sm:px-4 md:px-6 lg:px-0" style={{width:'100%', maxWidth:'100vw'}}>
-            <h1 className="m3-display-medium w-full max-w-[1200px] mx-auto px-2 sm:px-4 md:px-6">Analytics Hub</h1>
+        <div className="page-container-full space-y-6 flex flex-col items-center px-2 md:px-4 lg:px-6" style={{width:'100%', maxWidth:'100vw'}}>
+            <h1 className="m3-display-medium w-full max-w-[1200px] mx-auto px-2 md:px-4 lg:px-6">Analytics Hub</h1>
 
             {/* Responsive Card: Filters */}
-            <div className="card !bg-surface-container-low shadow-md !rounded-[32px] w-full max-w-[1200px] mx-auto px-2 sm:px-4 md:px-6 py-4 md:py-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 items-end">
+            <div className="card !bg-surface-container-low shadow-md !rounded-[32px] w-full max-w-[1200px] mx-auto px-2 md:px-4 lg:px-6 py-4 md:py-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-end">
                     <SelectField label="Classe" value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setSelectedStudentId('all'); }}>
                         {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                     </SelectField>
@@ -112,7 +112,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             </div>
 
             {/* Responsive Card: Chart & AI */}
-            <div className="card flex flex-col relative shadow-2xl !rounded-[40px] w-full max-w-[1200px] mx-auto px-2 sm:px-4 md:px-8 py-4 md:py-8 min-h-[320px] md:min-h-[420px] lg:min-h-[450px]">
+            <div className="card flex flex-col relative shadow-2xl !rounded-[40px] w-full max-w-[1200px] mx-auto px-2 md:px-4 lg:px-8 py-4 md:py-8 min-h-[320px] md:min-h-[420px] lg:min-h-[450px]">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-0 mb-6 md:mb-10">
                     <h2 className="m3-title-large font-black uppercase tracking-[0.2em] text-on-surface/50">
                         {chartType === 'trend' && 'Andamento Temporale'}
@@ -123,7 +123,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         <span className="material-symbols-outlined m3-label-large mr-2">auto_awesome</span> ANALISI AI
                     </button>
                 </div>
-                <div className="flex-grow flex items-center justify-center p-2 sm:p-4 w-full min-h-[180px] md:min-h-[260px] lg:min-h-[320px]">
+                <div className="flex-grow flex items-center justify-center p-2 md:p-4 w-full min-h-[180px] md:min-h-[260px] lg:min-h-[320px]">
                     {chartType === 'trend' && <LineChart data={trendData} color="var(--sys-primary)" />}
                     {chartType === 'radar' && <RadarChart data={radarData} color="var(--sys-tertiary)" />}
                     {chartType === 'dist' && <div className="w-full max-w-2xl"><BarChart data={distData} color="var(--sys-secondary)" /></div>}

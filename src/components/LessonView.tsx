@@ -400,20 +400,20 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
           </div>
 
           {/* FOOTER: Fixed at bottom */}
-          <div className="dialog-footer bg-surface border-t border-outline-variant flex flex-col sm:flex-row justify-between items-center p-4 gap-3 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
-               <span className="m3-label-small text-on-surface-variant hidden sm:inline">
+        <div className="dialog-footer bg-surface border-t border-outline-variant flex flex-col md:flex-row justify-between items-center p-4 gap-3 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+            <span className="m3-label-small text-on-surface-variant hidden md:inline">
                    Modificato il {new Date().toLocaleDateString()}
                </span>
-               <div className="flex gap-3 w-full sm:w-auto">
-                    <button type="button" onClick={onClose} className="button button-text flex-1 sm:flex-none justify-center">Chiudi</button>
-                    <button type="button" onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} className="button button-filled flex-1 sm:flex-grow-0 justify-center">
+            <div className="flex gap-3 w-full md:w-auto">
+                <button type="button" onClick={onClose} className="button button-text flex-1 md:flex-none justify-center">Chiudi</button>
+                <button type="button" onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} className="button button-filled flex-1 md:flex-grow-0 justify-center">
                         <span className="material-symbols-outlined mr-2">door_open</span>
                         Avvia Lezione
                     </button>
                </div>
                
                {/* Mobile Only: Export Actions */}
-               <div className="flex sm:hidden gap-2 w-full pt-2 border-t border-outline-variant">
+            <div className="flex md:hidden gap-2 w-full pt-2 border-t border-outline-variant">
                    <button onClick={handleExportDocx} disabled={isExporting} className="button button-outlined flex-1 justify-center !h-9 m3-label-small">
                        <span className="material-symbols-outlined mr-1 m3-label-large">description</span> Word
                    </button>

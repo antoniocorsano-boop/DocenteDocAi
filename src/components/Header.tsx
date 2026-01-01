@@ -165,7 +165,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     {/* Settings - visible on tablet+ */}
                     <button
                         onClick={() => onNavigate('settings')}
-                        className="icon-button hidden sm:flex"
+                        className="icon-button hidden md:flex"
                         aria-label="Impostazioni"
                         tabIndex={0}
                         style={{ background: 'var(--state-layer-hover)' }}
@@ -181,8 +181,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         style={{ background: 'var(--state-layer-hover)' }}
                     >
                         {/* Mobile: hamburger icon, Desktop: avatar */}
-                        <span className="material-symbols-outlined sm:hidden">menu</span>
-                        <div className="hidden sm:block">
+                        <span className="material-symbols-outlined md:hidden">menu</span>
+                        <div className="hidden md:block">
                             <Avatar
                                 name={teacherName || 'Docente'}
                                 surname={teacherSurname}
