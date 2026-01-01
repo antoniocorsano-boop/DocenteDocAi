@@ -89,3 +89,42 @@ if (typeof globalThis !== 'undefined' && !globalThis.document) {
 if (typeof globalThis !== 'undefined' && !globalThis.window) {
   globalThis.window = globalThis;
 }
+
+// CRITICAL: Ensure scheduler can access Performance API
+if (typeof globalThis !== 'undefined') {
+  // Create performance object if it doesn't exist
+  if (!globalThis.performance) {
+    globalThis.performance = {};
+  }
+  
+  // Ensure performance.now exists
+  if (!globalThis.performance.now || typeof globalThis.performance.now !== 'function') {
+    globalThis.performance.now = () => Date.now();
+  }
+
+  // Create/ensure a scheduler-compatible timing function
+  if (typeof globalThis !== 'undefined' && !globalThis.__REACT_SCHEDULER_INITIALIZED__) {
+    const originalNow = globalThis.performance.now;
+    
+    // Add a stable timing reference for the scheduler
+    globalThis.__REACT_SCHEDULER_INITIALIZED__ = true;
+    
+    // Ensure the scheduler can initialize its unstable_now
+    try {
+      // This will ensure scheduler module can create its unstable_now property
+      globalThis.performance.now = originalNow;
+    } catch (e) {
+      // Silently handle any errors
+    }
+  }
+}
+
+// Ensure process.env exists for React and dependencies
+if (typeof globalThis !== 'undefined' && !globalThis.process) {
+  globalThis.process = {
+    env: {
+      NODE_ENV: 'production',
+    },
+  };
+}
+

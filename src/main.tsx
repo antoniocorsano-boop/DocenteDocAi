@@ -1,6 +1,30 @@
 // CRITICAL: Import polyfills FIRST, before anything else
 import './polyfills';
 
+// CRITICAL: Initialize scheduler BEFORE React imports
+// This ensures React's scheduler has access to performance.now()
+if (typeof window !== 'undefined') {
+  // Ensure performance object exists
+  if (!window.performance) {
+    (window as any).performance = {};
+  }
+  
+  // Ensure performance.now exists and is callable
+  if (!window.performance.now || typeof window.performance.now !== 'function') {
+    (window.performance as any).now = () => Date.now();
+  }
+  
+  // Ensure globalThis also has it (for module initialization)
+  if (typeof globalThis !== 'undefined') {
+    if (!globalThis.performance) {
+      (globalThis as any).performance = {};
+    }
+    if (!globalThis.performance.now || typeof globalThis.performance.now !== 'function') {
+      (globalThis.performance as any).now = () => Date.now();
+    }
+  }
+}
+
 // Initialize tracing
 import './tracing';
 
