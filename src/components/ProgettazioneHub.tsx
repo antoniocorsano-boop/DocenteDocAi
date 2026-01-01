@@ -8,6 +8,7 @@ import { generateHueFromString } from '../utils/colorUtils';
 import { TabGroup } from './M3Components'; // Import TabGroup
 import M3ExpressiveCard from './M3ExpressiveCard';
 import CompetencyManager from './CompetencyManager'; // Import New Component
+import { M3Dialog, M3DialogActions } from './M3Dialog';
 // Drag & Drop
 // Drag & Drop removed for read-only Gantt view
 // import { DndContext, useDraggable, DragEndEvent, DragMoveEvent } from '@dnd-kit/core';
@@ -51,89 +52,80 @@ interface ProgettazioneHubExtendedProps extends ProgettazioneHubProps {
 // --- UDA DETAIL MODAL ---
 const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => void }> = ({ uda, onClose, onEdit }) => {
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-2xl">
-                <div className="dialog-header border-b border-outline-variant">
-                    <div>
-                        <span className="m3-label-small uppercase tracking-wide text-primary">Dettaglio Progetto</span>
-                        <h2 className="m3-headline-small">{uda.title}</h2>
-                    </div>
-                    <button onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                
-                <div className="dialog-content space-y-6 pt-4">
-                    {/* Metadata Chips */}
-                    <div className="flex flex-wrap gap-2">
-                        <span className="chip bg-surface-container-high border-none">
-                            <span className="material-symbols-outlined text-primary text-base mr-1">school</span>
-                            Classe {uda.classe}
-                        </span>
-                        <span className="chip bg-surface-container-high border-none">
-                            <span className="material-symbols-outlined text-secondary text-base mr-1">menu_book</span>
-                            {uda.materia}
-                        </span>
-                        <span className="chip bg-surface-container-high border-none">
-                            <span className="material-symbols-outlined text-tertiary text-base mr-1">event</span>
-                            {new Date(uda.startDate!).toLocaleDateString()} - {new Date(uda.endDate!).toLocaleDateString()}
-                        </span>
-                    </div>
+        <M3Dialog
+            title={uda.title}
+            headline="Dettaglio Progetto"
+            onClose={onClose}
+            maxWidth="2xl"
+        >
+            {/* Metadata Chips */}
+            <div className="flex flex-wrap gap-2 mb-6">
+                <span className="chip bg-surface-container-high border-none">
+                    <span className="material-symbols-outlined text-primary text-base mr-1">school</span>
+                    Classe {uda.classe}
+                </span>
+                <span className="chip bg-surface-container-high border-none">
+                    <span className="material-symbols-outlined text-secondary text-base mr-1">menu_book</span>
+                    {uda.materia}
+                </span>
+                <span className="chip bg-surface-container-high border-none">
+                    <span className="material-symbols-outlined text-tertiary text-base mr-1">event</span>
+                    {new Date(uda.startDate!).toLocaleDateString()} - {new Date(uda.endDate!).toLocaleDateString()}
+                </span>
+            </div>
 
-                    {/* Description */}
-                    <div>
-                        <h3 className="m3-title-medium mb-2">Introduzione</h3>
-                        <p className="m3-body-medium text-on-surface-variant bg-surface-container-low p-3 rounded-lg border border-outline-variant">
-                            {uda.introduction}
-                        </p>
-                    </div>
+            {/* Description */}
+            <div className="mb-6">
+                <h3 className="m3-title-medium mb-2">Introduzione</h3>
+                <p className="m3-body-medium text-on-surface-variant bg-surface-container-low p-3 rounded-lg border border-outline-variant">
+                    {uda.introduction}
+                </p>
+            </div>
 
-                    {/* Phases Timeline */}
-                    <div>
-                        <h3 className="m3-title-medium mb-2">Fasi di Lavoro</h3>
-                        <div className="relative border-l-2 border-primary/30 ml-3 space-y-6 py-2">
-                            {uda.phases.map((phase) => (
-                                <div key={phase.id} className="relative pl-6">
-                                    <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface"></div>
-                                    <div className="flex justify-between items-start">
-                                        <h4 className="m3-label-large text-primary">{phase.title}</h4>
-                                        <span className="text-xs font-bold bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">{phase.duration}h</span>
-                                    </div>
-                                    <p className="m3-body-small text-on-surface mt-1 font-medium">{phase.description}</p>
-                                    <p className="m3-body-small text-on-surface-variant mt-1 italic">{phase.activities}</p>
-                                </div>
-                            ))}
+            {/* Phases Timeline */}
+            <div className="mb-6">
+                <h3 className="m3-title-medium mb-2">Fasi di Lavoro</h3>
+                <div className="relative border-l-2 border-primary/30 ml-3 space-y-6 py-2">
+                    {uda.phases.map((phase) => (
+                        <div key={phase.id} className="relative pl-6">
+                            <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface"></div>
+                            <div className="flex justify-between items-start">
+                                <h4 className="m3-label-large text-primary">{phase.title}</h4>
+                                <span className="text-xs font-bold bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">{phase.duration}h</span>
+                            </div>
+                            <p className="m3-body-small text-on-surface mt-1 font-medium">{phase.description}</p>
+                            <p className="m3-body-small text-on-surface-variant mt-1 italic">{phase.activities}</p>
                         </div>
-                    </div>
-
-                    {/* Additional Info Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="p-3 bg-surface-container rounded-xl">
-                            <h4 className="m3-label-large mb-1 flex items-center gap-1 text-secondary">
-                                <span className="material-symbols-outlined text-base">inventory_2</span>
-                                Prodotto Finale
-                            </h4>
-                            <p className="m3-body-small">{uda.finalProduct}</p>
-                        </div>
-                        <div className="p-3 bg-surface-container rounded-xl">
-                            <h4 className="m3-label-large mb-1 flex items-center gap-1 text-secondary">
-                                <span className="material-symbols-outlined text-base">fact_check</span>
-                                Valutazione
-                            </h4>
-                            <p className="m3-body-small">{uda.evaluation}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="dialog-footer">
-                    <button onClick={onClose} className="button button-text">Chiudi</button>
-                    <button onClick={onEdit} className="button button-filled">
-                        <span className="material-symbols-outlined mr-2">edit</span>
-                        Modifica nel Planner
-                    </button>
+                    ))}
                 </div>
             </div>
-        </div>
+
+            {/* Additional Info Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-3 bg-surface-container rounded-xl">
+                    <h4 className="m3-label-large mb-1 flex items-center gap-1 text-secondary">
+                        <span className="material-symbols-outlined text-base">inventory_2</span>
+                        Prodotto Finale
+                    </h4>
+                    <p className="m3-body-small">{uda.finalProduct}</p>
+                </div>
+                <div className="p-3 bg-surface-container rounded-xl">
+                    <h4 className="m3-label-large mb-1 flex items-center gap-1 text-secondary">
+                        <span className="material-symbols-outlined text-base">fact_check</span>
+                        Valutazione
+                    </h4>
+                    <p className="m3-body-small">{uda.evaluation}</p>
+                </div>
+            </div>
+
+            <M3DialogActions>
+                <button onClick={onClose} className="button button-text">Chiudi</button>
+                <button onClick={onEdit} className="button button-filled">
+                    <span className="material-symbols-outlined mr-2">edit</span>
+                    Modifica nel Planner
+                </button>
+            </M3DialogActions>
+        </M3Dialog>
     );
 }
 
