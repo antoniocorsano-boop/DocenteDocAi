@@ -366,13 +366,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <div key={kb.id} className="chip-checkbox">
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
                                             <label htmlFor={`kb-annual-${kb.id}`} className="chip w-full justify-start" title={kb.fileName}>
-                                                {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined text-lg">check</span>}
-                                                <span className="material-symbols-outlined text-primary mr-2 text-base">description</span>
+                                                {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined m3-label-large">check</span>}
+                                                <span className="material-symbols-outlined text-primary mr-2 m3-body-medium">description</span>
                                                 <span className="truncate">{kb.fileName}</span>
                                             </label>
                                         </div>
                                     )) : (
-                                        <p className="text-center p-4 text-sm text-on-surface-variant">Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
+                                        <p className="text-center p-4 m3-body-small text-on-surface-variant">Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
                                     )}
                                 </div>
                             </div>
@@ -417,7 +417,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div className="flex justify-between items-center mb-2">
                                     <label htmlFor="wizard-methodology-text" className="m3-title-medium">Strategie Didattiche</label>
                                     <M3Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} className="!h-auto !py-1 flex items-center gap-2" title="Suggerisci metodologie adatte al contesto">
-                                        {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span className="material-symbols-outlined text-base mr-1">lightbulb</span> Suggerisci</>}
+                                        {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span className="material-symbols-outlined m3-body-medium mr-1">lightbulb</span> Suggerisci</>}
                                     </M3Button>
                                 </div>
                                 <textarea id="wizard-methodology-text" name="wizard-methodology-text" className="form-textarea w-full" rows={6} value={methodology} onChange={e => setMethodology(e.target.value)} />
@@ -440,7 +440,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 </div>
                                 <div className="flex gap-2">
                                     <div className="flex items-center gap-2 bg-surface-container px-3 py-1 rounded-lg">
-                                        <label htmlFor="wizard-hours-per-week" className="text-sm">Ore/Sett:</label>
+                                        <label htmlFor="wizard-hours-per-week" className="m3-body-small">Ore/Sett:</label>
                                         <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} className="w-10 bg-transparent text-center font-bold border-b border-outline-variant" title="Ore settimanali di lezione" />
                                     </div>
                                     <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} className="flex items-center gap-2" title="Genera lista UDA dai documenti KB">
@@ -482,9 +482,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     <span className="text-[10px] font-bold bg-primary text-on-primary px-2 py-0.5 rounded-full">
                                                         UDA {idx + 1}
                                                     </span>
-                                                    <p className="font-bold text-on-surface text-sm">{uda.title}</p>
+                                                    <p className="font-bold text-on-surface m3-body-small">{uda.title}</p>
                                                 </div>
-                                                <p className="text-xs text-on-surface-variant truncate opacity-80">{uda.topic || uda.title}</p>
+                                                <p className="m3-label-small text-on-surface-variant truncate opacity-80">{uda.topic || uda.title}</p>
                                             </div>
 
                                             <div className="flex items-center gap-2 bg-surface px-2 py-1 rounded-lg border border-outline-variant/50">
@@ -494,14 +494,14 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     type="number" 
                                                     value={uda.hours} 
                                                     onChange={e => updateUdaHours(uda.id, parseInt(e.target.value))} 
-                                                    className="w-10 text-center bg-transparent font-bold text-sm border-none focus:ring-0 p-0" 
+                                                    className="w-10 text-center bg-transparent font-bold m3-body-small border-none focus:ring-0 p-0" 
                                                     title="Modifica ore stimate"
                                                 />
-                                                <span className="text-xs text-on-surface-variant">ore</span>
+                                                <span className="m3-label-small text-on-surface-variant">ore</span>
                                             </div>
 
                                             <M3Button variant="text" color="error" onClick={() => removeUdaFromPlan(idx)} className="!w-8 !h-8" title="Rimuovi UDA">
-                                                <span className="material-symbols-outlined text-lg">delete</span>
+                                                <span className="material-symbols-outlined m3-label-large">delete</span>
                                             </M3Button>
                                         </div>
                                     ))}
@@ -524,9 +524,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} className="relative pl-6">
                                         <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-surface ${item.end > term2End ? 'bg-error' : 'bg-primary'}`}></div>
-                                        <p className="text-xs font-bold uppercase tracking-wide text-primary">{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
-                                        <h4 className="text-lg font-medium">{item.uda.title}</h4>
-                                        <p className="text-sm text-on-surface-variant">{item.uda.hours} ore</p>
+                                        <p className="m3-label-small font-bold uppercase tracking-wide text-primary">{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
+                                        <h4 className="m3-title-medium font-medium">{item.uda.title}</h4>
+                                        <p className="m3-body-small text-on-surface-variant">{item.uda.hours} ore</p>
                                     </div>
                                 ))}
                             </div>

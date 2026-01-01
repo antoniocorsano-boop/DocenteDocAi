@@ -18,7 +18,7 @@ import Tooltip from './Tooltip';
 const GanttBar: React.FC<{ uda: Uda & { startPos: number; width: number; color: string; borderColor: string; textColor: string }; onClick: () => void }> = ({ uda, onClick }) => {
     return (
         <div
-            className="gantt-bar cursor-pointer rounded px-2 py-1 text-xs font-medium truncate border"
+            className="gantt-bar cursor-pointer rounded px-2 py-1 m3-label-small font-medium truncate border"
             style={{
                 position: 'absolute',
                 left: `${uda.startPos}%`,
@@ -61,15 +61,15 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
             {/* Metadata Chips */}
             <div className="flex flex-wrap gap-2 mb-6">
                 <span className="chip bg-surface-container-high border-none">
-                    <span className="material-symbols-outlined text-primary text-base mr-1">school</span>
+                    <span className="material-symbols-outlined text-primary m3-body-medium mr-1">school</span>
                     Classe {uda.classe}
                 </span>
                 <span className="chip bg-surface-container-high border-none">
-                    <span className="material-symbols-outlined text-secondary text-base mr-1">menu_book</span>
+                    <span className="material-symbols-outlined text-secondary m3-body-medium mr-1">menu_book</span>
                     {uda.materia}
                 </span>
                 <span className="chip bg-surface-container-high border-none">
-                    <span className="material-symbols-outlined text-tertiary text-base mr-1">event</span>
+                    <span className="material-symbols-outlined text-tertiary m3-body-medium mr-1">event</span>
                     {new Date(uda.startDate!).toLocaleDateString()} - {new Date(uda.endDate!).toLocaleDateString()}
                 </span>
             </div>
@@ -104,14 +104,14 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-3 bg-surface-container rounded-xl">
                     <h4 className="m3-label-large mb-1 flex items-center gap-1 text-secondary">
-                        <span className="material-symbols-outlined text-base">inventory_2</span>
+                        <span className="material-symbols-outlined m3-body-medium">inventory_2</span>
                         Prodotto Finale
                     </h4>
                     <p className="m3-body-small">{uda.finalProduct}</p>
                 </div>
                 <div className="p-3 bg-surface-container rounded-xl">
                     <h4 className="m3-label-large mb-1 flex items-center gap-1 text-secondary">
-                        <span className="material-symbols-outlined text-base">fact_check</span>
+                        <span className="material-symbols-outlined m3-body-medium">fact_check</span>
                         Valutazione
                     </h4>
                     <p className="m3-body-small">{uda.evaluation}</p>
@@ -290,7 +290,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 </h2>
                 <div className="flex gap-3 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
                     <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-primary-container border border-primary"></span> UDA</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined text-xs text-error">flag</span> Scadenza</span>
+                    <span className="flex items-center gap-1"><span className="material-symbols-outlined m3-label-small text-error">flag</span> Scadenza</span>
                 </div>
             </div>
 
@@ -308,9 +308,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 {isEmpty && (
                     <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
                         <div className="text-center p-4 bg-surface/80 backdrop-blur-sm rounded-xl border border-dashed border-outline-variant">
-                            <span className="material-symbols-outlined text-3xl text-on-surface-variant mb-2">edit_calendar</span>
-                            <p className="text-sm font-medium text-on-surface">Nessuna pianificazione.</p>
-                            <p className="text-xs text-on-surface-variant">Usa il Wizard Annuale o crea un&apos;UDA.</p>
+                            <span className="material-symbols-outlined m3-headline-medium text-on-surface-variant mb-2">edit_calendar</span>
+                            <p className="m3-body-small font-medium text-on-surface">Nessuna pianificazione.</p>
+                            <p className="m3-label-small text-on-surface-variant">Usa il Wizard Annuale o crea un&apos;UDA.</p>
                         </div>
                     </div>
                 )}
@@ -381,7 +381,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                     {/* Drag Preview Bubble */}
                     {previewMessage && (
                         <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 8, zIndex: 3200 }}>
-                            <div className="px-3 py-1 rounded-lg bg-surface/92 text-on-surface border border-outline-variant text-sm shadow">{previewMessage}</div>
+                            <div className="px-3 py-1 rounded-lg bg-surface/92 text-on-surface border border-outline-variant m3-body-small shadow">{previewMessage}</div>
                         </div>
                     )}
 
@@ -450,7 +450,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                             <div className="p-2 bg-on-primary-container/10 rounded-2xl">
                                 <span className="material-symbols-outlined text-4xl">calendar_month</span>
                             </div>
-                            <span className="material-symbols-outlined text-2xl opacity-50">arrow_outward</span>
+                            <span className="material-symbols-outlined m3-headline-small opacity-50">arrow_outward</span>
                         </div>
                         <div className="mt-4">
                             <h2 className="m3-headline-small font-bold">Wizard Annuale</h2>

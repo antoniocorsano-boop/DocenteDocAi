@@ -147,19 +147,19 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             <div className="bg-surface z-20 px-4 py-2 flex items-center justify-between border-b border-outline-variant shadow-sm">
                 <button onClick={onCloseView} className="icon-button -ml-2"><span className="material-symbols-outlined">arrow_back</span></button>
 
-                <div className="flex gap-4 text-xs font-bold uppercase tracking-wider">
+                <div className="flex gap-4 m3-label-small font-bold uppercase tracking-wider">
                     <div className="flex items-center gap-1 text-primary">
-                        <span className="material-symbols-outlined text-sm">group</span>
+                        <span className="material-symbols-outlined m3-label-large">group</span>
                         <span>{attendanceSummary.present} PRES.</span>
                     </div>
                     <div className={`flex items-center gap-1 ${attendanceSummary.absent > 0 ? 'text-error animate-pulse' : 'text-on-surface-variant opacity-50'}`}>
-                        <span className="material-symbols-outlined text-sm">person_off</span>
+                        <span className="material-symbols-outlined m3-label-large">person_off</span>
                         <span>{attendanceSummary.absent} ASS.</span>
                     </div>
                 </div>
 
-                <button onClick={() => onFinalizeRegister(draftKey)} className="button button-filled !h-8 !px-3 text-xs bg-primary">
-                    <span className="material-symbols-outlined text-sm mr-1">save</span> Fine
+                <button onClick={() => onFinalizeRegister(draftKey)} className="button button-filled !h-8 !px-3 m3-label-small bg-primary">
+                    <span className="material-symbols-outlined m3-label-large mr-1">save</span> Fine
                 </button>
             </div>
 
@@ -245,7 +245,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                     {stat.grade || '-'}
                                                 </span>
                                                 <div className="flex justify-center mt-1">
-                                                    <span className={`material-symbols-outlined text-lg ${stat.trend === 'up' ? 'animate-bounce text-tertiary' : stat.trend === 'down' ? 'animate-pulse text-error' : 'text-on-surface-variant'}`}>
+                                                    <span className={`material-symbols-outlined m3-label-large ${stat.trend === 'up' ? 'animate-bounce text-tertiary' : stat.trend === 'down' ? 'animate-pulse text-error' : 'text-on-surface-variant'}`}>
                                                         {stat.trend === 'up' ? 'trending_up' : stat.trend === 'down' ? 'trending_down' : 'trending_flat'}
                                                     </span>
                                                 </div>
@@ -266,7 +266,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             {/* Column 5: Notes */}
                                             <div className="text-center col-span-1">
                                                 {stat.notes ? (
-                                                    <span className="material-symbols-outlined text-primary text-lg" title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
+                                                    <span className="material-symbols-outlined text-primary m3-label-large" title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
                                                 ) : (
                                                     <span className="text-outline">-</span>
                                                 )}
@@ -275,15 +275,15 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             {/* Column 6: Homework + Participation */}
                                             <div className="flex flex-col items-center gap-1 col-span-1">
                                                 {hwStatus && (
-                                                    <span className={`text-xs px-2 py-1 rounded-full border ${hwStatus === 'missing' ? 'border-error text-error bg-error-container' :
+                                                    <span className={`m3-label-small px-2 py-1 rounded-full border ${hwStatus === 'missing' ? 'border-error text-error bg-error-container' :
                                                             hwStatus === 'partial' ? 'border-outline text-on-surface-variant bg-surface-container' : 'border-primary text-primary bg-primary-container'
                                                         }`}>
                                                         {hwStatus === 'missing' ? 'No Compiti' : hwStatus === 'partial' ? 'Parziali' : 'OK'}
                                                     </span>
                                                 )}
                                                 {badges.length > 0 && (
-                                                    <span className="text-xs px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container flex items-center gap-1">
-                                                        <span className="material-symbols-outlined text-xs">star</span> {badges.length}
+                                                    <span className="m3-label-small px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container flex items-center gap-1">
+                                                        <span className="material-symbols-outlined m3-label-small">star</span> {badges.length}
                                                     </span>
                                                 )}
                                             </div>
@@ -372,7 +372,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         {lesson.adattamenti && (
                             <div className="p-4 bg-secondary-container text-on-secondary-container rounded-xl">
                                 <h3 className="m3-title-medium font-bold flex items-center gap-2 mb-2">
-                                    <span className="material-symbols-outlined text-base">accessibility_new</span>
+                                    <span className="material-symbols-outlined m3-body-medium">accessibility_new</span>
                                     Inclusione
                                 </h3>
                                 <p className="m3-body-medium opacity-90 whitespace-pre-wrap">{lesson.adattamenti}</p>
@@ -428,7 +428,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     className="chip pr-3 pl-2 border-none bg-surface-container-high"
                                     style={{ color: badge.color }}
                                 >
-                                    <span className="material-symbols-outlined text-sm mr-1">{badge.icon}</span>
+                                    <span className="material-symbols-outlined m3-label-large mr-1">{badge.icon}</span>
                                     {badge.label}
                                 </button>
                             ))}

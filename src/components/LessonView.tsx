@@ -182,7 +182,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                   </div>
                   <div className="min-w-0">
                     <h2 className="m3-title-medium font-bold leading-tight truncate pr-2">Piano Lezione</h2>
-                    <p className="text-xs text-on-surface-variant font-mono uppercase tracking-wide opacity-80">{lesson.id.split('-').slice(0,2).join('-')}</p>
+                    <p className="m3-label-small text-on-surface-variant font-mono uppercase tracking-wide opacity-80">{lesson.id.split('-').slice(0,2).join('-')}</p>
                   </div>
               </div>
               <div className="flex items-center gap-1 flex-shrink-0">
@@ -205,8 +205,8 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
               <div className="p-4 md:p-6 bg-surface-container border-b border-outline-variant">
                    {lesson.unitaDiApprendimento && (
                        <div className="flex items-center gap-2 mb-2">
-                           <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-primary bg-primary-container px-2 py-0.5 rounded">UDA</span>
-                           <span className="text-xs font-medium text-on-surface-variant truncate">{lesson.unitaDiApprendimento}</span>
+                           <span className="m3-label-small font-bold uppercase tracking-wider text-primary bg-primary-container px-2 py-0.5 rounded">UDA</span>
+                           <span className="m3-label-small font-medium text-on-surface-variant truncate">{lesson.unitaDiApprendimento}</span>
                        </div>
                    )}
                    <h1 className="m3-headline-small md:m3-headline-medium font-bold text-on-surface mb-3 md:mb-4 leading-tight">
@@ -214,14 +214,14 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                    </h1>
                    
                    <div className="flex flex-wrap gap-2">
-                       <span className="chip !h-7 !text-xs bg-surface-container-high border-outline-variant">
-                           <span className="material-symbols-outlined text-sm mr-1">school</span> {lesson.classe}
+                       <span className="chip !h-7 m3-label-small bg-surface-container-high border-outline-variant">
+                           <span className="material-symbols-outlined m3-label-large mr-1">school</span> {lesson.classe}
                        </span>
-                       <span className="chip !h-7 !text-xs bg-surface-container-high border-outline-variant">
-                           <span className="material-symbols-outlined text-sm mr-1">menu_book</span> {lesson.materia}
+                       <span className="chip !h-7 m3-label-small bg-surface-container-high border-outline-variant">
+                           <span className="material-symbols-outlined m3-label-large mr-1">menu_book</span> {lesson.materia}
                        </span>
-                       <span className="chip !h-7 !text-xs bg-surface-container-high border-outline-variant">
-                           <span className="material-symbols-outlined text-sm mr-1">category</span> {lesson.tipoLezione || 'Teoria'}
+                       <span className="chip !h-7 m3-label-small bg-surface-container-high border-outline-variant">
+                           <span className="material-symbols-outlined m3-label-large mr-1">category</span> {lesson.tipoLezione || 'Teoria'}
                        </span>
                    </div>
               </div>
@@ -236,17 +236,17 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         <div className="p-3 bg-tertiary-container/30 border border-tertiary/20 rounded-xl flex items-center justify-between shadow-sm">
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center flex-shrink-0">
-                                    <span className="material-symbols-outlined text-sm">psychology</span>
+                                    <span className="material-symbols-outlined m3-label-large">psychology</span>
                                 </div>
                                 <div className="min-w-0">
-                                    <p className="text-sm font-bold text-on-surface">Assistente Pedagogico</p>
-                                    <p className="text-xs text-on-surface-variant truncate">Analizza inclusività e coinvolgimento</p>
+                                    <p className="m3-body-small font-bold text-on-surface">Assistente Pedagogico</p>
+                                    <p className="m3-label-small text-on-surface-variant truncate">Analizza inclusività e coinvolgimento</p>
                                 </div>
                             </div>
                             <button 
                                 onClick={handleAnalyzePedagogy} 
                                 disabled={isAnalyzing} 
-                                className="button button-text !text-tertiary !h-8 !px-3 text-xs flex-shrink-0"
+                                className="button button-text !text-tertiary !h-8 !px-3 m3-label-small flex-shrink-0"
                             >
                                 {isAnalyzing ? <AiThinkingGem size="small" inline text="" /> : 'Analizza'}
                             </button>
@@ -255,8 +255,8 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
 
                       {/* Objectives */}
                       <section>
-                          <h3 className="section-header-expressive text-primary !mb-2 !mt-0 text-sm">
-                              <span className="material-symbols-outlined text-lg mr-2">flag</span>
+                          <h3 className="section-header-expressive text-primary !mb-2 !mt-0 m3-body-small">
+                              <span className="material-symbols-outlined m3-label-large mr-2">flag</span>
                               Obiettivi Didattici
                           </h3>
                           <div className="bg-surface p-4 rounded-xl border border-outline-variant shadow-sm">
@@ -269,22 +269,22 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                       </ul>
                                   </div>
                               ) : (
-                                  <p className="text-sm text-on-surface-variant italic">Nessun obiettivo specificato.</p>
+                                  <p className="m3-body-small text-on-surface-variant italic">Nessun obiettivo specificato.</p>
                               )}
                           </div>
                       </section>
 
                       {/* Content / Context */}
                       <section>
-                          <h3 className="section-header-expressive text-secondary !mb-2 text-sm">
-                              <span className="material-symbols-outlined text-lg mr-2">article</span>
+                          <h3 className="section-header-expressive text-secondary !mb-2 m3-body-small">
+                              <span className="material-symbols-outlined m3-label-large mr-2">article</span>
                               Svolgimento e Contenuti
                           </h3>
                           <div className="bg-surface p-4 md:p-5 rounded-xl border border-outline-variant shadow-sm min-h-[100px]">
                               {lesson.contesto ? (
                                   <p className="m3-body-medium whitespace-pre-wrap leading-relaxed">{lesson.contesto}</p>
                               ) : (
-                                  <p className="text-sm text-on-surface-variant italic">Nessun dettaglio sullo svolgimento.</p>
+                                  <p className="m3-body-small text-on-surface-variant italic">Nessun dettaglio sullo svolgimento.</p>
                               )}
                           </div>
                       </section>
@@ -292,11 +292,11 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                       {/* Lesson Notes */}
                       {lesson.nota && (
                           <section>
-                              <h3 className="section-header-expressive text-on-surface-variant !mb-2 text-sm">
-                                  <span className="material-symbols-outlined text-lg mr-2">sticky_note_2</span>
+                              <h3 className="section-header-expressive text-on-surface-variant !mb-2 m3-body-small">
+                                  <span className="material-symbols-outlined m3-label-large mr-2">sticky_note_2</span>
                                   Note Docente
                               </h3>
-                              <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-xl border border-yellow-200 dark:border-yellow-800 text-sm font-medium text-on-surface">
+                              <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-xl border border-yellow-200 dark:border-yellow-800 m3-body-small font-medium text-on-surface">
                                   {lesson.nota}
                               </div>
                           </section>
@@ -314,7 +314,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                   Materiali
                               </h3>
                               <button onClick={() => setIsMaterialPickerOpen(true)} className="icon-button !w-8 !h-8 bg-surface text-primary shadow-sm border border-outline-variant/50">
-                                  <span className="material-symbols-outlined text-sm">add</span>
+                                  <span className="material-symbols-outlined m3-label-large">add</span>
                               </button>
                           </div>
                           
@@ -340,19 +340,19 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                           <div className="flex md:opacity-0 group-hover:opacity-100 transition-opacity">
                                               {material.type === 'file' && (
                                                   <button onClick={() => handleDownloadMaterial(material)} className="icon-button !w-8 !h-8" title="Scarica">
-                                                      <span className="material-symbols-outlined text-base">download</span>
+                                                      <span className="material-symbols-outlined m3-body-medium">download</span>
                                                   </button>
                                               )}
                                               <button onClick={() => handleRemoveMaterial(material.id)} className="icon-button text-error !w-8 !h-8" title="Rimuovi">
-                                                  <span className="material-symbols-outlined text-base">close</span>
+                                                  <span className="material-symbols-outlined m3-body-medium">close</span>
                                               </button>
                                           </div>
                                       </div>
                                   ))
                               ) : (
                                   <div className="py-6 text-center text-on-surface-variant opacity-60">
-                                      <span className="material-symbols-outlined text-2xl mb-1">folder_off</span>
-                                      <p className="text-xs">Nessun materiale</p>
+                                      <span className="material-symbols-outlined m3-headline-small mb-1">folder_off</span>
+                                      <p className="m3-label-small">Nessun materiale</p>
                                   </div>
                               )}
                           </div>
@@ -365,15 +365,15 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                   <span className="material-symbols-outlined">diversity_3</span>
                                   Inclusività (BES/DSA)
                               </h3>
-                              <p className="text-sm opacity-90 whitespace-pre-wrap">{lesson.adattamenti}</p>
+                              <p className="m3-body-small opacity-90 whitespace-pre-wrap">{lesson.adattamenti}</p>
                           </div>
                       ) : (
                           <div className="card border-dashed border-outline-variant bg-transparent opacity-60 hover:opacity-100 transition-opacity p-3">
                                 <h3 className="m3-title-small font-bold flex items-center gap-2 mb-1 text-on-surface-variant">
-                                  <span className="material-symbols-outlined text-base">diversity_3</span>
+                                  <span className="material-symbols-outlined m3-body-medium">diversity_3</span>
                                   Inclusività
                               </h3>
-                              <p className="text-xs text-on-surface-variant">Nessun adattamento specifico registrato.</p>
+                              <p className="m3-label-small text-on-surface-variant">Nessun adattamento specifico registrato.</p>
                           </div>
                       )}
 
@@ -383,14 +383,14 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                   <span className="material-symbols-outlined text-secondary">assignment</span>
                                   Compiti per Casa
                           </h3>
-                          <p className="text-sm text-on-surface-variant whitespace-pre-wrap leading-relaxed">
+                          <p className="m3-body-small text-on-surface-variant whitespace-pre-wrap leading-relaxed">
                               {lesson.compiti || 'Nessun compito assegnato.'}
                           </p>
                           
                           {/* Homework PDF Button */}
                           {settings && lesson.compiti && (
-                              <button onClick={handleExportHomework} disabled={isExporting} className="button button-outlined !h-8 !text-xs w-full mt-3">
-                                  <span className="material-symbols-outlined mr-1 text-sm">print</span> PDF Compiti
+                              <button onClick={handleExportHomework} disabled={isExporting} className="button button-outlined !h-8 m3-label-small w-full mt-3">
+                                  <span className="material-symbols-outlined mr-1 m3-label-large">print</span> PDF Compiti
                               </button>
                           )}
                       </div>
@@ -401,7 +401,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
 
           {/* FOOTER: Fixed at bottom */}
           <div className="dialog-footer bg-surface border-t border-outline-variant flex flex-col sm:flex-row justify-between items-center p-4 gap-3 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
-               <span className="text-xs text-on-surface-variant hidden sm:inline">
+               <span className="m3-label-small text-on-surface-variant hidden sm:inline">
                    Modificato il {new Date().toLocaleDateString()}
                </span>
                <div className="flex gap-3 w-full sm:w-auto">
@@ -414,11 +414,11 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                
                {/* Mobile Only: Export Actions */}
                <div className="flex sm:hidden gap-2 w-full pt-2 border-t border-outline-variant">
-                   <button onClick={handleExportDocx} disabled={isExporting} className="button button-outlined flex-1 justify-center !h-9 text-xs">
-                       <span className="material-symbols-outlined mr-1 text-sm">description</span> Word
+                   <button onClick={handleExportDocx} disabled={isExporting} className="button button-outlined flex-1 justify-center !h-9 m3-label-small">
+                       <span className="material-symbols-outlined mr-1 m3-label-large">description</span> Word
                    </button>
-                   <button onClick={handleExport} disabled={isExporting} className="button button-outlined flex-1 justify-center !h-9 text-xs">
-                       <span className="material-symbols-outlined mr-1 text-sm">picture_as_pdf</span> PDF
+                   <button onClick={handleExport} disabled={isExporting} className="button button-outlined flex-1 justify-center !h-9 m3-label-small">
+                       <span className="material-symbols-outlined mr-1 m3-label-large">picture_as_pdf</span> PDF
                    </button>
                </div>
           </div>
