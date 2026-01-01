@@ -291,33 +291,33 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                         type="text" 
                         value={editorTitle} 
                         onChange={(e) => { setEditorTitle(e.target.value); setIsDirty(true); }} 
-                        className="bg-transparent border-none text-lg font-bold text-on-surface focus:ring-0"
+                        className="bg-transparent border-none m3-title-large font-bold text-on-surface focus:ring-0"
                     />
-                    {isDirty && <span className="text-xs text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded-full">• Modificato</span>}
+                    {isDirty && <span className="m3-label-small text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded-full">• Modificato</span>}
                 </div>
                 
                 <div className="flex items-center gap-1 bg-surface rounded-lg border border-outline-variant p-1 hidden md:flex">
-                    <button onClick={() => execCmd('bold')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Grassetto"><span className="material-symbols-outlined text-lg">format_bold</span></button>
-                    <button onClick={() => execCmd('italic')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Corsivo"><span className="material-symbols-outlined text-lg">format_italic</span></button>
-                    <button onClick={() => execCmd('formatBlock', 'h2')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Titolo"><span className="material-symbols-outlined text-lg">title</span></button>
+                    <button onClick={() => execCmd('bold')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Grassetto"><span className="material-symbols-outlined m3-label-large">format_bold</span></button>
+                    <button onClick={() => execCmd('italic')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Corsivo"><span className="material-symbols-outlined m3-label-large">format_italic</span></button>
+                    <button onClick={() => execCmd('formatBlock', 'h2')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Titolo"><span className="material-symbols-outlined m3-label-large">title</span></button>
                     <div className="w-px h-6 bg-outline-variant mx-1"></div>
-                    <button onClick={() => execCmd('insertUnorderedList')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Elenco"><span className="material-symbols-outlined text-lg">format_list_bulleted</span></button>
-                    <button onClick={handleAiTable} className="icon-button !w-8 !h-8 text-primary rounded-lg hover:shadow-md transition-all" title="Tabella AI"><span className="material-symbols-outlined text-lg">table_chart</span></button>
+                    <button onClick={() => execCmd('insertUnorderedList')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Elenco"><span className="material-symbols-outlined m3-label-large">format_list_bulleted</span></button>
+                    <button onClick={handleAiTable} className="icon-button !w-8 !h-8 text-primary rounded-lg hover:shadow-md transition-all" title="Tabella AI"><span className="material-symbols-outlined m3-label-large">table_chart</span></button>
                 </div>
 
                 <div className="flex gap-2">
-                    <button onClick={handleCopyForGoogleDocs} className="button button-tonal !h-9 !px-3 text-sm rounded-lg hover:shadow-md transition-all" title="Copia per Google Docs">
-                        <span className="material-symbols-outlined mr-2 text-base">content_copy</span> Docs
+                    <button onClick={handleCopyForGoogleDocs} className="button button-tonal !h-9 !px-3 m3-label-large rounded-lg hover:shadow-md transition-all" title="Copia per Google Docs">
+                        <span className="material-symbols-outlined mr-2 m3-body-medium">content_copy</span> Docs
                     </button>
-                    <button onClick={handleDownload} className="button button-outlined !h-9 !px-3 text-sm rounded-lg hover:shadow-md transition-all">
-                        <span className="material-symbols-outlined mr-2 text-base">download</span> DOCX
+                    <button onClick={handleDownload} className="button button-outlined !h-9 !px-3 m3-label-large rounded-lg hover:shadow-md transition-all">
+                        <span className="material-symbols-outlined mr-2 m3-body-medium">download</span> DOCX
                     </button>
                     <button onClick={handlePrint} className="icon-button !w-9 !h-9 rounded-lg hover:bg-surface-container-high transition-all" title="Stampa / PDF">
-                        <span className="material-symbols-outlined text-base">print</span>
+                        <span className="material-symbols-outlined m3-body-medium">print</span>
                     </button>
                     {onSaveToKb && (
-                        <button onClick={handleSave} className="button button-filled !h-9 !px-3 text-sm rounded-lg hover:shadow-md transition-all">
-                            <span className="material-symbols-outlined mr-2 text-base">save</span> Salva
+                        <button onClick={handleSave} className="button button-filled !h-9 !px-3 m3-label-large rounded-lg hover:shadow-md transition-all">
+                            <span className="material-symbols-outlined mr-2 m3-body-medium">save</span> Salva
                         </button>
                     )}
                 </div>
@@ -343,20 +343,20 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                 >
                     <div className="flex items-center gap-2 px-2 pb-2 border-b border-outline-variant mb-1">
                         <AiThinkingGem size="small" />
-                        <span className="text-xs font-bold text-on-surface-variant">AI Assistant</span>
+                        <span className="m3-label-small font-bold text-on-surface-variant">AI Assistant</span>
                     </div>
                     {isAiThinking ? (
-                        <div className="p-2 text-center text-xs">Elaborazione...</div>
+                        <div className="p-2 text-center m3-label-small">Elaborazione...</div>
                     ) : (
                         <>
-                            <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} className="text-left px-3 py-2 hover:bg-secondary-container rounded-lg text-sm flex gap-2">
-                                <span className="material-symbols-outlined text-sm">history_edu</span> Rendi Formale
+                            <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} className="text-left px-3 py-2 hover:bg-secondary-container rounded-lg m3-body-small flex gap-2">
+                                <span className="material-symbols-outlined m3-body-small">history_edu</span> Rendi Formale
                             </button>
-                            <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} className="text-left px-3 py-2 hover:bg-secondary-container rounded-lg text-sm flex gap-2">
-                                <span className="material-symbols-outlined text-sm">unfold_more</span> Espandi
+                            <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} className="text-left px-3 py-2 hover:bg-secondary-container rounded-lg m3-body-small flex gap-2">
+                                <span className="material-symbols-outlined m3-body-small">unfold_more</span> Espandi
                             </button>
-                            <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} className="text-left px-3 py-2 hover:bg-secondary-container rounded-lg text-sm flex gap-2">
-                                <span className="material-symbols-outlined text-sm">format_list_bulleted</span> Sintetizza
+                            <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} className="text-left px-3 py-2 hover:bg-secondary-container rounded-lg m3-body-small flex gap-2">
+                                <span className="material-symbols-outlined m3-body-small">format_list_bulleted</span> Sintetizza
                             </button>
                         </>
                     )}

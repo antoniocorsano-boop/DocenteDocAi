@@ -60,7 +60,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                     </div>
 
                     <div className="flex-grow overflow-y-auto p-2 space-y-1">
-                        <p className="px-3 py-2 text-xs font-bold text-on-surface-variant uppercase">Da Correggere ({pendingSubmissions.length})</p>
+                        <p className="px-3 py-2 m3-label-small font-bold text-on-surface-variant uppercase">Da Correggere ({pendingSubmissions.length})</p>
                         {pendingSubmissions.map(sub => {
                             const studentInfo = getStudentDisplay(sub.studentId);
                             const lessonInfo = getLessonDisplay(sub.lessonId);
@@ -75,8 +75,8 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                 >
                                     <Avatar name={studentInfo.name} surname={studentInfo.surname} size="small" />
                                     <div className="min-w-0">
-                                        <p className="font-bold text-sm truncate">{studentInfo.full}</p>
-                                        <p className="text-xs opacity-80 truncate">{lessonInfo.materia} - {lessonInfo.contenuto}</p>
+                                        <p className="font-bold m3-body-small truncate">{studentInfo.full}</p>
+                                        <p className="m3-label-small opacity-80 truncate">{lessonInfo.materia} - {lessonInfo.contenuto}</p>
                                         <span className="text-[10px] opacity-60">{new Date(sub.date).toLocaleDateString()}</span>
                                     </div>
                                 </div>
@@ -84,21 +84,21 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                         })}
                         
                         {pendingSubmissions.length === 0 && (
-                            <div className="text-center p-4 text-on-surface-variant opacity-60 text-sm">
+                            <div className="text-center p-4 text-on-surface-variant opacity-60 m3-body-small">
                                 Nessun compito in attesa.
                             </div>
                         )}
                         
                         {gradedSubmissions.length > 0 && (
                             <>
-                                <p className="px-3 py-2 text-xs font-bold text-on-surface-variant uppercase mt-4">Già Corretti</p>
+                                <p className="px-3 py-2 m3-label-small font-bold text-on-surface-variant uppercase mt-4">Già Corretti</p>
                                 {gradedSubmissions.slice(0, 5).map(sub => {
                                     const studentInfo = getStudentDisplay(sub.studentId);
                                     const lessonInfo = getLessonDisplay(sub.lessonId);
                                     return (
                                         <div key={sub.id} className="p-3 opacity-60 flex items-center gap-2" style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}>
-                                            <span className="material-symbols-outlined text-sm">check_circle</span>
-                                            <span className="text-xs truncate">{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
+                                            <span className="material-symbols-outlined m3-body-small">check_circle</span>
+                                            <span className="m3-label-small truncate">{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
                                         </div>
                                     )
                                 })}
