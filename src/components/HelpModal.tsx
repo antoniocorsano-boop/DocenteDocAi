@@ -3,6 +3,7 @@ import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
 import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
 import { ManualSection, UseCaseCard } from './M3Components';
+import { M3Dialog, M3DialogActions } from './M3Dialog';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa' | 'presentation';
 
@@ -429,44 +430,40 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
   }
 
   return (
-    <div className="dialog-backdrop">
-      <div className="dialog-container w-full max-w-4xl h-[90vh]">
-        <div className="dialog-header">
-                    <h2 className="m3-headline-medium">Guida, Novità e Manuale</h2>
-                    <button onClick={onClose} className="icon-button" disabled={isGenerating}>
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                    <div className="mt-4 mb-2 p-2 rounded-lg bg-surface-container-high text-sm">
-                        <b>Novità Dicembre 2025:</b><br />
-                        • Tutti i pulsanti ora seguono Material Design 3 (filled, tonal, outlined, icon, segmented)<br />
-                        • Migliorata accessibilità, responsive e coerenza visiva<br />
-                        • Focus visibile, aria-label obbligatorio, test aggiornati<br />
-                        • Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener">guida M3 aggiornata</a> per dettagli e best practice
-                    </div>
-        </div>
-        
-        <div className="px-4 pb-4">
-             <div className="vertical-segmented-group responsive">
-                <button onClick={() => setActiveTab('improvements')} className={`segmented-button ${activeTab === 'improvements' ? 'active' : ''}`}>Novità</button>
-                <button onClick={() => setActiveTab('manual')} className={`segmented-button ${activeTab === 'manual' ? 'active' : ''}`}><span className="material-symbols-outlined text-sm mr-2">auto_stories</span>Manuale</button>
-                <button onClick={() => setActiveTab('setup')} className={`segmented-button ${activeTab === 'setup' ? 'active' : ''}`}>Setup</button>
-                <button onClick={() => setActiveTab('guide')} className={`segmented-button ${activeTab === 'guide' ? 'active' : ''}`}>Flusso</button>
-                <button onClick={() => setActiveTab('assistant')} className={`segmented-button ${activeTab === 'assistant' ? 'active' : ''}`}>AI & Voice</button>
-                <button onClick={() => setActiveTab('faq')} className={`segmented-button ${activeTab === 'faq' ? 'active' : ''}`}>FAQ</button>
-                <button onClick={() => setActiveTab('specs')} className={`segmented-button ${activeTab === 'specs' ? 'active' : ''}`}>Specs</button>
-                <button onClick={() => setActiveTab('normativa')} className={`segmented-button ${activeTab === 'normativa' ? 'active' : ''}`}>Privacy</button>
-            </div>
+    <M3Dialog
+      title="Guida, Novità e Manuale"
+      onClose={onClose}
+      maxWidth="xl"
+    >
+      <div className="space-y-4">
+        <div className="mt-4 mb-2 p-2 rounded-lg bg-surface-container-high text-sm">
+          <b>Novità Dicembre 2025:</b><br />
+          • Tutti i pulsanti ora seguono Material Design 3 (filled, tonal, outlined, icon, segmented)<br />
+          • Migliorata accessibilità, responsive e coerenza visiva<br />
+          • Focus visibile, aria-label obbligatorio, test aggiornati<br />
+          • Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener">guida M3 aggiornata</a> per dettagli e best practice
         </div>
 
-        <div className="dialog-content prose">
-            {renderContent()}
+        <div className="vertical-segmented-group responsive">
+          <button onClick={() => setActiveTab('improvements')} className={`segmented-button ${activeTab === 'improvements' ? 'active' : ''}`}>Novità</button>
+          <button onClick={() => setActiveTab('manual')} className={`segmented-button ${activeTab === 'manual' ? 'active' : ''}`}><span className="material-symbols-outlined text-sm mr-2">auto_stories</span>Manuale</button>
+          <button onClick={() => setActiveTab('setup')} className={`segmented-button ${activeTab === 'setup' ? 'active' : ''}`}>Setup</button>
+          <button onClick={() => setActiveTab('guide')} className={`segmented-button ${activeTab === 'guide' ? 'active' : ''}`}>Flusso</button>
+          <button onClick={() => setActiveTab('assistant')} className={`segmented-button ${activeTab === 'assistant' ? 'active' : ''}`}>AI & Voice</button>
+          <button onClick={() => setActiveTab('faq')} className={`segmented-button ${activeTab === 'faq' ? 'active' : ''}`}>FAQ</button>
+          <button onClick={() => setActiveTab('specs')} className={`segmented-button ${activeTab === 'specs' ? 'active' : ''}`}>Specs</button>
+          <button onClick={() => setActiveTab('normativa')} className={`segmented-button ${activeTab === 'normativa' ? 'active' : ''}`}>Privacy</button>
         </div>
 
-        <div className="dialog-footer">
-          <button onClick={onClose} className="button button-text" disabled={isGenerating}>Chiudi</button>
+        <div className="prose">
+          {renderContent()}
         </div>
       </div>
-    </div>
+
+      <M3DialogActions>
+        <button onClick={onClose} className="button button-text" disabled={isGenerating}>Chiudi</button>
+      </M3DialogActions>
+    </M3Dialog>
   );
 };
 

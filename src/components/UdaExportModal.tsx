@@ -5,6 +5,7 @@ import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types
 import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
 import { saveAs } from '../utils/documentUtils';
+import { M3Dialog, M3DialogActions } from './M3Dialog';
 
 interface UdaExportModalProps {
     uda: Uda;
@@ -160,43 +161,36 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
     }
 
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-lg">
-                <div className="dialog-header">
-                    <div>
-                        <h2 className="m3-headline-medium">Esporta Progetto</h2>
-                        <p className="m3-body-medium text-on-surface-variant">{uda.title}</p>
-                    </div>
-                                        <Tooltip label="Chiudi">
-                                            <button type="button" onClick={onClose} className="icon-button" aria-label="Chiudi" disabled={isExporting}>
-                                                <span className="material-symbols-outlined">close</span>
-                                            </button>
-                                        </Tooltip>
+        <M3Dialog
+            title="Esporta Progetto"
+            headline={uda.title}
+            onClose={onClose}
+            maxWidth="md"
+        >
+            <div className="space-y-4">
+                <div className="segmented-button-group">
+                    <button onClick={() => setDocType('docente')} className={`segmented-button ${docType === 'docente' ? 'active' : ''}`}>Uso Docente</button>
+                    <button onClick={() => setDocType('studente')} className={`segmented-button ${docType === 'studente' ? 'active' : ''}`}>Uso Studente</button>
                 </div>
-                <div className="dialog-content space-y-4">
-                    <div className="segmented-button-group">
-                        <button onClick={() => setDocType('docente')} className={`segmented-button ${docType === 'docente' ? 'active' : ''}`}>Uso Docente</button>
-                        <button onClick={() => setDocType('studente')} className={`segmented-button ${docType === 'studente' ? 'active' : ''}`}>Uso Studente</button>
-                    </div>
-                    <p className="m3-body-medium text-on-surface-variant">
-                        {docType === 'docente'
-                            ? "Genera un documento dettagliato per la programmazione, includendo competenze e metodi di valutazione."
-                            : "Genera una guida al progetto semplificata per gli studenti, senza dettagli sulla valutazione."}
-                    </p>
-                </div>
-                <div className="dialog-footer">
-                    <button onClick={onClose} className="button button-text" disabled={isExporting}>Annulla</button>
-                    <button onClick={handleGenerateMarkdownReport} className="button button-tonal" disabled={isExporting}>Report Testuale</button>
-                    <button onClick={handleDocxExport} className="button button-outlined" disabled={isExporting}>
-                        <span className="material-symbols-outlined mr-2">description</span>
-                        Word (.docx)
-                    </button>
-                    <button onClick={handlePdfExport} className="button button-filled" disabled={isExporting}>
-                        <span className="material-symbols-outlined mr-2">picture_as_pdf</span>
-                        {isExporting ? 'Esportazione...' : 'Esporta PDF'}
-                    </button>
-                </div>
+                <p className="m3-body-medium text-on-surface-variant">
+                    {docType === 'docente'
+                        ? "Genera un documento dettagliato per la programmazione, includendo competenze e metodi di valutazione."
+                        : "Genera una guida al progetto semplificata per gli studenti, senza dettagli sulla valutazione."}
+                </p>
             </div>
-        </div>
+
+            <M3DialogActions>
+                <button onClick={onClose} className="button button-text" disabled={isExporting}>Annulla</button>
+                <button onClick={handleGenerateMarkdownReport} className="button button-tonal" disabled={isExporting}>Report Testuale</button>
+                <button onClick={handleDocxExport} className="button button-outlined" disabled={isExporting}>
+                    <span className="material-symbols-outlined mr-2">description</span>
+                    Word (.docx)
+                </button>
+                <button onClick={handlePdfExport} className="button button-filled" disabled={isExporting}>
+                    <span className="material-symbols-outlined mr-2">picture_as_pdf</span>
+                    {isExporting ? 'Esportazione...' : 'Esporta PDF'}
+                </button>
+            </M3DialogActions>
+        </M3Dialog>
     );
 };

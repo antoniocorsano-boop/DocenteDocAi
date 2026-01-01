@@ -5,6 +5,7 @@ import { DAYS_OF_WEEK } from '../constants';
 import { parseClassString } from '../utils/schoolUtils'; 
 import { TextField, SelectField, TextArea } from './M3Components';
 import AiThinkingGem from './AiThinkingGem';
+import { M3Dialog, M3DialogActions } from './M3Dialog';
 import './dialog-container.css';
 
 interface CreateLessonFromAiModalProps {
@@ -175,180 +176,157 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
 
 
     return (
-        <div className="dialog-backdrop">
-            <form
-                onSubmit={handleSubmit}
-                className="dialog-container w-full max-w-lg h-[90vh] flex flex-col shadow-xl"
-                style={{
-                    maxWidth: '95vw',
-                    width: '100%',
-                    maxHeight: '95vh',
-                    margin: '0 auto',
-                    padding: '0',
-                    overflowY: 'auto',
-                    borderRadius: '16px',
-                    boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
-                    background: 'var(--sys-surface)',
-                }}
+        <>
+            <M3Dialog
+                title="Crea Bozza Lezione"
+                onClose={onClose}
+                maxWidth="lg"
             >
-                <div className="dialog-header border-b border-outline-variant p-6 bg-surface-container-high flex-shrink-0">
-                    <div>
-                        <h2 className="m3-headline-small font-extrabold">Crea Bozza Lezione</h2>
-                         <p className="m3-body-medium text-on-surface-variant font-bold uppercase tracking-widest text-[10px] mt-1">Finalizza i dettagli e salva nell'archivio.</p>
-                    </div>
-                    <button type="button" onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                
-                <div className="dialog-content flex-grow overflow-y-auto p-8 space-y-8">
-                     <TextField 
-                        label="Argomento" 
-                        value={argomento} 
-                        onChange={e => setArgomento(e.target.value)} 
-                        required 
-                    />
-                    
-                    <div className="grid grid-cols-2 gap-4">
-                        <SelectField label="Classe" value={classe} onChange={e => setClasse(e.target.value)} required>
-                            {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                        </SelectField>
-                        <SelectField label="Materia" value={materia} onChange={e => setMateria(e.target.value)} required>
-                            {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                        </SelectField>
-                    </div>
+                <form onSubmit={handleSubmit} className="w-full">
+                    <div className="space-y-8">
+                        <TextField 
+                            label="Argomento" 
+                            value={argomento} 
+                            onChange={e => setArgomento(e.target.value)} 
+                            required 
+                        />
+                        
+                        <div className="grid grid-cols-2 gap-4">
+                            <SelectField label="Classe" value={classe} onChange={e => setClasse(e.target.value)} required>
+                                {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
+                            </SelectField>
+                            <SelectField label="Materia" value={materia} onChange={e => setMateria(e.target.value)} required>
+                                {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
+                            </SelectField>
+                        </div>
 
-                     <div>
-                        <div className="flex justify-between items-center mb-2">
-                            <label className="text-[11px] text-primary font-extrabold uppercase tracking-[0.2em] px-2 !mb-0">Obiettivi</label>
-                            {matchingCurriculum && (
-                                <button 
-                                    type="button" 
-                                    onClick={() => setIsObjectivePickerOpen(true)}
-                                    className="button button-tonal !h-8 !px-3 !text-xs font-extrabold uppercase tracking-widest rounded-full"
-                                    title="Seleziona dal curricolo"
-                                >
-                                    <span className="material-symbols-outlined mr-1 text-sm">library_add</span>
-                                    Curricolo
-                                </button>
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <label className="text-[11px] text-primary font-extrabold uppercase tracking-[0.2em] px-2 !mb-0">Obiettivi</label>
+                                {matchingCurriculum && (
+                                    <button 
+                                        type="button" 
+                                        onClick={() => setIsObjectivePickerOpen(true)}
+                                        className="button button-tonal !h-8 !px-3 !text-xs font-extrabold uppercase tracking-widest rounded-full"
+                                        title="Seleziona dal curricolo"
+                                    >
+                                        <span className="material-symbols-outlined mr-1 text-sm">library_add</span>
+                                        Curricolo
+                                    </button>
+                                )}
+                            </div>
+                            <TextArea
+                                label="Elenco obiettivi didattici per la lezione..." // FIX: Added missing label
+                                value={obiettivi}
+                                onChange={e => setObiettivi(e.target.value)}
+                                rows={5}
+                                placeholder="Elenco obiettivi didattici per la lezione..."
+                                containerClassName="shadow-inner !bg-surface-container-lowest"
+                            />
+                            {matchingCurriculum && !obiettivi && (
+                                <p className="text-xs text-primary mt-3 flex items-center gap-2 font-bold px-2 cursor-pointer" onClick={() => setIsObjectivePickerOpen(true)}>
+                                    <span className="material-symbols-outlined text-sm">info</span> 
+                                    Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
+                                </p>
                             )}
                         </div>
-                        <TextArea
-                            label="Elenco obiettivi didattici per la lezione..." // FIX: Added missing label
-                            value={obiettivi}
-                            onChange={e => setObiettivi(e.target.value)}
-                            rows={5}
-                            placeholder="Elenco obiettivi didattici per la lezione..."
-                            containerClassName="shadow-inner !bg-surface-container-lowest"
-                        />
-                         {matchingCurriculum && !obiettivi && (
-                             <p className="text-xs text-primary mt-3 flex items-center gap-2 font-bold px-2 cursor-pointer" onClick={() => setIsObjectivePickerOpen(true)}>
-                                 <span className="material-symbols-outlined text-sm">info</span> 
-                                 Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
-                             </p>
-                         )}
-                    </div>
-                    
-                    {slots && availableSlots.length > 0 && (
-                        <div className="bg-secondary-container/10 p-5 rounded-[32px] border border-secondary/20 space-y-3">
-                            <label className="text-[11px] text-on-surface-variant font-black uppercase tracking-[0.2em] px-2">Pianificazione Rapida (Opzionale)</label>
-                            <div className="flex flex-wrap gap-2">
-                                {availableSlots.map(([key, slot]) => (
-                                    <button
-                                        key={key}
-                                        type="button"
-                                        onClick={() => setSelectedSlotKey(prev => prev === key ? '' : key)}
-                                        className={`chip !h-10 !px-4 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-surface-container-high'}`}
-                                    >
-                                        {selectedSlotKey === key && <span className="material-symbols-outlined text-base">check</span>}
-                                        <span className="font-extrabold text-xs">{slot.giorno} {slot.ora}</span>
-                                    </button>
-                                ))}
+                        
+                        {slots && availableSlots.length > 0 && (
+                            <div className="bg-secondary-container/10 p-5 rounded-[32px] border border-secondary/20 space-y-3">
+                                <label className="text-[11px] text-on-surface-variant font-black uppercase tracking-[0.2em] px-2">Pianificazione Rapida (Opzionale)</label>
+                                <div className="flex flex-wrap gap-2">
+                                    {availableSlots.map(([key, slot]) => (
+                                        <button
+                                            key={key}
+                                            type="button"
+                                            onClick={() => setSelectedSlotKey(prev => prev === key ? '' : key)}
+                                            className={`chip !h-10 !px-4 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-surface-container-high'}`}
+                                        >
+                                            {selectedSlotKey === key && <span className="material-symbols-outlined text-base">check</span>}
+                                            <span className="font-extrabold text-xs">{slot.giorno} {slot.ora}</span>
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                    <div>
-                        <div className="flex justify-between items-center mb-2">
-                            <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-2 !mb-0">Adattamenti per l'Inclusività</label>
-                            <button 
-                                type="button" 
-                                onClick={handleGenerateAdaptations} 
-                                disabled={isAdaptationsLoading} 
-                                className="button button-text !h-auto !py-1 !px-2 flex items-center gap-1 font-black uppercase text-xs rounded-lg hover:shadow-md transition-all"
-                                title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
-                            >
-                                {isAdaptationsLoading ? (
-                                    <AiThinkingGem size="small" inline text="Suggerisco..." />
-                                ) : (
-                                    <span className="material-symbols-outlined mr-1 text-base">auto_awesome</span>
-                                )}
-                                {isAdaptationsLoading ? '' : 'Suggerisci con AI'}
-                            </button>
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-2 !mb-0">Adattamenti per l'Inclusività</label>
+                                <button 
+                                    type="button" 
+                                    onClick={handleGenerateAdaptations} 
+                                    disabled={isAdaptationsLoading} 
+                                    className="button button-text !h-auto !py-1 !px-2 flex items-center gap-1 font-black uppercase text-xs rounded-lg hover:shadow-md transition-all"
+                                    title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
+                                >
+                                    {isAdaptationsLoading ? (
+                                        <AiThinkingGem size="small" inline text="Suggerisco..." />
+                                    ) : (
+                                        <span className="material-symbols-outlined mr-1 text-base">auto_awesome</span>
+                                    )}
+                                    {isAdaptationsLoading ? '' : 'Suggerisci con AI'}
+                                </button>
+                            </div>
+                            <TextArea 
+                                label="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..." // FIX: Added missing label
+                                value={adattamenti} 
+                                onChange={(e) => setAdattamenti(e.target.value)} 
+                                rows={4}
+                                placeholder="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
+                                containerClassName="shadow-inner !bg-surface-container-lowest"
+                            ></TextArea>
                         </div>
-                        <TextArea 
-                            label="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..." // FIX: Added missing label
-                            value={adattamenti} 
-                            onChange={(e) => setAdattamenti(e.target.value)} 
-                            rows={4}
-                            placeholder="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
-                            containerClassName="shadow-inner !bg-surface-container-lowest"
-                        ></TextArea>
                     </div>
-                </div>
-                
-                <div className="dialog-footer border-t border-outline-variant p-6 bg-surface-container-high flex-shrink-0">
-                    <button type="button" onClick={onClose} className="button button-text font-bold">Annulla</button>
-                    <button type="submit" className="button button-filled shadow-xl font-black !px-10">
-                        <span className="material-symbols-outlined mr-2 font-black">{selectedSlotKey ? 'event_available' : 'archive'}</span>
-                        {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
-                    </button>
-                </div>
-            </form>
+
+                    <M3DialogActions>
+                        <button type="button" onClick={onClose} className="button button-text font-bold">Annulla</button>
+                        <button type="submit" className="button button-filled shadow-xl font-black !px-10">
+                            <span className="material-symbols-outlined mr-2 font-black">{selectedSlotKey ? 'event_available' : 'archive'}</span>
+                            {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
+                        </button>
+                    </M3DialogActions>
+                </form>
+            </M3Dialog>
 
             {/* NESTED OBJECTIVE PICKER MODAL */}
             {isObjectivePickerOpen && matchingCurriculum && (
-                <div className="dialog-backdrop" style={{zIndex: 2200}}>
-                    <div className="dialog-container w-full max-w-2xl h-[80vh] flex flex-col bg-surface !rounded-[40px] shadow-xl">
-                        <div className="dialog-header border-b border-outline-variant p-6">
-                            <div>
-                                <h3 className="m3-title-large font-extrabold">Seleziona Obiettivi</h3>
-                                <p className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em] mt-1">{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
-                            </div>
-                             <button type="button" onClick={() => setIsObjectivePickerOpen(false)} className="icon-button">
-                                <span className="material-symbols-outlined">close</span>
-                            </button>
-                        </div>
-                        <div className="dialog-content flex-grow overflow-y-auto p-8 space-y-8 bg-surface-container-lowest">
-                            {matchingCurriculum.nuclei.map(nucleo => (
-                                <details key={nucleo.id} className="m3-expansion-panel shadow-md !rounded-[32px]" open>
-                                    <summary className="m3-expansion-summary !bg-surface-container-high">
-                                        <span className="m3-title-medium font-black text-on-surface">{nucleo.title}</span>
-                                        <span className="material-symbols-outlined text-sm text-on-surface-variant">expand_more</span>
-                                    </summary>
-                                    <div className="p-4 space-y-3 bg-surface">
-                                        {nucleo.objectives.map(obj => (
-                                            <button 
-                                                key={obj.id}
-                                                type="button"
-                                                onClick={() => handleAddObjective(obj.text)}
-                                                className="w-full text-left p-3 rounded-xl hover:bg-surface-container-low transition-colors flex items-start gap-3 group"
-                                            >
-                                                <span className="material-symbols-outlined text-primary text-base mt-0.5 group-hover:scale-110 transition-transform">add_circle</span>
-                                                <span className="text-sm font-medium text-on-surface">{obj.text}</span>
-                                            </button>
-                                        ))}
-                                    </div>
-                                </details>
-                            ))}
-                        </div>
-                        <div className="dialog-footer border-t border-outline-variant p-6 bg-surface-container-high">
-                            <button onClick={() => setIsObjectivePickerOpen(false)} className="button button-filled w-full font-black shadow-lg">CONFERMA SELEZIONE</button>
-                        </div>
+                <M3Dialog
+                    title="Seleziona Obiettivi"
+                    onClose={() => setIsObjectivePickerOpen(false)}
+                    maxWidth="2xl"
+                >
+                    <div className="space-y-8">
+                        <p className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em]">{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
+                        {matchingCurriculum.nuclei.map(nucleo => (
+                            <details key={nucleo.id} className="m3-expansion-panel shadow-md !rounded-[32px]" open>
+                                <summary className="m3-expansion-summary !bg-surface-container-high">
+                                    <span className="m3-title-medium font-black text-on-surface">{nucleo.title}</span>
+                                    <span className="material-symbols-outlined text-sm text-on-surface-variant">expand_more</span>
+                                </summary>
+                                <div className="p-4 space-y-3 bg-surface">
+                                    {nucleo.objectives.map(obj => (
+                                        <button 
+                                            key={obj.id}
+                                            type="button"
+                                            onClick={() => handleAddObjective(obj.text)}
+                                            className="w-full text-left p-3 rounded-xl hover:bg-surface-container-low transition-colors flex items-start gap-3 group"
+                                        >
+                                            <span className="material-symbols-outlined text-primary text-base mt-0.5 group-hover:scale-110 transition-transform">add_circle</span>
+                                            <span className="text-sm font-medium text-on-surface">{obj.text}</span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </details>
+                        ))}
                     </div>
-                </div>
+
+                    <M3DialogActions>
+                        <button type="button" onClick={() => setIsObjectivePickerOpen(false)} className="button button-filled w-full font-black shadow-lg">CONFERMA SELEZIONE</button>
+                    </M3DialogActions>
+                </M3Dialog>
             )}
-        </div>
+        </>
     );
 };
 
