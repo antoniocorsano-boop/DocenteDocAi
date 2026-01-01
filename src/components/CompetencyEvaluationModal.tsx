@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Studente, Competenza, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
 import { generateCompetencyNote } from '../services/aiService';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface CompetencyEvaluationModalProps {
     student: Studente;
@@ -56,31 +57,16 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
 
 
     return (
-        <div className="dialog-backdrop">
-            <form onSubmit={handleSubmit}
-                className="dialog-container w-full max-w-2xl"
-                style={{
-                    maxWidth: '95vw',
-                    width: '100%',
-                    maxHeight: '95vh',
-                    margin: '0 auto',
-                    padding: '0',
-                    overflowY: 'auto',
-                    borderRadius: '16px',
-                    boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
-                    background: 'var(--sys-surface)',
-                }}
-            >
-                <div className="dialog-header">
-                    <div>
-                        <h2 className="m3-headline-medium">Valuta Competenza</h2>
-                        <p className="m3-body-medium text-on-surface-variant">{student.cognome} {student.nome} - {competenza.nome}</p>
-                    </div>
-                    <button type="button" onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                <div className="dialog-content space-y-4">
+        <M3Dialog
+            title="Valuta Competenza"
+            open={true}
+            onClose={onClose}
+            maxWidth="md"
+        >
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <M3DialogContent className="space-y-4">
+                    <p className="m3-body-medium text-on-surface-variant">{student.cognome} {student.nome} - {competenza.nome}</p>
+
                     <div>
                         <label className="form-label">Livello Raggiunto</label>
                         <div className="space-y-2">
@@ -108,13 +94,15 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                             ))}
                         </div>
                     </div>
+
                     <div>
                         <label htmlFor="materia" className="form-label">Materia di Riferimento</label>
                         <select id="materia" value={selectedMateria} onChange={e => setSelectedMateria(e.target.value)} className="form-select w-full" required>
-                                <option value="">Seleziona...</option>
+                            <option value="">Seleziona...</option>
                             {(settings.disciplines || []).map(d => <option key={d} value={d}>{d}</option>)}
                         </select>
                     </div>
+
                     <div>
                         <div className="flex justify-between items-center mb-2">
                             <label htmlFor="note" className="form-label !mb-0">Note (Opzionale)</label>
@@ -140,13 +128,14 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                         </div>
                         <textarea id="note" value={nota} onChange={e => setNota(e.target.value)} className="form-textarea w-full" rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..."></textarea>
                     </div>
-                </div>
-                <div className="dialog-footer">
+                </M3DialogContent>
+
+                <M3DialogActions className="gap-2">
                     <button type="button" onClick={onClose} className="button button-text">Annulla</button>
                     <button type="submit" className="button button-filled">Salva Valutazione</button>
-                </div>
+                </M3DialogActions>
             </form>
-        </div>
+        </M3Dialog>
     );
 };
 

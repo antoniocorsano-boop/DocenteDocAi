@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Studente, ObservationEntry } from '../types';
 import { TextArea } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface ObservationModalProps {
     student: Studente;
@@ -37,29 +38,25 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
     };
 
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-md shadow-xl">
-                <div className="dialog-header border-b border-outline-variant bg-tertiary-container text-on-tertiary-container p-6">
-                    <div>
-                        <h2 className="m3-headline-small font-black">Osservazione Formativa</h2>
-                        <p className="text-[10px] font-black uppercase tracking-[0.3em] mt-1 opacity-80">{student.cognome} {student.nome}</p>
-                    </div>
-                    <button onClick={onClose} className="icon-button text-on-tertiary-container"><span className="material-symbols-outlined">close</span></button>
-                </div>
-                
-                <div className="dialog-content p-8 space-y-6 overflow-y-auto bg-surface">
+        <M3Dialog
+            title="Osservazione Formativa"
+            headline={`${student.cognome} ${student.nome}`}
+            onClose={onClose}
+            maxWidth="md"
+        >
+            <M3DialogContent>
+                <div className="space-y-6">
                     <RatingStars label="Autonomia" value={autonomy} onChange={setAutonomy} />
                     <RatingStars label="Collaborazione" value={collaboration} onChange={setCollaboration} />
                     <RatingStars label="Responsabilità" value={responsibility} onChange={setResponsibility} />
                     <TextArea label="Aneddoti / Note Osservative" value={note} onChange={e => setNote(e.target.value)} rows={4} placeholder="Es. Ha dimostrato iniziativa nel lavoro di gruppo..." />
                 </div>
-
-                <div className="dialog-footer bg-surface-container-high p-6 border-t border-outline-variant">
-                    <button onClick={onClose} className="button button-text font-bold">Annulla</button>
-                    <button onClick={handleSave} className="button button-filled shadow-xl font-black !px-10">Registra Nota</button>
-                </div>
-            </div>
-        </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <button onClick={onClose} className="button button-text font-bold">Annulla</button>
+                <button onClick={handleSave} className="button button-filled shadow-xl font-black !px-10">Registra Nota</button>
+            </M3DialogActions>
+        </M3Dialog>
     );
 };
 

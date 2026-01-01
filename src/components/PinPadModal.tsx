@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { PinPad } from './M3Components'; // Reuse M3 PinPad
+import { M3Dialog, M3DialogContent } from './M3Dialog';
 
 interface PinPadModalProps {
     title: string;
@@ -40,43 +41,44 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
     };
 
     return (
-        <div className="dialog-backdrop" style={{zIndex: 9999, backgroundColor: 'rgba(0,0,0,0.9)'}}>
-            <div className="flex flex-col items-center justify-center w-full h-full p-4 animate-in zoom-in-95 duration-200">
-                <div className="bg-surface-container-high p-8 rounded-3xl shadow-2xl w-full max-w-sm border border-outline-variant">
-                    <div className="text-center mb-8">
-                        <div className="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                            <span className="material-symbols-outlined text-3xl">lock</span>
-                        </div>
-                        <h2 className="m3-headline-small font-bold text-on-surface">{title}</h2>
-                        <p className="m3-body-medium text-on-surface-variant mt-1">Inserisci il PIN docente per uscire</p>
+        <M3Dialog
+            title={<h2 className="m3-headline-small font-bold text-on-surface text-center">{title}</h2>}
+            onClose={onCancel}
+            maxWidth="sm"
+        >
+            <M3DialogContent className="flex flex-col items-center justify-center w-full py-8">
+                <div className="text-center mb-8">
+                    <div className="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                        <span className="material-symbols-outlined text-3xl">lock</span>
                     </div>
-
-                    {/* PIN Display */}
-                    <div className="flex justify-center gap-4 mb-8">
-                        {[0, 1, 2, 3].map((i) => (
-                            <div 
-                                key={i}
-                                className={`w-4 h-4 rounded-full transition-all duration-200 ${
-                                    i < pin.length 
-                                        ? (error ? 'bg-error scale-125' : 'bg-primary scale-110') 
-                                        : 'bg-surface-container-highest border border-outline'
-                                }`}
-                            />
-                        ))}
-                    </div>
-
-                    {error && (
-                        <p className="text-error text-center text-sm font-bold mb-4 animate-pulse">PIN Errato</p>
-                    )}
-
-                    <PinPad onInput={handleInput} onDelete={handleDelete} />
-
-                    <button onClick={onCancel} className="button button-text w-full mt-8 text-on-surface-variant">
-                        Annulla
-                    </button>
+                    <p className="m3-body-medium text-on-surface-variant mt-1">Inserisci il PIN docente per uscire</p>
                 </div>
-            </div>
-        </div>
+
+                {/* PIN Display */}
+                <div className="flex justify-center gap-4 mb-8">
+                    {[0, 1, 2, 3].map((i) => (
+                        <div 
+                            key={i}
+                            className={`w-4 h-4 rounded-full transition-all duration-200 ${
+                                i < pin.length 
+                                    ? (error ? 'bg-error scale-125' : 'bg-primary scale-110') 
+                                    : 'bg-surface-container-highest border border-outline'
+                            }`}
+                        />
+                    ))}
+                </div>
+
+                {error && (
+                    <p className="text-error text-center text-sm font-bold mb-4 animate-pulse">PIN Errato</p>
+                )}
+
+                <PinPad onInput={handleInput} onDelete={handleDelete} />
+
+                <button onClick={onCancel} className="button button-text w-full mt-8 text-on-surface-variant">
+                    Annulla
+                </button>
+            </M3DialogContent>
+        </M3Dialog>
     );
 };
 

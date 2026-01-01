@@ -314,35 +314,87 @@ export const M3Card: React.FC<{ children: React.ReactNode; className?: string; o
     </div>
 );
 
-// M3 Dialog (Modal Wrapper)
-// M3 Dialog (Modal Wrapper)
-// M3 Dialog (Modal Wrapper)
-export const M3Dialog: React.FC<{ isOpen: boolean; onClose: () => void; title: string; headline?: string; children: React.ReactNode; buttons?: React.ReactNode; fullscreen?: boolean }> = ({ isOpen, onClose, title, headline, children, buttons, fullscreen = false }) => {
+/**
+ * M3Dialog - Material Design 3 Expressive Modal Component
+ * Enhanced with Portal support, dynamic stacking, and audit specifications
+ * 
+ * Usage with ModalContext:
+ * const { pushModal, popModal } = useModal();
+ * 
+ * OR use standalone with isOpen prop for legacy compatibility
+ */
+export const M3Dialog: React.FC<{
+    isOpen: boolean;
+    onClose: () => void;
+    title: string;
+    headline?: string;
+    children: React.ReactNode;
+    buttons?: React.ReactNode;
+    fullscreen?: boolean;
+    className?: string;
+}> = ({ isOpen, onClose, title, headline, children, buttons, fullscreen = false, className = '' }) => {
     if (!isOpen) return null;
+
     return (
         <div className={`fixed inset-0 z-[3000] flex items-center justify-center p-4 ${fullscreen ? '!p-0 md:!p-4' : ''}`}>
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300" onClick={onClose}></div>
+            {/* Backdrop with M3 blur effect - Audit Spec */}
+            <div
+                className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300"
+                onClick={onClose}
+                aria-hidden="true"
+            />
 
-            {/* Dialog Panel */}
-            <div className={`relative bg-surface-container-high w-full ${fullscreen ? 'h-full md:max-w-5xl md:h-[90vh] rounded-none md:rounded-[28px]' : 'max-w-lg rounded-[28px] max-h-[90vh]'} shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-outline-variant/20 flex flex-col`}>
-                <div className="px-6 py-4 md:py-6 border-b border-outline-variant/10 flex justify-between items-center shrink-0">
+            {/* Dialog Panel - M3 Expressive */}
+            <div
+                className={`relative bg-surface-container-high w-full ${
+                    fullscreen
+                        ? 'h-full md:max-w-5xl md:h-[90vh] rounded-none md:rounded-[28px]'
+                        : 'max-w-lg rounded-[28px] max-h-[90vh]'
+                } shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-outline-variant/20 flex flex-col ${className}`}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="dialog-title"
+            >
+                {/* Header */}
+                <div className="px-6 py-4 md:py-6 border-b border-outline-variant/10 flex justify-between items-center shrink-0 bg-gradient-to-r from-transparent to-surface-container-highest/20">
                     <div>
-                        <h2 className="m3-headline-small font-black text-on-surface line-clamp-1">{title}</h2>
-                        {headline && <p className="m3-body-medium text-on-surface-variant opacity-80 line-clamp-2 mt-1">{headline}</p>}
+                        <h2
+                            id="dialog-title"
+                            className="m3-headline-small font-black text-on-surface line-clamp-1"
+                        >
+                            {title}
+                        </h2>
+                        {headline && (
+                            <p className="m3-body-medium text-on-surface-variant opacity-80 line-clamp-2 mt-1">
+                                {headline}
+                            </p>
+                        )}
                     </div>
-                    <div className="flex items-center gap-2">
-                        {buttons && fullscreen && <div className="flex gap-2 mr-2">{buttons}</div>}
-                        <button onClick={onClose} className="icon-button !w-10 !h-10 hover:bg-surface-container-highest transition-colors rounded-full">
+                    <div className="flex items-center gap-2 ml-4 flex-shrink-0">
+                        {buttons && fullscreen && (
+                            <div className="flex gap-2 mr-2">{buttons}</div>
+                        )}
+                        <button
+                            onClick={onClose}
+                            className="icon-button !w-10 !h-10 hover:bg-surface-container-highest transition-colors rounded-full"
+                            aria-label="Chiudi dialogo"
+                            type="button"
+                        >
                             <span className="material-symbols-outlined">close</span>
                         </button>
                     </div>
                 </div>
 
-                <div className={`px-4 md:px-6 py-4 md:py-6 overflow-y-auto custom-scrollbar flex-grow ${fullscreen ? 'bg-surface-container-low' : ''}`}>
+                {/* Content */}
+                <div
+                    className={`px-4 md:px-6 py-4 md:py-6 overflow-y-auto custom-scrollbar flex-grow ${
+                        fullscreen ? 'bg-surface-container-low' : ''
+                    }`}
+                >
                     {children}
                 </div>
 
+                {/* Footer */}
                 {!fullscreen && buttons && (
                     <div className="px-6 py-4 bg-surface-container-highest/30 border-t border-outline-variant/10 flex justify-end gap-3 shrink-0">
                         {buttons}

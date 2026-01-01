@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Lezione, RegisterEntry, Studente, Valutazione } from '../types';
 import { TabGroup, TextArea } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface CopyForRegisterModalProps {
     lesson: Lezione;
@@ -45,27 +46,13 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
     };
 
     return (
-        <div className="dialog-backdrop">
-            <div
-                className="dialog-container w-full max-w-lg shadow-xl"
-                style={{
-                    maxWidth: '95vw',
-                    width: '100%',
-                    maxHeight: '95vh',
-                    margin: '0 auto',
-                    padding: '0',
-                    overflowY: 'auto',
-                    borderRadius: '16px',
-                    boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
-                    background: 'var(--sys-surface)',
-                }}
-            >
-                <div className="dialog-header border-b border-outline-variant p-6">
-                    <h2 className="m3-headline-small font-black">Esporta per Registro</h2>
-                    <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>
-                </div>
-                
-                <div className="px-6 py-4 bg-surface-container-low">
+        <M3Dialog
+            title="Esporta per Registro"
+            onClose={onClose}
+            maxWidth="md"
+        >
+            <M3DialogContent>
+                <div className="px-2 py-2 bg-surface-container-low rounded-lg mb-6">
                     <TabGroup 
                         tabs={[{ id: 'text', label: 'Manuale', icon: 'content_paste' }, { id: 'json', label: 'Bridge AI', icon: 'extension' }]}
                         activeTab={activeTab}
@@ -77,7 +64,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                     />
                 </div>
 
-                <div className="dialog-content p-6 space-y-6">
+                <div className="space-y-6">
                     <div className="flex flex-wrap gap-2 p-4 bg-surface-container rounded-[24px] border border-outline-variant shadow-inner">
                         <label className="chip cursor-pointer has-checkbox select-none"><input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)} className="mr-2 accent-primary" /> Assenti</label>
                         <label className="chip cursor-pointer has-checkbox select-none"><input type="checkbox" checked={includeGrades} onChange={e => setIncludeGrades(e.target.checked)} className="mr-2 accent-primary" /> Voti</label>
@@ -92,15 +79,14 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                         containerClassName="!bg-surface-container-highest shadow-inner font-mono text-xs"
                     />
                 </div>
-
-                <div className="dialog-footer bg-surface-container-high p-6 border-t border-outline-variant">
-                    <button onClick={onClose} className="button button-text font-bold">Chiudi</button>
-                    <button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} className="button button-filled shadow-xl font-black !px-10">
-                        <span className="material-symbols-outlined mr-2">content_copy</span> COPIA
-                    </button>
-                </div>
-            </div>
-        </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <button onClick={onClose} className="button button-text font-bold">Chiudi</button>
+                <button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} className="button button-filled shadow-xl font-black !px-10">
+                    <span className="material-symbols-outlined mr-2">content_copy</span> COPIA
+                </button>
+            </M3DialogActions>
+        </M3Dialog>
     );
 };
 

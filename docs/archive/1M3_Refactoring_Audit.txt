@@ -1,0 +1,428 @@
+# Audit Profondo: Strategia di Refactoring per Material Design 3 Expressive
+
+**Data**: Gennaio 2026  
+**Analista**: Senior Frontend Architect e UX Specialist  
+**Applicazione**: DocenteDoc AI  
+
+## Contesto Critico
+L'applicazione DocenteDoc AI è un sistema complesso e stratificato con:
+- Stato Attuale: Motore temi (colori dinamici/AI) presente, ma struttura, tipografia e layout misti
+- Complessità UI: Uso massiccio di Modali e Overlay (fino a 3 livelli di nidificazione)
+- Obiettivo: Trasformare TUTTA l'app in Material Design 3 Expressive fino al livello più profondo
+
+## 4 Pilastri Critici di Refactoring
+
+### 1. Architettura degli Overlay (Modal Hell Solution)
+**Stato Attuale**: Sistema usa `M3Dialog` centralizzato, ma pattern misti:
+- Modali implementati direttamente nei componenti
+- Z-index gestito con variabili CSS (`--z-modal: 1400`, `--z-modal-backdrop: 1300`)
+- Stack context: Rischio conflitti con 3 livelli senza gestione centralizzata
+
+**Problemi Identificati**:
+- Nessun sistema centralizzato per stacking (no React Portals unificato)
+- Z-index hardcoded in alcuni componenti
+- Backdrop non sempre consistente
+
+**Strategia di Migrazione**:
+- Implementare `ModalManager` con React Portals
+- Sistema di stacking con Context API
+- Transizioni M3 Expressive (fade + scale)
+
+### 2. Rilevamento Pattern Legacy
+**Pattern Trovati**:
+- Stili inline sporadici (`style={{...}}`)
+- Div "fantasma": `<div className="...">` che dovrebbero essere `<M3Card>`
+- Classi hardcoded invece di design tokens
+
+**Esempi Legacy**:
+```tsx
+// Legacy: div con stili misti
+<div className="bg-white p-4 rounded-lg shadow-md">
+
+// Dovrebbe essere:
+<M3Card className="p-4">
+```
+
+### 3. Standardizzazione Tipografica (M3 Type Scale)
+**Stato Attuale**: Scala parzialmente implementata in `theme.css`
+
+**Mappatura M3 Completa**:
+- **Display**: Titoli principali (57px, 45px, 36px)
+- **Headline**: Sezioni (32px, 28px, 24px)
+- **Title**: Card headers (22px, 16px, 14px)
+- **Body**: Contenuti (16px, 14px, 12px)
+- **Label**: Metadata (14px, 12px, 11px)
+
+**Obiettivo**: Sostituire classi arbitrarie con `m3-display-large`, `m3-headline-small`, etc.
+
+### 4. Layout e Navigazione (The Shell)
+**Stato Attuale**: Layout responsive ma non ottimizzato per Navigation Rail M3
+- Header fisso con z-index 1100
+- Spazio bianco inconsistente
+- Nessuna Navigation Rail implementata
+
+**M3 Expressive Requirements**:
+- Aria spaziosa con padding generoso
+- Navigation Rail per desktop
+- Bottom Navigation per mobile
+
+## Output Tecnici
+
+### 1. Codice del Componente Modali/Dialog
+
+```tsx
+// src/components/M3Components.tsx - M3Dialog
+export const M3Dialog: React.FC<{
+    isOpen: boolean;
+    onClose: () => void;
+    title: string;
+    headline?: string;
+    children: React.ReactNode;
+    buttons?: React.ReactNode;
+    fullscreen?: boolean
+}> = ({ isOpen, onClose, title, headline, children, buttons, fullscreen = false }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className={`fixed inset-0 z-[3000] flex items-center justify-center p-4 ${fullscreen ? '!p-0 md:!p-4' : ''}`}>
+            {/* Backdrop con blur M3 */}
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300" onClick={onClose}></div>
+
+            {/* Dialog Panel M3 Expressive */}
+            <div className={`relative bg-surface-container-high w-full ${fullscreen ? 'h-full md:max-w-5xl md:h-[90vh] rounded-none md:rounded-[28px]' : 'max-w-lg rounded-[28px] max-h-[90vh]'} shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-outline-variant/20 flex flex-col`}>
+                <div className="px-6 py-4 md:py-6 border-b border-outline-variant/10 flex justify-between items-center shrink-0">
+                    <div>
+                        <h2 className="m3-headline-small font-black text-on-surface line-clamp-1">{title}</h2>
+                        {headline && <p className="m3-body-medium text-on-surface-variant opacity-80 line-clamp-2 mt-1">{headline}</p>}
+                    </div>
+                    <div className="flex items-center gap-2">
+                        {buttons && fullscreen && <div className="flex gap-2 mr-2">{buttons}</div>}
+                        <button onClick={onClose} className="icon-button !w-10 !h-10 hover:bg-surface-container-highest transition-colors rounded-full">
+                            <span className="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div className={`px-4 md:px-6 py-4 md:py-6 overflow-y-auto custom-scrollbar flex-grow ${fullscreen ? 'bg-surface-container-low' : ''}`}>
+                    {children}
+                </div>
+
+                {!fullscreen && buttons && (
+                    <div className="px-6 py-4 bg-surface-container-highest/30 border-t border-outline-variant/10 flex justify-end gap-3 shrink-0">
+                        {buttons}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+```
+
+### 2. Esempio Vista "Complessa" con Elementi Misti
+
+```tsx
+// src/components/ClassroomView.tsx - Vista complessa con pattern misti
+const ClassroomView: React.FC<ClassroomViewProps> = ({ ... }) => {
+    return (
+        <div className="classroom-view-container h-full flex flex-col bg-surface-container-low">
+            {/* Header Legacy - dovrebbe usare M3Card */}
+            <div className="bg-surface z-20 px-4 py-2 flex items-center justify-between border-b border-outline-variant shadow-sm">
+                <button onClick={onCloseView} className="icon-button -ml-2">
+                    <span className="material-symbols-outlined">arrow_back</span>
+                </button>
+                {/* Tipografia non standardizzata */}
+                <div className="flex gap-4 text-xs font-bold uppercase tracking-wider">
+                    <div className="flex items-center gap-1 text-primary">
+                        <span className="material-symbols-outlined text-sm">group</span>
+                        <span>{attendanceSummary.present} PRES.</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Layout con spazio bianco inconsistente */}
+            <div className="px-4 py-3 bg-surface border-b border-outline-variant">
+                <h2 className="m3-headline-small font-bold leading-tight">{lesson.materia}</h2>
+                <p className="m3-body-small text-on-surface-variant truncate">{lesson.contenuto}</p>
+            </div>
+
+            <div className="flex-grow overflow-y-auto p-4 pb-24">
+                {/* Lista studenti - pattern legacy da modernizzare */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    {studentStats.map(stat => (
+                        <div key={stat.student.id} className="bg-surface-container rounded-3xl shadow-lg border border-outline-variant p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer" onClick={() => setViewingStudentProfile(stat.student)}>
+                            {/* Contenuto misto - alcuni M3, altri legacy */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-2 items-center">
+                                {/* Avatar + Info */}
+                                <div className="flex items-center gap-2 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2">
+                                    <button onClick={(e) => { e.stopPropagation(); handleAttendanceToggle(stat.student.id); }} className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${status === 'presente' ? 'bg-primary-container text-primary' : 'bg-error-container text-error' : 'bg-tertiary-container text-tertiary'}`}>
+                                        <span className="material-symbols-outlined text-lg">{status === 'presente' ? 'check' : status === 'assente' ? 'close' : 'schedule'}</span>
+                                    </button>
+                                    <Avatar name={stat.student.nome} surname={stat.student.cognome} className="w-8 h-8" />
+                                    <div>
+                                        <h3 className="m3-title-small font-bold">{stat.student.cognome} {stat.student.nome}</h3>
+                                        <p className="m3-body-small text-on-surface-variant">{stat.student.classe}</p>
+                                    </div>
+                                </div>
+                                {/* Media + Trend */}
+                                <div className="text-center col-span-1">
+                                    <span className={`m3-title-large font-bold ${parseFloat(stat.grade) > 7 ? 'text-primary' : parseFloat(stat.grade) > 6 ? 'text-secondary' : 'text-error'}`}>{stat.grade}</span>
+                                    <div className="flex justify-center mt-1">
+                                        <span className={`material-symbols-outlined text-lg ${stat.trend === 'up' ? 'animate-bounce text-tertiary' : stat.trend === 'down' ? 'animate-pulse text-error' : 'text-on-surface-variant'}`}>
+                                            {stat.trend === 'up' ? 'trending_up' : stat.trend === 'down' ? 'trending_down' : 'trending_flat'}
+                                        </span>
+                                    </div>
+                                </div>
+                                {/* Scritti/Orali */}
+                                <div className="text-center col-span-1">
+                                    <span className="m3-label-small">Scritti</span>
+                                    <p className="m3-body-large font-bold">{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</p>
+                                </div>
+                                <div className="text-center col-span-1">
+                                    <span className="m3-label-small">Orali</span>
+                                    <p className="m3-body-large font-bold">{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</p>
+                                </div>
+                                {/* Note */}
+                                <div className="text-center col-span-1">
+                                    {stat.notes ? <span className="material-symbols-outlined text-primary text-lg">edit_note</span> : <span>-</span>}
+                                </div>
+                                {/* Compiti + Partecipazione */}
+                                <div className="flex flex-col items-center gap-1 col-span-1">
+                                    {hwStatus && <span className={`text-xs px-2 py-1 rounded-full ${hwStatus === 'missing' ? 'bg-error-container text-error' : hwStatus === 'partial' ? 'border-outline text-on-surface-variant' : 'bg-primary-container text-primary'}`}>{hwStatus}</span>}
+                                    {badges.length > 0 && <span className="text-xs px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container">{badges.length} ★</span>}
+                                </div>
+                                {/* Azioni */}
+                                <div className="text-center col-span-1">
+                                    <button onClick={(e) => { e.stopPropagation(); setSelectedStudentForActions(stat.student); }} className="icon-button">
+                                        <span className="material-symbols-outlined">more_vert</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+```
+
+### 3. File di Configurazione Globale degli Stili
+
+```css
+/* src/theme.css - Configurazione globale M3 Expressive */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0');
+
+:root {
+  /* Palette M3 Expressive */
+  --sys-primary: #6750A4;
+  --sys-on-primary: #FFFFFF;
+  --sys-primary-container: #EADDFF;
+  --sys-on-primary-container: #21005D;
+
+  --sys-secondary: #625B71;
+  --sys-on-secondary: #FFFFFF;
+  --sys-secondary-container: #E8DEF8;
+  --sys-on-secondary-container: #1D192B;
+
+  --sys-tertiary: #7D5260;
+  --sys-on-tertiary: #FFFFFF;
+  --sys-tertiary-container: #FFD8E4;
+  --sys-on-tertiary-container: #31111D;
+
+  --sys-background: #FDFBFF;
+  --sys-on-background: #1C1B1F;
+  --sys-surface: #FDFBFF;
+  --sys-on-surface: #1C1B1F;
+
+  /* Surface Containers Aura */
+  --sys-surface-container-lowest: #FFFFFF;
+  --sys-surface-container-low: #F7F2FA;
+  --sys-surface-container: #F3EDF7;
+  --sys-surface-container-high: #ECE6F0;
+  --sys-surface-container-highest: #E6E0E9;
+
+  --sys-outline: #79747E;
+  --sys-outline-variant: #C4C7C5;
+  --sys-error: #B3261E;
+  --sys-on-error: #FFFFFF;
+
+  /* Z-Index Layer System */
+  --z-base: 0;
+  --z-raised: 1;
+  --z-sticky: 10;
+  --z-fixed: 100;
+  --z-nav: 1000;
+  --z-header: 1100;
+  --z-drawer: 1200;
+  --z-modal-backdrop: 1300;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-tooltip: 1600;
+  --z-toast: 1700;
+  --z-max: 9999;
+
+  /* Typography Scale M3 */
+  --typography-display-large: 57px;
+  --typography-display-medium: 45px;
+  --typography-display-small: 36px;
+  --typography-headline-large: 32px;
+  --typography-headline-medium: 28px;
+  --typography-headline-small: 24px;
+  --typography-title-large: 22px;
+  --typography-title-medium: 16px;
+  --typography-title-small: 14px;
+  --typography-body-large: 16px;
+  --typography-body-medium: 14px;
+  --typography-body-small: 12px;
+  --typography-label-large: 14px;
+  --typography-label-medium: 12px;
+  --typography-label-small: 11px;
+}
+
+/* Typography Classes M3 */
+.m3-display-large { font-size: var(--typography-display-large); line-height: 1.12; font-weight: 400; }
+.m3-display-medium { font-size: var(--typography-display-medium); line-height: 1.22; font-weight: 400; }
+.m3-display-small { font-size: var(--typography-display-small); line-height: 1.33; font-weight: 400; }
+.m3-headline-large { font-size: var(--typography-headline-large); line-height: 1.25; font-weight: 400; }
+.m3-headline-medium { font-size: var(--typography-headline-medium); line-height: 1.29; font-weight: 400; }
+.m3-headline-small { font-size: var(--typography-headline-small); line-height: 1.33; font-weight: 400; }
+.m3-title-large { font-size: var(--typography-title-large); line-height: 1.27; font-weight: 400; }
+.m3-title-medium { font-size: var(--typography-title-medium); line-height: 1.43; font-weight: 500; }
+.m3-title-small { font-size: var(--typography-title-small); line-height: 1.43; font-weight: 500; }
+.m3-body-large { font-size: var(--typography-body-large); line-height: 1.5; font-weight: 400; }
+.m3-body-medium { font-size: var(--typography-body-medium); line-height: 1.43; font-weight: 400; }
+.m3-body-small { font-size: var(--typography-body-small); line-height: 1.33; font-weight: 400; }
+.m3-label-large { font-size: var(--typography-label-large); line-height: 1.43; font-weight: 500; }
+.m3-label-medium { font-size: var(--typography-label-medium); line-height: 1.33; font-weight: 500; }
+.m3-label-small { font-size: var(--typography-label-small); line-height: 1.43; font-weight: 500; }
+
+/* Component Classes */
+.m3-card {
+  background: var(--sys-surface-container);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--sys-outline-variant);
+}
+
+.m3-button-filled {
+  background: var(--sys-primary);
+  color: var(--sys-on-primary);
+  border-radius: 100px;
+  padding: 10px 24px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.m3-button-filled:hover {
+  background: var(--sys-primary-container);
+  color: var(--sys-on-primary-container);
+}
+
+/* Modal System */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  z-index: var(--z-modal-backdrop);
+}
+
+.modal-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--sys-surface-container-high);
+  border-radius: 28px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  z-index: var(--z-modal);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+}
+```
+
+### 4. Valutazione Z-Index per Modali di 3° Livello
+
+**Valutazione: CRITICA - Sistema Fragile**
+
+**Problemi Identificati**:
+1. **Stack Context Non Centralizzato**: Z-index definiti in CSS (`--z-modal: 1400`) ma applicati direttamente nei componenti senza gestione dinamica
+2. **Conflitti Potenziali**: Con 3 livelli di modali, rischio di sovrapposizione se non gestito da un context manager
+3. **Incremento Statico**: Ogni livello aggiunge 100 allo z-index, ma senza logica di stacking intelligente
+
+**Soluzione Proposta**:
+```tsx
+// ModalContext.tsx - Sistema centralizzato
+interface ModalContextType {
+  stack: ModalInstance[];
+  pushModal: (modal: ModalInstance) => void;
+  popModal: () => void;
+  getZIndex: (level: number) => number;
+}
+
+const ModalContext = createContext<ModalContextType | null>(null);
+
+export const ModalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [stack, setStack] = useState<ModalInstance[]>([]);
+
+  const pushModal = useCallback((modal: ModalInstance) => {
+    setStack(prev => [...prev, modal]);
+  }, []);
+
+  const popModal = useCallback(() => {
+    setStack(prev => prev.slice(0, -1));
+  }, []);
+
+  const getZIndex = useCallback((level: number) => {
+    return 1300 + (level * 100); // backdrop: 1300, modal1: 1400, modal2: 1500, etc.
+  }, []);
+
+  return (
+    <ModalContext.Provider value={{ stack, pushModal, popModal, getZIndex }}>
+      {children}
+      {/* Render modals with portals */}
+      {stack.map((modal, index) => (
+        <ModalPortal key={modal.id} modal={modal} level={index + 1} />
+      ))}
+    </ModalContext.Provider>
+  );
+};
+```
+
+**Implementazione**:
+- **React Portals**: Tutti i modali renderizzati in un container dedicato
+- **Context API**: Gestione centralizzata dello stack
+- **Z-Index Dinamico**: Calcolato in base al livello (backdrop + 100 per livello)
+- **Transizioni M3**: Fade in/out con scale per espressività
+
+**Timeline**: 2-3 settimane per implementazione completa, test di regressione inclusi.
+
+---
+
+## Roadmap di Implementazione
+
+### Fase 1: Foundation (1 settimana)
+- [ ] Completare scala tipografica M3
+- [ ] Creare design tokens completi
+- [ ] Implementare ModalContext base
+
+### Fase 2: Component Migration (2 settimane)
+- [ ] Convertire tutti i div "fantasma" in M3Card
+- [ ] Sostituire stili inline con classi M3
+- [ ] Standardizzare tipografia in tutti i componenti
+
+### Fase 3: Layout & Navigation (1 settimana)
+- [ ] Implementare Navigation Rail
+- [ ] Ristrutturare layout principale
+- [ ] Aggiungere spaziatura M3 consistente
+
+### Fase 4: Polish & Testing (1 settimana)
+- [ ] Ottimizzare transizioni e animazioni
+- [ ] Test di accessibilità
+- [ ] Performance audit
+
+**Stima Totale**: 5 settimane
+**Priorità**: Alta - Trasformazione UX critica per competitività

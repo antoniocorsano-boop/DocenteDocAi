@@ -279,7 +279,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     </div>
                                     <p className="text-xs opacity-90 leading-relaxed">{level?.descrizione}</p>
                                 </div>
-                                {latest.nota && <p className="text-xs italic text-on-surface-variant pl-2 border-l-2 border-outline-variant mt-2">"{latest.nota}"</p>}
+                                {latest.nota && <p className="text-xs italic text-on-surface-variant pl-2 border-l-2 border-outline-variant mt-2">&ldquo;{latest.nota}&rdquo;</p>}
                             </M3Card>
                         );
                     })}
@@ -298,7 +298,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                 <span className="text-xs font-bold uppercase tracking-wider text-tertiary bg-tertiary-container px-2 py-0.5 rounded">Ricevimento</span>
                             </div>
                             <p className="m3-body-medium font-bold pl-2 mb-1">{lesson.contenuto}</p>
-                            {lesson.nota ? <p className="text-sm text-on-surface-variant pl-2 leading-relaxed whitespace-pre-wrap">"{lesson.nota}"</p> : <p className="text-xs italic text-outline pl-2">Nessuna nota.</p>}
+                            {lesson.nota ? <p className="text-sm text-on-surface-variant pl-2 leading-relaxed whitespace-pre-wrap">&ldquo;{lesson.nota}&rdquo;</p> : <p className="text-xs italic text-outline pl-2">Nessuna nota.</p>}
                         </M3Card>
                     ))}
                 </div>

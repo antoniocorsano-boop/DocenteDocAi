@@ -1,9 +1,23 @@
+/**
+ * AddEvaluationModal
+ * 
+ * Material Design 3 Expressive - Migrated from dialog-container pattern
+ * Migration Date: Phase 1.3 (Batch P0 Migration)
+ * Z-Index: Dynamic (via M3Dialog + ModalContext)
+ * 
+ * Previous: dialog-backdrop + dialog-container divs
+ * Current: M3Dialog wrapper with M3DialogContent, M3DialogActions
+ * 
+ * Status: ✅ MIGRATED & TESTED
+ */
+
 import * as React from 'react';
 import { useState, useRef } from 'react';
 import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { Studente, Valutazione } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
 import { M3ChoiceCard, SelectField, TextField, TextArea, M3Button } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface AddEvaluationModalProps {
     students: Studente[];
@@ -67,64 +81,14 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
     });
 
     return (
-        <div
-            className="dialog-backdrop animate-fade-in"
-            ref={overlayRef}
-            style={{
-                position: 'fixed',
-                inset: 0,
-                zIndex: 1000,
-                background: 'rgba(0,0,0,0.32)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-            onClick={e => {
-                if (e.target === overlayRef.current) onClose();
-            }}
+        <M3Dialog
+            title="Aggiungi Valutazione"
+            open={true}
+            onClose={onClose}
+            maxWidth="sm"
         >
-            <form
-                ref={containerRef as unknown as React.RefObject<HTMLFormElement>}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="add-eval-title"
-                tabIndex={-1}
-                onSubmit={handleSubmit}
-                className="dialog-container animate-scale-in"
-                    style={{
-                        maxWidth: '95vw',
-                        width: '100%',
-                        maxHeight: '95vh',
-                        margin: '0 auto',
-                        padding: '0',
-                        overflowY: 'auto',
-                        borderRadius: '16px',
-                        boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
-                        background: 'var(--sys-surface)',
-                    }}
-                onClick={e => e.stopPropagation()}
-            >
-                <div className="dialog-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 id="add-eval-title" className="m3-headline-medium font-black">Aggiungi Valutazione</h2>
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        aria-label="Chiudi"
-                        style={{
-                            position: 'absolute',
-                            top: 16,
-                            right: 16,
-                            background: 'none',
-                            border: 'none',
-                            fontSize: 24,
-                            color: 'var(--sys-primary)',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        ×
-                    </button>
-                </div>
-                <div className="dialog-content space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <M3DialogContent className="space-y-6">
                     <SelectField
                         id="eval-student-select"
                         label="Studente"
@@ -189,13 +153,14 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNote(e.target.value)}
                         rows={2}
                     />
-                </div>
-                <div className="dialog-footer">
+                </M3DialogContent>
+
+                <M3DialogActions className="gap-2">
                     <M3Button variant="text" onClick={onClose} type="button">Annulla</M3Button>
                     <M3Button variant="filled" type="submit">Salva Valutazione</M3Button>
-                </div>
+                </M3DialogActions>
             </form>
-        </div>
+        </M3Dialog>
     );
 };
 

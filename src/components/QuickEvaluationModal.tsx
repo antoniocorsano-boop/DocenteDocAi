@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Studente, Lezione, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
 import { TabGroup, M3ChoiceCard } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface QuickEvaluationModalProps {
     student: Studente;
@@ -141,19 +142,14 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     );
 
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-lg">
-                <div className="dialog-header">
-                    <div>
-                        <h2 className="m3-headline-medium">Valutazione Rapida</h2>
-                        <p className="m3-body-medium text-on-surface-variant">{student.cognome} {student.nome}</p>
-                    </div>
-                    <button type="button" onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-
-                <div className="px-6 pt-2 pb-4">
+        <M3Dialog
+            title="Valutazione Rapida"
+            headline={`${student.cognome} ${student.nome}`}
+            onClose={onClose}
+            maxWidth="md"
+        >
+            <M3DialogContent>
+                <div className="pt-2 pb-4">
                     {/* Using TabGroup instead of m3-option-group for better semantics here */}
                     <TabGroup 
                         tabs={[
@@ -166,18 +162,17 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                     />
                 </div>
                 
-                <div className="dialog-content">
+                <div>
                     {activeTab === 'voto' ? renderVotoTab() : renderCompetenzaTab()}
                 </div>
-
-                <div className="dialog-footer">
-                    <button type="button" onClick={onClose} className="button button-text">Annulla</button>
-                    <button type="button" onClick={activeTab === 'voto' ? handleSaveVoto : handleSaveCompetenza} className="button button-filled">
-                        Salva Valutazione
-                    </button>
-                </div>
-            </div>
-        </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <button type="button" onClick={onClose} className="button button-text">Annulla</button>
+                <button type="button" onClick={activeTab === 'voto' ? handleSaveVoto : handleSaveCompetenza} className="button button-filled">
+                    Salva Valutazione
+                </button>
+            </M3DialogActions>
+        </M3Dialog>
     );
 };
 

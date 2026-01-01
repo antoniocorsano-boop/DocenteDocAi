@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useModalAccessibility } from '../hooks/useModalAccessibility';
+import React, { useState, useEffect } from 'react';
 import { Studente } from '../types';
 import { TextField, SelectField } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface AddStudentModalProps {
     studentToEdit?: Studente;
@@ -10,7 +10,7 @@ interface AddStudentModalProps {
     onSave: (student: Studente) => void;
 }
 
-const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userClasses, onClose }) => {
+const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userClasses, onClose, onSave }) => {
     const [formData, setFormData] = useState({
         cognome: '',
         nome: '',
@@ -27,78 +27,26 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
         }
     }, [studentToEdit]);
 
-
-    // Accessibility & UX
-    const overlayRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
-    useModalAccessibility({
-        isOpen: true,
-        onClose,
-        overlayRef,
-        containerRef,
-        onOverlayClick: onClose
-    });
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!formData.cognome.trim() || !formData.nome.trim()) {
+            alert('Compila tutti i campi obbligatori.');
+            return;
+        }
+        onSave({
+            id: studentToEdit?.id || `student-${Date.now()}`,
+            ...formData,
+        });
+    };
 
     return (
-        <div
-            className="dialog-backdrop animate-fade-in"
-            ref={overlayRef}
-            style={{
-                position: 'fixed',
-                inset: 0,
-                zIndex: 1000,
-                background: 'rgba(0,0,0,0.32)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-            onClick={e => {
-                if (e.target === overlayRef.current) onClose();
-            }}
+        <M3Dialog
+            title={studentToEdit ? 'Modifica Studente' : 'Aggiungi Studente'}
+            onClose={onClose}
+            maxWidth="md"
         >
-            <div
-                ref={containerRef}
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="add-student-title"
-                tabIndex={-1}
-                className="dialog-container animate-scale-in"
-                style={{
-                    maxWidth: '95vw',
-                    width: '100%',
-                    maxHeight: '95vh',
-                    margin: '0 auto',
-                    padding: '0',
-                    overflowY: 'auto',
-                    borderRadius: '16px',
-                    boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
-                    background: 'var(--sys-surface)',
-                    position: 'relative',
-                    outline: 'none',
-                }}
-                onClick={e => e.stopPropagation()}
-            >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 id="add-student-title" className="m3-headline-medium font-black">{studentToEdit ? 'Modifica Studente' : 'Aggiungi Studente'}</h2>
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        aria-label="Chiudi"
-                        style={{
-                            position: 'absolute',
-                            top: 16,
-                            right: 16,
-                            background: 'none',
-                            border: 'none',
-                            fontSize: 24,
-                            color: 'var(--sys-primary)',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        ×
-                    </button>
-                </div>
-                <div className="space-y-6 pt-2">
+            <M3DialogContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-4">
                         <TextField
                             id="student-cognome-input"
@@ -129,9 +77,13 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
                     >
                         {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                     </SelectField>
-                </div>
-            </div>
-        </div>
+                </form>
+            </M3DialogContent>
+            <M3DialogActions>
+                <button onClick={onClose} className="button button-text font-bold">Annulla</button>
+                <button onClick={handleSubmit} className="button button-filled font-black px-6">Salva</button>
+            </M3DialogActions>
+        </M3Dialog>
     );
 };
 

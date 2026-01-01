@@ -1,0 +1,484 @@
+/**
+ * Legacy Inline Styles Consolidation
+ * Material Design 3 Expressive Migration - FASE 2
+ * 
+ * This file consolidates recurring inline style patterns from the codebase
+ * to reduce inline styles and improve maintainability.
+ * 
+ * Goal: Eliminate 127 inline style={{}} patterns
+ * Strategy: Move to CSS classes for reusable patterns
+ */
+
+/* ============================================================================
+   DIALOG & MODAL STYLES
+   ============================================================================ */
+
+.dialog-backdrop-legacy {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-container-legacy {
+  max-width: 95vw;
+  width: 100%;
+  max-height: 95vh;
+  margin: 0 auto;
+  padding: 0;
+  overflow-y: auto;
+  border-radius: 16px;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.18);
+  background: var(--sys-surface);
+  position: relative;
+  outline: none;
+}
+
+.dialog-header-legacy {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--sys-outline-variant);
+}
+
+.dialog-content-legacy {
+  padding: 24px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.dialog-footer-legacy {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--sys-outline-variant);
+  background: var(--sys-surface);
+  justify-content: flex-end;
+}
+
+/* ============================================================================
+   FLEX & LAYOUT UTILITIES
+   ============================================================================ */
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-col-gap-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flex-col-gap-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.flex-row-gap-1 {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.flex-row-gap-2 {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+/* ============================================================================
+   TEXT & TYPOGRAPHY UTILITIES
+   ============================================================================ */
+
+.text-error {
+  color: var(--sys-error);
+}
+
+.text-primary {
+  color: var(--sys-primary);
+}
+
+.text-on-surface {
+  color: var(--sys-on-surface);
+}
+
+.text-on-surface-variant {
+  color: var(--sys-on-surface-variant);
+}
+
+.font-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-xl {
+  font-size: 1.5rem;
+}
+
+/* ============================================================================
+   ICON UTILITIES
+   ============================================================================ */
+
+.icon-base {
+  font-size: 24px;
+}
+
+.icon-lg {
+  font-size: 32px;
+}
+
+.icon-xl {
+  font-size: 40px;
+}
+
+.icon-2xl {
+  font-size: 2.5rem;
+}
+
+.icon-primary {
+  color: var(--sys-primary);
+}
+
+.icon-secondary {
+  color: var(--sys-secondary);
+}
+
+.icon-error {
+  color: var(--sys-error);
+}
+
+.icon-disabled {
+  opacity: 0.5;
+}
+
+/* ============================================================================
+   BUTTON UTILITIES
+   ============================================================================ */
+
+.button-icon-base {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--sys-primary);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.button-icon-base:hover {
+  background: var(--sys-surface-variant);
+}
+
+/* ============================================================================
+   SPACING & MARGIN UTILITIES
+   ============================================================================ */
+
+.gap-1 {
+  gap: 8px;
+}
+
+.gap-2 {
+  gap: 16px;
+}
+
+.gap-3 {
+  gap: 24px;
+}
+
+.gap-4 {
+  gap: 32px;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.mb-1 {
+  margin-bottom: 8px;
+}
+
+.mb-2 {
+  margin-bottom: 16px;
+}
+
+.mb-3 {
+  margin-bottom: 24px;
+}
+
+.mb-4 {
+  margin-bottom: 32px;
+}
+
+.mt-1 {
+  margin-top: 8px;
+}
+
+.mt-2 {
+  margin-top: 16px;
+}
+
+.p-2 {
+  padding: 16px;
+}
+
+.p-3 {
+  padding: 24px;
+}
+
+.p-4 {
+  padding: 32px;
+}
+
+.px-2 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.py-2 {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+/* ============================================================================
+   BACKGROUND UTILITIES
+   ============================================================================ */
+
+.bg-surface {
+  background: var(--sys-surface);
+}
+
+.bg-surface-variant {
+  background: var(--sys-surface-variant);
+}
+
+.bg-error-container {
+  background: var(--sys-error-container);
+}
+
+.bg-primary-container {
+  background: var(--sys-primary-container);
+}
+
+/* ============================================================================
+   BORDER & SHADOW UTILITIES
+   ============================================================================ */
+
+.border-divider {
+  border-bottom: 1px solid var(--sys-outline-variant);
+}
+
+.shadow-elevation-1 {
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.18);
+}
+
+.shadow-elevation-2 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.rounded-md {
+  border-radius: 12px;
+}
+
+.rounded-lg {
+  border-radius: 16px;
+}
+
+.rounded-xl {
+  border-radius: 20px;
+}
+
+/* ============================================================================
+   VISIBILITY & DISPLAY UTILITIES
+   ============================================================================ */
+
+.hidden {
+  display: none;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.opacity-70 {
+  opacity: 0.7;
+}
+
+/* ============================================================================
+   TRANSITION & ANIMATION UTILITIES
+   ============================================================================ */
+
+.transition-all {
+  transition: all 0.2s ease;
+}
+
+.transition-bg {
+  transition: background 0.2s;
+}
+
+.transition-color {
+  transition: color 0.2s;
+}
+
+.transition-transform {
+  transition: transform 0.2s;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================================
+   GRID LAYOUT UTILITIES
+   ============================================================================ */
+
+.grid-cols-1-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.grid-auto-flow-dense {
+  grid-auto-flow: dense;
+}
+
+/* ============================================================================
+   RESPONSIVE UTILITIES
+   ============================================================================ */
+
+@media (max-width: 640px) {
+  .dialog-container-legacy {
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .dialog-header-legacy {
+    padding: 12px 16px;
+  }
+
+  .dialog-content-legacy {
+    padding: 16px;
+  }
+
+  .dialog-footer-legacy {
+    padding: 12px 16px;
+  }
+
+  .grid-cols-1-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
+   POPOVERS & MENUS
+   ============================================================================ */
+
+.m3-popup-menu-legacy {
+  position: absolute;
+  background: var(--sys-surface);
+  border-radius: 12px;
+  box-shadow: var(--md-elevation-3);
+  z-index: 1100;
+  min-width: 200px;
+  padding: 8px 0;
+}
+
+/* ============================================================================
+   ERROR STATES
+   ============================================================================ */
+
+.error-container {
+  background: var(--sys-error-container);
+  color: var(--sys-on-error-container);
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.error-text {
+  color: var(--sys-error);
+  font-size: 0.875rem;
+}
+
+/* ============================================================================
+   PROGRESS & LOADING
+   ============================================================================ */
+
+.progress-bar {
+  height: 4px;
+  background: var(--sys-outline-variant);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--sys-primary);
+  transition: width 0.3s ease;
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}

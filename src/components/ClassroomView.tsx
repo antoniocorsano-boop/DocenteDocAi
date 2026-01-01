@@ -113,11 +113,27 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
         }
     };
 
-    const studentAverage = (studentId: string): string => {
-        const sEvals = evaluations.filter(e => e.studenteId === studentId);
-        const { grade } = calculatePerformance(studentId, 'Complessivo', sEvals);
-        return grade || '-';
-    };
+    const studentStats = useMemo(() => {
+        return classStudents.map(student => {
+            const sEvals = evaluations.filter(e => e.studenteId === student.id);
+            const { grade, trend } = calculatePerformance(student.id, 'Complessivo', sEvals);
+            const writtenEvals = sEvals.filter(e => e.tipo === 'Scritto');
+            const oralEvals = sEvals.filter(e => e.tipo === 'Orale');
+            const writtenAvg = writtenEvals.length > 0 ? (writtenEvals.reduce((a, b) => a + (parseFloat(b.voto) || 0), 0) / writtenEvals.length).toFixed(1) : '-';
+            const oralAvg = oralEvals.length > 0 ? (oralEvals.reduce((a, b) => a + (parseFloat(b.voto) || 0), 0) / oralEvals.length).toFixed(1) : '-';
+            const notes = observations[student.id] || '';
+            return {
+                student,
+                grade,
+                trend,
+                writtenCount: writtenEvals.length,
+                writtenAvg,
+                oralCount: oralEvals.length,
+                oralAvg,
+                notes
+            };
+        });
+    }, [classStudents, evaluations, observations]);
 
     const handlePrintHomework = async () => {
         if (!lesson) return;
@@ -191,58 +207,96 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         )}
 
-                        <div className="space-y-3">
-                            {classStudents.map(student => {
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                            {studentStats.map(stat => {
+                                const student = stat.student;
                                 const status = studentAttendance[student.id] || 'presente';
                                 const hwStatus = homeworkCheck[student.id];
                                 const badges = participation[student.id] || [];
 
                                 return (
-                                    <div key={student.id} className={`flex items-center p-3 rounded-2xl border transition-all ${status === 'assente' ? 'bg-surface-container-low border-transparent opacity-60' : 'bg-surface border-outline-variant shadow-sm'}`}>
-
-                                        <button
-                                            onClick={() => handleAttendanceToggle(student.id)}
-                                            className={`w-12 h-12 rounded-xl flex items-center justify-center mr-3 transition-colors flex-shrink-0 ${status === 'presente' ? 'bg-primary-container text-primary' :
-                                                    status === 'assente' ? 'bg-error-container text-error' : 'bg-tertiary-container text-tertiary'
-                                                }`}
-                                        >
-                                            <span className="material-symbols-outlined text-2xl">
-                                                {status === 'presente' ? 'check' : status === 'assente' ? 'close' : 'schedule'}
-                                            </span>
-                                        </button>
-
-                                        <div className="flex-grow min-w-0" onClick={() => setViewingStudentProfile(student)}>
-                                            <div className="flex justify-between items-start">
-                                                <h3 className={`m3-title-medium font-bold truncate leading-tight ${status === 'assente' ? 'line-through' : ''}`}>
-                                                    {student.cognome} {student.nome}
-                                                </h3>
-                                                <span className="m3-label-small font-mono bg-surface-container-high px-1.5 rounded text-on-surface-variant">
-                                                    Avg: {studentAverage(student.id)}
-                                                </span>
+                                    <div key={student.id} className="bg-surface-container rounded-3xl shadow-lg border border-outline-variant p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer" onClick={() => setViewingStudentProfile(student)}>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-2 items-center">
+                                            {/* Column 1: Avatar + Name + Presence + BES/DSA */}
+                                            <div className="flex items-center gap-2 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2">
+                                                <button
+                                                    onClick={(e) => { e.stopPropagation(); handleAttendanceToggle(student.id); }}
+                                                    className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors flex-shrink-0 ${status === 'presente' ? 'bg-primary-container text-primary' :
+                                                            status === 'assente' ? 'bg-error-container text-error' : 'bg-tertiary-container text-tertiary'
+                                                        }`}
+                                                >
+                                                    <span className="material-symbols-outlined text-lg">
+                                                        {status === 'presente' ? 'check' : status === 'assente' ? 'close' : 'schedule'}
+                                                    </span>
+                                                </button>
+                                                <Avatar name={student.nome} surname={student.cognome} className="w-8 h-8 flex-shrink-0" />
+                                                <div className="min-w-0 flex-1">
+                                                    <h3 className={`m3-title-small font-bold truncate ${status === 'assente' ? 'line-through' : ''}`}>
+                                                        {student.cognome} {student.nome}
+                                                    </h3>
+                                                    <p className="m3-body-small text-on-surface-variant truncate">{student.classe}</p>
+                                                </div>
                                             </div>
 
-                                            <div className="flex flex-wrap gap-2 mt-1">
+                                            {/* Column 2: Average + Trend */}
+                                            <div className="text-center col-span-1">
+                                                <span className={`m3-title-large font-bold ${parseFloat(stat.grade || '0') > 7 ? 'text-primary' : parseFloat(stat.grade || '0') > 6 ? 'text-secondary' : 'text-error'}`}>
+                                                    {stat.grade || '-'}
+                                                </span>
+                                                <div className="flex justify-center mt-1">
+                                                    <span className={`material-symbols-outlined text-lg ${stat.trend === 'up' ? 'animate-bounce text-tertiary' : stat.trend === 'down' ? 'animate-pulse text-error' : 'text-on-surface-variant'}`}>
+                                                        {stat.trend === 'up' ? 'trending_up' : stat.trend === 'down' ? 'trending_down' : 'trending_flat'}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Column 3: Written Evals */}
+                                            <div className="text-center col-span-1">
+                                                <span className="m3-label-small text-on-surface-variant block">Scritti</span>
+                                                <p className="m3-body-large font-bold">{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</p>
+                                            </div>
+
+                                            {/* Column 4: Oral Evals */}
+                                            <div className="text-center col-span-1">
+                                                <span className="m3-label-small text-on-surface-variant block">Orali</span>
+                                                <p className="m3-body-large font-bold">{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</p>
+                                            </div>
+
+                                            {/* Column 5: Notes */}
+                                            <div className="text-center col-span-1">
+                                                {stat.notes ? (
+                                                    <span className="material-symbols-outlined text-primary text-lg" title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
+                                                ) : (
+                                                    <span className="text-outline">-</span>
+                                                )}
+                                            </div>
+
+                                            {/* Column 6: Homework + Participation */}
+                                            <div className="flex flex-col items-center gap-1 col-span-1">
                                                 {hwStatus && (
-                                                    <span className={`text-[10px] px-1.5 rounded border ${hwStatus === 'missing' ? 'border-error text-error' :
-                                                            hwStatus === 'partial' ? 'border-outline text-on-surface-variant' : 'border-primary text-primary'
+                                                    <span className={`text-xs px-2 py-1 rounded-full border ${hwStatus === 'missing' ? 'border-error text-error bg-error-container' :
+                                                            hwStatus === 'partial' ? 'border-outline text-on-surface-variant bg-surface-container' : 'border-primary text-primary bg-primary-container'
                                                         }`}>
-                                                        {hwStatus === 'missing' ? 'No Compiti' : hwStatus === 'partial' ? 'Parziali' : 'Compiti OK'}
+                                                        {hwStatus === 'missing' ? 'No Compiti' : hwStatus === 'partial' ? 'Parziali' : 'OK'}
                                                     </span>
                                                 )}
                                                 {badges.length > 0 && (
-                                                    <span className="text-[10px] px-1.5 rounded bg-secondary-container text-on-secondary-container flex items-center gap-1">
-                                                        <span className="material-symbols-outlined text-[10px]">star</span> {badges.length}
+                                                    <span className="text-xs px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container flex items-center gap-1">
+                                                        <span className="material-symbols-outlined text-xs">star</span> {badges.length}
                                                     </span>
                                                 )}
                                             </div>
-                                        </div>
 
-                                        <button
-                                            onClick={() => setSelectedStudentForActions(student)}
-                                            className="icon-button ml-1 text-on-surface-variant"
-                                        >
-                                            <span className="material-symbols-outlined">more_vert</span>
-                                        </button>
+                                            {/* Column 7: Actions */}
+                                            <div className="text-center col-span-1">
+                                                <button
+                                                    onClick={(e) => { e.stopPropagation(); setSelectedStudentForActions(student); }}
+                                                    className="icon-button text-on-surface-variant"
+                                                >
+                                                    <span className="material-symbols-outlined">more_vert</span>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 );
                             })}

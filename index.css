@@ -4,6 +4,7 @@
 @import './theme.css';
 @import './layout.css';
 @import './components.css';
+@import './src/design-system/legacyStyles.css';
 @import './logo.css';
 @import './modules.css';
 

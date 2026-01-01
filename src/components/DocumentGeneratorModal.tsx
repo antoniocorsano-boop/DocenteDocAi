@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextArea } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface DocumentGeneratorModalProps {
     onClose: () => void;
@@ -18,17 +19,16 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
     };
 
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-lg">
-                <div className="dialog-header">
-                    <h2 className="m3-headline-medium font-black">Crea Documento Formattato</h2>
-                    <button type="button" onClick={onClose} className="icon-button rounded-lg hover:shadow-md transition-all">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                <div className="dialog-content space-y-6">
+        <M3Dialog
+            title="Crea Documento Formattato"
+            open={true}
+            onClose={onClose}
+            maxWidth="sm"
+        >
+            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-6">
+                <M3DialogContent className="space-y-6">
                     <TextArea
-                        id="doc-generator-prompt" // FIX: Add ID
+                        id="doc-generator-prompt"
                         label="Descrivi il documento che vuoi creare"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
@@ -36,16 +36,17 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
                         placeholder="Es. 'Scrivi una relazione dettagliata sul Rinascimento italiano, organizzata in sezioni per arte, scienza e politica.'..."
                         autoFocus
                     />
-                </div>
-                <div className="dialog-footer">
+                </M3DialogContent>
+
+                <M3DialogActions className="gap-2">
                     <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Annulla</button>
                     <button type="button" onClick={handleSubmit} className="button button-filled rounded-lg hover:shadow-md transition-all">
                         <span className="material-symbols-outlined mr-2">auto_awesome</span>
                         Genera Documento
                     </button>
-                </div>
-            </div>
-        </div>
+                </M3DialogActions>
+            </form>
+        </M3Dialog>
     );
 };
 

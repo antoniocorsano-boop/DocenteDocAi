@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { generateContent } from '../services/aiService';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface AssistantModalProps {
   open: boolean;
@@ -57,7 +58,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       const file = e.target.files[0];
       const uploaded = await uploadNotebookFile(file);
       setNbFiles(files => [uploaded, ...files]);
-    } catch (err) {
+    } catch {
       setNbError('Errore upload file');
     } finally {
       setNbLoading(false);
@@ -71,7 +72,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
     try {
       await deleteNotebookFile(id);
       setNbFiles(files => files.filter(f => f.id !== id));
-    } catch (err) {
+    } catch {
       setNbError('Errore eliminazione file');
     } finally {
       setNbLoading(false);
@@ -84,7 +85,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
     try {
       const files = await fetchNotebookFiles();
       setNbFiles(files);
-    } catch (err) {
+    } catch {
       setNbError('Errore sincronizzazione');
     } finally {
       setNbLoading(false);
@@ -95,7 +96,6 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [voiceError, setVoiceError] = useState<string | null>(null);
-  const [voiceSupported, setVoiceSupported] = useState(true);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -103,7 +103,6 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   const startVoiceInput = () => {
     setVoiceError(null);
     if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-      setVoiceSupported(false);
       setVoiceError('Il riconoscimento vocale non è supportato su questo browser.');
       return;
     }
@@ -188,7 +187,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
     try {
       const aiResponse = await generateContent(text, { temperature: 0.7, maxTokens: 1000 });
       setMessages((msgs) => [...msgs, { role: 'ai', text: aiResponse.content || 'Nessuna risposta.' }]);
-    } catch (err) {
+    } catch {
       setMessages((msgs) => [...msgs, { role: 'ai', text: 'Si è verificato un errore nella generazione della risposta.' }]);
     } finally {
       setLoading(false);
@@ -201,216 +200,136 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   };
 
   return (
-    <div className="assistant-modal-overlay" role="dialog" aria-modal="true" aria-label="Assistente AI">
-      <div className="assistant-modal mui-elevation-3">
-        <header className="assistant-modal-header">
-          <span className="material-symbols-outlined" style={{fontSize: '2rem', marginRight: 8}}>smart_toy</span>
-          <h3 className="assistant-modal-title">Assistente DocenteDoc AI</h3>
-          <button
-            className="assistant-exit-btn"
-            onClick={e => { e.stopPropagation(); onClose(); }}
-            aria-label="Chiudi"
-          >
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </header>
-        <div className="assistant-modal-body">
-          {mode === 'chat' && (
-            <>
-              <div className="assistant-messages">
-                {messages.length === 0 && (
-                  <div className="assistant-empty">Come posso aiutarti?</div>
-                )}
-                {messages.map((msg, i) => (
-                  <div key={i} className={`assistant-msg assistant-msg-${msg.role}`}>{msg.text}</div>
-                ))}
-                {loading && <div className="assistant-msg assistant-msg-ai loading">Sto pensando…</div>}
+    <M3Dialog
+      title="Assistente DocenteDoc AI"
+      onClose={onClose}
+      maxWidth="md"
+    >
+      <M3DialogContent className="space-y-4">
+        {mode === 'chat' && (
+          <>
+            <div className="assistant-messages space-y-2 h-64 overflow-y-auto">
+              {messages.length === 0 && (
+                <div className="text-center text-primary m3-body-medium py-6">Come posso aiutarti?</div>
+              )}
+              {messages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`m3-body-small p-3 rounded-2xl ${
+                    msg.role === 'user'
+                      ? 'bg-primary text-on-primary ml-8'
+                      : 'bg-surface-variant text-on-surface-variant mr-8'
+                  }`}
+                >
+                  {msg.text}
+                </div>
+              ))}
+              {loading && <div className="m3-body-small text-on-surface-variant italic">Sto pensando…</div>}
+            </div>
+            <div className="assistant-prompts flex flex-wrap gap-2">
+              {SUGGESTED_PROMPTS.map((p) => (
+                <button
+                  key={p}
+                  className="chip bg-secondary-container text-on-secondary-container text-xs px-3 py-1 rounded-full hover:bg-secondary transition-colors"
+                  onClick={() => handlePrompt(p)}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+
+        {mode === 'docs' && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-secondary">import_contacts</span>
+                <h3 className="m3-title-medium">NotebookLM</h3>
               </div>
-              <div className="assistant-prompts">
-                {SUGGESTED_PROMPTS.map((p) => (
-                  <button key={p} className="assistant-prompt-btn" onClick={() => handlePrompt(p)}>{p}</button>
-                ))}
-              </div>
-            </>
-          )}
-          {mode === 'docs' && (
-            <div className="assistant-docs">
-              <div className="assistant-docs-header">
-                <span className="material-symbols-outlined">import_contacts</span>
-                <span style={{fontWeight:600, fontSize:'1.08rem'}}>NotebookLM</span>
-                <button className="mui-fab-expressive assistant-docs-sync" onClick={handleNbSync} title="Sincronizza" disabled={nbLoading}>
+              <div className="flex gap-2">
+                <button
+                  className="icon-button"
+                  onClick={handleNbSync}
+                  title="Sincronizza"
+                  disabled={nbLoading}
+                >
                   <span className="material-symbols-outlined">sync</span>
                 </button>
-                <input type="file" ref={nbFileInput} style={{display:'none'}} onChange={handleNbUpload} accept=".txt,.md,.pdf,.docx" />
-                <button className="mui-fab-expressive assistant-docs-upload" onClick={()=>nbFileInput.current?.click()} title="Carica file" disabled={nbLoading}>
+                <input
+                  type="file"
+                  ref={nbFileInput}
+                  className="hidden-input"
+                  onChange={handleNbUpload}
+                  accept=".txt,.md,.pdf,.docx"
+                />
+                <button
+                  className="icon-button"
+                  onClick={() => nbFileInput.current?.click()}
+                  title="Carica file"
+                  disabled={nbLoading}
+                >
                   <span className="material-symbols-outlined">upload</span>
                 </button>
               </div>
-              {nbError && <div className="assistant-docs-error">{nbError}</div>}
-              {nbLoading && <div className="assistant-docs-loading">Caricamento…</div>}
-              <div className="assistant-docs-list">
-                {nbFiles.length === 0 && !nbLoading && <div className="assistant-empty">Nessun file NotebookLM caricato.</div>}
-                {nbFiles.map(f => (
-                  <div key={f.id} className="assistant-docs-file mui-elevation-1">
-                    <span className="material-symbols-outlined">description</span>
-                    <span className="assistant-docs-filename">{f.name}</span>
-                    <span className="assistant-docs-date">{new Date(f.lastModified).toLocaleDateString()}</span>
-                    <button className="assistant-docs-delete" onClick={()=>handleNbDelete(f.id)} title="Elimina">
-                      <span className="material-symbols-outlined">delete</span>
-                    </button>
+            </div>
+            {nbError && <div className="m3-body-small text-error p-2 bg-error-container rounded">{nbError}</div>}
+            {nbLoading && <div className="m3-body-small text-on-surface-variant">Caricamento…</div>}
+            <div className="space-y-2 max-h-48 overflow-y-auto">
+              {nbFiles.map(file => (
+                <div key={file.id} className="flex items-center justify-between bg-surface-container p-2 rounded-xl">
+                  <div className="flex-1 min-w-0">
+                    <p className="m3-body-small font-medium truncate">{file.name}</p>
+                    <p className="m3-body-small text-on-surface-variant text-xs">{new Date(file.lastModified).toLocaleDateString()}</p>
                   </div>
-                ))}
-              </div>
+                  <button
+                    className="icon-button text-error"
+                    onClick={() => handleNbDelete(file.id)}
+                  >
+                    <span className="material-symbols-outlined text-lg">delete</span>
+                  </button>
+                </div>
+              ))}
             </div>
-          )}
-          {mode === 'tools' && (
-            <div className="assistant-tools">
-              <div className="assistant-empty">Analisi classe/studente, Ricerca web AI, Tools rapidi…</div>
-            </div>
-          )}
-          {mode === 'backup' && (
-            <div className="assistant-backup">
-              <div className="assistant-empty">Backup locale, Google Drive, Restore…</div>
-            </div>
-          )}
+          </div>
+        )}
+      </M3DialogContent>
+
+      {/* Input Footer */}
+      <M3DialogActions className="!flex-col gap-3">
+        <div className="flex gap-2 items-end">
+          <input
+            ref={inputRef}
+            type="text"
+            value={isRecording ? transcript : input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            placeholder="Scrivi una domanda…"
+            className={`flex-1 rounded-full px-4 py-2 border m3-body-medium ${
+              isRecording ? 'border-error bg-error-container' : 'border-outline-variant bg-surface-container'
+            }`}
+            disabled={loading}
+          />
+          <button
+            className={`icon-button ${isRecording ? 'text-error' : 'text-secondary'}`}
+            onClick={isRecording ? stopVoiceInput : startVoiceInput}
+            title={isRecording ? 'Stop' : 'Voice input'}
+          >
+            <span className="material-symbols-outlined">
+              {isRecording ? 'mic' : 'mic_none'}
+            </span>
+          </button>
+          <button
+            className="button button-filled !px-6"
+            onClick={handleSend}
+            disabled={loading || !input.trim()}
+          >
+            <span className="material-symbols-outlined">send</span>
+          </button>
         </div>
-        {mode === 'chat' && (
-          <form className="assistant-modal-footer" onSubmit={e => { e.preventDefault(); handleSend(); }}>
-            <input
-              ref={inputRef}
-              type="text"
-              className={`assistant-input${isRecording ? ' listening' : ''}`}
-              placeholder={isRecording ? "Sto ascoltando..." : "Scrivi una domanda o un comando..."}
-              value={isRecording ? transcript : input}
-              onChange={e => setInput(e.target.value)}
-              disabled={loading || isRecording}
-              aria-label="Scrivi una domanda o comando per l'assistente"
-              style={isRecording ? { background: 'var(--sys-secondary-container, #f0f0f0)', color: 'var(--sys-error)', fontWeight: 600 } : {}}
-            />
-            <button
-              type="button"
-              className={`assistant-mic-btn${isRecording ? ' recording' : ''}`}
-              onClick={isRecording ? stopVoiceInput : startVoiceInput}
-              aria-label={isRecording ? 'Ferma dettatura' : 'Detta domanda'}
-              disabled={loading || !voiceSupported}
-              title={voiceSupported ? (isRecording ? 'Ferma dettatura' : 'Detta domanda') : 'Riconoscimento vocale non supportato'}
-            >
-              <span className="material-symbols-outlined">{isRecording ? 'stop_circle' : 'mic'}</span>
-            </button>
-            <button type="submit" className="assistant-send-btn" disabled={loading || !input.trim() || isRecording}>
-              <span className="material-symbols-outlined">send</span>
-            </button>
-          </form>
-        )}
-        {isRecording && (
-          <div className="assistant-voice-feedback">
-            <span className="material-symbols-outlined pulse">graphic_eq</span>
-            <span>Dettatura in corso… Parla ora.</span>
-          </div>
-        )}
-        {voiceError && (
-          <div className="assistant-voice-error">
-            <span className="material-symbols-outlined">error</span> {voiceError}
-          </div>
-        )}
-      </div>
-      <style>{`
-        .assistant-docs-header {
-          display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.7rem;
-        }
-        .assistant-docs-upload, .assistant-docs-sync {
-          background: var(--sys-primary, #1976d2); color: var(--sys-on-primary, #fff); border: none; border-radius: 50%; width: 2.2rem; height: 2.2rem; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-left: 0.2rem; cursor: pointer; transition: background 0.18s;
-        }
-        .assistant-docs-upload:hover, .assistant-docs-sync:hover {
-          background: var(--sys-primary-container, #1565c0);
-        }
-        .assistant-docs-list {
-          display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;
-        }
-        .assistant-docs-file {
-          display: flex; align-items: center; gap: 0.7rem; background: var(--sys-surface, #fff); border-radius: 1.1rem; padding: 0.5rem 1rem; font-size: 1.01rem; color: var(--sys-on-surface, #222); position: relative;
-        }
-        .assistant-docs-filename { flex: 1; font-weight: 500; }
-        .assistant-docs-date { font-size: 0.97rem; color: var(--sys-primary); margin-right: 0.7rem; } // MD3 fix
-        .assistant-docs-delete {
-          background: none; border: none; color: var(--sys-error); font-size: 1.3rem; cursor: pointer; border-radius: 50%; padding: 0.2rem; transition: background 0.18s;
-        }
-        .assistant-docs-delete:hover { background: #ffeaea; }
-        .assistant-docs-error { color: var(--sys-error); margin-bottom: 0.5rem; }
-        .assistant-docs-loading { color: var(--sys-primary, #1976d2); margin-bottom: 0.5rem; }
-        .mui-elevation-3 { box-shadow: var(--md-elevation-1); /* MD3 fix */ }
-        .assistant-modal {
-          background: var(--sys-surface, #fff); color: var(--sys-on-surface, #222); border-radius: var(--md-corner-16); /* MD3 fix */ box-shadow: var(--md-elevation-1); /* MD3 fix */
-          width: 95vw; max-width: 420px; min-height: 340px; display: flex; flex-direction: column; overflow: hidden; z-index: 2000;
-        }
-        .assistant-empty { color: var(--sys-primary); /* MD3 fix */ text-align: center; margin: 2rem 0; }
-        .assistant-modal-title { font-size: 1.18rem; font-weight: 600; flex: 1; margin: 0; }
-        .assistant-modal-overlay {
-          position: fixed; inset: 0; background: rgba(0,0,0,0.18); z-index: 2000; display: flex; align-items: center; justify-content: center;
-        }
-        .assistant-modal-header { display: flex; align-items: center; gap: 0.5rem; padding: 1rem 1.2rem 0.5rem 1.2rem; border-bottom: 1px solid var(--sys-outline-variant, #eee); position: relative; }
-        .assistant-modal-header h3 { flex: 1; font-size: 1.1rem; font-weight: 600; margin: 0; }
-        .assistant-exit-btn { font-size: 1.7rem; background: none; border: none; cursor: pointer; color: var(--sys-on-surface, #222); position: absolute; right: 1rem; top: 0.7rem; padding: 0.2rem; border-radius: 50%; transition: background 0.2s; }
-        .assistant-exit-btn:hover { background: var(--sys-surface-variant, #f5f5f5); }
-        .assistant-modal-body { flex: 1; display: flex; flex-direction: column; padding: 1rem 1.2rem 0.5rem 1.2rem; gap: 0.5rem; }
-        .assistant-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.4rem; }
-        .assistant-msg { padding: 0.5rem 0.8rem; border-radius: 1rem; max-width: 90%; font-size: 1rem; }
-        .assistant-msg-user { align-self: flex-end; background: var(--sys-primary, #e3f2fd); color: var(--sys-on-primary, #222); }
-        .assistant-msg-ai { align-self: flex-start; background: var(--sys-surface-variant, #f5f5f5); color: var(--sys-on-surface-variant, #444); }
-        .assistant-msg-ai.loading { opacity: 0.7; font-style: italic; }
-        .assistant-empty { color: var(--sys-primary); /* MD3 fix */ text-align: center; margin: 2rem 0; }
-        .assistant-prompts { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
-        .assistant-prompt-btn { background: var(--sys-secondary-container, #f0f0f0); color: var(--sys-on-secondary-container, #333); border: none; border-radius: 1rem; padding: 0.3rem 0.9rem; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
-        .assistant-prompt-btn:hover { background: var(--sys-secondary, #e3f2fd); }
-        .assistant-modal-footer { display: flex; gap: 0.5rem; padding: 0.7rem 1.2rem 1rem 1.2rem; border-top: 1px solid var(--sys-outline-variant, #eee); }
-        .assistant-input { flex: 1; border: 1px solid var(--sys-outline-variant, #ccc); border-radius: 1rem; padding: 0.5rem 1rem; font-size: 1rem; }
-        .assistant-send-btn { background: var(--sys-primary, #1976d2); color: var(--sys-on-primary, #fff); border: none; border-radius: 50%; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; transition: background 0.2s; }
-        .assistant-send-btn:disabled { background: #ccc; cursor: not-allowed; }
-        .assistant-input.listening {
-          border: 2px solid var(--sys-error);
-          background: var(--sys-secondary-container, #f0f0f0);
-          color: var(--sys-error);
-          font-weight: 600;
-        }
-        .assistant-mic-btn {
-          background: var(--sys-secondary, #e3f2fd);
-          color: var(--sys-on-secondary, #222);
-          border: none;
-          border-radius: 50%;
-          width: 2.5rem;
-          height: 2.5rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.5rem;
-          margin-right: 0.2rem;
-          cursor: pointer;
-          transition: background 0.2s, color 0.2s;
-        }
-        .assistant-mic-btn.recording {
-          background: var(--sys-error-container, #ffebee);
-          color: var(--sys-error);
-          animation: pulse-mic 1.2s infinite;
-        }
-        @keyframes pulse-mic {
-          0% { box-shadow: var(--md-elevation-4); /* MD3 fix */ }
-          70% { box-shadow: var(--md-elevation-3); /* MD3 fix */ }
-          100% { box-shadow: var(--md-elevation-4); /* MD3 fix */ }
-        }
-        .assistant-voice-feedback {
-          display: flex; align-items: center; gap: 0.5rem; color: var(--sys-error); font-weight: 600; margin: 0.5rem 0 0.2rem 0.2rem; font-size: 1.05rem;
-        }
-        .assistant-voice-feedback .pulse { animation: pulse-mic 1.2s infinite; }
-        .assistant-voice-error {
-          display: flex; align-items: center; gap: 0.4rem; color: var(--sys-error); background: #fff0f0; border-radius: 0.7rem; padding: 0.3rem 0.8rem; margin: 0.3rem 0 0.2rem 0.2rem; font-size: 0.98rem;
-        }
-        @media (max-width: 600px) {
-          .assistant-modal { width: 100vw; min-height: 100vh; max-width: 100vw; border-radius: 0; box-shadow: var(--md-elevation-4); /* MD3 fix */ z-index: 2000; }
-          .assistant-modal-header, .assistant-modal-body, .assistant-modal-footer { padding-left: 1rem; padding-right: 1rem; }
-          .assistant-exit-btn { right: 0.7rem; top: 0.7rem; }
-        }
-      `}</style>
-    </div>
+        {voiceError && <p className="m3-body-small text-error">{voiceError}</p>}
+      </M3DialogActions>
+    </M3Dialog>
   );
 }
 

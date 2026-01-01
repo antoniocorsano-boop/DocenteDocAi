@@ -3,7 +3,8 @@ import { PianoInclusione, PianoInclusioneEditorProps } from '../types';
 import { getPIPSuggestion } from '../services/aiService';
 import { TextArea } from './M3Components';
 import AiThinkingGem from './AiThinkingGem';
-import './dialog-container.css';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+// REFACTOR: Rimosso import './dialog-container.css' - ora usando M3Dialog con CSS centralizzato
 
 type SectionKey = 'puntiDiForza' | 'areeDiIntervento' | 'misureCompensative' | 'misureDispensative' | 'criteriValutazionePersonalizzati';
 
@@ -72,21 +73,29 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
     ];
 
     return (
-        <div className="dialog-backdrop">
-            <form onSubmit={handleSubmit} className="dialog-container w-full max-w-2xl shadow-xl">
-                <div className="dialog-header border-b border-outline-variant p-6 bg-surface-container-high">
-                    <div>
-                        <h2 className="m3-headline-medium font-black">Piano di Inclusione</h2>
-                        <p className="text-[10px] font-black uppercase tracking-[0.3em] mt-1 opacity-80">{student.cognome} {student.nome} - Classe {student.classe}</p>
+        <M3Dialog
+            title="Piano di Inclusione"
+            open={true}
+            onClose={onClose}
+            maxWidth="lg"
+            ariaLabel={`Piano di Inclusione per ${student.cognome} ${student.nome}`}
+        >
+            <form onSubmit={handleSubmit} className="flex flex-col gap-0">
+                <M3DialogContent className="p-8 space-y-8 overflow-y-auto max-h-[70vh]">
+                    {/* Subtitle */}
+                    <div className="pb-4 border-b border-outline-variant">
+                        <p className="m3-body-medium text-on-surface-variant">
+                            {student.cognome} {student.nome} • Classe {student.classe}
+                        </p>
                     </div>
-                    <button type="button" onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                <div className="dialog-content p-8 space-y-8 overflow-y-auto bg-surface">
+
+                    {/* Sections */}
                     {sections.map(section => (
-                        <div key={section.key}>
-                            <div className="flex justify-end items-end mb-4">
+                        <div key={section.key} className="space-y-3">
+                            <div className="flex justify-between items-center">
+                                <label htmlFor={section.key} className="m3-title-medium">
+                                    {section.label}
+                                </label>
                                 <button
                                     type="button"
                                     onClick={() => handleGenerateText(section.key)}
@@ -99,12 +108,12 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     ) : (
                                         <span className="material-symbols-outlined mr-1 text-base">auto_awesome</span>
                                     )}
-                                    {loadingSection === section.key ? '' : 'Compila con AI'}
+                                    {loadingSection === section.key ? '' : 'AI'}
                                 </button>
                             </div>
                             <TextArea
                                 id={section.key}
-                                label={section.label}
+                                label=""
                                 value={piano[section.key]}
                                 onChange={e => handleChange(section.key, e.target.value)}
                                 rows={5}
@@ -113,18 +122,36 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                             />
                         </div>
                     ))}
-                </div>
-                <div className="dialog-footer bg-surface-container-high p-6 border-t border-outline-variant">
+                </M3DialogContent>
+
+                {/* Actions */}
+                <M3DialogActions className="gap-2 bg-surface-container-high p-6 border-t border-outline-variant">
                     {existingPiano && (
-                        <button type="button" onClick={handleDelete} className="button button-outlined-error mr-auto rounded-lg hover:shadow-md transition-all">
-                            <span className="material-symbols-outlined mr-2">delete</span> Elimina Piano
+                        <button
+                            type="button"
+                            onClick={handleDelete}
+                            className="button button-outlined-error mr-auto rounded-lg hover:shadow-md transition-all"
+                        >
+                            <span className="material-symbols-outlined mr-2">delete</span>
+                            Elimina
                         </button>
                     )}
-                    <button type="button" onClick={onClose} className="button button-text font-bold">Annulla</button>
-                    <button type="submit" className="button button-filled shadow-xl font-black !px-10">Salva Piano</button>
-                </div>
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className="button button-text font-bold"
+                    >
+                        Annulla
+                    </button>
+                    <button
+                        type="submit"
+                        className="button button-filled shadow-xl font-black !px-10"
+                    >
+                        Salva Piano
+                    </button>
+                </M3DialogActions>
             </form>
-        </div>
+        </M3Dialog>
     );
 };
 

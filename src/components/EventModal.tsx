@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { useModalAccessibility } from '../hooks/useModalAccessibility';
+import React, { useState } from 'react';
 import { EventoCalendario, TipoEvento } from '../types';
 import { TextField, TextArea, M3ChoiceCard } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface EventModalProps {
     eventToEdit?: Partial<EventoCalendario>;
@@ -51,35 +51,14 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
         onSave(eventToSave);
     };
 
-    // Accessibility & UX
-    const overlayRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
-    useModalAccessibility({
-        isOpen: true,
-        onClose,
-        overlayRef,
-        containerRef,
-        onOverlayClick: onClose
-    });
-
     return (
-        <div className="dialog-backdrop animate-fade-in" ref={overlayRef}>
-            <div
-                ref={containerRef}
-                role="dialog"
-                aria-modal="true"
-                tabIndex={-1}
-                className="dialog-container w-full max-w-lg sm:max-w-full md:max-w-lg max-h-[90vh] overflow-y-auto shadow-xl p-4 sm:p-2 md:p-6 animate-scale-in"
-            >
-                <form onSubmit={handleSubmit}>
-                <div className="dialog-header border-b border-outline-variant bg-surface-container-high p-6">
-                    <h2 className="m3-headline-small font-extrabold">{event.id ? 'Modifica Evento' : 'Nuovo Evento'}</h2>
-                    <button type="button" onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                
-                <div className="dialog-content p-6 space-y-6">
+        <M3Dialog
+            title={event.id ? 'Modifica Evento' : 'Nuovo Evento'}
+            onClose={onClose}
+            maxWidth="lg"
+        >
+            <M3DialogContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                         <label className="text-[11px] text-primary font-extrabold uppercase tracking-[0.25em] px-2 mb-4 block">Tipo Evento</label>
                         <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
@@ -134,20 +113,18 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                         onChange={e => handleChange('descrizione', e.target.value)} 
                         rows={3}
                     />
-                </div>
-
-                <div className="dialog-footer bg-surface-container-high p-6 border-t border-outline-variant">
-                    {event.id && (
-                        <button type="button" onClick={() => onDelete(event.id!)} className="button button-text !text-error mr-auto font-extrabold">
-                            Elimina
-                        </button>
-                    )}
-                    <button type="button" onClick={onClose} className="button button-text font-bold">Annulla</button>
-                    <button type="submit" className="button button-filled shadow-lg font-extrabold !px-10">Salva</button>
-                </div>
                 </form>
-            </div>
-        </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                {event.id && (
+                    <button onClick={() => onDelete(event.id!)} className="button button-text !text-error mr-auto font-extrabold">
+                        Elimina
+                    </button>
+                )}
+                <button onClick={onClose} className="button button-text font-bold">Annulla</button>
+                <button onClick={handleSubmit} className="button button-filled shadow-lg font-extrabold !px-10">Salva</button>
+            </M3DialogActions>
+        </M3Dialog>
     );
 };
 

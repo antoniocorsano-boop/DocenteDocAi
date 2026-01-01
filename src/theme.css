@@ -441,3 +441,352 @@ body {
   font-weight: var(--typography-label-small-fontWeight);
   line-height: var(--typography-label-small-lineHeight);
 }
+
+/* --- M3 COMPONENT CLASSES (COMPLETE AUDIT SPEC) --- */
+
+/* M3 Card Component - Foundation */
+.m3-card {
+  background: var(--sys-surface-container);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--sys-outline-variant);
+  transition: all 0.3s var(--motion-easing-standard);
+}
+
+.m3-card:hover {
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+  border-color: var(--sys-outline);
+}
+
+.m3-card-elevated {
+  background: var(--sys-surface-container-low);
+  box-shadow: 0 3px 8px 0 rgba(103, 80, 164, 0.12);
+  border: none;
+}
+
+.m3-card-outlined {
+  background: transparent;
+  border: 2px solid var(--sys-outline-variant);
+}
+
+/* M3 Button Components */
+.m3-button-filled {
+  background: var(--sys-primary);
+  color: var(--sys-on-primary);
+  border: none;
+  border-radius: 100px;
+  padding: 10px 24px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s var(--motion-easing-standard);
+}
+
+.m3-button-filled:hover {
+  background: var(--sys-primary-container);
+  color: var(--sys-on-primary-container);
+  box-shadow: 0 4px 12px 0 rgba(103, 80, 164, 0.15);
+}
+
+.m3-button-filled:active {
+  scale: 0.95;
+}
+
+.m3-button-tonal {
+  background: var(--sys-secondary-container);
+  color: var(--sys-on-secondary-container);
+  border: none;
+  border-radius: 100px;
+  padding: 10px 24px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s var(--motion-easing-standard);
+}
+
+.m3-button-tonal:hover {
+  background: var(--sys-secondary);
+  color: var(--sys-on-secondary);
+  box-shadow: 0 4px 12px 0 rgba(98, 91, 113, 0.15);
+}
+
+.m3-button-outlined {
+  background: transparent;
+  border: 2px solid var(--sys-outline);
+  color: var(--sys-primary);
+  border-radius: 100px;
+  padding: 8px 24px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s var(--motion-easing-standard);
+}
+
+.m3-button-outlined:hover {
+  background: var(--sys-primary-container);
+  border-color: var(--sys-primary);
+}
+
+.m3-button-text {
+  background: transparent;
+  border: none;
+  color: var(--sys-primary);
+  padding: 8px 12px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s var(--motion-easing-standard);
+}
+
+.m3-button-text:hover {
+  background: var(--sys-primary-container);
+}
+
+/* M3 Icon Button */
+.icon-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  border: none;
+  background: transparent;
+  color: var(--sys-on-surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s var(--motion-easing-standard);
+}
+
+.icon-button:hover {
+  background: var(--sys-surface-container-highest);
+}
+
+.icon-button.icon-button-filled {
+  background: var(--sys-primary);
+  color: var(--sys-on-primary);
+}
+
+.icon-button.icon-button-filled:hover {
+  background: var(--sys-primary-container);
+  color: var(--sys-on-primary-container);
+}
+
+/* Modal System - Complete */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: var(--z-modal-backdrop);
+  animation: fade-in 0.3s var(--motion-easing-standard) forwards;
+}
+
+.modal-panel {
+  position: relative;
+  background: var(--sys-surface-container-high);
+  border-radius: 28px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  z-index: var(--z-modal);
+  overflow: hidden;
+  animation: zoom-in-95 0.3s var(--motion-easing-standard) forwards;
+  border: 1px solid var(--sys-outline-variant);
+}
+
+.modal-panel-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--sys-outline-variant);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-panel-header .m3-headline-small {
+  margin: 0;
+  font-weight: 500;
+}
+
+.modal-panel-content {
+  padding: 24px;
+  overflow-y: auto;
+  max-height: calc(90vh - 120px);
+}
+
+.modal-panel-footer {
+  padding: 24px;
+  border-top: 1px solid var(--sys-outline-variant);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background: var(--sys-surface-container-high);
+}
+
+/* Custom Scrollbar for modals */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--sys-outline-variant);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--sys-outline);
+}
+
+/* Field Components - Input, Select, Textarea */
+.m3-field-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.m3-field-label {
+  font-size: var(--typography-label-large-fontSize);
+  font-weight: var(--typography-label-large-fontWeight);
+  color: var(--sys-on-surface);
+}
+
+.m3-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sys-surface-container);
+  border: 1px solid var(--sys-outline-variant);
+  border-radius: 12px;
+  padding: 12px 16px;
+  transition: all 0.2s var(--motion-easing-standard);
+}
+
+.m3-field-wrapper:focus-within {
+  border-color: var(--sys-primary);
+  box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.1);
+}
+
+.m3-field-wrapper.error {
+  border-color: var(--sys-error);
+}
+
+.m3-field-input,
+.m3-field-select {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--sys-on-surface);
+  font-size: var(--typography-body-large-fontSize);
+  font-family: inherit;
+  outline: none;
+}
+
+.m3-field-input::placeholder,
+.m3-field-select::placeholder {
+  color: var(--sys-on-surface-variant);
+  opacity: 0.6;
+}
+
+.m3-field-error {
+  font-size: var(--typography-label-medium-fontSize);
+  color: var(--sys-error);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Chip Component */
+.m3-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: var(--sys-surface-container);
+  color: var(--sys-on-surface);
+  border: 1px solid var(--sys-outline-variant);
+  font-size: var(--typography-label-large-fontSize);
+  font-weight: 500;
+  transition: all 0.2s var(--motion-easing-standard);
+  cursor: default;
+}
+
+.m3-chip:hover {
+  background: var(--sys-surface-container-high);
+  border-color: var(--sys-outline);
+}
+
+.m3-chip-filled {
+  background: var(--sys-primary-container);
+  color: var(--sys-on-primary-container);
+  border: none;
+}
+
+.m3-chip-filled:hover {
+  background: var(--sys-primary);
+  color: var(--sys-on-primary);
+}
+
+/* Navigation Rail */
+.nav-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 4px;
+  background: var(--sys-surface);
+  border-right: 1px solid var(--sys-outline-variant);
+  z-index: var(--z-nav);
+  width: fit-content;
+}
+
+.nav-rail-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all 0.2s var(--motion-easing-standard);
+  color: var(--sys-on-surface-variant);
+}
+
+.nav-rail-item:hover {
+  background: var(--sys-surface-container-high);
+  color: var(--sys-on-surface);
+}
+
+.nav-rail-item.active {
+  background: var(--sys-primary-container);
+  color: var(--sys-primary);
+}
+
+/* Animation keyframes for modals */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in-95 {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

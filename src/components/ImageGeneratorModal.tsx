@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextArea } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface ImageGeneratorModalProps {
     onClose: () => void;
@@ -18,30 +19,16 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
     };
 
     return (
-        <div className="dialog-backdrop">
-            <div
-                className="dialog-container w-full max-w-lg"
-                style={{
-                    maxWidth: '95vw',
-                    width: '100%',
-                    maxHeight: '95vh',
-                    margin: '0 auto',
-                    padding: '0',
-                    overflowY: 'auto',
-                    borderRadius: '16px',
-                    boxShadow: '0 2px 24px rgba(0,0,0,0.18)',
-                    background: 'var(--sys-surface)',
-                }}
-            >
-                <div className="dialog-header">
-                    <h2 className="m3-headline-medium">Genera Immagine</h2>
-                    <button type="button" onClick={onClose} className="icon-button rounded-lg hover:shadow-md transition-all">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                <div className="dialog-content space-y-6">
+        <M3Dialog
+            title="Genera Immagine"
+            open={true}
+            onClose={onClose}
+            maxWidth="sm"
+        >
+            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-6">
+                <M3DialogContent className="space-y-6">
                     <TextArea
-                        id="image-generator-prompt" // FIX: Add ID
+                        id="image-generator-prompt"
                         label="Descrivi l'immagine che vuoi creare"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
@@ -49,16 +36,17 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                         placeholder="Es. 'Illustrazione minimalista del ciclo dell'acqua per una lezione di scienze, stile flat design'..."
                         autoFocus
                     />
-                </div>
-                <div className="dialog-footer">
+                </M3DialogContent>
+
+                <M3DialogActions className="gap-2">
                     <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Annulla</button>
                     <button type="button" onClick={handleSubmit} className="button button-filled rounded-lg hover:shadow-md transition-all">
                         <span className="material-symbols-outlined mr-2">auto_awesome</span>
                         Genera Immagine
                     </button>
-                </div>
-            </div>
-        </div>
+                </M3DialogActions>
+            </form>
+        </M3Dialog>
     );
 };
 

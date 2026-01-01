@@ -3,6 +3,7 @@ import React from 'react';
 import Tooltip from './Tooltip';
 import { Slot, Lezione } from '../types';
 import { LESSON_TYPE_ICONS } from '../constants';
+import { M3Dialog, M3DialogContent } from './M3Dialog';
 
 interface SlotActionModalProps {
   slot: Slot;
@@ -20,22 +21,12 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
   const attachmentCount = lesson.materialiDidattici?.length || 0;
 
   return (
-    <div className="dialog-backdrop">
-      <div className="dialog-container max-w-sm w-full">
-        
-        <div className="dialog-header pb-2">
-          <div>
-            <h2 className="m3-headline-small">Lezione Programmata</h2>
-            <p className="m3-body-small text-on-surface-variant">{slot.giorno}, {slot.ora}</p>
-          </div>
-                    <Tooltip label="Chiudi">
-                        <button type="button" onClick={onClose} className="icon-button" aria-label="Chiudi">
-                            <span className="material-symbols-outlined">close</span>
-                        </button>
-                    </Tooltip>
-        </div>
-        
-        <div className="dialog-content px-4 pb-4">
+    <M3Dialog
+      title={<div><h2 className="m3-headline-small">Lezione Programmata</h2><p className="m3-body-small text-on-surface-variant">{slot.giorno}, {slot.ora}</p></div>}
+      onClose={onClose}
+      maxWidth="sm"
+    >
+      <M3DialogContent className="px-4 pb-4">
             {/* Interactive Hero Card */}
             <div 
                 className="hero-card-interactive bg-primary-container text-on-primary-container group"
@@ -97,9 +88,8 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                     </div>
                 </button>
             </div>
-        </div>
-      </div>
-    </div>
+      </M3DialogContent>
+    </M3Dialog>
   );
 };
 

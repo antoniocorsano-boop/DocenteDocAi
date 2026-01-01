@@ -2,6 +2,7 @@
 import React from 'react';
 import { LessonAnalysisResult } from '../types';
 import { AiMemoryChip } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
 
 interface LessonAnalysisModalProps {
     result: LessonAnalysisResult;
@@ -12,20 +13,15 @@ interface LessonAnalysisModalProps {
 
 const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClose, title, contextLabel }) => {
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-3xl h-[80vh]">
-                <div className="dialog-header">
-                    <div>
-                        <h2 className="m3-headline-medium">Analisi Pedagogica AI</h2>
-                        <p className="m3-body-medium text-on-surface-variant">{title}</p>
-                        {contextLabel && <AiMemoryChip label={contextLabel} />}
-                    </div>
-                    <button onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                
-                <div className="dialog-content p-6 overflow-y-auto space-y-6">
+        <M3Dialog
+            title="Analisi Pedagogica AI"
+            headline={title}
+            onClose={onClose}
+            maxWidth="xl"
+        >
+            <M3DialogContent>
+                <div className="space-y-6">
+                    {contextLabel && <AiMemoryChip label={contextLabel} />}
                     
                     {/* Section 1: Engagement */}
                     <div className="card border-l-4 border-l-primary bg-surface-container-low">
@@ -69,14 +65,12 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
                             ))}
                         </div>
                     </div>
-
                 </div>
-                
-                <div className="dialog-footer">
-                    <button onClick={onClose} className="button button-filled">Ho capito</button>
-                </div>
-            </div>
-        </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <button onClick={onClose} className="button button-filled">Ho capito</button>
+            </M3DialogActions>
+        </M3Dialog>
     );
 };
 
