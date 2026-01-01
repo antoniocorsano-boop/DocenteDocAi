@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { RegisterEntry, RegisterViewProps } from '../types';
+import { M3Dialog } from './M3Dialog';
 
 const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students, isModalMode = false, initialClass }) => {
   const [selectedEntry, setSelectedEntry] = useState<RegisterEntry | null>(null);
@@ -27,40 +28,32 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
         .map(([studentId]) => getStudentName(studentId));
 
     return (
-      <div className="dialog-backdrop" onClick={() => setSelectedEntry(null)}>
-        <div className="dialog-container w-full max-w-2xl" onClick={e => e.stopPropagation()}>
-          <div className="dialog-header">
-            <div>
-              <h2 className="m3-headline-medium">Dettaglio Lezione Svolta</h2>
-              <p className="m3-body-medium text-on-surface-variant">
-                {new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-              </p>
-            </div>
-            <button type="button" onClick={() => setSelectedEntry(null)} className="icon-button">
-              <span className="material-symbols-outlined">close</span>
-            </button>
+      <M3Dialog
+        title="Dettaglio Lezione Svolta"
+        headline={new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+        onClose={() => setSelectedEntry(null)}
+        maxWidth="lg"
+        buttons={
+          <button type="button" onClick={() => setSelectedEntry(null)} className="m3-button-text">Chiudi</button>
+        }
+      >
+        <div className="space-y-4">
+          <div className="card">
+            <h3 className="m3-title-medium">Informazioni Lezione</h3>
+            <p><strong>Classe:</strong> {entry.classe}</p>
+            <p><strong>Materia:</strong> {entry.materia}</p>
+            <p><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
           </div>
-          <div className="dialog-content space-y-4">
-            <div className="card">
-              <h3 className="m3-title-medium">Informazioni Lezione</h3>
-              <p><strong>Classe:</strong> {entry.classe}</p>
-              <p><strong>Materia:</strong> {entry.materia}</p>
-              <p><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
-            </div>
-            <div className="card">
-              <h3 className="m3-title-medium">Note</h3>
-              <p className="whitespace-pre-wrap">{entry.notes || 'Nessuna nota.'}</p>
-            </div>
-            <div className="card">
-              <h3 className="m3-title-medium">Appello ({presentStudents.length}/{Object.keys(entry.studentAttendance).length})</h3>
-              <p><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
-            </div>
+          <div className="card">
+            <h3 className="m3-title-medium">Note</h3>
+            <p className="whitespace-pre-wrap">{entry.notes || 'Nessuna nota.'}</p>
           </div>
-          <div className="dialog-footer">
-            <button type="button" onClick={() => setSelectedEntry(null)} className="button button-text">Chiudi</button>
+          <div className="card">
+            <h3 className="m3-title-medium">Appello ({presentStudents.length}/{Object.keys(entry.studentAttendance).length})</h3>
+            <p><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
           </div>
         </div>
-      </div>
+      </M3Dialog>
     );
   };
   
