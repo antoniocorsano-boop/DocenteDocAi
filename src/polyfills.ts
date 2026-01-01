@@ -154,6 +154,29 @@ if (typeof window !== 'undefined') {
   if (typeof Element === 'undefined') {
     (window as any).Element = class Element {};
   }
+
+  // CRITICAL FIX: Ensure Performance API is available for React scheduler
+  if (typeof window !== 'undefined' && !window.performance) {
+    (window as any).performance = {
+      now: () => Date.now(),
+    };
+  }
+
+  if (typeof window !== 'undefined' && window.performance && !window.performance.now) {
+    (window.performance as any).now = () => Date.now();
+  }
+
+  // Ensure scheduler can access performance
+  if (typeof globalThis !== 'undefined') {
+    if (!globalThis.performance) {
+      (globalThis as any).performance = {
+        now: () => Date.now(),
+      };
+    }
+    if (!globalThis.performance?.now) {
+      (globalThis.performance as any).now = () => Date.now();
+    }
+  }
 }
 
 export {};
