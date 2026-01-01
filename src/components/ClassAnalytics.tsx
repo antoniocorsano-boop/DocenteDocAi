@@ -4,6 +4,7 @@ import { Studente, Valutazione } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import BarChart from './charts/BarChart';
 import DonutChart from './charts/DonutChart';
+import { M3Dialog } from './M3Dialog';
 
 interface ClassAnalyticsProps {
     userClasses: string[];
@@ -48,75 +49,71 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
     }, [students, evaluations]);
 
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-4xl h-[90vh]">
-                <div className="dialog-header">
-                    <h2 className="m3-headline-medium">Analisi Comparata Classi</h2>
-                    <button onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                <div className="dialog-content space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="card">
-                            <h3 className="m3-title-large mb-4">Media Voti per Classe</h3>
-                            <div className="flex justify-center">
-                                {classPerformanceData.length > 0 ? (
-                                    <BarChart data={classPerformanceData} color="var(--sys-tertiary)" />
-                                ) : (
-                                    <p className="text-on-surface-variant p-8">Dati insufficienti per generare il grafico.</p>
-                                )}
-                            </div>
-                            <p className="m3-body-small text-on-surface-variant mt-4 text-center">
-                                Confronto della media aritmetica dei voti di tutti gli studenti per ogni classe.
-                            </p>
-                        </div>
-
-                        <div className="card flex flex-col items-center">
-                            <h3 className="m3-title-large mb-4">Situazione Globale</h3>
-                            <DonutChart data={globalStats} />
-                            <p className="m3-body-small text-on-surface-variant mt-4 text-center">
-                                Proporzione di studenti con media sufficiente vs insufficiente su tutte le classi.
-                            </p>
-                        </div>
-                    </div>
-                    
+        <M3Dialog
+            title="Analisi Comparata Classi"
+            onClose={onClose}
+            maxWidth="2xl"
+            buttons={
+                <button onClick={onClose} className="m3-button-filled">Chiudi</button>
+            }
+        >
+            <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="card">
-                         <h3 className="m3-title-large mb-2">Dettaglio Numerico</h3>
-                         <div className="table-container">
-                             <table className="table">
-                                 <thead>
-                                     <tr>
-                                         <th>Classe</th>
-                                         <th>Studenti</th>
-                                         <th>Media Classe</th>
-                                         <th>Verifiche Svolte</th>
-                                     </tr>
-                                 </thead>
-                                 <tbody>
-                                     {userClasses.map(c => {
-                                         const sCount = students.filter(s => s.classe === c).length;
-                                         const avg = classPerformanceData.find(d => d.label === c)?.value || '-';
-                                         const evalsCount = evaluations.filter(e => students.find(s => s.id === e.studenteId)?.classe === c).length;
-                                         return (
-                                             <tr key={c}>
-                                                 <td className="font-bold">{c}</td>
-                                                 <td>{sCount}</td>
-                                                 <td>{avg}</td>
-                                                 <td>{evalsCount}</td>
-                                             </tr>
-                                         )
-                                     })}
-                                 </tbody>
-                             </table>
-                         </div>
+                        <h3 className="m3-title-large mb-4">Media Voti per Classe</h3>
+                        <div className="flex justify-center">
+                            {classPerformanceData.length > 0 ? (
+                                <BarChart data={classPerformanceData} color="var(--sys-tertiary)" />
+                            ) : (
+                                <p className="text-on-surface-variant p-8">Dati insufficienti per generare il grafico.</p>
+                            )}
+                        </div>
+                        <p className="m3-body-small text-on-surface-variant mt-4 text-center">
+                            Confronto della media aritmetica dei voti di tutti gli studenti per ogni classe.
+                        </p>
+                    </div>
+
+                    <div className="card flex flex-col items-center">
+                        <h3 className="m3-title-large mb-4">Situazione Globale</h3>
+                        <DonutChart data={globalStats} />
+                        <p className="m3-body-small text-on-surface-variant mt-4 text-center">
+                            Proporzione di studenti con media sufficiente vs insufficiente su tutte le classi.
+                        </p>
                     </div>
                 </div>
-                <div className="dialog-footer">
-                    <button onClick={onClose} className="button button-filled">Chiudi</button>
+                
+                <div className="card">
+                     <h3 className="m3-title-large mb-2">Dettaglio Numerico</h3>
+                     <div className="table-container">
+                         <table className="table">
+                             <thead>
+                                 <tr>
+                                     <th>Classe</th>
+                                     <th>Studenti</th>
+                                     <th>Media Classe</th>
+                                     <th>Verifiche Svolte</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 {userClasses.map(c => {
+                                     const sCount = students.filter(s => s.classe === c).length;
+                                     const avg = classPerformanceData.find(d => d.label === c)?.value || '-';
+                                     const evalsCount = evaluations.filter(e => students.find(s => s.id === e.studenteId)?.classe === c).length;
+                                     return (
+                                         <tr key={c}>
+                                             <td className="font-bold">{c}</td>
+                                             <td>{sCount}</td>
+                                             <td>{avg}</td>
+                                             <td>{evalsCount}</td>
+                                         </tr>
+                                     )
+                                 })}
+                             </tbody>
+                         </table>
+                     </div>
                 </div>
             </div>
-        </div>
+        </M3Dialog>
     );
 };
 
