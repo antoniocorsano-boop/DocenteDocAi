@@ -137,26 +137,23 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
 
     if (markdownReport) {
         return (
-             <div className="dialog-backdrop">
-                <div className="dialog-container w-full max-w-2xl">
-                    <div className="dialog-header">
-                        <h2 className="m3-headline-medium">Report Generato</h2>
-                                                <Tooltip label="Chiudi">
-                                                    <button onClick={onClose} className="icon-button" aria-label="Chiudi"><span className="material-symbols-outlined">close</span></button>
-                                                </Tooltip>
-                    </div>
-                    <div className="dialog-content">
-                        <p className="m3-body-medium text-on-surface-variant mb-2">Copia questo testo e incollalo in Google Docs, Word o un altro editor di testo.</p>
-                        <div className="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant max-h-[60vh] overflow-y-auto">
-                            <pre className="whitespace-pre-wrap m3-body-medium">{markdownReport}</pre>
-                        </div>
-                    </div>
-                    <div className="dialog-footer">
-                        <button onClick={onClose} className="button button-text">Annulla</button>
-                        <button onClick={handleCopyToClipboard} className="button button-filled">Copia negli Appunti</button>
+            <M3Dialog
+                title="Report Generato"
+                onClose={onClose}
+                maxWidth="2xl"
+            >
+                <div className="space-y-4">
+                    <p className="m3-body-medium text-on-surface-variant">Copia questo testo e incollalo in Google Docs, Word o un altro editor di testo.</p>
+                    <div className="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant max-h-[60vh] overflow-y-auto">
+                        <pre className="whitespace-pre-wrap m3-body-medium">{markdownReport}</pre>
                     </div>
                 </div>
-            </div>
+
+                <M3DialogActions>
+                    <button onClick={onClose} className="button button-text">Annulla</button>
+                    <button onClick={handleCopyToClipboard} className="button button-filled">Copia negli Appunti</button>
+                </M3DialogActions>
+            </M3Dialog>
         )
     }
 

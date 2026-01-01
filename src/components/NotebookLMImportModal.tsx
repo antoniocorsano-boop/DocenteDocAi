@@ -84,7 +84,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({ open, onC
     <M3Dialog
       title="Importa da NotebookLM"
       onClose={onClose}
-      maxWidth="2xl"
+      maxWidth="xl"
     >
       <M3DialogContent className="py-4">
         {loading && <div className="text-center py-8">Caricamento file da NotebookLM...</div>}
