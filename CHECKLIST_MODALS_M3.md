@@ -1,8 +1,8 @@
 # ✅ CHECKLIST M3 DIALOG MIGRATION - DocenteDoc AI
 
 **Last Updated:** Gennaio 2026  
-**Status:** 19/25 Completed (76%)  
-**Build:** ✅ SUCCESS (10.92s, zero errors)
+**Status:** 23/25 Completed (92%)  
+**Build:** ✅ SUCCESS (11.04s, zero errors)
 
 ---
 
@@ -67,11 +67,32 @@
 - [x] **CopyForRegisterModal.tsx** - Previously migrated  
 - [x] **EventModal.tsx** - Previously migrated
 
+### COMPLEX Batch 2 (4 modals - LATER SESSION)
+- [x] **CreateLessonFromAiModal.tsx** (356 lines) - Nested objective picker modal
+  - Step-based form (Argomento → Classe/Materia → Obiettivi → Adattamenti)
+  - Nested modal for ObjectivePicker (M3Dialog level 2)
+  - Fully migrated ✅
+  
+- [x] **HelpModal.tsx** (555 lines) - Large informational modal
+  - Tab interface (9 tabs: Novità, Manuale, Setup, Flusso, AI, FAQ, Specs, Privacy)
+  - Tabbed content system with renderContent()
+  - Fully migrated ✅
+  
+- [x] **UdaExportModal.tsx** (203 lines) - Document export modal
+  - Segmented control (Uso Docente / Uso Studente)
+  - Multiple export options (PDF, DOCX, Markdown)
+  - Fully migrated ✅
+  
+- [x] **AddProvaModal.tsx** (129 lines) - Add evaluation test
+  - Had legacy dialog-container wrapper inside M3Dialog
+  - Cleaned up and simplified
+  - Fully migrated ✅
+
 ---
 
-## 🟡 IN PROGRESS (6 modals remaining)
+## 🟡 IN PROGRESS (2 modals remaining)
 
-### COMPLEX Batch 1 (Priority ORDER)
+### COMPLEX Batch Final (2 modals - DEFERRED)
 
 #### 1. **EditSlotModal.tsx** (242 lines) - ⏳ BLOCKED
 - Status: Attempted migration reverted
@@ -83,31 +104,29 @@
 - Workaround: Keep on legacy dialog-backdrop for now
 - Priority: HIGH (used frequently)
 
-#### 2. **CreateLessonFromAiModal.tsx** - ⏳ QUEUED
-- Status: Not started
+#### 2. **CreateLessonFromAiModal.tsx** - ✅ COMPLETE
+- Status: Migrated in session 2
 - Complexity: Nested modals (2+ levels of dialog-backdrop)
-- Dependencies: May need parent modal refactoring first
-- Priority: MEDIUM
+- Solution: Converted main modal + nested ObjectivePicker to M3Dialog
+- Priority: ✅ DONE
 
-#### 3. **HelpModal.tsx** - ⏳ QUEUED  
-- Status: Not started
-- Complexity: Large (600+ lines), scrollable content
-- Structure: Multiple sections, extensive FAQ
-- Priority: MEDIUM
+#### 3. **HelpModal.tsx** - ✅ COMPLETE
+- Status: Migrated in session 2  
+- Complexity: Large (600+ lines), scrollable content with 9 tabs
+- Solution: Converted tab interface to M3Dialog with segmented controls
+- Priority: ✅ DONE
 
-#### 4. **UdaExportModal.tsx** - ⏳ QUEUED
-- Status: Not started
+#### 4. **UdaExportModal.tsx** - ✅ COMPLETE
+- Status: Migrated in session 2
 - Complexity: Dual dialog structure, conditional rendering
-- Dependencies: PDF export logic
-- Priority: LOW (less frequent)
+- Solution: Converted to M3Dialog with headline prop for UDA title
+- Priority: ✅ DONE
 
-#### 5. **BES/DSA Configuration Modal** - ⏳ QUEUED
-- Status: Not identified yet
-- Priority: LOW
-
-#### 6. **[Remaining 6th Modal]** - ⏳ DISCOVERY PENDING
-- Status: Not yet identified
-- Priority: TBD
+#### 5. **AddProvaModal.tsx** - ✅ COMPLETE
+- Status: Migrated in session 2
+- Complexity: Had legacy dialog-container wrapper around M3Dialog (from M3Components)
+- Solution: Removed wrapper, cleaned up inline styles
+- Priority: ✅ DONE
 
 ---
 
@@ -171,13 +190,35 @@
 
 | Metric | Target | Current | Status |
 |--------|--------|---------|--------|
-| Modals Migrated | 25 | 19 | ⏳ 76% |
+| Modals Migrated | 25 | 23 | ⏳ 92% |
 | Build Status | Clean | Clean | ✅ |
 | TypeScript Errors | 0 | 0 | ✅ |
 | Breaking Changes | 0 | 0 | ✅ |
 | Z-Index Conflicts | 0 | 0 | ✅ |
 | Infrastructure | 4/4 | 4/4 | ✅ |
 | Production Ready | YES | YES | ✅ |
+
+---
+
+## 🔗 SESSION TIMELINE
+
+**Session 1 - Initial Setup:**
+- Created PIANO_M3_EXPRESSIVE_REFACTOR.md
+- Implemented zIndex.ts (centralized Z-index)
+- Created M3Dialog component pattern
+- Migrated 5 P0 Critical modals
+- Build: Clean ✅
+
+**Session 2 - Batch Expansion:**
+- Migrated 14 SIMPLE/MEDIUM modals (Batches 1-3)
+- Fixed 6 TypeScript errors
+- Build: Clean ✅
+
+**Session 3 - Final Push:**
+- Migrated 4 additional COMPLEX modals
+- Cleaned up AddProvaModal legacy wrapper
+- Total: 23/25 modals = 92% complete
+- Build: 11.04s, zero errors ✅
 
 ---
 
@@ -193,18 +234,14 @@
 
 ## 🎯 NEXT IMMEDIATE ACTION
 
-**Run: Make git commit to consolidate progress**
+**Status: Phase 1 (Overlay Unification) 92% Complete**
 
-```bash
-git add .
-git commit -m "feat(modals): consolidate M3Dialog migration (19/25 complete)
+Rimangono 2 modali per completamento totale:
+1. **EditSlotModal.tsx** - DEFERRED (MUI integration complexity)
+2. **[Remaining 1]** - To be discovered
 
-- Successfully migrated 19 modals to M3Dialog pattern
-- Infrastructure: zIndex.ts, legacyStyles.css, M3Dialog component
-- Build status: clean, zero errors
-- Updated PIANO tracking document
-- Next: 6 COMPLEX modals remaining
-- Zero breaking changes, production-ready state"
-```
-
-Then proceed to STEP 2: Migrate remaining 6 COMPLEX modals
+**RECOMMENDED NEXT STEP:**
+Execute one of:
+- Option A: Complete EditSlotModal carefully (1-2 hours)
+- Option B: Focus on FASE 2 (Typography Standardization + Inline Styles Cleanup)
+- Option C: Deploy current state (23/25 is production-ready)
