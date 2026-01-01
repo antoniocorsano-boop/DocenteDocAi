@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useDataStore } from '../stores/useDataStore';
 import { useUIStore } from '../stores/useUIStore';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
+import { M3Dialog } from './M3Dialog';
 
 interface AnalyticsDashboardProps {
   onClose: () => void;
@@ -86,22 +87,17 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
   const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString('it-IT');
 
   return (
-    <div className="dialog-backdrop" role="presentation">
-      <div
-        ref={modalRef}
-        className="dialog-container w-full max-w-6xl max-h-[90vh] overflow-y-auto"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="analytics-title"
-      >
-        <div className="dialog-header">
-          <h2 id="analytics-title" className="m3-headline-medium">Analytics & Statistiche</h2>
-          <button onClick={onClose} className="icon-button" aria-label="Chiudi analytics">
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
-
-        <div className="dialog-content space-y-6">
+    <M3Dialog
+      title="Analytics & Statistiche"
+      onClose={onClose}
+      maxWidth="2xl"
+      buttons={
+        <button onClick={onClose} className="m3-button-text">
+          Chiudi
+        </button>
+      }
+    >
+      <div className="space-y-6">
           {/* GDPR Notice */}
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
             <div className="flex items-start gap-3">
@@ -370,15 +366,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               </div>
             </div>
           )}
-        </div>
-
-        <div className="dialog-footer">
-          <button onClick={onClose} className="button button-text">
-            Chiudi
-          </button>
-        </div>
       </div>
-    </div>
+    </M3Dialog>
   );
 };
 
