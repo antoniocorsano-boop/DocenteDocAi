@@ -1,23 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 /**
- * CRITICAL: Ultra-robust DOM polyfill for Vercel SSR compatibility AND browser protection
+ * CRITICAL: DOM and Performance polyfill for browser protection
  * This file runs FIRST, before any imports or React code
- * Ensures 'document' exists for libraries like docx that access it during import
- * Also protects against undefined document in browser runtime
+ * Ensures 'document' and 'performance' exist for React scheduler and DOM libraries
  */
-
-// Protect React hooks from being called before React is ready
-if (typeof window !== 'undefined') {
-  const originalHooks = {
-    useState: undefined as unknown,
-    useEffect: undefined as any,
-    useReducer: undefined as any,
-    useRef: undefined as any,
-    useContext: undefined as any,
-    useCallback: undefined as any,
-    useMemo: undefined as any,
-  };
-}
 
 // Create safe element factory that covers all possible DOM operations
 const createSafeElement = (): any => ({
@@ -154,29 +140,17 @@ if (typeof window !== 'undefined') {
   if (typeof Element === 'undefined') {
     (window as any).Element = class Element {};
   }
+}
 
-  // CRITICAL FIX: Ensure Performance API is available for React scheduler
-  if (typeof window !== 'undefined' && !window.performance) {
-    (window as any).performance = {
-      now: () => Date.now(),
-    };
-  }
+// CRITICAL: Ensure Performance API ONLY if completely missing
+// React scheduler will properly initialize unstable_now ONLY if performance exists as an object
+if (typeof globalThis !== 'undefined' && !globalThis.performance) {
+  (globalThis as any).performance = {};
+}
 
-  if (typeof window !== 'undefined' && window.performance && !window.performance.now) {
-    (window.performance as any).now = () => Date.now();
-  }
-
-  // Ensure scheduler can access performance
-  if (typeof globalThis !== 'undefined') {
-    if (!globalThis.performance) {
-      (globalThis as any).performance = {
-        now: () => Date.now(),
-      };
-    }
-    if (!globalThis.performance?.now) {
-      (globalThis.performance as any).now = () => Date.now();
-    }
-  }
+// Only set now() if it doesn't exist
+if (typeof globalThis !== 'undefined' && globalThis.performance && typeof globalThis.performance.now !== 'function') {
+  (globalThis.performance as any).now = () => Date.now();
 }
 
 export {};
