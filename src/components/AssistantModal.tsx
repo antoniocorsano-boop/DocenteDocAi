@@ -230,7 +230,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               {SUGGESTED_PROMPTS.map((p) => (
                 <button
                   key={p}
-                  className="chip bg-secondary-container text-on-secondary-container text-xs px-3 py-1 rounded-full hover:bg-secondary transition-colors"
+                  className="chip bg-secondary-container text-on-secondary-container m3-label-small px-3 py-1 rounded-full hover:bg-secondary transition-colors"
                   onClick={() => handlePrompt(p)}
                 >
                   {p}
@@ -280,13 +280,13 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                 <div key={file.id} className="flex items-center justify-between bg-surface-container p-2 rounded-xl">
                   <div className="flex-1 min-w-0">
                     <p className="m3-body-small font-medium truncate">{file.name}</p>
-                    <p className="m3-body-small text-on-surface-variant text-xs">{new Date(file.lastModified).toLocaleDateString()}</p>
+                    <p className="m3-body-small text-on-surface-variant m3-label-small">{new Date(file.lastModified).toLocaleDateString()}</p>
                   </div>
                   <button
                     className="icon-button text-error"
                     onClick={() => handleNbDelete(file.id)}
                   >
-                    <span className="material-symbols-outlined text-lg">delete</span>
+                    <span className="material-symbols-outlined m3-label-large">delete</span>
                   </button>
                 </div>
               ))}

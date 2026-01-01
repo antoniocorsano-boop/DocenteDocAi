@@ -100,13 +100,13 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     type="button"
                                     onClick={() => handleGenerateText(section.key)}
                                     disabled={loadingSection === section.key}
-                                    className="button button-text !h-auto !py-1 !px-2 flex items-center gap-1 font-black uppercase text-xs rounded-full hover:shadow-md transition-all"
+                                    className="button button-text !h-auto !py-1 !px-2 flex items-center gap-1 font-black uppercase m3-label-small rounded-full hover:shadow-md transition-all"
                                     title="Usa l'AI per compilare questa sezione"
                                 >
                                     {loadingSection === section.key ? (
                                         <AiThinkingGem size="small" inline text="Generando..." />
                                     ) : (
-                                        <span className="material-symbols-outlined mr-1 text-base">auto_awesome</span>
+                                        <span className="material-symbols-outlined mr-1 m3-body-medium">auto_awesome</span>
                                     )}
                                     {loadingSection === section.key ? '' : 'AI'}
                                 </button>

@@ -91,7 +91,7 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
                             <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface"></div>
                             <div className="flex justify-between items-start">
                                 <h4 className="m3-label-large text-primary">{phase.title}</h4>
-                                <span className="text-xs font-bold bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">{phase.duration}h</span>
+                                <span className="m3-label-small font-bold bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">{phase.duration}h</span>
                             </div>
                             <p className="m3-body-small text-on-surface mt-1 font-medium">{phase.description}</p>
                             <p className="m3-body-small text-on-surface-variant mt-1 italic">{phase.activities}</p>
