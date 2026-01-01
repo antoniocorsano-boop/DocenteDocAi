@@ -42,7 +42,7 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-top: var(--header-height);
+    padding-top: 8px;
     padding-bottom: var(--safe-area-bottom);
     padding-left: var(--content-padding);
     padding-right: var(--content-padding);
