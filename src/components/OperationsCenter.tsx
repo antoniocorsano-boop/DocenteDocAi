@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { View, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry } from '../types';
 import { ActionTile, SectionHeader } from './M3Components';
+import { M3Dialog } from './M3Dialog';
 
 interface OperationsCenterProps {
     onClose: () => void;
@@ -197,36 +198,25 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
     };
 
     return (
-        <div className="dialog-backdrop" onClick={onClose}>
-            <div
-                className="dialog-container w-full max-w-4xl h-[90vh] bg-surface"
-                style={{
-                    maxWidth: '100vw',
-                    width: '95vw',
-                    height: '95vh',
-                    padding: '0',
-                    borderRadius: 24,
-                    boxSizing: 'border-box',
-                    overflow: 'hidden',
-                }}
-                onClick={e => e.stopPropagation()}
-            >
-                <div
-                    className="dialog-header border-b border-outline-variant"
-                    style={{ padding: 'clamp(12px, 3vw, 32px)' }}
-                >
+        <M3Dialog
+            title={selectedProcess ? 'Dettaglio Processo' : 'Centro Operativo'}
+            onClose={onClose}
+            mode="fullscreen"
+            headerContent={
+                <div className="px-6 py-4 md:py-6 border-b border-outline-variant/10 flex justify-between items-center shrink-0">
                     <div>
                         <h2 className="m3-headline-small font-black flex items-center gap-3">
                             <span className="material-symbols-outlined text-primary filled-icon text-3xl">bolt</span>
                             {selectedProcess ? 'Dettaglio Processo' : 'Centro Operativo'}
                         </h2>
                     </div>
-                    <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>
+                    <button onClick={onClose} className="icon-button">
+                        <span className="material-symbols-outlined">close</span>
+                    </button>
                 </div>
-                <div
-                    className="dialog-content bg-surface-container-lowest overflow-y-auto no-scrollbar"
-                    style={{ padding: 'clamp(12px, 3vw, 32px)', maxHeight: 'calc(95vh - 90px)' }}
-                >
+            }
+        >
+            <div className="bg-surface-container-lowest overflow-y-auto no-scrollbar" style={{ padding: 'clamp(12px, 3vw, 32px)' }}>
                     {selectedProcess ? renderProcessDetail() : (
                         <div className="space-y-10">
                             {suggestedProcess && (
@@ -292,7 +282,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                     )}
                 </div>
             </div>
-        </div>
+        </M3Dialog>
     );
 };
 export default OperationsCenter;
