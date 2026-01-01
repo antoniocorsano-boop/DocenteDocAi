@@ -57,6 +57,15 @@
     padding-bottom: 96px;
 }
 
+/* Responsive: Desktop with NavigationRail (>=600px) */
+@media (min-width: 600px) {
+    .main-content {
+        /* Add left margin to compensate for vertical NavigationRail */
+        margin-left: 80px; /* NavigationRail width */
+        padding-bottom: 32px; /* Less bottom padding on desktop */
+    }
+}
+
 @media (min-width: 840px) {
     .main-content {
         padding-left: var(--content-padding-md);

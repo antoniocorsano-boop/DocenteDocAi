@@ -13,7 +13,7 @@ import AssistantFab from './AssistantFab';
 import { useAppEngine } from '../hooks/useAppEngine';
 import { Header } from './Header';
 
-import Menu from './Menu';
+import NavigationRail from './NavigationRail';
 import ViewManager from './ViewManager';
 import SignInScreen from './SignInScreen';
 import { ModalManager } from './ModalManager';
@@ -309,20 +309,23 @@ export const App: React.FC = () => {
                 </main>
 
 
+                                {/* M3 Expressive Navigation Rail - vertical left navigation */}
+                                <NavigationRail
+                                    items={[
+                                        { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
+                                        { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
+                                        { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
+                                        { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
+                                        { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
+                                    ]}
+                                    activeView={view}
+                                    onNavigate={actions.handleNavigate}
+                                />
+
                                 {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
                                 {/* Super AI Assistant FAB: floating, multi-action, modal */}
-                                <div style={{position: 'fixed', right: '2.2rem', bottom: '5.5rem', zIndex: 1300, pointerEvents: 'auto'}}>
+                                <div style={{position: 'fixed', right: '2.2rem', bottom: '2.2rem', zIndex: 1300, pointerEvents: 'auto'}}>
                                     <AssistantFab />
-                                </div>
-
-                                {/* Footer Menu flottante in basso, sotto il FAB */}
-                                <div style={{position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 1200, pointerEvents: 'none'}}>
-                                    <div style={{display: 'flex', justifyContent: 'center', pointerEvents: 'auto'}}>
-                                        <Menu
-                                            currentView={view}
-                                            onNavigate={actions.handleNavigate}
-                                        />
-                                    </div>
                                 </div>
 
                 <ModalManager appState={appState} actions={actions} modals={modals} />
