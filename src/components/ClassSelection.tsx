@@ -7,6 +7,7 @@ import { generateCouncilDataPdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { TabGroup } from './M3Components';
 import M3ClassCard from './M3ClassCard';
+import { M3Dialog } from './M3Dialog';
 
 interface ClassSelectionProps {
     userClasses: string[];
@@ -238,13 +239,20 @@ const PrintCenterModal: React.FC<{
     };
 
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-md">
-                <div className="dialog-header">
-                    <h2 className="m3-headline-medium">Centro Stampe</h2>
-                    <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>
-                </div>
-                <div className="dialog-content space-y-4">
+        <M3Dialog
+            title="Centro Stampe"
+            onClose={onClose}
+            maxWidth="md"
+            buttons={
+                <>
+                    <button onClick={onClose} className="m3-button-text">Annulla</button>
+                    <button onClick={handlePrintAll} disabled={selectedClasses.length === 0 || isProcessing} className="m3-button-filled">
+                        {isProcessing ? 'Elaborazione...' : `Genera ${selectedClasses.length} PDF`}
+                    </button>
+                </>
+            }
+        >
+            <div className="space-y-4">
                     <p className="m3-body-medium text-on-surface-variant">Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
                     <div>
@@ -275,14 +283,8 @@ const PrintCenterModal: React.FC<{
                         </div>
                     </div>
                 </div>
-                <div className="dialog-footer">
-                    <button onClick={onClose} className="button button-text">Annulla</button>
-                    <button onClick={handlePrintAll} disabled={selectedClasses.length === 0 || isProcessing} className="button button-filled">
-                        {isProcessing ? 'Elaborazione...' : `Genera ${selectedClasses.length} PDF`}
-                    </button>
-                </div>
             </div>
-        </div>
+        </M3Dialog>
     )
 }
 

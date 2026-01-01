@@ -7,6 +7,7 @@ import { useUIStore } from '../stores/useUIStore';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import TemplateManager from './TemplateManager';
 import JSZip from 'jszip';
+import { M3Dialog } from './M3Dialog';
 
 // Type guards migliorati
 const isStudent = (data: unknown): data is Studente => {
@@ -263,22 +264,26 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
   }, [availableDocuments]);
 
   return (
-    <div className="dialog-backdrop" role="presentation">
-      <div
-        ref={modalRef}
-        className="dialog-container w-full max-w-4xl max-h-[90vh] overflow-y-auto"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="batch-export-title"
-      >
-        <div className="dialog-header">
-          <h2 id="batch-export-title" className="m3-headline-medium">Export Multiplo Documenti</h2>
-          <button onClick={props.onClose} className="icon-button" aria-label="Chiudi finestra export multiplo">
-            <span className="material-symbols-outlined">close</span>
+    <M3Dialog
+      title="Export Multiplo Documenti"
+      onClose={props.onClose}
+      maxWidth="2xl"
+      buttons={
+        <>
+          <button onClick={props.onClose} className="m3-button-text" disabled={isGenerating}>
+            Annulla
           </button>
-        </div>
-
-        <div className="dialog-content space-y-6">
+          <button
+            onClick={generateBatch}
+            className="m3-button-filled"
+            disabled={isGenerating || selectedDocuments.length === 0}
+          >
+            {isGenerating ? `Generazione... (${progress?.current || 0}/${progress?.total || 0})` : `Genera ${selectedDocuments.length} Documenti`}
+          </button>
+        </>
+      }
+    >
+      <div className="space-y-6">
           {/* Progress Bar durante generazione */}
           {progress && (
             <div className="bg-surface-container p-4 rounded-xl">
@@ -371,19 +376,6 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
             ))}
           </div>
         </div>
-
-        <div className="dialog-footer">
-          <button onClick={props.onClose} className="button button-text" disabled={isGenerating}>
-            Annulla
-          </button>
-          <button
-            onClick={generateBatch}
-            className="button button-filled"
-            disabled={isGenerating || selectedDocuments.length === 0}
-          >
-            {isGenerating ? `Generazione... (${progress?.current || 0}/${progress?.total || 0})` : `Genera ${selectedDocuments.length} Documenti`}
-          </button>
-        </div>
       </div>
 
       {/* Template Manager */}
@@ -393,7 +385,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           onApplyTemplate={handleApplyTemplate}
         />
       )}
-    </div>
+    </M3Dialog>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Rubrica, Criterio, Indicatore, Competenza } from '../types';
 import { TextField, TextArea, EmptyState } from './M3Components';
+import { M3Dialog } from './M3Dialog';
 
 interface RubricEditorProps {
     rubricToEdit?: Rubrica;
@@ -66,15 +67,20 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
     };
 
     return (
-        <div className="dialog-backdrop">
-            <form onSubmit={handleSubmit} className="dialog-container w-full max-w-6xl h-[90vh] flex flex-col">
-                <div className="dialog-header border-b border-outline-variant flex-shrink-0">
-                    <h2 className="m3-headline-medium font-black">{rubricToEdit ? 'Modifica Rubrica' : 'Crea Nuova Rubrica'}</h2>
-                    <button type="button" onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-                <div className="dialog-content overflow-y-auto p-6">
+        <M3Dialog
+            title={rubricToEdit ? 'Modifica Rubrica' : 'Crea Nuova Rubrica'}
+            onClose={onClose}
+            maxWidth="2xl"
+            mode="fullscreen"
+            buttons={
+                <>
+                    <button type="button" onClick={onClose} className="m3-button-text">Annulla</button>
+                    <button type="submit" onClick={handleSubmit} className="m3-button-filled shadow-lg">Salva Rubrica</button>
+                </>
+            }
+        >
+            <form onSubmit={handleSubmit} className="flex flex-col h-full">
+                <div className="overflow-y-auto p-6">
                     <div className="mb-10">
                         <TextField 
                             label="Titolo della Rubrica"
@@ -145,12 +151,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                         </div>
                     </div>
                 </div>
-                <div className="dialog-footer border-t border-outline-variant">
-                    <button type="button" onClick={onClose} className="button button-text">Annulla</button>
-                    <button type="submit" className="button button-filled shadow-lg">Salva Rubrica</button>
-                </div>
             </form>
-        </div>
+        </M3Dialog>
     );
 };
 
