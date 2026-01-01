@@ -14,6 +14,7 @@ import { ActionTile, SectionHeader, InfoCard, TabGroup } from './M3Components';
 import { useUIStore } from '../stores/useUIStore';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import BatchExportWizard from './BatchExportWizard';
+import { M3Dialog } from './M3Dialog';
 
 // --- TYPE DEFINITIONS FOR REGISTRY ---
 type DocPhase = 'avvio' | 'itinere' | 'valutazione' | 'chiusura';
@@ -351,21 +352,13 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         const lessonsInClass = Object.values(props.lessons).filter((l: Lezione) => l.classe === selectedClass);
 
         return (
-            <div className="dialog-backdrop" role="presentation">
-                <div 
-                    ref={modalRef}
-                    className="dialog-container w-full max-w-lg" 
-                    role="dialog" 
-                    aria-modal="true"
-                    aria-labelledby="dialog-title"
-                >
-                    <div className="dialog-header">
-                        <h2 id="dialog-title" className="m3-headline-medium">Configura Documento</h2>
-                        <button onClick={resetWizard} className="icon-button" aria-label="Chiudi finestra di configurazione">
-                            <span className="material-symbols-outlined">close</span>
-                        </button>
-                    </div>
-                    <div className="dialog-content space-y-4">
+            <M3Dialog
+                onClose={resetWizard}
+                title="Configura Documento"
+                maxWidth="lg"
+                modalRef={modalRef}
+            >
+                <div className="space-y-4">
                         {wizard === 'uda' && (
                             <>
                                 <label htmlFor="uda-select" className="form-label">Seleziona Progetto (UDA)</label>
@@ -457,8 +450,8 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                         {(wizard === 'syllabus' && selectedClass && selectedSubject) && <button onClick={handleGenerateSyllabus} className="button button-filled" disabled={isGenerating} aria-label={`Scarica programma svolto per ${selectedClass} - ${selectedSubject}`}>{isGenerating ? "Generazione..." : "Scarica DOC"}</button>}
                     </div>
                 </div>
-            </div>
-        )
+            </M3Dialog>
+        );
     };
 
     return (

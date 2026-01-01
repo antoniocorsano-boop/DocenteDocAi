@@ -10,6 +10,7 @@ import AiThinkingGem from './AiThinkingGem';
 import { sanitizeHTML } from '../utils/securityUtils';
 import { LESSON_TYPE_ICONS } from '../constants';
 import { generateHueFromString } from '../utils/colorUtils';
+import { M3Dialog } from './M3Dialog';
 
 interface LessonViewProps {
   lesson: Lezione;
@@ -427,25 +428,19 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
       
       {/* Modals for interactions */}
       {previewingMaterial && (
-          <div className="dialog-backdrop">
-              <div className="dialog-container w-full max-w-2xl">
-                   <div className="dialog-header">
-                      <h2 className="m3-headline-medium">Anteprima Materiale</h2>
-                      <button type="button" onClick={() => setPreviewingMaterial(null)} className="icon-button">
-                          <span className="material-symbols-outlined">close</span>
-                      </button>
-                  </div>
-                  <div className="dialog-content">
-                      <h3 className="m3-title-medium mb-2">{previewingMaterial.fileName}</h3>
-                      <div className="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant max-h-[60vh] overflow-y-auto">
-                        <pre className="whitespace-pre-wrap m3-body-medium">{sanitizeHTML(previewingMaterial.content)}</pre>
-                      </div>
-                  </div>
-                   <div className="dialog-footer">
-                      <button type="button" onClick={() => setPreviewingMaterial(null)} className="button button-text">Chiudi</button>
-                  </div>
+          <M3Dialog
+              onClose={() => setPreviewingMaterial(null)}
+              title="Anteprima Materiale"
+              maxWidth="2xl"
+              buttons={
+                  <button type="button" onClick={() => setPreviewingMaterial(null)} className="button button-text">Chiudi</button>
+              }
+          >
+              <h3 className="m3-title-medium mb-2">{previewingMaterial.fileName}</h3>
+              <div className="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant max-h-[60vh] overflow-y-auto">
+                <pre className="whitespace-pre-wrap m3-body-medium">{sanitizeHTML(previewingMaterial.content)}</pre>
               </div>
-          </div>
+          </M3Dialog>
       )}
       
       {isMaterialPickerOpen && (

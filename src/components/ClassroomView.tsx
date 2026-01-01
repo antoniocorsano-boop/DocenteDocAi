@@ -13,6 +13,7 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import Avatar from './Avatar';
 import StudentProfile from './StudentProfile';
 import { generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
+import { M3Dialog } from './M3Dialog';
 
 type AttendanceStatus = 'presente' | 'assente' | 'ritardo';
 type ClassroomTab = 'register' | 'tools' | 'resources' | 'notes';
@@ -388,69 +389,67 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             </div>
 
             {selectedStudentForActions && (
-                <div className="dialog-backdrop !items-end sm:!items-center" onClick={() => setSelectedStudentForActions(null)}>
-                    <div className="bg-surface w-full sm:max-w-sm rounded-t-3xl sm:rounded-2xl p-4 animate-in slide-in-from-bottom-10" onClick={e => e.stopPropagation()}>
-                        <div className="w-12 h-1 bg-outline-variant rounded-full mx-auto mb-4 sm:hidden"></div>
-
-                        <div className="flex items-center gap-3 mb-6 border-b border-outline-variant pb-4">
-                            {/* FIX: Use correct properties nome and cognome */}
-                            <Avatar name={selectedStudentForActions.nome} surname={selectedStudentForActions.cognome} />
-                            <div>
-                                {/* FIX: Use correct properties nome and cognome */}
-                                <h3 className="m3-headline-small">{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</h3>
-                                <p className="m3-body-small text-on-surface-variant">Azioni Rapide</p>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-4 gap-2 mb-6">
-                            <button onClick={() => { setQuickEvalStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} className="flex flex-col items-center gap-1">
-                                <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center"><span className="material-symbols-outlined">grading</span></div>
-                                <span className="m3-label-small">Voto</span>
-                            </button>
-                            <button onClick={() => { setObservationStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} className="flex flex-col items-center gap-1">
-                                <div className="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center"><span className="material-symbols-outlined">visibility</span></div>
-                                <span className="m3-label-small">Osserva</span>
-                            </button>
-                            <button onClick={() => { setViewingStudentProfile(selectedStudentForActions); setSelectedStudentForActions(null); }} className="flex flex-col items-center gap-1">
-                                <div className="w-12 h-12 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center"><span className="material-symbols-outlined">person</span></div>
-                                <span className="m3-label-small">Profilo</span>
-                            </button>
-                        </div>
-
-                        <div className="mb-4">
-                            <p className="m3-label-small font-bold uppercase text-on-surface-variant mb-2">Partecipazione</p>
-                            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                                {PARTICIPATION_BADGES.map(badge => (
-                                    <button
-                                        key={badge.id}
-                                        onClick={() => handleParticipation(selectedStudentForActions.id, badge.id as ParticipationEntry['type'])}
-                                        className="chip pr-3 pl-2 border-none bg-surface-container-high"
-                                        style={{ color: badge.color }}
-                                    >
-                                        <span className="material-symbols-outlined text-sm mr-1">{badge.icon}</span>
-                                        {badge.label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
+                <M3Dialog
+                    onClose={() => setSelectedStudentForActions(null)}
+                    title={`${selectedStudentForActions.cognome} ${selectedStudentForActions.nome}`}
+                    headline="Azioni Rapide"
+                    maxWidth="sm"
+                >
+                    <div className="flex items-center gap-3 mb-6 border-b border-outline-variant pb-4">
+                        <Avatar name={selectedStudentForActions.nome} surname={selectedStudentForActions.cognome} />
                         <div>
-                            <p className="m3-label-small font-bold uppercase text-on-surface-variant mb-2">Compiti</p>
-                            {/* FIX: Added activeTab and onTabChange props to TabGroup */}
-                            <TabGroup
-                                tabs={[
-                                    { id: 'completed', label: 'Svolti' },
-                                    { id: 'partial', label: 'Parziali' },
-                                    { id: 'missing', label: 'No' }
-                                ]}
-                                activeTab={homeworkCheck[selectedStudentForActions.id] || 'default'}
-                                onTabChange={(id) => { handleHomeworkChange(selectedStudentForActions.id, id as HomeworkStatus); setSelectedStudentForActions(null); }}
-                                variant="secondary"
-                                className="full-width"
-                            />
+                            <h3 className="m3-headline-small">{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</h3>
+                            <p className="m3-body-small text-on-surface-variant">Azioni Rapide</p>
                         </div>
                     </div>
-                </div>
+
+                    <div className="grid grid-cols-4 gap-2 mb-6">
+                        <button onClick={() => { setQuickEvalStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} className="flex flex-col items-center gap-1">
+                            <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center"><span className="material-symbols-outlined">grading</span></div>
+                            <span className="m3-label-small">Voto</span>
+                        </button>
+                        <button onClick={() => { setObservationStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} className="flex flex-col items-center gap-1">
+                            <div className="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center"><span className="material-symbols-outlined">visibility</span></div>
+                            <span className="m3-label-small">Osserva</span>
+                        </button>
+                        <button onClick={() => { setViewingStudentProfile(selectedStudentForActions); setSelectedStudentForActions(null); }} className="flex flex-col items-center gap-1">
+                            <div className="w-12 h-12 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center"><span className="material-symbols-outlined">person</span></div>
+                            <span className="m3-label-small">Profilo</span>
+                        </button>
+                    </div>
+
+                    <div className="mb-4">
+                        <p className="m3-label-small font-bold uppercase text-on-surface-variant mb-2">Partecipazione</p>
+                        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                            {PARTICIPATION_BADGES.map(badge => (
+                                <button
+                                    key={badge.id}
+                                    onClick={() => handleParticipation(selectedStudentForActions.id, badge.id as ParticipationEntry['type'])}
+                                    className="chip pr-3 pl-2 border-none bg-surface-container-high"
+                                    style={{ color: badge.color }}
+                                >
+                                    <span className="material-symbols-outlined text-sm mr-1">{badge.icon}</span>
+                                    {badge.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div>
+                        <p className="m3-label-small font-bold uppercase text-on-surface-variant mb-2">Compiti</p>
+                        <TabGroup
+                            tabs={[
+                                { id: 'completed', label: 'Svolti' },
+                                { id: 'partial', label: 'Parziali' },
+                                { id: 'missing', label: 'No' }
+                            ]}
+                            activeTab={homeworkCheck[selectedStudentForActions.id] || 'default'}
+                            onTabChange={(id) => { handleHomeworkChange(selectedStudentForActions.id, id as HomeworkStatus); setSelectedStudentForActions(null); }}
+                            variant="secondary"
+                            className="full-width"
+                        />
+                    </div>
+                </M3Dialog>
             )}
 
             {isCopyModalOpen && lesson && (

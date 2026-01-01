@@ -3,6 +3,7 @@ import { Uda, Competenza, UdaPlannerProps } from '../types';
 import { UdaExportModal } from './UdaExportModal';
 import Guidance from './Guidance';
 import { TextField, TextArea, EmptyState } from './M3Components';
+import { M3Dialog } from './M3Dialog';
 
 const createNewUda = (): Uda => ({
     id: `uda-${Date.now()}`,
@@ -128,31 +129,29 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
             </div>
 
              {isCompetencyPickerOpen && (
-                <div className="dialog-backdrop" onClick={() => setIsCompetencyPickerOpen(false)}>
-                     <div className="dialog-container w-full max-w-2xl h-[80vh] flex flex-col" onClick={e => e.stopPropagation()}>
-                        <div className="dialog-header">
-                            <h2 className="m3-headline-medium font-black">Seleziona Competenze</h2>
-                            <button onClick={() => setIsCompetencyPickerOpen(false)} className="icon-button"><span className="material-symbols-outlined">close</span></button>
-                        </div>
-                        <div className="dialog-content overflow-y-auto">
-                            <div className="m3-chip-grid p-2">
-                                {competenze.map(comp => (
-                                     <div key={comp.id} className="chip-checkbox w-full">
-                                        <input type="checkbox" id={`comp-${comp.id}`} checked={currentUda.competencyIds.includes(comp.id)} onChange={() => handleCompetencyToggle(comp.id)}/>
-                                        <label htmlFor={`comp-${comp.id}`} className={`chip w-full !justify-start !h-14 !px-4 ${currentUda.competencyIds.includes(comp.id) ? 'chip-selected' : ''}`}>
-                                            {currentUda.competencyIds.includes(comp.id) && <span className="material-symbols-outlined text-lg">check</span>}
-                                            <div className="min-w-0">
-                                                <p className="font-black text-xs truncate leading-none">{comp.codice}</p>
-                                                <p className="truncate opacity-70 font-bold text-[10px]">{comp.nome}</p>
-                                            </div>
-                                        </label>
+                <M3Dialog
+                    onClose={() => setIsCompetencyPickerOpen(false)}
+                    title="Seleziona Competenze"
+                    maxWidth="2xl"
+                    buttons={
+                        <button onClick={() => setIsCompetencyPickerOpen(false)} className="button button-filled w-full">Conferma Selezione</button>
+                    }
+                >
+                    <div className="m3-chip-grid p-2">
+                        {competenze.map(comp => (
+                             <div key={comp.id} className="chip-checkbox w-full">
+                                <input type="checkbox" id={`comp-${comp.id}`} checked={currentUda.competencyIds.includes(comp.id)} onChange={() => handleCompetencyToggle(comp.id)}/>
+                                <label htmlFor={`comp-${comp.id}`} className={`chip w-full !justify-start !h-14 !px-4 ${currentUda.competencyIds.includes(comp.id) ? 'chip-selected' : ''}`}>
+                                    {currentUda.competencyIds.includes(comp.id) && <span className="material-symbols-outlined text-lg">check</span>}
+                                    <div className="min-w-0">
+                                        <p className="font-black text-xs truncate leading-none">{comp.codice}</p>
+                                        <p className="truncate opacity-70 font-bold text-[10px]">{comp.nome}</p>
                                     </div>
-                                ))}
+                                </label>
                             </div>
-                        </div>
-                        <div className="dialog-footer border-t border-outline-variant"><button onClick={() => setIsCompetencyPickerOpen(false)} className="button button-filled w-full">Conferma Selezione</button></div>
+                        ))}
                     </div>
-                </div>
+                </M3Dialog>
             )}
         </div>
     );

@@ -6,6 +6,7 @@ import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
 import AiThinkingGem from './AiThinkingGem';
 import { InfoCard } from './M3Components';
 import { useUIStore } from '../stores/useUIStore';
+import { M3Dialog } from './M3Dialog';
 
 interface AnnualPlanningWizardProps {
     onClose: () => void;
@@ -321,14 +322,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     );
 
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-4xl h-[90vh]">
-                <div className="dialog-header">
-                    <h2 className="m3-headline-medium">Progettazione Annuale Guidata</h2>
-                    <button onClick={onClose} className="icon-button" title="Chiudi Wizard"><span className="material-symbols-outlined">close</span></button>
-                </div>
-                
-                <div className="dialog-content">
+        <M3Dialog
+            onClose={onClose}
+            title="Progettazione Annuale Guidata"
+            maxWidth="4xl"
+        >
                     {renderStepIndicator()}
 
                     {step === 'context' && (
@@ -540,8 +538,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     )}
                     {step === 'document' && <button onClick={onClose} className="button button-text" title="Chiudi wizard">Chiudi</button>}
                 </div>
-            </div>
-        </div>
+        </M3Dialog>
     );
 };
 

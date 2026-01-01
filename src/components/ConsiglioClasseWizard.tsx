@@ -3,6 +3,7 @@ import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, TimetableSettings, AiSettings, Report, ValutazioneCompetenza, PeriodoValutazione } from '../types';
 import { generateCouncilDataPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import { TabGroup, SelectField, InfoCard } from './M3Components';
+import { M3Dialog } from './M3Dialog';
 
 
 interface ConsiglioClasseWizardProps {
@@ -126,25 +127,27 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
     
     if (isLoading) {
         return (
-             <div className="dialog-backdrop">
-                <div className="dialog-container w-full max-w-sm !p-12 flex flex-col items-center justify-center text-center">
+             <M3Dialog
+                 onClose={() => {}}
+                 title=""
+                 maxWidth="sm"
+             >
+                <div className="flex flex-col items-center justify-center text-center py-8">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary mb-6"></div>
                     <p className="m3-title-medium font-black text-primary animate-pulse">{loadingMessage}</p>
                 </div>
-            </div>
+            </M3Dialog>
         )
     }
 
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-xl">
-                <div className="dialog-header border-b border-outline-variant pb-4">
-                    <h2 className="m3-headline-medium font-black">Wizard Report Consiglio</h2>
-                    <button onClick={props.onClose} className="icon-button rounded-lg hover:shadow-md transition-all"><span className="material-symbols-outlined">close</span></button>
-                </div>
-                {step === 1 ? renderStep1() : renderStep2()}
-            </div>
-        </div>
+        <M3Dialog
+            onClose={props.onClose}
+            title="Wizard Report Consiglio"
+            maxWidth="xl"
+        >
+            {step === 1 ? renderStep1() : renderStep2()}
+        </M3Dialog>
     );
 };
 

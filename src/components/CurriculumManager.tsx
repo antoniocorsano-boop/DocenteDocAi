@@ -5,6 +5,7 @@ import { extractTextFromFile } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
 import AiThinkingGem from './AiThinkingGem';
 import { TabGroup, EmptyState, TextField, TextArea, SelectField } from './M3Components';
+import { M3Dialog } from './M3Dialog';
 
 interface CurriculumManagerProps {
     curricula: CurriculumSubject[];
@@ -199,16 +200,24 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                 </div>
             </div>
             {isImporting && (
-                <div className="dialog-backdrop">
-                    <div className="dialog-container max-w-2xl h-[85vh] flex flex-col">
-                        <div className="dialog-header border-b border-outline-variant p-6"><h2 className="m3-headline-small font-black">Import AI Curricolo</h2><button onClick={() => setIsImporting(false)} className="icon-button"><span className="material-symbols-outlined">close</span></button></div>
-                        <div className="dialog-content flex flex-col gap-6 p-6">
-                            <div {...getRootProps()} className="dropzone-area h-40 !rounded-[32px]"><input {...getInputProps()} /><span className="material-symbols-outlined text-4xl text-primary mb-2">upload_file</span><p className="m3-body-large font-black text-on-surface">Carica PDF Programmazione</p><p className="m3-body-small opacity-60">o trascina il file qui</p></div>
-                            <TextArea label="O incolla il testo del programma" value={importText} onChange={e => setImportText(e.target.value)} className="flex-grow" rows={12} containerClassName="flex-grow" />
-                        </div>
-                        <div className="dialog-footer border-t border-outline-variant p-6"><button onClick={() => setIsImporting(false)} className="button button-text font-bold">Annulla</button><button onClick={handleImportAI} className="button button-filled font-black !px-8 shadow-lg" disabled={isProcessingAI || !importText}>{isProcessingAI ? <AiThinkingGem size="small" inline /> : 'Genera Struttura'}</button></div>
+                <M3Dialog
+                    onClose={() => setIsImporting(false)}
+                    title="Import AI Curricolo"
+                    maxWidth="2xl"
+                    buttons={
+                        <>
+                            <button onClick={() => setIsImporting(false)} className="button button-text font-bold">Annulla</button>
+                            <button onClick={handleImportAI} className="button button-filled font-black !px-8 shadow-lg" disabled={isProcessingAI || !importText}>
+                                {isProcessingAI ? <AiThinkingGem size="small" inline /> : 'Genera Struttura'}
+                            </button>
+                        </>
+                    }
+                >
+                    <div className="flex flex-col gap-6">
+                        <div {...getRootProps()} className="dropzone-area h-40 !rounded-[32px]"><input {...getInputProps()} /><span className="material-symbols-outlined text-4xl text-primary mb-2">upload_file</span><p className="m3-body-large font-black text-on-surface">Carica PDF Programmazione</p><p className="m3-body-small opacity-60">o trascina il file qui</p></div>
+                        <TextArea label="O incolla il testo del programma" value={importText} onChange={e => setImportText(e.target.value)} className="flex-grow" rows={12} containerClassName="flex-grow" />
                     </div>
-                </div>
+                </M3Dialog>
             )}
         </div>
     );

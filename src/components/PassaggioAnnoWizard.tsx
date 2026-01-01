@@ -4,6 +4,7 @@ import { Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, Regist
 import { getNextClass } from '../utils/schoolUtils';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { InfoCard } from './M3Components';
+import { M3Dialog } from './M3Dialog';
 
 interface PassaggioAnnoWizardProps {
     onClose: () => void;
@@ -170,14 +171,11 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
     };
 
     return (
-        <div className="dialog-backdrop">
-            <div className="dialog-container w-full max-w-4xl h-[90vh] flex flex-col">
-                <div className="dialog-header border-b border-outline-variant flex-shrink-0">
-                    <h2 className="m3-headline-medium text-primary">Passaggio Anno Scolastico</h2>
-                    <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>
-                </div>
-                
-                <div className="dialog-content flex-grow overflow-y-auto p-6">
+        <M3Dialog
+            onClose={onClose}
+            title="Passaggio Anno Scolastico"
+            maxWidth="4xl"
+        >
                     {step === 'intro' && (
                         <div className="space-y-6 max-w-2xl mx-auto">
                             <InfoCard 
@@ -318,8 +316,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                         </>
                     )}
                 </div>
-            </div>
-        </div>
+        </M3Dialog>
     );
 };
 
