@@ -8,6 +8,7 @@ import ImageGeneratorModal from './ImageGeneratorModal';
 import TestGeneratorModal from './TestGeneratorModal';
 import TestPreviewModal from './TestPreviewModal';
 import Guidance from './Guidance';
+import { M3Dialog } from './M3Dialog';
 import AiThinkingGem from './AiThinkingGem';
 
 
@@ -227,13 +228,20 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             
             {/* API Key Warning for Imagen models */}
             {isKeySelectionOpen && (
-                <div className="dialog-backdrop" onClick={() => setIsKeySelectionOpen(false)}>
-                    <div className="dialog-container max-w-sm" onClick={e => e.stopPropagation()}>
-                        <div className="dialog-header pb-2">
-                            <h3 className="m3-headline-small text-error">API Key Richiesta</h3>
-                            <button onClick={() => setIsKeySelectionOpen(false)} className="icon-button"><span className="material-symbols-outlined">close</span></button>
-                        </div>
-                        <div className="dialog-content space-y-4">
+                <M3Dialog
+                    title="API Key Richiesta"
+                    onClose={() => setIsKeySelectionOpen(false)}
+                    maxWidth="sm"
+                    buttons={
+                        <>
+                            <button onClick={() => setIsKeySelectionOpen(false)} className="m3-button-text">Annulla</button>
+                            {typeof (window as any).aistudio !== 'undefined' && (
+                                <button onClick={handleSelectKey} className="m3-button-filled">Seleziona API Key (Demo)</button>
+                            )}
+                        </>
+                    }
+                >
+                    <div className="space-y-4">
                             <p className="m3-body-medium text-on-surface-variant">
                                 Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
                             </p>
@@ -242,14 +250,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                                 Scopri di più sul billing
                             </a>
                         </div>
-                        <div className="dialog-footer">
-                            <button onClick={() => setIsKeySelectionOpen(false)} className="button button-text">Annulla</button>
-                            {typeof (window as any).aistudio !== 'undefined' && (
-                                <button onClick={handleSelectKey} className="button button-filled">Seleziona API Key (Demo)</button>
-                            )}
-                        </div>
-                    </div>
-                </div>
+                </M3Dialog>
             )}
 
             {/* Context Selection Card */}

@@ -2,6 +2,7 @@
 import React, { useMemo, useState } from 'react';
 import { Studente, ValutazioneCompetenza, TimetableSettings, Competenza, Livello } from '../types';
 import Avatar from './Avatar';
+import { M3Dialog } from './M3Dialog';
 
 interface ClassCompetencyDashboardProps {
     selectedClass: string;
@@ -197,18 +198,15 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
 
             {/* Student List Modal */}
             {viewingStudents && (
-                <div className="dialog-backdrop">
-                    <div className="dialog-container w-full max-w-md">
-                        <div className="dialog-header border-b border-outline-variant">
-                             <div className="pr-8">
-                                <h2 className="m3-headline-small line-clamp-2">{viewingStudents.title}</h2>
-                            </div>
-                            <button onClick={() => setViewingStudents(null)} className="icon-button">
-                                <span className="material-symbols-outlined">close</span>
-                            </button>
-                        </div>
-                        <div className="dialog-content !pt-4">
-                            <div className="space-y-2">
+                <M3Dialog
+                    title={viewingStudents.title}
+                    onClose={() => setViewingStudents(null)}
+                    maxWidth="md"
+                    buttons={
+                        <button onClick={() => setViewingStudents(null)} className="m3-button-text">Chiudi</button>
+                    }
+                >
+                    <div className="space-y-2">
                                 {viewingStudents.students.map(student => {
                                      return (
                                         <div 
@@ -231,12 +229,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                     )
                                 })}
                             </div>
-                        </div>
-                        <div className="dialog-footer">
-                            <button onClick={() => setViewingStudents(null)} className="button button-text">Chiudi</button>
-                        </div>
-                    </div>
-                </div>
+                </M3Dialog>
             )}
         </div>
     );
