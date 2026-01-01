@@ -47,7 +47,7 @@ interface M3DialogProps {
   backdropClickable?: boolean;
   
   /** Max width constraint (modal mode) */
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl';
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   
   /** Custom header content (overrides default) */
   headerContent?: React.ReactNode;
@@ -137,6 +137,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
     md: 'max-w-md',
     lg: 'max-w-lg',
     xl: 'max-w-2xl',
+    '2xl': 'max-w-4xl',
   };
 
   // Full dialog wrapper with backdrop
