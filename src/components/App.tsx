@@ -6,6 +6,7 @@ import * as React from 'react';
 import M3ExpressiveProvider from '../design-system/M3ExpressiveProvider';
 import '../design-system/typography.css';
 import '../design-system/spacing.css';
+import '../design-system/breakpoints.css';
 
 // Global runtime types are declared in `src/vite-env.d.ts`
 
