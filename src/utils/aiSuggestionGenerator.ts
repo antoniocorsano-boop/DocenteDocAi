@@ -16,6 +16,13 @@ interface CachedSuggestions {
  */
 export const generateAiSuggestions = async (appState: AppState): Promise<AiSuggestion[]> => {
     try {
+        // Skip AI call if API key is missing and fall back gracefully
+        const hasApiKey = Boolean(import.meta.env.VITE_GEMINI_API_KEY);
+        if (!hasApiKey) {
+            console.warn('[aiSuggestionGenerator] API key mancante, uso fallback suggestions');
+            return getFallbackSuggestions(appState);
+        }
+
         // Check cache first
         const cached = getCachedSuggestions(appState.user?.id);
         if (cached) {
@@ -90,7 +97,18 @@ const setCachedSuggestions = (suggestions: AiSuggestion[], userId?: string): voi
 };
 
 const buildSuggestionContext = (appState: AppState) => {
-    const { students, lessons, evaluations, uda, settings, knowledgeBase } = appState;
+    const {
+        students = [],
+        lessons = {},
+        evaluations = [],
+        uda = [],
+        settings,
+        knowledgeBase = []
+    } = appState as Partial<AppState>;
+
+    const schoolName = settings?.nomeIstituto || 'Istituto';
+    const teacherName = settings?.nomeInsegnante || 'Docente';
+    const currentYear = settings?.annoScolasticoCorrente || '';
 
     return {
         studentCount: students.length,
@@ -100,9 +118,9 @@ const buildSuggestionContext = (appState: AppState) => {
         kbEntriesCount: knowledgeBase.length,
         recentActivity: getRecentActivitySummary(appState),
         schoolInfo: {
-            schoolName: settings.nomeIstituto,
-            teacherName: settings.nomeInsegnante,
-            currentYear: settings.annoScolasticoCorrente
+            schoolName,
+            teacherName,
+            currentYear
         }
     };
 };

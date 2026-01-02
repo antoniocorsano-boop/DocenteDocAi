@@ -47,16 +47,16 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
       return [daysToShow[currentDayIndex]];
   }, [viewMode, currentDayIndex]);
 
-  return (
-    <div className="page-layout pb-32 relative overflow-hidden">
+    return (
+        <div className="page-layout pb-16 relative overflow-hidden">
         {/* HEADER: M3 Command Island */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-4 mb-8 px-4 md:px-0">
-             <div className="flex items-center gap-4 self-start md:self-auto">
-                 <div className="w-14 h-14 rounded-[20px] bg-primary-container text-on-primary-container flex items-center justify-center shadow-md">
-                     <span className="material-symbols-outlined text-3xl">calendar_view_week</span>
+                <div className="flex flex-col md:flex-row justify-between items-center gap-3 pt-1 mb-3 px-3 md:px-0">
+             <div className="flex items-center gap-3 self-start md:self-auto">
+                 <div className="w-11 h-11 rounded-[16px] bg-primary-container text-on-primary-container flex items-center justify-center shadow-md">
+                     <span className="material-symbols-outlined text-2xl">calendar_view_week</span>
                  </div>
                  <div>
-                     <h1 className="m3-headline-medium font-black text-on-surface tracking-tight">Il Mio Orario</h1>
+                     <h1 className="m3-headline-small font-black text-on-surface tracking-tight">Il Mio Orario</h1>
                      <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-50">Planning Settimanale</p>
                  </div>
              </div>

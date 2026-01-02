@@ -32,7 +32,12 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
 
     return (
         <div className="space-y-4">
-            <h1 className="m3-display-medium">Archivio Report</h1>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Archivio Report</h1>
+                    <p className="page-subtitle">Consulta, esporta e salva i report generati con l'AI.</p>
+                </div>
+            </div>
             <div className="card">
                 <div className="p-4">
                     <div className="search-input-container max-w-lg">

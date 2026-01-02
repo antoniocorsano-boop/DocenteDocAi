@@ -76,7 +76,12 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
     if (userClasses.length === 0) {
         return (
             <div className="page-container-full">
-                <h1 className="m3-display-medium">Analytics Hub</h1>
+                <div className="page-header-compact">
+                    <div className="page-header-title-group">
+                        <h1 className="m3-headline-medium font-black">Analytics Hub</h1>
+                        <p className="page-subtitle">Analisi dati classe e studente.</p>
+                    </div>
+                </div>
                 <EmptyState title="Nessuna classe" description="Configura le tue classi nelle Impostazioni." icon="bar_chart_off" />
             </div>
         );
@@ -84,7 +89,12 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
     return (
         <div className="page-container-full space-y-6 flex flex-col items-center px-2 md:px-4 lg:px-6" style={{width:'100%', maxWidth:'100vw'}}>
-            <h1 className="m3-display-medium w-full max-w-[1200px] mx-auto px-2 md:px-4 lg:px-6">Analytics Hub</h1>
+            <div className="page-header-compact w-full max-w-[1200px] mx-auto px-2 md:px-4 lg:px-6">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium font-black">Analytics Hub</h1>
+                    <p className="page-subtitle">Analisi dati classe e studente.</p>
+                </div>
+            </div>
 
             {/* Responsive Card: Filters */}
             <div className="card !bg-surface-container-low shadow-md !rounded-[32px] w-full max-w-[1200px] mx-auto px-2 md:px-4 lg:px-6 py-4 md:py-6">

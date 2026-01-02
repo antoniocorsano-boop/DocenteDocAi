@@ -89,11 +89,14 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
     );
 };
 
+import { useUIStore } from '../stores/useUIStore';
+
 /**
  * App.tsx - Il core del Presentation Layer.
  * Gestisce l'App Shell e la sincronizzazione del tema.
  */
 export const App: React.FC = () => {
+    const { chaosStage } = useUIStore();
     // Stato assistant mode centralizzato (opzionale: puoi usare Zustand o context se vuoi cambiare modalità da altri punti)
     const [assistantMode] = React.useState<'chat' | 'docs' | 'tools' | 'backup'>('chat');
     // AssistantModal montato una sola volta a livello root, usa solo modals proxy
@@ -265,7 +268,7 @@ export const App: React.FC = () => {
         return (
             <ErrorBoundary>
                 <M3ExpressiveProvider themeState={appState.themeState}>
-                    <div className="app-shell">
+                    <div className={`app-shell ${chaosStage === 'chaos' ? 'stage-chaos' : ''}`}>
                 {/* Fixed Header */}
                 <Header
                     title="DocenteDoc AI"

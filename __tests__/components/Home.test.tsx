@@ -120,7 +120,7 @@ describe('Home Component', () => {
         expect(mockDismissSuggestion).toHaveBeenCalledWith('test-suggestion-1');
     });
 
-    it('renders action tiles', () => {
+    it('renders quick action buttons', () => {
         render(
             <Home
                 onNavigate={mockOnNavigate}
@@ -129,8 +129,12 @@ describe('Home Component', () => {
             />
         );
 
-        expect(screen.getAllByTestId('action-tile')).toHaveLength(4);
-        expect(screen.getByText('Nuova valutazione')).toBeInTheDocument();
+        const labels = ['Appello', 'Valutazioni', 'Unità didattica', 'Documenti'];
+        labels.forEach(label => {
+            expect(screen.getByText(label)).toBeInTheDocument();
+        });
+        const quickActionButtons = screen.getAllByRole('button').filter(btn => labels.some(label => btn.textContent?.includes(label)));
+        expect(quickActionButtons).toHaveLength(4);
     });
 
     it('handles metric card clicks', () => {

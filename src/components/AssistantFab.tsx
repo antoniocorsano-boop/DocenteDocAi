@@ -3,11 +3,11 @@ import { useUIStore } from '../stores/useUIStore';
 
 interface AssistantFabProps {}
 
-const ACTIONS = [
-  { key: 'chat', label: 'Chat & Suggerimenti', icon: 'chat_bubble' },
-  { key: 'docs', label: 'Documenti AI', icon: 'description' },
-  { key: 'tools', label: 'Analisi & Strumenti', icon: 'psychology' },
-  { key: 'backup', label: 'Backup & Drive', icon: 'cloud_sync' },
+const ACTIONS: Array<{ key: AssistantMode; label: string; icon: string; description: string }> = [
+  { key: 'chat', label: 'Chat & Suggerimenti', icon: 'chat_bubble', description: 'Dialogo e azioni consigliate' },
+  { key: 'docs', label: 'Documenti AI', icon: 'description', description: 'Genera relazioni e UDA' },
+  { key: 'tools', label: 'Analisi & Strumenti', icon: 'psychology', description: 'Analisi rapide e insight' },
+  { key: 'backup', label: 'Backup & Drive', icon: 'cloud_sync', description: 'Backup e sincronizzazione' },
 ];
 
 type AssistantMode = 'chat' | 'docs' | 'tools' | 'backup';
@@ -31,6 +31,10 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
   const isAssistantOpen = useUIStore(s => s.modals.isLiveAssistantModalOpen);
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [mode, setMode] = React.useState<AssistantMode>('chat');
+  const [isCompactLayout, setIsCompactLayout] = React.useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.innerWidth <= 640;
+  });
 
   // Chiudi menu quando il modale assistant si apre o si chiude
   React.useEffect(() => {
@@ -114,6 +118,13 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
     }
   }, [menuOpen, mode]);
 
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const handleResize = () => setIsCompactLayout(window.innerWidth <= 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <>
       <div
@@ -133,45 +144,85 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           aria-label="Assistente AI"
           onClick={handleFabClick}
         >
-          <span className="material-symbols-outlined">smart_toy</span>
+          <span className="material-symbols-outlined">auto_mode</span>
         </button>
         {menuOpen && (
-          <div className="assistant-fab-menu" style={{ pointerEvents: 'auto' }}>
-            {/* Close menu / quick close modal button */}
-            <button
-              aria-label="Chiudi menu"
-              title="Chiudi menu"
-              className="assistant-fab-menu-close"
-              onClick={() => setMenuOpen(false)}
-            >
-              <span className="material-symbols-outlined">close</span>
-            </button>
-            {ACTIONS.map((a, i) => {
-              const offset = (i + 1) * 72; // spacing between actions
-              const posStyle: React.CSSProperties = menuDirection === 'up'
-                ? { bottom: `${offset}px` }
-                : { top: `${offset}px` };
-              return (
+          <>
+            {isCompactLayout && (
+              <>
+                <div className="assistant-fab-sheet-scrim" role="presentation" onClick={() => setMenuOpen(false)} />
+                <div className="assistant-fab-sheet" role="dialog" aria-modal="true" aria-label="Azioni assistente">
+                  <div className="assistant-fab-sheet-header">
+                    <div>
+                      <p className="text-sm font-semibold">Assistente AI</p>
+                      <p className="text-xs uppercase tracking-[0.5em] text-on-surface-variant">Azioni rapide</p>
+                    </div>
+                    <button
+                      className="assistant-fab-sheet-close"
+                      aria-label="Chiudi menu assistente"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <span className="material-symbols-outlined">close</span>
+                    </button>
+                  </div>
+                  <div className="assistant-fab-sheet-actions">
+                    {ACTIONS.map((action) => (
+                      <button
+                        key={action.key}
+                        className="assistant-fab-sheet-action"
+                        onClick={() => handleAction(action)}
+                        aria-label={action.label}
+                      >
+                        <span className="material-symbols-outlined text-2xl">{action.icon}</span>
+                        <div className="text-left">
+                          <p className="font-semibold">{action.label}</p>
+                          <p className="text-xs text-on-surface-variant">{action.description}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+            {!isCompactLayout && (
+              <div className="assistant-fab-menu" style={{ pointerEvents: 'auto' }}>
+                {/* Close menu / quick close modal button */}
                 <button
-                  key={a.key}
-                  className="mui-fab-expressive assistant-fab-secondary"
-                  style={{
-                    position: 'absolute',
-                    right: 0,
-                    ...posStyle,
-                    zIndex: 1201 - i,
-                    transition: 'var(--md-easing-standard)', // MD3 fix
-                    pointerEvents: 'auto',
-                  }}
-                  onClick={() => handleAction(a)}
-                  aria-label={a.label}
+                  aria-label="Chiudi menu"
+                  title="Chiudi menu"
+                  className="assistant-fab-menu-close"
+                  onClick={() => setMenuOpen(false)}
                 >
-                  <span className="material-symbols-outlined">{a.icon}</span>
-                  <span style={{marginLeft: 8, fontWeight: 500}}>{a.label}</span>
+                  <span className="material-symbols-outlined">close</span>
                 </button>
-              );
-            })}
-          </div>
+                {ACTIONS.map((a, i) => {
+                  const offset = (i + 1) * 72; // spacing between actions
+                  const posStyle: React.CSSProperties = menuDirection === 'up'
+                    ? { bottom: `${offset}px` }
+                    : { top: `${offset}px` };
+                  return (
+                    <button
+                      key={a.key}
+                      className="mui-fab-expressive assistant-fab-secondary"
+                      style={{
+                        position: 'absolute',
+                        right: 0,
+                        ...posStyle,
+                        zIndex: 1201 - i,
+                        transition: 'var(--md-easing-standard)', // MD3 fix
+                        pointerEvents: 'auto',
+                      }}
+                      onClick={() => handleAction(a)}
+                      aria-label={a.label}
+                    >
+                      <span className="material-symbols-outlined">{a.icon}</span>
+                      <span style={{ marginLeft: 8, fontWeight: 500 }}>{a.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </>
         )}
       </div>
       <style>{`
@@ -182,13 +233,13 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           z-index: 1200;
         }
         .mui-fab-expressive.assistant-fab {
-          background: var(--sys-primary, #1976d2);
+          background: var(--sys-primary, #6750A4);
           color: var(--sys-on-primary, #fff);
           border: none;
-          border-radius: var(--md-corner-28); // MD3 fix
+          border-radius: var(--shape-full);
           width: 64px;
           height: 64px;
-          box-shadow: var(--md-elevation-2); // MD3 fix
+          box-shadow: var(--elevation-3);
           font-size: 2.2rem;
           display: flex;
           align-items: center;
@@ -197,8 +248,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           transition: box-shadow 0.2s, background 0.2s;
         }
         .mui-fab-expressive.assistant-fab:hover {
-          background: var(--sys-primary-container, #1565c0);
-          box-shadow: var(--md-elevation-0); // MD3 fix
+          background: var(--sys-primary-container, #EADDFF);
+          box-shadow: var(--elevation-2);
         }
         .assistant-fab-menu {
           position: absolute;
@@ -216,7 +267,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           top: 8px;
           background: rgba(0,0,0,0.04);
           border: none;
-          border-radius: var(--md-corner-4); // MD3 fix
+          border-radius: var(--shape-full);
           width: 36px;
           height: 36px;
           display: flex;
@@ -229,8 +280,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           background: var(--sys-surface, #fff);
           color: var(--sys-on-surface, #222);
           border: none;
-          border-radius: var(--md-corner-16); // MD3 fix
-          box-shadow: var(--md-elevation-2); // MD3 fix
+          border-radius: var(--shape-m);
+          box-shadow: var(--elevation-2);
           padding: 0.7rem 1.2rem;
           font-size: 1.1rem;
           display: flex;
@@ -242,7 +293,81 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         }
         .mui-fab-expressive.assistant-fab-secondary:hover {
           background: var(--sys-surface-variant, #f5f5f5);
-          box-shadow: var(--md-elevation-2); // MD3 fix
+          box-shadow: var(--elevation-3);
+        }
+        .assistant-fab-sheet-scrim {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.35);
+          z-index: 1198;
+          backdrop-filter: blur(2px);
+        }
+        .assistant-fab-sheet {
+          position: fixed;
+          inset: auto 12px 12px;
+          right: 0;
+          left: 0;
+          margin: 0 auto;
+          max-width: 520px;
+          background: var(--sys-surface, #fff);
+          border-radius: var(--shape-xl);
+          padding: 1.1rem 1.5rem 1.5rem;
+          box-shadow: var(--elevation-3);
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          z-index: 1199;
+          animation: assistant-sheet-enter 0.25s ease-out;
+        }
+        .assistant-fab-sheet-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 1rem;
+        }
+        .assistant-fab-sheet-close {
+          width: 40px;
+          height: 40px;
+          border-radius: 999px;
+          border: none;
+          background: var(--sys-surface-variant, #f1f3f6);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+        .assistant-fab-sheet-actions {
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+        }
+        .assistant-fab-sheet-action {
+          width: 100%;
+          border: none;
+          border-radius: var(--shape-m);
+          padding: 0.95rem 1.1rem;
+          background: var(--sys-surface-container-high, #f8f9fb);
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          box-shadow: var(--elevation-2);
+          cursor: pointer;
+          transition: transform 0.2s var(--motion-easing-standard), box-shadow 0.2s var(--motion-easing-standard);
+          text-align: left;
+        }
+        .assistant-fab-sheet-action:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--elevation-3);
+        }
+        @keyframes assistant-sheet-enter {
+          from {
+            transform: translateY(16px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
         }
         @media (max-width: 600px) {
           .assistant-fab-root { bottom: 1.1rem; right: 1.1rem; }

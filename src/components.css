@@ -23,12 +23,219 @@
 }
 
 .header-logo {
-  max-height: 36px;
-  max-width: 120px;
+  max-height: 45px;
+  max-width: 150px;
   height: auto;
   width: auto;
   margin-right: 8px;
 }
+
+/* --- VORTEX & SPLINTER EASTER EGG --- */
+@keyframes vortex-chaos {
+  0% { transform: rotate(0deg) scale(1) translate(0,0) skew(0); filter: blur(0); }
+  20% { transform: rotate(3deg) scale(0.95) translate(10px, -10px) skew(2deg); filter: blur(1px); }
+  40% { transform: rotate(-4deg) scale(1.05) translate(-15px, 15px) skew(-3deg); filter: blur(0); }
+  60% { transform: rotate(2deg) scale(0.97) translate(8px, 8px) skew(1deg); filter: blur(1px); }
+  80% { transform: rotate(-2deg) scale(1.03) translate(-5px, -5px) skew(-1deg); filter: blur(0); }
+  100% { transform: rotate(0deg) scale(1) translate(0,0) skew(0); filter: blur(0); }
+}
+
+@keyframes logo-part-chaos {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  20% { transform: translate(-20px, 15px) rotate(30deg) scale(0.7); }
+  40% { transform: translate(25px, -10px) rotate(-25deg) scale(1.3); }
+  60% { transform: translate(-15px, -25px) rotate(45deg) scale(0.6); }
+  80% { transform: translate(10px, 20px) rotate(-10deg) scale(1.1); }
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+}
+
+@keyframes splinter-crazy-flight {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); filter: brightness(1); }
+  
+  /* Rimbalzo 1: Header - Urto Elastico */
+  12% { transform: translate(35vw, -35vh) scale(2.5) rotate(45deg); }
+  15% { transform: translate(40vw, -40vh) scale(3.5, 2.5) rotate(90deg); filter: brightness(4); } /* Squash */
+  18% { transform: translate(38vw, -38vh) scale(2.8) rotate(120deg); } /* Rebound */
+  22% { transform: translate(20vw, -10vh) scale(2) rotate(180deg); }
+
+  /* Rimbalzo 2: Bottom - Accelerazione Gravitazionale simulata */
+  32% { transform: translate(-35vw, 35vh) scale(0.6) rotate(240deg); }
+  35% { transform: translate(-40vw, 40vh) scale(0.3, 0.5) rotate(270deg); filter: brightness(0.5); } /* Squash */
+  38% { transform: translate(-38vw, 38vh) scale(0.5) rotate(300deg); } /* Rebound */
+  45% { transform: translate(-10vw, 0vh) scale(1.5) rotate(360deg); }
+
+  /* Rimbalzo 3: Sidebar - Urto ad alta energia */
+  52% { transform: translate(-42vw, -32vh) scale(5) rotate(400deg); }
+  55% { transform: translate(-45vw, -35vh) scale(4, 6) rotate(450deg); filter: brightness(3); } /* Stretch */
+  58% { transform: translate(-42vw, -32vh) scale(4.5) rotate(500deg); }
+  65% { transform: translate(10vw, 20vh) scale(3) rotate(600deg); }
+
+  /* Rimbalzo 4: Angolo opposto - Dissipazione energia */
+  72% { transform: translate(38vw, 38vh) scale(0.3) rotate(650deg); }
+  75% { transform: translate(40vw, 40vh) scale(0.1, 0.2) rotate(720deg); filter: blur(2px); }
+  78% { transform: translate(38vw, 38vh) scale(0.3) rotate(780deg); }
+  85% { transform: translate(0, -20vh) scale(5) rotate(900deg); }
+
+  /* Colpo Finale: Il Simbolo - Trasferimento totale di massa */
+  94% { transform: translate(0, 0) scale(40, 30) rotate(1080deg); filter: brightness(15) blur(0); }
+  100% { transform: translate(0, 0) scale(1) rotate(1440deg); opacity: 0; }
+}
+
+@keyframes ui-recoil-reaction {
+  0%, 14%, 34%, 54%, 74%, 93%, 100% { transform: translate(0,0) rotate(0deg); }
+  /* Reazione a Rimbalzo 1 */
+  15% { transform: translate(-10px, 10px) rotate(-1deg); }
+  18% { transform: translate(0,0); }
+  /* Reazione a Rimbalzo 2 */
+  35% { transform: translate(5px, -15px) rotate(0.5deg); }
+  38% { transform: translate(0,0); }
+  /* Reazione a Rimbalzo 3 */
+  55% { transform: translate(20px, 5px) rotate(2deg); }
+  58% { transform: translate(0,0); }
+  /* Reazione a Rimbalzo 4 */
+  75% { transform: translate(-5px, -5px) rotate(-0.5deg); }
+  78% { transform: translate(0,0); }
+  /* Reazione Finale */
+  94% { transform: scale(1.1) rotate(5deg); filter: brightness(2); }
+}
+
+@keyframes chaos-flash-anim {
+  0%, 100% { opacity: 0; }
+  15%, 35%, 55%, 75% { opacity: 0.4; background: white; }
+  18%, 38%, 58%, 78% { opacity: 0; }
+  94% { opacity: 1; background: white; }
+}
+
+.stage-chaos .main-content, 
+.stage-chaos .header-root,
+.stage-chaos .m3-navigation-rail,
+.stage-chaos .assistant-fab-root {
+  animation: vortex-chaos 0.8s ease-in-out infinite alternate,
+             ui-recoil-reaction 4s steps(60) forwards;
+}
+
+/* Caos specifico per le parti del logo */
+.stage-chaos .logo-d-ring,
+.stage-chaos .logo-d-body,
+.stage-chaos .logo-d-stem,
+.stage-chaos .logo-main-text,
+.stage-chaos .logo-ai-text {
+  animation: logo-part-chaos 0.6s ease-in-out infinite alternate-reverse;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.chaos-gem-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chaos-splinter-gem {
+  width: 40px;
+  height: 40px;
+  background: var(--sys-primary);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: splinter-crazy-flight 4s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+  box-shadow: 0 0 30px var(--sys-primary), 0 0 60px var(--sys-primary-container);
+  filter: drop-shadow(0 0 15px white);
+}
+
+.chaos-flash {
+  position: absolute;
+  inset: 0;
+  animation: chaos-flash-anim 4s steps(1) forwards;
+}
+
+/* Overlay per l'implosione e la pace */
+.universe-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.universe-overlay.implosion {
+  background: white;
+  animation: implosion-flash 0.4s ease-out forwards;
+}
+
+.universe-overlay.peace {
+  background: radial-gradient(circle, rgba(103, 80, 164, 0.1) 0%, transparent 70%);
+  backdrop-filter: blur(10px);
+  animation: peace-fade 0.5s ease-in forwards;
+}
+
+@keyframes implosion-flash {
+  0% { opacity: 0; transform: scale(0.1); }
+  50% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2); }
+}
+
+@keyframes peace-fade {
+  0% { opacity: 1; backdrop-filter: blur(10px); }
+  100% { opacity: 0; backdrop-filter: blur(0); }
+}
+
+/* Ritorno fluido alla posizione originale */
+.stage-settled .logo-gem-container {
+  transform: translate(38px, 4px) scale(1);
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  opacity: 1;
+}
+
+.stage-settled .logo-ai-text {
+  transform: translate(0, 0) scale(1);
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  opacity: 1;
+}
+
+/* Nascondi gemma originale durante il caos */
+.stage-chaos .logo-gem-container,
+.stage-implosion .logo-gem-container,
+.stage-peace .logo-gem-container {
+  opacity: 0;
+  transform: translate(38px, 4px) scale(0);
+}
+
+.app-logo-container {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.app-logo-container:active {
+  transform: scale(0.95);
+}
+
+.logo-gem-container {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.logo-main-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.logo-ai-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.logo-d-ring { fill: var(--sys-primary-container); }
+.logo-d-body { fill: var(--sys-primary); }
+.logo-d-stem { fill: var(--sys-primary); }
+.logo-sparkle { fill: var(--sys-secondary); }
 /* Modal backdrop for loading */
 .loading-modal-backdrop {
   position: fixed;
@@ -322,6 +529,11 @@
 }
 
 /* --- M3 DIALOG & MODAL SYSTEM --- */
+:root {
+  /* 80px rail + 16px gutter for desktop dialogs */
+  --nav-rail-offset-desktop: 96px;
+}
+
 /* Dialog modal backdrop */
 .dialog-backdrop {
   position: fixed;
@@ -335,6 +547,16 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   animation: dialog-backdrop-enter var(--motion-duration-short3) var(--motion-easing-standard) forwards;
+}
+
+@media (min-width: 1024px) {
+  .dialog-backdrop {
+    left: var(--nav-rail-offset-desktop);
+    right: 0;
+    width: auto;
+    padding-left: var(--spacing-5, 20px);
+    padding-right: var(--spacing-5, 20px);
+  }
 }
 
 @keyframes dialog-backdrop-enter {
@@ -565,39 +787,172 @@
   color: var(--sys-on-primary-container);
 }
 
-.m3-field-container, .m3-field-wrapper {
+/* --- M3 EXPRESSIVE FIELDS (AURA) --- */
+.m3-field-container {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2px;
+  gap: 6px;
+  margin-bottom: 1.25rem;
 }
+
 .m3-field-label {
-  font-size: 0.79rem;
-  font-weight: 700;
-  color: var(--sys-primary);
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--sys-on-surface-variant);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 0;
-  line-height: 1.01;
-} 
-.m3-field-input {
+  letter-spacing: 0.1em;
+  padding-left: 4px;
+  opacity: 0.8;
+}
+
+.m3-field-wrapper {
+  position: relative;
   width: 100%;
-  min-height: 20px;
-  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  background: var(--sys-surface-container-highest);
   border: 1px solid var(--sys-outline-variant);
-  background: var(--sys-surface-container);
-  font-size: 0.85rem;
-  padding: 2px 3px;
+  border-radius: 16px;
+  padding: 0 16px;
+  min-height: 56px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.m3-field-wrapper:hover {
+  background: var(--sys-surface-container-highest);
+  border-color: var(--sys-outline);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.m3-field-wrapper.group:focus-within {
+  background: var(--sys-surface);
+  border-color: var(--sys-primary);
+  border-width: 2px;
+  box-shadow: 0 4px 12px rgba(var(--sys-primary-rgb), 0.15);
+}
+
+.m3-field-wrapper.error {
+  border-color: var(--sys-error);
+  background: var(--sys-error-container);
+}
+
+.m3-field-input, .m3-field-select {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
   color: var(--sys-on-surface);
   font-family: var(--font-family);
   font-weight: 500;
-  transition: border 0.2s;
-  line-height: 1.0;
-} 
-.m3-field-input:focus {
-  border: 1.5px solid var(--sys-primary);
+  font-size: 15px;
+  padding: 12px 0;
+  width: 100%;
+}
+
+.m3-field-select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 32px;
+}
+
+/* --- M3 EXPRESSIVE CHIPS & GRID --- */
+.m3-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 4px;
+}
+
+.m3-expressive-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--sys-surface-container-high);
+  border: 1px solid var(--sys-outline-variant);
+  border-radius: 12px;
+  color: var(--sys-on-surface);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.m3-expressive-chip:hover {
+  background: var(--sys-surface-container-highest);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-color: var(--sys-primary);
+}
+
+.m3-expressive-chip.variant-class {
+  background: var(--sys-secondary-container);
+  color: var(--sys-on-secondary-container);
+  border-color: var(--sys-secondary);
+}
+
+.m3-expressive-chip.variant-subject {
+  background: var(--sys-tertiary-container);
+  color: var(--sys-on-tertiary-container);
+  border-color: var(--sys-tertiary);
+}
+
+.m3-chip-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.05);
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-right: -4px;
+}
+
+.m3-chip-delete:hover {
+  background: var(--sys-error);
+  color: var(--sys-on-error);
+  transform: scale(1.1);
+}
+
+.m3-new-chip-input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px 4px 16px;
+  background: var(--sys-surface-container-lowest);
+  border: 2px dashed var(--sys-outline-variant);
+  border-radius: 12px;
+  min-width: 140px;
+  transition: all 0.3s;
+  cursor: text;
+}
+
+.m3-new-chip-input-container:focus-within {
+  border-style: solid;
+  border-color: var(--sys-primary);
+  background: var(--sys-surface);
+  box-shadow: 0 0 0 4px rgba(var(--sys-primary-rgb), 0.1);
+}
+
+.m3-new-chip-input {
+  background: transparent;
+  border: none;
   outline: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sys-on-surface);
+  width: 100px;
+  padding: 4px 0;
+}
+
+.m3-new-chip-input::placeholder {
+  color: var(--sys-on-surface-variant);
+  opacity: 0.5;
 }
 
 /* --- MISSING STYLES FOR HEADER & MODALS
@@ -618,6 +973,35 @@
 .page-layout {
   width: 100%;
   max-width: 100%;
+}
+
+/* Unified page headers */
+.page-header-compact {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+}
+
+.page-header-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.page-header-title-group h1 {
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-size: clamp(24px, 3.2vw, 36px);
+}
+
+.page-header-title-group .page-subtitle,
+.page-header-title-group p {
+  margin: 0;
+  color: var(--sys-on-surface-variant);
+  font-size: 0.95rem;
 }
 
 /* Page Header Block */
@@ -1042,6 +1426,36 @@
     opacity: 1; 
     transform: translateX(0); 
   }
+}
+
+/* --- TEACHING ASSIGNMENT MATRIX (MD3) --- */
+.teaching-assignment-matrix-container {
+    width: 100%;
+    margin-top: var(--spacing-2);
+}
+
+.teaching-assignment-matrix-container .custom-scrollbar::-webkit-scrollbar {
+    height: 6px;
+}
+
+.teaching-assignment-matrix-container .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--sys-outline-variant);
+    border-radius: 3px;
+}
+
+.teaching-assignment-matrix-container .chip-expressive {
+    min-height: 36px;
+    padding: 0 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.teaching-assignment-matrix-container .chip-expressive--clickable:active {
+    transform: scale(0.95);
 }
 
 /* ==========================================================================

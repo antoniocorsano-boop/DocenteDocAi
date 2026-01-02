@@ -21,27 +21,18 @@ const SNACKBAR_COLORS = {
 const Snackbar: React.FC = () => {
   const { toast, clearToast } = useUIStore(state => ({
     toast: state.modals.toast,
-    clearToast: state.modals.clearToast
+    clearToast: state.actions.clearToast
   }));
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Debug: Log per verificare se clearToast è definito
-  useEffect(() => {
-    console.log('Snackbar Debug - toast.visible:', toast.visible);
-    console.log('Snackbar Debug - clearToast:', clearToast);
-    console.log('Snackbar Debug - typeof clearToast:', typeof clearToast);
-  }, [toast.visible, clearToast]);
-
   const handleClose = () => {
-    console.log('Snackbar Debug - handleClose called');
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
     if (clearToast) {
       clearToast();
-      console.log('Snackbar Debug - clearToast executed');
     } else {
       console.warn('Snackbar Warning - clearToast is undefined, forcing close via store');
       // Fallback: Chiudi manualmente il toast se clearToast fallisce
@@ -56,13 +47,11 @@ const Snackbar: React.FC = () => {
 
   useEffect(() => {
     if (toast.visible && clearToast) {
-      console.log('Snackbar Debug - Setting timeout');
       // Mostra gli errori per 5 secondi, altri per 3.5 secondi
       const duration = toast.type === 'error' ? 5000 : 3500;
       timeoutRef.current = setTimeout(() => {
         clearToast?.();
         timeoutRef.current = null;
-        console.log('Snackbar Debug - Timeout executed');
       }, duration);
     } else if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -110,15 +99,15 @@ const Snackbar: React.FC = () => {
           min-width: 220px;
           max-width: 90vw;
           padding: 0.9rem 1.5rem 0.9rem 1.1rem;
-          border-radius: var(--md-corner-16); /* MD3 fix */
-          box-shadow: var(--md-elevation-2); /* MD3 fix */
+          border-radius: var(--shape-m);
+          box-shadow: var(--elevation-3);
           display: flex;
           align-items: center;
           gap: 0.7rem;
           font-size: 1rem;
           font-weight: 600;
           z-index: 3000;
-          animation: snackbar-in 0.22s cubic-bezier(0.34,1.56,0.64,1) both;
+          animation: snackbar-in 0.22s var(--motion-easing-expressive) both;
         }
         .snackbar-close-btn {
           background: none;

@@ -65,6 +65,35 @@ export const useSettingsLogic = ({
         setLocalSettings(prev => ({ ...prev, [field]: value }));
     }, []);
 
+    const handleBulkAssign = useCallback((selectedClasses: string[], selectedSubjects: string[]) => {
+        const newAssignments = [...(localSettings.teachingAssignments || [])];
+        let addedCount = 0;
+
+        selectedClasses.forEach(cls => {
+            selectedSubjects.forEach(subj => {
+                const exists = newAssignments.some(a => a.classId === cls && a.subjectId === subj);
+                if (!exists) {
+                    const hue = Math.floor(Math.random() * 360); // Simple random hue for now
+                    newAssignments.push({
+                        id: `${cls}-${subj}-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+                        classId: cls,
+                        subjectId: subj,
+                        color: `hsl(${hue}, 70%, 80%)`,
+                        hoursPerWeek: 2
+                    });
+                    addedCount++;
+                }
+            });
+        });
+
+        if (addedCount > 0) {
+            handleChange('teachingAssignments', newAssignments);
+            showToast(`${addedCount} nuove associazioni create!`, 'success');
+        } else {
+            showToast(`Nessuna nuova associazione da creare.`, 'info');
+        }
+    }, [localSettings.teachingAssignments, handleChange, showToast]);
+
     const handleAiProfileChange = useCallback((profileKey: keyof typeof AI_PROFILES) => {
         const profile = AI_PROFILES[profileKey];
         const newSettings = { ...localAiSettings, model: profile.model };
@@ -106,6 +135,32 @@ export const useSettingsLogic = ({
         setIsResetModalOpen(false);
     }, [onCleanDemoData]);
 
+    const toggleAssociation = useCallback((cls: string, subj: string) => {
+        const index = localSettings.teachingAssignments.findIndex(a => a.classId === cls && a.subjectId === subj);
+        let updated = [...localSettings.teachingAssignments];
+        
+        if (index >= 0) {
+            updated.splice(index, 1);
+        } else {
+            const hue = Math.floor(Math.random() * 360);
+            updated.push({
+                id: crypto.randomUUID(),
+                classId: cls,
+                subjectId: subj,
+                color: `hsl(${hue}, 70%, 80%)`,
+                hoursPerWeek: 4
+            });
+        }
+        handleChange('teachingAssignments', updated);
+    }, [localSettings.teachingAssignments, handleChange]);
+
+    const updateAssignmentHours = useCallback((id: string, hours: number) => {
+        const updated = localSettings.teachingAssignments.map(a => 
+            a.id === id ? { ...a, hoursPerWeek: hours } : a
+        );
+        handleChange('teachingAssignments', updated);
+    }, [localSettings.teachingAssignments, handleChange]);
+
     return {
         localSettings,
         localAiSettings,
@@ -118,6 +173,9 @@ export const useSettingsLogic = ({
         handleGenerateThemeFromPrompt,
         isResetModalOpen,
         setIsResetModalOpen,
-        performReset
+        performReset,
+        handleBulkAssign,
+        toggleAssociation,
+        updateAssignmentHours
     };
 };

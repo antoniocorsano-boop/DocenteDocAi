@@ -372,8 +372,11 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     
     return (
         <div className="consiglio-di-classe-page space-y-4">
-            <div className="flex flex-wrap justify-between items-center gap-4">
-                <h1 className="m3-display-medium">Consiglio di Classe - {selectedClass}</h1>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Consiglio di Classe - {selectedClass}</h1>
+                    <p className="page-subtitle">Gestisci giudizi, voti e documenti per il periodo selezionato.</p>
+                </div>
                 <div className='flex items-center gap-4'>
                     <TabGroup
                         tabs={[

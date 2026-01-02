@@ -49,10 +49,10 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ userClasses, onSelectCl
     return (
         <div className="page-layout pb-24">
              {/* Header Section */}
-             <div className="page-header-compact">
+            <div className="page-header-compact">
                 <div className="page-header-title-group">
-                    <h1 className="m3-display-medium">Le Mie Classi</h1>
-                    <p className="text-body-reading mt-1 opacity-80">Gestione studenti e analisi.</p>
+                    <h1 className="m3-headline-medium font-black">Le Mie Classi</h1>
+                    <p className="page-subtitle">Gestione studenti e analisi.</p>
                 </div>
             </div>
 

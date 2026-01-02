@@ -228,10 +228,10 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-wrap justify-between items-start gap-4">
-                <div>
-                    <h1 className="m3-display-medium">Analisi Classe {selectedClass}</h1>
-                    <p className="m3-body-large text-on-surface-variant -mt-4">Report generato per il consiglio di classe.</p>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Analisi Classe {selectedClass}</h1>
+                    <p className="page-subtitle">Report generato per il consiglio di classe.</p>
                 </div>
                 <div className="flex gap-2">
                     <button onClick={handleExportDocx} className="button button-outlined">

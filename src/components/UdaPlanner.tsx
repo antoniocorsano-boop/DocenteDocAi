@@ -170,8 +170,11 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
 
     return (
         <div className="page-container-full">
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="m3-display-small font-black">Planner Progetti</h1>
+            <div className="page-header-compact mb-8">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Planner Progetti</h1>
+                    <p className="page-subtitle">Organizza le UDA e collega risorse esterne per i tuoi progetti.</p>
+                </div>
                 <button onClick={() => setEditingUda('new')} className="button button-filled shadow-xl">
                     <span className="material-symbols-outlined mr-2 font-black">add</span>Nuovo Progetto
                 </button>

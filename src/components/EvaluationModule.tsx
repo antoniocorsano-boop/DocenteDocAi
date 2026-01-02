@@ -335,9 +335,9 @@ const EvaluationModule: React.FC<EvaluationModulePropsExtended> = ({ students, e
 
     return (
         <div className="pt-3 px-4 md:px-6">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 py-4">
+            <div className="page-header-compact py-4">
                 <div className="page-header-title-group">
-                    {!isModalMode && <h1 className="m3-display-small text-on-surface">Registro Valutazioni</h1>}
+                    {!isModalMode && <h1 className="m3-headline-medium text-on-surface">Registro Valutazioni</h1>}
                 </div>
 
                 <div className="flex items-center gap-3 w-full md:w-auto">

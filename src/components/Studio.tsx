@@ -216,8 +216,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
 
     return (
         <div className="page-layout pb-24">
-            <div className="flex justify-between items-center">
-                <h1 className="m3-display-medium">Studio AI</h1>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Studio AI</h1>
+                    <p className="page-subtitle">Laboratorio per trasformare e generare contenuti con il tuo contesto.</p>
+                </div>
             </div>
             
              <Guidance id="studio-ai-intro" icon="auto_fix_high" title="Il tuo Laboratorio Creativo" isGloballyEnabled={showGuidanceTips}>

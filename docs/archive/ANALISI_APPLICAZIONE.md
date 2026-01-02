@@ -454,6 +454,7 @@ Al primo accesso, l'app guida l'utente attraverso:
 - Design vettoriale interattivo
 - Animazione "thinking" durante elaborazioni AI
 - Varianti colore basate su tema
+- **Easter Egg "Big Bang"**: Sequenza trasformativa attivabile con 5 click (vedi [LOGO_AND_EASTER_EGG.md](../LOGO_AND_EASTER_EGG.md))
 
 **Palette Colori:**
 - 11 temi predefiniti (M3 Default, Blue, Teal, Red/Brown, Green, Sunset, Forest, Ocean, Neon Cyber, AI Studio, Workspace)

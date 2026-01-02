@@ -54,10 +54,14 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
     
     return (
         <div className="space-y-6 p-4 pb-20">
-            <h1 className="m3-display-medium">Descrittori Competenze</h1>
-            <p className="m3-body-large text-on-surface-variant -mt-4">
-                Livelli di padronanza per le competenze attive (DigCompEdu 3.0 / Standard).
-            </p>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Descrittori Competenze</h1>
+                    <p className="page-subtitle">
+                        Livelli di padronanza per le competenze attive (DigCompEdu 3.0 / Standard).
+                    </p>
+                </div>
+            </div>
 
             {competenze.map(competenza => (
                 <div key={competenza.id} className="card">

@@ -125,15 +125,15 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
 
     return (
         <div className="pt-3 px-4 md:px-6 space-y-6">
-            <header className="flex justify-between items-center">
-                <div>
-                    <h1 className="m3-display-small font-black">Knowledge Base</h1>
-                    <p className="m3-body-medium text-on-surface-variant">Archivio fonti e deliverable AI.</p>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Knowledge Base</h1>
+                    <p className="page-subtitle">Archivio fonti e deliverable AI.</p>
                 </div>
                 <button onClick={() => setIsAddSourceModalOpen(true)} className="button button-filled shadow-lg">
                     <span className="material-symbols-outlined mr-2">add_circle</span> Carica Documenti
                 </button>
-            </header>
+            </div>
 
             <InfoCard 
                 title="Sincronia NotebookLM"

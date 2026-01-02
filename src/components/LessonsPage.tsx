@@ -136,8 +136,11 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
     return (
         <div className="pt-3 px-4 md:px-6">
             <div className="space-y-4">
-            <div className="flex justify-between items-center">
-                <h1 className="m3-display-medium">Progetta Lezioni</h1>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Progetta Lezioni</h1>
+                    <p className="page-subtitle">Genera e orchestra sequenze di lezioni partendo da UDA e classi.</p>
+                </div>
             </div>
 
             {/* Expressive Idea Card */}

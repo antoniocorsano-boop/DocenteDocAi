@@ -58,9 +58,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     return (
         <div className="pt-3 px-4 md:px-6">
             <div className="space-y-6 pb-20">
-            <header className="page-header-block">
-                <h1 className="m3-display-small">Cruscotto Classe {selectedClass}</h1>
-            </header>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Cruscotto Classe {selectedClass}</h1>
+                </div>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Column */}

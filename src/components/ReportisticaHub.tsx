@@ -455,8 +455,11 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
 
     return (
         <div className="page-layout">
-            <div className="flex justify-between items-center mb-2">
-                <h1 className="m3-display-medium">Centro Documentazione</h1>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium font-black">Centro Documentazione</h1>
+                    <p className="page-subtitle">Report, stampe e toolkit documentali.</p>
+                </div>
             </div>
             
             <InfoCard 

@@ -39,54 +39,70 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
     };
 
     return (
-        <div className="mb-6">
-             <div className="flex items-center gap-2 mb-3">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center bg-${variant === 'class' ? 'secondary' : variant === 'subject' ? 'tertiary' : 'surface'}-container text-${variant === 'class' ? 'secondary' : variant === 'subject' ? 'tertiary' : 'primary'}`}>
-                    <span className="material-symbols-outlined m3-body-small">{icon}</span>
+        <div className="mb-8">
+             <div className="flex items-center justify-between mb-4 px-1">
+                <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primary-container text-primary'}`}>
+                        <span className="material-symbols-outlined text-xl">{icon}</span>
+                    </div>
+                    <div>
+                        <label className="m3-label-large font-black text-on-surface uppercase tracking-widest block">
+                            {label}
+                        </label>
+                        <span className="text-[10px] font-bold text-on-surface-variant opacity-50 uppercase tracking-tighter">
+                            {items.length} {items.length === 1 ? 'elemento' : 'elementi'} salvati
+                        </span>
+                    </div>
                 </div>
-<label className="m3-body-small font-bold text-on-surface uppercase tracking-wide">
-                    {label}
-                </label>
-                <span className="m3-label-small text-on-surface-variant opacity-60 ml-auto">{items.length} elementi</span>
              </div>
              
-             <div className="m3-chip-grid">
-                 {items.map((item, index) => (
-                    <div key={index} className={`m3-expressive-chip variant-${variant}`}>
-                        <span>{item}</span>
-                        <button 
-                            type="button"
-                            onClick={(e) => { e.stopPropagation(); onRemove(index); }} 
-                            className="m3-chip-delete"
-                            aria-label={`Rimuovi ${item}`}
-                            tabIndex={-1}
-                        >
-                            <span className="material-symbols-outlined text-[14px]">close</span>
-                        </button>
-                    </div>
-                 ))}
-                 
-                 {/* Integrated Input Tile */}
-                 <div className="m3-new-chip-input-container" onClick={() => inputRef.current?.focus()}>
-                     <input 
+             <div className="p-4 bg-surface-container-low rounded-3xl border border-outline-variant/50 shadow-inner-sm">
+                <div className="m3-chip-grid mb-4">
+                    {items.map((item, index) => (
+                        <div key={index} className={`m3-expressive-chip variant-${variant} animate-in zoom-in-95 duration-200`}>
+                            <span>{item}</span>
+                            <button 
+                                type="button"
+                                onClick={(e) => { e.stopPropagation(); onRemove(index); }} 
+                                className="m3-chip-delete"
+                                aria-label={`Rimuovi ${item}`}
+                                tabIndex={-1}
+                            >
+                                <span className="material-symbols-outlined text-[14px]">close</span>
+                            </button>
+                        </div>
+                    ))}
+                    
+                    {items.length === 0 && (
+                        <p className="text-xs text-on-surface-variant italic opacity-40 py-2 px-2">Nessun elemento aggiunto...</p>
+                    )}
+                </div>
+                
+                {/* Integrated Input Area */}
+                <div className="m3-new-chip-input-container group" onClick={() => inputRef.current?.focus()}>
+                    <span className="material-symbols-outlined text-sm opacity-40 group-focus-within:text-primary group-focus-within:opacity-100 transition-all">add_circle</span>
+                    <input 
                         ref={inputRef}
                         type="text" 
                         value={newItem} 
                         onChange={e => setNewItem(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        className="m3-new-chip-input"
+                        className="m3-new-chip-input flex-1"
                         placeholder={placeholder}
                         enterKeyHint="done"
-                     />
-                     <button 
+                    />
+                    <button 
                         type="button"
                         onClick={(e) => { e.stopPropagation(); handleAdd(); }}
-                        className={`icon-button !w-6 !h-6 ${newItem.trim() ? 'text-primary' : 'text-outline-variant'}`}
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${newItem.trim() ? 'bg-primary text-on-primary shadow-md scale-110' : 'bg-surface-container-highest text-on-surface-variant opacity-30'}`}
                         disabled={!newItem.trim()}
-                     >
-                        <span className="material-symbols-outlined m3-body-small">add</span>
-                     </button>
-                 </div>
+                    >
+                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </div>
+                <p className="text-[9px] text-on-surface-variant opacity-40 mt-3 px-2 uppercase tracking-widest font-bold">
+                    Premi Invio o usa la virgola per aggiungere più elementi
+                </p>
             </div>
         </div>
     );

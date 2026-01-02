@@ -118,7 +118,12 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
 
     return (
         <div className="space-y-4">
-            <h1 className="m3-display-medium">Fonti Esterne & Feed</h1>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium font-black">Fonti Esterne & Feed</h1>
+                    <p className="page-subtitle">Gestione delle fonti RSS e sincronizzazione.</p>
+                </div>
+            </div>
 
             <InfoCard
                 title="Funzionalità Feed Disabilitata"

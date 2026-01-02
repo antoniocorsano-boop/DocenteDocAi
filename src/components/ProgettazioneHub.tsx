@@ -422,11 +422,13 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
         <div className="page-layout pb-24 max-w-6xl mx-auto w-full px-4 md:px-0">
             
             {/* Header */}
-            <div className="text-center py-4 md:py-8">
-                <h1 className="m3-display-small font-bold text-primary mb-2">Progettazione</h1>
-                <p className="m3-body-large text-on-surface-variant max-w-2xl mx-auto">
-                    Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
-                </p>
+            <div className="page-header-compact text-center items-center">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium text-primary">Progettazione</h1>
+                    <p className="page-subtitle max-w-2xl mx-auto">
+                        Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
+                    </p>
+                </div>
             </div>
             
             {/* Tab Navigation */}

@@ -137,6 +137,14 @@ body {
 .contextual-strip.visible { opacity: 1; transform: translateY(0); }
 .contextual-strip.hidden-strip { opacity: 0; transform: translateY(-8px); }
 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Floating assistant FAB */
 .fab, .live-assistant-fab {
   position: fixed;

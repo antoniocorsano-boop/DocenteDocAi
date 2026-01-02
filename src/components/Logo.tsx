@@ -1,57 +1,98 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { useUIStore } from '../stores/useUIStore';
 
 interface LogoProps {
   isAiThinking?: boolean;
   className?: string;
   title?: string;
+  onHomeNavigate?: () => void;
 }
 
-type AnimationState = 'idle' | 'chaos' | 'implosion' | 'peace';
+const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, className, onHomeNavigate }) => {
+  const { chaosStage, actions } = useUIStore();
+  const clickCount = useRef(0);
+  const clickTimer = useRef<NodeJS.Timeout | null>(null);
 
-const Logo: React.FC<LogoProps> = ({ isAiThinking = false, className, title }) => {
-  const [animState, setAnimState] = useState<AnimationState>('idle');
-
-  const triggerBigBang = useCallback((e: React.MouseEvent) => {
+  const handleLogoClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-    if (animState !== 'idle') return;
+    
+    // Se siamo già in una fase di caos, non fare nulla
+    if (chaosStage !== 'none') return;
 
-    setAnimState('chaos');
-    setTimeout(() => {
-      setAnimState('implosion');
+    clickCount.current += 1;
+
+    if (clickTimer.current) clearTimeout(clickTimer.current);
+    
+    clickTimer.current = setTimeout(() => {
+      // Se non abbiamo raggiunto i 5 click, eseguiamo la navigazione normale
+      if (clickCount.current < 5 && onHomeNavigate) {
+        onHomeNavigate();
+      }
+      clickCount.current = 0;
+    }, 300); // Ridotto il timer per distinguere click singolo da sequenza rapida
+
+    if (clickCount.current >= 5) {
+      clickCount.current = 0;
+      if (clickTimer.current) clearTimeout(clickTimer.current);
+      
+      // Inizia la sequenza Big Bang (Old Style)
+      actions.setChaosStage('chaos');
+      
+      // Fase 1: Chaos (4.0s) - Aumentata durata per godersi la trama
       setTimeout(() => {
-        setAnimState('peace');
-        setTimeout(() => setAnimState('idle'), 2500);
-      }, 300); 
-    }, 1800); 
-  }, [animState]);
+        actions.setChaosStage('implosion');
+        
+        // Fase 2: Implosion (0.6s)
+        setTimeout(() => {
+          actions.setChaosStage('peace');
+          
+          // Fase 3: Peace -> Settled (1.0s)
+          setTimeout(() => {
+            actions.setChaosStage('settled');
+          }, 1000);
+        }, 600);
+      }, 4000);
+    }
+  }, [chaosStage, actions, onHomeNavigate]);
 
   return (
     <>
-      {animState !== 'idle' && animState !== 'peace' && document.body && ReactDOM.createPortal(
-        <div className={`universe-overlay ${animState}`}></div>,
+      {chaosStage === 'chaos' && document.body && ReactDOM.createPortal(
+        <div className="chaos-gem-overlay">
+          <div className="chaos-splinter-gem"></div>
+          <div className="chaos-flash"></div>
+        </div>,
+        document.body
+      )}
+      
+      {/* Overlay per le fasi di implosione e pace */}
+      {(chaosStage === 'implosion' || chaosStage === 'peace') && document.body && ReactDOM.createPortal(
+        <div className={`universe-overlay ${chaosStage}`}></div>,
         document.body
       )}
 
       <div 
-        className={`app-logo-container ${animState} ${isAiThinking ? 'thinking' : ''} ${className ? className : ''}`.trim()} 
-        onClick={triggerBigBang}
+        className={`app-logo-container stage-${chaosStage} ${isAiThinking ? 'thinking' : ''} ${className ? className : ''}`.trim()} 
+        onClick={handleLogoClick}
       >
         <svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible">
           {/* Simbolo D Geometrica */}
-          <g transform="translate(2, 2)">
+          <g transform="translate(2, 2)" className="logo-d-group">
             <path d="M12 4 H 24 C 36 4, 42 12, 42 20 C 42 28, 36 36, 24 36 H 12 V 4 Z" className="logo-d-ring" />
             <path d="M14 8 H 22 C 28 8, 31 12, 31 20 C 31 28, 28 32, 22 32 H 14 V 8 Z" className="logo-d-body" />
             <rect x="4" y="6" width="7" height="28" rx="2" className="logo-d-stem" />
             
-            {/* Gemma AI */}
-            <g transform="translate(38, 4)">
+            {/* Gemma AI - Questa è quella che "vola" via o appare alla fine */}
+            <g transform="translate(38, 4)" className="logo-gem-container">
                 <path d="M0 -5 L1.5 -1.5 L5 0 L1.5 1.5 L0 5 L-1.5 1.5 L-5 0 L-1.5 -1.5 Z" className="logo-sparkle" />
             </g>
           </g>
           
           {/* Brand Text */}
-          <text x="54" y="32" className="logo-main-text" fill="currentColor">DocenteDoc</text>
+          <text x="54" y="32" className="logo-main-text" fill="currentColor">
+            DocenteDoc
+          </text>
           
           {/* Badge AI */}
           <text x="188" y="18" className="logo-ai-text" fill="currentColor">AI</text>
@@ -61,4 +102,5 @@ const Logo: React.FC<LogoProps> = ({ isAiThinking = false, className, title }) =
   );
 };
 
-export default Logo;
+export { LogoComponent as Logo };
+export default LogoComponent;

@@ -31,8 +31,8 @@ const baseSchedulingProps = {
 describe('ViewRouter rendering', () => {
   it('renders the Calendar view', () => {
     render(<ViewRouter viewName="calendario" props={baseSchedulingProps} />);
-    // Verifica che il titolo del calendario sia presente (es: "Dicembre 2025")
-    expect(screen.getByText(/Dicembre 2025/)).toBeInTheDocument();
+    // Verifica che il titolo del calendario mostri un mese e anno (es: "Gennaio 2026")
+    expect(screen.getByText(/\b[A-Za-zàèéìòù]+ \d{4}\b/)).toBeInTheDocument();
     // Verifica che i giorni della settimana siano presenti
     expect(screen.getByText('LUN')).toBeInTheDocument();
     expect(screen.getByText('DOM')).toBeInTheDocument();

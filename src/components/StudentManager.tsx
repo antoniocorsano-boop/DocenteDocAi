@@ -59,8 +59,11 @@ const StudentManager: React.FC<StudentManagerProps> = ({
 
     return (
         <div className="pt-3 px-4 md:px-6 pb-20">
-            <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
-                <h1 className="m3-display-medium">Gestione Studenti</h1>
+            <div className="page-header-compact mb-4">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Gestione Studenti</h1>
+                    <p className="page-subtitle">Archivia, importa e aggiorna anagrafica e stato classe.</p>
+                </div>
                 <div className="flex gap-2">
                     <button onClick={() => setIsImportModalOpen(true)} className="button button-tonal">
                         <span className="material-symbols-outlined mr-2">upload_file</span>

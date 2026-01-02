@@ -59,7 +59,14 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
   
   return (
     <div className="space-y-4">
-      {!isModalMode && <h1 className="m3-display-medium">Diario di Bordo {initialClass && ` - ${initialClass}`}</h1>}
+      {!isModalMode && (
+        <div className="page-header-compact">
+          <div className="page-header-title-group">
+            <h1 className="m3-headline-medium font-black">Diario di Bordo {initialClass && ` - ${initialClass}`}</h1>
+            <p className="page-subtitle">Registro sintetico delle lezioni.</p>
+          </div>
+        </div>
+      )}
       <div className={isModalMode ? "" : "card"}>
         <div className="table-container">
           <table className="table">

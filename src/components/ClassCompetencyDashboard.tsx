@@ -100,12 +100,14 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
     
     return (
         <div className="page-container-full pb-20">
-            <header className="page-header-block">
-                <h1 className="m3-display-small">Competenze {selectedClass}</h1>
-                <p className="m3-body-large text-on-surface-variant mt-2">
-                    Analisi dei livelli raggiunti per area di competenza.
-                </p>
-            </header>
+            <div className="page-header-compact">
+                <div className="page-header-title-group">
+                    <h1 className="m3-headline-medium">Competenze {selectedClass}</h1>
+                    <p className="page-subtitle">
+                        Analisi dei livelli raggiunti per area di competenza.
+                    </p>
+                </div>
+            </div>
             
             {/* Controls */}
             <div className="flex justify-end mb-4">

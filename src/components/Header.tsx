@@ -151,12 +151,15 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 </div>
                 {/* Center: Logo (preservato, centrato, non modificato) */}
                 <div
-                    className="header-center cursor-pointer"
-                    onClick={() => !showBackButton && onNavigate('home')}
+                    className="header-center"
                     aria-label={!showBackButton ? 'Home' : undefined}
                 >
                     <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
-                        <Logo isAiThinking={isAiProcessing} className="header-logo" />
+                        <Logo 
+                            isAiThinking={isAiProcessing} 
+                            className="header-logo" 
+                            onHomeNavigate={() => !showBackButton && onNavigate('home')}
+                        />
                     </div>
                     {isAiProcessing && <AiThinkingGem size="small" />}
                 </div>

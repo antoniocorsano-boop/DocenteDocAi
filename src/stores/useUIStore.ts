@@ -25,12 +25,14 @@ export interface UIActions {
     setActiveSlotKey: (key: string | null) => void;
     setLessonViewContext: (lesson: Lezione | null) => void;
     setIsVideoAnalysisOpen: (value: boolean) => void;
+    setChaosStage: (stage: 'none' | 'chaos' | 'implosion' | 'peace' | 'settled') => void;
 }
 
 export interface UIState {
     modals: Modals & {
         toast: { message: string; type: 'success' | 'error' | 'info'; visible: boolean };
     };
+    chaosStage: 'none' | 'chaos' | 'implosion' | 'peace' | 'settled';
     circularAnalysisModal: { isOpen: boolean; url: string; title: string } | null;
     syncConflictModal: { isOpen: boolean; data: SyncConflictData | null } | null;
     createLessonContext: { isOpen: boolean; slotKey: string | null; lezione: Lezione | null } | null;
@@ -96,6 +98,7 @@ const initialModals = {
 
 export const useUIStore = create<UIState>((set: (fn: (state: UIState) => Partial<UIState> | UIState) => void) => ({
     modals: { ...initialModals },
+    chaosStage: 'none',
     circularAnalysisModal: null,
     syncConflictModal: null,
     createLessonContext: null,
@@ -143,6 +146,7 @@ export const useUIStore = create<UIState>((set: (fn: (state: UIState) => Partial
         setActiveSlotKey: (key: string | null) => set((state: UIState) => ({ modals: { ...state.modals, activeSlotKey: key }, activeSlotKey: key })),
         setLessonViewContext: (lesson: Lezione | null) => set((state: UIState) => ({ modals: { ...state.modals, lessonViewContext: lesson }, lessonViewContext: lesson })),
         setIsVideoAnalysisOpen: (value: boolean) => set((state: UIState) => ({ modals: { ...state.modals, isVideoAnalysisOpen: value }, isVideoAnalysisOpen: value })),
+        setChaosStage: (stage: 'none' | 'shaking' | 'gem-flight' | 'settled') => set(() => ({ chaosStage: stage })),
     }
 }));
 

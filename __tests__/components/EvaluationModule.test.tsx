@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import EvaluationModule from '../../src/components/EvaluationModule';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, Competenza, Lezione } from '../../src/types';
 import * as evaluationUtils from '../../src/utils/evaluationUtils';
@@ -406,18 +406,12 @@ describe('EvaluationModule', () => {
       />
     );
     fireEvent.click(screen.getByRole('button', { name: /Esporta/i }));
-    // Verify export UI opened. If a Close button exists, click it and assert the dialog closes;
-    // otherwise just assert that export content is visible.
-    const closeBtn = screen.queryByRole('button', { name: /chiudi/i });
-    if (closeBtn) {
-      fireEvent.click(closeBtn);
-      await waitFor(() => {
-        expect(screen.queryByText(/Esporta/i)).not.toBeInTheDocument();
-      });
-    } else {
-      const exportMatches = await screen.findAllByText(/Esporta/i);
-      expect(exportMatches.length).toBeGreaterThan(0);
-    }
+    const exportDialog = await screen.findByRole('dialog');
+    const closeBtn = await within(exportDialog).findByRole('button', { name: /chiudi/i });
+    fireEvent.click(closeBtn);
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).toBeNull();
+    });
   });
 
   it('dovrebbe non mostrare studenti a rischio se tutti hanno media sufficiente', async () => {

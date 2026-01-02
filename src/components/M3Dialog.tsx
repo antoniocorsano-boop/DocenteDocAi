@@ -144,7 +144,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   return (
     <div
       ref={dialogRef}
-      className={`fixed inset-0 flex items-center justify-center p-4 pointer-events-auto ${
+      className={`dialog-shell fixed top-0 right-0 bottom-0 left-0 lg:left-[var(--nav-rail-offset-desktop)] flex items-center justify-center p-4 lg:pr-8 lg:pl-6 pointer-events-auto ${
         mode === 'fullscreen' ? '!p-0 md:!p-4' : ''
       }`}
       onClick={handleBackdropClick}
