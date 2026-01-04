@@ -1,5 +1,8 @@
+// CRITICAL: Initialize Performance API before React/Scheduler modules run
+// NOTE: Now inlined in index.html as <script> tag, so we don't need to import pre-react-performance
+// import './pre-react-performance';
 // CRITICAL: Import polyfills FIRST, before anything else
-// Polyfills handle performance.now() initialization for React scheduler
+// Polyfills handle DOM shims and performance fallbacks
 import './polyfills';
 
 // Initialize tracing
@@ -90,47 +93,8 @@ if (typeof window !== 'undefined') {
   });
 }
 
-// PWA Service Worker con gestione Origin Mismatch per AI Studio / Iframe
-// Register the service worker only when explicitly enabled via env var to avoid
-// accidental serving of stale cached assets from edge service workers.
-interface ImportMetaEnv {
-  // Required by Vite
-  BASE_URL: string;
-  MODE: string;
-  SSR: boolean;
-  VITE_GOOGLE_CLIENT_ID: string;
-  VITE_GOOGLE_API_KEY: string;
-
-  // Project-specific
-  VITE_ENABLE_SW: string;
-  VITE_GSI_CLIENT_ID: string;
-  VITE_ENABLE_GSI_DEV: string;
-  VITE_ALLOWED_HOSTS: string;
-  PROD: boolean;
-  DEV: boolean;
-}
-
-interface ImportMetaTyped extends ImportMeta {
-  env: ImportMetaEnv;
-}
-
-const enableSW =
-  typeof import.meta !== 'undefined' &&
-  (import.meta as ImportMetaTyped).env &&
-  (import.meta as ImportMetaTyped).env.VITE_ENABLE_SW === 'true' && false; // Forza disabilitazione SW in produzione
-if (enableSW && 'serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    // Evitiamo il caricamento del SW se siamo in un dominio di sandbox/iframe non autorizzato per i manifest
-    const isSandbox = window.location.hostname.includes('usercontent.goog') || window.self !== window.top;
-    if (!isSandbox) {
-      navigator.serviceWorker.register('./service-worker.js', { scope: './' })
-        .then(() => console.debug('[SW] registered'))
-        .catch(err => console.debug('[SW] registration failed', err));
-    }
-  });
-} else {
-  console.debug('[SW] disabled by VITE_ENABLE_SW flag');
-}
+// PWA Service Worker registration is handled by vite-plugin-pwa in vite.config.ts
+// with injectRegister: 'auto' which adds the registration script to index.html.
 
 // Conditionally load Google Identity and API scripts only in production and when origin is allowed
 (function loadGoogleScriptsIfAllowed() {
@@ -183,11 +147,14 @@ async function bootstrapApp() {
 
     // Dynamically import App after stores are ready to avoid initialization races
     const { App } = await import('./components/App');
+    const { ModalProvider } = await import('./context/ModalContext');
 
     root.render(
       <ErrorBoundary>
         <React.StrictMode>
-          <App />
+          <ModalProvider>
+            <App />
+          </ModalProvider>
         </React.StrictMode>
       </ErrorBoundary>
     );

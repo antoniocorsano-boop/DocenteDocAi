@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0');
 @import './design-system/chip-expressive.css';
 
 :root {
-  --font-family: 'Roboto', sans-serif;
+  --font-family: 'Roboto Flex', sans-serif;
 
   /* --- PALETTE M3 EXPRESSIVE (AURA) --- */
   --sys-primary: #6750A4;
@@ -40,11 +40,89 @@
   --sys-warning: #E65100;
   --sys-on-warning: #FFFFFF;
 
-  /* Glassmorphism Presentation Layer */
+  /* Glassmorphism Presentation Layer - Default Aura */
   --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-blur: blur(30px);
+  --glass-blur-px: 30px;
+  --glass-blur: blur(var(--glass-blur-px));
   --glass-border: 1px solid rgba(255, 255, 255, 0.4);
 
+  /* Parametric Scaling Tokens */
+  --sys-radius-multiplier: 1;
+  --sys-spacing-multiplier: 1;
+  --sys-glass-opacity: 0.75;
+
+  /* Z-Index Hierarchy (Sync with zIndex.ts) */
+  --z-app-bar: 100;
+  --z-nav: 1000;
+  --z-fab: 1200;
+  --z-modal-backdrop: 1300;
+  --z-modal: 1400;
+  --z-toast: 2000;
+  --z-tooltip: 3000;
+}
+
+/* --- VISUAL STYLES OVERRIDES --- */
+
+/* Aura Style (Glassmorphism) */
+[data-visual-style="aura"] {
+  --glass-bg: rgba(var(--sys-surface-rgb), var(--sys-glass-opacity));
+  --glass-blur: blur(var(--glass-blur-px));
+  --glass-border: 1px solid rgba(var(--sys-outline-variant-rgb), 0.3);
+}
+
+/* Flat Style (Material 3 Standard) */
+[data-visual-style="flat"] {
+  --glass-bg: var(--sys-surface);
+  --glass-blur: none;
+  --glass-border: 1px solid var(--sys-outline-variant);
+  --sys-glass-opacity: 1;
+}
+
+/* Minimal Style (Clean & Sharp) */
+[data-visual-style="minimal"] {
+  --glass-bg: var(--sys-surface);
+  --glass-blur: none;
+  --glass-border: none;
+  --sys-glass-opacity: 1;
+  --sys-radius-multiplier: 0.25;
+}
+
+/* Cupertino Style (Apple-like) */
+[data-visual-style="cupertino"] {
+  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "system-ui", sans-serif;
+  --sys-primary: #007AFF;
+  --sys-primary-rgb: 0, 122, 255;
+  --glass-bg: rgba(var(--sys-surface-rgb), 0.7);
+  --glass-blur: blur(25px) saturate(180%);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+  --sys-radius-multiplier: 0.8;
+  --sys-glass-opacity: 0.7;
+}
+
+/* Windows Style (Fluent Design) */
+[data-visual-style="windows"] {
+  --font-family: "Segoe UI Variable Text", "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  --sys-primary: #0078D4;
+  --sys-primary-rgb: 0, 120, 212;
+  --glass-bg: rgba(var(--sys-surface-rgb), 0.85);
+  --glass-blur: blur(20px);
+  --glass-border: 1px solid rgba(var(--sys-outline-variant-rgb), 0.4);
+  --sys-radius-multiplier: 0.4; /* Windows uses smaller radii (4-8px) */
+  --sys-glass-opacity: 0.85;
+}
+
+/* Google Expressive Style */
+[data-visual-style="expressive"] {
+  --font-family: 'Roboto Flex', sans-serif;
+  --sys-radius-multiplier: 1.2; /* Extra rounded shapes (28px -> 34px) */
+  --sys-primary: #1a73e8; /* Google Blue */
+  --sys-primary-rgb: 26, 115, 232;
+  --sys-surface-container-high: #f1f3f4;
+  --sys-surface-container-highest: #e8eaed;
+  --motion-easing-standard: var(--motion-easing-expressive);
+}
+
+:root {
   /* Layout Metrics Presentation Layer */
   --header-height: 64px;
   --content-max-width: 1200px;
@@ -789,4 +867,12 @@ body {
     opacity: 1;
     transform: scale(1);
   }
+}
+/* --- AURA GLASSMORPHISM --- */
+.aura-glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  box-shadow: var(--elevation-2);
 }

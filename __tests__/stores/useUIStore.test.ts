@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { useUIStore, normalizeLegacyState } from '../../src/stores/useUIStore.ts';
 import { View, Lezione } from '../../src/types';
 
@@ -85,6 +85,19 @@ describe('useUIStore', () => {
       expect(useUIStore.getState().modals.isImageAnalysisOpen).toBe(false);
     });
 
+    it('dovrebbe sincronizzare isLoadingModalOpen tramite toggleModal', () => {
+      useUIStore.getState().actions.toggleModal('isLoadingModalOpen', true);
+      expect(useUIStore.getState().modals.isLoadingModalOpen).toBe(true);
+      expect(useUIStore.getState().loadingModalMessage).toBe('');
+    });
+
+    it('dovrebbe sincronizzare circularAnalysisModal tramite toggleModal', () => {
+      const mockData = { isOpen: true, url: 'test', title: 'test' };
+      useUIStore.getState().actions.setCircularAnalysisModal(mockData);
+      useUIStore.getState().actions.toggleModal('circularAnalysisModal', false);
+      expect(useUIStore.getState().circularAnalysisModal).toBeNull();
+    });
+
     it('dovrebbe aprire il modal Live Assistant', () => {
       useUIStore.getState().actions.toggleModal('isLiveAssistantModalOpen', true);
       expect(useUIStore.getState().modals.isLiveAssistantModalOpen).toBe(true);
@@ -155,9 +168,12 @@ describe('useUIStore', () => {
 
     it('dovrebbe impostare dati sync conflict', () => {
       const conflictData = {
-        isOpen: true,
-        remoteTime: Date.now(),
-        localTime: Date.now() - 1000,
+        fileId: 'file123',
+        fileName: 'backup.json',
+        localContent: '{}',
+        remoteContent: '{}',
+        lastModifiedLocal: new Date().toISOString(),
+        lastModifiedRemote: new Date().toISOString(),
       };
       const conflict = {
         isOpen: true,
@@ -254,8 +270,7 @@ describe('useUIStore', () => {
       useUIStore.getState().actions.showToast('Messaggio', 'success');
       useUIStore.getState().actions.clearToast();
       const toast = useUIStore.getState().toast;
-      expect(toast?.visible).toBe(false);
-      expect(toast?.message).toBe('');
+      expect(toast).toBeNull();
     });
   });
 
@@ -318,6 +333,12 @@ describe('useUIStore', () => {
     it('dovrebbe impostare canShowInstallPrompt', () => {
       useUIStore.getState().actions.setCanShowInstallPrompt(true);
       expect(useUIStore.getState().canShowInstallPrompt).toBe(true);
+    });
+
+    it('dovrebbe impostare installPrompt', () => {
+      const mockPrompt = { prompt: vi.fn() };
+      useUIStore.getState().actions.setInstallPrompt(mockPrompt);
+      expect(useUIStore.getState().installPrompt).toBe(mockPrompt);
     });
 
     it('dovrebbe disabilitare install prompt', () => {
@@ -436,6 +457,50 @@ describe('useUIStore', () => {
       useUIStore.getState().actions.setIsVideoAnalysisOpen(true);
       useUIStore.getState().actions.setIsVideoAnalysisOpen(false);
       expect(useUIStore.getState().modals.isVideoAnalysisOpen).toBe(false);
+    });
+  });
+
+  describe('Functional Updaters', () => {
+    it('dovrebbe impostare backupState tramite funzione', () => {
+      useUIStore.getState().actions.setBackupState((prev) => ({ ...prev, status: 'error' }));
+      expect(useUIStore.getState().backupState.status).toBe('error');
+    });
+
+    it('dovrebbe impostare driveSyncState tramite funzione', () => {
+      useUIStore.getState().actions.setDriveSyncState((prev) => ({ ...prev, isSyncing: true }));
+      expect(useUIStore.getState().driveSyncState.isSyncing).toBe(true);
+    });
+  });
+
+  describe('Chaos Stage', () => {
+    it('dovrebbe impostare chaos stage', () => {
+      useUIStore.getState().actions.setChaosStage('chaos');
+      expect(useUIStore.getState().chaosStage).toBe('chaos');
+    });
+  });
+
+  describe('normalizeLegacyState', () => {
+    it('dovrebbe normalizzare lo stato con toast', () => {
+      const legacyState = {
+        toast: { message: 'Test', type: 'success' as const, visible: true }
+      };
+      const normalized = normalizeLegacyState(legacyState);
+      expect(normalized.modals!.toast.message).toBe('Test');
+    });
+
+    it('dovrebbe normalizzare chiavi legacy', () => {
+      const legacyState = {
+        loadingModalMessage: 'Caricamento...'
+      };
+      const normalized = normalizeLegacyState(legacyState);
+      expect(normalized.modals!.loadingModalMessage).toBe('Caricamento...');
+    });
+  });
+
+  describe('Legacy Getters Edge Cases', () => {
+    it('dovrebbe restituire null per toast se non visibile e senza messaggio', () => {
+      useUIStore.getState().actions.clearToast();
+      expect(useUIStore.getState().toast).toBeNull();
     });
   });
 });

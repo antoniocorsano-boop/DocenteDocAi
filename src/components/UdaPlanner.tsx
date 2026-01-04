@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Uda, Competenza, UdaPlannerProps } from '../types';
 import { UdaExportModal } from './UdaExportModal';
 import Guidance from './Guidance';
-import { TextField, TextArea, EmptyState } from './M3Components';
-import { M3Dialog } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, TextArea, EmptyState } from './ui';
 
 const createNewUda = (): Uda => ({
     id: `uda-${Date.now()}`,
@@ -47,112 +46,151 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
     };
 
     return (
-        <div className="card border-l-4 border-l-tertiary animate-in slide-in-from-right-4">
-            <div className="flex justify-between items-center mb-8 border-b border-outline-variant pb-6">
-                <div>
-                    <h2 className="m3-headline-medium font-black">{udaProp === 'new' ? 'Nuovo Progetto' : 'Modifica Progetto'}</h2>
-                    <p className="m3-body-medium text-on-surface-variant font-bold opacity-60 uppercase tracking-widest text-[10px] mt-1">{currentUda.title || 'Senza titolo'}</p>
-                </div>
-                <button onClick={onClose} className="icon-button"><span className="material-symbols-outlined">close</span></button>
-            </div>
+        <div className="bg-surface-container-low/30 backdrop-blur-xl rounded-5xl border border-outline-variant/20 p-8 shadow-2xl animate-in slide-in-from-right-4 duration-500 relative overflow-hidden">
+            {/* Aura Ornaments */}
+            <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-tertiary/10 blur-[100px] rounded-full pointer-events-none" />
             
-            <div className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div className="md:col-span-2">
+            <div className="relative z-10">
+                <div className="flex justify-between items-center mb-10 border-b border-outline-variant/10 pb-8">
+                    <div className="flex items-center gap-5">
+                        <div className="w-16 h-16 rounded-xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-lg rotate-3">
+                            <span className="material-symbols-outlined text-3xl">{udaProp === 'new' ? 'add_task' : 'edit_document'}</span>
+                        </div>
+                        <div>
+                            <h2 className="m3-headline-medium font-black tracking-tight">{udaProp === 'new' ? 'Nuovo Progetto' : 'Modifica Progetto'}</h2>
+                            <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60 mt-1">{currentUda.title || 'Senza titolo'}</p>
+                        </div>
+                    </div>
+                    <M3Button onClick={onClose} variant="text" className="!w-12 !h-12 !p-0 !min-w-0 !rounded-full hover:bg-surface-container-high">
+                        <span className="material-symbols-outlined text-2xl">close</span>
+                    </M3Button>
+                </div>
+                
+                <div className="space-y-10">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div className="md:col-span-2">
+                            <TextField 
+                                label="Titolo UDA" 
+                                value={currentUda.title} 
+                                onChange={e => handleFieldChange('title', e.target.value)} 
+                                placeholder="Es. Il Rinascimento Scientifico" 
+                                required
+                            />
+                        </div>
                         <TextField 
-                            label="Titolo UDA" 
-                            value={currentUda.title} 
-                            onChange={e => handleFieldChange('title', e.target.value)} 
-                            placeholder="Es. Il Rinascimento Scientifico" 
+                            label="Classe" 
+                            value={currentUda.classe} 
+                            onChange={e => handleFieldChange('classe', e.target.value)} 
+                            placeholder="Es. 3A" 
+                            required
+                        />
+                        <TextField 
+                            label="Materia" 
+                            value={currentUda.materia} 
+                            onChange={e => handleFieldChange('materia', e.target.value)} 
+                            placeholder="Es. Storia" 
                             required
                         />
                     </div>
-                    <TextField 
-                        label="Classe" 
-                        value={currentUda.classe} 
-                        onChange={e => handleFieldChange('classe', e.target.value)} 
-                        placeholder="Es. 3A" 
-                        required
-                    />
-                    <TextField 
-                        label="Materia" 
-                        value={currentUda.materia} 
-                        onChange={e => handleFieldChange('materia', e.target.value)} 
-                        placeholder="Es. Storia" 
-                        required
-                    />
-                </div>
 
-                <div className="bg-secondary-container/10 p-5 rounded-[32px] border border-secondary/20">
-                    <TextField 
-                        label="Link Deliverable (NotebookLM)"
-                        value={currentUda.externalLink || ''}
-                        onChange={e => handleFieldChange('externalLink', e.target.value)}
-                        placeholder="Incolla l'URL dell'analisi di NotebookLM..."
-                        leadingIcon="auto_awesome"
-                        containerClassName="!bg-surface shadow-sm"
+                    <div className="bg-surface-container-lowest/40 backdrop-blur-md p-6 rounded-2xl border border-outline-variant/20 shadow-inner group transition-all hover:bg-surface-container-lowest/60">
+                        <TextField 
+                            label="Link Deliverable (NotebookLM)"
+                            value={currentUda.externalLink || ''}
+                            onChange={e => handleFieldChange('externalLink', e.target.value)}
+                            placeholder="Incolla l'URL dell'analisi di NotebookLM..."
+                            leadingIcon="auto_awesome"
+                            className="!bg-surface/50 shadow-sm"
+                        />
+                        <div className="flex items-center gap-2 mt-4 px-2">
+                            <span className="material-symbols-outlined text-secondary text-sm animate-pulse">auto_awesome</span>
+                            <p className="text-[10px] text-secondary font-black uppercase tracking-[0.2em] opacity-70">Bridge AI: Connetti il progetto al tuo spazio di lavoro esterno.</p>
+                        </div>
+                    </div>
+                    
+                    <TextArea 
+                        label="Introduzione / Contesto" 
+                        value={currentUda.introduction} 
+                        onChange={e => handleFieldChange('introduction', e.target.value)} 
+                        rows={4} 
+                        placeholder="Descrivi brevemente l'argomento e il contesto didattico..." 
                     />
-                    <p className="text-[10px] text-secondary font-black uppercase mt-3 px-2 tracking-widest opacity-70">Bridge AI: Connetti il progetto al tuo spazio di lavoro esterno.</p>
-                </div>
-                
-                <TextArea 
-                    label="Introduzione / Contesto" 
-                    value={currentUda.introduction} 
-                    onChange={e => handleFieldChange('introduction', e.target.value)} 
-                    rows={3} 
-                    placeholder="Descrivi brevemente l'argomento e il contesto didattico..." 
-                />
-                
-                <div>
-                    <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-2 mb-2 block">Competenze Target</label>
-                    <div className="bg-surface-container p-5 rounded-[24px] border border-outline-variant cursor-pointer hover:bg-surface-container-high transition-all shadow-inner group" onClick={() => setIsCompetencyPickerOpen(true)}>
-                        <div className="flex flex-wrap gap-2">
+                    
+                    <div>
+                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.3em] px-4 mb-3 block opacity-60">Competenze Target</label>
+                        <div 
+                            className="bg-surface-container-lowest/30 backdrop-blur-sm p-6 rounded-2xl border border-outline-variant/20 cursor-pointer hover:bg-surface-container-high/40 transition-all shadow-inner group flex flex-wrap gap-3 min-h-[80px] items-center" 
+                            onClick={() => setIsCompetencyPickerOpen(true)}
+                        >
                             {currentUda.competencyIds.length > 0 ? (
                                 currentUda.competencyIds.map(id => {
                                     const c = competenze.find(comp => comp.id === id);
-                                    return <span key={id} className="chip text-[10px] font-black px-3 h-7 bg-primary text-on-primary border-none shadow-sm">{c?.codice}</span>
+                                    return (
+                                        <span key={id} className="bg-primary text-on-primary text-[10px] font-black px-4 py-2 rounded-full shadow-md animate-in zoom-in-95">
+                                            {c?.codice}
+                                        </span>
+                                    );
                                 })
-                            ) : <span className="text-sm italic opacity-40 font-bold uppercase tracking-widest">Tocca per selezionare competenze</span>}
+                            ) : (
+                                <div className="flex items-center gap-3 opacity-40 group-hover:opacity-100 transition-opacity w-full justify-center">
+                                    <span className="material-symbols-outlined">add_circle</span>
+                                    <span className="text-sm font-black uppercase tracking-widest">Tocca per selezionare competenze</span>
+                                </div>
+                            )}
                         </div>
                     </div>
-                </div>
 
-                <div className="flex justify-end gap-3 pt-6 border-t border-outline-variant">
-                    {udaProp !== 'new' && (
-                        <button onClick={() => { if(confirm('Eliminare questo progetto?')) { onDeleteUda(currentUda.id); onClose(); }}} className="button button-outlined !text-error !border-error mr-auto !rounded-2xl">
-                            <span className="material-symbols-outlined mr-2">delete</span> Elimina
-                        </button>
-                    )}
-                    <button onClick={onClose} className="button button-text">Annulla</button>
-                    <button onClick={handleSave} className="button button-filled shadow-xl">Salva Progetto</button>
-                </div>
-            </div>
-
-             {isCompetencyPickerOpen && (
-                <M3Dialog
-                    onClose={() => setIsCompetencyPickerOpen(false)}
-                    title="Seleziona Competenze"
-                    maxWidth="2xl"
-                    buttons={
-                        <button onClick={() => setIsCompetencyPickerOpen(false)} className="button button-filled w-full">Conferma Selezione</button>
-                    }
-                >
-                    <div className="m3-chip-grid p-2">
-                        {competenze.map(comp => (
-                             <div key={comp.id} className="chip-checkbox w-full">
-                                <input type="checkbox" id={`comp-${comp.id}`} checked={currentUda.competencyIds.includes(comp.id)} onChange={() => handleCompetencyToggle(comp.id)}/>
-                                <label htmlFor={`comp-${comp.id}`} className={`chip w-full !justify-start !h-14 !px-4 ${currentUda.competencyIds.includes(comp.id) ? 'chip-selected' : ''}`}>
-                                    {currentUda.competencyIds.includes(comp.id) && <span className="material-symbols-outlined text-lg">check</span>}
-                                    <div className="min-w-0">
-                                        <p className="font-black text-xs truncate leading-none">{comp.codice}</p>
-                                        <p className="truncate opacity-70 font-bold text-[10px]">{comp.nome}</p>
-                                    </div>
-                                </label>
-                            </div>
-                        ))}
+                    <div className="flex justify-end gap-4 pt-10 border-t border-outline-variant/10">
+                        {udaProp !== 'new' && (
+                            <M3Button 
+                                onClick={() => { if(confirm('Eliminare questo progetto?')) { onDeleteUda(currentUda.id); onClose(); }}} 
+                                variant="text" 
+                                className="!text-error mr-auto"
+                                icon="delete"
+                            >
+                                Elimina
+                            </M3Button>
+                        )}
+                        <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                        <M3Button onClick={handleSave} variant="primary" icon="save" className="shadow-xl">Salva Progetto</M3Button>
                     </div>
-                </M3Dialog>
-            )}
+                </div>
+
+                 {isCompetencyPickerOpen && (
+                    <M3Dialog
+                        onClose={() => setIsCompetencyPickerOpen(false)}
+                        title="Seleziona Competenze"
+                        maxWidth="2xl"
+                        level={2}
+                    >
+                        <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-2">
+                                {competenze.map(comp => {
+                                    const isSelected = currentUda.competencyIds.includes(comp.id);
+                                    return (
+                                        <div 
+                                            key={comp.id} 
+                                            onClick={() => handleCompetencyToggle(comp.id)}
+                                            className={`flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all border-2 ${isSelected ? 'bg-primary-container text-on-primary-container border-primary/30 shadow-md' : 'bg-surface-container-lowest/50 border-transparent hover:bg-surface-container-high/50'}`}
+                                        >
+                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${isSelected ? 'border-primary bg-primary' : 'border-outline-variant'}`}>
+                                                {isSelected && <span className="material-symbols-outlined text-on-primary text-sm">check</span>}
+                                            </div>
+                                            <div className="min-w-0">
+                                                <p className="font-black text-xs truncate leading-none mb-1">{comp.codice}</p>
+                                                <p className="truncate opacity-70 font-bold text-[10px] uppercase tracking-tighter">{comp.nome}</p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </M3DialogContent>
+                        <M3DialogActions className="bg-surface-container-low/50 backdrop-blur-xl border-t border-outline-variant/10">
+                            <M3Button onClick={() => setIsCompetencyPickerOpen(false)} variant="primary" className="w-full">Conferma Selezione</M3Button>
+                        </M3DialogActions>
+                    </M3Dialog>
+                )}
+            </div>
         </div>
     );
 };
@@ -169,78 +207,127 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
     const [exportingUda, setExportingUda] = useState<Uda | null>(null);
 
     return (
-        <div className="page-container-full">
-            <div className="page-header-compact mb-8">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium">Planner Progetti</h1>
-                    <p className="page-subtitle">Organizza le UDA e collega risorse esterne per i tuoi progetti.</p>
-                </div>
-                <button onClick={() => setEditingUda('new')} className="button button-filled shadow-xl">
-                    <span className="material-symbols-outlined mr-2 font-black">add</span>Nuovo Progetto
-                </button>
-            </div>
-            
-            <Guidance id="uda-planner-intro" icon="assignment" title="Organizza i tuoi Progetti" isGloballyEnabled={showGuidanceTips}>
-                <p>Crea le tue Unità di Apprendimento. Puoi collegare link esterni (es. NotebookLM) per accedere velocemente alle tue analisi AI.</p>
-            </Guidance>
-            
-            {editingUda ? (
-                <UdaEditor 
-                    udaProp={editingUda} 
-                    onSaveUda={onSaveUda} 
-                    onDeleteUda={onDeleteUda} 
-                    onClose={() => setEditingUda(null)} 
-                    competenze={competenze}
-                />
-            ) : (
-                <div className="card !p-0 overflow-hidden">
-                    {udas.length > 0 ? (
-                        <div className="table-container">
-                            <table className="table">
-                                <thead className="bg-surface-container-high">
-                                    <tr>
-                                        <th className="w-1/3">Titolo Progetto</th>
-                                        <th>Classe</th>
-                                        <th>Materia</th>
-                                        <th className="text-center">AI Bridge</th>
-                                        <th className="text-right px-6">Azioni</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {udas.map(uda => (
-                                    <tr key={uda.id} className="interactive-row hover:bg-surface-container-low" onClick={() => setEditingUda(uda)}>
-                                        <td className="font-black text-primary">{uda.title}</td>
-                                        <td className="font-bold">{uda.classe}</td>
-                                        <td className="font-medium">{uda.materia}</td>
-                                        <td className="text-center">
-                                            {uda.externalLink && (
-                                                <a 
-                                                    href={uda.externalLink} 
-                                                    target="_blank" 
-                                                    rel="noreferrer" 
-                                                    onClick={e => e.stopPropagation()}
-                                                    className="text-secondary hover:scale-125 inline-block transition-transform"
-                                                >
-                                                    <span className="material-symbols-outlined filled-icon">auto_awesome</span>
-                                                </a>
-                                            )}
-                                        </td>
-                                        <td className="text-right px-4" onClick={e => e.stopPropagation()}>
-                                            <div className="flex justify-end gap-1">
-                                                <button onClick={() => setExportingUda(uda)} className="icon-button" title="Esporta"><span className="material-symbols-outlined">ios_share</span></button>
-                                                <button onClick={() => setEditingUda(uda)} className="icon-button" title="Modifica"><span className="material-symbols-outlined">edit</span></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
+        <div className="page-layout pb-16 relative overflow-hidden animate-in fade-in duration-700">
+            {/* Aura Ornaments */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full animate-pulse pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
+
+            <div className="relative z-10 space-y-8">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6 px-4 md:px-0">
+                    <div className="flex items-center gap-5 self-start md:self-auto">
+                        <div className="w-16 h-16 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg rotate-3 hover:rotate-0 transition-transform duration-300">
+                            <span className="material-symbols-outlined text-3xl">assignment</span>
                         </div>
-                    ) : (
-                        <EmptyState title="Nessun progetto" description="Crea la tua prima UDA per iniziare a pianificare l'anno scolastico." icon="assignment" />
-                    )}
+                        <div>
+                            <h1 className="m3-headline-medium font-black text-on-surface tracking-tight">Planner Progetti</h1>
+                            <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60">Organizza le tue UDA</p>
+                        </div>
+                    </div>
+                    <M3Button 
+                        onClick={() => setEditingUda('new')} 
+                        variant="primary" 
+                        icon="add"
+                        className="shadow-xl"
+                    >
+                        Nuovo Progetto
+                    </M3Button>
                 </div>
-            )}
+                
+                <div className="px-4 md:px-0">
+                    <Guidance id="uda-planner-intro" icon="auto_awesome" title="Organizza i tuoi Progetti" isGloballyEnabled={showGuidanceTips}>
+                        <p>Crea le tue Unità di Apprendimento. Puoi collegare link esterni (es. NotebookLM) per accedere velocemente alle tue analisi AI.</p>
+                    </Guidance>
+                </div>
+                
+                {editingUda ? (
+                    <UdaEditor 
+                        udaProp={editingUda} 
+                        onSaveUda={onSaveUda} 
+                        onDeleteUda={onDeleteUda} 
+                        onClose={() => setEditingUda(null)} 
+                        competenze={competenze}
+                    />
+                ) : (
+                    <div className="px-4 md:px-0">
+                        <div className="bg-surface-container-low/30 backdrop-blur-xl rounded-5xl border border-outline-variant/20 overflow-hidden shadow-2xl">
+                            {udas.length > 0 ? (
+                                <div className="overflow-x-auto no-scrollbar">
+                                    <table className="w-full border-collapse">
+                                        <thead>
+                                            <tr className="bg-surface-container-high/50 backdrop-blur-md">
+                                                <th className="text-left p-6 m3-label-large uppercase tracking-[0.2em] opacity-60">Titolo Progetto</th>
+                                                <th className="text-left p-6 m3-label-large uppercase tracking-[0.2em] opacity-60">Classe</th>
+                                                <th className="text-left p-6 m3-label-large uppercase tracking-[0.2em] opacity-60">Materia</th>
+                                                <th className="text-center p-6 m3-label-large uppercase tracking-[0.2em] opacity-60">AI Bridge</th>
+                                                <th className="text-right p-6 m3-label-large uppercase tracking-[0.2em] opacity-60">Azioni</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-outline-variant/10">
+                                            {udas.map((uda, idx) => (
+                                                <tr 
+                                                    key={uda.id} 
+                                                    className="group hover:bg-surface-container-high/40 transition-all cursor-pointer animate-in slide-in-from-bottom-4"
+                                                    style={{ animationDelay: `${idx * 50}ms` }}
+                                                    onClick={() => setEditingUda(uda)}
+                                                >
+                                                    <td className="p-6">
+                                                        <span className="font-black text-primary group-hover:text-primary-container transition-colors">{uda.title}</span>
+                                                    </td>
+                                                    <td className="p-6">
+                                                        <span className="font-bold text-on-surface/70">{uda.classe}</span>
+                                                    </td>
+                                                    <td className="p-6">
+                                                        <span className="font-medium text-on-surface/60">{uda.materia}</span>
+                                                    </td>
+                                                    <td className="p-6 text-center">
+                                                        {uda.externalLink && (
+                                                            <a 
+                                                                href={uda.externalLink} 
+                                                                target="_blank" 
+                                                                rel="noreferrer" 
+                                                                onClick={e => e.stopPropagation()}
+                                                                className="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center hover:scale-125 transition-transform mx-auto"
+                                                            >
+                                                                <span className="material-symbols-outlined text-xl filled-icon">auto_awesome</span>
+                                                            </a>
+                                                        )}
+                                                    </td>
+                                                    <td className="p-6 text-right" onClick={e => e.stopPropagation()}>
+                                                        <div className="flex justify-end gap-2">
+                                                            <M3Button 
+                                                                onClick={() => setExportingUda(uda)} 
+                                                                variant="text" 
+                                                                className="!p-2 !min-w-0 !rounded-full"
+                                                            >
+                                                                <span className="material-symbols-outlined">ios_share</span>
+                                                            </M3Button>
+                                                            <M3Button 
+                                                                onClick={() => setEditingUda(uda)} 
+                                                                variant="text" 
+                                                                className="!p-2 !min-w-0 !rounded-full"
+                                                            >
+                                                                <span className="material-symbols-outlined">edit</span>
+                                                            </M3Button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ) : (
+                                <div className="p-20">
+                                    <EmptyState 
+                                        title="Nessun progetto" 
+                                        description="Crea la tua prima UDA per iniziare a pianificare l'anno scolastico." 
+                                        icon="assignment" 
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+            </div>
             
              {exportingUda && (
                 <UdaExportModal 

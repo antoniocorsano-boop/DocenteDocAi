@@ -6,7 +6,12 @@ import { refactorProgrammazione } from '../services/aiService';
 import { AiSettings } from '../types';
 import { saveAs } from '../utils/documentUtils';
 import { sanitizeHTML } from '../utils/securityUtils';
-import { M3Dialog } from './M3Components';
+import { 
+    M3Dialog, 
+    M3DialogContent, 
+    M3DialogActions, 
+    M3Button 
+} from './ui';
 
 interface SmartImportModalProps {
     onClose: () => void;
@@ -84,14 +89,12 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
 
     return (
         <M3Dialog
-            isOpen={true}
             onClose={onClose}
             title="Smart Import & Refactor"
             headline="Trasforma vecchi documenti in file standardizzati"
-            buttons={dialogButtons}
-            fullscreen={true}
+            mode="fullscreen"
         >
-            <div className="h-full flex flex-col p-2">
+            <M3DialogContent className="h-full flex flex-col p-2">
                 {step === 'upload' && (
                     <div className="flex flex-col items-center justify-center h-full">
                         <div
@@ -156,7 +159,27 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                         </div>
                     </div>
                 )}
-            </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                {step === 'result' ? (
+                    <>
+                        <M3Button variant="text" onClick={() => setStep('upload')}>
+                            Ricomincia
+                        </M3Button>
+                        <M3Button 
+                            variant="filled" 
+                            onClick={handleDownloadDocx}
+                            startIcon={<span className="material-symbols-outlined">download</span>}
+                        >
+                            Scarica DOCX
+                        </M3Button>
+                    </>
+                ) : (
+                    <M3Button variant="text" onClick={onClose}>
+                        Annulla
+                    </M3Button>
+                )}
+            </M3DialogActions>
         </M3Dialog>
     );
 };

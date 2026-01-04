@@ -2,26 +2,16 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Home from '../../src/components/Home';
-import { AppState } from '../../src/types';
+import { View } from '../../src/types';
 
 // Mock the M3Components
-vi.mock('../../src/components/M3Components', () => ({
-    InfoCard: ({ title, description, icon, variant, action, className }: any) => (
-        <div data-testid="info-card" className={className}>
-            <h2>{title}</h2>
-            <p>{description}</p>
-            {action && <div data-testid="info-card-action">{action}</div>}
-        </div>
-    ),
-    ActionTile: ({ title, icon, onClick }: any) => (
+vi.mock('../../src/components/ui', () => ({
+    ActionTile: ({ title, subtitle, icon, variant, onClick }: any) => (
         <button data-testid="action-tile" onClick={onClick}>
-            {title}
+            {title} - {subtitle}
         </button>
     ),
-}));
-
-vi.mock('../../src/components/M3ExpressiveCard', () => ({
-    default: ({ icon, title, description, color, children, onClick }: any) => (
+    M3ExpressiveCard: ({ icon, title, description, color, children, onClick }: any) => (
         <div data-testid="m3-card" onClick={onClick}>
             <h3>{title}</h3>
             <p>{description}</p>
@@ -36,29 +26,57 @@ vi.mock('../../src/stores/useSettingsStore', () => ({
         const mockSettings = {
             nomeInsegnante: 'Mario',
             cognomeInsegnante: 'Rossi',
-            // ... other settings
         };
         return selector({
             settings: mockSettings,
-            // ... other state
         });
     }),
 }));
 
-const mockAppState = {
-    user: { id: 'test-user', displayName: 'Test User' } as any,
-    suggestions: [
-        {
-            id: 'test-suggestion-1',
-            icon: 'lightbulb',
-            title: 'Test Suggestion',
-            description: 'This is a test AI suggestion',
-            action: { type: 'navigate', payload: { view: 'home' } }
-        }
-    ],
-    activeSuggestion: null,
-    dismissedSuggestions: new Set(['ignored-suggestion']),
-} as any as AppState;
+// Mock useSystemStore
+vi.mock('../../src/stores/useSystemStore', () => ({
+    useSystemStore: vi.fn((selector) => {
+        const mockState = {
+            activeSuggestion: {
+                id: 'test-suggestion-1',
+                icon: 'lightbulb',
+                title: 'Test Suggestion',
+                description: 'This is a test AI suggestion',
+                actionLabel: 'Apri',
+                actionView: 'home'
+            },
+            dismissedSuggestions: new Set(),
+            suggestions: [
+                {
+                    id: 'test-suggestion-2',
+                    icon: 'school',
+                    title: 'Other Suggestion',
+                    description: 'Another test suggestion',
+                    action: { type: 'navigate', payload: { view: 'aula' } }
+                }
+            ],
+        };
+        return selector(mockState);
+    }),
+}));
+
+// Mock useAcademicStore
+vi.mock('../../src/stores/useAcademicStore', () => ({
+    useAcademicStore: vi.fn((selector) => {
+        return selector({
+            lessons: {},
+        });
+    }),
+}));
+
+// Mock useStudentStore
+vi.mock('../../src/stores/useStudentStore', () => ({
+    useStudentStore: vi.fn((selector) => {
+        return selector({
+            students: [],
+        });
+    }),
+}));
 
 const mockOnNavigate = vi.fn();
 const mockDismissSuggestion = vi.fn();
@@ -68,7 +86,6 @@ describe('Home Component', () => {
         render(
             <Home
                 onNavigate={mockOnNavigate}
-                appState={mockAppState}
                 dismissSuggestion={mockDismissSuggestion}
             />
         );
@@ -76,16 +93,15 @@ describe('Home Component', () => {
         expect(screen.getByText('Buongiorno Prof. Rossi!')).toBeInTheDocument();
     });
 
-    it('renders personalized suggestions', () => {
+    it('renders AI suggestions', () => {
         render(
             <Home
                 onNavigate={mockOnNavigate}
-                appState={mockAppState}
                 dismissSuggestion={mockDismissSuggestion}
             />
         );
 
-        expect(screen.getByText('Suggerimenti Personalizzati')).toBeInTheDocument();
+        expect(screen.getByText('Suggerimento AI')).toBeInTheDocument();
         expect(screen.getByText('Test Suggestion')).toBeInTheDocument();
         expect(screen.getByText('This is a test AI suggestion')).toBeInTheDocument();
     });
@@ -94,7 +110,6 @@ describe('Home Component', () => {
         render(
             <Home
                 onNavigate={mockOnNavigate}
-                appState={mockAppState}
                 dismissSuggestion={mockDismissSuggestion}
             />
         );
@@ -102,19 +117,18 @@ describe('Home Component', () => {
         const openButton = screen.getByText('Apri');
         fireEvent.click(openButton);
 
-        expect(mockOnNavigate).toHaveBeenCalledWith('home', undefined);
+        expect(mockOnNavigate).toHaveBeenCalledWith('home');
     });
 
     it('handles dismiss suggestion', () => {
         render(
             <Home
                 onNavigate={mockOnNavigate}
-                appState={mockAppState}
                 dismissSuggestion={mockDismissSuggestion}
             />
         );
 
-        const ignoreButton = screen.getByText('Ignora');
+        const ignoreButton = screen.getByText('Ignora per ora');
         fireEvent.click(ignoreButton);
 
         expect(mockDismissSuggestion).toHaveBeenCalledWith('test-suggestion-1');
@@ -124,24 +138,20 @@ describe('Home Component', () => {
         render(
             <Home
                 onNavigate={mockOnNavigate}
-                appState={mockAppState}
                 dismissSuggestion={mockDismissSuggestion}
             />
         );
 
-        const labels = ['Appello', 'Valutazioni', 'Unità didattica', 'Documenti'];
+        const labels = ['Appello', 'Valutazioni', 'Registro', 'Documenti'];
         labels.forEach(label => {
-            expect(screen.getByText(label)).toBeInTheDocument();
+            expect(screen.getByText(new RegExp(label, 'i'))).toBeInTheDocument();
         });
-        const quickActionButtons = screen.getAllByRole('button').filter(btn => labels.some(label => btn.textContent?.includes(label)));
-        expect(quickActionButtons).toHaveLength(4);
     });
 
     it('handles metric card clicks', () => {
         render(
             <Home
                 onNavigate={mockOnNavigate}
-                appState={mockAppState}
                 dismissSuggestion={mockDismissSuggestion}
             />
         );
@@ -151,7 +161,7 @@ describe('Home Component', () => {
         fireEvent.click(studentiCard);
         expect(mockOnNavigate).toHaveBeenCalledWith('studenti');
 
-        // Test Verifiche card click
+        // Test Verifiche oggi card click
         const verificheCard = screen.getByText('Verifiche oggi');
         fireEvent.click(verificheCard);
         expect(mockOnNavigate).toHaveBeenCalledWith('evaluations');

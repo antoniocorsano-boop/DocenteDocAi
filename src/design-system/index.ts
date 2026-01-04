@@ -157,7 +157,12 @@ export const validateTheme = (theme: unknown): theme is Theme => {
   return baseColorKeys.every(key => themeColorKeys.includes(key));
 };
 
-export const createTheme = (config: { name: string; mode: 'light' | 'dark'; colors?: Partial<ColorTokens> }): Theme => {
+export const createTheme = (config: { 
+    name: string; 
+    mode: 'light' | 'dark'; 
+    visualStyle?: 'aura' | 'flat' | 'minimal' | 'cupertino' | 'windows';
+    colors?: Partial<ColorTokens> 
+}): Theme => {
   const baseTheme = config.mode === 'light' ? defaultLightTheme : defaultDarkTheme;
 
   // If no custom colors provided, return base theme with updated name
@@ -165,6 +170,7 @@ export const createTheme = (config: { name: string; mode: 'light' | 'dark'; colo
     return {
       name: config.name,
       mode: config.mode,
+      visualStyle: config.visualStyle || baseTheme.visualStyle,
       colors: { ...baseTheme.colors },
     };
   }
@@ -184,6 +190,7 @@ export const createTheme = (config: { name: string; mode: 'light' | 'dark'; colo
   return {
     name: config.name,
     mode: config.mode,
+    visualStyle: config.visualStyle || baseTheme.visualStyle,
     colors: newColors,
   };
 };
@@ -199,6 +206,7 @@ export const applyTheme = (theme: Theme): void => {
   }
   
   root.style.colorScheme = themeToApply.mode;
+  root.setAttribute('data-visual-style', themeToApply.visualStyle || 'aura');
 
   const classesToRemove = Array.from(body.classList).filter(c => c.startsWith('theme-'));
   if (classesToRemove.length > 0) body.classList.remove(...classesToRemove);

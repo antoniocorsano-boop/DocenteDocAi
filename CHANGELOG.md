@@ -1,3 +1,25 @@
+# [5.0.0] - 2026-01-01
+
+### Major Release: Aura Design System & MUI Removal
+
+Questa release introduce il nuovo sistema di design **Aura** e rimuove completamente le dipendenze legacy da Material UI (MUI) per una performance superiore e un'estetica moderna.
+
+#### Added
+- **Aura Aesthetic**: Implementazione completa di glassmorphism, `backdrop-blur-2xl` e angoli arrotondati a `48px`.
+- **Centralized UI**: Tutti i componenti core sono stati migrati e centralizzati in `src/components/ui/`.
+- **New Components**: Aggiunti `Avatar`, `AiThinkingGem` e `M3Button` (custom implementation).
+- **Aura Ornaments**: Aggiunti effetti di glow e gradienti dinamici per un'esperienza visiva immersiva.
+
+#### Changed
+- **MUI Removal**: Rimosse tutte le dipendenze dirette da `@mui/material` nei componenti di vista.
+- **Refactoring Hub**: Aggiornati `Timetable`, `ProgettazioneHub`, `ReportisticaHub` e `ClassroomView` al nuovo standard Aura.
+- **Build Optimization**: Riduzione del bundle size grazie alla rimozione di MUI.
+
+#### Fixed
+- Risolti problemi di duplicazione codice e syntax errors emersi durante il refactor.
+- Corretti tutti i percorsi di importazione verso la nuova libreria UI centralizzata.
+
+---
 # [4.2.0] - 2025-12-26
 
 ### Release: UI & Accessibilità Final Hardening

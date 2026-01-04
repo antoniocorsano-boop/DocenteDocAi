@@ -1,7 +1,14 @@
 
 import React, { useState } from 'react';
 import { QuestionType } from '../types';
-import { TabGroup, TextField, M3Dialog } from './M3Components';
+import { 
+    M3Dialog, 
+    M3DialogContent, 
+    M3DialogActions, 
+    M3Button, 
+    TabGroup, 
+    TextField 
+} from './ui';
 
 interface TestGeneratorModalProps {
     onClose: () => void;
@@ -30,22 +37,11 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
 
     return (
         <M3Dialog
-            isOpen={true}
             onClose={onClose}
             title="Generatore Verifiche"
             headline="Crea una verifica personalizzata con AI"
-            buttons={
-                <>
-                    <button onClick={onClose} className="button button-text">Annulla</button>
-                    <button onClick={handleSubmit} className="button button-filled shadow-xl font-black">
-                        <span className="material-symbols-outlined mr-2">auto_awesome</span>
-                        Genera
-                    </button>
-                </>
-            }
-            fullscreen={false}
         >
-            <div className="flex flex-col gap-6 pt-2">
+            <M3DialogContent className="flex flex-col gap-6 pt-2">
                 <TextField
                     id="test-topic-input"
                     label="Argomento Specifico"
@@ -99,7 +95,17 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                         </label>
                     </div>
                 </div>
-            </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
+                <M3Button 
+                    variant="filled" 
+                    onClick={handleSubmit}
+                    startIcon={<span className="material-symbols-outlined">auto_awesome</span>}
+                >
+                    Genera
+                </M3Button>
+            </M3DialogActions>
         </M3Dialog>
     );
 };

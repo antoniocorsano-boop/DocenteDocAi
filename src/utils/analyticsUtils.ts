@@ -20,13 +20,11 @@ export const parseGrade = (voto: string | undefined): number | undefined => {
     
     // 2. Handle "Split" grades (e.g., "7/8" or "7-8")
     // Regex looks for Number [separator] Number
-        const rangeMatch = vStr.match(/^(\d+(?:[.,]\d+)?)\s*[-/]\s*(\d+(?:[.,]\d+)?)$/);
+    const rangeMatch = vStr.match(/^(\d+(?:[.,]\d+)?)\s*[-/]\s*(\d+(?:[.,]\d+)?)$/);
     if (rangeMatch) {
         const n1 = parseFloat(rangeMatch[1].replace(',', '.'));
         const n2 = parseFloat(rangeMatch[2].replace(',', '.'));
-        if (!isNaN(n1) && !isNaN(n2)) {
-            return (n1 + n2) / 2;
-        }
+        return (n1 + n2) / 2;
     }
 
     // 3. Handle Suffixes (+, -, ½) on single numbers
@@ -145,7 +143,7 @@ export const calculateCompetencyRadar = (
             : 0;
 
         data.push({
-            axis: comp.nome.substring(0, 12) + (comp.nome.length > 12 ? '...' : ''), 
+            axis: comp.nome.length > 12 ? comp.nome.substring(0, 12) + '...' : comp.nome, 
             value: parseFloat(avgScore.toFixed(2))
         });
     });

@@ -1,5 +1,4 @@
-import { M3Button } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Button, M3Dialog, M3DialogContent, M3DialogActions } from './ui';
 import React, { useState } from 'react';
 import { AiSettings, EventoCalendario } from '../types';
 import { extractEventFromText } from '../services/aiService';
@@ -38,8 +37,9 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
             title="Crea Evento da Testo con AI"
             onClose={onClose}
             maxWidth="lg"
+            level={1}
         >
-            <M3DialogContent className="space-y-4">
+            <M3DialogContent className="space-y-4 bg-surface-container-high/30 backdrop-blur-sm">
                 <p className="m3-body-medium text-on-surface-variant">
                     Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarrà automaticamente date, orari e dettagli per creare l'evento nel calendario.
                 </p>

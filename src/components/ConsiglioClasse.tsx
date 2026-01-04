@@ -1,11 +1,20 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import M3Button from './M3Button';
+import { 
+    M3Button, 
+    TabGroup, 
+    InfoCard, 
+    SectionHeader, 
+    TextField, 
+    TextArea, 
+    SelectField,
+    M3IconButton
+} from './ui';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { getPeriodicJudgmentSuggestion } from '../services/aiService';
+import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';
 import { generateCouncilTablePdf, generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { TabGroup } from './M3Components';
+import { AiThinkingGem } from './ui';
 
 
 interface ConsiglioClasseProps {
@@ -29,6 +38,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     const [changedCells, setChangedCells] = useState<Set<string>>(new Set());
     const [loadingAi, setLoadingAi] = useState<string | null>(null);
     const [isExporting, setIsExporting] = useState(false);
+    const [isGeneratingNarrative, setIsGeneratingNarrative] = useState(false);
+    const [narrativeReport, setNarrativeReport] = useState<string | null>(null);
     const [expandedStudentId, setExpandedStudentId] = useState<string | null>(null);
     const [expandedColumns, setExpandedColumns] = useState<Record<string, boolean>>({
         rendimento: true,
@@ -107,6 +118,29 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             alert("Errore durante le suggerimento del giudizio.");
         } finally {
             setLoadingAi(null);
+        }
+    };
+
+    const handleGenerateNarrativeReport = async () => {
+        setIsGeneratingNarrative(true);
+        setNarrativeReport(null);
+        try {
+            const data = {
+                classe: selectedClass,
+                periodo,
+                studenti: students.map(s => ({
+                    nome: `${s.cognome} ${s.nome}`,
+                    media: calculatePerformance(s.id, 'Complessivo', evaluations.filter(e => e.studenteId === s.id)).grade,
+                    giudizio: localGiudizi[`${String(s.id)}-${String(periodo)}-${String(annoScolasticoCorrente)}`]?.giudizio || ''
+                }))
+            };
+            const report = await generateClassCouncilNarrativeReport(aiSettings, data);
+            setNarrativeReport(report);
+        } catch (error) {
+            console.error("Error generating narrative report:", error);
+            alert("Errore durante la generazione del report narrativo.");
+        } finally {
+            setIsGeneratingNarrative(false);
         }
     };
     
@@ -371,57 +405,101 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     );
     
     return (
-        <div className="consiglio-di-classe-page space-y-4">
-            <div className="page-header-compact">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium">Consiglio di Classe - {selectedClass}</h1>
-                    <p className="page-subtitle">Gestisci giudizi, voti e documenti per il periodo selezionato.</p>
-                </div>
-                <div className='flex items-center gap-4'>
-                    <TabGroup
-                        tabs={[
-                            { id: 'primo-quadrimestre', label: '1Q' },
-                            { id: 'secondo-quadrimestre', label: '2Q' }
-                        ]}
-                        activeTab={periodo}
-                        onTabChange={(id: string) => {
-                            if (id === 'primo-quadrimestre' || id === 'secondo-quadrimestre') setPeriodo(id);
-                        }}
-                        variant="primary"
-                    />
-                </div>
-            </div>
+        <div className="page-layout max-w-full mx-auto w-full px-4 pb-24">
+            <SectionHeader 
+                title="Consiglio di Classe"
+                subtitle={`Scrutinio e Valutazione Periodica • Classe ${selectedClass}`}
+                className="py-12 text-center"
+            />
 
-            <div className="card">
-                 <div className="p-4 flex flex-wrap justify-between items-center gap-4 border-b border-outline-variant">
-                    <div className="chip-container-stack !flex-row !flex-wrap">
-                        {Object.keys(expandedColumns).map(key => (
-                            <div key={key} className="chip-checkbox">
-                                <input
-                                    type="checkbox"
-                                    id={`col-toggle-${String(key)}`}
-                                    checked={expandedColumns[key as keyof typeof expandedColumns]}
-                                    onChange={() => setExpandedColumns(p => ({...p, [key]: !p[key as keyof typeof p]}))}
-                                />
-                                <label htmlFor={`col-toggle-${String(key)}`} className="chip rounded-lg hover:shadow-md transition-all">
-                                    {expandedColumns[key as keyof typeof expandedColumns] && <span className="material-symbols-outlined m3-label-large">check</span>}
-                                    {key.charAt(0).toUpperCase() + key.slice(1)}
-                                </label>
-                            </div>
-                        ))}
-                    </div>
+            {/* Controls */}
+            <InfoCard variant="tonal" className="p-6 mb-8">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <TabGroup 
+                        activeTab={periodo}
+                        onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
+                        variant="primary"
+                        tabs={[
+                            { id: 'primo-quadrimestre', label: '1° Quadrimestre', icon: 'looks_one' },
+                            { id: 'secondo-quadrimestre', label: '2° Quadrimestre', icon: 'looks_two' },
+                        ]}
+                    />
+
                     <div className="flex gap-2">
-                        <M3Button variant="outlined" onClick={handleExportDocx} disabled={isExporting} className="rounded-lg" startIcon={<span className="material-symbols-outlined mr-2">description</span>}>
-                            Word
+                        <M3Button 
+                            onClick={handleExportPdf} 
+                            disabled={isExporting}
+                            variant="tonal"
+                        >
+                            <span className="material-symbols-outlined mr-2">picture_as_pdf</span>
+                            Esporta PDF
                         </M3Button>
-                        <M3Button variant="tonal" onClick={handleExportPdf} disabled={isExporting} className="rounded-lg" startIcon={<span className="material-symbols-outlined mr-2">picture_as_pdf</span>}>
-                            PDF
+                        <M3Button 
+                            onClick={handleExportDocx} 
+                            disabled={isExporting}
+                            variant="tonal"
+                        >
+                            <span className="material-symbols-outlined mr-2">description</span>
+                            Esporta Word
                         </M3Button>
+                        <M3Button 
+                            onClick={handleGenerateNarrativeReport} 
+                            disabled={isGeneratingNarrative}
+                            variant="filled"
+                        >
+                            <span className="material-symbols-outlined mr-2">auto_awesome</span>
+                            {isGeneratingNarrative ? 'Generazione...' : 'Report Narrativo AI'}
+                        </M3Button>
+                    </div>
+                </div>
+            </InfoCard>
+
+            {narrativeReport && (
+                <InfoCard variant="elevated" className="p-8 mb-8 bg-primary-container/5 border-primary/20 animate-in fade-in slide-in-from-top-4">
+                    <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                <span className="material-symbols-outlined">description</span>
+                            </div>
+                            <h3 className="m3-title-large font-black text-on-surface">Report Narrativo Suggerito</h3>
+                        </div>
+                        <div className="flex gap-2">
+                            <M3Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</M3Button>
+                            <M3Button variant="tonal" onClick={() => {
+                                navigator.clipboard.writeText(narrativeReport);
+                                alert("Report copiato!");
+                            }}>
+                                <span className="material-symbols-outlined mr-2">content_copy</span>
+                                Copia
+                            </M3Button>
+                        </div>
+                    </div>
+                    <div className="prose prose-sm max-w-none text-on-surface leading-relaxed whitespace-pre-wrap italic bg-surface-container-lowest/50 p-6 rounded-2xl border border-outline-variant/20">
+                        {narrativeReport}
+                    </div>
+                </InfoCard>
+            )}
+
+            <InfoCard variant="elevated" className="bg-surface-container-lowest overflow-hidden">
+                 <div className="p-4 flex flex-wrap justify-between items-center gap-4 border-b border-outline-variant/30">
+                    <div className="flex flex-wrap gap-2">
+                        {Object.keys(expandedColumns).map(key => (
+                            <M3Button
+                                key={key}
+                                variant={expandedColumns[key as keyof typeof expandedColumns] ? 'tonal' : 'text'}
+                                onClick={() => setExpandedColumns(p => ({...p, [key]: !p[key as keyof typeof p]}))}
+                                size="small"
+                                className="!rounded-full"
+                            >
+                                {expandedColumns[key as keyof typeof expandedColumns] && <span className="material-symbols-outlined mr-1 text-sm">check</span>}
+                                {key.charAt(0).toUpperCase() + key.slice(1)}
+                            </M3Button>
+                        ))}
                     </div>
                  </div>
                 {renderDesktopTable()}
                 {renderMobileList()}
-            </div>
+            </InfoCard>
         </div>
     );
 };

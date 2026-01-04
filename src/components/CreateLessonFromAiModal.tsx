@@ -3,10 +3,7 @@ import { Lezione, AiSettings, Studente, PianoInclusione, Slot, CurriculumSubject
 import { generateInclusivityAdaptations } from '../services/aiService';
 import { DAYS_OF_WEEK } from '../constants';
 import { parseClassString } from '../utils/schoolUtils'; 
-import { TextField, SelectField, TextArea } from './M3Components';
-import AiThinkingGem from './AiThinkingGem';
-import { M3Dialog, M3DialogActions } from './M3Dialog';
-import './dialog-container.css';
+import { TextField, SelectField, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button, AiThinkingGem } from './ui';
 
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };
@@ -181,9 +178,10 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                 title="Crea Bozza Lezione"
                 onClose={onClose}
                 maxWidth="lg"
+                level={1}
             >
-                <form onSubmit={handleSubmit} className="w-full">
-                    <div className="space-y-8">
+                <form id="create-lesson-ai-form" onSubmit={handleSubmit} className="w-full">
+                    <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
                         <TextField 
                             label="Argomento" 
                             value={argomento} 
@@ -204,19 +202,20 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                             <div className="flex justify-between items-center mb-2">
                                 <label className="text-[11px] text-primary font-extrabold uppercase tracking-[0.2em] px-2 !mb-0">Obiettivi</label>
                                 {matchingCurriculum && (
-                                    <button 
+                                    <M3Button 
                                         type="button" 
                                         onClick={() => setIsObjectivePickerOpen(true)}
-                                        className="button button-tonal !h-8 !px-3 !text-xs font-extrabold uppercase tracking-widest rounded-full"
+                                        variant="tonal"
+                                        className="!h-8 !px-3 !text-xs font-extrabold uppercase tracking-widest rounded-full"
                                         title="Seleziona dal curricolo"
                                     >
                                         <span className="material-symbols-outlined mr-1 text-sm">library_add</span>
                                         Curricolo
-                                    </button>
+                                    </M3Button>
                                 )}
                             </div>
                             <TextArea
-                                label="Elenco obiettivi didattici per la lezione..." // FIX: Added missing label
+                                label="Elenco obiettivi didattici per la lezione..."
                                 value={obiettivi}
                                 onChange={e => setObiettivi(e.target.value)}
                                 rows={5}
@@ -232,7 +231,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                         </div>
                         
                         {slots && availableSlots.length > 0 && (
-                            <div className="bg-secondary-container/10 p-5 rounded-[32px] border border-secondary/20 space-y-3">
+                            <div className="bg-secondary-container/10 p-5 rounded-4xl border border-secondary/20 space-y-3">
                                 <label className="text-[11px] text-on-surface-variant font-black uppercase tracking-[0.2em] px-2">Pianificazione Rapida (Opzionale)</label>
                                 <div className="flex flex-wrap gap-2">
                                     {availableSlots.map(([key, slot]) => (
@@ -253,11 +252,12 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                         <div>
                             <div className="flex justify-between items-center mb-2">
                                 <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-2 !mb-0">Adattamenti per l'Inclusività</label>
-                                <button 
+                                <M3Button 
                                     type="button" 
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
-                                    className="button button-text !h-auto !py-1 !px-2 flex items-center gap-1 font-black uppercase text-xs rounded-lg hover:shadow-md transition-all"
+                                    variant="text"
+                                    className="!h-auto !py-1 !px-2 flex items-center gap-1 font-black uppercase text-xs rounded-lg hover:shadow-md transition-all"
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
@@ -266,10 +266,10 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                         <span className="material-symbols-outlined mr-1 text-base">auto_awesome</span>
                                     )}
                                     {isAdaptationsLoading ? '' : 'Suggerisci con AI'}
-                                </button>
+                                </M3Button>
                             </div>
                             <TextArea 
-                                label="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..." // FIX: Added missing label
+                                label="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
                                 value={adattamenti} 
                                 onChange={(e) => setAdattamenti(e.target.value)} 
                                 rows={4}
@@ -277,14 +277,14 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                 containerClassName="shadow-inner !bg-surface-container-lowest"
                             ></TextArea>
                         </div>
-                    </div>
+                    </M3DialogContent>
 
                     <M3DialogActions>
-                        <button type="button" onClick={onClose} className="button button-text font-bold">Annulla</button>
-                        <button type="submit" className="button button-filled shadow-xl font-black !px-10">
+                        <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
+                        <M3Button type="submit" variant="filled" className="shadow-xl !px-10">
                             <span className="material-symbols-outlined mr-2 font-black">{selectedSlotKey ? 'event_available' : 'archive'}</span>
                             {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
-                        </button>
+                        </M3Button>
                     </M3DialogActions>
                 </form>
             </M3Dialog>
@@ -295,11 +295,12 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                     title="Seleziona Obiettivi"
                     onClose={() => setIsObjectivePickerOpen(false)}
                     maxWidth="2xl"
+                    level={2}
                 >
-                    <div className="space-y-8">
+                    <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
                         <p className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em]">{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
                         {matchingCurriculum.nuclei.map(nucleo => (
-                            <details key={nucleo.id} className="m3-expansion-panel shadow-md !rounded-[32px]" open>
+                            <details key={nucleo.id} className="m3-expansion-panel shadow-md !rounded-4xl" open>
                                 <summary className="m3-expansion-summary !bg-surface-container-high">
                                     <span className="m3-title-medium font-black text-on-surface">{nucleo.title}</span>
                                     <span className="material-symbols-outlined text-sm text-on-surface-variant">expand_more</span>
@@ -319,10 +320,10 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                 </div>
                             </details>
                         ))}
-                    </div>
+                    </M3DialogContent>
 
                     <M3DialogActions>
-                        <button type="button" onClick={() => setIsObjectivePickerOpen(false)} className="button button-filled w-full font-black shadow-lg">CONFERMA SELEZIONE</button>
+                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled" className="w-full font-black shadow-lg">CONFERMA SELEZIONE</M3Button>
                     </M3DialogActions>
                 </M3Dialog>
             )}

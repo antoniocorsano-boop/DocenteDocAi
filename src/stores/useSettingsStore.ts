@@ -1,25 +1,26 @@
 import { create } from 'zustand';
-import { TimetableSettings, AiSettings, AppThemeState } from '../types';
+import { TimetableSettings, AiSettings, AppThemeState, SettingsState } from '../types';
 import { DEFAULT_TIMETABLE_SETTINGS } from '../constants';
 
-interface SettingsState {
-    settings: TimetableSettings;
-    aiSettings: AiSettings;
-    themeState: AppThemeState;
-    actions: {
-        setSettings: (value: TimetableSettings | ((prev: TimetableSettings) => TimetableSettings)) => void;
-        updateSettings: (partial: Partial<TimetableSettings>) => void;
-        setAiSettings: (value: AiSettings | ((prev: AiSettings) => AiSettings)) => void;
-        setThemeState: (value: AppThemeState | ((prev: AppThemeState) => AppThemeState)) => void;
-        loadFromBackup: (data: Partial<SettingsState>) => void;
-        reset: () => void;
-    }
+export interface SettingsActions {
+    setSettings: (value: TimetableSettings | ((prev: TimetableSettings) => TimetableSettings)) => void;
+    updateSettings: (partial: Partial<TimetableSettings>) => void;
+    setAiSettings: (value: AiSettings | ((prev: AiSettings) => AiSettings)) => void;
+    setThemeState: (value: AppThemeState | ((prev: AppThemeState) => AppThemeState)) => void;
+    loadFromBackup: (data: Partial<SettingsState>) => void;
+    reset: () => void;
 }
 
-export const useSettingsStore = create<SettingsState>((set) => ({
+export const useSettingsStore = create<SettingsState & { actions: SettingsActions }>((set) => ({
     settings: DEFAULT_TIMETABLE_SETTINGS,
     aiSettings: { model: 'gemini-3-flash-preview' },
-    themeState: { mode: 'light', customizationName: 'M3 Default' },
+    themeState: { 
+        mode: 'light', 
+        visualStyle: 'aura',
+        customizationName: 'M3 Default',
+        glassBlur: 30,
+        radiusMultiplier: 1
+    },
 
     actions: {
         setSettings: (value) => set((state) => ({
@@ -43,7 +44,13 @@ export const useSettingsStore = create<SettingsState>((set) => ({
         reset: () => set({
             settings: DEFAULT_TIMETABLE_SETTINGS,
             aiSettings: { model: 'gemini-3-flash-preview' },
-            themeState: { mode: 'light', customizationName: 'M3 Default' }
+            themeState: { 
+                mode: 'light', 
+                visualStyle: 'aura',
+                customizationName: 'M3 Default',
+                glassBlur: 30,
+                radiusMultiplier: 1
+            }
         })
     }
 }));

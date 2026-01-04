@@ -6,38 +6,41 @@ import {
     KnowledgeBaseEntry, Corpus, Notifica, Rubrica, PianoInclusione, GiudizioPeriodico,
     Report, FeedSource, RegisterEntry, NotebookNote, ToDoItem, AiSuggestion, SystemSuggestion,
     BackupState, DriveSyncState, View, CurriculumSubject, HomeworkSubmission,
-    LessonScheduleInput, EvaluationInput, UdaCreateInput, BeforeInstallPromptEvent
+    LessonScheduleInput, EvaluationInput, UdaCreateInput, BeforeInstallPromptEvent,
+    BackupPayload
 } from '../types.ts';
-import { loadBackup, deleteBackup } from '../services/backupService.ts';
-import { loadKbContentFromIndexedDB, saveKbContentToIndexedDB, clearIndexedDB } from '../services/indexedDbService.ts';
-import { initTokenClient, requestAccessToken, revokeAccessToken, uploadBackup, downloadBackup, getBackupMetadata, pickGoogleDriveFolder, createAppFolder } from '../services/googleDriveService.ts';
-import { usePersistence } from './usePersistence.ts';
-import { analyzeSystemState } from '../utils/suggestionUtils.ts';
-import { validateBackupData } from '../utils/dataValidator.ts';
+import { loadBackup, deleteBackup } from '../services/backupService';
+import { loadKbContentFromIndexedDB, saveKbContentToIndexedDB, clearIndexedDB } from '../services/indexedDbService';
+import { initTokenClient, requestAccessToken, revokeAccessToken, uploadBackup, downloadBackup, getBackupMetadata, pickGoogleDriveFolder, createAppFolder } from '../services/googleDriveService';
+import { usePersistence } from './usePersistence';
+import { analyzeSystemState } from '../utils/suggestionUtils';
+import { validateBackupData } from '../utils/dataValidator';
+import { ImportService } from '../services/importService';
 import { useUIStore } from '../stores/useUIStore';
+import { useStudentStore } from '../stores/useStudentStore';
+import { useAcademicStore } from '../stores/useAcademicStore';
+import { useSystemStore } from '../stores/useSystemStore';
 import type { SyncConflictData } from '../types';
 import { messages } from '../messages';
-import { useDataStore } from '../stores/useDataStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
-import { errorLogger } from '../services/errorLogger.ts';
+import { errorLogger } from '../services/errorLogger';
 
 export const useAppEngine = () => {
     // Test mode detection: when true, skip heavy restore and set a demo user
     const isTestMode = (typeof window !== 'undefined' && (window as { __TEST_MODE?: boolean }).__TEST_MODE === true) || ((import.meta as ImportMeta).env?.VITE_TEST_MODE === 'true');
 
     // --- STORES (Accessed directly via Proxy lazy-init pattern) ---
-    const { user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, dismissedSuggestions, studentProfileContext, selectedClassForDashboard, actions: dataActions } = useDataStore();
+    const { students, evaluations, competencyEvals, pianiInclusione, studentProfileContext, selectedClassForDashboard, orientamentoActivities, ePortfolioEntries, studentOrientamentoStates, actions: studentActions } = useStudentStore();
+    const { lessons, slots, uda, eventi, rubriche, curricula, submissions, draftRegister, finalizedRegister, giudizi, reportistica, actions: academicActions } = useAcademicStore();
+    const { user, knowledgeBase, corpora, notifiche, feedSources, suggestions, activeSuggestion, dismissedSuggestions, analyticsEvents, analyticsMetrics, analyticsSettings, templates, actions: systemActions } = useSystemStore();
+    
     const { modals, circularAnalysisModal, syncConflictModal, createLessonContext, editingSlotKey, activeSlotKey, lessonViewContext, loadingModalMessage, toast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, navigationHistory, backupState, driveSyncState, actions: uiActions } = useUIStore();
     const { settings, aiSettings, themeState, actions: settingsActions } = useSettingsStore();
 
     // --- DESTRUTTURE ACTIONS ---
-    // Removed duplicate dataActions declaration
-    const { 
-        setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUda,
-        setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,
-        setGiudizi, setReportistica, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
-        setMemos, setCurricula, setSubmissions
-    } = dataActions;
+    const { setStudents, setEvaluations, setCompetencyEvals, setPianiInclusione, setStudentProfileContext, setSelectedClassForDashboard, setOrientamentoActivities, setEPortfolioEntries, setStudentOrientamentoStates } = studentActions;
+    const { setLessons, setSlots, setUda, setEventi, setRubriche, setCurricula, setSubmissions, setDraftRegister, setFinalizedRegister, setGiudizi, setReportistica } = academicActions;
+    const { setUser, setKnowledgeBase, setCorpora, setNotifiche, setFeedSources, setSuggestions, setActiveSuggestion, trackAnalyticsEvent, setTemplates, dismissSuggestion, reactivateSuggestion } = systemActions;
 
     // --- LOCAL STATE (NAVIGATION ONLY) ---
     const [view, setView] = useState<View>('home');
@@ -74,15 +77,17 @@ export const useAppEngine = () => {
                         const localData = raw ? validateBackupData(raw) : null;
                         if (localData) {
                             console.info('[useAppEngine] Test backup found — restoring test data');
-                            dataActions.loadFromBackup(localData as any);
+                            studentActions.loadFromBackup(localData);
+                            academicActions.loadFromBackup(localData);
+                            systemActions.loadFromBackup(localData);
                             settingsActions.loadFromBackup({
-                                settings: (localData as any).settings,
-                                aiSettings: (localData as any).aiSettings,
-                                themeState: (localData as any).themeState
+                                settings: localData.settings,
+                                aiSettings: localData.aiSettings,
+                                themeState: localData.themeState
                             });
-                            uiActions.setBackupState(localData.backupState as BackupState || { status: 'synced', lastBackup: null });
-                            uiActions.setDriveSyncState(localData.driveSyncState as DriveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
-                            uiActions.setNavigationHistory(localData.navigationHistory as any[] || []);
+                            uiActions.setBackupState(localData.backupState || { status: 'synced', lastBackup: null });
+                            uiActions.setDriveSyncState(localData.driveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
+                            uiActions.setNavigationHistory(localData.navigationHistory || []);
                             try {
                                 const kbContentMap = await loadKbContentFromIndexedDB();
                                 const fullKb = (localData.knowledgeBase || []).map((entry: any) => ({
@@ -118,18 +123,21 @@ export const useAppEngine = () => {
                 
                 if (localData) {
                     console.log('[useAppEngine] Valid backup data found, restoring...');
-                    // Dispatch to DataStore
-                    dataActions.loadFromBackup(localData as any);
+                    // Dispatch to Domain Stores
+                    studentActions.loadFromBackup(localData);
+                    academicActions.loadFromBackup(localData);
+                    systemActions.loadFromBackup(localData);
+                    
                     // Dispatch to SettingsStore
                     settingsActions.loadFromBackup({
-                        settings: (localData as any).settings,
-                        aiSettings: (localData as any).aiSettings,
-                        themeState: (localData as any).themeState
+                        settings: localData.settings,
+                        aiSettings: localData.aiSettings,
+                        themeState: localData.themeState
                     });
                     // Dispatch UI-related states to UIStore
-                    uiActions.setBackupState(localData.backupState as BackupState || { status: 'synced', lastBackup: null });
-                    uiActions.setDriveSyncState(localData.driveSyncState as DriveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
-                    uiActions.setNavigationHistory(localData.navigationHistory as any[] || []);
+                    uiActions.setBackupState(localData.backupState || { status: 'synced', lastBackup: null });
+                    uiActions.setDriveSyncState(localData.driveSyncState || { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
+                    uiActions.setNavigationHistory(localData.navigationHistory || []);
                     uiActions.setInstallPrompt(null); // Non-serializzabile, sempre inizia da zero
                     uiActions.setCanShowInstallPrompt(false);
                     uiActions.setIsGlobalAiLoading(false);
@@ -155,7 +163,9 @@ export const useAppEngine = () => {
             } catch (e) {
                 console.error("[useAppEngine] Initial data load failed:", e);
                 // In case of critical error, start fresh
-                dataActions.resetAll();
+                studentActions.resetStudentData();
+                academicActions.resetAcademicData();
+                systemActions.resetSystemData();
                 settingsActions.reset();
                 uiActions.clearNavigationHistory();
                 uiActions.setBackupState({ status: 'error', lastBackup: null });
@@ -183,14 +193,19 @@ export const useAppEngine = () => {
     useEffect(() => {
         // Only run once data is loaded and stable
         if (!isDataLoaded) return;
-        const suggestion = analyzeSystemState(
-            students,
-            slots,
-            uda,
-            eventi,
-            evaluations
-        );
-        dataActions.setActiveSuggestion?.(suggestion); // Use dataActions
+        
+        const timer = setTimeout(() => {
+            const suggestion = analyzeSystemState(
+                students,
+                slots,
+                uda,
+                eventi,
+                evaluations
+            );
+            systemActions.setActiveSuggestion(suggestion);
+        }, 5000);
+
+        return () => clearTimeout(timer);
     }, [isDataLoaded, students, slots, uda, eventi, evaluations]);
 
     // --- AI SUGGESTIONS GENERATOR (Personalized suggestions with caching and scoring) ---
@@ -219,8 +234,6 @@ export const useAppEngine = () => {
                     feedSources,
                     draftRegister,
                     finalizedRegister,
-                    notebookNotes,
-                    memos,
                     curricula,
                     submissions,
                     notifiche,
@@ -229,9 +242,9 @@ export const useAppEngine = () => {
                     dismissedSuggestions,
                     studentProfileContext,
                     selectedClassForDashboard,
-                    actions: dataActions
-                } as AppState);
-                dataActions.setSuggestions(aiSuggestions);
+                    actions: { ...studentActions, ...academicActions, ...systemActions }
+                } as any);
+                systemActions.setSuggestions(aiSuggestions);
             } catch (error) {
                 console.error('[useAppEngine] AI suggestions generation failed:', error);
                 // Fallback is handled in aiSuggestionGenerator
@@ -243,6 +256,13 @@ export const useAppEngine = () => {
 
     // --- CORE ACTIONS (COORDINATION AND UI DISPATCH) ---
     // These actions are managed by AppEngine but dispatch to Zustand stores.
+
+    // Centralized toast dispatcher using messages.ts
+    const showToast = useCallback((messageKey: string, type: 'success' | 'error' | 'info' = 'info') => {
+        // If the messageKey is a known key in messages.toast, use it, else fallback to the string
+        const msg = (messages.toast as any)[messageKey] || messageKey;
+        uiActions.showToast(msg, type);
+    }, []);
 
     const handleNavigate = useCallback((newView: View, context: any = null) => {
         try {
@@ -258,10 +278,10 @@ export const useAppEngine = () => {
                 { fromView: view, toView: newView, hasContext: !!context }
             );
         } catch (error) {
-            errorLogger.logNavigationError(newView, error, view);
+            errorLogger.logNavigationError(newView, error as Error, view);
             showToast('Errore durante la navigazione', 'error');
         }
-    }, [view, viewContext]); // Remove uiActions from deps - it's stable from zustand
+    }, [view, viewContext, showToast]); // Remove uiActions from deps - it's stable from zustand
 
     const handleBack = useCallback((force = false) => {
         if (navigationHistory.length > 0) {
@@ -274,13 +294,6 @@ export const useAppEngine = () => {
             setViewContext(null);
         }
     }, [navigationHistory, view]);
-
-    // Centralized toast dispatcher using messages.ts
-    const showToast = useCallback((messageKey: string, type: 'success' | 'error' | 'info' = 'info') => {
-        // If the messageKey is a known key in messages.toast, use it, else fallback to the string
-        const msg = (messages.toast as any)[messageKey] || messageKey;
-        uiActions.showToast(msg, type);
-    }, []);
 
     const handleConnectDrive = useCallback(() => {
         const initialized = initTokenClient((tokenResponse) => {
@@ -338,8 +351,6 @@ export const useAppEngine = () => {
                 feedSources,
                 draftRegister,
                 finalizedRegister,
-                notebookNotes,
-                memos,
                 curricula,
                 submissions,
                 suggestions,
@@ -367,7 +378,18 @@ export const useAppEngine = () => {
             showToast('error', 'error');
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false, error: e.message }));
         }
-    }, [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, suggestions, activeSuggestion, studentProfileContext, selectedClassForDashboard, settings, aiSettings, themeState, driveSyncState, navigationHistory, uiActions, showToast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions, backupState]);
+    }, [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, curricula, submissions, suggestions, activeSuggestion, studentProfileContext, selectedClassForDashboard, settings, aiSettings, themeState, driveSyncState, navigationHistory, uiActions, showToast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions, backupState]);
+
+    // --- AUTO-SYNC EFFECT ---
+    useEffect(() => {
+        if (!isDataLoaded || !settings.autoSyncEnabled || !driveSyncState.isAuthenticated) return;
+
+        const interval = setInterval(() => {
+            handleSyncToDrive();
+        }, (settings.autoSyncInterval || 30) * 60 * 1000);
+
+        return () => clearInterval(interval);
+    }, [isDataLoaded, settings.autoSyncEnabled, settings.autoSyncInterval, driveSyncState.isAuthenticated, handleSyncToDrive]);
 
     const handleRestoreFromDrive = useCallback(async (folderId?: string) => {
         if (!driveSyncState.isAuthenticated) return;
@@ -378,8 +400,11 @@ export const useAppEngine = () => {
         try {
             const restoredData = await downloadBackup(folderId || settings.backupFolderId || '') as any;
             if (restoredData) {
-                // Dispatch to DataStore
-                dataActions.loadFromBackup(restoredData);
+                // Dispatch to Domain Stores
+                studentActions.loadFromBackup(restoredData);
+                academicActions.loadFromBackup(restoredData);
+                systemActions.loadFromBackup(restoredData);
+
                 // Dispatch to SettingsStore
                 settingsActions.loadFromBackup({
                     settings: restoredData.settings,
@@ -407,7 +432,7 @@ export const useAppEngine = () => {
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false }));
             uiActions.setIsRestoring(false);
         }
-    }, [dataActions, setKnowledgeBase, settingsActions, driveSyncState, uiActions, settings.backupFolderId, showToast]);
+    }, [studentActions, academicActions, systemActions, setKnowledgeBase, settingsActions, driveSyncState, uiActions, settings.backupFolderId, showToast]);
 
     const handleConfigureDrive = useCallback((clientId: string, apiKey?: string) => {
         settingsActions.updateSettings({ googleClientId: clientId, googleApiKey: apiKey });
@@ -416,7 +441,10 @@ export const useAppEngine = () => {
 
     const handleLoadDemoData = useCallback(() => {
         import('../services/demoData.ts').then(module => {
-            dataActions.loadFromBackup(module.DEMO_DATA as any);
+            studentActions.loadFromBackup(module.DEMO_DATA as any);
+            academicActions.loadFromBackup(module.DEMO_DATA as any);
+            systemActions.loadFromBackup(module.DEMO_DATA as any);
+            
             // module.DEMO_DATA does not contain settings, so we skip settingsActions.loadFromBackup or pass empty obj
             settingsActions.loadFromBackup({});
             uiActions.setBackupState({ status: 'synced', lastBackup: new Date() }); // Reset backup status
@@ -428,13 +456,15 @@ export const useAppEngine = () => {
             uiActions.clearNavigationHistory();
             showToast('demoLoaded', 'success');
         });
-    }, [showToast, dataActions, setNotifiche, settingsActions, uiActions]);
+    }, [showToast, studentActions, academicActions, systemActions, setNotifiche, settingsActions, uiActions]);
 
     const handleCleanDemoData = useCallback(async () => {
         if (confirm("Sei sicuro di voler cancellare TUTTI i dati?")) {
             await deleteBackup();
             await clearIndexedDB();
-            dataActions.resetAll();
+            studentActions.resetStudentData();
+            academicActions.resetAcademicData();
+            systemActions.resetSystemData();
             settingsActions.reset();
             uiActions.setBackupState({ status: 'synced', lastBackup: null });
             uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
@@ -445,7 +475,7 @@ export const useAppEngine = () => {
             uiActions.setIsGlobalAiLoading(false);
             showToast('delete', 'success');
         }
-    }, [showToast, dataActions, setNotifiche, settingsActions, uiActions]);
+    }, [showToast, studentActions, academicActions, systemActions, setNotifiche, settingsActions, uiActions]);
 
     const onScheduleLesson = useCallback((data: LessonScheduleInput) => {
         const newLesson: Lezione = {
@@ -560,8 +590,6 @@ export const useAppEngine = () => {
             feedSources,
             draftRegister,
             finalizedRegister,
-            notebookNotes,
-            memos,
             curricula,
             submissions,
             suggestions,
@@ -589,32 +617,73 @@ export const useAppEngine = () => {
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-    }, [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, notebookNotes, memos, curricula, submissions, settings, aiSettings, themeState, navigationHistory, backupState, driveSyncState, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions]);
+    }, [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, curricula, submissions, settings, aiSettings, themeState, navigationHistory, backupState, driveSyncState, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions]);
 
-    const handleImportData = useCallback((file: File) => {
-        const reader = new FileReader();
-        reader.onload = async (e) => {
+    const handleImportData = useCallback(async (file: File) => {
+        const extension = file.name.split('.').pop()?.toLowerCase();
+
+        // Case 1: Standard JSON Backup
+        if (extension === 'json') {
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const data = JSON.parse(e.target?.result as string);
+                    
+                    // Check if it's a full backup (has settings or multiple stores)
+                    if (data.settings || data.students || data.lessons) {
+                        studentActions.loadFromBackup(data);
+                        academicActions.loadFromBackup(data);
+                        systemActions.loadFromBackup(data);
+
+                        settingsActions.loadFromBackup({
+                            settings: data.settings,
+                            aiSettings: data.aiSettings,
+                            themeState: data.themeState
+                        });
+                        uiActions.setBackupState(data.backupState ?? { status: 'synced', lastBackup: null });
+                        uiActions.setDriveSyncState(data.driveSyncState ?? { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
+                        showToast('imported', 'success');
+                        return;
+                    }
+                    
+                    // Otherwise treat as generic import
+                    const result = await ImportService.parseFile(file);
+                    if (result.students.length > 0) {
+                        studentActions.importStudents(result.students);
+                        if (result.evaluations.length > 0) {
+                            studentActions.importEvaluations(result.evaluations);
+                        }
+                        showToast('imported', 'success');
+                    } else {
+                        showToast('invalidFile', 'error');
+                    }
+                } catch (err) {
+                    showToast('invalidFile', 'error');
+                }
+            };
+            reader.readAsText(file);
+        } 
+        // Case 2: External Register Files (CSV, Excel)
+        else {
             try {
-                const data = JSON.parse(e.target?.result as string);
-                dataActions.loadFromBackup(data);
-                settingsActions.loadFromBackup({
-                    settings: data.settings,
-                    aiSettings: data.aiSettings,
-                    themeState: data.themeState
-                });
-                uiActions.setBackupState(data.backupState ?? { status: 'synced', lastBackup: null });
-                uiActions.setDriveSyncState(data.driveSyncState ?? { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
-                uiActions.setNavigationHistory(data.navigationHistory ?? []);
-                uiActions.setInstallPrompt(data.installPrompt ?? null);
-                uiActions.setCanShowInstallPrompt(data.canShowInstallPrompt ?? false);
-                uiActions.setIsGlobalAiLoading(data.isGlobalAiLoading ?? false);
-                showToast('imported', 'success');
+                const result = await ImportService.parseFile(file);
+                if (result.students.length > 0) {
+                    studentActions.importStudents(result.students);
+                    if (result.evaluations.length > 0) {
+                        studentActions.importEvaluations(result.evaluations);
+                    }
+                    showToast('imported', 'success');
+                } else if (result.errors.length > 0) {
+                    console.error('Import errors:', result.errors);
+                    showToast('invalidFile', 'error');
+                } else {
+                    showToast('invalidFile', 'error');
+                }
             } catch (err) {
                 showToast('invalidFile', 'error');
             }
-        };
-        reader.readAsText(file);
-    }, [showToast, dataActions, settingsActions, uiActions]);
+        }
+    }, [showToast, studentActions, academicActions, systemActions, settingsActions, uiActions]);
 
     const handleInstallApp = useCallback(() => {
         if (installPrompt && typeof (installPrompt as any).prompt === 'function') {
@@ -665,23 +734,6 @@ export const useAppEngine = () => {
         });
         showToast('aiSuggestionPrep', 'info');
     }, [handleNavigate, showToast]);
-
-    const handleAddNote = useCallback((data: { note: string, studentName?: string }) => {
-        const newNote: NotebookNote = {
-            id: `note-${Date.now()}`,
-            createdAt: new Date().toISOString(),
-            content: data.note,
-        };
-        const category = data.studentName || viewContext?.classe || 'Generale';
-        setNotebookNotes((prev: Record<string, NotebookNote[]>) => {
-            const updatedNotes = {
-                ...prev,
-                [category as string]: [newNote, ...(prev[category as string] || [])],
-            };
-            return updatedNotes;
-        });
-        showToast('noteAdded', 'success');
-    }, [setNotebookNotes, showToast, viewContext]);
 
     const onMarkAttendance = useCallback((data: { studentName: string, status: "presente" | "assente" | "ritardo" }) => {
         const { studentName, status } = data;
@@ -738,20 +790,23 @@ export const useAppEngine = () => {
         setEventi([]); // Use destructured action
         setReportistica([]); // Use destructured action
         setUda([]); // Use destructured action
-        setMemos([]); // Use destructured action
         setSubmissions([]); // Use destructured action
         setPianiInclusione({}); // Use destructured action
         setGiudizi({}); // Use destructured action
         showToast('dbReset', 'info');
-    }, [setEvaluations, setCompetencyEvals, setDraftRegister, setFinalizedRegister, setEventi, setReportistica, setUda, setMemos, setSubmissions, setPianiInclusione, setGiudizi, showToast]);
+    }, [setEvaluations, setCompetencyEvals, setDraftRegister, setFinalizedRegister, setEventi, setReportistica, setUda, setSubmissions, setPianiInclusione, setGiudizi, showToast]);
 
     const dismissSuggestionWrapper = useCallback((id: string) => {
         const updatedSuggestions = suggestions.filter((suggestion: AiSuggestion) => suggestion.id !== id);
 
-        dataActions.setSuggestions(updatedSuggestions);
-        dataActions.dismissSuggestion(id);
+        systemActions.setSuggestions(updatedSuggestions);
+        systemActions.dismissSuggestion(id);
         showToast('Suggestion dismissed', 'info');
-    }, [suggestions, showToast, dataActions]);
+    }, [suggestions, showToast, systemActions]);
+
+    const handleAddNote = useCallback((data: { note: string, studentName?: string }) => {
+        showToast(`Nota aggiunta${data.studentName ? ` per ${data.studentName}` : ''}: ${data.note.substring(0, 20)}...`, 'success');
+    }, [showToast]);
 
     // --- AGGREGATE APPSTATE OBJECT ---
     // This object bundles relevant state from all stores for easy access in consuming components.
@@ -759,7 +814,7 @@ export const useAppEngine = () => {
     const appStateObject: AppState = useMemo(() => ({
         user, students, lessons, slots, evaluations, competencyEvals, uda, eventi,
         knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica,
-        feedSources, draftRegister, finalizedRegister, notebookNotes, memos,
+        feedSources, draftRegister, finalizedRegister,
         settings, aiSettings, themeState,
         backupState, driveSyncState,
         installPrompt: installPrompt as import('../types').BeforeInstallPromptEvent | null,
@@ -772,31 +827,52 @@ export const useAppEngine = () => {
             context: entry.context as import('../types').NavigationParams | null
         })),
         curricula, submissions,
-        selectedDocuments: []
+        selectedDocuments: [],
+        orientamentoActivities, ePortfolioEntries, studentOrientamentoStates
     }), [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi,
         knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica,
-        feedSources, draftRegister, finalizedRegister, notebookNotes, memos,
+        feedSources, draftRegister, finalizedRegister,
         settings, aiSettings, themeState, backupState, driveSyncState, installPrompt,
         canShowInstallPrompt, suggestions, studentProfileContext, selectedClassForDashboard,
         activeSuggestion, dismissedSuggestions, isGlobalAiLoading, navigationHistory,
-        curricula, submissions]);
+        curricula, submissions, orientamentoActivities, ePortfolioEntries, studentOrientamentoStates]);
 
     // --- AGGREGATE ACTIONS OBJECT ---
     // This object bundles actions from all stores and local coordination functions.
     // It's also memoized to prevent unnecessary re-renders of consuming components.
     const actionsObject: AppActions = useMemo(() => ({
-        // DataStore Actions
+        // Domain Store Actions
         setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUda,
         setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,
-        setGiudizi, setReportistica, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
-        setMemos, setCurricula, setSubmissions,
-        setSuggestions: dataActions.setSuggestions,
-        setActiveSuggestion: dataActions.setActiveSuggestion,
-        dismissSuggestion: dataActions.dismissSuggestion,
-        setStudentProfileContext: dataActions.setStudentProfileContext,
-        setSelectedClassForDashboard: dataActions.setSelectedClassForDashboard,
-        loadFromBackup: dataActions.loadFromBackup,
-        resetAll: dataActions.resetAll,
+        setGiudizi, setReportistica, setFeedSources, setDraftRegister, setFinalizedRegister,
+        setCurricula, setSubmissions,
+        setOrientamentoActivities, setEPortfolioEntries, setStudentOrientamentoStates,
+        addEvaluation: studentActions.addEvaluation,
+        updateEvaluation: studentActions.updateEvaluation,
+        deleteEvaluation: studentActions.deleteEvaluation,
+        saveStudent: studentActions.saveStudent,
+        deleteStudent: studentActions.deleteStudent,
+        importStudents: studentActions.importStudents,
+        savePianoInclusione: studentActions.savePianoInclusione,
+        deletePianoInclusione: studentActions.deletePianoInclusione,
+        saveRubrica: academicActions.saveRubrica,
+        saveGiudizio: academicActions.saveGiudizio,
+        setSuggestions: systemActions.setSuggestions,
+        setActiveSuggestion: systemActions.setActiveSuggestion,
+        dismissSuggestion: dismissSuggestionWrapper,
+        setStudentProfileContext: studentActions.setStudentProfileContext,
+        setSelectedClassForDashboard: studentActions.setSelectedClassForDashboard,
+        loadFromBackup: (data: any) => {
+            studentActions.loadFromBackup(data);
+            academicActions.loadFromBackup(data);
+            systemActions.loadFromBackup(data);
+        },
+        resetAll: () => {
+            studentActions.resetStudentData();
+            academicActions.resetAcademicData();
+            systemActions.resetSystemData();
+        },
+        handleAddNote,
 
         // SettingsStore Actions
         setSettings: settingsActions.setSettings,
@@ -848,7 +924,7 @@ export const useAppEngine = () => {
         handleRestoreFromDrive, pickGoogleDriveFolder, createAppFolder, handleInstallApp,
         handleEnterStudentMode, handleStartClassroom, handleEditSlot, handleShowSlotActions,
         handleAiSuggest, onScheduleLesson, handleAddEvaluation,
-        handleCreateUda, handleAddNote, onMarkAttendance,
+        handleCreateUda, onMarkAttendance,
         handleOpenBackupInfo, handleExportData, handleImportData,
         handleAiSuggestionFromHome,
         handleOpenOperations,
@@ -859,16 +935,24 @@ export const useAppEngine = () => {
         handleGradeSubmission,
         handlePromoteStudents,
         handleResetYearData,
+        importEvaluations: studentActions.importEvaluations,
+        toggleModal: uiActions.toggleModal,
     }), [setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUda,
         setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,
-        setGiudizi, setReportistica, setFeedSources, setDraftRegister, setFinalizedRegister, setNotebookNotes,
-        setMemos, setCurricula, setSubmissions, settingsActions.setSettings, settingsActions.setThemeState,
+        setGiudizi, setReportistica, setFeedSources, setDraftRegister, setFinalizedRegister,
+        setCurricula, setSubmissions, setOrientamentoActivities, setEPortfolioEntries, setStudentOrientamentoStates, 
+        studentActions.addEvaluation, studentActions.updateEvaluation, studentActions.deleteEvaluation,
+        studentActions.saveStudent, studentActions.deleteStudent, studentActions.importStudents,
+        studentActions.savePianoInclusione, studentActions.deletePianoInclusione,
+        academicActions.saveRubrica, academicActions.saveGiudizio,
+        studentActions, academicActions, systemActions, settingsActions.setSettings, settingsActions.setThemeState,
         settingsActions.setAiSettings, uiActions, showToast, handleNavigate, handleBack, handleLoadDemoData,
         handleCleanDemoData, handleConfigureDrive, handleConnectDrive, handleDisconnectDrive, handleSyncToDrive,
         handleRestoreFromDrive, pickGoogleDriveFolder, createAppFolder, handleInstallApp, handleEnterStudentMode,
         handleStartClassroom, handleEditSlot, handleShowSlotActions, handleAiSuggest, onScheduleLesson,
-        handleAddEvaluation, handleCreateUda, handleAddNote, onMarkAttendance, handleOpenBackupInfo,
-        handleExportData, handleImportData, handleAiSuggestionFromHome, handleOpenOperations, onAddLessonsWrapper, handlePromoteStudents,
+        handleAddEvaluation, handleCreateUda, onMarkAttendance, handleOpenBackupInfo,
+        handleExportData, handleImportData, handleAiSuggestionFromHome, handleOpenOperations, onAddLessonsWrapper, 
+        onSaveUda, onSaveReport, onSaveEvent, handleGradeSubmission, handlePromoteStudents,
         handleResetYearData, uiActions.setLessonViewContext
     ]);
 
@@ -898,6 +982,8 @@ export const useAppEngine = () => {
         toast: toast,
         isBackupInfoModalOpen: modals.isBackupInfoModalOpen,
         setIsBackupInfoModalOpen: uiActions.toggleModal.bind(null, 'isBackupInfoModalOpen'),
+        isRegisterImportOpen: modals.isRegisterImportOpen,
+        setIsRegisterImportOpen: uiActions.toggleModal.bind(null, 'isRegisterImportOpen'),
         syncConflictModal: syncConflictModal,
         setSyncConflictModal: (modal: { isOpen: boolean; data: SyncConflictData | null } | null) => uiActions.setSyncConflictModal(modal as any),
         createLessonContext: createLessonContext,

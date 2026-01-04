@@ -6,22 +6,20 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <!-- CSP tuned to allow pdf.js (new Function) and WebAssembly feature detection; keep remote origins minimal -->
+  <!-- CSP tuned to allow pdf.js (new Function), WebAssembly, and external scripts -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self';
     script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' https://accounts.google.com https://apis.google.com;
     connect-src 'self' https://www.googleapis.com https://oauth2.googleapis.com https://generativelanguage.googleapis.com;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com;
     font-src 'self' https://fonts.gstatic.com data:;
     img-src 'self' https://fonts.gstatic.com https://www.gstatic.com;">
   <title>DocenteDoc AI</title>
 
-
+  <!-- CRITICAL: Load scheduler polyfill BEFORE any module scripts -->
+  <!-- This must be a classic script (not type="module") to block module execution -->
+  <script src="/scheduler-polyfill.js"></script>
 
   <!-- PWA & Mobile App Meta Tags -->
-  <!-- Manifest removed - PWA plugin disabled due to service worker issues -->
-  <meta name="theme-color" content="#6750A4" />
-  <link rel="icon" type="image/png" href="./icons/icon-192x192.png">
-  <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="DocenteDoc AI">
@@ -29,8 +27,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Google Identity Services for Drive Sync (loaded conditionally in production by `main.tsx`) -->
-  <script type="module" src="/init-flags.js"></script>
+  <!-- Google Identity Services for Drive Sync - LOAD AFTER modules to avoid conflicts -->
+  <!-- REMOVED: <script type="module" src="/init-flags.js"></script> -->
 
   <!-- Material Symbols Font (Google Fonts CDN) -->
   <link rel="stylesheet"

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { EventoCalendario, TipoEvento } from '../types';
-import { TextField, TextArea, M3ChoiceCard } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { TextField, TextArea, M3ChoiceCard, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
 interface EventModalProps {
     eventToEdit?: Partial<EventoCalendario>;
@@ -32,8 +31,8 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
         setEvent(newEvent);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = (e?: React.FormEvent | React.MouseEvent) => {
+        if (e) e.preventDefault();
         if (!event.titolo || !event.data || !event.tipo) {
             alert("Titolo, data e tipo sono obbligatori.");
             return;
@@ -56,12 +55,13 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             title={event.id ? 'Modifica Evento' : 'Nuovo Evento'}
             onClose={onClose}
             maxWidth="lg"
+            level={1}
         >
-            <M3DialogContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+            <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
+                <form id="event-modal-form" onSubmit={handleSubmit} className="space-y-8">
                     <div>
-                        <label className="text-[11px] text-primary font-extrabold uppercase tracking-[0.25em] px-2 mb-4 block">Tipo Evento</label>
-                        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.25em] px-2 mb-4 block">Tipo Evento</label>
+                        <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">
                             {eventTypes.map(t => (
                                 <M3ChoiceCard
                                     key={t.value}
@@ -112,17 +112,18 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                         value={event.descrizione || ''} 
                         onChange={e => handleChange('descrizione', e.target.value)} 
                         rows={3}
+                        containerClassName="shadow-inner !bg-surface-container-lowest"
                     />
                 </form>
             </M3DialogContent>
             <M3DialogActions>
                 {event.id && (
-                    <button onClick={() => onDelete(event.id!)} className="button button-text !text-error mr-auto font-extrabold">
+                    <M3Button onClick={() => onDelete(event.id!)} variant="text" className="!text-error mr-auto font-black">
                         Elimina
-                    </button>
+                    </M3Button>
                 )}
-                <button onClick={onClose} className="button button-text font-bold">Annulla</button>
-                <button onClick={handleSubmit} className="button button-filled shadow-lg font-extrabold !px-10">Salva</button>
+                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                <M3Button onClick={handleSubmit} variant="filled" className="shadow-xl !px-10">Salva</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

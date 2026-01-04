@@ -3,7 +3,7 @@ import { Lezione, Slot, TimetableSettings } from '../types';
 import TimetableCell from './TimetableCell';
 import { DAYS_OF_WEEK } from '../constants';
 import Guidance from './Guidance';
-import { TabGroup } from './M3Components';
+import { TabGroup, M3IconButton, M3Button } from './ui';
 
 interface TimetableProps {
     slots: Record<string, Slot>;
@@ -48,81 +48,115 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
   }, [viewMode, currentDayIndex]);
 
     return (
-        <div className="page-layout pb-16 relative overflow-hidden">
-        {/* HEADER: M3 Command Island */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-3 pt-1 mb-3 px-3 md:px-0">
-             <div className="flex items-center gap-3 self-start md:self-auto">
-                 <div className="w-11 h-11 rounded-[16px] bg-primary-container text-on-primary-container flex items-center justify-center shadow-md">
-                     <span className="material-symbols-outlined text-2xl">calendar_view_week</span>
-                 </div>
-                 <div>
-                     <h1 className="m3-headline-small font-black text-on-surface tracking-tight">Il Mio Orario</h1>
-                     <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-50">Planning Settimanale</p>
-                 </div>
-             </div>
-             
-             {/* FLOATING COMMAND ISLAND */}
-             <div className="flex items-center bg-surface-container-high/80 backdrop-blur-xl rounded-full p-1.5 shadow-2xl border border-white/20 gap-4">
-                  <TabGroup 
-                    tabs={[{id:'week', label:'Settimana', icon:'view_week'}, {id:'day', label:'Giorno', icon:'calendar_view_day'}]}
-                    activeTab={viewMode}
-                    onTabChange={(id: string) => setViewMode(id as 'week' | 'day')}
-                    variant="primary"
-                  />
-                  
-                  {viewMode === 'day' && (
-                    <div className="flex items-center gap-2 pr-3 animate-in slide-in-from-left-3">
-                        <button onClick={() => handleDayNav(-1)} className="icon-button !w-10 !h-10 hover:bg-surface-container-highest"><span className="material-symbols-outlined">chevron_left</span></button>
-                        <span className="text-sm font-black min-w-[90px] text-center uppercase tracking-widest">{visibleDays[0]}</span>
-                        <button onClick={() => handleDayNav(1)} className="icon-button !w-10 !h-10 hover:bg-surface-container-highest"><span className="material-symbols-outlined">chevron_right</span></button>
+        <div className="page-layout pb-16 relative overflow-hidden animate-in fade-in duration-700">
+            {/* Aura Ornaments */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full animate-pulse pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
+
+            <div className="relative z-10 space-y-6">
+                {/* HEADER: M3 Command Island */}
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4 px-4 md:px-0">
+                    <div className="flex items-center gap-4 self-start md:self-auto">
+                        <div className="w-14 h-14 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg rotate-3 hover:rotate-0 transition-transform duration-300">
+                            <span className="material-symbols-outlined text-3xl">calendar_view_week</span>
+                        </div>
+                        <div>
+                            <h1 className="m3-headline-medium font-black text-on-surface tracking-tight">Il Mio Orario</h1>
+                            <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60">Planning Settimanale</p>
+                        </div>
                     </div>
-                  )}
-             </div>
+                    
+                    {/* FLOATING COMMAND ISLAND */}
+                    <div className="flex items-center bg-surface-container-low/40 backdrop-blur-2xl rounded-2xl p-2 shadow-2xl border border-outline-variant/20 gap-4">
+                        <TabGroup 
+                            tabs={[
+                                {id:'week', label:'Settimana', icon:'view_week'}, 
+                                {id:'day', label:'Giorno', icon:'calendar_view_day'}
+                            ]}
+                            activeTab={viewMode}
+                            onTabChange={(id: string) => setViewMode(id as 'week' | 'day')}
+                            variant="primary"
+                        />
+                        
+                        {viewMode === 'day' && (
+                            <div className="flex items-center gap-2 pr-2 animate-in slide-in-from-left-3">
+                                <M3IconButton 
+                                    icon="chevron_left" 
+                                    onClick={() => handleDayNav(-1)} 
+                                    variant="standard"
+                                />
+                                <span className="text-sm font-black min-w-[100px] text-center uppercase tracking-widest text-on-surface">
+                                    {visibleDays[0]}
+                                </span>
+                                <M3IconButton 
+                                    icon="chevron_right" 
+                                    onClick={() => handleDayNav(1)} 
+                                    variant="standard"
+                                />
+                            </div>
+                        )}
+                    </div>
 
-             <div className="flex items-center gap-2 self-end md:self-auto">
-                 <button onClick={() => window.print()} className="button-drop bg-surface-container-highest text-on-surface border-none !px-6">
-                    <span className="material-symbols-outlined text-lg">print</span> <span className="ml-2 font-bold">Stampa</span>
-                </button>
-             </div>
+                    <div className="flex items-center gap-2 self-end md:self-auto">
+                        <M3Button 
+                            onClick={() => window.print()} 
+                            variant="secondary"
+                            icon="print"
+                        >
+                            Stampa
+                        </M3Button>
+                    </div>
+                </div>
+
+                <div className="px-4 md:px-0">
+                    <Guidance id="timetable-pro-tips-aura" icon="auto_awesome" title="Consiglio Rapido" isGloballyEnabled={showGuidanceTips}>
+                        <p>Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.</p>
+                    </Guidance>
+                </div>
+                
+                {/* MATRIX CONTAINER */}
+                <div className="px-4 md:px-0 overflow-x-auto no-scrollbar">
+                    <div className={`bg-surface-container-low/30 backdrop-blur-xl rounded-5xl border border-outline-variant/20 p-6 shadow-2xl ${viewMode === 'day' ? 'max-w-2xl mx-auto' : ''}`}>
+                        <div className={`timetable-matrix border-none ${viewMode === 'day' ? 'single-day-view' : ''} min-w-[320px]`}>
+                            <div className="matrix-header-time bg-surface-container-highest/50 backdrop-blur-md rounded-tl-2xl font-black text-[10px] text-on-surface-variant">ORA</div>
+                            {visibleDays.map((day, idx) => (
+                                <div 
+                                    key={day} 
+                                    className={`matrix-header-cell ${day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] ? 'today font-black bg-primary/10' : ''} ${idx === visibleDays.length - 1 ? 'rounded-tr-2xl' : ''}`}
+                                >
+                                    {day.substring(0, 3)}
+                                </div>
+                            ))}
+
+                            {settings.timeSlots.map((time, timeIdx) => (
+                                <React.Fragment key={time}>
+                                    <div className={`matrix-time-label font-mono font-black opacity-60 text-[10px] ${timeIdx === settings.timeSlots.length - 1 ? 'rounded-bl-2xl' : ''}`}>
+                                        {time}
+                                    </div>
+                                    {visibleDays.map((day, dayIdx) => {
+                                        const slotKey = `${day}-${time}`;
+                                        const slot = slots[slotKey];
+                                        const lesson = slot?.lezioneId ? lessons[slot.lezioneId] : undefined;
+                                        return (
+                                            <div 
+                                                key={slotKey} 
+                                                className={`matrix-cell-wrapper transition-all duration-300 hover:scale-[1.02] hover:z-20 ${timeIdx === settings.timeSlots.length - 1 && dayIdx === visibleDays.length - 1 ? 'rounded-br-2xl' : ''}`} 
+                                                onClick={() => handleCellClick(day, time)}
+                                            >
+                                                <TimetableCell 
+                                                    slot={slot || { giorno: day, ora: time }} 
+                                                    lesson={lesson}
+                                                    onClick={() => handleCellClick(day, time)}
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-      <div className="px-4 md:px-0">
-          <Guidance id="timetable-pro-tips-aura" icon="auto_awesome" title="Consiglio Rapido" isGloballyEnabled={showGuidanceTips}>
-              <p>Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.</p>
-          </Guidance>
-      </div>
-      
-      {/* MATRIX CONTAINER */}
-      <div className="px-1 md:px-0 overflow-x-auto no-scrollbar">
-          <div className={`timetable-matrix shadow-2xl border-none ${viewMode === 'day' ? 'single-day-view' : ''} min-w-[320px]`}>
-              <div className="matrix-header-time bg-surface-container-highest font-black text-[10px]">ORA</div>
-              {visibleDays.map(day => (
-                  <div key={day} className={`matrix-header-cell ${day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] ? 'today font-black' : ''}`}>
-                      {day.substring(0, 3)}
-                  </div>
-              ))}
-
-              {settings.timeSlots.map(time => (
-                  <React.Fragment key={time}>
-                      <div className="matrix-time-label font-mono font-black opacity-60 text-[10px]">{time}</div>
-                      {visibleDays.map(day => {
-                          const slotKey = `${day}-${time}`;
-                          const slot = slots[slotKey];
-                          const lesson = slot?.lezioneId ? lessons[slot.lezioneId] : undefined;
-                          return (
-                              <div key={slotKey} className="matrix-cell-wrapper" onClick={() => handleCellClick(day, time)}>
-                                  <TimetableCell 
-                                      slot={slot || { giorno: day, ora: time }} 
-                                      lesson={lesson}
-                                      onClick={() => handleCellClick(day, time)}
-                                  />
-                              </div>
-                          );
-                      })}
-                  </React.Fragment>
-              ))}
-          </div>
-      </div>
-    </div>
-  );
+    );
 });

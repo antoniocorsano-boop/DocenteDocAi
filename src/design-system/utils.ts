@@ -29,6 +29,7 @@ export const darkColors: ColorTokens = {
 export const defaultLightTheme: Theme = {
   name: 'Default Light',
   mode: 'light',
+  visualStyle: 'aura',
   colors: lightColors,
 };
 
@@ -36,6 +37,7 @@ export const defaultLightTheme: Theme = {
 export const defaultDarkTheme: Theme = {
   name: 'Default Dark',
   mode: 'dark',
+  visualStyle: 'aura',
   colors: darkColors,
 };
 

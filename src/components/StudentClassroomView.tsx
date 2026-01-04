@@ -3,8 +3,7 @@ import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, KnowledgeBaseEntry, HomeworkSubmission, RegisterEntry, TimetableSettings } from '../types';
 import { blobToBase64Parts, generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
-import Avatar from './Avatar';
-import { TabGroup } from './M3Components';
+import { TabGroup, M3Button, InfoCard, SectionHeader, M3ExpressiveCard, Avatar } from './ui';
 import PinPadModal from './PinPadModal';
 
 interface StudentClassroomViewProps {
@@ -55,8 +54,6 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
     }, [register, lessons, student.classe]);
 
     const pendingHomework = useMemo(() => {
-        // Fix: Show homework ONLY if lesson is marked as done (svolta) OR is in finalized register
-        // This prevents showing homework for future planned lessons
         return classLessons.filter(l => 
             l.compiti && 
             (l.svolta || register.some(r => r.lessonId === l.id && r.status === 'finalized')) &&
@@ -80,24 +77,19 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 status: 'pending'
             };
             onUploadSubmission(submission);
-            alert("Compito consegnato con successo!");
         } catch (e) {
             console.error(e);
-            alert("Errore nel caricamento del file.");
         }
     };
     
     const handleDownloadHomeworkSheet = async (lesson: Lezione) => {
-        if (!settings) {
-            alert("Configurazione mancante. Impossibile generare il PDF.");
-            return;
-        }
+        if (!settings) return;
         setIsGeneratingPdf(true);
         try {
             const blob = await generateHomeworkPdf(lesson, settings);
             viewPdfInNewTab(blob);
         } catch (e) {
-            alert("Errore generazione PDF.");
+            console.error(e);
         } finally {
             setIsGeneratingPdf(false);
         }
@@ -109,49 +101,54 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
         };
         const { getRootProps, getInputProps } = useFileDrop({ onDrop, multiple: false });
         return (
-            <div {...getRootProps()} className="cursor-pointer border-2 border-dashed border-primary/50 bg-primary/5 rounded-xl p-4 text-center hover:bg-primary/10 transition-colors mt-2">
+            <div {...getRootProps()} className="cursor-pointer border-2 border-dashed border-primary/30 bg-primary/5 rounded-xl p-6 text-center hover:bg-primary/10 transition-all mt-4 group">
                 <input {...getInputProps()} />
-                <span className="material-symbols-outlined text-primary mb-1">cloud_upload</span>
-                <p className="text-xs font-bold text-primary">Carica Elaborato</p>
+                <span className="material-symbols-outlined text-primary text-3xl mb-2 group-hover:scale-110 transition-transform">cloud_upload</span>
+                <p className="text-xs font-black uppercase tracking-widest text-primary">Carica Elaborato</p>
+                <p className="text-[10px] text-on-surface-variant opacity-60 mt-1">Trascina qui il file o clicca per selezionare</p>
             </div>
         );
     }
 
     return (
-        <div className="app-container">
-            <header className="bg-surface border-b border-outline-variant p-4 flex justify-between items-center shadow-sm z-50 sticky top-0 relative">
-                <div className="flex items-center gap-3">
-                    <Avatar name={student.nome} surname={student.cognome} size="medium" />
-                    <div>
-                        <h1 className="text-lg font-bold text-on-surface leading-tight">Diario di Classe</h1>
-                        <p className="text-xs text-on-surface-variant">Classe {student.classe}</p>
+        <div className="min-h-screen flex flex-col bg-surface relative overflow-hidden">
+            {/* Aura Ornaments */}
+            <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-tertiary/5 rounded-full blur-[120px] pointer-events-none" />
+
+            <header className="bg-surface-container-low/30 backdrop-blur-xl border-b border-outline-variant/10 p-6 flex justify-between items-center sticky top-0 z-50">
+                <div className="flex items-center gap-4">
+                    <Avatar name={`${student.nome} ${student.cognome}`} size="md" className="shadow-lg border-2 border-white/20" />
+                    <div className="space-y-0.5">
+                        <h1 className="text-xl font-black tracking-tight text-on-surface">Diario di Classe</h1>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-70">Classe {student.classe} • {student.nome} {student.cognome}</p>
                     </div>
                 </div>
-                <button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} className="icon-button text-error bg-error-container/20">
+                <M3Button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} variant="tonal" className="!w-12 !h-12 !p-0 !rounded-full text-error">
                     <span className="material-symbols-outlined">power_settings_new</span>
-                </button>
+                </M3Button>
                 
                 {isExitMenuOpen && (
-                    <div className="absolute top-16 right-4 bg-surface-container-high border border-outline-variant rounded-xl shadow-lg p-2 z-[60] w-56 flex flex-col animate-in fade-in zoom-in-95">
+                    <div className="absolute top-20 right-6 bg-surface-container-high/90 backdrop-blur-2xl border border-outline-variant/20 rounded-2xl shadow-2xl p-3 z-[60] w-64 flex flex-col animate-in fade-in zoom-in-95 duration-300">
                         <button 
                             onClick={() => { onLogout(); setIsExitMenuOpen(false); }}
-                            className="p-3 text-left hover:bg-surface-container text-on-surface rounded-lg flex items-center gap-3"
+                            className="p-4 text-left hover:bg-surface-container text-on-surface rounded-xl flex items-center gap-4 transition-colors"
                         >
                             <span className="material-symbols-outlined text-on-surface-variant">logout</span>
-                            <div>
-                                <p className="font-bold text-sm">Termina Sessione</p>
-                                <p className="text-[10px] text-on-surface-variant">Torna al login studenti</p>
+                            <div className="space-y-0.5">
+                                <p className="font-black text-xs uppercase tracking-widest">Termina Sessione</p>
+                                <p className="text-[10px] text-on-surface-variant opacity-70">Torna al login studenti</p>
                             </div>
                         </button>
                         {onExitMode && (
                             <button 
                                 onClick={() => { setIsPinModalOpen(true); setIsExitMenuOpen(false); }}
-                                className="p-3 text-left hover:bg-error-container text-error rounded-lg flex items-center gap-3 mt-1"
+                                className="p-4 text-left hover:bg-error/10 text-error rounded-xl flex items-center gap-4 transition-colors mt-1"
                             >
                                 <span className="material-symbols-outlined">lock</span>
-                                <div>
-                                    <p className="font-bold text-sm">Menu Docente</p>
-                                    <p className="text-[10px] opacity-80">Richiede PIN</p>
+                                <div className="space-y-0.5">
+                                    <p className="font-black text-xs uppercase tracking-widest">Menu Docente</p>
+                                    <p className="text-[10px] opacity-70">Richiede PIN di sicurezza</p>
                                 </div>
                             </button>
                         )}
@@ -160,7 +157,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 {isExitMenuOpen && <div className="fixed inset-0 z-50" onClick={() => setIsExitMenuOpen(false)}></div>}
             </header>
 
-            <div className="p-2 bg-surface-container-low">
+            <div className="bg-surface-container-low/50 backdrop-blur-md p-4 border-b border-outline-variant/10">
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id) => setActiveTab(id as 'feed' | 'homework' | 'materials')}
@@ -170,123 +167,136 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         { id: 'homework', label: 'Compiti', icon: 'assignment', badge: pendingHomework.length || undefined },
                         { id: 'materials', label: 'Materiali', icon: 'folder' }
                     ]}
-                    className="mb-2"
+                    className="max-w-2xl mx-auto"
                 />
             </div>
 
-            <main className="flex-grow overflow-y-auto p-4 pb-20 bg-surface-container-low space-y-6">
+            <main className="flex-grow overflow-y-auto p-6 pb-24 space-y-8 relative z-10">
                 
                 {activeTab === 'feed' && (
-                    <div className="space-y-4 max-w-2xl mx-auto">
+                    <div className="space-y-6 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
                         {feedItems.length > 0 ? feedItems.map((item) => (
-                            <div key={item.id} className="card bg-surface">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <span className="text-xs font-bold bg-secondary-container text-on-secondary-container px-2 py-1 rounded">
-                                        {new Date(item.date).toLocaleDateString()}
-                                    </span>
-                                    <span className="text-xs font-bold text-primary uppercase tracking-wider">{item.title}</span>
+                            <M3ExpressiveCard key={item.id} className="p-8 space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-[10px] font-black uppercase tracking-widest bg-secondary/10 text-secondary px-3 py-1.5 rounded-full">
+                                            {new Date(item.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'short' })}
+                                        </span>
+                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">{item.title}</span>
+                                    </div>
                                 </div>
-                                <h3 className="text-lg font-bold mb-2">{item.content}</h3>
+                                <h3 className="text-2xl font-black tracking-tight text-on-surface">{item.content}</h3>
                                 {item.homework && (
-                                    <div className="bg-surface-container-high p-3 rounded-lg border-l-4 border-tertiary mt-2">
-                                        <div className="flex items-center gap-2 mb-1 text-tertiary font-bold text-xs uppercase">
-                                            <span className="material-symbols-outlined text-sm">home_work</span>
-                                            Compito
+                                    <div className="bg-tertiary/5 p-6 rounded-2xl border border-tertiary/10 space-y-3">
+                                        <div className="flex items-center gap-2 text-tertiary">
+                                            <span className="material-symbols-outlined text-lg">home_work</span>
+                                            <span className="text-[10px] font-black uppercase tracking-widest">Compito per casa</span>
                                         </div>
-                                        <p className="text-sm">{item.homework}</p>
+                                        <p className="text-sm font-medium leading-relaxed text-on-surface-variant">{item.homework}</p>
                                     </div>
                                 )}
                                 {settings && (
-                                     <button 
+                                     <M3Button 
                                         onClick={() => handleDownloadHomeworkSheet(item.originalLesson)}
                                         disabled={isGeneratingPdf}
-                                        className="button button-text w-full mt-2 text-xs flex items-center justify-center gap-2"
+                                        variant="text"
+                                        className="w-full font-black text-[10px] uppercase tracking-widest"
                                      >
-                                         <span className="material-symbols-outlined text-sm">print</span>
+                                         <span className="material-symbols-outlined mr-2 text-sm">print</span>
                                          {isGeneratingPdf ? 'Generazione PDF...' : 'Scarica Scheda Lezione'}
-                                     </button>
+                                     </M3Button>
                                 )}
-                            </div>
+                            </M3ExpressiveCard>
                         )) : (
-                            <div className="text-center p-10 text-on-surface-variant opacity-60">
-                                <span className="material-symbols-outlined text-4xl mb-2">feed</span>
-                                <p>Nessuna attività recente nel registro.</p>
+                            <div className="text-center p-20 bg-surface-container-low/30 rounded-5xl border border-outline-variant/10">
+                                <span className="material-symbols-outlined text-6xl mb-4 text-on-surface-variant opacity-20">feed</span>
+                                <p className="text-sm font-black uppercase tracking-widest text-on-surface-variant opacity-40">Nessuna attività recente nel registro.</p>
                             </div>
                         )}
                     </div>
                 )}
 
                 {activeTab === 'homework' && (
-                    <div className="space-y-6 max-w-2xl mx-auto">
+                    <div className="space-y-10 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
                         
-                        <div>
-                            <h3 className="m3-title-medium mb-3 flex items-center gap-2">
-                                <span className="material-symbols-outlined text-primary">pending_actions</span>
-                                Da Consegnare ({pendingHomework.length})
-                            </h3>
-                            <div className="space-y-3">
+                        <div className="space-y-6">
+                            <SectionHeader 
+                                title={`Da Consegnare (${pendingHomework.length})`} 
+                                icon="pending_actions" 
+                                className="!mb-0"
+                            />
+                            <div className="space-y-4">
                                 {pendingHomework.map(lesson => (
-                                    <div key={lesson.id} className="card border-l-4 border-l-primary">
-                                        <div className="flex justify-between items-start">
-                                            <div>
-                                                <h4 className="font-bold">{lesson.materia}</h4>
-                                                <p className="text-sm text-on-surface-variant line-clamp-1">{lesson.contenuto}</p>
+                                    <M3ExpressiveCard key={lesson.id} className="p-8 border-l-8 border-l-primary">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="space-y-1">
+                                                <h4 className="text-xl font-black tracking-tight">{lesson.materia}</h4>
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60">{lesson.contenuto}</p>
                                             </div>
-                                            <span className="chip text-[10px]">Nuovo</span>
+                                            <span className="text-[9px] font-black uppercase tracking-widest bg-primary/10 text-primary px-3 py-1 rounded-full">Nuovo</span>
                                         </div>
-                                        <div className="mt-3 p-3 bg-surface-container rounded text-sm">
+                                        <div className="p-6 bg-surface-container-high/50 rounded-xl text-sm font-medium leading-relaxed">
                                             {lesson.compiti}
                                         </div>
                                         <UploadButton lessonId={lesson.id} />
-                                    </div>
+                                    </M3ExpressiveCard>
                                 ))}
-                                {pendingHomework.length === 0 && <p className="text-sm text-on-surface-variant italic">Nessun compito in sospeso.</p>}
+                                {pendingHomework.length === 0 && (
+                                    <div className="p-12 bg-surface-container-low/30 rounded-5xl border border-outline-variant/10 text-center">
+                                        <p className="text-sm font-black uppercase tracking-widest text-on-surface-variant opacity-40">Nessun compito in sospeso.</p>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
-                        <div>
-                            <h3 className="m3-title-medium mb-3 text-on-surface-variant flex items-center gap-2">
-                                <span className="material-symbols-outlined">history</span>
-                                Storico Consegne
-                            </h3>
-                            <div className="space-y-2 opacity-80">
+                        <div className="space-y-6">
+                            <SectionHeader 
+                                title="Storico Consegne" 
+                                icon="history" 
+                                className="!mb-0"
+                            />
+                            <div className="space-y-3">
                                 {submittedHomework.map(sub => {
                                     const relatedLesson = lessons.find(l => l.id === sub.lessonId);
                                     return (
-                                        <div key={sub.id} className="p-3 bg-surface rounded-xl border border-outline-variant flex justify-between items-center">
-                                            <div>
-                                                <p className="font-bold text-sm">{relatedLesson?.materia || 'Materia'}</p>
-                                                <p className="text-xs text-on-surface-variant">{new Date(sub.date).toLocaleDateString()}</p>
+                                        <div key={sub.id} className="p-6 bg-surface-container-low/50 backdrop-blur-xl rounded-2xl border border-outline-variant/10 flex justify-between items-center group hover:bg-surface-container-low transition-colors">
+                                            <div className="space-y-1">
+                                                <p className="font-black text-sm uppercase tracking-widest">{relatedLesson?.materia || 'Materia'}</p>
+                                                <p className="text-[10px] font-medium text-on-surface-variant opacity-60">{new Date(sub.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                                             </div>
-                                            <div className="flex flex-col items-end">
-                                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${sub.status === 'graded' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                                            <div className="flex flex-col items-end gap-2">
+                                                <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${sub.status === 'graded' ? 'bg-green-500/10 text-green-600' : 'bg-amber-500/10 text-amber-600'}`}>
                                                     {sub.status === 'graded' ? 'Valutato' : 'In attesa'}
                                                 </span>
-                                                {sub.teacherFeedback && <span className="text-xs mt-1 text-primary font-bold">Voto: {sub.teacherFeedback}</span>}
+                                                {sub.teacherFeedback && <span className="text-xs font-black text-primary">Voto: {sub.teacherFeedback}</span>}
                                             </div>
                                         </div>
                                     )
                                 })}
+                                {submittedHomework.length === 0 && (
+                                    <p className="text-center text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-40 py-8">Nessuna consegna effettuata.</p>
+                                )}
                             </div>
                         </div>
                     </div>
                 )}
 
                 {activeTab === 'materials' && (
-                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-3xl mx-auto">
+                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
                         {kb.map(entry => (
-                            <div key={entry.id} className="card !p-3 flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow cursor-pointer">
-                                <div className="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
-                                    <span className="material-symbols-outlined text-2xl">
+                            <M3ExpressiveCard key={entry.id} className="!p-6 flex flex-col items-center text-center gap-4 hover:scale-105 transition-transform cursor-pointer group">
+                                <div className="w-16 h-16 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors">
+                                    <span className="material-symbols-outlined text-3xl">
                                         {entry.fileName.endsWith('.pdf') ? 'picture_as_pdf' : 'description'}
                                     </span>
                                 </div>
-                                <p className="text-xs font-bold line-clamp-2">{entry.fileName}</p>
-                            </div>
+                                <p className="text-[10px] font-black uppercase tracking-widest line-clamp-2 leading-relaxed">{entry.fileName}</p>
+                            </M3ExpressiveCard>
                         ))}
                         {kb.length === 0 && (
-                            <div className="col-span-full text-center p-8 text-on-surface-variant">
-                                <p>Nessun materiale condiviso.</p>
+                            <div className="col-span-full text-center p-20 bg-surface-container-low/30 rounded-5xl border border-outline-variant/10">
+                                <span className="material-symbols-outlined text-6xl mb-4 text-on-surface-variant opacity-20">folder_off</span>
+                                <p className="text-sm font-black uppercase tracking-widest text-on-surface-variant opacity-40">Nessun materiale condiviso.</p>
                             </div>
                         )}
                      </div>

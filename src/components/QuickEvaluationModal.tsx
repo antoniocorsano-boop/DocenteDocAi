@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import { Studente, Lezione, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
-import { TabGroup, M3ChoiceCard } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, M3ChoiceCard, TextField, TextArea, SelectField } from './ui';
 
 interface QuickEvaluationModalProps {
     student: Studente;
@@ -41,7 +40,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
 
     const handleSaveVoto = () => {
         if (!voto) {
-            alert("Per favor, inserisci un voto.");
+            alert("Per favore, inserisci un voto.");
             return;
         }
         onSaveEvaluation({
@@ -76,10 +75,10 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     const selectedCompetenza = settings.competenze.find(c => c.id === selectedCompetenzaId);
 
     const renderVotoTab = () => (
-        <div className="space-y-4 animate-in fade-in">
+        <div className="space-y-6 animate-in fade-in">
             <div>
-                <label className="form-label">Tipo Prova</label>
-                <div className="flex gap-2">
+                <label className="text-xs font-bold text-primary uppercase tracking-wider mb-3 block px-1">Tipo Prova</label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
                     {EVALUATION_TYPES.map(t => (
                         <M3ChoiceCard
                             key={t}
@@ -93,84 +92,105 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                 </div>
             </div>
             
-            <div className="form-grid-2">
-                <div className="col-span-2">
-                    <label htmlFor="voto" className="form-label">Voto / Giudizio</label>
-                    <select id="voto" value={voto} onChange={e => setVoto(e.target.value)} className="form-select w-full" required>
-                        <option value="">Seleziona...</option>
-                        {RATING_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                    </select>
-                </div>
-            </div>
-            <div>
-                <label htmlFor="argomento" className="form-label">Argomento</label>
-                <input type="text" id="argomento" value={argomento} onChange={e => setArgomento(e.target.value)} className="form-input w-full"/>
-            </div>
-            <div>
-                <label htmlFor="note-voto" className="form-label">Note</label>
-                <textarea id="note-voto" value={noteVoto} onChange={e => setNoteVoto(e.target.value)} className="form-textarea w-full" rows={2}></textarea>
+            <div className="grid grid-cols-1 gap-4">
+                <SelectField
+                    id="voto"
+                    label="Voto / Giudizio"
+                    value={voto}
+                    onChange={e => setVoto(e.target.value)}
+                    required
+                >
+                    <option value="">Seleziona...</option>
+                    {RATING_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                </SelectField>
+
+                <TextField
+                    id="argomento"
+                    label="Argomento"
+                    value={argomento}
+                    onChange={e => setArgomento(e.target.value)}
+                />
+
+                <TextArea
+                    id="note-voto"
+                    label="Note"
+                    value={noteVoto}
+                    onChange={e => setNoteVoto(e.target.value)}
+                    rows={2}
+                />
             </div>
         </div>
     );
     
     const renderCompetenzaTab = () => (
-        <div className="space-y-4 animate-in fade-in">
-            <div>
-                <label htmlFor="competenza" className="form-label">Competenza</label>
-                <select id="competenza" value={selectedCompetenzaId} onChange={e => {setSelectedCompetenzaId(e.target.value); setSelectedLevelId('');}} className="form-select w-full">
-                    {settings.competenze.map(c => <option key={c.id} value={c.id}>{c.nome}</option>)}
-                </select>
-            </div>
+        <div className="space-y-6 animate-in fade-in">
+            <SelectField
+                id="competenza"
+                label="Competenza"
+                value={selectedCompetenzaId}
+                onChange={e => {setSelectedCompetenzaId(e.target.value); setSelectedLevelId('');}}
+            >
+                {settings.competenze.map(c => <option key={c.id} value={c.id}>{c.nome}</option>)}
+            </SelectField>
+
             {selectedCompetenza && (
                 <div>
-                    <label className="form-label">Livello Raggiunto</label>
-                    <div className="selection-container">
+                    <label className="text-xs font-bold text-primary uppercase tracking-wider mb-3 block px-1">Livello Raggiunto</label>
+                    <div className="space-y-2 bg-surface-container-low p-3 rounded-2xl border border-outline-variant/30">
                         {selectedCompetenza.livelli.map(level => (
-                            <label key={level.id} className="flex items-center p-3 rounded-md hover:bg-surface-container-high cursor-pointer border border-transparent hover:border-outline-variant">
+                            <label key={level.id} className={`flex items-center p-3 rounded-xl transition-all cursor-pointer border ${selectedLevelId === level.id ? 'bg-primary-container/30 border-primary' : 'hover:bg-surface-container-high border-transparent'}`}>
                                 <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)} className="mr-3 accent-primary" required />
-                                <span>{level.descrizione}</span>
+                                <span className={`text-sm ${selectedLevelId === level.id ? 'font-bold text-on-primary-container' : 'text-on-surface'}`}>{level.descrizione}</span>
                             </label>
                         ))}
                     </div>
                 </div>
             )}
-            <div>
-                <label htmlFor="note-competenza" className="form-label">Note</label>
-                <textarea id="note-competenza" value={noteCompetenza} onChange={e => setNoteCompetenza(e.target.value)} className="form-textarea w-full" rows={2}></textarea>
-            </div>
+
+            <TextArea
+                id="note-competenza"
+                label="Note"
+                value={noteCompetenza}
+                onChange={e => setNoteCompetenza(e.target.value)}
+                rows={2}
+            />
         </div>
     );
 
     return (
         <M3Dialog
             title="Valutazione Rapida"
-            headline={`${student.cognome} ${student.nome}`}
             onClose={onClose}
             maxWidth="md"
+            level={1}
         >
-            <M3DialogContent>
-                <div className="pt-2 pb-4">
-                    {/* Using TabGroup instead of m3-option-group for better semantics here */}
-                    <TabGroup 
-                        tabs={[
-                            { id: 'voto', label: 'Voto Numerico', icon: 'looks_one' },
-                            { id: 'competenza', label: 'Competenza', icon: 'psychology' }
-                        ]}
-                        activeTab={activeTab}
-                        onTabChange={(id) => setActiveTab(id as 'voto' | 'competenza')}
-                        variant="secondary"
-                    />
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+                <div className="mb-6 px-2">
+                    <h3 className="text-xl font-bold text-on-surface">{student.cognome} {student.nome}</h3>
+                    <p className="text-sm text-on-surface-variant">{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
                 </div>
-                
-                <div>
-                    {activeTab === 'voto' ? renderVotoTab() : renderCompetenzaTab()}
-                </div>
+
+                <TabGroup
+                    tabs={[
+                        { id: 'voto', label: 'Voto Disciplinare' },
+                        { id: 'competenza', label: 'Competenza' }
+                    ]}
+                    activeTab={activeTab}
+                    onTabChange={(id) => setActiveTab(id as 'voto' | 'competenza')}
+                    className="mb-6"
+                />
+
+                {activeTab === 'voto' ? renderVotoTab() : renderCompetenzaTab()}
             </M3DialogContent>
             <M3DialogActions>
-                <button type="button" onClick={onClose} className="button button-text">Annulla</button>
-                <button type="button" onClick={activeTab === 'voto' ? handleSaveVoto : handleSaveCompetenza} className="button button-filled">
-                    Salva Valutazione
-                </button>
+                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                <M3Button
+                    onClick={activeTab === 'voto' ? handleSaveVoto : handleSaveCompetenza}
+                    variant="filled"
+                    className="shadow-xl !px-8"
+                >
+                    Registra {activeTab === 'voto' ? 'Voto' : 'Competenza'}
+                </M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

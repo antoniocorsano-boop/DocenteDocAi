@@ -6,7 +6,8 @@ import { vi } from 'vitest';
 describe('AssistantModal', () => {
   it('renders and handles send + AI response and Escape', async () => {
     const onClose = vi.fn();
-    render(<AssistantModal open={true} onClose={onClose} />);
+    const aiSettings = { model: 'gemini-3-flash-preview' };
+    render(<AssistantModal open={true} onClose={onClose} aiSettings={aiSettings} />);
 
     expect(screen.getByText('Assistente DocenteDoc AI')).toBeInTheDocument();
     expect(screen.getByText('Come posso usare questa funzione?')).toBeInTheDocument();

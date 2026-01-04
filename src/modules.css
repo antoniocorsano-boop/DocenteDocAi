@@ -70,7 +70,7 @@
     gap: var(--spacing-3);
 }
 
-@media(min-width: 768px) {
+@media(min-width: 600px) {
     .expressive-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: var(--spacing-4);
@@ -87,7 +87,7 @@
     gap: var(--spacing-3);
 }
 
-@media(min-width: 768px) {
+@media(min-width: 600px) {
     .expressive-wide-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -922,7 +922,7 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 599.98px) {
     .calendar-header {
         flex-direction: column;
         gap: var(--spacing-3);
@@ -1021,7 +1021,7 @@
     /* Important for flex container stability */
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
     .google-cal-grid {
         min-height: 600px;
     }
@@ -1069,7 +1069,7 @@
     outline-offset: 2px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
     .google-cal-event {
         border-radius: var(--shape-s);
         padding: 2px 8px;
@@ -1615,7 +1615,7 @@
     background-color: var(--sys-surface);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 599.98px) {
     .notebook-sidebar {
         width: 100%;
         position: absolute;
@@ -1889,7 +1889,7 @@
     display: none;
 }
 
-@media(max-width: 768px) {
+@media(max-width: 599.98px) {
     .desktop-only {
         display: none;
     }

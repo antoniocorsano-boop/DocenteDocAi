@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { LessonAnalysisResult } from '../types';
-import { AiMemoryChip } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, AiMemoryChip } from './ui';
 
 interface LessonAnalysisModalProps {
     result: LessonAnalysisResult;
@@ -15,11 +14,11 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
     return (
         <M3Dialog
             title="Analisi Pedagogica AI"
-            headline={title}
             onClose={onClose}
             maxWidth="xl"
+            level={1}
         >
-            <M3DialogContent>
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
                 <div className="space-y-6">
                     {contextLabel && <AiMemoryChip label={contextLabel} />}
                     
@@ -68,7 +67,7 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
                 </div>
             </M3DialogContent>
             <M3DialogActions>
-                <button onClick={onClose} className="button button-filled">Ho capito</button>
+                <M3Button onClick={onClose} variant="filled">Ho capito</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

@@ -1,10 +1,11 @@
 # Roadmap Sviluppo e Miglioramenti DocenteDoc AI (2026)
 
 ## Priorità Alta (Q1 2026)
-- Migliorare UX modale e Gantt (ProgettazioneHub, UdaPlanner, AnnualPlanningWizard)
+- **Refactoring Architetturale**: Suddivisione del "God Store" `useDataStore` per sostenibilità
+- **Modulo Orientamento**: Implementazione E-Portfolio e tracciamento ore (Linee Guida 2023)
+- **Inclusione Avanzata**: Potenziamento PEI con obiettivi differenziati
+- **AI Ecosystem**: Modularizzazione dei prompt e test di regressione sulle risposte
 - Estendere test coverage e automazione E2E/unit su Progettazione e Inclusione
-- Verifica accessibilità e rubriche in DidatticaInclusiva/PianoInclusioneEditor
-- Ottimizzare export e collegamento UDA/lezioni
 
 ## Priorità Media
 - Migliorare feedback visivo e stato in Centro Operativo

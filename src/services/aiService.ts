@@ -1,19 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
-// Funzione generica per generazione contenuti AI (usata da NKA wizard)
-export const generateContent = async (prompt: string, options: { temperature?: number; maxTokens?: number; stop?: string | undefined }) => {
-    const ai = await getGoogleAIClient();
-    const response = await ai.models.generateContent({
-        model: 'gemini-3-pro-preview',
-        contents: prompt,
-        generationConfig: {
-            temperature: options.temperature ?? 0.7,
-            maxOutputTokens: options.maxTokens ?? 1000,
-            stopSequences: options.stop ? [options.stop] : undefined
-        }
-    });
-    // Gemini API: text or content
-    return { content: response.text || response.content || '' };
-};
 import { AiSettings, Lezione, Uda, Valutazione, ValutazioneCompetenza, Competenza, Studente, Livello, KnowledgeBaseEntry, AiSuggestion, PianoInclusione, CircularAnalysisResult, EventoCalendario, ChatMessage, GeneratedQuiz, LessonAnalysisResult, CurriculumSubject, TechnicalDocumentContent, EssayContent } from '../types';
 import { getGoogleAIClient, callAiWithRetry } from './aiClient';
 import * as Prompts from './aiPrompts';
@@ -34,6 +19,25 @@ const ensureString = (content: unknown): string => {
     }
     return String(content);
 };
+
+// Funzione generica per generazione contenuti AI (usata da NKA wizard)
+export const generateContent = async (prompt: string, options: { temperature?: number; maxTokens?: number; stop?: string | undefined }) => {
+    return callAiWithRetry(async () => {
+        const ai = await getGoogleAIClient();
+        const response = await ai.models.generateContent({
+            model: 'gemini-3-pro-preview',
+            contents: ensureString(prompt),
+            generationConfig: {
+                temperature: options.temperature ?? 0.7,
+                maxOutputTokens: options.maxTokens ?? 1000,
+                stopSequences: options.stop ? [options.stop] : undefined
+            }
+        });
+        // Gemini API: text or content
+        return { content: response.text || response.content || '' };
+    });
+};
+
 export const buildSystemInstruction = (
     userContext?: { classContext?: string; subject?: string; schoolType?: string; teacherName?: string },
     systemInstructionOverride?: string
@@ -73,6 +77,12 @@ export const cleanAndParseJson = <T>(text: string): T => {
 
 // --- CORE FUNCTIONS (FIXED & EXPORTED) ---
 
+/**
+ * Analizza un documento (es. circolare) per estrarre informazioni strutturate.
+ * @param aiSettings Impostazioni AI (modello, ecc.)
+ * @param source Oggetto contenente il testo del file
+ * @returns Risultato dell'analisi strutturato
+ */
 export const analyzeCircularDocument = async (aiSettings: AiSettings, source: { fileContent?: string }): Promise<CircularAnalysisResult> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
@@ -85,6 +95,12 @@ export const analyzeCircularDocument = async (aiSettings: AiSettings, source: { 
     });
 };
 
+/**
+ * Esegue una ricerca web utilizzando Google Search Grounding.
+ * @param aiSettings Impostazioni AI
+ * @param query Stringa di ricerca
+ * @returns Testo generato e fonti citate
+ */
 export const performWebSearch = async (aiSettings: AiSettings, query: string): Promise<{ text: string; sources: { title: string; uri: string }[] }> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
@@ -103,7 +119,10 @@ export const performWebSearch = async (aiSettings: AiSettings, query: string): P
     });
 };
 
-export const getLessonSuggestion = async (aiSettings: AiSettings, context: any): Promise<Partial<Lezione>> => {
+export const getLessonSuggestion = async (aiSettings: AiSettings, context: {
+    classe: string; materia: string; uda?: Uda; existingLessonsInUda: Lezione[];
+    topic?: string; knowledgeBase?: KnowledgeBaseEntry[]; pianiInclusione?: PianoInclusione[]; allCompetenze: Competenza[];
+}): Promise<Partial<Lezione>> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
@@ -119,7 +138,7 @@ export const getLessonSuggestion = async (aiSettings: AiSettings, context: any):
     });
 };
 
-export const analyzeLessonPedagogy = async (aiSettings: AiSettings, lesson: any): Promise<LessonAnalysisResult> => {
+export const analyzeLessonPedagogy = async (aiSettings: AiSettings, lesson: { title: string; description: string; }): Promise<LessonAnalysisResult> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
@@ -143,12 +162,12 @@ export const generateLessonFromIdea = async (aiSettings: AiSettings, ideaText: s
     });
 };
 
-export const generateSituazionePartenza = async (aiSettings: AiSettings, params: any) => {
+export const generateSituazionePartenza = async (aiSettings: AiSettings, params: { classe: string; tags: string[]; notes?: string; }) => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
-            model: 'gemini-3-pro-preview',
-            contents: ensureString(`Analisi situazione partenza per classe ${String(params.classe)}. Tags: ${params.tags.join(',')}`),
+            model: aiSettings?.model || 'gemini-3-flash-preview',
+            contents: ensureString(Prompts.getSituazionePartenzaPrompt(params)),
             config: { systemInstruction: buildSystemInstruction() }
         });
         return response.text || "";
@@ -159,8 +178,8 @@ export const generateMethodologyStrategies = async (aiSettings: AiSettings, ctx:
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
-            model: 'gemini-3-flash-preview',
-            contents: `Suggerisci metodologie per: ${ctx}`, // FIX: Ensure content is a string.
+            model: aiSettings?.model || 'gemini-3-flash-preview',
+            contents: ensureString(Prompts.getMethodologyStrategiesPrompt(ctx)),
             config: { systemInstruction: buildSystemInstruction() }
         });
         return response.text || "";
@@ -172,19 +191,26 @@ export const suggestAnnualPlan = async (aiSettings: AiSettings, kb: string, subj
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
-            contents: `Genera piano annuale UDA da:\n${kb}`, // FIX: Ensure content is a string.
+            contents: ensureString(Prompts.getAnnualPlanPrompt(kb, subj, cls)),
             config: { responseMimeType: "application/json", systemInstruction: buildSystemInstruction({ classContext: cls, subject: subj }) }
         });
         return cleanAndParseJson<any[]>(response.text || '[]');
     });
 };
 
-export const generateClassPlanningDocument = async (aiSettings: AiSettings, data: any): Promise<string> => {
+export const generateClassPlanningDocument = async (aiSettings: AiSettings, data: {
+    situazionePartenza: string;
+    studentiStats: string;
+    inclusioneStats: string;
+    udaList: string;
+    kbContext: string;
+    metodologie: string;
+}): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
-            contents: `Genera documento programmazione: ${JSON.stringify(data)}`, // FIX: Ensure content is a string.
+            contents: ensureString(Prompts.getClassPlanningPrompt(data)),
             config: { systemInstruction: buildSystemInstruction() }
         });
         return response.text || "";
@@ -195,8 +221,8 @@ export const generateAnswerFromCorpus = async (aiSettings: AiSettings, corpus: s
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
-            model: 'gemini-3-flash-preview',
-            contents: `Rispondi a: ${q}\n\nFonti:\n${corpus}`, // FIX: Ensure content is a string.
+            model: aiSettings?.model || 'gemini-3-flash-preview',
+            contents: ensureString(Prompts.getAnswerFromCorpusPrompt(corpus, q)),
             config: { systemInstruction: buildSystemInstruction() }
         });
         return { role: 'model', text: r.text || "" };
@@ -207,8 +233,8 @@ export const generateTechnicalDocumentContent = async (aiSettings: AiSettings): 
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
-            model: "gemini-3-pro-preview",
-            contents: "Genera schema tecnico JSON per manuale", // FIX: Ensure content is a string.
+            model: aiSettings?.model || "gemini-3-flash-preview",
+            contents: ensureString(Prompts.getTechnicalDocumentContentPrompt()),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<TechnicalDocumentContent>(r.text || '{}');
@@ -220,7 +246,7 @@ export const generateAcademicEssayContent = async (aiSettings: AiSettings): Prom
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: ensureString("Genera saggio accademico JSON su innovazione"),
+            contents: ensureString(Prompts.getAcademicEssayContentPrompt()),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<EssayContent>(r.text || '{}');
@@ -232,18 +258,18 @@ export const getPeriodicJudgmentSuggestion = async (aiSettings: AiSettings, s: S
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: ensureString(`Scrivi giudizio sintetico ${String(per)} per ${String(s.cognome)}`)
+            contents: ensureString(Prompts.getPeriodicJudgmentSuggestionPrompt(s, per, evals, cEvals))
         });
         return r.text || "";
     });
 };
 
-export const generateMarkdownReport = async (aiSettings: AiSettings, type: string, data: any) => {
+export const generateMarkdownReport = async (aiSettings: AiSettings, type: string, data: Record<string, unknown>) => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
-            model: "gemini-3-flash-preview",
-            contents: ensureString(`Crea report professionale markdown per ${String(type)}`)
+            model: aiSettings?.model || "gemini-3-flash-preview",
+            contents: ensureString(Prompts.getMarkdownReportPrompt(type, data))
         });
         return r.text || "";
     });
@@ -254,7 +280,7 @@ export const validateUdaVerticalCurriculum = async (aiSettings: AiSettings, uda:
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
-            contents: ensureString(`Valida coerenza UDA ${String(uda.title)}`)
+            contents: ensureString(Prompts.getUdaValidationPrompt(uda, kb))
         });
         return r.text || "";
     });
@@ -270,7 +296,7 @@ export const generateLessonSequenceForClass = async (
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: `Crea sequenza lezioni strutturata`,
+            contents: ensureString(Prompts.getLessonSequencePrompt(uda, classe, kb)),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<any[]>(r.text || '[]');
@@ -282,7 +308,7 @@ export const getPIPSuggestion = async (aiSettings: AiSettings, s: Studente, eval
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: `Suggerimento PDP sezione ${String(sec)} per ${String(s.cognome)}`  // FIX: Ensure content is a string.
+            contents: ensureString(Prompts.getPIPSuggestionPrompt(s, evals, cEvals, comps, sec))
         });
         return r.text || "";
     });
@@ -292,19 +318,23 @@ export const generateCompetencyNote = async (aiSettings: AiSettings, s: Studente
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
-            model: 'gemini-3-flash-preview',
-            contents: `Nota competenza ${String(c.nome)} per ${String(s.cognome)}`  // FIX: Ensure content is a string.
+            model: aiSettings?.model || 'gemini-3-flash-preview',
+            contents: ensureString(Prompts.getCompetencyNotePrompt(s, c, l))
         });
         return r.text || "";
     });
 };
 
-export const getAIPedagogicalAdvice = async (aiSettings: AiSettings, data: any, type: string, comps: Competenza[]) => {
+export const getAIPedagogicalAdvice = async (aiSettings: AiSettings, data: {
+    lesson: Lezione;
+    students: Studente[];
+    evaluations: Valutazione[];
+}, type: string, comps: Competenza[]) => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: `Consiglio pedagogico ${String(type)}`,  // FIX: Ensure content is a string.
+            contents: ensureString(Prompts.getAIPedagogicalAdvicePrompt(data, type)),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<any>(r.text || '{}');
@@ -322,12 +352,17 @@ export const generateFormattedDocument = async (aiSettings: AiSettings, corpus: 
     });
 };
 
-export const generateQuiz = async (aiSettings: AiSettings, corpus: string, config: any) => {
+export const generateQuiz = async (aiSettings: AiSettings, corpus: string, config: {
+    topic: string;
+    numQuestions: number;
+    difficulty: 'facile' | 'medio' | 'difficile';
+    type: 'scelta-multipla' | 'vero-falso' | 'domande-aperte';
+}) => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: ensureString("Genera quiz didattico"),
+            contents: ensureString(Prompts.getQuizPrompt(config, corpus)),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<GeneratedQuiz>(r.text || '{}');
@@ -339,40 +374,55 @@ export const generateStudioOutput = async (aiSettings: AiSettings, corpus: strin
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: ensureString(task)
+            contents: ensureString(Prompts.getStudioOutputPrompt(task, corpus))
         });
         return r.text || "";
     });
 };
 
-export const addContextToLesson = async (aiSettings: AiSettings, lesson: any) => {
+export const addContextToLesson = async (aiSettings: AiSettings, lesson: Lezione) => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
-            model: 'gemini-3-flash-preview',
-            contents: ensureString(`Arricchisci lezione`)
+            model: aiSettings?.model || 'gemini-3-flash-preview',
+            contents: ensureString(Prompts.getAddContextToLessonPrompt(lesson))
         });
         return r.text || "";
     });
 };
 
-export const generateInclusivityAdaptations = async (aiSettings: AiSettings, ctx: any, piani: any[]) => {
+export const generateInclusivityAdaptations = async (aiSettings: AiSettings, ctx: { lesson: Lezione; student?: Studente }, piani: PianoInclusione[]) => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
-            model: 'gemini-3-flash-preview',
-            contents: `Adattamenti inclusivi`  // FIX: Ensure content is a string.
+            model: aiSettings?.model || 'gemini-3-flash-preview',
+            contents: ensureString(Prompts.getInclusivityAdaptationsPrompt({
+                lesson: ctx.lesson,
+                classe: ctx.student?.classe || ctx.lesson.classe
+            }, piani))
         });
         return r.text || "";
     });
 };
 
-export const getProactiveSuggestions = async (aiSettings: AiSettings, state: any): Promise<AiSuggestion[]> => {
+/**
+ * Genera suggerimenti proattivi basati sullo stato attuale della classe.
+ * @param aiSettings Impostazioni AI
+ * @param state Stato contenente studenti, voti e UDA
+ * @returns Array di suggerimenti azionabili
+ */
+export const getProactiveSuggestions = async (aiSettings: AiSettings, state: {
+    students: Studente[];
+    evaluations: Valutazione[];
+    competencyEvaluations: ValutazioneCompetenza[];
+    udas: Uda[];
+}): Promise<AiSuggestion[]> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
+        const studentContext = state.students.map(s => `${s.cognome} ${s.nome} (${s.classe})`);
         const r = await ai.models.generateContent({
-            model: "gemini-3-flash-preview",
-            contents: "Analisi proattiva sistema",  // FIX: Ensure content is a string.
+            model: aiSettings?.model || "gemini-3-flash-preview",
+            contents: ensureString(Prompts.getProactiveSuggestionsPrompt(studentContext, state.students.length, state.evaluations, state.competencyEvaluations, state.udas)),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<AiSuggestion[]>(r.text || '[]');
@@ -383,8 +433,8 @@ export const generateThemeFromPrompt = async (aiSettings: AiSettings, p: string)
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
-            model: "gemini-3-flash-preview",
-            contents: String(p),  // FIX: Ensure content is a string.
+            model: aiSettings?.model || "gemini-3-flash-preview",
+            contents: ensureString(Prompts.getThemePrompt(p)),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<any>(r.text || '{}');
@@ -396,7 +446,7 @@ export const generateImageFromPrompt = async (aiSettings: AiSettings, p: string)
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: 'gemini-2.5-flash-image',
-            contents: { parts: [{ text: String(p) }] }  // FIX: Ensure content is a string.
+            contents: { parts: [{ text: String(p) }] }
         });
         if (r.candidates?.[0]?.content?.parts) {
             for (const part of r.candidates[0].content.parts) {
@@ -407,12 +457,44 @@ export const generateImageFromPrompt = async (aiSettings: AiSettings, p: string)
     });
 };
 
+/**
+ * Gestisce una conversazione chat con il modello, mantenendo il contesto.
+ * @param aiSettings Impostazioni AI
+ * @param messages Cronologia messaggi
+ * @param context Contesto opzionale (classe, materia)
+ * @returns Risposta del modello
+ */
+export const chatWithAi = async (aiSettings: AiSettings, messages: ChatMessage[], context?: Record<string, unknown>): Promise<ChatMessage> => {
+    return callAiWithRetry(async () => {
+        const ai = await getGoogleAIClient();
+        const lastMessage = messages[messages.length - 1];
+        const history = messages.slice(0, -1).map(m => ({
+            role: m.role === 'user' ? 'user' : 'model',
+            parts: [{ text: m.text }]
+        }));
+
+        const response = await ai.models.generateContent({
+            model: aiSettings?.model || 'gemini-3-flash-preview',
+            contents: {
+                role: 'user',
+                parts: [{ text: lastMessage.text }]
+            },
+            config: {
+                systemInstruction: buildSystemInstruction(context),
+                // history: history // Gemini SDK handles history differently depending on version, but we can pass it in contents if needed
+            }
+        });
+
+        return { role: 'model', text: response.text || "" };
+    });
+};
+
 export const extractEventFromText = async (aiSettings: AiSettings, t: string) => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
-            model: 'gemini-3-flash-preview',
-            contents: ensureString(t),
+            model: aiSettings?.model || 'gemini-3-flash-preview',
+            contents: ensureString(Prompts.getEventExtractionPrompt(t)),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<any>(r.text || '{}');
@@ -436,7 +518,7 @@ export const analyzeImage = async (aiSettings: AiSettings, img: string, p: strin
         if (!img.includes(',')) throw new Error("Invalid image data URL provided for analysis.");
         const base64Data = img.split(',')[1];
         const mimeTypeMatch = img.match(/^data:(.*?);base64,/);
-        const mimeType = mimeTypeMatch ? mimeTypeMatch[1] : 'image/jpeg'; // Default to jpeg if not found
+        const mimeType = mimeTypeMatch ? mimeTypeMatch[1] : 'image/jpeg';
 
         const r = await ai.models.generateContent({
             model: "gemini-2.5-flash",
@@ -451,7 +533,7 @@ export const parseCurriculumFromText = async (aiSettings: AiSettings, t: string,
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
-            contents: ensureString(t),
+            contents: ensureString(Prompts.getCurriculumParsingPrompt(t)),
             config: { responseMimeType: "application/json" }
         });
         return cleanAndParseJson<CurriculumSubject>(r.text || '{}');
@@ -463,7 +545,7 @@ export const refineTextWithAi = async (aiSettings: AiSettings, t: string, i: str
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-3-pro-preview",
-            contents: ensureString(String(i) + "\n\nTEXT:\n" + String(t))
+            contents: ensureString(Prompts.getRefineTextPrompt(t, i))
         });
         return r.text || "";
     });
@@ -474,7 +556,7 @@ export const generateDocumentTable = async (aiSettings: AiSettings, d: string) =
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
             model: "gemini-2.5-flash",
-            contents: ensureString(`Genera una tabella HTML basata sulla seguente descrizione: ${String(d)}. La tabella dovrebbe essere ben formattata e usare i tag <table>, <thead>, <tbody>, <tr>, <th>, <td>.`)
+            contents: ensureString(Prompts.getDocumentTablePrompt(d))
         });
         return r.text || "";
     });
@@ -483,19 +565,34 @@ export const generateDocumentTable = async (aiSettings: AiSettings, d: string) =
 export const discoverAndCreateFeed = async (url: string) => { throw new Error("RSS Disabilitato."); };
 export const fetchAndParseRssFeed = async (url: string) => { throw new Error("RSS Disabilitato."); };
 
-export const generateClassCouncilNarrativeReport = async (aiSettings: AiSettings, data: any): Promise<string> => {
+export const generateClassCouncilNarrativeReport = async (aiSettings: AiSettings, data: {
+    classe: string;
+    periodo: string;
+    stats: string;
+    criticalities: string[];
+    strengths: string[];
+}): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
-        const prompt = `Genera un report narrativo per il consiglio di classe basato sui seguenti dati: ${JSON.stringify(data)}. 
-        Il report deve essere formale, professionale e pronto per essere inserito in un verbale di scrutinio o consiglio di classe.`;
-
         const response = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
-            contents: String(prompt), // FIX: Ensure content is a string.
+            contents: ensureString(Prompts.getClassCouncilNarrativeReportPrompt(data)),
             config: {
                 systemInstruction: "Sei un esperto segretario di un consiglio di classe della scuola italiana, esperto in redazione di verbali e analisi pedagogiche."
             }
         });
         return response.text || "";
+    });
+};
+
+export const generateTemplateWithAi = async (aiSettings: AiSettings, description: string, type: string): Promise<any> => {
+    return callAiWithRetry(async () => {
+        const ai = await getGoogleAIClient();
+        const response = await ai.models.generateContent({
+            model: aiSettings?.model || 'gemini-3-flash-preview',
+            contents: ensureString(Prompts.getTemplateGenerationPrompt(description, type)),
+            config: { responseMimeType: 'application/json' }
+        });
+        return cleanAndParseJson(response.text || '{}');
     });
 };

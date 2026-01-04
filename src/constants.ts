@@ -44,7 +44,7 @@ export const PARTICIPATION_BADGES: ParticipationBadge[] = [
 export const AI_PROFILES = {
     rapido: {
         id: 'rapido',
-        model: 'gemini-2.5-flash',
+        model: 'gemini-3-flash-preview',
         label: 'Rapido (Flash)',
         icon: 'bolt',
         description: 'Risposte immediate. Ideale per chat, note brevi e task quotidiani.',
@@ -211,4 +211,27 @@ export const THEME_CUSTOMIZATIONS: ThemeCustomization[] = [
     { name: 'Neon Cyber', colors: { primary: '#00E5FF', secondary: '#F50057', tertiary: '#76FF03' } },
     { name: 'AI Studio', colors: { primary: '#1A73E8', secondary: '#9C27B0', tertiary: '#E8710A' } },
     { name: 'Workspace', colors: { primary: '#EA4335', secondary: '#4285F4', tertiary: '#34A853' } },
+];
+
+export const WELCOME_MESSAGES = [
+    "Bentornato nel tuo spazio didattico.",
+    "Pronto per una nuova giornata di ispirazione?",
+    "La tua classe ti aspetta.",
+    "Organizza, insegna, ispira.",
+    "L'intelligenza al servizio della tua passione."
+];
+
+export const EDUCATIONAL_QUOTES = [
+    { text: "L'insegnamento è l'arte di assistere alla scoperta.", author: "Mark Van Doren" },
+    { text: "Istruire non è riempire un vaso, ma accendere un fuoco.", author: "Plutarco" },
+    { text: "L'obiettivo dell'educazione è quello di sostituire una mente vuota con una aperta.", author: "Malcolm Forbes" },
+    { text: "Insegnare è imparare due volte.", author: "Joseph Joubert" },
+    { text: "Il futuro del mondo è nella mia classe oggi.", author: "Ivan Welton Fitzwater" }
+];
+
+export const SCHOOL_LEVELS = [
+    "Scuola dell'Infanzia",
+    "Scuola Primaria",
+    "Scuola Secondaria di I Grado",
+    "Scuola Secondaria di II Grado"
 ];

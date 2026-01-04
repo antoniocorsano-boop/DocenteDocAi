@@ -6,8 +6,13 @@ const BACKUP_MIME_TYPE = 'application/json';
 const DEFAULT_BACKUP_FOLDER_NAME = 'OrarioDoc_Backups';
 const NOTEBOOKLM_FOLDER_NAME = 'OrarioDoc_NotebookLM';
 // removed unused `FILES_SUBFOLDER_NAME`
-let tokenClient: unknown = null;
+let tokenClient: any = null;
 let accessToken: string | null = null;
+
+const DEFAULT_SCOPES = [
+    'https://www.googleapis.com/auth/drive.file',
+    'https://www.googleapis.com/auth/notebooks'
+];
 
 const getEnvClientId = () => {
     try {
@@ -20,15 +25,18 @@ const getEnvClientId = () => {
     return undefined;
 };
 
-export const initTokenClient = (callback: (tokenResponse: unknown) => void, explicitClientId?: string): boolean => {
+export const initTokenClient = (callback: (tokenResponse: unknown) => void, explicitClientId?: string, customScopes?: string[]): boolean => {
     if (typeof google === 'undefined' || typeof google.accounts === 'undefined' || typeof google.accounts.oauth2 === 'undefined') {
         return false;
     }
     const clientId = explicitClientId || getEnvClientId() || DEFAULT_TIMETABLE_SETTINGS.googleClientId;
     if (!clientId) return false;
+    
+    const scopes = customScopes ? customScopes.join(' ') : DEFAULT_SCOPES.join(' ');
+
     tokenClient = google.accounts.oauth2.initTokenClient({
         client_id: clientId,
-        scope: 'https://www.googleapis.com/auth/drive.file',
+        scope: scopes,
         callback: (tokenResponse: unknown) => {
             // tokenResponse shape is runtime-provided; guard before use
             try {

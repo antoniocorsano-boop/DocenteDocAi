@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { PinPad } from './M3Components'; // Reuse M3 PinPad
-import { M3Dialog, M3DialogContent } from './M3Dialog';
+import { M3Dialog, M3DialogContent, PinPad, M3Button } from './ui';
 
 interface PinPadModalProps {
     title: string;
@@ -42,11 +41,12 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
 
     return (
         <M3Dialog
-            title={<h2 className="m3-headline-small font-bold text-on-surface text-center">{title}</h2>}
+            title={title}
             onClose={onCancel}
             maxWidth="sm"
+            level={3}
         >
-            <M3DialogContent className="flex flex-col items-center justify-center w-full py-8">
+            <M3DialogContent className="flex flex-col items-center justify-center w-full py-8 bg-surface-container-high/30 backdrop-blur-sm">
                 <div className="text-center mb-8">
                     <div className="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
                         <span className="material-symbols-outlined text-3xl">lock</span>
@@ -74,9 +74,9 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />
 
-                <button onClick={onCancel} className="button button-text w-full mt-8 text-on-surface-variant">
+                <M3Button onClick={onCancel} variant="text" className="w-full mt-8">
                     Annulla
-                </button>
+                </M3Button>
             </M3DialogContent>
         </M3Dialog>
     );

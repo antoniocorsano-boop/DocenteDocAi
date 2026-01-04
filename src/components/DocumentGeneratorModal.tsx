@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { TextArea } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
 
 interface DocumentGeneratorModalProps {
     onClose: () => void;
@@ -21,12 +20,12 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
     return (
         <M3Dialog
             title="Crea Documento Formattato"
-            open={true}
             onClose={onClose}
             maxWidth="sm"
+            level={1}
         >
             <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-6">
-                <M3DialogContent className="space-y-6">
+                <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
                     <TextArea
                         id="doc-generator-prompt"
                         label="Descrivi il documento che vuoi creare"
@@ -39,11 +38,11 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
                 </M3DialogContent>
 
                 <M3DialogActions className="gap-2">
-                    <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Annulla</button>
-                    <button type="button" onClick={handleSubmit} className="button button-filled rounded-lg hover:shadow-md transition-all">
+                    <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
+                    <M3Button type="button" onClick={handleSubmit} variant="filled">
                         <span className="material-symbols-outlined mr-2">auto_awesome</span>
                         Genera Documento
-                    </button>
+                    </M3Button>
                 </M3DialogActions>
             </form>
         </M3Dialog>

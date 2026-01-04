@@ -3,7 +3,7 @@ import './src/build-polyfill.js';
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-// import { VitePWA } from 'vite-plugin-pwa';
+import { VitePWA } from 'vite-plugin-pwa';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig({
@@ -12,7 +12,7 @@ export default defineConfig({
       react: 'react',
       'react-dom': 'react-dom',
       scheduler: 'scheduler',
-      underscore: 'lodash', // Shim underscore to lodash
+      'scheduler/unstable_mock': 'scheduler/unstable_mock',
     },
   },
   optimizeDeps: {
@@ -30,12 +30,51 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    // Temporarily disabled PWA due to service worker URL error in Vercel
-    // VitePWA({
-    //   registerType: 'autoUpdate',
-    //   injectRegister: 'auto',
-    //   manifest: false, // Usiamo il file statico in public
-    // }),
+    VitePWA({
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      manifest: {
+        name: 'DocenteDoc AI',
+        short_name: 'DocenteDoc',
+        description: 'Assistente AI per Docenti Italiani',
+        theme_color: '#6750A4',
+        background_color: '#ffffff',
+        display: 'standalone',
+        orientation: 'portrait',
+        scope: '/',
+        start_url: '/',
+        icons: [
+          {
+            src: 'icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable'
+          }
+        ]
+      },
+      injectManifest: {
+        globPatterns: ['index.html', '**/*.{js,css,woff,woff2,png,svg,webmanifest}'],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // Aumentato a 5MB per gestire i chunk pesanti
+      },
+      devOptions: {
+        enabled: true,
+        type: 'module'
+      }
+    }),
     createHtmlPlugin({
       minify: true,
     }),
@@ -45,20 +84,12 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     sourcemap: process.env.NODE_ENV === 'development' ? true : false,
-    chunkSizeWarningLimit: 800, // Increase limit - we have large dependencies (PDFs, genAI, etc.)
-    assetsInlineLimit: 0, // Evita data URL per font e altri asset
-    cssMinify: false, // Disable CSS minification to avoid syntax warnings from dependencies
+    chunkSizeWarningLimit: 1000, // Aumentato per gestire le librerie pesanti
+    assetsInlineLimit: 0,
+    cssMinify: false,
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react')) return 'react-vendor';
-            if (id.includes('pdf-lib') || id.includes('jspdf') || id.includes('docx') || id.includes('mammoth')) return 'pdf-tools';
-            if (id.includes('@google/genai')) return 'vendor'; // Unifica con vendor
-            if (id.includes('lodash') || id.includes('underscore')) return 'lodash-vendor';
-            return 'vendor';
-          }
-        },
+        manualChunks: undefined // Lasciamo che Vite gestisca il chunking ottimale
       },
     }
   },

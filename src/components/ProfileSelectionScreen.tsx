@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { UserProfile } from '../types';
-import Avatar from './Avatar';
+import { Avatar } from './ui';
 
 interface ProfileSelectionScreenProps {
   profiles: UserProfile[];
@@ -17,7 +17,7 @@ const ProfileSelectionScreen: React.FC<ProfileSelectionScreenProps> = ({ profile
         <div className="profile-list">
           {profiles.map(profile => (
             <button key={profile.id} className="profile-item" onClick={() => onSelectProfile(profile)}>
-              <Avatar name={profile.displayName} src={profile.photoURL} size="large" />
+              <Avatar name={profile.displayName} src={profile.photoURL} size="lg" />
               <span className="m3-title-medium">{profile.displayName}</span>
             </button>
           ))}

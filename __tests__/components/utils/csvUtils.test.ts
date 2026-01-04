@@ -17,11 +17,12 @@ describe('parseCSVWithHeaders', () => {
     });
 
     it('dovrebbe gestire virgolette doppie come escape all\'interno di un campo', () => {
-        const csvText = 'Campo,"Testo con ""virgolette escape"""\nValore,"Altro ""testo"" citato"';
+        const csvText = 'Campo,"Testo con ""virgolette escape"""\nValore,"""Altro testo citato"""';
         const result = parseCSVWithHeaders(csvText);
-        // Just verify that the parser handles quoted fields with content
-        expect(result.data.length).toBeGreaterThan(0);
-        expect(result.headers.length).toBe(2);
+        expect(result.data[0]).toEqual({
+            'Campo': 'Valore',
+            'Testo con "virgolette escape"': '"Altro testo citato"'
+        });
     });
 
     it('dovrebbe gestire righe vuote', () => {
@@ -69,5 +70,20 @@ describe('parseCSVWithHeaders', () => {
         const result = parseCSVWithHeaders(csvText);
         expect(result.headers).toEqual(['Header1', 'Header2']);
         expect(result.data).toEqual([{ Header1: 'Value1', Header2: 'Value2' }]);
+    });
+
+    it('dovrebbe saltare righe che contengono solo spazi', () => {
+        const csvText = 'Header1,Header2\nValue1,Value2\n   \nValue3,Value4';
+        const result = parseCSVWithHeaders(csvText);
+        expect(result.data).toHaveLength(2);
+        expect(result.data[1]).toEqual({ Header1: 'Value3', Header2: 'Value4' });
+    });
+
+    it('dovrebbe saltare righe che risultano in valori vuoti', () => {
+        const csvText = 'Header1\nValue1\n""\nValue2';
+        const result = parseCSVWithHeaders(csvText);
+        expect(result.data).toHaveLength(2);
+        expect(result.data[0].Header1).toBe('Value1');
+        expect(result.data[1].Header1).toBe('Value2');
     });
 });

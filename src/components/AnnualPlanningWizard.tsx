@@ -1,13 +1,17 @@
 import React, { useState, useMemo } from 'react';
-import M3Button from './M3Button';
+import { 
+    M3Dialog, 
+    M3DialogContent, 
+    M3DialogActions, 
+    M3Button, 
+    InfoCard,
+    AiThinkingGem 
+} from './ui';
 import Tooltip from './Tooltip';
 import { Studente, Uda, TimetableSettings, AiSettings, Report, EventoCalendario, Lezione, KnowledgeBaseEntry, PianoInclusione } from '../types';
 import { generateClassPlanningDocument, generateSituazionePartenza, suggestAnnualPlan, generateMethodologyStrategies } from '../services/aiService';
 import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
-import AiThinkingGem from './AiThinkingGem';
-import { InfoCard } from './M3Components';
 import { useUIStore } from '../stores/useUIStore';
-import { M3Dialog } from './M3Dialog';
 
 interface AnnualPlanningWizardProps {
     onClose: () => void;
@@ -308,7 +312,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     };
 
     const renderStepIndicator = () => (
-        <div className="wizard-steps-container">
+        <div className="wizard-steps-container" role="navigation" aria-label="Progressi del wizard">
             {['Contesto', 'Analisi', 'Metodi', 'Piano', 'Anteprima', 'Output'].map((label, idx) => {
                 const stepIds: WizardStep[] = ['context', 'situation', 'methodology', 'sequence', 'preview', 'document'];
                 const isActive = stepIds.indexOf(step) === idx;
@@ -319,9 +323,10 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                 else if (isDone) circleClass += ' completed';
 
                 return (
-                    <div key={label} className="wizard-step-item">
-                        <div className={circleClass}>{idx + 1}</div>
-                        {idx < 5 && <div className={`wizard-step-line ${isDone ? 'completed' : ''}`}></div>}
+                    <div key={label} className="wizard-step-item" aria-current={isActive ? 'step' : undefined}>
+                        <div className={circleClass} aria-hidden="true">{idx + 1}</div>
+                        <span className="sr-only">{label} {isDone ? '(Completato)' : isActive ? '(Corrente)' : ''}</span>
+                        {idx < 5 && <div className={`wizard-step-line ${isDone ? 'completed' : ''}`} aria-hidden="true"></div>}
                     </div>
                 );
             })}
@@ -332,9 +337,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
         <M3Dialog
             onClose={onClose}
             title="Progettazione Annuale Guidata"
-            maxWidth="4xl"
+            mode="fullscreen"
         >
-            <div className="dialog-content overflow-y-auto">
+            <M3DialogContent>
                     {renderStepIndicator()}
 
                     {step === 'context' && (
@@ -543,9 +548,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             </M3Button>
                         </div>
                     )}
-            </div>
+            </M3DialogContent>
 
-                <div className="dialog-footer">
+            <M3DialogActions>
                     {step !== 'document' && (
                         <>
                             {step !== 'context' && <M3Button variant="text" onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} title="Torna indietro">Indietro</M3Button>}
@@ -558,7 +563,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                         </>
                     )}
                     {step === 'document' && <M3Button variant="text" onClick={onClose} title="Chiudi wizard">Chiudi</M3Button>}
-                </div>
+            </M3DialogActions>
         </M3Dialog>
     );
 };

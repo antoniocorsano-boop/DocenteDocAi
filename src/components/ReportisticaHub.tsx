@@ -10,11 +10,10 @@ import ClassPlanningWizard from './ClassPlanningWizard';
 import SmartDocumentEditor from './SmartDocumentEditor';
 import DocumentViewerModal from './DocumentViewerModal'; 
 import { getDocumentTemplate } from '../utils/templateUtils';
-import { ActionTile, SectionHeader, InfoCard, TabGroup } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, ActionTile, SectionHeader, InfoCard, TabGroup, SelectField } from './ui';
 import { useUIStore } from '../stores/useUIStore';
 import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import BatchExportWizard from './BatchExportWizard';
-import { M3Dialog } from './M3Dialog';
 
 // --- TYPE DEFINITIONS FOR REGISTRY ---
 type DocPhase = 'avvio' | 'itinere' | 'valutazione' | 'chiusura';
@@ -356,290 +355,274 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 onClose={resetWizard}
                 title="Configura Documento"
                 maxWidth="lg"
-                modalRef={modalRef}
+                level={1}
             >
-                <div className="space-y-4">
+                <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-6">
                         {wizard === 'uda' && (
-                            <>
-                                <label htmlFor="uda-select" className="form-label">Seleziona Progetto (UDA)</label>
-                                <select 
-                                    id="uda-select"
-                                    value={udaForReport?.id || ''} 
-                                    onChange={e => setUdaForReport(props.uda.find((u: Uda) => u.id === e.target.value) || null)} 
-                                    className="form-select w-full"
-                                    aria-describedby="uda-help"
-                                >
-                                    <option value="">Seleziona...</option>
-                                    {props.uda.map((u: Uda) => <option key={u.id} value={u.id}>{u.title} ({u.classe})</option>)}
-                                </select>
-                                <div id="uda-help" className="sr-only">Seleziona il progetto UDA per cui generare la documentazione</div>
-                            </>
+                            <SelectField 
+                                label="Seleziona Progetto (UDA)"
+                                value={udaForReport?.id || ''} 
+                                onChange={e => setUdaForReport(props.uda.find((u: Uda) => u.id === e.target.value) || null)} 
+                            >
+                                <option value="">Seleziona...</option>
+                                {props.uda.map((u: Uda) => (
+                                    <option key={u.id} value={u.id}>{u.title} ({u.classe})</option>
+                                ))}
+                            </SelectField>
                         )}
                         {(wizard === 'student' || wizard === 'lesson' || wizard === 'syllabus') && (
-                            <div>
-                                <label htmlFor="class-select" className="form-label">1. Seleziona Classe</label>
-                                <select 
-                                    id="class-select"
-                                    value={selectedClass} 
-                                    onChange={e => { setSelectedClass(e.target.value); setSelectedStudent(null); setSelectedLesson(null); }} 
-                                    className="form-select w-full"
-                                    aria-describedby="class-help"
-                                >
-                                    <option value="">Seleziona...</option>
-                                    {props.userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                                </select>
-                                <div id="class-help" className="sr-only">Seleziona la classe per cui configurare il documento</div>
-                            </div>
+                            <SelectField 
+                                label="1. Seleziona Classe"
+                                value={selectedClass} 
+                                onChange={e => { setSelectedClass(e.target.value); setSelectedStudent(null); setSelectedLesson(null); }} 
+                            >
+                                <option value="">Seleziona...</option>
+                                {props.userClasses.map(c => (
+                                    <option key={c} value={c}>{c}</option>
+                                ))}
+                            </SelectField>
                         )}
                         
                         {selectedClass && wizard === 'student' && (
-                            <div>
-                                <label htmlFor="student-select" className="form-label">2. Seleziona Studente</label>
-                                <select 
-                                    id="student-select"
-                                    value={selectedStudent?.id || ''} 
-                                    onChange={e => setSelectedStudent(studentsInClass.find(s => s.id === e.target.value) || null)} 
-                                    className="form-select w-full"
-                                    aria-describedby="student-help"
-                                >
-                                    <option value="">Seleziona...</option>
-                                    {studentsInClass.map(s => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
-                                </select>
-                                <div id="student-help" className="sr-only">Seleziona lo studente per cui generare il profilo</div>
-                            </div>
+                            <SelectField 
+                                label="2. Seleziona Studente"
+                                value={selectedStudent?.id || ''} 
+                                onChange={e => setSelectedStudent(studentsInClass.find(s => s.id === e.target.value) || null)} 
+                            >
+                                <option value="">Seleziona...</option>
+                                {studentsInClass.map(s => (
+                                    <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>
+                                ))}
+                            </SelectField>
                         )}
 
                         {selectedClass && wizard === 'lesson' && (
-                            <div>
-                                <label htmlFor="lesson-select" className="form-label">2. Seleziona Lezione</label>
-                                <select 
-                                    id="lesson-select"
-                                    value={selectedLesson?.id || ''} 
-                                    onChange={e => setSelectedLesson(lessonsInClass.find((l: Lezione) => l.id === e.target.value) || null)} 
-                                    className="form-select w-full"
-                                    aria-describedby="lesson-help"
-                                >
-                                    <option value="">Seleziona...</option>
-                                    {lessonsInClass.map((l: Lezione) => <option key={l.id} value={l.id}>{l.contenuto}</option>)}
-                                </select>
-                                <div id="lesson-help" className="sr-only">Seleziona la lezione per cui generare il piano</div>
-                            </div>
+                            <SelectField 
+                                label="2. Seleziona Lezione"
+                                value={selectedLesson?.id || ''} 
+                                onChange={e => setSelectedLesson(lessonsInClass.find((l: Lezione) => l.id === e.target.value) || null)} 
+                            >
+                                <option value="">Seleziona...</option>
+                                {lessonsInClass.map((l: Lezione) => (
+                                    <option key={l.id} value={l.id}>{l.contenuto}</option>
+                                ))}
+                            </SelectField>
                         )}
 
                         {selectedClass && wizard === 'syllabus' && (
-                            <div>
-                                <label htmlFor="subject-select" className="form-label">2. Seleziona Materia</label>
-                                <select 
-                                    id="subject-select"
-                                    value={selectedSubject} 
-                                    onChange={e => setSelectedSubject(e.target.value)} 
-                                    className="form-select w-full"
-                                    aria-describedby="subject-help"
-                                >
-                                    <option value="">Seleziona...</option>
-                                    {props.settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                                </select>
-                                <div id="subject-help" className="sr-only">Seleziona la materia per cui generare il programma svolto</div>
-                            </div>
+                            <SelectField 
+                                label="2. Seleziona Materia"
+                                value={selectedSubject} 
+                                onChange={e => setSelectedSubject(e.target.value)} 
+                            >
+                                <option value="">Seleziona...</option>
+                                {props.settings.disciplines.map(d => (
+                                    <option key={d} value={d}>{d}</option>
+                                ))}
+                            </SelectField>
                         )}
-                    </div>
-                    <div className="dialog-footer">
-                        <button onClick={resetWizard} className="button button-text" disabled={isGenerating} aria-label="Annulla e chiudi la configurazione">Annulla</button>
-                        {(wizard === 'student' && selectedStudent) && <button onClick={() => handleGenerateStudentPdf(selectedStudent)} className="button button-filled" disabled={isGenerating} aria-label={`Genera profilo PDF per ${selectedStudent.cognome} ${selectedStudent.nome}`}>{isGenerating ? "Generazione..." : "Genera PDF"}</button>}
-                        {(wizard === 'lesson' && selectedLesson) && <button onClick={() => handleGenerateLessonPdf(selectedLesson)} className="button button-filled" disabled={isGenerating} aria-label={`Genera piano lezione PDF per "${selectedLesson.contenuto}"`}>{isGenerating ? "Generazione..." : "Genera PDF"}</button>}
-                        {(wizard === 'syllabus' && selectedClass && selectedSubject) && <button onClick={handleGenerateSyllabus} className="button button-filled" disabled={isGenerating} aria-label={`Scarica programma svolto per ${selectedClass} - ${selectedSubject}`}>{isGenerating ? "Generazione..." : "Scarica DOC"}</button>}
-                    </div>
+                    </M3DialogContent>
+                    <M3DialogActions>
+                        <M3Button onClick={resetWizard} variant="text" disabled={isGenerating}>Annulla</M3Button>
+                        {(wizard === 'student' && selectedStudent) && <M3Button onClick={() => handleGenerateStudentPdf(selectedStudent)} variant="filled" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</M3Button>}
+                        {(wizard === 'lesson' && selectedLesson) && <M3Button onClick={() => handleGenerateLessonPdf(selectedLesson)} variant="filled" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</M3Button>}
+                        {(wizard === 'syllabus' && selectedClass && selectedSubject) && <M3Button onClick={handleGenerateSyllabus} variant="filled" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Scarica DOC"}</M3Button>}
+                    </M3DialogActions>
             </M3Dialog>
         );
     };
 
     return (
-        <div className="page-layout">
-            <div className="page-header-compact">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium font-black">Centro Documentazione</h1>
-                    <p className="page-subtitle">Report, stampe e toolkit documentali.</p>
+        <div className="space-y-8 pb-20">
+            {/* --- HEADER --- */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-3xl font-bold tracking-tight text-on-surface">Reportistica & Documenti</h1>
+                    <p className="text-on-surface-variant">Genera documentazione didattica, verbali e reportistica avanzata.</p>
+                </div>
+                <div className="flex items-center gap-2">
+                    <M3Button 
+                        variant="tonal" 
+                        startIcon={<span className="material-symbols-outlined">folder_zip</span>}
+                        onClick={() => setIsBatchExportOpen(true)}
+                    >
+                        Export Massivo
+                    </M3Button>
                 </div>
             </div>
-            
-            <InfoCard 
-                title="Gestione Documentale Avanzata"
-                description="Genera, archivia e modifica tutta la documentazione scolastica. I documenti creati qui vengono salvati nella tua Knowledge Base per futuri utilizzi."
-                icon="folder_managed"
-                variant="surface"
-                className="mb-6"
-            />
 
-            {/* --- BATCH EXPORT QUICK ACTION --- */}
-            <div className="mb-8">
-                <ActionTile 
-                    title="Export Multiplo"
-                    subtitle="Genera più documenti insieme"
-                    icon="download"
-                    variant="secondary"
-                    onClick={() => setIsBatchExportOpen(true)}
-                    tooltip="Seleziona e genera più documenti contemporaneamente"
-                    className="w-full max-w-sm"
-                />
-            </div>
+            {/* --- QUICK ACTIONS / RECENT --- */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2 space-y-4">
+                    <SectionHeader 
+                        title="Documentazione Didattica" 
+                        subtitle="Seleziona la fase dell'anno scolastico"
+                        icon="auto_stories"
+                    />
+                    
+                    <TabGroup 
+                        tabs={[
+                            { id: 'avvio', label: 'Avvio Anno', icon: 'rocket_launch' },
+                            { id: 'itinere', label: 'In Itinere', icon: 'trending_up' },
+                            { id: 'valutazione', label: 'Valutazione', icon: 'fact_check' },
+                            { id: 'chiusura', label: 'Chiusura', icon: 'task_alt' }
+                        ]}
+                        activeTab={activePhase}
+                        onTabChange={(id) => setActivePhase(id as DocPhase)}
+                    />
 
-            {/* --- RECENT DOCS (KB) --- */}
-            {recentDocs.length > 0 && (
-                <div className="mb-8 animate-in fade-in slide-in-from-top-4">
-                    <SectionHeader title="Le tue Bozze Recenti" icon="edit_note" />
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-                        {recentDocs.map(doc => (
-                            <div 
-                                key={doc.id} 
-                                className="bg-surface-container border border-outline-variant rounded-xl p-3 cursor-pointer hover:bg-surface-container-high transition-colors flex flex-col gap-2 group"
-                                onClick={() => setViewingDoc(doc)}
-                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setViewingDoc(doc); } }}
-                                tabIndex={0}
-                                role="button"
-                                aria-label={`Visualizza documento ${doc.fileName.replace('.html', '')}`}
-                            >
-                                <div className="flex items-start justify-between">
-                                    <span className="material-symbols-outlined text-primary text-2xl" aria-hidden="true">article</span>
-                                    <button 
-                                        onClick={(e) => { e.stopPropagation(); openEditorForDoc(doc); }} 
-                                        className="icon-button !w-8 !h-8 bg-surface/50 opacity-0 group-hover:opacity-100 transition-opacity"
-                                        title="Modifica nell'Editor"
-                                        aria-label={`Modifica ${doc.fileName.replace('.html', '')} nell'editor`}
-                                    >
-                                        <span className="material-symbols-outlined text-sm" aria-hidden="true">edit</span>
-                                    </button>
-                                </div>
-                                <p className="font-bold text-sm truncate" title={doc.fileName}>{doc.fileName.replace('.html', '')}</p>
-                                <p className="text-xs text-on-surface-variant">Modificato di recente</p>
-                            </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        {activeTemplates.map(template => (
+                            <ActionTile 
+                                key={template.id}
+                                title={template.title}
+                                subtitle={template.subtitle}
+                                icon={template.icon}
+                                variant={template.variant}
+                                onClick={template.action}
+                            />
                         ))}
                     </div>
                 </div>
-            )}
 
-            {/* --- PHASE SELECTOR --- */}
-            <TabGroup 
-                activeTab={activePhase}
-                onTabChange={(id) => setActivePhase(id as DocPhase)}
-                variant="primary"
-                className="mb-6"
-                tabs={[
-                    { id: 'avvio', label: '1. Avvio Anno', icon: 'start' },
-                    { id: 'itinere', label: '2. In Itinere', icon: 'timelapse' },
-                    { id: 'valutazione', label: '3. Valutazione', icon: 'fact_check' },
-                    { id: 'chiusura', label: '4. Chiusura', icon: 'flag' },
-                ]}
-            />
-
-            {/* --- TEMPLATES GRID --- */}
-            <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-                <h2 className="section-header-expressive mb-4 capitalize">
-                    Modelli Fase: {activePhase}
-                </h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {activeTemplates.map(template => (
-                        <ActionTile 
-                            key={template.id}
-                            title={template.title}
-                            subtitle={template.subtitle}
-                            icon={template.icon}
-                            variant={template.variant}
-                            onClick={template.action}
-                            tooltip={template.description}
-                            className="h-full"
-                        />
-                    ))}
-                    {activeTemplates.length === 0 && (
-                        <div className="col-span-full text-center p-8 text-on-surface-variant opacity-60 border-2 border-dashed border-outline-variant rounded-xl">
-                            Nessun modello disponibile per questa fase al momento.
-                        </div>
-                    )}
+                <div className="space-y-4">
+                    <SectionHeader title="Documenti Recenti" icon="history" />
+                    <div className="space-y-3">
+                        {recentDocs.length > 0 ? recentDocs.map(doc => (
+                            <InfoCard 
+                                key={doc.id}
+                                title={doc.fileName.replace('.html', '')}
+                                icon="description"
+                                variant="surface"
+                                onClick={() => setViewingDoc(doc)}
+                            >
+                                <div className="flex items-center justify-between mt-2">
+                                    <span className="text-xs opacity-70">Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}</span>
+                                    <M3Button variant="text" size="small" onClick={(e) => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</M3Button>
+                                </div>
+                            </InfoCard>
+                        )) : (
+                            <div className="p-8 text-center border-2 border-dashed border-outline-variant rounded-3xl opacity-50">
+                                <span className="material-symbols-rounded text-4xl mb-2">drafts</span>
+                                <p className="text-sm">Nessun documento generato di recente.</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-            
-            {/* WIZARDS & EDITORS */}
+
+            {/* --- ARCHIVE --- */}
+            <div className="space-y-4">
+                <SectionHeader title="Archivio Report" icon="inventory_2" />
+                <ArchivioReport 
+                    reportistica={props.reportistica} 
+                    onDeleteReport={props.onDeleteReport} 
+                    onSaveReportToKb={(report) => {
+                        props.onAddKbEntry({
+                            id: `report-${Date.now()}`,
+                            fileName: report.file.name,
+                            content: report.file.content,
+                            category: 'Report',
+                            tags: ['AI', 'Report', report.contesto.tipo]
+                        });
+                    }}
+                />
+            </div>
+
+            {/* --- MODALS & WIZARDS --- */}
             {renderWizardOverlay()}
-            
-            {editorOpen && (
-                <SmartDocumentEditor 
-                    initialContent={editorContent}
-                    documentTitle={editorTitle}
-                    onClose={() => setEditorOpen(false)}
+
+            {isCouncilWizardOpen && (
+                <ConsiglioClasseWizard 
+                    onClose={() => setIsCouncilWizardOpen(false)}
+                    userClasses={props.userClasses}
+                    students={props.students}
+                    evaluations={props.evaluations}
+                    competencyEvaluations={props.competencyEvaluations}
+                    settings={props.settings}
                     aiSettings={props.aiSettings}
-                    onSaveToKb={handleSaveEditorContent}
+                    onSaveReport={props.onSaveReport}
                 />
             )}
 
             {wizard === 'planning' && (
-                <ClassPlanningWizard
-                    onClose={resetWizard}
+                <ClassPlanningWizard 
+                    onClose={() => setWizard(null)}
                     userClasses={props.userClasses}
                     students={props.students}
-                    knowledgeBase={props.knowledgeBase}
-                    pianiInclusione={props.pianiInclusione}
                     settings={props.settings}
                     aiSettings={props.aiSettings}
-                    onSaveReport={props.onSaveReport}
                     onSaveUda={props.onSaveUda}
                     onAddLessons={props.onAddLessons}
-                    onSaveEvent={props.onSaveEvent}
-                />
-            )}
-            
-            {isCouncilWizardOpen && (
-                <ConsiglioClasseWizard
-                    onClose={resetWizard}
-                    userClasses={props.userClasses}
-                    students={props.students}
-                    evaluations={props.evaluations}
-                    competencyEvaluations={props.competencyEvaluations}
-                    settings={props.settings}
-                    aiSettings={props.aiSettings}
                     onSaveReport={props.onSaveReport}
+                    onSaveEvent={props.onSaveEvent}
+                    knowledgeBase={props.knowledgeBase}
+                    pianiInclusione={props.pianiInclusione}
                 />
             )}
 
             {udaForReport && (
-                <UdaExportModal
+                <UdaExportModal 
+                    onClose={() => setUdaForReport(null)}
                     uda={udaForReport}
-                    aiSettings={props.aiSettings}
                     competenze={props.settings.competenze}
                     settings={props.settings}
-                    onClose={resetWizard}
                     onSaveReport={props.onSaveReport}
-                />
-            )}
-
-            {viewingDoc && (
-                <DocumentViewerModal
-                    title={viewingDoc.fileName}
-                    htmlContent={viewingDoc.htmlContent || `<pre>${viewingDoc.content}</pre>`}
-                    onClose={() => setViewingDoc(null)}
-                    onOpenCreateLesson={() => {
-                        setViewingDoc(null);
-                    }}
+                    aiSettings={props.aiSettings}
                 />
             )}
 
             {isBatchExportOpen && (
-                <BatchExportWizard
+                <BatchExportWizard 
                     onClose={() => setIsBatchExportOpen(false)}
                     students={props.students}
                     lessons={props.lessons}
-                    uda={props.uda}
                     evaluations={props.evaluations}
                     competencyEvaluations={props.competencyEvaluations}
                     settings={props.settings}
+                    uda={props.uda}
                     aiSettings={props.aiSettings}
                     userClasses={props.userClasses}
                 />
             )}
 
-            <div className="mt-12">
-                <SectionHeader title="Archivio Report (PDF/Snapshot)" icon="history" />
-                <ArchivioReport reportistica={props.reportistica} onDeleteReport={props.onDeleteReport} onSaveReportToKb={() => { /* Reuse save logic or custom */ }} />
-            </div>
+            {/* --- SMART EDITOR OVERLAY --- */}
+            {editorOpen && (
+                <SmartDocumentEditor 
+                    onClose={() => setEditorOpen(false)}
+                    initialContent={editorContent}
+                    documentTitle={editorTitle}
+                    aiSettings={props.aiSettings}
+                    onSaveToKb={(content, title) => {
+                        props.onAddKbEntry({
+                            id: `doc-${Date.now()}`,
+                            fileName: `${title}.html`,
+                            content: content,
+                            category: 'Documento',
+                            tags: ['AI', 'Editor']
+                        });
+                        setEditorOpen(false);
+                    }}
+                />
+            )}
+
+            {/* --- DOCUMENT VIEWER --- */}
+            {viewingDoc && (
+                <DocumentViewerModal 
+                    onClose={() => setViewingDoc(null)}
+                    title={viewingDoc.fileName}
+                    htmlContent={viewingDoc.content}
+                    onSaveToKb={(isFormatted, data) => {
+                        props.onAddKbEntry({
+                            id: `doc-copy-${Date.now()}`,
+                            fileName: data.title,
+                            content: data.content,
+                            category: 'Documento',
+                            tags: ['Copia']
+                        });
+                    }}
+                />
+            )}
         </div>
     );
 };

@@ -46,7 +46,9 @@ import BatchExportWizard from "../../src/components/BatchExportWizard";
 import { describe, it, expect, beforeEach } from "vitest";
 import { useUIStore } from "../../src/stores/useUIStore";
 import { TimetableSettings } from "../../src/types";
-import { useDataStore } from '../../src/stores/useDataStore';
+import { useSystemStore } from '../../src/stores/useSystemStore';
+import { useStudentStore } from '../../src/stores/useStudentStore';
+import { useAcademicStore } from '../../src/stores/useAcademicStore';
 import "@testing-library/jest-dom";
 
 // Complete mockSettings with all required properties
@@ -94,92 +96,9 @@ const mockAiSettings = {
 describe("BatchExportWizard", () => {
   // Ensure the mock is applied correctly
   beforeEach(() => {
-    useDataStore.setState({
-      user: null,
-      students: [],
-      lessons: {},
-      slots: {},
-      evaluations: [],
-      competencyEvals: [],
-      uda: [],
-      templates: [],
-      analyticsEvents: [],
-      analyticsMetrics: {
-        totalDocumentsGenerated: 0,
-        documentsByType: {},
-        featuresUsage: {},
-        templatesCreated: 0,
-        exportBatchesCount: 0,
-        aiInteractionsCount: 0,
-        averageSessionDuration: 0,
-        lastUpdated: "2025-12-31T00:00:00Z",
-      },
-      analyticsSettings: {
-        enabled: true,
-        collectFeatureUsage: true,
-        collectDocumentMetrics: true,
-        collectPerformanceMetrics: true,
-        retentionDays: 30,
-        lastReset: "2025-12-01T00:00:00Z",
-      },
-      eventi: [],
-      knowledgeBase: [],
-      corpora: [],
-      rubriche: [],
-      pianiInclusione: {},
-      giudizi: {},
-      reportistica: [],
-      feedSources: [],
-      draftRegister: {},
-      finalizedRegister: [],
-      notebookNotes: {},
-      memos: [],
-      curricula: [],
-      submissions: [],
-      notifiche: [],
-      suggestions: [],
-      activeSuggestion: null,
-      dismissedSuggestions: new Set(),
-      studentProfileContext: null,
-      selectedClassForDashboard: null,
-      actions: {
-        trackAnalyticsEvent: vi.fn(),
-        setSuggestions: vi.fn(),
-        setActiveSuggestion: vi.fn(),
-        setStudentProfileContext: vi.fn(),
-        setSelectedClassForDashboard: vi.fn(),
-        loadFromBackup: vi.fn(),
-        resetAll: vi.fn(),
-        dismissSuggestion: vi.fn(),
-        setUser: vi.fn(),
-        setStudents: vi.fn(),
-        setLessons: vi.fn(),
-        setSlots: vi.fn(),
-        setEvaluations: vi.fn(),
-        setCompetencyEvals: vi.fn(),
-        setUda: vi.fn(),
-        setTemplates: vi.fn(),
-        setAnalyticsEvents: vi.fn(),
-        setAnalyticsMetrics: vi.fn(),
-        setAnalyticsSettings: vi.fn(),
-        setEventi: vi.fn(),
-        setKnowledgeBase: vi.fn(),
-        setCorpora: vi.fn(),
-        setNotifiche: vi.fn(),
-        setRubriche: vi.fn(),
-        setPianiInclusione: vi.fn(),
-        setGiudizi: vi.fn(),
-        setReportistica: vi.fn(),
-        setFeedSources: vi.fn(),
-        setDraftRegister: vi.fn(),
-        setFinalizedRegister: vi.fn(),
-        setNotebookNotes: vi.fn(),
-        setMemos: vi.fn(),
-        setCurricula: vi.fn(),
-        setSubmissions: vi.fn(),
-      },
-    });
-    console.log('State reset in beforeEach:', useDataStore.getState());
+    useSystemStore.getState().actions.resetSystemData();
+    useStudentStore.getState().actions.resetStudentData();
+    useAcademicStore.getState().actions.resetAcademicData();
   });
 
   it("renders correctly", () => {
@@ -415,4 +334,3 @@ describe("BatchExportWizard", () => {
 
 // Confirm mock setup
 console.log('useUIStore mock:', useUIStore);
-console.log('useDataStore state:', useDataStore.getState());

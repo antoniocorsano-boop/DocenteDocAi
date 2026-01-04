@@ -16,21 +16,28 @@ Documentazione tecnica per sviluppatori e manutentori.
 
 ## 🧩 Componenti Core & Design System
 
-### 1. M3 Expressive Components (`components/M3Components.tsx`)
-Nuova libreria di componenti atomici per garantire coerenza visiva:
-*   **`ActionTile`:** Tessera orizzontale compatta con icona, titolo, sottotitolo e variante colore semantica (Primary, Secondary, Tertiary). Sostituisce le card eterogenee.
-*   **`SectionHeader`:** Intestazioni di sezione standardizzate.
+### 1. M3 Expressive & Aura UI
+Libreria di componenti atomici e molecolari basata su Material Design 3 con estetica Aura (glassmorphism).
+*   **`AiThinkingGem`**: Indicatore di stato per processi AI.
+*   **`InfoCard`**: Card informativa con supporto per contesti pedagogici.
 
-### 2. Operations Center (`components/OperationsCenter.tsx`)
-Implementa il pattern **"Process Definition"**:
-*   Ogni funzionalità è definita come oggetto `ProcessDef` (metadati, step, target).
-*   La UI renderizza dinamicamente la griglia o la vista dettaglio.
-*   Separa la logica di *navigazione* dalla logica di *presentazione*.
+### 2. AI Service Layer (`services/aiService.ts`)
+Architettura a due livelli per l'intelligenza artificiale:
+*   **Tiered Models**: Uso di `gemini-3-pro-preview` per ragionamento complesso e `gemini-3-flash-preview` per velocità.
+*   **Centralized Prompts**: Tutti i prompt sono gestiti in `aiPrompts.ts` con pattern Task-Context-Output.
+*   **Context Injection**: Le chiamate AI ricevono automaticamente dati su BES/DSA e contesto di vista.
 
-### 3. Suggestion Engine (`utils/suggestionUtils.ts`)
-Un motore logico puro che analizza lo stato dell'app (`students`, `slots`, `udas`) e restituisce un `suggestionId`.
-*   Guida l'utente attraverso il ciclo di vita (Setup -> Planning -> Daily).
-*   Pilota il badge di notifica sull'Header.
+### 3. State Management (Zustand)
+Attualmente basato su un unico store centrale `useDataStore`.
+*   ⚠️ **Rischio Architetturale**: Lo store sta diventando un "God Object". È pianificato un refactoring per suddividere lo stato in domini (Studenti, Didattica, Configurazione).
+
+---
+
+## 💾 Strategia Dati & Inclusione
+
+1.  **Local-First**: Tutti i dati sensibili (PDP/PEI) risiedono sul dispositivo.
+2.  **Inclusion Logic**: La logica BES/DSA è trasversale e influenza ogni suggerimento AI.
+3.  **Google Drive (Cloud)**: Backup cifrato del dump JSON.
 
 ---
 

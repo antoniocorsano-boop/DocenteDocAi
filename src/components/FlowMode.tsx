@@ -1,12 +1,12 @@
 
 import React, { useMemo, useState, useEffect } from 'react';
-import { Lezione, Slot, EventoCalendario, AppActions, AppState } from '../types';
+import { Lezione, Slot, EventoCalendario, AppActions } from '../types';
 import { DAYS_OF_WEEK } from '../constants';
+import { useAcademicStore } from '../stores/useAcademicStore';
 
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 
 interface FlowModeProps {
-    appState: AppState;
     actions: AppActions;
     onOpenOperations: () => void;
     onOpenLiveAssistant: () => void;
@@ -41,8 +41,11 @@ interface GapTimelineItem extends BaseTimelineItem {
 
 type TimelineItem = LessonTimelineItem | EventTimelineItem | GapTimelineItem;
 
-const FlowMode: React.FC<FlowModeProps> = ({ appState, actions, onOpenOperations, onOpenLiveAssistant }) => {
-    const { slots, lessons, eventi } = appState;
+const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLiveAssistant }) => {
+    const slots = useAcademicStore(state => state.slots);
+    const lessons = useAcademicStore(state => state.lessons);
+    const eventi = useAcademicStore(state => state.eventi);
+    
     const { handleStartClassroom, handleNavigate, handleAddNote } = actions;
     
     // --- TIME LOGIC ---
@@ -137,26 +140,31 @@ const FlowMode: React.FC<FlowModeProps> = ({ appState, actions, onOpenOperations
 
 
     return (
-        <div className="flex flex-col h-full bg-surface-container-low relative">
+        <div className="flex flex-col h-full bg-surface-container-low/30 relative aura-glass">
             
             {/* --- HEADER (Minimal) --- */}
-            <div className="flex justify-between items-center p-4 bg-surface z-10 border-b border-outline-variant">
+            <div className="flex justify-between items-center p-6 bg-surface/40 backdrop-blur-xl z-10 border-b border-outline-variant/20">
                 <div>
-                    <h1 className="m3-headline-small font-bold text-on-surface">Flow</h1>
-                    <p className="m3-body-small text-on-surface-variant capitalize">{todayName}, {now.toLocaleDateString()}</p>
+                    <h1 className="m3-headline-small font-black text-on-surface tracking-tight">Flow</h1>
+                    <p className="m3-label-medium text-primary font-bold uppercase tracking-widest opacity-70">{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
                 </div>
-                <button onClick={onOpenOperations} className="icon-button text-primary bg-primary-container">
-                    <span className="material-symbols-outlined">bolt</span>
+                <button onClick={onOpenOperations} className="w-12 h-12 rounded-2xl flex items-center justify-center text-primary bg-primary/10 hover:bg-primary/20 transition-all shadow-sm border border-primary/20">
+                    <span className="material-symbols-outlined text-2xl">bolt</span>
                 </button>
             </div>
 
             {/* --- TIMELINE STREAM --- */}
-            <div className="flex-grow overflow-y-auto px-4 py-6 space-y-6 pb-32">
+            <div className="flex-grow overflow-y-auto px-6 py-8 space-y-8 pb-40 custom-scrollbar">
                 {timelineItems.length === 0 && (
-                    <div className="text-center py-10 opacity-50">
-                        <span className="material-symbols-outlined text-4xl mb-2">event_busy</span>
-                        <p className="m3-body-medium">Nessun evento o lezione oggi.</p>
-                        <button onClick={() => actions.handleNavigate('timetable')} className="button button-text mt-2">Configura Orario</button>
+                    <div 
+                        className="text-center py-20 opacity-50 bg-surface-container-low/50 border border-dashed border-outline-variant/30"
+                        style={{ borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
+                    >
+                        <span className="material-symbols-outlined text-5xl mb-4 text-primary/40">event_busy</span>
+                        <p className="m3-title-medium font-bold text-on-surface-variant">Nessun evento o lezione oggi.</p>
+                        <button onClick={() => actions.handleNavigate('timetable')} className="mt-4 px-6 py-2 rounded-full bg-primary/10 text-primary font-black text-xs uppercase tracking-widest hover:bg-primary/20 transition-all">
+                            Configura Orario
+                        </button>
                     </div>
                 )}
 
@@ -166,26 +174,35 @@ const FlowMode: React.FC<FlowModeProps> = ({ appState, actions, onOpenOperations
                     if (item.status === 'current') {
                         // HERO CARD FOR CURRENT EVENT
                         return (
-                            <div key={item.id} className="relative pl-8">
-                                <div className="absolute left-[9px] top-0 bottom-0 w-0.5 bg-primary"></div>
-                                <div className="absolute left-0 top-6 w-5 h-5 rounded-full border-4 border-surface bg-primary shadow-sm z-10"></div>
+                            <div key={item.id} className="relative pl-10">
+                                <div className="absolute left-[11px] top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/50 to-transparent rounded-full"></div>
+                                <div className="absolute left-0 top-8 w-6 h-6 rounded-full border-4 border-surface-container-low bg-primary shadow-lg z-10 animate-pulse"></div>
                                 
-                                <div className="mb-2 m3-label-small font-bold text-primary animate-pulse">ADESSO • {item.time}</div>
-                                <div className="card bg-primary-container text-on-primary-container shadow-lg transform scale-105 transition-transform">
-                                    <div className="flex justify-between items-start mb-4">
+                                <div className="mb-3 m3-label-small font-black text-primary uppercase tracking-[0.2em] flex items-center gap-2">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                                    </span>
+                                    ADESSO • {item.time}
+                                </div>
+                                <div 
+                                    className="card bg-primary text-on-primary shadow-2xl p-6 transform scale-[1.02] transition-all border border-white/10"
+                                    style={{ borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
+                                >
+                                    <div className="flex justify-between items-start mb-6">
                                         <div>
-                                            <h2 className="m3-headline-small font-bold">{item.title}</h2>
-                                            <p className="m3-body-medium opacity-90">{item.subtitle}</p>
+                                            <h2 className="m3-headline-small font-black tracking-tight leading-tight">{item.title}</h2>
+                                            <p className="m3-body-medium opacity-80 font-medium mt-1">{item.subtitle}</p>
                                         </div>
-                                        <div className="p-2 bg-surface/20 rounded-xl">
-                                            <span className="material-symbols-outlined text-2xl">
+                                        <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner">
+                                            <span className="material-symbols-outlined text-3xl">
                                                 {item.type === 'lesson' ? 'school' : 'event'}
                                             </span>
                                         </div>
                                     </div>
                                     {item.actionLabel && (
-                                        <button onClick={item.onAction} className="button bg-surface text-primary w-full justify-center font-bold">
-                                            {item.actionLabel} <span className="material-symbols-outlined ml-2">arrow_forward</span>
+                                        <button onClick={item.onAction} className="w-full py-4 bg-white text-primary rounded-2xl flex items-center justify-center font-black text-xs uppercase tracking-widest shadow-lg hover:bg-opacity-90 transition-all">
+                                            {item.actionLabel} <span className="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
                                         </button>
                                     )}
                                 </div>
@@ -196,14 +213,14 @@ const FlowMode: React.FC<FlowModeProps> = ({ appState, actions, onOpenOperations
                     // PAST ITEMS (Compact, Faded)
                     if (item.status === 'past') {
                         return (
-                            <div key={item.id} className="relative pl-8 opacity-60">
-                                <div className="absolute left-[9px] top-0 bottom-0 w-0.5 bg-outline-variant"></div>
-                                <div className="absolute left-[2px] top-1 w-4 h-4 rounded-full bg-outline-variant border-2 border-surface"></div>
-                                <div className="flex items-center gap-4 py-1">
-                                    <span className="text-xs font-mono text-on-surface-variant w-10">{item.time}</span>
+                            <div key={item.id} className="relative pl-10 opacity-40 grayscale-[0.5]">
+                                <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-outline-variant/30"></div>
+                                <div className="absolute left-[4px] top-2 w-4 h-4 rounded-full bg-outline-variant/50 border-2 border-surface-container-low"></div>
+                                <div className="flex items-center gap-6 py-2">
+                                    <span className="text-[10px] font-black text-on-surface-variant w-12 uppercase tracking-tighter">{item.time}</span>
                                     <div>
-                                        <p className="m3-body-medium font-bold line-through decoration-outline">{item.title}</p>
-                                        <p className="m3-body-small text-on-surface-variant">{item.subtitle}</p>
+                                        <p className="m3-body-medium font-bold text-on-surface line-through decoration-outline-variant/50">{item.title}</p>
+                                        <p className="text-[10px] font-medium text-on-surface-variant uppercase tracking-widest">{item.subtitle}</p>
                                     </div>
                                 </div>
                             </div>
@@ -212,17 +229,21 @@ const FlowMode: React.FC<FlowModeProps> = ({ appState, actions, onOpenOperations
 
                     // FUTURE ITEMS (Standard)
                     return (
-                        <div key={item.id} className="relative pl-8">
-                            {!isLast && <div className="absolute left-[9px] top-0 bottom-0 w-0.5 bg-outline-variant"></div>}
-                            <div className="absolute left-[2px] top-1 w-4 h-4 rounded-full border-2 border-primary bg-surface"></div>
+                        <div key={item.id} className="relative pl-10">
+                            {!isLast && <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-outline-variant/20"></div>}
+                            <div className="absolute left-[4px] top-2 w-4 h-4 rounded-full border-2 border-primary/40 bg-surface-container-low"></div>
                             
-                            <div className="card bg-surface p-4 border border-outline-variant hover:border-primary transition-colors cursor-pointer" onClick={item.onAction}>
-                                <div className="flex justify-between items-center mb-1">
-                                    <span className="m3-label-small font-bold text-primary bg-primary-container px-2 py-0.5 rounded">{item.time}</span>
-                                    {item.type === 'lesson' && <span className="text-[10px] uppercase tracking-wider text-on-surface-variant">Lezione</span>}
+                            <div 
+                                className="card bg-surface-container-high/40 backdrop-blur-md p-5 border border-outline-variant/20 hover:border-primary/40 hover:bg-surface-container-high/60 transition-all cursor-pointer group" 
+                                onClick={item.onAction}
+                                style={{ borderRadius: 'calc(var(--shape-l) * var(--sys-radius-multiplier))' }}
+                            >
+                                <div className="flex justify-between items-center mb-3">
+                                    <span className="m3-label-small font-black text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/10 uppercase tracking-widest">{item.time}</span>
+                                    {item.type === 'lesson' && <span className="text-[9px] font-black uppercase tracking-[0.2em] text-on-surface-variant opacity-50">Lezione</span>}
                                 </div>
-                                <h3 className="m3-title-medium font-bold">{item.title}</h3>
-                                <p className="m3-body-small text-on-surface-variant">{item.subtitle}</p>
+                                <h3 className="m3-title-medium font-black text-on-surface group-hover:text-primary transition-colors">{item.title}</h3>
+                                <p className="m3-body-small text-on-surface-variant font-medium mt-1">{item.subtitle}</p>
                             </div>
                         </div>
                     );
@@ -230,21 +251,21 @@ const FlowMode: React.FC<FlowModeProps> = ({ appState, actions, onOpenOperations
             </div>
 
             {/* --- MAGIC BOTTOM BAR (Floating) --- */}
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-surface to-transparent pb-6 pt-12 pointer-events-none">
-                <div className="pointer-events-auto max-w-lg mx-auto bg-surface-container-high rounded-full shadow-xl border border-outline-variant p-2 flex items-center gap-2">
+            <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-surface-container-low via-surface-container-low/80 to-transparent pb-8 pt-16 pointer-events-none z-20">
+                <div className="pointer-events-auto max-w-lg mx-auto bg-surface-container-highest/80 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl border border-white/10 p-2.5 flex items-center gap-3">
                     
-                    <button onClick={() => actions.handleNavigate('settings')} className="icon-button !w-10 !h-10 text-on-surface-variant">
-                        <span className="material-symbols-outlined">settings</span>
+                    <button onClick={() => actions.handleNavigate('settings')} className="w-12 h-12 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all">
+                        <span className="material-symbols-outlined text-2xl">settings</span>
                     </button>
 
-                    <div className="flex-grow bg-surface-container-highest rounded-full h-10 flex items-center px-4 text-on-surface-variant text-sm cursor-text opacity-70" onClick={onOpenLiveAssistant}>
+                    <div className="flex-grow bg-surface-container-low/50 rounded-full h-12 flex items-center px-6 text-on-surface-variant/60 text-sm font-bold cursor-text border border-outline-variant/10 hover:border-primary/30 transition-all" onClick={onOpenLiveAssistant}>
                         Chiedi all'assistente...
                     </div>
 
                     <VoiceNoteRecorder onTranscription={(text) => handleAddNote({ note: text })} compact />
                     
-                    <button onClick={() => actions.handleNavigate('progettazione-hub')} className="icon-button !w-10 !h-10 bg-primary text-on-primary hover:bg-primary-container hover:text-on-primary-container transition-colors">
-                        <span className="material-symbols-outlined">add</span>
+                    <button onClick={() => actions.handleNavigate('progettazione-hub')} className="w-12 h-12 rounded-full bg-primary text-on-primary shadow-lg hover:shadow-primary/20 hover:scale-105 transition-all flex items-center justify-center">
+                        <span className="material-symbols-outlined text-2xl">add</span>
                     </button>
                 </div>
             </div>
@@ -253,4 +274,4 @@ const FlowMode: React.FC<FlowModeProps> = ({ appState, actions, onOpenOperations
     );
 };
 
-export default FlowMode;
+export default React.memo(FlowMode);

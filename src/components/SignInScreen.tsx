@@ -1,13 +1,16 @@
 
-import React, { useEffect, useRef, useState } from 'react';
-import Logo from './Logo.tsx';
-import { UserProfile } from '../types.ts';
-import { DEFAULT_TIMETABLE_SETTINGS } from '../constants.ts';
-import { TextField } from './M3Components.tsx';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+import Logo from './Logo';
+import { UserProfile } from '../types';
+import { DEFAULT_TIMETABLE_SETTINGS, WELCOME_MESSAGES, EDUCATIONAL_QUOTES } from '../constants';
+import { TextField, M3Button } from './ui';
 
 const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }> = ({ onSignInSuccess }) => {
   const [manualName, setManualName] = useState('');
   const signInButtonRef = useRef<HTMLDivElement>(null);
+
+  const welcomeMessage = useMemo(() => WELCOME_MESSAGES[Math.floor(Math.random() * WELCOME_MESSAGES.length)], []);
+  const quote = useMemo(() => EDUCATIONAL_QUOTES[Math.floor(Math.random() * EDUCATIONAL_QUOTES.length)], []);
 
   const handleManualSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +20,6 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
   };
 
   useEffect(() => {
-    // Only load/initialize the GSI script in production on allowed hosts, OR in dev when explicitly enabled
     const env = (import.meta as ImportMeta).env;
     const isProd = env && env.PROD;
     const isDev = env && env.DEV;
@@ -27,7 +29,6 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
     const allowedHosts = ['docentedoc.app', 'your-production-domain.example'];
     const host = window.location.hostname;
 
-    // If not allowed in production and not explicitly allowed in dev, skip
     if (!(isProd && allowedHosts.includes(host)) && !(isDev && enableGsiDev && !!devClientId)) {
       console.debug('[SignIn] GSI skipped in non-production/unauthorized origin', host);
       return;
@@ -57,12 +58,10 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
         google.accounts.id.renderButton(signInButtonRef.current, {
           theme: 'outline', size: 'large', shape: 'pill', width: 300
         });
-        // mark that GSI has been initialized so tests can detect the button
         try { signInButtonRef.current.setAttribute('data-gsi-loaded', 'true'); } catch(e) { /* ignore */ }
       }
     };
 
-    // Avoid double-injecting when script already present
     if (typeof (window as unknown as { google?: unknown }).google !== 'undefined') {
       initGSI();
       return;
@@ -77,69 +76,113 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
   }, [onSignInSuccess]);
 
   return (
-    <div className="auth-screen" data-testid="signin-screen">
-      {/* Dynamic Ornaments - M3 Expressive Aura */}
-      <div className="auth-ornament auth-ornament-1"></div>
-      <div className="auth-ornament auth-ornament-2"></div>
-      <div className="auth-ornament auth-ornament-3"></div>
-
-      <div className="auth-card">
-        <div className="auth-card-highlight"></div>
-
-        <div className="auth-header">
-          <div className="auth-logo">
-            <Logo />
+    <div className="fixed inset-0 flex flex-col lg:flex-row bg-surface overflow-hidden" data-testid="signin-screen">
+      {/* Left Side: Hero & Branding (Visible on Desktop) */}
+      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center p-12 overflow-hidden bg-primary-container/20">
+        {/* Aura Ornaments */}
+        <div className="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] bg-primary/10 blur-[120px] rounded-full animate-pulse"></div>
+        <div className="absolute -bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-secondary/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+        
+        <div className="relative z-10 max-w-lg space-y-12">
+          <div className="flex flex-col items-start space-y-6">
+            <div className="w-32 h-32 p-6 bg-surface-container-high/50 backdrop-blur-xl rounded-4xl border border-outline-variant/20 shadow-2xl">
+              <Logo />
+            </div>
+            <div className="space-y-2">
+              <h1 className="text-6xl font-black tracking-tighter text-on-surface leading-none">
+                Docente<span className="text-primary">Doc</span> AI
+              </h1>
+              <p className="text-xl font-medium text-on-surface-variant opacity-70">
+                {welcomeMessage}
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="auth-title">
-              Ecosistema <span style={{ color: 'var(--sys-primary)' }}>Docente</span>
-            </h1>
-            <p className="auth-subtitle">Intelligenza Didattica</p>
+
+          <div className="pt-12 border-t border-outline-variant/20">
+            <blockquote className="space-y-4">
+              <p className="text-2xl font-serif italic text-on-surface-variant leading-relaxed">
+                "{quote.text}"
+              </p>
+              <footer className="text-sm font-black uppercase tracking-[0.2em] text-primary">
+                — {quote.author}
+              </footer>
+            </blockquote>
           </div>
         </div>
+      </div>
 
-        <div>
-          <div className="auth-institutional-login">
-            <p className="m3-label-small uppercase" style={{ fontWeight: 'bold', color: 'var(--sys-on-surface-variant)', letterSpacing: '0.1em' }}>Accesso Istituzionale</p>
-            <div ref={signInButtonRef} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}></div>
-            <p className="m3-body-small italic opacity-60">Sincronizzazione Drive attiva per il backup sicuro.</p>
+      {/* Right Side: Login Form */}
+      <div className="flex-1 flex items-center justify-center p-6 relative">
+        {/* Mobile Aura Ornaments (Hidden on Desktop) */}
+        <div className="lg:hidden absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full animate-pulse"></div>
+        <div className="lg:hidden absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+
+        <div className="relative z-10 w-full max-w-md p-10 bg-surface-container-low/30 backdrop-blur-2xl rounded-5xl border border-outline-variant/20 shadow-2xl overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+
+          <div className="flex flex-col items-center text-center mb-10 lg:hidden">
+            <div className="w-20 h-20 mb-6 p-4 bg-surface-container-high/50 rounded-3xl border border-outline-variant/20 shadow-inner">
+              <Logo />
+            </div>
+            <div>
+              <h1 className="m3-headline-medium font-black tracking-tight text-on-surface">
+                Ecosistema <span className="text-primary">Docente</span>
+              </h1>
+              <p className="m3-title-small font-bold text-on-surface-variant/60 uppercase tracking-[0.2em]">Intelligenza Didattica</p>
+            </div>
           </div>
 
-          <div className="auth-divider" style={{ margin: '32px 0' }}>
-            <span>Oppure</span>
+          <div className="hidden lg:block mb-10">
+            <h2 className="m3-headline-small font-black text-on-surface">Accedi al tuo account</h2>
+            <p className="text-sm text-on-surface-variant opacity-70">Scegli il metodo di accesso preferito</p>
           </div>
 
-          <form onSubmit={handleManualSubmit} className="auth-manual-login">
-            <TextField
-              label="Nome Docente"
-              placeholder="Es. Prof. Rossi"
-              value={manualName}
-              onChange={e => setManualName(e.target.value)}
-              required
-              autoComplete="name"
-              leadingIcon="person"
-              className="bg-surface-container-high" // Fallback if class not strict, but TextField usually handles it or passes className
-            />
+          <div className="space-y-8">
+            <div className="flex flex-col items-center gap-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Accesso Istituzionale</p>
+              <div ref={signInButtonRef} className="w-full flex justify-center min-h-[44px]"></div>
+              <p className="m3-label-small italic text-on-surface-variant/40">Sincronizzazione Drive attiva per il backup sicuro.</p>
+            </div>
 
-            <button
-              type="submit"
-              className="button button-filled auth-submit-btn"
-            >
-              <span className="relative z-10 flex items-center gap-3">
-                Entra in Locale
-                <span className="material-symbols-outlined font-black text-2xl">arrow_forward</span>
-              </span>
-            </button>
-          </form>
+            <div className="relative flex items-center py-2">
+              <div className="flex-grow border-t border-outline-variant/10"></div>
+              <span className="flex-shrink mx-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant/30">Oppure</span>
+              <div className="flex-grow border-t border-outline-variant/10"></div>
+            </div>
+
+            <form onSubmit={handleManualSubmit} className="space-y-6">
+              <TextField
+                label="Nome Docente"
+                placeholder="Es. Prof. Rossi"
+                value={manualName}
+                onChange={e => setManualName(e.target.value)}
+                required
+                autoComplete="name"
+                leadingIcon="person"
+                className="bg-surface-container-high/50"
+              />
+
+              <M3Button
+                type="submit"
+                variant="filled"
+                className="w-full py-6 rounded-3xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-primary/20"
+              >
+                <span className="flex items-center gap-3">
+                  Entra in Locale
+                  <span className="material-symbols-outlined font-black text-2xl">arrow_forward</span>
+                </span>
+              </M3Button>
+            </form>
+          </div>
+
+          <footer className="mt-12 pt-8 border-t border-outline-variant/10 flex justify-between items-center">
+            <div className="flex items-center gap-2 px-4 py-2 bg-primary/5 rounded-full border border-primary/10">
+              <span className="material-symbols-outlined text-primary text-sm">enhanced_encryption</span>
+              <p className="text-[9px] font-black text-primary uppercase tracking-widest">Privacy First</p>
+            </div>
+            <p className="text-[9px] font-black text-on-surface-variant/20 uppercase tracking-widest">v4.0.0-rc1</p>
+          </footer>
         </div>
-
-        <footer className="auth-footer">
-          <div className="auth-privacy-badge">
-            <span className="material-symbols-outlined text-primary text-sm">enhanced_encryption</span>
-            <p className="m3-label-small font-bold opacity-60 uppercase">Privacy First</p>
-          </div>
-          <p className="m3-label-small opacity-30">v4.0.0-rc1</p>
-        </footer>
       </div>
     </div>
   );

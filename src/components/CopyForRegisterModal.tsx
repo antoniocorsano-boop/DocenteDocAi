@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Lezione, RegisterEntry, Studente, Valutazione } from '../types';
-import { TabGroup, TextArea } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { TabGroup, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
 interface CopyForRegisterModalProps {
     lesson: Lezione;
@@ -50,8 +49,9 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             title="Esporta per Registro"
             onClose={onClose}
             maxWidth="md"
+            level={1}
         >
-            <M3DialogContent>
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
                 <div className="px-2 py-2 bg-surface-container-low rounded-lg mb-6">
                     <TabGroup 
                         tabs={[{ id: 'text', label: 'Manuale', icon: 'content_paste' }, { id: 'json', label: 'Bridge AI', icon: 'extension' }]}
@@ -65,10 +65,19 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                 </div>
 
                 <div className="space-y-6">
-                    <div className="flex flex-wrap gap-2 p-4 bg-surface-container rounded-[24px] border border-outline-variant shadow-inner">
-                        <label className="chip cursor-pointer has-checkbox select-none"><input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)} className="mr-2 accent-primary" /> Assenti</label>
-                        <label className="chip cursor-pointer has-checkbox select-none"><input type="checkbox" checked={includeGrades} onChange={e => setIncludeGrades(e.target.checked)} className="mr-2 accent-primary" /> Voti</label>
-                        <label className="chip cursor-pointer has-checkbox select-none"><input type="checkbox" checked={includeHomework} onChange={e => setIncludeHomework(e.target.checked)} className="mr-2 accent-primary" /> Compiti</label>
+                    <div className="flex flex-wrap gap-2 p-4 bg-surface-container rounded-xl border border-outline-variant shadow-inner">
+                        <label className="chip cursor-pointer has-checkbox select-none flex items-center">
+                            <input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)} className="mr-2 accent-primary" /> 
+                            Assenti
+                        </label>
+                        <label className="chip cursor-pointer has-checkbox select-none flex items-center">
+                            <input type="checkbox" checked={includeGrades} onChange={e => setIncludeGrades(e.target.checked)} className="mr-2 accent-primary" /> 
+                            Voti
+                        </label>
+                        <label className="chip cursor-pointer has-checkbox select-none flex items-center">
+                            <input type="checkbox" checked={includeHomework} onChange={e => setIncludeHomework(e.target.checked)} className="mr-2 accent-primary" /> 
+                            Compiti
+                        </label>
                     </div>
 
                     <TextArea 
@@ -81,10 +90,10 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                 </div>
             </M3DialogContent>
             <M3DialogActions>
-                <button onClick={onClose} className="button button-text font-bold">Chiudi</button>
-                <button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} className="button button-filled shadow-xl font-black !px-10">
+                <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
+                <M3Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="filled" className="shadow-xl !px-10">
                     <span className="material-symbols-outlined mr-2">content_copy</span> COPIA
-                </button>
+                </M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

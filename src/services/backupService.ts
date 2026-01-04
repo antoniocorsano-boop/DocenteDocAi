@@ -13,17 +13,25 @@ let dbInitPromise: Promise<IDBDatabase> | null = null;
 
 // --- PERSISTENCE MANAGER ---
 export const initPersistentStorage = async (): Promise<boolean> => {
-    if (navigator.storage && navigator.storage.persist) {
-        const isPersisted = await navigator.storage.persist();
-        return isPersisted;
+    try {
+        if (navigator.storage && navigator.storage.persist) {
+            const isPersisted = await navigator.storage.persist();
+            return isPersisted;
+        }
+    } catch (error) {
+        console.error('[BackupService] Error initializing persistent storage:', error);
     }
     return false;
 };
 
 export const checkStorageQuota = async () => {
-    if (navigator.storage && navigator.storage.estimate) {
-        const estimate = await navigator.storage.estimate();
-        return estimate;
+    try {
+        if (navigator.storage && navigator.storage.estimate) {
+            const estimate = await navigator.storage.estimate();
+            return estimate;
+        }
+    } catch (error) {
+        console.error('[BackupService] Error checking storage quota:', error);
     }
     return null;
 };
@@ -131,7 +139,7 @@ export const saveBackup = async (state: object): Promise<void> => {
         }
 
         const db = await getDb();
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             try {
                 const transaction = db.transaction(STORE_NAME, 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
@@ -167,7 +175,7 @@ export const saveBackup = async (state: object): Promise<void> => {
 export const loadBackup = async (): Promise<unknown | null> => {
     try {
         const db = await getDb();
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             try {
                 const transaction = db.transaction(STORE_NAME, 'readonly');
                 const store = transaction.objectStore(STORE_NAME);
@@ -207,7 +215,7 @@ export const loadBackup = async (): Promise<unknown | null> => {
 export const deleteBackup = async (): Promise<void> => {
     try {
         const db = await getDb();
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             try {
                 const transaction = db.transaction(STORE_NAME, 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
@@ -232,13 +240,29 @@ export const deleteBackup = async (): Promise<void> => {
 };
 
 /**
+ * Esporta il backup corrente come stringa JSON
+ */
+export const exportBackupAsJson = async (): Promise<string> => {
+    const state = await loadBackup();
+    return JSON.stringify(state || {});
+};
+
+/**
  * Chiude la connessione al database (utile per cleanup)
  */
 export const closeDatabase = (): void => {
     if (dbInstance) {
         dbInstance.close();
         dbInstance = null;
-        dbInitPromise = null;
-        console.log('[BackupService] Database connection closed');
     }
+    dbInitPromise = null;
+    console.log('[BackupService] Database connection closed');
+};
+
+/**
+ * Reset internal state for testing purposes
+ */
+export const resetDbForTesting = () => {
+    dbInstance = null;
+    dbInitPromise = null;
 };

@@ -4,8 +4,12 @@ import { EventoCalendario, AiSettings } from '../types';
 import EventModal from './EventModal';
 import AiEventParserModal from './AiEventParserModal';
 import EventActionPopover from './EventActionPopover';
-import { TabGroup } from './M3Components';
-import M3Button from './M3Button';
+import { 
+    M3Button, 
+    TabGroup, 
+    SectionHeader, 
+    InfoCard 
+} from './ui';
 
 interface CalendarProps {
     eventi: EventoCalendario[];
@@ -123,21 +127,21 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             : `${MONTHS_LONG[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
         return (
-            <header className="calendar-header">
+            <header className="calendar-header bg-surface-container-high/30 backdrop-blur-md border-b border-outline-variant/30 p-4 rounded-t-3xl">
                 <div className="calendar-header-left">
-                    <div className="calendar-nav-group">
-                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Precedente" startIcon={<span className="material-symbols-outlined">chevron_left</span>}>
-                            <span className="visually-hidden">Precedente</span>
+                    <div className="calendar-nav-group bg-surface-container-low/50 p-1 rounded-full border border-outline-variant/20">
+                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Precedente" className="!min-w-0 !p-2">
+                            <span className="material-symbols-outlined">chevron_left</span>
                         </M3Button>
-                        <M3Button variant="tonal" onClick={() => handleNavigate('today')} >Oggi</M3Button>
-                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Successivo" endIcon={<span className="material-symbols-outlined">chevron_right</span>}>
-                            <span className="visually-hidden">Successivo</span>
+                        <M3Button variant="tonal" onClick={() => handleNavigate('today')} className="!px-4 !py-1 !h-auto">Oggi</M3Button>
+                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Successivo" className="!min-w-0 !p-2">
+                            <span className="material-symbols-outlined">chevron_right</span>
                         </M3Button>
                     </div>
-                    <h2 className="calendar-title">{title}</h2>
+                    <h2 className="calendar-title m3-headline-small ml-4">{title}</h2>
                 </div>
 
-                <div className="calendar-header-right">
+                <div className="calendar-header-right gap-4">
                     <TabGroup
                         tabs={[
                             { id: 'month', label: 'Mese' },
@@ -151,10 +155,11 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                     />
 
                     <div className="calendar-actions">
-                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza Circolare con AI" startIcon={<span className="material-symbols-outlined">auto_awesome</span>}>
-                            <span className="visually-hidden">Analizza Circolare con AI</span>
+                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza Circolare con AI" className="!min-w-0 !p-2">
+                            <span className="material-symbols-outlined text-primary">auto_awesome</span>
                         </M3Button>
-                        <M3Button variant="filled" onClick={() => setEditingEvent({})} startIcon={<span className="material-symbols-outlined">add</span>}>
+                        <M3Button variant="filled" onClick={() => setEditingEvent({})} className="flex items-center gap-2">
+                            <span className="material-symbols-outlined">add</span>
                             Nuovo Evento
                         </M3Button>
                     </div>
@@ -268,32 +273,33 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
 
     const renderDayView = () => (
         <div className="calendar-day">
-            <div className="calendar-day-header">
-                <h3 className="calendar-day-title">
+            <div className="calendar-day-header p-4">
+                <h3 className="m3-title-large text-primary">
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                 </h3>
             </div>
             <div className="calendar-day-body" ref={scrollContainerRef}>
                 {dayEvents.length === 0 ? (
-                    <div className="calendar-empty">
-                        <span className="material-symbols-outlined">event_busy</span>
-                        <p>Nessun evento per questo giorno</p>
+                    <div className="flex flex-col items-center justify-center p-12 text-center opacity-60">
+                        <span className="material-symbols-outlined text-6xl mb-4">event_busy</span>
+                        <p className="m3-body-large">Nessun evento per questo giorno</p>
+                        <M3Button variant="text" onClick={() => setEditingEvent({})} className="mt-4">Aggiungi Evento</M3Button>
                     </div>
                 ) : (
-                    <div className="calendar-day-events">
+                    <div className="calendar-day-events p-4 space-y-4">
                         {dayEvents.map(ev => (
                             <div 
                                 key={ev.id} 
-                                className={`calendar-day-event agenda-event-${ev.tipo || 'default'}`}
+                                className={`calendar-day-event agenda-event-${ev.tipo || 'default'} hover:scale-[1.01] transition-transform cursor-pointer`}
                                 onClick={() => setEditingEvent(ev)}
                             >
-                                <div className="calendar-day-event-time">
+                                <div className="calendar-day-event-time font-bold">
                                     {ev.oraInizio || 'Tutto il giorno'}
                                 </div>
                                 <div className="calendar-day-event-content">
-                                    <div className="calendar-day-event-title">{ev.titolo}</div>
-                                    {ev.descrizione && <div className="calendar-day-event-desc">{ev.descrizione}</div>}
-                                    {ev.location && <div className="calendar-day-event-location">📍 {ev.location}</div>}
+                                    <div className="calendar-day-event-title font-bold">{ev.titolo}</div>
+                                    {ev.descrizione && <div className="calendar-day-event-desc opacity-80">{ev.descrizione}</div>}
+                                    {ev.location && <div className="calendar-day-event-location mt-1">📍 {ev.location}</div>}
                                 </div>
                             </div>
                         ))}
@@ -304,43 +310,45 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     );
 
     const renderAgendaView = () => (
-        <div className="calendar-agenda">
+        <div className="calendar-agenda p-4">
             {Object.keys(agendaGroups).length === 0 ? (
-                <div className="calendar-empty">
-                    <span className="material-symbols-outlined">event_busy</span>
-                    <p>Nessun evento questo mese</p>
+                <div className="flex flex-col items-center justify-center p-12 text-center opacity-60">
+                    <span className="material-symbols-outlined text-6xl mb-4">event_busy</span>
+                    <p className="m3-body-large">Nessun evento questo mese</p>
                 </div>
             ) : (
-                Object.entries(agendaGroups).map(([date, evts]) => (
-                    <div key={date} className="agenda-group">
-                        <div className="agenda-date">
-                            {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
-                        </div>
-                        <div className="agenda-events">
-                            {evts.map(ev => (
-                                <div 
-                                    key={ev.id} 
-                                    className={`agenda-event agenda-event-${ev.tipo || 'default'}`}
-                                    onClick={() => setEditingEvent(ev)}
-                                >
-                                    <div className="agenda-event-time">
-                                        {ev.oraInizio || 'Tutto il giorno'}
+                <div className="space-y-6">
+                    {Object.entries(agendaGroups).map(([date, evts]) => (
+                        <div key={date} className="agenda-group bg-surface-container-high/20 rounded-2xl p-4 border border-outline-variant/20">
+                            <div className="agenda-date m3-title-medium text-primary mb-3 border-b border-outline-variant/30 pb-2">
+                                {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
+                            </div>
+                            <div className="agenda-events space-y-3">
+                                {evts.map(ev => (
+                                    <div 
+                                        key={ev.id} 
+                                        className={`agenda-event agenda-event-${ev.tipo || 'default'} hover:bg-surface-container-high/40 transition-colors cursor-pointer`}
+                                        onClick={() => setEditingEvent(ev)}
+                                    >
+                                        <div className="agenda-event-time font-bold">
+                                            {ev.oraInizio || 'Tutto il giorno'}
+                                        </div>
+                                        <div className="agenda-event-content">
+                                            <div className="agenda-event-title font-bold">{ev.titolo}</div>
+                                            {ev.descrizione && <div className="agenda-event-desc opacity-80">{ev.descrizione}</div>}
+                                        </div>
                                     </div>
-                                    <div className="agenda-event-content">
-                                        <div className="agenda-event-title">{ev.titolo}</div>
-                                        {ev.descrizione && <div className="agenda-event-desc">{ev.descrizione}</div>}
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))
+                    ))}
+                </div>
             )}
         </div>
     );
 
     return (
-        <div className="calendar-container">
+        <div className="calendar-container bg-surface-container-low/30 backdrop-blur-xl rounded-3xl border border-outline-variant/30 shadow-xl overflow-hidden">
             {renderHeader()}
             
             <div className="calendar-body">

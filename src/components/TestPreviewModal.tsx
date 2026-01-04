@@ -4,7 +4,7 @@ import type { jsPDF as JsPDFType } from 'jspdf';
 import { GeneratedQuiz } from '../types';
 import { generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { M3Dialog } from './M3Components';
+import { M3Dialog, M3Button } from './ui';
 
 interface TestPreviewModalProps {
     quiz: GeneratedQuiz;
@@ -108,11 +108,11 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             title="Anteprima Verifica"
             headline="Visualizza e stampa la verifica generata"
             buttons={
-                <div className="flex justify-between w-full items-center gap-4">
-                    <div className="flex items-center gap-2 mr-auto">
-                        <label className="flex items-center cursor-pointer gap-2 p-2 hover:bg-surface-container-high rounded-full transition-colors">
-                            <div className={`w-10 h-6 rounded-full relative transition-colors ${showAnswers ? 'bg-primary' : 'bg-surface-container-highest border border-outline'}`}>
-                                <div className={`absolute top-1 w-4 h-4 rounded-full bg-surface shadow-sm transition-transform ${showAnswers ? 'left-5' : 'left-1'}`}></div>
+                <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4">
+                    <div className="flex items-center gap-3 mr-auto">
+                        <label className="flex items-center cursor-pointer gap-3 p-2 hover:bg-surface-container-high/50 rounded-2xl transition-colors group">
+                            <div className={`w-12 h-7 rounded-full relative transition-all duration-300 ${showAnswers ? 'bg-primary' : 'bg-surface-container-highest border border-outline-variant'}`}>
+                                <div className={`absolute top-1 w-5 h-5 rounded-full bg-surface shadow-lg transition-all duration-300 ${showAnswers ? 'left-6' : 'left-1'}`}></div>
                             </div>
                             <input
                                 type="checkbox"
@@ -120,81 +120,101 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 onChange={e => setShowAnswers(e.target.checked)}
                                 className="hidden"
                             />
-                            <span className="m3-body-medium font-medium">Soluzioni Docente</span>
+                            <span className="m3-label-large font-black uppercase tracking-widest opacity-70 group-hover:opacity-100 transition-opacity">Soluzioni Docente</span>
                         </label>
                     </div>
-                    <div className="flex gap-2">
-                        <button onClick={onClose} className="button button-text">Chiudi</button>
-                        <button onClick={handleExportDocx} className="button button-outlined">
-                            <span className="material-symbols-outlined mr-2">description</span>
+                    <div className="flex gap-3">
+                        <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
+                        <M3Button 
+                            onClick={handleExportDocx} 
+                            variant="secondary"
+                            icon="description"
+                        >
                             Word
-                        </button>
-                        <button onClick={handleExportPDF} className="button button-filled">
-                            <span className="material-symbols-outlined mr-2">picture_as_pdf</span>
+                        </M3Button>
+                        <M3Button 
+                            onClick={handleExportPDF} 
+                            variant="primary"
+                            icon="picture_as_pdf"
+                        >
                             PDF
-                        </button>
+                        </M3Button>
                     </div>
                 </div>
             }
             fullscreen={true}
         >
-            <div className="bg-surface-container-lowest p-8 overflow-y-auto h-full rounded-b-xl shadow-inner custom-scrollbar relative">
-                {/* Paper effect background */}
-                <div className="absolute inset-0 bg-surface-container-lowest opacity-50 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #00000010 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+            <div className="bg-surface-container-low/30 backdrop-blur-xl p-4 md:p-12 overflow-y-auto h-full custom-scrollbar relative animate-in fade-in duration-500">
+                {/* Aura Ornaments */}
+                <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                    <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full animate-pulse" />
+                    <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
+                </div>
 
-                <div className="document-preview-paper max-w-4xl mx-auto bg-surface shadow-md p-10 min-h-[80vh] relative z-10 border border-outline-variant/20">
-                    <div className="flex flex-col items-center border-b-2 border-black pb-6 mb-8">
-                        <h1 className="text-3xl font-black mb-4 font-serif text-center uppercase tracking-wider">{quiz.title}</h1>
-                        <div className="flex justify-between w-full text-base font-serif italic">
-                            <span>Argomento: {quiz.topic}</span>
+                <div className="document-preview-paper max-w-4xl mx-auto bg-white shadow-2xl p-8 md:p-16 min-h-[100vh] relative z-10 border border-outline-variant/10 rounded-s">
+                    {/* Watermark for preview */}
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] select-none overflow-hidden">
+                        <span className="text-[120px] font-black rotate-[-45deg] whitespace-nowrap">DOCENTEDOC AI</span>
+                    </div>
+
+                    <div className="flex flex-col items-center border-b-2 border-black pb-8 mb-10 relative">
+                        <h1 className="text-4xl font-black mb-6 font-serif text-center uppercase tracking-tighter leading-none">{quiz.title}</h1>
+                        <div className="flex justify-between w-full text-lg font-serif italic">
+                            <span>Argomento: <span className="font-bold not-italic">{quiz.topic}</span></span>
                             <span>Data: ______________</span>
                         </div>
-                        <div className="w-full text-base font-serif italic mt-2 text-left">
+                        <div className="w-full text-lg font-serif italic mt-4 text-left">
                             <span>Nome e Cognome: __________________________________________________</span>
                         </div>
                     </div>
 
-                    <div className="space-y-8 font-serif">
+                    <div className="space-y-10 font-serif text-on-surface">
                         {quiz.questions.map((q, i) => (
-                            <div key={i} className="break-inside-avoid">
-                                <p className="font-bold text-lg mb-3 flex gap-2">
-                                    <span className="text-on-surface-variant">{i + 1}.</span> {q.text}
+                            <div key={i} className="break-inside-avoid relative group">
+                                <p className="font-bold text-xl mb-4 flex gap-3">
+                                    <span className="text-on-surface-variant opacity-40">{i + 1}.</span> 
+                                    <span className="flex-1">{q.text}</span>
                                 </p>
                                 {q.type === 'multiple_choice' && (
-                                    <ul className="pl-6 space-y-2">
+                                    <ul className="pl-8 space-y-3">
                                         {q.options?.map((opt, j) => (
-                                            <li key={j} className="flex items-start gap-3">
-                                                <div className="w-5 h-5 border-2 border-black rounded-sm mt-0.5 flex-shrink-0"></div>
-                                                <span className="leading-snug">{opt}</span>
+                                            <li key={j} className="flex items-start gap-4">
+                                                <div className="w-6 h-6 border-2 border-black rounded-sm mt-0.5 flex-shrink-0"></div>
+                                                <span className="text-lg leading-snug">{opt}</span>
                                             </li>
                                         ))}
                                     </ul>
                                 )}
                                 {q.type === 'true_false' && (
-                                    <div className="flex gap-8 pl-6 mt-2 font-medium">
-                                        <div className="flex items-center gap-2"><div className="w-5 h-5 border-2 border-black rounded-sm"></div> Vero</div>
-                                        <div className="flex items-center gap-2"><div className="w-5 h-5 border-2 border-black rounded-sm"></div> Falso</div>
+                                    <div className="flex gap-12 pl-8 mt-4 font-medium text-lg">
+                                        <div className="flex items-center gap-3"><div className="w-6 h-6 border-2 border-black rounded-sm"></div> Vero</div>
+                                        <div className="flex items-center gap-3"><div className="w-6 h-6 border-2 border-black rounded-sm"></div> Falso</div>
                                     </div>
                                 )}
                                 {q.type === 'open_ended' && (
-                                    <div className="space-y-4 mt-4 pl-2 opacity-50">
-                                        <div className="border-b border-black border-dashed h-8 w-full"></div>
-                                        <div className="border-b border-black border-dashed h-8 w-full"></div>
-                                        <div className="border-b border-black border-dashed h-8 w-full"></div>
+                                    <div className="space-y-6 mt-6 pl-4 opacity-30">
+                                        <div className="border-b-2 border-black border-dotted h-10 w-full"></div>
+                                        <div className="border-b-2 border-black border-dotted h-10 w-full"></div>
+                                        <div className="border-b-2 border-black border-dotted h-10 w-full"></div>
+                                        <div className="border-b-2 border-black border-dotted h-10 w-full"></div>
                                     </div>
                                 )}
 
                                 {showAnswers && (
-                                    <div className="mt-4 p-3 bg-secondary-container text-on-secondary-container rounded-lg text-sm font-sans border-l-4 border-secondary flex gap-2 items-start animate-in fade-in slide-in-from-top-2">
-                                        <span className="material-symbols-outlined text-lg">check_circle</span>
+                                    <div className="mt-6 p-5 bg-secondary-container/50 backdrop-blur-sm text-on-secondary-container rounded-2xl text-base font-sans border-l-8 border-secondary flex gap-4 items-start animate-in zoom-in-95 duration-300 shadow-lg">
+                                        <span className="material-symbols-outlined text-2xl text-secondary">verified</span>
                                         <div>
-                                            <strong className="block text-xs uppercase tracking-wider opacity-70 mb-0.5">Soluzione Corretta</strong>
-                                            {q.correctAnswer}
+                                            <strong className="block text-xs uppercase tracking-[0.2em] font-black opacity-60 mb-1">Soluzione Docente</strong>
+                                            <span className="font-medium">{q.correctAnswer}</span>
                                         </div>
                                     </div>
                                 )}
                             </div>
                         ))}
+                    </div>
+
+                    <div className="mt-20 pt-8 border-t border-black/10 text-center text-sm font-serif italic opacity-40">
+                        Generato con DocenteDoc AI - Il tuo assistente didattico intelligente
                     </div>
                 </div>
             </div>

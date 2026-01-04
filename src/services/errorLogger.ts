@@ -48,14 +48,23 @@ class ErrorLoggerService {
       // Add to localStorage
       this.addLogToStorage(errorLog);
 
-      // Console log for development
-      console.error(`[${type.toUpperCase()}] ${message}`, {
+      // Console log for development with appropriate severity
+      const logMessage = `[${type.toUpperCase()}] ${message}`;
+      const logData = {
         severity,
         context,
         stack,
         userAction,
         view,
-      });
+      };
+
+      if (severity === 'error') {
+        console.error(logMessage, logData);
+      } else if (severity === 'warning') {
+        console.warn(logMessage, logData);
+      } else {
+        console.info(logMessage, logData);
+      }
     } catch (err) {
       // Silent fail to prevent infinite loops
       console.error('Failed to log error:', err);

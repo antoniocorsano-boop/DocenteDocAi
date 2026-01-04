@@ -4,7 +4,7 @@ import { refineTextWithAi, generateDocumentTable } from '../services/aiService';
 import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { sanitizeHTML } from '../utils/securityUtils';
 import { saveAs } from '../utils/documentUtils';
-import AiThinkingGem from './AiThinkingGem';
+import { AiThinkingGem } from './ui';
 
 interface SmartDocumentEditorProps {
     initialContent: string;

@@ -24,7 +24,7 @@ export const sanitizeHTML = (html: string): string => {
 
     // Lista di attributi vietati (event handlers, javascript protocols)
     const forbiddenAttrsPrefix = ['on']; // onclick, onload, etc.
-    const urlAttrs = ['href', 'src', 'action', 'data'];
+    const urlAttrs = ['href', 'src', 'action', 'formaction', 'data', 'background', 'cite', 'longdesc', 'usemap', 'poster'];
 
     // 1. Rimuovi tag vietati
     forbiddenTags.forEach(tag => {

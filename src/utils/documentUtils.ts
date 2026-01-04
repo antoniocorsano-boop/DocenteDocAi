@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, no-empty */
+/* eslint-disable @typescript-eslint/no-unused-vars, no-empty */
 // Heavy libraries are loaded dynamically to reduce initial bundle size
 // Lazily load PDF.js to avoid bundling it in the initial chunk
 
@@ -37,21 +37,25 @@ export const saveAs = (blob: Blob | string, name: string) => {
 };
 
 // ... (Existing text extraction and helper functions remain unchanged)
-let cachedPdfJs: typeof import('pdfjs-dist') | null = null;
+let cachedPdfJs: unknown = null;
 const getPdfJs = async () => {
     if (cachedPdfJs) return cachedPdfJs;
     // @ts-expect-error - `pdfjs-dist` legacy bundle has incomplete/incorrect types
     const mod = await import('pdfjs-dist/legacy/build/pdf');
     const pdfJsObj = (mod && (mod as { default?: unknown }).default) ? (mod as { default: unknown }).default : mod;
-    if (pdfJsObj && (pdfJsObj as any).GlobalWorkerOptions && !(pdfJsObj as any).GlobalWorkerOptions.workerSrc) {
-        (pdfJsObj as any).GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@5.4.449/build/pdf.worker.min.js';
+    if (pdfJsObj && typeof pdfJsObj === 'object' && 'GlobalWorkerOptions' in pdfJsObj) {
+        const pjs = pdfJsObj as { GlobalWorkerOptions: { workerSrc: string } };
+        if (!pjs.GlobalWorkerOptions.workerSrc) {
+            pjs.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@5.4.449/build/pdf.worker.min.js';
+        }
     }
     cachedPdfJs = pdfJsObj;
     return cachedPdfJs;
 };
 
 const extractTextFromPdfClientSide = async (file: File): Promise<string> => {
-    const pdfJsObj = await getPdfJs();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pdfJsObj = await getPdfJs() as any;
     if (!pdfJsObj) throw new Error('PDF.js not available');
     const arrayBuffer = await file.arrayBuffer();
     const loadingTask = pdfJsObj.getDocument({ data: new Uint8Array(arrayBuffer) });
@@ -69,6 +73,12 @@ const extractTextFromPdfClientSide = async (file: File): Promise<string> => {
     return fullText;
 };
 
+/**
+ * Estrae il testo da un file caricato (PDF, DOCX, TXT, ecc.).
+ * Utilizza librerie client-side per il parsing.
+ * @param file Il file da processare
+ * @returns Il testo estratto
+ */
 export const extractTextFromFile = async (file: File): Promise<string> => {
     const parts = file.name.split('.');
     const fileExtension = parts.length > 1 ? parts.pop()?.toLowerCase() : '';
@@ -84,12 +94,12 @@ export const extractTextFromFile = async (file: File): Promise<string> => {
             const mammothLib = (mammothModule && mammothModule.default) ? mammothModule.default : mammothModule;
             const result = await mammothLib.extractRawText({ arrayBuffer });
             return result.value;
-        } catch (e) {
+        } catch (e: unknown) {
             throw new Error(`Errore DOCX: ${e instanceof Error ? e.message : String(e)}`);
         }
     }
     if (file.type === 'application/pdf' || fileExtension === 'pdf') {
-        try { return await extractTextFromPdfClientSide(file); } catch(e) { throw new Error(`Errore PDF: ${e instanceof Error ? e.message : String(e)}`); }
+        try { return await extractTextFromPdfClientSide(file); } catch(e: unknown) { throw new Error(`Errore PDF: ${e instanceof Error ? e.message : String(e)}`); }
     }
     if (file.size < 2 * 1024 * 1024) { 
         try {
@@ -144,55 +154,95 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
         const doc = parser.parseFromString(htmlContent, 'text/html');
         const body = doc.body;
 
-    const children: any[] = [];
-    if (title) {
-        children.push(new Paragraph({ text: title, heading: HeadingLevel.TITLE, alignment: AlignmentType.CENTER, spacing: { after: 300 } }));
-    }
-    // ... Full implementation omitted for brevity in this delta, but it exists in project ...
-    // Assuming extracting text logic
-      const extractTextRuns = (container: HTMLElement): any[] => {
-          const runs: any[] = [];
-        container.childNodes.forEach(child => {
-            if (child.nodeType === Node.TEXT_NODE) {
-                 const txt = child.textContent || '';
-                 if(txt) runs.push(new TextRun(txt));
-            } else if (child.nodeType === Node.ELEMENT_NODE) {
-                const childEl = child as HTMLElement;
-                const childTag = childEl.tagName.toLowerCase();
-                if (childTag === 'strong' || childTag === 'b') {
-                    runs.push(new TextRun({ text: childEl.textContent || '', bold: true }));
-                } else if (childTag === 'em' || childTag === 'i') {
-                    runs.push(new TextRun({ text: childEl.textContent || '', italics: true }));
-                } else if (childTag === 'br') {
-                     runs.push(new TextRun({ text: "\n" }));
+        const children: (import('docx').Paragraph | import('docx').Table)[] = [];
+        if (title) {
+            children.push(new Paragraph({ 
+                text: title, 
+                heading: HeadingLevel.TITLE, 
+                alignment: AlignmentType.CENTER, 
+                spacing: { after: 300 } 
+            }));
+        }
+
+        const extractTextRuns = (container: HTMLElement): import('docx').TextRun[] => {
+            const runs: import('docx').TextRun[] = [];
+            container.childNodes.forEach(child => {
+                if (child.nodeType === Node.TEXT_NODE) {
+                    const txt = child.textContent || '';
+                    if (txt) runs.push(new TextRun(txt));
+                } else if (child.nodeType === Node.ELEMENT_NODE) {
+                    const childEl = child as HTMLElement;
+                    const childTag = childEl.tagName.toLowerCase();
+                    if (childTag === 'strong' || childTag === 'b') {
+                        runs.push(new TextRun({ text: childEl.textContent || '', bold: true }));
+                    } else if (childTag === 'em' || childTag === 'i') {
+                        runs.push(new TextRun({ text: childEl.textContent || '', italics: true }));
+                    } else if (childTag === 'br') {
+                        runs.push(new TextRun({ text: "\n" }));
+                    } else {
+                        runs.push(new TextRun(childEl.textContent || ''));
+                    }
+                }
+            });
+            return runs;
+        };
+
+        const processNode = (node: Node): (import('docx').Paragraph | import('docx').Table)[] => {
+            if (!node) return [];
+            const nodes: (import('docx').Paragraph | import('docx').Table)[] = [];
+            const nodeType = node.nodeType;
+            const nodeName = (node.nodeName || "").toLowerCase();
+
+            if (nodeType === 3) { // Node.TEXT_NODE
+                const text = node.textContent?.trim();
+                if (text) nodes.push(new Paragraph({ children: [new TextRun(text)] }));
+            } else if (nodeType === 1) { // Node.ELEMENT_NODE
+                const el = node as HTMLElement;
+                if (['h1', 'h2', 'h3', 'p', 'div'].includes(nodeName)) {
+                    const runs = extractTextRuns(el);
+                    if (runs.length) {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        const options: any = { children: runs };
+                        if (nodeName === 'h1') options.heading = HeadingLevel.HEADING_1;
+                        else if (nodeName === 'h2') options.heading = HeadingLevel.HEADING_2;
+                        else if (nodeName === 'h3') options.heading = HeadingLevel.HEADING_3;
+                        nodes.push(new Paragraph(options));
+                    }
+                } else if (nodeName === 'ul' || nodeName === 'ol') {
+                    const childrenArr = node.childNodes ? Array.from(node.childNodes) : [];
+                    childrenArr.forEach(li => {
+                        if (li && li.nodeType === 1 && li.nodeName.toLowerCase() === 'li') {
+                            const runs = extractTextRuns(li as HTMLElement);
+                            if (runs.length) {
+                                nodes.push(new Paragraph({ 
+                                    children: runs, 
+                                    bullet: { level: 0 } 
+                                }));
+                            }
+                        }
+                    });
                 } else {
-                    runs.push(new TextRun(childEl.textContent || ''));
+                    // For other elements, try to process children
+                    const childrenArr = node.childNodes ? Array.from(node.childNodes) : [];
+                    childrenArr.forEach(child => {
+                        nodes.push(...processNode(child));
+                    });
                 }
             }
-        });
-        return runs;
-    };
+            return nodes;
+        };
 
-    const processNode = (node: Node): any[] => {
-        const nodes: any[] = [];
-        if (node.nodeType === Node.TEXT_NODE) {
-             const text = node.textContent?.trim();
-             if (text) nodes.push(new Paragraph({ children: [new TextRun(text)] }));
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-            const el = node as HTMLElement;
-            const tagName = el.tagName.toLowerCase();
-            if (['h1','h2','h3','p','div'].includes(tagName)) {
-                 const runs = extractTextRuns(el);
-                 if(runs.length) nodes.push(new Paragraph({ children: runs }));
-            }
-            // ... more logic ...
-        }
-        return nodes;
-    }
-    Array.from(body.childNodes).forEach(node => children.push(...processNode(node)));
-    
-    const docx = new Document({ sections: [{ properties: {}, children: children as any }] });
-    return await Packer.toBlob(docx);
+        Array.from(body.childNodes).forEach(node => {
+            children.push(...processNode(node));
+        });
+        
+        const docx = new Document({ 
+            sections: [{ 
+                properties: {}, 
+                children: children 
+            }] 
+        });
+        return await Packer.toBlob(docx);
     } catch (error) {
         console.error('Error generating DOCX:', error);
         // Fallback: return empty blob
@@ -250,15 +300,16 @@ const addNewPageIfNeeded = (ctx: PdfContext, spaceNeeded: number) => {
 type DrawTextOptions = {
     isBold?: boolean;
     size?: number;
-    color?: { r: number; g: number; b: number } | null;
+    color?: import('pdf-lib').RGB | null;
     indent?: number;
     align?: 'left' | 'center' | 'right';
     maxWidth?: number;
 };
 const drawTextSafe = (ctx: PdfContext, text: string, options: DrawTextOptions = {}) => {
-    const safeText = cleanTextForWinAnsi(text);
+    const safeText = cleanTextForWinAnsi(text || '');
     const { isBold = false, size = 11, color = null, indent = 0, align = 'left', maxWidth } = options;
-    const resolvedColor = color || { r: 0, g: 0, b: 0 };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const resolvedColor = color || { type: 'RGB', red: 0, green: 0, blue: 0 } as any;
     
     if (maxWidth) {
         const font = isBold ? ctx.boldFont : ctx.font;
@@ -280,9 +331,15 @@ const drawSectionTitle = (ctx: PdfContext, title: string) => {
 };
 
 // --- NEW FUNCTION: SCHEDA COMPITI PDF ---
+/**
+ * Genera un file PDF con la scheda compiti e materiali per una lezione.
+ * @param lesson Dati della lezione
+ * @param settings Impostazioni istituto/docente
+ * @returns Blob del PDF generato
+ */
 export const generateHomeworkPdf = async (lesson: Lezione, settings: TimetableSettings): Promise<Blob> => {
     const pdfLib = await loadPdfLib();
-    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib as any;
+    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib;
     const pdfDoc = await PDFDocument.create();
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
@@ -360,13 +417,20 @@ export const generateHomeworkPdf = async (lesson: Lezione, settings: TimetableSe
     ctx.page.drawRectangle({ x: 50, y: ctx.y - 60, width: width - 100, height: 60, borderWidth: 1, borderColor: rgb(0.8, 0.8, 0.8) });
 
     const pdfBytes = await pdfDoc.save();
-    return new Blob([pdfBytes], { type: 'application/pdf' });
+    return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
 };
 
 // --- NEW FUNCTION: CERTIFICAZIONE COMPETENZE ---
+/**
+ * Genera il documento di certificazione delle competenze in formato PDF.
+ * @param student Dati dello studente
+ * @param competencyData Array di competenze e relativi livelli raggiunti
+ * @param settings Impostazioni globali
+ * @returns Blob del PDF generato
+ */
 export const generateCertificazioneCompetenzePdf = async (student: Studente, competencyData: { competencyName: string; level: string }[], settings: TimetableSettings): Promise<Blob> => {
     const pdfLib = await loadPdfLib();
-    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib as any;
+    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib;
     const pdfDoc = await PDFDocument.create();
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
@@ -429,51 +493,250 @@ export const generateCertificazioneCompetenzePdf = async (student: Studente, com
     ctx.page.drawLine({ start: { x: 350, y: ctx.y - 10 }, end: { x: 500, y: ctx.y - 10 }, thickness: 1 });
 
     const pdfBytes = await pdfDoc.save();
-    return new Blob([pdfBytes], { type: 'application/pdf' });
+    return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
 };
 
 // ... (Existing functions: generateUdaPdf, generateLessonPdf, etc. remain unchanged)
 export const generateUdaPdf = async (uda: Uda, allCompetenze: Competenza[], settings: TimetableSettings, docType: 'docente' | 'studente'): Promise<Blob> => {
-    // Stub implementation to satisfy contract in delta - assumes existing code logic
-     const pdfLib = await loadPdfLib();
-     const { PDFDocument } = pdfLib as any;
-     const pdfDoc = await PDFDocument.create();
-    // ... full implementation as before ...
-    return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
+    const pdfLib = await loadPdfLib();
+    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib;
+    const pdfDoc = await PDFDocument.create();
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const page = pdfDoc.addPage(PageSizes.A4);
+    const { width, height } = page.getSize();
+    const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
+
+    // Header
+    drawTextSafe(ctx, settings.nomeIstituto || 'Istituto Scolastico', { isBold: true, size: 10, color: rgb(0.4, 0.4, 0.4) });
+    const title = docType === 'docente' ? `PROGETTAZIONE UDA: ${uda.title}` : `GUIDA AL PROGETTO: ${uda.title}`;
+    drawTextSafe(ctx, title, { isBold: true, size: 18, color: rgb(0.2, 0.2, 0.6) });
+    ctx.y -= 10;
+    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(0.8, 0.8, 0.8) });
+    ctx.y -= 20;
+
+    // Info
+    drawTextSafe(ctx, `Classe: ${uda.classe} | Materia: ${uda.materia}`, { size: 12 });
+    drawTextSafe(ctx, `Docente: ${settings.nomeInsegnante}`, { size: 12 });
+    ctx.y -= 10;
+
+    // Introduction
+    drawSectionTitle(ctx, 'Introduzione');
+    drawTextSafe(ctx, uda.introduction, { maxWidth: width - 100 });
+
+    // Final Product
+    drawSectionTitle(ctx, 'Prodotto Finale');
+    drawTextSafe(ctx, uda.finalProduct, { maxWidth: width - 100 });
+
+    // Competenze (only for docente)
+    if (docType === 'docente' && uda.competencyIds.length > 0) {
+        drawSectionTitle(ctx, 'Competenze Target');
+        uda.competencyIds.forEach(id => {
+            const comp = allCompetenze.find(c => c.id === id);
+            if (comp) {
+                drawTextSafe(ctx, `• ${comp.nome} (${comp.codice})`, { indent: 10, maxWidth: width - 110 });
+            }
+        });
+    }
+
+    // Phases
+    drawSectionTitle(ctx, 'Fasi di Lavoro');
+    uda.phases.forEach((phase, idx) => {
+        ctx.y -= 5;
+        drawTextSafe(ctx, `Fase ${idx + 1}: ${phase.title} (${phase.duration})`, { isBold: true, size: 12 });
+        drawTextSafe(ctx, `Descrizione: ${phase.description}`, { indent: 10, maxWidth: width - 110 });
+        drawTextSafe(ctx, `Attività: ${phase.activities}`, { indent: 10, maxWidth: width - 110, size: 10, color: rgb(0.3, 0.3, 0.3) });
+    });
+
+    // Evaluation (only for docente)
+    if (docType === 'docente') {
+        drawSectionTitle(ctx, 'Valutazione');
+        drawTextSafe(ctx, uda.evaluation, { maxWidth: width - 100 });
+    }
+
+    // Tools
+    drawSectionTitle(ctx, 'Strumenti e Risorse');
+    drawTextSafe(ctx, uda.tools, { maxWidth: width - 100 });
+
+    const pdfBytes = await pdfDoc.save();
+    return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
 };
 export const generateLessonPdf = async (lesson: Lezione): Promise<Blob> => {
     const pdfLib = await loadPdfLib();
-    const { PDFDocument } = pdfLib as any;
+    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib;
     const pdfDoc = await PDFDocument.create();
-     // ... full implementation as before ...
-    return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const page = pdfDoc.addPage(PageSizes.A4);
+    const { width, height } = page.getSize();
+    const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
+
+    drawTextSafe(ctx, 'RELAZIONE DI LEZIONE', { isBold: true, size: 18, color: rgb(0.2, 0.5, 0.2) });
+    ctx.y -= 10;
+    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(0.8, 0.8, 0.8) });
+    ctx.y -= 20;
+
+    drawTextSafe(ctx, `Classe: ${lesson.classe} | Materia: ${lesson.materia}`, { size: 12, isBold: true });
+    ctx.y -= 10;
+
+    drawSectionTitle(ctx, 'Argomento');
+    drawTextSafe(ctx, lesson.contenuto, { maxWidth: width - 100 });
+
+    if (lesson.obiettivi) {
+        drawSectionTitle(ctx, 'Obiettivi');
+        drawTextSafe(ctx, lesson.obiettivi, { maxWidth: width - 100 });
+    }
+
+    if (lesson.compiti) {
+        drawSectionTitle(ctx, 'Compiti Assegnati');
+        drawTextSafe(ctx, lesson.compiti, { maxWidth: width - 100 });
+    }
+
+    if (lesson.nota) {
+        drawSectionTitle(ctx, 'Note Docente');
+        drawTextSafe(ctx, lesson.nota, { maxWidth: width - 100 });
+    }
+
+    const pdfBytes = await pdfDoc.save();
+    return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
 };
 export const generateStudentProfilePdf = async (student: Studente, evaluations: Valutazione[], competencyEvaluations: ValutazioneCompetenza[], settings: TimetableSettings): Promise<Blob> => {
     const pdfLib = await loadPdfLib();
-    const { PDFDocument } = pdfLib as any;
+    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib;
     const pdfDoc = await PDFDocument.create();
-     // ... full implementation as before ...
-    return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const page = pdfDoc.addPage(PageSizes.A4);
+    const { width, height } = page.getSize();
+    const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
+
+    drawTextSafe(ctx, 'PROFILO STUDENTE', { isBold: true, size: 20, color: rgb(0.1, 0.3, 0.5) });
+    ctx.y -= 10;
+    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(0.8, 0.8, 0.8) });
+    ctx.y -= 20;
+
+    drawTextSafe(ctx, `${student.cognome} ${student.nome}`, { isBold: true, size: 16 });
+    drawTextSafe(ctx, `Classe: ${student.classe}`, { size: 12 });
+    ctx.y -= 10;
+
+    // Evaluations Summary
+    if (evaluations.length > 0) {
+        drawSectionTitle(ctx, 'Valutazioni Disciplinari');
+        const subjects = Array.from(new Set(evaluations.map(e => e.materia)));
+        subjects.forEach(sub => {
+            const subEvals = evaluations.filter(e => e.materia === sub);
+            const avg = subEvals.reduce((acc, e) => acc + parseFloat(e.voto.replace(',', '.')), 0) / subEvals.length;
+            drawTextSafe(ctx, `${sub}: Media ${avg.toFixed(2)} (${subEvals.length} voti)`, { indent: 10 });
+        });
+    }
+
+    // Competencies
+    if (competencyEvaluations.length > 0) {
+        drawSectionTitle(ctx, 'Livelli di Competenza');
+        competencyEvaluations.forEach(ce => {
+            drawTextSafe(ctx, `• ${ce.competenzaId}: Livello ${ce.livelloId} (${ce.materia})`, { indent: 10 });
+        });
+    }
+
+    const pdfBytes = await pdfDoc.save();
+    return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
 };
 export const generatePdfBrochure = async (content: BrochureContent): Promise<Blob> => {
     const pdfLib = await loadPdfLib();
-    const { PDFDocument } = pdfLib as any;
+    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib;
     const pdfDoc = await PDFDocument.create();
-     // ... full implementation as before ...
-    return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const page = pdfDoc.addPage(PageSizes.A4);
+    const { width, height } = page.getSize();
+    const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
+
+    drawTextSafe(ctx, content.brochureTitle, { isBold: true, size: 24, color: rgb(0.5, 0.1, 0.1), align: 'center' });
+    ctx.y -= 20;
+    drawTextSafe(ctx, content.introduction, { maxWidth: width - 100 });
+    ctx.y -= 20;
+
+    content.useCases.forEach(section => {
+        drawSectionTitle(ctx, section.title);
+        section.benefits.forEach(item => {
+            drawTextSafe(ctx, `• ${item}`, { indent: 10, maxWidth: width - 110 });
+        });
+        ctx.y -= 10;
+    });
+
+    const pdfBytes = await pdfDoc.save();
+    return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
 };
 export const generateCouncilDataPdf = async (selectedClass: string, periodo: PeriodoValutazione, students: Studente[], evaluations: Valutazione[], competencyEvaluations: ValutazioneCompetenza[], settings: TimetableSettings): Promise<Blob> => {
     const jsPdfModule = await loadJsPdf();
-    const { jsPDF } = jsPdfModule as any;
+    const { jsPDF } = jsPdfModule;
     const doc = new jsPDF({ orientation: 'landscape' });
-    // ... full implementation as before ...
+    
+    doc.setFontSize(18);
+    doc.text(`Dati Consiglio di Classe - ${selectedClass}`, 14, 20);
+    doc.setFontSize(12);
+    doc.text(`Periodo: ${periodo} | Data: ${new Date().toLocaleDateString()}`, 14, 30);
+
+    const tableData = students.map(s => {
+        const studentEvals = evaluations.filter(e => e.studenteId === s.id);
+        const avg = studentEvals.length > 0 
+            ? (studentEvals.reduce((acc, e) => acc + parseFloat(e.voto.replace(',', '.')), 0) / studentEvals.length).toFixed(2)
+            : 'N/A';
+        return [s.cognome, s.nome, avg, studentEvals.length];
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (doc as any).autoTable({
+        head: [['Cognome', 'Nome', 'Media Generale', 'Num. Valutazioni']],
+        body: tableData,
+        startY: 40,
+    });
+
     return doc.output('blob');
 };
 export const generateCouncilTablePdf = async (selectedClass: string, periodo: PeriodoValutazione, annoScolastico: string, students: Studente[], evaluations: Valutazione[], giudizi: Record<string, GiudizioPeriodico>, settings: TimetableSettings, showFinalGrades: boolean): Promise<Blob> => {
     const jsPdfModule = await loadJsPdf();
-    const { jsPDF } = jsPdfModule as any;
+    const { jsPDF } = jsPdfModule;
     const doc = new jsPDF({ orientation: 'landscape' });
-     // ... full implementation as before ...
+
+    doc.setFontSize(18);
+    doc.text(`Tabellone Scrutinio - ${selectedClass}`, 14, 20);
+    doc.setFontSize(12);
+    doc.text(`A.S. ${annoScolastico} | Periodo: ${periodo}`, 14, 30);
+
+    const subjects = Array.from(new Set(evaluations.map(e => e.materia)));
+    const head = ['Studente', ...subjects];
+    if (showFinalGrades) head.push('Media');
+
+    const body = students.map(s => {
+        const row = [`${s.cognome} ${s.nome}`];
+        let total = 0;
+        let count = 0;
+        subjects.forEach(sub => {
+            const subEvals = evaluations.filter(e => e.studenteId === s.id && e.materia === sub);
+            if (subEvals.length > 0) {
+                const avg = subEvals.reduce((acc, e) => acc + parseFloat(e.voto.replace(',', '.')), 0) / subEvals.length;
+                row.push(avg.toFixed(1));
+                total += avg;
+                count++;
+            } else {
+                row.push('-');
+            }
+        });
+        if (showFinalGrades) {
+            row.push(count > 0 ? (total / count).toFixed(2) : '-');
+        }
+        return row;
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (doc as any).autoTable({
+        head: [head],
+        body: body,
+        startY: 40,
+        styles: { fontSize: 8 },
+    });
+
     return doc.output('blob');
 };
 export const generateFullAppGuidePdf = async (
@@ -484,8 +747,40 @@ export const generateFullAppGuidePdf = async (
     vocalGuide: VocalAssistantGuide
 ): Promise<Blob> => {
     const pdfLib = await loadPdfLib();
-    const { PDFDocument } = pdfLib as any;
+    const { PDFDocument, rgb, StandardFonts, PageSizes } = pdfLib;
     const pdfDoc = await PDFDocument.create();
-     // ... full implementation as before ...
-    return new Blob([await pdfDoc.save()], { type: 'application/pdf' });
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+    const boldFont = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const page = pdfDoc.addPage(PageSizes.A4);
+    const { width, height } = page.getSize();
+    const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
+
+    drawTextSafe(ctx, 'GUIDA COMPLETA DOCENTEDOC AI', { isBold: true, size: 22, color: rgb(0.1, 0.1, 0.4), align: 'center' });
+    ctx.y -= 20;
+
+    if (essayContent) {
+        drawSectionTitle(ctx, essayContent.title);
+        drawTextSafe(ctx, essayContent.content, { maxWidth: width - 100 });
+    }
+
+    drawSectionTitle(ctx, 'Domande Frequenti (FAQ)');
+    faqContent.forEach(faq => {
+        drawTextSafe(ctx, `D: ${faq.q}`, { isBold: true, indent: 5, maxWidth: width - 105 });
+        drawTextSafe(ctx, `R: ${faq.a}`, { indent: 10, maxWidth: width - 110 });
+        ctx.y -= 5;
+    });
+
+    drawSectionTitle(ctx, 'Specifiche Tecniche');
+    drawTextSafe(ctx, specsContent.title, { isBold: true });
+    specsContent.specs.forEach(spec => drawTextSafe(ctx, `• ${spec}`, { indent: 10, maxWidth: width - 110 }));
+
+    drawSectionTitle(ctx, 'Assistente Vocale');
+    drawTextSafe(ctx, vocalGuide.title, { isBold: true, size: 16 });
+    vocalGuide.sections.forEach(sec => {
+        drawTextSafe(ctx, sec.title, { isBold: true, indent: 5 });
+        sec.commands.forEach(cmd => drawTextSafe(ctx, `> ${cmd}`, { indent: 10 }));
+    });
+
+    const pdfBytes = await pdfDoc.save();
+    return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
 };

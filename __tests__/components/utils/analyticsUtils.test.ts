@@ -1,10 +1,14 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterAll } from 'vitest';
 import { parseGrade, calculateClassTrend, calculateCompetencyRadar, calculateGradeDistribution } from '../../../src/utils/analyticsUtils';
 import { Valutazione, ValutazioneCompetenza, Studente, Competenza } from '../../../src/types';
 import { RATING_TO_VALUE } from '../../../src/constants';
 
 // Mock di Date per rendere i test sui trend riproducibili
 vi.useFakeTimers();
+
+afterAll(() => {
+    vi.useRealTimers();
+});
 
 describe('parseGrade', () => {
     it('dovrebbe parsare voti numerici interi', () => {
@@ -36,6 +40,7 @@ describe('parseGrade', () => {
         expect(parseGrade('7/8')).toBe(7.5);
         expect(parseGrade('6-7')).toBe(6.5);
         expect(parseGrade('7.5/8.5')).toBe(8);
+        expect(parseGrade('7,5-8,5')).toBe(8);
     });
 
     it('dovrebbe parsare giudizi testuali in valori numerici (da RATING_TO_VALUE)', () => {
@@ -166,10 +171,71 @@ describe('calculateCompetencyRadar', () => {
         }
     });
 
+    it('dovrebbe troncare i nomi delle competenze lunghi', () => {
+        const competenzeLunghe: Competenza[] = [
+            {
+                id: 'clong',
+                nome: 'Competenza Molto Lunga Che Supera I Dodici Caratteri',
+                materia: 'M',
+                livelli: [{ id: 'l1', nome: 'Base', punteggio: '5' }]
+            }
+        ];
+        const evals: ValutazioneCompetenza[] = [
+            { id: 'e1', studenteId: 's1', competenzaId: 'clong', livelloId: 'l1', materia: 'M', data: date }
+        ];
+        const radar = calculateCompetencyRadar(evals, competenzeLunghe, 's1');
+        expect(radar[0].axis).toBe('Competenza M...');
+    });
+
+    it('dovrebbe gestire nomi competenze brevi (<= 12 caratteri)', () => {
+        const date = '2023-10-01';
+        const competenzeBrevi: Competenza[] = [
+            {
+                id: 'cshort',
+                nome: 'Breve',
+                materia: 'M',
+                livelli: [{ id: 'l1', nome: 'Base', punteggio: '5' }]
+            }
+        ];
+        const evals: ValutazioneCompetenza[] = [
+            { id: 'e1', studenteId: 's1', competenzaId: 'cshort', livelloId: 'l1', materia: 'M', data: date }
+        ];
+        const radar = calculateCompetencyRadar(evals, competenzeBrevi, 's1');
+        expect(radar[0].axis).toBe('Breve');
+    });
+
     it('dovrebbe gestire nessuna valutazione', () => {
         const radar = calculateCompetencyRadar([], mockCompetenze, 's1');
         expect(radar.length).toBe(2);
         expect(radar[0].value).toBe(0);
+        expect(radar[1].value).toBe(0);
+    });
+
+    it('dovrebbe ignorare valutazioni con livello non trovato', () => {
+        const compEvals: ValutazioneCompetenza[] = [
+            { id: 'ce1', studenteId: 's1', competenzaId: 'c1', livelloId: 'non-esistente', materia: 'M', data: date },
+        ];
+
+        const radar = calculateCompetencyRadar(compEvals, mockCompetenze, 's1');
+        expect(radar[0].value).toBe(0);
+    });
+
+    it('dovrebbe ignorare valutazioni con livello non trovato (media classe)', () => {
+        const compEvals: ValutazioneCompetenza[] = [
+            { id: 'ce1', studenteId: 's1', competenzaId: 'c1', livelloId: 'non-esistente', materia: 'M', data: date },
+        ];
+
+        const radar = calculateCompetencyRadar(compEvals, mockCompetenze);
+        expect(radar[0].value).toBe(0);
+    });
+
+    it('dovrebbe gestire competenze senza valutazioni nel radar misto', () => {
+        const compEvals: ValutazioneCompetenza[] = [
+            { id: 'ce1', studenteId: 's1', competenzaId: 'c1', livelloId: 'c1-3', materia: 'M', data: date },
+        ];
+        // c2 non ha valutazioni
+        const radar = calculateCompetencyRadar(compEvals, mockCompetenze);
+        expect(radar[0].value).toBeGreaterThan(0);
         expect(radar[1].value).toBe(0);
     });
 });
@@ -238,6 +304,21 @@ describe('calculateGradeDistribution', () => {
             { label: 'Buono (8)', value: 1 },
             { label: 'Ottimo (9-10)', value: 0 },
         ]);
+    });
+
+    it('dovrebbe gestire voti di confine (6, 7, 8, 9)', () => {
+        const evaluations: Valutazione[] = [
+            { id: 'e1', studenteId: 's1', materia: 'M', data: date, tipo: 'S', voto: '6' },
+            { id: 'e2', studenteId: 's1', materia: 'M', data: date, tipo: 'S', voto: '7' },
+            { id: 'e3', studenteId: 's1', materia: 'M', data: date, tipo: 'S', voto: '8' },
+            { id: 'e4', studenteId: 's1', materia: 'M', data: date, tipo: 'S', voto: '9' },
+            { id: 'e5', studenteId: 's1', materia: 'M', data: date, tipo: 'S', voto: '10' },
+        ];
+        const dist = calculateGradeDistribution(evaluations);
+        expect(dist.find(d => d.label === 'Suff. (6)')?.value).toBe(1);
+        expect(dist.find(d => d.label === 'Discreto (7)')?.value).toBe(1);
+        expect(dist.find(d => d.label === 'Buono (8)')?.value).toBe(1);
+        expect(dist.find(d => d.label === 'Ottimo (9-10)')?.value).toBe(2);
     });
 });
 

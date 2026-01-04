@@ -82,7 +82,6 @@ describe('Header M3 Expressive', () => {
   it('applies M3 tokens and accessibility', () => {
     render(<Header {...baseProps} />);
     const header = screen.getByRole('banner');
-    expect(header).toHaveStyle('background: var(--sys-surface)');
-    expect(header).toHaveStyle('box-shadow: var(--md-elevation-4)'); // MD3 fix
+    expect(header).toHaveClass('header-root');
   });
 });

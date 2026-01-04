@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import NotebookLMImportModal from './NotebookLMImportModal';
+import TemplateManager from './TemplateManager';
 import { KnowledgeBaseEntry } from '../types';
 import { ProgettazioneHubProps, Uda, EventoCalendario, TimetableSettings, AiSettings, Report, Lezione, Competenza } from '../types';
 import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import { generateHueFromString } from '../utils/colorUtils';
-import { TabGroup } from './M3Components'; // Import TabGroup
-import M3ExpressiveCard from './M3ExpressiveCard';
 import CompetencyManager from './CompetencyManager'; // Import New Component
-import { M3Dialog, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, SectionHeader, TabGroup, M3ExpressiveCard, AiThinkingGem } from './ui';
+import { validateUdaVerticalCurriculum } from '../services/aiService';
+import { Z_INDEX } from '../design-system/zIndex';
 // Drag & Drop
 // Drag & Drop removed for read-only Gantt view
 // import { DndContext, useDraggable, DragEndEvent, DragMoveEvent } from '@dnd-kit/core';
@@ -47,83 +48,114 @@ interface ProgettazioneHubExtendedProps extends ProgettazioneHubProps {
     knowledgeBase: KnowledgeBaseEntry[];
     onUpdateCompetencies?: (competenze: Competenza[]) => void; // New prop for updating settings
     onUpdateKnowledgeBase?: (kb: KnowledgeBaseEntry[]) => void; // Add dispatcher for KB
+    driveSyncState?: { isAuthenticated: boolean };
+    onConnectDrive?: () => void;
 }
 
 // --- UDA DETAIL MODAL ---
-const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => void }> = ({ uda, onClose, onEdit }) => {
+const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => void; aiSettings: AiSettings; knowledgeBase: KnowledgeBaseEntry[] }> = ({ uda, onClose, onEdit, aiSettings, knowledgeBase }) => {
+    const [isValidating, setIsValidating] = useState(false);
+    const [validationResult, setValidationResult] = useState<string | null>(null);
+
+    const handleValidate = async () => {
+        setIsValidating(true);
+        setValidationResult(null);
+        try {
+            const result = await validateUdaVerticalCurriculum(aiSettings, uda, knowledgeBase);
+            setValidationResult(result);
+        } catch (error) {
+            console.error("Validation error:", error);
+            alert("Errore durante la validazione AI.");
+        } finally {
+            setIsValidating(false);
+        }
+    };
+
     return (
         <M3Dialog
             title={uda.title}
-            headline="Dettaglio Progetto"
             onClose={onClose}
             maxWidth="2xl"
         >
-            {/* Metadata Chips */}
-            <div className="flex flex-wrap gap-2 mb-6">
-                <span className="chip bg-surface-container-high border-none">
-                    <span className="material-symbols-outlined text-primary m3-body-medium mr-1">school</span>
-                    Classe {uda.classe}
-                </span>
-                <span className="chip bg-surface-container-high border-none">
-                    <span className="material-symbols-outlined text-secondary m3-body-medium mr-1">menu_book</span>
-                    {uda.materia}
-                </span>
-                <span className="chip bg-surface-container-high border-none">
-                    <span className="material-symbols-outlined text-tertiary m3-body-medium mr-1">event</span>
-                    {new Date(uda.startDate!).toLocaleDateString()} - {new Date(uda.endDate!).toLocaleDateString()}
-                </span>
-            </div>
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm p-6 space-y-6">
+                {/* Metadata Chips */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">school</span>
+                        Classe {uda.classe}
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">menu_book</span>
+                        {uda.materia}
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-xs font-bold flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm">event</span>
+                        {new Date(uda.startDate!).toLocaleDateString()} - {new Date(uda.endDate!).toLocaleDateString()}
+                    </span>
+                </div>
 
-            {/* Description */}
-            <div className="mb-6">
-                <h3 className="m3-title-medium mb-2">Introduzione</h3>
-                <p className="m3-body-medium text-on-surface-variant bg-surface-container-low p-3 rounded-lg border border-outline-variant">
-                    {uda.introduction}
-                </p>
-            </div>
-
-            {/* Phases Timeline */}
-            <div className="mb-6">
-                <h3 className="m3-title-medium mb-2">Fasi di Lavoro</h3>
-                <div className="relative border-l-2 border-primary/30 ml-3 space-y-6 py-2">
-                    {uda.phases.map((phase) => (
-                        <div key={phase.id} className="relative pl-6">
-                            <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface"></div>
-                            <div className="flex justify-between items-start">
-                                <h4 className="m3-label-large text-primary">{phase.title}</h4>
-                                <span className="m3-label-small font-bold bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">{phase.duration}h</span>
-                            </div>
-                            <p className="m3-body-small text-on-surface mt-1 font-medium">{phase.description}</p>
-                            <p className="m3-body-small text-on-surface-variant mt-1 italic">{phase.activities}</p>
+                {/* AI Validation Section */}
+                <div className="bg-primary-container/10 border border-primary/20 rounded-2xl p-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <span className="material-symbols-outlined text-primary">verified</span>
+                            <span className="text-sm font-black text-on-surface uppercase tracking-widest">Validazione Curricolo Verticale</span>
                         </div>
-                    ))}
+                        <M3Button onClick={handleValidate} variant="tonal" disabled={isValidating} className="text-[10px] font-black uppercase tracking-widest">
+                            {isValidating ? <AiThinkingGem size="small" inline text="" /> : 'Valida con AI'}
+                        </M3Button>
+                    </div>
+                    {validationResult && (
+                        <div className="bg-surface-container-lowest/50 p-4 rounded-xl border border-outline-variant/20 animate-in fade-in slide-in-from-top-2">
+                            <p className="text-sm text-on-surface leading-relaxed italic">
+                                {validationResult}
+                            </p>
+                        </div>
+                    )}
                 </div>
-            </div>
 
-            {/* Additional Info Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-3 bg-surface-container rounded-xl">
-                    <h4 className="m3-label-large mb-1 flex items-center gap-1 text-secondary">
-                        <span className="material-symbols-outlined m3-body-medium">inventory_2</span>
-                        Prodotto Finale
-                    </h4>
-                    <p className="m3-body-small">{uda.finalProduct}</p>
+                {/* Description */}
+                <InfoCard title="Introduzione" variant="elevated" className="p-4">
+                    <p className="text-on-surface leading-relaxed">
+                        {uda.introduction}
+                    </p>
+                </InfoCard>
+
+                {/* Phases Timeline */}
+                <div>
+                    <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-4">Fasi di Lavoro</h3>
+                    <div className="relative border-l-2 border-primary/30 ml-3 space-y-6 py-2">
+                        {uda.phases.map((phase) => (
+                            <div key={phase.id} className="relative pl-6">
+                                <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface"></div>
+                                <div className="flex justify-between items-start">
+                                    <h4 className="font-bold text-primary">{phase.title}</h4>
+                                    <span className="text-[10px] font-black bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded uppercase">{phase.duration}h</span>
+                                </div>
+                                <p className="text-sm text-on-surface mt-1 font-medium">{phase.description}</p>
+                                <p className="text-xs text-on-surface-variant mt-1 italic">{phase.activities}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <div className="p-3 bg-surface-container rounded-xl">
-                    <h4 className="m3-label-large mb-1 flex items-center gap-1 text-secondary">
-                        <span className="material-symbols-outlined m3-body-medium">fact_check</span>
-                        Valutazione
-                    </h4>
-                    <p className="m3-body-small">{uda.evaluation}</p>
+
+                {/* Additional Info Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" className="p-4">
+                        <p className="text-sm text-on-surface">{uda.finalProduct}</p>
+                    </InfoCard>
+                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" className="p-4">
+                        <p className="text-sm text-on-surface">{uda.evaluation}</p>
+                    </InfoCard>
                 </div>
-            </div>
+            </M3DialogContent>
 
             <M3DialogActions>
-                <button onClick={onClose} className="button button-text">Chiudi</button>
-                <button onClick={onEdit} className="button button-filled">
+                <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
+                <M3Button onClick={onEdit} variant="filled">
                     <span className="material-symbols-outlined mr-2">edit</span>
                     Modifica nel Planner
-                </button>
+                </M3Button>
             </M3DialogActions>
         </M3Dialog>
     );
@@ -363,7 +395,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Snackbar preview / undo */}
                     {showSnackbar && lastMove && (
-                        <div style={{ position: 'fixed', right: 24, bottom: 24, zIndex: 3200 }}>
+                        <div style={{ position: 'fixed', right: 24, bottom: 24, zIndex: Z_INDEX.notification.snackbar }}>
                             <div className="m3-card p-4 rounded-xl shadow-lg bg-surface-container-high border border-outline-variant flex items-center gap-4">
                                 <div className="flex-1">UDA spostata. <button className="text-primary font-bold underline ml-2" onClick={() => {
                                     const original = udas.find(u => u.id === lastMove.udaId);
@@ -380,7 +412,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Drag Preview Bubble */}
                     {previewMessage && (
-                        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 8, zIndex: 3200 }}>
+                        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 8, zIndex: Z_INDEX.overlay.tooltip }}>
                             <div className="px-3 py-1 rounded-lg bg-surface/92 text-on-surface border border-outline-variant m3-body-small shadow">{previewMessage}</div>
                         </div>
                     )}
@@ -391,10 +423,29 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
     );
 };
 
-const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate, udas, events, settings, aiSettings, onSaveUda, onAddLessons, onSaveReport, onSaveEvent, initialAction, knowledgeBase, students, pianiInclusione, onUpdateCompetencies, onUpdateKnowledgeBase }) => {
+const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ 
+    onNavigate, 
+    udas, 
+    events, 
+    settings, 
+    aiSettings, 
+    onSaveUda, 
+    onAddLessons, 
+    onSaveReport, 
+    onSaveEvent, 
+    initialAction, 
+    knowledgeBase, 
+    students, 
+    pianiInclusione, 
+    onUpdateCompetencies, 
+    onUpdateKnowledgeBase,
+    driveSyncState,
+    onConnectDrive
+}) => {
     const [isPlanningWizardOpen, setIsPlanningWizardOpen] = useState(false);
     const [isSmartImportOpen, setIsSmartImportOpen] = useState(false);
     const [isNotebookLMImportOpen, setIsNotebookLMImportOpen] = useState(false);
+    const [isTemplateManagerOpen, setIsTemplateManagerOpen] = useState(false);
     const [selectedUda, setSelectedUda] = useState<Uda | null>(null);
     
     // State for Main Tabs
@@ -422,17 +473,15 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
         <div className="page-layout pb-24 max-w-6xl mx-auto w-full px-4 md:px-0">
             
             {/* Header */}
-            <div className="page-header-compact text-center items-center">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium text-primary">Progettazione</h1>
-                    <p className="page-subtitle max-w-2xl mx-auto">
-                        Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
-                    </p>
-                </div>
+            <div className="py-12 text-center">
+                <h1 className="text-4xl font-black text-primary mb-4">Progettazione</h1>
+                <p className="text-on-surface-variant max-w-2xl mx-auto font-medium">
+                    Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
+                </p>
             </div>
             
             {/* Tab Navigation */}
-            <div className="mb-6">
+            <div className="mb-8">
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id: string) => setActiveTab(id as 'dashboard' | 'frameworks')}
@@ -447,20 +496,25 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
             {activeTab === 'dashboard' ? (
                 <>
                     {/* 1. HERO ACTION: WIZARD */}
-                    <div className="hero-card-interactive bg-primary-container text-on-primary-container mb-6" onClick={() => setIsPlanningWizardOpen(true)}>
+                    <InfoCard 
+                        title="Wizard Annuale"
+                        variant="elevated" 
+                        className="bg-primary-container text-on-primary-container mb-8 p-8 cursor-pointer hover:shadow-xl transition-all group"
+                        onClick={() => setIsPlanningWizardOpen(true)}
+                    >
                         <div className="flex justify-between items-start">
-                            <div className="p-2 bg-on-primary-container/10 rounded-2xl">
-                                <span className="material-symbols-outlined m3-display-small">calendar_month</span>
+                            <div className="p-4 bg-on-primary-container/10 rounded-3xl">
+                                <span className="material-symbols-outlined text-4xl">calendar_month</span>
                             </div>
-                            <span className="material-symbols-outlined m3-headline-small opacity-50">arrow_outward</span>
+                            <span className="material-symbols-outlined text-2xl opacity-50 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">arrow_outward</span>
                         </div>
-                        <div className="mt-4">
-                            <h2 className="m3-headline-small font-bold">Wizard Annuale</h2>
-                            <p className="m3-body-medium opacity-90 mt-1 max-w-2xl">
+                        <div className="mt-6">
+                            <h2 className="text-2xl font-black">Wizard Annuale</h2>
+                            <p className="text-on-primary-container/80 mt-2 max-w-2xl font-medium">
                                 Pianifica l&apos;intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell&apos;AI.
                             </p>
                         </div>
-                    </div>
+                    </InfoCard>
 
                     {/* 2. TIMELINE (GANTT 2.0 DYNAMIC) */}
                     <TimelineView 
@@ -475,7 +529,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                     />
 
                     {/* 3. BENTO GRID */}
-                    <div className="expressive-grid">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
                         
                         <M3ExpressiveCard
                             icon="assignment"
@@ -521,6 +575,15 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                             description="Archivio documenti."
                             color="var(--md-sys-color-surface-container, #f7f2fa)"
                             onClick={() => onNavigate('knowledge-base')}
+                            className="col-span-1"
+                        />
+
+                        <M3ExpressiveCard
+                            icon="description"
+                            title="Template"
+                            description="Gestisci i modelli per UDA e verifiche."
+                            color="var(--md-sys-color-surface-container, #f7f2fa)"
+                            onClick={() => setIsTemplateManagerOpen(true)}
                             className="col-span-1"
                         />
 
@@ -593,6 +656,8 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                         setSelectedUda(null);
                         onNavigate('uda');
                     }}
+                    aiSettings={aiSettings}
+                    knowledgeBase={knowledgeBase || []}
                 />
             )}
 
@@ -601,6 +666,8 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                 <NotebookLMImportModal
                     open={isNotebookLMImportOpen}
                     onClose={() => setIsNotebookLMImportOpen(false)}
+                    isAuthenticated={driveSyncState?.isAuthenticated}
+                    onConnect={onConnectDrive}
                     onImport={(importedFiles: KnowledgeBaseEntry[]) => {
                         // Aggiorna la Knowledge Base con i materiali importati
                         if (onUpdateKnowledgeBase && typeof onUpdateKnowledgeBase === 'function') {
@@ -615,6 +682,13 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ onNavigate,
                         }
                         setIsNotebookLMImportOpen(false);
                     }}
+                />
+            )}
+
+            {/* Modale Template Manager */}
+            {isTemplateManagerOpen && (
+                <TemplateManager
+                    onClose={() => setIsTemplateManagerOpen(false)}
                 />
             )}
         </div>

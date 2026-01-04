@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Studente } from '../types';
-import { TextField, SelectField } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { TextField, SelectField, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
 interface AddStudentModalProps {
     studentToEdit?: Studente;
@@ -44,9 +43,10 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
             title={studentToEdit ? 'Modifica Studente' : 'Aggiungi Studente'}
             onClose={onClose}
             maxWidth="md"
+            level={1}
         >
-            <M3DialogContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+                <form id="add-student-form" onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <TextField
                             id="student-cognome-input"
@@ -80,8 +80,8 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
                 </form>
             </M3DialogContent>
             <M3DialogActions>
-                <button onClick={onClose} className="button button-text font-bold">Annulla</button>
-                <button onClick={handleSubmit} className="button button-filled font-black px-6">Salva</button>
+                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                <M3Button form="add-student-form" type="submit" variant="filled">Salva</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

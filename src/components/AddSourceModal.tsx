@@ -4,8 +4,7 @@ import { useFileDrop } from '../hooks/useFileDrop';
 import { KnowledgeBaseEntry, Corpus } from '../types';
 import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
 import { KB_CATEGORIES } from '../constants';
-import { CategoryCard, SelectField, TextField } from './M3Components';
-import { M3Dialog, M3DialogContent } from './M3Dialog'; 
+import { CategoryCard, SelectField, TextField, M3Dialog, M3DialogContent, M3Button } from './ui';
 
 interface AddSourceModalProps {
     corpora: Corpus[];
@@ -60,22 +59,42 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
             title="Aggiungi Documenti"
             onClose={onClose}
             maxWidth="sm"
+            level={1}
         >
-            <M3DialogContent>
+            <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
                 {isLoading ? (
-                    <div className="flex flex-col items-center justify-center h-64"><div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div><p className="m3-title-large mt-8 text-primary animate-pulse font-extrabold uppercase tracking-widest">{loadingMessage}</p></div>
+                    <div className="flex flex-col items-center justify-center h-64">
+                        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div>
+                        <p className="m3-title-large mt-8 text-primary animate-pulse font-extrabold uppercase tracking-widest">{loadingMessage}</p>
+                    </div>
                 ) : (
                     <>
                         <section>
-                            <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-3"><span className="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center m3-label-small font-extrabold">1</span> Seleziona Destinazione</h3>
+                            <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center m3-label-small font-extrabold">1</span> 
+                                Seleziona Destinazione
+                            </h3>
                             <div className="category-selection-grid grid grid-cols-2 md:grid-cols-4 gap-3">
-                                {KB_CATEGORIES.map(cat => <CategoryCard key={cat.id} id={cat.id} label={cat.label} icon={cat.icon} color={cat.color} isSelected={selectedCategory === cat.id} onClick={() => setSelectedCategory(cat.id)} />)}
+                                {KB_CATEGORIES.map(cat => (
+                                    <CategoryCard 
+                                        key={cat.id} 
+                                        id={cat.id} 
+                                        label={cat.label} 
+                                        icon={cat.icon} 
+                                        color={cat.color} 
+                                        isSelected={selectedCategory === cat.id} 
+                                        onClick={() => setSelectedCategory(cat.id)} 
+                                    />
+                                ))}
                             </div>
                         </section>
 
                         <section className={`transition-all duration-500 ${!selectedCategory ? 'opacity-30 grayscale pointer-events-none' : ''}`}>
-                            <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-3"><span className="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center m3-label-small font-extrabold">2</span> Carica File</h3>
-                            <div {...getRootProps()} className={`dropzone-area h-48 !rounded-[40px] border-2 border-dashed ${isDragActive ? 'border-primary bg-primary-container/10 scale-[1.02]' : 'border-outline-variant'} transition-all`}>
+                            <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center m3-label-small font-extrabold">2</span> 
+                                Carica File
+                            </h3>
+                            <div {...getRootProps()} className={`dropzone-area h-48 !rounded-4xl border-2 border-dashed ${isDragActive ? 'border-primary bg-primary-container/10 scale-[1.02]' : 'border-outline-variant'} transition-all flex flex-col items-center justify-center cursor-pointer`}>
                                 <input {...getInputProps()} />
                                 <span className="material-symbols-outlined text-5xl text-primary mb-4">{isDragActive ? 'download' : 'upload_file'}</span>
                                 <p className="m3-body-large font-extrabold">Trascina i file qui o clicca per sfogliare</p>
@@ -84,7 +103,10 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                         </section>
 
                         <section className="border-t border-outline-variant pt-10">
-                            <h3 className="m3-title-medium font-black mb-6 flex items-center gap-3"><span className="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center m3-label-small font-black">3</span> Raccolta (Opzionale)</h3>
+                            <h3 className="m3-title-medium font-black mb-6 flex items-center gap-3">
+                                <span className="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center m3-label-small font-black">3</span> 
+                                Raccolta (Opzionale)
+                            </h3>
                             <div className="flex gap-4 items-end">
                                 <div className="flex-grow">
                                     <SelectField id="corpus-select" label="Raccolta Target" value={selectedCorpusId} onChange={e => setSelectedCorpusId(e.target.value)}>
@@ -92,12 +114,26 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                         {corpora.map(c => <option key={c.id} value={c.id}>{c.displayName}</option>)}
                                     </SelectField>
                                 </div>
-                                <button onClick={() => setIsCreating(p => !p)} className="button button-tonal !h-14 !px-6 !rounded-[24px]" title={isCreating ? "Annulla creazione" : "Crea nuova raccolta"}><span className="material-symbols-outlined">{isCreating ? 'remove' : 'add'}</span></button>
+                                <M3Button 
+                                    onClick={() => setIsCreating(p => !p)} 
+                                    variant="tonal"
+                                    className="!h-14 !px-6 !rounded-xl" 
+                                    title={isCreating ? "Annulla creazione" : "Crea nuova raccolta"}
+                                >
+                                    <span className="material-symbols-outlined">{isCreating ? 'remove' : 'add'}</span>
+                                </M3Button>
                             </div>
                             {isCreating && (
                                  <div className="mt-6 flex gap-3 animate-in slide-in-from-top-4">
-                                    <TextField id="new-corpus-name-input" label="Nome Nuova Raccolta" value={newCorpusName} onChange={e => setNewCorpusName(e.target.value)} containerClassName="flex-grow !mb-0" placeholder="Es. Programmazioni 2024" />
-                                    <button onClick={handleCreateCorpus} className="button button-filled mt-7 font-black !px-8 shadow-md">CREA</button>
+                                    <TextField 
+                                        id="new-corpus-name-input" 
+                                        label="Nome Nuova Raccolta" 
+                                        value={newCorpusName} 
+                                        onChange={e => setNewCorpusName(e.target.value)} 
+                                        containerClassName="flex-grow !mb-0" 
+                                        placeholder="Es. Programmazioni 2024" 
+                                    />
+                                    <M3Button onClick={handleCreateCorpus} variant="filled" className="mt-7 font-black !px-8 shadow-md">CREA</M3Button>
                                 </div>
                             )}
                         </section>

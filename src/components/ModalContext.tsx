@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useCallback, useState, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
+import { getModalZIndex } from '../design-system/zIndex';
 
 /**
  * ModalContext - Centralized Modal Management System with React Portals
@@ -56,11 +57,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   }, []);
 
   const getZIndex = useCallback((level: number) => {
-    // Z-index calculation: backdrop 1300, then increment by 100 per level
-    // Level 1: modal=1400, backdrop=1300
-    // Level 2: modal=1500, backdrop=1450
-    // Level 3: modal=1600, backdrop=1550
-    return 1300 + level * 100;
+    return getModalZIndex(level);
   }, []);
 
   const isModalOpen = useCallback((id: string) => {
@@ -159,7 +156,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
       />
 
       {/* Modal Content */}
-      <div className="relative z-10 w-full max-w-lg max-h-[90vh] rounded-[28px]">
+      <div className="relative z-10 w-full max-w-lg max-h-[90vh] rounded-3xl">
         {children}
       </div>
     </div>,

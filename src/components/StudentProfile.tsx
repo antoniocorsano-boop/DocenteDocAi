@@ -1,19 +1,20 @@
 
 import React, { useState, useMemo } from 'react';
-import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza } from '../types';
+import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza, View } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { saveAs } from 'file-saver';
 import { generateStudentProfilePdf, generateHtmlDocxBlob, viewPdfInNewTab, generateCertificazioneCompetenzePdf } from '../utils/documentUtils';
 import { DEFAULT_COMPETENZE } from '../constants';
-// ...existing code...
 import StudentInterviewModal from './StudentInterviewModal';
-import { TabGroup, EmptyState, M3Card, M3Dialog, M3ListItem } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, EmptyState, InfoCard, SectionHeader, Avatar, M3ListItem, AiThinkingGem } from './ui';
+import { getPeriodicJudgmentSuggestion } from '../services/aiService';
 
 interface StudentProfileProps {
     student: Studente;
     evaluations: Valutazione[];
     competencyEvaluations: ValutazioneCompetenza[];
     settings: TimetableSettings;
+    aiSettings: AiSettings;
     onBack: () => void;
     onDeleteEvaluation: (evalId: string) => void;
     onOpenInclusionPlanEditor?: (student: Studente) => void;
@@ -23,10 +24,12 @@ interface StudentProfileProps {
 
 export type ProfileTab = 'overview' | 'grades' | 'competencies' | 'notes' | 'history';
 
-const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, competencyEvaluations, settings, onBack, onDeleteEvaluation, onOpenInclusionPlanEditor, register = [], lessons = {} }) => {
+const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, competencyEvaluations, settings, aiSettings, onBack, onDeleteEvaluation, onOpenInclusionPlanEditor, register = [], lessons = {} }) => {
     const [activeTab, setActiveTab] = useState<ProfileTab>('overview');
     const [isExporting, setIsExporting] = useState(false);
     const [isInterviewModeOpen, setIsInterviewModeOpen] = useState(false);
+    const [aiJudgment, setAiJudgment] = useState<string | null>(null);
+    const [isLoadingAi, setIsLoadingAi] = useState(false);
 
     const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
     const trendClass = performance.trend === 'up' ? 'text-tertiary' : performance.trend === 'down' ? 'text-error' : 'text-on-surface-variant';
@@ -127,9 +130,29 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
         } finally {
             setIsExporting(false);
         }
-    }
+    };
 
-    // ... (handleExportDocx remains the same) ...
+    const handleGenerateAiJudgment = async () => {
+        setIsLoadingAi(true);
+        setAiJudgment(null);
+        try {
+            const suggestion = await getPeriodicJudgmentSuggestion(
+                aiSettings,
+                student,
+                'periodo corrente',
+                evaluations,
+                competencyEvaluations,
+                settings.competenze
+            );
+            setAiJudgment(suggestion);
+        } catch (error) {
+            console.error("Error generating AI judgment:", error);
+            alert("Errore durante la generazione del giudizio AI.");
+        } finally {
+            setIsLoadingAi(false);
+        }
+    };
+
     const handleExportDocx = async () => {
         setIsExporting(true);
         try {
@@ -149,257 +172,322 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
 
     const renderOverview = () => (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <M3Card className="!p-4 bg-primary-container text-on-primary-container relative overflow-hidden flex flex-col justify-between h-32 border-none">
-                    <div className="absolute top-0 right-0 p-2 opacity-10">
-                        <span className="material-symbols-outlined text-6xl">analytics</span>
-                    </div>
-                    <span className="text-xs font-bold uppercase tracking-wider opacity-80">Media Voti</span>
-                    <span className="text-4xl font-bold">{performance.grade || '-'}</span>
-                    <span className="text-xs opacity-70">Su tutte le materie</span>
-                </M3Card>
-                <M3Card className="!p-4 bg-surface-container-high border-none flex flex-col justify-between h-32">
-                    <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Andamento</span>
-                    <div className={`flex items-center gap-2 ${trendClass}`}>
-                        <span className="material-symbols-outlined text-4xl">{trendIcon}</span>
-                    </div>
-                    <span className="text-xs text-on-surface-variant opacity-70">Rispetto ultime 5 prove</span>
-                </M3Card>
-                <M3Card className="!p-4 bg-surface-container-high border-none flex flex-col justify-between h-32">
-                    <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Assenze</span>
-                    <span className="text-3xl font-bold text-secondary">{attendanceStats.absences}</span>
-                    <span className="text-xs text-on-surface-variant opacity-70">{attendanceStats.percentage}% del totale ore</span>
-                </M3Card>
-                <M3Card className="!p-4 bg-surface-container-high border-none flex flex-col justify-between h-32">
-                    <span className="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Ritardi</span>
-                    <span className="text-3xl font-bold text-tertiary">{attendanceStats.lates}</span>
-                    <span className="text-xs text-on-surface-variant opacity-70">Ingressi posticipati</span>
-                </M3Card>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <InfoCard 
+                    title="Media Voti"
+                    description={performance.grade || '-'}
+                    icon="analytics"
+                    variant="primary"
+                    className="bg-primary-container/20 border-primary/20 h-32"
+                />
+                <InfoCard 
+                    title="Andamento"
+                    description={performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
+                    icon={trendIcon}
+                    variant="surface"
+                    className="bg-surface-container-low/30 backdrop-blur-xl border-outline-variant/20 h-32"
+                />
+                <InfoCard 
+                    title="Assenze"
+                    description={`${attendanceStats.absences} ore`}
+                    icon="event_busy"
+                    variant="secondary"
+                    className="bg-secondary-container/10 border-secondary/20 h-32"
+                />
+                <InfoCard 
+                    title="Ritardi"
+                    description={`${attendanceStats.lates} ingressi`}
+                    icon="schedule"
+                    variant="tertiary"
+                    className="bg-tertiary-container/10 border-tertiary/20 h-32"
+                />
             </div>
 
             {onOpenInclusionPlanEditor && (
-                <M3Card
-                    className="border border-dashed border-tertiary/50 bg-tertiary-container/10 flex-row items-center justify-between p-4 cursor-pointer hover:bg-tertiary-container/20 transition-colors"
+                <div 
+                    className="bg-tertiary-container/10 backdrop-blur-xl border border-tertiary/20 rounded-2xl p-6 flex items-center justify-between cursor-pointer hover:bg-tertiary-container/20 transition-all group"
                     onClick={() => onOpenInclusionPlanEditor(student)}
                 >
-                    <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
-                            <span className="material-symbols-outlined">accessibility_new</span>
+                    <div className="flex items-center gap-5">
+                        <div className="w-14 h-14 rounded-2xl bg-tertiary text-on-tertiary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                            <span className="material-symbols-outlined text-3xl">accessibility_new</span>
                         </div>
                         <div>
-                            <h3 className="text-sm font-bold text-on-surface">Piano di Inclusione (BES/DSA)</h3>
-                            <p className="text-xs text-on-surface-variant">Gestisci misure compensative e dispensative.</p>
+                            <h3 className="m3-title-large font-black text-on-surface">Piano di Inclusione (BES/DSA)</h3>
+                            <p className="m3-body-medium text-on-surface-variant opacity-70">Gestisci misure compensative e dispensative.</p>
                         </div>
                     </div>
-                    <span className="material-symbols-outlined text-tertiary">arrow_forward</span>
-                </M3Card>
+                    <span className="material-symbols-outlined text-tertiary text-3xl group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                </div>
             )}
 
-            {isTerminalYear && (
-                <M3Card className="bg-surface-container-high p-4 flex-row items-center justify-between">
-                    <div>
-                        <h3 className="text-sm font-bold text-on-surface">Certificazione Competenze</h3>
-                        <p className="text-xs text-on-surface-variant">Fine ciclo studi</p>
+            {/* AI Judgment Suggestion Section */}
+            <div className="bg-primary-container/10 backdrop-blur-xl border border-primary/20 rounded-2xl p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-5">
+                        <div className="w-14 h-14 rounded-2xl bg-primary text-on-primary flex items-center justify-center shadow-lg">
+                            <span className="material-symbols-outlined text-3xl">psychology</span>
+                        </div>
+                        <div>
+                            <h3 className="m3-title-large font-black text-on-surface">Consulente AI: Giudizio</h3>
+                            <p className="m3-body-medium text-on-surface-variant opacity-70">Genera una bozza di giudizio basata sui dati.</p>
+                        </div>
                     </div>
-                    <button onClick={handleGenerateCertification} className="button button-tonal !h-8 !text-xs" disabled={isExporting}>
-                        <span className="material-symbols-outlined text-sm mr-2">workspace_premium</span>
-                        Genera
-                    </button>
-                </M3Card>
+                    <M3Button 
+                        onClick={handleGenerateAiJudgment} 
+                        variant="filled" 
+                        className="font-black text-xs uppercase tracking-widest"
+                        disabled={isLoadingAi}
+                    >
+                        {isLoadingAi ? <AiThinkingGem size="small" inline text="" /> : 'Genera Bozza'}
+                    </M3Button>
+                </div>
+
+                {aiJudgment && (
+                    <div className="bg-surface-container-lowest/50 p-4 rounded-xl border border-outline-variant/20 animate-in fade-in slide-in-from-top-2">
+                        <div className="flex items-center gap-2 mb-2 text-primary">
+                            <span className="material-symbols-outlined text-sm">auto_awesome</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest">Suggerimento AI</span>
+                        </div>
+                        <p className="m3-body-medium text-on-surface leading-relaxed italic">
+                            "{aiJudgment}"
+                        </p>
+                        <div className="flex justify-end mt-4">
+                            <M3Button 
+                                onClick={() => {
+                                    navigator.clipboard.writeText(aiJudgment);
+                                    alert("Giudizio copiato negli appunti!");
+                                }} 
+                                variant="text" 
+                                className="text-[10px] font-black uppercase tracking-widest"
+                            >
+                                <span className="material-symbols-outlined text-sm mr-2">content_copy</span>
+                                Copia Testo
+                            </M3Button>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {isTerminalYear && (
+                <div className="bg-surface-container-low/30 backdrop-blur-xl border border-outline-variant/20 rounded-2xl p-6 flex items-center justify-between">
+                    <div className="flex items-center gap-5">
+                        <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                            <span className="material-symbols-outlined text-3xl">workspace_premium</span>
+                        </div>
+                        <div>
+                            <h3 className="m3-title-large font-black text-on-surface">Certificazione Competenze</h3>
+                            <p className="m3-body-medium text-on-surface-variant opacity-70">Fine ciclo studi</p>
+                        </div>
+                    </div>
+                    <M3Button onClick={handleGenerateCertification} variant="tonal" className="font-black text-xs uppercase tracking-widest" disabled={isExporting}>
+                        Genera PDF
+                    </M3Button>
+                </div>
             )}
         </div>
     );
 
-    // ... (renderGrades, renderCompetencies, renderNotes remain largely the same) ...
     const renderGrades = () => (
-        <div className="space-y-4 animate-in fade-in">
+        <div className="space-y-6 animate-in fade-in">
             {Object.entries(groupedEvaluations).length > 0 ? (
                 Object.entries(groupedEvaluations).map(([materia, evals]: [string, Valutazione[]]) => (
-                    <details key={materia} className="group bg-surface-container rounded-2xl border border-outline-variant overflow-hidden" open>
-                        <summary className="flex items-center justify-between p-4 cursor-pointer bg-surface-container hover:bg-surface-container-high transition-colors list-none">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-bold">
+                    <div key={materia} className="bg-surface-container-low/30 backdrop-blur-xl rounded-2xl border border-outline-variant/20 overflow-hidden">
+                        <div className="flex items-center justify-between p-6 bg-surface-container-high/50">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-2xl bg-primary text-on-primary flex items-center justify-center font-black text-xl shadow-md">
                                     {materia.substring(0, 2).toUpperCase()}
                                 </div>
-                                <span className="font-bold text-on-surface">{materia}</span>
+                                <div>
+                                    <h3 className="m3-title-large font-black text-on-surface">{materia}</h3>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-primary opacity-70">{evals.length} prove registrate</p>
+                                </div>
                             </div>
-                            <div className="flex items-center gap-3">
-                                <span className="text-xs font-bold bg-surface px-2 py-1 rounded border border-outline-variant text-on-surface-variant">
-                                    Media: ${(evals.reduce((a, b) => a + (parseFloat(b.voto) || 0), 0) / evals.length).toFixed(1)}
+                            <div className="bg-primary-container/30 px-4 py-2 rounded-2xl border border-primary/20">
+                                <span className="text-xs font-black text-primary uppercase tracking-widest mr-2">Media:</span>
+                                <span className="m3-title-large font-black text-primary">
+                                    {(evals.reduce((a, b) => a + (parseFloat(b.voto) || 0), 0) / evals.length).toFixed(1)}
                                 </span>
-                                <span className="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform">expand_more</span>
                             </div>
-                        </summary>
-                        <div className="p-2 space-y-1 bg-surface">
+                        </div>
+                        <div className="p-4 space-y-2">
                             {evals.map(ev => (
                                 <M3ListItem
                                     key={ev.id}
                                     leadingElement={
-                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0 ${parseFloat(ev.voto) < 6 ? 'bg-error-container text-on-error-container' : 'bg-surface-container-high text-on-surface'}`}>
+                                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-sm ${parseFloat(ev.voto) < 6 ? 'bg-error text-on-error' : 'bg-surface-container-highest text-on-surface'}`}>
                                             {ev.voto}
                                         </div>
                                     }
                                     headline={ev.argomento || 'Verifica'}
                                     supportingText={`${ev.tipo} ${ev.note ? `• ${ev.note}` : ''}`}
                                     trailingElement={
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-[10px] text-on-surface-variant uppercase tracking-wider">{new Date(ev.data).toLocaleDateString()}</span>
-                                            <button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} className="icon-button text-error !w-8 !h-8 opacity-0 group-hover:opacity-100 transition-opacity" title="Elimina"><span className="material-symbols-outlined text-lg">delete</span></button>
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest opacity-60">{new Date(ev.data).toLocaleDateString()}</span>
+                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" className="text-error hover:bg-error/10">
+                                                <span className="material-symbols-outlined">delete</span>
+                                            </M3Button>
                                         </div>
                                     }
-                                    className="group hover:bg-surface-container-low transition-colors"
+                                    className="hover:bg-surface-container-high/50 rounded-2xl transition-all"
                                 />
                             ))}
                         </div>
-                    </details>
+                    </div>
                 ))
             ) : <EmptyState title="Nessun voto" description="Nessun voto registrato per questo studente." icon="grade_off" />}
         </div>
     );
+
     const renderCompetencies = () => (
-        <div className="space-y-4 animate-in fade-in">
+        <div className="space-y-6 animate-in fade-in">
             {Object.entries(groupedCompetencyEvals).length > 0 ? (
-                <div className="grid grid-cols-1 gap-3">
+                <div className="grid grid-cols-1 gap-4">
                     {Object.values(groupedCompetencyEvals).map(({ competenza, evals }) => {
                         const latest = evals.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
                         const level = competenza.livelli.find(l => l.id === latest.livelloId);
-                        let levelColor = "bg-surface-container-high text-on-surface-variant";
-                        if (level?.nome.includes("Avanzato") || level?.nome.includes("A -")) levelColor = "bg-primary-container text-on-primary-container";
-                        if (level?.nome.includes("Intermedio") || level?.nome.includes("B -")) levelColor = "bg-secondary-container text-on-secondary-container";
-                        if (level?.nome.includes("Base") || level?.nome.includes("C -")) levelColor = "bg-tertiary-container text-on-tertiary-container";
+                        let levelColor = "bg-surface-container-high/50 text-on-surface-variant";
+                        let iconColor = "text-on-surface-variant";
+                        
+                        if (level?.nome.includes("Avanzato") || level?.nome.includes("A -")) {
+                            levelColor = "bg-primary-container/30 text-primary border-primary/20";
+                            iconColor = "text-primary";
+                        } else if (level?.nome.includes("Intermedio") || level?.nome.includes("B -")) {
+                            levelColor = "bg-secondary-container/30 text-secondary border-secondary/20";
+                            iconColor = "text-secondary";
+                        } else if (level?.nome.includes("Base") || level?.nome.includes("C -")) {
+                            levelColor = "bg-tertiary-container/30 text-tertiary border-tertiary/20";
+                            iconColor = "text-tertiary";
+                        }
 
                         return (
-                            <M3Card key={competenza.id} className="p-4 bg-surface-container border-outline-variant">
-                                <p className="text-xs font-bold text-primary uppercase tracking-wider mb-2">{competenza.codice}</p>
-                                <h3 className="m3-title-medium font-bold mb-3">{competenza.nome}</h3>
-                                <div className={`p-3 rounded-xl ${levelColor} mb-2`}>
-                                    <div className="flex justify-between items-baseline mb-1">
-                                        <span className="font-bold text-sm">{level?.nome}</span>
-                                        <span className="text-[10px] opacity-80">{new Date(latest.data).toLocaleDateString()}</span>
+                            <div key={competenza.id} className="bg-surface-container-low/30 backdrop-blur-xl p-6 rounded-2xl border border-outline-variant/20">
+                                <div className="flex justify-between items-start mb-4">
+                                    <div>
+                                        <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">{competenza.codice}</p>
+                                        <h3 className="m3-title-large font-black text-on-surface">{competenza.nome}</h3>
                                     </div>
-                                    <p className="text-xs opacity-90 leading-relaxed">{level?.descrizione}</p>
+                                    <div className={`px-4 py-2 rounded-2xl border font-black text-xs uppercase tracking-widest ${levelColor}`}>
+                                        {level?.nome}
+                                    </div>
                                 </div>
-                                {latest.nota && <p className="text-xs italic text-on-surface-variant pl-2 border-l-2 border-outline-variant mt-2">&ldquo;{latest.nota}&rdquo;</p>}
-                            </M3Card>
+                                <div className="bg-surface-container-high/50 p-5 rounded-2xl border border-outline-variant/10">
+                                    <div className="flex items-center gap-2 mb-2 opacity-60">
+                                        <span className="material-symbols-outlined text-sm">event</span>
+                                        <span className="text-[10px] font-black uppercase tracking-widest">{new Date(latest.data).toLocaleDateString()}</span>
+                                    </div>
+                                    <p className="m3-body-medium text-on-surface leading-relaxed">{level?.descrizione}</p>
+                                </div>
+                                {latest.nota && (
+                                    <div className="mt-4 flex gap-3 items-start pl-4 border-l-4 border-primary/30">
+                                        <span className="material-symbols-outlined text-primary text-sm mt-1">chat_bubble</span>
+                                        <p className="m3-body-small italic text-on-surface-variant">&ldquo;{latest.nota}&rdquo;</p>
+                                    </div>
+                                )}
+                            </div>
                         );
                     })}
                 </div>
             ) : <EmptyState title="Nessuna competenza" description="Nessuna valutazione per competenza registrata." icon="psychology_alt" />}
         </div>
     );
+
     const renderNotes = () => (
-        <div className="space-y-4 animate-in fade-in">
+        <div className="space-y-6 animate-in fade-in">
             {studentReceptions.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-4">
                     {(studentReceptions || []).map(lesson => (
-                        <M3Card key={lesson.id} className="bg-surface-container-low !p-4 border-outline-variant relative overflow-hidden">
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
-                            <div className="flex justify-between items-start mb-2 pl-2">
-                                <span className="text-xs font-bold uppercase tracking-wider text-tertiary bg-tertiary-container px-2 py-0.5 rounded">Ricevimento</span>
+                        <div key={lesson.id} className="bg-surface-container-low/30 backdrop-blur-xl p-6 rounded-2xl border border-outline-variant/20 relative overflow-hidden group">
+                            <div className="absolute left-0 top-0 bottom-0 w-2 bg-tertiary"></div>
+                            <div className="flex justify-between items-start mb-3 pl-2">
+                                <div className="flex items-center gap-2">
+                                    <span className="material-symbols-outlined text-tertiary">meeting_room</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-tertiary bg-tertiary-container/30 px-3 py-1 rounded-full">Ricevimento</span>
+                                </div>
+                                <span className="text-[10px] font-black uppercase tracking-widest opacity-50">{new Date(lesson.data).toLocaleDateString()}</span>
                             </div>
-                            <p className="m3-body-medium font-bold pl-2 mb-1">{lesson.contenuto}</p>
-                            {lesson.nota ? <p className="text-sm text-on-surface-variant pl-2 leading-relaxed whitespace-pre-wrap">&ldquo;{lesson.nota}&rdquo;</p> : <p className="text-xs italic text-outline pl-2">Nessuna nota.</p>}
-                        </M3Card>
+                            <p className="m3-title-medium font-bold pl-2 text-on-surface leading-relaxed">{lesson.contenuto}</p>
+                            {lesson.obiettivi && (
+                                <div className="mt-4 pl-2">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 mb-1">Esito / Obiettivi</p>
+                                    <p className="m3-body-small text-on-surface-variant">{lesson.obiettivi}</p>
+                                </div>
+                            )}
+                        </div>
                     ))}
                 </div>
-            ) : <EmptyState title="Nessun colloquio" description="Nessun colloquio registrato per questo studente." icon="chat_bubble_outline" />}
+            ) : <EmptyState title="Nessuna nota" description="Nessun colloquio o nota registrata." icon="event_note" />}
         </div>
     );
 
-    // NEW: Render History
-    const renderHistory = () => (
-        <div className="space-y-4 animate-in fade-in">
-            {student.history && student.history.length > 0 ? (
-                student.history.map((record, idx) => (
-                    <M3Card key={idx} className="bg-surface-container p-4 border-outline-variant">
-                        <div className="flex justify-between items-start mb-3">
-                            <div>
-                                <h3 className="m3-title-large text-primary">{record.year}</h3>
-                                <p className="text-sm text-on-surface-variant">Classe {record.classe}</p>
-                            </div>
-                            <span className={`chip text-xs ${record.finalOutcome === 'Promosso' ? 'bg-secondary-container text-on-secondary-container' : 'bg-error-container text-on-error-container'}`}>
-                                {record.finalOutcome}
-                            </span>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <p className="text-xs uppercase tracking-wide opacity-70">Media Finale</p>
-                                <p className="text-2xl font-bold">{record.averageGrade}</p>
-                            </div>
-                            <div>
-                                <p className="text-xs uppercase tracking-wide opacity-70">Assenze</p>
-                                <p className="text-2xl font-bold">{record.absencesPercentage}%</p>
-                            </div>
-                        </div>
-                        {record.competencySummary && (
-                            <div className="bg-surface p-3 rounded-lg text-sm">
-                                <p className="font-bold mb-1">Note Competenze:</p>
-                                <ul className="list-disc pl-4 space-y-1 text-on-surface-variant">
-                                    {record.competencySummary.map((c, i) => (
-                                        <li key={i}>{c.name}: {c.level}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </M3Card>
-                ))
-            ) : (
-                <EmptyState title="Nessuno storico" description="I dati degli anni precedenti appariranno qui dopo il passaggio d'anno." icon="history" />
-            )}
-        </div>
-    );
+    const tabs = [
+        { id: 'overview', label: 'Panoramica', icon: 'dashboard' },
+        { id: 'grades', label: 'Voti', icon: 'grade' },
+        { id: 'competencies', label: 'Competenze', icon: 'psychology' },
+        { id: 'notes', label: 'Colloqui', icon: 'chat' },
+    ];
 
     return (
-        <M3Dialog
-            isOpen={true}
-            onClose={onBack}
-            title={`${student.cognome} ${student.nome}`}
-            fullscreen
-            buttons={
-                <div className="flex gap-1">
-                    <button onClick={() => setIsInterviewModeOpen(true)} className="icon-button text-primary bg-primary-container" title="Modalità Colloquio"><span className="material-symbols-outlined">visibility</span></button>
-                    <button onClick={handleExportPdf} disabled={isExporting} className="icon-button" title="Esporta PDF"><span className="material-symbols-outlined">picture_as_pdf</span></button>
-                    <button onClick={handleExportDocx} disabled={isExporting} className="icon-button" title="Esporta Word"><span className="material-symbols-outlined">description</span></button>
-                </div>
-            }
-        >
-            <div className="flex flex-col h-full bg-surface-container-low -mx-6 -mt-2">
-                <div className="px-4 pt-4 pb-2 bg-surface-container-low border-b border-outline-variant/50 sticky top-0 z-10">
-                    <TabGroup
-                        activeTab={activeTab}
-                        onTabChange={(id) => setActiveTab(id as ProfileTab)}
-                        variant="primary"
-                        tabs={[
-                            { id: 'overview', label: 'Panoramica', icon: 'dashboard' },
-                            { id: 'grades', label: 'Voti', icon: 'grading' },
-                            { id: 'competencies', label: 'Competenze', icon: 'psychology' },
-                            { id: 'notes', label: 'Colloqui', icon: 'diversity_3', badge: studentReceptions.length > 0 ? studentReceptions.length : undefined },
-                            { id: 'history', label: 'Carriera', icon: 'history', badge: student.history?.length },
-                        ]}
-                        className="!w-full"
-                    />
-                </div>
-                <div className="flex-grow overflow-y-auto p-4 md:p-6 pb-24">
-                    <div className="max-w-4xl mx-auto w-full">
-                        {activeTab === 'overview' && renderOverview()}
-                        {activeTab === 'grades' && renderGrades()}
-                        {activeTab === 'competencies' && renderCompetencies()}
-                        {activeTab === 'notes' && renderNotes()}
-                        {activeTab === 'history' && renderHistory()}
+        <div className="page-layout pb-24">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+                <div className="flex items-center gap-6">
+                    <M3Button onClick={onBack} variant="icon" className="bg-surface-container-high/50">
+                        <span className="material-symbols-outlined">arrow_back</span>
+                    </M3Button>
+                    <div className="flex items-center gap-5">
+                        <Avatar 
+                            name={`${student.nome} ${student.cognome}`} 
+                            size="xl" 
+                            className="shadow-xl border-4 border-surface-container-high"
+                        />
+                        <div>
+                            <h1 className="m3-headline-medium font-black tracking-tight">{student.cognome} {student.nome}</h1>
+                            <div className="flex items-center gap-3 mt-1">
+                                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">Classe {student.classe}</span>
+                                {student.hasBES && <span className="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-[10px] font-black uppercase tracking-widest border border-tertiary/20">BES</span>}
+                                {student.hasDSA && <span className="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-[10px] font-black uppercase tracking-widest border border-tertiary/20">DSA</span>}
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                {isInterviewModeOpen && (
-                    <StudentInterviewModal
-                        student={student}
-                        evaluations={evaluations}
-                        competencyEvaluations={competencyEvaluations}
-                        settings={settings}
-                        onClose={() => setIsInterviewModeOpen(false)}
-                    />
-                )}
+                <div className="flex gap-3 w-full md:w-auto">
+                    <M3Button onClick={() => setIsInterviewModeOpen(true)} variant="tonal" className="flex-grow md:flex-grow-0 font-black text-xs uppercase tracking-widest">
+                        <span className="material-symbols-outlined mr-2">record_voice_over</span>
+                        Colloquio
+                    </M3Button>
+                    <M3Button onClick={handleExportPdf} variant="filled" className="flex-grow md:flex-grow-0 shadow-lg font-black text-xs uppercase tracking-widest" disabled={isExporting}>
+                        <span className="material-symbols-outlined mr-2">download</span>
+                        Esporta PDF
+                    </M3Button>
+                </div>
             </div>
-        </M3Dialog>
+
+            <TabGroup 
+                tabs={tabs} 
+                activeTab={activeTab} 
+                onTabChange={(id) => setActiveTab(id as ProfileTab)}
+                variant="primary"
+                className="mb-8"
+            />
+
+            <div className="mt-8">
+                {activeTab === 'overview' && renderOverview()}
+                {activeTab === 'grades' && renderGrades()}
+                {activeTab === 'competencies' && renderCompetencies()}
+                {activeTab === 'notes' && renderNotes()}
+            </div>
+
+            {isInterviewModeOpen && (
+                <StudentInterviewModal 
+                    student={student}
+                    onClose={() => setIsInterviewModeOpen(false)}
+                    onSave={(note) => {
+                        // Logic to save interview note
+                        setIsInterviewModeOpen(false);
+                    }}
+                />
+            )}
+        </div>
     );
 };
 

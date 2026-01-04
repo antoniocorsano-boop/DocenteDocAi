@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { analyzeImage } from '../services/aiService';
 import { AiSettings } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
 
 interface ImageAnalysisModalProps {
   onClose: () => void;
@@ -76,26 +76,25 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
       onClose={onClose}
       maxWidth="4xl"
     >
-      <M3DialogContent className="dialog-content-grid-tall">
+      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden">
         {/* Left Panel: Upload and Prompt */}
         <div className="p-4 md:p-6 border-r border-outline-variant flex flex-col gap-4">
           <div>
-            <h3 className="m3-title-medium mb-2">1. Carica un'immagine</h3>
+            <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-3">1. Carica un'immagine</h3>
             <div 
               {...getRootProps()}
-              className={`dropzone-area ${isDragActive ? 'active' : ''}`}
-              data-active={isDragActive}
+              className={`flex flex-col items-center justify-center border-2 border-dashed border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors h-48 rounded-2xl cursor-pointer overflow-hidden ${isDragActive ? 'border-primary bg-primary/20' : ''}`}
             >
               <input {...getInputProps()} />
               {imagePreview ? (
-                <img src={imagePreview} alt="Preview" className="max-h-[180px] max-w-full object-contain rounded shadow-sm" />
+                <img src={imagePreview} alt="Preview" className="h-full w-full object-contain" />
               ) : (
                 <>
-                  <div className="upload-icon-circle">
-                      <span className="material-symbols-outlined text-3xl text-on-surface-variant">add_photo_alternate</span>
+                  <div className="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center mb-2">
+                      <span className="material-symbols-outlined text-3xl text-primary">add_photo_alternate</span>
                   </div>
                   <div className="text-center text-on-surface-variant">
-                      <p className="m3-title-medium">Trascina o clicca</p>
+                      <p className="font-bold">Trascina o clicca</p>
                   </div>
                 </>
               )}
@@ -103,7 +102,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
           </div>
           
           <div className="flex-grow flex flex-col">
-            <label htmlFor="prompt-textarea" className="form-label m3-title-medium">2. Chiedi qualcosa</label>
+            <label htmlFor="prompt-textarea" className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-2">2. Chiedi qualcosa</label>
             <textarea
               id="prompt-textarea"
               value={prompt}
@@ -112,40 +111,49 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
                 if (error) setError('');
               }}
               placeholder="Es. 'Descrivi cosa vedi in questa immagine'..."
-              className="form-textarea w-full flex-grow"
+              className="w-full flex-grow p-4 bg-surface border border-outline rounded-2xl focus:border-primary focus:outline-none resize-none"
               rows={4}
               disabled={!imageFile}
             />
           </div>
-          <button onClick={handleSubmit} disabled={isLoading || !imageFile || !prompt} className="button button-filled w-full mt-4">
-            {isLoading ? <span className="button-spinner"></span> : 'Analizza Immagine'}
-          </button>
-          {error && <p className="text-error text-sm mt-2 text-center">{error}</p>}
+          <M3Button 
+            onClick={handleSubmit} 
+            disabled={isLoading || !imageFile || !prompt} 
+            variant="filled"
+            className="w-full mt-4"
+          >
+            {isLoading ? <span className="animate-spin material-symbols-outlined">progress_activity</span> : 'Analizza Immagine'}
+          </M3Button>
+          {error && <p className="text-error text-xs mt-2 text-center font-bold">{error}</p>}
         </div>
 
         {/* Right Panel: Analysis Result */}
-        <div className="p-4 md:p-6 overflow-y-auto flex flex-col">
-          <h3 className="m3-title-medium mb-2">Risultato Analisi</h3>
-          <div className="flex-grow p-4 bg-surface-container-lowest rounded-lg border border-outline-variant">
+        <div className="p-4 md:p-6 overflow-y-auto flex flex-col bg-surface/50">
+          <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-3">Risultato Analisi</h3>
+          <InfoCard variant="elevated" className="flex-grow p-6 overflow-y-auto">
             {isLoading && (
-                <div className="flex items-center justify-center h-full">
-                    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary"></div>
+                <div className="flex flex-col items-center justify-center h-full gap-4">
+                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+                    <p className="text-sm font-bold text-primary animate-pulse">L'AI sta analizzando...</p>
                 </div>
             )}
             {analysisResult && (
-                <div className="prose">
-                    <p className="whitespace-pre-wrap m3-body-medium">{analysisResult}</p>
+                <div className="prose prose-sm max-w-none">
+                    <p className="whitespace-pre-wrap text-on-surface leading-relaxed">{analysisResult}</p>
                 </div>
             )}
             {!analysisResult && !isLoading && (
-                <div className="flex flex-col items-center justify-center h-full text-center text-on-surface-variant">
-                    <span className="material-symbols-outlined text-6xl">visibility</span>
-                    <p>Il risultato dell'analisi apparirà qui.</p>
+                <div className="flex flex-col items-center justify-center h-full text-center text-on-surface-variant opacity-50">
+                    <span className="material-symbols-outlined text-6xl mb-4">visibility</span>
+                    <p className="font-medium">Il risultato dell'analisi apparirà qui.</p>
                 </div>
             )}
-          </div>
+          </InfoCard>
         </div>
       </M3DialogContent>
+      <M3DialogActions>
+        <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
+      </M3DialogActions>
     </M3Dialog>
   );
 };

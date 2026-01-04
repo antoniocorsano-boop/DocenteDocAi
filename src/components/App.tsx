@@ -3,7 +3,6 @@
 import AssistantModal from './AssistantModal';
 import '../font-setup';
 import * as React from 'react';
-import M3ExpressiveProvider from '../design-system/M3ExpressiveProvider';
 import '../design-system/typography.css';
 import '../design-system/spacing.css';
 import '../design-system/breakpoints.css';
@@ -18,8 +17,10 @@ import NavigationRail from './NavigationRail';
 import ViewManager from './ViewManager';
 import SignInScreen from './SignInScreen';
 import { ModalManager } from './ModalManager';
+import PassaggioAnnoWizard from './PassaggioAnnoWizard';
 
 import { applyTheme, createTheme } from '../design-system';
+import { Z_INDEX } from '../design-system/zIndex';
 import Snackbar from './Snackbar';
 import { useRestoreAssist } from './useRestoreAssist';
 import type { UserProfile } from '../types';
@@ -33,63 +34,34 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
     const message = 'message' in suggestion ? suggestion.message : suggestion.description;
     const actionLabel = 'actionLabel' in suggestion ? suggestion.actionLabel : 'Apri';
     return (
-    <div
-        style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 2500,
-            background: 'var(--sys-primary-container, #e3f2fd)',
-            color: 'var(--sys-on-primary-container, #1C1B1F)',
-            padding: '0.4rem 0.7rem 0.4rem 0.5rem',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.7rem',
-            fontSize: '0.98rem',
-            cursor: 'pointer',
-            borderBottomLeftRadius: '0.7rem',
-            borderBottomRightRadius: '0.7rem',
-            maxWidth: '100vw',
-            minHeight: '2.2rem',
-            pointerEvents: 'auto',
-            boxSizing: 'border-box',
-            width: '100vw',
-        }}
+        <div
+            className="fixed top-0 left-0 right-0 aura-glass py-2 px-4 flex items-center justify-center gap-3 cursor-pointer border-b border-white/10 shadow-lg animate-in slide-in-from-top duration-500"
+            style={{ zIndex: Z_INDEX.notification.banner }}
             onClick={onAction}
             role="button"
             aria-label={actionLabel || 'Apri suggerimento'}
         >
-            <span style={{ fontSize: '1.2rem', marginRight: '0.3rem' }} aria-hidden="true">💡</span>
-            <span style={{ fontWeight: 600, flex: 1, textAlign: 'left', fontSize: '0.98rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <span className="text-xl" aria-hidden="true">💡</span>
+            <span className="font-bold flex-1 text-sm md:text-base truncate text-on-primary-container">
                 {message || 'Hai un suggerimento!'}
             </span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                <span style={{
-                    background: 'var(--sys-primary, #1976d2)',
-                    color: 'var(--sys-on-primary, #fff)',
-                    border: 'none',
-                    borderRadius: '0.9rem',
-                    padding: '0.3rem 0.7rem',
-                    fontWeight: 600,
-                    fontSize: '0.95rem',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.2rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 1px 3px rgba(25,118,210,0.07)'
-                }}>
-                    {actionLabel}
-                    <span style={{ fontSize: '1.1rem', marginLeft: '0.1rem' }} aria-hidden="true">↗️</span>
-                </span>
-            </span>
+            <button className="m3-button-filled !py-1 !px-4 !rounded-full text-xs md:text-sm flex items-center gap-1">
+                {actionLabel}
+                <span className="material-symbols-outlined text-sm">north_east</span>
+            </button>
         </div>
     );
 };
 
 import { useUIStore } from '../stores/useUIStore';
+import { useModal } from '../context/ModalContext';
+import HelpModal from './HelpModal';
+import ImageAnalysisModal from './ImageAnalysisModal';
+import OperationsCenter from './OperationsCenter';
+import VideoAnalysisModal from './VideoAnalysisModal';
+import CircolareAnalysisModal from './CircolareAnalysisModal';
+import LoadingModal from './LoadingModal';
+import BackupInfoModal from './BackupInfoModal';
 
 /**
  * App.tsx - Il core del Presentation Layer.
@@ -97,6 +69,7 @@ import { useUIStore } from '../stores/useUIStore';
  */
 export const App: React.FC = () => {
     const { chaosStage } = useUIStore();
+    const { pushModal, popModal } = useModal();
     // Stato assistant mode centralizzato (opzionale: puoi usare Zustand o context se vuoi cambiare modalità da altri punti)
     const [assistantMode] = React.useState<'chat' | 'docs' | 'tools' | 'backup'>('chat');
     // AssistantModal montato una sola volta a livello root, usa solo modals proxy
@@ -109,7 +82,19 @@ export const App: React.FC = () => {
         // interact). If you need a dev-only helper, enable it via an explicit
         // runtime flag (e.g. VITE_ENABLE_FORCE_CLOSE) rather than unconditionally
         // running on mount.
-        const { user, themeState, isGlobalAiLoading, notifiche, activeSuggestion, installPrompt } = appState;
+        const { user, themeState, aiSettings, isGlobalAiLoading, notifiche, activeSuggestion, installPrompt } = appState;
+
+        // Sync Loading Modal with ModalProvider
+        React.useEffect(() => {
+            if (modals.isLoadingModalOpen) {
+                pushModal({
+                    id: 'loading-modal',
+                    component: <LoadingModal message={modals.loadingModalMessage ?? ''} />
+                });
+            } else {
+                popModal('loading-modal');
+            }
+        }, [modals.isLoadingModalOpen, modals.loadingModalMessage, pushModal, popModal]);
 
         // Runtime instrumentation for automated tests and diagnostics
         React.useEffect(() => {
@@ -156,11 +141,20 @@ export const App: React.FC = () => {
         React.useLayoutEffect(() => {
             if (themeState) {
                 const theme = createTheme({
-                    name: themeState.customizationName,
+                    name: themeState.customizationName || themeState.generatedName || 'Default',
                     mode: themeState.mode === 'system' ? 'light' : themeState.mode,
-
+                    visualStyle: themeState.visualStyle,
+                    colors: themeState.customColors || themeState.generatedColors
                 });
                 applyTheme(theme);
+
+                // Parametric styling injection
+                if (themeState.glassBlur !== undefined) {
+                    document.documentElement.style.setProperty('--glass-blur-px', `${themeState.glassBlur}px`);
+                }
+                if (themeState.radiusMultiplier !== undefined) {
+                    document.documentElement.style.setProperty('--sys-radius-multiplier', themeState.radiusMultiplier.toString());
+                }
             }
         }, [themeState]);
 
@@ -228,16 +222,12 @@ export const App: React.FC = () => {
         // Show loading screen during restore
         if (modals.isRestoring) {
             return (
-                <div style={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    height: '100vh',
-                    background: 'var(--aura-gradient, linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%))'
-                }}>
-                    <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔄</div>
-                        <p style={{ color: 'var(--sys-on-surface, #1C1B1F)' }}>Caricamento...</p>
+                <div className="flex items-center justify-center h-screen bg-surface-container-low">
+                    <div className="text-center space-y-4">
+                        <div className="w-16 h-16 mx-auto rounded-3xl aura-glass flex items-center justify-center animate-pulse">
+                            <span className="material-symbols-outlined text-4xl text-primary">sync</span>
+                        </div>
+                        <p className="m3-label-large text-on-surface tracking-widest uppercase">Caricamento...</p>
                     </div>
                 </div>
             );
@@ -246,13 +236,14 @@ export const App: React.FC = () => {
         // Assisted restore UI if app is empty or backup failed
         const restoreAssist = useRestoreAssist(appState, actions, modals);
         if (restoreAssist.show) {
-            // Mostra una UI di restore assist se necessario (placeholder)
             return (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: 'var(--aura-gradient, linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%))' }}>
-                    <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛠️</div>
-                        <p style={{ color: 'var(--sys-on-surface, #1C1B1F)' }}>Assistenza ripristino dati</p>
-                        {/* Puoi personalizzare questa UI o importare un componente se disponibile */}
+                <div className="flex items-center justify-center h-screen bg-surface-container-low">
+                    <div className="text-center space-y-4 max-w-xs px-6">
+                        <div className="w-16 h-16 mx-auto rounded-3xl aura-glass flex items-center justify-center">
+                            <span className="material-symbols-outlined text-4xl text-primary">build</span>
+                        </div>
+                        <h2 className="m3-headline-small font-bold">Assistenza ripristino</h2>
+                        <p className="m3-body-medium text-on-surface-variant">Stiamo preparando il tuo ambiente di lavoro.</p>
                     </div>
                 </div>
             );
@@ -267,78 +258,208 @@ export const App: React.FC = () => {
         // App Shell M3 Expressive
         return (
             <ErrorBoundary>
-                <M3ExpressiveProvider themeState={appState.themeState}>
                     <div className={`app-shell ${chaosStage === 'chaos' ? 'stage-chaos' : ''}`}>
                 {/* Fixed Header */}
                 <Header
                     title="DocenteDoc AI"
                     showBackButton={view !== 'home'}
                     onBack={actions.handleBack}
-                    onOpenImageAnalysis={() => modals.setIsImageAnalysisOpen(true)}
-                    onOpenVideoAnalysis={() => modals.setIsVideoAnalysisOpen(true)}
+                    onOpenImageAnalysis={() => pushModal({
+                        id: 'image-analysis-modal',
+                        component: (
+                            <ImageAnalysisModal
+                                onClose={() => popModal('image-analysis-modal')}
+                                aiSettings={aiSettings}
+                            />
+                        )
+                    })}
+                    onOpenVideoAnalysis={() => pushModal({
+                        id: 'video-analysis-modal',
+                        component: (
+                            <VideoAnalysisModal
+                                onClose={() => popModal('video-analysis-modal')}
+                            />
+                        )
+                    })}
                     // RIMOSSO: onNavigateToLiveAssistant
-                    onOpenHelp={() => modals.setIsHelpOpen(true)}
+                    onOpenHelp={() => pushModal({
+                        id: 'help-modal',
+                        component: (
+                            <HelpModal
+                                onClose={() => popModal('help-modal')}
+                                onNavigate={actions.handleNavigate}
+                                aiSettings={aiSettings}
+                                setIsLoadingModalOpen={modals.setIsLoadingModalOpen}
+                                setLoadingModalMessage={modals.setLoadingModalMessage}
+                            />
+                        )
+                    })}
                     user={user}
                     settings={appState.settings}
                     notifiche={notifiche}
                     setNotifiche={actions.setNotifiche}
-                    onOpenCircularAnalysis={(url: string, title: string) => modals.setCircularAnalysisModal({ isOpen: true, url, title })}
+                    onOpenCircularAnalysis={(url: string, title: string) => pushModal({
+                        id: 'circular-analysis-modal',
+                        component: (
+                            <CircolareAnalysisModal
+                                url={url}
+                                title={title}
+                                onClose={() => popModal('circular-analysis-modal')}
+                                aiSettings={aiSettings}
+                                onImportEvents={(events) => {
+                                    actions.setEventi((prev: EventoCalendario[]) => {
+                                        const newEvents = events.map(e => ({
+                                            ...e,
+                                            id: `evt-${Date.now()}-${Math.random()}`,
+                                            titolo: e.titolo ?? '',
+                                            data: e.data ?? '',
+                                            tipo: e.tipo ?? 'impegno',
+                                        }));
+                                        return [...prev, ...newEvents];
+                                    });
+                                    actions.showToast(`${events.length} eventi importati.`, 'success');
+                                }}
+                                onSaveToKb={(note) => {
+                                    actions.setKnowledgeBase((prev: KnowledgeBaseEntry[]) => [...prev, {
+                                        id: `kb-note-${Date.now()}`,
+                                        fileName: note.title + '.txt',
+                                        content: note.content,
+                                        category: 'normativa',
+                                        isGenerated: true
+                                    }]);
+                                    actions.showToast('Nota salvata in KB.', 'success');
+                                }}
+                            />
+                        )
+                    })}
                     onNavigate={actions.handleNavigate}
                     isAiProcessing={isGlobalAiLoading}
                     installPrompt={installPrompt}
                     onInstallApp={actions.handleInstallApp}
-                    onOpenOperations={actions.handleOpenOperations}
+                    onOpenBackupInfo={() => pushModal({
+                        id: 'backup-info-modal',
+                        component: (
+                            <BackupInfoModal
+                                onClose={() => popModal('backup-info-modal')}
+                            />
+                        )
+                    })}
+                    onOpenOperations={() => pushModal({
+                        id: 'operations-center',
+                        component: (
+                            <OperationsCenter
+                                onClose={() => popModal('operations-center')}
+                                onNavigate={actions.handleNavigate}
+                                onAction={(action) => {
+                                    if (action === 'year-transition-modal') {
+                                        pushModal({
+                                            id: 'year-transition-wizard',
+                                            component: (
+                                                <PassaggioAnnoWizard
+                                                    onClose={() => popModal('year-transition-wizard')}
+                                                    onPromote={actions.handlePromoteStudents}
+                                                    onReset={actions.handleResetYearData}
+                                                    onExport={actions.handleExportData}
+                                                    students={appState.students}
+                                                    settings={appState.settings}
+                                                />
+                                            )
+                                        });
+                                    } else if (action === 'load-demo') {
+                                        actions.handleLoadDemoData();
+                                        popModal('operations-center');
+                                    } else if (action === 'live-assistant') {
+                                        pushModal({
+                                            id: 'assistant-modal',
+                                            component: (
+                                                <AssistantModal 
+                                                    open={true} 
+                                                    onClose={() => popModal('assistant-modal')} 
+                                                    mode={assistantMode} 
+                                                    aiSettings={aiSettings}
+                                                    context={{ view, viewContext }}
+                                                />
+                                            )
+                                        });
+                                    } else if (action === 'video-analysis') {
+                                        pushModal({
+                                            id: 'video-analysis-modal',
+                                            component: (
+                                                <VideoAnalysisModal 
+                                                    onClose={() => popModal('video-analysis-modal')}
+                                                    onSave={(lesson) => {
+                                                        actions.setLessons((prev: Record<string, Lezione>) => ({ ...prev, [lesson.id]: lesson }));
+                                                        popModal('video-analysis-modal');
+                                                    }}
+                                                />
+                                            )
+                                        });
+                                    }
+                                }}
+                                activeSuggestion={appState.activeSuggestion?.id}
+                                students={appState.students}
+                                settings={appState.settings}
+                                evaluations={appState.evaluations}
+                                competencyEvaluations={appState.competencyEvals}
+                                register={appState.finalizedRegister}
+                                onPromoteStudents={actions.handlePromoteStudents}
+                                onResetData={actions.handleResetYearData}
+                                onBackupData={actions.handleExportData}
+                            />
+                        )
+                    })}
                     hasSuggestion={!!activeSuggestion}
                 />
 
-                {/* Main Scrollable Content */}
+                <div className="app-body">
+                    {/* M3 Expressive Navigation Rail - vertical left navigation */}
+                    <NavigationRail
+                        items={[
+                            { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
+                            { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
+                            { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
+                            { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
+                            { id: 'orientamento', label: 'Orientamento', icon: 'explore', activeIcon: 'explore' },
+                            { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
+                        ]}
+                        activeView={view}
+                        onNavigate={actions.handleNavigate}
+                    />
 
-                <main className="main-content custom-scrollbar">
-                    <div className="content-container">
-                        {/* Banner Suggestion Assistant (solo se suggestion richiede modale) */}
-                        {activeSuggestion && activeSuggestion.action?.type === 'modal' && typeof activeSuggestion.action?.payload === 'string' && activeSuggestion.action.payload === 'isLiveAssistantModalOpen' && !modals.isLiveAssistantModalOpen && (
-                          <SuggestionBanner
-                            suggestion={activeSuggestion}
-                            onAction={() => modals.setIsLiveAssistantModalOpen(true)}
-                          />
-                        )}
-                        <ViewManager
-                            view={view}
-                            viewContext={viewContext}
-                            appState={appState}
-                            actions={actions}
-                            modals={modals}
-                        />
-                    </div>
-                </main>
-
-
-                                {/* M3 Expressive Navigation Rail - vertical left navigation */}
-                                <NavigationRail
-                                    items={[
-                                        { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
-                                        { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
-                                        { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
-                                        { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
-                                        { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
-                                    ]}
-                                    activeView={view}
-                                    onNavigate={actions.handleNavigate}
-                                />
-
-                                {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
-                                {/* Super AI Assistant FAB: floating, multi-action, modal */}
-                                <div style={{position: 'fixed', right: '2.2rem', bottom: '2.2rem', zIndex: 1300, pointerEvents: 'auto'}}>
-                                    <AssistantFab />
-                                </div>
+                    {/* Main Scrollable Content */}
+                    <main className="main-content custom-scrollbar">
+                        <div className="content-container">
+                            {/* Banner Suggestion Assistant (solo se suggestion richiede modale) */}
+                            {activeSuggestion && activeSuggestion.action?.type === 'modal' && typeof activeSuggestion.action?.payload === 'string' && activeSuggestion.action.payload === 'isLiveAssistantModalOpen' && !modals.isLiveAssistantModalOpen && (
+                              <SuggestionBanner
+                                suggestion={activeSuggestion}
+                                onAction={() => modals.setIsLiveAssistantModalOpen(true)}
+                              />
+                            )}
+                            <ViewManager
+                                view={view}
+                                viewContext={viewContext}
+                                appState={appState}
+                                actions={actions}
+                                modals={modals}
+                            />
+                        </div>
+                    </main>
+                </div>
 
                 <ModalManager appState={appState} actions={actions} modals={modals} />
-                                {modals.isLiveAssistantModalOpen && (
-                                    <AssistantModal open={true} onClose={() => modals.setIsLiveAssistantModalOpen(false)} mode={assistantMode} />
-                                )}
+                
+                {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
+                {/* Super AI Assistant FAB: floating, multi-action, modal */}
+                <div 
+                    className="fixed right-6 bottom-[88px] md:bottom-6 pointer-events-auto"
+                    style={{ zIndex: Z_INDEX.assistant.fab }}
+                >
+                    <AssistantFab />
+                </div>
+
                 <Snackbar />
             </div>
-            </M3ExpressiveProvider>
             </ErrorBoundary>
         );
     } catch (err) {

@@ -107,7 +107,7 @@ export const saveKbContentToIndexedDB = async (kbEntries: KnowledgeBaseEntry[]):
     
     try {
         const db = await getDb();
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             try {
                 const transaction = db.transaction(STORE_NAME, 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
@@ -149,7 +149,7 @@ export const saveKbContentToIndexedDB = async (kbEntries: KnowledgeBaseEntry[]):
 export const loadKbContentFromIndexedDB = async (): Promise<Record<string, Partial<KnowledgeBaseEntry>>> => {
     try {
         const db = await getDb();
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             try {
                 const transaction = db.transaction(STORE_NAME, 'readonly');
                 const store = transaction.objectStore(STORE_NAME);
@@ -195,15 +195,19 @@ export const loadKbContentFromIndexedDB = async (): Promise<Record<string, Parti
 export const deleteKbContentFromIndexedDB = async (id: string): Promise<void> => {
     try {
         const db = await getDb();
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction(STORE_NAME, 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
-            void store.delete(id);
-            transaction.oncomplete = () => resolve();
-            transaction.onerror = () => {
-                console.error('Delete KB entry transaction error:', transaction.error);
-                reject(transaction.error);
-            };
+        return await new Promise((resolve, reject) => {
+            try {
+                const transaction = db.transaction(STORE_NAME, 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                void store.delete(id);
+                transaction.oncomplete = () => resolve();
+                transaction.onerror = () => {
+                    console.error('Delete KB entry transaction error:', transaction.error);
+                    reject(transaction.error);
+                };
+            } catch (error) {
+                reject(error);
+            }
         });
     } catch (error) {
         console.error("Failed to initiate delete KB entry:", error);
@@ -217,15 +221,19 @@ export const deleteKbContentFromIndexedDB = async (id: string): Promise<void> =>
 export const clearIndexedDB = async (): Promise<void> => {
     try {
         const db = await getDb();
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction(STORE_NAME, 'readwrite');
-            const store = transaction.objectStore(STORE_NAME);
-            void store.clear();
-            transaction.oncomplete = () => resolve();
-            transaction.onerror = () => {
-                console.error('Clear KB store transaction error:', transaction.error);
-                reject(transaction.error);
-            };
+        return await new Promise((resolve, reject) => {
+            try {
+                const transaction = db.transaction(STORE_NAME, 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                void store.clear();
+                transaction.oncomplete = () => resolve();
+                transaction.onerror = () => {
+                    console.error('Clear KB store transaction error:', transaction.error);
+                    reject(transaction.error);
+                };
+            } catch (error) {
+                reject(error);
+            }
         });
     } catch (error) {
         console.error("Failed to initiate clear KB store:", error);
@@ -238,24 +246,53 @@ export const clearIndexedDB = async (): Promise<void> => {
 export const deleteMainAppBackup = async (): Promise<void> => {
     try {
         const db = await new Promise<IDBDatabase>((resolve, reject) => {
-            const request = indexedDB.open(MAIN_DB_NAME, 1); // Assuming main DB uses version 1
+            const request = indexedDB.open(MAIN_DB_NAME, 3); // Use version 3 to match backupService
             request.onerror = () => reject(new Error('Failed to open main app backup DB.'));
             request.onsuccess = () => resolve(request.result);
             request.onupgradeneeded = () => { /* no upgrade needed here */ };
         });
 
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction('app_state', 'readwrite'); // Assuming store name is 'app_state'
-            const store = transaction.objectStore('app_state');
-            void store.delete('latest_backup'); // Assuming key is 'latest_backup'
-            transaction.oncomplete = () => resolve();
-            transaction.onerror = () => {
-                console.error('Delete main app backup transaction error:', transaction.error);
-                reject(transaction.error);
-            };
+        return await new Promise((resolve, reject) => {
+            try {
+                const transaction = db.transaction('app_state', 'readwrite'); // Assuming store name is 'app_state'
+                const store = transaction.objectStore('app_state');
+                void store.delete('latest_backup'); // Assuming key is 'latest_backup'
+                transaction.oncomplete = () => {
+                    db.close();
+                    resolve();
+                };
+                transaction.onerror = () => {
+                    console.error('Delete main app backup transaction error:', transaction.error);
+                    db.close();
+                    reject(transaction.error);
+                };
+            } catch (error) {
+                db.close();
+                reject(error);
+            }
         });
     } catch (error) {
         console.error("Failed to initiate delete main app backup:", error);
         throw error;
     }
+};
+
+/**
+ * Chiude la connessione al database (utile per cleanup)
+ */
+export const closeDatabase = (): void => {
+    if (dbInstance) {
+        dbInstance.close();
+        dbInstance = null;
+    }
+    dbInitPromise = null;
+    console.log('[IndexedDbService] Database connection closed');
+};
+
+/**
+ * Reset internal state for testing purposes
+ */
+export const resetDbForTesting = () => {
+    dbInstance = null;
+    dbInitPromise = null;
 };

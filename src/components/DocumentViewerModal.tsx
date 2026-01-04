@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { sanitizeHTML } from '../utils/securityUtils';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
 interface DocumentViewerModalProps {
     title: string;
@@ -54,36 +54,37 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
             title={`Anteprima: ${title}`}
             onClose={onClose}
             maxWidth="xl"
+            level={2}
         >
-            <M3DialogContent>
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
                 {!safeHtml ? (
-                     <div className="flex justify-center items-center h-full">
+                     <div className="flex justify-center items-center h-64">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                     </div>
                 ) : (
                     <div
-                        className="document-viewer-content"
+                        className="document-viewer-content prose prose-sm max-w-none dark:prose-invert"
                         dangerouslySetInnerHTML={{ __html: safeHtml }}
                     />
                 )}
             </M3DialogContent>
             <M3DialogActions>
                  {onSaveToKb && (
-                    <button onClick={handleSave} className="button button-outlined mr-auto rounded-lg hover:shadow-md transition-all">
+                    <M3Button onClick={handleSave} variant="outlined" className="mr-auto">
                         <span className="material-symbols-outlined mr-2">save</span>
                         Salva in KB
-                    </button>
+                    </M3Button>
                 )}
-                <button onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Chiudi</button>
-                <button onClick={handleCopyToClipboard} className="button button-tonal rounded-lg hover:shadow-md transition-all">
+                <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
+                <M3Button onClick={handleCopyToClipboard} variant="tonal">
                      <span className="material-symbols-outlined mr-2">{copyStatus === 'copied' ? 'check' : 'content_copy'}</span>
                     {copyStatus === 'copied' ? 'Copiato!' : 'Copia Testo'}
-                </button>
+                </M3Button>
                 {onOpenCreateLesson && (
-                    <button onClick={handleCreateLesson} className="button button-filled rounded-lg hover:shadow-md transition-all">
+                    <M3Button onClick={handleCreateLesson} variant="filled">
                          <span className="material-symbols-outlined mr-2">add_task</span>
                         Crea Lezione
-                    </button>
+                    </M3Button>
                 )}
             </M3DialogActions>
         </M3Dialog>

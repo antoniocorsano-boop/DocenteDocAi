@@ -95,6 +95,29 @@ if (typeof globalThis !== 'undefined' && !globalThis.document && !globalThis.per
   globalThis.performance = { now: () => Date.now() };
 }
 
+// CRITICAL: Initialize scheduler for React - must be defined BEFORE scheduler imports
+if (typeof globalThis !== 'undefined' && !globalThis.scheduler) {
+  globalThis.scheduler = {
+    unstable_now: typeof performance !== 'undefined' && performance.now 
+      ? () => performance.now() 
+      : () => Date.now(),
+    unstable_scheduleCallback: (priority, callback) => {
+      if (typeof setImmediate !== 'undefined') {
+        return setImmediate(callback);
+      }
+      return setTimeout(callback, 0);
+    },
+    unstable_cancelCallback: (id) => {
+      if (typeof clearImmediate !== 'undefined') {
+        clearImmediate(id);
+      } else {
+        clearTimeout(id);
+      }
+    },
+    unstable_shouldYield: () => false,
+  };
+}
+
 // Ensure process.env exists for React and dependencies
 if (typeof globalThis !== 'undefined' && !globalThis.process) {
   globalThis.process = {

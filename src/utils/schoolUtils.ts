@@ -1,4 +1,4 @@
-import { Studente } from '../components/types'; // FIX: Updated import path for types
+import { Studente } from '../types';
 
 /**
  * Parses a class string (e.g., "1A", "3B", "5AS") into its components.

@@ -65,6 +65,10 @@ export const useSettingsLogic = ({
         setLocalSettings(prev => ({ ...prev, [field]: value }));
     }, []);
 
+    const handleThemeChange = useCallback((partial: Partial<AppThemeState>) => {
+        onSaveTheme({ ...themeState, ...partial });
+    }, [themeState, onSaveTheme]);
+
     const handleBulkAssign = useCallback((selectedClasses: string[], selectedSubjects: string[]) => {
         const newAssignments = [...(localSettings.teachingAssignments || [])];
         let addedCount = 0;
@@ -165,6 +169,7 @@ export const useSettingsLogic = ({
         localSettings,
         localAiSettings,
         handleChange,
+        handleThemeChange,
         handleAiProfileChange,
         handleResetAiCache,
         themePrompt,

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField } from './ui';
 
 interface ResetConfirmModalProps {
     onClose: () => void;
@@ -13,42 +13,41 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
 
     return (
         <M3Dialog
-            title={
-                <h3 className="m3-headline-small text-error flex items-center gap-2">
-                    <span className="material-symbols-outlined">warning</span>
-                    Attenzione
-                </h3>
-            }
+            title="Attenzione"
             onClose={onClose}
             maxWidth="sm"
+            level={3}
         >
-            <M3DialogContent className="space-y-4">
-                <p className="m3-body-medium">
-                    Stai per cancellare <strong>TUTTI</strong> i dati locali (studenti, voti, lezioni). 
-                    Questa azione è <strong>irreversibile</strong> se non hai un backup su Drive.
-                </p>
-                <div>
-                    <label className="form-label text-xs">Digita "CANCELLA" per confermare</label>
-                    <input 
-                        type="text" 
-                        value={confirmText}
-                        onChange={e => setConfirmText(e.target.value)}
-                        className="form-input w-full border-error focus:border-error focus:ring-1 focus:ring-error"
-                        placeholder="CANCELLA"
-                        autoFocus
-                    />
+            <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
+                <div className="flex items-center gap-3 text-error mb-4">
+                    <span className="material-symbols-outlined text-3xl">warning</span>
+                    <span className="font-bold">Azione Irreversibile</span>
                 </div>
+                <p className="m3-body-large leading-relaxed">
+                    Stai per cancellare <strong>TUTTI</strong> i dati locali (studenti, voti, lezioni). 
+                    Questa azione è <strong className="text-error">irreversibile</strong> se non hai un backup su Drive.
+                </p>
+                
+                <TextField 
+                    label='Digita "CANCELLA" per confermare'
+                    value={confirmText}
+                    onChange={e => setConfirmText(e.target.value)}
+                    placeholder="CANCELLA"
+                    autoFocus
+                    error={confirmText.length > 0 && !isValid && confirmText.length >= 8}
+                />
             </M3DialogContent>
 
-            <M3DialogActions className="gap-2">
-                <button onClick={onClose} className="button button-text">Annulla</button>
-                <button 
+            <M3DialogActions className="bg-surface-container-lowest border-t border-outline-variant/30">
+                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                <M3Button 
                     onClick={onConfirm} 
                     disabled={!isValid}
-                    className="button button-filled bg-error text-on-error disabled:opacity-50"
+                    variant="filled"
+                    className="!bg-error !text-on-error"
                 >
                     Reset Totale
-                </button>
+                </M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

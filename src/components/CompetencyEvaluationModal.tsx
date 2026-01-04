@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Studente, Competenza, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
 import { generateCompetencyNote } from '../services/aiService';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
 interface CompetencyEvaluationModalProps {
     student: Studente;
@@ -59,12 +59,12 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
     return (
         <M3Dialog
             title="Valuta Competenza"
-            open={true}
             onClose={onClose}
             maxWidth="md"
+            level={1}
         >
             <form onSubmit={handleSubmit} className="space-y-6">
-                <M3DialogContent className="space-y-4">
+                <M3DialogContent className="space-y-4 bg-surface-container-high/30 backdrop-blur-sm">
                     <p className="m3-body-medium text-on-surface-variant">{student.cognome} {student.nome} - {competenza.nome}</p>
 
                     <div>
@@ -110,11 +110,12 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                 {!selectedLevelId && !isGeneratingNote && (
                                     <span className="m3-label-small text-on-surface-variant">(Seleziona un livello)</span>
                                 )}
-                                <button
+                                <M3Button
                                     type="button"
                                     onClick={handleGenerateNote}
                                     disabled={isGeneratingNote || !selectedLevelId}
-                                    className="button button-text !py-1 !px-2 !h-auto flex items-center gap-1"
+                                    variant="text"
+                                    className="!py-1 !px-2 !h-auto flex items-center gap-1"
                                     title="Genera nota con AI"
                                 >
                                     {isGeneratingNote ? (
@@ -123,7 +124,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                         <span className="material-symbols-outlined m3-body-medium">auto_awesome</span>
                                     )}
                                     <span className="m3-label-medium">{isGeneratingNote ? 'Generando...' : 'Suggerisci nota'}</span>
-                                </button>
+                                </M3Button>
                             </div>
                         </div>
                         <textarea id="note" value={nota} onChange={e => setNota(e.target.value)} className="form-textarea w-full" rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..."></textarea>
@@ -131,8 +132,8 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                 </M3DialogContent>
 
                 <M3DialogActions className="gap-2">
-                    <button type="button" onClick={onClose} className="button button-text">Annulla</button>
-                    <button type="submit" className="button button-filled">Salva Valutazione</button>
+                    <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
+                    <M3Button type="submit" variant="filled">Salva Valutazione</M3Button>
                 </M3DialogActions>
             </form>
         </M3Dialog>

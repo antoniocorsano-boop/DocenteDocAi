@@ -1,11 +1,9 @@
 
 import React, { useState } from 'react';
-import Tooltip from './Tooltip';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
-import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
+import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
-import { saveAs } from '../utils/documentUtils';
-import { M3Dialog, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField, InfoCard } from './ui';
 
 interface UdaExportModalProps {
     uda: Uda;
@@ -98,96 +96,123 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             onClose();
             
         } catch (error) {
-             console.error("Failed to generate DOCX:", error);
-             alert("Errore durante la generazione del file Word.");
+            console.error("Failed to generate UDA DOCX:", error);
+            alert("Si è verificato un errore durante la generazione del file Word.");
         } finally {
             setIsExporting(false);
         }
     };
 
-    const handleGenerateMarkdownReport = async () => {
+    const handleAiReport = async () => {
         setIsExporting(true);
         try {
-            const data = {
-                ...uda,
-                docente: settings.nomeInsegnante,
-                istituto: settings.nomeIstituto,
-                competenze: uda.competencyIds.map(id => competenze.find(c => c.id === id)?.nome).filter(Boolean)
-            };
-            const report = await generateMarkdownReport(aiSettings, 'uda', data);
+            const prompt = `Genera un report dettagliato per l'UDA "${uda.title}". 
+            Contesto: ${uda.introduction}. 
+            Fasi: ${uda.phases.map(p => p.title).join(', ')}.
+            Tipo documento: ${docType === 'docente' ? 'Progettazione tecnica per docenti' : 'Guida semplificata per studenti'}.`;
+            
+            const report = await generateMarkdownReport(prompt, aiSettings);
             setMarkdownReport(report);
         } catch (error) {
-            console.error("Failed to generate markdown report:", error);
-            alert("Errore durante la generazione del report.");
+            console.error("AI Report generation failed:", error);
+            alert("L'assistente AI non è riuscito a generare il report.");
         } finally {
             setIsExporting(false);
         }
     };
-
-    const handleCopyToClipboard = () => {
-        if (!markdownReport) return;
-        navigator.clipboard.writeText(markdownReport).then(() => {
-            alert('Report copiato negli appunti!');
-            onClose();
-        }).catch(err => {
-            console.error('Failed to copy text: ', err);
-            alert('Impossibile copiare il testo.');
-        });
-    };
-
-    if (markdownReport) {
-        return (
-            <M3Dialog
-                title="Report Generato"
-                onClose={onClose}
-                maxWidth="2xl"
-            >
-                <div className="space-y-4">
-                    <p className="m3-body-medium text-on-surface-variant">Copia questo testo e incollalo in Google Docs, Word o un altro editor di testo.</p>
-                    <div className="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant max-h-[60vh] overflow-y-auto">
-                        <pre className="whitespace-pre-wrap m3-body-medium">{markdownReport}</pre>
-                    </div>
-                </div>
-
-                <M3DialogActions>
-                    <button onClick={onClose} className="button button-text">Annulla</button>
-                    <button onClick={handleCopyToClipboard} className="button button-filled">Copia negli Appunti</button>
-                </M3DialogActions>
-            </M3Dialog>
-        )
-    }
 
     return (
         <M3Dialog
-            title="Esporta Progetto"
-            headline={uda.title}
             onClose={onClose}
-            maxWidth="md"
+            title="Esporta UDA"
+            maxWidth="sm"
+            level={1}
         >
-            <div className="space-y-4">
-                <div className="segmented-button-group">
-                    <button onClick={() => setDocType('docente')} className={`segmented-button ${docType === 'docente' ? 'active' : ''}`}>Uso Docente</button>
-                    <button onClick={() => setDocType('studente')} className={`segmented-button ${docType === 'studente' ? 'active' : ''}`}>Uso Studente</button>
-                </div>
-                <p className="m3-body-medium text-on-surface-variant">
-                    {docType === 'docente'
-                        ? "Genera un documento dettagliato per la programmazione, includendo competenze e metodi di valutazione."
-                        : "Genera una guida al progetto semplificata per gli studenti, senza dettagli sulla valutazione."}
-                </p>
-            </div>
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+                <div className="flex flex-col gap-6 py-2">
+                    <div className="p-4 bg-primary-container/10 rounded-2xl border border-primary/20">
+                        <p className="m3-body-medium text-on-surface">
+                            Stai esportando: <strong>{uda.title}</strong>
+                        </p>
+                    </div>
 
+                    <SelectField
+                        label="Tipo di Documento"
+                        value={docType}
+                        onChange={(e) => setDocType(e.target.value as 'docente' | 'studente')}
+                        options={[
+                            { value: 'docente', label: 'Progettazione per Docente (Completa)' },
+                            { value: 'studente', label: 'Guida per Studente (Semplificata)' }
+                        ]}
+                        fullWidth
+                    />
+
+                    <div className="grid grid-cols-1 gap-3">
+                        <button 
+                            onClick={handlePdfExport}
+                            disabled={isExporting}
+                            className="flex items-center gap-4 p-4 rounded-3xl bg-surface-container-lowest hover:bg-primary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
+                        >
+                            <div className="w-12 h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                                <span className="material-symbols-outlined text-2xl">picture_as_pdf</span>
+                            </div>
+                            <div>
+                                <p className="m3-label-large font-bold text-lg">Esporta in PDF</p>
+                                <p className="m3-body-small text-on-surface-variant">Ideale per stampa e archiviazione</p>
+                            </div>
+                        </button>
+
+                        <button 
+                            onClick={handleDocxExport}
+                            disabled={isExporting}
+                            className="flex items-center gap-4 p-4 rounded-3xl bg-surface-container-lowest hover:bg-secondary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
+                        >
+                            <div className="w-12 h-12 rounded-2xl bg-secondary-container text-on-secondary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                                <span className="material-symbols-outlined text-2xl">description</span>
+                            </div>
+                            <div>
+                                <p className="m3-label-large font-bold text-lg">Esporta in Word</p>
+                                <p className="m3-body-small text-on-surface-variant">Per modifiche manuali successive</p>
+                            </div>
+                        </button>
+
+                        <button 
+                            onClick={handleAiReport}
+                            disabled={isExporting}
+                            className="flex items-center gap-4 p-4 rounded-3xl bg-surface-container-lowest hover:bg-tertiary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
+                        >
+                            <div className="w-12 h-12 rounded-2xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                                <span className="material-symbols-outlined text-2xl">auto_awesome</span>
+                            </div>
+                            <div>
+                                <p className="m3-label-large font-bold text-lg">Report con AI</p>
+                                <p className="m3-body-small text-on-surface-variant">Genera analisi e suggerimenti didattici</p>
+                            </div>
+                        </button>
+                    </div>
+
+                    {isExporting && (
+                        <div className="flex items-center justify-center gap-3 p-4 bg-surface-container-high rounded-2xl animate-pulse">
+                            <span className="material-symbols-outlined animate-spin">sync</span>
+                            <span className="m3-label-large">Generazione in corso...</span>
+                        </div>
+                    )}
+
+                    {markdownReport && (
+                        <div className="mt-4 p-4 bg-surface-container-lowest rounded-3xl border border-outline-variant/30">
+                            <h4 className="m3-label-large mb-2 text-tertiary">Report AI Generato</h4>
+                            <div className="prose prose-sm max-h-60 overflow-y-auto">
+                                {markdownReport}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </M3DialogContent>
             <M3DialogActions>
-                <button onClick={onClose} className="button button-text" disabled={isExporting}>Annulla</button>
-                <button onClick={handleGenerateMarkdownReport} className="button button-tonal" disabled={isExporting}>Report Testuale</button>
-                <button onClick={handleDocxExport} className="button button-outlined" disabled={isExporting}>
-                    <span className="material-symbols-outlined mr-2">description</span>
-                    Word (.docx)
-                </button>
-                <button onClick={handlePdfExport} className="button button-filled" disabled={isExporting}>
-                    <span className="material-symbols-outlined mr-2">picture_as_pdf</span>
-                    {isExporting ? 'Esportazione...' : 'Esporta PDF'}
-                </button>
+                <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );
 };
+
+export default UdaExportModal;

@@ -2,9 +2,15 @@
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, TimetableSettings, AiSettings, Report, ValutazioneCompetenza, PeriodoValutazione } from '../types';
 import { generateCouncilDataPdf, viewPdfInNewTab } from '../utils/documentUtils';
-import { TabGroup, SelectField, InfoCard } from './M3Components';
-import { M3Dialog } from './M3Dialog';
-
+import { 
+    M3Dialog, 
+    M3DialogContent, 
+    M3DialogActions, 
+    M3Button, 
+    TabGroup, 
+    SelectField, 
+    InfoCard 
+} from './ui';
 
 interface ConsiglioClasseWizardProps {
     onClose: () => void;
@@ -53,7 +59,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
 
     const renderStep1 = () => (
         <>
-            <div className="dialog-content space-y-6">
+            <M3DialogContent className="space-y-6">
                 <InfoCard 
                     title="Seleziona il contesto" 
                     description="Scegli la classe e il periodo di riferimento per il quale desideri generare il report." 
@@ -84,29 +90,34 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                         className="w-full"
                     />
                 </div>
-            </div>
-            <div className="dialog-footer border-t border-outline-variant pt-4">
-                <button onClick={props.onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Annulla</button>
-                <button onClick={() => setStep(2)} disabled={!selectedClass} className="button button-filled shadow-lg font-black rounded-lg hover:shadow-md transition-all">
-                    Continua <span className="material-symbols-outlined ml-2">arrow_forward</span>
-                </button>
-            </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <M3Button variant="text" onClick={props.onClose}>Annulla</M3Button>
+                <M3Button 
+                    variant="filled" 
+                    onClick={() => setStep(2)} 
+                    disabled={!selectedClass}
+                    endIcon={<span className="material-symbols-outlined">arrow_forward</span>}
+                >
+                    Continua
+                </M3Button>
+            </M3DialogActions>
         </>
     );
 
     const renderStep2 = () => (
         <>
-            <div className="dialog-content space-y-6">
+            <M3DialogContent className="space-y-6">
                 <div className="p-5 bg-primary-container/20 rounded-3xl border border-primary/20 flex items-center justify-between">
                     <div>
                         <p className="text-[9px] font-black uppercase tracking-widest text-primary">Context Active</p>
                         <h3 className="m3-title-large font-black text-on-surface">{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
                     </div>
-                    <button onClick={() => setStep(1)} className="button button-tonal !h-10 !px-4 text-xs font-bold uppercase rounded-lg hover:shadow-md transition-all">Cambia</button>
+                    <M3Button variant="tonal" onClick={() => setStep(1)} className="!h-10 !px-4 text-xs font-bold uppercase">Cambia</M3Button>
                 </div>
 
                 <div className="action-list space-y-3">
-                    <button onClick={handleGeneratePdf} className="op-tile op-tile-variant-primary !bg-surface shadow-md group rounded-lg hover:shadow-md transition-all">
+                    <button onClick={handleGeneratePdf} className="op-tile op-tile-variant-primary !bg-surface shadow-md group rounded-lg hover:shadow-md transition-all w-full text-left">
                         <div className="op-tile-icon-container"><span className="material-symbols-outlined group-hover:scale-110 transition-transform">picture_as_pdf</span></div>
                         <div className="op-tile-content">
                             <p className="op-tile-title">Tabellone Dati (PDF)</p>
@@ -118,10 +129,10 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                 <p className="m3-body-small text-on-surface-variant italic text-center px-4">
                     Il report verrà generato e aperto in una nuova scheda del browser.
                 </p>
-            </div>
-            <div className="dialog-footer">
-                <button onClick={() => setStep(1)} className="button button-text rounded-lg hover:shadow-md transition-all">Indietro</button>
-            </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <M3Button variant="text" onClick={() => setStep(1)}>Indietro</M3Button>
+            </M3DialogActions>
         </>
     );
     
@@ -132,10 +143,10 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                  title=""
                  maxWidth="sm"
              >
-                <div className="flex flex-col items-center justify-center text-center py-8">
+                <M3DialogContent className="flex flex-col items-center justify-center text-center py-8">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary mb-6"></div>
                     <p className="m3-title-medium font-black text-primary animate-pulse">{loadingMessage}</p>
-                </div>
+                </M3DialogContent>
             </M3Dialog>
         )
     }

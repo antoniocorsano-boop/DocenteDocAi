@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { PianoInclusione, PianoInclusioneEditorProps } from '../types';
 import { getPIPSuggestion } from '../services/aiService';
-import { TextArea } from './M3Components';
-import AiThinkingGem from './AiThinkingGem';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
-// REFACTOR: Rimosso import './dialog-container.css' - ora usando M3Dialog con CSS centralizzato
+import { 
+    M3Dialog, 
+    M3DialogContent, 
+    M3DialogActions, 
+    M3Button, 
+    TextArea, 
+    InfoCard,
+    SectionHeader,
+    AiThinkingGem 
+} from './ui';
 
 type SectionKey = 'puntiDiForza' | 'areeDiIntervento' | 'misureCompensative' | 'misureDispensative' | 'criteriValutazionePersonalizzati';
 
@@ -15,22 +21,33 @@ const createEmptyPiano = (studentId: string): PianoInclusione => ({
     misureCompensative: '',
     misureDispensative: '',
     criteriValutazionePersonalizzati: '',
+    obiettiviPerMateria: {},
 });
 
 const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, existingPiano, onClose, onSave, onDeletePiano, aiSettings, evaluations, competencyEvaluations, settings, showToast }) => {
     const [piano, setPiano] = useState<PianoInclusione>(existingPiano || createEmptyPiano(student.id));
-    const [loadingSection, setLoadingSection] = useState<SectionKey | null>(null);
+    const [loadingSection, setLoadingSection] = useState<string | null>(null);
 
     const handleChange = (field: SectionKey, value: string) => {
         setPiano(prev => ({ ...prev, [field]: value }));
     };
 
-    const handleGenerateText = async (section: SectionKey) => {
+    const handleMateriaChange = (materia: string, value: string) => {
+        setPiano(prev => ({
+            ...prev,
+            obiettiviPerMateria: {
+                ...(prev.obiettiviPerMateria || {}),
+                [materia]: value
+            }
+        }));
+    };
+
+    const handleGenerateText = async (section: string) => {
         setLoadingSection(section);
         try {
             const studentEvaluations = evaluations.filter(e => e.studenteId === student.id);
             const studentCompetencies = competencyEvaluations.filter(e => e.studenteId === student.id);
-            // FIX: Ensure correct types are passed to getPIPSuggestion
+            
             const text = await getPIPSuggestion(
                 aiSettings,
                 student,
@@ -39,7 +56,13 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                 settings.competenze,
                 section
             );
-            handleChange(section, text);
+
+            if (section.startsWith('obj-')) {
+                const materia = section.replace('obj-', '');
+                handleMateriaChange(materia, text);
+            } else {
+                handleChange(section as SectionKey, text);
+            }
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error(`Error generating text for ${section}`, error);
@@ -75,80 +98,136 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
     return (
         <M3Dialog
             title="Piano di Inclusione"
-            open={true}
             onClose={onClose}
             maxWidth="lg"
-            ariaLabel={`Piano di Inclusione per ${student.cognome} ${student.nome}`}
         >
-            <form onSubmit={handleSubmit} className="flex flex-col gap-0">
-                <M3DialogContent className="p-8 space-y-8 overflow-y-auto max-h-[70vh]">
+            <form onSubmit={handleSubmit} className="flex flex-col h-full">
+                <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm p-6 space-y-8 overflow-y-auto">
                     {/* Subtitle */}
-                    <div className="pb-4 border-b border-outline-variant">
-                        <p className="m3-body-medium text-on-surface-variant">
-                            {student.cognome} {student.nome} • Classe {student.classe}
-                        </p>
+                    <div className="pb-4 border-b border-outline-variant/30">
+                        <SectionHeader 
+                            title={`${student.cognome} ${student.nome}`}
+                            subtitle={`Classe ${student.classe} • Redazione Piano di Inclusione Personalizzato`}
+                            variant="small"
+                        />
                     </div>
 
                     {/* Sections */}
-                    {sections.map(section => (
-                        <div key={section.key} className="space-y-3">
-                            <div className="flex justify-between items-center">
-                                <label htmlFor={section.key} className="m3-title-medium">
-                                    {section.label}
-                                </label>
-                                <button
-                                    type="button"
-                                    onClick={() => handleGenerateText(section.key)}
-                                    disabled={loadingSection === section.key}
-                                    className="button button-text !h-auto !py-1 !px-2 flex items-center gap-1 font-black uppercase m3-label-small rounded-full hover:shadow-md transition-all"
-                                    title="Usa l'AI per compilare questa sezione"
-                                >
-                                    {loadingSection === section.key ? (
-                                        <AiThinkingGem size="small" inline text="Generando..." />
-                                    ) : (
-                                        <span className="material-symbols-outlined mr-1 m3-body-medium">auto_awesome</span>
-                                    )}
-                                    {loadingSection === section.key ? '' : 'AI'}
-                                </button>
+                    <div className="space-y-6">
+                        {sections.map(section => (
+                            <InfoCard key={section.key} variant="elevated" className="p-6 space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <h3 className="text-sm font-bold text-primary uppercase tracking-wider">
+                                        {section.label}
+                                    </h3>
+                                    <M3Button
+                                        type="button"
+                                        onClick={() => handleGenerateText(section.key)}
+                                        disabled={loadingSection === section.key}
+                                        variant="tonal"
+                                        size="small"
+                                        className="!rounded-full"
+                                    >
+                                        {loadingSection === section.key ? (
+                                            <AiThinkingGem size="small" inline text="Generando..." />
+                                        ) : (
+                                            <>
+                                                <span className="material-symbols-outlined mr-1 text-sm">auto_awesome</span>
+                                                AI
+                                            </>
+                                        )}
+                                    </M3Button>
+                                </div>
+                                <TextArea
+                                    id={section.key}
+                                    label=""
+                                    value={piano[section.key]}
+                                    onChange={e => handleChange(section.key, e.target.value)}
+                                    rows={5}
+                                    placeholder={section.placeholder}
+                                    className="bg-surface-container-lowest/50"
+                                />
+                            </InfoCard>
+                        ))}
+
+                        {/* Obiettivi per Materia */}
+                        <InfoCard variant="elevated" className="p-6 space-y-4">
+                            <div className="flex items-center gap-2 mb-2">
+                                <span className="material-symbols-outlined text-primary">subject</span>
+                                <h3 className="text-sm font-bold text-primary uppercase tracking-wider">
+                                    Obiettivi per Materia (PEI/PDP)
+                                </h3>
                             </div>
-                            <TextArea
-                                id={section.key}
-                                label=""
-                                value={piano[section.key]}
-                                onChange={e => handleChange(section.key, e.target.value)}
-                                rows={5}
-                                placeholder={section.placeholder}
-                                containerClassName="shadow-inner !bg-surface-container-lowest"
-                            />
-                        </div>
-                    ))}
+                            <p className="text-xs text-on-surface-variant mb-4">
+                                Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
+                            </p>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {settings.disciplines.map(materia => (
+                                    <div key={materia} className="space-y-2 p-4 rounded-xl bg-surface-container-lowest/50 border border-outline-variant/30">
+                                        <div className="flex justify-between items-center">
+                                            <label className="text-xs font-bold text-primary flex items-center gap-2">
+                                                <span className="material-symbols-outlined text-[16px]">book</span>
+                                                {materia}
+                                            </label>
+                                            <M3Button
+                                                type="button"
+                                                onClick={() => handleGenerateText(`obj-${materia}`)}
+                                                disabled={loadingSection === `obj-${materia}`}
+                                                variant="text"
+                                                size="small"
+                                                className="!min-w-0 !p-1"
+                                            >
+                                                {loadingSection === `obj-${materia}` ? (
+                                                    <AiThinkingGem size="small" inline />
+                                                ) : (
+                                                    <span className="material-symbols-outlined text-sm text-primary/70 hover:text-primary">auto_awesome</span>
+                                                )}
+                                            </M3Button>
+                                        </div>
+                                        <TextArea
+                                            id={`obj-${materia}`}
+                                            label=""
+                                            value={piano.obiettiviPerMateria?.[materia] || ''}
+                                            onChange={e => handleMateriaChange(materia, e.target.value)}
+                                            rows={3}
+                                            placeholder={`Obiettivi per ${materia}...`}
+                                            className="!bg-transparent"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </InfoCard>
+                    </div>
                 </M3DialogContent>
 
                 {/* Actions */}
-                <M3DialogActions className="gap-2 bg-surface-container-high p-6 border-t border-outline-variant">
+                <M3DialogActions className="bg-surface-container-high/80 backdrop-blur-md p-6 border-t border-outline-variant/30">
                     {existingPiano && (
-                        <button
+                        <M3Button
                             type="button"
                             onClick={handleDelete}
-                            className="button button-outlined-error mr-auto rounded-lg hover:shadow-md transition-all"
+                            variant="outlined"
+                            className="mr-auto !text-error !border-error/30 hover:!bg-error/5"
                         >
                             <span className="material-symbols-outlined mr-2">delete</span>
                             Elimina
-                        </button>
+                        </M3Button>
                     )}
-                    <button
+                    <M3Button
                         type="button"
                         onClick={onClose}
-                        className="button button-text font-bold"
+                        variant="text"
                     >
                         Annulla
-                    </button>
-                    <button
+                    </M3Button>
+                    <M3Button
                         type="submit"
-                        className="button button-filled shadow-xl font-black !px-10"
+                        variant="filled"
+                        className="!px-8"
                     >
                         Salva Piano
-                    </button>
+                    </M3Button>
                 </M3DialogActions>
             </form>
         </M3Dialog>

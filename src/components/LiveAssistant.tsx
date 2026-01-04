@@ -3,7 +3,7 @@ import { LiveServerMessage, Modality, Type } from '@google/genai';
 import { LiveAssistantProps, TranscriptEntry, View } from '../types.ts';
 import { getGoogleAIClient } from '../services/aiClient.ts';
 import { performWebSearch } from '../services/aiService.ts';
-import { AiMemoryChip } from './M3Components.tsx';
+import { AiMemoryChip } from './ui';
 
 // --- AUDIO ENCODING & DECODING ---
 function encode(bytes: Uint8Array): string {

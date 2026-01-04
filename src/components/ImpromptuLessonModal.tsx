@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { SelectField, TextArea } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { 
+    M3Dialog, 
+    M3DialogContent, 
+    M3DialogActions, 
+    M3Button, 
+    SelectField, 
+    TextArea,
+    SectionHeader
+} from './ui';
 
 interface ImpromptuLessonModalProps {
     classe: string;
@@ -17,70 +24,73 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
         if (disciplines && disciplines.length > 0 && !materia) {
             setMateria(disciplines[0]);
         }
-    }, [disciplines]);
+    }, [disciplines, materia]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         const selectedMateria = materia || (disciplines && disciplines.length > 0 ? disciplines[0] : '');
 
         if (!selectedMateria) {
-            alert("Seleziona una materia.");
             return;
         }
         if (!contenuto.trim()) {
-            alert("Inserisci un argomento per la lezione.");
             return;
         }
         onStart(classe, selectedMateria, contenuto.trim());
     };
 
-    const handleSubmitWrapper = (e: React.FormEvent) => {
-        handleSubmit(e);
-    };
-
     return (
-        <form onSubmit={handleSubmitWrapper}>
-            <M3Dialog
-                title={
-                    <div>
-                        <h2 className="m3-headline-medium font-black">Lezione Rapida</h2>
-                        <p className="m3-body-medium text-on-surface-variant font-bold uppercase tracking-widest text-[10px] mt-1">Classe: {classe}</p>
-                    </div>
-                }
-                onClose={onClose}
-                maxWidth="lg"
-            >
-                <M3DialogContent className="space-y-6">
-                    <SelectField 
-                        label="Materia" 
-                        value={materia} 
-                        onChange={e => setMateria(e.target.value)} 
-                        required
-                    >
-                        <option value="" disabled>Seleziona materia...</option>
-                        {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                    </SelectField>
-
-                    <TextArea 
-                        label="Argomento della lezione" 
-                        value={contenuto} 
-                        onChange={e => setContenuto(e.target.value)} 
-                        rows={4} 
-                        placeholder="Es. 'Esercitazione su equazioni di secondo grado'..." 
-                        required
-                        autoFocus
+        <M3Dialog
+            title="Lezione Rapida"
+            onClose={onClose}
+            maxWidth="md"
+        >
+            <form onSubmit={handleSubmit} className="flex flex-col h-full">
+                <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm p-6 space-y-6">
+                    <SectionHeader 
+                        title="Avvio Sessione"
+                        subtitle={`Classe ${classe} • Configura i dettagli della lezione`}
+                        variant="small"
                     />
+
+                    <div className="space-y-4">
+                        <SelectField 
+                            label="Materia" 
+                            value={materia} 
+                            onChange={e => setMateria(e.target.value)} 
+                            required
+                        >
+                            <option value="" disabled>Seleziona materia...</option>
+                            {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
+                        </SelectField>
+
+                        <TextArea 
+                            label="Argomento della lezione" 
+                            value={contenuto} 
+                            onChange={e => setContenuto(e.target.value)} 
+                            rows={4} 
+                            placeholder="Es. 'Esercitazione su equazioni di secondo grado'..." 
+                            required
+                            autoFocus
+                        />
+                    </div>
                 </M3DialogContent>
 
-                <M3DialogActions className="gap-2">
-                    <button type="button" onClick={onClose} className="button button-text">Annulla</button>
-                    <button type="submit" className="button button-filled shadow-lg">
-                        <span className="material-symbols-outlined mr-2 font-black">door_open</span>
+                <M3DialogActions className="bg-surface-container-high/80 backdrop-blur-md p-6 border-t border-outline-variant/30">
+                    <M3Button type="button" onClick={onClose} variant="text">
+                        Annulla
+                    </M3Button>
+                    <M3Button 
+                        type="submit" 
+                        variant="filled"
+                        disabled={!materia || !contenuto.trim()}
+                    >
+                        <span className="material-symbols-outlined mr-2">door_open</span>
                         Avvia Aula
-                    </button>
+                    </M3Button>
                 </M3DialogActions>
-            </M3Dialog>
-        </form>
+            </form>
+        </M3Dialog>
     );
 };
 

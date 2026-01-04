@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { HomeworkSubmission, Lezione, Studente } from '../types'; // FIX: Corrected import path to ../types
-import Avatar from './Avatar';
-import { saveAs } from '../utils/documentUtils';
-import { TextField, SelectField } from './M3Components';
+import { HomeworkSubmission, Lezione, Studente } from '../types';
+import { TextField, SelectField, M3Button, InfoCard, Avatar } from './ui';
 import { RATING_OPTIONS } from '../constants';
 
 interface HomeworkSubmissionProps {
@@ -36,34 +34,35 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
     };
 
     return (
-        <div className="card border-l-4 border-l-primary flex flex-col gap-8 shadow-xl !rounded-[40px] !p-8 animate-in fade-in">
-            <div className="flex items-center gap-6">
-                <Avatar name={student.nome} surname={student.cognome} size="large" className="shadow-md" />
+        <div className="bg-surface-container-low/30 backdrop-blur-xl border border-outline-variant/30 rounded-4xl p-8 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex items-center gap-6 mb-8">
+                <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="shadow-lg ring-4 ring-primary/10" />
                 <div className="min-w-0">
-                    <h3 className="m3-headline-small font-black truncate">{student.cognome} {student.nome}</h3>
+                    <h3 className="m3-headline-small font-black truncate text-on-surface">{student.cognome} {student.nome}</h3>
                     <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em] mt-1 opacity-70">
                         {lesson.materia} • {lesson.contenuto}
                     </p>
                 </div>
             </div>
 
-            <div className="bg-surface-container-high p-6 rounded-[32px] border border-outline-variant flex items-center justify-between shadow-inner">
+            <div className="bg-surface-container-high/50 backdrop-blur-md p-6 rounded-2xl border border-outline-variant/20 flex items-center justify-between shadow-inner mb-8">
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-primary-container text-primary flex items-center justify-center">
-                        <span className="material-symbols-outlined text-2xl">description</span>
+                    <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shadow-sm">
+                        <span className="material-symbols-outlined text-3xl">description</span>
                     </div>
                     <div>
                         <p className="text-sm font-black text-on-surface">{submission.file?.name || 'Allegato Elaborato'}</p>
                         <p className="text-[10px] text-on-surface-variant font-mono uppercase mt-1 opacity-60">{submission.file?.mimeType}</p>
                     </div>
                 </div>
-                <button onClick={handleDownload} className="button button-tonal !h-12 !px-6 text-sm font-black shadow-sm">
-                    <span className="material-symbols-outlined mr-2">download</span> Scarica
-                </button>
+                <M3Button onClick={handleDownload} variant="tonal" className="!h-12 !px-6 text-sm font-black shadow-sm">
+                    <span className="material-symbols-outlined mr-2">download</span> 
+                    Scarica
+                </M3Button>
             </div>
 
             {submission.status === 'pending' && onGrade && (
-                <div className="space-y-6 pt-6 border-t border-outline-variant/30">
+                <div className="space-y-6 pt-8 border-t border-outline-variant/10">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                         <SelectField
                             label="Voto Finale"
@@ -80,23 +79,30 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                             onChange={(e) => setFeedback(e.target.value)}
                             placeholder="Es. Analisi molto curata, bravo..."
                             containerClassName="md:col-span-3"
+                            leadingIcon="chat"
                         />
                     </div>
-                    <button onClick={handleGradeSubmit} disabled={!grade} className="button button-filled w-full justify-center shadow-lg font-black !h-14 !rounded-[24px]">
+                    <M3Button 
+                        onClick={handleGradeSubmit} 
+                        disabled={!grade} 
+                        variant="filled"
+                        className="w-full justify-center shadow-lg font-black !h-16 !rounded-xl text-sm uppercase tracking-widest"
+                    >
+                        <span className="material-symbols-outlined mr-2">task_alt</span>
                         Registra Valutazione & Archivia
-                    </button>
+                    </M3Button>
                 </div>
             )}
 
             {submission.status === 'graded' && (
-                <div className="bg-secondary-container/20 text-secondary p-6 rounded-[32px] border border-secondary/20 flex items-center gap-5">
-                    <div className="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md">
-                        <span className="material-symbols-outlined text-2xl">check</span>
+                <div className="bg-secondary-container/10 text-secondary p-6 rounded-2xl border border-secondary/20 flex items-center gap-5">
+                    <div className="w-14 h-14 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-lg">
+                        <span className="material-symbols-outlined text-3xl">check</span>
                     </div>
                     <div>
-                        <p className="text-sm font-black uppercase tracking-widest">Valutato con successo</p>
-                        <p className="m3-title-medium font-black text-on-surface mt-1">Esito: {submission.teacherFeedback}</p>
-                        {feedback && <p className="text-xs opacity-70 mt-1 italic">"{feedback}"</p>}
+                        <p className="text-xs font-black uppercase tracking-widest opacity-70">Valutato con successo</p>
+                        <p className="m3-title-large font-black text-on-surface mt-1">Esito: {submission.teacherFeedback}</p>
+                        {feedback && <p className="text-sm opacity-70 mt-2 italic bg-surface-container-low/50 p-3 rounded-xl border border-outline-variant/10">"{feedback}"</p>}
                     </div>
                 </div>
             )}

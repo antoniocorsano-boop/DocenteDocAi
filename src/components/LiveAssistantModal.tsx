@@ -2,7 +2,7 @@
 import React from 'react';
 import { LiveAssistant } from './LiveAssistant'; // Corrected named import
 import { LiveAssistantModalProps } from '../types';
-import { M3Dialog, M3DialogContent } from './M3Dialog';
+import { M3Dialog, M3DialogContent } from './ui';
 
 const LiveAssistantModal: React.FC<LiveAssistantModalProps> = ({ 
     onClose, 
@@ -29,7 +29,7 @@ const LiveAssistantModal: React.FC<LiveAssistantModalProps> = ({
             onClose={onClose}
             maxWidth="2xl"
         >
-            <M3DialogContent className="h-[85vh] flex flex-col overflow-hidden">
+            <M3DialogContent className="h-[85vh] flex flex-col overflow-hidden bg-surface-container-high/30 backdrop-blur-sm">
                 <LiveAssistant 
                     lessonContext={lessonContext} 
                     isModalMode={true} 

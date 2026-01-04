@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import M3Button from './M3Button';
+import { M3Button } from './ui';
 import { SystemSuggestion } from '../types';
 
 interface AssistantDevToolsActions {

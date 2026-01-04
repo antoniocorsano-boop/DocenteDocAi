@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useMemo } from 'react';
 import { Studente, Valutazione, ParticipationEntry } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import Avatar from './Avatar';
+import { Avatar } from './ui';
 
 interface StudentActionMenuProps {
     student: Studente;
@@ -61,7 +61,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
         <div ref={popoverRef} className="m3-popup-menu" style={{ ...style, width: '280px' }}>
             <div className="popup-header bg-primary-container text-on-primary-container">
                 <div className="flex items-center gap-3 mb-2">
-                    <Avatar name={student.nome} surname={student.cognome} size="medium" />
+                    <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                     <div className="min-w-0">
                         <h3 className="m3-title-medium truncate">{student.cognome} {student.nome}</h3>
                         <p className="text-xs opacity-80">Classe {student.classe}</p>

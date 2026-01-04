@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Competenza, Rubrica, View } from '../types';
 import RubricEditor from './RubricEditor';
-import { ActionTile, InfoCard, EmptyState } from './M3Components';
+import { M3Button, InfoCard, EmptyState, SectionHeader, ActionTile } from './ui';
 
 interface RubricheManagerProps {
     competenze: Competenza[];
@@ -22,15 +22,15 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
 
     return (
         <div className="page-layout pb-24">
-            <div className="page-header-compact">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium font-black">Rubriche di Valutazione</h1>
-                    <p className="page-subtitle">Crea e gestisci le griglie di competenza.</p>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                <div className="space-y-1">
+                    <h1 className="m3-headline-medium font-black tracking-tight">Rubriche di Valutazione</h1>
+                    <p className="m3-body-medium text-on-surface-variant">Crea e gestisci le griglie di competenza.</p>
                 </div>
-                <button onClick={() => setEditingRubric('new')} className="button button-filled">
+                <M3Button onClick={() => setEditingRubric('new')} variant="filled" className="shadow-lg font-black text-xs uppercase tracking-widest">
                     <span className="material-symbols-outlined mr-2">add</span>
                     Crea Nuova
-                </button>
+                </M3Button>
             </div>
 
             <InfoCard 
@@ -38,12 +38,13 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 description="Crea rubriche di valutazione riutilizzabili basate sulle tue competenze. Usale durante le interrogazioni o le prove pratiche per una valutazione oggettiva."
                 icon="schema"
                 variant="secondary"
+                className="bg-secondary-container/10 border-secondary/20 mb-8"
             />
 
-            <div className="mt-6">
-                <h2 className="m3-title-large mb-4">I tuoi Modelli</h2>
+            <div className="space-y-6">
+                <SectionHeader title="I tuoi Modelli" icon="assignment" variant="primary" />
                 {rubriche.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {rubriche.map(rubrica => (
                             <ActionTile 
                                 key={rubrica.id}
@@ -52,6 +53,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                                 icon="assignment"
                                 variant="surface"
                                 onClick={() => setEditingRubric(rubrica)}
+                                className="bg-surface-container-low/30 backdrop-blur-xl border border-outline-variant/20 hover:bg-surface-container-high/50 transition-all"
                             />
                         ))}
                     </div>
@@ -64,14 +66,15 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 )}
             </div>
             
-            <div className="mt-8">
-                <h2 className="m3-title-large mb-4">Riferimenti</h2>
+            <div className="mt-12 space-y-6">
+                <SectionHeader title="Riferimenti" icon="menu_book" variant="tertiary" />
                 <ActionTile 
                     title="Descrittori Livelli"
                     subtitle="Visualizza scala A-D"
                     icon="visibility"
                     variant="tertiary"
                     onClick={() => onNavigate('competency-levels')}
+                    className="bg-surface-container-low/30 backdrop-blur-xl border border-outline-variant/20 hover:bg-surface-container-high/50 transition-all"
                 />
             </div>
 

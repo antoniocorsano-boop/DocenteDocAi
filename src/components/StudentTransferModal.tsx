@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Studente, StudentHistoryRecord } from '../types';
-import { TabGroup, M3Dialog, TextField, SelectField } from './M3Components';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, TextField, SelectField } from './ui';
 
 interface StudentTransferModalProps {
     student: Studente;
@@ -66,106 +66,100 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
 
     return (
         <M3Dialog
-            isOpen={true}
             onClose={onClose}
             title="Mobilità Studente"
-            headline={`Gestisci lo spostamento di ${student.cognome} ${student.nome}`}
-            buttons={
-                <>
-                    <button onClick={onClose} className="button button-text">Annulla</button>
-                    <button onClick={handleSave} className={`button button-filled ${mode === 'transfer_out' ? 'bg-error text-on-error' : ''}`}>
-                        {mode === 'change_class' ? 'Sposta Studente' : 'Archivia Studente'}
-                    </button>
-                </>
-            }
+            maxWidth="sm"
+            level={1}
         >
-            <div className="flex flex-col gap-6 pt-2">
-                <TabGroup
-                    tabs={[
-                        { id: 'change_class', label: 'Cambio Classe' },
-                        { id: 'transfer_out', label: 'Trasferimento / Ritiro' }
-                    ]}
-                    activeTab={mode}
-                    onTabChange={(id) => setMode(id as 'change_class' | 'transfer_out')}
-                    variant="secondary"
-                    className="w-full"
-                />
-
-                {mode === 'change_class' ? (
-                    <div className="bg-surface-container p-4 rounded-xl border border-outline-variant/30 flex flex-col gap-4">
-                        <h3 className="m3-label-large text-primary">Nuova Destinazione</h3>
-
-                        {!isCustomClass ? (
-                            <div className="flex flex-col gap-2">
-                                <SelectField
-                                    label="Seleziona Classe"
-                                    id="new-class-select"
-                                    value={newClass}
-                                    onChange={(e) => setNewClass(e.target.value)}
-                                >
-                                    {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                                </SelectField>
-                                <button onClick={() => setIsCustomClass(true)} className="button button-text !h-auto !py-2 text-xs self-start">
-                                    La classe non è in elenco? Aggiungila manualmente
-                                </button>
-                            </div>
-                        ) : (
-                            <div className="flex flex-col gap-2">
-                                <TextField
-                                    label="Classe Manuale"
-                                    placeholder="Es. 1C"
-                                    id="custom-class-input"
-                                    value={customClass}
-                                    onChange={(e) => setCustomClass(e.target.value)}
-                                    autoFocus
-                                />
-                                <button onClick={() => setIsCustomClass(false)} className="button button-text !h-auto !py-2 text-xs self-start">
-                                    Torna all'elenco classi
-                                </button>
-                            </div>
-                        )}
-
-                        <p className="m3-body-small text-on-surface-variant opacity-80">
-                            Lo studente verrà spostato nella nuova classe. I dati pregressi (voti, note) rimarranno visibili nel profilo.
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+                <div className="flex flex-col gap-6 py-2">
+                    <div className="p-4 bg-secondary-container/10 rounded-2xl border border-secondary/20">
+                        <p className="m3-body-medium text-on-surface">
+                            Gestisci lo spostamento di <strong>{student.cognome} {student.nome}</strong>
                         </p>
                     </div>
-                ) : (
-                    <div className="bg-error-container/30 text-on-surface p-4 rounded-xl border border-error/20 flex flex-col gap-4">
-                        <div className="flex items-center gap-3 text-error">
-                            <span className="material-symbols-outlined">archive</span>
-                            <h3 className="m3-label-large">Archiviazione (Uscita)</h3>
-                        </div>
 
-                        <div className="flex flex-col gap-2">
-                            <label htmlFor="outcome-trasferito" className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-surface-container-highest/50 transition-colors">
-                                <input
-                                    id="outcome-trasferito"
-                                    type="radio"
-                                    name="outcome"
-                                    checked={outcome === 'Trasferito'}
-                                    onChange={() => setOutcome('Trasferito')}
-                                    className="accent-error w-5 h-5"
-                                />
-                                <span className="font-bold">Trasferito ad altra scuola</span>
-                            </label>
-                            <label htmlFor="outcome-ritirato" className="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-surface-container-highest/50 transition-colors">
-                                <input
-                                    id="outcome-ritirato"
-                                    type="radio"
-                                    name="outcome"
-                                    checked={outcome === 'Ritirato'}
-                                    onChange={() => setOutcome('Ritirato')}
-                                    className="accent-error w-5 h-5"
-                                />
-                                <span className="font-bold">Ritirato dagli studi</span>
-                            </label>
+                    <TabGroup
+                        tabs={[
+                            { id: 'change_class', label: 'Cambio Classe' },
+                            { id: 'transfer_out', label: 'Trasferimento / Ritiro' }
+                        ]}
+                        activeTab={mode}
+                        onTabChange={(id) => setMode(id as 'change_class' | 'transfer_out')}
+                        variant="secondary"
+                        className="w-full"
+                    />
+
+                    {mode === 'change_class' ? (
+                        <div className="bg-surface-container-lowest/50 p-4 rounded-3xl border border-outline-variant/30 flex flex-col gap-4">
+                            <h3 className="m3-label-large text-primary px-2">Nuova Destinazione</h3>
+
+                            {!isCustomClass ? (
+                                <div className="flex flex-col gap-2">
+                                    <SelectField
+                                        label="Seleziona Classe Esistente"
+                                        value={newClass}
+                                        onChange={(e) => setNewClass(e.target.value)}
+                                        options={userClasses.map(c => ({ value: c, label: c }))}
+                                        fullWidth
+                                    />
+                                    <M3Button 
+                                        variant="text" 
+                                        onClick={() => setIsCustomClass(true)}
+                                        className="self-start"
+                                    >
+                                        + Crea Nuova Classe
+                                    </M3Button>
+                                </div>
+                            ) : (
+                                <div className="flex flex-col gap-2">
+                                    <TextField
+                                        label="Nome Nuova Classe"
+                                        value={customClass}
+                                        onChange={(e) => setCustomClass(e.target.value)}
+                                        placeholder="es. 1A"
+                                        fullWidth
+                                    />
+                                    <M3Button 
+                                        variant="text" 
+                                        onClick={() => setIsCustomClass(false)}
+                                        className="self-start"
+                                    >
+                                        Torna a lista esistente
+                                    </M3Button>
+                                </div>
+                            )}
                         </div>
-                        <p className="m3-body-small opacity-70">
-                            Lo studente verrà rimosso dagli elenchi attivi ma i suoi dati saranno conservati nell'archivio storico.
-                        </p>
-                    </div>
-                )}
-            </div>
+                    ) : (
+                        <div className="bg-error-container/10 p-4 rounded-3xl border border-error/20 flex flex-col gap-4">
+                            <h3 className="m3-label-large text-error px-2">Motivazione Uscita</h3>
+                            <SelectField
+                                label="Esito"
+                                value={outcome}
+                                onChange={(e) => setOutcome(e.target.value as any)}
+                                options={[
+                                    { value: 'Trasferito', label: 'Trasferito ad altra scuola' },
+                                    { value: 'Ritirato', label: 'Ritirato dagli studi' }
+                                ]}
+                                fullWidth
+                            />
+                            <p className="m3-body-small text-on-surface-variant px-2">
+                                Lo studente verrà rimosso dall'elenco attivo e spostato nell'archivio storico.
+                            </p>
+                        </div>
+                    )}
+                </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                <M3Button 
+                    onClick={handleSave} 
+                    variant="filled"
+                    color={mode === 'transfer_out' ? 'error' : 'primary'}
+                >
+                    {mode === 'change_class' ? 'Sposta Studente' : 'Archivia Studente'}
+                </M3Button>
+            </M3DialogActions>
         </M3Dialog>
     );
 };

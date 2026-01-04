@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { View, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry } from '../types';
-import { ActionTile, SectionHeader } from './M3Components';
-import { M3Dialog } from './M3Dialog';
+import { ActionTile, SectionHeader, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
 interface OperationsCenterProps {
     onClose: () => void;
@@ -169,15 +168,15 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
     const renderProcessDetail = () => {
         if (!selectedProcess) return null;
         return (
-            <>
+            <div className="flex flex-col h-full">
                 <div className="process-detail-header text-center mb-8">
-                    <div className={`process-detail-icon-large mx-auto mb-4 bg-${selectedProcess.variant}-container text-on-${selectedProcess.variant}-container shadow-xl w-24 h-24 rounded-[40px] flex items-center justify-center`}>
+                    <div className={`process-detail-icon-large mx-auto mb-4 bg-${selectedProcess.variant}-container text-on-${selectedProcess.variant}-container shadow-xl w-24 h-24 rounded-4xl flex items-center justify-center`}>
                         <span className="material-symbols-outlined text-4xl">{selectedProcess.icon}</span>
                     </div>
                     <h2 className="m3-headline-medium font-black">{selectedProcess.title}</h2>
                     <p className="m3-body-large text-on-surface-variant max-w-md mx-auto mt-2 opacity-80">{selectedProcess.description}</p>
                 </div>
-                <div className="flex-grow overflow-y-auto px-4 mb-8">
+                <div className="flex-grow overflow-y-auto px-4 mb-8 custom-scrollbar">
                     <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-primary mb-6">Fasi del Processo</h3>
                     <div className="process-timeline border-l-2 border-outline-variant ml-4 pl-8 space-y-8">
                         {selectedProcess.steps.map((step, idx) => (
@@ -189,11 +188,11 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                         ))}
                     </div>
                 </div>
-                <div className="flex gap-4">
-                    <button onClick={() => setSelectedProcess(null)} className="button button-text flex-grow justify-center font-bold">Indietro</button>
-                    <button onClick={() => handleProcessStart()} className="button button-filled flex-grow-[2] justify-center shadow-lg font-black">AVVIA ORA</button>
+                <div className="flex gap-4 mt-auto">
+                    <M3Button onClick={() => setSelectedProcess(null)} variant="text" className="flex-grow !h-14">Indietro</M3Button>
+                    <M3Button onClick={() => handleProcessStart()} variant="filled" className="flex-grow-[2] !h-14 shadow-lg font-black">AVVIA ORA</M3Button>
                 </div>
-            </>
+            </div>
         );
     };
 
@@ -202,85 +201,81 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
             title={selectedProcess ? 'Dettaglio Processo' : 'Centro Operativo'}
             onClose={onClose}
             mode="fullscreen"
-            headerContent={
-                <div className="px-6 py-4 md:py-6 border-b border-outline-variant/10 flex justify-between items-center shrink-0">
-                    <div>
-                        <h2 className="m3-headline-small font-black flex items-center gap-3">
-                            <span className="material-symbols-outlined text-primary filled-icon text-3xl">bolt</span>
-                            {selectedProcess ? 'Dettaglio Processo' : 'Centro Operativo'}
-                        </h2>
-                    </div>
-                    <button onClick={onClose} className="icon-button">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
-                </div>
-            }
+            level={1}
         >
-            <div className="bg-surface-container-lowest overflow-y-auto no-scrollbar" style={{ padding: 'clamp(12px, 3vw, 32px)' }}>
+            <M3DialogContent className="bg-surface-container-lowest p-6 md:p-10">
                     {selectedProcess ? renderProcessDetail() : (
-                        <div className="space-y-10">
+                        <div className="space-y-10 max-w-5xl mx-auto">
                             {suggestedProcess && (
-                                <div className="p-6 rounded-[32px] bg-tertiary-container/20 border border-tertiary/20 flex items-center gap-5 mb-8 animate-in slide-in-from-top-4 shadow-lg">
+                                <div className="p-6 rounded-2xl bg-tertiary-container/20 border border-tertiary/20 flex flex-col md:flex-row items-center gap-5 mb-8 animate-in slide-in-from-top-4 shadow-lg">
                                     <div className="w-16 h-16 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center flex-shrink-0 shadow-md">
                                         <span className="material-symbols-outlined text-3xl">lightbulb</span>
                                     </div>
-                                    <div className="flex-grow">
+                                    <div className="flex-grow text-center md:text-left">
                                         <h3 className="m3-headline-small font-black text-tertiary">Suggerimento AI</h3>
                                         <p className="m3-body-large text-on-tertiary-container opacity-90">{suggestedProcess.description}</p>
                                     </div>
-                                    <button onClick={() => setSelectedProcess(suggestedProcess)} className="button button-filled !bg-white text-tertiary !h-12 !px-6 font-black shadow-md flex-shrink-0">
+                                    <M3Button onClick={() => setSelectedProcess(suggestedProcess)} variant="filled" className="!bg-white !text-tertiary !h-12 !px-6 font-black shadow-md flex-shrink-0">
                                         AVVIA <span className="material-symbols-outlined ml-2">arrow_forward</span>
-                                    </button>
+                                    </M3Button>
                                 </div>
                             )}
 
-                            <SectionHeader title="Processi Comuni" icon="play_circle" />
-                            <div className="expressive-grid">
-                                {PROCESS_DEFINITIONS.filter(p => p.category === 'daily').map(p => (
-                                    <ActionTile 
-                                        key={p.id}
-                                        title={p.title}
-                                        subtitle={p.subtitle}
-                                        icon={p.icon}
-                                        variant={p.variant}
-                                        onClick={() => setSelectedProcess(p)}
-                                        className="h-full !rounded-[32px] shadow-sm hover:shadow-lg transition-shadow"
-                                    />
-                                ))}
-                            </div>
+                            <div className="space-y-8">
+                                <div>
+                                    <SectionHeader title="Processi Comuni" icon="play_circle" />
+                                    <div className="expressive-grid mt-4">
+                                        {PROCESS_DEFINITIONS.filter(p => p.category === 'daily').map(p => (
+                                            <ActionTile 
+                                                key={p.id}
+                                                title={p.title}
+                                                subtitle={p.subtitle}
+                                                icon={p.icon}
+                                                variant={p.variant}
+                                                onClick={() => setSelectedProcess(p)}
+                                                className="h-full !rounded-2xl shadow-sm hover:shadow-lg transition-shadow"
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
 
-                            <SectionHeader title="Pianificazione e Sviluppo" icon="design_services" />
-                            <div className="expressive-grid">
-                                {PROCESS_DEFINITIONS.filter(p => p.category === 'planning').map(p => (
-                                    <ActionTile 
-                                        key={p.id}
-                                        title={p.title}
-                                        subtitle={p.subtitle}
-                                        icon={p.icon}
-                                        variant={p.variant}
-                                        onClick={() => setSelectedProcess(p)}
-                                        className="h-full !rounded-[32px] shadow-sm hover:shadow-lg transition-shadow"
-                                    />
-                                ))}
-                            </div>
+                                <div>
+                                    <SectionHeader title="Pianificazione e Sviluppo" icon="design_services" />
+                                    <div className="expressive-grid mt-4">
+                                        {PROCESS_DEFINITIONS.filter(p => p.category === 'planning').map(p => (
+                                            <ActionTile 
+                                                key={p.id}
+                                                title={p.title}
+                                                subtitle={p.subtitle}
+                                                icon={p.icon}
+                                                variant={p.variant}
+                                                onClick={() => setSelectedProcess(p)}
+                                                className="h-full !rounded-2xl shadow-sm hover:shadow-lg transition-shadow"
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
 
-                            <SectionHeader title="Manutenzione del Sistema" icon="build" />
-                            <div className="expressive-grid">
-                                {PROCESS_DEFINITIONS.filter(p => p.category === 'system').map(p => (
-                                    <ActionTile 
-                                        key={p.id}
-                                        title={p.title}
-                                        subtitle={p.subtitle}
-                                        icon={p.icon}
-                                        variant={p.variant}
-                                        onClick={() => setSelectedProcess(p)}
-                                        className="h-full !rounded-[32px] shadow-sm hover:shadow-lg transition-shadow"
-                                    />
-                                ))}
+                                <div>
+                                    <SectionHeader title="Manutenzione del Sistema" icon="build" />
+                                    <div className="expressive-grid mt-4">
+                                        {PROCESS_DEFINITIONS.filter(p => p.category === 'system').map(p => (
+                                            <ActionTile 
+                                                key={p.id}
+                                                title={p.title}
+                                                subtitle={p.subtitle}
+                                                icon={p.icon}
+                                                variant={p.variant}
+                                                onClick={() => setSelectedProcess(p)}
+                                                className="h-full !rounded-2xl shadow-sm hover:shadow-lg transition-shadow"
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     )}
-            </div>
+            </M3DialogContent>
         </M3Dialog>
     );
 };

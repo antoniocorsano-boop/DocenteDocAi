@@ -6,12 +6,12 @@
   "rewrites": [
     { "source": "/manifest.json", "destination": "/manifest.json" },
     { "source": "/favicon.ico", "destination": "/favicon.ico" },
-    { "source": "/service-worker.js", "destination": "/service-worker.js" },
+    { "source": "/sw.js", "destination": "/sw.js" },
     { "source": "/icons/(.*)", "destination": "/icons/$1" },
     { "source": "/icona/(.*)", "destination": "/icona/$1" },
     { "source": "/assets/(.*)", "destination": "/assets/$1" },
     { "source": "/", "destination": "/index.html" },
-    { "source": "/((?!assets|icons|icona|manifest.json|favicon.ico|service-worker.js).*)", "destination": "/index.html" },
+    { "source": "/((?!assets|icons|icona|manifest.json|favicon.ico|sw.js).*)", "destination": "/index.html" },
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "headers": [
@@ -37,6 +37,19 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
         }
       ]
     },

@@ -1,28 +1,16 @@
 import * as React from 'react';
-import { useRef } from 'react';
-import { useModalAccessibility } from '../hooks/useModalAccessibility';
 import { BackupInfoModalProps } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
 const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
-    // Accessibility & UX
-    const overlayRef = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
-    useModalAccessibility({
-        isOpen: true,
-        onClose,
-        overlayRef,
-        containerRef,
-        onOverlayClick: onClose
-    });
-
     return (
         <M3Dialog
             title="Informazioni sul Backup"
             onClose={onClose}
             maxWidth="md"
+            level={1}
         >
-            <M3DialogContent className="overflow-y-auto space-y-6">
+            <M3DialogContent className="overflow-y-auto space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
                 <h3 className="m3-title-large text-primary">Architettura "Local-First" e Privacy</h3>
                 <p className="m3-body-medium text-on-surface-variant">
                     OrarioDoc AI è un'applicazione **Local-First**. Ciò significa che tutti i tuoi dati sensibili (studenti, voti, note, PEI/PDP) vengono salvati **esclusivamente** sul tuo dispositivo, nel browser che stai utilizzando (IndexedDB e LocalStorage).
@@ -62,7 +50,7 @@ const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
             </M3DialogContent>
 
             <M3DialogActions className="gap-2">
-                <button onClick={onClose} className="button button-filled">Ho capito</button>
+                <M3Button onClick={onClose} variant="filled">Ho capito</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

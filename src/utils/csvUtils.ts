@@ -41,14 +41,11 @@ export const parseCSVWithHeaders = (csvText: string): { headers: string[], data:
     };
 
     // Parse header
-    const headers = parseCsvRow(lines[0]).map(h => h.replace(/^"|"$/g, '').trim()); // Remove surrounding quotes from headers
+    const headers = parseCsvRow(lines[0]);
     const data: Record<string, string>[] = [];
 
     for (let i = 1; i < lines.length; i++) {
         const rowString = lines[i];
-        // Skip empty lines
-        if(!rowString.trim()) continue;
-
         const values = parseCsvRow(rowString);
         
         // Basic validation: ensure row has some content
@@ -57,12 +54,7 @@ export const parseCSVWithHeaders = (csvText: string): { headers: string[], data:
         const entry: Record<string, string> = {};
         // Map values to headers. If values are missing, fill with empty string.
         headers.forEach((header, index) => {
-            let value = values[index] || '';
-            // Remove surrounding quotes from values if they exist
-            if (value.startsWith('"') && value.endsWith('"')) {
-                value = value.slice(1, -1);
-            }
-            entry[header] = value;
+            entry[header] = values[index] || '';
         });
         data.push(entry);
     }

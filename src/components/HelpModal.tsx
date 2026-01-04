@@ -2,10 +2,49 @@ import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
 import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
-import { ManualSection, UseCaseCard } from './M3Components';
-import { M3Dialog, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SectionHeader, InfoCard } from './ui';
 
-type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa' | 'presentation';
+type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa';
+
+// --- HELPERS ---
+const ManualSection: React.FC<{ title: string; icon: string; colorClass: string; defaultOpen?: boolean; children: React.ReactNode }> = ({ title, icon, colorClass, defaultOpen = false, children }) => {
+    const [isOpen, setIsOpen] = useState(defaultOpen);
+    return (
+        <div className="bg-surface-container-low/30 backdrop-blur-md rounded-2xl border border-outline-variant/20 overflow-hidden mb-4">
+            <button 
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-full p-4 flex items-center justify-between hover:bg-surface-container-high/50 transition-colors"
+            >
+                <div className="flex items-center gap-3">
+                    <span className={`material-symbols-outlined ${colorClass}`}>{icon}</span>
+                    <span className="m3-title-medium font-bold">{title}</span>
+                </div>
+                <span className={`material-symbols-outlined transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>expand_more</span>
+            </button>
+            {isOpen && <div className="p-4 pt-0 animate-in fade-in slide-in-from-top-2">{children}</div>}
+        </div>
+    );
+};
+
+const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }> = ({ scenario, steps, tip }) => (
+    <div className="bg-surface-container-high/50 p-4 rounded-xl border border-outline-variant/10 mb-4">
+        <p className="text-xs font-black uppercase tracking-widest text-primary mb-3">{scenario}</p>
+        <ol className="space-y-2">
+            {steps.map((step, i) => (
+                <li key={i} className="text-sm flex gap-3">
+                    <span className="w-5 h-5 rounded-full bg-primary/10 text-primary text-[10px] flex items-center justify-center flex-shrink-0 font-bold">{i+1}</span>
+                    <span dangerouslySetInnerHTML={{ __html: step }}></span>
+                </li>
+            ))}
+        </ol>
+        {tip && (
+            <div className="mt-3 pt-3 border-t border-outline-variant/10 flex gap-2 items-start">
+                <span className="material-symbols-outlined text-secondary text-sm">lightbulb</span>
+                <p className="text-[11px] italic opacity-70">{tip}</p>
+            </div>
+        )}
+    </div>
+);
 
 // --- CONTENUTO DEL MANUALE INTEGRALE (Whitepaper Tecnico-Operativo) ---
 const MANUAL_MARKDOWN_CONTENT = `# DocenteDoc AI: Documento Tecnico e Manuale Integrale
@@ -152,40 +191,40 @@ const vocalAssistantGuideData = {
 
 const SetupGuide = () => (
     <div className="space-y-6">
-        <h2 className="m3-headline-small">Guida alla Configurazione Iniziale</h2>
+        <h2 className="m3-headline-small font-black">Guida alla Configurazione Iniziale</h2>
         <p className="m3-body-medium text-on-surface-variant">Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</p>
 
-        <div className="bg-surface-container p-4 rounded-xl border border-outline-variant">
-            <h3 className="m3-title-medium text-primary mb-2">1. Impostazioni Generali</h3>
-            <p className="text-sm mb-2">Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
-            <ul className="list-disc pl-5 space-y-1 text-sm">
+        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
+            <h3 className="m3-title-medium text-primary font-bold mb-3">1. Impostazioni Generali</h3>
+            <p className="text-sm mb-3">Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
+            <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
                 <li>Inserisci il tuo Nome e l'Istituto.</li>
                 <li><strong>Importante:</strong> Nella sezione "Generale", imposta le date di <strong>Inizio</strong> e <strong>Fine Attività Didattica</strong>. Queste date sono fondamentali per visualizzare correttamente la Timeline dei progetti.</li>
             </ul>
         </div>
 
-        <div className="bg-surface-container p-4 rounded-xl border border-outline-variant">
-            <h3 className="m3-title-medium text-primary mb-2">2. Configurazione Classi e Materie</h3>
-            <p className="text-sm mb-2">Sempre in Impostazioni:</p>
-            <ul className="list-disc pl-5 space-y-1 text-sm">
+        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
+            <h3 className="m3-title-medium text-primary font-bold mb-3">2. Configurazione Classi e Materie</h3>
+            <p className="text-sm mb-3">Sempre in Impostazioni:</p>
+            <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
                 <li>Sezione <strong>Orario & Materie</strong>: Aggiungi le materie che insegni.</li>
                 <li>Sezione <strong>Classi</strong>: Seleziona le combinazioni Anno/Sezione (es. 1A, 3B) che avrai quest'anno.</li>
             </ul>
         </div>
 
-        <div className="bg-surface-container p-4 rounded-xl border border-outline-variant">
-            <h3 className="m3-title-medium text-primary mb-2">3. Inserimento Studenti</h3>
-            <p className="text-sm mb-2">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
-            <ul className="list-disc pl-5 space-y-1 text-sm">
+        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
+            <h3 className="m3-title-medium text-primary font-bold mb-3">3. Inserimento Studenti</h3>
+            <p className="text-sm mb-3">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
+            <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
                 <li>Puoi aggiungere gli studenti manualmente uno ad uno.</li>
                 <li>Oppure usa l'importazione CSV per caricare l'elenco completo da un file Excel/CSV.</li>
             </ul>
         </div>
 
-        <div className="bg-surface-container p-4 rounded-xl border border-outline-variant">
-            <h3 className="m3-title-medium text-primary mb-2">4. Costruzione Orario</h3>
-            <p className="text-sm mb-2">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
-            <ul className="list-disc pl-5 space-y-1 text-sm">
+        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
+            <h3 className="m3-title-medium text-primary font-bold mb-3">4. Costruzione Orario</h3>
+            <p className="text-sm mb-3">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
+            <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
                 <li>Tocca una cella vuota della griglia.</li>
                 <li>Assegna Classe e Materia per creare il tuo orario settimanale stabile.</li>
             </ul>
@@ -201,30 +240,33 @@ const DigitalTeacherManual = () => {
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-outline-variant pb-4">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-outline-variant/10 pb-6">
                 <div>
-                    <h2 className="m3-headline-small">Manuale Integrale e Normativa</h2>
+                    <h2 className="m3-headline-small font-black">Manuale Integrale e Normativa</h2>
                     <p className="m3-body-medium text-on-surface-variant">Versione 4.1.0 - M3 Expressive Edition</p>
                 </div>
-                <button onClick={downloadManual} className="button button-outlined">
+                <M3Button onClick={downloadManual} variant="outlined" className="font-black text-xs uppercase tracking-widest">
                     <span className="material-symbols-outlined mr-2">download</span>
                     Scarica .MD
-                </button>
+                </M3Button>
             </div>
 
-            <div className="p-4 bg-primary-container text-on-primary-container rounded-xl">
-                <p className="font-bold text-lg">Documentazione Completa</p>
-                <p>Questa sezione raccoglie le informazioni operative, le specifiche di sicurezza (GDPR) e la visione strategica. Clicca sulle sezioni per espandere.</p>
-            </div>
+            <InfoCard 
+                title="Documentazione Completa"
+                description="Questa sezione raccoglie le informazioni operative, le specifiche di sicurezza (GDPR) e la visione strategica. Clicca sulle sezioni per espandere."
+                icon="info"
+                variant="primary"
+                className="bg-primary-container/10 border-primary/20"
+            />
 
             <ManualSection title="1. Normativa, Sicurezza e Privacy" icon="security" colorClass="text-tertiary" defaultOpen>
-                <div className="bg-surface-container-low p-4 rounded-xl border border-outline-variant space-y-3">
-                     <h4 className="m3-title-small font-bold text-primary">GDPR & Sovranità del Dato</h4>
-                     <p className="text-sm">L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</p>
+                <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/10 space-y-4">
+                     <h4 className="m3-title-small font-black text-primary uppercase tracking-widest text-[10px]">GDPR & Sovranità del Dato</h4>
+                     <p className="text-sm leading-relaxed">L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</p>
                      
-                     <h4 className="m3-title-small font-bold text-primary mt-2">Norme Scolastiche</h4>
-                     <p className="text-sm">Il sistema supporta nativamente:</p>
-                     <ul className="list-disc pl-5 text-sm">
+                     <h4 className="m3-title-small font-black text-primary uppercase tracking-widest text-[10px] mt-4">Norme Scolastiche</h4>
+                     <p className="text-sm leading-relaxed">Il sistema supporta nativamente:</p>
+                     <ul className="list-disc pl-5 text-sm space-y-1 opacity-80">
                          <li><strong>L. 170/2010 & Dir. BES:</strong> Modulo Inclusione dedicato.</li>
                          <li><strong>DPR 122/2009:</strong> Valutazione formativa e sommativa.</li>
                          <li><strong>O.M. 172/2020:</strong> Valutazione descrittiva primaria (livelli di competenza).</li>
@@ -233,7 +275,7 @@ const DigitalTeacherManual = () => {
             </ManualSection>
 
             <ManualSection title="2. Manuale Operativo" icon="school" colorClass="text-primary">
-                <h4 className="m3-title-small font-bold mb-2">Configurazione & Strategia</h4>
+                <h4 className="m3-title-small font-black mb-3 uppercase tracking-widest text-[10px]">Configurazione & Strategia</h4>
                 <UseCaseCard 
                     scenario="Voglio che l'app conosca il mio metodo."
                     steps={[
@@ -243,7 +285,7 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4 className="m3-title-small font-bold mb-2 mt-4">In Aula</h4>
+                <h4 className="m3-title-small font-black mb-3 mt-6 uppercase tracking-widest text-[10px]">In Aula</h4>
                 <UseCaseCard 
                     scenario="Devo segnare una nota disciplinare mentre spiego."
                     steps={[
@@ -253,7 +295,7 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4 className="m3-title-small font-bold mb-2 mt-4">Valutazione</h4>
+                <h4 className="m3-title-small font-black mb-3 mt-6 uppercase tracking-widest text-[10px]">Valutazione</h4>
                  <UseCaseCard 
                     scenario="Voglio dare un voto completo."
                     steps={[
@@ -267,13 +309,13 @@ const DigitalTeacherManual = () => {
 
             <ManualSection title="3. Visione Strategica per Stakeholders" icon="campaign" colorClass="text-secondary">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 bg-surface-container rounded-xl border border-outline-variant">
-                        <h4 className="font-bold mb-2 flex gap-2 items-center"><span className="material-symbols-outlined">admin_panel_settings</span> Per il Dirigente</h4>
-                        <p className="text-sm text-on-surface-variant">Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
+                    <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/10">
+                        <h4 className="font-black mb-3 flex gap-2 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-primary">admin_panel_settings</span> Per il Dirigente</h4>
+                        <p className="text-sm text-on-surface-variant leading-relaxed">Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
                     </div>
-                    <div className="p-4 bg-surface-container rounded-xl border border-outline-variant">
-                        <h4 className="font-bold mb-2 flex gap-2 items-center"><span className="material-symbols-outlined">engineering</span> Per l'Animatore Digitale</h4>
-                        <p className="text-sm text-on-surface-variant">Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
+                    <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/10">
+                        <h4 className="font-black mb-3 flex gap-2 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-secondary">engineering</span> Per l'Animatore Digitale</h4>
+                        <p className="text-sm text-on-surface-variant leading-relaxed">Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
                     </div>
                 </div>
             </ManualSection>
@@ -283,91 +325,206 @@ const DigitalTeacherManual = () => {
 };
 
 const VocalAssistantGuideContent = () => (
-    <>
-        <h2 className="m3-headline-small flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary">mic</span>
+    <div className="space-y-6">
+        <h2 className="m3-headline-small font-black flex items-center gap-3">
+            <span className="material-symbols-outlined text-primary text-3xl">mic</span>
             Il tuo Copilota Didattico
         </h2>
-        <p className="m3-body-medium text-on-surface-variant mb-4">
+        <p className="m3-body-medium text-on-surface-variant mb-6 leading-relaxed">
             L'Assistente Live non è solo una chat: è collegato al registro, ai tuoi documenti e ora anche a <strong>Google Search</strong>. Premi il microfono e prova questi comandi:
         </p>
         
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {vocalAssistantGuideData.sections.map((section, idx) => (
-                <div key={idx} className="bg-surface-container-low p-4 rounded-xl border border-outline-variant">
-                    <h3 className="m3-title-medium text-primary mb-2">{section.title}</h3>
-                    <ul className="list-disc pl-5 space-y-2">
+                <div key={idx} className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/10">
+                    <h3 className="m3-title-medium text-primary font-bold mb-4 flex items-center gap-2">
+                        <span className="material-symbols-outlined text-sm">record_voice_over</span>
+                        {section.title}
+                    </h3>
+                    <ul className="space-y-3">
                         {section.commands.map((cmd, cIdx) => (
-                            <li key={cIdx} className="text-sm font-medium text-on-surface">"{cmd}"</li>
+                            <li key={cIdx} className="text-sm font-medium text-on-surface bg-surface-container-high/30 p-3 rounded-xl border border-outline-variant/5">"{cmd}"</li>
                         ))}
                     </ul>
                 </div>
             ))}
         </div>
         
-        <div className="mt-6 bg-surface-container p-4 rounded-xl border border-outline-variant">
-             <h3 className="m3-title-medium text-secondary mb-2">Novità: Ricerca Web Sicura</h3>
-             <p className="text-sm">
-                 Puoi chiedere all'AI di cercare informazioni aggiornate su Google (es. normative recenti). 
-                 <strong>Nota di Sicurezza:</strong> Per motivi di privacy, l'AI non userà mai la ricerca web se la tua domanda contiene nomi di studenti.
-             </p>
-        </div>
-    </>
+        <InfoCard 
+            title="Novità: Ricerca Web Sicura"
+            description="Puoi chiedere all'AI di cercare informazioni aggiornate su Google (es. normative recenti). Nota di Sicurezza: Per motivi di privacy, l'AI non userà mai la ricerca web se la tua domanda contiene nomi di studenti."
+            icon="search"
+            variant="secondary"
+            className="bg-secondary-container/10 border-secondary/20"
+        />
+    </div>
 );
 
 const UserGuide = () => (
-    <>
-        <h2 className="m3-headline-small">Guida Rapida al Flusso di Lavoro</h2>
-        <div className="space-y-4 mt-4">
-            <div className="p-4 bg-surface-container rounded-xl border-l-4 border-l-primary">
-                <h3 className="font-bold m3-title-medium mb-1">1. Centro Operativo (Novità)</h3>
-                <p className="text-sm">Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</p>
+    <div className="space-y-6">
+        <h2 className="m3-headline-small font-black">Guida Rapida al Flusso di Lavoro</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-primary border border-outline-variant/10">
+                <h3 className="font-black m3-title-medium mb-2 text-primary uppercase tracking-widest text-xs">1. Centro Operativo</h3>
+                <p className="text-sm leading-relaxed opacity-80">Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</p>
             </div>
-            <div className="p-4 bg-surface-container rounded-xl border-l-4 border-l-secondary">
-                <h3 className="font-bold m3-title-medium mb-1">2. Progettazione Intelligente</h3>
-                <p className="text-sm">Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</p>
+            <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-secondary border border-outline-variant/10">
+                <h3 className="font-black m3-title-medium mb-2 text-secondary uppercase tracking-widest text-xs">2. Progettazione Intelligente</h3>
+                <p className="text-sm leading-relaxed opacity-80">Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</p>
             </div>
-            <div className="p-4 bg-surface-container rounded-xl border-l-4 border-l-tertiary">
-                <h3 className="font-bold m3-title-medium mb-1">3. In Aula (Continuità)</h3>
-                <p className="text-sm">Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</p>
+            <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-tertiary border border-outline-variant/10">
+                <h3 className="font-black m3-title-medium mb-2 text-tertiary uppercase tracking-widest text-xs">3. In Aula (Continuità)</h3>
+                <p className="text-sm leading-relaxed opacity-80">Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</p>
             </div>
-            <div className="p-4 bg-surface-container rounded-xl border-l-4 border-l-error">
-                <h3 className="font-bold m3-title-medium mb-1">4. Analisi & Report</h3>
-                <p className="text-sm">Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</p>
+            <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-error border border-outline-variant/10">
+                <h3 className="font-black m3-title-medium mb-2 text-error uppercase tracking-widest text-xs">4. Analisi & Report</h3>
+                <p className="text-sm leading-relaxed opacity-80">Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</p>
             </div>
         </div>
-    </>
+    </div>
 );
 
-
 const TechnicalSpecs = () => (
-    <>
-        <h2 className="m3-headline-small">{specsContentData.title}</h2>
-        <ul className="list-disc pl-5 space-y-2 mt-4">
-            {specsContentData.specs.map((spec, index) => (
-                <li key={index} dangerouslySetInnerHTML={{ __html: spec }}></li>
-            ))}
-        </ul>
-    </>
+    <div className="space-y-6">
+        <h2 className="m3-headline-small font-black">{specsContentData.title}</h2>
+        <div className="bg-surface-container-low/50 p-6 rounded-3xl border border-outline-variant/10">
+            <ul className="space-y-4">
+                {specsContentData.specs.map((spec, index) => (
+                    <li key={index} className="flex gap-4 items-start">
+                        <span className="material-symbols-outlined text-primary mt-1">check_circle</span>
+                        <span className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: spec }}></span>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </div>
 );
 
 const NormativaContent: React.FC = () => (
-    <>
-        <h2 className="m3-headline-small">Privacy e Cloud</h2>
-        <p className="mt-2">OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
+    <div className="space-y-6">
+        <h2 className="m3-headline-small font-black">Privacy e Cloud</h2>
+        <p className="m3-body-medium text-on-surface-variant leading-relaxed">OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
         
-        <h3 className="m3-title-medium mt-4">I Tuoi Dati, Il Tuo Cloud</h3>
-        <ul className="list-disc pl-5 mt-2 space-y-1">
-            <li>Non esiste un server centrale di OrarioDoc che legge i tuoi dati.</li>
-            <li>Tutto viene salvato nel tuo dispositivo.</li>
-            <li>Il backup avviene sul <strong>TUO Google Drive</strong> personale. L'app ha accesso solo alla propria cartella di backup, non ai tuoi altri file.</li>
-        </ul>
+        <div className="bg-surface-container-low/50 p-6 rounded-3xl border border-outline-variant/10">
+            <h3 className="m3-title-medium font-bold text-primary mb-4">I Tuoi Dati, Il Tuo Cloud</h3>
+            <ul className="space-y-3">
+                <li className="flex gap-3 text-sm">
+                    <span className="material-symbols-outlined text-primary text-sm mt-0.5">shield</span>
+                    Non esiste un server centrale di OrarioDoc che legge i tuoi dati.
+                </li>
+                <li className="flex gap-3 text-sm">
+                    <span className="material-symbols-outlined text-primary text-sm mt-0.5">devices</span>
+                    Tutto viene salvato nel tuo dispositivo (IndexedDB).
+                </li>
+                <li className="flex gap-3 text-sm">
+                    <span className="material-symbols-outlined text-primary text-sm mt-0.5">cloud_done</span>
+                    Il backup avviene sul <strong>TUO Google Drive</strong> personale. L'app ha accesso solo alla propria cartella di backup.
+                </li>
+            </ul>
+        </div>
 
-        <h3 className="m3-title-medium mt-4">Interazione AI</h3>
-        <p className="text-sm mt-1">Quando usi l'AI (es. "Analizza questa classe"), l'app invia solo i dati anonimizzati strettamente necessari per quella richiesta a Google Gemini. Nessun dato viene trattenuto per l'addestramento dei modelli.</p>
-    </>
+        <InfoCard 
+            title="Interazione AI"
+            description="Quando usi l'AI (es. 'Analizza questa classe'), l'app invia solo i dati anonimizzati strettamente necessari per quella richiesta a Google Gemini. Nessun dato viene trattenuto per l'addestramento dei modelli."
+            icon="psychology"
+            variant="primary"
+            className="bg-primary-container/10 border-primary/20"
+        />
+    </div>
 );
 
+const FaqContent = () => (
+    <div className="space-y-6">
+        <h2 className="m3-headline-small font-black">Domande Frequenti (FAQ)</h2>
+        <div className="space-y-3 mt-6">
+            {faqContentData.map((faq, i) => (
+                <details key={i} className="faq-item group bg-surface-container-low/50 rounded-2xl border border-outline-variant/10 overflow-hidden transition-all hover:bg-surface-container-high/50">
+                    <summary className="m3-title-medium cursor-pointer p-5 list-none flex justify-between items-center group-open:bg-primary/5 font-bold">
+                        <span dangerouslySetInnerHTML={{ __html: faq.q }}></span>
+                        <span className="material-symbols-outlined transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                    </summary>
+                    <div className="m3-body-medium p-5 pt-0 opacity-80 leading-relaxed text-sm" dangerouslySetInnerHTML={{ __html: faq.a }}></div>
+                </details>
+            ))}
+        </div>
+    </div>
+);
+
+const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
+    const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_releases" }) => (
+        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/10 hover:bg-surface-container-high/50 transition-all group">
+            <div className="flex justify-between items-start mb-3">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span className="material-symbols-outlined">{icon}</span>
+                    </div>
+                    <h4 className="m3-title-medium font-bold">{title}</h4>
+                </div>
+                <span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest">v4.1.0</span>
+            </div>
+            <p className="m3-body-medium mb-4 opacity-70 leading-relaxed text-sm">{children}</p>
+            {actionView && actionView !== 'home' && (
+                <M3Button
+                    onClick={() => { onClose(); onNavigate(actionView); }}
+                    variant="tonal"
+                    className="w-full font-black text-[10px] uppercase tracking-widest"
+                >
+                    <span className="material-symbols-outlined mr-2 text-sm">arrow_forward</span>
+                    Vai alla funzione
+                </M3Button>
+            )}
+        </div>
+    );
+    return (
+        <div className="space-y-6">
+            <h2 className="m3-headline-small font-black">Novità della versione 4.1.0</h2>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <ImprovementCard title="Design M3 Expressive" actionView="settings" icon="palette">
+                    Interfaccia completamente rinnovata con il nuovo design system Material 3 Expressive: layout adattivi, motion system e colori dinamici.
+                </ImprovementCard>
+
+                <ImprovementCard title="Calendario Migliorato" actionView="calendario" icon="calendar_month">
+                    Vista calendario completamente ridisegnata con migliore leggibilità, navigazione fluida e integrazione eventi più chiara.
+                </ImprovementCard>
+
+                <ImprovementCard title="Stabilità Backup" actionView="settings" icon="cloud_sync">
+                    Risolto problema critico di sincronizzazione. Il salvataggio automatico viene sospeso durante l'importazione dati.
+                </ImprovementCard>
+
+                <ImprovementCard title="Assistente Vocale iOS" actionView="live-assistant" icon="mic">
+                    Corretto il blocco dell'audio su Safari/iPhone. L'assistente ora si inizializza correttamente al tocco.
+                </ImprovementCard>
+
+                <ImprovementCard title="Zero-FOUC Theme" actionView="settings" icon="dark_mode">
+                    Il tema personalizzato viene caricato istantaneamente all'avvio, eliminando lo sfarfallio dei colori.
+                </ImprovementCard>
+
+                <ImprovementCard title="Header & Avatar Migliorati" actionView="settings" icon="account_circle">
+                    L'avatar ora mostra le iniziali del nome docente. Header più compatto e informativo.
+                </ImprovementCard>
+            </div>
+
+            <div className="p-8 rounded-4xl bg-primary-container/20 text-on-primary-container border border-primary/20 shadow-xl mt-8">
+                <div className="flex flex-col md:flex-row gap-6 items-center">
+                    <div className="w-20 h-20 rounded-3xl bg-primary text-on-primary flex items-center justify-center shadow-lg flex-shrink-0">
+                        <span className="material-symbols-outlined text-4xl">picture_as_pdf</span>
+                    </div>
+                    <div className="flex-grow text-center md:text-left">
+                        <h3 className="m3-title-large font-black">Manuale Completo PDF</h3>
+                        <p className="m3-body-medium mt-2 opacity-70">
+                            Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
+                        </p>
+                    </div>
+                </div>
+                 <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" className="w-full !h-16 mt-8 font-black text-sm uppercase tracking-widest shadow-lg">
+                    <span className="material-symbols-outlined mr-2">{isGenerating ? 'pending' : 'download'}</span>
+                    {isGenerating ? 'Generazione...' : 'Scarica Manuale & Guida PDF'}
+                </M3Button>
+        </div>
+    </div>
+    );
+};
 
 const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage }) => {
   const [activeTab, setActiveTab] = useState<HelpTab>('improvements');
@@ -429,123 +586,58 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
     }
   }
 
+  const tabs = [
+    { id: 'improvements', label: 'Novità', icon: 'new_releases' },
+    { id: 'manual', label: 'Manuale', icon: 'auto_stories' },
+    { id: 'setup', label: 'Setup', icon: 'settings' },
+    { id: 'guide', label: 'Flusso', icon: 'account_tree' },
+    { id: 'assistant', label: 'AI & Voice', icon: 'mic' },
+    { id: 'faq', label: 'FAQ', icon: 'quiz' },
+    { id: 'specs', label: 'Specs', icon: 'terminal' },
+    { id: 'normativa', label: 'Privacy', icon: 'shield' },
+  ];
+
   return (
     <M3Dialog
       title="Guida, Novità e Manuale"
       onClose={onClose}
       maxWidth="xl"
+      level={2}
     >
-      <div className="space-y-4">
-        <div className="mt-4 mb-2 p-2 rounded-lg bg-surface-container-high text-sm">
-          <b>Novità Dicembre 2025:</b><br />
-          • Tutti i pulsanti ora seguono Material Design 3 (filled, tonal, outlined, icon, segmented)<br />
-          • Migliorata accessibilità, responsive e coerenza visiva<br />
-          • Focus visibile, aria-label obbligatorio, test aggiornati<br />
-          • Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener">guida M3 aggiornata</a> per dettagli e best practice
-        </div>
+      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-xl">
+        <div className="space-y-8">
+          <div className="p-5 rounded-3xl bg-primary-container/10 border border-primary/20 text-sm shadow-inner">
+            <div className="flex items-center gap-3 mb-3">
+                <span className="material-symbols-outlined text-primary">campaign</span>
+                <b className="text-primary uppercase tracking-widest text-[10px]">Novità Dicembre 2025</b>
+            </div>
+            <ul className="list-disc pl-5 space-y-2 opacity-80 text-xs leading-relaxed">
+              <li>Tutti i pulsanti ora seguono Material Design 3 (filled, tonal, outlined, icon, segmented)</li>
+              <li>Migliorata accessibilità, responsive e coerenza visiva</li>
+              <li>Focus visibile, aria-label obbligatorio, test aggiornati</li>
+              <li>Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener" className="text-primary hover:underline font-bold">guida M3 aggiornata</a> per dettagli e best practice</li>
+            </ul>
+          </div>
 
-        <div className="vertical-segmented-group responsive">
-          <button onClick={() => setActiveTab('improvements')} className={`segmented-button ${activeTab === 'improvements' ? 'active' : ''}`}>Novità</button>
-          <button onClick={() => setActiveTab('manual')} className={`segmented-button ${activeTab === 'manual' ? 'active' : ''}`}><span className="material-symbols-outlined text-sm mr-2">auto_stories</span>Manuale</button>
-          <button onClick={() => setActiveTab('setup')} className={`segmented-button ${activeTab === 'setup' ? 'active' : ''}`}>Setup</button>
-          <button onClick={() => setActiveTab('guide')} className={`segmented-button ${activeTab === 'guide' ? 'active' : ''}`}>Flusso</button>
-          <button onClick={() => setActiveTab('assistant')} className={`segmented-button ${activeTab === 'assistant' ? 'active' : ''}`}>AI & Voice</button>
-          <button onClick={() => setActiveTab('faq')} className={`segmented-button ${activeTab === 'faq' ? 'active' : ''}`}>FAQ</button>
-          <button onClick={() => setActiveTab('specs')} className={`segmented-button ${activeTab === 'specs' ? 'active' : ''}`}>Specs</button>
-          <button onClick={() => setActiveTab('normativa')} className={`segmented-button ${activeTab === 'normativa' ? 'active' : ''}`}>Privacy</button>
-        </div>
+          <TabGroup
+            tabs={tabs}
+            activeTab={activeTab}
+            onTabChange={(id) => setActiveTab(id as HelpTab)}
+            variant="primary"
+            className="w-full"
+          />
 
-        <div className="prose">
-          {renderContent()}
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            {renderContent()}
+          </div>
         </div>
-      </div>
+      </M3DialogContent>
 
       <M3DialogActions>
-        <button onClick={onClose} className="button button-text" disabled={isGenerating}>Chiudi</button>
+        <M3Button onClick={onClose} variant="text" disabled={isGenerating} className="font-black text-xs uppercase tracking-widest">Chiudi</M3Button>
       </M3DialogActions>
     </M3Dialog>
   );
-};
-
-const FaqContent = () => (
-    <>
-        <h2 className="m3-headline-small">Domande Frequenti (FAQ)</h2>
-        <div className="space-y-3 mt-4">
-            {faqContentData.map((faq, i) => (
-                <details key={i} className="faq-item">
-                    <summary className="m3-title-medium cursor-pointer hover:text-primary transition-colors" dangerouslySetInnerHTML={{ __html: faq.q }}></summary>
-                    <div className="m3-body-medium mt-2 pl-4 border-l-2 border-outline-variant" dangerouslySetInnerHTML={{ __html: faq.a }}></div>
-                </details>
-            ))}
-        </div>
-    </>
-);
-
-
-const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
-    const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_releases" }) => (
-        <div className="guide-card">
-            <div className="flex justify-between items-start">
-                <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary">{icon}</span>
-                    <h4 className="m3-title-medium">{title}</h4>
-                </div>
-                <span className={`guide-card-badge status-new`}>Novità v4.1.0</span>
-            </div>
-            <p className="m3-body-medium mt-2 mb-3 opacity-90">{children}</p>
-            {actionView && actionView !== 'home' && (
-                <button
-                    onClick={() => { onClose(); onNavigate(actionView); }}
-                    className="button button-tonal rounded-lg hover:shadow-md transition-all"
-                >
-                    <span className="material-symbols-outlined mr-2">arrow_forward</span>
-                    Vai alla funzione
-                </button>
-            )}
-        </div>
-    );
-    return (
-        <div className="space-y-4">
-            <h2 className="m3-headline-small">Novità della versione 4.1.0</h2>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <ImprovementCard title="Design M3 Expressive" actionView="settings" icon="palette">
-                    Interfaccia completamente rinnovata con il nuovo design system Material 3 Expressive: layout adattivi, motion system e colori dinamici.
-                </ImprovementCard>
-
-                <ImprovementCard title="Calendario Migliorato" actionView="calendario" icon="calendar_month">
-                    Vista calendario completamente ridisegnata con migliore leggibilità, navigazione fluida e integrazione eventi più chiara.
-                </ImprovementCard>
-
-                <ImprovementCard title="Stabilità Backup" actionView="settings" icon="cloud_sync">
-                    Risolto problema critico di sincronizzazione. Il salvataggio automatico viene sospeso durante l'importazione dati.
-                </ImprovementCard>
-
-                <ImprovementCard title="Assistente Vocale iOS" actionView="live-assistant" icon="mic">
-                    Corretto il blocco dell'audio su Safari/iPhone. L'assistente ora si inizializza correttamente al tocco.
-                </ImprovementCard>
-
-                <ImprovementCard title="Zero-FOUC Theme" actionView="settings" icon="dark_mode">
-                    Il tema personalizzato viene caricato istantaneamente all'avvio, eliminando lo sfarfallio dei colori.
-                </ImprovementCard>
-
-                <ImprovementCard title="Header & Avatar Migliorati" actionView="settings" icon="account_circle">
-                    L'avatar ora mostra le iniziali del nome docente. Header più compatto e informativo.
-                </ImprovementCard>
-            </div>
-
-            <div className="card mt-6 bg-primary-container text-on-primary-container">
-                <h3 className="m3-title-large">Manuale Completo PDF</h3>
-                <p className="m3-body-medium mt-2 mb-4 opacity-90">
-                    Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
-                </p>
-                 <button onClick={onGenerate} disabled={isGenerating} className="button bg-primary text-on-primary w-full justify-center border-none shadow-sm hover:shadow-md">
-                    <span className="material-symbols-outlined mr-2">{isGenerating ? 'pending' : 'download'}</span>
-                    {isGenerating ? 'Generazione...' : 'Scarica Manuale & Guida PDF'}
-                </button>
-            </div>
-        </div>
-    );
 };
 
 export default HelpModal;

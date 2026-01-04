@@ -12,12 +12,10 @@
  */
 
 import * as React from 'react';
-import { useState, useRef } from 'react';
-import { useModalAccessibility } from '../hooks/useModalAccessibility';
+import { useState } from 'react';
 import { Studente, Valutazione } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
-import { M3ChoiceCard, SelectField, TextField, TextArea, M3Button } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3ChoiceCard, SelectField, TextField, TextArea, M3Button, M3Dialog, M3DialogContent, M3DialogActions } from './ui';
 
 interface AddEvaluationModalProps {
     students: Studente[];
@@ -68,27 +66,15 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
         onClose();
     };
 
-    // Accessibility & UX
-    const overlayRef = useRef<HTMLDivElement>(null);
-    // useModalAccessibility expects containerRef as RefObject<HTMLDivElement>
-    const containerRef = useRef<HTMLDivElement>(null);
-    useModalAccessibility({
-        isOpen: true,
-        onClose,
-        overlayRef,
-        containerRef,
-        onOverlayClick: onClose
-    });
-
     return (
         <M3Dialog
             title="Aggiungi Valutazione"
-            open={true}
             onClose={onClose}
             maxWidth="sm"
+            level={1}
         >
             <form onSubmit={handleSubmit} className="space-y-6">
-                <M3DialogContent className="space-y-6">
+                <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
                     <SelectField
                         id="eval-student-select"
                         label="Studente"

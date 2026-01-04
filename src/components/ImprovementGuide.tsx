@@ -8,8 +8,7 @@ import DonutChart from './charts/DonutChart';
 import AiAdvisor from './AiAdvisor';
 import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import AiThinkingGem from './AiThinkingGem';
-import { AiMemoryChip } from './M3Components';
+import { AiMemoryChip, M3Button, InfoCard, SectionHeader, AiThinkingGem } from './ui';
 
 interface ImprovementGuideProps {
     selectedClass: string;
@@ -88,7 +87,7 @@ Basandoti su questi dati, genera una risposta in formato JSON con la seguente st
   "sintesiGenerale": "Un paragrafo che riassume l'andamento generale della classe, il clima e il livello di partecipazione.",
   "puntiDiForza": ["Un elenco di 2-3 punti di forza principali della classe (es. 'Buona collaborazione', 'Solide basi nelle materie pratiche')."],
   "areeDiMiglioramento": ["Un elenco di 2-3 aree dove la classe mostra difficoltà o incertezze (es. 'Fragilità nel problem solving complesso', 'Applicazione del metodo di studio da consolidare')."],
-  "casiParticolari": ["Un elenco di 2-3 osservazioni su trend specifici, senza fare nomi, ma descrivendo le situazioni (es. 'Si nota un piccolo gruppo di studenti con un rendimento eccellente e in costante crescita.', 'Alcuni studenti mostrano un calo di rendimento nelle prove scritte, pur mantenendo un buon orale.')."]
+  "casiParticolari": ["Un elenco di 2-3 osservazioni su trend specifici, senza fare nomi, mas descrivendo le situazioni (es. 'Si nota un piccolo gruppo di studenti con un rendimento eccellente e in costante crescita.', 'Alcuni studenti mostrano un calo di rendimento nelle prove scritte, pur mantenendo un buon orale.')."]
 }
 Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve essere solo l'oggetto JSON.
 `;
@@ -216,47 +215,53 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
     if (loadingStatus) {
         return (
-            <div className="flex flex-col justify-center items-center p-12 h-64">
+            <div className="flex flex-col justify-center items-center p-12 h-64 bg-surface-container-low/30 backdrop-blur-xl rounded-5xl border border-outline-variant/20 animate-in fade-in zoom-in-95 duration-500">
                 <AiThinkingGem size="large" text={loadingStatus} />
             </div>
         );
     }
 
     if (error) {
-        return <div className="card text-center p-8 bg-error-container text-on-error-container">{error}</div>;
+        return (
+            <div className="p-12 bg-error/10 border border-error/20 rounded-5xl text-center animate-in fade-in slide-in-from-bottom-4">
+                <span className="material-symbols-outlined text-error text-5xl mb-4">error</span>
+                <p className="text-error font-black uppercase tracking-widest">{error}</p>
+            </div>
+        );
     }
 
     return (
-        <div className="space-y-6">
-            <div className="page-header-compact">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium">Analisi Classe {selectedClass}</h1>
-                    <p className="page-subtitle">Report generato per il consiglio di classe.</p>
+        <div className="space-y-8 animate-in fade-in duration-700">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-surface-container-low/30 backdrop-blur-xl p-8 rounded-5xl border border-outline-variant/20">
+                <div className="space-y-1">
+                    <h1 className="text-3xl font-black tracking-tight text-on-surface">Analisi Classe {selectedClass}</h1>
+                    <p className="text-on-surface-variant font-medium opacity-70">Report generato per il consiglio di classe.</p>
                 </div>
-                <div className="flex gap-2">
-                    <button onClick={handleExportDocx} className="button button-outlined">
+                <div className="flex gap-3">
+                    <M3Button onClick={handleExportDocx} variant="outlined" className="font-black text-xs uppercase tracking-widest">
                         <span className="material-symbols-outlined mr-2">description</span>
                         Esporta Word
-                    </button>
-                    <button onClick={() => window.print()} className="button button-tonal">
+                    </M3Button>
+                    <M3Button onClick={() => window.print()} variant="tonal" className="font-black text-xs uppercase tracking-widest">
                         <span className="material-symbols-outlined mr-2">print</span>
                         Stampa
-                    </button>
+                    </M3Button>
                 </div>
             </div>
 
             {/* AI Summary */}
-            <div className="card">
-                <div className="flex justify-between items-start mb-4">
-                    <h2 className="m3-title-large flex items-center gap-2">
-                        <span className="material-symbols-outlined text-primary">auto_awesome</span>
-                        Sintesi dell'AI
-                    </h2>
+            <div className="bg-surface-container-low/30 backdrop-blur-xl p-8 rounded-5xl border border-outline-variant/20 space-y-8">
+                <div className="flex justify-between items-center">
+                    <SectionHeader 
+                        title="Sintesi dell'AI" 
+                        icon="auto_awesome" 
+                        className="!mb-0"
+                    />
                     {analysis && <AiMemoryChip label={`Dati Registro ${selectedClass} • ${settings.schoolType}`} />}
                 </div>
 
                 {analysis && (
-                    <div className="space-y-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <EditableContentCard
                             title="Sintesi Generale"
                             icon="summarize"
@@ -294,25 +299,26 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             />
 
             {/* Charts */}
-            <div className="improvement-guide-grid">
-                <div className="card">
-                    <h2 className="m3-title-large mb-4">Distribuzione Voti</h2>
-                    <BarChart data={gradeDistributionData} color="var(--sys-secondary)" />
-                </div>
-                {objectiveAchievementData && (
-                    <div className="card flex flex-col items-center">
-                        <h2 className="m3-title-large mb-4">Raggiungimento Obiettivi</h2>
-                        <DonutChart data={objectiveAchievementData} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <InfoCard title="Distribuzione Voti" icon="bar_chart" className="h-full">
+                    <div className="p-4">
+                        <BarChart data={gradeDistributionData} color="var(--sys-secondary)" />
                     </div>
+                </InfoCard>
+                {objectiveAchievementData && (
+                    <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" className="h-full">
+                        <div className="flex justify-center p-4">
+                            <DonutChart data={objectiveAchievementData} />
+                        </div>
+                    </InfoCard>
                 )}
             </div>
 
-            <div className="card">
-                <h2 className="m3-title-large mb-4">Livelli di Competenza</h2>
-                <div className="space-y-6">
+            <InfoCard title="Livelli di Competenza" icon="school">
+                <div className="space-y-10 p-4">
                     {competencyLevelData.map(compData => (
-                        <div key={compData.name}>
-                            <h3 className="m3-title-medium mb-2">{compData.name}</h3>
+                        <div key={compData.name} className="space-y-4">
+                            <h3 className="text-sm font-black uppercase tracking-widest text-on-surface-variant opacity-70">{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
                                 color="var(--sys-tertiary)"
@@ -321,7 +327,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                         </div>
                     ))}
                 </div>
-            </div>
+            </InfoCard>
 
         </div>
     );

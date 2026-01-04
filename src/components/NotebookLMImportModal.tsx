@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { fetchNotebookFiles, NotebookLMFile } from '../services/notebooklmService';
 import { KnowledgeBaseEntry } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { 
+    M3Dialog, 
+    M3DialogContent, 
+    M3DialogActions, 
+    M3Button 
+} from './ui';
 
 interface NotebookLMImportModalProps {
   open: boolean;
   onClose: () => void;
   onImport: (imported: KnowledgeBaseEntry[]) => void;
+  isAuthenticated?: boolean;
+  onConnect?: () => void;
 }
 
-const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({ open, onClose, onImport }) => {
+const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({ 
+  open, 
+  onClose, 
+  onImport,
+  isAuthenticated = false,
+  onConnect
+}) => {
   const [files, setFiles] = useState<NotebookLMFile[]>([]);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
@@ -21,14 +34,14 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({ open, onC
   const [catalogData, setCatalogData] = useState<Record<string, { materia?: string; classe?: string; tags?: string; content?: string; category?: string }>>({});
 
   useEffect(() => {
-    if (open) {
+    if (open && isAuthenticated) {
       setLoading(true);
       fetchNotebookFiles()
         .then(f => setFiles(f))
         .catch(() => setError('Errore nel recupero dei file da NotebookLM'))
         .finally(() => setLoading(false));
     }
-  }, [open]);
+  }, [open, isAuthenticated]);
 
   const handleSelect = (id: string) => {
     setSelected(prev => {
@@ -87,22 +100,39 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({ open, onC
       maxWidth="xl"
     >
       <M3DialogContent className="py-4">
-        {loading && <div className="text-center py-8">Caricamento file da NotebookLM...</div>}
-        {error && <div className="text-error py-4">{error}</div>}
-
-        {step === 'select' && !loading && !error && (
-          <>
-            <p className="mb-2 text-on-surface-variant">Seleziona i materiali da importare nella Knowledge Base.</p>
-            <div className="max-h-64 overflow-y-auto border rounded mb-4">
-              {files.length === 0 && <div className="p-4 text-center text-on-surface-variant">Nessun file trovato.</div>}
-              {files.map(f => (
-                <label key={f.id} className="flex items-center gap-3 px-4 py-2 border-b last:border-b-0 cursor-pointer hover:bg-surface-container-low">
-                  <input type="checkbox" checked={selected.has(f.id)} onChange={() => handleSelect(f.id)} />
-                  <span className="flex-1 font-medium">{f.name}</span>
-                  <span className="m3-label-small text-on-surface-variant">{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
-                </label>
-              ))}
+        {!isAuthenticated ? (
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+              <span className="material-symbols-outlined text-4xl text-primary">cloud_off</span>
             </div>
+            <h3 className="text-xl font-bold mb-2">Connessione Google Richiesta</h3>
+            <p className="text-on-surface-variant mb-8 max-w-xs">
+              Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
+            </p>
+            <M3Button variant="filled" onClick={onConnect} className="px-8">
+              Connetti Account Google
+            </M3Button>
+          </div>
+        ) : (
+          <>
+            {loading && <div className="text-center py-8">Caricamento file da NotebookLM...</div>}
+            {error && <div className="text-error py-4">{error}</div>}
+
+            {step === 'select' && !loading && !error && (
+              <>
+                <p className="mb-2 text-on-surface-variant">Seleziona i materiali da importare nella Knowledge Base.</p>
+                <div className="max-h-64 overflow-y-auto border rounded mb-4">
+                  {files.length === 0 && <div className="p-4 text-center text-on-surface-variant">Nessun file trovato.</div>}
+                  {files.map(f => (
+                    <label key={f.id} className="flex items-center gap-3 px-4 py-2 border-b last:border-b-0 cursor-pointer hover:bg-surface-container-low">
+                      <input type="checkbox" checked={selected.has(f.id)} onChange={() => handleSelect(f.id)} />
+                      <span className="flex-1 font-medium">{f.name}</span>
+                      <span className="m3-label-small text-on-surface-variant">{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
+                    </label>
+                  ))}
+                </div>
+              </>
+            )}
           </>
         )}
 
@@ -137,14 +167,14 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({ open, onC
         <M3DialogActions className="gap-2">
           {step === 'select' && (
             <>
-              <button className="button button-text" onClick={onClose}>Annulla</button>
-              <button className="button button-filled" disabled={selected.size === 0} onClick={handleImport}>Importa selezionati</button>
+              <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
+              <M3Button variant="filled" disabled={selected.size === 0} onClick={handleImport}>Importa selezionati</M3Button>
             </>
           )}
           {step === 'catalog' && (
             <>
-              <button className="button button-text" onClick={onClose}>Annulla</button>
-              <button className="button button-filled" onClick={handleCatalogConfirm}>Conferma e importa</button>
+              <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
+              <M3Button variant="filled" onClick={handleCatalogConfirm}>Conferma e importa</M3Button>
             </>
           )}
         </M3DialogActions>
@@ -152,7 +182,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({ open, onC
 
       {step === 'done' && (
         <M3DialogActions>
-          <button className="button button-filled w-full" onClick={onClose}>Chiudi</button>
+          <M3Button variant="filled" fullWidth onClick={onClose}>Chiudi</M3Button>
         </M3DialogActions>
       )}
     </M3Dialog>

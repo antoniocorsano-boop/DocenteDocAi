@@ -27,33 +27,12 @@ const NOTEBOOKLM_CONFIG = {
   scopes: ['https://www.googleapis.com/auth/notebooks'],
 };
 
-// --- Google OAuth helpers ---
-import {
-  loadTokens,
-  refreshAccessToken,
-  getGoogleAuthUrl,
-  saveTokens,
-  clearTokens,
-  GoogleOAuthTokens,
-  exchangeCodeForTokens
-} from './googleOAuthService';
+// --- Google Auth helpers ---
+import { getAccessToken } from './googleDriveService';
 
-// Helper per ottenere token di autenticazione (gestisce refresh)
+// Helper per ottenere token di autenticazione
 const getAuthToken = async (): Promise<string | null> => {
-  let tokens = loadTokens();
-  if (!tokens) return null;
-  // Se scaduto, prova refresh
-  if (tokens.expiresAt < Date.now()) {
-    if (!tokens.refreshToken) return null;
-    try {
-      tokens = await refreshAccessToken(tokens.refreshToken);
-      saveTokens(tokens);
-    } catch {
-      clearTokens();
-      return null;
-    }
-  }
-  return tokens.accessToken;
+  return getAccessToken();
 };
 
 // Helper per gestire errori API
@@ -258,24 +237,7 @@ export const isNotebookLMAuthenticated = async (): Promise<boolean> => {
   return token !== null;
 };
 
-// Utility per ottenere URL di autorizzazione
-export const getNotebookLMAuthUrl = (state: string = ''): string => {
-  return getGoogleAuthUrl(state);
-};
-
-// Gestione callback OAuth (da chiamare in /oauth-callback route)
-export const handleNotebookLMAuthCallback = async (code: string): Promise<boolean> => {
-  try {
-    const tokens = await exchangeCodeForTokens(code);
-    saveTokens(tokens);
-    return true;
-  } catch (e) {
-    clearTokens();
-    return false;
-  }
-};
-
 // Logout helper
 export const notebookLMLogout = () => {
-  clearTokens();
+  // Il logout viene gestito centralmente da googleDriveService
 };

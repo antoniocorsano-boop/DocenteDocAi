@@ -1,9 +1,8 @@
 
 import React from 'react';
-import Tooltip from './Tooltip';
 import { Slot, Lezione } from '../types';
 import { LESSON_TYPE_ICONS } from '../constants';
-import { M3Dialog, M3DialogContent } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
 interface SlotActionModalProps {
   slot: Slot;
@@ -22,14 +21,20 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
 
   return (
     <M3Dialog
-      title={<div><h2 className="m3-headline-small">Lezione Programmata</h2><p className="m3-body-small text-on-surface-variant">{slot.giorno}, {slot.ora}</p></div>}
+      title={
+        <div className="flex flex-col">
+          <span className="m3-headline-small">Lezione Programmata</span>
+          <span className="m3-body-small text-on-surface-variant">{slot.giorno}, {slot.ora}</span>
+        </div>
+      }
       onClose={onClose}
       maxWidth="sm"
+      level={1}
     >
-      <M3DialogContent className="px-4 pb-4">
+      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
             {/* Interactive Hero Card */}
             <div 
-                className="hero-card-interactive bg-primary-container text-on-primary-container group"
+                className="hero-card-interactive bg-primary-container text-on-primary-container group cursor-pointer hover:brightness-110 transition-all"
                 onClick={onView}
                 role="button"
                 tabIndex={0}
@@ -71,24 +76,31 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
             </div>
             
             {/* Action List */}
-            <div className="action-list mt-4">
-                <button onClick={onStart} className="action-list-button button-filled">
-                    <span className="material-symbols-outlined">door_open</span>
+            <div className="flex flex-col gap-3 mt-4">
+                <button onClick={onStart} className="flex items-center gap-4 p-4 rounded-3xl bg-primary text-on-primary hover:bg-primary/90 transition-all text-left group shadow-sm">
+                    <div className="w-12 h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span className="material-symbols-outlined text-2xl">door_open</span>
+                    </div>
                     <div>
-                        <p className="m3-label-large font-bold text-base">{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</p>
+                        <p className="m3-label-large font-bold text-lg">{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</p>
                         <p className="m3-body-small opacity-90">Apri il registro e inizia la lezione.</p>
                     </div>
                 </button>
 
-                <button onClick={onEdit} className="action-list-button button-tonal">
-                    <span className="material-symbols-outlined">edit</span>
+                <button onClick={onEdit} className="flex items-center gap-4 p-4 rounded-3xl bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80 transition-all text-left group shadow-sm">
+                    <div className="w-12 h-12 rounded-2xl bg-surface-container-lowest text-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span className="material-symbols-outlined text-2xl">edit</span>
+                    </div>
                     <div>
-                        <p className="m3-label-large font-bold text-base">Modifica</p>
+                        <p className="m3-label-large font-bold text-lg">Modifica</p>
                         <p className="m3-body-small opacity-80">Cambia contenuto o sposta.</p>
                     </div>
                 </button>
             </div>
       </M3DialogContent>
+      <M3DialogActions>
+        <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
+      </M3DialogActions>
     </M3Dialog>
   );
 };

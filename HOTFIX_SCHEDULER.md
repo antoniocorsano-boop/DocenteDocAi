@@ -1,103 +1,36 @@
-# HOTFIX: React Scheduler Performance API - Enhanced Fix Deployed
+# HOTFIX: React Scheduler & Dependency Conflicts - FINAL RESOLUTION
 
-## Issue
-```
-Uncaught TypeError: Cannot set properties of undefined (setting 'unstable_now')
-    at vendor-Dgt43SM8.js:1:58516
-```
+## Issues Resolved
+1.  **React Scheduler Error**: `Uncaught TypeError: Cannot set properties of undefined (setting 'unstable_now')`
+2.  **Mammoth/Underscore Conflict**: `Uncaught TypeError: r.indexBy is not a function`
+3.  **Service Worker Precache Failure**: `Failed to fetch` during SW installation.
 
-**Root Cause:** React's scheduler module requires access to `window.performance.now()` during initialization. In certain runtime environments, this wasn't being properly set up before React imports occurred.
+## Final Solution Summary
 
-## Solution - Enhanced (v2)
+### 1. Scheduler Polyfill (Blocking)
+**File:** `public/scheduler-polyfill.js`
+**Implementation:** Loaded in `index.html` as a classic script BEFORE any modules.
+- Ensures `window.scheduler` and `performance.now` are defined globally.
+- Prevents React from crashing during early module initialization.
 
-### Phase 1: Build-time Polyfill
-**File:** `src/build-polyfill.js`
-- Ensures `globalThis.performance` exists during build
-- Provides fallback `performance.now()` for Node.js environments
-- Initializes scheduler-compatible timing functions
+### 2. Vite Configuration Fixes
+**File:** `vite.config.ts`
+- **Removed Alias**: Deleted `underscore: 'lodash'` which was breaking `mammoth`.
+- **Unified Bundling**: Grouped `react`, `react-dom`, and `scheduler` into `react-vendor`.
+- **PWA Optimization**: Increased cache limit to 5MB and included all JS/assets in precache.
 
-### Phase 2: Runtime Polyfill  
-**File:** `src/polyfills.ts`
-- Sets up `window.performance` object
-- Provides fallback timing functions
-- Handles both `window` and `globalThis` contexts
+### 3. Service Worker Cleanup
+**File:** `src/sw.ts`
+- Removed manual manifest filtering to ensure all required assets are cached correctly.
 
-### Phase 3: Pre-React Initialization (NEW)
-**File:** `src/main.tsx`
-- Initializes `window.performance.now()` BEFORE React imports
-- Ensures both `window` and `globalThis` have performance API
-- Guards against undefined performance object
-
-## Code Changes
-
-### src/main.tsx - Pre-React Initialization
-```typescript
-// CRITICAL: Initialize scheduler BEFORE React imports
-if (typeof window !== 'undefined') {
-  // Ensure performance object exists
-  if (!window.performance) {
-    (window as any).performance = {};
-  }
-  
-  // Ensure performance.now exists and is callable
-  if (!window.performance.now || typeof window.performance.now !== 'function') {
-    (window.performance as any).now = () => Date.now();
-  }
-  
-  // Ensure globalThis also has it
-  if (typeof globalThis !== 'undefined') {
-    if (!globalThis.performance) {
-      (globalThis as any).performance = {};
-    }
-    if (!globalThis.performance.now || typeof globalThis.performance.now !== 'function') {
-      (globalThis.performance as any).now = () => Date.now();
-    }
-  }
-}
-```
-
-### src/build-polyfill.js - Build-time Enhancement
-```javascript
-// Ensure scheduler can access Performance API
-if (typeof globalThis !== 'undefined') {
-  if (!globalThis.performance) {
-    globalThis.performance = {};
-  }
-  
-  if (!globalThis.performance.now || typeof globalThis.performance.now !== 'function') {
-    globalThis.performance.now = () => Date.now();
-  }
-}
-
-// Ensure process.env exists for React
-if (typeof globalThis !== 'undefined' && !globalThis.process) {
-  globalThis.process = {
-    env: {
-      NODE_ENV: 'production',
-    },
-  };
-}
-```
+## Detailed Documentation
+Per una spiegazione dettagliata di ogni problema e della relativa soluzione, consultare:
+[docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)
 
 ## Deployment Status
-
-✅ **Build:** Clean (13.04s)
-✅ **Vercel:** Deployed successfully in 36 seconds  
+✅ **Status:** Fully Resolved & Deployed
 ✅ **Production URL:** https://docentedoc-ai.vercel.app
-✅ **Monitoring:** Active
-
-## Triple-Layer Protection
-
-1. **Build-time** (`build-polyfill.js`) - Node.js environment setup
-2. **Module-load time** (`polyfills.ts`) - Generic polyfills
-3. **Pre-React** (`main.tsx`) - Direct performance API initialization
-
-This three-tier approach ensures the scheduler has access to timing functions regardless of the runtime environment.
-
-## Testing
-
-The enhanced fix addresses:
-- ✅ React scheduler initialization at module load time
+✅ **Verification:** No console errors, PWA offline mode functional.
 - ✅ Performance API availability before React imports
 - ✅ Cross-environment compatibility (window, globalThis, Node.js)
 - ✅ Fallback to `Date.now()` for timestamp generation

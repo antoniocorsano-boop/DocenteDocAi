@@ -17,78 +17,123 @@ export interface KnowledgeBaseEntry {
     updatedAt?: string;
 }
 
+// --- ORIENTAMENTO 2026 ---
+export interface OrientamentoActivity {
+    id: string;
+    title: string;
+    date: string;
+    durationHours: number;
+    description: string;
+    type: 'didattica' | 'extra-curriculare' | 'PCTO' | 'esperienziale' | 'altro';
+    studentIds: string[];
+    classes: string[];
+    competenciesAddressed: string[];
+}
+
+export interface EPortfolioEntry {
+    id: string;
+    studentId: string;
+    title: string;
+    date: string;
+    description: string;
+    category: 'capolavoro' | 'riflessione' | 'certificazione' | 'altro';
+    fileUrl?: string;
+    tags: string[];
+}
+
+export interface StudentOrientamentoState {
+    studentId: string;
+    hasCapolavoro: boolean;
+    hasAutovalutazione: boolean;
+    totalHours: number;
+    activities: string[];
+    ePortfolio: string[];
+    selfReflection: string;
+    tutorNotes: string;
+}
+
 // --- DATA STORE STATE & ACTIONS ---
-export interface DataState {
-    user: UserProfile | null;
+// Legacy DataState and DataActions removed in favor of modular stores (Student, Academic, System, Settings, UI)
+// and the aggregated AppState/AppActions.
+
+export interface StudentState {
     students: Studente[];
-    lessons: Record<string, Lezione>;
-    slots: Record<string, Slot>;
+    pianiInclusione: Record<string, PianoInclusione>;
     evaluations: Valutazione[];
     competencyEvals: ValutazioneCompetenza[];
+    studentProfileContext: Studente | null;
+    selectedClassForDashboard: string | null;
+    orientamentoActivities: OrientamentoActivity[];
+    ePortfolioEntries: EPortfolioEntry[];
+    studentOrientamentoStates: Record<string, StudentOrientamentoState>;
+}
+
+export interface AcademicState {
+    lessons: Record<string, Lezione>;
+    slots: Record<string, Slot>;
     uda: Uda[];
-    templates: DocumentTemplate[];
+    eventi: EventoCalendario[];
+    rubriche: Rubrica[];
+    curricula: CurriculumSubject[];
+    submissions: HomeworkSubmission[];
+    draftRegister: Record<string, RegisterEntry>;
+    finalizedRegister: RegisterEntry[];
+    giudizi: Record<string, GiudizioPeriodico>;
+    reportistica: Report[];
+}
+
+export interface SystemState {
+    user: UserProfile | null;
     analyticsEvents: AnalyticsEvent[];
     analyticsMetrics: AnalyticsMetrics;
     analyticsSettings: AnalyticsSettings;
-    eventi: EventoCalendario[];
-    knowledgeBase: KnowledgeBaseEntry[];
-    corpora: Corpus[];
-    rubriche: Rubrica[];
-    pianiInclusione: Record<string, PianoInclusione>;
-    giudizi: Record<string, GiudizioPeriodico>;
-    reportistica: Report[];
-    feedSources: FeedSource[];
-    draftRegister: Record<string, RegisterEntry>;
-    finalizedRegister: RegisterEntry[];
-    notebookNotes: Record<string, NotebookNote[]>;
-    memos: ToDoItem[];
-    curricula: CurriculumSubject[];
-    submissions: HomeworkSubmission[];
     notifiche: Notifica[];
     suggestions: AiSuggestion[];
     activeSuggestion: SystemSuggestion | null;
     dismissedSuggestions: Set<string>;
-    studentProfileContext: Studente | null;
-    selectedClassForDashboard: string | null;
-    actions: DataActions;
+    knowledgeBase: KnowledgeBaseEntry[];
+    corpora: Corpus[];
+    templates: DocumentTemplate[];
+    feedSources: FeedSource[];
 }
 
-export interface DataActions {
-        setSuggestions: (suggestions: AiSuggestion[]) => void;
-        setActiveSuggestion: (activeSuggestion: SystemSuggestion | null) => void;
-        setStudentProfileContext: (student: Studente | null) => void;
-        setSelectedClassForDashboard: (className: string | null) => void;
-        loadFromBackup: (data: Partial<DataState>) => void;
-        resetAll: () => void;
-        dismissSuggestion: (id: string) => void;
-        reactivateSuggestion: (id: string) => void;
-    setUser: (user: UserProfile | null) => void;
-    setStudents: (students: Studente[] | ((prev: Studente[]) => Studente[])) => void;
-    setLessons: (lessons: Record<string, Lezione> | ((prev: Record<string, Lezione>) => Record<string, Lezione>)) => void;
-    setSlots: (slots: Record<string, Slot> | ((prev: Record<string, Slot>) => Record<string, Slot>)) => void;
-    setEvaluations: (evals: Valutazione[] | ((prev: Valutazione[]) => Valutazione[])) => void;
-    setCompetencyEvals: (evals: ValutazioneCompetenza[] | ((prev: ValutazioneCompetenza[]) => ValutazioneCompetenza[])) => void;
-    setUda: (uda: Uda[] | ((prev: Uda[]) => Uda[])) => void;
-    setTemplates: (templates: DocumentTemplate[] | ((prev: DocumentTemplate[]) => DocumentTemplate[])) => void;
-    setAnalyticsEvents: (events: AnalyticsEvent[] | ((prev: AnalyticsEvent[]) => AnalyticsEvent[])) => void;
-    setAnalyticsMetrics: (metrics: AnalyticsMetrics | ((prev: AnalyticsMetrics) => AnalyticsMetrics)) => void;
-    setAnalyticsSettings: (settings: AnalyticsSettings | ((prev: AnalyticsSettings) => AnalyticsSettings)) => void;
-    trackAnalyticsEvent: (eventType: AnalyticsEvent['eventType'], featureName: string, metadata?: Record<string, string | number | boolean>) => void;
-    setEventi: (eventi: EventoCalendario[] | ((prev: EventoCalendario[]) => EventoCalendario[])) => void;
-    setKnowledgeBase: (kb: KnowledgeBaseEntry[] | ((prev: KnowledgeBaseEntry[]) => KnowledgeBaseEntry[])) => void;
-    setCorpora: (corpora: Corpus[] | ((prev: Corpus[]) => Corpus[])) => void;
-    setNotifiche: (notifiche: Notifica[] | ((prev: Notifica[]) => Notifica[])) => void;
-    setRubriche: (rubriche: Rubrica[] | ((prev: Rubrica[]) => Rubrica[])) => void;
-    setPianiInclusione: (piani: Record<string, PianoInclusione> | ((prev: Record<string, PianoInclusione>) => Record<string, PianoInclusione>)) => void;
-    setGiudizi: (giudizi: Record<string, GiudizioPeriodico> | ((prev: Record<string, GiudizioPeriodico>) => Record<string, GiudizioPeriodico>)) => void;
-    setReportistica: (reportistica: Report[] | ((prev: Report[]) => Report[])) => void;
-    setFeedSources: (feeds: FeedSource[] | ((prev: FeedSource[]) => FeedSource[])) => void;
-    setDraftRegister: (reg: Record<string, RegisterEntry> | ((prev: Record<string, RegisterEntry>) => Record<string, RegisterEntry>)) => void;
-    setFinalizedRegister: (reg: RegisterEntry[] | ((prev: RegisterEntry[]) => RegisterEntry[])) => void;
-    setNotebookNotes: (notes: Record<string, NotebookNote[]> | ((prev: Record<string, NotebookNote[]>) => Record<string, NotebookNote[]>)) => void;
-    setMemos: (memos: ToDoItem[] | ((prev: ToDoItem[]) => ToDoItem[])) => void;
-    setCurricula: (curr: CurriculumSubject[] | ((prev: CurriculumSubject[]) => CurriculumSubject[])) => void;
-    setSubmissions: (subs: HomeworkSubmission[] | ((prev: HomeworkSubmission[]) => HomeworkSubmission[])) => void;
+export interface SettingsState {
+    settings: TimetableSettings;
+    aiSettings: AiSettings;
+    themeState: AppThemeState;
+}
+
+export interface UIState {
+    modals: Modals & {
+        toast: { message: string; type: 'success' | 'error' | 'info'; visible: boolean };
+    };
+    chaosStage: 'none' | 'chaos' | 'implosion' | 'peace' | 'settled';
+    circularAnalysisModal: { isOpen: boolean; url: string; title: string } | null;
+    syncConflictModal: { isOpen: boolean; data: SyncConflictData | null } | null;
+    createLessonContext: { isOpen: boolean; slotKey: string | null; lezione: Lezione | null } | null;
+    editingSlotKey: string | null;
+    activeSlotKey: string | null;
+    lessonViewContext: Lezione | null;
+    loadingModalMessage: string;
+    toast: { message: string; type: 'success' | 'error' | 'info'; visible: boolean } | null;
+    installPrompt: BeforeInstallPromptEvent | null;
+    canShowInstallPrompt: boolean;
+    isGlobalAiLoading: boolean;
+    navigationHistory: { view: View; context: unknown }[];
+    backupState: BackupState;
+    driveSyncState: DriveSyncState;
+}
+
+export interface BackupPayload extends StudentState, AcademicState, SystemState {
+    settings: TimetableSettings;
+    aiSettings: AiSettings;
+    themeState: AppThemeState;
+    installPrompt: BeforeInstallPromptEvent | null;
+    canShowInstallPrompt: boolean;
+    isGlobalAiLoading: boolean;
+    navigationHistory: { view: View; context: any }[];
+    backupState: BackupState;
+    driveSyncState: DriveSyncState;
 }
 // --- UNIVERSAL MODAL ---
 export interface UniversalModalProps {
@@ -126,6 +171,8 @@ export interface Modals {
     toast?: { message: string; type?: 'success' | 'error' | 'info' } | null;
     isBackupInfoModalOpen?: boolean | null;
     setIsBackupInfoModalOpen?: ((value?: boolean) => void) | null;
+    isRegisterImportOpen?: boolean | null;
+    setIsRegisterImportOpen?: ((value?: boolean) => void) | null;
     syncConflictModal?: { isOpen: boolean; data: SyncConflictData | null } | null;
     setSyncConflictModal?: ((modal: { isOpen: boolean; data: SyncConflictData | null } | null) => void) | null;
     createLessonContext?: { isOpen: boolean; slotKey: string | null; lezione: Lezione | null } | null;
@@ -286,6 +333,7 @@ export type View =
     | 'competency-levels'
     | 'live-assistant'
     | 'welcome'
+    | 'orientamento'
     | 'curriculum-manager'
     | 'teacher-inbox'
     | 'video-analysis'
@@ -702,6 +750,7 @@ export interface PianoInclusione {
     misureCompensative: string;
     misureDispensative: string;
     criteriValutazionePersonalizzati: string;
+    obiettiviPerMateria?: Record<string, string>;
 }
 
 export interface GiudizioPeriodico {
@@ -747,7 +796,7 @@ export interface AiSuggestion {
     icon: string;
     title: string;
     description: string;
-    action: { type: string; payload?: Record<string, unknown> };
+    action: { type: string; payload?: string | Record<string, unknown> };
 }
 
 // FIX: Corrected 'action' type to be always present and structured
@@ -785,10 +834,13 @@ export interface DriveSyncState {
 
 export interface AppThemeState {
     mode: 'light' | 'dark' | 'system';
+    visualStyle: 'aura' | 'flat' | 'minimal' | 'cupertino' | 'windows' | 'expressive';
     customizationName: string;
     customColors?: Partial<ColorTokens>;
     generatedName?: string;
     generatedColors?: Partial<ColorTokens>;
+    glassBlur?: number;
+    radiusMultiplier?: number;
 }
 
 export interface BackupState {
@@ -821,8 +873,6 @@ export interface AppState {
     feedSources: FeedSource[];
     draftRegister: Record<string, RegisterEntry>;
     finalizedRegister: RegisterEntry[];
-    notebookNotes: Record<string, NotebookNote[]>;
-    memos: ToDoItem[];
     curricula: CurriculumSubject[];
     submissions: HomeworkSubmission[];
     settings: TimetableSettings;
@@ -841,7 +891,11 @@ export interface AppState {
     selectedClassForDashboard: string | null;
     activeSuggestion: SystemSuggestion | null;
     dismissedSuggestions: Set<string>;
-    selectedDocuments: Document[]; // Updated type from `any[]` to `Document[]`
+    selectedDocuments: Document[];
+    // Orientamento 2026
+    orientamentoActivities: OrientamentoActivity[];
+    ePortfolioEntries: EPortfolioEntry[];
+    studentOrientamentoStates: Record<string, StudentOrientamentoState>;
 }
 
 export interface AppActions {
@@ -866,10 +920,24 @@ export interface AppActions {
     setFeedSources: (input: FeedSource[] | ((prev: FeedSource[]) => FeedSource[])) => void;
     setDraftRegister: (input: Record<string, RegisterEntry> | ((prev: Record<string, RegisterEntry>) => Record<string, RegisterEntry>)) => void;
     setFinalizedRegister: (input: RegisterEntry[] | ((prev: RegisterEntry[]) => RegisterEntry[])) => void;
-    setNotebookNotes: (input: Record<string, NotebookNote[]> | ((prev: Record<string, NotebookNote[]>) => Record<string, NotebookNote[]>)) => void;
-    setMemos: (input: ToDoItem[] | ((prev: ToDoItem[]) => ToDoItem[])) => void;
     setCurricula: (input: CurriculumSubject[] | ((prev: CurriculumSubject[]) => CurriculumSubject[])) => void;
     setSubmissions: (input: HomeworkSubmission[] | ((prev: HomeworkSubmission[]) => HomeworkSubmission[])) => void;
+    // Orientamento 2026
+    setOrientamentoActivities: (input: OrientamentoActivity[] | ((prev: OrientamentoActivity[]) => OrientamentoActivity[])) => void;
+    setEPortfolioEntries: (input: EPortfolioEntry[] | ((prev: EPortfolioEntry[]) => EPortfolioEntry[])) => void;
+    setStudentOrientamentoStates: (input: Record<string, StudentOrientamentoState> | ((prev: Record<string, StudentOrientamentoState>) => Record<string, StudentOrientamentoState>)) => void;
+
+    // Helper Actions (Domain-specific)
+    addEvaluation: (evaluation: Omit<Valutazione, 'id'>) => void;
+    updateEvaluation: (id: string, updates: Partial<Valutazione>) => void;
+    deleteEvaluation: (id: string) => void;
+    saveStudent: (student: Studente) => void;
+    deleteStudent: (id: string) => void;
+    importStudents: (newStudents: Studente[]) => void;
+    savePianoInclusione: (piano: PianoInclusione) => void;
+    deletePianoInclusione: (id: string) => void;
+    saveRubrica: (rubrica: Rubrica) => void;
+    saveGiudizio: (giudizio: GiudizioPeriodico) => void;
 
     // AI Suggestions & Context Actions (to Data Store)
     setSuggestions: (suggestions: AiSuggestion[]) => void;
@@ -877,6 +945,7 @@ export interface AppActions {
     dismissSuggestion: (id: string) => void;
     setStudentProfileContext: (student: Studente | null) => void;
     setSelectedClassForDashboard: (className: string | null) => void;
+    loadFromBackup: (data: any) => void;
 
     // PWA & Global App Actions (to UI Store)
     setInstallPrompt: (prompt: BeforeInstallPromptEvent | null) => void;
@@ -908,6 +977,7 @@ export interface AppActions {
     handleDisconnectDrive: () => void;
     handleSyncToDrive: (folderId?: string) => void;
     handleRestoreFromDrive: (folderId?: string) => void;
+    resetAll: () => void;
     pickGoogleDriveFolder: (apiKey?: string) => Promise<{ id: string; name: string } | null>;
     createAppFolder: () => Promise<{ id: string; name: string }>;
     handleInstallApp: () => void;
@@ -974,6 +1044,7 @@ export interface DesignSystemDefinition {
 export interface Theme {
     name: string;
     mode: 'light' | 'dark';
+    visualStyle: 'aura' | 'flat' | 'minimal' | 'cupertino' | 'windows' | 'expressive';
     colors: ColorTokens;
 }
 
@@ -1014,6 +1085,7 @@ export interface EvaluationModuleProps {
     onOpenInclusionPlanEditor: (student: Studente) => void;
     showGuidanceTips: boolean;
     lessons: Record<string, Lezione>;
+    register?: RegisterEntry[];
 }
 
 export interface LiveAssistantProps {
@@ -1258,6 +1330,4 @@ export interface TechnicalDocumentContent {
 }
 
 // --- EXTENDED DATA STATE FOR TESTING ---
-export interface ExtendedDataState extends DataState {
-  selectedDocuments: DocumentTemplate[];
-}
+// Legacy ExtendedDataState removed. Use AppState for comprehensive state representation.

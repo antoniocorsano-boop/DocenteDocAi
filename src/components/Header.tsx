@@ -1,13 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
-// import NKABottomSheet from '../nka/NKABottomSheet';
-// import { useNKAStore } from '../nka/useNKAStore';
 import Logo from './Logo';
 import { HeaderProps } from '../types';
+import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import NotificationsPopover from './NotificationsPopover';
-import Avatar from './Avatar';
-import AiThinkingGem from './AiThinkingGem';
-import { M3Dialog, M3ListItem } from './M3Components';
+import { 
+    M3Dialog, 
+    M3DialogContent, 
+    M3DialogActions, 
+    M3Button, 
+    InfoCard,
+    Avatar,
+    AiThinkingGem 
+} from './ui';
+import { Z_INDEX } from '../design-system/zIndex';
 
 import type { ActionsPopoverProps } from '../types';
 
@@ -30,77 +36,115 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
         onClose();
     };
 
+    const MenuItem: React.FC<{ 
+        icon: string; 
+        label: string; 
+        onClick: () => void; 
+        badge?: number | string;
+        variant?: 'primary' | 'secondary' | 'error';
+    }> = ({ icon, label, onClick, badge, variant = 'primary' }) => (
+        <button 
+            onClick={onClick}
+            className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-highest transition-all group text-left"
+        >
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                variant === 'error' ? 'bg-error/10 text-error' : 
+                variant === 'secondary' ? 'bg-secondary/10 text-secondary' : 
+                'bg-primary/10 text-primary'
+            }`}>
+                <span className="material-symbols-outlined">{icon}</span>
+            </div>
+            <span className="flex-grow font-medium text-on-surface">{label}</span>
+            {badge !== undefined && (
+                <span className="bg-error text-on-error text-[10px] font-bold px-2 py-0.5 rounded-full">
+                    {badge}
+                </span>
+            )}
+            <span className="material-symbols-outlined text-on-surface-variant/30 group-hover:translate-x-1 transition-transform text-sm">chevron_right</span>
+        </button>
+    );
+
     return (
-        <div ref={popoverRef} className="m3-popup-menu header-actions-popover flex flex-col gap-1 !p-2 w-80 max-w-[calc(100vw-32px)]">
+        <div ref={popoverRef} className="m3-popup-menu header-actions-popover flex flex-col gap-1 !p-2 w-80 max-w-[calc(100vw-32px)] bg-surface-container-high/95 backdrop-blur-xl border border-outline-variant/30 shadow-2xl">
             <div className="flex justify-between items-center p-4 mb-2 border-b border-outline-variant/10">
-                <div className="flex flex-col">
-                    <p className="m3-label-large font-extrabold text-primary truncate max-w-[180px]">{props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}` : props.settings?.nomeInsegnante || user?.displayName || 'Menu'}</p>
-                    <p className="m3-body-small text-on-surface-variant font-medium">{props.settings?.nomeIstituto || 'Docente'}</p>
+                <div className="flex items-center gap-3">
+                    <Avatar
+                        name={props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante 
+                            ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}` 
+                            : props.settings?.nomeInsegnante || user?.displayName || 'Docente'}
+                        src={user?.photoURL}
+                        size="sm"
+                        className="w-10 h-10 ring-2 ring-primary/20"
+                    />
+                    <div className="flex flex-col">
+                        <p className="text-sm font-bold text-primary truncate max-w-[180px]">
+                            {props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante 
+                                ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}` 
+                                : props.settings?.nomeInsegnante || user?.displayName || 'Menu'}
+                        </p>
+                        <p className="text-[11px] text-on-surface-variant font-medium uppercase tracking-wider">
+                            {props.settings?.nomeIstituto || 'Docente'}
+                        </p>
+                    </div>
                 </div>
                 <button onClick={onClose} className="w-8 h-8 rounded-full hover:bg-surface-container-highest flex items-center justify-center transition-colors" aria-label="Chiudi menu">
                     <span className="material-symbols-outlined text-lg">close</span>
                 </button>
             </div>
 
-            <M3ListItem
-                headline="Notifiche"
-                leadingElement={<span className={`material-symbols-outlined ${unreadCount > 0 ? 'text-primary filled-icon' : ''}`}>notifications</span>}
-                trailingElement={unreadCount > 0 ? <span className="bg-error text-on-error text-[11px] px-2 py-0.5 rounded-full font-bold">{unreadCount}</span> : null}
-                onClick={() => handleActionClick(onOpenNotifications)}
-                className="!rounded-lg"
-            />
-
-            {/* Impostazioni - visibile solo su mobile */}
-            <M3ListItem
-                headline="Impostazioni"
-                leadingElement={<span className="material-symbols-outlined">settings</span>}
-                onClick={() => handleActionClick(() => onNavigate('settings'))}
-                className="!rounded-lg md:hidden"
-            />
-
-            {installPrompt && onInstallApp && (
-                <M3ListItem
-                    headline="Installa App"
-                    leadingElement={<span className="material-symbols-outlined text-primary filled-icon">download</span>}
-                    onClick={() => handleActionClick(onInstallApp)}
-                    className="!rounded-lg"
+            <div className="px-2 space-y-1">
+                <MenuItem 
+                    icon="notifications" 
+                    label="Notifiche" 
+                    onClick={() => handleActionClick(onOpenNotifications)}
+                    badge={unreadCount > 0 ? unreadCount : undefined}
                 />
-            )}
 
-            <div className="h-px bg-outline-variant/10 my-1 mx-4"></div>
-            <div className="px-4 py-2 text-[11px] font-extrabold uppercase tracking-wider text-primary/60">Strumenti AI</div>
+                <MenuItem 
+                    icon="settings" 
+                    label="Impostazioni" 
+                    onClick={() => handleActionClick(() => onNavigate('settings'))}
+                />
 
-            <M3ListItem
-                headline="Analisi Immagine"
-                leadingElement={<span className="material-symbols-outlined text-secondary">image_search</span>}
-                onClick={() => handleActionClick(onOpenImageAnalysis)}
-                className="!rounded-lg"
-            />
+                {installPrompt && onInstallApp && (
+                    <MenuItem 
+                        icon="download" 
+                        label="Installa App" 
+                        onClick={() => handleActionClick(onInstallApp)}
+                    />
+                )}
 
-            <M3ListItem
-                headline="Genera Video (Veo)"
-                leadingElement={<span className="material-symbols-outlined text-secondary">movie_creation</span>}
-                onClick={() => handleActionClick(onOpenVideoAnalysis)}
-                className="!rounded-lg"
-            />
+                <div className="h-px bg-outline-variant/10 my-2 mx-2"></div>
+                <div className="px-4 py-1 text-[10px] font-bold uppercase tracking-widest text-primary/60">Strumenti AI</div>
 
+                <MenuItem 
+                    icon="image_search" 
+                    label="Analisi Immagine" 
+                    variant="secondary"
+                    onClick={() => handleActionClick(onOpenImageAnalysis)}
+                />
 
+                <MenuItem 
+                    icon="movie_creation" 
+                    label="Genera Video (Veo)" 
+                    variant="secondary"
+                    onClick={() => handleActionClick(onOpenVideoAnalysis)}
+                />
 
-            <div className="h-px bg-outline-variant/10 my-1 mx-4"></div>
+                <div className="h-px bg-outline-variant/10 my-2 mx-2"></div>
 
-            <M3ListItem
-                headline="Guida & Novità"
-                leadingElement={<span className="material-symbols-outlined">help</span>}
-                onClick={() => handleActionClick(onOpenHelp)}
-                className="!rounded-lg"
-            />
+                <MenuItem 
+                    icon="help" 
+                    label="Guida & Novità" 
+                    onClick={() => handleActionClick(onOpenHelp)}
+                />
 
-            <M3ListItem
-                headline="Condividi App"
-                leadingElement={<span className="material-symbols-outlined">share</span>}
-                onClick={() => handleActionClick(onShareClick)}
-                className="!rounded-lg"
-            />
+                <MenuItem 
+                    icon="share" 
+                    label="Condividi App" 
+                    onClick={() => handleActionClick(onShareClick)}
+                />
+            </div>
         </div>
     );
 };
@@ -111,6 +155,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
     // Get display name from settings (teacher name/surname) or fallback to user
     const teacherName = settings?.nomeInsegnante || '';
     const teacherSurname = settings?.cognomeInsegnante || '';
+    const isOnline = useOnlineStatus();
 
     const [isActionsOpen, setIsActionsOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -129,32 +174,30 @@ export const Header: React.FC<HeaderProps> = (props) => {
     
     return (
         <>
-            <header className="header-root" role="banner" style={{ background: 'var(--sys-surface)', boxShadow: 'var(--md-elevation-4)' }}>
-                <div className="header-left" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <header className="header-root backdrop-blur-md bg-surface-container-low/80 border-b border-outline-variant/20" role="banner">
+                <div className="header-left flex items-center gap-2">
                     {showBackButton && (
                         <button
                             aria-label="Indietro"
-                            className="icon-button"
+                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors"
                             onClick={props.onBack}
                             tabIndex={0}
-                            style={{ background: 'var(--state-layer-hover)' }}
                         >
                             <span className="material-symbols-outlined">arrow_back</span>
                         </button>
                     )}
-                    {/* Fulmine/Aura button - moved here */}
                     <NKAHeaderAuraButton
                         hasNewNode={props.hasSuggestion}
                         onClick={props.onOpenOperations}
                         onLongPress={() => {}}
                     />
                 </div>
-                {/* Center: Logo (preservato, centrato, non modificato) */}
+
                 <div
                     className="header-center"
                     aria-label={!showBackButton ? 'Home' : undefined}
                 >
-                    <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
+                    <div className="flex items-center gap-2">
                         <Logo 
                             isAiThinking={isAiProcessing} 
                             className="header-logo" 
@@ -163,39 +206,28 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     </div>
                     {isAiProcessing && <AiThinkingGem size="small" />}
                 </div>
-                {/* Right: Actions */}
-                <div className="header-right">
-                    {/* Settings - visible on tablet+ */}
+
+                <div className="header-right flex items-center gap-2">
+                    {!isOnline && (
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-error/10 text-error border border-error/20 animate-pulse" title="Modalità Offline">
+                            <span className="material-symbols-outlined text-sm">cloud_off</span>
+                            <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Offline</span>
+                        </div>
+                    )}
                     <button
-                        onClick={() => onNavigate('settings')}
-                        className="icon-button hidden md:flex"
-                        aria-label="Impostazioni"
-                        tabIndex={0}
-                        style={{ background: 'var(--state-layer-hover)' }}
-                    >
-                        <span className="material-symbols-outlined">settings</span>
-                    </button>
-                    {/* Menu button */}
-                    <button
-                        className="icon-button relative"
+                        className="w-10 h-10 rounded-full relative flex items-center justify-center hover:bg-surface-container-highest transition-colors"
                         onClick={() => setIsActionsOpen(p => !p)}
                         aria-label="Menu"
                         tabIndex={0}
-                        style={{ background: 'var(--state-layer-hover)' }}
                     >
-                        {/* Mobile: hamburger icon, Desktop: avatar */}
-                        <span className="material-symbols-outlined md:hidden">menu</span>
-                        <div className="hidden md:block">
-                            <Avatar
-                                name={teacherName || 'Docente'}
-                                surname={teacherSurname}
-                                src={user?.photoURL}
-                                size="small"
-                                className="w-9 h-9 ring-2 ring-outline-variant/30"
-                            />
-                        </div>
+                        <Avatar
+                            name={`${teacherSurname || ''} ${teacherName || 'Docente'}`.trim()}
+                            src={user?.photoURL}
+                            size="sm"
+                            className="w-8 h-8 ring-2 ring-primary/20"
+                        />
                         {unreadCount > 0 && (
-                            <span className="absolute top-0.5 right-0.5 w-3 h-3 bg-error rounded-full border-2 border-surface"></span>
+                            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface"></span>
                         )}
                     </button>
                 </div>
@@ -204,7 +236,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
             {/* Blocchi condizionali fuori dal <header> */}
             {isActionsOpen && (
                 <>
-                    <div className="fixed inset-0" style={{ zIndex: 'var(--z-modal-backdrop)' }} onClick={() => setIsActionsOpen(false)}></div>
+                    <div className="fixed inset-0" style={{ zIndex: Z_INDEX.modal.backdrop }} onClick={() => setIsActionsOpen(false)}></div>
                     <ActionsPopover
                         {...props}
                         unreadCount={unreadCount}
@@ -222,7 +254,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
             {isNotificationsOpen && (
                 <>
-                    <div className="fixed inset-0" style={{ zIndex: 'var(--z-modal-backdrop)' }} onClick={() => setIsNotificationsOpen(false)}></div>
+                    <div className="fixed inset-0" style={{ zIndex: Z_INDEX.modal.backdrop }} onClick={() => setIsNotificationsOpen(false)}></div>
                     <NotificationsPopover
                         notifiche={notifiche}
                         onClose={() => setIsNotificationsOpen(false)}
@@ -239,29 +271,36 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 onClose={() => setIsShareInfoOpen(false)}
                 title="Condividi Link"
             >
-                <div className="flex flex-col items-center gap-6 py-4">
-                    <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center text-secondary mb-2">
-                        <span className="material-symbols-outlined text-3xl">share</span>
+                <M3DialogContent>
+                    <div className="flex flex-col items-center gap-6 py-4">
+                        <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-2">
+                            <span className="material-symbols-outlined text-3xl">share</span>
+                        </div>
+                        <p className="text-center text-on-surface-variant max-w-xs">
+                            Scansiona o copia il link per accedere alla tua app didattica da altri dispositivi.
+                        </p>
+                        <InfoCard variant="tonal" className="w-full p-4 flex items-center justify-between gap-3 group">
+                            <code className="text-sm font-mono text-primary truncate flex-grow">
+                                {window.location.href}
+                            </code>
+                            <M3Button
+                                onClick={() => {
+                                    navigator.clipboard.writeText(window.location.href);
+                                }}
+                                variant="tonal"
+                                size="small"
+                                className="!rounded-full"
+                            >
+                                <span className="material-symbols-outlined text-lg">content_copy</span>
+                            </M3Button>
+                        </InfoCard>
                     </div>
-                    <p className="m3-body-large text-center text-on-surface-variant max-w-xs">
-                        Scansiona o copia il link per accedere alla tua app didattica.
-                    </p>
-                    <div className="w-full p-4 bg-surface-container-highest/50 rounded-2xl border border-outline-variant/30 flex items-center justify-between gap-3 group">
-                        <code className="text-sm font-mono text-primary truncate flex-grow">
-                            {window.location.href}
-                        </code>
-                        <button
-                            onClick={() => {
-                                navigator.clipboard.writeText(window.location.href);
-                                // Feedback semplice
-                            }}
-                            className="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors"
-                            title="Copia"
-                        >
-                            <span className="material-symbols-outlined text-lg">content_copy</span>
-                        </button>
-                    </div>
-                </div>
+                </M3DialogContent>
+                <M3DialogActions>
+                    <M3Button onClick={() => setIsShareInfoOpen(false)} variant="text">
+                        Chiudi
+                    </M3Button>
+                </M3DialogActions>
             </M3Dialog>
         </>
     );

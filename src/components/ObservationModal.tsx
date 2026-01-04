@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Studente, ObservationEntry } from '../types';
-import { TextArea } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
 
 interface ObservationModalProps {
     student: Studente;
@@ -17,7 +16,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
     const [note, setNote] = useState(initialData?.note || '');
 
     const RatingStars = ({ label, value, onChange }: { label: string, value: number, onChange: (v: number) => void }) => (
-        <div className="p-5 bg-surface-container-low rounded-[32px] border border-outline-variant shadow-sm">
+        <div className="p-5 bg-surface-container-low rounded-2xl border border-outline-variant shadow-sm">
             <div className="flex justify-between items-center mb-4 px-2">
                 <span className="text-[10px] text-primary font-black uppercase tracking-[0.3em]">{label}</span>
                 <span className="text-lg font-black text-primary">{value}/4</span>
@@ -40,11 +39,14 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
     return (
         <M3Dialog
             title="Osservazione Formativa"
-            headline={`${student.cognome} ${student.nome}`}
             onClose={onClose}
             maxWidth="md"
+            level={1}
         >
-            <M3DialogContent>
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+                <div className="mb-6 px-2">
+                    <h3 className="text-xl font-bold text-on-surface">{student.cognome} {student.nome}</h3>
+                </div>
                 <div className="space-y-6">
                     <RatingStars label="Autonomia" value={autonomy} onChange={setAutonomy} />
                     <RatingStars label="Collaborazione" value={collaboration} onChange={setCollaboration} />
@@ -53,8 +55,8 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                 </div>
             </M3DialogContent>
             <M3DialogActions>
-                <button onClick={onClose} className="button button-text font-bold">Annulla</button>
-                <button onClick={handleSave} className="button button-filled shadow-xl font-black !px-10">Registra Nota</button>
+                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                <M3Button onClick={handleSave} variant="filled" className="shadow-xl !px-10">Registra Nota</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

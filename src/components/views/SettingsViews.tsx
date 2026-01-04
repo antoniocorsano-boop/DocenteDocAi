@@ -19,7 +19,7 @@ import {
     Valutazione, ValutazioneCompetenza, RegisterEntry, AiSuggestion,
     TimetableSettings, AppThemeState, AiSettings, BackupState, DriveSyncState,
     AppState, Slot,
-    Notifica, ToDoItem, BeforeInstallPromptEvent
+    Notifica, BeforeInstallPromptEvent
 } from '../../types';
 
 export interface SettingsViewsProps {
@@ -31,7 +31,6 @@ export interface SettingsViewsProps {
     knowledgeBase: KnowledgeBaseEntry[];
     corpora: Corpus[];
     notifiche: Notifica[];
-    memos: ToDoItem[];
     slots: Record<string, Slot>;
     lessons: Record<string, Lezione>;
     studenti: Studente[];
@@ -68,7 +67,6 @@ export interface SettingsViewsProps {
     setKnowledgeBase: React.Dispatch<React.SetStateAction<KnowledgeBaseEntry[]>>;
     setCorpora: React.Dispatch<React.SetStateAction<Corpus[]>>;
     setNotifiche: (updater: (prev: Notifica[]) => Notifica[]) => void;
-    setMemos: (updater: (prev: ToDoItem[]) => ToDoItem[]) => void;
     setIsGlobalAiLoading: (loading: boolean) => void;
     onStartClassroom: (classe: string, materia: string, draftKey: string, lesson: Lezione) => void;
     onSuggestionAction: (action: string) => void;
@@ -103,8 +101,6 @@ export const SettingsViewsRenderer: React.FC<{
                         feedSources: [],
                         draftRegister: props.draftRegister,
                         finalizedRegister: props.finalizedRegister,
-                        notebookNotes: {},
-                        memos: props.memos,
                         curricula: [],
                         submissions: [],
                         settings: props.settings,
@@ -123,7 +119,6 @@ export const SettingsViewsRenderer: React.FC<{
                     dismissSuggestion={props.dismissSuggestion}
                     onAiProcessing={props.setIsGlobalAiLoading}
                     user={null}
-                    onUpdateMemos={props.setMemos}
                     onConnectDrive={props.onConnectDrive}
                     aiSettings={props.aiSettings}
                     settings={props.settings}

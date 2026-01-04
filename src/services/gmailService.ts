@@ -30,6 +30,16 @@ const createEmailRaw = (to: string, subject: string, body: string) => {
     return btoa(unescape(encodeURIComponent(email))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 };
 
+interface GmailMessage {
+    id: string;
+    threadId: string;
+}
+
+interface GmailHeader {
+    name: string;
+    value: string;
+}
+
 export const listUnreadEmails = async (limit = 5): Promise<{ id: string; snippet: string; from: string; subject: string }[]> => {
     try {
         await ensureGmailApiLoaded();
@@ -39,22 +49,22 @@ export const listUnreadEmails = async (limit = 5): Promise<{ id: string; snippet
             'maxResults': limit
         });
         
-        const messages = response.result.messages || [];
+        const messages = (response.result.messages || []) as GmailMessage[];
         if (messages.length === 0) return [];
 
-        const details = await Promise.all(messages.map(async (msg: any) => {
+        const details = await Promise.all(messages.map(async (msg) => {
             const detail = await gapi.client.gmail.users.messages.get({
                 'userId': 'me',
                 'id': msg.id,
                 'format': 'metadata',
                 'metadataHeaders': ['From', 'Subject']
             });
-            const headers = detail.result.payload.headers;
-            const from = headers.find((h: any) => h.name === 'From')?.value || 'Sconosciuto';
-            const subject = headers.find((h: any) => h.name === 'Subject')?.value || '(Nessun oggetto)';
+            const headers = (detail.result.payload?.headers || []) as GmailHeader[];
+            const from = headers.find((h) => h.name === 'From')?.value || 'Sconosciuto';
+            const subject = headers.find((h) => h.name === 'Subject')?.value || '(Nessun oggetto)';
             return {
                 id: msg.id,
-                snippet: detail.result.snippet,
+                snippet: detail.result.snippet || '',
                 from,
                 subject
             };

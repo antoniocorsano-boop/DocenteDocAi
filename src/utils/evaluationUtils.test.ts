@@ -81,4 +81,50 @@ describe('Calcolo Performance Studente', () => {
         // La media deve essere 10 (ignora il 2 dell'altro studente)
         expect(result.grade).toBe('10.0');
     });
+
+    it('dovrebbe filtrare per tipo di valutazione', () => {
+        const evaluations = [
+            { ...createEval('10', '2023-10-01'), tipo: 'Scritto' },
+            { ...createEval('6', '2023-10-05'), tipo: 'Orale' }
+        ];
+
+        const result = calculatePerformance('student-1', 'Scritto', evaluations as any);
+        expect(result.grade).toBe('10.0');
+    });
+
+    it('dovrebbe rilevare un trend stabile', () => {
+        const evaluations = [
+            createEval('7', '2023-09-01'),
+            createEval('7', '2023-09-10'),
+            createEval('7', '2023-09-20'),
+            createEval('7', '2023-10-01')
+        ];
+
+        const result = calculatePerformance('student-1', 'Complessivo', evaluations);
+        expect(result.trend).toBe('stable');
+    });
+
+    it('dovrebbe restituire trend stabile se ci sono meno di 4 voti', () => {
+        const evaluations = [
+            createEval('10', '2023-09-01'),
+            createEval('5', '2023-09-10')
+        ];
+
+        const result = calculatePerformance('student-1', 'Complessivo', evaluations);
+        expect(result.trend).toBe('stable');
+    });
+
+    it('dovrebbe restituire null se non ci sono voti', () => {
+        const result = calculatePerformance('student-1', 'Complessivo', []);
+        expect(result.grade).toBeNull();
+        expect(result.trend).toBeNull();
+    });
+
+    it('dovrebbe gestire voti non validi', () => {
+        const evaluations = [
+            createEval('NonValido', '2023-10-01')
+        ];
+        const result = calculatePerformance('student-1', 'Complessivo', evaluations);
+        expect(result.grade).toBeNull();
+    });
 });

@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
-import { generateContent } from '../services/aiService';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { chatWithAi } from '../services/aiService';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, AiThinkingGem } from './ui';
+import { AiSettings, ChatMessage } from '../types';
 
 interface AssistantModalProps {
   open: boolean;
   onClose: () => void;
   mode?: 'chat' | 'docs' | 'tools' | 'backup';
+  aiSettings: AiSettings;
+  context?: any;
 }
 
 const SUGGESTED_PROMPTS = [
@@ -16,13 +19,14 @@ const SUGGESTED_PROMPTS = [
   'Spiegami questa schermata',
 ];
 
-const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = 'chat' }) => {
+const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = 'chat', aiSettings, context }) => {
   const [input, setInput] = useState('');
   // NotebookLM state
   const [nbFiles, setNbFiles] = useState<NotebookLMFile[]>([]);
   const [nbLoading, setNbLoading] = useState(false);
   const [nbError, setNbError] = useState<string | null>(null);
   const nbFileInput = useRef<HTMLInputElement>(null);
+  
   useEffect(() => {
     if (open) {
       // Log persistente anche a livello di render/modal
@@ -91,7 +95,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       setNbLoading(false);
     }
   };
-  const [messages, setMessages] = useState<Array<{ role: 'user' | 'ai'; text: string }>>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -99,6 +103,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
   // --- Voice Recognition Logic ---
   const startVoiceInput = () => {
     setVoiceError(null);
@@ -180,15 +185,19 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   const handleSend = async () => {
     const text = (isRecording ? transcript : input).trim();
     if (!text) return;
-    setMessages((msgs) => [...msgs, { role: 'user', text }]);
+    
+    const userMsg: ChatMessage = { role: 'user', text };
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
     setLoading(true);
     setInput('');
     setTranscript('');
+    
     try {
-      const aiResponse = await generateContent(text, { temperature: 0.7, maxTokens: 1000 });
-      setMessages((msgs) => [...msgs, { role: 'ai', text: aiResponse.content || 'Nessuna risposta.' }]);
+      const aiResponse = await chatWithAi(aiSettings, newMessages, context);
+      setMessages((msgs) => [...msgs, aiResponse]);
     } catch {
-      setMessages((msgs) => [...msgs, { role: 'ai', text: 'Si è verificato un errore nella generazione della risposta.' }]);
+      setMessages((msgs) => [...msgs, { role: 'model', text: 'Si è verificato un errore nella generazione della risposta.' }]);
     } finally {
       setLoading(false);
     }
@@ -204,11 +213,12 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       title="Assistente DocenteDoc AI"
       onClose={onClose}
       maxWidth="md"
+      level={2}
     >
-      <M3DialogContent className="space-y-4">
+      <M3DialogContent className="space-y-4 bg-surface-container-high/30 backdrop-blur-sm">
         {mode === 'chat' && (
           <>
-            <div className="assistant-messages space-y-2 h-64 overflow-y-auto">
+            <div className="assistant-messages space-y-2 h-64 overflow-y-auto custom-scrollbar">
               {messages.length === 0 && (
                 <div className="text-center text-primary m3-body-medium py-6">Come posso aiutarti?</div>
               )}
@@ -224,13 +234,13 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   {msg.text}
                 </div>
               ))}
-              {loading && <div className="m3-body-small text-on-surface-variant italic">Sto pensando…</div>}
+              {loading && <div className="m3-body-small text-on-surface-variant italic animate-pulse">Sto pensando…</div>}
             </div>
             <div className="assistant-prompts flex flex-wrap gap-2">
               {SUGGESTED_PROMPTS.map((p) => (
                 <button
                   key={p}
-                  className="chip bg-secondary-container text-on-secondary-container m3-label-small px-3 py-1 rounded-full hover:bg-secondary transition-colors"
+                  className="chip bg-secondary-container text-on-secondary-container m3-label-small px-3 py-1 rounded-full hover:bg-secondary hover:text-on-secondary transition-colors"
                   onClick={() => handlePrompt(p)}
                 >
                   {p}
@@ -248,46 +258,47 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                 <h3 className="m3-title-medium">NotebookLM</h3>
               </div>
               <div className="flex gap-2">
-                <button
-                  className="icon-button"
+                <M3Button
+                  variant="text"
                   onClick={handleNbSync}
-                  title="Sincronizza"
                   disabled={nbLoading}
+                  className="!p-2"
                 >
                   <span className="material-symbols-outlined">sync</span>
-                </button>
+                </M3Button>
                 <input
                   type="file"
                   ref={nbFileInput}
-                  className="hidden-input"
+                  className="hidden"
                   onChange={handleNbUpload}
                   accept=".txt,.md,.pdf,.docx"
                 />
-                <button
-                  className="icon-button"
+                <M3Button
+                  variant="text"
                   onClick={() => nbFileInput.current?.click()}
-                  title="Carica file"
                   disabled={nbLoading}
+                  className="!p-2"
                 >
                   <span className="material-symbols-outlined">upload</span>
-                </button>
+                </M3Button>
               </div>
             </div>
-            {nbError && <div className="m3-body-small text-error p-2 bg-error-container rounded">{nbError}</div>}
-            {nbLoading && <div className="m3-body-small text-on-surface-variant">Caricamento…</div>}
-            <div className="space-y-2 max-h-48 overflow-y-auto">
+            {nbError && <div className="m3-body-small text-error p-2 bg-error-container rounded-xl">{nbError}</div>}
+            {nbLoading && <div className="m3-body-small text-on-surface-variant animate-pulse">Caricamento…</div>}
+            <div className="space-y-2 max-h-48 overflow-y-auto custom-scrollbar">
               {nbFiles.map(file => (
-                <div key={file.id} className="flex items-center justify-between bg-surface-container p-2 rounded-xl">
+                <div key={file.id} className="flex items-center justify-between bg-surface-container p-3 rounded-2xl border border-outline-variant/30">
                   <div className="flex-1 min-w-0">
                     <p className="m3-body-small font-medium truncate">{file.name}</p>
                     <p className="m3-body-small text-on-surface-variant m3-label-small">{new Date(file.lastModified).toLocaleDateString()}</p>
                   </div>
-                  <button
-                    className="icon-button text-error"
+                  <M3Button
+                    variant="text"
+                    className="text-error !p-2"
                     onClick={() => handleNbDelete(file.id)}
                   >
-                    <span className="material-symbols-outlined m3-label-large">delete</span>
-                  </button>
+                    <span className="material-symbols-outlined">delete</span>
+                  </M3Button>
                 </div>
               ))}
             </div>
@@ -296,38 +307,39 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       </M3DialogContent>
 
       {/* Input Footer */}
-      <M3DialogActions className="!flex-col gap-3">
-        <div className="flex gap-2 items-end">
-          <input
-            ref={inputRef}
-            type="text"
-            value={isRecording ? transcript : input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Scrivi una domanda…"
-            className={`flex-1 rounded-full px-4 py-2 border m3-body-medium ${
-              isRecording ? 'border-error bg-error-container' : 'border-outline-variant bg-surface-container'
-            }`}
-            disabled={loading}
-          />
-          <button
-            className={`icon-button ${isRecording ? 'text-error' : 'text-secondary'}`}
+      <M3DialogActions className="!flex-col gap-3 p-4 bg-surface-container-lowest border-t border-outline-variant/30">
+        <div className="flex gap-2 items-end w-full">
+          <div className="flex-1">
+            <TextField
+              label={isRecording ? "In ascolto..." : "Scrivi una domanda…"}
+              placeholder={isRecording ? "In ascolto..." : "Scrivi una domanda…"}
+              value={isRecording ? transcript : input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+              disabled={loading}
+              className={isRecording ? 'animate-pulse' : ''}
+            />
+          </div>
+          <M3Button
+            variant="text"
+            className={`${isRecording ? 'text-error' : 'text-secondary'} !p-2 !min-w-0`}
             onClick={isRecording ? stopVoiceInput : startVoiceInput}
             title={isRecording ? 'Stop' : 'Voice input'}
           >
             <span className="material-symbols-outlined">
               {isRecording ? 'mic' : 'mic_none'}
             </span>
-          </button>
-          <button
-            className="button button-filled !px-6"
+          </M3Button>
+          <M3Button
+            variant="filled"
             onClick={handleSend}
             disabled={loading || !input.trim()}
+            className="!h-14 !w-14 !p-0 !min-w-0 flex items-center justify-center !rounded-2xl"
           >
             <span className="material-symbols-outlined">send</span>
-          </button>
+          </M3Button>
         </div>
-        {voiceError && <p className="m3-body-small text-error">{voiceError}</p>}
+        {voiceError && <p className="m3-body-small text-error w-full text-center">{voiceError}</p>}
       </M3DialogActions>
     </M3Dialog>
   );

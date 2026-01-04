@@ -3,7 +3,7 @@ import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, Compet
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { RATING_TO_VALUE } from '../constants';
 import { viewPdfInNewTab } from '../utils/documentUtils';
-import { TabGroup, M3Dialog, TextField, SectionHeader } from './M3Components';
+import { TabGroup, M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SectionHeader } from './ui';
 
 type Prova = {
     id: string;
@@ -311,27 +311,20 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
 
     return (
         <M3Dialog
-            isOpen={true}
             onClose={onClose}
             title="Esporta Report Classe"
-            buttons={
-                <>
-                    <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all" disabled={isExporting}>Annulla</button>
-                    <button type="button" onClick={handleExport} className="button button-filled rounded-lg hover:shadow-md transition-all" disabled={isExporting}>
-                        <span className="material-symbols-outlined mr-2">download</span>
-                        {isExporting ? 'Esportazione...' : `Esporta ${exportOptions.format.toUpperCase()}`}
-                    </button>
-                </>
-            }
+            maxWidth="lg"
+            level={1}
         >
-            <div className="space-y-6 pt-2">
-                <section>
+            <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
+                <section className="space-y-4">
                     <SectionHeader title="1. Intestazione Documento" icon="edit" colorClass="text-primary" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <TextField
                             id="schoolYear"
                             name="schoolYear"
                             label="Anno Scolastico"
+                            data-testid="field-anno scolastico"
                             value={exportOptions.schoolYear}
                             onChange={e => handleOptionChange('schoolYear', e.target.value)}
                         />
@@ -339,6 +332,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                             id="exportDate"
                             name="exportDate"
                             label="Data Esportazione"
+                            data-testid="field-data esportazione"
                             type="date"
                             value={exportOptions.exportDate}
                             onChange={e => handleOptionChange('exportDate', e.target.value)}
@@ -346,7 +340,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                     </div>
                 </section>
 
-                <section>
+                <section className="space-y-4">
                     <SectionHeader title="2. Discipline da Includere" icon="filter_list" colorClass="text-secondary" />
                     <TabGroup
                         tabs={[
@@ -355,17 +349,16 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                         ]}
                         activeTab={subjectScope}
                         onTabChange={(id) => setSubjectScope(id as 'teacher' | 'all')}
-                        variant="secondary"
-                        className="w-full mb-2"
+                        className="w-full"
                     />
-                    <p className="m3-body-small text-on-surface-variant">
+                    <p className="text-xs text-on-surface-variant px-2 leading-relaxed">
                         {subjectScope === 'teacher'
                             ? "Il report includerà solo le tue discipline configurate in Impostazioni. La media generale (Σ) sarà calcolata solo su queste materie."
                             : "Il report includerà tutte le discipline che hanno almeno una valutazione per questa classe. La media generale (Σ) sarà calcolata su tutte le materie."}
                     </p>
                 </section>
 
-                <section>
+                <section className="space-y-4">
                     <SectionHeader title="3. Formato di Esportazione" icon="output" colorClass="text-tertiary" />
                     <TabGroup
                         tabs={[
@@ -374,16 +367,22 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                         ]}
                         activeTab={exportOptions.format}
                         onTabChange={(id) => handleOptionChange('format', id)}
-                        variant="secondary"
-                        className="w-full mb-2"
+                        className="w-full"
                     />
-                    <p className="m3-body-small text-on-surface-variant">
+                    <p className="text-xs text-on-surface-variant px-2 leading-relaxed">
                         {exportOptions.format === 'pdf'
                             ? 'Genera un report grafico di una pagina, ideale per la stampa e la condivisione.'
                             : 'Genera un file CSV con i dati riepilogativi, utile per analisi in fogli di calcolo.'}
                     </p>
                 </section>
-            </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <M3Button type="button" onClick={onClose} variant="text" disabled={isExporting}>Annulla</M3Button>
+                <M3Button type="button" onClick={handleExport} variant="filled" className="shadow-xl !px-8" disabled={isExporting}>
+                    <span className="material-symbols-outlined mr-2">{isExporting ? 'sync' : 'download'}</span>
+                    {isExporting ? 'Esportazione...' : `Esporta ${exportOptions.format.toUpperCase()}`}
+                </M3Button>
+            </M3DialogActions>
         </M3Dialog>
     );
 };

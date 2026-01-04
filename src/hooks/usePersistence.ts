@@ -1,44 +1,27 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from 'react';
 import { saveKbContentToIndexedDB } from '../services/indexedDbService.ts';
 import { saveBackup } from '../services/backupService.ts';
-import { KnowledgeBaseEntry } from '../types.ts';
+import { KnowledgeBaseEntry, BackupPayload } from '../types.ts';
+
+// Import stores directly to avoid dynamic import issues in tests and ensure reliability
+import { useStudentStore } from '../stores/useStudentStore.ts';
+import { useAcademicStore } from '../stores/useAcademicStore.ts';
+import { useSystemStore } from '../stores/useSystemStore.ts';
+import { useSettingsStore } from '../stores/useSettingsStore.ts';
+import { useUIStore } from '../stores/useUIStore.ts';
 
 /**
  * Middleware di Persistenza Unificato.
  * Gestisce il salvataggio automatico su IndexedDB e previene conflitti durante il ripristino.
  */
 export const usePersistence = (isDataLoaded: boolean) => {
-    const storesRef = useRef<{ useDataStore: any; useSettingsStore: any; useUIStore: any } | null>(null);
     const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isSavingRef = useRef(false);
 
-    // Lazy load stores inside the hook to ensure React context is ready
     useEffect(() => {
-        Promise.all([
-            import('../stores/useDataStore.ts'),
-            import('../stores/useSettingsStore.ts'),
-            import('../stores/useUIStore.ts')
-        ]).then(([data, settings, ui]) => {
-            storesRef.current = {
-                useDataStore: data.useDataStore,
-                useSettingsStore: settings.useSettingsStore,
-                useUIStore: ui.useUIStore
-            };
-        }).catch(err => {
-            console.error('Failed to load stores for persistence:', err);
-        });
-    }, []);
-
-    useEffect(() => {
-        // Wait until stores are loaded
-        if (!storesRef.current) return;
-        
-        const { useDataStore, useSettingsStore, useUIStore } = storesRef.current;
-        
         // Safety check: ensure store functions exist and have getState
-        if (!useDataStore?.getState || !useSettingsStore?.getState || !useUIStore?.getState) {
+        if (!useStudentStore?.getState || !useAcademicStore?.getState || !useSystemStore?.getState || !useSettingsStore?.getState || !useUIStore?.getState) {
             return;
         }
         
@@ -64,19 +47,24 @@ export const usePersistence = (isDataLoaded: boolean) => {
 
             try {
                 // CRITICAL FIX: Estraiamo solo i dati dagli store, ESCLUDENDO le funzioni (actions)
-                // IndexedDB fallisce con errore "could not be cloned" se rileva funzioni nell'oggetto.
                 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-                const { actions: _dataActions, ...dataStateRaw } = useDataStore.getState();
+                const { actions: _studentActions, ...studentStateRaw } = useStudentStore.getState();
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+                const { actions: _academicActions, ...academicStateRaw } = useAcademicStore.getState();
+                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+                const { actions: _systemActions, ...systemStateRaw } = useSystemStore.getState();
                 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
                 const { actions: _settingsActions, ...settingsStateRaw } = useSettingsStore.getState();
                 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-                const { actions: _uiActions, ...uiStateRaw } = useUIStore.getState();
+                const { actions: uiActions, ...uiStateRaw } = useUIStore.getState();
 
                 // Create clean, serializable versions of states
-                const dataState = {
-                    ...dataStateRaw,
+                const studentState = { ...studentStateRaw };
+                const academicState = { ...academicStateRaw };
+                const systemState = {
+                    ...systemStateRaw,
                     // Convert Set to Array for serialization
-                    dismissedSuggestions: Array.from(dataStateRaw.dismissedSuggestions),
+                    dismissedSuggestions: Array.from(systemStateRaw.dismissedSuggestions || []),
                 };
                 const settingsState = { ...settingsStateRaw };
                 const uiState = {
@@ -87,44 +75,47 @@ export const usePersistence = (isDataLoaded: boolean) => {
                     navigationHistory: uiStateRaw.navigationHistory,
                     backupState: uiStateRaw.backupState,
                     driveSyncState: uiStateRaw.driveSyncState,
-                    // Note: modals state should not be persisted directly as it's runtime UI state.
                 };
 
                 // 1. Persistenza contenuti pesanti (Binary/Text) in store dedicato
-                if (dataState.knowledgeBase.length > 0) {
-                    await saveKbContentToIndexedDB(dataState.knowledgeBase);
+                if (systemState.knowledgeBase && systemState.knowledgeBase.length > 0) {
+                    await saveKbContentToIndexedDB(systemState.knowledgeBase);
                 }
 
                 // 2. Preparazione snapshot leggero per il backup principale
-                const lightKb = dataState.knowledgeBase.map((kb: KnowledgeBaseEntry) => ({
+                const lightKb = (systemState.knowledgeBase || []).map((kb: KnowledgeBaseEntry) => ({
                     ...kb,
                     content: '',
                     htmlContent: '',
                     fileContent: undefined
                 }));
 
-                const backupPayload = {
-                    ...dataState,
+                const backupPayload: BackupPayload = {
+                    ...studentState,
+                    ...academicState,
+                    ...systemState,
                     knowledgeBase: lightKb,
                     settings: settingsState.settings,
                     aiSettings: settingsState.aiSettings,
                     themeState: settingsState.themeState,
                     // Include UIStore persistent states directly into the top-level payload for comprehensive backup
-                    installPrompt: uiState.installPrompt,
+                    installPrompt: uiState.installPrompt as any,
                     canShowInstallPrompt: uiState.canShowInstallPrompt,
                     isGlobalAiLoading: uiState.isGlobalAiLoading,
                     navigationHistory: uiState.navigationHistory,
                     backupState: uiState.backupState,
                     driveSyncState: uiState.driveSyncState,
-                };
+                } as any;
 
                 await saveBackup(backupPayload);
-                setBackupState({ status: 'synced', lastBackup: new Date() });
+                if (uiActions?.setBackupState) {
+                    uiActions.setBackupState({ status: 'synced', lastBackup: new Date().toISOString() });
+                }
             } catch (error) {
                 console.error("Auto-save Bridge failed:", error);
-                if (storesRef.current) {
-                    const uiState = storesRef.current.useUIStore.getState();
-                    uiState.actions?.setBackupState({ status: 'error' });
+                const currentUiActions = useUIStore.getState().actions;
+                if (currentUiActions?.setBackupState) {
+                    currentUiActions.setBackupState({ status: 'error' });
                 }
             } finally {
                 isSavingRef.current = false;
@@ -137,13 +128,17 @@ export const usePersistence = (isDataLoaded: boolean) => {
         };
 
         // Sottoscrizione ai cambiamenti degli store core
-        const unsubData = useDataStore.subscribe(triggerDebouncedSave);
+        const unsubStudent = useStudentStore.subscribe(triggerDebouncedSave);
+        const unsubAcademic = useAcademicStore.subscribe(triggerDebouncedSave);
+        const unsubSystem = useSystemStore.subscribe(triggerDebouncedSave);
         const unsubSettings = useSettingsStore.subscribe(triggerDebouncedSave);
         // Explicitly subscribe to UI states that need to be persisted
         const unsubUi = useUIStore.subscribe(triggerDebouncedSave);
 
         return () => {
-            unsubData();
+            unsubStudent();
+            unsubAcademic();
+            unsubSystem();
             unsubSettings();
             unsubUi();
             if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);

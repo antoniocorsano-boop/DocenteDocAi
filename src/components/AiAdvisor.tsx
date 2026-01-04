@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { AiSettings, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getAIPedagogicalAdvice } from '../services/aiService';
-import AiThinkingGem from './AiThinkingGem';
+import { AiThinkingGem } from './ui';
 
 interface AiAdvisorProps {
     students: Studente[];

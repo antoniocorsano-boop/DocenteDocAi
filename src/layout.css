@@ -13,6 +13,13 @@
     background-attachment: fixed;
 }
 
+.app-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
 /* --- HEADER (TOP APP BAR) --- */
 .app-header {
     position: fixed;
@@ -42,27 +49,20 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-top: 4px;
-    padding-bottom: var(--safe-area-bottom);
+    padding-top: 64px; /* Space for fixed header */
+    padding-bottom: calc(var(--bottom-nav-height, 64px) + var(--spacing-8, 32px));
     padding-left: var(--content-padding);
     padding-right: var(--content-padding);
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
 }
 
-/* Spazio extra per non coprire contenuti dal footer nav: fallback aggiuntivo */
-/* Manteniamo una regola applicata al contenitore principale */
-.main-content {
-    /* Se necessario, aggiungere spazio extra sotto il contenuto */
-    padding-bottom: 96px;
-}
-
 /* Responsive: Desktop with NavigationRail (>=600px) */
 @media (min-width: 600px) {
     .main-content {
         /* Add left margin to compensate for vertical NavigationRail */
-        margin-left: 80px; /* NavigationRail width */
-        padding-bottom: 32px; /* Less bottom padding on desktop */
+        margin-left: var(--nav-rail-width, 80px);
+        padding-bottom: var(--spacing-8, 32px);
     }
 }
 
@@ -77,6 +77,23 @@
     max-width: var(--content-max-width);
     margin: 0 auto;
     padding: var(--spacing-2) 0 var(--spacing-6);
+}
+
+/* --- AURA VIEW WRAPPER --- */
+.aura-view-wrapper {
+    animation: aura-view-fade-in 0.4s cubic-bezier(0.2, 0, 0, 1);
+    will-change: opacity, transform;
+}
+
+@keyframes aura-view-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -475,9 +492,16 @@
 .border-outline-variant { border-color: var(--sys-outline-variant); }
 .border-primary { border-color: var(--sys-primary); }
 
-.rounded-lg { border-radius: var(--shape-m); }
-.rounded-xl { border-radius: var(--shape-l); }
-.rounded-2xl { border-radius: var(--shape-xl); }
+/* Dynamic Shape Mapping - Ensures Tailwind classes follow the theme multiplier */
+.rounded-s { border-radius: calc(var(--shape-s) * var(--sys-radius-multiplier, 1)); }
+.rounded-m { border-radius: calc(var(--shape-m) * var(--sys-radius-multiplier, 1)); }
+.rounded-lg { border-radius: calc(var(--shape-m) * var(--sys-radius-multiplier, 1)); }
+.rounded-xl { border-radius: calc(var(--shape-l) * var(--sys-radius-multiplier, 1)); }
+.rounded-2xl { border-radius: calc(var(--shape-xl) * var(--sys-radius-multiplier, 1)); }
+.rounded-3xl { border-radius: calc(28px * var(--sys-radius-multiplier, 1)); }
+.rounded-4xl { border-radius: calc(40px * var(--sys-radius-multiplier, 1)); }
+.rounded-5xl { border-radius: calc(48px * var(--sys-radius-multiplier, 1)); }
+.rounded-6xl { border-radius: calc(64px * var(--sys-radius-multiplier, 1)); }
 .rounded-full { border-radius: var(--shape-full); }
 
 /* Background */
@@ -551,7 +575,7 @@
 .m3-title-medium { font-size: clamp(14px, 1.8vw, var(--typography-title-medium)); }
 .m3-body-large { font-size: clamp(14px, 1.6vw, var(--typography-body-large)); }
 
-@media (max-width: 640px) {
+@media (max-width: 599.98px) {
     .m3-display-large { font-size: calc(var(--typography-display-small) - 6px); }
     .m3-display-medium { font-size: calc(var(--typography-headline-small) - 6px); }
     .m3-headline-large { font-size: var(--typography-headline-small); }

@@ -1,8 +1,8 @@
 
 import { create } from 'zustand';
-import type { Modals, Lezione, SyncConflictData } from '../types';
+import type { Modals, Lezione, SyncConflictData, View, BackupState, DriveSyncState, UIState } from '../types';
 
-// Definizione locale di UIActions e UIState (non esistono in types.ts)
+// Definizione locale di UIActions (non esiste in types.ts)
 export interface UIActions {
     toggleModal: (modalKey: keyof Modals, value?: boolean) => void;
     setLoading: (isOpen: boolean, message?: string) => void;
@@ -28,27 +28,8 @@ export interface UIActions {
     setChaosStage: (stage: 'none' | 'chaos' | 'implosion' | 'peace' | 'settled') => void;
 }
 
-export interface UIState {
-    modals: Modals & {
-        toast: { message: string; type: 'success' | 'error' | 'info'; visible: boolean };
-    };
-    chaosStage: 'none' | 'chaos' | 'implosion' | 'peace' | 'settled';
-    circularAnalysisModal: { isOpen: boolean; url: string; title: string } | null;
-    syncConflictModal: { isOpen: boolean; data: SyncConflictData | null } | null;
-    createLessonContext: { isOpen: boolean; slotKey: string | null; lezione: Lezione | null } | null;
-    editingSlotKey: string | null;
-    activeSlotKey: string | null;
-    lessonViewContext: Lezione | null;
-    loadingModalMessage: string;
-    toast: { message: string; type: 'success' | 'error' | 'info'; visible: boolean } | null;
-    installPrompt: BeforeInstallPromptEvent | null;
-    canShowInstallPrompt: boolean;
-    isGlobalAiLoading: boolean;
-    navigationHistory: { view: View; context: unknown }[];
-    backupState: { status: 'synced' | 'drive_pending' | 'error'; lastBackup: Date | null };
-    driveSyncState: { isAuthenticated: boolean; isSyncing: boolean; lastSyncTime: string | Date | null; error?: string };
-    actions: UIActions;
-}
+// UIState is now imported from types.ts
+// We use UIState & { actions: UIActions } for the store
 // BeforeInstallPromptEvent può essere dichiarato globalmente se non esiste, oppure tipizzato come 'unknown' per compatibilità PWA
 type BeforeInstallPromptEvent = unknown;
 
@@ -64,6 +45,7 @@ const initialModals = {
     isLiveAssistantModalOpen: false,
     isHelpOpen: false,
     isBackupInfoModalOpen: false,
+    isRegisterImportOpen: false,
     isYearTransitionOpen: false,
     isLoadingModalOpen: false,
     isVideoAnalysisOpen: false,
@@ -89,6 +71,7 @@ const initialModals = {
     setEditingSlotKey: () => {},
     setActiveSlotKey: () => {},
     setIsBackupInfoModalOpen: () => {},
+    setIsRegisterImportOpen: () => {},
     setSyncConflictModal: () => {},
     setIsYearTransitionOpen: () => {},
     setIsVideoAnalysisOpen: () => {},
@@ -96,7 +79,7 @@ const initialModals = {
     setNotifiche: () => {},
 } as Modals & { toast: { message: string; type: 'success' | 'error' | 'info'; visible: boolean } };
 
-export const useUIStore = create<UIState>((set: (fn: (state: UIState) => Partial<UIState> | UIState) => void) => ({
+export const useUIStore = create<UIState & { actions: UIActions }>((set, get) => ({
     modals: { ...initialModals },
     chaosStage: 'none',
     circularAnalysisModal: null,
@@ -114,44 +97,81 @@ export const useUIStore = create<UIState>((set: (fn: (state: UIState) => Partial
     backupState: { status: 'synced', lastBackup: null },
     driveSyncState: { isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined },
     actions: {
-        toggleModal: (modalKey: keyof Modals, value?: boolean) => set((state: UIState) => ({
-            modals: { ...state.modals, [modalKey]: typeof value === 'boolean' ? value : !state.modals[modalKey] }
-        })),
-        setLoading: (isOpen: boolean, message?: string) => set((state: UIState) => ({
-            modals: { ...state.modals, isLoadingModalOpen: isOpen, loadingModalMessage: message ?? state.modals.loadingModalMessage },
-            loadingModalMessage: message ?? state.loadingModalMessage
-        })),
-        showToast: (message: string, type: 'success' | 'error' | 'info' = 'info') => set((state: UIState) => ({
-            modals: { ...state.modals, toast: { message, type, visible: true } },
-            toast: { message, type, visible: true }
-        })),
-        clearToast: () => set((state: UIState) => ({
-            modals: { ...state.modals, toast: { message: '', type: 'info', visible: false } },
-            toast: { message: '', type: 'info', visible: false }
+        toggleModal: (modalKey: keyof Modals, value?: boolean) => set((state) => {
+            const newValue = typeof value === 'boolean' ? value : !state.modals[modalKey];
+            const nextModals = { ...state.modals, [modalKey]: newValue };
+            const nextState: any = { modals: nextModals };
+            
+            // Sync mirrored keys if they are in Modals
+            if (modalKey === 'isLoadingModalOpen') nextState.isLoadingModalOpen = newValue;
+            if (modalKey === 'circularAnalysisModal') nextState.circularAnalysisModal = newValue ? nextModals.circularAnalysisModal : null;
+            
+            return nextState;
+        }),
+        setLoading: (isOpen: boolean, message?: string) => set((state) => {
+            const msg = message ?? state.modals.loadingModalMessage;
+            return {
+                modals: { ...state.modals, isLoadingModalOpen: isOpen, loadingModalMessage: msg },
+                loadingModalMessage: msg
+            };
+        }),
+        showToast: (message: string, type: 'success' | 'error' | 'info' = 'info') => {
+            const t = { message, type, visible: true };
+            set((state) => ({
+                modals: { ...state.modals, toast: t },
+                toast: t
+            }));
+        },
+        clearToast: () => set((state) => ({
+            modals: { ...state.modals, toast: { ...state.modals.toast, visible: false } },
+            toast: null
         })),
         setInstallPrompt: (prompt: BeforeInstallPromptEvent | null) => set(() => ({ installPrompt: prompt })),
         setCanShowInstallPrompt: (can: boolean) => set(() => ({ canShowInstallPrompt: can })),
         setIsGlobalAiLoading: (loading: boolean) => set(() => ({ isGlobalAiLoading: loading })),
-        setNavigationHistory: (history: { view: string; context: unknown }[]) => set(() => ({ navigationHistory: history })),
-        addNavigationEntry: (entry: { view: string; context: unknown }) => set((state: UIState) => ({ navigationHistory: [...state.navigationHistory, entry] })),
-        popNavigationEntry: () => set((state: UIState) => ({ navigationHistory: state.navigationHistory.slice(0, -1) })),
+        setNavigationHistory: (history: { view: View; context: unknown }[]) => set(() => ({ navigationHistory: history })),
+        addNavigationEntry: (entry: { view: View; context: unknown }) => set((state) => ({ navigationHistory: [...state.navigationHistory, entry] })),
+        popNavigationEntry: () => set((state) => ({ navigationHistory: state.navigationHistory.slice(0, -1) })),
         clearNavigationHistory: () => set(() => ({ navigationHistory: [] })),
-        setBackupState: (stateOrFn: { status: string; lastBackup: Date | null } | ((prev: { status: string; lastBackup: Date | null }) => { status: string; lastBackup: Date | null })) => set((state: UIState) => ({ backupState: typeof stateOrFn === 'function' ? stateOrFn(state.backupState) : stateOrFn })),
-        setDriveSyncState: (stateOrFn: { isAuthenticated: boolean; isSyncing: boolean; lastSyncTime: string | null; error?: string } | ((prev: { isAuthenticated: boolean; isSyncing: boolean; lastSyncTime: string | null; error?: string }) => { isAuthenticated: boolean; isSyncing: boolean; lastSyncTime: string | null; error?: string })) => set((state: UIState) => ({ driveSyncState: typeof stateOrFn === 'function' ? stateOrFn(state.driveSyncState) : stateOrFn })),
-        setIsRestoring: (value: boolean) => set((state: UIState) => ({ modals: { ...state.modals, isRestoring: value }, isRestoring: value })),
-        setCircularAnalysisModal: (modal: { isOpen: boolean; url: string; title: string } | null) => set((state: UIState) => ({ modals: { ...state.modals, circularAnalysisModal: modal }, circularAnalysisModal: modal })),
-        setSyncConflictModal: (modal: { isOpen: boolean; data: SyncConflictData | null } | null) => set((state: UIState) => ({ modals: { ...state.modals, syncConflictModal: modal }, syncConflictModal: modal })),
-        setCreateLessonContext: (context: { isOpen: boolean; slotKey: string | null; lezione: Lezione | null } | null) => set((state: UIState) => ({ modals: { ...state.modals, createLessonContext: context }, createLessonContext: context })),
-        setEditingSlotKey: (key: string | null) => set((state: UIState) => ({ modals: { ...state.modals, editingSlotKey: key }, editingSlotKey: key })),
-        setActiveSlotKey: (key: string | null) => set((state: UIState) => ({ modals: { ...state.modals, activeSlotKey: key }, activeSlotKey: key })),
-        setLessonViewContext: (lesson: Lezione | null) => set((state: UIState) => ({ modals: { ...state.modals, lessonViewContext: lesson }, lessonViewContext: lesson })),
-        setIsVideoAnalysisOpen: (value: boolean) => set((state: UIState) => ({ modals: { ...state.modals, isVideoAnalysisOpen: value }, isVideoAnalysisOpen: value })),
-        setChaosStage: (stage: 'none' | 'shaking' | 'gem-flight' | 'settled') => set(() => ({ chaosStage: stage })),
+        setBackupState: (stateOrFn) => set((state) => ({
+            backupState: typeof stateOrFn === 'function' ? stateOrFn(state.backupState) : { ...state.backupState, ...stateOrFn }
+        })),
+        setDriveSyncState: (stateOrFn) => set((state) => ({
+            driveSyncState: typeof stateOrFn === 'function' ? stateOrFn(state.driveSyncState) : { ...state.driveSyncState, ...stateOrFn }
+        })),
+        setIsRestoring: (value: boolean) => set((state) => ({
+            modals: { ...state.modals, isRestoring: value }
+        })),
+        setCircularAnalysisModal: (modal) => set((state) => ({
+            modals: { ...state.modals, circularAnalysisModal: modal },
+            circularAnalysisModal: modal
+        })),
+        setSyncConflictModal: (modal) => set((state) => ({
+            modals: { ...state.modals, syncConflictModal: modal },
+            syncConflictModal: modal
+        })),
+        setCreateLessonContext: (context) => set((state) => ({
+            modals: { ...state.modals, createLessonContext: context },
+            createLessonContext: context
+        })),
+        setEditingSlotKey: (key) => set((state) => ({
+            modals: { ...state.modals, editingSlotKey: key },
+            editingSlotKey: key
+        })),
+        setActiveSlotKey: (key) => set((state) => ({
+            modals: { ...state.modals, activeSlotKey: key },
+            activeSlotKey: key
+        })),
+        setLessonViewContext: (lesson) => set((state) => ({
+            modals: { ...state.modals, lessonViewContext: lesson },
+            lessonViewContext: lesson
+        })),
+        setIsVideoAnalysisOpen: (value: boolean) => set((state) => ({
+            modals: { ...state.modals, isVideoAnalysisOpen: value }
+        })),
+        setChaosStage: (stage) => set(() => ({ chaosStage: stage })),
     }
 }));
-
-// Getter legacy per compatibilità test (proxy su stato centralizzato modals)
-// Getter legacy compatibili con i test: undefined se mai impostato, null se esplicitamente null, toast undefined se non visibile
 const legacyKeys = [
     'circularAnalysisModal',
     'syncConflictModal',
@@ -161,17 +181,7 @@ const legacyKeys = [
     'lessonViewContext',
     'loadingModalMessage'
 ];
-legacyKeys.forEach((key) => {
-    Object.defineProperty(useUIStore.getState(), key, {
-        get() {
-            // Compatibilità: legge solo da modals
-            return this.modals[key];
-        },
-        configurable: true,
-        enumerable: true
-    });
-});
-
+// Getter legacy per compatibilità test (proxy su stato centralizzato modals)
 // Funzione di normalizzazione per compat test: copia i campi legacy root in modals
 export function normalizeLegacyState(state: Partial<UIState>) {
     if (!state.modals) state.modals = {} as UIState['modals'];
@@ -187,13 +197,3 @@ export function normalizeLegacyState(state: Partial<UIState>) {
     }
     return state;
 }
-// Toast: null se non visibile o mai impostato, oggetto toast se visibile o con messaggio
-Object.defineProperty(useUIStore.getState(), 'toast', {
-    get() {
-        const t = this.modals.toast;
-        if (!t || (!t.visible && !t.message)) return null;
-        return t;
-    },
-    configurable: true,
-    enumerable: true
-});

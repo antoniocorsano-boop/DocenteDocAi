@@ -1,40 +1,69 @@
 
 import React, { useMemo } from 'react';
-import { View, Studente, Slot, Lezione, Valutazione, ValutazioneCompetenza, TimetableSettings, HomeworkSubmission } from '../types';
+import { View, Studente, Lezione } from '../types';
 import { DAYS_OF_WEEK } from '../constants';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import Avatar from './Avatar';
-import { SectionHeader, M3Card, M3ListItem, ActionTile } from './M3Components';
+import { 
+    SectionHeader, 
+    InfoCard, 
+    M3Button,
+    Avatar 
+} from './ui';
+import { useStudentStore } from '../stores/useStudentStore';
+import { useAcademicStore } from '../stores/useAcademicStore';
 
 interface ClassDashboardProps {
     selectedClass: string;
     onNavigate: (view: View, context?: string) => void;
     onStartImpromptuSession: (classe: string) => void;
-    students: Studente[];
-    evaluations: Valutazione[];
-    competencyEvaluations: ValutazioneCompetenza[];
-    settings: TimetableSettings;
-    slots: Record<string, Slot>;
-    lessons: Record<string, Lezione>;
     onStartPlannedLesson: (classe: string, materia: string, slotKey: string, lesson: Lezione) => void;
     onViewStudentProfile: (student: Studente) => void;
-    submissions?: HomeworkSubmission[]; // Added optional prop for counting
 }
+
+interface StudentDashboardItemProps {
+    student: Studente;
+    evaluations: any[];
+    onClick: (student: Studente) => void;
+}
+
+const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: StudentDashboardItemProps) => {
+    const { trend } = calculatePerformance(student.id, 'Complessivo', evaluations);
+    const trendClass = trend === 'up' ? 'text-tertiary' : trend === 'down' ? 'text-error' : 'text-on-surface-variant/40';
+    const trendIcon = trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'trending_flat';
+
+    return (
+        <button 
+            onClick={() => onClick(student)}
+            className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-high transition-all group text-left"
+        >
+            <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
+            <div className="flex-grow min-w-0">
+                <p className="font-bold text-on-surface truncate">{student.cognome} {student.nome}</p>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                    <span className={`material-symbols-outlined text-xs ${trendClass}`}>{trendIcon}</span>
+                    <span className={`text-[10px] font-bold uppercase tracking-wider ${trendClass}`}>
+                        {trend === 'up' ? 'In crescita' : trend === 'down' ? 'In calo' : 'Stabile'}
+                    </span>
+                </div>
+            </div>
+            <span className="material-symbols-outlined text-on-surface-variant/30 group-hover:translate-x-1 transition-transform">chevron_right</span>
+        </button>
+    );
+});
 
 const ClassDashboard: React.FC<ClassDashboardProps> = ({
     selectedClass,
     onNavigate,
     onStartImpromptuSession,
-    students,
-    evaluations,
-    // competencyEvaluations, // not used
-    // settings, // not used
-    slots,
-    lessons,
     onStartPlannedLesson,
     onViewStudentProfile,
-    submissions = []
 }) => {
+    const students = useStudentStore(state => state.students);
+    const evaluations = useStudentStore(state => state.evaluations);
+    const slots = useAcademicStore(state => state.slots);
+    const lessons = useAcademicStore(state => state.lessons);
+    const submissions = useAcademicStore(state => state.submissions) || [];
+
     const filteredStudents = useMemo(() => {
         return students.filter(s => s.classe === selectedClass).sort((a, b) => a.cognome.localeCompare(b.cognome));
     }, [students, selectedClass]);
@@ -56,157 +85,261 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     }, [submissions, filteredStudents]);
 
     return (
-        <div className="pt-3 px-4 md:px-6">
-            <div className="space-y-6 pb-20">
-            <div className="page-header-compact">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium">Cruscotto Classe {selectedClass}</h1>
-                </div>
-            </div>
+        <div className="page-layout max-w-full mx-auto w-full px-4 pb-24">
+            <SectionHeader 
+                title={`Cruscotto Classe ${selectedClass}`}
+                subtitle="Gestione didattica, valutazioni e monitoraggio in tempo reale"
+                className="py-12 text-center"
+            />
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Main Column */}
-                <div className="lg:col-span-2 space-y-8">
+                <div className="lg:col-span-2 space-y-10">
 
                     {/* Hero Section: Lesson or Action */}
                     <section>
                         {todaysLesson ? (
-                            <div className="hero-card">
-                                <div className="hero-header">
-                                    <div className="hero-icon-bg">
-                                        <span className="material-symbols-outlined">school</span>
+                            <InfoCard variant="elevated" className="overflow-hidden bg-primary-container/30 backdrop-blur-sm border border-primary/10">
+                                <div className="p-6">
+                                    <div className="flex items-start gap-6 mb-6">
+                                        <div className="w-16 h-16 rounded-2xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-lg shadow-primary/20">
+                                            <span className="material-symbols-outlined text-3xl">school</span>
+                                        </div>
+                                        <div className="flex-grow min-w-0">
+                                            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Prossima Lezione • {todaysLesson.slot.ora}</p>
+                                            <h2 className="text-2xl font-bold text-on-surface truncate">{todaysLesson.lesson.materia}</h2>
+                                            <p className="text-on-surface-variant line-clamp-1 mt-1">{todaysLesson.lesson.contenuto}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="text-eyebrow !mb-0 !text-on-primary-container/80">Prossima Lezione: {todaysLesson.slot.ora}</p>
-                                        <h2 className="m3-headline-small">{todaysLesson.lesson.materia}</h2>
-                                        <p className="m3-body-medium opacity-90 line-clamp-1">{todaysLesson.lesson.contenuto}</p>
-                                    </div>
+                                    <M3Button
+                                        onClick={() => onStartPlannedLesson(todaysLesson.lesson.classe, todaysLesson.lesson.materia, `${todaysLesson.slot.giorno}-${todaysLesson.slot.ora}`, todaysLesson.lesson)}
+                                        variant="filled"
+                                        className="w-full py-4"
+                                    >
+                                        <span className="material-symbols-outlined mr-2">door_open</span>
+                                        Avvia Aula Digitale
+                                    </M3Button>
                                 </div>
-                                <button
-                                    onClick={() => onStartPlannedLesson(todaysLesson.lesson.classe, todaysLesson.lesson.materia, `${todaysLesson.slot.giorno}-${todaysLesson.slot.ora}`, todaysLesson.lesson)}
-                                    className="button button-filled w-full mt-2"
-                                >
-                                    <span className="material-symbols-outlined mr-2">door_open</span>
-                                    Avvia Aula
-                                </button>
-                            </div>
+                            </InfoCard>
                         ) : (
-                            <div className="hero-card bg-surface-variant text-on-surface-variant">
-                                <div className="hero-header">
-                                    <div className="hero-icon-bg bg-surface-container-high text-on-surface">
-                                        <span className="material-symbols-outlined">event_busy</span>
+                            <InfoCard variant="tonal" className="p-6 border border-outline-variant/30">
+                                <div className="flex items-center gap-6 mb-6">
+                                    <div className="w-16 h-16 rounded-2xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0">
+                                        <span className="material-symbols-outlined text-3xl">event_busy</span>
                                     </div>
                                     <div>
-                                        <h2 className="m3-headline-small">Nessuna lezione ora</h2>
-                                        <p className="m3-body-medium opacity-80">Puoi avviare una lezione libera in qualsiasi momento.</p>
+                                        <h2 className="text-xl font-bold text-on-surface">Nessuna lezione programmata</h2>
+                                        <p className="text-on-surface-variant">Puoi avviare una lezione libera o un'attività improvvisata.</p>
                                     </div>
                                 </div>
-                                <button onClick={() => onStartImpromptuSession(selectedClass)} className="button button-tonal w-full mt-2">
+                                <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="tonal" className="w-full">
                                     <span className="material-symbols-outlined mr-2">add_circle</span>
                                     Avvia Lezione Improvvisata
-                                </button>
-                            </div>
+                                </M3Button>
+                            </InfoCard>
                         )}
                     </section>
 
-                    {/* INBOX WIDGET (ACTIVE) */}
+                    {/* INBOX WIDGET */}
                     {inboxCount > 0 && (
                         <section className="animate-in fade-in slide-in-from-top-2">
-                            <div
+                            <InfoCard 
+                                variant="elevated"
+                                className="bg-tertiary-container/40 backdrop-blur-sm border border-tertiary/10 p-4 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all"
                                 onClick={() => onNavigate('teacher-inbox')}
-                                className="bg-tertiary-container text-on-tertiary-container rounded-2xl p-4 flex items-center justify-between cursor-pointer shadow-sm hover:shadow-md transition-all"
                             >
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center relative">
-                                        <span className="material-symbols-outlined m3-headline-small">mail</span>
-                                        <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-on-error rounded-full m3-label-small font-bold flex items-center justify-center border-2 border-tertiary-container">
-                                            {inboxCount}
-                                        </span>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-tertiary text-on-tertiary flex items-center justify-center relative shadow-md shadow-tertiary/20">
+                                            <span className="material-symbols-outlined">mail</span>
+                                            <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-on-error rounded-full text-[10px] font-bold flex items-center justify-center border-2 border-tertiary-container">
+                                                {inboxCount}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-on-tertiary-container">Inbox Compiti</h3>
+                                            <p className="text-sm text-on-tertiary-container/70">{inboxCount} elaborati consegnati da valutare.</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h3 className="m3-title-medium font-bold">Inbox Compiti</h3>
-                                        <p className="m3-body-small opacity-80">{inboxCount} elaborati consegnati da valutare.</p>
+                                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-tertiary/10 text-tertiary">
+                                        <span className="material-symbols-outlined">arrow_forward</span>
                                     </div>
                                 </div>
-                                <button className="icon-button bg-surface/20 hover:bg-surface/40 text-on-tertiary-container">
-                                    <span className="material-symbols-outlined">arrow_forward</span>
-                                </button>
-                            </div>
+                            </InfoCard>
                         </section>
                     )}
 
-                    {/* INIZIO RIORGANIZZAZIONE STRUMENTI STRUTTURALE */}
+                    {/* TOOLS GRID */}
+                    <div className="space-y-10">
+                        {/* 1. SEZIONE REGISTRO & DIDATTICA */}
+                        <section>
+                            <div className="flex items-center gap-3 mb-6 px-2">
+                                <span className="material-symbols-outlined text-primary">auto_stories</span>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Registro & Didattica</h3>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <InfoCard 
+                                    variant="tonal" 
+                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all group"
+                                    onClick={() => onNavigate('register', selectedClass)}
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                            <span className="material-symbols-outlined">book</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-on-surface">Diario di Bordo</h4>
+                                            <p className="text-xs text-on-surface-variant">Lezioni, assenze, note</p>
+                                        </div>
+                                    </div>
+                                </InfoCard>
+                                <InfoCard 
+                                    variant="tonal" 
+                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all group"
+                                    onClick={() => onNavigate('didattica-inclusiva', selectedClass)}
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+                                            <span className="material-symbols-outlined">accessibility_new</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-on-surface">Inclusione</h4>
+                                            <p className="text-xs text-on-surface-variant">PDP, PEI e strategie</p>
+                                        </div>
+                                    </div>
+                                </InfoCard>
+                            </div>
+                        </section>
 
-                    {/* 1. SEZIONE REGISTRO & DIDATTICA */}
-                    <section>
-                        <SectionHeader title="Registro & Didattica" icon="auto_stories" colorClass="text-primary" />
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <ActionTile title="Diario di Bordo" subtitle="Lezioni, assenze, note" icon="book" onClick={() => onNavigate('register', selectedClass)} variant="primary" />
-                            <ActionTile title="Inclusione" subtitle="PDP, PEI e strategie" icon="accessibility_new" onClick={() => onNavigate('didattica-inclusiva', selectedClass)} variant="tertiary" />
-                        </div>
-                    </section>
+                        {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
+                        <section>
+                            <div className="flex items-center gap-3 mb-6 px-2">
+                                <span className="material-symbols-outlined text-secondary">grading</span>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Valutazione & Competenze</h3>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <InfoCard 
+                                    variant="tonal" 
+                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all group"
+                                    onClick={() => onNavigate('evaluations', selectedClass)}
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                            <span className="material-symbols-outlined">ballot</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-on-surface">Voti</h4>
+                                            <p className="text-xs text-on-surface-variant">Registro valutazioni</p>
+                                        </div>
+                                    </div>
+                                </InfoCard>
+                                <InfoCard 
+                                    variant="tonal" 
+                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all group"
+                                    onClick={() => onNavigate('class-competency-dashboard', selectedClass)}
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                            <span className="material-symbols-outlined">psychology</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-on-surface">Competenze</h4>
+                                            <p className="text-xs text-on-surface-variant">Livelli e matrici</p>
+                                        </div>
+                                    </div>
+                                </InfoCard>
+                            </div>
+                        </section>
 
-                    {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
-                    <section>
-                        <SectionHeader title="Valutazione & Competenze" icon="grading" colorClass="text-secondary" />
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <ActionTile title="Voti" subtitle="Registro valutazioni" icon="ballot" onClick={() => onNavigate('evaluations', selectedClass)} variant="secondary" />
-                            <ActionTile title="Competenze" subtitle="Livelli e matrici" icon="psychology" onClick={() => onNavigate('class-competency-dashboard', selectedClass)} variant="secondary" />
-                        </div>
-                    </section>
-
-                    {/* 3. SEZIONE ANALISI & REPORT */}
-                    <section>
-                        <SectionHeader title="Analisi & Report" icon="analytics" colorClass="text-on-surface-variant" />
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <ActionTile title="Analisi AI" subtitle="Report pedagogico" icon="query_stats" onClick={() => onNavigate('improvement-guide', selectedClass)} variant="tertiary" />
-                            <ActionTile title="Consiglio" subtitle="Scrutini e tabelloni" icon="gavel" onClick={() => onNavigate('consiglio-di-classe', selectedClass)} variant="surface" />
-                            <ActionTile title="Anagrafica" subtitle="Elenco studenti" icon="groups" onClick={() => onNavigate('studenti', selectedClass)} variant="surface" />
-                        </div>
-                    </section>
-
-                    {/* FINE RIORGANIZZAZIONE STRUMENTI */}
-
+                        {/* 3. SEZIONE ANALISI & REPORT */}
+                        <section>
+                            <div className="flex items-center gap-3 mb-6 px-2">
+                                <span className="material-symbols-outlined text-on-surface-variant">analytics</span>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Analisi & Report</h3>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <InfoCard 
+                                    variant="tonal" 
+                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all group"
+                                    onClick={() => onNavigate('improvement-guide', selectedClass)}
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+                                            <span className="material-symbols-outlined">query_stats</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-on-surface">Analisi AI</h4>
+                                            <p className="text-xs text-on-surface-variant">Report pedagogico</p>
+                                        </div>
+                                    </div>
+                                </InfoCard>
+                                <InfoCard 
+                                    variant="tonal" 
+                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-outline/20 transition-all group"
+                                    onClick={() => onNavigate('consiglio-di-classe', selectedClass)}
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
+                                            <span className="material-symbols-outlined">gavel</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-on-surface">Consiglio</h4>
+                                            <p className="text-xs text-on-surface-variant">Scrutini e tabelloni</p>
+                                        </div>
+                                    </div>
+                                </InfoCard>
+                                <InfoCard 
+                                    variant="tonal" 
+                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-outline/20 transition-all group"
+                                    onClick={() => onNavigate('studenti', selectedClass)}
+                                >
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-12 h-12 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
+                                            <span className="material-symbols-outlined">groups</span>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-on-surface">Anagrafica</h4>
+                                            <p className="text-xs text-on-surface-variant">Elenco studenti</p>
+                                        </div>
+                                    </div>
+                                </InfoCard>
+                            </div>
+                        </section>
+                    </div>
                 </div>
 
                 {/* Side Column: Students List */}
-                <M3Card className="h-full flex flex-col">
-                    <div className="flex justify-between items-center mb-4">
-                        <h2 className="m3-title-large">Studenti</h2>
-                        <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full m3-body-small font-bold">
-                            {filteredStudents.length}
-                        </span>
-                    </div>
-
-                    <div className="space-y-2 flex-grow overflow-y-auto pr-1 max-h-[600px] custom-scrollbar">
-                        {filteredStudents.length > 0 ? filteredStudents.map(student => {
-							const { trend } = calculatePerformance(student.id, 'Complessivo', evaluations);
-
-                            return (
-                                <M3ListItem
-                                    key={student.id}
-                                    headline={`${student.cognome} ${student.nome}`}
-                                    onClick={() => onViewStudentProfile(student)}
-                                    leadingElement={<Avatar name={student.nome} surname={student.cognome} size="medium" />}
-                                    trailingElement={
-                                        <span className="material-symbols-outlined text-on-surface-variant opacity-50">chevron_right</span>
-                                    }
-                                    supportingText={trend ? (trend === 'up' ? 'In crescita' : 'In calo') : 'Stabile'}
-                                    className="hover:bg-surface-container-highest/30"
-                                />
-                            );
-                        }) : (
-                            <div className="flex flex-col items-center justify-center h-40 text-center text-on-surface-variant p-4 border-2 border-dashed border-outline-variant rounded-xl">
-                                <span className="material-symbols-outlined m3-display-small mb-2">person_off</span>
-                                <p>Nessuno studente in elenco.</p>
+                <div className="space-y-6">
+                    <InfoCard variant="elevated" className="h-full flex flex-col bg-surface-container-lowest/50 backdrop-blur-sm">
+                        <div className="p-6 flex flex-col h-full">
+                            <div className="flex justify-between items-center mb-6">
+                                <h2 className="text-lg font-bold text-on-surface">Studenti</h2>
+                                <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold">
+                                    {filteredStudents.length}
+                                </span>
                             </div>
-                        )}
-                    </div>
-                </M3Card>
-            </div>
+
+                            <div className="space-y-2 flex-grow overflow-y-auto pr-1 max-h-[600px] custom-scrollbar">
+                                {filteredStudents.length > 0 ? filteredStudents.map(student => (
+                                    <StudentDashboardItem
+                                        key={student.id}
+                                        student={student}
+                                        evaluations={evaluations}
+                                        onClick={onViewStudentProfile}
+                                    />
+                                )) : (
+                                    <div className="flex flex-col items-center justify-center h-40 text-center text-on-surface-variant/40 p-4 border-2 border-dashed border-outline-variant/20 rounded-2xl">
+                                        <span className="material-symbols-outlined text-4xl mb-2">person_off</span>
+                                        <p className="text-sm">Nessuno studente in elenco.</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </InfoCard>
+                </div>
             </div>
         </div>
     );
 };
 
-export default ClassDashboard;
+export default React.memo(ClassDashboard);

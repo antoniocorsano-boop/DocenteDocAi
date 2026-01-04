@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { TextArea } from './M3Components';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
 interface ImageGeneratorModalProps {
     onClose: () => void;
@@ -12,7 +11,6 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
 
     const handleSubmit = () => {
         if (!prompt.trim()) {
-            alert("Per favore, inserisci una descrizione per l'immagine.");
             return;
         }
         onGenerate(prompt);
@@ -20,30 +18,44 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
 
     return (
         <M3Dialog
-            title="Genera Immagine"
-            open={true}
+            title={
+                <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary">image</span>
+                    <span>AI Image Lab</span>
+                </div>
+            }
             onClose={onClose}
             maxWidth="sm"
+            level={1}
         >
-            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-6">
-                <M3DialogContent className="space-y-6">
+            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="flex flex-col h-full">
+                <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl p-8 space-y-6">
                     <TextArea
                         id="image-generator-prompt"
-                        label="Descrivi l'immagine che vuoi creare"
+                        label="Descrizione Immagine"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
                         rows={6}
                         placeholder="Es. 'Illustrazione minimalista del ciclo dell'acqua per una lezione di scienze, stile flat design'..."
                         autoFocus
+                        className="bg-surface-container-high/50"
                     />
+                    <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 px-2">
+                        L'AI genererà un'immagine basata sulla tua descrizione. Sii specifico per risultati migliori.
+                    </p>
                 </M3DialogContent>
 
-                <M3DialogActions className="gap-2">
-                    <button type="button" onClick={onClose} className="button button-text rounded-lg hover:shadow-md transition-all">Annulla</button>
-                    <button type="button" onClick={handleSubmit} className="button button-filled rounded-lg hover:shadow-md transition-all">
-                        <span className="material-symbols-outlined mr-2">auto_awesome</span>
+                <M3DialogActions className="bg-surface-container-low/30 backdrop-blur-xl border-t border-outline-variant/10 p-6">
+                    <M3Button onClick={onClose} variant="text" className="font-black text-xs uppercase tracking-widest">Annulla</M3Button>
+                    <M3Button 
+                        onClick={handleSubmit} 
+                        variant="filled" 
+                        disabled={!prompt.trim()}
+                        className="font-black text-xs uppercase tracking-widest shadow-lg"
+                    >
+                        <span className="material-symbols-outlined mr-2 text-sm">auto_awesome</span>
                         Genera Immagine
-                    </button>
+                    </M3Button>
                 </M3DialogActions>
             </form>
         </M3Dialog>

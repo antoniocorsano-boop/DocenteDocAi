@@ -56,7 +56,7 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-surface p-6">
-			<div className="max-w-md w-full bg-surface-container-high rounded-[28px] p-8 shadow-xl border border-outline-variant/20 text-center">
+			<div className="max-w-md w-full bg-surface-container-high rounded-3xl p-8 shadow-xl border border-outline-variant/20 text-center">
 				<div className="w-16 h-16 bg-error-container rounded-full flex items-center justify-center mx-auto mb-6">
 					<span className="material-symbols-outlined text-3xl text-on-error-container">error</span>
 				</div>

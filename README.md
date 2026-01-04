@@ -4,7 +4,16 @@
 
 # DocenteDoc AI
 
-Assistente AI per docenti basato su Flowise.
+Assistente AI per docenti basato su Google Gemini e architettura Local-First.
+
+## ✨ Aura Design System (M3 Expressive)
+
+L'applicazione utilizza il nuovo **Aura Design System**, un'evoluzione di Material Design 3 focalizzata sull'espressività e la chiarezza visiva:
+
+- **Glassmorphism**: Utilizzo estensivo di `backdrop-blur-2xl` e trasparenze per un'interfaccia leggera e moderna.
+- **Aura Aesthetic**: Palette cromatica dinamica con gradienti soffusi e "Aura Ornaments" (glow effects).
+- **High-Radius Corners**: Angoli arrotondati fino a `48px` per un look organico e accogliente.
+- **Centralized UI**: Tutti i componenti core sono centralizzati in `src/components/ui/` per massima coerenza.
 
 ## Requisiti
 

@@ -2,9 +2,8 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { Studente, KnowledgeBaseEntry } from '../types';
-import { parseCSVWithHeaders } from '../utils/csvUtils';
-import { getGoogleAIClient } from '../services/aiClient';
-import { M3Dialog, TabGroup, SelectField, InfoCard } from './M3Components';
+import { ImportService } from '../services/importService';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SelectField, InfoCard } from './ui';
 
 interface ImportStudentsModalProps {
     onClose: () => void;
@@ -17,7 +16,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
     const [step, setStep] = useState<'upload' | 'mapping' | 'confirm'>('upload');
     const [importSource, setImportSource] = useState<'file' | 'kb'>('file');
     const [targetClass, setTargetClass] = useState<string>(userClasses[0] || 'AUTO');
-    const [csvData, setCsvData] = useState<Record<string, string>[]>([]);
+    const [csvData, setCsvData] = useState<any[]>([]);
     const [csvHeaders, setCsvHeaders] = useState<string[]>([]);
     const [columnMap, setColumnMap] = useState({ cognome: '', nome: '', classe: '' });
     const [error, setError] = useState('');
@@ -25,49 +24,39 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
     const [fileName, setFileName] = useState('');
     const [infoMessage, setInfoMessage] = useState('');
 
-    const processFileContent = useCallback((content: string, name: string) => {
+    const processRawData = useCallback((headers: string[], data: any[], name: string) => {
         setFileName(name);
         setError('');
         setInfoMessage('');
 
-        try {
-            const { headers, data } = parseCSVWithHeaders(content);
-
-            if (headers.length === 0 || data.length === 0) {
-                throw new Error("Il file CSV è vuoto o non ha una riga di intestazione valida.");
-            }
-
-            setCsvHeaders(headers);
-            setCsvData(data);
-
-            let cognomeCol = '';
-            let nomeCol = '';
-            let classeCol = '';
-
-            for (const header of headers) {
-                const lowerHeader = header.toLowerCase();
-                if (!cognomeCol && (lowerHeader.includes('cognome') || lowerHeader.includes('last name') || lowerHeader.includes('surname'))) {
-                    cognomeCol = header;
-                }
-                if (!nomeCol && (lowerHeader.includes('nome') || lowerHeader.includes('first name') || lowerHeader.includes('name'))) {
-                    nomeCol = header;
-                }
-                if (!classeCol && (lowerHeader.includes('classe') || lowerHeader.includes('class'))) {
-                    classeCol = header;
-                }
-            }
-            setColumnMap({ cognome: cognomeCol, nome: nomeCol, classe: classeCol });
-            setStep('mapping');
-
-        } catch (err: unknown) {
-            let message = 'Errore durante l\'analisi del file.';
-            if (err instanceof Error) message = err.message;
-            console.error(err);
-            setError(message);
+        if (headers.length === 0 || data.length === 0) {
+            setError("Il file è vuoto o non ha una riga di intestazione valida.");
             setStep('upload');
+            return;
         }
-    }, []);
 
+        setCsvHeaders(headers);
+        setCsvData(data);
+
+        let cognomeCol = '';
+        let nomeCol = '';
+        let classeCol = '';
+
+        for (const header of headers) {
+            const lowerHeader = header.toLowerCase();
+            if (!cognomeCol && (lowerHeader.includes('cognome') || lowerHeader.includes('last name') || lowerHeader.includes('surname'))) {
+                cognomeCol = header;
+            }
+            if (!nomeCol && (lowerHeader.includes('nome') || lowerHeader.includes('first name') || lowerHeader.includes('name'))) {
+                nomeCol = header;
+            }
+            if (!classeCol && (lowerHeader.includes('classe') || lowerHeader.includes('class'))) {
+                classeCol = header;
+            }
+        }
+        setColumnMap({ cognome: cognomeCol, nome: nomeCol, classe: classeCol });
+        setStep('mapping');
+    }, []);
 
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
         if (acceptedFiles.length === 0) return;
@@ -78,28 +67,13 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
         const file = acceptedFiles[0];
 
         try {
-                if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.name.endsWith('.xlsx')) {
-                const ai = await getGoogleAIClient();
-                const prompt = `
-Sei un assistente AI amichevole e molto chiaro. Un utente ha caricato un file .xlsx, ma l'applicazione accetta solo file .csv. 
-Genera una risposta in formato Markdown con istruzioni semplici e separate per Microsoft Excel e Google Sheets su come salvare il file in formato CSV.
-Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
-`;
-                const response = await ai.models.generateContent({
-                    model: 'gemini-2.5-flash',
-                    contents: prompt,
-                });
-                setInfoMessage(response.text || '');
-                setIsLoading(false);
-                return;
+            const { headers, data, errors } = await ImportService.getRawData(file);
+            
+            if (errors.length > 0) {
+                throw new Error(errors[0]);
             }
 
-            if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
-                throw new Error("Tipo di file non supportato. Carica un file .csv o .xlsx.");
-            }
-
-            const fileContent = await file.text();
-            processFileContent(fileContent, file.name);
+            processRawData(headers, data, file.name);
 
         } catch (err: unknown) {
             let message = 'Errore durante l\'analisi del file.';
@@ -110,11 +84,11 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
         } finally {
             setIsLoading(false);
         }
-    }, [processFileContent]);
+    }, [processRawData]);
 
     const { getRootProps, getInputProps, isDragActive } = useFileDrop({
         onDrop,
-        accept: 'text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        accept: 'text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel',
         multiple: false,
         disabled: isLoading
     });
@@ -124,7 +98,19 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
             setError("Il file selezionato non ha contenuto testuale leggibile.");
             return;
         }
-        processFileContent(entry.content, entry.fileName);
+        // For KB entries, we still use the old CSV parser for now as they are stored as text
+        // In a real scenario, we might want to store the original file type in KB
+        const lines = entry.content.split('\n').filter(l => l.trim());
+        if (lines.length > 0) {
+            const headers = lines[0].split(/[;,]/).map(h => h.trim());
+            const data = lines.slice(1).map(line => {
+                const values = line.split(/[;,]/).map(v => v.trim());
+                const obj: any = {};
+                headers.forEach((h, i) => obj[h] = values[i]);
+                return obj;
+            });
+            processRawData(headers, data, entry.fileName);
+        }
     };
 
     const studentsToImport = useMemo(() => {
@@ -159,26 +145,6 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
         onClose();
     };
 
-    const dialogButtons = useMemo(() => {
-        if (step === 'upload') {
-            return <button onClick={onClose} className="button button-text">Annulla</button>;
-        }
-        if (step === 'mapping') {
-            return (
-                <>
-                    <button type="button" onClick={() => { setStep('upload'); setInfoMessage(''); setError(''); }} className="button button-text">Indietro</button>
-                    <button type="button" onClick={() => setStep('confirm')} disabled={!columnMap.cognome || !columnMap.nome || (targetClass === 'AUTO' && !columnMap.classe)} className="button button-filled">Avanti</button>
-                </>
-            );
-        }
-        return (
-            <>
-                <button type="button" onClick={() => setStep('mapping')} className="button button-text">Indietro</button>
-                <button type="button" onClick={handleImport} className="button button-filled">Importa Studenti</button>
-            </>
-        );
-    }, [step, columnMap, targetClass, handleImport, onClose]);
-
     const renderContent = () => {
         switch (step) {
             case 'upload':
@@ -202,8 +168,7 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
                         <TabGroup
                             tabs={[{ id: 'file', label: 'Carica File' }, { id: 'kb', label: 'Da Knowledge Base' }]}
                             activeTab={importSource}
-                            onTabChange={(id: string) => setImportSource(id as 'file' | 'kb')}
-                            variant="secondary"
+                            onChange={(id: string) => setImportSource(id as 'file' | 'kb')}
                             className="w-full"
                         />
 
@@ -229,7 +194,7 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
 
                                 <div
                                     {...getRootProps()}
-                                    className={`relative flex flex-col items-center justify-center p-8 h-48 rounded-[32px] border-2 border-dashed transition-all cursor-pointer ${isLoading ? 'opacity-50 pointer-events-none' : ''} ${isDragActive ? 'border-primary bg-primary-container/10' : 'border-outline-variant/50 hover:border-primary/50 hover:bg-surface-container-high'}`}
+                                    className={`relative flex flex-col items-center justify-center p-8 h-48 rounded-2xl border-2 border-dashed transition-all cursor-pointer ${isLoading ? 'opacity-50 pointer-events-none' : ''} ${isDragActive ? 'border-primary bg-primary-container/10' : 'border-outline-variant/50 hover:border-primary/50 hover:bg-surface-container-high'}`}
                                 >
                                     <input {...getInputProps()} />
                                     {isLoading ? (
@@ -246,7 +211,7 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
                         ) : (
                             <div className="flex flex-col gap-2">
                                 <p className="m3-label-small uppercase text-primary font-bold">Seleziona un file CSV dalla KB</p>
-                                <div className="bg-surface-container-low rounded-[24px] max-h-[250px] overflow-y-auto p-2 border border-outline-variant/30 flex flex-col gap-1">
+                                <div className="bg-surface-container-low rounded-xl max-h-[250px] overflow-y-auto p-2 border border-outline-variant/30 flex flex-col gap-1">
                                     {knowledgeBase.length > 0 ? (
                                         knowledgeBase.map(entry => (
                                             <div
@@ -409,14 +374,31 @@ Usa titoli e grassetto per chiarezza. Sii conciso e vai dritto al punto.
 
     return (
         <M3Dialog
-            isOpen={true}
             onClose={onClose}
             title={step === 'upload' ? 'Importa Studenti' : step === 'mapping' ? 'Mappatura Colonne' : 'Conferma Importazione'}
-            headline={step !== 'upload' ? `Passo ${step === 'mapping' ? 2 : 3} di 3` : undefined}
-            buttons={dialogButtons}
-            fullscreen={false}
+            maxWidth="lg"
+            level={1}
         >
-            {renderContent()}
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+                {renderContent()}
+            </M3DialogContent>
+            <M3DialogActions>
+                {step === 'upload' && (
+                    <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                )}
+                {step === 'mapping' && (
+                    <>
+                        <M3Button type="button" onClick={() => { setStep('upload'); setInfoMessage(''); setError(''); }} variant="text">Indietro</M3Button>
+                        <M3Button type="button" onClick={() => setStep('confirm')} disabled={!columnMap.cognome || !columnMap.nome || (targetClass === 'AUTO' && !columnMap.classe)} variant="filled">Avanti</M3Button>
+                    </>
+                )}
+                {step === 'confirm' && (
+                    <>
+                        <M3Button type="button" onClick={() => setStep('mapping')} variant="text">Indietro</M3Button>
+                        <M3Button type="button" onClick={handleImport} variant="filled">Importa Studenti</M3Button>
+                    </>
+                )}
+            </M3DialogActions>
         </M3Dialog>
     );
 };

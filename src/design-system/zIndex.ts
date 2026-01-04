@@ -66,7 +66,13 @@ export const Z_INDEX = {
   notification: {
     snackbar: 2000,
     toast: 2000,
-    banner: 2100,
+    banner: 2500, // Banner di suggerimento AI
+  },
+
+  // Assistant layers
+  assistant: {
+    fab: 1300, // Sopra il NavigationRail ma sotto i modali
+    modal: 2200, // Sopra i modali standard ma sotto i banner critici
   },
 
   // Top-level overlays

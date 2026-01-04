@@ -435,7 +435,7 @@ describe('EvaluationModule', () => {
     );
     fireEvent.click(screen.getByText(/Criticità/i));
     await waitFor(() => {
-      expect(screen.getByText(/Ottimo lavoro/i)).toBeInTheDocument();
+      expect(screen.getByText(/Nessuna criticità/i)).toBeInTheDocument();
     });
   });
 

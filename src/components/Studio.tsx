@@ -8,8 +8,7 @@ import ImageGeneratorModal from './ImageGeneratorModal';
 import TestGeneratorModal from './TestGeneratorModal';
 import TestPreviewModal from './TestPreviewModal';
 import Guidance from './Guidance';
-import { M3Dialog } from './M3Dialog';
-import AiThinkingGem from './AiThinkingGem';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField, AiThinkingGem } from './ui';
 
 
 type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation' | 'document' | 'image' | 'quiz';
@@ -235,24 +234,23 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     title="API Key Richiesta"
                     onClose={() => setIsKeySelectionOpen(false)}
                     maxWidth="sm"
-                    buttons={
-                        <>
-                            <button onClick={() => setIsKeySelectionOpen(false)} className="m3-button-text">Annulla</button>
-                            {typeof (window as any).aistudio !== 'undefined' && (
-                                <button onClick={handleSelectKey} className="m3-button-filled">Seleziona API Key (Demo)</button>
-                            )}
-                        </>
-                    }
+                    level={2}
                 >
-                    <div className="space-y-4">
-                            <p className="m3-body-medium text-on-surface-variant">
-                                Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
-                            </p>
-                            <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="link-button flex items-center gap-2">
-                                <span className="material-symbols-outlined text-sm">info</span>
-                                Scopri di più sul billing
-                            </a>
-                        </div>
+                    <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-4">
+                        <p className="m3-body-medium text-on-surface-variant">
+                            Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
+                        </p>
+                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="link-button flex items-center gap-2">
+                            <span className="material-symbols-outlined text-sm">info</span>
+                            Scopri di più sul billing
+                        </a>
+                    </M3DialogContent>
+                    <M3DialogActions>
+                        <M3Button onClick={() => setIsKeySelectionOpen(false)} variant="text">Annulla</M3Button>
+                        {typeof (window as any).aistudio !== 'undefined' && (
+                            <M3Button onClick={handleSelectKey} variant="filled">Seleziona API Key (Demo)</M3Button>
+                        )}
+                    </M3DialogActions>
                 </M3Dialog>
             )}
 
@@ -264,15 +262,15 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                 </h2>
                 <div className="flex flex-wrap gap-4 items-end mb-4">
                     <div className="flex-grow min-w-[250px]">
-                        <label className="form-label">Filtra per Set di Documenti</label>
-                         <select 
+                        <SelectField 
+                            label="Filtra per Set di Documenti"
                             value={selectedCorpusId} 
                             onChange={e => { setSelectedCorpusId(e.target.value); setSelectedFileIds([]); }} 
-                            className="form-select w-full"
-                        >
-                            <option value="">Tutti i Documenti ({knowledgeBase.length})</option>
-                            {corpora.map(c => <option key={c.id} value={c.id}>{c.displayName}</option>)}
-                        </select>
+                            options={[
+                                { value: '', label: `Tutti i Documenti (${knowledgeBase.length})` },
+                                ...corpora.map(c => ({ value: c.id, label: c.displayName }))
+                            ]}
+                        />
                     </div>
                      <div className="flex items-center gap-2 pb-2">
                         <span className="material-symbols-outlined text-on-surface-variant">attachment</span>
@@ -367,3 +365,5 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
         </div>
     );
 };
+
+export default Studio;

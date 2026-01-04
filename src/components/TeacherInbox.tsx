@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HomeworkSubmission, Studente, Lezione } from '../types';
-import Avatar from './Avatar';
+import { Avatar } from './ui';
 
 import HomeworkSubmissionCard from './HomeworkSubmission'; 
 
@@ -73,7 +73,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     className={`p-3 rounded-xl cursor-pointer transition-colors flex items-start gap-3 ${isSelected ? 'bg-primary-container text-on-primary-container' : 'hover:bg-surface-container-high'}`}
                                     style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}
                                 >
-                                    <Avatar name={studentInfo.name} surname={studentInfo.surname} size="small" />
+                                    <Avatar name={`${studentInfo.name} ${studentInfo.surname}`} size="sm" />
                                     <div className="min-w-0">
                                         <p className="font-bold m3-body-small truncate">{studentInfo.full}</p>
                                         <p className="m3-label-small opacity-80 truncate">{lessonInfo.materia} - {lessonInfo.contenuto}</p>

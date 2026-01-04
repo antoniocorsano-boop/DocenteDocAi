@@ -1,16 +1,11 @@
 
 import React, { useState } from 'react';
 import { Lezione, MaterialeDidattico, KnowledgeBaseEntry, AiSettings, LessonAnalysisResult, TimetableSettings } from '../types';
-import { generateLessonPdf, generateHtmlDocxBlob, viewPdfInNewTab, generateHomeworkPdf } from '../utils/documentUtils';
-import { analyzeLessonPedagogy } from '../services/aiService';
-import { saveAs } from '../utils/documentUtils';
+import { generateLessonPdf, generateHtmlDocxBlob, viewPdfInNewTab, generateHomeworkPdf, saveAs } from '../utils/documentUtils';
+import { analyzeLessonPedagogy, addContextToLesson } from '../services/aiService';
 import MaterialPickerModal from './MaterialPickerModal';
 import LessonAnalysisModal from './LessonAnalysisModal';
-import AiThinkingGem from './AiThinkingGem';
-import { sanitizeHTML } from '../utils/securityUtils';
-import { LESSON_TYPE_ICONS } from '../constants';
-import { generateHueFromString } from '../utils/colorUtils';
-import { M3Dialog } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, SectionHeader, AiThinkingGem } from './ui';
 
 interface LessonViewProps {
   lesson: Lezione;
@@ -19,7 +14,7 @@ interface LessonViewProps {
   onUpdateLesson: (lesson: Lezione) => void; 
   knowledgeBase: KnowledgeBaseEntry[];
   aiSettings?: AiSettings;
-  settings?: TimetableSettings; // New prop for context
+  settings?: TimetableSettings;
 }
 
 const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassroom, onUpdateLesson, knowledgeBase, aiSettings, settings }) => {
@@ -28,9 +23,27 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   const [isMaterialPickerOpen, setIsMaterialPickerOpen] = useState(false);
   
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isEnriching, setIsEnriching] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<LessonAnalysisResult | null>(null);
 
-  // --- Handlers (Existing logic preserved) ---
+  const handleEnrichLesson = async () => {
+    if (!aiSettings) return;
+    setIsEnriching(true);
+    try {
+        const enrichment = await addContextToLesson(aiSettings, lesson);
+        if (enrichment) {
+            onUpdateLesson({
+                ...lesson,
+                nota: (lesson.nota ? lesson.nota + '\n\n' : '') + '--- AI ENRICHMENT ---\n' + enrichment
+            });
+        }
+    } catch (error) {
+        console.error("Failed to enrich lesson:", error);
+    } finally {
+        setIsEnriching(false);
+    }
+  };
+
   const handleExport = async () => {
     setIsExporting(true);
     try {
@@ -85,7 +98,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   };
   
   const handleDownloadMaterial = (material: MaterialeDidattico) => {
-    if (material.type !== 'file' || !material.file?.content) return; // Aggiunto optional chaining per file
+    if (material.type !== 'file' || !material.file?.content) return;
     try {
         const byteCharacters = atob(material.file.content);
         const byteNumbers = new Array(byteCharacters.length);
@@ -158,273 +171,251 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         case 'link': return 'link';
         case 'file': return 'attach_file';
     }
-    return 'insert_drive_file'; // Default icon
+    return 'insert_drive_file';
   };
 
-  // --- VISUAL HELPERS ---
   const hue = generateHueFromString(lesson.materia || 'default');
   const typeIcon = LESSON_TYPE_ICONS[lesson.tipoLezione || 'Teoria'] || 'school';
 
   return (
     <>
-      <div className="dialog-backdrop !p-0 md:!p-4 bg-black/60">
-        {/* RESPONSIVE CONTAINER: Full screen on mobile, Rounded card on desktop */}
-        <div className="dialog-container w-full h-full md:max-w-5xl md:h-[90vh] md:rounded-2xl rounded-none flex flex-col bg-surface-container-low animate-in slide-in-from-bottom-5 fade-in duration-300">
-          
-          {/* HEADER: Compact & Sticky */}
-          <div className="dialog-header bg-surface border-b border-outline-variant flex-shrink-0 z-20 px-4 py-3">
-              <div className="flex items-center gap-3 flex-grow min-w-0">
-                   <button onClick={onClose} className="icon-button -ml-2 md:hidden">
-                      <span className="material-symbols-outlined">arrow_back</span>
-                  </button>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `hsl(${hue}, 80%, 90%)`, color: `hsl(${hue}, 60%, 30%)` }}>
-                      <span className="material-symbols-outlined">{typeIcon}</span>
-                  </div>
-                  <div className="min-w-0">
-                    <h2 className="m3-title-medium font-bold leading-tight truncate pr-2">Piano Lezione</h2>
-                    <p className="m3-label-small text-on-surface-variant font-mono uppercase tracking-wide opacity-80">{lesson.id.split('-').slice(0,2).join('-')}</p>
-                  </div>
-              </div>
-              <div className="flex items-center gap-1 flex-shrink-0">
-                  <button onClick={handleExportDocx} disabled={isExporting} className="icon-button hidden md:flex" title="Esporta Word">
-                      <span className="material-symbols-outlined text-secondary">description</span>
-                  </button>
-                  <button onClick={handleExport} disabled={isExporting} className="icon-button hidden md:flex" title="Esporta PDF">
-                      <span className="material-symbols-outlined text-primary">picture_as_pdf</span>
-                  </button>
-                   {/* Desktop Close Button */}
-                  <button onClick={onClose} className="icon-button bg-surface-container-high hover:bg-surface-container-highest hidden md:flex">
-                      <span className="material-symbols-outlined">close</span>
-                  </button>
-              </div>
-          </div>
-          
-          <div className="dialog-content !p-0 flex-grow overflow-y-auto">
-              
-              {/* HERO SECTION */}
-              <div className="p-4 md:p-6 bg-surface-container border-b border-outline-variant">
-                   {lesson.unitaDiApprendimento && (
-                       <div className="flex items-center gap-2 mb-2">
-                           <span className="m3-label-small font-bold uppercase tracking-wider text-primary bg-primary-container px-2 py-0.5 rounded">UDA</span>
-                           <span className="m3-label-small font-medium text-on-surface-variant truncate">{lesson.unitaDiApprendimento}</span>
-                       </div>
-                   )}
-                   <h1 className="m3-headline-small md:m3-headline-medium font-bold text-on-surface mb-3 md:mb-4 leading-tight">
-                       {lesson.contenuto}
-                   </h1>
-                   
-                   <div className="flex flex-wrap gap-2">
-                       <span className="chip !h-7 m3-label-small bg-surface-container-high border-outline-variant">
-                           <span className="material-symbols-outlined m3-label-large mr-1">school</span> {lesson.classe}
-                       </span>
-                       <span className="chip !h-7 m3-label-small bg-surface-container-high border-outline-variant">
-                           <span className="material-symbols-outlined m3-label-large mr-1">menu_book</span> {lesson.materia}
-                       </span>
-                       <span className="chip !h-7 m3-label-small bg-surface-container-high border-outline-variant">
-                           <span className="material-symbols-outlined m3-label-large mr-1">category</span> {lesson.tipoLezione || 'Teoria'}
-                       </span>
-                   </div>
-              </div>
+      <M3Dialog
+        title={
+            <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm" style={{ backgroundColor: `hsl(${hue}, 80%, 90%)`, color: `hsl(${hue}, 60%, 30%)` }}>
+                    <span className="material-symbols-outlined text-2xl">{typeIcon}</span>
+                </div>
+                <div className="min-w-0">
+                    <h2 className="m3-headline-small font-black leading-tight truncate">Piano Lezione</h2>
+                    <p className="m3-label-small text-on-surface-variant font-mono uppercase tracking-widest opacity-60">{lesson.id.split('-').slice(0,2).join('-')}</p>
+                </div>
+            </div>
+        }
+        onClose={onClose}
+        mode="fullscreen"
+        level={1}
+      >
+        <M3DialogContent className="bg-surface-container-lowest p-0">
+            <div className="max-w-6xl mx-auto w-full">
+                {/* HERO SECTION */}
+                <div className="p-6 md:p-10 bg-surface-container-low border-b border-outline-variant/30">
+                    {lesson.unitaDiApprendimento && (
+                        <div className="flex items-center gap-2 mb-4">
+                            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">UDA</span>
+                            <span className="m3-label-medium font-bold text-on-surface-variant truncate">{lesson.unitaDiApprendimento}</span>
+                        </div>
+                    )}
+                    <h1 className="m3-headline-medium md:m3-headline-large font-black text-on-surface mb-6 leading-tight">
+                        {lesson.contenuto}
+                    </h1>
+                    
+                    <div className="flex flex-wrap gap-3">
+                        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-surface-container-high border border-outline-variant/30">
+                            <span className="material-symbols-outlined text-primary text-lg">school</span>
+                            <span className="m3-label-large font-bold">{lesson.classe}</span>
+                        </div>
+                        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-surface-container-high border border-outline-variant/30">
+                            <span className="material-symbols-outlined text-secondary text-lg">menu_book</span>
+                            <span className="m3-label-large font-bold">{lesson.materia}</span>
+                        </div>
+                        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-surface-container-high border border-outline-variant/30">
+                            <span className="material-symbols-outlined text-tertiary text-lg">category</span>
+                            <span className="m3-label-large font-bold">{lesson.tipoLezione || 'Teoria'}</span>
+                        </div>
+                    </div>
+                </div>
 
-              <div className="p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
-                  
-                  {/* LEFT COLUMN: Main Content */}
-                  <div className="lg:col-span-2 space-y-4 md:space-y-6">
-                      
-                      {/* AI Action Bar */}
-                      {aiSettings && (
-                        <div className="p-3 bg-tertiary-container/30 border border-tertiary/20 rounded-xl flex items-center justify-between shadow-sm">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center flex-shrink-0">
-                                    <span className="material-symbols-outlined m3-label-large">psychology</span>
+                <div className="p-6 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    {/* LEFT COLUMN */}
+                    <div className="lg:col-span-2 space-y-10">
+                        {/* AI Assistant */}
+                        {aiSettings && (
+                            <div className="p-6 bg-tertiary-container/20 border border-tertiary/20 rounded-2xl flex items-center justify-between shadow-sm group hover:shadow-md transition-all">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-2xl bg-tertiary text-on-tertiary flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                                        <span className="material-symbols-outlined text-2xl">psychology</span>
+                                    </div>
+                                    <div>
+                                        <p className="m3-title-medium font-black text-on-surface">Assistente Pedagogico</p>
+                                        <p className="m3-body-small text-on-surface-variant opacity-80">Analizza inclusività e coinvolgimento</p>
+                                    </div>
                                 </div>
-                                <div className="min-w-0">
-                                    <p className="m3-body-small font-bold text-on-surface">Assistente Pedagogico</p>
-                                    <p className="m3-label-small text-on-surface-variant truncate">Analizza inclusività e coinvolgimento</p>
+                                <div className="flex gap-2">
+                                    <M3Button 
+                                        onClick={handleEnrichLesson} 
+                                        disabled={isEnriching} 
+                                        variant="tonal"
+                                        className="!h-12 !px-6"
+                                        title="Arricchisci con curiosità e spunti AI"
+                                    >
+                                        {isEnriching ? <AiThinkingGem size="small" inline text="" /> : (
+                                            <div className="flex items-center gap-2">
+                                                <span className="material-symbols-outlined text-lg">auto_awesome</span>
+                                                Arricchisci
+                                            </div>
+                                        )}
+                                    </M3Button>
+                                    <M3Button 
+                                        onClick={handleAnalyzePedagogy} 
+                                        disabled={isAnalyzing} 
+                                        variant="filled"
+                                        className="!bg-tertiary !text-on-tertiary !h-12 !px-6"
+                                    >
+                                        {isAnalyzing ? <AiThinkingGem size="small" inline text="" /> : 'Analizza'}
+                                    </M3Button>
                                 </div>
                             </div>
-                            <button 
-                                onClick={handleAnalyzePedagogy} 
-                                disabled={isAnalyzing} 
-                                className="button button-text !text-tertiary !h-8 !px-3 m3-label-small flex-shrink-0"
-                            >
-                                {isAnalyzing ? <AiThinkingGem size="small" inline text="" /> : 'Analizza'}
-                            </button>
+                        )}
+
+                        {/* Objectives */}
+                        <section>
+                            <SectionHeader title="Obiettivi Didattici" icon="flag" />
+                            <div className="mt-4 bg-surface-container-low p-6 rounded-3xl border border-outline-variant/30 shadow-sm">
+                                {lesson.obiettivi ? (
+                                    <div className="prose prose-sm max-w-none text-on-surface">
+                                        <ul className="list-disc pl-5 space-y-2 marker:text-primary">
+                                            {lesson.obiettivi.split('\n').filter(line => line.trim()).map((line, idx) => (
+                                                <li key={idx} className="m3-body-medium leading-relaxed">{line.replace(/^- /, '')}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ) : (
+                                    <p className="m3-body-medium text-on-surface-variant italic opacity-60">Nessun obiettivo specificato.</p>
+                                )}
+                            </div>
+                        </section>
+
+                        {/* Content */}
+                        <section>
+                            <SectionHeader title="Svolgimento e Contenuti" icon="article" />
+                            <div className="mt-4 bg-surface-container-low p-6 md:p-8 rounded-3xl border border-outline-variant/30 shadow-sm min-h-[150px]">
+                                {lesson.contesto ? (
+                                    <p className="m3-body-large whitespace-pre-wrap leading-relaxed text-on-surface">{lesson.contesto}</p>
+                                ) : (
+                                    <p className="m3-body-medium text-on-surface-variant italic opacity-60">Nessun dettaglio sullo svolgimento.</p>
+                                )}
+                            </div>
+                        </section>
+
+                        {/* Notes */}
+                        {lesson.nota && (
+                            <section>
+                                <SectionHeader title="Note Docente" icon="sticky_note_2" />
+                                <div className="mt-4 bg-primary-container/10 p-6 rounded-3xl border border-primary/20 m3-body-medium font-medium text-on-surface-variant italic">
+                                    {lesson.nota}
+                                </div>
+                            </section>
+                        )}
+                    </div>
+
+                    {/* RIGHT COLUMN */}
+                    <div className="space-y-8">
+                        {/* Materials */}
+                        <div className="bg-surface-container-low rounded-2xl border border-outline-variant/30 overflow-hidden shadow-sm">
+                            <div className="p-5 border-b border-outline-variant/30 bg-surface-container-high flex justify-between items-center">
+                                <h3 className="m3-title-medium font-black flex items-center gap-3">
+                                    <span className="material-symbols-outlined text-primary">attachment</span>
+                                    Materiali
+                                </h3>
+                                <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="tonal" className="!w-10 !h-10 !p-0 !min-w-0 !rounded-xl">
+                                    <span className="material-symbols-outlined">add</span>
+                                </M3Button>
+                            </div>
+                            
+                            <div className="p-4 space-y-2">
+                                {(lesson.materialiDidattici?.length || 0) > 0 ? (
+                                    lesson.materialiDidattici!.map(material => (
+                                        <div key={material.id} className="flex items-center gap-4 p-3 hover:bg-surface-container rounded-2xl group transition-all border border-transparent hover:border-outline-variant/30">
+                                            <div className="w-10 h-10 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0 shadow-sm">
+                                                <span className="material-symbols-outlined text-lg">{getMaterialIcon(material)}</span>
+                                            </div>
+                                            <div className="flex-grow min-w-0">
+                                                {material.type === 'link' ? (
+                                                    <a href={material.url} target="_blank" rel="noopener noreferrer" className="m3-label-large font-bold text-primary hover:underline truncate block">{material.label}</a>
+                                                ) : (
+                                                    <span 
+                                                        onClick={() => material.type === 'kb' && handlePreviewKbMaterial(material)} 
+                                                        className={`m3-label-large font-bold truncate block ${material.type === 'kb' ? 'cursor-pointer hover:text-primary' : 'text-on-surface'}`}
+                                                    >
+                                                        {material.type === 'kb' ? material.fileName : material.file?.name}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                {material.type === 'file' && (
+                                                    <M3Button onClick={() => handleDownloadMaterial(material)} variant="text" className="!p-2 !min-w-0" title="Scarica">
+                                                        <span className="material-symbols-outlined">download</span>
+                                                    </M3Button>
+                                                )}
+                                                <M3Button onClick={() => handleRemoveMaterial(material.id)} variant="text" className="!p-2 !min-w-0 text-error" title="Rimuovi">
+                                                    <span className="material-symbols-outlined">close</span>
+                                                </M3Button>
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="py-10 text-center opacity-40">
+                                        <span className="material-symbols-outlined text-5xl mb-2">folder_off</span>
+                                        <p className="m3-label-medium">Nessun materiale</p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                      )}
 
-                      {/* Objectives */}
-                      <section>
-                          <h3 className="section-header-expressive text-primary !mb-2 !mt-0 m3-body-small">
-                              <span className="material-symbols-outlined m3-label-large mr-2">flag</span>
-                              Obiettivi Didattici
-                          </h3>
-                          <div className="bg-surface p-4 rounded-xl border border-outline-variant shadow-sm">
-                              {lesson.obiettivi ? (
-                                  <div className="prose prose-sm max-w-none text-on-surface">
-                                      <ul className="list-disc pl-5 space-y-1 marker:text-primary">
-                                        {lesson.obiettivi.split('\n').filter(line => line.trim()).map((line, idx) => (
-                                            <li key={idx} className="leading-snug">{line.replace(/^- /, '')}</li>
-                                        ))}
-                                      </ul>
-                                  </div>
-                              ) : (
-                                  <p className="m3-body-small text-on-surface-variant italic">Nessun obiettivo specificato.</p>
-                              )}
-                          </div>
-                      </section>
+                        {/* Inclusion */}
+                        <InfoCard 
+                            title="Inclusività (BES/DSA)" 
+                            icon="diversity_3" 
+                            variant={lesson.adattamenti ? 'tertiary' : 'surface'}
+                        >
+                            <p className="m3-body-medium leading-relaxed">
+                                {lesson.adattamenti || 'Nessun adattamento specifico registrato.'}
+                            </p>
+                        </InfoCard>
 
-                      {/* Content / Context */}
-                      <section>
-                          <h3 className="section-header-expressive text-secondary !mb-2 m3-body-small">
-                              <span className="material-symbols-outlined m3-label-large mr-2">article</span>
-                              Svolgimento e Contenuti
-                          </h3>
-                          <div className="bg-surface p-4 md:p-5 rounded-xl border border-outline-variant shadow-sm min-h-[100px]">
-                              {lesson.contesto ? (
-                                  <p className="m3-body-medium whitespace-pre-wrap leading-relaxed">{lesson.contesto}</p>
-                              ) : (
-                                  <p className="m3-body-small text-on-surface-variant italic">Nessun dettaglio sullo svolgimento.</p>
-                              )}
-                          </div>
-                      </section>
-
-                      {/* Lesson Notes */}
-                      {lesson.nota && (
-                          <section>
-                              <h3 className="section-header-expressive text-on-surface-variant !mb-2 m3-body-small">
-                                  <span className="material-symbols-outlined m3-label-large mr-2">sticky_note_2</span>
-                                  Note Docente
-                              </h3>
-                              <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-xl border border-yellow-200 dark:border-yellow-800 m3-body-small font-medium text-on-surface">
-                                  {lesson.nota}
-                              </div>
-                          </section>
-                      )}
-                  </div>
-
-                  {/* RIGHT COLUMN: Resources & Side Info */}
-                  <div className="space-y-4 md:space-y-6">
-                      
-                      {/* Materials Card */}
-                      <div className="card !p-0 overflow-hidden bg-surface">
-                          <div className="p-3 md:p-4 border-b border-outline-variant bg-surface-container-high flex justify-between items-center">
-                              <h3 className="m3-title-small font-bold flex items-center gap-2">
-                                  <span className="material-symbols-outlined text-primary">attachment</span>
-                                  Materiali
-                              </h3>
-                              <button onClick={() => setIsMaterialPickerOpen(true)} className="icon-button !w-8 !h-8 bg-surface text-primary shadow-sm border border-outline-variant/50">
-                                  <span className="material-symbols-outlined m3-label-large">add</span>
-                              </button>
-                          </div>
-                          
-                          <div className="p-2 space-y-1">
-                              {(lesson.materialiDidattici?.length || 0) > 0 ? (
-                                  lesson.materialiDidattici!.map(material => (
-                                      <div key={material.id} className="flex items-center gap-3 p-2 hover:bg-surface-container-low rounded-lg group transition-colors">
-                                          <div className="w-8 h-8 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
-                                              <span className="material-symbols-outlined text-sm">{getMaterialIcon(material)}</span>
-                                          </div>
-                                          <div className="flex-grow min-w-0">
-                                              {material.type === 'link' ? (
-                                                  <a href={material.url} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-primary hover:underline truncate block">{material.label}</a>
-                                              ) : (
-                                                  <span 
-                                                    onClick={() => material.type === 'kb' && handlePreviewKbMaterial(material)} 
-                                                    className={`text-sm font-medium truncate block ${material.type === 'kb' ? 'cursor-pointer hover:text-primary' : 'text-on-surface'}`}
-                                                  >
-                                                      {material.type === 'kb' ? material.fileName : material.file?.name}
-                                                  </span>
-                                              )}
-                                          </div>
-                                          <div className="flex md:opacity-0 group-hover:opacity-100 transition-opacity">
-                                              {material.type === 'file' && (
-                                                  <button onClick={() => handleDownloadMaterial(material)} className="icon-button !w-8 !h-8" title="Scarica">
-                                                      <span className="material-symbols-outlined m3-body-medium">download</span>
-                                                  </button>
-                                              )}
-                                              <button onClick={() => handleRemoveMaterial(material.id)} className="icon-button text-error !w-8 !h-8" title="Rimuovi">
-                                                  <span className="material-symbols-outlined m3-body-medium">close</span>
-                                              </button>
-                                          </div>
-                                      </div>
-                                  ))
-                              ) : (
-                                  <div className="py-6 text-center text-on-surface-variant opacity-60">
-                                      <span className="material-symbols-outlined m3-headline-small mb-1">folder_off</span>
-                                      <p className="m3-label-small">Nessun materiale</p>
-                                  </div>
-                              )}
-                          </div>
-                      </div>
-
-                      {/* Inclusion Card */}
-                      {lesson.adattamenti ? (
-                          <div className="card bg-tertiary-container text-on-tertiary-container !border-none">
-                              <h3 className="m3-title-small font-bold flex items-center gap-2 mb-2">
-                                  <span className="material-symbols-outlined">diversity_3</span>
-                                  Inclusività (BES/DSA)
-                              </h3>
-                              <p className="m3-body-small opacity-90 whitespace-pre-wrap">{lesson.adattamenti}</p>
-                          </div>
-                      ) : (
-                          <div className="card border-dashed border-outline-variant bg-transparent opacity-60 hover:opacity-100 transition-opacity p-3">
-                                <h3 className="m3-title-small font-bold flex items-center gap-2 mb-1 text-on-surface-variant">
-                                  <span className="material-symbols-outlined m3-body-medium">diversity_3</span>
-                                  Inclusività
-                              </h3>
-                              <p className="m3-label-small text-on-surface-variant">Nessun adattamento specifico registrato.</p>
-                          </div>
-                      )}
-
-                      {/* Homework Card */}
-                      <div className="card bg-surface-container">
-                          <h3 className="m3-title-small font-bold flex items-center gap-2 mb-2 text-on-surface">
-                                  <span className="material-symbols-outlined text-secondary">assignment</span>
-                                  Compiti per Casa
-                          </h3>
-                          <p className="m3-body-small text-on-surface-variant whitespace-pre-wrap leading-relaxed">
-                              {lesson.compiti || 'Nessun compito assegnato.'}
-                          </p>
-                          
-                          {/* Homework PDF Button */}
-                          {settings && lesson.compiti && (
-                              <button onClick={handleExportHomework} disabled={isExporting} className="button button-outlined !h-8 m3-label-small w-full mt-3">
-                                  <span className="material-symbols-outlined mr-1 m3-label-large">print</span> PDF Compiti
-                              </button>
-                          )}
-                      </div>
-
-                  </div>
-              </div>
-          </div>
-
-          {/* FOOTER: Fixed at bottom */}
-        <div className="dialog-footer bg-surface border-t border-outline-variant flex flex-col md:flex-row justify-between items-center p-4 gap-3 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
-            <span className="m3-label-small text-on-surface-variant hidden md:inline">
-                   Modificato il {new Date().toLocaleDateString()}
-               </span>
-            <div className="flex gap-3 w-full md:w-auto">
-                <button type="button" onClick={onClose} className="button button-text flex-1 md:flex-none justify-center">Chiudi</button>
-                <button type="button" onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} className="button button-filled flex-1 md:flex-grow-0 justify-center">
+                        {/* Homework */}
+                        <div className="bg-surface-container-low rounded-2xl border border-outline-variant/30 p-6 shadow-sm">
+                            <h3 className="m3-title-medium font-black flex items-center gap-3 mb-4">
+                                <span className="material-symbols-outlined text-secondary">assignment</span>
+                                Compiti per Casa
+                            </h3>
+                            <p className="m3-body-medium text-on-surface-variant whitespace-pre-wrap leading-relaxed mb-6">
+                                {lesson.compiti || 'Nessun compito assegnato.'}
+                            </p>
+                            
+                            {settings && lesson.compiti && (
+                                <M3Button onClick={handleExportHomework} disabled={isExporting} variant="outlined" className="w-full !h-12">
+                                    <span className="material-symbols-outlined mr-2">print</span> PDF Compiti
+                                </M3Button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </M3DialogContent>
+        <M3DialogActions className="bg-surface-container-lowest border-t border-outline-variant/30 p-4 md:p-6">
+            <div className="flex flex-col md:flex-row justify-between items-center w-full gap-4">
+                <span className="m3-label-medium text-on-surface-variant opacity-60 hidden md:inline">
+                    Ultima modifica: {new Date().toLocaleDateString()}
+                </span>
+                <div className="flex gap-3 w-full md:w-auto">
+                    <div className="flex gap-2 mr-auto md:mr-4">
+                        <M3Button onClick={handleExportDocx} disabled={isExporting} variant="tonal" className="!h-12 !px-4" title="Esporta Word">
+                            <span className="material-symbols-outlined">description</span>
+                        </M3Button>
+                        <M3Button onClick={handleExport} disabled={isExporting} variant="tonal" className="!h-12 !px-4" title="Esporta PDF">
+                            <span className="material-symbols-outlined">picture_as_pdf</span>
+                        </M3Button>
+                    </div>
+                    <M3Button onClick={onClose} variant="text" className="!h-12 !px-8">Chiudi</M3Button>
+                    <M3Button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} variant="filled" className="!h-12 !px-8 shadow-lg">
                         <span className="material-symbols-outlined mr-2">door_open</span>
                         Avvia Lezione
-                    </button>
-               </div>
-               
-               {/* Mobile Only: Export Actions */}
-            <div className="flex md:hidden gap-2 w-full pt-2 border-t border-outline-variant">
-                   <button onClick={handleExportDocx} disabled={isExporting} className="button button-outlined flex-1 justify-center !h-9 m3-label-small">
-                       <span className="material-symbols-outlined mr-1 m3-label-large">description</span> Word
-                   </button>
-                   <button onClick={handleExport} disabled={isExporting} className="button button-outlined flex-1 justify-center !h-9 m3-label-small">
-                       <span className="material-symbols-outlined mr-1 m3-label-large">picture_as_pdf</span> PDF
-                   </button>
-               </div>
-          </div>
-
-        </div>
-      </div>
+                    </M3Button>
+                </div>
+            </div>
+        </M3DialogActions>
+      </M3Dialog>
       
       {/* Modals for interactions */}
       {previewingMaterial && (
@@ -432,16 +423,42 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
               onClose={() => setPreviewingMaterial(null)}
               title="Anteprima Materiale"
               maxWidth="2xl"
-              buttons={
-                  <button type="button" onClick={() => setPreviewingMaterial(null)} className="button button-text">Chiudi</button>
-              }
+              level={2}
           >
-              <h3 className="m3-title-medium mb-2">{previewingMaterial.fileName}</h3>
-              <div className="p-4 bg-surface-container-lowest rounded-lg border border-outline-variant max-h-[60vh] overflow-y-auto">
-                <pre className="whitespace-pre-wrap m3-body-medium">{sanitizeHTML(previewingMaterial.content)}</pre>
-              </div>
+              <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+                <h3 className="m3-title-medium mb-4 font-black">{previewingMaterial.fileName}</h3>
+                <div className="p-6 bg-surface-container-lowest rounded-3xl border border-outline-variant/30 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                    <pre className="whitespace-pre-wrap m3-body-medium leading-relaxed">{sanitizeHTML(previewingMaterial.content)}</pre>
+                </div>
+              </M3DialogContent>
+              <M3DialogActions>
+                <M3Button onClick={() => setPreviewingMaterial(null)} variant="text">Chiudi</M3Button>
+              </M3DialogActions>
           </M3Dialog>
       )}
+      
+      {isMaterialPickerOpen && (
+        <MaterialPickerModal
+            knowledgeBase={knowledgeBase}
+            currentMaterials={lesson.materialiDidattici || []}
+            onClose={() => setIsMaterialPickerOpen(false)}
+            onSave={handleAddMaterials}
+        />
+      )}
+
+      {analysisResult && (
+          <LessonAnalysisModal 
+            result={analysisResult} 
+            onClose={() => setAnalysisResult(null)} 
+            title={lesson.contenuto}
+            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || ''}`}
+          />
+      )}
+    </>
+  );
+};
+
+export default LessonView;
       
       {isMaterialPickerOpen && (
         <MaterialPickerModal

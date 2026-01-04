@@ -1,25 +1,26 @@
 
 import React, { useState, useMemo } from 'react';
-import { Studente, View, Valutazione, ValutazioneCompetenza, TimetableSettings, PeriodoValutazione } from '../types';
+import { View, Valutazione } from '../types';
 import { generateHueFromString } from '../utils/colorUtils';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateCouncilDataPdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { TabGroup } from './M3Components';
-import M3ClassCard from './M3ClassCard';
-import { M3Dialog } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SectionHeader, InfoCard, TabGroup, M3ExpressiveCard } from './ui';
+import { useStudentStore } from '../stores/useStudentStore';
+import { useSettingsStore } from '../stores/useSettingsStore';
 
 interface ClassSelectionProps {
-    userClasses: string[];
     onSelectClass: (className: string) => void;
-    students: Studente[];
-    evaluations: Valutazione[];
-    competencyEvaluations: ValutazioneCompetenza[];
-    settings: TimetableSettings;
     onNavigate: (view: View) => void;
 }
 
-const ClassSelection: React.FC<ClassSelectionProps> = ({ userClasses, onSelectClass, students, evaluations, competencyEvaluations, settings, onNavigate }) => {
+const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNavigate }) => {
+    const students = useStudentStore(state => state.students);
+    const evaluations = useStudentStore(state => state.evaluations);
+    const competencyEvaluations = useStudentStore(state => state.competencyEvals);
+    const settings = useSettingsStore(state => state.settings);
+    const userClasses = settings.classi || [];
+
     const [isPrintCenterOpen, setIsPrintCenterOpen] = useState(false);
 
     // --- LOGIC: Upcoming Tests (Cross-Class) ---
@@ -51,8 +52,8 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ userClasses, onSelectCl
              {/* Header Section */}
             <div className="page-header-compact">
                 <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium font-black">Le Mie Classi</h1>
-                    <p className="page-subtitle">Gestione studenti e analisi.</p>
+                    <h1 className="m3-headline-medium font-black text-on-surface">Le Mie Classi</h1>
+                    <p className="page-subtitle text-on-surface-variant">Gestione studenti e analisi.</p>
                 </div>
             </div>
 
@@ -79,10 +80,10 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ userClasses, onSelectCl
 
             {/* Section 1: Classes Grid (New Widget Style) */}
             <section>
-                 <h2 className="section-header-expressive">
-                    <span className="material-symbols-outlined text-primary">school</span>
-                    Classi Attive
-                </h2>
+                 <SectionHeader 
+                    title="Classi Attive" 
+                    icon="school"
+                />
                 
                 {userClasses.length > 0 ? (
                     <div className="expressive-grid">
@@ -104,14 +105,12 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ userClasses, onSelectCl
                             const accentColor = `hsl(${hue}, 65%, 50%)`;
                             const dynamicBg = `hsl(${hue}, 60%, 50%, 0.08)`;
                             return (
-                                <M3ClassCard
+                                <M3ExpressiveCard
                                     key={className}
-                                    className={className}
-                                    studentCount={studentCount}
-                                    classAverage={classAverage}
-                                    accentColor={accentColor}
-                                    dynamicBg={dynamicBg}
-                                    insufficientCount={insufficientCount}
+                                    icon="groups"
+                                    title={className}
+                                    description={`${studentCount} studenti | Media: ${classAverage}`}
+                                    color="primary"
                                     onClick={() => onSelectClass(className)}
                                 />
                             );
@@ -124,19 +123,19 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ userClasses, onSelectCl
                         <p className="m3-body-medium text-on-surface-variant mt-2 mb-6">
                             Vai nelle impostazioni per configurare le tue classi e iniziare.
                         </p>
-                        <button onClick={() => onNavigate('settings')} className="button button-filled">
+                        <M3Button onClick={() => onNavigate('settings')} variant="filled">
                             Vai a Impostazioni
-                        </button>
+                        </M3Button>
                     </div>
                 )}
             </section>
 
             {/* Section 2: Global Tools */}
             <section>
-                 <h2 className="section-header-expressive">
-                    <span className="material-symbols-outlined text-secondary">settings_applications</span>
-                    Gestione Rapida
-                </h2>
+                 <SectionHeader 
+                    title="Gestione Rapida" 
+                    icon="settings_applications"
+                />
                 
                 <div className="expressive-grid">
                     <button 
@@ -228,10 +227,8 @@ const PrintCenterModal: React.FC<{
                 // Small delay to allow download initiation
                 await new Promise(r => setTimeout(r, 800));
             }
-            alert("Download completato.");
         } catch(e) {
             console.error(e);
-            alert("Errore durante la stampa.");
         } finally {
             setIsProcessing(false);
             onClose();
@@ -243,20 +240,12 @@ const PrintCenterModal: React.FC<{
             title="Centro Stampe"
             onClose={onClose}
             maxWidth="md"
-            buttons={
-                <>
-                    <button onClick={onClose} className="m3-button-text">Annulla</button>
-                    <button onClick={handlePrintAll} disabled={selectedClasses.length === 0 || isProcessing} className="m3-button-filled">
-                        {isProcessing ? 'Elaborazione...' : `Genera ${selectedClasses.length} PDF`}
-                    </button>
-                </>
-            }
         >
-            <div className="space-y-4">
-                    <p className="m3-body-medium text-on-surface-variant">Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
+            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-6">
+                    <p className="text-on-surface-variant">Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
-                    <div>
-                        <label className="form-label">Periodo</label>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-on-surface-variant ml-1">Periodo</label>
                         <TabGroup
                             tabs={[
                                 { id: 'primo-quadrimestre', label: '1Q' },
@@ -264,27 +253,37 @@ const PrintCenterModal: React.FC<{
                             ]}
                             activeTab={periodo}
                             onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
-                            variant="secondary"
                         />
                     </div>
 
-                    <div>
-                        <label className="form-label">Classi</label>
-                        <div className="selection-scroll-container small row-layout">
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-on-surface-variant ml-1">Classi</label>
+                        <div className="flex flex-wrap gap-2">
                             {userClasses.map(c => (
-                                <div key={c} className="chip-checkbox">
-                                    <input type="checkbox" id={`print-${String(c)}`} checked={selectedClasses.includes(c)} onChange={() => toggleClass(c)} />
-                                    <label htmlFor={`print-${String(c)}`} className="chip w-full justify-start">
-                                        {selectedClasses.includes(c) && <span className="material-symbols-outlined text-lg">check</span>}
-                                        Classe {c}
-                                    </label>
+                                <div 
+                                    key={c} 
+                                    onClick={() => toggleClass(c)}
+                                    className={`px-4 py-2 rounded-full border cursor-pointer transition-all flex items-center gap-2 ${
+                                        selectedClasses.includes(c) 
+                                            ? 'bg-primary text-on-primary border-primary' 
+                                            : 'bg-surface-container-low text-on-surface-variant border-outline-variant hover:bg-surface-container-high'
+                                    }`}
+                                >
+                                    {selectedClasses.includes(c) && <span className="material-symbols-outlined text-lg">check</span>}
+                                    Classe {c}
                                 </div>
                             ))}
                         </div>
                     </div>
-            </div>
+            </M3DialogContent>
+            <M3DialogActions>
+                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                <M3Button onClick={handlePrintAll} disabled={selectedClasses.length === 0 || isProcessing} variant="filled">
+                    {isProcessing ? 'Elaborazione...' : `Genera ${selectedClasses.length} PDF`}
+                </M3Button>
+            </M3DialogActions>
         </M3Dialog>
     )
 }
 
-export default ClassSelection;
+export default React.memo(ClassSelection);

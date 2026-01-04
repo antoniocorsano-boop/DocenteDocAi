@@ -1,8 +1,5 @@
 import React from 'react';
-import { Card, Typography, ToggleButtonGroup, ToggleButton, FormControl, InputLabel, Select, MenuItem, FormHelperText, TextField } from '@mui/material';
-import SchoolIcon from '@mui/icons-material/School';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import GroupIcon from '@mui/icons-material/Group';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField, TabGroup } from './ui';
 
 interface OrarioSettingsModalProps {
   tipo: 'lezione' | 'disp' | 'ricev';
@@ -13,86 +10,79 @@ interface OrarioSettingsModalProps {
   userClasses: string[];
   disciplines: string[];
   onChange: (field: string, value: string) => void;
+  onClose: () => void;
+  onSave: () => void;
 }
 
-const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({ tipo, classe, materia, argomento, linkNotebook, userClasses, disciplines, onChange }) => {
+const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({ 
+  tipo, classe, materia, argomento, linkNotebook, userClasses, disciplines, onChange, onClose, onSave 
+}) => {
+  const tabs = [
+    { id: 'lezione', label: 'Lezione', icon: 'school' },
+    { id: 'disp', label: 'Disp.', icon: 'camera_alt' },
+    { id: 'ricev', label: 'Ricev.', icon: 'group' },
+  ];
+
   return (
-    <Card variant="elevation" sx={{ p: 3, borderRadius: 3, maxWidth: 600, mx: 'auto', my: 4 }}>
-      <Typography variant="h6" sx={{ mb: 2 }}>
-        Tipologia Attività
-      </Typography>
-      <ToggleButtonGroup
-        value={tipo}
-        exclusive
-        onChange={(_, value) => value && onChange('tipo', value)}
-        sx={{ mb: 3 }}
-        fullWidth
-      >
-        <ToggleButton value="lezione" aria-label="Lezione">
-          <SchoolIcon sx={{ mr: 1 }} /> Lezione
-        </ToggleButton>
-        <ToggleButton value="disp" aria-label="Disponibilità">
-          <CameraAltIcon sx={{ mr: 1 }} /> Disp.
-        </ToggleButton>
-        <ToggleButton value="ricev" aria-label="Ricevimento">
-          <GroupIcon sx={{ mr: 1 }} /> Ricev.
-        </ToggleButton>
-      </ToggleButtonGroup>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-        <div style={{ flex: '1 1 220px', minWidth: 180, maxWidth: 320 }}>
-          <FormControl fullWidth>
-            <InputLabel>Classe</InputLabel>
-            <Select
-              value={classe}
+    <M3Dialog
+      title="Configurazione Slot"
+      onClose={onClose}
+      maxWidth="md"
+      level={2}
+    >
+      <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
+        <div className="flex flex-col gap-6">
+          <div>
+            <p className="m3-label-large mb-3 opacity-70 uppercase tracking-widest">Tipologia Attività</p>
+            <TabGroup
+              tabs={tabs}
+              activeTab={tipo}
+              onChange={(id) => onChange('tipo', id as string)}
+              variant="primary"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <SelectField
               label="Classe"
-              onChange={e => onChange('classe', e.target.value)}
-            >
-              {userClasses.map(c => (
-                <MenuItem key={c} value={c}>{c}</MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>Seleziona la classe</FormHelperText>
-          </FormControl>
-        </div>
-        <div style={{ flex: '1 1 220px', minWidth: 180, maxWidth: 320 }}>
-          <FormControl fullWidth>
-            <InputLabel>Materia</InputLabel>
-            <Select
-              value={materia}
+              value={classe}
+              options={userClasses.map(c => ({ value: c, label: c }))}
+              onChange={val => onChange('classe', val)}
+              fullWidth
+            />
+            <SelectField
               label="Materia"
-              onChange={e => onChange('materia', e.target.value)}
-            >
-              {disciplines.map(m => (
-                <MenuItem key={m} value={m}>{m}</MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>Seleziona la materia</FormHelperText>
-          </FormControl>
-        </div>
-        <div style={{ flex: '1 1 100%', minWidth: 180 }}>
+              value={materia}
+              options={disciplines.map(m => ({ value: m, label: m }))}
+              onChange={val => onChange('materia', val)}
+              fullWidth
+            />
+          </div>
+
           <TextField
             label="Argomento (opzionale)"
             value={argomento || ''}
             onChange={e => onChange('argomento', e.target.value)}
             fullWidth
-            variant="outlined"
-            margin="normal"
           />
-        </div>
-        <div style={{ flex: '1 1 100%', minWidth: 180 }}>
+
           <TextField
             label="Link ai notebook"
             value={linkNotebook || ''}
             onChange={e => onChange('linkNotebook', e.target.value)}
             fullWidth
-            variant="outlined"
-            margin="normal"
-            helperText="Incolla URL deliverable..."
+            placeholder="Incolla URL deliverable..."
           />
         </div>
-      </div>
-    </Card>
+      </M3DialogContent>
+      <M3DialogActions>
+        <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
+        <M3Button variant="filled" onClick={onSave}>Salva</M3Button>
+      </M3DialogActions>
+    </M3Dialog>
   );
 };
+
+export default OrarioSettingsModal;
 
 export default OrarioSettingsModal;

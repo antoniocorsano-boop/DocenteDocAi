@@ -3,7 +3,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { KnowledgeBaseEntry, MaterialeDidattico } from '../types';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { blobToBase64Parts } from '../utils/documentUtils';
-import { M3Dialog, M3DialogContent, M3DialogActions } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, TabGroup } from './ui';
 
 interface MaterialPickerModalProps {
     knowledgeBase: KnowledgeBaseEntry[];
@@ -106,80 +106,147 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
         }
     };
 
+    const tabs = [
+        { id: 'kb', label: 'Knowledge Base', icon: 'database' },
+        { id: 'file', label: 'File Locale', icon: 'upload_file' },
+        { id: 'link', label: 'Link Web', icon: 'link' },
+    ];
+
     return (
         <M3Dialog
             title="Allega Materiali"
             onClose={onClose}
             maxWidth="4xl"
+            level={2}
         >
-            <M3DialogContent className="dialog-content-grid-tall">
-                {/* Left: Source */}
-                <div className="p-4 border-r border-outline-variant flex flex-col gap-4">
-                    <div className="m3-option-group full-width">
-                        <button onClick={() => setActiveTab('kb')} className={`m3-option-item ${activeTab === 'kb' ? 'active' : ''}`}>KB</button>
-                        <button onClick={() => setActiveTab('file')} className={`m3-option-item ${activeTab === 'file' ? 'active' : ''}`}>File</button>
-                        <button onClick={() => setActiveTab('link')} className={`m3-option-item ${activeTab === 'link' ? 'active' : ''}`}>Link</button>
+            <M3DialogContent className="p-0 bg-surface-container-high/30 backdrop-blur-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 h-[500px]">
+                    {/* Left: Source */}
+                    <div className="p-6 border-r border-outline-variant/30 flex flex-col gap-6 overflow-hidden">
+                        <TabGroup
+                            tabs={tabs}
+                            activeTab={activeTab}
+                            onChange={(id) => setActiveTab(id as any)}
+                            variant="secondary"
+                        />
+
+                        {activeTab === 'kb' && (
+                            <div className="flex-grow flex flex-col gap-4 overflow-hidden">
+                                <TextField 
+                                    label="Cerca nella KB..." 
+                                    value={searchTerm} 
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    fullWidth
+                                />
+                                <div className="flex-grow overflow-y-auto custom-scrollbar space-y-2 pr-2">
+                                    {filteredKb.map(entry => {
+                                        const isSelected = materials.some(m => m.type === 'kb' && m.kbId === entry.id);
+                                        return (
+                                            <div 
+                                                key={entry.id} 
+                                                onClick={() => handleToggleKb(entry)}
+                                                className={`flex items-center gap-3 p-3 rounded-2xl cursor-pointer transition-all border ${
+                                                    isSelected 
+                                                        ? 'bg-primary/10 border-primary text-primary' 
+                                                        : 'bg-surface-container-low border-outline-variant/30 hover:bg-surface-container'
+                                                }`}
+                                            >
+                                                <span className="material-symbols-outlined">
+                                                    {isSelected ? 'check_circle' : 'description'}
+                                                </span>
+                                                <span className="truncate m3-body-medium flex-1">{entry.fileName}</span>
+                                            </div>
+                                        )
+                                    })}
+                                    {filteredKb.length === 0 && (
+                                        <div className="text-center py-10 opacity-50">Nessun documento trovato.</div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'file' && (
+                            <div 
+                                {...getRootProps()} 
+                                className={`flex-grow flex flex-col items-center justify-center border-2 border-dashed rounded-3xl transition-all ${
+                                    isDragActive 
+                                        ? 'border-primary bg-primary/5' 
+                                        : 'border-outline-variant/50 bg-surface-container-low'
+                                } ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-surface-container'}`}
+                            >
+                                <input {...getInputProps()} />
+                                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                                    <span className="material-symbols-outlined text-3xl text-primary">upload_file</span>
+                                </div>
+                                <p className="m3-title-medium">Trascina qui i file</p>
+                                <p className="m3-body-small opacity-70 mt-1">oppure clicca per sfogliare</p>
+                            </div>
+                        )}
+
+                        {activeTab === 'link' && (
+                            <div className="space-y-4">
+                                <TextField 
+                                    label="URL (es. https://...)" 
+                                    value={linkUrl} 
+                                    onChange={e => setLinkUrl(e.target.value)} 
+                                    fullWidth 
+                                />
+                                <TextField 
+                                    label="Etichetta (es. Video Lezione)" 
+                                    value={linkLabel} 
+                                    onChange={e => setLinkLabel(e.target.value)} 
+                                    fullWidth 
+                                />
+                                <M3Button onClick={handleAddLink} variant="filled" className="w-full !h-14">
+                                    <span className="material-symbols-outlined mr-2">add</span>
+                                    Aggiungi Link
+                                </M3Button>
+                            </div>
+                        )}
                     </div>
 
-                    {activeTab === 'kb' && (
-                        <div className="flex-grow flex flex-col gap-4 overflow-hidden">
-                            <input type="text" placeholder="Cerca..." className="form-input" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                            <div className="selection-container flex-grow">
-                                {filteredKb.map(entry => {
-                                    const isSelected = materials.some(m => m.type === 'kb' && m.kbId === entry.id);
-                                    return (
-                                        <div key={entry.id} className="chip-checkbox">
-                                            <input type="checkbox" checked={isSelected} onChange={() => handleToggleKb(entry)} />
-                                            <label className="chip w-full justify-start">
-                                                {isSelected && <span className="material-symbols-outlined text-lg">check</span>}
-                                                <span className="truncate">{entry.fileName}</span>
-                                            </label>
-                                        </div>
-                                    )
-                                })}
-                            </div>
+                    {/* Right: Selected */}
+                    <div className="p-6 flex flex-col gap-4 overflow-hidden bg-surface-container-lowest/50">
+                        <div className="flex items-center justify-between">
+                            <h3 className="m3-title-medium">Selezionati</h3>
+                            <span className="px-3 py-1 rounded-full bg-primary text-on-primary text-xs font-bold">
+                                {materials.length}
+                            </span>
                         </div>
-                    )}
-
-                    {activeTab === 'file' && (
-                        <div {...getRootProps()} className={`dropzone-area ${isUploading ? 'disabled' : ''}`} data-active={isDragActive}>
-                            <input {...getInputProps()} />
-                            <div className="upload-icon-circle"><span className="material-symbols-outlined text-3xl text-on-surface-variant">upload_file</span></div>
-                            <p className="m3-title-medium">Carica file</p>
-                        </div>
-                    )}
-
-                    {activeTab === 'link' && (
-                        <div className="space-y-4">
-                            <input type="url" value={linkUrl} onChange={e => setLinkUrl(e.target.value)} className="form-input w-full" placeholder="URL (www.esempio.it)" />
-                            <input type="text" value={linkLabel} onChange={e => setLinkLabel(e.target.value)} className="form-input w-full" placeholder="Etichetta" />
-                            <button onClick={handleAddLink} className="button button-filled w-full">Aggiungi</button>
-                        </div>
-                    )}
-                </div>
-                {/* Right: Selected */}
-                <div className="p-4 flex flex-col gap-4">
-                    <h3 className="m3-title-medium">Selezionati ({materials.length})</h3>
-                    <div className="chip-input-container stack flex-grow overflow-y-auto">
-                        {materials.map(material => (
-                            <div key={material.id} className="chip justify-between">
-                                <div className="flex items-center gap-2 truncate">
-                                    <span className="material-symbols-outlined">{getMaterialIcon(material)}</span>
-                                    <span className="truncate">{getMaterialLabel(material)}</span>
+                        <div className="flex-grow overflow-y-auto custom-scrollbar space-y-2 pr-2">
+                            {materials.map(material => (
+                                <div key={material.id} className="flex items-center justify-between p-3 rounded-2xl bg-surface-container border border-outline-variant/30 group">
+                                    <div className="flex items-center gap-3 truncate">
+                                        <span className="material-symbols-outlined text-primary">{getMaterialIcon(material)}</span>
+                                        <span className="truncate m3-body-medium">{getMaterialLabel(material)}</span>
+                                    </div>
+                                    <M3Button 
+                                        onClick={() => handleRemoveMaterial(material.id)} 
+                                        variant="text" 
+                                        className="text-error !p-2 !min-w-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                    >
+                                        <span className="material-symbols-outlined">close</span>
+                                    </M3Button>
                                 </div>
-                                <button onClick={() => handleRemoveMaterial(material.id)} className="icon-button text-error !w-6 !h-6"><span className="material-symbols-outlined text-sm">close</span></button>
-                            </div>
-                        ))}
-                        {materials.length === 0 && <p className="text-center text-on-surface-variant mt-10">Nessun materiale.</p>}
+                            ))}
+                            {materials.length === 0 && (
+                                <div className="flex flex-col items-center justify-center h-full opacity-30">
+                                    <span className="material-symbols-outlined text-6xl mb-2">inventory_2</span>
+                                    <p className="m3-body-medium">Nessun materiale selezionato</p>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions className="gap-2">
-                <button onClick={onClose} className="button button-text">Annulla</button>
-                <button onClick={() => onSave(materials)} className="button button-filled">Salva</button>
+            <M3DialogActions className="bg-surface-container-lowest border-t border-outline-variant/30">
+                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                <M3Button onClick={() => onSave(materials)} variant="filled">Salva</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );
 };
+
+export default MaterialPickerModal;
 
 export default MaterialPickerModal;

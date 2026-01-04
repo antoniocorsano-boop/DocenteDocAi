@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { RegisterEntry, RegisterViewProps } from '../types';
-import { M3Dialog } from './M3Dialog';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
 
 const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students, isModalMode = false, initialClass }) => {
   const [selectedEntry, setSelectedEntry] = useState<RegisterEntry | null>(null);
@@ -30,29 +30,44 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
     return (
       <M3Dialog
         title="Dettaglio Lezione Svolta"
-        headline={new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         onClose={() => setSelectedEntry(null)}
         maxWidth="lg"
-        buttons={
-          <button type="button" onClick={() => setSelectedEntry(null)} className="m3-button-text">Chiudi</button>
-        }
+        level={1}
       >
-        <div className="space-y-4">
-          <div className="card">
-            <h3 className="m3-title-medium">Informazioni Lezione</h3>
-            <p><strong>Classe:</strong> {entry.classe}</p>
-            <p><strong>Materia:</strong> {entry.materia}</p>
-            <p><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
+        <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-6">
+          <div className="flex flex-col gap-1">
+            <h2 className="m3-headline-small font-black text-primary">
+                {new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+            </h2>
+            <p className="m3-label-medium text-on-surface-variant opacity-70 uppercase tracking-widest">Registro di Classe</p>
           </div>
-          <div className="card">
-            <h3 className="m3-title-medium">Note</h3>
-            <p className="whitespace-pre-wrap">{entry.notes || 'Nessuna nota.'}</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <InfoCard title="Informazioni Lezione" icon="info">
+                <div className="space-y-2">
+                    <p className="m3-body-medium"><strong>Classe:</strong> {entry.classe}</p>
+                    <p className="m3-body-medium"><strong>Materia:</strong> {entry.materia}</p>
+                    <p className="m3-body-medium"><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
+                </div>
+            </InfoCard>
+
+            <InfoCard title="Appello" icon="group" variant="secondary">
+                <div className="space-y-2">
+                    <p className="m3-body-medium"><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</p>
+                    <p className="m3-body-medium"><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
+                </div>
+            </InfoCard>
           </div>
-          <div className="card">
-            <h3 className="m3-title-medium">Appello ({presentStudents.length}/{Object.keys(entry.studentAttendance).length})</h3>
-            <p><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
-          </div>
-        </div>
+
+          <InfoCard title="Note e Osservazioni" icon="notes" variant="tertiary">
+            <p className="m3-body-medium whitespace-pre-wrap leading-relaxed">
+                {entry.notes || 'Nessuna nota registrata per questa lezione.'}
+            </p>
+          </InfoCard>
+        </M3DialogContent>
+        <M3DialogActions>
+          <M3Button variant="text" onClick={() => setSelectedEntry(null)}>Chiudi</M3Button>
+        </M3DialogActions>
       </M3Dialog>
     );
   };
