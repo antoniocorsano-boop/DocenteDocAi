@@ -27,6 +27,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     const [isAiParserOpen, setIsAiParserOpen] = useState(false);
     const [popoverState, setPopoverState] = useState<{ event: EventoCalendario; anchorEl: HTMLElement } | null>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const calendarGridRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if ((viewMode === 'week' || viewMode === 'day') && scrollContainerRef.current) {
@@ -36,6 +37,34 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             scrollContainerRef.current.scrollTop = scrollPos;
         }
     }, [viewMode]);
+
+    const handleCalendarKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        // Arrow key navigation for calendar
+        if (viewMode !== 'month') return;
+
+        const keysToHandle = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
+        if (!keysToHandle.includes(e.key)) return;
+
+        e.preventDefault();
+        const newDate = new Date(currentDate);
+
+        switch (e.key) {
+            case 'ArrowLeft':
+                newDate.setDate(currentDate.getDate() - 1);
+                break;
+            case 'ArrowRight':
+                newDate.setDate(currentDate.getDate() + 1);
+                break;
+            case 'ArrowUp':
+                newDate.setDate(currentDate.getDate() - 7);
+                break;
+            case 'ArrowDown':
+                newDate.setDate(currentDate.getDate() + 7);
+                break;
+        }
+
+        setCurrentDate(newDate);
+    };
 
     const handleNavigate = (direction: 'prev' | 'next' | 'today') => {
         const newDate = new Date(currentDate);
@@ -167,13 +196,13 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     };
 
     const renderMonthView = () => (
-        <div className="calendar-month">
-            <div className="calendar-weekdays">
+        <div className="calendar-month" role="grid" aria-label="Calendario mensile">
+            <div className="calendar-weekdays" role="row">
                 {DAYS_SHORT.map(d => (
-                    <div key={d} className="calendar-weekday">{d}</div>
+                    <div key={d} className="calendar-weekday" role="columnheader" aria-label={d}>{d}</div>
                 ))}
             </div>
-            <div className="calendar-days">
+            <div className="calendar-days" role="rowgroup">
                 {monthDates.map((date, i) => {
                     const isCurrentMonth = date.getMonth() === currentDate.getMonth();
                     const isToday = date.toDateString() === new Date().toDateString();
@@ -183,9 +212,19 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                         <div 
                             key={i} 
                             className={`calendar-day ${!isCurrentMonth ? 'other-month' : ''} ${isToday ? 'today' : ''}`}
+                            role="gridcell"
+                            tabIndex={-1}
+                            aria-label={`${date.toLocaleDateString('it-IT')}${dayEvents.length > 0 ? `, ${dayEvents.length} eventi` : ''}`}
                             onClick={() => {
                                 setCurrentDate(date);
                                 setViewMode('day');
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setCurrentDate(date);
+                                    setViewMode('day');
+                                }
                             }}
                         >
                             <span className={`calendar-day-number ${isToday ? 'today' : ''}`}>
@@ -346,7 +385,11 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     );
 
     return (
-        <div className="calendar-container bg-surface-container-low/30 backdrop-blur-xl rounded-3xl border border-outline-variant/30 shadow-xl overflow-hidden">
+        <div 
+            className="calendar-container bg-surface-container-low/30 backdrop-blur-xl rounded-3xl border border-outline-variant/30 shadow-xl overflow-hidden"
+            ref={calendarGridRef}
+            onKeyDown={handleCalendarKeyDown}
+        >
             {renderHeader()}
             
             <div className="calendar-body">

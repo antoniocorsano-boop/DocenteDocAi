@@ -63,7 +63,13 @@ const SettingsGroup: React.FC<SettingsGroupProps> = ({
                 </div>
                 <span className={`material-symbols-outlined text-on-surface-variant transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>expand_more</span>
             </summary>
-            <div className="settings-content p-6 pt-2 animate-in fade-in slide-in-from-top-2 duration-300 border-t border-outline-variant/10">{children}</div>
+            <div 
+                className="settings-content p-6 pt-2 animate-in fade-in slide-in-from-top-2 duration-300 border-t border-outline-variant/10"
+                inert={!isOpen ? true : undefined}
+                aria-hidden={!isOpen}
+            >
+                {children}
+            </div>
         </details>
     );
 };
