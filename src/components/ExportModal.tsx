@@ -3,6 +3,7 @@ import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, Compet
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { RATING_TO_VALUE } from '../constants';
 import { viewPdfInNewTab } from '../utils/documentUtils';
+import { PDF_COLORS, getTrendColor, getCompetencyLevelColors } from '../design-system/pdf-colors';
 import { TabGroup, M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SectionHeader } from './ui';
 
 type Prova = {
@@ -162,9 +163,9 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
 
         // --- TABLE ---
         const ROW_HEIGHT = 10;
-        const HEADER_BG = '#6750A4';
-        const HEADER_COLOR = '#FFFFFF';
-        const EVEN_ROW_BG = '#F3EDF7';
+        const HEADER_BG = PDF_COLORS.header.background;
+        const HEADER_COLOR = PDF_COLORS.header.text;
+        const EVEN_ROW_BG = PDF_COLORS.table.evenRowBg;
 
         const subjectAbbr = uniqueSubjects.map(s => s.substring(0, 3).toUpperCase());
         const competencyCodes = uniqueCompetencies.map(c => c.codice);
@@ -216,7 +217,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
             x += colWidths[1];
 
             const trendIcon = summary.trend === 'up' ? '!' : summary.trend === 'down' ? '!!' : "'";
-            const trendColor = summary.trend === 'up' ? '#388E3C' : summary.trend === 'down' ? '#D32F2F' : '#757575';
+            const trendColor = getTrendColor(summary.trend);
             doc.setTextColor(trendColor).setFontSize(14).text(trendIcon, x + colWidths[2] / 2, y + ROW_HEIGHT / 2 + 3, { align: 'center' });
             x += colWidths[2];
 
@@ -226,16 +227,10 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                 x += colWidths[3 + i];
             });
 
-            const levelColors: Record<string, { bg: string, text: string }> = {
-                'A': { bg: '#FFD700', text: '#000000' },
-                'B': { bg: '#C0C0C0', text: '#000000' },
-                'C': { bg: '#66BB6A', text: '#FFFFFF' },
-                'D': { bg: '#EF5350', text: '#FFFFFF' },
-            };
             uniqueCompetencies.forEach((comp, i) => {
                 const levelChar = summary.competencyLevels[comp.id];
                 if (levelChar && levelChar !== '-') {
-                    const colors = levelColors[levelChar] || { bg: '#E0E0E0', text: '#000000' };
+                    const colors = getCompetencyLevelColors(levelChar);
                     const circleX = x + colWidths[3 + uniqueSubjects.length + i] / 2;
                     const circleY = y + ROW_HEIGHT / 2;
                     doc.setFillColor(colors.bg).circle(circleX, circleY, 3.5, 'F');
@@ -279,10 +274,10 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
 
         legendX = MARGIN;
         doc.text('Livelli Competenza:', legendX, legendY); legendX += 28;
-        doc.setFillColor('#FFD700').circle(legendX, legendY - 1, 2, 'F'); doc.text('A: Avanzato', legendX + 3, legendY); legendX += 25;
-        doc.setFillColor('#C0C0C0').circle(legendX, legendY - 1, 2, 'F'); doc.text('B: Intermedio', legendX + 3, legendY); legendX += 28;
-        doc.setFillColor('#66BB6A').circle(legendX, legendY - 1, 2, 'F'); doc.text('C: Base', legendX + 3, legendY); legendX += 20;
-        doc.setFillColor('#EF5350').circle(legendX, legendY - 1, 2, 'F'); doc.text('D: Iniziale', legendX + 3, legendY);
+        doc.setFillColor(PDF_COLORS.competencyLevels.A.bg).circle(legendX, legendY - 1, 2, 'F'); doc.text('A: Avanzato', legendX + 3, legendY); legendX += 25;
+        doc.setFillColor(PDF_COLORS.competencyLevels.B.bg).circle(legendX, legendY - 1, 2, 'F'); doc.text('B: Intermedio', legendX + 3, legendY); legendX += 28;
+        doc.setFillColor(PDF_COLORS.competencyLevels.C.bg).circle(legendX, legendY - 1, 2, 'F'); doc.text('C: Base', legendX + 3, legendY); legendX += 20;
+        doc.setFillColor(PDF_COLORS.competencyLevels.D.bg).circle(legendX, legendY - 1, 2, 'F'); doc.text('D: Iniziale', legendX + 3, legendY);
 
         const blob = doc.output('blob');
         viewPdfInNewTab(blob);

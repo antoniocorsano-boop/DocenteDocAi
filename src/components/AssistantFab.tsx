@@ -225,8 +225,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           transition: box-shadow 0.2s;
         }
         .mui-fab-expressive.assistant-fab {
-          background: var(--sys-primary, #6750A4);
-          color: var(--sys-on-primary, #fff);
+          background: var(--sys-primary);
+          color: var(--sys-on-primary);
           border: none;
           border-radius: var(--shape-full);
           width: 64px;
@@ -240,7 +240,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           transition: box-shadow 0.2s, background 0.2s;
         }
         .mui-fab-expressive.assistant-fab:hover {
-          background: var(--sys-primary-container, #EADDFF);
+          background: var(--sys-primary-container);
           box-shadow: var(--elevation-2);
         }
         .assistant-fab-menu {
@@ -271,8 +271,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         .mui-fab-expressive.assistant-fab-secondary {
           position: absolute;
           right: 0;
-          background: var(--sys-surface, #fff);
-          color: var(--sys-on-surface, #222);
+          background: var(--sys-surface);
+          color: var(--sys-on-surface);
           border: none;
           border-radius: var(--shape-m);
           box-shadow: var(--elevation-2);
@@ -286,7 +286,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           transition: var(--md-easing-standard);
         }
         .mui-fab-expressive.assistant-fab-secondary:hover {
-          background: var(--sys-surface-variant, #f5f5f5);
+          background: var(--sys-surface-variant);
           box-shadow: var(--elevation-3);
         }
         .assistant-fab-sheet-scrim {
@@ -305,7 +305,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           left: 0;
           margin: 0 auto;
           max-width: 520px;
-          background: var(--sys-surface, #fff);
+          background: var(--sys-surface);
           border-radius: var(--shape-xl);
           padding: 1.1rem 1.5rem 1.5rem;
           box-shadow: var(--elevation-3);
@@ -331,7 +331,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           height: 40px;
           border-radius: 999px;
           border: none;
-          background: var(--sys-surface-variant, #f1f3f6);
+          background: var(--sys-surface-variant);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -347,7 +347,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           border: none;
           border-radius: var(--shape-m);
           padding: 0.95rem 1.1rem;
-          background: var(--sys-surface-container-high, #f8f9fb);
+          background: var(--sys-surface-container-high);
           display: flex;
           align-items: center;
           gap: 0.75rem;

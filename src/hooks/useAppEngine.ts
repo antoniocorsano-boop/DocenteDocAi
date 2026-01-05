@@ -564,9 +564,9 @@ export const useAppEngine = () => {
             tools: 'Tools description',
             startPos: 0,
             width: 100,
-            color: '#FFFFFF',
-            borderColor: '#000000',
-            textColor: '#000000',
+            color: 'var(--sys-primary)',
+            borderColor: 'var(--sys-outline)',
+            textColor: 'var(--sys-on-primary)',
         };
         setUda(prev => [...prev, newUda]); // Use destructured action
     }, [setUda]);

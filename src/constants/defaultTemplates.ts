@@ -1,4 +1,5 @@
 import { DocumentTemplate } from '../types';
+import { getStyledHeader, getStyledFooter, getStyledSectionHeader } from '../design-system/html-template-colors';
 
 export const DEFAULT_TEMPLATES: DocumentTemplate[] = [
   {
@@ -14,8 +15,8 @@ export const DEFAULT_TEMPLATES: DocumentTemplate[] = [
       customSections: ['Osservazioni comportamentali', 'Note per il consiglio di classe']
     },
     content: {
-      header: '<h1 style="text-align: center; color: #1a73e8;">Profilo dello Studente</h1><hr/>',
-      footer: '<p style="text-align: center; font-size: 10px; color: #666;">Generato con DocenteDoc AI - {{data}}</p>',
+      header: getStyledHeader('Profilo dello Studente'),
+      footer: getStyledFooter('Generato con DocenteDoc AI - {{data}}'),
       customCss: '.student-info { margin-bottom: 20px; } .grade-table { width: 100%; border-collapse: collapse; }'
     }
   },
@@ -35,7 +36,7 @@ export const DEFAULT_TEMPLATES: DocumentTemplate[] = [
       }
     },
     content: {
-      header: '<div style="background-color: #e8f0fe; padding: 15px; border-radius: 8px;"><h2>Piano di Lezione: {{titolo_lezione}}</h2></div>',
+      header: getStyledSectionHeader('Piano di Lezione: {{titolo_lezione}}'),
       footer: '<hr/><p style="font-style: italic;">Docente: {{nome_docente}}</p>'
     }
   },

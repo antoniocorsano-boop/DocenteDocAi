@@ -285,9 +285,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         key={theme.name}
                                         name={theme.name}
                                         colors={{
-                                            primary: theme.colors.primary ?? '#000000',
-                                            secondary: theme.colors.secondary ?? '#000000',
-                                            tertiary: theme.colors.tertiary ?? '#000000'
+                                            primary: theme.colors.primary ?? 'var(--sys-primary)',
+                                            secondary: theme.colors.secondary ?? 'var(--sys-secondary)',
+                                            tertiary: theme.colors.tertiary ?? 'var(--sys-tertiary)'
                                         }}
                                         isSelected={themeState.customizationName === theme.name}
                                         onClick={() => onSaveTheme({ ...themeState, customizationName: theme.name, customColors: theme.colors })}
