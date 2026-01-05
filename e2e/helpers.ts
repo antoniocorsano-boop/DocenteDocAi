@@ -1,23 +1,25 @@
 import { Page } from '@playwright/test';
 
-export async function setTestMode(page: Page) {
-  await page.addInitScript(() => {
-    (window as any).__TEST_MODE = true;
+export async function setTestMode(page: Page): Promise<void> {
+  await page.addInitScript((): void => {
+    const windowExt = window as unknown as { __TEST_MODE?: boolean; __SILENCE_ASSISTANT_LOGS?: boolean; __SILENT_PREFIXES?: string[] };
+    windowExt.__TEST_MODE = true;
     // Also allow explicit silence flag for verbose components
-    (window as any).__SILENCE_ASSISTANT_LOGS = true;
+    windowExt.__SILENCE_ASSISTANT_LOGS = true;
     // Quiet common noisy prefixes used across the app during E2E
-    (window as any).__SILENT_PREFIXES = ['[IndexedDbService]', '[BackupService]', '[AssistantFab]', 'PW_CONSOLE'];
+    windowExt.__SILENT_PREFIXES = ['[IndexedDbService]', '[BackupService]', '[AssistantFab]', 'PW_CONSOLE'];
 
     // Wrap console methods to filter noisy messages coming from in-page code
     try {
       const methods = ['log', 'info', 'warn', 'error', 'debug'];
-      methods.forEach((m) => {
-        const orig = (console as any)[m];
-        (console as any)[m] = function (...args: any[]) {
+      methods.forEach((m): void => {
+        const consoleExt = console as unknown as Record<string, unknown>;
+        const orig = consoleExt[m];
+        consoleExt[m] = function (...args: unknown[]) {
           try {
             const first = args && args.length ? args[0] : '';
             const text = typeof first === 'string' ? first : JSON.stringify(first || args.slice(0, 1));
-            const prefixes = (window as any).__SILENT_PREFIXES || [];
+            const prefixes = (window as unknown as { __SILENT_PREFIXES?: string[] }).__SILENT_PREFIXES || [];
             for (let i = 0; i < prefixes.length; i++) {
               const p = prefixes[i];
               if (!p) continue;
@@ -25,19 +27,19 @@ export async function setTestMode(page: Page) {
                 return; // swallow
               }
             }
-          } catch (e) {
+          } catch {
             // ignore
           }
-          return orig.apply(console, args as any);
+          return (orig as unknown as (...args: unknown[]) => unknown).apply(console, args);
         };
       });
-    } catch (e) {
+    } catch {
       // best-effort
     }
   });
 }
 
-export async function seedIndexedDB(page: Page) {
+export async function seedIndexedDB(page: Page): Promise<void> {
   await page.evaluate(() => {
     return new Promise<void>((resolve) => {
       try {
@@ -72,11 +74,11 @@ export async function seedIndexedDB(page: Page) {
           tx.onerror = () => { db.close(); resolve(); };
         };
         req.onerror = () => { resolve(); };
-      } catch (e) { resolve(); }
+      } catch { resolve(); }
     });
   });
 }
 
-export async function waitForAppShell(page: Page, timeout = 15000) {
+export async function waitForAppShell(page: Page, timeout = 15000): Promise<void> {
   await page.waitForSelector('.app-shell', { timeout }).catch(() => {});
 }

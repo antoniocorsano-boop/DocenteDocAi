@@ -6,7 +6,7 @@ export const saveBackup = async (state: object): Promise<void> => {
     return Promise.resolve();
 };
 
-export const loadBackup = async (): Promise<any | null> => {
+export const loadBackup = async (): Promise<unknown | null> => {
     console.warn("Mock backupService: loadBackup called, returning null.");
     return Promise.resolve(null);
 };

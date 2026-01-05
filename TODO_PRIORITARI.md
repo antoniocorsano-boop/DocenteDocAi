@@ -67,10 +67,14 @@ Ultimo aggiornamento: 31/12/2025 (revisione completata)
 
 ### 7. Hardening & Versione 1.0 (Gennaio 2026)
 
-#### 7.1 Architettura Modali (Debito Tecnico)
+#### 7.1 Architettura Modali & Presentation Layer (Debito Tecnico)
 - [x] Integrare `ModalProvider` in `main.tsx` per gestione centralizzata overlay **[COMPLETATO]**
-- [x] Migrare dialoghi legacy da `ModalManager.tsx` al nuovo sistema `pushModal`/`popModal` **[COMPLETATO: Migrati Help, ImageAnalysis, OperationsCenter, VideoAnalysis, CircolareAnalysis, Loading, BackupInfo, PassaggioAnno]**
-- [x] Verificare accessibilità (ARIA) e focus trap nei nuovi modali **[COMPLETATO: Testato con `M3Dialog.test.tsx`]**
+- [x] Migrare dialoghi legacy da `ModalManager.tsx` al nuovo sistema `pushModal`/`popModal` **[COMPLETATO]**
+- [x] **Fase 1: Tokenizzazione Parametrica**: Implementazione `fontScale`, `contrastLevel`, `glassBlur` in `applyTheme` **[COMPLETATO]**
+- [x] **Fase 2: App Shell Refactoring**: Header, NavigationRail e ViewManager ottimizzati per Aura Style **[COMPLETATO]**
+- [ ] **Fase 3: Standardizzazione Componenti**: Refactoring modali e componenti atomici (rimozione stili inline e classi hardcoded) **[IN CORSO]**
+- [ ] **Fase 4: Consolidamento Spacing**: Migrazione da `legacyStyles.css` a `spacing.css` (4px grid)
+- [ ] **Fase 5: Design System Guide**: Creazione documentazione per sviluppatori su uso token M3 Expressive
 
 #### 7.2 Supporto PWA & Offline
 - [x] Riattivare `vite-plugin-pwa` in `vite.config.ts` **[COMPLETATO]**

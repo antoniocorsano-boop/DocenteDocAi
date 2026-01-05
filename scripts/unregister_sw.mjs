@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-/* eslint-env node */
-/* global globalThis */
 import { chromium } from 'playwright';
 import fs from 'fs';
 import process from 'process';
