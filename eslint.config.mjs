@@ -4,6 +4,11 @@ import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
 import { defineConfig } from "eslint/config";
 
+// Custom ESLint rules for design system conformity
+import noHardcodedColors from "./eslint-rules/no-hardcoded-colors.js";
+import enforceTokenUsage from "./eslint-rules/enforce-token-usage.js";
+import noNewCssFiles from "./eslint-rules/no-new-css-files.js";
+
 export default defineConfig([
   {
     ignores: [
@@ -67,6 +72,24 @@ export default defineConfig([
     rules: {
       'react/prop-types': 'off',
     },
+  },
+  // Design System Conformity Rules
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    plugins: {
+      'design-system': {
+        rules: {
+          'no-hardcoded-colors': noHardcodedColors,
+          'enforce-token-usage': enforceTokenUsage,
+          'no-new-css-files': noNewCssFiles
+        }
+      }
+    },
+    rules: {
+      'design-system/no-hardcoded-colors': 'error',
+      'design-system/enforce-token-usage': 'warn',
+      'design-system/no-new-css-files': 'warn'
+    }
   },
   {
     files: ['**/tools/**/*.{js,cjs,mjs,ts}', '**/scripts/**/*.{js,cjs,mjs,ts}', 'vite.config.ts', 'vitest.config.ts', 'playwright.config.ts'],
