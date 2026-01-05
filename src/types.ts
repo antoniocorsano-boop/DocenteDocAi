@@ -131,7 +131,7 @@ export interface BackupPayload extends StudentState, AcademicState, SystemState 
     installPrompt: BeforeInstallPromptEvent | null;
     canShowInstallPrompt: boolean;
     isGlobalAiLoading: boolean;
-    navigationHistory: { view: View; context: any }[];
+    navigationHistory: { view: View; context: NavigationParams | null }[];
     backupState: BackupState;
     driveSyncState: DriveSyncState;
 }
@@ -841,6 +841,8 @@ export interface AppThemeState {
     generatedColors?: Partial<ColorTokens>;
     glassBlur?: number;
     radiusMultiplier?: number;
+    fontScale?: number;
+    contrastLevel?: number;
 }
 
 export interface BackupState {
@@ -945,7 +947,7 @@ export interface AppActions {
     dismissSuggestion: (id: string) => void;
     setStudentProfileContext: (student: Studente | null) => void;
     setSelectedClassForDashboard: (className: string | null) => void;
-    loadFromBackup: (data: any) => void;
+    loadFromBackup: (data: unknown) => void;
 
     // PWA & Global App Actions (to UI Store)
     setInstallPrompt: (prompt: BeforeInstallPromptEvent | null) => void;
@@ -1046,6 +1048,10 @@ export interface Theme {
     mode: 'light' | 'dark';
     visualStyle: 'aura' | 'flat' | 'minimal' | 'cupertino' | 'windows' | 'expressive';
     colors: ColorTokens;
+    glassBlur?: number;
+    radiusMultiplier?: number;
+    fontScale?: number;
+    contrastLevel?: number;
 }
 
 export interface ParticipationBadge {

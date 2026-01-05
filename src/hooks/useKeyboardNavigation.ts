@@ -11,7 +11,7 @@ export const useKeyboardNavigation = (
         focusOnOpen?: boolean;
         restoreFocus?: boolean;
     } = {}
-) => {
+): React.RefObject<HTMLDivElement> => {
     const { focusOnOpen = true, restoreFocus = true } = options;
     const modalRef = useRef<HTMLDivElement>(null);
     const previouslyFocusedElement = useRef<Element | null>(null);

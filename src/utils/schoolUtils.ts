@@ -45,7 +45,7 @@ export const getNextClass = (currentClass: string, schoolType: string): { nextCl
 /**
  * Process a list of students for promotion.
  */
-export const calculatePromotions = (students: Studente[], schoolType: string) => {
+export const calculatePromotions = (students: Studente[], schoolType: string): Array<{ student: Studente; newClass: string; isArchived: boolean }> => {
     return students.map(s => {
         const result = getNextClass(s.classe, schoolType);
         return {

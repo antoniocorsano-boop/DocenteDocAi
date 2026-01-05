@@ -1,6 +1,6 @@
 import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { NetworkFirst, StaleWhileRevalidate, CacheFirst } from 'workbox-strategies';
+import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 
 declare let self: ServiceWorkerGlobalScope;

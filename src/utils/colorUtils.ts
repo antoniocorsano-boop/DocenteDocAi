@@ -48,7 +48,7 @@ const AVATAR_PALETTES = [
  * Returns a set of harmonious M3 Container colors for an avatar based on a string.
  * Guarantees accessible contrast (Dark Text on Light Background).
  */
-export const getAvatarColors = (str: string) => {
+export const getAvatarColors = (str: string): { bg: string; textColor: string } => {
     if (!str) return AVATAR_PALETTES[0];
     
     let hash = 0;

@@ -6,20 +6,24 @@ const ensurePerformanceApi = () => {
   const now = () => Date.now();
 
   if (typeof window !== 'undefined') {
-    if (!window.performance) {
-      (window as any).performance = {};
+    const windowWithPerformance = window as unknown as { performance?: unknown };
+    if (!windowWithPerformance.performance) {
+      windowWithPerformance.performance = {};
     }
-    if (typeof window.performance.now !== 'function') {
-      (window.performance as any).now = now;
+    const perfObj = windowWithPerformance.performance as unknown as { now?: () => number };
+    if (typeof perfObj.now !== 'function') {
+      perfObj.now = now;
     }
   }
 
   if (typeof globalThis !== 'undefined') {
-    if (!globalThis.performance) {
-      (globalThis as any).performance = {};
+    const globalWithPerformance = globalThis as unknown as { performance?: unknown };
+    if (!globalWithPerformance.performance) {
+      globalWithPerformance.performance = {};
     }
-    if (typeof globalThis.performance.now !== 'function') {
-      (globalThis.performance as any).now = now;
+    const perfObj = globalWithPerformance.performance as unknown as { now?: () => number };
+    if (typeof perfObj.now !== 'function') {
+      perfObj.now = now;
     }
   }
 };
@@ -38,19 +42,19 @@ const ensureScheduler = () => {
   };
 
   // Create scheduler object with all required functions
-  const schedulerImpl: any = {
+  const schedulerImpl: Record<string, unknown> = {
     unstable_now: getTimingFunction(),
-    unstable_scheduleCallback: (priority: number, callback: Function) => {
+    unstable_scheduleCallback: (priority: unknown, callback: FrameRequestCallback | TimerHandler) => {
       if (typeof setImmediate !== 'undefined') {
         return setImmediate(callback as TimerHandler);
       }
       return setTimeout(callback as TimerHandler, 0);
     },
-    unstable_cancelCallback: (timerId: number) => {
+    unstable_cancelCallback: (timerId: unknown) => {
       if (typeof clearImmediate !== 'undefined') {
-        clearImmediate(timerId);
+        clearImmediate(timerId as number);
       } else {
-        clearTimeout(timerId);
+        clearTimeout(timerId as number);
       }
     },
     unstable_shouldYield: () => false,
@@ -73,9 +77,10 @@ const ensureScheduler = () => {
         writable: true,
         configurable: true,
       });
-    } catch (e) {
+    } catch {
       // Fallback if property is not configurable
-      (globalThis as any).scheduler = schedulerImpl;
+      const globalWithScheduler = globalThis as unknown as { scheduler?: unknown };
+      globalWithScheduler.scheduler = schedulerImpl;
     }
   }
 
@@ -87,8 +92,9 @@ const ensureScheduler = () => {
         writable: true,
         configurable: true,
       });
-    } catch (e) {
-      (window as any).scheduler = schedulerImpl;
+    } catch {
+      const windowWithScheduler = window as unknown as { scheduler?: unknown };
+      windowWithScheduler.scheduler = schedulerImpl;
     }
   }
 };

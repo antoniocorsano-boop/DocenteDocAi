@@ -3,7 +3,18 @@
  * Verifica che i dati caricati siano validi e li normalizza
  */
 
-import { BackupPayload } from '../types';
+import { BackupPayload, User, Studente, Valutazione, Lezione } from '../types';
+
+/**
+ * Type guards for validation
+ */
+const isValidUser = (value: unknown): boolean => {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+};
+
+const isRecord = (value: unknown): value is Record<string, unknown> => {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+};
 
 /**
  * Valida e normalizza i dati del backup
@@ -18,15 +29,15 @@ export function validateBackupData(data: unknown): BackupPayload | null {
   const backup = data as Record<string, unknown>;
 
   // Funzione helper per validare array
-  const ensureArray = (value: unknown): unknown[] => {
-    if (Array.isArray(value)) return value;
+  const ensureArray = <T = unknown>(value: unknown): T[] => {
+    if (Array.isArray(value)) return (value as T[]).filter(item => item !== null);
     return [];
   };
 
   // Funzione helper per validare oggetto
   const ensureObject = (value: unknown): Record<string, unknown> => {
-    if (value && typeof value === 'object' && !Array.isArray(value)) {
-      return value as Record<string, unknown>;
+    if (isRecord(value)) {
+      return value;
     }
     return {};
   };
@@ -41,43 +52,43 @@ export function validateBackupData(data: unknown): BackupPayload | null {
 
   try {
     const validated: BackupPayload = {
-      user: (backup.user as any) ?? null,
-      students: ensureArray(backup.students) as any,
-      lessons: ensureObject(backup.lessons) as any,
-      slots: ensureObject(backup.slots) as any,
-      evaluations: ensureArray(backup.evaluations) as any,
-      competencyEvals: ensureArray(backup.competencyEvals) as any,
-      uda: ensureArray(backup.uda) as any,
-      eventi: ensureArray(backup.eventi) as any,
-      knowledgeBase: ensureArray(backup.knowledgeBase) as any,
-      corpora: ensureArray(backup.corpora) as any,
-      notifiche: ensureArray(backup.notifiche) as any,
-      rubriche: ensureArray(backup.rubriche) as any,
-      pianiInclusione: ensureObject(backup.pianiInclusione) as any,
-      giudizi: ensureObject(backup.giudizi) as any,
-      reportistica: ensureArray(backup.reportistica) as any,
-      feedSources: ensureArray(backup.feedSources) as any,
-      draftRegister: ensureObject(backup.draftRegister) as any,
-      finalizedRegister: ensureArray(backup.finalizedRegister) as any,
-      curricula: ensureArray(backup.curricula) as any,
-      submissions: ensureArray(backup.submissions) as any,
-      suggestions: ensureArray(backup.suggestions) as any,
+      user: isValidUser(backup.user) ? (backup.user as User) : null,
+      students: ensureArray<Studente>(backup.students),
+      lessons: ensureObject(backup.lessons) as Record<string, Lezione>,
+      slots: ensureObject(backup.slots),
+      evaluations: ensureArray<Valutazione>(backup.evaluations),
+      competencyEvals: ensureArray(backup.competencyEvals),
+      uda: ensureArray(backup.uda),
+      eventi: ensureArray(backup.eventi),
+      knowledgeBase: ensureArray(backup.knowledgeBase),
+      corpora: ensureArray(backup.corpora),
+      notifiche: ensureArray(backup.notifiche),
+      rubriche: ensureArray(backup.rubriche),
+      pianiInclusione: ensureObject(backup.pianiInclusione),
+      giudizi: ensureObject(backup.giudizi),
+      reportistica: ensureArray(backup.reportistica),
+      feedSources: ensureArray(backup.feedSources),
+      draftRegister: ensureObject(backup.draftRegister),
+      finalizedRegister: ensureArray(backup.finalizedRegister),
+      curricula: ensureArray(backup.curricula),
+      submissions: ensureArray(backup.submissions),
+      suggestions: ensureArray(backup.suggestions),
       dismissedSuggestions: new Set(ensureStringArray(backup.dismissedSuggestions)),
-      settings: (backup.settings as any) ?? null,
-      aiSettings: (backup.aiSettings as any) ?? null,
-      themeState: (backup.themeState as any) ?? null,
-      navigationHistory: ensureArray(backup.navigationHistory) as any,
-      backupState: (backup.backupState as any) ?? { status: 'synced', lastBackup: null },
-      driveSyncState: (backup.driveSyncState as any) ?? { isAuthenticated: false, isSyncing: false, lastSyncTime: null },
+      settings: isRecord(backup.settings) ? backup.settings : null,
+      aiSettings: isRecord(backup.aiSettings) ? backup.aiSettings : null,
+      themeState: isRecord(backup.themeState) ? backup.themeState : null,
+      navigationHistory: ensureArray(backup.navigationHistory),
+      backupState: isRecord(backup.backupState) ? backup.backupState : { status: 'synced', lastBackup: null },
+      driveSyncState: isRecord(backup.driveSyncState) ? backup.driveSyncState : { isAuthenticated: false, isSyncing: false, lastSyncTime: null },
       
       // Fields from BackupPayload
-      studentProfileContext: (backup.studentProfileContext as any) ?? null,
-      selectedClassForDashboard: (backup.selectedClassForDashboard as any) ?? null,
-      orientamentoActivities: ensureArray(backup.orientamentoActivities) as any,
-      ePortfolioEntries: ensureArray(backup.ePortfolioEntries) as any,
-      studentOrientamentoStates: ensureObject(backup.studentOrientamentoStates) as any,
-      analyticsEvents: ensureArray(backup.analyticsEvents) as any,
-      analyticsMetrics: (backup.analyticsMetrics as any) ?? {
+      studentProfileContext: isRecord(backup.studentProfileContext) ? backup.studentProfileContext : null,
+      selectedClassForDashboard: typeof backup.selectedClassForDashboard === 'string' ? backup.selectedClassForDashboard : null,
+      orientamentoActivities: ensureArray(backup.orientamentoActivities),
+      ePortfolioEntries: ensureArray(backup.ePortfolioEntries),
+      studentOrientamentoStates: ensureObject(backup.studentOrientamentoStates),
+      analyticsEvents: ensureArray(backup.analyticsEvents),
+      analyticsMetrics: isRecord(backup.analyticsMetrics) ? backup.analyticsMetrics : {
         totalDocumentsGenerated: 0,
         documentsByType: {},
         featuresUsage: {},
@@ -87,7 +98,7 @@ export function validateBackupData(data: unknown): BackupPayload | null {
         averageSessionDuration: 0,
         lastUpdated: new Date().toISOString()
       },
-      analyticsSettings: (backup.analyticsSettings as any) ?? {
+      analyticsSettings: isRecord(backup.analyticsSettings) ? backup.analyticsSettings : {
         enabled: true,
         collectFeatureUsage: true,
         collectDocumentMetrics: true,
@@ -95,11 +106,11 @@ export function validateBackupData(data: unknown): BackupPayload | null {
         retentionDays: 90,
         lastReset: null
       },
-      activeSuggestion: (backup.activeSuggestion as any) ?? null,
-      templates: ensureArray(backup.templates) as any,
-      installPrompt: (backup.installPrompt as any) ?? null,
-      canShowInstallPrompt: !!backup.canShowInstallPrompt,
-      isGlobalAiLoading: !!backup.isGlobalAiLoading,
+      activeSuggestion: isRecord(backup.activeSuggestion) ? backup.activeSuggestion : null,
+      templates: ensureArray(backup.templates),
+      installPrompt: isRecord(backup.installPrompt) ? backup.installPrompt : null,
+      canShowInstallPrompt: typeof backup.canShowInstallPrompt === 'boolean' ? backup.canShowInstallPrompt : false,
+      isGlobalAiLoading: typeof backup.isGlobalAiLoading === 'boolean' ? backup.isGlobalAiLoading : false,
     };
 
     console.log('[DataValidator] Backup data validated successfully');

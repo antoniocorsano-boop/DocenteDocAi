@@ -9,6 +9,7 @@ import { useEffect } from 'react';
  * - Focus automatico al container
  * - ARIA role="dialog" e aria-modal="true"
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function useModalAccessibility({
   isOpen,
   onClose,

@@ -15,6 +15,7 @@ import { useUIStore } from '../stores/useUIStore.ts';
  * Middleware di Persistenza Unificato.
  * Gestisce il salvataggio automatico su IndexedDB e previene conflitti durante il ripristino.
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const usePersistence = (isDataLoaded: boolean) => {
     const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isSavingRef = useRef(false);
@@ -55,7 +56,7 @@ export const usePersistence = (isDataLoaded: boolean) => {
                 const { actions: _systemActions, ...systemStateRaw } = useSystemStore.getState();
                 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
                 const { actions: _settingsActions, ...settingsStateRaw } = useSettingsStore.getState();
-                /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+                 
                 const { actions: uiActions, ...uiStateRaw } = useUIStore.getState();
 
                 // Create clean, serializable versions of states

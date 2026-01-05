@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { messages } from '../messages';
 import { TimetableSettings, AiSettings, AppThemeState } from '../types';
 import { AI_PROFILES } from '../constants';
-import { generateThemeFromPrompt } from '../services/aiService';
+import { ThemeService } from '../services/ThemeService';
 import { useDebounce } from './useDebounce';
 
 interface UseSettingsLogicProps {
@@ -27,7 +27,24 @@ export const useSettingsLogic = ({
     onSaveTheme,
     showToast,
     onCleanDemoData
-}: UseSettingsLogicProps) => {
+}: UseSettingsLogicProps): {
+    localSettings: TimetableSettings;
+    localAiSettings: AiSettings;
+    handleChange: (key: string, value: unknown) => void;
+    handleThemeChange: (key: string, value: unknown) => void;
+    handleAiProfileChange: (profile: string) => void;
+    handleResetAiCache: () => void;
+    themePrompt: string;
+    setThemePrompt: (v: string) => void;
+    isGeneratingTheme: boolean;
+    handleGenerateThemeFromPrompt: () => Promise<void>;
+    isResetModalOpen: boolean;
+    setIsResetModalOpen: (v: boolean) => void;
+    performReset: () => void;
+    handleBulkAssign: (value: string) => void;
+    toggleAssociation: (studentId: string, classCode: string) => void;
+    updateAssignmentHours: (studentId: string, classCode: string, hours: number) => void;
+} => {
     // Local State
     const [localSettings, setLocalSettings] = useState<TimetableSettings>(settings);
     const [localAiSettings, setLocalAiSettings] = useState<AiSettings>(aiSettings);
@@ -118,13 +135,13 @@ export const useSettingsLogic = ({
         }
         setIsGeneratingTheme(true);
         try {
-            const generatedTheme = await generateThemeFromPrompt(aiSettings, themePrompt);
+            const generated = await ThemeService.generateViaAi(themePrompt, aiSettings);
             onSaveTheme({
-                mode: themeState.mode,
+                ...themeState,
                 customizationName: 'Custom',
-                customColors: { primary: generatedTheme.primary, secondary: generatedTheme.secondary, tertiary: generatedTheme.tertiary },
-                generatedName: generatedTheme.name,
-                generatedColors: { primary: generatedTheme.primary, secondary: generatedTheme.secondary, tertiary: generatedTheme.tertiary },
+                customColors: generated.colors,
+                generatedName: generated.name,
+                generatedColors: generated.colors,
             });
             showToast(messages.toast.save, 'success');
         } catch {
@@ -141,7 +158,7 @@ export const useSettingsLogic = ({
 
     const toggleAssociation = useCallback((cls: string, subj: string) => {
         const index = localSettings.teachingAssignments.findIndex(a => a.classId === cls && a.subjectId === subj);
-        let updated = [...localSettings.teachingAssignments];
+        const updated = [...localSettings.teachingAssignments];
         
         if (index >= 0) {
             updated.splice(index, 1);

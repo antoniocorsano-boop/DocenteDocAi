@@ -16,7 +16,7 @@ const loadDocx = async () => await import('docx');
 const loadJsPdf = async () => await import('jspdf');
 
 // --- NATIVE SAVEAS IMPLEMENTATION ---
-export const saveAs = (blob: Blob | string, name: string) => {
+export const saveAs = (blob: Blob | string, name: string): void => {
     try {
         const blobObj = blob instanceof Blob ? blob : new Blob([blob]);
         const url = window.URL.createObjectURL(blobObj);
@@ -133,7 +133,7 @@ export const base64ToBlob = (base64: string, mimeType: string): Blob => {
     return new Blob([new Uint8Array(byteNumbers)], { type: mimeType });
 };
 
-export const viewPdfInNewTab = (blob: Blob) => {
+export const viewPdfInNewTab = (blob: Blob): void => {
     const url = URL.createObjectURL(blob);
     window.open(url, '_blank');
     setTimeout(() => URL.revokeObjectURL(url), 60000);

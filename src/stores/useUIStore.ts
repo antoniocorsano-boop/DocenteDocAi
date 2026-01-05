@@ -1,6 +1,6 @@
 
 import { create } from 'zustand';
-import type { Modals, Lezione, SyncConflictData, View, BackupState, DriveSyncState, UIState } from '../types';
+import type { Modals, Lezione, SyncConflictData, View, UIState } from '../types';
 
 // Definizione locale di UIActions (non esiste in types.ts)
 export interface UIActions {
@@ -79,7 +79,7 @@ const initialModals = {
     setNotifiche: () => {},
 } as Modals & { toast: { message: string; type: 'success' | 'error' | 'info'; visible: boolean } };
 
-export const useUIStore = create<UIState & { actions: UIActions }>((set, get) => ({
+export const useUIStore = create<UIState & { actions: UIActions }>((set) => ({
     modals: { ...initialModals },
     chaosStage: 'none',
     circularAnalysisModal: null,
@@ -100,7 +100,7 @@ export const useUIStore = create<UIState & { actions: UIActions }>((set, get) =>
         toggleModal: (modalKey: keyof Modals, value?: boolean) => set((state) => {
             const newValue = typeof value === 'boolean' ? value : !state.modals[modalKey];
             const nextModals = { ...state.modals, [modalKey]: newValue };
-            const nextState: any = { modals: nextModals };
+            const nextState: Record<string, unknown> = { modals: nextModals };
             
             // Sync mirrored keys if they are in Modals
             if (modalKey === 'isLoadingModalOpen') nextState.isLoadingModalOpen = newValue;
@@ -183,7 +183,7 @@ const legacyKeys = [
 ];
 // Getter legacy per compatibilità test (proxy su stato centralizzato modals)
 // Funzione di normalizzazione per compat test: copia i campi legacy root in modals
-export function normalizeLegacyState(state: Partial<UIState>) {
+export function normalizeLegacyState(state: Partial<UIState>): Partial<UIState> {
     if (!state.modals) state.modals = {} as UIState['modals'];
     legacyKeys.forEach((key) => {
         if (key in state) {

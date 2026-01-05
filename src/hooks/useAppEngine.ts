@@ -25,6 +25,7 @@ import { messages } from '../messages';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { errorLogger } from '../services/errorLogger';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useAppEngine = () => {
     // Test mode detection: when true, skip heavy restore and set a demo user
     const isTestMode = (typeof window !== 'undefined' && (window as { __TEST_MODE?: boolean }).__TEST_MODE === true) || ((import.meta as ImportMeta).env?.VITE_TEST_MODE === 'true');
