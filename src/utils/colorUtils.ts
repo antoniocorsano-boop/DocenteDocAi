@@ -1,7 +1,9 @@
 // Removed unused ColorTokens import
 
+/* eslint-disable design-system/no-hardcoded-colors */
+
 /**
- * Generates a consistent hue value from a string.
+ * DESIGN SYSTEM EXCEPTION: Avatar Color Palettes
  * This is used to create a unique color for each class name (timetable slots).
  */
 export const generateHueFromString = (str: string): number => {
@@ -26,9 +28,14 @@ export const generateHueFromString = (str: string): number => {
   return Math.abs(hash % 360);
 };
 
-// M3 EXPRESSIVE CONTAINER PALETTE
+// M3 EXPRESSIVE CONTAINER PALETTE (DESIGN SYSTEM EXCEPTION)
+// These are HARDCODED by design as they represent Material Design 3's
+// predefined expressive color containers used for avatar backgrounds.
 // Pastel/Light backgrounds with Dark contrasting text.
-// Better for readability and fits the modern M3 look (instead of dark solid blobs).
+// Better for readability and fits the modern M3 look.
+// 
+// These are NOT used in component styling—use var(--sys-*) tokens instead.
+// Exception documented in: docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5
 const AVATAR_PALETTES = [
     { bg: '#EADDFF', text: '#21005D' }, // Primary Container (Purple)
     { bg: '#E8DEF8', text: '#1D192B' }, // Secondary Container (Slate)

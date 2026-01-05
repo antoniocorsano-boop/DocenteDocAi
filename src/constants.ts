@@ -199,6 +199,25 @@ export const DEFAULT_TIMETABLE_SETTINGS: TimetableSettings = {
     securityPin: '0000',
 };
 
+/* eslint-disable design-system/no-hardcoded-colors */
+
+/**
+ * DESIGN SYSTEM EXCEPTION: Theme Customization Palettes
+ * 
+ * These color palettes are HARDCODED by design. They represent selectable
+ * alternative themes for the entire application. Each palette defines
+ * primary, secondary, and tertiary seed colors that generate the full
+ * color system via the design token generator.
+ * 
+ * These are NOT component colors—they are theme COLOR SEEDS.
+ * Used by: ThemeProvider, useDesignSystem hook
+ * Documented in: docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5 (Exceptions)
+ * 
+ * When used in components, always reference the generated CSS tokens,
+ * not these hardcoded values:
+ *   ❌ WRONG: backgroundColor: '#6750A4'
+ *   ✅ RIGHT: backgroundColor: 'var(--sys-primary)'
+ */
 export const THEME_CUSTOMIZATIONS: ThemeCustomization[] = [
     { name: 'M3 Default', colors: { primary: '#6750A4', secondary: '#625B71', tertiary: '#7D5260' } },
     { name: 'Blue', colors: { primary: '#0061A4', secondary: '#535F70', tertiary: '#6B5778' } },

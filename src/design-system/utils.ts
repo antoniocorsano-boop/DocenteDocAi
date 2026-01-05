@@ -1,5 +1,25 @@
 import { Theme, ColorTokens } from '../types'; // FIX: Updated import path to types
 
+/* eslint-disable design-system/no-hardcoded-colors */
+
+/**
+ * DESIGN SYSTEM EXCEPTION: Base Color Token Definitions
+ * 
+ * These HEX color values are HARDCODED by design. They are the SOURCE OF TRUTH
+ * for the Material Design 3 default color system. These values are used to:
+ * 
+ * 1. Generate CSS variables (--sys-primary, --sys-secondary, etc.)
+ * 2. Define the design token system in src/design-system/index.ts
+ * 3. Automatically switch between light and dark mode
+ * 
+ * These values MUST NOT be used directly in component code.
+ * Instead, always use the generated CSS variables:
+ *   ❌ WRONG: color: '#6750A4'
+ *   ✅ RIGHT: color: 'var(--sys-primary)'
+ * 
+ * Documented in: docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5 (Exceptions)
+ */
+
 // Source of Truth for raw color values in HEX
 export const lightColors: ColorTokens = {
   primary: '#6750A4', onPrimary: '#FFFFFF', primaryContainer: '#EADDFF', onPrimaryContainer: '#21005D',
