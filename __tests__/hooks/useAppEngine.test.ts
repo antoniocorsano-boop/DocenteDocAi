@@ -1584,9 +1584,13 @@ describe('useAppEngine', () => {
         await vi.runAllTimersAsync();
       });
       
-      // Flush microtasks for the dynamic import
-      for (let i = 0; i < 20; i++) await Promise.resolve();
+      // Wait for dynamic imports and microtasks
+      await act(async () => {
+        for (let i = 0; i < 50; i++) await Promise.resolve();
+      });
 
+      // In test mode with no backup, handleLoadDemoData is called via setTimeout which triggers dynamic import
+      // This eventually calls studentActions.loadFromBackup via the DEMO_DATA
       expect(mockStudentActions.loadFromBackup).toHaveBeenCalled();
       if (typeof window !== 'undefined') {
         (window as any).__TEST_MODE = false;
