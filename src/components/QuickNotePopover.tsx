@@ -1,5 +1,6 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
+import { Popover, Box, Button, TextField } from '@mui/material';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 
 interface QuickNotePopoverProps {
@@ -11,62 +12,140 @@ interface QuickNotePopoverProps {
 
 const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialValue, onSave, onClose }) => {
     const [note, setNote] = useState(initialValue);
-    const popoverRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-                onClose();
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [onClose]);
-    
     const handleSave = () => {
         onSave(note);
-    }
+        onClose();
+    };
 
     const handleTranscription = (text: string) => {
         setNote(prev => prev ? `${prev} ${text}` : text);
-    }
-
-    const style: React.CSSProperties = {};
-    if (anchorEl) {
-        const rect = anchorEl.getBoundingClientRect();
-        style.position = 'fixed';
-        style.top = `${rect.bottom + 8}px`;
-        const leftPos = Math.min(window.innerWidth - 320, Math.max(16, rect.left - 150));
-        style.left = `${leftPos}px`;
-    }
+    };
 
     return (
-        <div ref={popoverRef} className="m3-popup-menu !p-0 w-[300px]" style={style}>
-            <div className="popup-header-alt bg-surface-container-highest">
-                <h3 className="m3-title-small text-on-surface">Nota Rapida</h3>
-                <div className="flex items-center gap-8">
-                    <VoiceNoteRecorder onTranscription={handleTranscription} compact={true} />
-                    <button onClick={onClose} className="icon-button !w-8 !h-8">
-                        <span className="material-symbols-outlined text-sm">close</span>
-                    </button>
-                </div>
-            </div>
-            <div className="p-6 pt-2">
-                <textarea
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                    className="form-textarea w-full mb-6 bg-surface-container-low border-none focus:ring-1 focus:ring-primary"
-                    rows={4}
-                    placeholder="Scrivi una nota..."
-                    autoFocus
-                />
-                <div className="flex justify-end gap-8">
-                    <button onClick={handleSave} className="m3-button-filled w-full justify-center">
+        <Popover
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            onClose={onClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+            PaperProps={{
+                sx: {
+                    backgroundColor: 'var(--sys-surface)',
+                    border: '1px solid var(--sys-outline-variant)',
+                    borderRadius: 'var(--shape-xl)',
+                    boxShadow: 'var(--elevation-3)',
+                    width: '300px',
+                }
+            }}
+        >
+            <Box>
+                {/* Header */}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: '12px 16px',
+                        backgroundColor: 'var(--sys-surface-container-highest)',
+                        borderBottom: '1px solid var(--sys-outline-variant)',
+                        gap: 1
+                    }}
+                >
+                    <h3 style={{ margin: 0, fontSize: '14px', fontWeight: 500, color: 'var(--sys-on-surface)' }}>
+                        Nota Rapida
+                    </h3>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <VoiceNoteRecorder onTranscription={handleTranscription} compact={true} />
+                        <button
+                            onClick={onClose}
+                            style={{
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '50%',
+                                border: 'none',
+                                backgroundColor: 'var(--sys-surface-container)',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                            aria-label="Chiudi nota"
+                        >
+                            <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--sys-on-surface)' }}>
+                                close
+                            </span>
+                        </button>
+                    </Box>
+                </Box>
+
+                {/* Content */}
+                <Box sx={{ padding: '16px' }}>
+                    <TextField
+                        multiline
+                        rows={4}
+                        fullWidth
+                        placeholder="Scrivi una nota..."
+                        value={note}
+                        onChange={(e) => setNote(e.target.value)}
+                        autoFocus
+                        slotProps={{
+                            input: {
+                                sx: {
+                                    backgroundColor: 'var(--sys-surface-container-low)',
+                                    border: 'none',
+                                    color: 'var(--sys-on-surface)',
+                                    fontFamily: 'var(--font-family)',
+                                    fontSize: '13px',
+                                    '&:focus-within': {
+                                        boxShadow: `0 0 0 1px var(--sys-primary)`,
+                                    }
+                                }
+                            }
+                        }}
+                        sx={{
+                            '& .MuiInputBase-root': {
+                                backgroundColor: 'var(--sys-surface-container-low)',
+                            },
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'transparent',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'transparent',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'var(--sys-primary)',
+                                    borderWidth: '1px',
+                                },
+                            },
+                        }}
+                    />
+
+                    {/* Save Button */}
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        onClick={handleSave}
+                        sx={{
+                            mt: 2,
+                            backgroundColor: 'var(--sys-primary)',
+                            color: 'var(--sys-on-primary)',
+                            textTransform: 'none',
+                            fontWeight: 500,
+                            borderRadius: '8px',
+                            fontFamily: 'var(--font-family)',
+                            fontSize: '13px',
+                            '&:hover': {
+                                backgroundColor: 'var(--sys-primary-dark)',
+                            }
+                        }}
+                    >
                         Salva Nota
-                    </button>
-                </div>
-            </div>
-        </div>
+                    </Button>
+                </Box>
+            </Box>
+        </Popover>
     );
 };
 

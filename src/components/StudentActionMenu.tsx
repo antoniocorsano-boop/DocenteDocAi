@@ -1,12 +1,13 @@
 
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useMemo } from 'react';
+import { Popover, Box, Button, Divider } from '@mui/material';
 import { Studente, Valutazione, ParticipationEntry } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { Avatar } from './ui';
 
 interface StudentActionMenuProps {
     student: Studente;
-    anchorEl: HTMLElement;
+    anchorEl: HTMLElement | null;
     evaluations: Valutazione[];
     participation: ParticipationEntry[];
     onClose: () => void;
@@ -23,18 +24,6 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
     onAddEvaluation,
     onViewProfile,
 }) => {
-    const popoverRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-                onClose();
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [onClose]);
-
     const { grade, trend } = useMemo(
         () => calculatePerformance(student.id, 'Complessivo', evaluations),
         [student.id, evaluations]
@@ -45,59 +34,161 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
         [participation]
     );
 
-    const trendClass = trend === 'up' ? 'text-tertiary' : trend === 'down' ? 'text-error' : 'text-on-surface-variant';
+    const trendClass = trend === 'up' ? 'var(--sys-tertiary)' : trend === 'down' ? 'var(--sys-error)' : 'var(--sys-on-surface-variant)';
     const trendIcon = trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'trending_flat';
 
-    const style: React.CSSProperties = {};
-    if (anchorEl) {
-        const rect = anchorEl.getBoundingClientRect();
-        style.position = 'fixed';
-        style.top = `${rect.bottom + 8}px`;
-        const leftPos = Math.min(window.innerWidth - 300, Math.max(16, rect.left - 200));
-        style.left = `${leftPos}px`;
-    }
-
     return (
-        <div ref={popoverRef} className="m3-popup-menu" style={{ ...style, width: '280px' }}>
-            <div className="popup-header bg-primary-container text-on-primary-container">
-                <div className="flex items-center gap-6 mb-8">
-                    <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
-                    <div className="min-w-0">
-                        <h3 className="m3-title-medium truncate">{student.cognome} {student.nome}</h3>
-                        <p className="text-xs opacity-80">Classe {student.classe}</p>
-                    </div>
-                </div>
-                
-                {/* Refactored Stats Row */}
-                <div className="student-popup-stats-row">
-                    <div className="student-popup-stat-item">
-                        <span className="text-[10px] uppercase font-bold opacity-70">Media</span>
-                        <span className="m3-title-medium font-bold">{grade || '-'}</span>
-                    </div>
-                    <div className="student-popup-stat-divider"></div>
-                    <div className="student-popup-stat-item">
-                        <span className="text-[10px] uppercase font-bold opacity-70">Trend</span>
-                        <span className={`material-symbols-outlined text-lg ${trendClass}`}>{trendIcon}</span>
-                    </div>
-                    <div className="student-popup-stat-divider"></div>
-                    <div className="student-popup-stat-item">
-                        <span className="text-[10px] uppercase font-bold opacity-70">Badge</span>
-                        <span className="m3-title-medium">{participationToday}</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div className="p-1">
-                <div className="m3-menu-section-label">Azioni Rapide</div>
-                
-                <button onClick={onAddEvaluation} className="m3-menu-item">
-                    <span className="material-symbols-outlined text-primary">add_circle</span>
-                    <span>Nuova Valutazione</span>
-                </button>
-                 <button onClick={onViewProfile} className="m3-menu-item">
-                    <span className="material-symbols-outlined text-secondary">person_search</span>
-                    <span>Profilo Completo</span>
-                </button>
+        <Popover
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            onClose={onClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+            PaperProps={{
+                sx: {
+                    backgroundColor: 'var(--sys-surface)',
+                    border: '1px solid var(--sys-outline-variant)',
+                    borderRadius: 'var(--shape-xl)',
+                    boxShadow: 'var(--elevation-3)',
+                    width: '280px',
+                }
+            }}
+        >
+            <Box>
+                {/* Header with student info */}
+                <Box
+                    sx={{
+                        backgroundColor: 'var(--sys-primary-container)',
+                        color: 'var(--sys-on-primary-container)',
+                        padding: '16px',
+                    }}
+                >
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+                        <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
+                        <Box sx={{ minWidth: 0 }}>
+                            <h3 style={{ margin: 0, fontSize: '14px', fontWeight: 500, color: 'var(--sys-on-primary-container)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {student.cognome} {student.nome}
+                            </h3>
+                            <p style={{ margin: 0, fontSize: '12px', opacity: 0.8 }}>
+                                Classe {student.classe}
+                            </p>
+                        </Box>
+                    </Box>
+
+                    {/* Stats Row */}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            fontSize: '12px',
+                        }}
+                    >
+                        {/* Media */}
+                        <Box sx={{ textAlign: 'center', flex: 1 }}>
+                            <p style={{ margin: '0 0 4px 0', fontSize: '10px', fontWeight: 700, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                Media
+                            </p>
+                            <p style={{ margin: 0, fontSize: '16px', fontWeight: 700 }}>
+                                {grade || '-'}
+                            </p>
+                        </Box>
+
+                        <Divider orientation="vertical" sx={{ height: '32px', backgroundColor: 'currentColor', opacity: 0.3 }} />
+
+                        {/* Trend */}
+                        <Box sx={{ textAlign: 'center', flex: 1 }}>
+                            <p style={{ margin: '0 0 4px 0', fontSize: '10px', fontWeight: 700, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                Trend
+                            </p>
+                            <span className="material-symbols-outlined" style={{ fontSize: '20px', color: trendClass }}>
+                                {trendIcon}
+                            </span>
+                        </Box>
+
+                        <Divider orientation="vertical" sx={{ height: '32px', backgroundColor: 'currentColor', opacity: 0.3 }} />
+
+                        {/* Badge/Participation */}
+                        <Box sx={{ textAlign: 'center', flex: 1 }}>
+                            <p style={{ margin: '0 0 4px 0', fontSize: '10px', fontWeight: 700, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                Badge
+                            </p>
+                            <p style={{ margin: 0, fontSize: '16px', fontWeight: 700 }}>
+                                {participationToday}
+                            </p>
+                        </Box>
+                    </Box>
+                </Box>
+
+                {/* Actions */}
+                <Box sx={{ padding: '8px' }}>
+                    <p style={{ margin: '12px 16px 8px 16px', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--sys-on-surface-variant)', letterSpacing: '0.5px' }}>
+                        Azioni Rapide
+                    </p>
+
+                    <Button
+                        fullWidth
+                        onClick={() => {
+                            onAddEvaluation();
+                            onClose();
+                        }}
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1,
+                            justifyContent: 'flex-start',
+                            px: 2,
+                            py: 1.5,
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+                            border: 'none',
+                            backgroundColor: 'transparent',
+                            color: 'var(--sys-on-surface)',
+                            fontSize: '13px',
+                            textTransform: 'none',
+                            fontFamily: 'var(--font-family)',
+                            '&:hover': { backgroundColor: 'var(--sys-surface-container-highest)' },
+                            mb: 1
+                        }}
+                    >
+                        <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--sys-primary)' }}>add_circle</span>
+                        <span>Nuova Valutazione</span>
+                    </Button>
+
+                    <Button
+                        fullWidth
+                        onClick={() => {
+                            onViewProfile();
+                            onClose();
+                        }}
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1,
+                            justifyContent: 'flex-start',
+                            px: 2,
+                            py: 1.5,
+                            borderRadius: '20px',
+                            cursor: 'pointer',
+                            border: 'none',
+                            backgroundColor: 'transparent',
+                            color: 'var(--sys-on-surface)',
+                            fontSize: '13px',
+                            textTransform: 'none',
+                            fontFamily: 'var(--font-family)',
+                            '&:hover': { backgroundColor: 'var(--sys-surface-container-highest)' },
+                        }}
+                    >
+                        <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--sys-secondary)' }}>person_search</span>
+                        <span>Profilo Completo</span>
+                    </Button>
+                </Box>
+            </Box>
+        </Popover>
+    );
+};
+
+export default StudentActionMenu;
             </div>
         </div>
     );

@@ -1,61 +1,116 @@
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { Popover, Box, Button } from '@mui/material';
 import { EventoCalendario } from '../types';
 
 interface EventActionPopoverProps {
     event: EventoCalendario;
-    anchorEl: HTMLElement;
+    anchorEl: HTMLElement | null;
     onClose: () => void;
     onEdit: (event: EventoCalendario) => void;
     onDelete: (eventId: string) => void;
 }
 
 const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl, onClose, onEdit, onDelete }) => {
-    const popoverRef = useRef<HTMLDivElement>(null);
+    const handleEdit = () => {
+        onEdit(event);
+        onClose();
+    };
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-                onClose();
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [onClose]);
-
-    const style: React.CSSProperties = {};
-    if (anchorEl) {
-        const rect = anchorEl.getBoundingClientRect();
-        style.position = 'fixed';
-        let top = rect.bottom + 8;
-        let left = rect.left;
-        // Boundary adjustment
-        if (top + 200 > window.innerHeight) top = rect.top - 200;
-        if (left + 280 > window.innerWidth) left = window.innerWidth - 280 - 16;
-        style.top = `${top}px`;
-        style.left = `${left}px`;
-    }
+    const handleDelete = () => {
+        if (window.confirm('Sei sicuro?')) {
+            onDelete(event.id);
+            onClose();
+        }
+    };
 
     return (
-        <div ref={popoverRef} className="m3-popup-menu" style={style}>
-            <div className="p-8 bg-surface-container-high rounded-xl mb-8">
-                <h3 className="m3-title-medium">{event.titolo}</h3>
-                <p className="m3-body-small text-on-surface-variant mt-4">
-                    {new Date(event.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'long' })}
-                    {event.oraInizio && ` • ${event.oraInizio}`}
-                </p>
-                {event.descrizione && <p className="m3-body-medium mt-4 opacity-80 line-clamp-3">{event.descrizione}</p>}
-            </div>
-            
-            <button onClick={() => { onEdit(event); onClose(); }} className="m3-menu-item">
-                <span className="material-symbols-outlined">edit</span>
-                <span>Modifica</span>
-            </button>
-            <button onClick={() => { if (window.confirm('Sei sicuro?')) onDelete(event.id); onClose(); }} className="m3-menu-item">
-                <span className="material-symbols-outlined text-error">delete</span>
-                <span className="text-error">Elimina</span>
-            </button>
-        </div>
+        <Popover
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            onClose={onClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+            PaperProps={{
+                sx: {
+                    backgroundColor: 'var(--sys-surface)',
+                    border: '1px solid var(--sys-outline-variant)',
+                    borderRadius: 'var(--shape-xl)',
+                    boxShadow: 'var(--elevation-3)',
+                    minWidth: '280px',
+                }
+            }}
+        >
+            <Box sx={{ p: 2 }}>
+                {/* Event Header */}
+                <Box sx={{ p: 2, mb: 2, backgroundColor: 'var(--sys-surface-container-high)', borderRadius: 'calc(var(--shape-md))' }}>
+                    <h3 style={{ margin: '0 0 8px 0', color: 'var(--sys-on-surface)', fontSize: '14px', fontWeight: 500 }}>
+                        {event.titolo}
+                    </h3>
+                    <p style={{ margin: '0 0 8px 0', color: 'var(--sys-on-surface-variant)', fontSize: '12px' }}>
+                        {new Date(event.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'long' })}
+                        {event.oraInizio && ` • ${event.oraInizio}`}
+                    </p>
+                    {event.descrizione && (
+                        <p style={{ margin: '0', color: 'var(--sys-on-surface)', fontSize: '13px', opacity: 0.8, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                            {event.descrizione}
+                        </p>
+                    )}
+                </Box>
+
+                {/* Action Buttons */}
+                <Button
+                    fullWidth
+                    onClick={handleEdit}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        justifyContent: 'flex-start',
+                        px: 2,
+                        py: 1.5,
+                        borderRadius: '20px',
+                        cursor: 'pointer',
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                        color: 'var(--sys-on-surface)',
+                        fontSize: '13px',
+                        textTransform: 'none',
+                        fontFamily: 'var(--font-family)',
+                        '&:hover': { backgroundColor: 'var(--sys-surface-container-highest)' },
+                        mb: 1
+                    }}
+                >
+                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>edit</span>
+                    <span>Modifica</span>
+                </Button>
+
+                <Button
+                    fullWidth
+                    onClick={handleDelete}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 1,
+                        justifyContent: 'flex-start',
+                        px: 2,
+                        py: 1.5,
+                        borderRadius: '20px',
+                        cursor: 'pointer',
+                        border: 'none',
+                        backgroundColor: 'transparent',
+                        color: 'var(--sys-error)',
+                        fontSize: '13px',
+                        textTransform: 'none',
+                        fontFamily: 'var(--font-family)',
+                        '&:hover': { backgroundColor: 'var(--sys-error-container)' },
+                    }}
+                >
+                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>delete</span>
+                    <span>Elimina</span>
+                </Button>
+            </Box>
+        </Popover>
     );
 };
 
