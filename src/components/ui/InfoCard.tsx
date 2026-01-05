@@ -51,7 +51,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                     </div>
                 )}
                 <div className="flex-grow">
-                    <h3 className="m3-headline-small font-extrabold mb-3 tracking-tight">{title}</h3>
+                    <h3 className="m3-headline-small font-extrabold mb-6 tracking-tight">{title}</h3>
                     {description && <p className="m3-body-large opacity-90 leading-relaxed">{description}</p>}
                     {children && <div className="mt-4">{children}</div>}
                     {action && <div className="mt-8 flex justify-end">{action}</div>}

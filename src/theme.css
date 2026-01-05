@@ -4,6 +4,9 @@
 
 :root {
   --font-family: 'Roboto Flex', sans-serif;
+  --header-height: 64px;
+  --bottom-nav-height: 64px;
+  --nav-rail-width: 80px;
 
   /* --- PALETTE M3 EXPRESSIVE (AURA) --- */
   --sys-primary: #6750A4;
@@ -49,6 +52,8 @@
   /* Parametric Scaling Tokens */
   --sys-radius-multiplier: 1;
   --sys-spacing-multiplier: 1;
+  --sys-font-scale: 1;
+  --sys-contrast-level: 0;
   --sys-glass-opacity: 0.75;
 
   /* Z-Index Hierarchy (Sync with zIndex.ts) */
@@ -120,6 +125,27 @@
   --sys-surface-container-high: #f1f3f4;
   --sys-surface-container-highest: #e8eaed;
   --motion-easing-standard: var(--motion-easing-expressive);
+}
+
+/* --- CONTRAST OVERRIDES --- */
+[data-contrast-level="1"] {
+  --sys-outline: var(--sys-on-surface);
+  --sys-outline-variant: var(--sys-on-surface-variant);
+  --sys-surface-container: var(--sys-surface-container-low);
+}
+
+[data-contrast-level="2"] {
+  --sys-outline: #000000;
+  --sys-outline-variant: #000000;
+  --sys-surface-container: #FFFFFF;
+  --sys-on-surface: #000000;
+}
+
+.theme-dark[data-contrast-level="2"] {
+  --sys-outline: #FFFFFF;
+  --sys-outline-variant: #FFFFFF;
+  --sys-surface-container: #000000;
+  --sys-on-surface: #FFFFFF;
 }
 
 :root {
@@ -554,9 +580,9 @@ body {
   color: var(--sys-on-primary);
   border: none;
   border-radius: 100px;
-  padding: 10px 24px;
+  padding: calc(10px * var(--sys-font-scale, 1)) calc(24px * var(--sys-font-scale, 1));
   font-weight: 500;
-  font-size: 14px;
+  font-size: calc(14px * var(--sys-font-scale, 1));
   cursor: pointer;
   transition: all 0.2s var(--motion-easing-standard);
 }
@@ -571,14 +597,31 @@ body {
   scale: 0.95;
 }
 
+.m3-button-error {
+  background: var(--sys-error);
+  color: var(--sys-on-error);
+  border: none;
+  border-radius: calc(100px * var(--sys-radius-multiplier));
+  padding: calc(10px * var(--sys-font-scale, 1)) calc(24px * var(--sys-font-scale, 1));
+  font-weight: 500;
+  font-size: calc(14px * var(--sys-font-scale, 1));
+  cursor: pointer;
+  transition: all 0.2s var(--motion-easing-standard);
+}
+
+.m3-button-error:hover {
+  background: color-mix(in srgb, var(--sys-error), black 10%);
+  box-shadow: 0 4px 12px 0 rgba(179, 38, 30, 0.15);
+}
+
 .m3-button-tonal {
   background: var(--sys-secondary-container);
   color: var(--sys-on-secondary-container);
   border: none;
   border-radius: 100px;
-  padding: 10px 24px;
+  padding: calc(10px * var(--sys-font-scale, 1)) calc(24px * var(--sys-font-scale, 1));
   font-weight: 500;
-  font-size: 14px;
+  font-size: calc(14px * var(--sys-font-scale, 1));
   cursor: pointer;
   transition: all 0.2s var(--motion-easing-standard);
 }
@@ -594,9 +637,9 @@ body {
   border: 2px solid var(--sys-outline);
   color: var(--sys-primary);
   border-radius: 100px;
-  padding: 8px 24px;
+  padding: calc(8px * var(--sys-font-scale, 1)) calc(24px * var(--sys-font-scale, 1));
   font-weight: 500;
-  font-size: 14px;
+  font-size: calc(14px * var(--sys-font-scale, 1));
   cursor: pointer;
   transition: all 0.2s var(--motion-easing-standard);
 }
@@ -610,9 +653,9 @@ body {
   background: transparent;
   border: none;
   color: var(--sys-primary);
-  padding: 8px 12px;
+  padding: calc(8px * var(--sys-font-scale, 1)) calc(12px * var(--sys-font-scale, 1));
   font-weight: 500;
-  font-size: 14px;
+  font-size: calc(14px * var(--sys-font-scale, 1));
   cursor: pointer;
   border-radius: 8px;
   transition: all 0.2s var(--motion-easing-standard);

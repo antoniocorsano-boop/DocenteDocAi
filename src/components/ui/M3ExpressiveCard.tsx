@@ -57,7 +57,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             role={isClickable ? 'button' : undefined}
             tabIndex={isClickable ? 0 : undefined}
             className={`
-                relative overflow-hidden p-6 transition-all duration-300 flex flex-col min-h-[160px]
+                relative overflow-hidden p-8 md:p-6 transition-all duration-300 flex flex-col min-h-[140px] md:min-h-[160px]
                 ${isClickable ? 'cursor-pointer hover:shadow-lg hover:-translate-y-1 active:scale-[0.98]' : ''}
                 aura-glass border border-white/10
                 ${className}
@@ -71,17 +71,17 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             {/* Decorative background element */}
             <div className="absolute -top-12 -right-12 w-32 h-32 bg-white/10 blur-3xl rounded-full pointer-events-none"></div>
 
-            <div className="flex items-center justify-between mb-4 relative z-10">
+            <div className="flex items-center justify-between mb-8 relative z-10">
                 <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner border border-white/10">
-                    <span className="material-symbols-outlined text-[28px]">{icon}</span>
+                    <span className="material-symbols-outlined m3-icon-md-lg">{icon}</span>
                 </div>
                 {isClickable && (
-                    <span className="material-symbols-outlined opacity-40 text-lg">arrow_forward</span>
+                    <span className="material-symbols-outlined opacity-40 m3-icon-sm">arrow_forward</span>
                 )}
             </div>
             
             <div className="flex-grow relative z-10">
-                <h3 className="m3-title-large font-black mb-1 tracking-tight">{title}</h3>
+                <h3 className="m3-title-large font-black mb-4 tracking-tight">{title}</h3>
                 <p className="m3-body-medium opacity-80 leading-snug font-medium">{description}</p>
                 {children && <div className="mt-4">{children}</div>}
             </div>

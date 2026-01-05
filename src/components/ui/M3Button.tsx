@@ -28,16 +28,16 @@ const M3Button: React.FC<M3ButtonProps> = ({
   const baseClass = "m3-button";
   
   // Variant classes
-  const variantClass = `m3-button--${variant}`;
+  const variantClass = `m3-button-${variant}`;
   
   // Color classes
-  const colorClass = `m3-button--${color}`;
+  const colorClass = `m3-button-${color}`;
   
   // Size classes
-  const sizeClass = `m3-button--${size}`;
+  const sizeClass = `m3-button-${size}`;
   
   // Full width class
-  const fullWidthClass = fullWidth ? "m3-button--full-width" : "";
+  const fullWidthClass = fullWidth ? "m3-button-full-width" : "";
 
   const combinedClassName = `${baseClass} ${variantClass} ${colorClass} ${sizeClass} ${fullWidthClass} ${className}`.trim();
 

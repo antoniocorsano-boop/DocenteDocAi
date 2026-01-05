@@ -43,12 +43,18 @@
     background-color: var(--sys-primary-container);
     color: var(--sys-on-primary-container);
     border-radius: var(--shape-xl);
-    padding: var(--spacing-6);
+    padding: var(--spacing-4);
     cursor: pointer;
     transition: all var(--motion-duration-short) var(--motion-easing-standard);
     position: relative;
     overflow: hidden;
     box-shadow: var(--elevation-1);
+}
+
+@media (min-width: 600px) {
+    .hero-card-interactive {
+        padding: var(--spacing-6);
+    }
 }
 
 .hero-card-interactive:hover {

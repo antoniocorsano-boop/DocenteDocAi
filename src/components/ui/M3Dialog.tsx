@@ -10,7 +10,7 @@
  * - Supporto per fullscreen e varianti
  */
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { getModalZIndex } from '../../design-system/zIndex';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 
@@ -26,7 +26,7 @@ export interface M3DialogProps {
   level?: number;
   
   /** Dialog title - displayed in header */
-  title: string;
+  title: React.ReactNode;
   
   /** Optional subtitle/headline */
   headline?: string;
@@ -63,6 +63,12 @@ export interface M3DialogProps {
 
   /** Backward compatibility: if false, don't render */
   isOpen?: boolean;
+
+  /** If true, don't render the internal backdrop (useful when managed by ModalContext) */
+  hideBackdrop?: boolean;
+
+  /** If true, hide the default close button in the header */
+  hideCloseButton?: boolean;
 }
 
 // ============================================================================
@@ -84,6 +90,8 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   level = 1,
   style = {},
   isOpen = true,
+  hideBackdrop = false,
+  hideCloseButton = false,
 }) => {
   const zIndex = Number(style.zIndex) || getModalZIndex(level);
 
@@ -118,8 +126,8 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   return (
     <div
       ref={dialogRef}
-      className={`dialog-shell fixed inset-0 flex items-center justify-center p-4 pointer-events-auto ${
-        mode === 'fullscreen' ? '!p-0 md:!p-4' : ''
+      className={`dialog-shell fixed inset-0 flex items-center justify-center p-8 pointer-events-auto ${
+        mode === 'fullscreen' ? '!p-0 md:!p-8' : ''
       }`}
       style={{ ...style, zIndex }}
       onClick={handleBackdropClick}
@@ -128,10 +136,13 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
       data-fullscreen={mode === 'fullscreen' ? 'true' : 'false'}
     >
       {/* Backdrop - M3 Expressive blur effect */}
-      <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300"
-        aria-hidden="true"
-      />
+      {!hideBackdrop && (
+        <div
+          className="absolute inset-0 bg-black/40 animate-in fade-in duration-300"
+          style={{ backdropFilter: `blur(var(--sys-glass-blur))` }}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Dialog Panel - M3 Expressive */}
       <div
@@ -144,6 +155,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
           animate-in zoom-in-95 duration-300
           flex flex-col
           mx-4
+          aura-glass
           ${
             mode === 'fullscreen'
               ? 'w-full h-full md:h-[90vh] md:max-w-5xl md:rounded-3xl rounded-2xl'
@@ -159,41 +171,43 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         {headerContent ? (
           headerContent
         ) : (
-          <div className="px-6 py-4 md:py-6 border-b border-outline-variant/10 flex justify-between items-center shrink-0 bg-gradient-to-r from-transparent via-surface-container-highest/10 to-transparent">
+          <div className="px-4 md:px-6 py-4 md:py-6 border-b border-outline-variant/10 flex justify-between items-center shrink-0 bg-gradient-to-r from-transparent via-surface-container-highest/10 to-transparent">
             {/* Title & Subtitle */}
             <div className="flex-grow min-w-0">
               <h2
                 id="dialog-title"
-                className="m3-headline-small font-black text-on-surface line-clamp-1 tracking-tight"
+                className="m3-headline-small font-black text-on-surface tracking-tight"
               >
                 {title}
               </h2>
               {headline && (
-                <p className="m3-body-medium text-on-surface-variant opacity-80 line-clamp-2 mt-1 leading-snug">
+                <p className="m3-body-medium text-on-surface-variant opacity-80 line-clamp-2 mt-4 leading-snug">
                   {headline}
                 </p>
               )}
             </div>
 
             {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="w-10 h-10 rounded-full hover:bg-surface-container-highest flex items-center justify-center transition-colors ml-4"
-              aria-label="Chiudi"
-            >
-              <span className="material-symbols-outlined">close</span>
-            </button>
+            {!hideCloseButton && (
+              <button
+                onClick={onClose}
+                className="w-10 h-10 rounded-full hover:bg-surface-container-highest flex items-center justify-center transition-colors ml-4"
+                aria-label="Chiudi"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            )}
           </div>
         )}
 
         {/* Content Section */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar p-4 md:p-6">
+        <div className="flex-1 overflow-y-auto custom-scrollbar p-8 md:p-6">
           {children}
         </div>
 
         {/* Footer Section */}
         {(buttons || footerContent) && (
-          <div className="px-6 py-4 border-t border-outline-variant/10 bg-surface-container-low/50 flex justify-end items-center gap-3 shrink-0">
+          <div className="px-4 md:px-6 py-4 border-t border-outline-variant/10 bg-surface-container-low/50 flex justify-end items-center gap-6 shrink-0">
             {footerContent || buttons}
           </div>
         )}
@@ -216,7 +230,7 @@ export const M3DialogContent: React.FC<{ children: React.ReactNode; className?: 
 export const M3DialogActions: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
   className = '',
-}) => <footer className={`m3-dialog-actions flex justify-end gap-3 ${className}`}>{children}</footer>;
+}) => <footer className={`m3-dialog-actions flex justify-end gap-6 ${className}`}>{children}</footer>;
 
 /**
  * M3ConfirmDialog - Simple yes/no confirmation
@@ -245,10 +259,10 @@ export const M3ConfirmDialog: React.FC<{
       maxWidth="sm"
       buttons={
         <>
-          <button onClick={onCancel} className="m3-button-outlined">{cancelText}</button>
+          <button onClick={onCancel} className="m3-button-text">{cancelText}</button>
           <button 
             onClick={onConfirm} 
-            className={danger ? 'px-6 py-2 rounded-full bg-error text-on-error font-medium' : 'm3-button-filled'}
+            className={danger ? 'm3-button-error' : 'm3-button-filled'}
           >
             {confirmText}
           </button>

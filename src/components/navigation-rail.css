@@ -41,7 +41,16 @@
   /* Smooth transitions */
   transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
               width 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
-              height 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+              height 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+              background 0.3s ease,
+              backdrop-filter 0.3s ease;
+}
+
+/* Aura Style (Glassmorphism) */
+[data-visual-style="aura"] .m3-navigation-rail {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 /* Desktop: Vertical rail (>=600px) */
@@ -51,7 +60,7 @@
     bottom: 0;
     left: 0;
     right: auto;
-    width: 80px;
+    width: var(--nav-rail-width, 80px);
     height: 100%;
     border-top: none;
     border-right: 1px solid var(--sys-outline-variant, rgba(28, 27, 31, 0.12));
@@ -152,15 +161,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: calc(32px * var(--sys-font-scale, 1));
+  height: calc(32px * var(--sys-font-scale, 1));
   border-radius: 50%;
   transition: background 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 /* Icon styling */
 .m3-navigation-rail__icon-container .material-symbols-outlined {
-  font-size: 24px;
+  font-size: calc(24px * var(--sys-font-scale, 1));
   line-height: 1;
   color: inherit;
   transition: font-variation-settings 0.2s;
@@ -179,9 +188,9 @@
 /* Google Expressive Pill Indicator */
 [data-visual-style="expressive"] .m3-navigation-rail__item.active .m3-navigation-rail__icon-container {
   background: var(--sys-primary-container);
-  width: 64px;
-  height: 32px;
-  border-radius: 16px;
+  width: calc(64px * var(--sys-font-scale, 1));
+  height: calc(32px * var(--sys-font-scale, 1));
+  border-radius: calc(16px * var(--sys-font-scale, 1));
   color: var(--sys-on-primary-container);
 }
 

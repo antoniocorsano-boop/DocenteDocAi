@@ -469,6 +469,7 @@
 .w-auto { width: auto; }
 .h-full { height: 100%; }
 .h-2 { height: 8px; }
+.min-h-\[140px\] { min-height: 140px; }
 .min-w-0 { min-width: 0; }
 .max-w-3xl { max-width: 768px; }
 
@@ -516,6 +517,12 @@
 .bg-error-container { background-color: var(--sys-error-container); }
 .bg-primary { background-color: var(--sys-primary); }
 .bg-error { background-color: var(--sys-error); }
+
+/* Subtle Backgrounds (using color-mix for central control) */
+.bg-primary-subtle { background-color: color-mix(in srgb, var(--sys-primary), transparent 90%); }
+.bg-secondary-subtle { background-color: color-mix(in srgb, var(--sys-secondary), transparent 90%); }
+.bg-tertiary-subtle { background-color: color-mix(in srgb, var(--sys-tertiary), transparent 90%); }
+.bg-error-subtle { background-color: color-mix(in srgb, var(--sys-error), transparent 90%); }
 
 /* Text Color */
 .text-on-surface { color: var(--sys-on-surface); }
@@ -654,12 +661,42 @@
 @media (min-width: 768px) {
     .md\:flex-row { flex-direction: row; }
     .md\:text-left { text-align: left; }
+    .md\:p-4 { padding: var(--spacing-4); }
     .md\:p-6 { padding: var(--spacing-6); }
+    .md\:p-8 { padding: var(--spacing-8); }
+    .md\:px-6 { padding-left: var(--spacing-6); padding-right: var(--spacing-6); }
+    .md\:gap-4 { gap: var(--spacing-4); }
+    .md\:gap-6 { gap: var(--spacing-6); }
+    .md\:gap-8 { gap: var(--spacing-8); }
+    .md\:rounded-4xl { border-radius: calc(40px * var(--sys-radius-multiplier, 1)); }
+    .md\:w-16 { width: 64px; }
+    .md\:h-16 { height: 64px; }
+    .md\:text-4xl { font-size: 36px; }
     .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .md\:w-12 { width: 48px; }
+    .md\:h-12 { height: 48px; }
+    .md\:text-lg { font-size: 1.125rem; }
+    .md\:text-2xl { font-size: 1.5rem; }
+    .md\:min-h-\[160px\] { min-height: 160px; }
+    .md\:py-6 { padding-top: var(--spacing-6); padding-bottom: var(--spacing-6); }
+    .md\:py-12 { padding-top: 48px; padding-bottom: 48px; }
     .md\:w-auto { width: auto; }
     .md\:block { display: block; }
     .md\:hidden { display: none; }
+}
+
+/* Large Desktop Utilities (>=1024px) */
+@media (min-width: 1024px) {
+    .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .lg\:col-span-1 { grid-column: span 1 / span 1; }
+    .lg\:col-span-2 { grid-column: span 2 / span 2; }
+    .lg\:col-span-3 { grid-column: span 3 / span 3; }
+    .lg\:flex-row { flex-direction: row; }
+    .lg\:block { display: block; }
+    .lg\:hidden { display: none; }
 }
 
 /* Filter Utilities */

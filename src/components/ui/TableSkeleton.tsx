@@ -13,7 +13,7 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
 }) => (
     <div className={`space-y-2 ${className}`}>
         {/* Table header skeleton */}
-        <div className="flex gap-2">
+        <div className="flex gap-8">
             {Array.from({ length: columns }).map((_, i) => (
                 <div
                     key={i}
@@ -25,7 +25,7 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
         
         {/* Table rows skeleton */}
         {Array.from({ length: rows }).map((_, rowIndex) => (
-            <div key={rowIndex} className="flex gap-2">
+            <div key={rowIndex} className="flex gap-8">
                 {Array.from({ length: columns }).map((_, colIndex) => (
                     <div
                         key={colIndex}

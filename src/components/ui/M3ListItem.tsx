@@ -34,7 +34,7 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
             }}
             role={isClickable ? 'button' : undefined}
             tabIndex={isClickable ? 0 : undefined}
-            className={`flex items-start gap-4 p-4 rounded-xl transition-all ${isClickable ? 'cursor-pointer hover:bg-surface-container-highest/50 active:bg-surface-container-highest' : ''} ${className}`}
+            className={`flex items-start gap-8 p-8 rounded-xl transition-all ${isClickable ? 'cursor-pointer hover:bg-surface-container-highest/50 active:bg-surface-container-highest' : ''} ${className}`}
         >
             {leadingElement && <div className="flex-shrink-0 mt-0.5">{leadingElement}</div>}
             <div className="flex-grow min-w-0 flex flex-col gap-0.5">
@@ -48,7 +48,7 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
                 )}
                 {children}
             </div>
-            {trailingElement && <div className="flex-shrink-0 flex items-center gap-2 self-center">{trailingElement}</div>}
+            {trailingElement && <div className="flex-shrink-0 flex items-center gap-8 self-center">{trailingElement}</div>}
         </div>
     );
 };

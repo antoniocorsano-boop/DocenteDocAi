@@ -31,6 +31,10 @@ export const defaultLightTheme: Theme = {
   mode: 'light',
   visualStyle: 'aura',
   colors: lightColors,
+  glassBlur: 30,
+  radiusMultiplier: 1,
+  fontScale: 1,
+  contrastLevel: 0,
 };
 
 /** Default dark theme instance. */
@@ -39,6 +43,10 @@ export const defaultDarkTheme: Theme = {
   mode: 'dark',
   visualStyle: 'aura',
   colors: darkColors,
+  glassBlur: 30,
+  radiusMultiplier: 1,
+  fontScale: 1,
+  contrastLevel: 0,
 };
 
 

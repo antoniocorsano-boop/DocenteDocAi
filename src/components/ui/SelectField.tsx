@@ -41,7 +41,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 )}
             </div>
             {error && errorMessage && (
-                <div id={describedBy} className="m3-field-error text-error text-xs mt-1 flex items-center gap-1">
+                <div id={describedBy} className="m3-field-error text-error text-xs mt-4 flex items-center gap-4">
                     <span className="material-symbols-outlined text-error text-sm">error</span>
                     {errorMessage}
                 </div>

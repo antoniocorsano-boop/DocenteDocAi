@@ -160,29 +160,25 @@ export const validateTheme = (theme: unknown): theme is Theme => {
 export const createTheme = (config: { 
     name: string; 
     mode: 'light' | 'dark'; 
-    visualStyle?: 'aura' | 'flat' | 'minimal' | 'cupertino' | 'windows';
-    colors?: Partial<ColorTokens> 
+    visualStyle?: 'aura' | 'flat' | 'minimal' | 'cupertino' | 'windows' | 'expressive';
+    colors?: Partial<ColorTokens>;
+    glassBlur?: number;
+    radiusMultiplier?: number;
+    fontScale?: number;
+    contrastLevel?: number;
 }): Theme => {
   const baseTheme = config.mode === 'light' ? defaultLightTheme : defaultDarkTheme;
 
-  // If no custom colors provided, return base theme with updated name
-  if (!config.colors || Object.keys(config.colors).length === 0) {
-    return {
-      name: config.name,
-      mode: config.mode,
-      visualStyle: config.visualStyle || baseTheme.visualStyle,
-      colors: { ...baseTheme.colors },
-    };
-  }
-
   // Start from base theme and only override explicitly provided tokens
   const newColors: ColorTokens = { ...baseTheme.colors } as ColorTokens;
-  for (const key in config.colors) {
-    if (Object.prototype.hasOwnProperty.call(config.colors, key)) {
-      const tokenKey = key as keyof ColorTokens;
-      const value = config.colors[tokenKey];
-      if (typeof value === 'string' && value.length > 0) {
-        (newColors as any)[tokenKey] = value;
+  if (config.colors) {
+    for (const key in config.colors) {
+      if (Object.prototype.hasOwnProperty.call(config.colors, key)) {
+        const tokenKey = key as keyof ColorTokens;
+        const value = config.colors[tokenKey];
+        if (typeof value === 'string' && value.length > 0) {
+          (newColors as any)[tokenKey] = value;
+        }
       }
     }
   }
@@ -192,6 +188,10 @@ export const createTheme = (config: {
     mode: config.mode,
     visualStyle: config.visualStyle || baseTheme.visualStyle,
     colors: newColors,
+    glassBlur: config.glassBlur ?? baseTheme.glassBlur,
+    radiusMultiplier: config.radiusMultiplier ?? baseTheme.radiusMultiplier,
+    fontScale: config.fontScale ?? baseTheme.fontScale,
+    contrastLevel: config.contrastLevel ?? baseTheme.contrastLevel,
   };
 };
 
@@ -222,6 +222,23 @@ export const applyTheme = (theme: Theme): void => {
       if (themeSlug && themeSlug !== themeToApply.mode) {
           body.classList.add(`theme-${themeSlug}`);
       }
+  }
+
+  // Parametric styling injection
+  if (themeToApply.glassBlur !== undefined) {
+    root.style.setProperty('--glass-blur-px', `${themeToApply.glassBlur}px`);
+  }
+  if (themeToApply.radiusMultiplier !== undefined) {
+    root.style.setProperty('--sys-radius-multiplier', themeToApply.radiusMultiplier.toString());
+  }
+  
+  const fontScale = themeToApply.fontScale ?? 1;
+  root.style.setProperty('--sys-font-scale', fontScale.toString());
+  root.style.setProperty('--nav-rail-width', `${80 * fontScale}px`);
+
+  if (themeToApply.contrastLevel !== undefined) {
+    root.style.setProperty('--sys-contrast-level', themeToApply.contrastLevel.toString());
+    root.setAttribute('data-contrast-level', themeToApply.contrastLevel.toString());
   }
   
   for (const key in themeToApply.colors) {

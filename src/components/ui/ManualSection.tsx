@@ -16,7 +16,7 @@ const ManualSection: React.FC<ManualSectionProps> = ({
     defaultOpen = false 
 }) => (
     <details 
-        className="m3-expansion-panel group border-none bg-surface-container-low/50 backdrop-blur-sm rounded-2xl mb-4 overflow-hidden" 
+        className="m3-expansion-panel group border-none bg-surface-container-low/50 backdrop-blur-sm rounded-2xl mb-8 overflow-hidden" 
         open={defaultOpen} 
         style={{ transition: 'all var(--motion-duration-medium2) var(--motion-easing-standard)' }}
     >
@@ -26,7 +26,7 @@ const ManualSection: React.FC<ManualSectionProps> = ({
         >
             <div className={`flex items-center gap-5 ${colorClass}`}>
                 <div 
-                    className="p-3 rounded-2xl bg-surface-container-highest shadow-sm group-hover:scale-110" 
+                    className="p-6 rounded-2xl bg-surface-container-highest shadow-sm group-hover:scale-110" 
                     style={{ transition: 'transform var(--motion-duration-short3) var(--motion-easing-standard)' }}
                 >
                     <span className="material-symbols-outlined text-2xl">{icon}</span>

@@ -17,7 +17,7 @@ const M3BadgedIcon: React.FC<M3BadgedIconProps> = ({
 }) => {
     const sizeMap = {
         sm: { container: 'text-lg', badge: 'text-xs px-1.5 py-0.5' },
-        md: { container: 'text-2xl', badge: 'text-sm px-2 py-1' },
+        md: { container: 'text-2xl', badge: 'text-sm px-4 py-1' },
         lg: { container: 'text-4xl', badge: 'text-base px-2.5 py-1' }
     };
     return (

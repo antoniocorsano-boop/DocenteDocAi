@@ -16,7 +16,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
     const dim = sizeMap[size];
 
     return (
-        <div className={`flex ${inline ? 'flex-row gap-4' : 'flex-col gap-4'} items-center justify-center`}>
+        <div className={`flex ${inline ? 'flex-row gap-8' : 'flex-col gap-8'} items-center justify-center`}>
             <div className="relative flex items-center justify-center" style={{ width: dim.width, height: dim.height }}>
                 {/* Aura Ring */}
                 <div 
