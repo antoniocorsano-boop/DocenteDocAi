@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
+import { Box, Button, Divider, Typography, Stack, Card } from '@mui/material';
 import { Notifica, View } from '../types';
-import { InfoCard, M3Button } from './ui';
+import { M3Button } from './ui';
 
 interface NotificationsPopoverProps {
     notifiche: Notifica[];
@@ -19,18 +20,6 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
     onNavigate,
     onOpenCircularAnalysis,
 }) => {
-    const popoverRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-                onClose();
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [onClose]);
-
     const unreadCount = notifiche.filter(n => !n.letta).length;
     const sortedNotifiche = [...notifiche].sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
 
@@ -42,90 +31,262 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
     };
 
     return (
-        <div ref={popoverRef} className="m3-popup-menu header-notifications-popover flex flex-col gap-4 !p-8 w-96 max-w-[calc(100vw-32px)] max-h-[80vh] overflow-y-auto custom-scrollbar bg-surface-container-high/95 backdrop-blur-xl border border-outline-variant/30 shadow-2xl">
-            <div className="flex justify-between items-center p-6 mb-4 border-b border-outline-variant/10 sticky top-0 bg-surface-container-high/50 backdrop-blur-md z-10">
-                <h3 className="text-sm font-bold pl-1 text-on-surface">Notifiche</h3>
-                <div className="flex items-center gap-8">
+        <Box
+            sx={{
+                width: 'min(384px, calc(100vw - 32px))',
+                maxHeight: '80vh',
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: 'var(--sys-surface-container-high)',
+                borderRadius: 'var(--shape-xl)',
+                border: '1px solid var(--sys-outline-variant)',
+                boxShadow: 'var(--elevation-3)',
+                overflow: 'hidden',
+            }}
+        >
+            {/* Sticky Header */}
+            <Box
+                sx={{
+                    position: 'sticky',
+                    top: 0,
+                    backgroundColor: 'var(--sys-surface-container-high)',
+                    backdropFilter: 'blur(8px)',
+                    padding: '16px 24px',
+                    borderBottom: '1px solid var(--sys-outline-variant)',
+                    zIndex: 10,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: '16px',
+                }}
+            >
+                <Typography
+                    variant="subtitle2"
+                    sx={{
+                        fontWeight: 700,
+                        color: 'var(--sys-on-surface)',
+                    }}
+                >
+                    Notifiche
+                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     {unreadCount > 0 && (
-                        <M3Button onClick={onMarkAllAsRead} variant="tonal" size="small" className="!rounded-full">
-                            Segna lette
-                        </M3Button>
-                    )}
-                    <button onClick={onClose} className="w-8 h-8 rounded-full hover:bg-surface-container-highest flex items-center justify-center transition-colors" aria-label="Chiudi notifiche">
-                        <span className="material-symbols-outlined text-lg">close</span>
-                    </button>
-                </div>
-            </div>
-
-            {sortedNotifiche.length > 0 ? (
-                <div className="flex flex-col gap-8 p-1">
-                    {sortedNotifiche.map(notifica => (
-                        <InfoCard
-                            key={notifica.id}
-                            variant={!notifica.letta ? 'elevated' : 'tonal'}
-                            className={`p-6 transition-all cursor-pointer ${!notifica.letta ? 'ring-1 ring-primary/20' : 'opacity-80'}`}
-                            onClick={() => handleItemClick(notifica)}
+                        <Button
+                            onClick={onMarkAllAsRead}
+                            variant="outlined"
+                            size="small"
+                            sx={{
+                                textTransform: 'capitalize',
+                                fontSize: '0.75rem',
+                                color: 'var(--sys-on-surface)',
+                                borderColor: 'var(--sys-outline)',
+                            }}
                         >
-                            <div className="flex items-start gap-6">
-                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${!notifica.letta ? 'bg-primary text-on-primary' : 'bg-surface-container-high text-on-surface-variant'}`}>
-                                    <span className="material-symbols-outlined text-lg">
-                                        {notifica.type === 'circular' ? 'feed' : 'notifications'}
-                                    </span>
-                                </div>
-                                <div className="flex-grow min-w-0">
-                                    <div className="flex justify-between items-start gap-8">
-                                        <h4 className={`text-sm font-bold truncate ${!notifica.letta ? 'text-on-surface' : 'text-on-surface-variant'}`}>
-                                            {notifica.titolo}
-                                        </h4>
-                                        {!notifica.letta && <div className="w-2 h-2 rounded-full bg-primary shrink-0 mt-2.5"></div>}
-                                    </div>
-                                    <p className="text-xs text-on-surface-variant line-clamp-2 mt-0.5">
-                                        {notifica.messaggio}
-                                    </p>
-                                    
-                                    {(() => {
-                                        function isCircularPayload(payload: unknown): payload is { url: string; title: string } {
-                                            return (
-                                                !!payload &&
-                                                typeof payload === 'object' &&
-                                                'url' in payload &&
-                                                'title' in payload &&
-                                                typeof (payload as { url: unknown }).url === 'string' &&
-                                                typeof (payload as { title: unknown }).title === 'string'
-                                            );
-                                        }
-                                        if (notifica.type === 'circular' && isCircularPayload(notifica.payload)) {
-                                            const { url, title } = notifica.payload;
-                                            return (
-                                                <div className="flex gap-8 mt-3">
-                                                    <M3Button
-                                                        onClick={(e) => { e.stopPropagation(); onOpenCircularAnalysis(url, title); onClose(); }}
-                                                        variant="tonal"
+                            Segna lette
+                        </Button>
+                    )}
+                    <Button
+                        onClick={onClose}
+                        size="small"
+                        sx={{
+                            minWidth: '32px',
+                            width: '32px',
+                            height: '32px',
+                            padding: 0,
+                        }}
+                    >
+                        <span className="material-symbols-outlined text-lg">close</span>
+                    </Button>
+                </Box>
+            </Box>
+
+            {/* Scrollable Content */}
+            <Box
+                sx={{
+                    flex: 1,
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    padding: '8px',
+                    '&::-webkit-scrollbar': {
+                        width: '8px',
+                    },
+                    '&::-webkit-scrollbar-track': {
+                        backgroundColor: 'transparent',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: 'var(--sys-outline)',
+                        borderRadius: 'var(--shape-lg)',
+                        '&:hover': {
+                            backgroundColor: 'var(--sys-outline-variant)',
+                        },
+                    },
+                }}
+            >
+                {sortedNotifiche.length > 0 ? (
+                    <Stack spacing={1} sx={{ padding: '8px' }}>
+                        {sortedNotifiche.map(notifica => (
+                            <Card
+                                key={notifica.id}
+                                onClick={() => handleItemClick(notifica)}
+                                sx={{
+                                    padding: '16px',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease-in-out',
+                                    backgroundColor: notifica.letta
+                                        ? 'var(--sys-surface-container)'
+                                        : 'var(--sys-surface-dim)',
+                                    border: notifica.letta
+                                        ? '1px solid var(--sys-outline-variant)'
+                                        : '1px solid var(--sys-primary)',
+                                    '&:hover': {
+                                        boxShadow: 'var(--elevation-2)',
+                                    },
+                                }}
+                            >
+                                <Box sx={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                                    {/* Icon */}
+                                    <Box
+                                        sx={{
+                                            width: '40px',
+                                            height: '40px',
+                                            borderRadius: 'var(--shape-lg)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            flexShrink: 0,
+                                            backgroundColor: notifica.letta
+                                                ? 'var(--sys-surface-container-high)'
+                                                : 'var(--sys-primary)',
+                                            color: notifica.letta
+                                                ? 'var(--sys-on-surface-variant)'
+                                                : 'var(--sys-on-primary)',
+                                        }}
+                                    >
+                                        <span className="material-symbols-outlined text-lg">
+                                            {notifica.type === 'circular' ? 'feed' : 'notifications'}
+                                        </span>
+                                    </Box>
+
+                                    {/* Content */}
+                                    <Box sx={{ flex: 1, minWidth: 0 }}>
+                                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px', marginBottom: '4px' }}>
+                                            <Typography
+                                                variant="caption"
+                                                sx={{
+                                                    fontWeight: 700,
+                                                    color: notifica.letta
+                                                        ? 'var(--sys-on-surface-variant)'
+                                                        : 'var(--sys-on-surface)',
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    whiteSpace: 'nowrap',
+                                                    flex: 1,
+                                                }}
+                                            >
+                                                {notifica.titolo}
+                                            </Typography>
+                                            {!notifica.letta && (
+                                                <Box
+                                                    sx={{
+                                                        width: '8px',
+                                                        height: '8px',
+                                                        borderRadius: '50%',
+                                                        backgroundColor: 'var(--sys-primary)',
+                                                        flexShrink: 0,
+                                                        marginTop: '6px',
+                                                    }}
+                                                />
+                                            )}
+                                        </Box>
+                                        <Typography
+                                            variant="caption"
+                                            sx={{
+                                                color: 'var(--sys-on-surface-variant)',
+                                                display: '-webkit-box',
+                                                overflow: 'hidden',
+                                                WebkitLineClamp: 2,
+                                                WebkitBoxOrient: 'vertical',
+                                                marginBottom: '8px',
+                                            }}
+                                        >
+                                            {notifica.messaggio}
+                                        </Typography>
+
+                                        {(() => {
+                                            function isCircularPayload(payload: unknown): payload is { url: string; title: string } {
+                                                return (
+                                                    !!payload &&
+                                                    typeof payload === 'object' &&
+                                                    'url' in payload &&
+                                                    'title' in payload &&
+                                                    typeof (payload as { url: unknown }).url === 'string' &&
+                                                    typeof (payload as { title: unknown }).title === 'string'
+                                                );
+                                            }
+                                            if (notifica.type === 'circular' && isCircularPayload(notifica.payload)) {
+                                                const { url, title } = notifica.payload;
+                                                return (
+                                                    <Button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            onOpenCircularAnalysis(url, title);
+                                                            onClose();
+                                                        }}
+                                                        variant="text"
                                                         size="small"
-                                                        className="!bg-secondary/10 !text-secondary hover:!bg-secondary/20"
+                                                        sx={{
+                                                            textTransform: 'capitalize',
+                                                            fontSize: '0.75rem',
+                                                            color: 'var(--sys-secondary)',
+                                                            '&:hover': {
+                                                                backgroundColor: 'var(--sys-secondary)/10',
+                                                            },
+                                                        }}
                                                     >
                                                         <span className="material-symbols-outlined text-sm mr-1.5">auto_awesome</span>
                                                         Analizza Circolare
-                                                    </M3Button>
-                                                </div>
-                                            );
-                                        }
-                                        return null;
-                                    })()}
-                                </div>
-                            </div>
-                        </InfoCard>
-                    ))}
-                </div>
-            ) : (
-                <div className="py-12 px-6 text-center text-on-surface-variant/60 flex flex-col items-center">
-                    <div className="w-16 h-16 rounded-2xl bg-surface-container-highest flex items-center justify-center mb-8">
-                        <span className="material-symbols-outlined text-3xl">notifications_off</span>
-                    </div>
-                    <p className="text-sm font-medium">Nessuna notifica</p>
-                </div>
-            )}
-        </div>
+                                                    </Button>
+                                                );
+                                            }
+                                            return null;
+                                        })()}
+                                    </Box>
+                                </Box>
+                            </Card>
+                        ))}
+                    </Stack>
+                ) : (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '32px 24px',
+                            color: 'var(--sys-on-surface-variant)',
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                width: '64px',
+                                height: '64px',
+                                borderRadius: 'var(--shape-xl)',
+                                backgroundColor: 'var(--sys-surface-container-highest)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                marginBottom: '16px',
+                            }}
+                        >
+                            <span className="material-symbols-outlined text-3xl">notifications_off</span>
+                        </Box>
+                        <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                            Nessuna notifica
+                        </Typography>
+                    </Box>
+                )}
+            </Box>
+        </Box>
     );
 };
 
