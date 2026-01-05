@@ -10,7 +10,11 @@
     "test": "vitest",
     "test:unit": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:heal": "node scripts/lint-heal.js",
+    "lint:metrics": "node scripts/lint-metrics.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -56,6 +60,8 @@
     "eslint-plugin-react": "^7.37.5",
     "fake-indexeddb": "^6.2.5",
     "globals": "^16.5.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
     "typescript-eslint": "^8.51.0",
     "vite": "^7.3.0",
     "vite-plugin-html": "^3.2.2",
@@ -63,5 +69,14 @@
     "vitest": "^4.0.16"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "eslint"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
 }

@@ -6,31 +6,33 @@ import { vi } from 'vitest';
 // so components that call them do not crash the tests.
 if (typeof window !== 'undefined') {
 	// window.scrollTo
-	// @ts-ignore
+	// @ts-expect-error - scrollTo not in jsdom
 	if (typeof window.scrollTo !== 'function') window.scrollTo = () => {};
 	// HTMLElement.prototype.scrollTo
-	// @ts-ignore
-	if (typeof (window.HTMLElement as any).prototype.scrollTo !== 'function') {
-		// @ts-ignore
-		(window.HTMLElement as any).prototype.scrollTo = function () {};
+	// @ts-expect-error - scrollTo not in jsdom
+	if (typeof (window.HTMLElement as unknown as { prototype: { scrollTo?: unknown } }).prototype.scrollTo !== 'function') {
+		// @ts-expect-error - scrollTo not in jsdom
+		(window.HTMLElement as unknown as { prototype: Record<string, unknown> }).prototype.scrollTo = function () {};
 	}
 }
 
 // Mock Google APIs
-(global as any).google = {
+const globalWithGoogle = global as unknown as { google?: unknown; gapi?: unknown; fetch?: unknown };
+globalWithGoogle.google = {
   accounts: {
     oauth2: {
       initTokenClient: vi.fn(() => ({
         requestAccessToken: vi.fn(),
       })),
-      revoke: vi.fn((token: string, cb: () => void) => cb()),
+      revoke: vi.fn((token: unknown, cb: () => void) => cb()),
     },
   },
 };
 
-(global as any).gapi = {
-  load: vi.fn((api, config) => {
-    if (config && config.callback) config.callback();
+globalWithGoogle.gapi = {
+  load: vi.fn((api: unknown, config: unknown) => {
+    const cfg = config as unknown as { callback?: () => void };
+    if (cfg && cfg.callback) cfg.callback();
   }),
   client: {
     init: vi.fn(() => Promise.resolve()),
@@ -47,4 +49,4 @@ if (typeof window !== 'undefined') {
 };
 
 // Mock fetch
-(global as any).fetch = vi.fn();
+globalWithGoogle.fetch = vi.fn();

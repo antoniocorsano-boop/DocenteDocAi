@@ -5,7 +5,43 @@ import pluginReact from "eslint-plugin-react";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
+  {
+    ignores: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/coverage/**",
+      "**/playwright-report/**",
+      "**/test-results/**",
+      "**/.venv/**",
+      "**/docentedoc-ai/docentedoc-ai/**",
+      "**/vendor-*.js",
+      "**/react-vendor-*.js",
+      "**/vendor-react-check.js",
+      "src/build-polyfill.js",
+      "public/scheduler-polyfill.js",
+      "__tests__/**",
+      "**/*.test.tsx",
+      "**/*.test.ts",
+      "**/*.spec.tsx",
+      "**/*.spec.ts"
+    ]
+  },
+  { 
+    files: [
+      "src/**/*.{js,ts,tsx,jsx}", 
+      "scripts/**/*.{js,cjs,mjs,ts}", 
+      "tools/**/*.{js,cjs,mjs,ts}", 
+      "e2e/**/*.{ts,js}", 
+      "eslint.config.mjs", 
+      "vite.config.ts", 
+      "vitest.config.ts", 
+      "playwright.config.ts"
+    ], 
+    plugins: { js }, 
+    extends: ["js/recommended"], 
+    languageOptions: { globals: globals.browser } 
+  },
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
@@ -13,21 +49,54 @@ export default defineConfig([
     rules: {
       '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/ban-ts-comment': 'warn',
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-unsafe-function-type': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'warn',
+      '@typescript-eslint/explicit-module-boundary-types': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'off',
       'no-empty': 'warn',
       'no-prototype-builtins': 'off',
+      'react/prop-types': 'off',
+      'react/no-unescaped-entities': 'off',
+      'react/display-name': 'off',
     },
   },
   {
-    ignores: [
-      "__tests__/**/*.test.tsx",
-      "__tests__/**/*.test.ts",
-      "__tests__/**/*.spec.tsx",
-      "__tests__/**/*.spec.ts",
-      "src/**/*.test.tsx",
-      "src/**/*.test.ts",
-      "src/**/*.spec.tsx",
-      "src/**/*.spec.ts"
-    ]
-  }
+    files: ['src/components/views/**/*.{ts,tsx}'],
+    rules: {
+      'react/prop-types': 'off',
+    },
+  },
+  {
+    files: ['**/tools/**/*.{js,cjs,mjs,ts}', '**/scripts/**/*.{js,cjs,mjs,ts}', 'vite.config.ts', 'vitest.config.ts', 'playwright.config.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-unused-vars': 'off',
+      'no-empty': 'off',
+    },
+  },
+  {
+    files: ['src/sw.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.serviceworker,
+      },
+    },
+  },
+  {
+    files: ['src/services/googleDriveService.ts'],
+    languageOptions: {
+      globals: {
+        gapi: 'readonly',
+        google: 'readonly',
+      },
+    },
+  },
 ]);
