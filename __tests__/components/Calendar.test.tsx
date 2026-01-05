@@ -35,7 +35,7 @@ describe('Calendar', () => {
     render(<Calendar eventi={mockEventi} setEventi={mockSetEventi} aiSettings={mockAiSettings} onNavigate={mockOnNavigate} />);
     
     // Find the next button by role or title attribute
-    const nextButton = screen.getByTitle('Successivo');
+    const nextButton = screen.getByTitle('Mese successivo');
     fireEvent.click(nextButton);
     expect(screen.getByText(/[Nn]ovembre 2023/)).toBeInTheDocument();
   });

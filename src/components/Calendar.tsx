@@ -157,12 +157,12 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             <header className="calendar-header bg-surface-container-high/30 backdrop-blur-md border-b border-outline-variant/30 p-8 rounded-t-3xl">
                 <div className="calendar-header-left">
                     <div className="calendar-nav-group bg-surface-container-low/50 p-1 rounded-full border border-outline-variant/20">
-                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Precedente" className="!min-w-0 !p-8">
-                            <span className="material-symbols-outlined">chevron_left</span>
+                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" className="!min-w-0 !p-8">
+                            <span className="material-symbols-outlined" aria-hidden="true">chevron_left</span>
                         </M3Button>
-                        <M3Button variant="tonal" onClick={() => handleNavigate('today')} className="!px-4 !py-1 !h-auto">Oggi</M3Button>
-                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Successivo" className="!min-w-0 !p-8">
-                            <span className="material-symbols-outlined">chevron_right</span>
+                        <M3Button variant="tonal" onClick={() => handleNavigate('today')} className="!px-4 !py-1 !h-auto" title="Torna a oggi">Oggi</M3Button>
+                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Mese successivo" aria-label="Vai al mese successivo" className="!min-w-0 !p-8">
+                            <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
                         </M3Button>
                     </div>
                     <h2 className="calendar-title m3-headline-small ml-4">{title}</h2>
@@ -182,11 +182,11 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                     />
 
                     <div className="calendar-actions">
-                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza Circolare con AI" className="!min-w-0 !p-8">
-                            <span className="material-symbols-outlined text-primary">auto_awesome</span>
+                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" className="!min-w-0 !p-8">
+                            <span className="material-symbols-outlined text-primary" aria-hidden="true">auto_awesome</span>
                         </M3Button>
-                        <M3Button variant="filled" onClick={() => setEditingEvent({})} className="flex items-center gap-8">
-                            <span className="material-symbols-outlined">add</span>
+                        <M3Button variant="filled" onClick={() => setEditingEvent({})} className="flex items-center gap-8" title="Crea nuovo evento">
+                            <span className="material-symbols-outlined" aria-hidden="true">add</span>
                             Nuovo Evento
                         </M3Button>
                     </div>
@@ -318,7 +318,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             <div className="calendar-day-body" ref={scrollContainerRef}>
                 {dayEvents.length === 0 ? (
                     <div className="flex flex-col items-center justify-center p-12 text-center opacity-60">
-                        <span className="material-symbols-outlined text-6xl mb-8">event_busy</span>
+                        <span className="material-symbols-outlined text-6xl mb-8" aria-hidden="true">event_busy</span>
                         <p className="m3-body-large">Nessun evento per questo giorno</p>
                         <M3Button variant="text" onClick={() => setEditingEvent({})} className="mt-4">Aggiungi Evento</M3Button>
                     </div>
@@ -350,7 +350,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
         <div className="calendar-agenda p-8">
             {Object.keys(agendaGroups).length === 0 ? (
                 <div className="flex flex-col items-center justify-center p-12 text-center opacity-60">
-                    <span className="material-symbols-outlined text-6xl mb-8">event_busy</span>
+                    <span className="material-symbols-outlined text-6xl mb-8" aria-hidden="true">event_busy</span>
                     <p className="m3-body-large">Nessun evento questo mese</p>
                 </div>
             ) : (

@@ -51,21 +51,45 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
 
       <div className="flex gap-8 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
           {student.isArchived ? (
-              <M3Button onClick={() => onRestore(student)} variant="icon" className="text-primary hover:bg-primary/10" title="Ripristina Studente">
-                  <span className="material-symbols-outlined">restore_from_trash</span>
+              <M3Button 
+                  onClick={() => onRestore(student)} 
+                  variant="icon" 
+                  className="text-primary hover:bg-primary/10" 
+                  title="Ripristina Studente come attivo"
+                  aria-label={`Ripristina ${student.cognome} ${student.nome} come studente attivo`}
+              >
+                  <span className="material-symbols-outlined" aria-hidden="true">restore_from_trash</span>
               </M3Button>
           ) : (
               <>
-                  <M3Button onClick={() => onTransfer(student)} variant="icon" className="text-secondary hover:bg-secondary/10" title="Cambio Classe / Trasferimento">
-                      <span className="material-symbols-outlined">transfer_within_a_station</span>
+                  <M3Button 
+                      onClick={() => onTransfer(student)} 
+                      variant="icon" 
+                      className="text-secondary hover:bg-secondary/10" 
+                      title="Cambia classe o trasferisci studente"
+                      aria-label={`Cambia classe per ${student.cognome} ${student.nome}`}
+                  >
+                      <span className="material-symbols-outlined" aria-hidden="true">transfer_within_a_station</span>
                   </M3Button>
-                  <M3Button onClick={() => onEdit(student)} variant="icon" className="hover:bg-surface-container-highest" title="Modifica">
-                      <span className="material-symbols-outlined">edit</span>
+                  <M3Button 
+                      onClick={() => onEdit(student)} 
+                      variant="icon" 
+                      className="hover:bg-surface-container-highest" 
+                      title="Modifica dati studente"
+                      aria-label={`Modifica dati per ${student.cognome} ${student.nome}`}
+                  >
+                      <span className="material-symbols-outlined" aria-hidden="true">edit</span>
                   </M3Button>
               </>
           )}
-          <M3Button onClick={() => { if (confirm("Eliminare definitivamente studente?")) onDelete(student.id); }} variant="icon" className="text-error hover:bg-error/10" title="Elimina Definitivamente">
-              <span className="material-symbols-outlined">delete</span>
+          <M3Button 
+              onClick={() => { if (confirm(`Eliminare definitivamente ${student.cognome} ${student.nome}?`)) onDelete(student.id); }} 
+              variant="icon" 
+              className="text-error hover:bg-error/10" 
+              title="Elimina studente definitivamente"
+              aria-label={`Elimina ${student.cognome} ${student.nome} dal sistema`}
+          >
+              <span className="material-symbols-outlined" aria-hidden="true">delete</span>
           </M3Button>
       </div>
     </div>
@@ -132,15 +156,20 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                 <div className="flex flex-wrap gap-8 items-center p-6 bg-surface-container-high/50 border-b border-outline-variant/10">
                     <div className="flex-grow min-w-[250px]">
                         <TextField
-                            placeholder="Cerca studente..."
+                            id="student-search"
+                            label="Cerca studente per nome..."
+                            placeholder="Digita nome o cognome..."
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
-                            icon="search"
+                            leadingIcon="search"
                             className="bg-surface-container-low/50"
+                            aria-label="Ricerca studenti per nome o cognome"
                         />
                     </div>
                     <div className="w-48">
                         <SelectField
+                            id="class-filter"
+                            label="Seleziona classe"
                             value={filterClass}
                             onChange={e => setFilterClass(e.target.value)}
                             options={[
@@ -148,14 +177,18 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                                 ...userClasses.map(c => ({ value: c, label: `Classe ${c}` }))
                             ]}
                             className="bg-surface-container-low/50"
+                            aria-label="Filtra studenti per classe"
                         />
                     </div>
                     <M3Button
                         onClick={() => setShowArchived(!showArchived)}
                         variant={showArchived ? "tonal" : "text"}
                         className={`font-black text-[10px] uppercase tracking-widest ${showArchived ? 'bg-secondary-container/30 text-secondary' : ''}`}
+                        title={showArchived ? 'Nascondi studenti archiviati' : 'Mostra studenti archiviati'}
+                        aria-label={showArchived ? 'Nascondi archivio studenti' : 'Mostra archivio studenti'}
+                        aria-pressed={showArchived}
                     >
-                        <span className="material-symbols-outlined text-base mr-2">{showArchived ? 'archive' : 'unarchive'}</span>
+                        <span className="material-symbols-outlined text-base mr-2" aria-hidden="true">{showArchived ? 'archive' : 'unarchive'}</span>
                         {showArchived ? 'Archivio ON' : 'Archivio OFF'}
                     </M3Button>
                 </div>

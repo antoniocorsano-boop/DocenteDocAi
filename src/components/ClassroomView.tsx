@@ -143,21 +143,36 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     return (
         <div className="classroom-view-container h-full flex flex-col bg-surface-container-low">
             <div className="bg-surface z-20 px-4 py-4 flex items-center justify-between border-b border-outline-variant shadow-sm">
-                <button onClick={onCloseView} className="icon-button -ml-2"><span className="material-symbols-outlined">arrow_back</span></button>
+                <button 
+                    onClick={onCloseView} 
+                    className="icon-button -ml-2"
+                    title="Torna indietro"
+                    aria-label="Chiudi vista lezione e torna alla lista lezioni"
+                >
+                    <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+                </button>
 
                 <div className="flex gap-8 m3-label-small font-bold uppercase tracking-wider">
-                    <div className="flex items-center gap-4 text-primary">
-                        <span className="material-symbols-outlined m3-label-large">group</span>
+                    <div className="flex items-center gap-4 text-primary" aria-label={`Presenti: ${attendanceSummary.present}`}>
+                        <span className="material-symbols-outlined m3-label-large" aria-hidden="true">group</span>
                         <span>{attendanceSummary.present} PRES.</span>
                     </div>
-                    <div className={`flex items-center gap-4 ${attendanceSummary.absent > 0 ? 'text-error animate-pulse' : 'text-on-surface-variant opacity-50'}`}>
-                        <span className="material-symbols-outlined m3-label-large">person_off</span>
+                    <div 
+                        className={`flex items-center gap-4 ${attendanceSummary.absent > 0 ? 'text-error animate-pulse' : 'text-on-surface-variant opacity-50'}`}
+                        aria-label={`Assenti: ${attendanceSummary.absent}`}
+                    >
+                        <span className="material-symbols-outlined m3-label-large" aria-hidden="true">person_off</span>
                         <span>{attendanceSummary.absent} ASS.</span>
                     </div>
                 </div>
 
-                <button onClick={() => onFinalizeRegister(draftKey)} className="button button-filled !h-8 !px-3 m3-label-small bg-primary">
-                    <span className="material-symbols-outlined m3-label-large mr-1">save</span> Fine
+                <button 
+                    onClick={() => onFinalizeRegister(draftKey)} 
+                    className="button button-filled !h-8 !px-3 m3-label-small bg-primary"
+                    title="Finalizza e chiudi registro"
+                    aria-label="Salva e chiudi il registro di questa lezione"
+                >
+                    <span className="material-symbols-outlined m3-label-large mr-1" aria-hidden="true">save</span> Fine
                 </button>
             </div>
 
