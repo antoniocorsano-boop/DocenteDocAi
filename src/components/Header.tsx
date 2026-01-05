@@ -45,18 +45,18 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
     }> = ({ icon, label, onClick, badge, variant = 'primary' }) => (
         <button 
             onClick={onClick}
-            className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-highest transition-all group text-left"
+            className="w-full flex items-center gap-8 p-6 rounded-xl hover:bg-surface-container-highest transition-all group text-left"
         >
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                variant === 'error' ? 'bg-error/10 text-error' : 
-                variant === 'secondary' ? 'bg-secondary/10 text-secondary' : 
-                'bg-primary/10 text-primary'
+                variant === 'error' ? 'bg-error-subtle text-error' : 
+                variant === 'secondary' ? 'bg-secondary-subtle text-secondary' : 
+                'bg-primary-subtle text-primary'
             }`}>
                 <span className="material-symbols-outlined">{icon}</span>
             </div>
             <span className="flex-grow font-medium text-on-surface">{label}</span>
             {badge !== undefined && (
-                <span className="bg-error text-on-error text-[10px] font-bold px-2 py-0.5 rounded-full">
+                <span className="bg-error text-on-error m3-label-tiny font-bold px-4 py-0.5 rounded-full">
                     {badge}
                 </span>
             )}
@@ -65,16 +65,16 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
     );
 
     return (
-        <div ref={popoverRef} className="m3-popup-menu header-actions-popover flex flex-col gap-1 !p-2 w-80 max-w-[calc(100vw-32px)] bg-surface-container-high/95 backdrop-blur-xl border border-outline-variant/30 shadow-2xl">
-            <div className="flex justify-between items-center p-4 mb-2 border-b border-outline-variant/10">
-                <div className="flex items-center gap-3">
+        <div ref={popoverRef} className="m3-popup-menu header-actions-popover aura-glass flex flex-col gap-4 !p-8 w-80 max-w-[calc(100vw-32px)]">
+            <div className="flex justify-between items-center p-8 mb-8 border-b border-outline-variant/10">
+                <div className="flex items-center gap-6">
                     <Avatar
                         name={props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante 
                             ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}` 
                             : props.settings?.nomeInsegnante || user?.displayName || 'Docente'}
                         src={user?.photoURL}
                         size="sm"
-                        className="w-10 h-10 ring-2 ring-primary/20"
+                        className="w-10 h-10 ring-2 ring-primary-subtle"
                     />
                     <div className="flex flex-col">
                         <p className="text-sm font-bold text-primary truncate max-w-[180px]">
@@ -82,7 +82,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                                 ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}` 
                                 : props.settings?.nomeInsegnante || user?.displayName || 'Menu'}
                         </p>
-                        <p className="text-[11px] text-on-surface-variant font-medium uppercase tracking-wider">
+                        <p className="m3-label-small text-on-surface-variant font-medium uppercase tracking-wider">
                             {props.settings?.nomeIstituto || 'Docente'}
                         </p>
                     </div>
@@ -92,7 +92,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 </button>
             </div>
 
-            <div className="px-2 space-y-1">
+            <div className="px-4 space-y-1">
                 <MenuItem 
                     icon="notifications" 
                     label="Notifiche" 
@@ -174,8 +174,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
     
     return (
         <>
-            <header className="header-root backdrop-blur-md bg-surface-container-low/80 border-b border-outline-variant/20" role="banner">
-                <div className="header-left flex items-center gap-2">
+            <header className="header-root" role="banner">
+                <div className="header-left flex items-center gap-8">
                     {showBackButton && (
                         <button
                             aria-label="Indietro"
@@ -197,7 +197,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     className="header-center"
                     aria-label={!showBackButton ? 'Home' : undefined}
                 >
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-8">
                         <Logo 
                             isAiThinking={isAiProcessing} 
                             className="header-logo" 
@@ -207,9 +207,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     {isAiProcessing && <AiThinkingGem size="small" />}
                 </div>
 
-                <div className="header-right flex items-center gap-2">
+                <div className="header-right flex items-center gap-8">
                     {!isOnline && (
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-error/10 text-error border border-error/20 animate-pulse" title="Modalità Offline">
+                        <div className="flex items-center gap-8 px-3 py-1.5 rounded-full bg-error/10 text-error border border-error/20 animate-pulse" title="Modalità Offline">
                             <span className="material-symbols-outlined text-sm">cloud_off</span>
                             <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Offline</span>
                         </div>
@@ -273,13 +273,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
             >
                 <M3DialogContent>
                     <div className="flex flex-col items-center gap-6 py-4">
-                        <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-2">
+                        <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-8">
                             <span className="material-symbols-outlined text-3xl">share</span>
                         </div>
                         <p className="text-center text-on-surface-variant max-w-xs">
                             Scansiona o copia il link per accedere alla tua app didattica da altri dispositivi.
                         </p>
-                        <InfoCard variant="tonal" className="w-full p-4 flex items-center justify-between gap-3 group">
+                        <InfoCard variant="tonal" className="w-full p-8 flex items-center justify-between gap-6 group">
                             <code className="text-sm font-mono text-primary truncate flex-grow">
                                 {window.location.href}
                             </code>

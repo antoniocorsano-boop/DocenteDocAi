@@ -38,13 +38,13 @@ const TimerWidget: React.FC = () => {
     };
 
     return (
-        <div className="bg-surface-container border border-outline-variant rounded-2xl p-4 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-md">
+        <div className="bg-surface-container border border-outline-variant rounded-2xl p-8 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-md">
             {/* Background Decor */}
-            <div className="absolute -top-4 -right-4 text-[100px] text-on-surface opacity-[0.03] pointer-events-none rotate-12">
+            <div className="absolute -top-4 -right-4 m3-icon-xl-hero text-on-surface opacity-[0.03] pointer-events-none rotate-12">
                  timer
             </div>
             
-            <div className="flex items-center gap-2 text-primary z-10">
+            <div className="flex items-center gap-8 text-primary z-10">
                 <span className="material-symbols-outlined filled-icon">timer</span>
                 <span className="m3-label-small font-bold uppercase tracking-wider">Cronometro</span>
             </div>
@@ -53,7 +53,7 @@ const TimerWidget: React.FC = () => {
                 {formatTime(time)}
             </div>
             
-            <div className="flex gap-2 w-full z-10 mt-auto">
+            <div className="flex gap-8 w-full z-10 mt-auto">
                 <button 
                     onClick={handleReset} 
                     className="button button-tonal flex-shrink-0 !w-12 !px-0 justify-center" 
@@ -95,13 +95,13 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
     };
     
     return (
-        <div className="bg-surface-container-high border border-outline-variant rounded-2xl p-4 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-md">
+        <div className="bg-surface-container-high border border-outline-variant rounded-2xl p-8 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-md">
              {/* Background Decor */}
-            <div className="absolute -top-4 -right-4 text-[100px] text-on-surface opacity-[0.03] pointer-events-none rotate-12">
+            <div className="absolute -top-4 -right-4 m3-icon-xl-hero text-on-surface opacity-[0.03] pointer-events-none rotate-12">
                  casino
             </div>
 
-            <div className="flex items-center gap-2 text-tertiary z-10">
+            <div className="flex items-center gap-8 text-tertiary z-10">
                 <span className="material-symbols-outlined filled-icon">casino</span>
                 <span className="m3-label-small font-bold uppercase tracking-wider">Estrazione</span>
             </div>
@@ -114,7 +114,7 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
                     </div>
                 ) : (
                      <div className="text-on-surface-variant/40 flex flex-col items-center">
-                        <span className="material-symbols-outlined m3-display-small mb-1">groups</span>
+                        <span className="material-symbols-outlined m3-display-small mb-4">groups</span>
                         <span className="m3-body-small font-medium">Pronto ad estrarre</span>
                      </div>
                 )}
@@ -136,7 +136,7 @@ const ClassroomTools: React.FC<ClassroomToolsProps> = ({ students, studentAttend
     const presentStudents = students.filter(s => studentAttendance[s.id] === 'presente');
     
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <TimerWidget />
             <RandomStudentWidget presentStudents={presentStudents} />
             

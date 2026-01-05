@@ -38,13 +38,13 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
 
     return (
         <div ref={popoverRef} className="m3-popup-menu" style={style}>
-            <div className="p-4 bg-surface-container-high rounded-xl mb-2">
+            <div className="p-8 bg-surface-container-high rounded-xl mb-8">
                 <h3 className="m3-title-medium">{event.titolo}</h3>
-                <p className="m3-body-small text-on-surface-variant mt-1">
+                <p className="m3-body-small text-on-surface-variant mt-4">
                     {new Date(event.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'long' })}
                     {event.oraInizio && ` • ${event.oraInizio}`}
                 </p>
-                {event.descrizione && <p className="m3-body-medium mt-2 opacity-80 line-clamp-3">{event.descrizione}</p>}
+                {event.descrizione && <p className="m3-body-medium mt-4 opacity-80 line-clamp-3">{event.descrizione}</p>}
             </div>
             
             <button onClick={() => { onEdit(event); onClose(); }} className="m3-menu-item">

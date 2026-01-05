@@ -57,11 +57,11 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="space-y-8">
                 <form id="event-modal-form" onSubmit={handleSubmit} className="space-y-8">
                     <div>
-                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.25em] px-2 mb-4 block">Tipo Evento</label>
-                        <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">
+                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.25em] px-4 mb-8 block">Tipo Evento</label>
+                        <div className="flex gap-6 overflow-x-auto pb-2 custom-scrollbar">
                             {eventTypes.map(t => (
                                 <M3ChoiceCard
                                     key={t.value}
@@ -85,7 +85,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                         autoFocus
                     />
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-8">
                         <TextField 
                             id="event-data-input"
                             name="event-data"

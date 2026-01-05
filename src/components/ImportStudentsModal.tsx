@@ -16,7 +16,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
     const [step, setStep] = useState<'upload' | 'mapping' | 'confirm'>('upload');
     const [importSource, setImportSource] = useState<'file' | 'kb'>('file');
     const [targetClass, setTargetClass] = useState<string>(userClasses[0] || 'AUTO');
-    const [csvData, setCsvData] = useState<any[]>([]);
+    const [csvData, setCsvData] = useState<Record<string, string>[]>([]);
     const [csvHeaders, setCsvHeaders] = useState<string[]>([]);
     const [columnMap, setColumnMap] = useState({ cognome: '', nome: '', classe: '' });
     const [error, setError] = useState('');
@@ -24,7 +24,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
     const [fileName, setFileName] = useState('');
     const [infoMessage, setInfoMessage] = useState('');
 
-    const processRawData = useCallback((headers: string[], data: any[], name: string) => {
+    const processRawData = useCallback((headers: string[], data: Record<string, string>[], name: string) => {
         setFileName(name);
         setError('');
         setInfoMessage('');
@@ -105,7 +105,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
             const headers = lines[0].split(/[;,]/).map(h => h.trim());
             const data = lines.slice(1).map(line => {
                 const values = line.split(/[;,]/).map(v => v.trim());
-                const obj: any = {};
+                const obj: Record<string, string> = {};
                 headers.forEach((h, i) => obj[h] = values[i]);
                 return obj;
             });
@@ -162,7 +162,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 <option disabled>──────────</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </SelectField>
-                            {targetClass === 'AUTO' && <p className="text-[10px] text-on-surface-variant mt-1 px-2">Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</p>}
+                            {targetClass === 'AUTO' && <p className="text-[10px] text-on-surface-variant mt-4 px-4">Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</p>}
                         </div>
 
                         <TabGroup
@@ -181,7 +181,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         <a
                                             href={`data:text/csv;charset=utf-8,Cognome,Nome${targetClass === 'AUTO' ? ',Classe' : ''}%0ARossi,Mario${targetClass === 'AUTO' ? ',1A' : ''}%0ABianchi,Giulia${targetClass === 'AUTO' ? ',2B' : ''}`}
                                             download="modello_studenti.csv"
-                                            className="button button-tonal !h-auto !py-2 !px-4 !text-xs"
+                                            className="button button-tonal !h-auto !py-4 !px-4 !text-xs"
                                         >
                                             <span className="material-symbols-outlined text-sm mr-2">download</span>
                                             Scarica Modello
@@ -189,7 +189,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                     }
                                     icon="description"
                                     variant="surface"
-                                    className="!p-5 !rounded-2xl mb-4"
+                                    className="!p-5 !rounded-2xl mb-8"
                                 />
 
                                 <div
@@ -201,31 +201,31 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
                                     ) : (
                                         <>
-                                            <span className="material-symbols-outlined text-5xl text-primary mb-4">{isDragActive ? 'download' : 'upload_file'}</span>
+                                            <span className="material-symbols-outlined text-5xl text-primary mb-8">{isDragActive ? 'download' : 'upload_file'}</span>
                                             <h3 className="m3-title-medium font-bold text-on-surface text-center">Trascina il file .csv o .xlsx qui</h3>
-                                            <p className="m3-body-small opacity-60 mt-2 font-bold uppercase tracking-widest">o clicca per selezionare</p>
+                                            <p className="m3-body-small opacity-60 mt-4 font-bold uppercase tracking-widest">o clicca per selezionare</p>
                                         </>
                                     )}
                                 </div>
                             </div>
                         ) : (
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-8">
                                 <p className="m3-label-small uppercase text-primary font-bold">Seleziona un file CSV dalla KB</p>
-                                <div className="bg-surface-container-low rounded-xl max-h-[250px] overflow-y-auto p-2 border border-outline-variant/30 flex flex-col gap-1">
+                                <div className="bg-surface-container-low rounded-xl max-h-[250px] overflow-y-auto p-8 border border-outline-variant/30 flex flex-col gap-4">
                                     {knowledgeBase.length > 0 ? (
                                         knowledgeBase.map(entry => (
                                             <div
                                                 key={entry.id}
                                                 onClick={() => handleKbFileSelect(entry)}
-                                                className="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container-high transition-all cursor-pointer group"
+                                                className="flex items-center gap-6 p-6 rounded-xl hover:bg-surface-container-high transition-all cursor-pointer group"
                                             >
-                                                <span className="material-symbols-outlined text-primary bg-primary-container/30 p-2 rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-colors">description</span>
+                                                <span className="material-symbols-outlined text-primary bg-primary-container/30 p-8 rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-colors">description</span>
                                                 <span className="text-sm font-bold truncate flex-grow text-on-surface">{entry.fileName}</span>
                                                 <span className="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all">chevron_right</span>
                                             </div>
                                         ))
                                     ) : (
-                                        <div className="p-8 text-center flex flex-col items-center gap-2 opacity-60">
+                                        <div className="p-8 text-center flex flex-col items-center gap-8 opacity-60">
                                             <span className="material-symbols-outlined text-3xl">folder_off</span>
                                             <p className="text-sm">Nessun file nella Knowledge Base.</p>
                                         </div>
@@ -235,7 +235,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         )}
 
                         {error && (
-                            <div className="flex items-start gap-3 p-4 bg-error-container text-on-error-container rounded-xl">
+                            <div className="flex items-start gap-6 p-8 bg-error-container text-on-error-container rounded-xl">
                                 <span className="material-symbols-outlined">error</span>
                                 <p className="text-sm font-medium">{error}</p>
                             </div>
@@ -243,7 +243,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 
                         {infoMessage && (
                             <div className="p-5 bg-tertiary-container text-on-tertiary-container rounded-2xl">
-                                <div className="flex items-center gap-2 mb-2">
+                                <div className="flex items-center gap-8 mb-8">
                                     <span className="material-symbols-outlined">lightbulb</span>
                                     <h3 className="m3-title-small font-bold">Suggerimento AI: XLSX to CSV</h3>
                                 </div>
@@ -264,11 +264,11 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             className="!p-6 !rounded-2xl"
                         />
 
-                        <p className="m3-body-medium text-on-surface-variant px-2">
+                        <p className="m3-body-medium text-on-surface-variant px-4">
                             Il sistema ha tentato di associare automaticamente le colonne. Verifica o correggi le associazioni.
                         </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <SelectField
                                 id="map-cognome"
                                 label="Colonna COGNOME"
@@ -303,7 +303,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         </div>
 
                         <div>
-                            <h4 className="m3-label-large uppercase text-primary font-bold mb-3 px-2">Anteprima Dati (Prime 3 righe)</h4>
+                            <h4 className="m3-label-large uppercase text-primary font-bold mb-6 px-4">Anteprima Dati (Prime 3 righe)</h4>
                             <div className="overflow-x-auto border border-outline-variant/30 rounded-xl">
                                 <table className="w-full text-sm text-left">
                                     <thead className="text-xs text-on-surface-variant bg-surface-container-high uppercase font-bold">
@@ -336,10 +336,10 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         />
 
                         {targetClass === 'AUTO' && (
-                            <div className="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 text-sm flex gap-3 items-start">
+                            <div className="p-8 bg-surface-container-low rounded-xl border border-outline-variant/30 text-sm flex gap-6 items-start">
                                 <span className="material-symbols-outlined text-primary text-xl">info</span>
                                 <div>
-                                    <p className="font-bold mb-1 text-on-surface">Nota Importante</p>
+                                    <p className="font-bold mb-4 text-on-surface">Nota Importante</p>
                                     <p className="text-on-surface-variant">Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</p>
                                 </div>
                             </div>
@@ -359,7 +359,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         <tr key={index} className="bg-surface hover:bg-surface-container-low transition-colors">
                                             <td className="px-4 py-3 font-bold text-on-surface">{student.cognome}</td>
                                             <td className="px-4 py-3 text-on-surface">{student.nome}</td>
-                                            <td className="px-4 py-3"><span className="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-black text-xs">{student.classe}</span></td>
+                                            <td className="px-4 py-3"><span className="px-4 py-0.5 rounded-full bg-primary-container text-on-primary-container font-black text-xs">{student.classe}</span></td>
                                         </tr>
                                     ))}
                                 </tbody>

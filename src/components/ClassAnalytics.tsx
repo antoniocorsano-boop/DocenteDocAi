@@ -54,10 +54,10 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
             onClose={onClose}
             maxWidth="2xl"
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-6">
+            <M3DialogContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-surface-container-low p-6 rounded-3xl border border-outline-variant">
-                        <h3 className="text-lg font-bold text-on-surface mb-4">Media Voti per Classe</h3>
+                        <h3 className="text-lg font-bold text-on-surface mb-8">Media Voti per Classe</h3>
                         <div className="flex justify-center">
                             {classPerformanceData.length > 0 ? (
                                 <BarChart data={classPerformanceData} color="var(--sys-tertiary)" />
@@ -71,7 +71,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                     </div>
 
                     <div className="bg-surface-container-low p-6 rounded-3xl border border-outline-variant flex flex-col items-center">
-                        <h3 className="text-lg font-bold text-on-surface mb-4">Situazione Globale</h3>
+                        <h3 className="text-lg font-bold text-on-surface mb-8">Situazione Globale</h3>
                         <DonutChart data={globalStats} />
                         <p className="text-xs text-on-surface-variant mt-4 text-center">
                             Proporzione di studenti con media sufficiente vs insufficiente su tutte le classi.
@@ -80,7 +80,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                 </div>
                 
                 <div className="bg-surface-container-low p-6 rounded-3xl border border-outline-variant">
-                     <h3 className="text-lg font-bold text-on-surface mb-4">Dettaglio Numerico</h3>
+                     <h3 className="text-lg font-bold text-on-surface mb-8">Dettaglio Numerico</h3>
                      <div className="overflow-x-auto">
                          <table className="w-full text-left border-collapse">
                              <thead>

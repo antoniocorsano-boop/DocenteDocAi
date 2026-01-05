@@ -39,7 +39,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                 </div>
             </div>
             <div className="card">
-                <div className="p-4">
+                <div className="p-8">
                     <div className="search-input-container max-w-lg">
                         <span className="material-symbols-outlined">search</span>
                         <input 
@@ -83,7 +83,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                         </tbody>
                     </table>
                 </div>
-                {filteredReports.length === 0 && <p className="text-center p-4 text-on-surface-variant">{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
+                {filteredReports.length === 0 && <p className="text-center p-8 text-on-surface-variant">{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
             </div>
         </div>
     );

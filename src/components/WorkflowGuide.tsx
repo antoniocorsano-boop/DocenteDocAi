@@ -19,7 +19,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                 <span className="material-symbols-outlined text-secondary">alt_route</span>
                 Percorsi Veloci
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {workflows.map((workflow) => (
                     <div key={workflow.id} className="workflow-card">
                         <details className="group">

@@ -76,7 +76,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                         icon="explore"
                         variant="surface"
                     >
-                        <p className="m3-body-medium text-on-surface-variant mt-2 line-clamp-2">
+                        <p className="m3-body-medium text-on-surface-variant mt-4 line-clamp-2">
                             {activity.description}
                         </p>
                     </InfoCard>
@@ -101,11 +101,11 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 <table className="w-full border-collapse">
                     <thead>
                         <tr className="bg-surface-container-low/50">
-                            <th className="p-4 text-left m3-label-large text-primary uppercase tracking-widest">Studente</th>
-                            <th className="p-4 text-center m3-label-large text-primary uppercase tracking-widest">Ore Totali</th>
-                            <th className="p-4 text-center m3-label-large text-primary uppercase tracking-widest">Capolavoro</th>
-                            <th className="p-4 text-center m3-label-large text-primary uppercase tracking-widest">Autovalutazione</th>
-                            <th className="p-4 text-right m3-label-large text-primary uppercase tracking-widest">Azioni</th>
+                            <th className="p-8 text-left m3-label-large text-primary uppercase tracking-widest">Studente</th>
+                            <th className="p-8 text-center m3-label-large text-primary uppercase tracking-widest">Ore Totali</th>
+                            <th className="p-8 text-center m3-label-large text-primary uppercase tracking-widest">Capolavoro</th>
+                            <th className="p-8 text-center m3-label-large text-primary uppercase tracking-widest">Autovalutazione</th>
+                            <th className="p-8 text-right m3-label-large text-primary uppercase tracking-widest">Azioni</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-outline-variant/10">
@@ -115,14 +115,14 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                             
                             return (
                                 <tr key={student.id} className="hover:bg-primary/5 transition-colors">
-                                    <td className="p-4">
-                                        <div className="flex items-center gap-3">
+                                    <td className="p-8">
+                                        <div className="flex items-center gap-6">
                                             <Avatar name={`${student.nome} ${student.cognome}`} size="sm" />
                                             <span className="font-bold text-on-surface">{student.cognome} {student.nome}</span>
                                         </div>
                                     </td>
-                                    <td className="p-4 text-center">
-                                        <div className="flex flex-col items-center gap-1">
+                                    <td className="p-8 text-center">
+                                        <div className="flex flex-col items-center gap-4">
                                             <span className="font-black text-primary">{totalHours}/30h</span>
                                             <div className="w-24 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
                                                 <div 
@@ -132,17 +132,17 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="p-4 text-center">
+                                    <td className="p-8 text-center">
                                         <span className={`material-symbols-outlined ${state.hasCapolavoro ? 'text-tertiary' : 'text-on-surface-variant/20'}`}>
                                             {state.hasCapolavoro ? 'check_circle' : 'radio_button_unchecked'}
                                         </span>
                                     </td>
-                                    <td className="p-4 text-center">
+                                    <td className="p-8 text-center">
                                         <span className={`material-symbols-outlined ${state.hasAutovalutazione ? 'text-tertiary' : 'text-on-surface-variant/20'}`}>
                                             {state.hasAutovalutazione ? 'check_circle' : 'radio_button_unchecked'}
                                         </span>
                                     </td>
-                                    <td className="p-4 text-right">
+                                    <td className="p-8 text-right">
                                         <M3Button onClick={() => setViewingStudent(student)} variant="text">
                                             Dettagli
                                         </M3Button>
@@ -158,7 +158,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
 
     return (
         <div className="page-layout px-6 pb-32">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                 <SectionHeader 
                     title="Orientamento & E-Portfolio"
                     subtitle="Monitoraggio delle 30 ore annuali e gestione documenti istituzionali (Linee Guida 2023)."
@@ -186,7 +186,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 >
                     <div className="mt-4">
                         <span className="text-4xl font-black text-primary">{totalHours}h</span>
-                        <p className="m3-body-small text-on-surface-variant mt-2">
+                        <p className="m3-body-small text-on-surface-variant mt-4">
                             {totalHours >= 30 ? '✅ Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
                         </p>
                     </div>
@@ -220,7 +220,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
             </div>
 
             <div className="mt-12 aura-glass rounded-[2.5rem] overflow-hidden border border-outline-variant/20">
-                <div className="flex border-b border-outline-variant/10 bg-surface/30 backdrop-blur-md p-2">
+                <div className="flex border-b border-outline-variant/10 bg-surface/30 backdrop-blur-md p-8">
                     <button 
                         onClick={() => setActiveTab('activities')}
                         className={`flex-grow py-4 font-black text-[10px] uppercase tracking-widest transition-all rounded-2xl ${activeTab === 'activities' ? 'bg-primary text-on-primary shadow-lg' : 'text-on-surface-variant hover:bg-surface-container-high'}`}

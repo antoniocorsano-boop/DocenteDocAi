@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
-import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SelectField } from './ui';
 
 interface AnalyticsDashboardProps {
@@ -18,8 +17,6 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
     actions: state.actions
   }));
   const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
-
-  const modalRef = useKeyboardNavigation(true, onClose);
 
   // Calcola statistiche aggiuntive
   const stats = useMemo(() => {
@@ -93,13 +90,13 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
       maxWidth="2xl"
       level={1}
     >
-      <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
+      <M3DialogContent className="space-y-6">
           {/* GDPR Notice */}
-          <div className="bg-blue-50/50 border border-blue-200/30 rounded-xl p-4 backdrop-blur-md">
-            <div className="flex items-start gap-3">
+          <div className="bg-blue-50/50 border border-blue-200/30 rounded-xl p-8 backdrop-blur-md">
+            <div className="flex items-start gap-6">
               <span className="material-symbols-outlined text-blue-600 mt-0.5">privacy_tip</span>
               <div>
-                <h3 className="font-bold text-blue-900 mb-1 text-sm uppercase tracking-wider">📋 Informativa Privacy</h3>
+                <h3 className="font-bold text-blue-900 mb-4 text-sm uppercase tracking-wider">📋 Informativa Privacy</h3>
                 <p className="text-xs text-blue-800 leading-relaxed">
                   Questi dati sono memorizzati localmente sul tuo dispositivo e non vengono mai trasmessi a server esterni.
                   Puoi disabilitare la raccolta dati in qualsiasi momento dalle impostazioni.
@@ -116,50 +113,50 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               { id: 'settings', label: 'Impostazioni', icon: 'settings' }
             ]}
             activeTab={activeTab}
-            onChange={(id) => setActiveTab(id as any)}
+            onChange={(id) => setActiveTab(id)}
           />
 
           {/* Tab Content */}
           {activeTab === 'overview' && (
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
               {/* Metriche Principali */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-surface-container-low/50 rounded-xl p-4 border border-outline/10">
-                  <div className="flex items-center gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="bg-surface-container-low/50 rounded-xl p-8 border border-outline/10">
+                  <div className="flex items-center gap-6">
                     <span className="material-symbols-outlined text-green-600">description</span>
                     <div>
                       <p className="text-xl font-black text-on-surface">{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</p>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Documenti</p>
+                      <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">Documenti</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 rounded-xl p-4 border border-outline/10">
-                  <div className="flex items-center gap-3">
+                <div className="bg-surface-container-low/50 rounded-xl p-8 border border-outline/10">
+                  <div className="flex items-center gap-6">
                     <span className="material-symbols-outlined text-blue-600">smart_toy</span>
                     <div>
                       <p className="text-xl font-black text-on-surface">{formatNumber(analyticsMetrics.aiInteractionsCount)}</p>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Interazioni AI</p>
+                      <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">Interazioni AI</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 rounded-xl p-4 border border-outline/10">
-                  <div className="flex items-center gap-3">
+                <div className="bg-surface-container-low/50 rounded-xl p-8 border border-outline/10">
+                  <div className="flex items-center gap-6">
                     <span className="material-symbols-outlined text-purple-600">file_copy</span>
                     <div>
                       <p className="text-xl font-black text-on-surface">{formatNumber(analyticsMetrics.templatesCreated)}</p>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Template</p>
+                      <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">Template</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 rounded-xl p-4 border border-outline/10">
-                  <div className="flex items-center gap-3">
+                <div className="bg-surface-container-low/50 rounded-xl p-8 border border-outline/10">
+                  <div className="flex items-center gap-6">
                     <span className="material-symbols-outlined text-orange-600">batch_prediction</span>
                     <div>
                       <p className="text-xl font-black text-on-surface">{formatNumber(analyticsMetrics.exportBatchesCount)}</p>
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Export</p>
+                      <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">Export</p>
                     </div>
                   </div>
                 </div>
@@ -168,7 +165,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               {/* Attività Recente */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
-                  <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary mb-4">Attività 7 Giorni</h3>
+                  <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Attività 7 Giorni</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
                       <span className="text-sm font-medium text-on-surface-variant">Eventi Totali</span>
@@ -185,7 +182,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 </div>
 
                 <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
-                  <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary mb-4">Funzionalità Top</h3>
+                  <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Funzionalità Top</h3>
                   <div className="space-y-2">
                     {stats.topFeatures.length > 0 ? stats.topFeatures.map(([feature, count]) => (
                       <div key={feature} className="flex justify-between items-center">
@@ -202,10 +199,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               {/* Tipi Documento */}
               {stats.documentTypes.length > 0 && (
                 <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
-                  <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary mb-4">Documenti per Tipo</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Documenti per Tipo</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {stats.documentTypes.map(([type, count]) => (
-                      <div key={type} className="flex justify-between items-center p-2 rounded-xl bg-surface/50">
+                      <div key={type} className="flex justify-between items-center p-8 rounded-xl bg-surface/50">
                         <span className="text-sm font-medium text-on-surface-variant capitalize">{type.replace('_', ' ')}</span>
                         <span className="text-sm font-black text-primary">{count}</span>
                       </div>
@@ -218,18 +215,18 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
           {activeTab === 'details' && (
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary px-2">Eventi Recenti</h3>
+              <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary px-4">Eventi Recenti</h3>
               <div className="max-h-96 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
                 {analyticsEvents.slice(-20).reverse().map(event => (
-                  <div key={event.id} className="bg-surface-container-low/50 rounded-2xl p-3 border border-outline/5 hover:border-primary/20 transition-colors">
+                  <div key={event.id} className="bg-surface-container-low/50 rounded-2xl p-6 border border-outline/5 hover:border-primary/20 transition-colors">
                     <div className="flex justify-between items-start">
                       <div>
                         <p className="font-bold text-sm text-on-surface">{event.featureName}</p>
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+                        <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">
                           {event.eventType.replace('_', ' ')}
                         </p>
                       </div>
-                      <span className="text-[10px] font-medium text-on-surface-variant bg-surface-container-high px-2 py-1 rounded-full">
+                      <span className="m3-label-tiny font-medium text-on-surface-variant bg-surface-container-high px-4 py-1 rounded-full">
                         {formatDate(event.timestamp)}
                       </span>
                     </div>
@@ -237,7 +234,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 ))}
                 {analyticsEvents.length === 0 && (
                   <div className="text-center py-12">
-                    <span className="material-symbols-outlined text-4xl text-on-surface-variant/30 mb-2">history</span>
+                    <span className="material-symbols-outlined text-4xl text-on-surface-variant/30 mb-8">history</span>
                     <p className="text-sm text-on-surface-variant">Nessun evento registrato</p>
                   </div>
                 )}
@@ -248,9 +245,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           {activeTab === 'settings' && (
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
               <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
-                <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary mb-4">Raccolta Dati</h3>
+                <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Raccolta Dati</h3>
                 <div className="space-y-4">
-                  <label className="flex items-center justify-between p-3 rounded-2xl hover:bg-surface-container-high/50 transition-colors cursor-pointer">
+                  <label className="flex items-center justify-between p-6 rounded-2xl hover:bg-surface-container-high/50 transition-colors cursor-pointer">
                     <div>
                       <span className="font-bold text-sm text-on-surface">Analytics Abilitati</span>
                       <p className="text-xs text-on-surface-variant">
@@ -270,7 +267,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
                   {analyticsSettings.enabled && (
                     <>
-                      <label className="flex items-center justify-between p-3 rounded-2xl hover:bg-surface-container-high/50 transition-colors cursor-pointer">
+                      <label className="flex items-center justify-between p-6 rounded-2xl hover:bg-surface-container-high/50 transition-colors cursor-pointer">
                         <div>
                           <span className="font-bold text-sm text-on-surface">Utilizzo Funzionalità</span>
                           <p className="text-xs text-on-surface-variant">
@@ -291,7 +288,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         </div>
                       </label>
 
-                      <label className="flex items-center justify-between p-3 rounded-2xl hover:bg-surface-container-high/50 transition-colors cursor-pointer">
+                      <label className="flex items-center justify-between p-6 rounded-2xl hover:bg-surface-container-high/50 transition-colors cursor-pointer">
                         <div>
                           <span className="font-bold text-sm text-on-surface">Metriche Documenti</span>
                           <p className="text-xs text-on-surface-variant">
@@ -317,7 +314,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               </div>
 
               <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
-                <h3 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary mb-4">Gestione Dati</h3>
+                <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Gestione Dati</h3>
                 <div className="space-y-6">
                   <SelectField
                     label="Conservazione Dati"
@@ -335,7 +332,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
                   <div className="flex items-center justify-between pt-4 border-t border-outline/10">
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-1">Ultimo Reset</p>
+                      <p className="m3-label-tiny font-black uppercase tracking-wider text-on-surface-variant mb-4">Ultimo Reset</p>
                       <p className="text-sm font-bold text-on-surface">
                         {analyticsSettings.lastReset
                           ? formatDate(analyticsSettings.lastReset)

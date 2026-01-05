@@ -74,7 +74,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
             level={1}
         >
             <form onSubmit={handleSubmit} className="space-y-6">
-                <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
+                <M3DialogContent className="space-y-6">
                     <SelectField
                         id="eval-student-select"
                         label="Studente"
@@ -86,7 +86,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                         {students.map((s: Studente) => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
                     </SelectField>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-8">
                         <SelectField
                             id="eval-materia-select"
                             label="Materia"
@@ -110,8 +110,8 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                     </div>
 
                     <div>
-                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-2 mb-3 block">Tipo Prova</label>
-                        <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+                        <label className="m3-label-small text-primary font-black uppercase tracking-[0.2em] px-4 mb-6 block">Tipo Prova</label>
+                        <div className="flex gap-8 overflow-x-auto pb-2 no-scrollbar">
                             {EVALUATION_TYPES.map(t => (
                                 <M3ChoiceCard
                                     key={t}
@@ -141,7 +141,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                     />
                 </M3DialogContent>
 
-                <M3DialogActions className="gap-2">
+                <M3DialogActions className="gap-8">
                     <M3Button variant="text" onClick={onClose} type="button">Annulla</M3Button>
                     <M3Button variant="filled" type="submit">Salva Valutazione</M3Button>
                 </M3DialogActions>

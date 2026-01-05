@@ -1,6 +1,6 @@
 
 import React, { useMemo } from 'react';
-import { View, NavigationParams, AiSuggestion } from '../types';
+import { View, NavigationParams } from '../types';
 import { ActionTile, M3ExpressiveCard } from './ui';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
@@ -76,7 +76,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
             <section className="space-y-6">
                 <header className="space-y-2">
                     <h1 className="m3-headline-medium font-black tracking-tight text-on-surface">Buongiorno Prof. {cognomeInsegnante || nomeInsegnante}!</h1>
-                    <div className="flex items-center justify-between text-[10px] text-primary font-black uppercase tracking-[0.3em] opacity-70">
+                    <div className="flex items-center justify-between m3-label-tiny text-primary font-black uppercase tracking-[0.3em] opacity-70">
                         <span>{todayLabel}</span>
                         <span className="hidden md:inline tracking-[0.4em]">Dashboard Docente</span>
                     </div>
@@ -84,7 +84,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
 
                 <div className="space-y-4">
                     <p className="m3-label-small uppercase tracking-[0.3em] text-on-surface-variant font-black opacity-50">Azioni rapide</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {QUICK_ACTIONS.map((action) => (
                             <ActionTile
                                 key={action.label}
@@ -106,7 +106,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
             </section>
 
             <section className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <M3ExpressiveCard icon="group" title="Studenti" description={`${metrics.studenti} iscritti`} color="primary" onClick={() => onNavigate('studenti' as View)} />
                     <M3ExpressiveCard icon="assignment" title="Verifiche oggi" description={`${metrics.verificheOggi} programmate`} color="secondary" onClick={() => onNavigate('evaluations' as View)} />
                     <M3ExpressiveCard icon="check_circle" title="Presenze" description={`${metrics.presenze} media`} color="tertiary" onClick={() => onNavigate('studenti' as View)} />
@@ -122,7 +122,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                     <span className="material-symbols-outlined text-2xl text-primary">school</span>
                                 </div>
                             </div>
-                            <h2 className="m3-headline-small font-black text-on-surface tracking-tight leading-tight mb-2">
+                            <h2 className="m3-headline-small font-black text-on-surface tracking-tight leading-tight mb-8">
                                 {nextLesson.materia}
                             </h2>
                             <p className="m3-title-medium text-primary font-bold mb-6">{lessonTagline}</p>
@@ -131,7 +131,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                             </p>
                         </div>
                         
-                        <div className="mt-10 flex gap-4 relative z-10">
+                        <div className="mt-10 flex gap-8 relative z-10">
                             <button 
                                 onClick={() => onNavigate('aula' as View, { classe: nextLesson.classe })}
                                 className="px-8 py-4 bg-primary text-on-primary rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-105 transition-all"
@@ -159,10 +159,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                         >
                             <div className="mt-4 space-y-3">
                                 {recentActivities.slice(0, 5).map((a) => (
-                                    <div key={a.id} className="p-4 rounded-2xl bg-surface-container-low/50 border border-outline-variant/10 flex items-center justify-between group/item hover:bg-surface-container-low transition-colors">
+                                    <div key={a.id} className="p-8 rounded-2xl bg-surface-container-low/50 border border-outline-variant/10 flex items-center justify-between group/item hover:bg-surface-container-low transition-colors">
                                         <div>
                                             <div className="text-xs font-black uppercase tracking-widest text-on-surface">{a.title}</div>
-                                            <div className="text-[10px] font-medium text-on-surface-variant mt-1">{a.meta}</div>
+                                            <div className="text-[10px] font-medium text-on-surface-variant mt-4">{a.meta}</div>
                                         </div>
                                         <div className="text-[10px] font-black text-on-surface-variant opacity-40">{a.time}</div>
                                     </div>
@@ -175,36 +175,36 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
 
                     <div className="lg:col-span-1 space-y-6">
                         {showAiSuggestion ? (
-                            <div className="aura-glass p-8 h-full flex flex-col border-l-4 border-primary relative overflow-hidden group">
+                            <div className="aura-glass p-8 md:p-8 h-full flex flex-col border-l-4 border-primary relative overflow-hidden group rounded-3xl">
                                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
-                                <div className="flex items-center gap-3 mb-6 relative z-10">
+                                <div className="flex items-center gap-6 mb-8 md:mb-6 relative z-10">
                                     <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                                         <span className="material-symbols-outlined">auto_awesome</span>
                                     </div>
                                     <span className="text-[10px] font-black uppercase tracking-widest text-primary">Suggerimento AI</span>
                                 </div>
-                                <h3 className="m3-title-large font-black text-on-surface mb-4 leading-tight relative z-10">{activeSuggestion.title}</h3>
-                                <p className="m3-body-medium text-on-surface-variant font-medium mb-8 opacity-80 relative z-10">{activeSuggestion.description}</p>
-                                <div className="mt-auto flex flex-col gap-3 relative z-10">
+                                <h3 className="text-xl md:m3-title-large font-black text-on-surface mb-8 leading-tight relative z-10">{activeSuggestion.title}</h3>
+                                <p className="text-sm md:m3-body-medium text-on-surface-variant font-medium mb-6 md:mb-8 opacity-80 relative z-10">{activeSuggestion.description}</p>
+                                <div className="mt-auto flex flex-col gap-6 relative z-10">
                                     <button 
                                         onClick={() => onNavigate(activeSuggestion.actionView as View)}
-                                        className="w-full py-4 bg-primary/10 text-primary rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-primary/20 transition-all"
+                                        className="w-full py-3 md:py-4 bg-primary/10 text-primary rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-primary/20 transition-all"
                                     >
                                         {activeSuggestion.actionLabel}
                                     </button>
                                     <button 
                                         onClick={() => dismissSuggestion(activeSuggestion.id)}
-                                        className="w-full py-3 text-on-surface-variant font-black text-[9px] uppercase tracking-widest opacity-50 hover:opacity-100 transition-all"
+                                        className="w-full py-4 md:py-3 text-on-surface-variant font-black text-[9px] uppercase tracking-widest opacity-50 hover:opacity-100 transition-all"
                                     >
                                         Ignora per ora
                                     </button>
                                 </div>
                             </div>
                         ) : (
-                            <div className="aura-glass p-8 h-full flex flex-col items-center justify-center text-center border border-dashed border-outline-variant/30">
-                                <span className="material-symbols-outlined text-4xl text-primary/30 mb-4">auto_awesome</span>
+                            <div className="aura-glass p-8 md:p-8 h-full flex flex-col items-center justify-center text-center border border-dashed border-outline-variant/30 rounded-3xl">
+                                <span className="material-symbols-outlined text-4xl text-primary/30 mb-8">auto_awesome</span>
                                 <p className="m3-label-large font-black text-on-surface-variant uppercase tracking-widest opacity-40">Nessun suggerimento</p>
-                                <p className="text-[10px] font-medium text-on-surface-variant mt-2 px-4">L'assistente sta analizzando i tuoi dati per fornirti consigli personalizzati.</p>
+                                <p className="text-[10px] font-medium text-on-surface-variant mt-4 px-4">L'assistente sta analizzando i tuoi dati per fornirti consigli personalizzati.</p>
                             </div>
                         )}
 
@@ -213,21 +213,21 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                 <p className="m3-label-small uppercase tracking-[0.3em] text-on-surface-variant font-black opacity-50">Altri consigli</p>
                                 {suggestions.slice(0, 2).map((suggestion) => (
                                     <div key={suggestion.id} className="aura-glass p-5 border border-outline-variant/10 hover:border-primary/30 transition-all group">
-                                        <div className="flex items-start gap-4">
+                                        <div className="flex items-start gap-8">
                                             <div className="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary shrink-0">
                                                 <span className="material-symbols-outlined text-xl">{suggestion.icon}</span>
                                             </div>
                                             <div>
                                                 <div className="text-xs font-black text-on-surface uppercase tracking-tight">{suggestion.title}</div>
-                                                <div className="text-[10px] text-on-surface-variant mt-1 line-clamp-2">{suggestion.description}</div>
+                                                <div className="text-[10px] text-on-surface-variant mt-4 line-clamp-2">{suggestion.description}</div>
                                                 <button
                                                     className="mt-3 text-[9px] font-black text-primary uppercase tracking-widest hover:underline"
                                                     onClick={() => {
                                                         if (suggestion.action?.type === 'navigate' && suggestion.action.payload) {
                                                             const payload = typeof suggestion.action.payload === 'string'
                                                                 ? suggestion.action.payload
-                                                                : (suggestion.action.payload as any).view || 'home';
-                                                            onNavigate(payload as View, (suggestion.action.payload as any).context);
+                                                                : (suggestion.action.payload as unknown as { view: string }).view || 'home';
+                                                            onNavigate(payload as View, typeof suggestion.action.payload === 'object' ? (suggestion.action.payload as unknown as { context?: string }).context : undefined);
                                                         }
                                                     }}
                                                 >

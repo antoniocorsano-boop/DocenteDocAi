@@ -9,21 +9,22 @@ const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
             onClose={onClose}
             maxWidth="md"
             level={1}
+            hideBackdrop={true}
         >
-            <M3DialogContent className="overflow-y-auto space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
-                <h3 className="m3-title-large text-primary">Architettura "Local-First" e Privacy</h3>
-                <p className="m3-body-medium text-on-surface-variant">
+            <M3DialogContent className="overflow-y-auto space-y-12 px-12 pt-12 pb-0">
+                <h3 className="m3-title-large text-primary mb-8">Architettura "Local-First" e Privacy</h3>
+                <p className="m3-body-medium text-on-surface-variant mb-8">
                     OrarioDoc AI è un'applicazione **Local-First**. Ciò significa che tutti i tuoi dati sensibili (studenti, voti, note, PEI/PDP) vengono salvati **esclusivamente** sul tuo dispositivo, nel browser che stai utilizzando (IndexedDB e LocalStorage).
                 </p>
-                <p className="m3-body-medium text-on-surface-variant">
+                <p className="m3-body-medium text-on-surface-variant mb-12">
                     **Non esiste un server centrale di OrarioDoc AI** che raccolga o abbia accesso ai tuoi dati. Questo garantisce la massima privacy e la tua totale sovranità sui dati.
                 </p>
 
-                <h3 className="m3-title-large text-secondary">Backup su Google Drive (BYOC)</h3>
-                <p className="m3-body-medium text-on-surface-variant">
+                <h3 className="m3-title-large text-secondary mb-8">Backup su Google Drive (BYOC)</h3>
+                <p className="m3-body-medium text-on-surface-variant mb-8">
                     Per evitare la perdita dei dati in caso di problemi al dispositivo (guasti, smarrimento, pulizia cache del browser), è fortemente consigliato attivare il backup su Google Drive.
                 </p>
-                <ul className="list-disc pl-5 space-y-2 m3-body-medium text-on-surface-variant">
+                <ul className="list-disc pl-8 space-y-4 m3-body-medium text-on-surface-variant mb-12">
                     <li>
                         **Bring Your Own Cloud (BYOC):** Il backup avviene sul **tuo account Google Drive personale o istituzionale**. L'app non salva nulla su server di terzi.
                     </li>
@@ -35,8 +36,8 @@ const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
                     </li>
                 </ul>
 
-                <h3 className="m3-title-large text-tertiary">Sincronizzazione Automatica e Manuale</h3>
-                <ul className="list-disc pl-5 space-y-2 m3-body-medium text-on-surface-variant">
+                <h3 className="m3-title-large text-tertiary mb-8">Sincronizzazione Automatica e Manuale</h3>
+                <ul className="list-disc pl-8 space-y-4 m3-body-medium text-on-surface-variant mb-0">
                     <li>
                         **Manuale:** Puoi eseguire un backup o ripristino in qualsiasi momento tramite i pulsanti "Backup Ora" e "Ripristina".
                     </li>
@@ -49,7 +50,7 @@ const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
                 </ul>
             </M3DialogContent>
 
-            <M3DialogActions className="gap-2">
+            <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
                 <M3Button onClick={onClose} variant="filled">Ho capito</M3Button>
             </M3DialogActions>
         </M3Dialog>

@@ -8,7 +8,6 @@ import {
     M3Dialog, 
     M3DialogContent, 
     M3DialogActions, 
-    SectionHeader, 
     InfoCard, 
     EmptyState, 
     TextField, 
@@ -123,7 +122,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     handleUpdate({...selectedCurriculum, nuclei: newNuclei});
                                 }} 
                                 variant="text"
-                                className="text-error ml-2 mt-7 !min-w-0 !p-2" 
+                                className="text-error ml-2 mt-7 !min-w-0 !p-8" 
                                 title="Elimina Nucleo"
                             >
                                 <span className="material-symbols-outlined">delete</span>
@@ -131,10 +130,10 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         </div>
                         <div className="space-y-3 pl-4 border-l-2 border-outline-variant/30">
                             {nucleo.objectives.map((obj, oIdx) => (
-                                <div key={obj.id} className="flex gap-2 items-center group">
+                                <div key={obj.id} className="flex gap-8 items-center group">
                                     <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${obj.type === 'skill' ? 'bg-tertiary' : 'bg-secondary'}`}></span>
                                     <input 
-                                        className="flex-grow bg-transparent border-none focus:ring-0 m3-body-small py-2 font-bold text-on-surface border-b border-transparent hover:border-outline-variant focus:border-primary transition-all"
+                                        className="flex-grow bg-transparent border-none focus:ring-0 m3-body-small py-4 font-bold text-on-surface border-b border-transparent hover:border-outline-variant focus:border-primary transition-all"
                                         value={obj.text}
                                         onChange={(e) => {
                                             const newNuclei = [...selectedCurriculum.nuclei];
@@ -163,7 +162,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     handleUpdate({...selectedCurriculum, nuclei: newNuclei});
                                 }} 
                                 variant="tonal"
-                                className="!h-9 !px-4 text-[11px] font-extrabold uppercase tracking-[0.2em] mt-2 bg-surface-container-high/50 rounded-full"
+                                className="!h-9 !px-4 m3-label-small font-extrabold uppercase tracking-[0.2em] mt-4 bg-surface-container-high/50 rounded-full"
                             >
                                 <span className="material-symbols-outlined m3-body-small mr-2">add</span> Aggiungi Obiettivo
                             </M3Button>
@@ -185,11 +184,11 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
     };
 
     return (
-        <div className="page-layout h-[calc(100vh-64px)] overflow-hidden !gap-0 !p-0 md:!p-4">
+        <div className="page-layout h-[calc(100vh-var(--header-height,64px))] overflow-hidden !gap-0 !p-0 md:!p-8">
             <div className="flex h-full bg-surface-container-low/30 backdrop-blur-xl md:rounded-4xl overflow-hidden border border-outline-variant/30 shadow-2xl">
                 <div className="w-80 border-r border-outline-variant/30 flex flex-col bg-surface-container-low/50 backdrop-blur-md flex-shrink-0">
-                    <div className="p-6 border-b border-outline-variant/30 flex items-center gap-4">
-                        <M3Button onClick={() => onNavigate('home')} variant="text" className="!min-w-0 !p-2">
+                    <div className="p-6 border-b border-outline-variant/30 flex items-center gap-8">
+                        <M3Button onClick={() => onNavigate('home')} variant="text" className="!min-w-0 !p-8">
                             <span className="material-symbols-outlined">arrow_back</span>
                         </M3Button>
                         <h1 className="text-xl font-black tracking-tight text-on-surface">Curricoli</h1>
@@ -203,16 +202,16 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             Crea Curricolo
                         </M3Button>
                     </div>
-                    <div className="flex-grow overflow-y-auto p-3 space-y-2 custom-scrollbar">
+                    <div className="flex-grow overflow-y-auto p-6 space-y-2 custom-scrollbar">
                         {curricula.map(curr => (
                             <div 
                                 key={curr.id} 
                                 onClick={() => setSelectedCurriculumId(curr.id)} 
-                                className={`p-4 rounded-xl cursor-pointer transition-all flex justify-between items-center group ${selectedCurriculumId === curr.id ? 'bg-primary text-on-primary shadow-xl scale-[1.02]' : 'hover:bg-surface-container-high/50'}`}
+                                className={`p-8 rounded-xl cursor-pointer transition-all flex justify-between items-center group ${selectedCurriculumId === curr.id ? 'bg-primary text-on-primary shadow-xl scale-[1.02]' : 'hover:bg-surface-container-high/50'}`}
                             >
                                 <div className="min-w-0">
-                                    <p className="font-extrabold text-sm truncate leading-none mb-1">{curr.subject}</p>
-                                    <p className="text-[10px] opacity-70 uppercase font-extrabold tracking-widest">{curr.gradeLevel}</p>
+                                    <p className="font-extrabold text-sm truncate leading-none mb-4">{curr.subject}</p>
+                                    <p className="m3-label-tiny opacity-70 uppercase font-extrabold tracking-widest">{curr.gradeLevel}</p>
                                 </div>
                                 <M3Button 
                                     onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }} 
@@ -231,9 +230,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             <div className="px-8 py-6 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-high/20 backdrop-blur-md shadow-sm z-10">
                                 <div>
                                     <h2 className="text-2xl font-black text-on-surface">{selectedCurriculum.subject}</h2>
-                                    <p className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em] mt-1">{selectedCurriculum.gradeLevel}</p>
+                                    <p className="m3-label-tiny text-primary font-extrabold uppercase tracking-[0.3em] mt-4">{selectedCurriculum.gradeLevel}</p>
                                 </div>
-                                <div className="flex gap-4 items-center">
+                                <div className="flex gap-8 items-center">
                                      <TabGroup
                                          activeTab={activeTab}
                                          onTabChange={(id: string) => {
@@ -268,7 +267,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl space-y-6">
                         <div {...getRootProps()} className="flex flex-col items-center justify-center border-2 border-dashed border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors h-48 rounded-2xl cursor-pointer">
                             <input {...getInputProps()} />
-                            <span className="material-symbols-outlined text-5xl text-primary mb-2">upload_file</span>
+                            <span className="material-symbols-outlined text-5xl text-primary mb-8">upload_file</span>
                             <p className="text-lg font-black text-on-surface">Carica PDF Programmazione</p>
                             <p className="text-sm opacity-60">o trascina il file qui</p>
                         </div>

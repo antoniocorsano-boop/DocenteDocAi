@@ -25,7 +25,7 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
             level={1}
         >
             <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="space-y-6">
-                <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
+                <M3DialogContent className="space-y-6">
                     <TextArea
                         id="doc-generator-prompt"
                         label="Descrivi il documento che vuoi creare"
@@ -37,7 +37,7 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
                     />
                 </M3DialogContent>
 
-                <M3DialogActions className="gap-2">
+                <M3DialogActions className="gap-8">
                     <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                     <M3Button type="button" onClick={handleSubmit} variant="filled">
                         <span className="material-symbols-outlined mr-2">auto_awesome</span>

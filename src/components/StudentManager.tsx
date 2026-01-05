@@ -26,7 +26,7 @@ interface StudentItemProps {
 
 const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onRestore }: StudentItemProps) => (
     <div
-      className={`flex items-center gap-5 p-4 rounded-2xl transition-all hover:bg-surface-container-highest/50 group relative focus-visible:ring-2 focus-visible:ring-primary focus:outline-none ${student.isArchived ? 'opacity-60 grayscale' : ''}`}
+      className={`flex items-center gap-5 p-8 rounded-2xl transition-all hover:bg-surface-container-highest/50 group relative focus-visible:ring-2 focus-visible:ring-primary focus:outline-none ${student.isArchived ? 'opacity-60 grayscale' : ''}`}
       aria-label={`Studente ${student.cognome} ${student.nome}, classe ${student.classe}${student.isArchived ? ', archiviato' : ''}`}
       tabIndex={0}
       onKeyDown={e => {
@@ -39,17 +39,17 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
       <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="shadow-md" />
       <div className="flex-grow min-w-0">
           <h3 className="m3-title-large truncate font-black text-on-surface">{student.cognome} {student.nome}</h3>
-          <div className="flex items-center gap-3 mt-1">
-              <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">Classe {student.classe}</span>
+          <div className="flex items-center gap-6 mt-4">
+              <span className="px-4 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">Classe {student.classe}</span>
               {student.isArchived && (
-                  <span className="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-black uppercase tracking-widest border border-outline-variant/20">
+                  <span className="px-4 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-black uppercase tracking-widest border border-outline-variant/20">
                       {student.archiveYear ? `Archiviato ${student.archiveYear}` : 'ARCHIVIATO'}
                   </span>
               )}
           </div>
       </div>
 
-      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+      <div className="flex gap-8 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
           {student.isArchived ? (
               <M3Button onClick={() => onRestore(student)} variant="icon" className="text-primary hover:bg-primary/10" title="Ripristina Studente">
                   <span className="material-symbols-outlined">restore_from_trash</span>
@@ -115,7 +115,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                 title="Gestione Studenti"
                 subtitle="Archivia, importa e aggiorna anagrafica e stato classe."
                 actions={
-                    <div className="flex gap-3">
+                    <div className="flex gap-6">
                         <M3Button onClick={() => setIsImportModalOpen(true)} variant="tonal" className="font-black text-xs uppercase tracking-widest">
                             <span className="material-symbols-outlined mr-2">upload_file</span>
                             Importa
@@ -129,7 +129,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
             />
 
             <div className="bg-surface-container-low/30 backdrop-blur-xl rounded-2xl border border-outline-variant/20 overflow-hidden flex flex-col mt-8">
-                <div className="flex flex-wrap gap-4 items-center p-6 bg-surface-container-high/50 border-b border-outline-variant/10">
+                <div className="flex flex-wrap gap-8 items-center p-6 bg-surface-container-high/50 border-b border-outline-variant/10">
                     <div className="flex-grow min-w-[250px]">
                         <TextField
                             placeholder="Cerca studente..."
@@ -160,7 +160,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                     </M3Button>
                 </div>
 
-                <div className="p-4 space-y-2 max-h-[600px] overflow-y-auto custom-scrollbar">
+                <div className="p-8 space-y-2 max-h-[600px] overflow-y-auto custom-scrollbar">
                     {filteredStudents.length > 0 ? filteredStudents.map(student => (
                         <StudentItem
                             key={student.id}

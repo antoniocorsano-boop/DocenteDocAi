@@ -12,7 +12,6 @@ import DocumentViewerModal from './DocumentViewerModal';
 import { getDocumentTemplate } from '../utils/templateUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, ActionTile, SectionHeader, InfoCard, TabGroup, SelectField } from './ui';
 import { useUIStore } from '../stores/useUIStore';
-import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import BatchExportWizard from './BatchExportWizard';
 
 // --- TYPE DEFINITIONS FOR REGISTRY ---
@@ -89,9 +88,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         setEditorOpen(false);
     };
 
-    // Keyboard navigation hook for modals
-    const modalRef = useKeyboardNavigation(!!wizard, resetWizard);
-
     // Determine current suggested phase based on date
     const currentSuggestedPhase = useMemo((): DocPhase => {
         const month = new Date().getMonth(); // 0-11
@@ -152,26 +148,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
     };
 
     // --- SAVE EDITOR CONTENT TO KB ---
-    const handleSaveEditorContent = (content: string, title: string) => {
-        const safeTitle = title.endsWith('.html') ? title : `${title}.html`;
-        // Check if updating existing doc (simple name match for now, ideally ID)
-        // For simplicity, we create a new version/entry to avoid overwriting original templates if name changes
-        const newEntry: KnowledgeBaseEntry = {
-            id: `doc-gen-${Date.now()}`,
-            fileName: safeTitle.replace(/\s+/g, '_'),
-            content: title + "\n" + content.replace(/<[^>]+>/g, ' '), // Plain text index
-            htmlContent: content,
-            category: 'programmazione',
-            isGenerated: true,
-            fileContent: {
-                data: btoa(unescape(encodeURIComponent(content))), // Simple base64 for text
-                mimeType: 'text/html'
-            }
-        };
-        props.onAddKbEntry(newEntry);
-        // No alert, handled by parent or UI update
-        setEditorOpen(false);
-    };
 
     // --- GENERATION HANDLERS ---
     const handleGenerateStudentPdf = async (student: Studente) => {
@@ -435,12 +411,12 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
     return (
         <div className="space-y-8 pb-20">
             {/* --- HEADER --- */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight text-on-surface">Reportistica & Documenti</h1>
                     <p className="text-on-surface-variant">Genera documentazione didattica, verbali e reportistica avanzata.</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-8">
                     <M3Button 
                         variant="tonal" 
                         startIcon={<span className="material-symbols-outlined">folder_zip</span>}
@@ -471,7 +447,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                         onTabChange={(id) => setActivePhase(id as DocPhase)}
                     />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-4">
                         {activeTemplates.map(template => (
                             <ActionTile 
                                 key={template.id}
@@ -496,14 +472,14 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                                 variant="surface"
                                 onClick={() => setViewingDoc(doc)}
                             >
-                                <div className="flex items-center justify-between mt-2">
+                                <div className="flex items-center justify-between mt-4">
                                     <span className="text-xs opacity-70">Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}</span>
                                     <M3Button variant="text" size="small" onClick={(e) => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</M3Button>
                                 </div>
                             </InfoCard>
                         )) : (
                             <div className="p-8 text-center border-2 border-dashed border-outline-variant rounded-3xl opacity-50">
-                                <span className="material-symbols-rounded text-4xl mb-2">drafts</span>
+                                <span className="material-symbols-rounded text-4xl mb-8">drafts</span>
                                 <p className="text-sm">Nessun documento generato di recente.</p>
                             </div>
                         )}

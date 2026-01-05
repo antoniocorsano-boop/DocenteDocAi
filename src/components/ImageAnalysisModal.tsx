@@ -75,12 +75,13 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
       title="Analisi Immagine con AI"
       onClose={onClose}
       maxWidth="4xl"
+      hideBackdrop={true}
     >
-      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden">
+      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden px-0">
         {/* Left Panel: Upload and Prompt */}
-        <div className="p-4 md:p-6 border-r border-outline-variant flex flex-col gap-4">
+        <div className="p-12 border-r border-outline-variant flex flex-col gap-12">
           <div>
-            <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-3">1. Carica un'immagine</h3>
+            <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-6">1. Carica un'immagine</h3>
             <div 
               {...getRootProps()}
               className={`flex flex-col items-center justify-center border-2 border-dashed border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors h-48 rounded-2xl cursor-pointer overflow-hidden ${isDragActive ? 'border-primary bg-primary/20' : ''}`}
@@ -90,7 +91,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
                 <img src={imagePreview} alt="Preview" className="h-full w-full object-contain" />
               ) : (
                 <>
-                  <div className="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center mb-2">
+                  <div className="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center mb-8">
                       <span className="material-symbols-outlined text-3xl text-primary">add_photo_alternate</span>
                   </div>
                   <div className="text-center text-on-surface-variant">
@@ -102,7 +103,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
           </div>
           
           <div className="flex-grow flex flex-col">
-            <label htmlFor="prompt-textarea" className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-2">2. Chiedi qualcosa</label>
+            <label htmlFor="prompt-textarea" className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-8">2. Chiedi qualcosa</label>
             <textarea
               id="prompt-textarea"
               value={prompt}
@@ -111,7 +112,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
                 if (error) setError('');
               }}
               placeholder="Es. 'Descrivi cosa vedi in questa immagine'..."
-              className="w-full flex-grow p-4 bg-surface border border-outline rounded-2xl focus:border-primary focus:outline-none resize-none"
+              className="w-full flex-grow p-12 bg-surface border border-outline rounded-2xl focus:border-primary focus:outline-none resize-none"
               rows={4}
               disabled={!imageFile}
             />
@@ -120,22 +121,22 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
             onClick={handleSubmit} 
             disabled={isLoading || !imageFile || !prompt} 
             variant="filled"
-            className="w-full mt-4"
+            className="w-full mt-8"
           >
             {isLoading ? <span className="animate-spin material-symbols-outlined">progress_activity</span> : 'Analizza Immagine'}
           </M3Button>
-          {error && <p className="text-error text-xs mt-2 text-center font-bold">{error}</p>}
+          {error && <p className="text-error text-xs mt-4 text-center font-bold">{error}</p>}
         </div>
 
         {/* Right Panel: Analysis Result */}
-        <div className="p-4 md:p-6 overflow-y-auto flex flex-col bg-surface/50">
-          <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-3">Risultato Analisi</h3>
-          <InfoCard variant="elevated" className="flex-grow p-6 overflow-y-auto">
+        <div className="p-12 overflow-y-auto flex flex-col bg-surface/50">
+          <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-8">Risultato Analisi</h3>
+          <InfoCard variant="elevated" className="flex-grow p-12 overflow-y-auto">
             {isLoading && (
-                <div className="flex flex-col items-center justify-center h-full gap-4">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
-                    <p className="text-sm font-bold text-primary animate-pulse">L'AI sta analizzando...</p>
-                </div>
+              <div className="flex flex-col items-center justify-center h-full gap-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+                <p className="text-sm font-bold text-primary animate-pulse">L'AI sta analizzando...</p>
+              </div>
             )}
             {analysisResult && (
                 <div className="prose prose-sm max-w-none">
@@ -144,14 +145,14 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
             )}
             {!analysisResult && !isLoading && (
                 <div className="flex flex-col items-center justify-center h-full text-center text-on-surface-variant opacity-50">
-                    <span className="material-symbols-outlined text-6xl mb-4">visibility</span>
+                    <span className="material-symbols-outlined text-6xl mb-8">visibility</span>
                     <p className="font-medium">Il risultato dell'analisi apparirà qui.</p>
                 </div>
             )}
           </InfoCard>
         </div>
       </M3DialogContent>
-      <M3DialogActions>
+      <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
         <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
       </M3DialogActions>
     </M3Dialog>

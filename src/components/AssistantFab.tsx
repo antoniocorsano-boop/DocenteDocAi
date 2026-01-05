@@ -1,6 +1,8 @@
 import React from 'react';
 import { useUIStore } from '../stores/useUIStore';
+import { Z_INDEX } from '../design-system/zIndex';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface AssistantFabProps {}
 
 const ACTIONS: Array<{ key: AssistantMode; label: string; icon: string; description: string }> = [
@@ -22,7 +24,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
        
       const fn = (console as unknown as Record<'log'|'info'|'warn'|'error'|'debug', (...a: unknown[]) => void>)[method];
       fn?.(...args);
-    } catch (e) {
+    } catch {
       // swallow
     }
   }, []);
@@ -101,7 +103,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
       // Emit a concise runtime warning so Playwright traces capture the user action
        
       console.warn('[E2E][AssistantFab] action selected', { key: action.key, label: action.label });
-    } catch (e) {
+    } catch {
       // ignore
     }
     if (toggleModal) toggleModal('isLiveAssistantModalOpen', true);
@@ -130,14 +132,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
       <div
         className="assistant-fab-root"
         ref={fabRef}
-        style={{
-          position: 'fixed',
-          right: 24,
-          bottom: 96,
-          zIndex: 1200,
-          transition: 'box-shadow 0.2s',
-          touchAction: 'none',
-        }}
+        style={{ touchAction: 'none' }}
       >
         <button
           className="mui-fab-expressive assistant-fab"
@@ -185,7 +180,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
               </>
             )}
             {!isCompactLayout && (
-              <div className="assistant-fab-menu" style={{ pointerEvents: 'auto' }}>
+              <div className="assistant-fab-menu">
                 {/* Close menu / quick close modal button */}
                 <button
                   aria-label="Chiudi menu"
@@ -205,18 +200,14 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       key={a.key}
                       className="mui-fab-expressive assistant-fab-secondary"
                       style={{
-                        position: 'absolute',
-                        right: 0,
                         ...posStyle,
-                        zIndex: 1201 - i,
-                        transition: 'var(--md-easing-standard)', // MD3 fix
-                        pointerEvents: 'auto',
+                        zIndex: Z_INDEX.assistant.fab + 1 - i,
                       }}
                       onClick={() => handleAction(a)}
                       aria-label={a.label}
                     >
                       <span className="material-symbols-outlined">{a.icon}</span>
-                      <span style={{ marginLeft: 8, fontWeight: 500 }}>{a.label}</span>
+                      <span className="ml-2 font-medium">{a.label}</span>
                     </button>
                   );
                 })}
@@ -228,9 +219,10 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
       <style>{`
         .assistant-fab-root {
           position: fixed;
-          bottom: 2.2rem;
-          right: 2.2rem;
-          z-index: 1200;
+          right: 24px;
+          bottom: 96px;
+          z-index: ${Z_INDEX.assistant.fab};
+          transition: box-shadow 0.2s;
         }
         .mui-fab-expressive.assistant-fab {
           background: var(--sys-primary, #6750A4);
@@ -277,6 +269,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           z-index: 1300;
         }
         .mui-fab-expressive.assistant-fab-secondary {
+          position: absolute;
+          right: 0;
           background: var(--sys-surface, #fff);
           color: var(--sys-on-surface, #222);
           border: none;
@@ -289,7 +283,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           min-width: 180px;
           cursor: pointer;
           pointer-events: auto;
-          transition: background 0.18s, box-shadow 0.18s;
+          transition: var(--md-easing-standard);
         }
         .mui-fab-expressive.assistant-fab-secondary:hover {
           background: var(--sys-surface-variant, #f5f5f5);
@@ -305,6 +299,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         .assistant-fab-sheet {
           position: fixed;
           inset: auto 12px 12px;
+          /* On mobile, ensure it's above the bottom nav (64px + 12px margin) */
+          bottom: calc(var(--bottom-nav-height, 64px) + 12px);
           right: 0;
           left: 0;
           margin: 0 auto;
@@ -318,6 +314,11 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           gap: 1rem;
           z-index: 1199;
           animation: assistant-sheet-enter 0.25s ease-out;
+        }
+        @media (min-width: 600px) {
+          .assistant-fab-sheet {
+            bottom: 24px;
+          }
         }
         .assistant-fab-sheet-header {
           display: flex;
@@ -368,9 +369,6 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
             transform: translateY(0);
             opacity: 1;
           }
-        }
-        @media (max-width: 600px) {
-          .assistant-fab-root { bottom: 1.1rem; right: 1.1rem; }
         }
       `}</style>
     </>

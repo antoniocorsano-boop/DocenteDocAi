@@ -52,7 +52,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
   if (isSystem) {
     return (
       <div className="flex justify-center my-2 animate-in fade-in">
-        <div className="bg-surface-container-highest px-3 py-1.5 rounded-full text-xs font-medium text-on-surface-variant flex items-center gap-2 border border-outline-variant shadow-sm">
+        <div className="bg-surface-container-highest px-3 py-1.5 rounded-full text-xs font-medium text-on-surface-variant flex items-center gap-8 border border-outline-variant shadow-sm">
           <span className="material-symbols-outlined text-sm">check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
@@ -61,16 +61,16 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
   }
 
   return (
-    <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} mb-3`}>
-      <div className={`max-w-[85%] p-4 rounded-2xl text-sm leading-relaxed shadow-sm ${isUser
+    <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} mb-6`}>
+      <div className={`max-w-[85%] p-8 rounded-2xl text-sm leading-relaxed shadow-sm ${isUser
         ? 'bg-primary text-on-primary rounded-tr-sm'
         : 'bg-surface-container-high text-on-surface rounded-tl-sm border border-outline-variant'
         }`}>
         <p className="whitespace-pre-wrap">{entry.text}</p>
         {entry.sources && (
-          <div className="mt-2 pt-2 border-t border-white/20">
-            <p className="text-[10px] opacity-80 font-bold mb-1">FONTI:</p>
-            <div className="flex flex-wrap gap-1">
+          <div className="mt-4 pt-2 border-t border-white/20">
+            <p className="text-[10px] opacity-80 font-bold mb-4">FONTI:</p>
+            <div className="flex flex-wrap gap-4">
               {entry.sources.map((s, i) => (
                 <a key={i} href={s.uri} target="_blank" rel="noreferrer" className="text-[10px] underline opacity-90 hover:opacity-100 truncate max-w-[150px] block">
                   {s.title}
@@ -254,7 +254,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
 
   return (
     <div className="flex flex-col h-full bg-surface-container-low overflow-hidden">
-      <div className="flex-grow overflow-y-auto p-4 space-y-4">
+      <div className="flex-grow overflow-y-auto p-8 space-y-4">
         {transcripts.map((t, i) => <ChatBubble key={i} entry={t} />)}
         {transcripts.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full opacity-40">
@@ -263,7 +263,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
           </div>
         )}
       </div>
-      <div className="p-6 bg-surface border-t border-outline-variant flex flex-col items-center gap-4">
+      <div className="p-6 bg-surface border-t border-outline-variant flex flex-col items-center gap-8">
         <p className="text-sm font-bold text-primary animate-pulse">{status}</p>
         <button
           onClick={isConnected ? stopSession : startSession}

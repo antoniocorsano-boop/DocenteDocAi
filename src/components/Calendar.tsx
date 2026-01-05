@@ -6,9 +6,7 @@ import AiEventParserModal from './AiEventParserModal';
 import EventActionPopover from './EventActionPopover';
 import { 
     M3Button, 
-    TabGroup, 
-    SectionHeader, 
-    InfoCard 
+    TabGroup 
 } from './ui';
 
 interface CalendarProps {
@@ -127,21 +125,21 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             : `${MONTHS_LONG[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
         return (
-            <header className="calendar-header bg-surface-container-high/30 backdrop-blur-md border-b border-outline-variant/30 p-4 rounded-t-3xl">
+            <header className="calendar-header bg-surface-container-high/30 backdrop-blur-md border-b border-outline-variant/30 p-8 rounded-t-3xl">
                 <div className="calendar-header-left">
                     <div className="calendar-nav-group bg-surface-container-low/50 p-1 rounded-full border border-outline-variant/20">
-                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Precedente" className="!min-w-0 !p-2">
+                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Precedente" className="!min-w-0 !p-8">
                             <span className="material-symbols-outlined">chevron_left</span>
                         </M3Button>
                         <M3Button variant="tonal" onClick={() => handleNavigate('today')} className="!px-4 !py-1 !h-auto">Oggi</M3Button>
-                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Successivo" className="!min-w-0 !p-2">
+                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Successivo" className="!min-w-0 !p-8">
                             <span className="material-symbols-outlined">chevron_right</span>
                         </M3Button>
                     </div>
                     <h2 className="calendar-title m3-headline-small ml-4">{title}</h2>
                 </div>
 
-                <div className="calendar-header-right gap-4">
+                <div className="calendar-header-right gap-8">
                     <TabGroup
                         tabs={[
                             { id: 'month', label: 'Mese' },
@@ -155,10 +153,10 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                     />
 
                     <div className="calendar-actions">
-                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza Circolare con AI" className="!min-w-0 !p-2">
+                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza Circolare con AI" className="!min-w-0 !p-8">
                             <span className="material-symbols-outlined text-primary">auto_awesome</span>
                         </M3Button>
-                        <M3Button variant="filled" onClick={() => setEditingEvent({})} className="flex items-center gap-2">
+                        <M3Button variant="filled" onClick={() => setEditingEvent({})} className="flex items-center gap-8">
                             <span className="material-symbols-outlined">add</span>
                             Nuovo Evento
                         </M3Button>
@@ -273,7 +271,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
 
     const renderDayView = () => (
         <div className="calendar-day">
-            <div className="calendar-day-header p-4">
+            <div className="calendar-day-header p-8">
                 <h3 className="m3-title-large text-primary">
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                 </h3>
@@ -281,12 +279,12 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             <div className="calendar-day-body" ref={scrollContainerRef}>
                 {dayEvents.length === 0 ? (
                     <div className="flex flex-col items-center justify-center p-12 text-center opacity-60">
-                        <span className="material-symbols-outlined text-6xl mb-4">event_busy</span>
+                        <span className="material-symbols-outlined text-6xl mb-8">event_busy</span>
                         <p className="m3-body-large">Nessun evento per questo giorno</p>
                         <M3Button variant="text" onClick={() => setEditingEvent({})} className="mt-4">Aggiungi Evento</M3Button>
                     </div>
                 ) : (
-                    <div className="calendar-day-events p-4 space-y-4">
+                    <div className="calendar-day-events p-8 space-y-4">
                         {dayEvents.map(ev => (
                             <div 
                                 key={ev.id} 
@@ -299,7 +297,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 <div className="calendar-day-event-content">
                                     <div className="calendar-day-event-title font-bold">{ev.titolo}</div>
                                     {ev.descrizione && <div className="calendar-day-event-desc opacity-80">{ev.descrizione}</div>}
-                                    {ev.location && <div className="calendar-day-event-location mt-1">📍 {ev.location}</div>}
+                                    {ev.location && <div className="calendar-day-event-location mt-4">📍 {ev.location}</div>}
                                 </div>
                             </div>
                         ))}
@@ -310,17 +308,17 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     );
 
     const renderAgendaView = () => (
-        <div className="calendar-agenda p-4">
+        <div className="calendar-agenda p-8">
             {Object.keys(agendaGroups).length === 0 ? (
                 <div className="flex flex-col items-center justify-center p-12 text-center opacity-60">
-                    <span className="material-symbols-outlined text-6xl mb-4">event_busy</span>
+                    <span className="material-symbols-outlined text-6xl mb-8">event_busy</span>
                     <p className="m3-body-large">Nessun evento questo mese</p>
                 </div>
             ) : (
                 <div className="space-y-6">
                     {Object.entries(agendaGroups).map(([date, evts]) => (
-                        <div key={date} className="agenda-group bg-surface-container-high/20 rounded-2xl p-4 border border-outline-variant/20">
-                            <div className="agenda-date m3-title-medium text-primary mb-3 border-b border-outline-variant/30 pb-2">
+                        <div key={date} className="agenda-group bg-surface-container-high/20 rounded-2xl p-8 border border-outline-variant/20">
+                            <div className="agenda-date m3-title-medium text-primary mb-6 border-b border-outline-variant/30 pb-2">
                                 {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
                             </div>
                             <div className="agenda-events space-y-3">

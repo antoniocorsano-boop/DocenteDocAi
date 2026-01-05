@@ -10,7 +10,7 @@ interface LessonAnalysisModalProps {
     contextLabel?: string;
 }
 
-const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClose, title, contextLabel }) => {
+const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClose, contextLabel }) => {
     return (
         <M3Dialog
             title="Analisi Pedagogica AI"
@@ -24,7 +24,7 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
                     
                     {/* Section 1: Engagement */}
                     <div className="card border-l-4 border-l-primary bg-surface-container-low">
-                        <div className="flex items-center gap-3 mb-4">
+                        <div className="flex items-center gap-6 mb-8">
                              <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
                                 <span className="material-symbols-outlined text-xl">rocket_launch</span>
                              </div>
@@ -32,8 +32,8 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
                         </div>
                         <div className="space-y-4">
                             {result.engagementSuggestions.map((item, index) => (
-                                <div key={index} className="p-3 bg-surface rounded-xl border border-outline-variant">
-                                    <div className="flex justify-between items-start mb-1">
+                                <div key={index} className="p-6 bg-surface rounded-xl border border-outline-variant">
+                                    <div className="flex justify-between items-start mb-4">
                                         <h4 className="m3-title-medium font-bold">{item.title}</h4>
                                         <span className="chip text-xs bg-primary-container text-on-primary-container border-none">{item.activityType}</span>
                                     </div>
@@ -45,7 +45,7 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
 
                     {/* Section 2: Inclusivity */}
                     <div className="card border-l-4 border-l-tertiary bg-surface-container-low">
-                         <div className="flex items-center gap-3 mb-4">
+                         <div className="flex items-center gap-6 mb-8">
                              <div className="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
                                 <span className="material-symbols-outlined text-xl">diversity_3</span>
                              </div>
@@ -53,7 +53,7 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
                         </div>
                         <div className="space-y-4">
                             {result.inclusivityAdaptations.map((item, index) => (
-                                <div key={index} className="p-3 bg-surface rounded-xl border border-outline-variant flex gap-4 items-start">
+                                <div key={index} className="p-6 bg-surface rounded-xl border border-outline-variant flex gap-8 items-start">
                                      <div className="w-16 flex-shrink-0 pt-1">
                                          <span className="block text-[10px] font-bold uppercase tracking-wide text-on-surface-variant text-center bg-surface-container-high rounded px-1 py-0.5">
                                              {item.targetGroup}

@@ -63,15 +63,15 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
 
     return (
         <div className="card">
-            <h2 className="m3-title-large flex items-center gap-2">
+            <h2 className="m3-title-large flex items-center gap-8">
                 <span className="material-symbols-outlined text-primary">psychology</span>
                 Consulente Didattico AI
             </h2>
-            <p className="m3-body-medium text-on-surface-variant mt-2 mb-4">
+            <p className="m3-body-medium text-on-surface-variant mt-4 mb-8">
                 Seleziona uno studente (o l'intera classe) e un obiettivo. L'AI analizzerà i dati e proporrà attività personalizzate.
             </p>
 
-            <div className="responsive-grid items-end gap-4 p-4 border rounded-lg bg-surface-container">
+            <div className="responsive-grid items-end gap-8 p-8 border rounded-lg bg-surface-container">
                 <div>
                     <label htmlFor="student-select-advisor" className="form-label">Studente / Gruppo</label>
                     <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} className="form-select w-full">
@@ -103,9 +103,9 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 <div className="mt-6 space-y-4">
                     <h3 className="m3-title-medium">Suggerimenti dell'AI:</h3>
                     {advice.map((item, index) => (
-                        <div key={index} className="p-4 rounded-lg bg-surface-container-high">
+                        <div key={index} className="p-8 rounded-lg bg-surface-container-high">
                             <h4 className="m3-title-small font-bold">{item.titolo}</h4>
-                            <p className="m3-body-medium mt-1 whitespace-pre-wrap">{item.descrizione}</p>
+                            <p className="m3-body-medium mt-4 whitespace-pre-wrap">{item.descrizione}</p>
                         </div>
                     ))}
                 </div>

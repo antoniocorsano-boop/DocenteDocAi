@@ -105,7 +105,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">
               <span className="material-symbols-outlined text-4xl text-primary">cloud_off</span>
             </div>
-            <h3 className="text-xl font-bold mb-2">Connessione Google Richiesta</h3>
+            <h3 className="text-xl font-bold mb-8">Connessione Google Richiesta</h3>
             <p className="text-on-surface-variant mb-8 max-w-xs">
               Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
             </p>
@@ -120,11 +120,11 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
             {step === 'select' && !loading && !error && (
               <>
-                <p className="mb-2 text-on-surface-variant">Seleziona i materiali da importare nella Knowledge Base.</p>
-                <div className="max-h-64 overflow-y-auto border rounded mb-4">
-                  {files.length === 0 && <div className="p-4 text-center text-on-surface-variant">Nessun file trovato.</div>}
+                <p className="mb-8 text-on-surface-variant">Seleziona i materiali da importare nella Knowledge Base.</p>
+                <div className="max-h-64 overflow-y-auto border rounded mb-8">
+                  {files.length === 0 && <div className="p-8 text-center text-on-surface-variant">Nessun file trovato.</div>}
                   {files.map(f => (
-                    <label key={f.id} className="flex items-center gap-3 px-4 py-2 border-b last:border-b-0 cursor-pointer hover:bg-surface-container-low">
+                    <label key={f.id} className="flex items-center gap-6 px-4 py-4 border-b last:border-b-0 cursor-pointer hover:bg-surface-container-low">
                       <input type="checkbox" checked={selected.has(f.id)} onChange={() => handleSelect(f.id)} />
                       <span className="flex-1 font-medium">{f.name}</span>
                       <span className="m3-label-small text-on-surface-variant">{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
@@ -138,12 +138,12 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
         {step === 'catalog' && (
           <>
-            <p className="mb-2 text-on-surface-variant">Catalogazione materiali importati:</p>
+            <p className="mb-8 text-on-surface-variant">Catalogazione materiali importati:</p>
             <div className="space-y-4 max-h-64 overflow-y-auto">
               {imported.map(entry => (
-                <div key={entry.id} className="p-3 border rounded bg-surface-container-low">
-                  <div className="font-bold mb-1">{entry.fileName}</div>
-                  <div className="flex gap-2 mb-1">
+                <div key={entry.id} className="p-6 border rounded bg-surface-container-low">
+                  <div className="font-bold mb-4">{entry.fileName}</div>
+                  <div className="flex gap-8 mb-4">
                     <input className="input" placeholder="Materia (opzionale)" value={catalogData[entry.id]?.materia || ''} onChange={e => handleCatalogChange(entry.id, 'materia', e.target.value)} />
                     <input className="input" placeholder="Classe (opzionale)" value={catalogData[entry.id]?.classe || ''} onChange={e => handleCatalogChange(entry.id, 'classe', e.target.value)} />
                     <input className="input" placeholder="Categoria/Tag (opzionale)" value={catalogData[entry.id]?.category || ''} onChange={e => handleCatalogChange(entry.id, 'category', e.target.value)} />
@@ -157,14 +157,14 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
         {step === 'done' && (
           <div className="py-8 text-center">
-            <span className="material-symbols-outlined m3-display-small text-success mb-2">check_circle</span>
-            <div className="font-bold mb-2">Importazione completata!</div>
+            <span className="material-symbols-outlined m3-display-small text-success mb-8">check_circle</span>
+            <div className="font-bold mb-8">Importazione completata!</div>
           </div>
         )}
       </M3DialogContent>
 
       {step !== 'done' && (
-        <M3DialogActions className="gap-2">
+        <M3DialogActions className="gap-8">
           {step === 'select' && (
             <>
               <M3Button variant="text" onClick={onClose}>Annulla</M3Button>

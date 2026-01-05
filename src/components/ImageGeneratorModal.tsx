@@ -19,7 +19,7 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
     return (
         <M3Dialog
             title={
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-6">
                     <span className="material-symbols-outlined text-primary">image</span>
                     <span>AI Image Lab</span>
                 </div>
@@ -29,7 +29,7 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
             level={1}
         >
             <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="flex flex-col h-full">
-                <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl p-8 space-y-6">
+                <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl p-12 space-y-12">
                     <TextArea
                         id="image-generator-prompt"
                         label="Descrizione Immagine"
@@ -40,12 +40,12 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                         autoFocus
                         className="bg-surface-container-high/50"
                     />
-                    <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 px-2">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 px-8">
                         L'AI genererà un'immagine basata sulla tua descrizione. Sii specifico per risultati migliori.
                     </p>
                 </M3DialogContent>
 
-                <M3DialogActions className="bg-surface-container-low/30 backdrop-blur-xl border-t border-outline-variant/10 p-6">
+                <M3DialogActions className="bg-surface-container-low/30 backdrop-blur-xl border-t border-outline-variant/10 px-12 pb-12 pt-0 gap-12">
                     <M3Button onClick={onClose} variant="text" className="font-black text-xs uppercase tracking-widest">Annulla</M3Button>
                     <M3Button 
                         onClick={handleSubmit} 

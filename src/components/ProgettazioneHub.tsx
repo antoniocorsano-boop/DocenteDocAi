@@ -7,7 +7,7 @@ import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import { generateHueFromString } from '../utils/colorUtils';
 import CompetencyManager from './CompetencyManager'; // Import New Component
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, SectionHeader, TabGroup, M3ExpressiveCard, AiThinkingGem } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, TabGroup, M3ExpressiveCard } from './ui';
 import { validateUdaVerticalCurriculum } from '../services/aiService';
 import { Z_INDEX } from '../design-system/zIndex';
 // Drag & Drop
@@ -19,7 +19,7 @@ import Tooltip from './Tooltip';
 const GanttBar: React.FC<{ uda: Uda & { startPos: number; width: number; color: string; borderColor: string; textColor: string }; onClick: () => void }> = ({ uda, onClick }) => {
     return (
         <div
-            className="gantt-bar cursor-pointer rounded px-2 py-1 m3-label-small font-medium truncate border"
+            className="gantt-bar cursor-pointer rounded px-4 py-1 m3-label-small font-medium truncate border"
             style={{
                 position: 'absolute',
                 left: `${uda.startPos}%`,
@@ -79,34 +79,34 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
         >
             <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm p-6 space-y-6">
                 {/* Metadata Chips */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center gap-1">
+                <div className="flex flex-wrap gap-8 mb-6">
+                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center gap-4">
                         <span className="material-symbols-outlined text-sm">school</span>
                         Classe {uda.classe}
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-1">
+                    <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold flex items-center gap-4">
                         <span className="material-symbols-outlined text-sm">menu_book</span>
                         {uda.materia}
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-xs font-bold flex items-center gap-1">
+                    <span className="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-xs font-bold flex items-center gap-4">
                         <span className="material-symbols-outlined text-sm">event</span>
                         {new Date(uda.startDate!).toLocaleDateString()} - {new Date(uda.endDate!).toLocaleDateString()}
                     </span>
                 </div>
 
                 {/* AI Validation Section */}
-                <div className="bg-primary-container/10 border border-primary/20 rounded-2xl p-4 space-y-3">
+                <div className="bg-primary-container/10 border border-primary/20 rounded-2xl p-8 space-y-3">
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-6">
                             <span className="material-symbols-outlined text-primary">verified</span>
                             <span className="text-sm font-black text-on-surface uppercase tracking-widest">Validazione Curricolo Verticale</span>
                         </div>
                         <M3Button onClick={handleValidate} variant="tonal" disabled={isValidating} className="text-[10px] font-black uppercase tracking-widest">
-                            {isValidating ? <AiThinkingGem size="small" inline text="" /> : 'Valida con AI'}
+                            {isValidating ? '⏳ Validazione...' : 'Valida con AI'}
                         </M3Button>
                     </div>
                     {validationResult && (
-                        <div className="bg-surface-container-lowest/50 p-4 rounded-xl border border-outline-variant/20 animate-in fade-in slide-in-from-top-2">
+                        <div className="bg-surface-container-lowest/50 p-8 rounded-xl border border-outline-variant/20 animate-in fade-in slide-in-from-top-2">
                             <p className="text-sm text-on-surface leading-relaxed italic">
                                 {validationResult}
                             </p>
@@ -115,7 +115,7 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
                 </div>
 
                 {/* Description */}
-                <InfoCard title="Introduzione" variant="elevated" className="p-4">
+                <InfoCard title="Introduzione" variant="elevated" className="p-8">
                     <p className="text-on-surface leading-relaxed">
                         {uda.introduction}
                     </p>
@@ -123,28 +123,28 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
 
                 {/* Phases Timeline */}
                 <div>
-                    <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-4">Fasi di Lavoro</h3>
-                    <div className="relative border-l-2 border-primary/30 ml-3 space-y-6 py-2">
+                    <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-8">Fasi di Lavoro</h3>
+                    <div className="relative border-l-2 border-primary/30 ml-3 space-y-6 py-4">
                         {uda.phases.map((phase) => (
                             <div key={phase.id} className="relative pl-6">
                                 <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface"></div>
                                 <div className="flex justify-between items-start">
                                     <h4 className="font-bold text-primary">{phase.title}</h4>
-                                    <span className="text-[10px] font-black bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded uppercase">{phase.duration}h</span>
+                                    <span className="text-[10px] font-black bg-secondary-container text-on-secondary-container px-4 py-0.5 rounded uppercase">{phase.duration}h</span>
                                 </div>
-                                <p className="text-sm text-on-surface mt-1 font-medium">{phase.description}</p>
-                                <p className="text-xs text-on-surface-variant mt-1 italic">{phase.activities}</p>
+                                <p className="text-sm text-on-surface mt-4 font-medium">{phase.description}</p>
+                                <p className="text-xs text-on-surface-variant mt-4 italic">{phase.activities}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Additional Info Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" className="p-8">
                         <p className="text-sm text-on-surface">{uda.finalProduct}</p>
                     </InfoCard>
-                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" className="p-4">
+                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" className="p-8">
                         <p className="text-sm text-on-surface">{uda.evaluation}</p>
                     </InfoCard>
                 </div>
@@ -316,13 +316,13 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
     return (
         <div className="gantt-container">
             <div className="gantt-header">
-                <h2 className="m3-title-medium flex items-center gap-2 text-primary">
+                <h2 className="m3-title-medium flex items-center gap-8 text-primary">
                     <span className="material-symbols-outlined">calendar_view_week</span>
                     Timeline Didattica
                 </h2>
-                <div className="flex gap-3 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
-                    <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-primary-container border border-primary"></span> UDA</span>
-                    <span className="flex items-center gap-1"><span className="material-symbols-outlined m3-label-small text-error">flag</span> Scadenza</span>
+                <div className="flex gap-6 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+                    <span className="flex items-center gap-4"><span className="w-2 h-2 rounded-full bg-primary-container border border-primary"></span> UDA</span>
+                    <span className="flex items-center gap-4"><span className="material-symbols-outlined m3-label-small text-error">flag</span> Scadenza</span>
                 </div>
             </div>
 
@@ -339,8 +339,8 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 {/* Empty State Overlay */}
                 {isEmpty && (
                     <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                        <div className="text-center p-4 bg-surface/80 backdrop-blur-sm rounded-xl border border-dashed border-outline-variant">
-                            <span className="material-symbols-outlined m3-headline-medium text-on-surface-variant mb-2">edit_calendar</span>
+                        <div className="text-center p-8 bg-surface/80 backdrop-blur-sm rounded-xl border border-dashed border-outline-variant">
+                            <span className="material-symbols-outlined m3-headline-medium text-on-surface-variant mb-8">edit_calendar</span>
                             <p className="m3-body-small font-medium text-on-surface">Nessuna pianificazione.</p>
                             <p className="m3-label-small text-on-surface-variant">Usa il Wizard Annuale o crea un&apos;UDA.</p>
                         </div>
@@ -395,9 +395,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Snackbar preview / undo */}
                     {showSnackbar && lastMove && (
-                        <div style={{ position: 'fixed', right: 24, bottom: 24, zIndex: Z_INDEX.notification.snackbar }}>
-                            <div className="m3-card p-4 rounded-xl shadow-lg bg-surface-container-high border border-outline-variant flex items-center gap-4">
-                                <div className="flex-1">UDA spostata. <button className="text-primary font-bold underline ml-2" onClick={() => {
+                        <div style={{ position: 'fixed', right: 'var(--spacing-6)', bottom: 'var(--spacing-6)', zIndex: Z_INDEX.notification.snackbar }}>
+                            <div className="m3-card shadow-lg bg-surface-container-high border border-outline-variant flex items-center gap-6">
+                                <div className="flex-1 m3-body-medium">UDA spostata. <button className="text-primary font-bold underline ml-2" onClick={() => {
                                     const original = udas.find(u => u.id === lastMove.udaId);
                                     if (original) {
                                         onSaveUda({ ...original, startDate: lastMove.prevStart, endDate: lastMove.prevEnd });
@@ -412,7 +412,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Drag Preview Bubble */}
                     {previewMessage && (
-                        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 8, zIndex: Z_INDEX.overlay.tooltip }}>
+                        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--spacing-2)', zIndex: Z_INDEX.overlay.tooltip }}>
                             <div className="px-3 py-1 rounded-lg bg-surface/92 text-on-surface border border-outline-variant m3-body-small shadow">{previewMessage}</div>
                         </div>
                     )}
@@ -474,7 +474,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
             
             {/* Header */}
             <div className="py-12 text-center">
-                <h1 className="text-4xl font-black text-primary mb-4">Progettazione</h1>
+                <h1 className="text-4xl font-black text-primary mb-8">Progettazione</h1>
                 <p className="text-on-surface-variant max-w-2xl mx-auto font-medium">
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
@@ -503,14 +503,14 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                         onClick={() => setIsPlanningWizardOpen(true)}
                     >
                         <div className="flex justify-between items-start">
-                            <div className="p-4 bg-on-primary-container/10 rounded-3xl">
+                            <div className="p-8 bg-on-primary-container/10 rounded-3xl">
                                 <span className="material-symbols-outlined text-4xl">calendar_month</span>
                             </div>
                             <span className="material-symbols-outlined text-2xl opacity-50 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">arrow_outward</span>
                         </div>
                         <div className="mt-6">
                             <h2 className="text-2xl font-black">Wizard Annuale</h2>
-                            <p className="text-on-primary-container/80 mt-2 max-w-2xl font-medium">
+                            <p className="text-on-primary-container/80 mt-4 max-w-2xl font-medium">
                                 Pianifica l&apos;intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell&apos;AI.
                             </p>
                         </div>
@@ -529,7 +529,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                     />
 
                     {/* 3. BENTO GRID */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-8">
                         
                         <M3ExpressiveCard
                             icon="assignment"

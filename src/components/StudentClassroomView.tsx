@@ -3,7 +3,7 @@ import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, KnowledgeBaseEntry, HomeworkSubmission, RegisterEntry, TimetableSettings } from '../types';
 import { blobToBase64Parts, generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { TabGroup, M3Button, InfoCard, SectionHeader, M3ExpressiveCard, Avatar } from './ui';
+import { TabGroup, M3Button, SectionHeader, M3ExpressiveCard, Avatar } from './ui';
 import PinPadModal from './PinPadModal';
 
 interface StudentClassroomViewProps {
@@ -103,9 +103,9 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
         return (
             <div {...getRootProps()} className="cursor-pointer border-2 border-dashed border-primary/30 bg-primary/5 rounded-xl p-6 text-center hover:bg-primary/10 transition-all mt-4 group">
                 <input {...getInputProps()} />
-                <span className="material-symbols-outlined text-primary text-3xl mb-2 group-hover:scale-110 transition-transform">cloud_upload</span>
+                <span className="material-symbols-outlined text-primary text-3xl mb-8 group-hover:scale-110 transition-transform">cloud_upload</span>
                 <p className="text-xs font-black uppercase tracking-widest text-primary">Carica Elaborato</p>
-                <p className="text-[10px] text-on-surface-variant opacity-60 mt-1">Trascina qui il file o clicca per selezionare</p>
+                <p className="text-[10px] text-on-surface-variant opacity-60 mt-4">Trascina qui il file o clicca per selezionare</p>
             </div>
         );
     }
@@ -117,7 +117,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-tertiary/5 rounded-full blur-[120px] pointer-events-none" />
 
             <header className="bg-surface-container-low/30 backdrop-blur-xl border-b border-outline-variant/10 p-6 flex justify-between items-center sticky top-0 z-50">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-8">
                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" className="shadow-lg border-2 border-white/20" />
                     <div className="space-y-0.5">
                         <h1 className="text-xl font-black tracking-tight text-on-surface">Diario di Classe</h1>
@@ -129,10 +129,10 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 </M3Button>
                 
                 {isExitMenuOpen && (
-                    <div className="absolute top-20 right-6 bg-surface-container-high/90 backdrop-blur-2xl border border-outline-variant/20 rounded-2xl shadow-2xl p-3 z-[60] w-64 flex flex-col animate-in fade-in zoom-in-95 duration-300">
+                    <div className="absolute top-20 right-6 bg-surface-container-high/90 backdrop-blur-2xl border border-outline-variant/20 rounded-2xl shadow-2xl p-6 z-[60] w-64 flex flex-col animate-in fade-in zoom-in-95 duration-300">
                         <button 
                             onClick={() => { onLogout(); setIsExitMenuOpen(false); }}
-                            className="p-4 text-left hover:bg-surface-container text-on-surface rounded-xl flex items-center gap-4 transition-colors"
+                            className="p-8 text-left hover:bg-surface-container text-on-surface rounded-xl flex items-center gap-8 transition-colors"
                         >
                             <span className="material-symbols-outlined text-on-surface-variant">logout</span>
                             <div className="space-y-0.5">
@@ -143,7 +143,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         {onExitMode && (
                             <button 
                                 onClick={() => { setIsPinModalOpen(true); setIsExitMenuOpen(false); }}
-                                className="p-4 text-left hover:bg-error/10 text-error rounded-xl flex items-center gap-4 transition-colors mt-1"
+                                className="p-8 text-left hover:bg-error/10 text-error rounded-xl flex items-center gap-8 transition-colors mt-4"
                             >
                                 <span className="material-symbols-outlined">lock</span>
                                 <div className="space-y-0.5">
@@ -157,7 +157,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 {isExitMenuOpen && <div className="fixed inset-0 z-50" onClick={() => setIsExitMenuOpen(false)}></div>}
             </header>
 
-            <div className="bg-surface-container-low/50 backdrop-blur-md p-4 border-b border-outline-variant/10">
+            <div className="bg-surface-container-low/50 backdrop-blur-md p-8 border-b border-outline-variant/10">
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id) => setActiveTab(id as 'feed' | 'homework' | 'materials')}
@@ -178,7 +178,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         {feedItems.length > 0 ? feedItems.map((item) => (
                             <M3ExpressiveCard key={item.id} className="p-8 space-y-6">
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-6">
                                         <span className="text-[10px] font-black uppercase tracking-widest bg-secondary/10 text-secondary px-3 py-1.5 rounded-full">
                                             {new Date(item.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'short' })}
                                         </span>
@@ -188,7 +188,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 <h3 className="text-2xl font-black tracking-tight text-on-surface">{item.content}</h3>
                                 {item.homework && (
                                     <div className="bg-tertiary/5 p-6 rounded-2xl border border-tertiary/10 space-y-3">
-                                        <div className="flex items-center gap-2 text-tertiary">
+                                        <div className="flex items-center gap-8 text-tertiary">
                                             <span className="material-symbols-outlined text-lg">home_work</span>
                                             <span className="text-[10px] font-black uppercase tracking-widest">Compito per casa</span>
                                         </div>
@@ -209,7 +209,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                             </M3ExpressiveCard>
                         )) : (
                             <div className="text-center p-20 bg-surface-container-low/30 rounded-5xl border border-outline-variant/10">
-                                <span className="material-symbols-outlined text-6xl mb-4 text-on-surface-variant opacity-20">feed</span>
+                                <span className="material-symbols-outlined text-6xl mb-8 text-on-surface-variant opacity-20">feed</span>
                                 <p className="text-sm font-black uppercase tracking-widest text-on-surface-variant opacity-40">Nessuna attività recente nel registro.</p>
                             </div>
                         )}
@@ -228,7 +228,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                             <div className="space-y-4">
                                 {pendingHomework.map(lesson => (
                                     <M3ExpressiveCard key={lesson.id} className="p-8 border-l-8 border-l-primary">
-                                        <div className="flex justify-between items-start mb-4">
+                                        <div className="flex justify-between items-start mb-8">
                                             <div className="space-y-1">
                                                 <h4 className="text-xl font-black tracking-tight">{lesson.materia}</h4>
                                                 <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60">{lesson.contenuto}</p>
@@ -264,7 +264,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                                 <p className="font-black text-sm uppercase tracking-widest">{relatedLesson?.materia || 'Materia'}</p>
                                                 <p className="text-[10px] font-medium text-on-surface-variant opacity-60">{new Date(sub.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                                             </div>
-                                            <div className="flex flex-col items-end gap-2">
+                                            <div className="flex flex-col items-end gap-8">
                                                 <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${sub.status === 'graded' ? 'bg-green-500/10 text-green-600' : 'bg-amber-500/10 text-amber-600'}`}>
                                                     {sub.status === 'graded' ? 'Valutato' : 'In attesa'}
                                                 </span>
@@ -284,7 +284,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 {activeTab === 'materials' && (
                      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
                         {kb.map(entry => (
-                            <M3ExpressiveCard key={entry.id} className="!p-6 flex flex-col items-center text-center gap-4 hover:scale-105 transition-transform cursor-pointer group">
+                            <M3ExpressiveCard key={entry.id} className="!p-6 flex flex-col items-center text-center gap-8 hover:scale-105 transition-transform cursor-pointer group">
                                 <div className="w-16 h-16 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors">
                                     <span className="material-symbols-outlined text-3xl">
                                         {entry.fileName.endsWith('.pdf') ? 'picture_as_pdf' : 'description'}
@@ -295,7 +295,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         ))}
                         {kb.length === 0 && (
                             <div className="col-span-full text-center p-20 bg-surface-container-low/30 rounded-5xl border border-outline-variant/10">
-                                <span className="material-symbols-outlined text-6xl mb-4 text-on-surface-variant opacity-20">folder_off</span>
+                                <span className="material-symbols-outlined text-6xl mb-8 text-on-surface-variant opacity-20">folder_off</span>
                                 <p className="text-sm font-black uppercase tracking-widest text-on-surface-variant opacity-40">Nessun materiale condiviso.</p>
                             </div>
                         )}

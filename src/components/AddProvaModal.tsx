@@ -45,7 +45,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
             level={1}
         >
             <form id="add-prova-form" onSubmit={handleSubmit}>
-                <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
+                <M3DialogContent className="space-y-6">
                     <p className="m3-body-medium text-on-surface-variant">
                         Stai creando una nuova colonna nella griglia di valutazione per la classe selezionata.
                     </p>
@@ -60,7 +60,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                         required
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <TextField
                             id="prova-data"
                             name="data"
@@ -83,8 +83,8 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                     </div>
 
                     <div>
-                        <label className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em] px-5 text-left opacity-70 mb-2 block">Tipo Prova</label>
-                        <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+                        <label className="m3-label-tiny text-primary font-extrabold uppercase tracking-[0.3em] px-5 text-left opacity-70 mb-8 block">Tipo Prova</label>
+                        <div className="flex gap-8 overflow-x-auto pb-2 custom-scrollbar">
                             {EVALUATION_TYPES.map(t => (
                                 <M3ChoiceCard
                                     key={t}
@@ -92,7 +92,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                                     label={t}
                                     onClick={() => setTipo(t)}
                                     selected={tipo === t}
-                                    className="!min-w-[100px] !p-4"
+                                    className="!min-w-[100px] !p-8"
                                 />
                             ))}
                         </div>

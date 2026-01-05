@@ -40,9 +40,9 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
                 </span>
             </div>
             <div className="flex-grow">
-                <div className="flex justify-between items-baseline mb-1">
+                <div className="flex justify-between items-baseline mb-4">
                     <h3 className="m3-headline-small font-bold">{nome}</h3>
-                    <span className="m3-label-medium bg-surface/50 px-2 py-0.5 rounded">Valore: {voto}</span>
+                    <span className="m3-label-medium bg-surface/50 px-4 py-0.5 rounded">Valore: {voto}</span>
                 </div>
                 <p className="m3-body-medium opacity-90">{descrizione}</p>
             </div>
@@ -53,7 +53,7 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
 const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze }) => {
     
     return (
-        <div className="space-y-6 p-4 pb-20">
+        <div className="space-y-6 p-8 pb-20">
             <div className="page-header-compact">
                 <div className="page-header-title-group">
                     <h1 className="m3-headline-medium">Descrittori Competenze</h1>
@@ -65,9 +65,9 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
 
             {competenze.map(competenza => (
                 <div key={competenza.id} className="card">
-                    <div className="mb-4 border-b border-outline-variant pb-2">
+                    <div className="mb-8 border-b border-outline-variant pb-2">
                         <h2 className="m3-headline-small text-primary">{competenza.nome}</h2>
-                        <span className="m3-label-small text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">
+                        <span className="m3-label-small text-on-surface-variant bg-surface-container-high px-4 py-1 rounded">
                             {competenza.framework || 'Framework Standard'}
                         </span>
                     </div>

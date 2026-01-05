@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { chatWithAi } from '../services/aiService';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, AiThinkingGem } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField } from './ui';
 import { AiSettings, ChatMessage } from '../types';
 
 interface AssistantModalProps {
@@ -9,7 +9,7 @@ interface AssistantModalProps {
   onClose: () => void;
   mode?: 'chat' | 'docs' | 'tools' | 'backup';
   aiSettings: AiSettings;
-  context?: any;
+  context?: unknown;
 }
 
 const SUGGESTED_PROMPTS = [
@@ -214,21 +214,22 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       onClose={onClose}
       maxWidth="md"
       level={2}
+      hideBackdrop={true}
     >
-      <M3DialogContent className="space-y-4 bg-surface-container-high/30 backdrop-blur-sm">
+      <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
         {mode === 'chat' && (
           <>
-            <div className="assistant-messages space-y-2 h-64 overflow-y-auto custom-scrollbar">
+            <div className="assistant-messages space-y-4 h-64 overflow-y-auto custom-scrollbar">
               {messages.length === 0 && (
-                <div className="text-center text-primary m3-body-medium py-6">Come posso aiutarti?</div>
+                <div className="text-center text-primary m3-body-medium py-8">Come posso aiutarti?</div>
               )}
               {messages.map((msg, i) => (
                 <div
                   key={i}
-                  className={`m3-body-small p-3 rounded-2xl ${
+                  className={`m3-body-small p-8 rounded-2xl ${
                     msg.role === 'user'
-                      ? 'bg-primary text-on-primary ml-8'
-                      : 'bg-surface-variant text-on-surface-variant mr-8'
+                      ? 'bg-primary text-on-primary ml-12'
+                      : 'bg-surface-container-highest text-on-surface mr-12'
                   }`}
                 >
                   {msg.text}
@@ -236,11 +237,11 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               ))}
               {loading && <div className="m3-body-small text-on-surface-variant italic animate-pulse">Sto pensando…</div>}
             </div>
-            <div className="assistant-prompts flex flex-wrap gap-2">
+            <div className="assistant-prompts flex flex-wrap gap-12">
               {SUGGESTED_PROMPTS.map((p) => (
                 <button
                   key={p}
-                  className="chip bg-secondary-container text-on-secondary-container m3-label-small px-3 py-1 rounded-full hover:bg-secondary hover:text-on-secondary transition-colors"
+                  className="m3-button-tonal !px-4 !py-2 !h-auto !m3-label-small !rounded-full"
                   onClick={() => handlePrompt(p)}
                 >
                   {p}
@@ -251,18 +252,18 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         )}
 
         {mode === 'docs' && (
-          <div className="space-y-3">
+          <div className="space-y-8">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-12">
                 <span className="material-symbols-outlined text-secondary">import_contacts</span>
                 <h3 className="m3-title-medium">NotebookLM</h3>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-12">
                 <M3Button
                   variant="text"
                   onClick={handleNbSync}
                   disabled={nbLoading}
-                  className="!p-2"
+                  className="!p-12"
                 >
                   <span className="material-symbols-outlined">sync</span>
                 </M3Button>
@@ -277,24 +278,24 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   variant="text"
                   onClick={() => nbFileInput.current?.click()}
                   disabled={nbLoading}
-                  className="!p-2"
+                  className="!p-12"
                 >
                   <span className="material-symbols-outlined">upload</span>
                 </M3Button>
               </div>
             </div>
-            {nbError && <div className="m3-body-small text-error p-2 bg-error-container rounded-xl">{nbError}</div>}
+            {nbError && <div className="m3-body-small text-error p-12 bg-error-container rounded-xl">{nbError}</div>}
             {nbLoading && <div className="m3-body-small text-on-surface-variant animate-pulse">Caricamento…</div>}
-            <div className="space-y-2 max-h-48 overflow-y-auto custom-scrollbar">
+            <div className="space-y-4 max-h-48 overflow-y-auto custom-scrollbar">
               {nbFiles.map(file => (
-                <div key={file.id} className="flex items-center justify-between bg-surface-container p-3 rounded-2xl border border-outline-variant/30">
+                <div key={file.id} className="flex items-center justify-between bg-surface-container p-8 rounded-2xl border border-outline-variant/30">
                   <div className="flex-1 min-w-0">
                     <p className="m3-body-small font-medium truncate">{file.name}</p>
                     <p className="m3-body-small text-on-surface-variant m3-label-small">{new Date(file.lastModified).toLocaleDateString()}</p>
                   </div>
                   <M3Button
                     variant="text"
-                    className="text-error !p-2"
+                    className="text-error !p-12"
                     onClick={() => handleNbDelete(file.id)}
                   >
                     <span className="material-symbols-outlined">delete</span>
@@ -307,8 +308,8 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       </M3DialogContent>
 
       {/* Input Footer */}
-      <M3DialogActions className="!flex-col gap-3 p-4 bg-surface-container-lowest border-t border-outline-variant/30">
-        <div className="flex gap-2 items-end w-full">
+      <M3DialogActions className="!flex-col gap-8 px-12 pb-12 pt-0 bg-surface-container-lowest border-t border-outline-variant/10">
+        <div className="flex gap-12 items-end w-full">
           <div className="flex-1">
             <TextField
               label={isRecording ? "In ascolto..." : "Scrivi una domanda…"}
@@ -322,7 +323,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           </div>
           <M3Button
             variant="text"
-            className={`${isRecording ? 'text-error' : 'text-secondary'} !p-2 !min-w-0`}
+            className={`${isRecording ? 'text-error' : 'text-secondary'} !p-6 !min-w-0`}
             onClick={isRecording ? stopVoiceInput : startVoiceInput}
             title={isRecording ? 'Stop' : 'Voice input'}
           >
@@ -334,7 +335,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             variant="filled"
             onClick={handleSend}
             disabled={loading || !input.trim()}
-            className="!h-14 !w-14 !p-0 !min-w-0 flex items-center justify-center !rounded-2xl"
+            className="!h-16 !w-16 !p-0 !min-w-0 flex items-center justify-center !rounded-2xl"
           >
             <span className="material-symbols-outlined">send</span>
           </M3Button>

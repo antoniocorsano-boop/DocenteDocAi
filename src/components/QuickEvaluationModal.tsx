@@ -77,8 +77,8 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     const renderVotoTab = () => (
         <div className="space-y-6 animate-in fade-in">
             <div>
-                <label className="text-xs font-bold text-primary uppercase tracking-wider mb-3 block px-1">Tipo Prova</label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+                <label className="text-xs font-bold text-primary uppercase tracking-wider mb-6 block px-1">Tipo Prova</label>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
                     {EVALUATION_TYPES.map(t => (
                         <M3ChoiceCard
                             key={t}
@@ -86,13 +86,13 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                             label={t}
                             onClick={() => setTipo(t)}
                             selected={tipo === t}
-                            className="!min-h-[70px] !p-2"
+                            className="!min-h-[70px] !p-8"
                         />
                     ))}
                 </div>
             </div>
             
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-8">
                 <SelectField
                     id="voto"
                     label="Voto / Giudizio"
@@ -135,10 +135,10 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
 
             {selectedCompetenza && (
                 <div>
-                    <label className="text-xs font-bold text-primary uppercase tracking-wider mb-3 block px-1">Livello Raggiunto</label>
-                    <div className="space-y-2 bg-surface-container-low p-3 rounded-2xl border border-outline-variant/30">
+                    <label className="text-xs font-bold text-primary uppercase tracking-wider mb-6 block px-1">Livello Raggiunto</label>
+                    <div className="space-y-2 bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30">
                         {selectedCompetenza.livelli.map(level => (
-                            <label key={level.id} className={`flex items-center p-3 rounded-xl transition-all cursor-pointer border ${selectedLevelId === level.id ? 'bg-primary-container/30 border-primary' : 'hover:bg-surface-container-high border-transparent'}`}>
+                            <label key={level.id} className={`flex items-center p-6 rounded-xl transition-all cursor-pointer border ${selectedLevelId === level.id ? 'bg-primary-container/30 border-primary' : 'hover:bg-surface-container-high border-transparent'}`}>
                                 <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)} className="mr-3 accent-primary" required />
                                 <span className={`text-sm ${selectedLevelId === level.id ? 'font-bold text-on-primary-container' : 'text-on-surface'}`}>{level.descrizione}</span>
                             </label>
@@ -165,7 +165,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             level={1}
         >
             <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
-                <div className="mb-6 px-2">
+                <div className="mb-6 px-4">
                     <h3 className="text-xl font-bold text-on-surface">{student.cognome} {student.nome}</h3>
                     <p className="text-sm text-on-surface-variant">{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
                 </div>

@@ -1,12 +1,11 @@
 
 import React, { useState, useMemo } from 'react';
-import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza, View } from '../types';
+import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { saveAs } from 'file-saver';
-import { generateStudentProfilePdf, generateHtmlDocxBlob, viewPdfInNewTab, generateCertificazioneCompetenzePdf } from '../utils/documentUtils';
+import { generateStudentProfilePdf, viewPdfInNewTab, generateCertificazioneCompetenzePdf } from '../utils/documentUtils';
 import { DEFAULT_COMPETENZE } from '../constants';
 import StudentInterviewModal from './StudentInterviewModal';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, EmptyState, InfoCard, SectionHeader, Avatar, M3ListItem, AiThinkingGem } from './ui';
+import { M3Button, TabGroup, EmptyState, InfoCard, Avatar, M3ListItem } from './ui';
 import { getPeriodicJudgmentSuggestion } from '../services/aiService';
 
 interface StudentProfileProps {
@@ -32,7 +31,6 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     const [isLoadingAi, setIsLoadingAi] = useState(false);
 
     const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
-    const trendClass = performance.trend === 'up' ? 'text-tertiary' : performance.trend === 'down' ? 'text-error' : 'text-on-surface-variant';
     const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
 
     // Check if student is in terminal year (starts with 3 for middle school, 5 for high school)
@@ -153,26 +151,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
         }
     };
 
-    const handleExportDocx = async () => {
-        setIsExporting(true);
-        try {
-            const html = `<h1>Scheda Studente: ${student.cognome} ${student.nome}</h1>...`; // Simplified for brevity
-            const blob = await generateHtmlDocxBlob(html, `Scheda ${student.cognome}`);
-            saveAs(blob, `Scheda_${student.cognome}_${student.nome}.docx`);
-        } catch (e: unknown) {
-            let message = 'Errore DOCX.';
-            if (e instanceof Error) {
-                message = `Errore DOCX: ${e.message}`;
-            }
-            alert(message);
-        } finally {
-            setIsExporting(false);
-        }
-    }
-
     const renderOverview = () => (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <InfoCard 
                     title="Media Voti"
                     description={performance.grade || '-'}
@@ -239,13 +220,13 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                         className="font-black text-xs uppercase tracking-widest"
                         disabled={isLoadingAi}
                     >
-                        {isLoadingAi ? <AiThinkingGem size="small" inline text="" /> : 'Genera Bozza'}
+                        {isLoadingAi ? '⏳' : 'Genera Bozza'}
                     </M3Button>
                 </div>
 
                 {aiJudgment && (
-                    <div className="bg-surface-container-lowest/50 p-4 rounded-xl border border-outline-variant/20 animate-in fade-in slide-in-from-top-2">
-                        <div className="flex items-center gap-2 mb-2 text-primary">
+                    <div className="bg-surface-container-lowest/50 p-8 rounded-xl border border-outline-variant/20 animate-in fade-in slide-in-from-top-2">
+                        <div className="flex items-center gap-8 mb-8 text-primary">
                             <span className="material-symbols-outlined text-sm">auto_awesome</span>
                             <span className="text-[10px] font-black uppercase tracking-widest">Suggerimento AI</span>
                         </div>
@@ -294,7 +275,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 Object.entries(groupedEvaluations).map(([materia, evals]: [string, Valutazione[]]) => (
                     <div key={materia} className="bg-surface-container-low/30 backdrop-blur-xl rounded-2xl border border-outline-variant/20 overflow-hidden">
                         <div className="flex items-center justify-between p-6 bg-surface-container-high/50">
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-8">
                                 <div className="w-12 h-12 rounded-2xl bg-primary text-on-primary flex items-center justify-center font-black text-xl shadow-md">
                                     {materia.substring(0, 2).toUpperCase()}
                                 </div>
@@ -303,14 +284,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary opacity-70">{evals.length} prove registrate</p>
                                 </div>
                             </div>
-                            <div className="bg-primary-container/30 px-4 py-2 rounded-2xl border border-primary/20">
+                            <div className="bg-primary-container/30 px-4 py-4 rounded-2xl border border-primary/20">
                                 <span className="text-xs font-black text-primary uppercase tracking-widest mr-2">Media:</span>
                                 <span className="m3-title-large font-black text-primary">
                                     {(evals.reduce((a, b) => a + (parseFloat(b.voto) || 0), 0) / evals.length).toFixed(1)}
                                 </span>
                             </div>
                         </div>
-                        <div className="p-4 space-y-2">
+                        <div className="p-8 space-y-2">
                             {evals.map(ev => (
                                 <M3ListItem
                                     key={ev.id}
@@ -322,7 +303,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     headline={ev.argomento || 'Verifica'}
                                     supportingText={`${ev.tipo} ${ev.note ? `• ${ev.note}` : ''}`}
                                     trailingElement={
-                                        <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-8">
                                             <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest opacity-60">{new Date(ev.data).toLocaleDateString()}</span>
                                             <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" className="text-error hover:bg-error/10">
                                                 <span className="material-symbols-outlined">delete</span>
@@ -342,45 +323,41 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     const renderCompetencies = () => (
         <div className="space-y-6 animate-in fade-in">
             {Object.entries(groupedCompetencyEvals).length > 0 ? (
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-8">
                     {Object.values(groupedCompetencyEvals).map(({ competenza, evals }) => {
                         const latest = evals.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
                         const level = competenza.livelli.find(l => l.id === latest.livelloId);
                         let levelColor = "bg-surface-container-high/50 text-on-surface-variant";
-                        let iconColor = "text-on-surface-variant";
                         
                         if (level?.nome.includes("Avanzato") || level?.nome.includes("A -")) {
                             levelColor = "bg-primary-container/30 text-primary border-primary/20";
-                            iconColor = "text-primary";
                         } else if (level?.nome.includes("Intermedio") || level?.nome.includes("B -")) {
                             levelColor = "bg-secondary-container/30 text-secondary border-secondary/20";
-                            iconColor = "text-secondary";
                         } else if (level?.nome.includes("Base") || level?.nome.includes("C -")) {
                             levelColor = "bg-tertiary-container/30 text-tertiary border-tertiary/20";
-                            iconColor = "text-tertiary";
                         }
 
                         return (
                             <div key={competenza.id} className="bg-surface-container-low/30 backdrop-blur-xl p-6 rounded-2xl border border-outline-variant/20">
-                                <div className="flex justify-between items-start mb-4">
+                                <div className="flex justify-between items-start mb-8">
                                     <div>
-                                        <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">{competenza.codice}</p>
+                                        <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-4">{competenza.codice}</p>
                                         <h3 className="m3-title-large font-black text-on-surface">{competenza.nome}</h3>
                                     </div>
-                                    <div className={`px-4 py-2 rounded-2xl border font-black text-xs uppercase tracking-widest ${levelColor}`}>
+                                    <div className={`px-4 py-4 rounded-2xl border font-black text-xs uppercase tracking-widest ${levelColor}`}>
                                         {level?.nome}
                                     </div>
                                 </div>
                                 <div className="bg-surface-container-high/50 p-5 rounded-2xl border border-outline-variant/10">
-                                    <div className="flex items-center gap-2 mb-2 opacity-60">
+                                    <div className="flex items-center gap-8 mb-8 opacity-60">
                                         <span className="material-symbols-outlined text-sm">event</span>
                                         <span className="text-[10px] font-black uppercase tracking-widest">{new Date(latest.data).toLocaleDateString()}</span>
                                     </div>
                                     <p className="m3-body-medium text-on-surface leading-relaxed">{level?.descrizione}</p>
                                 </div>
                                 {latest.nota && (
-                                    <div className="mt-4 flex gap-3 items-start pl-4 border-l-4 border-primary/30">
-                                        <span className="material-symbols-outlined text-primary text-sm mt-1">chat_bubble</span>
+                                    <div className="mt-4 flex gap-6 items-start pl-4 border-l-4 border-primary/30">
+                                        <span className="material-symbols-outlined text-primary text-sm mt-4">chat_bubble</span>
                                         <p className="m3-body-small italic text-on-surface-variant">&ldquo;{latest.nota}&rdquo;</p>
                                     </div>
                                 )}
@@ -399,8 +376,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                     {(studentReceptions || []).map(lesson => (
                         <div key={lesson.id} className="bg-surface-container-low/30 backdrop-blur-xl p-6 rounded-2xl border border-outline-variant/20 relative overflow-hidden group">
                             <div className="absolute left-0 top-0 bottom-0 w-2 bg-tertiary"></div>
-                            <div className="flex justify-between items-start mb-3 pl-2">
-                                <div className="flex items-center gap-2">
+                            <div className="flex justify-between items-start mb-6 pl-2">
+                                <div className="flex items-center gap-8">
                                     <span className="material-symbols-outlined text-tertiary">meeting_room</span>
                                     <span className="text-[10px] font-black uppercase tracking-widest text-tertiary bg-tertiary-container/30 px-3 py-1 rounded-full">Ricevimento</span>
                                 </div>
@@ -409,7 +386,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             <p className="m3-title-medium font-bold pl-2 text-on-surface leading-relaxed">{lesson.contenuto}</p>
                             {lesson.obiettivi && (
                                 <div className="mt-4 pl-2">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 mb-1">Esito / Obiettivi</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 mb-4">Esito / Obiettivi</p>
                                     <p className="m3-body-small text-on-surface-variant">{lesson.obiettivi}</p>
                                 </div>
                             )}
@@ -442,7 +419,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                         />
                         <div>
                             <h1 className="m3-headline-medium font-black tracking-tight">{student.cognome} {student.nome}</h1>
-                            <div className="flex items-center gap-3 mt-1">
+                            <div className="flex items-center gap-6 mt-4">
                                 <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">Classe {student.classe}</span>
                                 {student.hasBES && <span className="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-[10px] font-black uppercase tracking-widest border border-tertiary/20">BES</span>}
                                 {student.hasDSA && <span className="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-[10px] font-black uppercase tracking-widest border border-tertiary/20">DSA</span>}
@@ -450,7 +427,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-3 w-full md:w-auto">
+                <div className="flex gap-6 w-full md:w-auto">
                     <M3Button onClick={() => setIsInterviewModeOpen(true)} variant="tonal" className="flex-grow md:flex-grow-0 font-black text-xs uppercase tracking-widest">
                         <span className="material-symbols-outlined mr-2">record_voice_over</span>
                         Colloquio
@@ -481,7 +458,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 <StudentInterviewModal 
                     student={student}
                     onClose={() => setIsInterviewModeOpen(false)}
-                    onSave={(note) => {
+                    onSave={() => {
                         // Logic to save interview note
                         setIsInterviewModeOpen(false);
                     }}

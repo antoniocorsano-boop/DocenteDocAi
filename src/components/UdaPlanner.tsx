@@ -58,7 +58,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         </div>
                         <div>
                             <h2 className="m3-headline-medium font-black tracking-tight">{udaProp === 'new' ? 'Nuovo Progetto' : 'Modifica Progetto'}</h2>
-                            <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60 mt-1">{currentUda.title || 'Senza titolo'}</p>
+                            <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60 mt-4">{currentUda.title || 'Senza titolo'}</p>
                         </div>
                     </div>
                     <M3Button onClick={onClose} variant="text" className="!w-12 !h-12 !p-0 !min-w-0 !rounded-full hover:bg-surface-container-high">
@@ -102,7 +102,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             leadingIcon="auto_awesome"
                             className="!bg-surface/50 shadow-sm"
                         />
-                        <div className="flex items-center gap-2 mt-4 px-2">
+                        <div className="flex items-center gap-8 mt-4 px-4">
                             <span className="material-symbols-outlined text-secondary text-sm animate-pulse">auto_awesome</span>
                             <p className="text-[10px] text-secondary font-black uppercase tracking-[0.2em] opacity-70">Bridge AI: Connetti il progetto al tuo spazio di lavoro esterno.</p>
                         </div>
@@ -117,22 +117,22 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                     />
                     
                     <div>
-                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.3em] px-4 mb-3 block opacity-60">Competenze Target</label>
+                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.3em] px-4 mb-6 block opacity-60">Competenze Target</label>
                         <div 
-                            className="bg-surface-container-lowest/30 backdrop-blur-sm p-6 rounded-2xl border border-outline-variant/20 cursor-pointer hover:bg-surface-container-high/40 transition-all shadow-inner group flex flex-wrap gap-3 min-h-[80px] items-center" 
+                            className="bg-surface-container-lowest/30 backdrop-blur-sm p-6 rounded-2xl border border-outline-variant/20 cursor-pointer hover:bg-surface-container-high/40 transition-all shadow-inner group flex flex-wrap gap-6 min-h-[80px] items-center" 
                             onClick={() => setIsCompetencyPickerOpen(true)}
                         >
                             {currentUda.competencyIds.length > 0 ? (
                                 currentUda.competencyIds.map(id => {
                                     const c = competenze.find(comp => comp.id === id);
                                     return (
-                                        <span key={id} className="bg-primary text-on-primary text-[10px] font-black px-4 py-2 rounded-full shadow-md animate-in zoom-in-95">
+                                        <span key={id} className="bg-primary text-on-primary text-[10px] font-black px-4 py-4 rounded-full shadow-md animate-in zoom-in-95">
                                             {c?.codice}
                                         </span>
                                     );
                                 })
                             ) : (
-                                <div className="flex items-center gap-3 opacity-40 group-hover:opacity-100 transition-opacity w-full justify-center">
+                                <div className="flex items-center gap-6 opacity-40 group-hover:opacity-100 transition-opacity w-full justify-center">
                                     <span className="material-symbols-outlined">add_circle</span>
                                     <span className="text-sm font-black uppercase tracking-widest">Tocca per selezionare competenze</span>
                                 </div>
@@ -140,7 +140,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         </div>
                     </div>
 
-                    <div className="flex justify-end gap-4 pt-10 border-t border-outline-variant/10">
+                    <div className="flex justify-end gap-8 pt-10 border-t border-outline-variant/10">
                         {udaProp !== 'new' && (
                             <M3Button 
                                 onClick={() => { if(confirm('Eliminare questo progetto?')) { onDeleteUda(currentUda.id); onClose(); }}} 
@@ -164,20 +164,20 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         level={2}
                     >
                         <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-2">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-8">
                                 {competenze.map(comp => {
                                     const isSelected = currentUda.competencyIds.includes(comp.id);
                                     return (
                                         <div 
                                             key={comp.id} 
                                             onClick={() => handleCompetencyToggle(comp.id)}
-                                            className={`flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all border-2 ${isSelected ? 'bg-primary-container text-on-primary-container border-primary/30 shadow-md' : 'bg-surface-container-lowest/50 border-transparent hover:bg-surface-container-high/50'}`}
+                                            className={`flex items-center gap-8 p-8 rounded-2xl cursor-pointer transition-all border-2 ${isSelected ? 'bg-primary-container text-on-primary-container border-primary/30 shadow-md' : 'bg-surface-container-lowest/50 border-transparent hover:bg-surface-container-high/50'}`}
                                         >
                                             <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${isSelected ? 'border-primary bg-primary' : 'border-outline-variant'}`}>
                                                 {isSelected && <span className="material-symbols-outlined text-on-primary text-sm">check</span>}
                                             </div>
                                             <div className="min-w-0">
-                                                <p className="font-black text-xs truncate leading-none mb-1">{comp.codice}</p>
+                                                <p className="font-black text-xs truncate leading-none mb-4">{comp.codice}</p>
                                                 <p className="truncate opacity-70 font-bold text-[10px] uppercase tracking-tighter">{comp.nome}</p>
                                             </div>
                                         </div>
@@ -197,8 +197,8 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
 
 const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
     // Accept both 'uda' and 'udas' for backward compatibility
-    const udas: Uda[] = Array.isArray((props as any).udas)
-        ? (props as any).udas
+    const udas: Uda[] = Array.isArray(props.udas)
+        ? props.udas
         : Array.isArray(props.uda)
             ? props.uda
             : [];
@@ -293,18 +293,18 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                         )}
                                                     </td>
                                                     <td className="p-6 text-right" onClick={e => e.stopPropagation()}>
-                                                        <div className="flex justify-end gap-2">
+                                                        <div className="flex justify-end gap-8">
                                                             <M3Button 
                                                                 onClick={() => setExportingUda(uda)} 
                                                                 variant="text" 
-                                                                className="!p-2 !min-w-0 !rounded-full"
+                                                                className="!p-8 !min-w-0 !rounded-full"
                                                             >
                                                                 <span className="material-symbols-outlined">ios_share</span>
                                                             </M3Button>
                                                             <M3Button 
                                                                 onClick={() => setEditingUda(uda)} 
                                                                 variant="text" 
-                                                                className="!p-2 !min-w-0 !rounded-full"
+                                                                className="!p-8 !min-w-0 !rounded-full"
                                                             >
                                                                 <span className="material-symbols-outlined">edit</span>
                                                             </M3Button>

@@ -160,9 +160,9 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                         className="text-center py-20 opacity-50 bg-surface-container-low/50 border border-dashed border-outline-variant/30"
                         style={{ borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
                     >
-                        <span className="material-symbols-outlined text-5xl mb-4 text-primary/40">event_busy</span>
+                        <span className="material-symbols-outlined text-5xl mb-8 text-primary/40">event_busy</span>
                         <p className="m3-title-medium font-bold text-on-surface-variant">Nessun evento o lezione oggi.</p>
-                        <button onClick={() => actions.handleNavigate('timetable')} className="mt-4 px-6 py-2 rounded-full bg-primary/10 text-primary font-black text-xs uppercase tracking-widest hover:bg-primary/20 transition-all">
+                        <button onClick={() => actions.handleNavigate('timetable')} className="mt-4 px-6 py-4 rounded-full bg-primary/10 text-primary font-black text-xs uppercase tracking-widest hover:bg-primary/20 transition-all">
                             Configura Orario
                         </button>
                     </div>
@@ -178,7 +178,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                 <div className="absolute left-[11px] top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/50 to-transparent rounded-full"></div>
                                 <div className="absolute left-0 top-8 w-6 h-6 rounded-full border-4 border-surface-container-low bg-primary shadow-lg z-10 animate-pulse"></div>
                                 
-                                <div className="mb-3 m3-label-small font-black text-primary uppercase tracking-[0.2em] flex items-center gap-2">
+                                <div className="mb-6 m3-label-small font-black text-primary uppercase tracking-[0.2em] flex items-center gap-8">
                                     <span className="relative flex h-2 w-2">
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                                         <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -192,7 +192,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                     <div className="flex justify-between items-start mb-6">
                                         <div>
                                             <h2 className="m3-headline-small font-black tracking-tight leading-tight">{item.title}</h2>
-                                            <p className="m3-body-medium opacity-80 font-medium mt-1">{item.subtitle}</p>
+                                            <p className="m3-body-medium opacity-80 font-medium mt-4">{item.subtitle}</p>
                                         </div>
                                         <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner">
                                             <span className="material-symbols-outlined text-3xl">
@@ -216,7 +216,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                             <div key={item.id} className="relative pl-10 opacity-40 grayscale-[0.5]">
                                 <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-outline-variant/30"></div>
                                 <div className="absolute left-[4px] top-2 w-4 h-4 rounded-full bg-outline-variant/50 border-2 border-surface-container-low"></div>
-                                <div className="flex items-center gap-6 py-2">
+                                <div className="flex items-center gap-6 py-4">
                                     <span className="text-[10px] font-black text-on-surface-variant w-12 uppercase tracking-tighter">{item.time}</span>
                                     <div>
                                         <p className="m3-body-medium font-bold text-on-surface line-through decoration-outline-variant/50">{item.title}</p>
@@ -238,12 +238,12 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                 onClick={item.onAction}
                                 style={{ borderRadius: 'calc(var(--shape-l) * var(--sys-radius-multiplier))' }}
                             >
-                                <div className="flex justify-between items-center mb-3">
+                                <div className="flex justify-between items-center mb-6">
                                     <span className="m3-label-small font-black text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/10 uppercase tracking-widest">{item.time}</span>
                                     {item.type === 'lesson' && <span className="text-[9px] font-black uppercase tracking-[0.2em] text-on-surface-variant opacity-50">Lezione</span>}
                                 </div>
                                 <h3 className="m3-title-medium font-black text-on-surface group-hover:text-primary transition-colors">{item.title}</h3>
-                                <p className="m3-body-small text-on-surface-variant font-medium mt-1">{item.subtitle}</p>
+                                <p className="m3-body-small text-on-surface-variant font-medium mt-4">{item.subtitle}</p>
                             </div>
                         </div>
                     );
@@ -252,7 +252,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
 
             {/* --- MAGIC BOTTOM BAR (Floating) --- */}
             <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-surface-container-low via-surface-container-low/80 to-transparent pb-8 pt-16 pointer-events-none z-20">
-                <div className="pointer-events-auto max-w-lg mx-auto bg-surface-container-highest/80 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl border border-white/10 p-2.5 flex items-center gap-3">
+                <div className="pointer-events-auto max-w-lg mx-auto bg-surface-container-highest/80 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl border border-white/10 p-4.5 flex items-center gap-6">
                     
                     <button onClick={() => actions.handleNavigate('settings')} className="w-12 h-12 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all">
                         <span className="material-symbols-outlined text-2xl">settings</span>

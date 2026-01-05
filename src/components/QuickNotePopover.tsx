@@ -41,27 +41,27 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
     }
 
     return (
-        <div ref={popoverRef} className="m3-popup-menu" style={{ ...style, width: '300px', padding: '0' }}>
+        <div ref={popoverRef} className="m3-popup-menu !p-0 w-[300px]" style={style}>
             <div className="popup-header-alt bg-surface-container-highest">
                 <h3 className="m3-title-small text-on-surface">Nota Rapida</h3>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-8">
                     <VoiceNoteRecorder onTranscription={handleTranscription} compact={true} />
                     <button onClick={onClose} className="icon-button !w-8 !h-8">
                         <span className="material-symbols-outlined text-sm">close</span>
                     </button>
                 </div>
             </div>
-            <div className="p-4 pt-2">
+            <div className="p-6 pt-2">
                 <textarea
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    className="form-textarea w-full mb-3 bg-surface-container-low border-none focus:ring-1 focus:ring-primary"
+                    className="form-textarea w-full mb-6 bg-surface-container-low border-none focus:ring-1 focus:ring-primary"
                     rows={4}
                     placeholder="Scrivi una nota..."
                     autoFocus
                 />
-                <div className="flex justify-end gap-2">
-                    <button onClick={handleSave} className="button button-filled w-full justify-center">
+                <div className="flex justify-end gap-8">
+                    <button onClick={handleSave} className="m3-button-filled w-full justify-center">
                         Salva Nota
                     </button>
                 </div>

@@ -140,7 +140,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
             ) : (
               <>
                 {/* Barra di ricerca e controlli */}
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center justify-between gap-8">
                   <div className="flex-1 max-w-md">
                     <div className="relative">
                       <span className="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant">
@@ -151,7 +151,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                         placeholder="Cerca template..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface"
+                        className="w-full pl-10 pr-4 py-4 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface"
                       />
                     </div>
                   </div>
@@ -168,13 +168,13 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                 <div className="space-y-8">
                   {Object.keys(groupedTemplates).length === 0 ? (
                     <div className="text-center py-12">
-                      <span className="material-symbols-outlined text-6xl text-on-surface-variant/50 mb-4">
+                      <span className="material-symbols-outlined text-6xl text-on-surface-variant/50 mb-8">
                         description
                       </span>
-                      <h3 className="text-lg font-medium text-on-surface mb-2">
+                      <h3 className="text-lg font-medium text-on-surface mb-8">
                         {searchTerm ? 'Nessun template trovato' : 'Nessun template creato'}
                       </h3>
-                      <p className="text-on-surface-variant mb-4">
+                      <p className="text-on-surface-variant mb-8">
                         {searchTerm
                           ? 'Prova a modificare i termini di ricerca'
                           : 'Crea il tuo primo template per personalizzare i documenti'
@@ -195,25 +195,25 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                         <SectionHeader 
                           title={groupName} 
                           subtitle={`${groupTemplates.length} template disponibili`}
-                          className="mb-4"
+                          className="mb-8"
                         />
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                           {groupTemplates.map(template => (
                             <InfoCard
                               key={template.id}
                               variant="elevated"
-                              className="p-4 hover:border-primary/50 transition-colors"
+                              className="p-8 hover:border-primary/50 transition-colors"
                             >
-                              <div className="flex items-start justify-between mb-3">
+                              <div className="flex items-start justify-between mb-6">
                                 <div className="flex-1 min-w-0">
-                                  <h4 className="font-bold text-on-surface truncate mb-1">
+                                  <h4 className="font-bold text-on-surface truncate mb-4">
                                     {template.name}
                                   </h4>
-                                  <span className={`inline-block px-2 py-0.5 text-[10px] font-black uppercase tracking-wider rounded-full ${getTypeColor(template.type)}`}>
+                                  <span className={`inline-block px-4 py-0.5 text-[10px] font-black uppercase tracking-wider rounded-full ${getTypeColor(template.type)}`}>
                                     {getTypeLabel(template.type)}
                                   </span>
                                 </div>
-                                <div className="flex gap-1 ml-2">
+                                <div className="flex gap-4 ml-2">
                                   <M3Button
                                     onClick={() => setEditingTemplate(template)}
                                     variant="text"
@@ -234,12 +234,12 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                               </div>
 
                               {template.description && (
-                                <p className="text-xs text-on-surface-variant mb-3 line-clamp-2">
+                                <p className="text-xs text-on-surface-variant mb-6 line-clamp-2">
                                   {template.description}
                                 </p>
                               )}
 
-                              <div className="text-[10px] text-on-surface-variant mb-3 opacity-70">
+                              <div className="text-[10px] text-on-surface-variant mb-6 opacity-70">
                                 Aggiornato: {new Date(template.updatedAt).toLocaleDateString('it-IT')}
                               </div>
 
@@ -281,9 +281,9 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
       aria-label="Anteprima del documento"
       role="region"
     >
-      <div className="bg-surface-container-low p-2 border-b border-outline/30 flex items-center justify-between shrink-0">
+      <div className="bg-surface-container-low p-8 border-b border-outline/30 flex items-center justify-between shrink-0">
         <span className="text-[10px] font-bold uppercase tracking-widest opacity-50 ml-2">Simulazione Documento</span>
-        <div className="flex gap-1">
+        <div className="flex gap-4">
           <div className="w-2 h-2 rounded-full bg-error/30"></div>
           <div className="w-2 h-2 rounded-full bg-warning/30"></div>
           <div className="w-2 h-2 rounded-full bg-success/30"></div>
@@ -305,16 +305,16 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
         />
         
         <div className="my-6 py-8 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center text-gray-400 bg-gray-50/50">
-          <span className="material-symbols-outlined text-3xl mb-2">description</span>
+          <span className="material-symbols-outlined text-3xl mb-8">description</span>
           <p className="text-xs font-medium">Contenuto del Documento</p>
-          <p className="text-[9px] mt-1 mb-4">(Simulazione corpo del documento)</p>
+          <p className="text-[9px] mt-4 mb-8">(Simulazione corpo del documento)</p>
           
           <div className="w-full px-8 space-y-3">
             {template.type === 'student_profile' && (
               <>
                 <div className="h-2 bg-gray-200 rounded w-3/4"></div>
                 <div className="h-2 bg-gray-200 rounded w-1/2"></div>
-                <div className="grid grid-cols-3 gap-2 mt-4">
+                <div className="grid grid-cols-3 gap-8 mt-4">
                   <div className="h-12 bg-gray-100 rounded border border-gray-200"></div>
                   <div className="h-12 bg-gray-100 rounded border border-gray-200"></div>
                   <div className="h-12 bg-gray-100 rounded border border-gray-200"></div>
@@ -323,11 +323,11 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
             )}
             {template.type === 'lesson_plan' && (
               <>
-                <div className="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/4 mb-8"></div>
                 <div className="space-y-2">
-                  <div className="flex gap-2"><div className="w-2 h-2 rounded-full bg-gray-300 mt-1"></div><div className="h-2 bg-gray-200 rounded flex-1"></div></div>
-                  <div className="flex gap-2"><div className="w-2 h-2 rounded-full bg-gray-300 mt-1"></div><div className="h-2 bg-gray-200 rounded flex-1"></div></div>
-                  <div className="flex gap-2"><div className="w-2 h-2 rounded-full bg-gray-300 mt-1"></div><div className="h-2 bg-gray-200 rounded flex-1"></div></div>
+                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-gray-300 mt-4"></div><div className="h-2 bg-gray-200 rounded flex-1"></div></div>
+                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-gray-300 mt-4"></div><div className="h-2 bg-gray-200 rounded flex-1"></div></div>
+                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-gray-300 mt-4"></div><div className="h-2 bg-gray-200 rounded flex-1"></div></div>
                 </div>
               </>
             )}
@@ -335,7 +335,7 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
               <>
                 <div className="border border-gray-200 rounded overflow-hidden">
                   <div className="bg-gray-100 h-6 border-b border-gray-200"></div>
-                  <div className="p-2 space-y-2">
+                  <div className="p-8 space-y-2">
                     <div className="h-2 bg-gray-200 rounded"></div>
                     <div className="h-2 bg-gray-200 rounded w-5/6"></div>
                   </div>
@@ -414,7 +414,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
     }
   };
 
-  const updateConfig = (key: string, value: any) => {
+  const updateConfig = (key: string, value: unknown) => {
     setEditedTemplate(prev => ({
       ...prev,
       config: {
@@ -451,7 +451,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
     <div className="space-y-6">
       {/* Header Editor */}
       <div className="flex items-center justify-between border-b border-outline-variant pb-4">
-        <div className="flex gap-2">
+        <div className="flex gap-8">
           <M3Button 
             onClick={() => setActiveTab('config')} 
             variant={activeTab === 'config' ? 'filled' : 'text'}
@@ -475,7 +475,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
           </M3Button>
         </div>
         
-        <div className="flex gap-2">
+        <div className="flex gap-8">
           <M3Button onClick={onCancel} variant="text" className="!py-1">
             Annulla
           </M3Button>
@@ -488,7 +488,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
       {activeTab === 'config' && (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
           {/* Informazioni base */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <TextField
               id="template-name"
               label="Nome Template *"
@@ -525,12 +525,12 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
           />
 
           {/* AI Generation Tool */}
-          <InfoCard variant="tonal" className="p-4 border-primary/20 bg-primary/5">
-            <div className="flex items-center gap-2 mb-3">
+          <InfoCard variant="tonal" className="p-8 border-primary/20 bg-primary/5">
+            <div className="flex items-center gap-8 mb-6">
               <span className="material-symbols-outlined text-primary">auto_awesome</span>
               <h4 className="font-bold text-primary text-sm">Genera con AI</h4>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-8">
               <TextField
                 id="ai-prompt"
                 label="Prompt AI"
@@ -544,21 +544,21 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                 onClick={handleGenerateWithAi} 
                 disabled={isGenerating || !aiPrompt.trim()}
                 variant="filled"
-                className="mt-6 !py-2"
+                className="mt-6 !py-4"
                 aria-label={isGenerating ? 'Generazione in corso...' : 'Genera template con AI'}
               >
                 {isGenerating ? '...' : 'Genera'}
               </M3Button>
             </div>
-            <p className="text-[10px] text-on-surface-variant mt-2">
+            <p className="text-[10px] text-on-surface-variant mt-4">
               L'AI creerà automaticamente l'intestazione, il piè di pagina e le configurazioni ottimali.
             </p>
           </InfoCard>
 
           {/* Configurazioni specifiche */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <InfoCard variant="elevated" className="p-4">
-              <h4 className="font-bold text-sm mb-4">Opzioni Visibilità</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <InfoCard variant="elevated" className="p-8">
+              <h4 className="font-bold text-sm mb-8">Opzioni Visibilità</h4>
               <div className="space-y-3">
                 {editedTemplate.type === 'student_profile' && (
                   <>
@@ -629,11 +629,11 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
               </div>
             </InfoCard>
 
-            <InfoCard variant="elevated" className="p-4">
-              <h4 className="font-bold text-sm mb-4">Sezioni Personalizzate</h4>
+            <InfoCard variant="elevated" className="p-8">
+              <h4 className="font-bold text-sm mb-8">Sezioni Personalizzate</h4>
               <div className="space-y-2">
                 {(editedTemplate.config.customSections || []).map((section, idx) => (
-                  <div key={idx} className="flex items-center gap-2">
+                  <div key={idx} className="flex items-center gap-8">
                     <input
                       type="text"
                       value={section}
@@ -642,7 +642,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         newSections[idx] = e.target.value;
                         updateConfig('customSections', newSections);
                       }}
-                      className="flex-1 px-2 py-1 border border-outline rounded bg-surface text-xs"
+                      className="flex-1 px-4 py-1 border border-outline rounded bg-surface text-xs"
                     />
                     <button 
                       onClick={() => {
@@ -674,48 +674,48 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Editor Side */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-8 mb-8">
                 <span className="material-symbols-outlined text-primary text-sm">edit_note</span>
                 <h4 className="font-bold text-sm">Editor HTML/CSS</h4>
               </div>
               
               <div>
-                <label htmlFor="html-header" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-1">
+                <label htmlFor="html-header" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-4">
                   Intestazione (HTML)
                 </label>
                 <textarea
                   id="html-header"
                   value={editedTemplate.content?.header || ''}
                   onChange={(e) => updateContent('header', e.target.value)}
-                  className="w-full px-3 py-2 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
+                  className="w-full px-3 py-4 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
                   rows={8}
                   placeholder="<h1>Titolo</h1>..."
                 />
               </div>
               
               <div>
-                <label htmlFor="html-footer" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-1">
+                <label htmlFor="html-footer" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-4">
                   Piè di pagina (HTML)
                 </label>
                 <textarea
                   id="html-footer"
                   value={editedTemplate.content?.footer || ''}
                   onChange={(e) => updateContent('footer', e.target.value)}
-                  className="w-full px-3 py-2 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
+                  className="w-full px-3 py-4 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
                   rows={4}
                   placeholder="<p>Pagina {{page}}</p>..."
                 />
               </div>
               
               <div>
-                <label htmlFor="custom-css" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-1">
+                <label htmlFor="custom-css" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-4">
                   CSS Personalizzato
                 </label>
                 <textarea
                   id="custom-css"
                   value={editedTemplate.content?.customCss || ''}
                   onChange={(e) => updateContent('customCss', e.target.value)}
-                  className="w-full px-3 py-2 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
+                  className="w-full px-3 py-4 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
                   rows={4}
                   placeholder=".header { color: red; }..."
                 />
@@ -724,13 +724,13 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
 
             {/* Preview & Variables Side */}
             <div className="lg:col-span-5 space-y-4">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-8">
                   <span className="material-symbols-outlined text-primary text-sm">visibility</span>
                   <h4 className="font-bold text-sm">Anteprima Real-time</h4>
                 </div>
                 <div 
-                  className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-success/10 text-success text-[9px] font-black uppercase tracking-wider animate-pulse"
+                  className="flex items-center gap-2.5 px-4 py-0.5 rounded-full bg-success/10 text-success text-[9px] font-black uppercase tracking-wider animate-pulse"
                   aria-live="polite"
                   role="status"
                 >
@@ -743,16 +743,16 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                 <TemplatePreview template={editedTemplate} />
               </div>
 
-              <InfoCard variant="tonal" className="p-3">
-                <h4 className="font-bold text-[11px] mb-2 flex items-center gap-2">
+              <InfoCard variant="tonal" className="p-6">
+                <h4 className="font-bold text-[11px] mb-8 flex items-center gap-8">
                   <span className="material-symbols-outlined text-primary text-xs">variable_insert</span>
                   Variabili (Clicca per copiare)
                 </h4>
-                <div className="flex flex-wrap gap-1.5 max-h-[120px] overflow-y-auto">
+                <div className="flex flex-wrap gap-2.5 max-h-[120px] overflow-y-auto">
                   {availableVariables.map(v => (
                     <button 
                       key={v.name} 
-                      className="px-2 py-1 rounded bg-surface-container-low border border-outline/30 hover:border-primary/50 text-[10px] font-mono text-primary transition-colors"
+                      className="px-4 py-1 rounded bg-surface-container-low border border-outline/30 hover:border-primary/50 text-[10px] font-mono text-primary transition-colors"
                       onClick={() => {
                         navigator.clipboard.writeText(v.name);
                         showToast(`Copiato: ${v.name}`, 'info');

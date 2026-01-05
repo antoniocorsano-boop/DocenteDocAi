@@ -14,7 +14,7 @@ interface CircolareAnalysisModalProps {
 }
 
 const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) => {
-    const { url, title, onClose, aiSettings, onImportEvents, onSaveToKb } = props;
+    const { url, onClose, aiSettings, onImportEvents, onSaveToKb } = props;
 
     const [manualText, setManualText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -105,20 +105,21 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
             onClose={onClose}
             title="Analisi Circolare"
             level={1}
+            hideBackdrop={true}
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
-                <div className="space-y-6 pt-2">
+            <M3DialogContent className="px-12 pt-12 pb-0">
+                <div className="space-y-12">
                     {!result ? (
                         /* INPUT STATE */
                         <>
-                            <div className="bg-surface-container-high p-4 rounded-xl border border-outline-variant/30 flex gap-3">
+                            <div className="bg-surface-container-high p-12 rounded-2xl border border-outline-variant/30 flex gap-12">
                                 <span className="material-symbols-outlined text-primary">info</span>
-                                <div className="space-y-2">
+                                <div className="space-y-4">
                                     <h3 className="m3-label-large font-bold">Procedura Manuale (Privacy-Safe)</h3>
                                     <p className="m3-body-small text-on-surface-variant">L'AI analizza solo il testo che incolli qui. Non accediamo direttamente ai link per privacy.</p>
-                                    <ol className="list-decimal pl-5 space-y-1 m3-label-small text-on-surface-variant/80">
+                                    <ol className="list-decimal pl-8 space-y-2 m3-label-small text-on-surface-variant/80">
                                         <li>
-                                            <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold inline-flex items-center gap-1">
+                                            <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold inline-flex items-center gap-4">
                                                 Apri la circolare originale <span className="material-symbols-outlined text-[10px]">open_in_new</span>
                                             </a>
                                         </li>
@@ -136,10 +137,11 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                                 rows={8}
                                 placeholder="Incolla qui il testo..."
                                 disabled={isLoading}
+                                className="mt-12"
                             />
 
                             {error && (
-                                <div className="flex items-center gap-2 p-3 bg-error-container text-on-error-container rounded-xl m3-body-small justify-center">
+                                <div className="flex items-center gap-12 p-12 bg-error-container text-on-error-container rounded-2xl m3-body-small justify-center">
                                     <span className="material-symbols-outlined m3-label-large">error</span>
                                     {error}
                                 </div>
@@ -147,9 +149,9 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                         </>
                     ) : (
                         /* RESULT STATE */
-                        <div className="space-y-6 animate-in fade-in">
-                            <div className="p-4 bg-secondary-container/30 text-on-secondary-container rounded-2xl border border-secondary/10">
-                                <h3 className="m3-label-large font-bold mb-2 flex items-center gap-2">
+                        <div className="space-y-12 animate-in fade-in">
+                            <div className="p-12 bg-secondary-container/30 text-on-secondary-container rounded-2xl border border-secondary/10">
+                                <h3 className="m3-label-large font-bold mb-12 flex items-center gap-12">
                                     <span className="material-symbols-outlined">summarize</span>
                                     Riepilogo AI
                                 </h3>
@@ -158,34 +160,34 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
 
                             {result.events.length > 0 || result.deadlines.length > 0 ? (
                                 <div className="rounded-2xl border border-outline-variant/30 overflow-hidden">
-                                    <div className="bg-surface-container-high/50 px-4 py-3 border-b border-outline-variant/10 flex justify-between items-center">
+                                    <div className="bg-surface-container-high/50 px-8 py-4 border-b border-outline-variant/10 flex justify-between items-center">
                                         <h4 className="m3-label-medium font-black uppercase tracking-widest text-on-surface-variant/70">Eventi Rilevati</h4>
-                                        <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">{result.events.length + result.deadlines.length}</span>
+                                        <span className="bg-primary/10 text-primary text-[10px] font-bold px-8 py-2 rounded-full">{result.events.length + result.deadlines.length}</span>
                                     </div>
                                     <div className="divide-y divide-outline-variant/10">
                                         {result.events.map((e, i) => (
-                                            <div key={i} className="p-4 flex justify-between items-center hover:bg-surface-container-low transition-colors">
-                                                <div className="flex items-center gap-3">
-                                                    <span className="material-symbols-outlined text-primary bg-primary-container p-2 rounded-full m3-body-small">event</span>
+                                            <div key={i} className="p-12 flex justify-between items-center hover:bg-surface-container-low transition-colors">
+                                                <div className="flex items-center gap-12">
+                                                    <span className="material-symbols-outlined text-primary bg-primary-container p-12 rounded-full m3-body-small">event</span>
                                                     <span className="font-medium m3-body-small">{e.titolo}</span>
                                                 </div>
-                                                <span className="font-mono m3-label-small bg-surface-container-high px-2 py-1 rounded border border-outline-variant/20">{e.data}</span>
+                                                <span className="font-mono m3-label-small bg-surface-container-high px-8 py-2 rounded border border-outline-variant/20">{e.data}</span>
                                             </div>
                                         ))}
                                         {result.deadlines.map((d, i) => (
-                                            <div key={`d-${i}`} className="p-4 flex justify-between items-center bg-error-container/5 hover:bg-error-container/10 transition-colors">
-                                                <div className="flex items-center gap-3">
-                                                    <span className="material-symbols-outlined text-error bg-error-container p-2 rounded-full m3-body-small">flag</span>
+                                            <div key={`d-${i}`} className="p-12 flex justify-between items-center bg-error-container/5 hover:bg-error-container/10 transition-colors">
+                                                <div className="flex items-center gap-12">
+                                                    <span className="material-symbols-outlined text-error bg-error-container p-12 rounded-full m3-body-small">flag</span>
                                                     <span className="font-medium m3-body-small text-on-surface">{d.title}</span>
                                                 </div>
-                                                <span className="font-mono m3-label-small bg-error-container text-on-error-container px-2 py-1 rounded">{d.date}</span>
+                                                <span className="font-mono m3-label-small bg-error-container text-on-error-container px-8 py-2 rounded">{d.date}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             ) : (
-                                <div className="p-8 text-center border-2 border-dashed border-outline-variant/30 rounded-2xl">
-                                    <span className="material-symbols-outlined m3-display-small text-on-surface-variant/30 mb-2">event_busy</span>
+                                <div className="p-12 text-center border-2 border-dashed border-outline-variant/30 rounded-2xl">
+                                    <span className="material-symbols-outlined m3-display-small text-on-surface-variant/30 mb-12">event_busy</span>
                                     <p className="m3-body-small text-on-surface-variant italic">Nessun evento o scadenza rilevato nel testo.</p>
                                 </div>
                             )}
@@ -193,7 +195,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                     )}
                 </div>
             </M3DialogContent>
-            <M3DialogActions>
+            <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
                 {dialogButtons}
             </M3DialogActions>
         </M3Dialog>

@@ -4,7 +4,7 @@ import RegisterImportDialog from './RegisterImportDialog';
 import AuraView from './AuraView';
 import ErrorBoundary from './ErrorBoundary';
 import { AiThinkingGem } from './ui';
-import { AppState, AppActions, View, EventoCalendario, Lezione, RegisterEntry, Studente, KnowledgeBaseEntry, Rubrica, PianoInclusione, GiudizioPeriodico, Competenza, LessonScheduleInput, EvaluationInput, UdaCreateInput, Uda, Report } from '../types';
+import { AppState, AppActions, View, Lezione, RegisterEntry, Studente, Competenza, Uda, Report } from '../types';
 import type { Modals } from '../types';
 
 interface ViewManagerProps {
@@ -23,8 +23,8 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
 
     // Destructure appState (now directly contains states from Zustand stores)
     const {
-        user, students, slots, activeSuggestion, dismissedSuggestions, isGlobalAiLoading, installPrompt, notifiche, settings,
-        lessons, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, aiSettings, themeState, backupState, driveSyncState, studentProfileContext, curricula, submissions,
+        user, students, slots, dismissedSuggestions, installPrompt, settings,
+        lessons, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, rubriche, pianiInclusione, giudizi, reportistica, draftRegister, finalizedRegister, aiSettings, themeState, backupState, driveSyncState, curricula, submissions,
         orientamentoActivities, ePortfolioEntries, studentOrientamentoStates
     } = appState;
 
@@ -34,22 +34,20 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
         setLessonViewContext,
         setIsLiveAssistantModalOpen,
         setActiveSlotKey,
-        setEditingSlotKey,
         setIsLoadingModalOpen,
         setLoadingModalMessage,
-        setCircularAnalysisModal,
         setIsRegisterImportOpen
     } = modals;
 
     // Tutte le altre azioni da actions
     const {
         setLessons, setEvaluations, setCompetencyEvals, setUda,
-        setEventi, setKnowledgeBase, setCorpora, setRubriche, setPianiInclusione,
-        setGiudizi, setReportistica, setDraftRegister, setFinalizedRegister, setCurricula, setSubmissions, dismissSuggestion,
-        setStudentProfileContext, showToast, clearToast,
-        handleNavigate, handleBack, handleLoadDemoData, handleCleanDemoData,
-        handleEditSlot, handleShowSlotActions,
-        handleAiSuggest, onScheduleLesson, handleAddEvaluation,
+        setEventi, setKnowledgeBase, setCorpora,
+        setReportistica, setDraftRegister, setFinalizedRegister, setCurricula, setSubmissions, dismissSuggestion,
+        setStudentProfileContext, showToast,
+        handleNavigate, handleBack, handleLoadDemoData,
+        handleEditSlot,
+        onScheduleLesson, handleAddEvaluation,
         handleCreateUda, handleAddNote, onMarkAttendance,
         setViewContext,
         onSaveUda,
@@ -62,8 +60,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
         setEPortfolioEntries,
         setStudentOrientamentoStates,
         importStudents,
-        importEvaluations,
-        toggleModal
+        importEvaluations
     } = actions;
 
     const safeSubmissions = submissions || [];
@@ -173,7 +170,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         const currentDraftEntry = draftKey !== undefined ? draftRegister[draftKey] : undefined;
                         
                         if (!currentDraftEntry) {
-                            return <div className="p-4 text-error">Errore: Dati lezione in bozza non trovati.</div>;
+                            return <div className="p-8 text-error">Errore: Dati lezione in bozza non trovati.</div>;
                         }
 
                         return (
@@ -218,8 +215,8 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         if (!currentStudent) {
                             return (
                                 <div className="flex flex-col items-center justify-center h-full p-6 text-center">
-                                    <h2 className="m3-headline-small text-error mb-2">Errore Accesso Studente</h2>
-                                    <p className="m3-body-medium text-on-surface-variant mb-4">
+                                    <h2 className="m3-headline-small text-error mb-8">Errore Accesso Studente</h2>
+                                    <p className="m3-body-medium text-on-surface-variant mb-8">
                                         Impossibile trovare il profilo studente selezionato.
                                     </p>
                                     <button onClick={() => handleNavigate('student-dashboard')} className="button button-filled rounded-lg mt-4">
@@ -253,14 +250,21 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         const wrapperProps = { fullWidth: config.fullWidth };
                         
                         // Map props for standard views
-                        let componentProps: any = {};
+                        let componentProps: Record<string, unknown> = {};
                         
                         switch (view) {
                             case 'timetable':
-                                componentProps = { slots, lessons, settings, onEditSlot: handleEditSlot, onShowSlotActions: (slot: any, lesson: any) => { setActiveSlotKey?.(slot.giorno + '-' + slot.ora); setLessonViewContext?.(lesson); }, showGuidanceTips: settings.showGuidanceTips };
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                componentProps = { slots, lessons, settings, onEditSlot: handleEditSlot, onShowSlotActions: (slot: Record<string, unknown>, lesson: Record<string, unknown>) => { setActiveSlotKey?.((slot as any).giorno + '-' + (slot as any).ora); setLessonViewContext?.(lesson); }, showGuidanceTips: settings.showGuidanceTips };
                                 break;
                             case 'calendario':
-                                return <AuraView {...wrapperProps}><ErrorBoundary><Component eventi={eventi} setEventi={setEventi} aiSettings={aiSettings} /></ErrorBoundary></AuraView>;
+                                return (
+                                    <AuraView {...wrapperProps}>
+                                        <ErrorBoundary>
+                                            <Component eventi={eventi} setEventi={setEventi} aiSettings={aiSettings} />
+                                        </ErrorBoundary>
+                                    </AuraView>
+                                );
                             case 'settings':
                                 componentProps = {
                                     settings, themeState, aiSettings, backupState, driveState: driveSyncState, installPrompt, dismissedSuggestions,
@@ -290,7 +294,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                     onAddLessons, 
                                     onSaveReport, 
                                     onSaveEvent, 
-                                    initialAction: typeof viewContext === 'object' && viewContext !== null && 'action' in viewContext ? (viewContext as any).action : undefined, 
+                                    initialAction: typeof viewContext === 'object' && viewContext !== null && 'action' in viewContext ? (viewContext as Record<string, unknown>).action : undefined, 
                                     knowledgeBase, 
                                     showToast, 
                                     showGuidanceTips: settings.showGuidanceTips, 
@@ -306,7 +310,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                 };
                                 break;
                             case 'reportistica':
-                                componentProps = { reportistica, onDeleteReport: (id: string) => setReportistica((prev: Report[]) => prev.filter((r) => r.id !== id)), userClasses: settings.classi, students, evaluations, competencyEvaluations: competencyEvals, settings, uda, lessons, onSaveReport, aiSettings, pianiInclusione, knowledgeBase, onAddKbEntry: (entry: KnowledgeBaseEntry) => setKnowledgeBase(prev => [...prev, entry]), onSaveUda, onAddLessons, onSaveEvent };
+                                componentProps = { reportistica, onDeleteReport: (id: string) => setReportistica((prev: Report[]) => prev.filter((r) => r.id !== id)), userClasses: settings.classi, students, evaluations, competencyEvaluations: competencyEvals, settings, uda, lessons, onSaveReport, aiSettings, pianiInclusione, knowledgeBase, onAddKbEntry: (entry: Record<string, unknown>) => setKnowledgeBase(prev => [...prev, entry as never]), onSaveUda, onAddLessons, onSaveEvent };
                                 break;
                             case 'knowledge-base':
                                 componentProps = { knowledgeBase, setKnowledgeBase, corpora, setCorpora, showToast };
@@ -315,10 +319,11 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                 componentProps = { corpora, knowledgeBase, setKnowledgeBase, aiSettings, onOpenCreateLesson: () => setCreateLessonContext?.({ isOpen: true, slotKey: null, lezione: null }), showToast, showGuidanceTips: settings.showGuidanceTips, onAiProcessing: () => {} };
                                 break;
                             case 'orientamento':
-                                componentProps = { students, activities: orientamentoActivities, ePortfolioEntries, studentStates: studentOrientamentoStates, userClasses: settings.classi, onSaveActivity: (a: any) => setOrientamentoActivities(prev => [...(Array.isArray(prev) ? prev.filter(act => act.id !== a.id) : []), a]), onSaveEPortfolio: (e: any) => setEPortfolioEntries(prev => [...(Array.isArray(prev) ? prev.filter(ent => ent.id !== e.id) : []), e]), onUpdateStudentState: (s: any) => setStudentOrientamentoStates(prev => ({ ...prev, [s.studenteId]: s })), showToast };
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                componentProps = { students, activities: orientamentoActivities, ePortfolioEntries, studentStates: studentOrientamentoStates, userClasses: settings.classi, onSaveActivity: (a: Record<string, unknown>) => setOrientamentoActivities(prev => [...(Array.isArray(prev) ? prev.filter(act => (act as any).id !== (a as any).id) : []), a]), onSaveEPortfolio: (e: Record<string, unknown>) => setEPortfolioEntries(prev => [...(Array.isArray(prev) ? prev.filter(ent => (ent as any).id !== (e as any).id) : []), e]), onUpdateStudentState: (s: Record<string, unknown>) => setStudentOrientamentoStates(prev => ({ ...prev, [(s as any).studenteId]: s })), showToast };
                                 break;
                             case 'lessons':
-                                componentProps = { lessons: Object.values(lessons), uda, knowledgeBase, userClasses: settings.classi, onViewLesson: setLessonViewContext ?? (() => {}), onAddLessons, onUpdateLesson: (lesson: Lezione) => setLessons(prev => ({ ...prev, [lesson.id]: lesson })), aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula, settings, onStartClassroom: () => {} };
+                                componentProps = { lessons: Object.values(lessons), uda, knowledgeBase, userClasses: settings.classi, onViewLesson: setLessonViewContext as (lesson: unknown) => void ?? (() => {}), onAddLessons, onUpdateLesson: (lesson: Lezione) => setLessons(prev => ({ ...prev, [lesson.id]: lesson })), aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula, settings, onStartClassroom: () => {} };
                                 break;
                             case 'uda':
                                 componentProps = { uda, onSaveUda, onDeleteUda: (id: string) => setUda((prev) => prev.filter((u: Uda) => u.id !== id)), lessons, onUpdateUdaLessons: () => {}, aiSettings, knowledgeBase, competenze: settings.competenze, settings, onSaveReport, onNavigate: handleNavigate, showToast, showGuidanceTips: settings.showGuidanceTips, setIsLoadingModalOpen, setLoadingModalMessage, eventi, onAddLessons, onSaveEvent, curricula };
@@ -327,7 +332,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                 componentProps = { competenze: settings.competenze, rubriche, onSaveRubrica: actions.saveRubrica, onNavigate: handleNavigate };
                                 break;
                             case 'didattica-inclusiva':
-                                componentProps = { students, pianiInclusione, onSavePiano: actions.savePianoInclusione, onDeletePiano: actions.deletePianoInclusione, aiSettings, evaluations, competencyEvaluations: competencyEvals, settings, studentToEdit: typeof viewContext === 'object' && viewContext !== null && 'student' in viewContext ? (viewContext as any).student : undefined, onClearStudentToEdit: () => setViewContext({ student: undefined }), showToast, showGuidanceTips: settings.showGuidanceTips, onAiProcessing: () => {} };
+                                componentProps = { students, pianiInclusione, onSavePiano: actions.savePianoInclusione, onDeletePiano: actions.deletePianoInclusione, aiSettings, evaluations, competencyEvaluations: competencyEvals, settings, studentToEdit: typeof viewContext === 'object' && viewContext !== null && 'student' in viewContext ? (viewContext as Record<string, unknown>).student : undefined, onClearStudentToEdit: () => setViewContext({ student: undefined }), showToast, showGuidanceTips: settings.showGuidanceTips, onAiProcessing: () => {} };
                                 break;
                             case 'evaluations':
                                 componentProps = { students, evaluations, setEvaluations, competencyEvaluations: competencyEvals, setCompetencyEvaluations: setCompetencyEvals, userClasses: settings.classi, settings, aiSettings, initialClass: typeof viewContext === 'string' ? viewContext : undefined, onClearInitialStudent: () => setViewContext({ initialStudentId: undefined }), onOpenInclusionPlanEditor: (student: Studente) => handleNavigate('didattica-inclusiva', { student }), showGuidanceTips: settings.showGuidanceTips, register: finalizedRegister, lessons };
@@ -360,17 +365,21 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                 componentProps = { curricula: curricula || [], onUpdateCurricula: setCurricula, settings, aiSettings, onNavigate: handleNavigate };
                                 break;
                             case 'live-assistant':
-                                componentProps = { students, evaluations, slots, lessons, pianiInclusione, knowledgeBase, onNavigate: handleNavigate, onCreateEvent: (eventWithoutId: any) => { const newEvent = { ...eventWithoutId, id: `evt-${Date.now()}-${Math.random()}` }; setEventi((prev: any) => [...prev, newEvent]); }, onScheduleLesson: (data: any) => { onScheduleLesson(data); modals.setIsLiveAssistantModalOpen?.(false); }, onAddEvaluation: (data: any) => { handleAddEvaluation(data); modals.setIsLiveAssistantModalOpen?.(false); }, onCreateUda: (data: any) => { handleCreateUda(data); modals.setIsLiveAssistantModalOpen?.(false); }, onAddNote: (data: any) => { handleAddNote(data); modals.setIsLiveAssistantModalOpen?.(false); }, onMarkAttendance: (data: any) => { onMarkAttendance(data); modals.setIsLiveAssistantModalOpen?.(false); }, onLoadDemoData: () => { handleLoadDemoData(); modals.setIsLiveAssistantModalOpen?.(false); }, userContext: user };
+                                componentProps = { students, evaluations, slots, lessons, pianiInclusione, knowledgeBase, onNavigate: handleNavigate, onCreateEvent: (eventWithoutId: Record<string, unknown>) => { const newEvent = { ...eventWithoutId, id: `evt-${Date.now()}-${Math.random()}` }; setEventi((prev: Record<string, unknown>[]) => [...prev, newEvent]); }, onScheduleLesson: (data: Record<string, unknown>) => { onScheduleLesson(data); modals.setIsLiveAssistantModalOpen?.(false); }, onAddEvaluation: (data: Record<string, unknown>) => { handleAddEvaluation(data); modals.setIsLiveAssistantModalOpen?.(false); }, onCreateUda: (data: Record<string, unknown>) => { handleCreateUda(data); modals.setIsLiveAssistantModalOpen?.(false); }, onAddNote: (data: Record<string, unknown>) => { handleAddNote(data); modals.setIsLiveAssistantModalOpen?.(false); }, onMarkAttendance: (data: Record<string, unknown>) => { onMarkAttendance(data); modals.setIsLiveAssistantModalOpen?.(false); }, onLoadDemoData: () => { handleLoadDemoData(); modals.setIsLiveAssistantModalOpen?.(false); }, userContext: user };
                                 break;
                             case 'teacher-presentation-view':
                                 componentProps = { onNavigate: handleNavigate };
                                 break;
                         }
 
-                        return (
+                        return config.auraWrapper !== false ? (
                             <AuraView {...wrapperProps}>
                                 <Component {...componentProps} />
                             </AuraView>
+                        ) : (
+                            <div className={config.fullWidth ? 'w-full' : 'max-w-7xl mx-auto px-4'}>
+                                <Component {...componentProps} />
+                            </div>
                         );
                     }
 
@@ -379,7 +388,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         <AuraView>
                             <div className="p-12 text-center opacity-50">
                                 <h2 className="m3-headline-medium">Vista "{view}" non trovata</h2>
-                                <button onClick={() => actions.handleNavigate('home')} className="button button-filled rounded-lg hover:shadow-md transition-all mt-4">
+                                <button onClick={() => actions.handleNavigate('home')} className="m3-button-filled mt-4">
                                     Torna alla Home
                                 </button>
                             </div>

@@ -22,7 +22,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({ title, subtitle, icon
 
     return (
         <section className={`bg-surface-container-low rounded-3xl border border-outline-variant overflow-hidden mb-6 shadow-sm ${className}`}>
-            <div className="flex items-center gap-4 p-5 border-b border-outline-variant/50 bg-surface/50 backdrop-blur-sm">
+            <div className="flex items-center gap-8 p-5 border-b border-outline-variant/50 bg-surface/50 backdrop-blur-sm">
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${iconClass}`}>
                     <span className="material-symbols-outlined text-2xl">{icon}</span>
                 </div>

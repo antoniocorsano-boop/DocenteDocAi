@@ -41,13 +41,13 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
 
     return (
         <div
-            className="m3-card surface-container-high elevation-1 rounded-m p-4 transition-shadow duration-300 focus-within:elevation-2"
+            className="m3-card surface-container-high elevation-1 rounded-m p-8 transition-shadow duration-300 focus-within:elevation-2"
             tabIndex={0}
             aria-label={title}
             style={{ outline: 'none' }}
         >
             <div className="flex justify-between items-start">
-                <h3 className="m3-title-medium flex items-center gap-2 text-on-surface">
+                <h3 className="m3-title-medium flex items-center gap-8 text-on-surface">
                     {icon && <span className="material-symbols-outlined text-on-surface-variant" aria-hidden="true">{icon}</span>}
                     {title}
                 </h3>
@@ -64,7 +64,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
                 )}
             </div>
 
-            <div className="mt-2">
+            <div className="mt-4">
                 {isEditing ? (
                     <div className="space-y-2">
                         <textarea
@@ -76,7 +76,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
                             aria-label="Modifica contenuto"
                             style={{ borderRadius: 'var(--shape-s)', background: 'var(--sys-surface-container)', color: 'var(--sys-on-surface)' }}
                         />
-                        <div className="flex justify-end gap-2">
+                        <div className="flex justify-end gap-8">
                             <button onClick={handleCancel} className="button button-text m3-interactive" aria-label="Annulla modifica">Annulla</button>
                             <button onClick={handleSave} className="button button-filled m3-interactive" aria-label="Salva contenuto">Salva</button>
                         </div>

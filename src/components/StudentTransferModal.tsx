@@ -72,8 +72,8 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
             level={1}
         >
             <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
-                <div className="flex flex-col gap-6 py-2">
-                    <div className="p-4 bg-secondary-container/10 rounded-2xl border border-secondary/20">
+                <div className="flex flex-col gap-6 py-4">
+                    <div className="p-8 bg-secondary-container/10 rounded-2xl border border-secondary/20">
                         <p className="m3-body-medium text-on-surface">
                             Gestisci lo spostamento di <strong>{student.cognome} {student.nome}</strong>
                         </p>
@@ -91,11 +91,11 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                     />
 
                     {mode === 'change_class' ? (
-                        <div className="bg-surface-container-lowest/50 p-4 rounded-3xl border border-outline-variant/30 flex flex-col gap-4">
-                            <h3 className="m3-label-large text-primary px-2">Nuova Destinazione</h3>
+                        <div className="bg-surface-container-lowest/50 p-8 rounded-3xl border border-outline-variant/30 flex flex-col gap-8">
+                            <h3 className="m3-label-large text-primary px-4">Nuova Destinazione</h3>
 
                             {!isCustomClass ? (
-                                <div className="flex flex-col gap-2">
+                                <div className="flex flex-col gap-8">
                                     <SelectField
                                         label="Seleziona Classe Esistente"
                                         value={newClass}
@@ -112,7 +112,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                                     </M3Button>
                                 </div>
                             ) : (
-                                <div className="flex flex-col gap-2">
+                                <div className="flex flex-col gap-8">
                                     <TextField
                                         label="Nome Nuova Classe"
                                         value={customClass}
@@ -131,19 +131,19 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                             )}
                         </div>
                     ) : (
-                        <div className="bg-error-container/10 p-4 rounded-3xl border border-error/20 flex flex-col gap-4">
-                            <h3 className="m3-label-large text-error px-2">Motivazione Uscita</h3>
+                        <div className="bg-error-container/10 p-8 rounded-3xl border border-error/20 flex flex-col gap-8">
+                            <h3 className="m3-label-large text-error px-4">Motivazione Uscita</h3>
                             <SelectField
                                 label="Esito"
                                 value={outcome}
-                                onChange={(e) => setOutcome(e.target.value as any)}
+                                onChange={(e) => setOutcome(e.target.value)}
                                 options={[
                                     { value: 'Trasferito', label: 'Trasferito ad altra scuola' },
                                     { value: 'Ritirato', label: 'Ritirato dagli studi' }
                                 ]}
                                 fullWidth
                             />
-                            <p className="m3-body-small text-on-surface-variant px-2">
+                            <p className="m3-body-small text-on-surface-variant px-4">
                                 Lo studente verrà rimosso dall'elenco attivo e spostato nell'archivio storico.
                             </p>
                         </div>

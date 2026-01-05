@@ -7,7 +7,6 @@ import {
     InfoCard,
     AiThinkingGem 
 } from './ui';
-import Tooltip from './Tooltip';
 import { Studente, Uda, TimetableSettings, AiSettings, Report, EventoCalendario, Lezione, KnowledgeBaseEntry, PianoInclusione } from '../types';
 import { generateClassPlanningDocument, generateSituazionePartenza, suggestAnnualPlan, generateMethodologyStrategies } from '../services/aiService';
 import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
@@ -345,7 +344,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'context' && (
                         <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
                             <div>
-                                <h3 className="m3-title-large mb-2">1. Definisci il Contesto</h3>
+                                <h3 className="m3-title-large mb-8">1. Definisci il Contesto</h3>
                                 <div className="form-grid-2">
                                     <div>
                                         <label htmlFor="wizard-select-class" className="form-label">Classe Target</label>
@@ -362,8 +361,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 </div>
                             </div>
 
-                            <div className="bg-surface-container-low p-4 rounded-xl border border-outline-variant">
-                                <h4 className="m3-title-medium mb-2 flex items-center gap-2">
+                            <div className="bg-surface-container-low p-8 rounded-xl border border-outline-variant">
+                                <h4 className="m3-title-medium mb-8 flex items-center gap-8">
                                     <span className="material-symbols-outlined text-secondary">folder_open</span>
                                     Documenti di Riferimento (KB)
                                 </h4>
@@ -378,7 +377,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </label>
                                         </div>
                                     )) : (
-                                        <p className="text-center p-4 m3-body-small text-on-surface-variant">Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
+                                        <p className="text-center p-8 m3-body-small text-on-surface-variant">Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
                                     )}
                                 </div>
                             </div>
@@ -419,10 +418,10 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'methodology' && (
                         <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
                             <h3 className="m3-title-large">3. Obiettivi e Metodologie</h3>
-                            <div className="bg-secondary-container/30 p-4 rounded-xl border border-outline-variant">
-                                <div className="flex justify-between items-center mb-2">
+                            <div className="bg-secondary-container/30 p-8 rounded-xl border border-outline-variant">
+                                <div className="flex justify-between items-center mb-8">
                                     <label htmlFor="wizard-methodology-text" className="m3-title-medium">Strategie Didattiche</label>
-                                    <M3Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} className="!h-auto !py-1 flex items-center gap-2" title="Suggerisci metodologie adatte al contesto">
+                                    <M3Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} className="!h-auto !py-1 flex items-center gap-8" title="Suggerisci metodologie adatte al contesto">
                                         {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span className="material-symbols-outlined m3-body-medium mr-1">lightbulb</span> Suggerisci</>}
                                     </M3Button>
                                 </div>
@@ -434,7 +433,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'sequence' && (
                         <div className="space-y-4 animate-in fade-in slide-in-from-right-4">
                             <div className="flex justify-between items-center">
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-8">
                                     <h3 className="m3-title-large">4. Piano Annuale UDA</h3>
                                     <button 
                                         onClick={() => setShowSequenceHelp(!showSequenceHelp)} 
@@ -444,12 +443,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <span className="material-symbols-outlined">help</span>
                                     </button>
                                 </div>
-                                <div className="flex gap-2">
-                                    <div className="flex items-center gap-2 bg-surface-container px-3 py-1 rounded-lg">
+                                <div className="flex gap-8">
+                                    <div className="flex items-center gap-8 bg-surface-container px-3 py-1 rounded-lg">
                                         <label htmlFor="wizard-hours-per-week" className="m3-body-small">Ore/Sett:</label>
                                         <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} className="w-10 bg-transparent text-center font-bold border-b border-outline-variant" title="Ore settimanali di lezione" />
                                     </div>
-                                    <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} className="flex items-center gap-2" title="Genera lista UDA dai documenti KB">
+                                    <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} className="flex items-center gap-8" title="Genera lista UDA dai documenti KB">
                                         {planGenerationStatus ? <AiThinkingGem size="small" inline text={planGenerationStatus} /> : 'Genera da KB'}
                                     </M3Button>
                                 </div>
@@ -462,11 +461,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     variant="secondary"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
-                                    className="mb-4"
+                                    className="mb-8"
                                 />
                             )}
 
-                            <div className="flex gap-2 items-end mb-4 p-3 bg-surface-container rounded-xl">
+                            <div className="flex gap-8 items-end mb-8 p-6 bg-surface-container rounded-xl">
                                 <div className="flex-grow">
                                     <label htmlFor="wizard-new-uda-title" className="form-label">Titolo UDA</label>
                                     <input id="wizard-new-uda-title" name="wizard-new-uda-title" type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} className="form-input w-full" onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
@@ -475,17 +474,17 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     <label htmlFor="wizard-new-uda-hours" className="form-label">Ore</label>
                                     <input id="wizard-new-uda-hours" name="wizard-new-uda-hours" type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} className="form-input w-full" />
                                 </div>
-                                <M3Button variant="filled" onClick={addUdaToPlan} className="mb-1" title="Aggiungi alla lista">Aggiungi</M3Button>
+                                <M3Button variant="filled" onClick={addUdaToPlan} className="mb-4" title="Aggiungi alla lista">Aggiungi</M3Button>
                             </div>
                             {planGenerationStatus ? <div className="p-8 flex justify-center"><AiThinkingGem size="medium" text={planGenerationStatus} /></div> : (
                                 <div className="space-y-3 max-h-[350px] overflow-y-auto pr-2">
                                     {plannedUdas.map((uda, idx) => (
-                                        <div key={uda.id} className="flex items-center gap-3 p-3 bg-surface-container rounded-xl border border-outline-variant shadow-sm">
+                                        <div key={uda.id} className="flex items-center gap-6 p-6 bg-surface-container rounded-xl border border-outline-variant shadow-sm">
                                             <span className="material-symbols-outlined text-on-surface-variant cursor-grab active:cursor-grabbing" title="Trascina per riordinare (futuro)">drag_indicator</span>
                                             
                                             <div className="flex-grow flex flex-col">
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    <span className="text-[10px] font-bold bg-primary text-on-primary px-2 py-0.5 rounded-full">
+                                                <div className="flex items-center gap-8 mb-4">
+                                                    <span className="text-[10px] font-bold bg-primary text-on-primary px-4 py-0.5 rounded-full">
                                                         UDA {idx + 1}
                                                     </span>
                                                     <p className="font-bold text-on-surface m3-body-small">{uda.title}</p>
@@ -493,7 +492,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 <p className="m3-label-small text-on-surface-variant truncate opacity-80">{uda.topic || uda.title}</p>
                                             </div>
 
-                                            <div className="flex items-center gap-2 bg-surface px-2 py-1 rounded-lg border border-outline-variant/50">
+                                            <div className="flex items-center gap-8 bg-surface px-4 py-1 rounded-lg border border-outline-variant/50">
                                                 <input 
                                                     id={`wizard-uda-hours-${uda.id}`}
                                                     name={`wizard-uda-hours-${uda.id}`}
@@ -512,7 +511,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
-                                        <p className="text-center text-on-surface-variant italic p-4">Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
+                                        <p className="text-center text-on-surface-variant italic p-8">Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
                                     )}
                                 </div>
                             )}
@@ -526,7 +525,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div><label htmlFor="wizard-term1-end" className="form-label">Fine 1° Periodo</label><input id="wizard-term1-end" name="wizard-term1-end" type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} className="form-input w-full" /></div>
                                 <div><label htmlFor="wizard-term2-end" className="form-label">Termine Lezioni</label><input id="wizard-term2-end" name="wizard-term2-end" type="date" value={term2End} onChange={e => setTerm2End(e.target.value)} className="form-input w-full" /></div>
                             </div>
-                            <div className="relative border-l-2 border-outline-variant ml-4 space-y-6 py-2 max-h-[300px] overflow-y-auto">
+                            <div className="relative border-l-2 border-outline-variant ml-4 space-y-6 py-4 max-h-[300px] overflow-y-auto">
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} className="relative pl-6">
                                         <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-surface ${item.end > term2End ? 'bg-error' : 'bg-primary'}`}></div>
@@ -541,9 +540,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                     {step === 'document' && (
                         <div className="space-y-6 flex flex-col items-center justify-center h-full text-center animate-in zoom-in-95">
-                            <div className="w-20 h-20 rounded-full bg-green-100 text-green-700 flex items-center justify-center mb-4"><span className="material-symbols-outlined text-5xl">check_circle</span></div>
+                            <div className="w-20 h-20 rounded-full bg-green-100 text-green-700 flex items-center justify-center mb-8"><span className="material-symbols-outlined text-5xl">check_circle</span></div>
                             <h3 className="m3-headline-small">Pianificazione Completata!</h3>
-                            <M3Button variant="filled" onClick={handleGenerateDoc} disabled={!!processingStatus} className="flex items-center gap-2" title="Scarica il documento finale">
+                            <M3Button variant="filled" onClick={handleGenerateDoc} disabled={!!processingStatus} className="flex items-center gap-8" title="Scarica il documento finale">
                                 {processingStatus ? <AiThinkingGem size="small" inline text={processingStatus} /> : 'Genera Documento Programmazione'}
                             </M3Button>
                         </div>
@@ -559,7 +558,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             {step === 'situation' && <M3Button variant="filled" onClick={() => setStep('methodology')} title="Vai alla metodologia">Avanti</M3Button>}
                             {step === 'methodology' && <M3Button variant="filled" onClick={() => setStep('sequence')} title="Vai al piano">Avanti</M3Button>}
                             {step === 'sequence' && <M3Button variant="filled" onClick={() => { calculateSchedule(); setStep('preview'); }} disabled={plannedUdas.length === 0} title="Calcola date">Calcola</M3Button>}
-                            {step === 'preview' && <M3Button variant="filled" onClick={handleFinalize} disabled={!!processingStatus} className="flex items-center gap-2" title="Salva tutto nel database">{processingStatus ? <AiThinkingGem size="small" inline /> : 'Conferma'}</M3Button>}
+                            {step === 'preview' && <M3Button variant="filled" onClick={handleFinalize} disabled={!!processingStatus} className="flex items-center gap-8" title="Salva tutto nel database">{processingStatus ? <AiThinkingGem size="small" inline /> : 'Conferma'}</M3Button>}
                         </>
                     )}
                     {step === 'document' && <M3Button variant="text" onClick={onClose} title="Chiudi wizard">Chiudi</M3Button>}

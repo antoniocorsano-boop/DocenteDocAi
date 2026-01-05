@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
 import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SectionHeader, InfoCard } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, InfoCard } from './ui';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa';
 
@@ -10,37 +10,37 @@ type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'fa
 const ManualSection: React.FC<{ title: string; icon: string; colorClass: string; defaultOpen?: boolean; children: React.ReactNode }> = ({ title, icon, colorClass, defaultOpen = false, children }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
-        <div className="bg-surface-container-low/30 backdrop-blur-md rounded-2xl border border-outline-variant/20 overflow-hidden mb-4">
+        <div className="bg-surface-container-low/30 backdrop-blur-md rounded-2xl border border-outline-variant/20 overflow-hidden mb-16">
             <button 
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full p-4 flex items-center justify-between hover:bg-surface-container-high/50 transition-colors"
+                className="w-full p-16 flex items-center justify-between hover:bg-surface-container-high/50 transition-colors"
             >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-12">
                     <span className={`material-symbols-outlined ${colorClass}`}>{icon}</span>
                     <span className="m3-title-medium font-bold">{title}</span>
                 </div>
                 <span className={`material-symbols-outlined transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>expand_more</span>
             </button>
-            {isOpen && <div className="p-4 pt-0 animate-in fade-in slide-in-from-top-2">{children}</div>}
+            {isOpen && <div className="p-16 pt-0 animate-in fade-in slide-in-from-top-2">{children}</div>}
         </div>
     );
 };
 
 const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }> = ({ scenario, steps, tip }) => (
-    <div className="bg-surface-container-high/50 p-4 rounded-xl border border-outline-variant/10 mb-4">
-        <p className="text-xs font-black uppercase tracking-widest text-primary mb-3">{scenario}</p>
-        <ol className="space-y-2">
+    <div className="bg-surface-container-high/50 p-16 rounded-xl border border-outline-variant/10 mb-16">
+        <p className="text-xs font-black uppercase tracking-widest text-primary mb-8">{scenario}</p>
+        <ol className="space-y-4">
             {steps.map((step, i) => (
-                <li key={i} className="text-sm flex gap-3">
-                    <span className="w-5 h-5 rounded-full bg-primary/10 text-primary text-[10px] flex items-center justify-center flex-shrink-0 font-bold">{i+1}</span>
+                <li key={i} className="text-sm flex gap-12">
+                    <span className="w-8 h-8 rounded-full bg-primary/10 text-primary text-[12px] flex items-center justify-center flex-shrink-0 font-bold">{i+1}</span>
                     <span dangerouslySetInnerHTML={{ __html: step }}></span>
                 </li>
             ))}
         </ol>
         {tip && (
-            <div className="mt-3 pt-3 border-t border-outline-variant/10 flex gap-2 items-start">
-                <span className="material-symbols-outlined text-secondary text-sm">lightbulb</span>
-                <p className="text-[11px] italic opacity-70">{tip}</p>
+            <div className="mt-4 pt-4 border-t border-outline-variant/10 flex gap-12 items-start">
+                <span className="material-symbols-outlined text-secondary text-base">lightbulb</span>
+                <p className="text-[12px] italic opacity-70">{tip}</p>
             </div>
         )}
     </div>
@@ -195,8 +195,8 @@ const SetupGuide = () => (
         <p className="m3-body-medium text-on-surface-variant">Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</p>
 
         <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
-            <h3 className="m3-title-medium text-primary font-bold mb-3">1. Impostazioni Generali</h3>
-            <p className="text-sm mb-3">Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
+            <h3 className="m3-title-medium text-primary font-bold mb-6">1. Impostazioni Generali</h3>
+            <p className="text-sm mb-6">Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
             <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
                 <li>Inserisci il tuo Nome e l'Istituto.</li>
                 <li><strong>Importante:</strong> Nella sezione "Generale", imposta le date di <strong>Inizio</strong> e <strong>Fine Attività Didattica</strong>. Queste date sono fondamentali per visualizzare correttamente la Timeline dei progetti.</li>
@@ -204,8 +204,8 @@ const SetupGuide = () => (
         </div>
 
         <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
-            <h3 className="m3-title-medium text-primary font-bold mb-3">2. Configurazione Classi e Materie</h3>
-            <p className="text-sm mb-3">Sempre in Impostazioni:</p>
+            <h3 className="m3-title-medium text-primary font-bold mb-6">2. Configurazione Classi e Materie</h3>
+            <p className="text-sm mb-6">Sempre in Impostazioni:</p>
             <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
                 <li>Sezione <strong>Orario & Materie</strong>: Aggiungi le materie che insegni.</li>
                 <li>Sezione <strong>Classi</strong>: Seleziona le combinazioni Anno/Sezione (es. 1A, 3B) che avrai quest'anno.</li>
@@ -213,8 +213,8 @@ const SetupGuide = () => (
         </div>
 
         <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
-            <h3 className="m3-title-medium text-primary font-bold mb-3">3. Inserimento Studenti</h3>
-            <p className="text-sm mb-3">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
+            <h3 className="m3-title-medium text-primary font-bold mb-6">3. Inserimento Studenti</h3>
+            <p className="text-sm mb-6">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
             <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
                 <li>Puoi aggiungere gli studenti manualmente uno ad uno.</li>
                 <li>Oppure usa l'importazione CSV per caricare l'elenco completo da un file Excel/CSV.</li>
@@ -222,8 +222,8 @@ const SetupGuide = () => (
         </div>
 
         <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
-            <h3 className="m3-title-medium text-primary font-bold mb-3">4. Costruzione Orario</h3>
-            <p className="text-sm mb-3">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
+            <h3 className="m3-title-medium text-primary font-bold mb-6">4. Costruzione Orario</h3>
+            <p className="text-sm mb-6">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
             <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
                 <li>Tocca una cella vuota della griglia.</li>
                 <li>Assegna Classe e Materia per creare il tuo orario settimanale stabile.</li>
@@ -240,7 +240,7 @@ const DigitalTeacherManual = () => {
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-outline-variant/10 pb-6">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-b border-outline-variant/10 pb-6">
                 <div>
                     <h2 className="m3-headline-small font-black">Manuale Integrale e Normativa</h2>
                     <p className="m3-body-medium text-on-surface-variant">Versione 4.1.0 - M3 Expressive Edition</p>
@@ -275,7 +275,7 @@ const DigitalTeacherManual = () => {
             </ManualSection>
 
             <ManualSection title="2. Manuale Operativo" icon="school" colorClass="text-primary">
-                <h4 className="m3-title-small font-black mb-3 uppercase tracking-widest text-[10px]">Configurazione & Strategia</h4>
+                <h4 className="m3-title-small font-black mb-6 uppercase tracking-widest text-[10px]">Configurazione & Strategia</h4>
                 <UseCaseCard 
                     scenario="Voglio che l'app conosca il mio metodo."
                     steps={[
@@ -285,7 +285,7 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4 className="m3-title-small font-black mb-3 mt-6 uppercase tracking-widest text-[10px]">In Aula</h4>
+                <h4 className="m3-title-small font-black mb-6 mt-6 uppercase tracking-widest text-[10px]">In Aula</h4>
                 <UseCaseCard 
                     scenario="Devo segnare una nota disciplinare mentre spiego."
                     steps={[
@@ -295,7 +295,7 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4 className="m3-title-small font-black mb-3 mt-6 uppercase tracking-widest text-[10px]">Valutazione</h4>
+                <h4 className="m3-title-small font-black mb-6 mt-6 uppercase tracking-widest text-[10px]">Valutazione</h4>
                  <UseCaseCard 
                     scenario="Voglio dare un voto completo."
                     steps={[
@@ -308,13 +308,13 @@ const DigitalTeacherManual = () => {
             </ManualSection>
 
             <ManualSection title="3. Visione Strategica per Stakeholders" icon="campaign" colorClass="text-secondary">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/10">
-                        <h4 className="font-black mb-3 flex gap-2 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-primary">admin_panel_settings</span> Per il Dirigente</h4>
+                        <h4 className="font-black mb-6 flex gap-8 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-primary">admin_panel_settings</span> Per il Dirigente</h4>
                         <p className="text-sm text-on-surface-variant leading-relaxed">Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
                     </div>
                     <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/10">
-                        <h4 className="font-black mb-3 flex gap-2 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-secondary">engineering</span> Per l'Animatore Digitale</h4>
+                        <h4 className="font-black mb-6 flex gap-8 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-secondary">engineering</span> Per l'Animatore Digitale</h4>
                         <p className="text-sm text-on-surface-variant leading-relaxed">Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
                     </div>
                 </div>
@@ -326,7 +326,7 @@ const DigitalTeacherManual = () => {
 
 const VocalAssistantGuideContent = () => (
     <div className="space-y-6">
-        <h2 className="m3-headline-small font-black flex items-center gap-3">
+        <h2 className="m3-headline-small font-black flex items-center gap-6">
             <span className="material-symbols-outlined text-primary text-3xl">mic</span>
             Il tuo Copilota Didattico
         </h2>
@@ -334,16 +334,16 @@ const VocalAssistantGuideContent = () => (
             L'Assistente Live non è solo una chat: è collegato al registro, ai tuoi documenti e ora anche a <strong>Google Search</strong>. Premi il microfono e prova questi comandi:
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {vocalAssistantGuideData.sections.map((section, idx) => (
                 <div key={idx} className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/10">
-                    <h3 className="m3-title-medium text-primary font-bold mb-4 flex items-center gap-2">
+                    <h3 className="m3-title-medium text-primary font-bold mb-8 flex items-center gap-8">
                         <span className="material-symbols-outlined text-sm">record_voice_over</span>
                         {section.title}
                     </h3>
                     <ul className="space-y-3">
                         {section.commands.map((cmd, cIdx) => (
-                            <li key={cIdx} className="text-sm font-medium text-on-surface bg-surface-container-high/30 p-3 rounded-xl border border-outline-variant/5">"{cmd}"</li>
+                            <li key={cIdx} className="text-sm font-medium text-on-surface bg-surface-container-high/30 p-6 rounded-xl border border-outline-variant/5">"{cmd}"</li>
                         ))}
                     </ul>
                 </div>
@@ -363,21 +363,21 @@ const VocalAssistantGuideContent = () => (
 const UserGuide = () => (
     <div className="space-y-6">
         <h2 className="m3-headline-small font-black">Guida Rapida al Flusso di Lavoro</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
             <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-primary border border-outline-variant/10">
-                <h3 className="font-black m3-title-medium mb-2 text-primary uppercase tracking-widest text-xs">1. Centro Operativo</h3>
+                <h3 className="font-black m3-title-medium mb-8 text-primary uppercase tracking-widest text-xs">1. Centro Operativo</h3>
                 <p className="text-sm leading-relaxed opacity-80">Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</p>
             </div>
             <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-secondary border border-outline-variant/10">
-                <h3 className="font-black m3-title-medium mb-2 text-secondary uppercase tracking-widest text-xs">2. Progettazione Intelligente</h3>
+                <h3 className="font-black m3-title-medium mb-8 text-secondary uppercase tracking-widest text-xs">2. Progettazione Intelligente</h3>
                 <p className="text-sm leading-relaxed opacity-80">Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</p>
             </div>
             <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-tertiary border border-outline-variant/10">
-                <h3 className="font-black m3-title-medium mb-2 text-tertiary uppercase tracking-widest text-xs">3. In Aula (Continuità)</h3>
+                <h3 className="font-black m3-title-medium mb-8 text-tertiary uppercase tracking-widest text-xs">3. In Aula (Continuità)</h3>
                 <p className="text-sm leading-relaxed opacity-80">Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</p>
             </div>
             <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-error border border-outline-variant/10">
-                <h3 className="font-black m3-title-medium mb-2 text-error uppercase tracking-widest text-xs">4. Analisi & Report</h3>
+                <h3 className="font-black m3-title-medium mb-8 text-error uppercase tracking-widest text-xs">4. Analisi & Report</h3>
                 <p className="text-sm leading-relaxed opacity-80">Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</p>
             </div>
         </div>
@@ -390,8 +390,8 @@ const TechnicalSpecs = () => (
         <div className="bg-surface-container-low/50 p-6 rounded-3xl border border-outline-variant/10">
             <ul className="space-y-4">
                 {specsContentData.specs.map((spec, index) => (
-                    <li key={index} className="flex gap-4 items-start">
-                        <span className="material-symbols-outlined text-primary mt-1">check_circle</span>
+                    <li key={index} className="flex gap-8 items-start">
+                        <span className="material-symbols-outlined text-primary mt-4">check_circle</span>
                         <span className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: spec }}></span>
                     </li>
                 ))}
@@ -406,17 +406,17 @@ const NormativaContent: React.FC = () => (
         <p className="m3-body-medium text-on-surface-variant leading-relaxed">OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
         
         <div className="bg-surface-container-low/50 p-6 rounded-3xl border border-outline-variant/10">
-            <h3 className="m3-title-medium font-bold text-primary mb-4">I Tuoi Dati, Il Tuo Cloud</h3>
+            <h3 className="m3-title-medium font-bold text-primary mb-8">I Tuoi Dati, Il Tuo Cloud</h3>
             <ul className="space-y-3">
-                <li className="flex gap-3 text-sm">
+                <li className="flex gap-6 text-sm">
                     <span className="material-symbols-outlined text-primary text-sm mt-0.5">shield</span>
                     Non esiste un server centrale di OrarioDoc che legge i tuoi dati.
                 </li>
-                <li className="flex gap-3 text-sm">
+                <li className="flex gap-6 text-sm">
                     <span className="material-symbols-outlined text-primary text-sm mt-0.5">devices</span>
                     Tutto viene salvato nel tuo dispositivo (IndexedDB).
                 </li>
-                <li className="flex gap-3 text-sm">
+                <li className="flex gap-6 text-sm">
                     <span className="material-symbols-outlined text-primary text-sm mt-0.5">cloud_done</span>
                     Il backup avviene sul <strong>TUO Google Drive</strong> personale. L'app ha accesso solo alla propria cartella di backup.
                 </li>
@@ -453,16 +453,16 @@ const FaqContent = () => (
 const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
     const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_releases" }) => (
         <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/10 hover:bg-surface-container-high/50 transition-all group">
-            <div className="flex justify-between items-start mb-3">
-                <div className="flex items-center gap-3">
+            <div className="flex justify-between items-start mb-6">
+                <div className="flex items-center gap-6">
                     <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                         <span className="material-symbols-outlined">{icon}</span>
                     </div>
                     <h4 className="m3-title-medium font-bold">{title}</h4>
                 </div>
-                <span className="px-2 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest">v4.1.0</span>
+                <span className="px-4 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest">v4.1.0</span>
             </div>
-            <p className="m3-body-medium mb-4 opacity-70 leading-relaxed text-sm">{children}</p>
+            <p className="m3-body-medium mb-8 opacity-70 leading-relaxed text-sm">{children}</p>
             {actionView && actionView !== 'home' && (
                 <M3Button
                     onClick={() => { onClose(); onNavigate(actionView); }}
@@ -479,7 +479,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
         <div className="space-y-6">
             <h2 className="m3-headline-small font-black">Novità della versione 4.1.0</h2>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <ImprovementCard title="Design M3 Expressive" actionView="settings" icon="palette">
                     Interfaccia completamente rinnovata con il nuovo design system Material 3 Expressive: layout adattivi, motion system e colori dinamici.
                 </ImprovementCard>
@@ -512,7 +512,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                     </div>
                     <div className="flex-grow text-center md:text-left">
                         <h3 className="m3-title-large font-black">Manuale Completo PDF</h3>
-                        <p className="m3-body-medium mt-2 opacity-70">
+                        <p className="m3-body-medium mt-4 opacity-70">
                             Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
                         </p>
                     </div>
@@ -603,11 +603,12 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
       onClose={onClose}
       maxWidth="xl"
       level={2}
+      hideBackdrop={true}
     >
       <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-xl">
         <div className="space-y-8">
           <div className="p-5 rounded-3xl bg-primary-container/10 border border-primary/20 text-sm shadow-inner">
-            <div className="flex items-center gap-3 mb-3">
+            <div className="flex items-center gap-6 mb-6">
                 <span className="material-symbols-outlined text-primary">campaign</span>
                 <b className="text-primary uppercase tracking-widest text-[10px]">Novità Dicembre 2025</b>
             </div>

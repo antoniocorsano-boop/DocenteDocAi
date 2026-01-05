@@ -45,15 +45,15 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
     if (assignments.length === 0) {
         return (
             <div className="p-8 text-center border-2 border-dashed border-primary/20 rounded-3xl bg-primary-container/5 animate-in fade-in zoom-in-95 duration-500">
-                <div className="w-16 h-16 bg-primary-container/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-primary-container/20 rounded-full flex items-center justify-center mx-auto mb-8">
                     <span className="material-symbols-outlined text-4xl text-primary">bolt</span>
                 </div>
-                <h3 className="m3-title-medium font-black text-on-surface mb-2 uppercase tracking-wide">Configura la Cattedra</h3>
+                <h3 className="m3-title-medium font-black text-on-surface mb-8 uppercase tracking-wide">Configura la Cattedra</h3>
                 <p className="m3-body-small text-on-surface-variant max-w-[280px] mx-auto mb-6 leading-relaxed">
                     Usa lo strumento di <strong>Configurazione Rapida</strong> sopra per associare le tue materie alle classi in un colpo solo.
                 </p>
                 <div className="flex justify-center">
-                    <div className="px-4 py-2 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest animate-pulse">
+                    <div className="px-4 py-4 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest animate-pulse">
                         Scorri verso l'alto ↑
                     </div>
                 </div>
@@ -69,11 +69,11 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                     <table className="w-full text-sm border-collapse">
                         <thead>
                             <tr>
-                                <th className="p-4 text-left sticky left-0 bg-surface-container-high z-10 border-b border-r border-outline-variant min-w-[120px] text-on-surface-variant uppercase tracking-widest text-[11px] font-black shadow-sm">
+                                <th className="p-8 text-left sticky left-0 bg-surface-container-high z-10 border-b border-r border-outline-variant min-w-[120px] text-on-surface-variant uppercase tracking-widest text-[11px] font-black shadow-sm">
                                     Cattedra
                                 </th>
                                 {subjects.map(subj => (
-                                    <th key={subj} className="p-4 text-center min-w-[110px] border-b border-outline-variant font-bold text-on-surface-variant bg-surface-container-high whitespace-nowrap uppercase tracking-wide text-[11px]">
+                                    <th key={subj} className="p-8 text-center min-w-[110px] border-b border-outline-variant font-bold text-on-surface-variant bg-surface-container-high whitespace-nowrap uppercase tracking-wide text-[11px]">
                                         {subj}
                                     </th>
                                 ))}
@@ -82,14 +82,14 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                         <tbody>
                             {classes.map(cls => (
                                 <tr key={cls} className="border-b border-outline-variant/30 last:border-none hover:bg-surface-container transition-colors">
-                                    <td className="p-4 font-bold sticky left-0 bg-surface-container-low border-r border-outline-variant z-10 text-primary m3-title-small">
+                                    <td className="p-8 font-bold sticky left-0 bg-surface-container-low border-r border-outline-variant z-10 text-primary m3-title-small">
                                         {cls}
                                     </td>
                                     {subjects.map(subj => {
                                         const isActive = assignments.some(a => a.classId === cls && a.subjectId === subj);
                                         
                                         return (
-                                            <td key={`${cls}-${subj}`} className="p-2 text-center">
+                                            <td key={`${cls}-${subj}`} className="p-8 text-center">
                                                 <button 
                                                     onClick={() => toggleAssignment(cls, subj)}
                                                     className={`
@@ -140,7 +140,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                         className="w-full flex items-center justify-between px-4 py-3 rounded-2xl bg-surface-container-highest text-on-surface font-black text-sm uppercase tracking-wider text-left"
                                         aria-expanded={isActiveClass}
                                     >
-                                        <span className="flex items-center gap-3">
+                                        <span className="flex items-center gap-6">
                                             <span className="w-8 h-8 rounded-full bg-primary-container text-primary flex items-center justify-center text-xs font-black">
                                                 {cls}
                                             </span>
@@ -152,7 +152,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                     </button>
                                     {isActiveClass && (
                                         <div className="px-4 py-3 border-t border-outline-variant">
-                                            <div className="flex flex-wrap gap-2">
+                                            <div className="flex flex-wrap gap-8">
                                                 {subjects.map(subj => {
                                                     const isActive = assignments.some(a => a.classId === cls && a.subjectId === subj);
                                                     return (
@@ -181,8 +181,8 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                 );
             })()}
 
-            <div className="mt-4 p-4 bg-surface-container-lowest border border-outline-variant rounded-xl text-center">
-                <p className="m3-label-medium text-on-surface-variant flex items-center justify-center gap-2">
+            <div className="mt-4 p-8 bg-surface-container-lowest border border-outline-variant rounded-xl text-center">
+                <p className="m3-label-medium text-on-surface-variant flex items-center justify-center gap-8">
                     <span className="material-symbols-outlined text-sm">info</span>
                     Tocca le materie per assegnarle alle classi.
                 </p>

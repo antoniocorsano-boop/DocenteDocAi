@@ -35,14 +35,14 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
         level={1}
       >
         <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-6">
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-4">
             <h2 className="m3-headline-small font-black text-primary">
                 {new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
             </h2>
             <p className="m3-label-medium text-on-surface-variant opacity-70 uppercase tracking-widest">Registro di Classe</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <InfoCard title="Informazioni Lezione" icon="info">
                 <div className="space-y-2">
                     <p className="m3-body-medium"><strong>Classe:</strong> {entry.classe}</p>
@@ -112,7 +112,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
             </tbody>
           </table>
         </div>
-        {filteredEntries.length === 0 && <p className="text-center p-4 text-on-surface-variant">Nessuna lezione registrata per questa classe.</p>}
+        {filteredEntries.length === 0 && <p className="text-center p-8 text-on-surface-variant">Nessuna lezione registrata per questa classe.</p>}
       </div>
       {selectedEntry && renderEntryDetails(selectedEntry)}
     </div>

@@ -12,7 +12,7 @@ interface RubricheManagerProps {
     onNavigate: (view: View) => void;
 }
 
-const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche, onSaveRubrica, onDeleteRubrica, onNavigate }) => {
+const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche, onSaveRubrica, onNavigate }) => {
     const [editingRubric, setEditingRubric] = useState<Rubrica | 'new' | null>(null);
 
     const handleSave = (rubrica: Rubrica) => {
@@ -22,7 +22,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
 
     return (
         <div className="page-layout pb-24">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-8">
                 <div className="space-y-1">
                     <h1 className="m3-headline-medium font-black tracking-tight">Rubriche di Valutazione</h1>
                     <p className="m3-body-medium text-on-surface-variant">Crea e gestisci le griglie di competenza.</p>
@@ -44,7 +44,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
             <div className="space-y-6">
                 <SectionHeader title="I tuoi Modelli" icon="assignment" variant="primary" />
                 {rubriche.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {rubriche.map(rubrica => (
                             <ActionTile 
                                 key={rubrica.id}

@@ -1,11 +1,10 @@
 
 import React, { useState, useMemo } from 'react';
 import { View, Valutazione } from '../types';
-import { generateHueFromString } from '../utils/colorUtils';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateCouncilDataPdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SectionHeader, InfoCard, TabGroup, M3ExpressiveCard } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SectionHeader, TabGroup, M3ExpressiveCard } from './ui';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 
@@ -60,7 +59,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
                 <section className="animate-in fade-in slide-in-from-top-4">
-                    <h2 className="section-header-expressive text-sm !mb-2 text-on-surface-variant uppercase tracking-wider">
+                    <h2 className="section-header-expressive text-sm !mb-8 text-on-surface-variant uppercase tracking-wider">
                         In Arrivo (Tutte le classi)
                     </h2>
                     <div className="global-agenda-grid">
@@ -90,20 +89,15 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         {userClasses.map((className) => {
                             const classStudents = students.filter(s => s.classe === className);
                             const studentCount = classStudents.length;
-                            let insufficientCount = 0;
                             const studentAverages = classStudents.map(s => {
                                 const sEvals = evaluations.filter(e => e.studenteId === s.id);
                                 const { grade } = calculatePerformance(s.id, 'Complessivo', sEvals);
                                 const numGrade = grade ? parseFloat(grade) : null;
-                                if (numGrade && numGrade < 6) insufficientCount++;
                                 return numGrade;
                             }).filter((v): v is number => v !== null);
                             const classAverage = studentAverages.length > 0 
                                 ? (studentAverages.reduce((a, b) => a + b, 0) / studentAverages.length).toFixed(1)
                                 : '-';
-                            const hue = generateHueFromString(className);
-                            const accentColor = `hsl(${hue}, 65%, 50%)`;
-                            const dynamicBg = `hsl(${hue}, 60%, 50%, 0.08)`;
                             return (
                                 <M3ExpressiveCard
                                     key={className}
@@ -118,9 +112,9 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                     </div>
                 ) : (
                     <div className="text-center p-12 bg-surface-container-low rounded-2xl border border-dashed border-outline-variant">
-                        <span className="material-symbols-outlined text-6xl text-on-surface-variant/50 mb-4">domain_disabled</span>
+                        <span className="material-symbols-outlined text-6xl text-on-surface-variant/50 mb-8">domain_disabled</span>
                         <p className="m3-headline-small text-on-surface-variant">Nessuna classe definita</p>
-                        <p className="m3-body-medium text-on-surface-variant mt-2 mb-6">
+                        <p className="m3-body-medium text-on-surface-variant mt-4 mb-6">
                             Vai nelle impostazioni per configurare le tue classi e iniziare.
                         </p>
                         <M3Button onClick={() => onNavigate('settings')} variant="filled">
@@ -241,7 +235,7 @@ const PrintCenterModal: React.FC<{
             onClose={onClose}
             maxWidth="md"
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-6">
+            <M3DialogContent className="space-y-6">
                     <p className="text-on-surface-variant">Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
                     <div className="space-y-2">
@@ -258,12 +252,12 @@ const PrintCenterModal: React.FC<{
 
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-on-surface-variant ml-1">Classi</label>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-8">
                             {userClasses.map(c => (
                                 <div 
                                     key={c} 
                                     onClick={() => toggleClass(c)}
-                                    className={`px-4 py-2 rounded-full border cursor-pointer transition-all flex items-center gap-2 ${
+                                    className={`px-4 py-4 rounded-full border cursor-pointer transition-all flex items-center gap-8 ${
                                         selectedClasses.includes(c) 
                                             ? 'bg-primary text-on-primary border-primary' 
                                             : 'bg-surface-container-low text-on-surface-variant border-outline-variant hover:bg-surface-container-high'

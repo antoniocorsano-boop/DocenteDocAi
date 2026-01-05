@@ -39,12 +39,12 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent className="space-y-4 bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="space-y-8 px-8 pt-8 pb-0">
                 <p className="m3-body-medium text-on-surface-variant">
                     Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarrà automaticamente date, orari e dettagli per creare l'evento nel calendario.
                 </p>
 
-                <div>
+                <div className="space-y-4">
                     <label htmlFor="event-text" className="form-label">Testo della comunicazione</label>
                     <textarea
                         id="event-text"
@@ -57,9 +57,9 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                         autoFocus
                     />
                 </div>
-                {error && <p className="text-error text-center m3-body-small">{error}</p>}
+                {error && <p className="text-error text-center m3-body-small mt-4">{error}</p>}
             </M3DialogContent>
-            <M3DialogActions className="gap-2">
+            <M3DialogActions className="gap-12 px-8 pb-8 pt-0">
                 <M3Button variant="text" onClick={onClose} type="button" disabled={isLoading}>Annulla</M3Button>
                 <M3Button variant="filled" onClick={handleParse} type="button" disabled={isLoading || !text.trim()}>
                     {isLoading ? (

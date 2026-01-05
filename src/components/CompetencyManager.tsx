@@ -55,10 +55,10 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
     });
 
     return (
-        <div className="space-y-4 animate-in fade-in w-full max-w-3xl mx-auto px-2 md:px-4">
+        <div className="space-y-4 animate-in fade-in w-full max-w-3xl mx-auto px-4 md:px-4">
             {/* Intro Card */}
-            <div className="card bg-primary-container text-on-primary-container max-w-2xl mx-auto mb-2 p-4 md:p-6">
-                <h2 className="m3-headline-small mb-2">Gestione Framework e Competenze</h2>
+            <div className="card bg-primary-container text-on-primary-container max-w-2xl mx-auto mb-8 p-8 md:p-6">
+                <h2 className="m3-headline-small mb-8">Gestione Framework e Competenze</h2>
                 <p className="m3-body-medium opacity-90">
                     Seleziona le competenze che vuoi monitorare nel tuo registro. Puoi attivare interi framework come <strong>DigCompEdu 2.2</strong> (con focus IA) o le Competenze Chiave Europee.
                 </p>
@@ -66,12 +66,12 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
 
             {/* Filtri Framework: scroll orizzontale su mobile, sidebar su desktop */}
             <div className="w-full overflow-x-auto pb-2 md:overflow-visible md:pb-0">
-                <div className="flex flex-row md:flex-col gap-2 md:gap-3 w-max md:w-64 mx-auto md:mx-0">
+                <div className="flex flex-row md:flex-col gap-8 md:gap-6 w-max md:w-64 mx-auto md:mx-0">
                     {frameworks.map(fw => (
                         <button 
                             key={fw}
                             onClick={() => setActiveFramework(fw)}
-                            className={`px-4 py-2 rounded-xl transition-colors text-sm font-medium flex items-center whitespace-nowrap ${activeFramework === fw ? 'bg-secondary-container text-on-secondary-container shadow-sm' : 'bg-surface hover:bg-surface-container-high border border-transparent hover:border-outline-variant'}`}
+                            className={`px-4 py-4 rounded-xl transition-colors text-sm font-medium flex items-center whitespace-nowrap ${activeFramework === fw ? 'bg-secondary-container text-on-secondary-container shadow-sm' : 'bg-surface hover:bg-surface-container-high border border-transparent hover:border-outline-variant'}`}
                         >
                             <span className="truncate mr-2">{fw}</span>
                             {fw === 'DigCompEdu 2.2' && <span className="material-symbols-outlined m3-body-medium">smart_toy</span>}
@@ -89,7 +89,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                             key={comp.id} 
                             className={`m3-expansion-panel transition-all ${active ? 'border-primary bg-surface' : 'border-outline-variant bg-surface-container-low'}`}
                         >
-                            <summary className="m3-expansion-summary !px-4 !py-3 !justify-start !gap-4">
+                            <summary className="m3-expansion-summary !px-4 !py-3 !justify-start !gap-8">
                                 <div 
                                     onClick={(e) => { 
                                         e.preventDefault(); // Prevent details toggle
@@ -102,17 +102,17 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                     {active && <span className="material-symbols-outlined m3-body-small">check</span>}
                                 </div>
                                 <div className="flex-grow min-w-0">
-                                    <span className="m3-label-small font-bold uppercase tracking-wider text-primary mb-1 block truncate">{comp.codice}</span>
+                                    <span className="m3-label-small font-bold uppercase tracking-wider text-primary mb-4 block truncate">{comp.codice}</span>
                                     <h3 className="m3-title-medium font-bold truncate">{comp.nome}</h3>
-                                    <p className="m3-label-small text-on-surface-variant mt-1 truncate">{comp.framework}</p>
+                                    <p className="m3-label-small text-on-surface-variant mt-4 truncate">{comp.framework}</p>
                                 </div>
                                 <span className="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform ml-auto">expand_more</span>
                             </summary>
                             <div className="m3-expansion-content !px-4 !pt-2 !pb-4">
-                                <p className="m3-label-small font-bold mb-2 text-on-surface-variant">DESCRITTORI LIVELLI:</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <p className="m3-label-small font-bold mb-8 text-on-surface-variant">DESCRITTORI LIVELLI:</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     {comp.livelli.map(lvl => (
-                                        <div key={lvl.id} className="bg-surface-container-low p-2 rounded m3-label-small">
+                                        <div key={lvl.id} className="bg-surface-container-low p-8 rounded m3-label-small">
                                             <strong>{lvl.nome}:</strong> <span className="opacity-80">{lvl.descrizione}</span>
                                         </div>
                                     ))}

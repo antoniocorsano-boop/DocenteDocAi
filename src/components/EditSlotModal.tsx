@@ -93,24 +93,24 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
-                <div className="px-2">
+            <M3DialogContent className="space-y-8">
+                <div className="px-4">
                     <p className="m3-body-medium text-primary font-extrabold uppercase tracking-[0.2em]">{slot.giorno} • {slot.ora}</p>
                 </div>
 
                 <section>
                     <SectionHeader title="Tipologia Attività" icon="category" />
-                    <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar mt-4">
+                    <div className="flex gap-6 overflow-x-auto pb-2 no-scrollbar mt-4">
                         <M3ChoiceCard icon="school" label="Lezione" selected={activityType === 'standard'} onClick={() => setActivityType('standard')} />
                         <M3ChoiceCard icon="pending_actions" label="Disp." selected={activityType === 'disposizione'} onClick={() => setActivityType('disposizione')} />
                         <M3ChoiceCard icon="diversity_3" label="Ricev." selected={activityType === 'ricevimento'} onClick={() => setActivityType('ricevimento')} />
                     </div>
                 </section>
 
-                <div className="bg-surface-container-lowest p-6 rounded-4xl border border-outline-variant/30 shadow-inner">
+                <div className="bg-surface-container-lowest p-8 md:p-6 rounded-3xl md:rounded-4xl border border-outline-variant/30 shadow-inner">
                     {activityType === 'standard' && (
                         <div className="space-y-6 animate-in slide-in-from-bottom-4">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <SelectField
                                     id="slot-class-select"
                                     label="Classe"

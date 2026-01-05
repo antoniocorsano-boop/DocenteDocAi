@@ -188,7 +188,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     disabled={isLoading || (action.requiresContent && selectedFileIds.length === 0) || (action.id === 'image' && hasApiKey === false)}
                     title={(action.id === 'image' && hasApiKey === false) ? "API Key richiesta per la generazione di immagini." : (action.requiresContent && selectedFileIds.length === 0 ? "Seleziona almeno un documento per abilitare questa azione" : action.description)}
                 >
-                    <div className="flex justify-between items-start w-full mb-2">
+                    <div className="flex justify-between items-start w-full mb-8">
                         <span className="material-symbols-outlined tool-icon group-hover:scale-110 transition-transform">{action.icon}</span>
                         {action.requiresContent && (
                             <span className={`text-[10px] px-1.5 py-0.5 rounded border ${selectedFileIds.length > 0 ? 'border-current opacity-70' : 'border-outline text-outline'}`}>
@@ -197,7 +197,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         )}
                     </div>
                     <span className="tool-title">{action.title}</span>
-                    <span className="tool-subtitle mt-1 line-clamp-2">{action.description}</span>
+                    <span className="tool-subtitle mt-4 line-clamp-2">{action.description}</span>
                 </button>
             ))}
         </div>
@@ -240,7 +240,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         <p className="m3-body-medium text-on-surface-variant">
                             Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
                         </p>
-                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="link-button flex items-center gap-2">
+                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="link-button flex items-center gap-8">
                             <span className="material-symbols-outlined text-sm">info</span>
                             Scopri di più sul billing
                         </a>
@@ -256,11 +256,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
 
             {/* Context Selection Card */}
             <div className="card card-accent-primary">
-                <h2 className="m3-title-large mb-4 flex items-center gap-2">
+                <h2 className="m3-title-large mb-8 flex items-center gap-8">
                     <span className="material-symbols-outlined text-primary">folder_open</span>
                     1. Seleziona Contesto (Knowledge Base)
                 </h2>
-                <div className="flex flex-wrap gap-4 items-end mb-4">
+                <div className="flex flex-wrap gap-8 items-end mb-8">
                     <div className="flex-grow min-w-[250px]">
                         <SelectField 
                             label="Filtra per Set di Documenti"
@@ -272,7 +272,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                             ]}
                         />
                     </div>
-                     <div className="flex items-center gap-2 pb-2">
+                     <div className="flex items-center gap-8 pb-2">
                         <span className="material-symbols-outlined text-on-surface-variant">attachment</span>
                         <p className="m3-body-medium text-on-surface-variant font-bold">
                             {selectedFileIds.length} file selezionati
@@ -293,7 +293,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p className="text-sm text-on-surface-variant italic p-2">Nessun file disponibile in questo set.</p>
+                        <p className="text-sm text-on-surface-variant italic p-8">Nessun file disponibile in questo set.</p>
                     )}
                 </div>
             </div>
@@ -310,24 +310,24 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                 <div className="studio-grid">
                     {/* Generation Card */}
                     <div className="card h-full card-top-accent-tertiary">
-                        <div className="mb-4">
-                            <h2 className="m3-title-large flex items-center gap-2">
+                        <div className="mb-8">
+                            <h2 className="m3-title-large flex items-center gap-8">
                                 <span className="material-symbols-outlined text-tertiary">design_services</span>
                                 Generazione & Creatività
                             </h2>
-                            <p className="m3-body-small text-on-surface-variant mt-1">Crea nuovi contenuti didattici.</p>
+                            <p className="m3-body-small text-on-surface-variant mt-4">Crea nuovi contenuti didattici.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'generation'))}
                     </div>
 
                     {/* Analysis Card */}
                     <div className="card h-full card-top-accent-secondary">
-                        <div className="mb-4">
-                            <h2 className="m3-title-large flex items-center gap-2">
+                        <div className="mb-8">
+                            <h2 className="m3-title-large flex items-center gap-8">
                                 <span className="material-symbols-outlined text-secondary">analytics</span>
                                 Analisi & Sintesi
                             </h2>
-                            <p className="m3-body-small text-on-surface-variant mt-1">Rielabora e comprendi i documenti.</p>
+                            <p className="m3-body-small text-on-surface-variant mt-4">Rielabora e comprendi i documenti.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'analysis'))}
                     </div>

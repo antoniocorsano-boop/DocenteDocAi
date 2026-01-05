@@ -16,7 +16,7 @@ interface TimetableProps {
     showGuidanceTips: boolean;
 }
 
-export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons, settings, onEditSlot, onShowSlotActions, onAiSuggest, activeSlotKey, showGuidanceTips }) => {
+export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons, settings, onEditSlot, onShowSlotActions, showGuidanceTips }) => {
   const daysToShow = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
   const todayIndex = (new Date().getDay() + 6) % 7; 
 
@@ -55,8 +55,8 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
 
             <div className="relative z-10 space-y-6">
                 {/* HEADER: M3 Command Island */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-4 px-4 md:px-0">
-                    <div className="flex items-center gap-4 self-start md:self-auto">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-8 px-4 md:px-0">
+                    <div className="flex items-center gap-8 self-start md:self-auto">
                         <div className="w-14 h-14 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg rotate-3 hover:rotate-0 transition-transform duration-300">
                             <span className="material-symbols-outlined text-3xl">calendar_view_week</span>
                         </div>
@@ -67,7 +67,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     </div>
                     
                     {/* FLOATING COMMAND ISLAND */}
-                    <div className="flex items-center bg-surface-container-low/40 backdrop-blur-2xl rounded-2xl p-2 shadow-2xl border border-outline-variant/20 gap-4">
+                    <div className="flex items-center bg-surface-container-low/40 backdrop-blur-2xl rounded-2xl p-8 shadow-2xl border border-outline-variant/20 gap-8">
                         <TabGroup 
                             tabs={[
                                 {id:'week', label:'Settimana', icon:'view_week'}, 
@@ -79,7 +79,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                         />
                         
                         {viewMode === 'day' && (
-                            <div className="flex items-center gap-2 pr-2 animate-in slide-in-from-left-3">
+                            <div className="flex items-center gap-8 pr-2 animate-in slide-in-from-left-3">
                                 <M3IconButton 
                                     icon="chevron_left" 
                                     onClick={() => handleDayNav(-1)} 
@@ -97,7 +97,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                         )}
                     </div>
 
-                    <div className="flex items-center gap-2 self-end md:self-auto">
+                    <div className="flex items-center gap-8 self-end md:self-auto">
                         <M3Button 
                             onClick={() => window.print()} 
                             variant="secondary"

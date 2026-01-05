@@ -22,7 +22,7 @@ interface ClassDashboardProps {
 
 interface StudentDashboardItemProps {
     student: Studente;
-    evaluations: any[];
+    evaluations: Valutazione[];
     onClick: (student: Studente) => void;
 }
 
@@ -34,14 +34,14 @@ const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: Stud
     return (
         <button 
             onClick={() => onClick(student)}
-            className="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-high transition-all group text-left"
+            className="w-full flex items-center gap-8 p-6 rounded-xl hover:bg-surface-container-high transition-all group text-left"
         >
             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
             <div className="flex-grow min-w-0">
                 <p className="font-bold text-on-surface truncate">{student.cognome} {student.nome}</p>
-                <div className="flex items-center gap-1.5 mt-0.5">
+                <div className="flex items-center gap-2.5 mt-0.5">
                     <span className={`material-symbols-outlined text-xs ${trendClass}`}>{trendIcon}</span>
-                    <span className={`text-[10px] font-bold uppercase tracking-wider ${trendClass}`}>
+                    <span className={`m3-label-tiny font-bold uppercase tracking-wider ${trendClass}`}>
                         {trend === 'up' ? 'In crescita' : trend === 'down' ? 'In calo' : 'Stabile'}
                     </span>
                 </div>
@@ -89,7 +89,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
             <SectionHeader 
                 title={`Cruscotto Classe ${selectedClass}`}
                 subtitle="Gestione didattica, valutazioni e monitoraggio in tempo reale"
-                className="py-12 text-center"
+                className="py-6 md:py-12 text-center"
             />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -106,9 +106,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             <span className="material-symbols-outlined text-3xl">school</span>
                                         </div>
                                         <div className="flex-grow min-w-0">
-                                            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-1">Prossima Lezione • {todaysLesson.slot.ora}</p>
+                                            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Prossima Lezione • {todaysLesson.slot.ora}</p>
                                             <h2 className="text-2xl font-bold text-on-surface truncate">{todaysLesson.lesson.materia}</h2>
-                                            <p className="text-on-surface-variant line-clamp-1 mt-1">{todaysLesson.lesson.contenuto}</p>
+                                            <p className="text-on-surface-variant line-clamp-1 mt-4">{todaysLesson.lesson.contenuto}</p>
                                         </div>
                                     </div>
                                     <M3Button
@@ -145,14 +145,14 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         <section className="animate-in fade-in slide-in-from-top-2">
                             <InfoCard 
                                 variant="elevated"
-                                className="bg-tertiary-container/40 backdrop-blur-sm border border-tertiary/10 p-4 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all"
+                                className="bg-tertiary-container/40 backdrop-blur-sm border border-tertiary/10 p-8 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all"
                                 onClick={() => onNavigate('teacher-inbox')}
                             >
                                 <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-8">
                                         <div className="w-12 h-12 rounded-xl bg-tertiary text-on-tertiary flex items-center justify-center relative shadow-md shadow-tertiary/20">
                                             <span className="material-symbols-outlined">mail</span>
-                                            <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-on-error rounded-full text-[10px] font-bold flex items-center justify-center border-2 border-tertiary-container">
+                                            <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-on-error rounded-full m3-label-tiny font-bold flex items-center justify-center border-2 border-tertiary-container">
                                                 {inboxCount}
                                             </span>
                                         </div>
@@ -173,17 +173,17 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                     <div className="space-y-10">
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section>
-                            <div className="flex items-center gap-3 mb-6 px-2">
+                            <div className="flex items-center gap-6 mb-6 px-4">
                                 <span className="material-symbols-outlined text-primary">auto_stories</span>
                                 <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Registro & Didattica</h3>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <InfoCard 
                                     variant="tonal" 
-                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all group"
+                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all group"
                                     onClick={() => onNavigate('register', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-8">
                                         <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
                                             <span className="material-symbols-outlined">book</span>
                                         </div>
@@ -195,10 +195,10 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 </InfoCard>
                                 <InfoCard 
                                     variant="tonal" 
-                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all group"
+                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all group"
                                     onClick={() => onNavigate('didattica-inclusiva', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-8">
                                         <div className="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
                                             <span className="material-symbols-outlined">accessibility_new</span>
                                         </div>
@@ -213,17 +213,17 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 
                         {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
                         <section>
-                            <div className="flex items-center gap-3 mb-6 px-2">
+                            <div className="flex items-center gap-6 mb-6 px-4">
                                 <span className="material-symbols-outlined text-secondary">grading</span>
                                 <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Valutazione & Competenze</h3>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <InfoCard 
                                     variant="tonal" 
-                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all group"
+                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all group"
                                     onClick={() => onNavigate('evaluations', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-8">
                                         <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
                                             <span className="material-symbols-outlined">ballot</span>
                                         </div>
@@ -235,10 +235,10 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 </InfoCard>
                                 <InfoCard 
                                     variant="tonal" 
-                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all group"
+                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all group"
                                     onClick={() => onNavigate('class-competency-dashboard', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-8">
                                         <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
                                             <span className="material-symbols-outlined">psychology</span>
                                         </div>
@@ -253,17 +253,17 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 
                         {/* 3. SEZIONE ANALISI & REPORT */}
                         <section>
-                            <div className="flex items-center gap-3 mb-6 px-2">
+                            <div className="flex items-center gap-6 mb-6 px-4">
                                 <span className="material-symbols-outlined text-on-surface-variant">analytics</span>
                                 <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Analisi & Report</h3>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 <InfoCard 
                                     variant="tonal" 
-                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all group"
+                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all group"
                                     onClick={() => onNavigate('improvement-guide', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-8">
                                         <div className="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
                                             <span className="material-symbols-outlined">query_stats</span>
                                         </div>
@@ -275,10 +275,10 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 </InfoCard>
                                 <InfoCard 
                                     variant="tonal" 
-                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-outline/20 transition-all group"
+                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-outline/20 transition-all group"
                                     onClick={() => onNavigate('consiglio-di-classe', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-8">
                                         <div className="w-12 h-12 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
                                             <span className="material-symbols-outlined">gavel</span>
                                         </div>
@@ -290,10 +290,10 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 </InfoCard>
                                 <InfoCard 
                                     variant="tonal" 
-                                    className="p-4 cursor-pointer hover:ring-2 hover:ring-outline/20 transition-all group"
+                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-outline/20 transition-all group"
                                     onClick={() => onNavigate('studenti', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-8">
                                         <div className="w-12 h-12 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
                                             <span className="material-symbols-outlined">groups</span>
                                         </div>
@@ -328,8 +328,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         onClick={onViewStudentProfile}
                                     />
                                 )) : (
-                                    <div className="flex flex-col items-center justify-center h-40 text-center text-on-surface-variant/40 p-4 border-2 border-dashed border-outline-variant/20 rounded-2xl">
-                                        <span className="material-symbols-outlined text-4xl mb-2">person_off</span>
+                                    <div className="flex flex-col items-center justify-center h-40 text-center text-on-surface-variant/40 p-8 border-2 border-dashed border-outline-variant/20 rounded-2xl">
+                                        <span className="material-symbols-outlined text-4xl mb-8">person_off</span>
                                         <p className="text-sm">Nessuno studente in elenco.</p>
                                     </div>
                                 )}

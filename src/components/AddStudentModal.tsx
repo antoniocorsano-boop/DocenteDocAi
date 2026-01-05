@@ -45,9 +45,9 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
             maxWidth="md"
             level={1}
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent>
                 <form id="add-student-form" onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <TextField
                             id="student-cognome-input"
                             name="cognome"

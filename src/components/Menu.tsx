@@ -1,5 +1,6 @@
 import React from 'react';
 import { View } from '../types';
+import './Menu.css';
 
 interface MenuProps {
   currentView: View;
@@ -46,58 +47,17 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
             className={`nav-item ${active ? 'active' : ''}`}
             aria-label={item.label}
             tabIndex={0}
-            style={{
-              background: active ? 'rgba(25, 118, 210, 0.10)' : 'rgba(255,255,255,0.10)',
-              color: active ? 'var(--sys-primary)' : 'var(--sys-on-surface-variant)',
-              borderRadius: 'var(--shape-m)',
-              outline: 'none',
-              transition: 'background 0.2s, color 0.2s',
-              padding: '0.5rem 0.7rem',
-              minWidth: '56px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: active ? '0 2px 8px rgba(25,118,210,0.10)' : 'none',
-              backdropFilter: active ? 'blur(2px)' : undefined,
-            }}
-            onFocus={e => e.currentTarget.style.background = 'rgba(25, 118, 210, 0.18)'}
-            onBlur={e => e.currentTarget.style.background = active ? 'rgba(25, 118, 210, 0.10)' : 'rgba(255,255,255,0.10)'}
+            type="button"
           >
-            <div
-              className="nav-icon-container"
-              style={{
-                marginBottom: '0.15rem',
-                background: active ? 'var(--sys-primary-container, #e3f2fd)' : 'transparent',
-                borderRadius: '50%',
-                padding: '0.6rem', // aumentato per area touch
-                boxShadow: active ? 'var(--elevation-1, 0 2px 8px rgba(25,118,210,0.10))' : 'none',
-                transition: 'background 0.2s',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                pointerEvents: 'none', // lascia il click al button
-              }}
-            >
+            <div className="nav-icon-container">
               <span
                 className={`material-symbols-outlined ${active ? 'filled-icon' : ''}`}
-                style={{ fontSize: '28px', color: active ? 'var(--sys-primary)' : 'var(--sys-on-surface-variant)', pointerEvents: 'none' }}
                 aria-hidden="true"
               >
                 {active ? item.activeIcon : item.icon}
               </span>
             </div>
-            <span
-              className="m3-label-small font-black uppercase tracking-[0.2em]"
-              style={{
-                fontSize: '10px',
-                fontFamily: 'var(--font-variable)',
-                fontVariationSettings: 'var(--font-variation-settings)',
-                color: active ? 'var(--sys-primary)' : 'var(--sys-on-surface-variant)',
-                letterSpacing: '0.12em',
-                marginTop: '2px',
-              }}
-            >
+            <span className="m3-label-small font-black uppercase tracking-[0.2em]">
               {item.label}
             </span>
           </button>

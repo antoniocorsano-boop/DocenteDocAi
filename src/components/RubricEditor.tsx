@@ -90,9 +90,9 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                             {/* Sezione Selezione */}
                             <div className="lg:col-span-1 space-y-4">
                                 <SectionHeader title="Criteri di Competenza" icon="checklist" variant="primary" />
-                                 <div className="selection-container large !bg-surface-container-low/50 backdrop-blur-md border border-outline-variant/20 rounded-3xl p-2">
+                                 <div className="selection-container large !bg-surface-container-low/50 backdrop-blur-md border border-outline-variant/20 rounded-3xl p-8">
                                     {allCompetenze.map(comp => (
-                                         <div key={comp.id} className="chip-checkbox w-full mb-1">
+                                         <div key={comp.id} className="chip-checkbox w-full mb-4">
                                             <input
                                                 type="checkbox"
                                                 id={`comp-check-${comp.id}`}
@@ -116,12 +116,12 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                     if (!competenza) return null;
                                     return (
                                         <InfoCard key={competenza.id} variant="elevated" className="p-6 space-y-6 bg-surface-container-low/50 backdrop-blur-md border border-outline-variant/20">
-                                            <div className="flex items-center gap-3 mb-2">
+                                            <div className="flex items-center gap-6 mb-8">
                                                 <div className="w-10 h-10 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center font-black text-sm">{competenza.codice.charAt(0)}</div>
                                                 <h4 className="m3-title-large font-black text-on-surface">{competenza.nome}</h4>
                                             </div>
                                             
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                                 {competenza.livelli.map(level => {
                                                     const indicatore = criterio.indicatori.find(ind => ind.livelloId === level.id);
                                                     return (

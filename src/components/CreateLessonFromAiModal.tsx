@@ -181,7 +181,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                 level={1}
             >
                 <form id="create-lesson-ai-form" onSubmit={handleSubmit} className="w-full">
-                    <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
+                    <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
                         <TextField 
                             label="Argomento" 
                             value={argomento} 
@@ -189,7 +189,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                             required 
                         />
                         
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 gap-12">
                             <SelectField label="Classe" value={classe} onChange={e => setClasse(e.target.value)} required>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </SelectField>
@@ -199,14 +199,14 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                         </div>
 
                         <div>
-                            <div className="flex justify-between items-center mb-2">
-                                <label className="text-[11px] text-primary font-extrabold uppercase tracking-[0.2em] px-2 !mb-0">Obiettivi</label>
+                            <div className="flex justify-between items-center mb-12">
+                                <label className="m3-label-small text-primary font-extrabold uppercase tracking-[0.2em] px-8 !mb-0">Obiettivi</label>
                                 {matchingCurriculum && (
                                     <M3Button 
                                         type="button" 
                                         onClick={() => setIsObjectivePickerOpen(true)}
                                         variant="tonal"
-                                        className="!h-8 !px-3 !text-xs font-extrabold uppercase tracking-widest rounded-full"
+                                        className="!h-10 !px-6 !text-xs font-extrabold uppercase tracking-widest rounded-full"
                                         title="Seleziona dal curricolo"
                                     >
                                         <span className="material-symbols-outlined mr-1 text-sm">library_add</span>
@@ -223,7 +223,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                 containerClassName="shadow-inner !bg-surface-container-lowest"
                             />
                             {matchingCurriculum && !obiettivi && (
-                                <p className="text-xs text-primary mt-3 flex items-center gap-2 font-bold px-2 cursor-pointer" onClick={() => setIsObjectivePickerOpen(true)}>
+                                <p className="text-xs text-primary mt-4 flex items-center gap-8 font-bold px-8 cursor-pointer" onClick={() => setIsObjectivePickerOpen(true)}>
                                     <span className="material-symbols-outlined text-sm">info</span> 
                                     Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
                                 </p>
@@ -231,15 +231,15 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                         </div>
                         
                         {slots && availableSlots.length > 0 && (
-                            <div className="bg-secondary-container/10 p-5 rounded-4xl border border-secondary/20 space-y-3">
-                                <label className="text-[11px] text-on-surface-variant font-black uppercase tracking-[0.2em] px-2">Pianificazione Rapida (Opzionale)</label>
-                                <div className="flex flex-wrap gap-2">
+                            <div className="bg-secondary-container/10 p-12 rounded-4xl border border-secondary/20 space-y-6">
+                                <label className="m3-label-small text-on-surface-variant font-black uppercase tracking-[0.2em] px-8">Pianificazione Rapida (Opzionale)</label>
+                                <div className="flex flex-wrap gap-12">
                                     {availableSlots.map(([key, slot]) => (
                                         <button
                                             key={key}
                                             type="button"
                                             onClick={() => setSelectedSlotKey(prev => prev === key ? '' : key)}
-                                            className={`chip !h-10 !px-4 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-surface-container-high'}`}
+                                            className={`chip !h-12 !px-8 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-surface-container-high'}`}
                                         >
                                             {selectedSlotKey === key && <span className="material-symbols-outlined text-base">check</span>}
                                             <span className="font-extrabold text-xs">{slot.giorno} {slot.ora}</span>
@@ -250,14 +250,14 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                         )}
 
                         <div>
-                            <div className="flex justify-between items-center mb-2">
-                                <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-2 !mb-0">Adattamenti per l'Inclusività</label>
+                            <div className="flex justify-between items-center mb-12">
+                                <label className="m3-label-small text-primary font-black uppercase tracking-[0.2em] px-8 !mb-0">Adattamenti per l'Inclusività</label>
                                 <M3Button 
                                     type="button" 
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
                                     variant="text"
-                                    className="!h-auto !py-1 !px-2 flex items-center gap-1 font-black uppercase text-xs rounded-lg hover:shadow-md transition-all"
+                                    className="!h-auto !py-2 !px-8 flex items-center gap-8 font-black uppercase text-xs rounded-lg hover:shadow-md transition-all"
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
@@ -279,9 +279,9 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                         </div>
                     </M3DialogContent>
 
-                    <M3DialogActions>
+                    <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
                         <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
-                        <M3Button type="submit" variant="filled" className="shadow-xl !px-10">
+                        <M3Button type="submit" variant="filled" className="shadow-xl !px-16">
                             <span className="material-symbols-outlined mr-2 font-black">{selectedSlotKey ? 'event_available' : 'archive'}</span>
                             {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
                         </M3Button>
@@ -297,21 +297,21 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                     maxWidth="2xl"
                     level={2}
                 >
-                    <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
-                        <p className="text-[10px] text-primary font-extrabold uppercase tracking-[0.3em]">{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
+                    <M3DialogContent className="space-y-8">
+                        <p className="m3-label-tiny text-primary font-extrabold uppercase tracking-[0.3em]">{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
                         {matchingCurriculum.nuclei.map(nucleo => (
                             <details key={nucleo.id} className="m3-expansion-panel shadow-md !rounded-4xl" open>
                                 <summary className="m3-expansion-summary !bg-surface-container-high">
                                     <span className="m3-title-medium font-black text-on-surface">{nucleo.title}</span>
                                     <span className="material-symbols-outlined text-sm text-on-surface-variant">expand_more</span>
                                 </summary>
-                                <div className="p-4 space-y-3 bg-surface">
+                                <div className="p-8 space-y-3 bg-surface">
                                     {nucleo.objectives.map(obj => (
                                         <button 
                                             key={obj.id}
                                             type="button"
                                             onClick={() => handleAddObjective(obj.text)}
-                                            className="w-full text-left p-3 rounded-xl hover:bg-surface-container-low transition-colors flex items-start gap-3 group"
+                                            className="w-full text-left p-6 rounded-xl hover:bg-surface-container-low transition-colors flex items-start gap-6 group"
                                         >
                                             <span className="material-symbols-outlined text-primary text-base mt-0.5 group-hover:scale-110 transition-transform">add_circle</span>
                                             <span className="text-sm font-medium text-on-surface">{obj.text}</span>

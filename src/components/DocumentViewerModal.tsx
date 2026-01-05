@@ -56,7 +56,7 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
             maxWidth="xl"
             level={2}
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="px-12 pt-12 pb-0">
                 {!safeHtml ? (
                      <div className="flex justify-center items-center h-64">
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -68,7 +68,7 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
                     />
                 )}
             </M3DialogContent>
-            <M3DialogActions>
+            <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
                  {onSaveToKb && (
                     <M3Button onClick={handleSave} variant="outlined" className="mr-auto">
                         <span className="material-symbols-outlined mr-2">save</span>

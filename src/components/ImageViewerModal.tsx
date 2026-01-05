@@ -44,7 +44,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                         alt={prompt} 
                         className="max-w-full max-h-[70vh] object-contain rounded-2xl shadow-2xl border border-white/10" 
                     />
-                    <div className="absolute bottom-4 left-4 right-4 p-4 bg-black/40 backdrop-blur-md rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute bottom-4 left-4 right-4 p-8 bg-black/40 backdrop-blur-md rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
                         <p className="text-white text-xs font-medium line-clamp-2 italic">"{prompt}"</p>
                     </div>
                 </div>

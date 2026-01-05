@@ -224,7 +224,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
     if (error) {
         return (
             <div className="p-12 bg-error/10 border border-error/20 rounded-5xl text-center animate-in fade-in slide-in-from-bottom-4">
-                <span className="material-symbols-outlined text-error text-5xl mb-4">error</span>
+                <span className="material-symbols-outlined text-error text-5xl mb-8">error</span>
                 <p className="text-error font-black uppercase tracking-widest">{error}</p>
             </div>
         );
@@ -237,7 +237,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                     <h1 className="text-3xl font-black tracking-tight text-on-surface">Analisi Classe {selectedClass}</h1>
                     <p className="text-on-surface-variant font-medium opacity-70">Report generato per il consiglio di classe.</p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-6">
                     <M3Button onClick={handleExportDocx} variant="outlined" className="font-black text-xs uppercase tracking-widest">
                         <span className="material-symbols-outlined mr-2">description</span>
                         Esporta Word
@@ -301,13 +301,13 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             {/* Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <InfoCard title="Distribuzione Voti" icon="bar_chart" className="h-full">
-                    <div className="p-4">
+                    <div className="p-8">
                         <BarChart data={gradeDistributionData} color="var(--sys-secondary)" />
                     </div>
                 </InfoCard>
                 {objectiveAchievementData && (
                     <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" className="h-full">
-                        <div className="flex justify-center p-4">
+                        <div className="flex justify-center p-8">
                             <DonutChart data={objectiveAchievementData} />
                         </div>
                     </InfoCard>
@@ -315,7 +315,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             </div>
 
             <InfoCard title="Livelli di Competenza" icon="school">
-                <div className="space-y-10 p-4">
+                <div className="space-y-10 p-8">
                     {competencyLevelData.map(compData => (
                         <div key={compData.name} className="space-y-4">
                             <h3 className="text-sm font-black uppercase tracking-widest text-on-surface-variant opacity-70">{compData.name}</h3>

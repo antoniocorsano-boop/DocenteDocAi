@@ -18,7 +18,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 
                 {/* Slide 1: Intro */}
                 <div className="text-center bg-surface-container-low/30 backdrop-blur-2xl rounded-6xl p-12 border border-outline-variant/20 shadow-2xl space-y-8">
-                    <div className="inline-block transform scale-150 mb-4">
+                    <div className="inline-block transform scale-150 mb-8">
                         <Logo title="DocenteDoc AI" />
                     </div>
                     <div className="space-y-4">
@@ -126,7 +126,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                         variant="filled"
                         className="!h-20 !px-12 !rounded-2xl shadow-2xl hover:shadow-primary/20 transition-all group"
                     >
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-8">
                             <span className="text-xl font-black uppercase tracking-widest">Inizia Subito!</span>
                             <span className="material-symbols-outlined text-2xl group-hover:translate-x-2 transition-transform">arrow_forward</span>
                         </div>

@@ -61,7 +61,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="space-y-8">
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center h-64">
                         <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div>
@@ -70,11 +70,11 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                 ) : (
                     <>
                         <section>
-                            <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-3">
+                            <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-6">
                                 <span className="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center m3-label-small font-extrabold">1</span> 
                                 Seleziona Destinazione
                             </h3>
-                            <div className="category-selection-grid grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <div className="category-selection-grid grid grid-cols-2 md:grid-cols-4 gap-6">
                                 {KB_CATEGORIES.map(cat => (
                                     <CategoryCard 
                                         key={cat.id} 
@@ -90,24 +90,24 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                         </section>
 
                         <section className={`transition-all duration-500 ${!selectedCategory ? 'opacity-30 grayscale pointer-events-none' : ''}`}>
-                            <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-3">
+                            <h3 className="m3-title-medium font-extrabold mb-6 flex items-center gap-6">
                                 <span className="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center m3-label-small font-extrabold">2</span> 
                                 Carica File
                             </h3>
                             <div {...getRootProps()} className={`dropzone-area h-48 !rounded-4xl border-2 border-dashed ${isDragActive ? 'border-primary bg-primary-container/10 scale-[1.02]' : 'border-outline-variant'} transition-all flex flex-col items-center justify-center cursor-pointer`}>
                                 <input {...getInputProps()} />
-                                <span className="material-symbols-outlined text-5xl text-primary mb-4">{isDragActive ? 'download' : 'upload_file'}</span>
+                                <span className="material-symbols-outlined text-5xl text-primary mb-8">{isDragActive ? 'download' : 'upload_file'}</span>
                                 <p className="m3-body-large font-extrabold">Trascina i file qui o clicca per sfogliare</p>
-                                <p className="text-[10px] opacity-60 mt-2 font-bold uppercase tracking-widest">Supporto PDF, DOCX, TXT</p>
+                                <p className="text-[10px] opacity-60 mt-4 font-bold uppercase tracking-widest">Supporto PDF, DOCX, TXT</p>
                             </div>
                         </section>
 
                         <section className="border-t border-outline-variant pt-10">
-                            <h3 className="m3-title-medium font-black mb-6 flex items-center gap-3">
+                            <h3 className="m3-title-medium font-black mb-6 flex items-center gap-6">
                                 <span className="w-8 h-8 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center m3-label-small font-black">3</span> 
                                 Raccolta (Opzionale)
                             </h3>
-                            <div className="flex gap-4 items-end">
+                            <div className="flex gap-8 items-end">
                                 <div className="flex-grow">
                                     <SelectField id="corpus-select" label="Raccolta Target" value={selectedCorpusId} onChange={e => setSelectedCorpusId(e.target.value)}>
                                         <option value="">-- Nessuna Raccolta --</option>
@@ -124,7 +124,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 </M3Button>
                             </div>
                             {isCreating && (
-                                 <div className="mt-6 flex gap-3 animate-in slide-in-from-top-4">
+                                 <div className="mt-6 flex gap-6 animate-in slide-in-from-top-4">
                                     <TextField 
                                         id="new-corpus-name-input" 
                                         label="Nome Nuova Raccolta" 
@@ -139,7 +139,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                         </section>
                     </>
                 )}
-                {error && <div className="mt-4 p-3 bg-error-container text-on-error-container rounded m3-body-small">{error}</div>}
+                {error && <div className="mt-4 p-6 bg-error-container text-on-error-container rounded m3-body-small">{error}</div>}
             </M3DialogContent>
         </M3Dialog>
     );

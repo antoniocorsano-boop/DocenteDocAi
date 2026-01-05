@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { View, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry } from '../types';
-import { ActionTile, SectionHeader, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { ActionTile, SectionHeader, M3Dialog, M3DialogContent, M3Button } from './ui';
 
 interface OperationsCenterProps {
     onClose: () => void;
@@ -61,6 +61,21 @@ const PROCESS_DEFINITIONS: ProcessDef[] = [
         category: 'planning',
         actionType: 'function',
         target: 'video-analysis'
+    },
+    {
+        id: 'nka_map',
+        title: 'Mappa Neurale',
+        subtitle: 'Neural Knowledge Assistant',
+        description: 'Esplora la mappa interattiva delle tue conoscenze e dei collegamenti tra le lezioni generati dall\'AI.',
+        icon: 'hub',
+        steps: [
+            { title: 'Analisi', desc: 'L\'AI mappa i concetti chiave.' },
+            { title: 'Grafico', desc: 'Visualizza i nodi e le connessioni.' }
+        ],
+        variant: 'primary',
+        category: 'planning',
+        actionType: 'function',
+        target: 'nka-map'
     },
     {
         id: 'annual_wizard',
@@ -170,11 +185,11 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
         return (
             <div className="flex flex-col h-full">
                 <div className="process-detail-header text-center mb-8">
-                    <div className={`process-detail-icon-large mx-auto mb-4 bg-${selectedProcess.variant}-container text-on-${selectedProcess.variant}-container shadow-xl w-24 h-24 rounded-4xl flex items-center justify-center`}>
+                    <div className={`process-detail-icon-large mx-auto mb-8 bg-${selectedProcess.variant}-container text-on-${selectedProcess.variant}-container shadow-xl w-24 h-24 rounded-4xl flex items-center justify-center`}>
                         <span className="material-symbols-outlined text-4xl">{selectedProcess.icon}</span>
                     </div>
                     <h2 className="m3-headline-medium font-black">{selectedProcess.title}</h2>
-                    <p className="m3-body-large text-on-surface-variant max-w-md mx-auto mt-2 opacity-80">{selectedProcess.description}</p>
+                    <p className="m3-body-large text-on-surface-variant max-w-md mx-auto mt-4 opacity-80">{selectedProcess.description}</p>
                 </div>
                 <div className="flex-grow overflow-y-auto px-4 mb-8 custom-scrollbar">
                     <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-primary mb-6">Fasi del Processo</h3>
@@ -188,7 +203,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                         ))}
                     </div>
                 </div>
-                <div className="flex gap-4 mt-auto">
+                <div className="flex gap-8 mt-auto">
                     <M3Button onClick={() => setSelectedProcess(null)} variant="text" className="flex-grow !h-14">Indietro</M3Button>
                     <M3Button onClick={() => handleProcessStart()} variant="filled" className="flex-grow-[2] !h-14 shadow-lg font-black">AVVIA ORA</M3Button>
                 </div>
@@ -202,6 +217,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
             onClose={onClose}
             mode="fullscreen"
             level={1}
+            hideBackdrop={true}
         >
             <M3DialogContent className="bg-surface-container-lowest p-6 md:p-10">
                     {selectedProcess ? renderProcessDetail() : (

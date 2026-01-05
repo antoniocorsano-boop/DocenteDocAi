@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types';
-import { TextField, SelectField, M3Button, InfoCard, Avatar } from './ui';
+import { TextField, SelectField, M3Button, Avatar } from './ui';
 import { RATING_OPTIONS } from '../constants';
 
 interface HomeworkSubmissionProps {
@@ -39,20 +39,20 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                 <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="shadow-lg ring-4 ring-primary/10" />
                 <div className="min-w-0">
                     <h3 className="m3-headline-small font-black truncate text-on-surface">{student.cognome} {student.nome}</h3>
-                    <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em] mt-1 opacity-70">
+                    <p className="text-[10px] text-primary font-black uppercase tracking-[0.3em] mt-4 opacity-70">
                         {lesson.materia} • {lesson.contenuto}
                     </p>
                 </div>
             </div>
 
             <div className="bg-surface-container-high/50 backdrop-blur-md p-6 rounded-2xl border border-outline-variant/20 flex items-center justify-between shadow-inner mb-8">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-8">
                     <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shadow-sm">
                         <span className="material-symbols-outlined text-3xl">description</span>
                     </div>
                     <div>
                         <p className="text-sm font-black text-on-surface">{submission.file?.name || 'Allegato Elaborato'}</p>
-                        <p className="text-[10px] text-on-surface-variant font-mono uppercase mt-1 opacity-60">{submission.file?.mimeType}</p>
+                        <p className="text-[10px] text-on-surface-variant font-mono uppercase mt-4 opacity-60">{submission.file?.mimeType}</p>
                     </div>
                 </div>
                 <M3Button onClick={handleDownload} variant="tonal" className="!h-12 !px-6 text-sm font-black shadow-sm">
@@ -63,7 +63,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
 
             {submission.status === 'pending' && onGrade && (
                 <div className="space-y-6 pt-8 border-t border-outline-variant/10">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         <SelectField
                             label="Voto Finale"
                             value={grade}
@@ -101,8 +101,8 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                     </div>
                     <div>
                         <p className="text-xs font-black uppercase tracking-widest opacity-70">Valutato con successo</p>
-                        <p className="m3-title-large font-black text-on-surface mt-1">Esito: {submission.teacherFeedback}</p>
-                        {feedback && <p className="text-sm opacity-70 mt-2 italic bg-surface-container-low/50 p-3 rounded-xl border border-outline-variant/10">"{feedback}"</p>}
+                        <p className="m3-title-large font-black text-on-surface mt-4">Esito: {submission.teacherFeedback}</p>
+                        {feedback && <p className="text-sm opacity-70 mt-4 italic bg-surface-container-low/50 p-6 rounded-xl border border-outline-variant/10">"{feedback}"</p>}
                     </div>
                 </div>
             )}

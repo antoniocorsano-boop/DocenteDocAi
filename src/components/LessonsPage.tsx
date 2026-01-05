@@ -165,22 +165,22 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
             {/* Lesson Sequence Generator */}
             <details className="m3-expansion-panel">
                 <summary className="m3-expansion-summary">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-8">
                         <span className="material-symbols-outlined text-primary">auto_awesome</span>
                         <span className="m3-title-medium">Generatore Sequenze Lezioni</span>
                     </div>
                     <span className="material-symbols-outlined text-on-surface-variant">expand_more</span>
                 </summary>
                 <div className="m3-expansion-content">
-                    <p className="m3-body-medium text-on-surface-variant mb-4">
+                    <p className="m3-body-medium text-on-surface-variant mb-8">
                         Seleziona le Unità di Apprendimento (UDA) e le classi. L'AI genererà una sequenza di lezioni strutturata per ogni classe, basandosi sui documenti KB selezionati.
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {/* UDA Selection */}
                         <div className="section-container">
-                            <h3 className="m3-title-medium mb-2">1. Seleziona UDA</h3>
+                            <h3 className="m3-title-medium mb-8">1. Seleziona UDA</h3>
                             {/* Centralized Selection Container */}
-                            <div className="selection-container" style={{ maxHeight: '200px', border: 'none', padding: 0 }}>
+                            <div className="selection-container max-h-[200px] border-none p-0 overflow-y-auto custom-scrollbar">
                                 {udas.length > 0 ? udas.map(uda => (
                                     <div key={uda.id} className="chip-checkbox">
                                         <input type="checkbox" id={`uda-select-${uda.id}`} checked={selectedUdaIds.includes(uda.id)} onChange={() => handleUdaSelection(uda.id)} />
@@ -191,9 +191,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                         </div>
                         {/* Class Selection */}
                         <div className="section-container">
-                            <h3 className="m3-title-medium mb-2">2. Seleziona Classi</h3>
+                            <h3 className="m3-title-medium mb-8">2. Seleziona Classi</h3>
                             {/* Centralized Selection Container */}
-                            <div className="selection-container" style={{ maxHeight: '200px', border: 'none', padding: 0 }}>
+                            <div className="selection-container max-h-[200px] border-none p-0 overflow-y-auto custom-scrollbar">
                                 {userClasses.map(c => (
                                     <div key={c} className="chip-checkbox">
                                         <input type="checkbox" id={`class-select-${c}`} checked={selectedClasses.includes(c)} onChange={() => handleClassSelection(c)} />
@@ -204,11 +204,11 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                         </div>
                         {/* KB Selection */}
                         <div className="section-container">
-                            <div className="flex justify-between items-center mb-2">
+                            <div className="flex justify-between items-center mb-8">
                                 <h3 className="m3-title-medium">3. Contesto KB</h3>
                                 <span className="text-xs text-on-surface-variant">{selectedKbIds.length} selezionati</span>
                             </div>
-                            <div className="selection-container" style={{ maxHeight: '200px', border: 'none', padding: 0 }}>
+                            <div className="selection-container max-h-[200px] border-none p-0 overflow-y-auto custom-scrollbar">
                                 {knowledgeBase.map(kb => (
                                     <div key={kb.id} className="chip-checkbox">
                                         <input type="checkbox" id={`kb-select-${kb.id}`} checked={selectedKbIds.includes(kb.id)} onChange={() => handleKbSelection(kb.id)} />
@@ -228,32 +228,32 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                             <span className="material-symbols-outlined mr-2">auto_awesome</span>
                             Genera Sequenze di Lezioni
                         </button>
-                        {error && <p className="text-error text-sm mt-2 text-center">{error}</p>}
+                        {error && <p className="text-error text-sm mt-4 text-center">{error}</p>}
                     </div>
                 </div>
             </details>
 
             {/* Lessons Archive */}
             <div className="card">
-                <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
+                <div className="flex flex-wrap justify-between items-center gap-8 mb-8">
                     <h2 className="m3-title-large">Archivio Lezioni ({lessons.length})</h2>
 
                     {/* Filtri */}
-                    <div className="flex flex-wrap gap-2">
-                        <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap gap-8">
+                        <div className="flex items-center gap-8">
                             <select value={filterClass} onChange={e => setFilterClass(e.target.value)} className="form-select py-1 pr-8 text-sm !h-10">
                                 <option value="">Tutte le classi</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </select>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-8">
                             <select value={filterUda} onChange={e => setFilterUda(e.target.value)} className="form-select py-1 pr-8 text-sm !h-10">
                                 <option value="">Tutte le UDA</option>
                                 {filteredUdas.map(u => <option key={u.id} value={u.title}>{u.title}</option>)}
                             </select>
                         </div>
                         {(filterClass || filterUda) && (
-                            <button onClick={() => { setFilterClass(''); setFilterUda(''); }} className="button button-text !py-1 !px-2" title="Rimuovi filtri">
+                            <button onClick={() => { setFilterClass(''); setFilterUda(''); }} className="button button-text !py-1 !px-4" title="Rimuovi filtri">
                                 <span className="material-symbols-outlined">filter_alt_off</span>
                             </button>
                         )}
@@ -268,16 +268,16 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                     <span className="m3-title-medium">Classe {classKey}</span>
                                     <span className="material-symbols-outlined">expand_more</span>
                                 </summary>
-                                <div className="m3-expansion-content !p-2">
+                                <div className="m3-expansion-content !p-8">
                                     {Object.entries(udaGroups).map(([udaKey, lessonItems]) => (
-                                        <details key={udaKey} className="m3-expansion-panel border-none shadow-none mb-2" open={udaKey !== 'Lezioni Varie'}>
-                                            <summary className="m3-expansion-summary !bg-transparent !px-2 !py-2">
+                                        <details key={udaKey} className="m3-expansion-panel border-none shadow-none mb-8" open={udaKey !== 'Lezioni Varie'}>
+                                            <summary className="m3-expansion-summary !bg-transparent !px-4 !py-4">
                                                 <span className="m3-label-large text-primary">{udaKey} ({lessonItems.length})</span>
                                                 <span className="material-symbols-outlined text-sm">expand_more</span>
                                             </summary>
                                             <div className="pl-2 space-y-2 border-l-2 border-outline-variant ml-4 pb-2">
                                                 {lessonItems.map(lesson => (
-                                                    <div key={lesson.id} className="m3-list-item-card !p-3 !bg-surface-container-lowest">
+                                                    <div key={lesson.id} className="m3-list-item-card !p-6 !bg-surface-container-lowest">
                                                         <div onClick={() => onViewLesson(lesson)} className="list-item-card-content">
                                                             <p className="m3-body-medium font-medium">{lesson.contenuto}</p>
                                                             <p className="m3-body-small text-on-surface-variant">{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</p>

@@ -52,7 +52,7 @@ const SettingsGroup: React.FC<SettingsGroupProps> = ({
     return (
         <details className={`settings-card bg-surface-container-low/40 backdrop-blur-md border border-outline-variant/20 rounded-3xl overflow-hidden group transition-all duration-300 ${isOpen ? 'shadow-lg' : 'shadow-sm'}`} open={isOpen}>
             <summary onClick={handleToggle} className="settings-summary flex items-center justify-between p-5 cursor-pointer hover:bg-surface-container-high/40 transition-colors list-none">
-                <div className="flex items-center gap-4 min-w-0">
+                <div className="flex items-center gap-8 min-w-0">
                     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner ${variant === 'primary' ? 'bg-primary/10 text-primary' : variant === 'secondary' ? 'bg-secondary/10 text-secondary' : variant === 'tertiary' ? 'bg-tertiary/10 text-tertiary' : 'bg-surface-container-highest text-on-surface-variant'}`}>
                         <span className="material-symbols-outlined text-2xl">{icon}</span>
                     </div>
@@ -79,17 +79,16 @@ const Settings: React.FC<SettingsProps> = (props) => {
     } = props;
 
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [storageInfo, setStorageInfo] = useState<{ used: string, total: string, percent: number } | null>(null);
+    const [storageInfo, setStorageInfo] = useState<{ used: string; total: string; percent: number } | null>(null);
 
     useEffect(() => {
-        if (navigator.storage && navigator.storage.estimate) {
-            navigator.storage.estimate().then(estimate => {
-                const used = ((estimate.usage || 0) / 1024 / 1024).toFixed(1);
-                const total = ((estimate.quota || 0) / 1024 / 1024).toFixed(1);
-                const percent = Math.round(((estimate.usage || 0) / (estimate.quota || 1)) * 100);
-                setStorageInfo({ used, total, percent });
-            });
-        }
+        if (!navigator?.storage?.estimate) return;
+        navigator.storage.estimate().then((estimate) => {
+            const used = ((estimate.usage || 0) / 1024 / 1024).toFixed(1);
+            const total = ((estimate.quota || 0) / 1024 / 1024).toFixed(1);
+            const percent = Math.round(((estimate.usage || 0) / (estimate.quota || 1)) * 100);
+            setStorageInfo({ used, total, percent });
+        }).catch(errorLogger);
     }, []);
 
     const settingsLogic = useSettingsLogic({
@@ -121,7 +120,6 @@ const Settings: React.FC<SettingsProps> = (props) => {
         handleThemeChange,
     } = settingsLogic;
 
-    const [newClassName, setNewClassName] = useState('');
     const [newSubjectName, setNewSubjectName] = useState('');
 
     // Formazione Classi Strutturata
@@ -149,16 +147,6 @@ const Settings: React.FC<SettingsProps> = (props) => {
         }
     };
 
-    const handleAddClass = () => {
-        if (!newClassName.trim()) return;
-        if (localSettings.classi.includes(newClassName.trim())) {
-            showToast("Classe già presente", "info");
-            return;
-        }
-        handleChange('classi', [...localSettings.classi, newClassName.trim()]);
-        setNewClassName('');
-    };
-
     const handleAddSubject = () => {
         if (!newSubjectName.trim()) return;
         if (localSettings.disciplines.includes(newSubjectName.trim())) {
@@ -181,7 +169,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 for (const key of keys) await caches.delete(key);
             }
             window.location.reload();
-        } catch (e) { window.location.reload(); }
+        } catch { window.location.reload(); }
     };
 
     const currentAiProfile = localAiSettings.model === AI_PROFILES.esperto.model ? 'esperto' : 'rapido';
@@ -207,8 +195,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
     return (
         <div className="page-layout max-w-full mx-auto w-full px-4 pb-24">
             <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-4">
-                    <M3Button onClick={onClose} variant="text" className="!min-w-0 !p-2">
+                <div className="flex items-center gap-8">
+                    <M3Button onClick={onClose} variant="text" className="!min-w-0 !p-8">
                         <span className="material-symbols-outlined">arrow_back</span>
                     </M3Button>
                     <SectionHeader 
@@ -225,7 +213,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     <div className="space-y-8">
                         {/* SEZIONE 1: MODALITÀ INTERFACCIA */}
                         <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
-                            <div className="flex items-center gap-2 mb-5">
+                            <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">dashboard_customize</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Modalità Interfaccia</h4>
                             </div>
@@ -239,7 +227,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 variant="primary"
                                 className="w-full"
                             />
-                            <p className="text-[10px] text-on-surface-variant mt-3 opacity-70 px-2">
+                            <p className="m3-label-tiny text-on-surface-variant mt-3 opacity-70 px-4">
                                 {localSettings.uiMode === 'flow' 
                                     ? 'Modalità Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.' 
                                     : 'Modalità Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
@@ -248,11 +236,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                         {/* SEZIONE 2: ECOISTEMA VISIVO */}
                         <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
-                            <div className="flex items-center gap-2 mb-5">
+                            <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">auto_awesome</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Ecosistema Visivo</h4>
                             </div>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                                 {[
                                     { id: 'aura', label: 'Aura', icon: 'blur_on', desc: 'Glassmorphism' },
                                     { id: 'expressive', label: 'Google', icon: 'android', desc: 'Expressive' },
@@ -263,12 +251,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ].map(style => (
                                     <button
                                         key={style.id}
-                                        onClick={() => handleThemeChange({ visualStyle: style.id as any })}
-                                        className={`flex flex-col items-center p-4 rounded-2xl border transition-all ${themeState.visualStyle === style.id ? 'bg-primary-container/40 border-primary shadow-sm' : 'bg-surface-container-highest/30 border-outline-variant/20 hover:bg-surface-container-highest/50'}`}
+                                        onClick={() => handleThemeChange({ visualStyle: style.id })}
+                                        className={`flex flex-col items-center p-8 rounded-2xl border transition-all ${themeState.visualStyle === style.id ? 'bg-primary-container/40 border-primary shadow-sm' : 'bg-surface-container-highest/30 border-outline-variant/20 hover:bg-surface-container-highest/50'}`}
                                     >
-                                        <span className={`material-symbols-outlined mb-2 ${themeState.visualStyle === style.id ? 'text-primary' : 'text-on-surface-variant'}`}>{style.icon}</span>
-                                        <span className={`text-[10px] font-black uppercase tracking-wider ${themeState.visualStyle === style.id ? 'text-primary' : 'text-on-surface-variant'}`}>{style.label}</span>
-                                        <span className="text-[8px] opacity-60 mt-1 text-center">{style.desc}</span>
+                                        <span className={`material-symbols-outlined mb-8 ${themeState.visualStyle === style.id ? 'text-primary' : 'text-on-surface-variant'}`}>{style.icon}</span>
+                                        <span className={`m3-label-tiny font-black uppercase tracking-wider ${themeState.visualStyle === style.id ? 'text-primary' : 'text-on-surface-variant'}`}>{style.label}</span>
+                                        <span className="text-[8px] opacity-60 mt-4 text-center">{style.desc}</span>
                                     </button>
                                 ))}
                             </div>
@@ -276,7 +264,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                         {/* SEZIONE 3: TEMA E COLORI */}
                         <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
-                            <div className="flex items-center gap-2 mb-5">
+                            <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">palette</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Tema & Colori</h4>
                             </div>
@@ -291,7 +279,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-8">
                                 {THEME_CUSTOMIZATIONS.map(theme => (
                                     <ThemeBubble
                                         key={theme.name}
@@ -308,11 +296,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </div>
 
                             <div className="border-t border-outline-variant/10 pt-6">
-                                <div className="flex items-center gap-2 mb-4">
+                                <div className="flex items-center gap-8 mb-8">
                                     <span className="material-symbols-outlined text-primary text-sm">magic_button</span>
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-primary block">Generatore AI</label>
+                                    <label className="m3-label-tiny font-black uppercase tracking-widest text-primary block">Generatore AI</label>
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-8">
                                     <div className="flex-grow">
                                         <TextField
                                             label="Descrivi il tuo stile"
@@ -337,7 +325,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                         {/* SEZIONE 4: PARAMETRI AVANZATI */}
                         <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
-                            <div className="flex items-center gap-2 mb-5">
+                            <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">tune</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Parametri Strutturali</h4>
                             </div>
@@ -345,7 +333,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
                                         <label className="text-xs font-bold text-on-surface">Intensità Blur Vetro</label>
-                                        <span className="text-[10px] font-black text-primary">{themeState.glassBlur || 30}px</span>
+                                        <span className="m3-label-tiny font-black text-primary">{themeState.glassBlur || 30}px</span>
                                     </div>
                                     <input 
                                         type="range" min="0" max="100" step="5" 
@@ -357,14 +345,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
                                         <label className="text-xs font-bold text-on-surface">Arrotondamento Bordi</label>
-                                        <span className="text-[10px] font-black text-primary">x{themeState.radiusMultiplier || 1}</span>
+                                        <span className="m3-label-tiny font-black text-primary">x{themeState.radiusMultiplier || 1}</span>
                                     </div>
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-8">
                                         {[0.5, 1, 1.5, 2].map(m => (
                                             <button
                                                 key={m}
                                                 onClick={() => handleThemeChange({ radiusMultiplier: m })}
-                                                className={`flex-1 py-2 rounded-xl text-[10px] font-black transition-all border ${themeState.radiusMultiplier === m ? 'bg-primary text-on-primary border-primary' : 'bg-surface-container-highest/50 text-on-surface-variant border-outline-variant/30'}`}
+                                                className={`flex-1 py-4 rounded-xl m3-label-tiny font-black transition-all border ${themeState.radiusMultiplier === m ? 'bg-primary text-on-primary border-primary' : 'bg-surface-container-highest/50 text-on-surface-variant border-outline-variant/30'}`}
                                             >
                                                 {m === 1 ? 'Standard' : `${m}x`}
                                             </button>
@@ -376,11 +364,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                         {/* SEZIONE 5: MANUTENZIONE BRAND */}
                         <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20">
-                            <div className="flex items-center gap-2 mb-4">
+                            <div className="flex items-center gap-8 mb-8">
                                 <span className="material-symbols-outlined text-primary">refresh</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Manutenzione Brand</h4>
                             </div>
-                            <p className="text-[10px] text-on-surface-variant mb-4 opacity-70">Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</p>
+                            <p className="m3-label-tiny text-on-surface-variant mb-8 opacity-70">Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</p>
                             <M3Button 
                                 onClick={handleForceRefresh} 
                                 variant="tonal"
@@ -395,12 +383,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="profile" title="Profilo & Identità" subtitle="Dati docente e istituto" icon="badge" variant="surface">
                     <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
                             <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} />
                         </div>
                         <TextField label="Email Istituzionale" type="email" value={localSettings.email || ''} onChange={e => handleChange('email', e.target.value)} placeholder="nome.cognome@scuola.edu.it" />
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <TextField label="Nome Istituto" value={localSettings.nomeIstituto} onChange={e => handleChange('nomeIstituto', e.target.value)} />
                             <TextField label="Città" value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
                         </div>
@@ -410,7 +398,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 <SettingsGroup id="ai_didattica" title="AI & Didattica" subtitle="Cervello AI e cattedra" icon="psychology" variant="secondary">
                     {/* SEZIONE 1: MODELLO AI */}
                     <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 mb-6">
-                        <div className="flex items-center gap-2 mb-4">
+                        <div className="flex items-center gap-8 mb-8">
                             <span className="material-symbols-outlined text-secondary">smart_toy</span>
                             <h4 className="text-[11px] font-black uppercase tracking-widest text-secondary">Modello Intelligenza</h4>
                         </div>
@@ -423,7 +411,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             className="w-full"
                         />
                         
-                        <div className={`mt-4 p-4 rounded-xl border flex items-start gap-3 transition-all duration-300 ${currentAiProfile === 'esperto' ? 'bg-primary-container/20 border-primary/30' : 'bg-tertiary-container/20 border-tertiary/30'}`}>
+                        <div className={`mt-4 p-8 rounded-xl border flex items-start gap-6 transition-all duration-300 ${currentAiProfile === 'esperto' ? 'bg-primary-container/20 border-primary/30' : 'bg-tertiary-container/20 border-tertiary/30'}`}>
                             <span className={`material-symbols-outlined text-xl mt-0.5 ${currentAiProfile === 'esperto' ? 'text-primary' : 'text-tertiary'}`}>info</span>
                             <p className="m3-body-small leading-relaxed text-on-surface">
                                 {AI_PROFILES[currentAiProfile as keyof typeof AI_PROFILES]?.description}
@@ -435,14 +423,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         {/* SEZIONE 2: ANNO SCOLASTICO */}
                         <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20">
                             <div className="flex justify-between items-center mb-5">
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-8">
                                     <span className="material-symbols-outlined text-primary">calendar_month</span>
                                     <h4 className="m3-label-large font-black uppercase tracking-wide text-on-surface">Anno Scolastico</h4>
                                 </div>
                                 <M3Button 
                                     onClick={handleAddNextYear} 
                                     variant="tonal"
-                                    className="!px-4 !py-2 !h-auto text-xs font-black uppercase tracking-widest shadow-sm"
+                                    className="!px-4 !py-4 !h-auto text-xs font-black uppercase tracking-widest shadow-sm"
                                 >
                                     <span className="material-symbols-outlined text-sm mr-2">add_circle</span>
                                     Aggiungi
@@ -475,11 +463,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         {/* SEZIONE 3: GESTIONE CATTEDRA UNIFICATA */}
                         <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20">
                             <div className="flex items-center justify-between mb-6">
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-8">
                                     <span className="material-symbols-outlined text-secondary">school</span>
                                     <h4 className="m3-label-large font-black uppercase tracking-wide text-on-surface">Gestione Cattedra</h4>
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-8">
                                     <button 
                                         onClick={() => {
                                             if(confirm("Sei sicuro di voler svuotare tutta la cattedra?")) {
@@ -495,12 +483,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                             {/* FORMAZIONE CLASSI STRUTTURATA (NORMATIVA ITALIANA) */}
                             <div className="p-5 bg-primary-container/10 rounded-2xl border border-primary/20 mb-8 space-y-6">
-                                <div className="flex items-center gap-2 mb-2">
+                                <div className="flex items-center gap-8 mb-8">
                                     <span className="material-symbols-outlined text-primary">account_tree</span>
                                     <h4 className="text-[11px] font-black uppercase tracking-widest text-primary">Formazione Classi Strutturata</h4>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <SelectField 
                                         label="Ordinamento Scolastico" 
                                         value={selLevel} 
@@ -519,12 +507,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-3">
                                         <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60">Livelli / Anni</p>
-                                        <div className="flex flex-wrap gap-2">
+                                        <div className="flex flex-wrap gap-8">
                                             {['1', '2', '3', '4', '5'].map(y => (
                                                 <button
                                                     key={y}
                                                     onClick={() => setSelYears(prev => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
-                                                    className={`px-4 py-2 rounded-xl text-xs font-black transition-all border ${selYears.includes(y) ? 'bg-primary text-on-primary border-primary shadow-md' : 'bg-surface-container-highest/50 text-on-surface-variant border-outline-variant/30'}`}
+                                                    className={`px-4 py-4 rounded-xl text-xs font-black transition-all border ${selYears.includes(y) ? 'bg-primary text-on-primary border-primary shadow-md' : 'bg-surface-container-highest/50 text-on-surface-variant border-outline-variant/30'}`}
                                                 >
                                                     {y}° Anno
                                                 </button>
@@ -533,7 +521,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     </div>
                                     <div className="space-y-3">
                                         <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60">Sezioni</p>
-                                        <div className="flex flex-wrap gap-2">
+                                        <div className="flex flex-wrap gap-8">
                                             {['A', 'B', 'C', 'D', 'E', 'F'].map(s => (
                                                 <button
                                                     key={s}
@@ -559,8 +547,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </div>
 
                             {/* INPUT RAPIDI PER AGGIUNGERE MATERIE */}
-                            <div className="grid grid-cols-1 gap-4 mb-8">
-                                <div className="flex gap-2">
+                            <div className="grid grid-cols-1 gap-8 mb-8">
+                                <div className="flex gap-8">
                                     <div className="flex-grow relative">
                                         <input 
                                             type="text" 
@@ -586,9 +574,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <table className="w-full border-separate border-spacing-1">
                                     <thead>
                                         <tr>
-                                            <th className="p-2 text-left text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-50">Materia / Classe</th>
+                                            <th className="p-8 text-left text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-50">Materia / Classe</th>
                                             {localSettings.classi.map(cls => (
-                                                <th key={cls} className="p-2 min-w-[60px] text-center">
+                                                <th key={cls} className="p-8 min-w-[60px] text-center">
                                                     <div className="relative group">
                                                         <div className="text-xs font-black text-on-surface">{cls}</div>
                                                         <button 
@@ -605,7 +593,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <tbody>
                                         {localSettings.disciplines.map(subj => (
                                             <tr key={subj}>
-                                                <td className="p-2">
+                                                <td className="p-8">
                                                     <div className="flex items-center justify-between group">
                                                         <div className="flex flex-col">
                                                             <span className="text-xs font-bold text-on-surface uppercase tracking-tight">{subj}</span>
@@ -620,7 +608,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             onClick={() => handleChange('disciplines', localSettings.disciplines.filter(s => s !== subj))}
                                                             className="w-6 h-6 rounded-lg bg-surface-container-highest/50 text-on-surface-variant text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-error-container hover:text-error"
                                                         >
-                                                            <span className="material-symbols-outlined text-[14px]">delete</span>
+                                                            <span className="material-symbols-outlined m3-icon-xs">delete</span>
                                                         </button>
                                                     </div>
                                                 </td>
@@ -635,7 +623,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                 {assignment ? (
                                                                     <>
                                                                         <span className="material-symbols-outlined text-primary text-sm">check_circle</span>
-                                                                        <div className="flex items-center gap-1 mt-0.5" onClick={e => e.stopPropagation()}>
+                                                                        <div className="flex items-center gap-4 mt-0.5" onClick={e => e.stopPropagation()}>
                                                                             <input 
                                                                                 type="number" 
                                                                                 value={assignment.hoursPerWeek}
@@ -688,7 +676,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         ) : (
                             <div className="space-y-3">
                                 {Array.from(dismissedSuggestions).map((id) => (
-                                    <div key={id} className="p-4 rounded-2xl bg-surface-container-low/50 border border-outline-variant/20 flex items-center justify-between shadow-sm">
+                                    <div key={id} className="p-8 rounded-2xl bg-surface-container-low/50 border border-outline-variant/20 flex items-center justify-between shadow-sm">
                                         <div>
                                             <div className="m3-label-medium font-black text-on-surface">Suggerimento {id}</div>
                                             <div className="text-xs text-on-surface-variant">Ignorato in precedenza</div>
@@ -696,7 +684,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <M3Button
                                             onClick={() => onReactivateSuggestion(id)}
                                             variant="tonal"
-                                            className="!px-4 !py-2 !h-auto text-xs font-black flex items-center gap-2"
+                                            className="!px-4 !py-4 !h-auto text-xs font-black flex items-center gap-8"
                                         >
                                             <span className="material-symbols-outlined text-sm">refresh</span>
                                             Riattiva
@@ -726,7 +714,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 <SettingsGroup id="cloud" title="Dati & Cloud" subtitle="Backup e Storage" icon="cloud_sync" variant="surface">
                     {storageInfo && (
                         <div className="mb-6 p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
-                            <div className="flex justify-between items-center mb-3">
+                            <div className="flex justify-between items-center mb-6">
                                 <h4 className="m3-label-large font-black text-on-surface">Storage Dispositivo</h4>
                                 <span className="text-xs font-mono font-bold text-primary">{storageInfo.used}MB / {storageInfo.total}MB</span>
                             </div>
@@ -765,13 +753,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     })()}
 
                     <div className={`p-6 rounded-3xl border mb-6 flex items-center justify-between transition-all duration-500 ${driveState.isAuthenticated ? 'bg-primary-container/20 border-primary/30 shadow-md' : 'bg-surface-container-low/50 border-outline-variant/20 text-on-surface'}`}>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-8">
                             <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner ${driveState.isAuthenticated ? 'bg-primary text-on-primary' : 'bg-surface-container-highest/50 text-on-surface-variant'}`}>
                                 <span className="material-symbols-outlined text-3xl">{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
                             </div>
                             <div>
                                 <h4 className="font-black m3-label-large uppercase tracking-widest">{driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}</h4>
-                                <p className="text-[10px] font-bold opacity-60 mt-1 uppercase tracking-tighter">{driveState.lastSyncTime ? `Ultimo: ${(new Date(driveState.lastSyncTime)).toLocaleString()}` : 'Nessun backup cloud'}</p>
+                                <p className="text-[10px] font-bold opacity-60 mt-4 uppercase tracking-tighter">{driveState.lastSyncTime ? `Ultimo: ${(new Date(driveState.lastSyncTime)).toLocaleString()}` : 'Nessun backup cloud'}</p>
                             </div>
                         </div>
                         {driveState.isAuthenticated ? (
@@ -779,7 +767,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 onClick={() => onSyncToDrive()} 
                                 disabled={driveState.isSyncing} 
                                 variant="filled"
-                                className="!px-6 !py-3 !h-auto font-black text-xs shadow-lg flex items-center gap-2"
+                                className="!px-6 !py-3 !h-auto font-black text-xs shadow-lg flex items-center gap-8"
                             >
                                 <span className="material-symbols-outlined text-sm">{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>
                                 {driveState.isSyncing ? '...' : 'Salva'}
@@ -796,12 +784,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             )
                         )}
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                        <M3Button onClick={onExportData} variant="tonal" className="flex items-center justify-center gap-2 py-4 rounded-2xl font-black text-xs shadow-sm">
+                    <div className="grid grid-cols-2 gap-8">
+                        <M3Button onClick={onExportData} variant="tonal" className="flex items-center justify-center gap-8 py-4 rounded-2xl font-black text-xs shadow-sm">
                             <span className="material-symbols-outlined text-base">download</span> 
                             Backup Locale
                         </M3Button>
-                        <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal" className="flex items-center justify-center gap-2 py-4 rounded-2xl font-black text-xs shadow-sm">
+                        <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal" className="flex items-center justify-center gap-8 py-4 rounded-2xl font-black text-xs shadow-sm">
                             <span className="material-symbols-outlined text-base">upload</span> 
                             Ripristina File
                         </M3Button>
@@ -812,14 +800,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 <SettingsGroup id="debug_logging" title="Debug & Logging" subtitle="Visualizza e gestisci i log degli errori" icon="bug_report" variant="surface">
                     <div className="space-y-6">
                         <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
-                            <div className="flex items-start justify-between gap-4 mb-4">
+                            <div className="flex items-start justify-between gap-8 mb-8">
                                 <div>
                                     <h4 className="m3-label-large font-black text-on-surface">Log degli Errori</h4>
-                                    <p className="text-xs text-on-surface-variant mt-1">Visualizza tutti gli errori registrati durante l'utilizzo dell'app</p>
+                                    <p className="text-xs text-on-surface-variant mt-4">Visualizza tutti gli errori registrati durante l'utilizzo dell'app</p>
                                 </div>
                                 <span className={`material-symbols-outlined text-2xl ${errorLogger.getErrorStats().total > 0 ? 'text-error' : 'text-success'}`}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
                             </div>
-                            <div className="text-xs text-on-surface-variant mb-6 p-3 bg-surface-container-low/50 rounded-xl flex items-center gap-2 border border-outline-variant/10">
+                            <div className="text-xs text-on-surface-variant mb-6 p-6 bg-surface-container-low/50 rounded-xl flex items-center gap-8 border border-outline-variant/10">
                                 <span className="material-symbols-outlined text-sm">info</span>
                                 <span>{errorLogger.getErrorStats().total} log registrati</span>
                             </div>
@@ -828,7 +816,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info');
                                 }}
                                 variant="tonal"
-                                className="w-full py-4 rounded-xl font-black text-xs mb-3"
+                                className="w-full py-4 rounded-xl font-black text-xs mb-6"
                             >
                                 <span className="material-symbols-outlined text-sm mr-2">terminal</span> Console Browser (F12)
                             </M3Button>
@@ -845,7 +833,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     showToast('Log esportati in JSON', 'success');
                                 }}
                                 variant="tonal"
-                                className="w-full py-4 rounded-xl font-black text-xs mb-3"
+                                className="w-full py-4 rounded-xl font-black text-xs mb-6"
                             >
                                 <span className="material-symbols-outlined text-sm mr-2">download</span> Esporta JSON
                             </M3Button>
@@ -875,7 +863,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="advanced" title="Avanzate" subtitle="Configurazione tecnica" icon="build" variant="surface">
                     <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 mb-6 shadow-sm">
-                        <div className="flex items-center gap-2 mb-5">
+                        <div className="flex items-center gap-8 mb-5">
                             <span className="material-symbols-outlined text-primary">key</span>
                             <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Google Cloud API</h4>
                         </div>
@@ -885,7 +873,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
                     </div>
                     <div className="p-6 bg-error-container/10 rounded-3xl border border-error/20 shadow-sm">
-                        <div className="flex items-center gap-2 mb-4">
+                        <div className="flex items-center gap-8 mb-8">
                             <span className="material-symbols-outlined text-error">warning</span>
                             <h4 className="m3-label-small text-error font-black uppercase tracking-widest">Zona Pericolo</h4>
                         </div>
@@ -900,11 +888,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     </div>
                 </SettingsGroup>
 
-                <div className="text-center text-[10px] text-on-surface-variant opacity-50 pt-12 pb-4">
+                <div className="text-center m3-label-tiny text-on-surface-variant opacity-50 pt-12 pb-4">
                     DocenteDoc AI v4.0.8 • Stable
                     <div className="pt-3">
                         <span className="font-black uppercase tracking-widest">Owner:</span> Antonio Corsano
-                        <span className="block mt-1">antonio.corsano@gmail.com</span>
+                        <span className="block mt-4">antonio.corsano@gmail.com</span>
                     </div>
                     <M3Button onClick={onLogout} variant="text" className="mt-6 mx-auto !h-10 !text-xs font-black uppercase tracking-widest hover:bg-error-container/30 hover:text-error transition-all">
                         <span className="material-symbols-outlined text-sm mr-2">logout</span> 

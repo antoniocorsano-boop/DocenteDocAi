@@ -8,14 +8,8 @@ import type {
     AppState, 
     AppActions, 
     Modals, 
-    EventoCalendario, 
-    KnowledgeBaseEntry, 
     Lezione, 
-    Slot, 
-    Uda, 
-    Studente, 
-    PianoInclusione, 
-    AiSettings 
+    Slot
 } from '../types';
 
 interface ModalManagerProps {
@@ -25,8 +19,8 @@ interface ModalManagerProps {
 }
 
 export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, modals }) => {
-    const { students, settings, evaluations, competencyEvals, finalizedRegister, draftRegister, slots, lessons, pianiInclusione, knowledgeBase, aiSettings } = appState;
-    const { handleNavigate, onScheduleLesson, handleLoadDemoData, handlePromoteStudents, handleResetYearData, handleExportData, setLessons, setSlots, handleStartClassroom } = actions;
+    const { students, settings, draftRegister, slots, lessons, pianiInclusione, knowledgeBase, aiSettings } = appState;
+    const { onScheduleLesson, setLessons, setSlots, handleStartClassroom } = actions;
 
     const activeSlot = modals.activeSlotKey ? slots[modals.activeSlotKey] : null;
     const activeLesson = modals.lessonViewContext;

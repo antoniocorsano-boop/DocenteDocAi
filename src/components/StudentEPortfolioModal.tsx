@@ -73,7 +73,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                 {/* Add Entry Section */}
                 <div className="space-y-4">
                     <h4 className="m3-title-large font-black">Aggiungi Documento/Riflessione</h4>
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row gap-8">
                         <div className="flex-1">
                             <TextField
                                 label="Titolo"
@@ -81,7 +81,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                                 onChange={(e) => setNewEntry({ ...newEntry, title: e.target.value })}
                             />
                         </div>
-                        <div className="flex gap-2 items-end">
+                        <div className="flex gap-8 items-end">
                             <select 
                                 className="flex-grow bg-surface-container-high rounded-2xl px-4 py-3 m3-body-medium border-none focus:ring-2 focus:ring-primary min-w-0"
                                 value={newEntry.category}
@@ -105,9 +105,9 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                             <p className="text-center py-8 text-on-surface-variant italic">Nessun documento caricato</p>
                         ) : (
                             entries.map(entry => (
-                                <div key={entry.id} className="flex items-center justify-between p-4 bg-surface-container rounded-2xl border border-outline-variant/10">
+                                <div key={entry.id} className="flex items-center justify-between p-8 bg-surface-container rounded-2xl border border-outline-variant/10">
                                     <div>
-                                        <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-8">
                                             <span className="material-symbols-outlined text-primary text-sm">
                                                 {entry.category === 'capolavoro' ? 'auto_awesome' : 'description'}
                                             </span>

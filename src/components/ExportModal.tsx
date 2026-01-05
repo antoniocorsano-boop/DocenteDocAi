@@ -316,10 +316,10 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent className="space-y-8 bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="space-y-8">
                 <section className="space-y-4">
                     <SectionHeader title="1. Intestazione Documento" icon="edit" colorClass="text-primary" />
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <TextField
                             id="schoolYear"
                             name="schoolYear"
@@ -351,7 +351,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                         onTabChange={(id) => setSubjectScope(id as 'teacher' | 'all')}
                         className="w-full"
                     />
-                    <p className="text-xs text-on-surface-variant px-2 leading-relaxed">
+                    <p className="text-xs text-on-surface-variant px-4 leading-relaxed">
                         {subjectScope === 'teacher'
                             ? "Il report includerà solo le tue discipline configurate in Impostazioni. La media generale (Σ) sarà calcolata solo su queste materie."
                             : "Il report includerà tutte le discipline che hanno almeno una valutazione per questa classe. La media generale (Σ) sarà calcolata su tutte le materie."}
@@ -369,7 +369,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                         onTabChange={(id) => handleOptionChange('format', id)}
                         className="w-full"
                     />
-                    <p className="text-xs text-on-surface-variant px-2 leading-relaxed">
+                    <p className="text-xs text-on-surface-variant px-4 leading-relaxed">
                         {exportOptions.format === 'pdf'
                             ? 'Genera un report grafico di una pagina, ideale per la stampa e la condivisione.'
                             : 'Genera un file CSV con i dati riepilogativi, utile per analisi in fogli di calcolo.'}

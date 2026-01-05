@@ -284,8 +284,8 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
     return (
         <div className="fixed inset-0 z-[1050] bg-surface flex flex-col animate-in fade-in">
             {/* TOOLBAR */}
-            <div className="flex items-center justify-between p-2 border-b border-outline-variant bg-surface-container shadow-sm">
-                <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between p-8 border-b border-outline-variant bg-surface-container shadow-sm">
+                <div className="flex items-center gap-8">
                     <button onClick={handleCloseSafe} className="icon-button"><span className="material-symbols-outlined">arrow_back</span></button>
                     <input 
                         type="text" 
@@ -293,10 +293,10 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                         onChange={(e) => { setEditorTitle(e.target.value); setIsDirty(true); }} 
                         className="bg-transparent border-none m3-title-large font-bold text-on-surface focus:ring-0"
                     />
-                    {isDirty && <span className="m3-label-small text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded-full">• Modificato</span>}
+                    {isDirty && <span className="m3-label-small text-on-surface-variant bg-surface-container-highest px-4 py-0.5 rounded-full">• Modificato</span>}
                 </div>
                 
-                <div className="flex items-center gap-1 bg-surface rounded-lg border border-outline-variant p-1 hidden md:flex">
+                <div className="flex items-center gap-4 bg-surface rounded-lg border border-outline-variant p-1 hidden md:flex">
                     <button onClick={() => execCmd('bold')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Grassetto"><span className="material-symbols-outlined m3-label-large">format_bold</span></button>
                     <button onClick={() => execCmd('italic')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Corsivo"><span className="material-symbols-outlined m3-label-large">format_italic</span></button>
                     <button onClick={() => execCmd('formatBlock', 'h2')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Titolo"><span className="material-symbols-outlined m3-label-large">title</span></button>
@@ -305,7 +305,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                     <button onClick={handleAiTable} className="icon-button !w-8 !h-8 text-primary rounded-lg hover:shadow-md transition-all" title="Tabella AI"><span className="material-symbols-outlined m3-label-large">table_chart</span></button>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-8">
                     <button onClick={handleCopyForGoogleDocs} className="button button-tonal !h-9 !px-3 m3-label-large rounded-lg hover:shadow-md transition-all" title="Copia per Google Docs">
                         <span className="material-symbols-outlined mr-2 m3-body-medium">content_copy</span> Docs
                     </button>
@@ -324,7 +324,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             </div>
 
             {/* EDITOR AREA */}
-            <div className="flex-grow overflow-y-auto bg-surface-container-low p-4 md:p-8">
+            <div className="flex-grow overflow-y-auto bg-surface-container-low p-8 md:p-8">
                 <div 
                     ref={editorRef}
                     contentEditable
@@ -338,24 +338,24 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             {/* AI FLOATING MENU */}
             {aiMenuPosition && (
                 <div 
-                    className="absolute bg-surface-container-high rounded-xl shadow-xl border border-outline-variant p-2 flex flex-col gap-1 z-[1060] animate-in zoom-in-95"
+                    className="absolute bg-surface-container-high rounded-xl shadow-xl border border-outline-variant p-8 flex flex-col gap-4 z-[1060] animate-in zoom-in-95"
                     style={{ top: aiMenuPosition.top, left: aiMenuPosition.left }}
                 >
-                    <div className="flex items-center gap-2 px-2 pb-2 border-b border-outline-variant mb-1">
+                    <div className="flex items-center gap-8 px-4 pb-2 border-b border-outline-variant mb-4">
                         <AiThinkingGem size="small" />
                         <span className="m3-label-small font-bold text-on-surface-variant">AI Assistant</span>
                     </div>
                     {isAiThinking ? (
-                        <div className="p-2 text-center m3-label-small">Elaborazione...</div>
+                        <div className="p-8 text-center m3-label-small">Elaborazione...</div>
                     ) : (
                         <>
-                            <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} className="text-left px-3 py-2 hover:bg-secondary-container rounded-lg m3-body-small flex gap-2">
+                            <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} className="text-left px-3 py-4 hover:bg-secondary-container rounded-lg m3-body-small flex gap-8">
                                 <span className="material-symbols-outlined m3-body-small">history_edu</span> Rendi Formale
                             </button>
-                            <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} className="text-left px-3 py-2 hover:bg-secondary-container rounded-lg m3-body-small flex gap-2">
+                            <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} className="text-left px-3 py-4 hover:bg-secondary-container rounded-lg m3-body-small flex gap-8">
                                 <span className="material-symbols-outlined m3-body-small">unfold_more</span> Espandi
                             </button>
-                            <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} className="text-left px-3 py-2 hover:bg-secondary-container rounded-lg m3-body-small flex gap-2">
+                            <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} className="text-left px-3 py-4 hover:bg-secondary-container rounded-lg m3-body-small flex gap-8">
                                 <span className="material-symbols-outlined m3-body-small">format_list_bulleted</span> Sintetizza
                             </button>
                         </>

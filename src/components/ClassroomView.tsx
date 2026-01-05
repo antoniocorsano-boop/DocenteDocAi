@@ -142,15 +142,15 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
     return (
         <div className="classroom-view-container h-full flex flex-col bg-surface-container-low">
-            <div className="bg-surface z-20 px-4 py-2 flex items-center justify-between border-b border-outline-variant shadow-sm">
+            <div className="bg-surface z-20 px-4 py-4 flex items-center justify-between border-b border-outline-variant shadow-sm">
                 <button onClick={onCloseView} className="icon-button -ml-2"><span className="material-symbols-outlined">arrow_back</span></button>
 
-                <div className="flex gap-4 m3-label-small font-bold uppercase tracking-wider">
-                    <div className="flex items-center gap-1 text-primary">
+                <div className="flex gap-8 m3-label-small font-bold uppercase tracking-wider">
+                    <div className="flex items-center gap-4 text-primary">
                         <span className="material-symbols-outlined m3-label-large">group</span>
                         <span>{attendanceSummary.present} PRES.</span>
                     </div>
-                    <div className={`flex items-center gap-1 ${attendanceSummary.absent > 0 ? 'text-error animate-pulse' : 'text-on-surface-variant opacity-50'}`}>
+                    <div className={`flex items-center gap-4 ${attendanceSummary.absent > 0 ? 'text-error animate-pulse' : 'text-on-surface-variant opacity-50'}`}>
                         <span className="material-symbols-outlined m3-label-large">person_off</span>
                         <span>{attendanceSummary.absent} ASS.</span>
                     </div>
@@ -181,16 +181,16 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 </div>
             </div>
 
-            <div className="flex-grow overflow-y-auto p-4 pb-24">
+            <div className="flex-grow overflow-y-auto p-8 pb-24">
 
                 {activeTab === 'register' && (
                     <div className="space-y-4">
                         {lesson.obiettivi && (
-                            <div className="bg-surface-container p-3 rounded-xl border border-outline-variant mb-4">
-                                <p className="m3-label-small font-bold text-primary uppercase mb-2">Obiettivi Didattici</p>
+                            <div className="bg-surface-container p-6 rounded-xl border border-outline-variant mb-8">
+                                <p className="m3-label-small font-bold text-primary uppercase mb-8">Obiettivi Didattici</p>
                                 <div className="space-y-2">
                                     {lesson.obiettivi.split('\n').filter(o => o.trim()).map((obj, idx) => (
-                                        <label key={idx} className="flex items-start gap-3 cursor-pointer p-1 hover:bg-surface rounded">
+                                        <label key={idx} className="flex items-start gap-6 cursor-pointer p-1 hover:bg-surface rounded">
                                             <input
                                                 type="checkbox"
                                                 checked={checkedObjectives[idx] || false}
@@ -206,7 +206,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         )}
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                             {studentStats.map(stat => {
                                 const student = stat.student;
                                 const status = studentAttendance[student.id] || 'presente';
@@ -214,10 +214,10 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 const badges = participation[student.id] || [];
 
                                 return (
-                                    <div key={student.id} className="bg-surface-container rounded-3xl shadow-lg border border-outline-variant p-4 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer" onClick={() => setViewingStudentProfile(student)}>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-2 items-center">
+                                    <div key={student.id} className="bg-surface-container rounded-3xl shadow-lg border border-outline-variant p-8 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer" onClick={() => setViewingStudentProfile(student)}>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-8 items-center">
                                             {/* Column 1: Avatar + Name + Presence + BES/DSA */}
-                                            <div className="flex items-center gap-2 col-span-1 md:col-span-2 lg:col-span-2">
+                                            <div className="flex items-center gap-8 col-span-1 md:col-span-2 lg:col-span-2">
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleAttendanceToggle(student.id); }}
                                                     className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors flex-shrink-0 ${status === 'presente' ? 'bg-primary-container text-primary' :
@@ -242,7 +242,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                 <span className={`m3-title-large font-bold ${parseFloat(stat.grade || '0') > 7 ? 'text-primary' : parseFloat(stat.grade || '0') > 6 ? 'text-secondary' : 'text-error'}`}>
                                                     {stat.grade || '-'}
                                                 </span>
-                                                <div className="flex justify-center mt-1">
+                                                <div className="flex justify-center mt-4">
                                                     <span className={`material-symbols-outlined m3-label-large ${stat.trend === 'up' ? 'animate-bounce text-tertiary' : stat.trend === 'down' ? 'animate-pulse text-error' : 'text-on-surface-variant'}`}>
                                                         {stat.trend === 'up' ? 'trending_up' : stat.trend === 'down' ? 'trending_down' : 'trending_flat'}
                                                     </span>
@@ -271,16 +271,16 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             </div>
 
                                             {/* Column 6: Homework + Participation */}
-                                            <div className="flex flex-col items-center gap-1 col-span-1">
+                                            <div className="flex flex-col items-center gap-4 col-span-1">
                                                 {hwStatus && (
-                                                    <span className={`m3-label-small px-2 py-1 rounded-full border ${hwStatus === 'missing' ? 'border-error text-error bg-error-container' :
+                                                    <span className={`m3-label-small px-4 py-1 rounded-full border ${hwStatus === 'missing' ? 'border-error text-error bg-error-container' :
                                                             hwStatus === 'partial' ? 'border-outline text-on-surface-variant bg-surface-container' : 'border-primary text-primary bg-primary-container'
                                                         }`}>
                                                         {hwStatus === 'missing' ? 'No Compiti' : hwStatus === 'partial' ? 'Parziali' : 'OK'}
                                                     </span>
                                                 )}
                                                 {badges.length > 0 && (
-                                                    <span className="m3-label-small px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container flex items-center gap-1">
+                                                    <span className="m3-label-small px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container flex items-center gap-4">
                                                         <span className="material-symbols-outlined m3-label-small">star</span> {badges.length}
                                                     </span>
                                                 )}
@@ -305,8 +305,8 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
                 {activeTab === 'notes' && (
                     <div className="space-y-4 animate-in fade-in">
-                        <div className="bg-surface p-4 rounded-2xl border border-outline-variant">
-                            <div className="flex justify-between items-center mb-2">
+                        <div className="bg-surface p-8 rounded-2xl border border-outline-variant">
+                            <div className="flex justify-between items-center mb-8">
                                 <label className="m3-label-large">Note Pubbliche (Registro)</label>
                                 <VoiceNoteRecorder onTranscription={(text) => onUpdateDraftEntry(draftKey, { notes: (draftEntry.notes ? draftEntry.notes + '\n' : '') + text })} compact />
                             </div>
@@ -319,7 +319,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-2 gap-6">
                             <button onClick={() => setIsCopyModalOpen(true)} className="button button-tonal w-full justify-center">
                                 <span className="material-symbols-outlined mr-2">content_copy</span>
                                 Copia
@@ -345,9 +345,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 {activeTab === 'resources' && (
                     <div className="space-y-4 animate-in fade-in">
                         {lesson.materialiDidattici && lesson.materialiDidattici.length > 0 ? (
-                            <div className="grid grid-cols-1 gap-3">
+                            <div className="grid grid-cols-1 gap-6">
                                 {lesson.materialiDidattici.map(mat => (
-                                    <div key={mat.id} className="bg-surface p-3 rounded-xl border border-outline-variant flex items-center gap-3 cursor-pointer active:bg-surface-container" onClick={() => handlePreviewMaterial(mat)}>
+                                    <div key={mat.id} className="bg-surface p-6 rounded-xl border border-outline-variant flex items-center gap-6 cursor-pointer active:bg-surface-container" onClick={() => handlePreviewMaterial(mat)}>
                                         <div className="w-10 h-10 rounded-lg bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
                                             <span className="material-symbols-outlined">
                                                 {mat.type === 'link' ? 'link' : 'article'}
@@ -362,14 +362,14 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         ) : (
                             <div className="text-center p-8 opacity-60">
-                                <span className="material-symbols-outlined m3-headline-large mb-2">folder_off</span>
+                                <span className="material-symbols-outlined m3-headline-large mb-8">folder_off</span>
                                 <p className="m3-body-medium">Nessun materiale.</p>
                             </div>
                         )}
 
                         {lesson.adattamenti && (
-                            <div className="p-4 bg-secondary-container text-on-secondary-container rounded-xl">
-                                <h3 className="m3-title-medium font-bold flex items-center gap-2 mb-2">
+                            <div className="p-8 bg-secondary-container text-on-secondary-container rounded-xl">
+                                <h3 className="m3-title-medium font-bold flex items-center gap-8 mb-8">
                                     <span className="material-symbols-outlined m3-body-medium">accessibility_new</span>
                                     Inclusione
                                 </h3>
@@ -393,53 +393,53 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     maxWidth="sm"
                     level={1}
                 >
-                    <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
-                        <div className="flex items-center gap-4 mb-6 border-b border-outline/10 pb-4">
+                    <M3DialogContent>
+                        <div className="flex items-center gap-8 mb-6 border-b border-outline/10 pb-4">
                             <Avatar name={`${selectedStudentForActions.nome} ${selectedStudentForActions.cognome}`} className="w-12 h-12" />
                             <div>
                                 <h3 className="text-lg font-black text-on-surface">{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</h3>
-                                <p className="text-[10px] font-bold uppercase tracking-wider text-primary">Azioni Rapide</p>
+                                <p className="m3-label-tiny font-bold uppercase tracking-wider text-primary">Azioni Rapide</p>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-3 mb-8">
+                        <div className="grid grid-cols-3 gap-6 mb-8">
                             <button 
                                 onClick={() => { setQuickEvalStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} 
-                                className="flex flex-col items-center gap-2 p-3 rounded-3xl bg-primary-container/30 hover:bg-primary-container/50 transition-colors group"
+                                className="flex flex-col items-center gap-8 p-6 rounded-3xl bg-primary-container/30 hover:bg-primary-container/50 transition-colors group"
                             >
                                 <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
                                     <span className="material-symbols-outlined">grading</span>
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-wider text-primary">Voto</span>
+                                <span className="m3-label-tiny font-black uppercase tracking-wider text-primary">Voto</span>
                             </button>
                             <button 
                                 onClick={() => { setObservationStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} 
-                                className="flex flex-col items-center gap-2 p-3 rounded-3xl bg-secondary-container/30 hover:bg-secondary-container/50 transition-colors group"
+                                className="flex flex-col items-center gap-8 p-6 rounded-3xl bg-secondary-container/30 hover:bg-secondary-container/50 transition-colors group"
                             >
                                 <div className="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
                                     <span className="material-symbols-outlined">visibility</span>
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-wider text-secondary">Osserva</span>
+                                <span className="m3-label-tiny font-black uppercase tracking-wider text-secondary">Osserva</span>
                             </button>
                             <button 
                                 onClick={() => { setViewingStudentProfile(selectedStudentForActions); setSelectedStudentForActions(null); }} 
-                                className="flex flex-col items-center gap-2 p-3 rounded-3xl bg-surface-container-high/50 hover:bg-surface-container-high transition-colors group"
+                                className="flex flex-col items-center gap-8 p-6 rounded-3xl bg-surface-container-high/50 hover:bg-surface-container-high transition-colors group"
                             >
                                 <div className="w-12 h-12 rounded-full bg-on-surface-variant text-surface flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
                                     <span className="material-symbols-outlined">person</span>
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-wider text-on-surface-variant">Profilo</span>
+                                <span className="m3-label-tiny font-black uppercase tracking-wider text-on-surface-variant">Profilo</span>
                             </button>
                         </div>
 
                         <div className="mb-6">
-                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant mb-3 px-2">Partecipazione</p>
-                            <div className="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+                            <p className="m3-label-tiny font-black uppercase tracking-[0.2em] text-on-surface-variant mb-6 px-4">Partecipazione</p>
+                            <div className="flex gap-8 overflow-x-auto pb-2 custom-scrollbar">
                                 {PARTICIPATION_BADGES.map(badge => (
                                     <button
                                         key={badge.id}
                                         onClick={() => handleParticipation(selectedStudentForActions.id, badge.id as ParticipationEntry['type'])}
-                                        className="chip !h-10 !px-4 !rounded-full border-none bg-surface-container-high hover:bg-surface-container-highest transition-colors flex items-center gap-2"
+                                        className="chip !h-10 !px-4 !rounded-full border-none bg-surface-container-high hover:bg-surface-container-highest transition-colors flex items-center gap-8"
                                         style={{ color: badge.color }}
                                     >
                                         <span className="material-symbols-outlined text-lg">{badge.icon}</span>
@@ -450,7 +450,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         </div>
 
                         <div>
-                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant mb-3 px-2">Compiti</p>
+                            <p className="m3-label-tiny font-black uppercase tracking-[0.2em] text-on-surface-variant mb-6 px-4">Compiti</p>
                             <TabGroup
                                 tabs={[
                                     { id: 'completed', label: 'Svolti' },

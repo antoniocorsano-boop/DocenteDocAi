@@ -108,9 +108,9 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             title="Anteprima Verifica"
             headline="Visualizza e stampa la verifica generata"
             buttons={
-                <div className="flex flex-col md:flex-row justify-between w-full items-center gap-4">
-                    <div className="flex items-center gap-3 mr-auto">
-                        <label className="flex items-center cursor-pointer gap-3 p-2 hover:bg-surface-container-high/50 rounded-2xl transition-colors group">
+                <div className="flex flex-col md:flex-row justify-between w-full items-center gap-8">
+                    <div className="flex items-center gap-6 mr-auto">
+                        <label className="flex items-center cursor-pointer gap-6 p-8 hover:bg-surface-container-high/50 rounded-2xl transition-colors group">
                             <div className={`w-12 h-7 rounded-full relative transition-all duration-300 ${showAnswers ? 'bg-primary' : 'bg-surface-container-highest border border-outline-variant'}`}>
                                 <div className={`absolute top-1 w-5 h-5 rounded-full bg-surface shadow-lg transition-all duration-300 ${showAnswers ? 'left-6' : 'left-1'}`}></div>
                             </div>
@@ -123,7 +123,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                             <span className="m3-label-large font-black uppercase tracking-widest opacity-70 group-hover:opacity-100 transition-opacity">Soluzioni Docente</span>
                         </label>
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex gap-6">
                         <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                         <M3Button 
                             onClick={handleExportDocx} 
@@ -144,7 +144,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             }
             fullscreen={true}
         >
-            <div className="bg-surface-container-low/30 backdrop-blur-xl p-4 md:p-12 overflow-y-auto h-full custom-scrollbar relative animate-in fade-in duration-500">
+            <div className="bg-surface-container-low/30 backdrop-blur-xl p-8 md:p-12 overflow-y-auto h-full custom-scrollbar relative animate-in fade-in duration-500">
                 {/* Aura Ornaments */}
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                     <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full animate-pulse" />
@@ -171,14 +171,14 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                     <div className="space-y-10 font-serif text-on-surface">
                         {quiz.questions.map((q, i) => (
                             <div key={i} className="break-inside-avoid relative group">
-                                <p className="font-bold text-xl mb-4 flex gap-3">
+                                <p className="font-bold text-xl mb-8 flex gap-6">
                                     <span className="text-on-surface-variant opacity-40">{i + 1}.</span> 
                                     <span className="flex-1">{q.text}</span>
                                 </p>
                                 {q.type === 'multiple_choice' && (
                                     <ul className="pl-8 space-y-3">
                                         {q.options?.map((opt, j) => (
-                                            <li key={j} className="flex items-start gap-4">
+                                            <li key={j} className="flex items-start gap-8">
                                                 <div className="w-6 h-6 border-2 border-black rounded-sm mt-0.5 flex-shrink-0"></div>
                                                 <span className="text-lg leading-snug">{opt}</span>
                                             </li>
@@ -187,8 +187,8 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 )}
                                 {q.type === 'true_false' && (
                                     <div className="flex gap-12 pl-8 mt-4 font-medium text-lg">
-                                        <div className="flex items-center gap-3"><div className="w-6 h-6 border-2 border-black rounded-sm"></div> Vero</div>
-                                        <div className="flex items-center gap-3"><div className="w-6 h-6 border-2 border-black rounded-sm"></div> Falso</div>
+                                        <div className="flex items-center gap-6"><div className="w-6 h-6 border-2 border-black rounded-sm"></div> Vero</div>
+                                        <div className="flex items-center gap-6"><div className="w-6 h-6 border-2 border-black rounded-sm"></div> Falso</div>
                                     </div>
                                 )}
                                 {q.type === 'open_ended' && (
@@ -201,10 +201,10 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 )}
 
                                 {showAnswers && (
-                                    <div className="mt-6 p-5 bg-secondary-container/50 backdrop-blur-sm text-on-secondary-container rounded-2xl text-base font-sans border-l-8 border-secondary flex gap-4 items-start animate-in zoom-in-95 duration-300 shadow-lg">
+                                    <div className="mt-6 p-5 bg-secondary-container/50 backdrop-blur-sm text-on-secondary-container rounded-2xl text-base font-sans border-l-8 border-secondary flex gap-8 items-start animate-in zoom-in-95 duration-300 shadow-lg">
                                         <span className="material-symbols-outlined text-2xl text-secondary">verified</span>
                                         <div>
-                                            <strong className="block text-xs uppercase tracking-[0.2em] font-black opacity-60 mb-1">Soluzione Docente</strong>
+                                            <strong className="block text-xs uppercase tracking-[0.2em] font-black opacity-60 mb-4">Soluzione Docente</strong>
                                             <span className="font-medium">{q.correctAnswer}</span>
                                         </div>
                                     </div>

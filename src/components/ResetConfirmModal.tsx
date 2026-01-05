@@ -19,7 +19,7 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
             level={3}
         >
             <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
-                <div className="flex items-center gap-3 text-error mb-4">
+                <div className="flex items-center gap-6 text-error mb-8">
                     <span className="material-symbols-outlined text-3xl">warning</span>
                     <span className="font-bold">Azione Irreversibile</span>
                 </div>

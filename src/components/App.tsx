@@ -19,7 +19,7 @@ import SignInScreen from './SignInScreen';
 import { ModalManager } from './ModalManager';
 import PassaggioAnnoWizard from './PassaggioAnnoWizard';
 
-import { applyTheme, createTheme } from '../design-system';
+import { ThemeService } from '../services/ThemeService';
 import { Z_INDEX } from '../design-system/zIndex';
 import Snackbar from './Snackbar';
 import { useRestoreAssist } from './useRestoreAssist';
@@ -35,7 +35,7 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
     const actionLabel = 'actionLabel' in suggestion ? suggestion.actionLabel : 'Apri';
     return (
         <div
-            className="fixed top-0 left-0 right-0 aura-glass py-2 px-4 flex items-center justify-center gap-3 cursor-pointer border-b border-white/10 shadow-lg animate-in slide-in-from-top duration-500"
+            className="fixed top-0 left-0 right-0 aura-glass py-4 px-4 flex items-center justify-center gap-6 cursor-pointer border-b border-white/10 shadow-lg animate-in slide-in-from-top duration-500"
             style={{ zIndex: Z_INDEX.notification.banner }}
             onClick={onAction}
             role="button"
@@ -45,7 +45,7 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
             <span className="font-bold flex-1 text-sm md:text-base truncate text-on-primary-container">
                 {message || 'Hai un suggerimento!'}
             </span>
-            <button className="m3-button-filled !py-1 !px-4 !rounded-full text-xs md:text-sm flex items-center gap-1">
+            <button className="m3-button-filled !py-1 !px-4 !rounded-full text-xs md:text-sm flex items-center gap-4">
                 {actionLabel}
                 <span className="material-symbols-outlined text-sm">north_east</span>
             </button>
@@ -62,6 +62,7 @@ import VideoAnalysisModal from './VideoAnalysisModal';
 import CircolareAnalysisModal from './CircolareAnalysisModal';
 import LoadingModal from './LoadingModal';
 import BackupInfoModal from './BackupInfoModal';
+import { NKABottomSheet, useNKAStore } from '../nka';
 
 /**
  * App.tsx - Il core del Presentation Layer.
@@ -102,7 +103,7 @@ export const App: React.FC = () => {
                 window.__app_instrumentation = window.__app_instrumentation || {};
                 window.__app_instrumentation.user = user ? { id: user.id, displayName: (user as { id: string; displayName?: string }).displayName } : undefined;
                 console.info('[instrument] user', window.__app_instrumentation.user);
-            } catch (e) {
+            } catch {
                 /* ignore */
             }
         }, [user]);
@@ -112,7 +113,7 @@ export const App: React.FC = () => {
                 window.__app_instrumentation = window.__app_instrumentation || {};
                 window.__app_instrumentation.isRestoring = !!modals?.isRestoring;
                 console.info('[instrument] isRestoring', !!modals?.isRestoring);
-            } catch (e) {
+            } catch {
                 /* ignore */
             }
         }, [modals?.isRestoring]);
@@ -123,7 +124,7 @@ export const App: React.FC = () => {
                 if (shell) {
                     try {
                         document.documentElement.setAttribute('data-app-shell-mounted', 'true');
-                    } catch (e) { /* ignore error */ }
+                    } catch { /* ignore error */ }
                     window.__app_instrumentation = window.__app_instrumentation || {};
                     window.__app_instrumentation.appShellMounted = true;
                     console.info('[instrument] app-shell-mounted');
@@ -140,21 +141,7 @@ export const App: React.FC = () => {
         // Sincronizzazione immediata del tema (prevent flickering)
         React.useLayoutEffect(() => {
             if (themeState) {
-                const theme = createTheme({
-                    name: themeState.customizationName || themeState.generatedName || 'Default',
-                    mode: themeState.mode === 'system' ? 'light' : themeState.mode,
-                    visualStyle: themeState.visualStyle,
-                    colors: themeState.customColors || themeState.generatedColors
-                });
-                applyTheme(theme);
-
-                // Parametric styling injection
-                if (themeState.glassBlur !== undefined) {
-                    document.documentElement.style.setProperty('--glass-blur-px', `${themeState.glassBlur}px`);
-                }
-                if (themeState.radiusMultiplier !== undefined) {
-                    document.documentElement.style.setProperty('--sys-radius-multiplier', themeState.radiusMultiplier.toString());
-                }
+                ThemeService.applyThemeState(themeState);
             }
         }, [themeState]);
 
@@ -180,13 +167,13 @@ export const App: React.FC = () => {
                                 } else if (unregistered && isTest) {
                                     console.info('[dev] Service workers unregistered — skipping reload in test mode');
                                 }
-                            } catch (e) {
+                            } catch {
                                 // swallow
                             }
                         })
                         .catch(err => console.warn('[dev] SW unregister failed', err));
                 }
-            } catch (err) {
+            } catch {
                 // ignore in environments where import.meta may be absent
             }
         }, []);
@@ -394,6 +381,18 @@ export const App: React.FC = () => {
                                                 />
                                             )
                                         });
+                                    } else if (action === 'nka-map') {
+                                        pushModal({
+                                            id: 'nka-map-modal',
+                                            component: (
+                                                <NKABottomSheet 
+                                                    open={true}
+                                                    nodes={useNKAStore.getState().nodes}
+                                                    onClose={() => popModal('nka-map-modal')}
+                                                    onNodeSelect={() => {}}
+                                                />
+                                            )
+                                        });
                                     }
                                 }}
                                 activeSuggestion={appState.activeSuggestion?.id}
@@ -452,7 +451,7 @@ export const App: React.FC = () => {
                 {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
                 {/* Super AI Assistant FAB: floating, multi-action, modal */}
                 <div 
-                    className="fixed right-6 bottom-[88px] md:bottom-6 pointer-events-auto"
+                    className="fixed right-6 bottom-[calc(64px+24px)] md:bottom-6 pointer-events-auto"
                     style={{ zIndex: Z_INDEX.assistant.fab }}
                 >
                     <AssistantFab />
@@ -462,7 +461,7 @@ export const App: React.FC = () => {
             </div>
             </ErrorBoundary>
         );
-    } catch (err) {
+    } catch {
         // Fallback visibile: errore di caricamento o runtime
         return <div style={{ color: 'red', padding: '32px', fontFamily: 'monospace', background: '#fff0f0', fontSize: '1.2rem', whiteSpace: 'pre-wrap' }}>
             <b>ERRORE FATALE:</b> {String(err)}

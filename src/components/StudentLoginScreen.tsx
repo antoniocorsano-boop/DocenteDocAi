@@ -101,7 +101,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                 <div className="w-full max-w-lg relative z-10 animate-in fade-in zoom-in-95 duration-700">
                     <div className="bg-surface-container-low/30 backdrop-blur-2xl p-10 rounded-5xl border border-outline-variant/20 shadow-2xl space-y-10">
                         <div className="flex flex-col items-center text-center space-y-6 lg:hidden">
-                            <div className="transform scale-125 mb-4">
+                            <div className="transform scale-125 mb-8">
                                 <Logo />
                             </div>
                             <div className="space-y-2">
@@ -118,7 +118,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                         {step === 'class' && (
                             <div className="space-y-8">
                                 <p className="text-sm font-black uppercase tracking-widest text-center text-on-surface-variant opacity-60 lg:text-left">Seleziona la tua classe</p>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-8">
                                     {uniqueClasses.map(cls => (
                                         <M3Button 
                                             key={cls} 
@@ -191,12 +191,12 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                             />
 
                             {error && (
-                                <div className="p-4 bg-error/10 border border-error/20 rounded-xl text-center">
+                                <div className="p-8 bg-error/10 border border-error/20 rounded-xl text-center">
                                     <p className="text-error font-black uppercase tracking-widest text-xs">{error}</p>
                                 </div>
                             )}
 
-                            <div className="flex gap-4 pt-4">
+                            <div className="flex gap-8 pt-4">
                                 <M3Button type="button" onClick={() => setStep('class')} variant="text" className="font-black uppercase tracking-widest text-xs">Indietro</M3Button>
                                 <M3Button type="submit" variant="filled" className="flex-grow font-black uppercase tracking-widest text-xs shadow-xl">Accedi al Diario</M3Button>
                             </div>

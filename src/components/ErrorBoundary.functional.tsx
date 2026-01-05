@@ -16,60 +16,19 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
     }
   };
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'var(--sys-surface-container-low)',
-        padding: '1.5rem',
-      }}
-    >
-      <div
-        style={{
-          maxWidth: '28rem',
-          width: '100%',
-          background: 'var(--sys-surface)',
-          padding: '2rem',
-          borderRadius: '1.5rem',
-          boxShadow: '0 4px 24px 0 rgba(103,80,164,0.08)',
-          border: '1px solid var(--sys-outline-variant)',
-          textAlign: 'center',
-        }}
-      >
-        <div
-          style={{
-            width: '4rem',
-            height: '4rem',
-            background: 'var(--sys-error-container)',
-            color: 'var(--sys-on-error-container)',
-            borderRadius: '9999px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 1.5rem',
-          }}
-        >
-          <span className="material-symbols-outlined" style={{ fontSize: '2.5rem' }}>dizzy</span>
+    <div className="min-h-screen flex items-center justify-center bg-surface-container-low p-6">
+      <div className="max-w-md w-full bg-surface p-8 rounded-3xl shadow-2xl border border-outline-variant/20 text-center aura-glass">
+        <div className="w-16 h-16 bg-error-container text-on-error-container rounded-full flex items-center justify-center mx-auto mb-6">
+          <span className="material-symbols-outlined text-4xl">dizzy</span>
         </div>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--sys-on-surface)', marginBottom: '0.5rem' }}>Qualcosa è andato storto</h1>
-        <p style={{ color: 'var(--sys-on-surface-variant)', marginBottom: '1.5rem' }}>
+        <h1 className="m3-headline-small font-black text-on-surface mb-2">Qualcosa è andato storto</h1>
+        <p className="m3-body-medium text-on-surface-variant mb-6">
           Si è verificato un errore imprevisto nell'interfaccia. Non preoccuparti, i tuoi dati sono al sicuro nel database locale.
         </p>
-        <div
-          style={{
-            background: 'var(--sys-surface-container-high)',
-            padding: '0.75rem',
-            borderRadius: '0.75rem',
-            textAlign: 'left',
-            marginBottom: '1.5rem',
-            overflow: 'hidden',
-          }}
-        >
-          <p style={{ fontSize: '0.8rem', fontFamily: 'Roboto Mono, monospace', color: 'var(--sys-error)', wordBreak: 'break-word', margin: 0 }}>{error.toString()}</p>
+        <div className="bg-surface-container-high p-4 rounded-xl text-left mb-6 overflow-hidden">
+          <p className="m3-label-small font-mono text-error break-all m-0">{error.toString()}</p>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        <div className="flex flex-col gap-3">
           <button onClick={resetErrorBoundary} className="button button-filled w-full justify-center">
             <span className="material-symbols-outlined mr-2">refresh</span> Ricarica App
           </button>

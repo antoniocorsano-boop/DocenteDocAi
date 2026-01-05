@@ -73,7 +73,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             const prompt = `Analizza i dati didattici del grafico (${chartType}) per Classe ${selectedClass}. Materia: ${selectedSubject === 'all' ? 'Tutte' : selectedSubject}. Fornisci interpretazione pedagogica concisa (max 3 frasi).`;
             const response = await ai.models.generateContent({ model: aiSettings.model, contents: prompt });
             setAiInsight(response.text?.trim() || "Analisi non disponibile. L'AI non ha restituito testo.");
-        } catch (error) {
+        } catch {
             setAiInsight("Impossibile generare analisi. Riprova tra poco.");
         } finally {
             setIsAiLoading(false);
@@ -103,7 +103,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
             {/* Responsive Card: Filters */}
             <InfoCard variant="tonal" className="p-6 mb-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 items-end">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 items-end">
                     <SelectField label="Classe" value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setSelectedStudentId('all'); }}>
                         {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                     </SelectField>
@@ -116,8 +116,8 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                     </SelectField>
                     <div className="space-y-2 md:space-y-3">
-                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.25em] px-2 block">Modalità Vista</label>
-                        <div className="flex gap-1 bg-surface-container-high p-1 rounded-xl">
+                        <label className="m3-label-small text-primary font-black uppercase tracking-[0.25em] px-4 block">Modalità Vista</label>
+                        <div className="flex gap-4 bg-surface-container-high p-1 rounded-xl">
                             <M3Button 
                                 onClick={() => setChartType('trend')} 
                                 variant={chartType === 'trend' ? 'filled' : 'text'}
@@ -149,7 +149,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
             {/* Responsive Card: Chart & AI */}
             <InfoCard variant="elevated" className="p-6 md:p-8 min-h-[450px] flex flex-col bg-surface-container-lowest">
-                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-8 mb-8">
                     <h2 className="text-sm font-bold text-on-surface-variant uppercase tracking-widest">
                         {chartType === 'trend' && 'Andamento Temporale'}
                         {chartType === 'radar' && 'Radar Competenze'}
@@ -177,7 +177,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             <AiThinkingGem size="small" text="Elaborazione Insight..." inline />
                         ) : (
                             <div className="space-y-4">
-                                <div className="flex gap-4">
+                                <div className="flex gap-8">
                                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                         <span className="material-symbols-outlined text-primary">lightbulb</span>
                                     </div>

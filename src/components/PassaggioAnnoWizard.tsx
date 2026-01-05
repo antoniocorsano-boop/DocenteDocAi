@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry, StudentHistoryRecord } from '../types';
 import { getNextClass } from '../utils/schoolUtils';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, SectionHeader } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
 
 interface PassaggioAnnoWizardProps {
     onClose: () => void;
@@ -175,6 +175,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
             title="Passaggio Anno Scolastico"
             maxWidth="2xl"
             level={1}
+            hideBackdrop={true}
         >
             <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl">
                     {step === "intro" && (
@@ -196,7 +197,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                         { icon: "delete_sweep", text: "Reset registro voti, lezioni e assenze giornaliere." },
                                         { icon: "trending_up", text: "Promozione classi (es. 1A → 2A) con gestione bocciature." }
                                     ].map((item, i) => (
-                                        <li key={i} className="flex items-center gap-4 m3-body-large text-on-surface-variant">
+                                        <li key={i} className="flex items-center gap-8 m3-body-large text-on-surface-variant">
                                             <span className="material-symbols-outlined text-primary text-2xl">{item.icon}</span>
                                             <span className="font-medium">{item.text}</span>
                                         </li>
@@ -208,9 +209,9 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
 
                     {step === "decisions" && (
                         <div className="space-y-6 py-4">
-                            <div className="flex justify-between items-center mb-4">
+                            <div className="flex justify-between items-center mb-8">
                                 <h3 className="m3-headline-small font-black text-on-surface">Esiti Scrutinio</h3>
-                                <div className="flex gap-3">
+                                <div className="flex gap-6">
                                     <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">{stats.promote} Promossi</span>
                                     <span className="px-4 py-1.5 rounded-full bg-error/10 text-error text-[10px] font-black uppercase tracking-widest border border-error/20">{stats.retain} Bocciati</span>
                                     <span className="px-4 py-1.5 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-black uppercase tracking-widest border border-outline-variant/20">{stats.archive} Archiviati</span>
@@ -221,11 +222,11 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 <table className="w-full border-collapse">
                                     <thead>
                                         <tr className="bg-surface-container-high/50">
-                                            <th className="text-left p-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Studente</th>
-                                            <th className="text-left p-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Classe</th>
-                                            <th className="text-left p-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Media</th>
-                                            <th className="text-left p-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant w-56">Esito</th>
-                                            <th className="text-left p-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Futuro</th>
+                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Studente</th>
+                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Classe</th>
+                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Media</th>
+                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-on-surface-variant w-56">Esito</th>
+                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Futuro</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-outline-variant/10">
@@ -236,14 +237,14 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
 
                                             return (
                                                 <tr key={s.id} className="hover:bg-surface-container-high/30 transition-colors">
-                                                    <td className="p-4 font-black text-on-surface">{s.cognome} {s.nome}</td>
-                                                    <td className="p-4 text-on-surface-variant font-medium">{s.classe}</td>
-                                                    <td className={`p-4 font-black ${isInsufficient ? "text-error" : "text-primary"}`}>{grade || "-"}</td>
-                                                    <td className="p-4">
+                                                    <td className="p-8 font-black text-on-surface">{s.cognome} {s.nome}</td>
+                                                    <td className="p-8 text-on-surface-variant font-medium">{s.classe}</td>
+                                                    <td className={`p-8 font-black ${isInsufficient ? "text-error" : "text-primary"}`}>{grade || "-"}</td>
+                                                    <td className="p-8">
                                                         <select 
                                                             value={outcome?.action || "promote"} 
                                                             onChange={(e) => handleOutcomeChange(s.id, e.target.value as OutcomeType)}
-                                                            className={`w-full text-xs font-black uppercase tracking-widest py-2 pl-3 pr-8 rounded-xl border-none ring-1 ring-inset ring-outline-variant/20 focus:ring-2 focus:ring-primary transition-all ${
+                                                            className={`w-full text-xs font-black uppercase tracking-widest py-4 pl-3 pr-8 rounded-xl border-none ring-1 ring-inset ring-outline-variant/20 focus:ring-2 focus:ring-primary transition-all ${
                                                                 outcome?.action === "retain" ? "bg-error/10 text-error" : 
                                                                 outcome?.action === "archive" || outcome?.action === "transfer" ? "bg-surface-container-highest text-on-surface-variant" : 
                                                                 "bg-primary/10 text-primary"
@@ -255,7 +256,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                             <option value="archive">Diplomato</option>
                                                         </select>
                                                     </td>
-                                                    <td className="p-4 text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60">{outcome?.nextClass}</td>
+                                                    <td className="p-8 text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60">{outcome?.nextClass}</td>
                                                 </tr>
                                             );
                                         })}
@@ -270,7 +271,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             <div className="w-24 h-24 bg-error/10 text-error rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg">
                                 <span className="material-symbols-outlined text-5xl">warning</span>
                             </div>
-                            <h3 className="m3-headline-medium font-black text-on-surface mb-4">Confermi l'operazione?</h3>
+                            <h3 className="m3-headline-medium font-black text-on-surface mb-8">Confermi l'operazione?</h3>
                             <p className="m3-body-large text-on-surface-variant mb-10 leading-relaxed">
                                 L'anno scolastico verrà impostato a <strong className="text-primary">{nextYear}</strong>.
                                 <br/><br/>
@@ -278,7 +279,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             </p>
                             
                             <div className="p-6 bg-surface-container-low/50 border border-outline-variant/20 rounded-2xl text-left">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-4">Riepilogo Azioni:</p>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-8">Riepilogo Azioni:</p>
                                 <ul className="space-y-3">
                                     {[
                                         "Reset Valutazioni e Competenze",
@@ -286,7 +287,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                         "Reset Piani di Inclusione",
                                         "Promozione studenti secondo schema"
                                     ].map((text, i) => (
-                                        <li key={i} className="flex items-center gap-3 m3-body-medium text-on-surface-variant">
+                                        <li key={i} className="flex items-center gap-6 m3-body-medium text-on-surface-variant">
                                             <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
                                             {text}
                                         </li>

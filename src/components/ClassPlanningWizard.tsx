@@ -394,7 +394,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </label>
                                         </div>
                                     )) : (
-                                        <p className="text-center p-4 m3-body-small text-on-surface-variant">Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
+                                        <p className="text-center p-8 m3-body-small text-on-surface-variant">Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
                                     )}
                                 </div>
                             </InfoCard>
@@ -410,7 +410,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             />
                             
                             <InfoCard className="bg-surface-container-high/40">
-                                <div className="wizard-tag-grid mb-4">
+                                <div className="wizard-tag-grid mb-8">
                                     {SITUATION_TAGS.map(tag => (
                                         <button 
                                             key={tag}
@@ -422,11 +422,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         </button>
                                     ))}
                                 </div>
-                                <div className="mb-4">
+                                <div className="mb-8">
                                     <label className="form-label">Note Aggiuntive</label>
                                     <textarea className="form-textarea w-full" rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
                                 </div>
-                                <M3Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant="tonal" className="w-full flex justify-center gap-2" title="Usa l'AI per scrivere l'analisi">
+                                <M3Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant="tonal" className="w-full flex justify-center gap-8" title="Usa l'AI per scrivere l'analisi">
                                     {isGeneratingSituation ? <AiThinkingGem size="small" inline text="Analisi..." /> : 'Genera Analisi con AI'}
                                 </M3Button>
                             </InfoCard>
@@ -448,9 +448,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             />
                             
                             <InfoCard className="bg-surface-container-high/40">
-                                <div className="flex justify-between items-center mb-4">
+                                <div className="flex justify-between items-center mb-8">
                                     <label className="m3-title-medium">Strategie Didattiche</label>
-                                    <M3Button onClick={handleGenerateMethodology} disabled={isGeneratingMethodology} variant="text" className="!h-auto !py-1 flex items-center gap-2" title="Suggerisci metodologie adatte al contesto">
+                                    <M3Button onClick={handleGenerateMethodology} disabled={isGeneratingMethodology} variant="text" className="!h-auto !py-1 flex items-center gap-8" title="Suggerisci metodologie adatte al contesto">
                                         {isGeneratingMethodology ? <AiThinkingGem size="small" inline /> : <><span className="material-symbols-outlined m3-body-medium mr-1">lightbulb</span> Suggerisci</>}
                                     </M3Button>
                                 </div>
@@ -467,12 +467,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     subtitle="Organizza le unità di apprendimento in sequenza temporale."
                                     icon="view_timeline"
                                 />
-                                <div className="flex gap-2">
-                                    <div className="flex items-center gap-2 bg-surface-container-high/50 backdrop-blur-sm px-3 py-1 rounded-lg border border-outline-variant/30">
+                                <div className="flex gap-8">
+                                    <div className="flex items-center gap-8 bg-surface-container-high/50 backdrop-blur-sm px-3 py-1 rounded-lg border border-outline-variant/30">
                                         <span className="m3-body-small">Ore/Sett:</span>
                                         <input type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} className="w-10 bg-transparent text-center font-bold border-b border-outline-variant" title="Ore settimanali di lezione" />
                                     </div>
-                                    <M3Button onClick={handleGeneratePlanFromKb} disabled={isGeneratingPlan || selectedKbFiles.length === 0} variant="tonal" className="flex items-center gap-2" title="Genera lista UDA dai documenti KB">
+                                    <M3Button onClick={handleGeneratePlanFromKb} disabled={isGeneratingPlan || selectedKbFiles.length === 0} variant="tonal" className="flex items-center gap-8" title="Genera lista UDA dai documenti KB">
                                         {isGeneratingPlan ? <AiThinkingGem size="small" inline text="Leggo..." /> : 'Genera da KB'}
                                     </M3Button>
                                 </div>
@@ -485,12 +485,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     variant="secondary"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
-                                    className="mb-4"
+                                    className="mb-8"
                                 />
                             )}
 
                             <InfoCard className="bg-surface-container-high/40">
-                                <div className="flex gap-2 items-end">
+                                <div className="flex gap-8 items-end">
                                     <div className="flex-grow">
                                         <label className="form-label">Titolo UDA</label>
                                         <input type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} className="form-input w-full" onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
@@ -499,7 +499,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <label className="form-label">Ore</label>
                                         <input type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} className="form-input w-full" />
                                     </div>
-                                    <M3Button onClick={addUdaToPlan} variant="filled" className="mb-1" title="Aggiungi alla lista">Aggiungi</M3Button>
+                                    <M3Button onClick={addUdaToPlan} variant="filled" className="mb-4" title="Aggiungi alla lista">Aggiungi</M3Button>
                                 </div>
                             </InfoCard>
 
@@ -510,12 +510,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             ) : (
                                 <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                                     {plannedUdas.map((uda, idx) => (
-                                        <div key={uda.id} className="flex items-center gap-3 p-3 bg-surface-container-high/30 backdrop-blur-sm rounded-xl border border-outline-variant/30 shadow-sm hover:bg-surface-container-high/50 transition-colors">
+                                        <div key={uda.id} className="flex items-center gap-6 p-6 bg-surface-container-high/30 backdrop-blur-sm rounded-xl border border-outline-variant/30 shadow-sm hover:bg-surface-container-high/50 transition-colors">
                                             <span className="material-symbols-outlined text-on-surface-variant/50 cursor-grab active:cursor-grabbing" title="Trascina per riordinare">drag_indicator</span>
                                             
                                             <div className="flex-grow flex flex-col">
-                                                <div className="flex items-center gap-2 mb-1">
-                                                    <span className="text-[10px] font-bold bg-primary/20 text-primary px-2 py-0.5 rounded-full">
+                                                <div className="flex items-center gap-8 mb-4">
+                                                    <span className="m3-label-tiny font-bold bg-primary/20 text-primary px-4 py-0.5 rounded-full">
                                                         UDA {idx + 1}
                                                     </span>
                                                     <p className="font-bold text-on-surface m3-body-small">{uda.title}</p>
@@ -523,7 +523,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 <p className="m3-label-small text-on-surface-variant truncate opacity-80">{uda.topic || uda.title}</p>
                                             </div>
 
-                                            <div className="flex items-center gap-2 bg-surface-container-low/50 px-2 py-1 rounded-lg border border-outline-variant/20">
+                                            <div className="flex items-center gap-8 bg-surface-container-low/50 px-4 py-1 rounded-lg border border-outline-variant/20">
                                                 <input 
                                                     type="number" 
                                                     value={uda.hours} 
@@ -541,7 +541,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     ))}
                                     {plannedUdas.length === 0 && (
                                         <div className="text-center p-12 bg-surface-container-high/20 rounded-2xl border border-dashed border-outline-variant/50">
-                                            <span className="material-symbols-outlined text-4xl text-on-surface-variant/30 mb-2">calendar_today</span>
+                                            <span className="material-symbols-outlined text-4xl text-on-surface-variant/30 mb-8">calendar_today</span>
                                             <p className="text-on-surface-variant italic">Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
                                         </div>
                                     )}
@@ -569,12 +569,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} className="relative pl-8">
                                         <div className={`absolute -left-[11px] top-1 w-5 h-5 rounded-full border-4 border-surface-container-low shadow-sm ${item.end > term2End ? 'bg-error' : 'bg-primary'}`}></div>
-                                        <div className="bg-surface-container-high/30 backdrop-blur-sm p-4 rounded-2xl border border-outline-variant/30">
-                                            <p className="m3-label-small font-bold uppercase tracking-widest text-primary mb-1">
+                                        <div className="bg-surface-container-high/30 backdrop-blur-sm p-8 rounded-2xl border border-outline-variant/30">
+                                            <p className="m3-label-small font-bold uppercase tracking-widest text-primary mb-4">
                                                 {new Date(item.start).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })} - {new Date(item.end).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}
                                             </p>
-                                            <h4 className="m3-title-medium mb-1">{item.uda.title}</h4>
-                                            <div className="flex items-center gap-2 text-on-surface-variant">
+                                            <h4 className="m3-title-medium mb-4">{item.uda.title}</h4>
+                                            <div className="flex items-center gap-8 text-on-surface-variant">
                                                 <span className="material-symbols-outlined text-sm">schedule</span>
                                                 <span className="m3-body-small">{item.uda.hours} ore stimate</span>
                                             </div>
@@ -587,16 +587,16 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                     {step === 'document' && (
                         <div className="space-y-8 flex flex-col items-center justify-center min-h-[400px] text-center animate-in zoom-in-95">
-                            <div className="w-24 h-24 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4 shadow-inner">
+                            <div className="w-24 h-24 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-8 shadow-inner">
                                 <span className="material-symbols-outlined text-6xl">task_alt</span>
                             </div>
                             <div>
-                                <h3 className="m3-headline-small mb-2">Pianificazione Completata!</h3>
+                                <h3 className="m3-headline-small mb-8">Pianificazione Completata!</h3>
                                 <p className="text-on-surface-variant max-w-md mx-auto">
                                     Tutte le UDA e le lezioni sono state salvate. Ora puoi generare il documento di programmazione annuale completo.
                                 </p>
                             </div>
-                            <M3Button onClick={handleGenerateDoc} disabled={isProcessing} variant="filled" className="flex items-center gap-3 px-8 py-6 rounded-2xl" title="Scarica il documento finale">
+                            <M3Button onClick={handleGenerateDoc} disabled={isProcessing} variant="filled" className="flex items-center gap-6 px-8 py-6 rounded-2xl" title="Scarica il documento finale">
                                 {isProcessing ? <AiThinkingGem size="small" inline text="Generazione..." /> : (
                                     <>
                                         <span className="material-symbols-outlined">description</span>
@@ -618,7 +618,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             {step === 'situation' && <M3Button onClick={() => setStep('methodology')} variant="filled" title="Vai alla metodologia">Avanti</M3Button>}
                             {step === 'methodology' && <M3Button onClick={() => setStep('sequence')} variant="filled" title="Vai al piano">Avanti</M3Button>}
                             {step === 'sequence' && <M3Button onClick={() => { calculateSchedule(); setStep('preview'); }} disabled={plannedUdas.length === 0} variant="filled" title="Calcola date">Calcola</M3Button>}
-                            {step === 'preview' && <M3Button onClick={handleFinalize} disabled={isProcessing} variant="filled" className="flex items-center gap-2" title="Salva tutto nel database">{isProcessing ? <AiThinkingGem size="small" inline /> : 'Conferma e Salva'}</M3Button>}
+                            {step === 'preview' && <M3Button onClick={handleFinalize} disabled={isProcessing} variant="filled" className="flex items-center gap-8" title="Salva tutto nel database">{isProcessing ? <AiThinkingGem size="small" inline /> : 'Conferma e Salva'}</M3Button>}
                         </>
                     )}
                     {step === 'document' && <M3Button onClick={onClose} variant="text" title="Chiudi wizard">Chiudi</M3Button>}

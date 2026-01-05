@@ -1,66 +1,43 @@
 import React, { useState } from 'react';
 import UniversalModal from './UniversalModal';
+import { M3Button } from './ui';
 
 const UniversalModalDemo: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{ padding: 32 }}>
-      <button
-        style={{
-          padding: '12px 24px',
-          background: 'var(--sys-primary)',
-          color: 'white',
-          border: 'none',
-          borderRadius: 8,
-          fontSize: 18,
-          cursor: 'pointer',
-        }}
+    <div className="p-8">
+      <M3Button
+        variant="filled"
         onClick={() => setOpen(true)}
       >
         Apri Modale Demo
-      </button>
+      </M3Button>
       <UniversalModal
         open={open}
         title="Esempio di Modale Universale"
         onClose={() => setOpen(false)}
       >
-        <p>
+        <p className="m3-body-medium text-on-surface">
           Questo è un esempio di contenuto per il nuovo modale accessibile e responsive.<br />
           Premi <b>ESC</b> o clicca fuori dal modale per chiudere.
         </p>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, marginTop: 32 }}>
-          <button
+        <div className="flex justify-end gap-3 mt-8">
+          <M3Button
             onClick={() => setOpen(false)}
-            style={{
-              padding: '8px 20px',
-              background: 'var(--sys-secondary)',
-              color: 'white',
-              border: 'none',
-              borderRadius: 6,
-              fontSize: 16,
-              cursor: 'pointer',
-            }}
+            variant="tonal"
           >
             Annulla
-          </button>
-          <button
+          </M3Button>
+          <M3Button
             onClick={() => {
               alert('Azione confermata!');
               setOpen(false);
             }}
-            style={{
-              padding: '8px 20px',
-              background: 'var(--sys-primary)',
-              color: 'white',
-              border: 'none',
-              borderRadius: 6,
-              fontSize: 16,
-              cursor: 'pointer',
-            }}
+            variant="filled"
           >
             Conferma
-          </button>
+          </M3Button>
         </div>
       </UniversalModal>
     </div>

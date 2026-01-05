@@ -6,7 +6,7 @@ function useGuidanceDismissed(id: string): [boolean, () => void] {
   const [isDismissed, setIsDismissed] = useState(() => {
     try {
       return window.localStorage.getItem(key) === 'true';
-    } catch (error) {
+    } catch {
       return false;
     }
   });

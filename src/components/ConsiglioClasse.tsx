@@ -3,18 +3,13 @@ import {
     M3Button, 
     TabGroup, 
     InfoCard, 
-    SectionHeader, 
-    TextField, 
-    TextArea, 
-    SelectField,
-    M3IconButton
+    SectionHeader 
 } from './ui';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';
 import { generateCouncilTablePdf, generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { AiThinkingGem } from './ui';
 
 
 interface ConsiglioClasseProps {
@@ -301,7 +296,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 </>}
                                 {expandedColumns.giudizio &&
                                 <td className={`min-w-[300px] ${getCellClassName('giudizio')}`}>
-                                    <div className='flex items-start gap-1'>
+                                    <div className='flex items-start gap-2'>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)} className="form-textarea !py-1 flex-grow" rows={2} placeholder="Giudizio sintetico..."></textarea>
                                         <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="rounded-lg" title="Suggerisci con AI" type="button">
                                             <span className="material-symbols-outlined m3-body-medium">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
@@ -337,14 +332,14 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                 return (
                     <div key={student.id} className="consiglio-student-card-expandable">
                         <div className="consiglio-student-card-header" onClick={() => setExpandedStudentId(prev => prev === student.id ? null : student.id)}>
-                             <div className="flex items-center gap-2">
+                             <div className="flex items-center gap-8">
                                 {hasStudentChanged(student.id) && <span className="cell-changed-indicator" title="Dati modificati in questa sessione"></span>}
                                 <div>
                                     <h3 className="m3-title-medium cursor-pointer hover:underline" onClick={(e) => { e.stopPropagation(); onViewStudentProfile(student); }}>{student.cognome} {student.nome}</h3>
-                                    <div className="flex items-center gap-4 mt-1">
+                                    <div className="flex items-center gap-8 mt-4">
                                         <span className="m3-label-large">Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
-                                            <span className={`flex items-center gap-1 m3-label-large ${trendClass}`}>
+                                            <span className={`flex items-center gap-4 m3-label-large ${trendClass}`}>
                                                 <span className="material-symbols-outlined m3-body-medium">{trendIcon}</span>
                                             </span>
                                         )}
@@ -354,7 +349,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             <span className={`material-symbols-outlined expand-icon ${isExpanded ? 'expanded' : ''}`}>expand_more</span>
                         </div>
                         <div className={`consiglio-student-card-content ${isExpanded ? 'expanded' : ''}`}>
-                             <div className="space-y-4 p-4">
+                             <div className="space-y-4 p-8">
                                 <div>
                                     <label htmlFor={`votoDisciplina-${student.id}`} className="form-label">Voto Disciplina</label>
                                     <input id={`votoDisciplina-${student.id}`} type="text" className='form-input w-full' value={giudizioStudente.votoDisciplina} onChange={e => handleLocalChange(student.id, 'votoDisciplina', e.target.value)} />
@@ -373,9 +368,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div className="flex justify-between items-center mb-1">
+                                    <div className="flex justify-between items-center mb-4">
                                         <label htmlFor={`giudizio-${student.id}`} className="form-label !mb-0">Note/Giudizio</label>
-                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="!h-auto !py-1 !px-2 rounded-lg" title="Suggerisci con AI" type="button">
+                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="!h-auto !py-1 !px-4 rounded-lg" title="Suggerisci con AI" type="button">
                                             <span className="material-symbols-outlined m3-body-medium">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
@@ -425,7 +420,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         ]}
                     />
 
-                    <div className="flex gap-2">
+                    <div className="flex gap-8">
                         <M3Button 
                             onClick={handleExportPdf} 
                             disabled={isExporting}
@@ -457,13 +452,13 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             {narrativeReport && (
                 <InfoCard variant="elevated" className="p-8 mb-8 bg-primary-container/5 border-primary/20 animate-in fade-in slide-in-from-top-4">
                     <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-6">
                             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                                 <span className="material-symbols-outlined">description</span>
                             </div>
                             <h3 className="m3-title-large font-black text-on-surface">Report Narrativo Suggerito</h3>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-8">
                             <M3Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</M3Button>
                             <M3Button variant="tonal" onClick={() => {
                                 navigator.clipboard.writeText(narrativeReport);
@@ -481,8 +476,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             )}
 
             <InfoCard variant="elevated" className="bg-surface-container-lowest overflow-hidden">
-                 <div className="p-4 flex flex-wrap justify-between items-center gap-4 border-b border-outline-variant/30">
-                    <div className="flex flex-wrap gap-2">
+                 <div className="p-8 flex flex-wrap justify-between items-center gap-8 border-b border-outline-variant/30">
+                    <div className="flex flex-wrap gap-8">
                         {Object.keys(expandedColumns).map(key => (
                             <M3Button
                                 key={key}

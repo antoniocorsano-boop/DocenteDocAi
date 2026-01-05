@@ -48,14 +48,14 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
         >
             <M3DialogContent className="flex flex-col items-center justify-center w-full py-8 bg-surface-container-high/30 backdrop-blur-sm">
                 <div className="text-center mb-8">
-                    <div className="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                    <div className="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mx-auto mb-8 shadow-sm">
                         <span className="material-symbols-outlined text-3xl">lock</span>
                     </div>
-                    <p className="m3-body-medium text-on-surface-variant mt-1">Inserisci il PIN docente per uscire</p>
+                    <p className="m3-body-medium text-on-surface-variant mt-4">Inserisci il PIN docente per uscire</p>
                 </div>
 
                 {/* PIN Display */}
-                <div className="flex justify-center gap-4 mb-8">
+                <div className="flex justify-center gap-8 mb-8">
                     {[0, 1, 2, 3].map((i) => (
                         <div 
                             key={i}
@@ -69,7 +69,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                 </div>
 
                 {error && (
-                    <p className="text-error text-center text-sm font-bold mb-4 animate-pulse">PIN Errato</p>
+                    <p className="text-error text-center text-sm font-bold mb-8 animate-pulse">PIN Errato</p>
                 )}
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />

@@ -40,8 +40,8 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
 
     return (
         <div className="mb-8">
-             <div className="flex items-center justify-between mb-4 px-1">
-                <div className="flex items-center gap-3">
+             <div className="flex items-center justify-between mb-8 px-1">
+                <div className="flex items-center gap-6">
                     <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primary-container text-primary'}`}>
                         <span className="material-symbols-outlined text-xl">{icon}</span>
                     </div>
@@ -56,8 +56,8 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                 </div>
              </div>
              
-             <div className="p-4 bg-surface-container-low rounded-3xl border border-outline-variant/50 shadow-inner-sm">
-                <div className="m3-chip-grid mb-4">
+             <div className="p-8 bg-surface-container-low rounded-3xl border border-outline-variant/50 shadow-inner-sm">
+                <div className="m3-chip-grid mb-8">
                     {items.map((item, index) => (
                         <div key={index} className={`m3-expressive-chip variant-${variant} animate-in zoom-in-95 duration-200`}>
                             <span>{item}</span>
@@ -68,13 +68,13 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                                 aria-label={`Rimuovi ${item}`}
                                 tabIndex={-1}
                             >
-                                <span className="material-symbols-outlined text-[14px]">close</span>
+                                <span className="material-symbols-outlined m3-icon-xs">close</span>
                             </button>
                         </div>
                     ))}
                     
                     {items.length === 0 && (
-                        <p className="text-xs text-on-surface-variant italic opacity-40 py-2 px-2">Nessun elemento aggiunto...</p>
+                        <p className="text-xs text-on-surface-variant italic opacity-40 py-4 px-4">Nessun elemento aggiunto...</p>
                     )}
                 </div>
                 
@@ -100,7 +100,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         <span className="material-symbols-outlined text-sm">arrow_forward</span>
                     </button>
                 </div>
-                <p className="text-[9px] text-on-surface-variant opacity-40 mt-3 px-2 uppercase tracking-widest font-bold">
+                <p className="text-[9px] text-on-surface-variant opacity-40 mt-3 px-4 uppercase tracking-widest font-bold">
                     Premi Invio o usa la virgola per aggiungere più elementi
                 </p>
             </div>

@@ -41,7 +41,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
           <div className="mb-10 md:mb-14 p-6 bg-surface-container-high/50 rounded-4xl border border-outline-variant/20 shadow-inner transform scale-110 md:scale-125">
             <Logo />
           </div>
-          <h1 className="m3-headline-medium font-black tracking-tight text-on-surface mb-2">Benvenuto, Docente</h1>
+          <h1 className="m3-headline-medium font-black tracking-tight text-on-surface mb-8">Benvenuto, Docente</h1>
           <p className="text-[10px] md:text-[11px] font-black text-on-surface-variant/60 uppercase tracking-[0.3em] mb-10 md:mb-14">
               Configuriamo il tuo spazio di lavoro
           </p>
@@ -168,7 +168,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             <Logo />
           </div>
           
-          <h1 className="m3-headline-medium font-black tracking-tight text-on-surface mb-2">Accesso Rapido</h1>
+          <h1 className="m3-headline-medium font-black tracking-tight text-on-surface mb-8">Accesso Rapido</h1>
           <p className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-[0.3em] mb-10">Configurazione manuale</p>
           
           <div className="w-full mb-10">

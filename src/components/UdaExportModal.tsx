@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
 import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField, InfoCard } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField } from './ui';
 
 interface UdaExportModalProps {
     uda: Uda;
@@ -129,8 +129,8 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             level={1}
         >
             <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
-                <div className="flex flex-col gap-6 py-2">
-                    <div className="p-4 bg-primary-container/10 rounded-2xl border border-primary/20">
+                <div className="flex flex-col gap-6 py-4">
+                    <div className="p-8 bg-primary-container/10 rounded-2xl border border-primary/20">
                         <p className="m3-body-medium text-on-surface">
                             Stai esportando: <strong>{uda.title}</strong>
                         </p>
@@ -147,11 +147,11 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         fullWidth
                     />
 
-                    <div className="grid grid-cols-1 gap-3">
+                    <div className="grid grid-cols-1 gap-6">
                         <button 
                             onClick={handlePdfExport}
                             disabled={isExporting}
-                            className="flex items-center gap-4 p-4 rounded-3xl bg-surface-container-lowest hover:bg-primary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
+                            className="flex items-center gap-8 p-8 rounded-3xl bg-surface-container-lowest hover:bg-primary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
                         >
                             <div className="w-12 h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
                                 <span className="material-symbols-outlined text-2xl">picture_as_pdf</span>
@@ -165,7 +165,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         <button 
                             onClick={handleDocxExport}
                             disabled={isExporting}
-                            className="flex items-center gap-4 p-4 rounded-3xl bg-surface-container-lowest hover:bg-secondary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
+                            className="flex items-center gap-8 p-8 rounded-3xl bg-surface-container-lowest hover:bg-secondary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
                         >
                             <div className="w-12 h-12 rounded-2xl bg-secondary-container text-on-secondary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
                                 <span className="material-symbols-outlined text-2xl">description</span>
@@ -179,7 +179,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         <button 
                             onClick={handleAiReport}
                             disabled={isExporting}
-                            className="flex items-center gap-4 p-4 rounded-3xl bg-surface-container-lowest hover:bg-tertiary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
+                            className="flex items-center gap-8 p-8 rounded-3xl bg-surface-container-lowest hover:bg-tertiary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
                         >
                             <div className="w-12 h-12 rounded-2xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
                                 <span className="material-symbols-outlined text-2xl">auto_awesome</span>
@@ -192,15 +192,15 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                     </div>
 
                     {isExporting && (
-                        <div className="flex items-center justify-center gap-3 p-4 bg-surface-container-high rounded-2xl animate-pulse">
+                        <div className="flex items-center justify-center gap-6 p-8 bg-surface-container-high rounded-2xl animate-pulse">
                             <span className="material-symbols-outlined animate-spin">sync</span>
                             <span className="m3-label-large">Generazione in corso...</span>
                         </div>
                     )}
 
                     {markdownReport && (
-                        <div className="mt-4 p-4 bg-surface-container-lowest rounded-3xl border border-outline-variant/30">
-                            <h4 className="m3-label-large mb-2 text-tertiary">Report AI Generato</h4>
+                        <div className="mt-4 p-8 bg-surface-container-lowest rounded-3xl border border-outline-variant/30">
+                            <h4 className="m3-label-large mb-8 text-tertiary">Report AI Generato</h4>
                             <div className="prose prose-sm max-h-60 overflow-y-auto">
                                 {markdownReport}
                             </div>

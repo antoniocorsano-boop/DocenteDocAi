@@ -103,7 +103,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
             {/* Tooltip */}
             {hoveredIndex !== null && (
                 <div 
-                    className="absolute bg-surface-container-highest text-on-surface p-2 rounded shadow-lg text-xs pointer-events-none transform -translate-x-1/2 -translate-y-full border border-outline-variant z-10"
+                    className="absolute bg-surface-container-highest text-on-surface p-8 rounded shadow-lg text-xs pointer-events-none transform -translate-x-1/2 -translate-y-full border border-outline-variant z-10"
                     style={{ 
                         left: `${(getX(hoveredIndex) / width) * 100}%`, 
                         top: `${(getY(data[hoveredIndex].value) / height) * 100}%`,

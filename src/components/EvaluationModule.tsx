@@ -179,18 +179,18 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                 <thead>
                     <tr className="bg-surface-container-low/50 backdrop-blur-md">
                         <th className="sticky-col-student z-20 bg-surface-container-low/80 backdrop-blur-xl border-b border-r border-outline-variant/20">
-                            <div className="pl-4 py-4 font-black uppercase tracking-widest text-[10px] text-primary">Studente</div>
+                            <div className="pl-4 py-4 font-black uppercase tracking-widest m3-label-tiny text-primary">Studente</div>
                         </th>
-                        <th className="text-center z-10 w-20 border-b border-outline-variant/20 font-black uppercase tracking-widest text-[10px] text-primary">Media</th>
-                        <th className="text-center z-10 w-20 border-b border-outline-variant/20 font-black uppercase tracking-widest text-[10px] text-primary">Trend</th>
+                        <th className="text-center z-10 w-20 border-b border-outline-variant/20 font-black uppercase tracking-widest m3-label-tiny text-primary">Media</th>
+                        <th className="text-center z-10 w-20 border-b border-outline-variant/20 font-black uppercase tracking-widest m3-label-tiny text-primary">Trend</th>
                         {prove.map(p => (
-                            <th key={p.id} className="text-center min-w-[140px] border-b border-outline-variant/20 p-3">
+                            <th key={p.id} className="text-center min-w-[140px] border-b border-outline-variant/20 p-6">
                                 <div className="flex flex-col items-center justify-center h-full">
-                                    <div className="flex items-center gap-2 mb-1 bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
-                                        <span className="material-symbols-outlined text-primary text-[14px]">{getTestTypeIcon(p.tipo)}</span>
-                                        <span className="text-[10px] font-black text-primary">{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</span>
+                                    <div className="flex items-center gap-8 mb-4 bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
+                                        <span className="material-symbols-outlined text-primary m3-icon-xs">{getTestTypeIcon(p.tipo)}</span>
+                                        <span className="m3-label-tiny font-black text-primary">{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</span>
                                     </div>
-                                    <span className="truncate max-w-[120px] text-[11px] font-bold text-on-surface uppercase tracking-tight" title={p.titolo}>{p.titolo}</span>
+                                    <span className="truncate max-w-[120px] m3-label-small font-bold text-on-surface uppercase tracking-tight" title={p.titolo}>{p.titolo}</span>
                                 </div>
                             </th>
                         ))}
@@ -207,7 +207,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             <tr key={student.id} className="hover:bg-primary/5 transition-colors group">
                                 <td className="sticky-col-student bg-surface-container-low/90 backdrop-blur-xl border-r border-outline-variant/10 z-10">
                                     <div
-                                        className="flex items-center gap-3 cursor-pointer py-3 pl-4"
+                                        className="flex items-center gap-6 cursor-pointer py-3 pl-4"
                                         onClick={() => setViewingStudent(student)}
                                     >
                                         <Avatar name={`${student.nome} ${student.cognome}`} size="sm" className="ring-2 ring-primary/10 group-hover:ring-primary/30 transition-all" />
@@ -235,7 +235,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     return (
                                         <td
                                             key={p.id}
-                                            className="text-center relative cursor-pointer hover:bg-primary/10 transition-all p-2"
+                                            className="text-center relative cursor-pointer hover:bg-primary/10 transition-all p-8"
                                             onClick={() => setEditingUnified({ student, prova: p })}
                                         >
                                             {voteValue ? (
@@ -288,12 +288,12 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="ring-2 ring-white/20" />
                             <div className="flex-grow min-w-0">
                                 <h3 className="font-black text-on-surface truncate text-lg tracking-tight">{student.cognome} {student.nome}</h3>
-                                <div className="flex items-center gap-4 mt-2">
+                                <div className="flex items-center gap-8 mt-4">
                                     <div className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest ${isInsufficient ? 'bg-error/10 text-error border border-error/20' : 'bg-primary/10 text-primary border border-primary/20'}`}>
                                         Media: {performance.grade || 'N/D'}
                                     </div>
                                     {performance.trend && (
-                                        <div className={`flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest ${trendClass}`}>
+                                        <div className={`flex items-center gap-2.5 text-[10px] font-black uppercase tracking-widest ${trendClass}`}>
                                             <span className="material-symbols-outlined text-sm">{trendIcon}</span>
                                             {performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
                                         </div>
@@ -322,13 +322,13 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                         key={student.id}
                         className="aura-glass overflow-hidden border-l-4 border-error relative group"
                     >
-                        <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                             <span className="material-symbols-outlined text-6xl text-error">warning</span>
                         </div>
 
                         <div className="p-6 relative z-10">
                             <div className="flex items-start justify-between mb-6">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-8">
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="ring-2 ring-error/20" />
                                     <div>
                                         <h3 className="font-black text-on-surface text-lg tracking-tight">{student.cognome} {student.nome}</h3>
@@ -337,7 +337,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 </div>
                             </div>
                             
-                            <div className="bg-error/10 text-error px-4 py-2 rounded-2xl text-xs font-black uppercase tracking-widest border border-error/20 mb-6 inline-block">
+                            <div className="bg-error/10 text-error px-4 py-4 rounded-2xl text-xs font-black uppercase tracking-widest border border-error/20 mb-6 inline-block">
                                 Media insufficiente: {grade}
                             </div>
 
@@ -345,7 +345,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 Situazione critica rilevata. È consigliata l&apos;attivazione di misure di recupero personalizzate.
                             </p>
 
-                            <div className="flex gap-3">
+                            <div className="flex gap-6">
                                 <button 
                                     onClick={(e) => { e.stopPropagation(); onOpenInclusionPlanEditor(student); }} 
                                     className="flex-grow py-3 bg-error text-white rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-error/20 hover:bg-error/90 transition-all"
@@ -365,9 +365,9 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
             }) : (
                 <div className="col-span-full">
                     <div className="aura-glass p-12 text-center">
-                        <span className="material-symbols-outlined text-6xl text-tertiary mb-4 opacity-40">verified_user</span>
+                        <span className="material-symbols-outlined text-6xl text-tertiary mb-8 opacity-40">verified_user</span>
                         <h3 className="m3-headline-small font-black text-on-surface">Nessuna criticità</h3>
-                        <p className="m3-body-large text-on-surface-variant mt-2">Tutti gli studenti mantengono una media sufficiente.</p>
+                        <p className="m3-body-large text-on-surface-variant mt-4">Tutti gli studenti mantengono una media sufficiente.</p>
                     </div>
                 </div>
             )}
@@ -379,11 +379,11 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 py-16">
                 <div>
                     <h1 className="m3-headline-large font-black text-on-surface tracking-tight">Registro Valutazioni</h1>
-                    <p className="m3-title-medium text-on-surface-variant font-medium mt-2 opacity-70">Gestione voti, competenze e monitoraggio performance</p>
+                    <p className="m3-title-medium text-on-surface-variant font-medium mt-4 opacity-70">Gestione voti, competenze e monitoraggio performance</p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-4 aura-glass p-3 rounded-[2rem]">
-                    <div className="flex items-center gap-3 px-4 py-2 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20">
+                <div className="flex flex-wrap items-center gap-8 aura-glass p-6 rounded-[2rem]">
+                    <div className="flex items-center gap-6 px-4 py-4 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20">
                         <span className="material-symbols-outlined text-primary text-xl">class</span>
                         <select 
                             id="class-select" 
@@ -395,12 +395,12 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                         </select>
                     </div>
                     
-                    <div className="flex gap-3">
-                        <button onClick={() => setIsAddProvaModalOpen(true)} className="px-6 py-3 bg-primary text-on-primary rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-105 transition-all flex items-center gap-2">
+                    <div className="flex gap-6">
+                        <button onClick={() => setIsAddProvaModalOpen(true)} className="px-6 py-3 bg-primary text-on-primary rounded-2xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-105 transition-all flex items-center gap-8">
                             <span className="material-symbols-outlined text-lg">add</span>
                             Nuova Prova
                         </button>
-                        <button onClick={() => setIsExportModalOpen(true)} className="px-6 py-3 bg-surface-container-highest text-on-surface rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-surface-container-high transition-all flex items-center gap-2">
+                        <button onClick={() => setIsExportModalOpen(true)} className="px-6 py-3 bg-surface-container-highest text-on-surface rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-surface-container-high transition-all flex items-center gap-8">
                             <span className="material-symbols-outlined text-lg">download</span>
                             Esporta
                         </button>
@@ -413,7 +413,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div>
                             <h2 className="m3-title-large font-black text-on-surface tracking-tight">Valutazione Unificata</h2>
-                            <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 mt-1">Griglia voti e competenze trasversali</p>
+                            <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 mt-4">Griglia voti e competenze trasversali</p>
                         </div>
                         <div className="flex bg-surface-container-low/50 p-1.5 rounded-2xl border border-outline-variant/10">
                             {[
@@ -424,7 +424,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as ViewTab)}
-                                    className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all relative ${
+                                    className={`flex items-center gap-8 px-6 py-4.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all relative ${
                                         activeTab === tab.id 
                                         ? 'bg-primary text-on-primary shadow-lg shadow-primary/20' 
                                         : 'text-on-surface-variant hover:bg-surface-container-high'

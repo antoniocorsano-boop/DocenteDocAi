@@ -1,7 +1,7 @@
 
 import React, { useMemo, useState } from 'react';
 import { Studente, ValutazioneCompetenza, TimetableSettings, Competenza, Livello } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SectionHeader, InfoCard, Avatar } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, Avatar } from './ui';
 
 interface ClassCompetencyDashboardProps {
     selectedClass: string;
@@ -109,7 +109,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
             </div>
             
             {/* Controls */}
-            <div className="flex justify-end mb-4">
+            <div className="flex justify-end mb-8">
                 <div className="flex bg-surface-container-high rounded-full p-1">
                     <button 
                         onClick={() => setSortBy('competency')} 
@@ -131,12 +131,12 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                     const notEvaluatedCount = classStudents.length - summary.totalEvaluated;
                     return (
                         <details key={summary.competency.id} className="bg-surface-container-low border border-outline-variant rounded-3xl overflow-hidden group transition-all hover:shadow-md">
-                            <summary className="p-4 cursor-pointer list-none">
+                            <summary className="p-8 cursor-pointer list-none">
                                 {/* Custom Header Content */}
-                                <div className="flex items-start justify-between gap-4 mb-3">
+                                <div className="flex items-start justify-between gap-8 mb-6">
                                     <div className="flex-grow min-w-0">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <span className="text-[10px] font-bold uppercase tracking-wider bg-primary-container text-on-primary-container px-2 py-0.5 rounded-md truncate max-w-[100px]">
+                                        <div className="flex items-center gap-8 mb-4">
+                                            <span className="m3-label-tiny font-bold uppercase tracking-wider bg-primary-container text-on-primary-container px-4 py-0.5 rounded-md truncate max-w-[100px]">
                                                 {summary.competency.codice}
                                             </span>
                                             <span className="text-xs text-on-surface-variant">
@@ -173,22 +173,22 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                 </div>
                             </summary>
                             
-                            <div className="p-4 pt-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                            <div className="p-8 pt-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                 {summary.levelCounts.map(lc => {
                                     const colorClass = getLevelColorClass(lc.level.nome);
                                     return (
                                         <div 
                                             key={lc.level.id} 
                                             onClick={() => handleLevelClick(lc, summary.competency.nome)}
-                                            className={`p-4 rounded-2xl border transition-all ${lc.count === 0 ? 'opacity-40 grayscale border-outline-variant' : 'cursor-pointer border-outline-variant hover:bg-surface-container-high hover:border-primary/30'}`}
+                                            className={`p-8 rounded-2xl border transition-all ${lc.count === 0 ? 'opacity-40 grayscale border-outline-variant' : 'cursor-pointer border-outline-variant hover:bg-surface-container-high hover:border-primary/30'}`}
                                         >
-                                            <div className="flex items-center justify-between mb-2">
+                                            <div className="flex items-center justify-between mb-8">
                                                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${colorClass}`}>
                                                     {lc.level.nome.charAt(0)}
                                                 </div>
                                                 <div className="text-2xl font-black text-on-surface">{lc.count}</div>
                                             </div>
-                                            <div className="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant mb-1">Studenti</div>
+                                            <div className="text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant mb-4">Studenti</div>
                                             <p className="text-xs text-on-surface-variant line-clamp-3 leading-relaxed">
                                                 {lc.level.descrizione}
                                             </p>
@@ -202,7 +202,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 
                 {competencySummaries.length === 0 && (
                     <div className="flex flex-col items-center justify-center p-12 text-center bg-surface-container-low rounded-3xl border-2 border-dashed border-outline-variant">
-                        <span className="material-symbols-rounded text-6xl text-on-surface-variant/30 mb-4">bar_chart</span>
+                        <span className="material-symbols-rounded text-6xl text-on-surface-variant/30 mb-8">bar_chart</span>
                         <p className="text-xl font-bold text-on-surface">Nessun dato</p>
                         <p className="text-on-surface-variant">Non hai ancora configurato le competenze in Impostazioni.</p>
                     </div>
@@ -216,19 +216,19 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                     onClose={() => setViewingStudents(null)}
                     maxWidth="md"
                 >
-                    <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-2">
+                    <M3DialogContent className="space-y-2">
                                 {viewingStudents.students.map(student => {
                                      return (
                                         <div 
                                             key={student.id} 
                                             onClick={() => { setViewingStudents(null); onViewStudentProfile(student); }} 
-                                            className="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-2xl cursor-pointer hover:bg-surface-container-high transition-all group"
+                                            className="flex items-center justify-between p-8 bg-surface-container-low border border-outline-variant rounded-2xl cursor-pointer hover:bg-surface-container-high transition-all group"
                                         >
-                                            <div className="flex items-center gap-3">
+                                            <div className="flex items-center gap-6">
                                                 <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                                 <div>
                                                     <p className="font-bold text-on-surface">{student.cognome} {student.nome}</p>
-                                                    <div className="flex items-center gap-1.5">
+                                                    <div className="flex items-center gap-2.5">
                                                         <span className={`w-2 h-2 rounded-full ${viewingStudents.levelColorClass}`}></span>
                                                         <span className="text-xs text-on-surface-variant">Livello raggiunto</span>
                                                     </div>

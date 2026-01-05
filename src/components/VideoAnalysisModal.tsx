@@ -144,7 +144,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     <div className="w-24 h-24 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg mb-8 rotate-3">
                         <span className="material-symbols-outlined text-5xl">vpn_key</span>
                     </div>
-                    <h3 className="m3-headline-small font-black tracking-tight mb-4">API Key Richiesta</h3>
+                    <h3 className="m3-headline-small font-black tracking-tight mb-8">API Key Richiesta</h3>
                     <p className="m3-body-medium text-on-surface-variant max-w-sm mb-8 leading-relaxed">
                         Per utilizzare la generazione video (modello Veo), è necessaria una API Key abilitata al billing.
                         <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline ml-1 font-black">
@@ -159,14 +159,14 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
         }
 
         return (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full p-4 md:p-8 animate-in fade-in duration-700">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full p-8 md:p-8 animate-in fade-in duration-700">
                 <div className="flex flex-col gap-6">
-                    <div className="bg-surface-container-low/40 backdrop-blur-md p-6 rounded-2xl border border-outline-variant/20 flex items-start gap-4 shadow-sm">
+                    <div className="bg-surface-container-low/40 backdrop-blur-md p-6 rounded-2xl border border-outline-variant/20 flex items-start gap-8 shadow-sm">
                         <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
                             <span className="material-symbols-outlined">edit_note</span>
                         </div>
                         <div>
-                            <h3 className="m3-label-large font-black uppercase tracking-widest text-primary mb-1">1. Prompt Descrittivo</h3>
+                            <h3 className="m3-label-large font-black uppercase tracking-widest text-primary mb-4">1. Prompt Descrittivo</h3>
                             <p className="m3-body-small text-on-surface-variant opacity-70">Descrivi la scena che vuoi creare. Sii dettagliato per un risultato migliore.</p>
                         </div>
                     </div>
@@ -187,7 +187,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     </div>
 
                     {error && (
-                        <div className="flex items-center gap-3 p-4 bg-error-container/80 backdrop-blur-md text-on-error-container rounded-2xl text-sm font-bold border border-error/20 animate-in slide-in-from-top-2">
+                        <div className="flex items-center gap-6 p-8 bg-error-container/80 backdrop-blur-md text-on-error-container rounded-2xl text-sm font-bold border border-error/20 animate-in slide-in-from-top-2">
                             <span className="material-symbols-outlined text-xl">error</span>
                             {error}
                         </div>
@@ -195,12 +195,12 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                 </div>
 
                 <div className="flex flex-col gap-6">
-                    <div className="bg-surface-container-low/40 backdrop-blur-md p-6 rounded-2xl border border-outline-variant/20 flex items-start gap-4 shadow-sm">
+                    <div className="bg-surface-container-low/40 backdrop-blur-md p-6 rounded-2xl border border-outline-variant/20 flex items-start gap-8 shadow-sm">
                         <div className="w-12 h-12 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
                             <span className="material-symbols-outlined">movie</span>
                         </div>
                         <div>
-                            <h3 className="m3-label-large font-black uppercase tracking-widest text-secondary mb-1">2. Risultato</h3>
+                            <h3 className="m3-label-large font-black uppercase tracking-widest text-secondary mb-4">2. Risultato</h3>
                             <p className="m3-body-small text-on-surface-variant opacity-70">Il video generato apparirà qui sotto.</p>
                         </div>
                     </div>
@@ -240,7 +240,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             </div>
                         ) : (
                             <div className="text-center text-on-surface-variant/20 flex flex-col items-center group-hover:scale-110 transition-transform duration-700">
-                                <span className="material-symbols-outlined text-[120px] mb-4 opacity-20">videocam_off</span>
+                                <span className="material-symbols-outlined m3-icon-hero mb-8 opacity-20">videocam_off</span>
                                 <p className="m3-label-large font-black uppercase tracking-[0.3em] opacity-40">In attesa di generazione</p>
                             </div>
                         )}
@@ -262,7 +262,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             title="Generazione Video con AI"
             headline="Crea brevi clip video partendo da una descrizione testuale"
             buttons={
-                <div className="flex gap-3">
+                <div className="flex gap-6">
                     <M3Button onClick={onClose} variant="text" disabled={isLoading}>Chiudi</M3Button>
                     {hasApiKey && (
                         <M3Button 
@@ -276,7 +276,8 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     )}
                 </div>
             }
-            fullscreen={true}
+            mode="fullscreen"
+            hideBackdrop={true}
         >
             <div className="h-full relative overflow-hidden bg-surface-container-lowest/50">
                 {/* Aura Ornaments */}

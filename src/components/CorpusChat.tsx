@@ -81,7 +81,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                 <button className="icon-button kb-mobile-back-button" onClick={onClose} aria-label="Torna alla lista">
                     <span className="material-symbols-outlined">arrow_back</span>
                 </button>
-                <div className="flex items-center gap-2 truncate">
+                <div className="flex items-center gap-8 truncate">
                     <span className="material-symbols-outlined text-secondary">chat</span>
                     <h3 className="m3-title-medium truncate">Chat con "{corpus.displayName}"</h3>
                 </div>
@@ -105,14 +105,14 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                  {messages.length === 0 && !isLoading && (
                     <div className="text-center p-8 text-on-surface-variant">
                         <span className="material-symbols-outlined text-5xl">quiz</span>
-                        <p className="m3-body-large mt-2">Poni una domanda ai documenti in questo set.</p>
+                        <p className="m3-body-large mt-4">Poni una domanda ai documenti in questo set.</p>
                     </div>
                 )}
                 <div ref={messagesEndRef} />
             </div>
 
             <div className="corpus-chat-shortcuts">
-                <div className="flex gap-2 p-2 justify-center">
+                <div className="flex gap-8 p-8 justify-center">
                     <button onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
                         <span className="material-symbols-outlined m3-body-medium mr-1">summarize</span> Riassumi
                     </button>

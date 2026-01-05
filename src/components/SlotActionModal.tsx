@@ -31,28 +31,28 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
       maxWidth="sm"
       level={1}
     >
-      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+      <M3DialogContent>
             {/* Interactive Hero Card */}
             <div 
-                className="hero-card-interactive bg-primary-container text-on-primary-container group cursor-pointer hover:brightness-110 transition-all"
+                className="hero-card-interactive bg-primary-container text-on-primary-container group cursor-pointer hover:brightness-110 transition-all rounded-3xl p-6"
                 onClick={onView}
                 role="button"
                 tabIndex={0}
                 aria-label="Vedi dettagli lezione"
             >
                 {/* Metadata Row */}
-                <div className="flex items-center justify-between mb-3 opacity-90">
-                    <div className="flex flex-wrap gap-2">
+                <div className="flex items-center justify-between mb-6 opacity-90">
+                    <div className="flex flex-wrap gap-8">
                         <span className="badge-chip bg-surface/20 text-on-primary-container border-none font-bold">
                             {slot.classe}
                         </span>
                         <span className="badge-chip bg-surface/20 text-on-primary-container border-none">
-                            <span className="material-symbols-outlined text-[14px] mr-1">{typeIcon}</span>
+                            <span className="material-symbols-outlined m3-icon-xs mr-1">{typeIcon}</span>
                             {lesson.tipoLezione || 'Lezione'}
                         </span>
                         {attachmentCount > 0 && (
                              <span className="badge-chip bg-surface/30 text-on-primary-container border-none" title={`${attachmentCount} allegati`}>
-                                <span className="material-symbols-outlined text-[14px] mr-1">attachment</span>
+                                <span className="material-symbols-outlined m3-icon-xs mr-1">attachment</span>
                                 {attachmentCount}
                             </span>
                         )}
@@ -62,13 +62,13 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
 
                 {/* Main Content */}
                 <div>
-                    <p className="text-xs font-bold uppercase tracking-wider opacity-70 mb-1">{slot.materia}</p>
-                    <h3 className="m3-headline-small font-bold leading-tight line-clamp-3 mb-1">
+                    <p className="m3-label-small uppercase tracking-wider opacity-70 mb-4">{slot.materia}</p>
+                    <h3 className="m3-title-large font-bold leading-tight line-clamp-3 mb-4">
                         {lesson.contenuto}
                     </h3>
                     {lesson.nota && (
-                        <p className="text-xs mt-2 italic opacity-80 flex items-start gap-1 bg-surface/10 p-2 rounded">
-                            <span className="material-symbols-outlined text-[14px]">sticky_note_2</span>
+                        <p className="m3-body-small mt-4 italic opacity-80 flex items-start gap-4 bg-surface/10 p-8 rounded-xl">
+                            <span className="material-symbols-outlined m3-icon-xs">sticky_note_2</span>
                             {lesson.nota}
                         </p>
                     )}
@@ -76,24 +76,30 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
             </div>
             
             {/* Action List */}
-            <div className="flex flex-col gap-3 mt-4">
-                <button onClick={onStart} className="flex items-center gap-4 p-4 rounded-3xl bg-primary text-on-primary hover:bg-primary/90 transition-all text-left group shadow-sm">
-                    <div className="w-12 h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <span className="material-symbols-outlined text-2xl">door_open</span>
+            <div className="flex flex-col gap-6 mt-4">
+                <button 
+                    onClick={onStart} 
+                    className="flex items-center gap-6 p-6 md:gap-8 md:p-8 rounded-3xl bg-primary text-on-primary hover:bg-primary/90 transition-all text-left group shadow-sm"
+                >
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                        <span className="material-symbols-outlined text-xl md:text-2xl">door_open</span>
                     </div>
-                    <div>
-                        <p className="m3-label-large font-bold text-lg">{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</p>
-                        <p className="m3-body-small opacity-90">Apri il registro e inizia la lezione.</p>
+                    <div className="min-w-0">
+                        <p className="m3-label-large font-bold text-base md:text-lg truncate">{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</p>
+                        <p className="m3-body-small opacity-90 line-clamp-1">Apri il registro e inizia la lezione.</p>
                     </div>
                 </button>
 
-                <button onClick={onEdit} className="flex items-center gap-4 p-4 rounded-3xl bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80 transition-all text-left group shadow-sm">
-                    <div className="w-12 h-12 rounded-2xl bg-surface-container-lowest text-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <span className="material-symbols-outlined text-2xl">edit</span>
+                <button 
+                    onClick={onEdit} 
+                    className="flex items-center gap-6 p-6 md:gap-8 md:p-8 rounded-3xl bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80 transition-all text-left group shadow-sm"
+                >
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-surface-container-lowest text-secondary flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                        <span className="material-symbols-outlined text-xl md:text-2xl">edit</span>
                     </div>
-                    <div>
-                        <p className="m3-label-large font-bold text-lg">Modifica</p>
-                        <p className="m3-body-small opacity-80">Cambia contenuto o sposta.</p>
+                    <div className="min-w-0">
+                        <p className="m3-label-large font-bold text-base md:text-lg truncate">Modifica</p>
+                        <p className="m3-body-small opacity-80 line-clamp-1">Cambia contenuto o sposta.</p>
                     </div>
                 </button>
             </div>

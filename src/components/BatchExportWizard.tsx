@@ -4,7 +4,6 @@ import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob } fr
 import { saveAs } from '../utils/documentUtils';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
-import { useKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 import TemplateManager from './TemplateManager';
 import JSZip from 'jszip';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
@@ -74,7 +73,6 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
 
   const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const { trackAnalyticsEvent } = useSystemStore(state => ({ trackAnalyticsEvent: state.actions.trackAnalyticsEvent }));
-  const modalRef = useKeyboardNavigation(true, props.onClose);
 
   // Track apertura wizard
   React.useEffect(() => {
@@ -270,15 +268,15 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
       maxWidth="2xl"
       level={1}
     >
-      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+      <M3DialogContent>
           {/* Progress Bar durante generazione */}
           {progress && (
-            <div className="bg-surface-container p-4 rounded-xl">
-              <div className="flex items-center justify-between mb-2">
+            <div className="bg-surface-container p-8 rounded-xl">
+              <div className="flex items-center justify-between mb-8">
                 <span className="m3-body-small font-medium">Generazione in corso...</span>
                 <span className="m3-body-small text-on-surface-variant">{progress.current}/{progress.total}</span>
               </div>
-              <div className="w-full bg-surface-container-high rounded-full h-2 mb-2">
+              <div className="w-full bg-surface-container-high rounded-full h-2 mb-8">
                 <div
                   className="bg-primary h-2 rounded-full transition-all duration-300"
                   style={{ width: `${(progress.current / progress.total) * 100}%` }}
@@ -290,11 +288,11 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
 
           {/* Controlli selezione */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-8">
               <span className="m3-body-small font-medium">
                 Selezionati: {selectedDocuments.length} di {availableDocuments.length}
               </span>
-              <div className="flex gap-2">
+              <div className="flex gap-8">
                 <M3Button onClick={selectAll} variant="text" className="m3-label-small" disabled={isGenerating}>
                   Seleziona Tutto
                 </M3Button>
@@ -321,23 +319,23 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           <div className="space-y-4 max-h-96 overflow-y-auto">
             {Object.entries(groupedDocuments).map(([groupName, docs]) => (
               <div key={groupName}>
-                <h3 className="m3-body-small font-bold text-on-surface-variant uppercase tracking-wider mb-2">
+                <h3 className="m3-body-small font-bold text-on-surface-variant uppercase tracking-wider mb-8">
                   {groupName} ({docs.length})
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {docs.map(doc => {
                     const isSelected = selectedDocuments.some(d => d.id === doc.id);
                     return (
                       <div
                         key={doc.id}
-                        className={`p-3 border rounded-lg cursor-pointer transition-all ${
+                        className={`p-6 border rounded-lg cursor-pointer transition-all ${
                           isSelected
                             ? 'border-primary bg-primary-container/20'
                             : 'border-outline-variant hover:border-primary/50'
                         }`}
                         onClick={() => !isGenerating && toggleDocumentSelection(doc.id)}
                       >
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-6">
                           <input
                             type="checkbox"
                             checked={isSelected}
@@ -349,7 +347,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                           <div className="flex-1 min-w-0">
                             <p className="font-medium m3-body-small truncate">{doc.title}</p>
                             <p className="m3-label-small text-on-surface-variant truncate">{doc.subtitle}</p>
-                            <span className={`inline-block px-2 py-0.5 m3-label-small rounded-full mt-1 ${
+                            <span className={`inline-block px-4 py-0.5 m3-label-small rounded-full mt-4 ${
                               doc.format === 'pdf' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'
                             }`}>
                               {doc.format.toUpperCase()}

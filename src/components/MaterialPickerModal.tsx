@@ -126,12 +126,12 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         <TabGroup
                             tabs={tabs}
                             activeTab={activeTab}
-                            onChange={(id) => setActiveTab(id as any)}
+                            onChange={(id) => setActiveTab(id)}
                             variant="secondary"
                         />
 
                         {activeTab === 'kb' && (
-                            <div className="flex-grow flex flex-col gap-4 overflow-hidden">
+                            <div className="flex-grow flex flex-col gap-8 overflow-hidden">
                                 <TextField 
                                     label="Cerca nella KB..." 
                                     value={searchTerm} 
@@ -145,7 +145,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                             <div 
                                                 key={entry.id} 
                                                 onClick={() => handleToggleKb(entry)}
-                                                className={`flex items-center gap-3 p-3 rounded-2xl cursor-pointer transition-all border ${
+                                                className={`flex items-center gap-6 p-6 rounded-2xl cursor-pointer transition-all border ${
                                                     isSelected 
                                                         ? 'bg-primary/10 border-primary text-primary' 
                                                         : 'bg-surface-container-low border-outline-variant/30 hover:bg-surface-container'
@@ -175,11 +175,11 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 } ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-surface-container'}`}
                             >
                                 <input {...getInputProps()} />
-                                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-8">
                                     <span className="material-symbols-outlined text-3xl text-primary">upload_file</span>
                                 </div>
                                 <p className="m3-title-medium">Trascina qui i file</p>
-                                <p className="m3-body-small opacity-70 mt-1">oppure clicca per sfogliare</p>
+                                <p className="m3-body-small opacity-70 mt-4">oppure clicca per sfogliare</p>
                             </div>
                         )}
 
@@ -206,7 +206,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                     </div>
 
                     {/* Right: Selected */}
-                    <div className="p-6 flex flex-col gap-4 overflow-hidden bg-surface-container-lowest/50">
+                    <div className="p-6 flex flex-col gap-8 overflow-hidden bg-surface-container-lowest/50">
                         <div className="flex items-center justify-between">
                             <h3 className="m3-title-medium">Selezionati</h3>
                             <span className="px-3 py-1 rounded-full bg-primary text-on-primary text-xs font-bold">
@@ -215,15 +215,15 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         </div>
                         <div className="flex-grow overflow-y-auto custom-scrollbar space-y-2 pr-2">
                             {materials.map(material => (
-                                <div key={material.id} className="flex items-center justify-between p-3 rounded-2xl bg-surface-container border border-outline-variant/30 group">
-                                    <div className="flex items-center gap-3 truncate">
+                                <div key={material.id} className="flex items-center justify-between p-6 rounded-2xl bg-surface-container border border-outline-variant/30 group">
+                                    <div className="flex items-center gap-6 truncate">
                                         <span className="material-symbols-outlined text-primary">{getMaterialIcon(material)}</span>
                                         <span className="truncate m3-body-medium">{getMaterialLabel(material)}</span>
                                     </div>
                                     <M3Button 
                                         onClick={() => handleRemoveMaterial(material.id)} 
                                         variant="text" 
-                                        className="text-error !p-2 !min-w-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        className="text-error !p-8 !min-w-0 opacity-0 group-hover:opacity-100 transition-opacity"
                                     >
                                         <span className="material-symbols-outlined">close</span>
                                     </M3Button>
@@ -231,7 +231,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                             ))}
                             {materials.length === 0 && (
                                 <div className="flex flex-col items-center justify-center h-full opacity-30">
-                                    <span className="material-symbols-outlined text-6xl mb-2">inventory_2</span>
+                                    <span className="material-symbols-outlined text-6xl mb-8">inventory_2</span>
                                     <p className="m3-body-medium">Nessun materiale selezionato</p>
                                 </div>
                             )}

@@ -72,15 +72,15 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
             <span className="m3-ripple" aria-hidden="true" />
             {/* Status Badges (Top) */}
             <div className="absolute top-1.5 inset-x-1.5 flex justify-between items-center pointer-events-none">
-                <div className="flex gap-1">
+                <div className="flex gap-4">
                     {isDone && <div className="w-2 h-2 rounded-full bg-primary animate-pulse" title="Svolta"></div>}
                     {hasAi && <span className="material-symbols-outlined text-[10px] text-tertiary">auto_awesome</span>}
                 </div>
-                {typeIcon && <span className="material-symbols-outlined text-[12px] opacity-50">{typeIcon}</span>}
+                {typeIcon && <span className="material-symbols-outlined m3-icon-tiny opacity-50">{typeIcon}</span>}
             </div>
 
             {/* Labels */}
-            <div className="mt-1 flex flex-col items-center w-full min-w-0">
+            <div className="mt-4 flex flex-col items-center w-full min-w-0">
                 <span className="tile-class text-sm font-black truncate w-full text-center leading-none">
                     {isDisposition ? 'DISP.' : (isRicevimento ? 'RICEV.' : classe)}
                 </span>

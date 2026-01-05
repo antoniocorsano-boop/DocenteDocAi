@@ -25,7 +25,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
 
         try {
             new URL(correctedUrl);
-        } catch (_) {
+        } catch {
             showToast("L'URL inserito non è valido.", "error");
             return;
         }
@@ -82,11 +82,11 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
             />
 
             <div className="bg-surface-container-low/30 backdrop-blur-xl rounded-3xl p-6 border border-outline-variant/30 shadow-sm">
-                <h2 className="m3-title-large mb-2">Aggiungi una Nuova Fonte</h2>
+                <h2 className="m3-title-large mb-8">Aggiungi una Nuova Fonte</h2>
                 <p className="m3-body-medium text-on-surface-variant mb-6">
                     Puoi incollare l'URL della pagina delle circolari del tuo istituto. L'app *tenterebbe* di cercare un feed RSS.
                 </p>
-                <div className="flex flex-col md:flex-row gap-4">
+                <div className="flex flex-col md:flex-row gap-8">
                     <TextField
                         type="url"
                         value={pageUrl}
@@ -114,8 +114,8 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                  <div className="space-y-4">
                     {sources.length > 0 ? sources.map(source => (
                         <div key={source.id} className="bg-surface-container-high/50 rounded-2xl overflow-hidden border border-outline-variant/20">
-                            <div className="p-4 flex items-start justify-between">
-                                <div className="flex items-center gap-4 truncate">
+                            <div className="p-8 flex items-start justify-between">
+                                <div className="flex items-center gap-8 truncate">
                                     <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
                                         <span className="material-symbols-outlined">rss_feed</span>
                                     </div>
@@ -124,11 +124,11 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                         <a href={source.pageUrl} target="_blank" rel="noopener noreferrer" className="m3-body-small text-primary hover:underline truncate block opacity-70">{source.pageUrl}</a>
                                     </div>
                                 </div>
-                                <div className="flex gap-2 flex-shrink-0 ml-2">
+                                <div className="flex gap-8 flex-shrink-0 ml-2">
                                     <M3Button 
                                         onClick={() => handleDeleteSource(source.id)} 
                                         variant="text" 
-                                        className="!min-w-0 !p-2 text-error"
+                                        className="!min-w-0 !p-8 text-error"
                                     >
                                         <span className="material-symbols-outlined">delete</span>
                                     </M3Button>
@@ -143,7 +143,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                 </div>
                             </div>
                             
-                            <div className="p-4 border-t border-outline-variant/10 bg-surface-container-lowest/30 text-on-surface-variant">
+                            <div className="p-8 border-t border-outline-variant/10 bg-surface-container-lowest/30 text-on-surface-variant">
                                 <p className="m3-body-small italic text-center opacity-60">
                                     La funzionalità di aggiornamento feed è disabilitata per motivi di privacy. Analizza manualmente incollando il testo.
                                 </p>
@@ -151,7 +151,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         </div>
                     )) : (
                         <div className="flex flex-col items-center justify-center py-12 text-center opacity-50">
-                            <span className="material-symbols-outlined text-6xl mb-4">rss_feed</span>
+                            <span className="material-symbols-outlined text-6xl mb-8">rss_feed</span>
                             <p className="m3-title-medium font-bold">Nessuna fonte monitorata</p>
                             <p className="m3-body-medium">Aggiungi il sito della tua scuola per ricevere notifiche sulle circolari.</p>
                         </div>

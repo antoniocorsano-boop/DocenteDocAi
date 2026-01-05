@@ -63,15 +63,15 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
             maxWidth="md"
             level={1}
         >
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <M3DialogContent className="space-y-4 bg-surface-container-high/30 backdrop-blur-sm">
-                    <p className="m3-body-medium text-on-surface-variant">{student.cognome} {student.nome} - {competenza.nome}</p>
+            <form onSubmit={handleSubmit} className="space-y-12">
+                <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
+                    <p className="m3-body-medium text-on-surface-variant mb-8">{student.cognome} {student.nome} - {competenza.nome}</p>
 
                     <div>
                         <label className="form-label">Livello Raggiunto</label>
-                        <div className="space-y-2">
+                        <div className="space-y-8">
                             {competenza.livelli.map(level => (
-                                <div key={level.id} className={`p-3 rounded-lg border-2 ${selectedLevelId === level.id ? 'border-primary bg-primary-container' : 'border-outline-variant bg-surface-container'}`}>
+                                <div key={level.id} className={`p-12 rounded-2xl border-2 ${selectedLevelId === level.id ? 'border-primary bg-primary-container' : 'border-outline-variant bg-surface-container'}`}>
                                     <label className="flex items-start cursor-pointer">
                                         <input 
                                             type="radio" 
@@ -79,7 +79,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                             value={level.id}
                                             checked={selectedLevelId === level.id}
                                             onChange={(e) => setSelectedLevelId(e.target.value)}
-                                            className="mr-4 mt-1"
+                                            className="mr-8 mt-8"
                                             required
                                         />
                                         <div className="flex-grow">
@@ -87,7 +87,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                                 <span className="m3-title-medium">{level.nome}</span>
                                                 <span className="m3-label-large text-on-surface-variant">Voto: {level.voto}</span>
                                             </div>
-                                            <p className={`m3-body-medium mt-1 ${selectedLevelId === level.id ? 'text-on-primary-container' : 'text-on-surface-variant'}`}>{level.descrizione}</p>
+                                            <p className={`m3-body-medium mt-8 ${selectedLevelId === level.id ? 'text-on-primary-container' : 'text-on-surface-variant'}`}>{level.descrizione}</p>
                                         </div>
                                     </label>
                                 </div>
@@ -104,9 +104,9 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                     </div>
 
                     <div>
-                        <div className="flex justify-between items-center mb-2">
+                        <div className="flex justify-between items-center mb-12">
                             <label htmlFor="note" className="form-label !mb-0">Note (Opzionale)</label>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-12">
                                 {!selectedLevelId && !isGeneratingNote && (
                                     <span className="m3-label-small text-on-surface-variant">(Seleziona un livello)</span>
                                 )}
@@ -115,7 +115,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                     onClick={handleGenerateNote}
                                     disabled={isGeneratingNote || !selectedLevelId}
                                     variant="text"
-                                    className="!py-1 !px-2 !h-auto flex items-center gap-1"
+                                    className="!py-2 !px-8 !h-auto flex items-center gap-8"
                                     title="Genera nota con AI"
                                 >
                                     {isGeneratingNote ? (
@@ -131,7 +131,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                     </div>
                 </M3DialogContent>
 
-                <M3DialogActions className="gap-2">
+                <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
                     <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                     <M3Button type="submit" variant="filled">Salva Valutazione</M3Button>
                 </M3DialogActions>

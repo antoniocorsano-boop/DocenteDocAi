@@ -27,7 +27,7 @@ const ModalContext = createContext<ModalContextType | null>(null);
 /**
  * Hook to use Modal Context
  */
-export const useModal = () => {
+export const useModal = (): ModalContextType => {
   const context = useContext(ModalContext);
   if (!context) {
     throw new Error('useModal must be used within ModalProvider');
@@ -143,7 +143,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
   return createPortal(
     <div
       key={id}
-      className="fixed inset-0 flex items-center justify-center p-4"
+      className="fixed inset-0 flex items-center justify-center p-8"
       style={{ zIndex: modalZIndex }}
       data-modal-id={id}
       data-modal-level={level}
@@ -168,7 +168,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
  * Helper Hook for Modal Management
  * Provides open/close methods for modal components
  */
-export const useModalController = (modalId: string) => {
+export const useModalController = (modalId: string): { openModal: (component: React.ReactNode) => void; closeModal: () => void; isOpen: boolean } => {
   const { pushModal, popModal, isModalOpen } = useModal();
 
   const openModal = useCallback(

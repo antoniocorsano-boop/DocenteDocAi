@@ -60,7 +60,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
     return (
         <div ref={popoverRef} className="m3-popup-menu" style={{ ...style, width: '280px' }}>
             <div className="popup-header bg-primary-container text-on-primary-container">
-                <div className="flex items-center gap-3 mb-2">
+                <div className="flex items-center gap-6 mb-8">
                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                     <div className="min-w-0">
                         <h3 className="m3-title-medium truncate">{student.cognome} {student.nome}</h3>

@@ -22,7 +22,7 @@ interface KnowledgeBaseProps {
     showGuidanceTips?: boolean;
 }
 
-const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowledgeBase, corpora, setCorpora, aiSettings, showToast, settings, showGuidanceTips }) => {
+const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowledgeBase, corpora, setCorpora, showToast }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentView, setCurrentView] = useState<{ type: 'root' | 'category' | 'corpus', id: string }>({ type: 'root', id: '' });
     const [isAddSourceModalOpen, setIsAddSourceModalOpen] = useState(false);
@@ -70,7 +70,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     };
 
     const renderFolderDashboard = () => (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 animate-in fade-in">
              {KB_CATEGORIES.map(cat => (
                  <CategoryCard 
                     key={cat.id} 
@@ -90,9 +90,9 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
         const categoryInfo = currentView.type === 'category' ? KB_CATEGORIES.find(c => c.id === currentView.id) : null;
         return (
             <div className="space-y-6 animate-in slide-in-from-right-4">
-                <header className="flex items-center justify-between bg-surface-container-high/30 backdrop-blur-md p-4 rounded-3xl border border-outline-variant/30 shadow-sm">
-                    <div className="flex items-center gap-3">
-                        <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" className="!min-w-0 !p-2">
+                <header className="flex items-center justify-between bg-surface-container-high/30 backdrop-blur-md p-8 rounded-3xl border border-outline-variant/30 shadow-sm">
+                    <div className="flex items-center gap-6">
+                        <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" className="!min-w-0 !p-8">
                             <span className="material-symbols-outlined">arrow_back</span>
                         </M3Button>
                         <h2 className="m3-headline-small font-black text-on-surface">{categoryInfo?.label || 'File'}</h2>
@@ -109,11 +109,11 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     </div>
                 </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {filteredFiles.map(entry => (
                         <div 
                             key={entry.id} 
-                            className="bg-surface-container-low/40 backdrop-blur-sm p-4 rounded-2xl border border-outline-variant/20 hover:bg-surface-container-high/60 transition-all cursor-pointer group flex items-center gap-4 shadow-sm hover:shadow-md"
+                            className="bg-surface-container-low/40 backdrop-blur-sm p-8 rounded-2xl border border-outline-variant/20 hover:bg-surface-container-high/60 transition-all cursor-pointer group flex items-center gap-8 shadow-sm hover:shadow-md"
                             onClick={() => handleFileClick(entry)}
                         >
                             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner ${entry.category === 'ai_deliverable' ? 'bg-secondary-container/50 text-secondary' : 'bg-primary-container/50 text-primary'}`}>
@@ -130,7 +130,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                             <M3Button 
                                 onClick={(e) => { e.stopPropagation(); handleDeleteFile(entry.id); }} 
                                 variant="text" 
-                                className="!min-w-0 !p-2 text-error opacity-0 group-hover:opacity-100 hover:bg-error-container/30 transition-all"
+                                className="!min-w-0 !p-8 text-error opacity-0 group-hover:opacity-100 hover:bg-error-container/30 transition-all"
                             >
                                 <span className="material-symbols-outlined text-xl">delete</span>
                             </M3Button>
@@ -138,7 +138,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     ))}
                     {filteredFiles.length === 0 && (
                         <div className="col-span-full py-20 text-center opacity-50">
-                            <span className="material-symbols-outlined text-6xl mb-4">search_off</span>
+                            <span className="material-symbols-outlined text-6xl mb-8">search_off</span>
                             <p className="m3-body-large">Nessun file trovato in questa cartella.</p>
                         </div>
                     )}
@@ -149,13 +149,13 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
 
     return (
         <div className="page-layout max-w-full mx-auto w-full px-4 pb-24">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-8">
                 <SectionHeader 
                     title="Knowledge Base" 
                     subtitle="Archivio fonti, documenti e deliverable generati dall'AI."
                     icon="database"
                 />
-                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" className="shadow-lg px-6 py-6 rounded-2xl flex items-center gap-2">
+                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" className="shadow-lg px-6 py-6 rounded-2xl flex items-center gap-8">
                     <span className="material-symbols-outlined">add_circle</span>
                     Carica Documenti
                 </M3Button>

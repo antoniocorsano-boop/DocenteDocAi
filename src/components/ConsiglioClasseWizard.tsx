@@ -78,7 +78,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                 </SelectField>
 
                  <div className="space-y-2">
-                    <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-2">Periodo di Valutazione</label>
+                    <label className="m3-label-small text-primary font-black uppercase tracking-[0.2em] px-4">Periodo di Valutazione</label>
                     <TabGroup
                         tabs={[
                             { id: 'primo-quadrimestre', label: 'Primo Quadrimestre (1Q)' },

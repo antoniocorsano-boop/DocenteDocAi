@@ -38,14 +38,14 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
 
     return (
         <M3Dialog isOpen={isOpen} onClose={onClose} title="Nuova Attività di Orientamento">
-            <M3DialogContent className="space-y-6 pt-4 px-4 md:px-6">
+            <M3DialogContent className="space-y-8 pt-8 px-8 md:px-16">
                 <TextField
                     label="Titolo Attività"
                     value={activity.title}
                     onChange={(e) => setActivity({ ...activity, title: e.target.value })}
                 />
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
                     <SelectField
                         label="Tipo"
                         value={activity.type}
@@ -78,9 +78,9 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                     rows={3}
                 />
 
-                <div className="space-y-2">
+                <div className="space-y-4">
                     <label className="m3-label-medium text-on-surface-variant">Classi Coinvolte</label>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-12">
                         {userClasses.map(cls => (
                             <button
                                 key={cls}
@@ -92,7 +92,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                         setActivity({ ...activity, classes: [...classes, cls] });
                                     }
                                 }}
-                                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                                className={`px-8 py-4 rounded-full text-xs font-bold transition-all ${
                                     activity.classes?.includes(cls)
                                         ? 'bg-primary text-on-primary'
                                         : 'bg-surface-container-high text-on-surface-variant'

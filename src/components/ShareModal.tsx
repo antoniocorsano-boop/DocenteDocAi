@@ -56,10 +56,10 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
             level={1}
         >
             <M3DialogContent className="space-y-4 bg-surface-container-high/30 backdrop-blur-sm">
-                <p className="m3-body-medium text-on-surface-variant px-2">Scegli come condividere il contenuto</p>
+                <p className="m3-body-medium text-on-surface-variant px-4">Scegli come condividere il contenuto</p>
                 
-                <div className="flex flex-col gap-3">
-                    <button onClick={handleSimpleShare} className="flex items-center gap-4 p-4 rounded-3xl bg-surface-container-lowest hover:bg-secondary-container/30 transition-all text-left group border border-outline-variant/30">
+                <div className="flex flex-col gap-6">
+                    <button onClick={handleSimpleShare} className="flex items-center gap-8 p-8 rounded-3xl bg-surface-container-lowest hover:bg-secondary-container/30 transition-all text-left group border border-outline-variant/30">
                         <div className="w-12 h-12 rounded-2xl bg-secondary-container text-on-secondary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
                             <span className="material-symbols-outlined text-2xl">share</span>
                         </div>
@@ -69,7 +69,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                         </div>
                     </button>
 
-                    <button onClick={handleCopyFormatted} className="flex items-center gap-4 p-4 rounded-3xl bg-surface-container-lowest hover:bg-tertiary-container/30 transition-all text-left group border border-outline-variant/30">
+                    <button onClick={handleCopyFormatted} className="flex items-center gap-8 p-8 rounded-3xl bg-surface-container-lowest hover:bg-tertiary-container/30 transition-all text-left group border border-outline-variant/30">
                         <div className="w-12 h-12 rounded-2xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
                             <span className="material-symbols-outlined text-2xl">{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
                         </div>

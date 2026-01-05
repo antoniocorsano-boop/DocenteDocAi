@@ -125,7 +125,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 <option value="sidi">SIDI (Anagrafe Studenti)</option>
                             </SelectField>
                             
-                            <div className="p-4 rounded-xl bg-secondary-container/30 border border-secondary/20 flex gap-3">
+                            <div className="p-8 rounded-xl bg-secondary-container/30 border border-secondary/20 flex gap-6">
                                 <span className="material-symbols-outlined text-secondary">info</span>
                                 <p className="m3-body-small text-on-secondary-container">
                                     {RegisterService.getExportGuidance(provider)}
@@ -140,7 +140,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         <div 
                             {...getRootProps()} 
                             className={`
-                                border-2 border-dashed rounded-2xl p-12 flex flex-col items-center justify-center gap-4 transition-all
+                                border-2 border-dashed rounded-2xl p-12 flex flex-col items-center justify-center gap-8 transition-all
                                 ${isDragActive ? 'border-primary bg-primary/5 scale-[0.98]' : 'border-outline-variant bg-surface-container-low hover:bg-surface-container-high'}
                                 ${isLoading ? 'opacity-50 cursor-wait' : 'cursor-pointer'}
                             `}
@@ -158,7 +158,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </div>
 
                         {error && (
-                            <div className="p-4 rounded-xl bg-error-container text-on-error-container flex items-center gap-3">
+                            <div className="p-8 rounded-xl bg-error-container text-on-error-container flex items-center gap-6">
                                 <span className="material-symbols-outlined">error</span>
                                 <p className="m3-body-medium">{error}</p>
                             </div>
@@ -175,35 +175,35 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <InfoCard title="Dati Studente" icon="person">
-                                <div className="space-y-4 p-2">
+                                <div className="space-y-4 p-8">
                                     <div>
-                                        <label className="block text-xs font-bold mb-1">Cognome *</label>
+                                        <label className="block text-xs font-bold mb-4">Cognome *</label>
                                         <select 
                                             value={mapping.cognome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, cognome: e.target.value }))}
-                                            className="w-full p-2 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold mb-1">Nome *</label>
+                                        <label className="block text-xs font-bold mb-4">Nome *</label>
                                         <select 
                                             value={mapping.nome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, nome: e.target.value }))}
-                                            className="w-full p-2 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold mb-1">Classe</label>
+                                        <label className="block text-xs font-bold mb-4">Classe</label>
                                         <select 
                                             value={mapping.classe}
                                             onChange={(e) => setMapping(prev => ({ ...prev, classe: e.target.value }))}
-                                            className="w-full p-2 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -213,35 +213,35 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             </InfoCard>
 
                             <InfoCard title="Dati Valutazioni (Opzionale)" icon="grade" variant="secondary">
-                                <div className="space-y-4 p-2">
+                                <div className="space-y-4 p-8">
                                     <div>
-                                        <label className="block text-xs font-bold mb-1">Voto</label>
+                                        <label className="block text-xs font-bold mb-4">Voto</label>
                                         <select 
                                             value={mapping.voto}
                                             onChange={(e) => setMapping(prev => ({ ...prev, voto: e.target.value }))}
-                                            className="w-full p-2 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold mb-1">Data</label>
+                                        <label className="block text-xs font-bold mb-4">Data</label>
                                         <select 
                                             value={mapping.data}
                                             onChange={(e) => setMapping(prev => ({ ...prev, data: e.target.value }))}
-                                            className="w-full p-2 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold mb-1">Materia</label>
+                                        <label className="block text-xs font-bold mb-4">Materia</label>
                                         <select 
                                             value={mapping.materia}
                                             onChange={(e) => setMapping(prev => ({ ...prev, materia: e.target.value }))}
-                                            className="w-full p-2 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -251,8 +251,8 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             </InfoCard>
                         </div>
 
-                        <div className="p-4 rounded-xl bg-surface-container-high overflow-x-auto">
-                            <p className="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-2">Anteprima Dati Raw (Prime 3 righe)</p>
+                        <div className="p-8 rounded-xl bg-surface-container-high overflow-x-auto">
+                            <p className="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-8">Anteprima Dati Raw (Prime 3 righe)</p>
                             <table className="w-full text-[10px] border-collapse">
                                 <thead>
                                     <tr>
@@ -273,12 +273,12 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
 
                 {step === 'preview' && result && (
                     <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
-                        <div className="flex items-center gap-3 text-primary">
+                        <div className="flex items-center gap-6 text-primary">
                             <span className="material-symbols-outlined text-3xl">check_circle</span>
                             <h3 className="m3-title-large font-black">Dati pronti per l&apos;importazione</h3>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                             <InfoCard title="Riepilogo" icon="analytics">
                                 <ul className="space-y-2">
                                     <li className="flex justify-between m3-body-medium">
@@ -293,9 +293,9 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             </InfoCard>
 
                             <InfoCard title="Classi rilevate" icon="class" variant="secondary">
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-wrap gap-8">
                                     {Array.from(new Set(result.students.map(s => s.classe))).map(c => (
-                                        <span key={c} className="px-2 py-1 rounded-md bg-secondary-container text-on-secondary-container m3-label-small font-bold">
+                                        <span key={c} className="px-4 py-1 rounded-md bg-secondary-container text-on-secondary-container m3-label-small font-bold">
                                             {c}
                                         </span>
                                     ))}
@@ -313,8 +313,8 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </M3Button>
 
                         {result.errors.length > 0 && (
-                            <div className="p-4 rounded-xl bg-warning-container text-on-warning-container">
-                                <p className="m3-label-medium font-bold mb-2">Avvisi durante l&apos;analisi:</p>
+                            <div className="p-8 rounded-xl bg-warning-container text-on-warning-container">
+                                <p className="m3-label-medium font-bold mb-8">Avvisi durante l&apos;analisi:</p>
                                 <ul className="list-disc list-inside m3-body-small opacity-80">
                                     {result.errors.slice(0, 3).map((err, i) => (
                                         <li key={i}>{err}</li>

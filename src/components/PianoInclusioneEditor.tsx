@@ -152,21 +152,21 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
 
                         {/* Obiettivi per Materia */}
                         <InfoCard variant="elevated" className="p-6 space-y-4">
-                            <div className="flex items-center gap-2 mb-2">
+                            <div className="flex items-center gap-8 mb-8">
                                 <span className="material-symbols-outlined text-primary">subject</span>
                                 <h3 className="text-sm font-bold text-primary uppercase tracking-wider">
                                     Obiettivi per Materia (PEI/PDP)
                                 </h3>
                             </div>
-                            <p className="text-xs text-on-surface-variant mb-4">
+                            <p className="text-xs text-on-surface-variant mb-8">
                                 Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
                             </p>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {settings.disciplines.map(materia => (
-                                    <div key={materia} className="space-y-2 p-4 rounded-xl bg-surface-container-lowest/50 border border-outline-variant/30">
+                                    <div key={materia} className="space-y-2 p-8 rounded-xl bg-surface-container-lowest/50 border border-outline-variant/30">
                                         <div className="flex justify-between items-center">
-                                            <label className="text-xs font-bold text-primary flex items-center gap-2">
+                                            <label className="text-xs font-bold text-primary flex items-center gap-8">
                                                 <span className="material-symbols-outlined text-[16px]">book</span>
                                                 {materia}
                                             </label>
