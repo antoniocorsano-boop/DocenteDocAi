@@ -59,14 +59,16 @@ export const SkeletonListLoading: React.FC = () => {
 /**
  * Preload hint - called on route navigation to prefetch next view
  */
-export function useViewPreload(viewName: string) {
+export function useViewPreload(viewName: string): void {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       // Trigger prefetch via dynamic import
-      import('../viewRegistry/lazyViewLoader').then(mod => {
+      import('./viewRegistry/lazyViewLoader').then(mod => {
         if (mod.preloadView) {
           mod.preloadView(viewName);
         }
+      }).catch(err => {
+        console.warn('[view-preload] Failed to import lazy loader:', err);
       });
     }, 100);
     
