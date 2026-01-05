@@ -20,19 +20,11 @@ export default {
     schema: []
   },
   create(context) {
-    const sourceCode = context.sourceCode;
-
-    // Valid spacing scale values (from design tokens)
-    const validSpacingTokens = [
-      '--spacing-1', '--spacing-2', '--spacing-3', '--spacing-4', '--spacing-5',
-      '--spacing-6', '--spacing-8', '--spacing-10', '--spacing-12', '--spacing-16'
-    ];
-
     // Valid Tailwind spacing equivalents
     const validTailwindSpacing = [
-      'p-0', 'p-1', 'p-2', 'p-3', 'p-4', 'p-6', 'p-8', 'p-10', 'p-12', 'p-16',
+      'p-0', 'p-1', 'p-2', 'p-3', 'p-4', 'p-5', 'p-6', 'p-8', 'p-10', 'p-12', 'p-16', 'p-20',
       'm-0', 'm-1', 'm-2', 'm-3', 'm-4', 'm-6', 'm-8', 'm-10', 'm-12', 'm-16',
-      'gap-0', 'gap-1', 'gap-2', 'gap-3', 'gap-4', 'gap-6', 'gap-8', 'gap-10',
+      'gap-0', 'gap-1', 'gap-2', 'gap-3', 'gap-4', 'gap-5', 'gap-6', 'gap-8', 'gap-10', 'gap-12',
       'space-x-2', 'space-x-4', 'space-x-6', 'space-y-2', 'space-y-4', 'space-y-6'
     ];
 

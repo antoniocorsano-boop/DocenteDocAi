@@ -463,7 +463,7 @@ export const App: React.FC = () => {
         );
     } catch {
         // Fallback visibile: errore di caricamento o runtime
-        return <div style={{ color: 'red', padding: '32px', fontFamily: 'monospace', background: 'var(--sys-surface-variant)', fontSize: '1.2rem', whiteSpace: 'pre-wrap' }}>
+        return <div style={{ color: 'red', padding: 'var(--spacing-8)', fontFamily: 'monospace', background: 'var(--sys-surface-variant)', fontSize: '1.2rem', whiteSpace: 'pre-wrap' }}>
             <b>ERRORE FATALE:</b> {String(err)}
             <br />
             <span>Controlla la console per dettagli tecnici.</span>
