@@ -8,6 +8,10 @@
 @import './logo.css';
 @import './modules.css';
 
+/* ========================================
+   WCAG 2.1 ACCESSIBILITY ENHANCEMENTS
+   ======================================== */
+
 /* Global resets and base styles */
 * {
   margin: 0;
@@ -202,6 +206,151 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .contextual-strip, .contextual-strip.visible, .contextual-strip.hidden-strip, .fab, .live-assistant-fab, .fab.listening, .live-assistant-fab.listening {
     animation: none !important;
+  }
+}
+
+/* ========================================
+   WCAG 2.1 FOCUS VISIBILITY (AA Compliance)
+   CRITERION: 2.4.7 Focus Visible
+   ======================================== */
+
+/* Enhanced focus indicators for all interactive elements */
+:focus-visible {
+  outline: 3px solid var(--sys-primary, #6750A4);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Specific focus styles for better visibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[role="link"]:focus-visible {
+  outline: 3px solid var(--sys-primary, #6750A4);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  :focus-visible {
+    outline-width: 4px;
+    outline-color: var(--sys-on-surface, #1C1B1F);
+  }
+}
+
+/* Skip link styling (hidden by default, visible on focus) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background-color: var(--sys-primary, #6750A4);
+  color: var(--sys-on-primary, #FFFFFF);
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: none;
+}
+
+/* SR-only (screen reader only) content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Make sr-only visible on focus */
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  padding: 8px 16px;
+  background-color: var(--sys-primary, #6750A4);
+  color: var(--sys-on-primary, #FFFFFF);
+  border-radius: 4px;
+}
+
+/* Form field accessibility */
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: var(--sys-on-surface, #1C1B1F);
+}
+
+/* Required field indicator */
+.required::after {
+  content: "*";
+  color: var(--sys-error, #B3261E);
+  margin-left: 4px;
+  aria-label: "required";
+}
+
+/* Error message styling (for accessibility) */
+.error-message,
+[role="alert"] {
+  color: var(--sys-error, #B3261E);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Input focus states */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  background-color: var(--sys-surface-dim, #F8F7FC);
+  border-color: var(--sys-primary, #6750A4);
+}
+
+/* Ensure text zoom works at 200% */
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/* Ensure minimum touch target sizes (44x44px) */
+button,
+a,
+[role="button"],
+input[type="checkbox"],
+input[type="radio"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Keyboard focus for links */
+a:focus-visible {
+  outline: 3px solid var(--sys-primary, #6750A4);
+  outline-offset: 2px;
+  text-decoration: underline;
+}
+
+/* Remove outline for mouse users (pointer:fine) */
+@media (pointer: fine) {
+  *:not(:focus-visible) {
+    outline: none;
+  }
+}
     transition: none !important;
   }
 }
