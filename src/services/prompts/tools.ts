@@ -1,4 +1,4 @@
-export const getCircularAnalysisPrompt = (documentText: string, today: string) => `
+export const getCircularAnalysisPrompt = (documentText: string, today: string): string => `
 TASK: Analizza il testo di una circolare scolastica e estrai informazioni strutturate.
 TESTO:
 ---
@@ -13,7 +13,7 @@ ISTRUZIONI:
 FORMATO OUTPUT: Restituisci ESCLUSIVAMENTE un oggetto JSON valido.
 `;
 
-export const getWebSearchPrompt = (query: string) => `
+export const getWebSearchPrompt = (query: string): string => `
 TASK: Ricerca web sintetica.
 QUERY: "${query}"
 
@@ -27,7 +27,7 @@ export const getQuizPrompt = (config: {
     difficulty: 'facile' | 'medio' | 'difficile';
     type?: string;
     selectedTypes?: string;
-}, corpusContent: string) => `
+}, corpusContent: string): string => `
 TASK: Generare una Verifica Scritta.
 
 **CONFIGURAZIONE:**
@@ -56,7 +56,7 @@ ${corpusContent.substring(0, 20000)}
 }
 `;
 
-export const getThemePrompt = (prompt: string) => `
+export const getThemePrompt = (prompt: string): string => `
 TASK: Generare Palette Colori Material Design 3.
 INPUT: "${prompt}"
 
@@ -71,7 +71,7 @@ Crea 3 colori esadecimali armoniosi che rispecchino l'input (es. "Oceano" -> Blu
 }
 `;
 
-export const getAnswerFromCorpusPrompt = (corpus: string, q: string) => `
+export const getAnswerFromCorpusPrompt = (corpus: string, q: string): string => `
 TASK: Risposta a domanda basata su documenti.
 DOMANDA: "${q}"
 FONTI:
@@ -82,7 +82,7 @@ ${corpus.substring(0, 15000)}
 Rispondi in modo preciso citando le fonti se possibile. Se la risposta non è presente nei documenti, dillo chiaramente.
 `;
 
-export const getStudioOutputPrompt = (task: string, corpus: string) => `
+export const getStudioOutputPrompt = (task: string, corpus: string): string => `
 TASK: Elaborazione Studio Assistita.
 ATTIVITÀ: ${task}
 FONTI: ${corpus.substring(0, 10000)}
@@ -90,7 +90,7 @@ FONTI: ${corpus.substring(0, 10000)}
 Esegui l'attività richiesta basandoti sulle fonti fornite.
 `;
 
-export const getEventExtractionPrompt = (text: string) => `
+export const getEventExtractionPrompt = (text: string): string => `
 TASK: Estrazione Eventi da Testo.
 TESTO: ${text}
 
@@ -99,7 +99,7 @@ Estrai data, ora e titolo dell'evento.
 **FORMATO OUTPUT:** JSON ESCLUSIVO
 `;
 
-export const getCurriculumParsingPrompt = (text: string) => `
+export const getCurriculumParsingPrompt = (text: string): string => `
 TASK: Parsing Curricolo Ministeriale.
 TESTO: ${text.substring(0, 10000)}
 
@@ -108,7 +108,7 @@ Estrai competenze, abilità e conoscenze.
 **FORMATO OUTPUT:** JSON ESCLUSIVO
 `;
 
-export const getRefineTextPrompt = (text: string, instructions: string) => `
+export const getRefineTextPrompt = (text: string, instructions: string): string => `
 TASK: Perfezionamento Testo con AI.
 ISTRUZIONI: ${instructions}
 TESTO ORIGINALE:
@@ -117,7 +117,7 @@ ${text}
 Applica le istruzioni al testo mantenendo il significato originale ma migliorando la forma.
 `;
 
-export const getTemplateGenerationPrompt = (description: string, type: string) => `
+export const getTemplateGenerationPrompt = (description: string, type: string): string => `
 TASK: Generazione Template Documento Scolastico.
 DESCRIZIONE: "${description}"
 TIPO: ${type}

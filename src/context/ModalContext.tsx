@@ -83,7 +83,7 @@ export const useModal = (): ModalContextType => {
 /**
  * Simplified hook for single modal lifecycle
  */
-export const useModalController = (modalId: string) => {
+export const useModalController = (modalId: string): { openModal: (component: React.ReactNode, onClose?: () => void) => void; closeModal: () => void; isOpen: boolean } => {
   const { pushModal, popModal, isModalOpen } = useModal();
 
   const openModal = useCallback(
@@ -159,7 +159,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 
   // Push modal to stack
   const pushModal = useCallback(
-    (options: PushModalOptions) => {
+    (options: PushModalOptions): void => {
       setStack((prev) => {
         // Prevent duplicate modal IDs
         if (prev.some((m) => m.id === options.id)) {
@@ -341,7 +341,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
 
       {/* Modal Content Wrapper */}
       <div
-        className="relative z-10 w-full animate-in zoom-in-95 duration-300"
+        className="relative z-10 w-full h-full flex items-center justify-center animate-in zoom-in-95 duration-300"
         role="dialog"
         aria-modal="true"
         data-modal-portal-content

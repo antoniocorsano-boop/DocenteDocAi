@@ -39,7 +39,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
       try {
         const steps = await generateWizardForNodeLLM(node, {});
         setWizardSteps(steps);
-      } catch (e) {
+      } catch {
         // swallow LLM errors; UI will show fallback if needed
       } finally {
         setWizardLoading(false);

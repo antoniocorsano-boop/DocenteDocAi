@@ -13,7 +13,7 @@ export interface RegisterSyncConfig {
 /**
  * Provides detailed guidance on how to export data from specific registers
  */
-export const getRegisterImportGuidance = (provider: RegisterProvider) => {
+export const getRegisterImportGuidance = (provider: RegisterProvider): { providerName: string; steps: string[] } => {
     switch (provider) {
         case 'argo':
             return {
@@ -76,7 +76,7 @@ export const getRegisterImportGuidance = (provider: RegisterProvider) => {
  * Service to manage integration with electronic registers (Argo, Spaggiari, Axios, etc.)
  */
 export const RegisterService = {
-    getExportGuidance: (provider: RegisterProvider) => getRegisterImportGuidance(provider).steps.join(' '),
+    getExportGuidance: (provider: RegisterProvider): string => getRegisterImportGuidance(provider).steps.join(' '),
 
     /**
      * Placeholder for future direct API synchronization

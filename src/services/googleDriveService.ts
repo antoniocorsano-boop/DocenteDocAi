@@ -1,12 +1,19 @@
 
 import { DEFAULT_TIMETABLE_SETTINGS } from '../constants';
 
+declare const google: unknown;
+declare const gapi: unknown;
+
+interface TokenClient {
+    requestAccessToken: (options: { prompt?: string; scope?: string }) => void;
+}
+
 const BACKUP_FILE_NAME = 'OrarioDoc_Backup.json';
 const BACKUP_MIME_TYPE = 'application/json';
 const DEFAULT_BACKUP_FOLDER_NAME = 'OrarioDoc_Backups';
 const NOTEBOOKLM_FOLDER_NAME = 'OrarioDoc_NotebookLM';
 // removed unused `FILES_SUBFOLDER_NAME`
-let tokenClient: any = null;
+let tokenClient: TokenClient | null = null;
 let accessToken: string | null = null;
 
 const DEFAULT_SCOPES = [
@@ -19,7 +26,7 @@ const getEnvClientId = () => {
         if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_GOOGLE_CLIENT_ID) {
             return import.meta.env.VITE_GOOGLE_CLIENT_ID;
         }
-    } catch (e) {
+    } catch {
         // ignore environment read errors
     }
     return undefined;
@@ -34,7 +41,7 @@ export const initTokenClient = (callback: (tokenResponse: unknown) => void, expl
     
     const scopes = customScopes ? customScopes.join(' ') : DEFAULT_SCOPES.join(' ');
 
-    tokenClient = google.accounts.oauth2.initTokenClient({
+    tokenClient = (google as unknown as { accounts: { oauth2: { initTokenClient: (config: unknown) => TokenClient } } }).accounts.oauth2.initTokenClient({
         client_id: clientId,
         scope: scopes,
         callback: (tokenResponse: unknown) => {
@@ -55,18 +62,18 @@ export const initTokenClient = (callback: (tokenResponse: unknown) => void, expl
  * Request access token. Can accept specific scopes for incremental auth (e.g. Gmail).
  */
 // FIX: Updated requestAccessToken to accept an optional overrideScope parameter to satisfy gmailService requirements
-export const requestAccessToken = (overrideScope?: string) => {
+export const requestAccessToken = (overrideScope?: string): void => {
     if (tokenClient && typeof tokenClient === 'object' && 'requestAccessToken' in tokenClient) {
         if (overrideScope) {
-            (tokenClient as any).requestAccessToken({ prompt: 'consent', scope: overrideScope });
+            tokenClient.requestAccessToken({ prompt: 'consent', scope: overrideScope });
         } else {
-            (tokenClient as any).requestAccessToken({ prompt: 'consent' });
+            tokenClient.requestAccessToken({ prompt: 'consent' });
         }
     }
 };
 
-export const getAccessToken = () => accessToken;
-export const revokeAccessToken = () => { if (accessToken) { google.accounts.oauth2.revoke(accessToken, () => accessToken = null); } };
+export const getAccessToken = (): string | null => accessToken;
+export const revokeAccessToken = (): void => { if (accessToken) { google.accounts.oauth2.revoke(accessToken, () => accessToken = null); } };
 
 /**
  * Initializes the GAPI client.
@@ -166,7 +173,7 @@ export const pickGoogleDriveFolder = async (apiKey?: string): Promise<{ id: stri
                         } else if (dd?.action === gapi.picker.Action.CANCEL) {
                             resolve(null);
                         }
-                    } catch (e) {
+                    } catch {
                         resolve(null);
                     }
                 });
@@ -175,13 +182,13 @@ export const pickGoogleDriveFolder = async (apiKey?: string): Promise<{ id: stri
     });
 };
 
-export const createAppFolder = async () => {
+export const createAppFolder = async (): Promise<void> => {
     const folder = await searchFolder(DEFAULT_BACKUP_FOLDER_NAME);
     if (folder) return folder;
     return await createFolder(DEFAULT_BACKUP_FOLDER_NAME);
 };
 
-export const getBackupMetadata = async (folderId: string) => {
+export const getBackupMetadata = async (folderId: string): Promise<unknown> => {
     const url = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(`name='${BACKUP_FILE_NAME}' and '${folderId}' in parents and trashed=false`)}&fields=files(id,modifiedTime)`;
     const res = await fetch(url, { headers: { 'Authorization': `Bearer ${accessToken}` } });
     if (!res.ok) return null;

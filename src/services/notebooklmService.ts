@@ -181,8 +181,6 @@ export const syncNotebookFiles = async (
     const remoteFiles = await fetchNotebookFiles();
     const localFiles = await getLocalFiles();
     const mergedFiles: NotebookLMFile[] = [...localFiles];
-    // Mappa per confronto rapido
-    const remoteMap = new Map(remoteFiles.map(f => [f.id, f]));
     const localMap = new Map(localFiles.map(f => [f.id, f]));
     // Gestione conflitti e merge
     for (const remote of remoteFiles) {
@@ -238,6 +236,6 @@ export const isNotebookLMAuthenticated = async (): Promise<boolean> => {
 };
 
 // Logout helper
-export const notebookLMLogout = () => {
+export const notebookLMLogout = (): void => {
   // Il logout viene gestito centralmente da googleDriveService
 };

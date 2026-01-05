@@ -12,7 +12,7 @@ export const getLessonSuggestionPrompt = (
         classe: string; materia: string; uda?: Uda; existingLessonsInUda: Lezione[];
         topic?: string; knowledgeBase?: KnowledgeBaseEntry[]; pianiInclusione?: PianoInclusione[]; allCompetenze: Competenza[];
     }
-) => {
+): string => {
     const inclusionContext = (context.pianiInclusione && context.pianiInclusione.length > 0)
     ? `\n\n**SUPPORTO ALL'INCLUSIVITÀ:**
 - **Piani di Inclusione Attivi:** ${context.pianiInclusione.length} studenti con BES/DSA.
@@ -67,7 +67,7 @@ ${JSON_OUTPUT_FORMAT_LESSON}
     }
 };
 
-export const getLessonFromIdeaPrompt = (ideaText: string, kbContent?: string) => `
+export const getLessonFromIdeaPrompt = (ideaText: string, kbContent?: string): string => `
 TASK: Trasformare un appunto informale in un piano di lezione professionale.
 
 **IDEA GREZZA:** "${ideaText}"
@@ -93,7 +93,7 @@ interface ClassPlanningData {
     metodologie: string;
 }
 
-export const getClassPlanningPrompt = (data: ClassPlanningData) => `
+export const getClassPlanningPrompt = (data: ClassPlanningData): string => `
 TASK: Redigere il documento "Progettazione Disciplinare di Classe".
 
 **DATI DI INPUT:**
@@ -117,7 +117,7 @@ Sezioni richieste:
 TONO: Istituzionale e professionale.
 `;
 
-export const getAnnualPlanPrompt = (kb: string, subj: string, cls: string) => `
+export const getAnnualPlanPrompt = (kb: string, subj: string, cls: string): string => `
 TASK: Generazione Piano Annuale UDA.
 MATERIA: ${subj}
 CLASSE: ${cls}
@@ -137,7 +137,7 @@ Genera una sequenza logica di 6-8 Unità di Apprendimento (UDA) per l'intero ann
 ]
 `;
 
-export const getUdaValidationPrompt = (uda: Uda, kb: KnowledgeBaseEntry[]) => `
+export const getUdaValidationPrompt = (uda: Uda, kb: KnowledgeBaseEntry[]): string => `
 TASK: Validazione Coerenza UDA con Curricolo Verticale.
 UDA: ${uda.title}
 CURRICOLO: ${JSON.stringify(kb).substring(0, 5000)}
@@ -145,7 +145,7 @@ CURRICOLO: ${JSON.stringify(kb).substring(0, 5000)}
 Analizza se gli obiettivi e le competenze dell'UDA sono allineati con il curricolo della scuola.
 `;
 
-export const getLessonSequencePrompt = (uda: Uda[], classe: string, kb: string) => `
+export const getLessonSequencePrompt = (uda: Uda[], classe: string, kb: string): string => `
 TASK: Generazione Sequenza Lezioni Strutturata.
 CLASSE: ${classe}
 UDA: ${JSON.stringify(uda)}
@@ -156,7 +156,7 @@ Genera un elenco di lezioni dettagliate per coprire le UDA fornite.
 **FORMATO OUTPUT:** JSON ESCLUSIVO (Array)
 `;
 
-export const getAddContextToLessonPrompt = (lesson: Lezione) => `
+export const getAddContextToLessonPrompt = (lesson: Lezione): string => `
 TASK: Arricchimento Lezione.
 LEZIONE: ${JSON.stringify(lesson)}
 `;
@@ -164,7 +164,7 @@ LEZIONE: ${JSON.stringify(lesson)}
 export const getInclusivityAdaptationsPrompt = (ctx: {
     lesson: Lezione;
     classe: string;
-}, piani: PianoInclusione[]) => `
+}, piani: PianoInclusione[]): string => `
 TASK: Adattamenti Inclusivi per Lezione.
 LEZIONE: ${JSON.stringify(ctx)}
 PIANI: ${JSON.stringify(piani)}
@@ -172,7 +172,7 @@ PIANI: ${JSON.stringify(piani)}
 Suggerisci adattamenti specifici per gli studenti con BES/DSA presenti in classe.
 `;
 
-export const getMethodologyStrategiesPrompt = (ctx: string) => `
+export const getMethodologyStrategiesPrompt = (ctx: string): string => `
 TASK: Suggerimento metodologie e strategie didattiche.
 CONTESTO: ${ctx}
 

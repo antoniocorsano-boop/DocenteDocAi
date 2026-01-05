@@ -21,7 +21,7 @@ const ensureString = (content: unknown): string => {
 };
 
 // Funzione generica per generazione contenuti AI (usata da NKA wizard)
-export const generateContent = async (prompt: string, options: { temperature?: number; maxTokens?: number; stop?: string | undefined }) => {
+export const generateContent = async (prompt: string, options: { temperature?: number; maxTokens?: number; stop?: string | undefined }): Promise<{ content: string }> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
@@ -162,7 +162,7 @@ export const generateLessonFromIdea = async (aiSettings: AiSettings, ideaText: s
     });
 };
 
-export const generateSituazionePartenza = async (aiSettings: AiSettings, params: { classe: string; tags: string[]; notes?: string; }) => {
+export const generateSituazionePartenza = async (aiSettings: AiSettings, params: { classe: string; tags: string[]; notes?: string; }): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
@@ -174,7 +174,7 @@ export const generateSituazionePartenza = async (aiSettings: AiSettings, params:
     });
 };
 
-export const generateMethodologyStrategies = async (aiSettings: AiSettings, ctx: string) => {
+export const generateMethodologyStrategies = async (aiSettings: AiSettings, ctx: string): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
@@ -186,7 +186,7 @@ export const generateMethodologyStrategies = async (aiSettings: AiSettings, ctx:
     });
 };
 
-export const suggestAnnualPlan = async (aiSettings: AiSettings, kb: string, subj: string, cls: string) => {
+export const suggestAnnualPlan = async (aiSettings: AiSettings, kb: string, subj: string, cls: string): Promise<any[]> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
@@ -253,7 +253,7 @@ export const generateAcademicEssayContent = async (aiSettings: AiSettings): Prom
     });
 };
 
-export const getPeriodicJudgmentSuggestion = async (aiSettings: AiSettings, s: Studente, per: string, evals: Valutazione[], cEvals: ValutazioneCompetenza[], comps: Competenza[]) => {
+export const getPeriodicJudgmentSuggestion = async (aiSettings: AiSettings, s: Studente, per: string, evals: Valutazione[], cEvals: ValutazioneCompetenza[], comps: Competenza[]): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -264,7 +264,7 @@ export const getPeriodicJudgmentSuggestion = async (aiSettings: AiSettings, s: S
     });
 };
 
-export const generateMarkdownReport = async (aiSettings: AiSettings, type: string, data: Record<string, unknown>) => {
+export const generateMarkdownReport = async (aiSettings: AiSettings, type: string, data: Record<string, unknown>): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -303,7 +303,7 @@ export const generateLessonSequenceForClass = async (
     });
 };
 
-export const getPIPSuggestion = async (aiSettings: AiSettings, s: Studente, evals: Valutazione[], cEvals: ValutazioneCompetenza[], comps: Competenza[], sec: string) => {
+export const getPIPSuggestion = async (aiSettings: AiSettings, s: Studente, evals: Valutazione[], cEvals: ValutazioneCompetenza[], comps: Competenza[], sec: string): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -314,7 +314,7 @@ export const getPIPSuggestion = async (aiSettings: AiSettings, s: Studente, eval
     });
 };
 
-export const generateCompetencyNote = async (aiSettings: AiSettings, s: Studente, c: Competenza, l: Livello) => {
+export const generateCompetencyNote = async (aiSettings: AiSettings, s: Studente, c: Competenza, l: Livello): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -329,7 +329,7 @@ export const getAIPedagogicalAdvice = async (aiSettings: AiSettings, data: {
     lesson: Lezione;
     students: Studente[];
     evaluations: Valutazione[];
-}, type: string, comps: Competenza[]) => {
+}, type: string, comps: Competenza[]): Promise<any> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -341,7 +341,7 @@ export const getAIPedagogicalAdvice = async (aiSettings: AiSettings, data: {
     });
 };
 
-export const generateFormattedDocument = async (aiSettings: AiSettings, corpus: string, prompt: string) => {
+export const generateFormattedDocument = async (aiSettings: AiSettings, corpus: string, prompt: string): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -357,7 +357,7 @@ export const generateQuiz = async (aiSettings: AiSettings, corpus: string, confi
     numQuestions: number;
     difficulty: 'facile' | 'medio' | 'difficile';
     type: 'scelta-multipla' | 'vero-falso' | 'domande-aperte';
-}) => {
+}): Promise<GeneratedQuiz> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -369,7 +369,7 @@ export const generateQuiz = async (aiSettings: AiSettings, corpus: string, confi
     });
 };
 
-export const generateStudioOutput = async (aiSettings: AiSettings, corpus: string, task: string) => {
+export const generateStudioOutput = async (aiSettings: AiSettings, corpus: string, task: string): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -380,7 +380,7 @@ export const generateStudioOutput = async (aiSettings: AiSettings, corpus: strin
     });
 };
 
-export const addContextToLesson = async (aiSettings: AiSettings, lesson: Lezione) => {
+export const addContextToLesson = async (aiSettings: AiSettings, lesson: Lezione): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -391,7 +391,7 @@ export const addContextToLesson = async (aiSettings: AiSettings, lesson: Lezione
     });
 };
 
-export const generateInclusivityAdaptations = async (aiSettings: AiSettings, ctx: { lesson: Lezione; student?: Studente }, piani: PianoInclusione[]) => {
+export const generateInclusivityAdaptations = async (aiSettings: AiSettings, ctx: { lesson: Lezione; student?: Studente }, piani: PianoInclusione[]): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -429,7 +429,7 @@ export const getProactiveSuggestions = async (aiSettings: AiSettings, state: {
     });
 };
 
-export const generateThemeFromPrompt = async (aiSettings: AiSettings, p: string) => {
+export const generateThemeFromPrompt = async (aiSettings: AiSettings, p: string): Promise<any> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -441,7 +441,7 @@ export const generateThemeFromPrompt = async (aiSettings: AiSettings, p: string)
     });
 };
 
-export const generateImageFromPrompt = async (aiSettings: AiSettings, p: string) => {
+export const generateImageFromPrompt = async (aiSettings: AiSettings, p: string): Promise<any> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -489,7 +489,7 @@ export const chatWithAi = async (aiSettings: AiSettings, messages: ChatMessage[]
     });
 };
 
-export const extractEventFromText = async (aiSettings: AiSettings, t: string) => {
+export const extractEventFromText = async (aiSettings: AiSettings, t: string): Promise<any> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -501,7 +501,7 @@ export const extractEventFromText = async (aiSettings: AiSettings, t: string) =>
     });
 };
 
-export const refactorProgrammazione = async (aiSettings: AiSettings, t: string) => {
+export const refactorProgrammazione = async (aiSettings: AiSettings, t: string): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -512,7 +512,7 @@ export const refactorProgrammazione = async (aiSettings: AiSettings, t: string) 
     });
 };
 
-export const analyzeImage = async (aiSettings: AiSettings, img: string, p: string) => {
+export const analyzeImage = async (aiSettings: AiSettings, img: string, p: string): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         if (!img.includes(',')) throw new Error("Invalid image data URL provided for analysis.");
@@ -528,7 +528,7 @@ export const analyzeImage = async (aiSettings: AiSettings, img: string, p: strin
     });
 };
 
-export const parseCurriculumFromText = async (aiSettings: AiSettings, t: string, s: string, g: string) => {
+export const parseCurriculumFromText = async (aiSettings: AiSettings, t: string, s: string, g: string): Promise<CurriculumSubject> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -540,7 +540,7 @@ export const parseCurriculumFromText = async (aiSettings: AiSettings, t: string,
     });
 };
 
-export const refineTextWithAi = async (aiSettings: AiSettings, t: string, i: string) => {
+export const refineTextWithAi = async (aiSettings: AiSettings, t: string, i: string): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -551,7 +551,7 @@ export const refineTextWithAi = async (aiSettings: AiSettings, t: string, i: str
     });
 };
 
-export const generateDocumentTable = async (aiSettings: AiSettings, d: string) => {
+export const generateDocumentTable = async (aiSettings: AiSettings, d: string): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -562,8 +562,8 @@ export const generateDocumentTable = async (aiSettings: AiSettings, d: string) =
     });
 };
 
-export const discoverAndCreateFeed = async (url: string) => { throw new Error("RSS Disabilitato."); };
-export const fetchAndParseRssFeed = async (url: string) => { throw new Error("RSS Disabilitato."); };
+export const discoverAndCreateFeed = async (url: string): Promise<never> => { throw new Error("RSS Disabilitato."); };
+export const fetchAndParseRssFeed = async (url: string): Promise<never> => { throw new Error("RSS Disabilitato."); };
 
 export const generateClassCouncilNarrativeReport = async (aiSettings: AiSettings, data: {
     classe: string;

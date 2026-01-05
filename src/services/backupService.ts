@@ -24,7 +24,7 @@ export const initPersistentStorage = async (): Promise<boolean> => {
     return false;
 };
 
-export const checkStorageQuota = async () => {
+export const checkStorageQuota = async (): Promise<StorageEstimate | null> => {
     try {
         if (navigator.storage && navigator.storage.estimate) {
             const estimate = await navigator.storage.estimate();
@@ -262,7 +262,7 @@ export const closeDatabase = (): void => {
 /**
  * Reset internal state for testing purposes
  */
-export const resetDbForTesting = () => {
+export const resetDbForTesting = (): void => {
     dbInstance = null;
     dbInitPromise = null;
 };

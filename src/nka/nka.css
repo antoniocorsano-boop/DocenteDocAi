@@ -30,6 +30,8 @@
   border-radius: 50%;
   border: 2px solid var(--md-sys-color-surface);
 }
+
+.nka-bottom-sheet {
   position: fixed;
   left: 0; right: 0; bottom: 0;
   background: var(--md-sys-color-surface-container-lowest);

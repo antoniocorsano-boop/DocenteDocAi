@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
 // LLM integration for AI-generated wizard steps (Gemini/OpenAI ready)
 import { NKANode } from './types';
 import { NKAWizardStep } from './wizardAI';
@@ -14,7 +14,7 @@ export async function generateWizardForNodeLLM(node: NKANode, userContext: any):
   });
   try {
     return JSON.parse(response.content) as NKAWizardStep[];
-  } catch (e) {
+  } catch {
     // Fallback: single step
     return [{
       id: node.id + '-fallback',

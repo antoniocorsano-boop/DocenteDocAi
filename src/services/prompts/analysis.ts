@@ -14,7 +14,7 @@ export const getProactiveSuggestionsPrompt = (
         evaluations: Valutazione[],
         competencyEvals: ValutazioneCompetenza[],
         uda: Uda[]
-) => `
+): string => `
 TASK: Analisi Dati Classe e Suggerimenti Proattivi.
 
 **DATI:**
@@ -50,7 +50,7 @@ export const getClassAnalysisPrompt = (selectedClass: string, dataSummary: {
     evaluations: Valutazione[];
     competencyEvals: ValutazioneCompetenza[];
     lessons: Lezione[];
-}) => `
+}): string => `
 TASK: Report Consiglio di Classe (Analisi Dati).
 
 **DATI CLASSE ${selectedClass}:**
@@ -73,7 +73,7 @@ export const getPeriodicJudgmentSuggestionPrompt = (
     per: string, 
     evals: Valutazione[], 
     cEvals: ValutazioneCompetenza[]
-) => `
+): string => `
 TASK: Scrittura Giudizio Sintetico Periodico.
 STUDENTE: ${s.cognome} ${s.nome}
 PERIODO: ${per}
@@ -89,7 +89,7 @@ export const getPIPSuggestionPrompt = (
     cEvals: ValutazioneCompetenza[],
     comps: Competenza[],
     sec: string
-) => {
+): string => {
     const isMateria = sec.startsWith('obj-');
     const materiaName = isMateria ? sec.replace('obj-', '') : '';
 
@@ -108,7 +108,7 @@ Fornisci un testo professionale, pedagogico e sintetico.
 `;
 };
 
-export const getCompetencyNotePrompt = (s: Studente, c: Competenza, l: Livello) => `
+export const getCompetencyNotePrompt = (s: Studente, c: Competenza, l: Livello): string => `
 TASK: Generazione Nota per Valutazione Competenza.
 STUDENTE: ${s.cognome} ${s.nome}
 COMPETENZA: ${c.nome}
@@ -121,7 +121,7 @@ export const getAIPedagogicalAdvicePrompt = (data: {
     lesson: Lezione;
     students: Studente[];
     evaluations: Valutazione[];
-}, type: string) => `
+}, type: string): string => `
 TASK: Consulenza Pedagogica Personalizzata.
 TIPO: ${type}
 DATI: ${JSON.stringify(data)}
@@ -142,7 +142,7 @@ export const getClassCouncilNarrativeReportPrompt = (data: {
     stats: string;
     criticalities: string[];
     strengths: string[];
-}) => `
+}): string => `
 TASK: Report Narrativo per Consiglio di Classe.
 DATI: ${JSON.stringify(data)}
 
@@ -158,7 +158,7 @@ export const getSituazionePartenzaPrompt = (params: {
     pianiInclusione?: PianoInclusione[];
     tags: string[];
     notes?: string;
-}) => `
+}): string => `
 TASK: Analisi situazione di partenza per la classe ${params.classe}.
 TAGS: ${params.tags.join(', ')}
 NOTE: ${params.notes || 'Nessuna nota aggiuntiva.'}
@@ -166,7 +166,7 @@ NOTE: ${params.notes || 'Nessuna nota aggiuntiva.'}
 Genera un testo professionale e pedagogico che descriva il profilo della classe basandosi sui tag forniti.
 `;
 
-export const getPedagogicalAnalysisPrompt = (lesson: { title: string; description: string; }) => `
+export const getPedagogicalAnalysisPrompt = (lesson: { title: string; description: string; }): string => `
 TASK: Analisi Pedagogica e Inclusiva di un piano lezione.
 
 **LEZIONE DA ANALIZZARE:**

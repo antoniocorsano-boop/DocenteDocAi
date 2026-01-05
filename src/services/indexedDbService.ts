@@ -292,7 +292,7 @@ export const closeDatabase = (): void => {
 /**
  * Reset internal state for testing purposes
  */
-export const resetDbForTesting = () => {
+export const resetDbForTesting = (): void => {
     dbInstance = null;
     dbInitPromise = null;
 };

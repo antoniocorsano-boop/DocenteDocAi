@@ -1,4 +1,5 @@
 // Sound design for NKA: play M3-compliant sound cues for nodes/actions
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const playNkaSound = (type: 'node' | 'action' | 'badge') => {
   if (typeof window === 'undefined' || !window.AudioContext) return;
   const ctx = new window.AudioContext();

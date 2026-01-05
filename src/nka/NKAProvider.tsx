@@ -16,4 +16,4 @@ export const NKAProvider: React.FC<NKAProviderProps> = ({ children }) => {
   return <NKAContext.Provider value={value}>{children}</NKAContext.Provider>;
 };
 
-export const useNKAContext = () => useContext(NKAContext);
+export const useNKAContext = (): ReturnType<typeof useNKAStore> | undefined => useContext(NKAContext);
