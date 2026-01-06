@@ -27,7 +27,11 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
   const [wizardLoading, setWizardLoading] = React.useState<boolean>(false);
   const [showGame, setShowGame] = React.useState<boolean>(false);
   const handleNodeSelect = React.useCallback((node: NKANode) => {
-    playNkaSound('node');
+    try {
+      playNkaSound('node');
+    } catch (err) {
+      console.warn('[NKA] Sound play error:', err);
+    }
     setSelectedNode(node);
     setShowWizard(true);
     // Call onNodeSelect synchronously so callers don't depend on async LLM generation
@@ -39,7 +43,8 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
       try {
         const steps = await generateWizardForNodeLLM(node, {});
         setWizardSteps(steps);
-      } catch {
+      } catch (err) {
+        console.warn('[NKA] Wizard generation error:', err);
         // swallow LLM errors; UI will show fallback if needed
       } finally {
         setWizardLoading(false);

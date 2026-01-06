@@ -65,22 +65,23 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
       }
     }, 5000);
 
-    getLLMNeuralLayout(nodes, width, height, {}).then(pos => {
-      if (!cancelled) {
-        clearTimeout(timeout);
-        // Apply separation to avoid overlaps
-        const separated = separatePositions(pos as any, nodeRadius * 2 + 8);
-        setPositions(separated as any);
-      }
-    }).catch(err => {
-      if (!cancelled) {
-        clearTimeout(timeout);
-        console.warn('[NKA] LLM layout error:', err);
-        setLoading(false);
-      }
-    }).finally(() => {
-      if (!cancelled) setLoading(false);
-    });
+    getLLMNeuralLayout(nodes, width, height, {})
+      .then(pos => {
+        if (!cancelled) {
+          clearTimeout(timeout);
+          // Apply separation to avoid overlaps
+          const separated = separatePositions(pos as any, nodeRadius * 2 + 8);
+          setPositions(separated as any);
+          setLoading(false);
+        }
+      })
+      .catch(err => {
+        if (!cancelled) {
+          clearTimeout(timeout);
+          console.warn('[NKA] LLM layout error:', err);
+          setLoading(false);
+        }
+      });
     
     return () => { 
       cancelled = true;
