@@ -75,9 +75,9 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                         </span>
                                     </td>
                                     <td className="text-right">
-                                            <M3IconButton onClick={() => onSaveReportToKb(report)} title="Salva in Knowledge Base" icon={<span className="material-symbols-outlined">inventory_2</span>} />
-                                            <M3IconButton onClick={() => handleDownload(report)} title="Scarica" icon={<span className="material-symbols-outlined">download</span>} />
-                                            <M3IconButton onClick={() => onDeleteReport(report.id)} title="Elimina" icon={<span className="material-symbols-outlined text-error">delete</span>} />
+                                            <M3IconButton onClick={() => onSaveReportToKb(report)} title="Salva in Knowledge Base" ariaLabel="Salva report in Knowledge Base" icon="inventory_2" />
+                                            <M3IconButton onClick={() => handleDownload(report)} title="Scarica" ariaLabel="Scarica report" icon="download" />
+                                            <M3IconButton onClick={() => onDeleteReport(report.id)} title="Elimina" ariaLabel="Elimina report" icon="delete" />
                                     </td>
                                 </tr>
                             ))}

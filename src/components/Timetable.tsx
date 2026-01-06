@@ -83,7 +83,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 <M3IconButton 
                                     icon="chevron_left" 
                                     onClick={() => handleDayNav(-1)} 
-                                    variant="standard"
+                                    ariaLabel="Giorno precedente"
                                 />
                                 <span className="text-sm font-black min-w-[100px] text-center uppercase tracking-widest text-on-surface">
                                     {visibleDays[0]}
@@ -91,7 +91,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 <M3IconButton 
                                     icon="chevron_right" 
                                     onClick={() => handleDayNav(1)} 
-                                    variant="standard"
+                                    ariaLabel="Giorno successivo"
                                 />
                             </div>
                         )}
