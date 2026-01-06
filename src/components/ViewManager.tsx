@@ -3,7 +3,7 @@ import { VIEW_CONFIGS, Home, FlowMode, ClassDashboard, ClassSelection, Classroom
 import RegisterImportDialog from './RegisterImportDialog';
 import AuraView from './AuraView';
 import ErrorBoundary from './ErrorBoundary';
-import { AiThinkingGem } from './ui';
+import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
 import { AppState, AppActions, View, Lezione, RegisterEntry, Studente, Competenza, Uda, Report } from '../types';
 import type { Modals } from '../types';
 
@@ -83,11 +83,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
         const config = VIEW_CONFIGS[view];
 
         return (
-            <Suspense fallback={
-                <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
-                    <AiThinkingGem size="large" text="Caricamento..." />
-                </div>
-            }>
+            <Suspense fallback={<ViewLoadingPlaceholder message="Caricamento vista..." />}>
                 {(() => {
                     // --- SPECIAL VIEWS LOGIC ---
 

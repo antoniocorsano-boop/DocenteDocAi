@@ -28,7 +28,7 @@ interface EventActionPopoverProps {
   onDelete: (eventId: string) => void;
 }
 ```
-
+\    ``typescript\```   
 ### Content Structure
 - Header: Event title, date, time, description
 - Button 1: "Modifica" (Edit) - triggers onEdit + onClose
