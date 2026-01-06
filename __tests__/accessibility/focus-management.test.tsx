@@ -13,13 +13,13 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { M3Dialog, M3DialogContent, M3DialogActions } from '../../src/components/ui';
-import { M3Button } from '../../src/components/ui/M3Button';
+import M3Button from '../../src/components/ui/M3Button';
 
 describe('Focus Management - Modal Focus Trap', () => {
-  let onClose: ReturnType<typeof vi.fn>;
+  let onClose: () => void;
 
   beforeEach(() => {
-    onClose = vi.fn();
+    onClose = vi.fn(() => {}) as unknown as (() => void);
   });
 
   it('should focus on first focusable element when modal opens', async () => {
