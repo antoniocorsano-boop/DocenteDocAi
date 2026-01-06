@@ -56,7 +56,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                         <h2 className="m3-title-medium font-bold flex items-center gap-8">
                             <span className="material-symbols-outlined">inbox</span> Inbox Compiti
                         </h2>
-                        <button onClick={onClose} className="icon-button rounded-lg hover:shadow-md transition-all"><span className="material-symbols-outlined">close</span></button>
+                        <button onClick={onClose} className="icon-button rounded-lg hover:shadow-md transition-all" aria-label="Chiudi inbox"><span className="material-symbols-outlined" aria-hidden="true">close</span></button>
                     </div>
 
                     <div className="flex-grow overflow-y-auto p-8 space-y-1">

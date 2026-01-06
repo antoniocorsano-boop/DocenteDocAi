@@ -534,8 +534,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 <span className="m3-label-small text-on-surface-variant">ore</span>
                                             </div>
 
-                                            <button onClick={() => removeUdaFromPlan(idx)} className="icon-button text-error hover:bg-error-container/30 !w-8 !h-8" title="Rimuovi UDA">
-                                                <span className="material-symbols-outlined m3-label-large">delete</span>
+                                            <button onClick={() => removeUdaFromPlan(idx)} className="icon-button text-error hover:bg-error-container/30 !w-8 !h-8" title="Rimuovi UDA" aria-label="Rimuovi questa UDA dal piano">
+                                                <span className="material-symbols-outlined" aria-hidden="true">delete</span>
                                             </button>
                                         </div>
                                     ))}

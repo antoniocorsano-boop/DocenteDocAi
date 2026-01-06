@@ -273,6 +273,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   className="hidden"
                   onChange={handleNbUpload}
                   accept=".txt,.md,.pdf,.docx"
+                  aria-label="Carica file per knowledge base"
                 />
                 <M3Button
                   variant="text"

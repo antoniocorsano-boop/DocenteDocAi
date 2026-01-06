@@ -439,8 +439,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         onClick={() => setShowSequenceHelp(!showSequenceHelp)} 
                                         className="icon-button text-secondary !w-8 !h-8" 
                                         title="Info sulla sequenza"
+                                        aria-label="Mostra informazioni sulla sequenza UDA"
                                     >
-                                        <span className="material-symbols-outlined">help</span>
+                                        <span className="material-symbols-outlined" aria-hidden="true">help</span>
                                     </button>
                                 </div>
                                 <div className="flex gap-8">

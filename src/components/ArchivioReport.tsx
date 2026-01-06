@@ -41,13 +41,14 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
             <div className="card">
                 <div className="p-8">
                     <div className="search-input-container max-w-lg">
-                        <span className="material-symbols-outlined">search</span>
+                        <span className="material-symbols-outlined" aria-hidden="true">search</span>
                         <input 
                             type="text"
                             placeholder="Cerca report per nome o contesto..."
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
                             className="search-input"
+                            aria-label="Cerca report per nome o contesto"
                         />
                     </div>
                 </div>

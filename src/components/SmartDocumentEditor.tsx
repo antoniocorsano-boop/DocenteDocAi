@@ -286,7 +286,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             {/* TOOLBAR */}
             <div className="flex items-center justify-between p-8 border-b border-outline-variant bg-surface-container shadow-sm">
                 <div className="flex items-center gap-8">
-                    <button onClick={handleCloseSafe} className="icon-button"><span className="material-symbols-outlined">arrow_back</span></button>
+                    <button onClick={handleCloseSafe} className="icon-button" aria-label="Chiudi editor"><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
                     <input 
                         type="text" 
                         value={editorTitle} 
@@ -297,12 +297,12 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                 </div>
                 
                 <div className="flex items-center gap-4 bg-surface rounded-lg border border-outline-variant p-1 hidden md:flex">
-                    <button onClick={() => execCmd('bold')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Grassetto"><span className="material-symbols-outlined m3-label-large">format_bold</span></button>
-                    <button onClick={() => execCmd('italic')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Corsivo"><span className="material-symbols-outlined m3-label-large">format_italic</span></button>
-                    <button onClick={() => execCmd('formatBlock', 'h2')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Titolo"><span className="material-symbols-outlined m3-label-large">title</span></button>
+                    <button onClick={() => execCmd('bold')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Grassetto" aria-label="Applica grassetto"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_bold</span></button>
+                    <button onClick={() => execCmd('italic')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Corsivo" aria-label="Applica corsivo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_italic</span></button>
+                    <button onClick={() => execCmd('formatBlock', 'h2')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Titolo" aria-label="Applica stile titolo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">title</span></button>
                     <div className="w-px h-6 bg-outline-variant mx-1"></div>
-                    <button onClick={() => execCmd('insertUnorderedList')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Elenco"><span className="material-symbols-outlined m3-label-large">format_list_bulleted</span></button>
-                    <button onClick={handleAiTable} className="icon-button !w-8 !h-8 text-primary rounded-lg hover:shadow-md transition-all" title="Tabella AI"><span className="material-symbols-outlined m3-label-large">table_chart</span></button>
+                    <button onClick={() => execCmd('insertUnorderedList')} className="icon-button !w-8 !h-8 rounded-lg hover:shadow-md transition-all" title="Elenco" aria-label="Inserisci elenco puntato"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_list_bulleted</span></button>
+                    <button onClick={handleAiTable} className="icon-button !w-8 !h-8 text-primary rounded-lg hover:shadow-md transition-all" title="Tabella AI" aria-label="Genera tabella con AI"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">table_chart</span></button>
                 </div>
 
                 <div className="flex gap-8">
@@ -312,8 +312,8 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                     <button onClick={handleDownload} className="button button-outlined !h-9 !px-3 m3-label-large rounded-lg hover:shadow-md transition-all">
                         <span className="material-symbols-outlined mr-2 m3-body-medium">download</span> DOCX
                     </button>
-                    <button onClick={handlePrint} className="icon-button !w-9 !h-9 rounded-lg hover:bg-surface-container-high transition-all" title="Stampa / PDF">
-                        <span className="material-symbols-outlined m3-body-medium">print</span>
+                    <button onClick={handlePrint} className="icon-button !w-9 !h-9 rounded-lg hover:bg-surface-container-high transition-all" title="Stampa / PDF" aria-label="Stampa o salva come PDF">
+                        <span className="material-symbols-outlined m3-body-medium" aria-hidden="true">print</span>
                     </button>
                     {onSaveToKb && (
                         <button onClick={handleSave} className="button button-filled !h-9 !px-3 m3-label-large rounded-lg hover:shadow-md transition-all">

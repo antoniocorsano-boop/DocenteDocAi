@@ -369,8 +369,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); setSelectedStudentForActions(student); }}
                                                     className="icon-button text-on-surface-variant"
+                                                    aria-label={`Azioni per ${student.name}`}
                                                 >
-                                                    <span className="material-symbols-outlined">more_vert</span>
+                                                    <span className="material-symbols-outlined" aria-hidden="true">more_vert</span>
                                                 </button>
                                             </div>
                                         </div>

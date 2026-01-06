@@ -80,12 +80,13 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                 
                 {/* Integrated Input Area */}
                 <div className="m3-new-chip-input-container group" onClick={() => inputRef.current?.focus()}>
-                    <span className="material-symbols-outlined text-sm opacity-40 group-focus-within:text-primary group-focus-within:opacity-100 transition-all">add_circle</span>
+                    <span className="material-symbols-outlined text-sm opacity-40 group-focus-within:text-primary group-focus-within:opacity-100 transition-all" aria-hidden="true">add_circle</span>
                     <input 
                         ref={inputRef}
                         type="text" 
                         value={newItem} 
                         onChange={e => setNewItem(e.target.value)}
+                        aria-label={`Aggiungi nuovo ${label.toLowerCase()}`}
                         onKeyDown={handleKeyDown}
                         className="m3-new-chip-input flex-1"
                         placeholder={placeholder}
