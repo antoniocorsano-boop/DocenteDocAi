@@ -11,7 +11,7 @@ const storybookPlugins = [] as unknown[];
 
 try {
   // Optional dependency: Storybook Vitest addon is loaded when present.
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+   
   const { storybookTest } = require('@storybook/addon-vitest/vitest-plugin');
   storybookPlugins.push(storybookTest({
     configDir: path.join(dirname, '.storybook')
