@@ -1,0 +1,186 @@
+import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import NKABottomSheet from './NKABottomSheet';
+import { NKANode } from './types';
+
+// Sample nodes for demonstration - using CSS variables instead of hardcoded colors
+const sampleNodes: NKANode[] = [
+  { id: '1', label: 'Introduzione', color: 'var(--sys-error)', elevation: 1, depth: 0, shape: 'circle', actions: [] },
+  { id: '2', label: 'Concetti Base', color: 'var(--sys-tertiary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
+  { id: '3', label: 'Applicazioni', color: 'var(--sys-secondary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
+  { id: '4', label: 'Esempi Pratici', color: 'var(--sys-primary)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
+  { id: '5', label: 'Conclusioni', color: 'var(--sys-surface-variant)', elevation: 4, depth: 3, shape: 'circle', actions: [] },
+];
+
+const meta = {
+  title: 'Components/NKA/NKABottomSheet',
+  component: NKABottomSheet,
+  parameters: {
+    layout: 'fullscreen',
+    docs: {
+      description: {
+        component: 'Neural Knowledge Architecture (NKA) Bottom Sheet modal displaying an interactive force-directed graph of knowledge nodes with AI-powered wizard generation.',
+      },
+    },
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    open: {
+      control: 'boolean',
+      description: 'Whether the bottom sheet is visible',
+    },
+    nodes: {
+      description: 'Array of NKA nodes to display in the map',
+    },
+  },
+} satisfies Meta<typeof NKABottomSheet>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    open: true,
+    nodes: sampleNodes,
+    onClose: () => console.log('Close'),
+    onNodeSelect: (node) => console.log('Selected node:', node),
+  },
+};
+
+export const Closed: Story = {
+  args: {
+    open: false,
+    nodes: sampleNodes,
+    onClose: () => console.log('Close'),
+    onNodeSelect: (node) => console.log('Selected node:', node),
+  },
+};
+
+export const Interactive: Story = {
+  args: {
+    open: true,
+    nodes: sampleNodes,
+    onClose: () => console.log('Close'),
+    onNodeSelect: (node: NKANode) => console.log('Selected node:', node),
+  },
+  render: (args) => {
+    const [open, setOpen] = React.useState(args.open);
+    const [selectedNode, setSelectedNode] = React.useState<NKANode | null>(null);
+
+    return (
+      <div style={{ padding: '2rem' }}>
+        <button
+          onClick={() => setOpen(true)}
+          style={{
+            padding: '1rem 2rem',
+            background: 'var(--sys-primary)',
+            color: 'var(--sys-on-primary)',
+            border: 'none',
+            borderRadius: '24px',
+            cursor: 'pointer',
+            fontSize: '1rem',
+            fontWeight: 600,
+          }}
+        >
+          Open Knowledge Map
+        </button>
+        {selectedNode && (
+          <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--sys-surface-container)', borderRadius: '8px' }}>
+            <strong>Selected Node:</strong> {selectedNode.label}
+          </div>
+        )}
+        <NKABottomSheet
+          open={open}
+          nodes={args.nodes}
+          onClose={() => setOpen(false)}
+          onNodeSelect={(node) => {
+            setSelectedNode(node);
+            console.log('Selected:', node);
+          }}
+        />
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Interactive demo - click the button to open the bottom sheet and explore the knowledge map.',
+      },
+    },
+  },
+};
+
+export const ManyNodes: Story = {
+  args: {
+    open: true,
+    nodes: Array.from({ length: 20 }, (_, i) => ({
+      id: `node-${i}`,
+      label: `Node ${i + 1}`,
+      color: `hsl(${(i * 18) % 360}, 70%, 60%)`,
+      elevation: (i % 4) + 1,
+      depth: Math.floor(i / 5),
+      shape: 'circle' as const,
+      actions: [],
+    })),
+    onClose: () => console.log('Close'),
+    onNodeSelect: (node) => console.log('Selected node:', node),
+  },
+};
+
+export const LinearPath: Story = {
+  args: {
+    open: true,
+    nodes: [
+      { id: '1', label: 'Step 1: Introduction', color: 'var(--sys-primary)', elevation: 1, depth: 0, shape: 'circle', actions: [] },
+      { id: '2', label: 'Step 2: Setup', color: 'var(--sys-secondary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
+      { id: '3', label: 'Step 3: Configuration', color: 'var(--sys-tertiary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
+      { id: '4', label: 'Step 4: Implementation', color: 'var(--sys-error)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
+      { id: '5', label: 'Step 5: Testing', color: 'var(--sys-warning)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
+      { id: '6', label: 'Step 6: Deployment', color: 'var(--sys-success)', elevation: 4, depth: 3, shape: 'circle', actions: [] },
+    ],
+    onClose: () => console.log('Close'),
+    onNodeSelect: (node) => console.log('Selected node:', node),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Linear knowledge path demonstrating sequential dependencies.',
+      },
+    },
+  },
+};
+
+export const ComplexNetwork: Story = {
+  args: {
+    open: true,
+    nodes: [
+      { id: 'root', label: 'Root Concept', color: 'var(--sys-primary)', elevation: 4, depth: 0, shape: 'circle', actions: [] },
+      { id: 'branch1', label: 'Branch A', color: 'var(--sys-secondary)', elevation: 3, depth: 1, shape: 'circle', actions: [] },
+      { id: 'branch2', label: 'Branch B', color: 'var(--sys-secondary)', elevation: 3, depth: 1, shape: 'circle', actions: [] },
+      { id: 'branch3', label: 'Branch C', color: 'var(--sys-secondary)', elevation: 3, depth: 1, shape: 'circle', actions: [] },
+      { id: 'leaf1', label: 'Leaf A1', color: 'var(--sys-tertiary)', elevation: 2, depth: 2, shape: 'circle', actions: [] },
+      { id: 'leaf2', label: 'Leaf A2', color: 'var(--sys-tertiary)', elevation: 2, depth: 2, shape: 'circle', actions: [] },
+      { id: 'leaf3', label: 'Leaf B1', color: 'var(--sys-tertiary)', elevation: 2, depth: 2, shape: 'circle', actions: [] },
+      { id: 'leaf4', label: 'Leaf B2', color: 'var(--sys-tertiary)', elevation: 2, depth: 2, shape: 'circle', actions: [] },
+      { id: 'convergence', label: 'Convergence', color: 'var(--sys-error)', elevation: 3, depth: 3, shape: 'circle', actions: [] },
+    ],
+    onClose: () => console.log('Close'),
+    onNodeSelect: (node) => console.log('Selected node:', node),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Complex network showing branching and convergence patterns.',
+      },
+    },
+  },
+};
+
+export const SingleNode: Story = {
+  args: {
+    open: true,
+    nodes: [{ id: '1', label: 'Single Concept', color: 'var(--sys-primary)', elevation: 1, depth: 0, shape: 'circle', actions: [] }],
+    onClose: () => console.log('Close'),
+    onNodeSelect: (node) => console.log('Selected node:', node),
+  },
+};

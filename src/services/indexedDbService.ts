@@ -46,7 +46,13 @@ const getDb = (): Promise<IDBDatabase> => {
                     dbInitPromise = null;
                     
                     // Elimina e ricrea il database
-                    const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
+                    const deleteRequest = indexedDB.deleteDatabase(DB_NAME) as IDBOpenDBRequest | undefined;
+
+                    if (!deleteRequest) {
+                        reject(new Error('Failed to recreate KB database'));
+                        return;
+                    }
+
                     deleteRequest.onsuccess = () => {
                         getDb().then(resolve).catch(reject);
                     };
@@ -225,7 +231,13 @@ export const clearIndexedDB = async (): Promise<void> => {
             try {
                 const transaction = db.transaction(STORE_NAME, 'readwrite');
                 const store = transaction.objectStore(STORE_NAME);
-                void store.clear();
+                if (typeof store.clear === 'function') {
+                    void store.clear();
+                } else {
+                    console.warn('[IndexedDbService] Store clear not available; skipping');
+                    resolve();
+                    return;
+                }
                 transaction.oncomplete = () => resolve();
                 transaction.onerror = () => {
                     console.error('Clear KB store transaction error:', transaction.error);

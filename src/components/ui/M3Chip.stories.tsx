@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import M3Chip from '../M3Chip';
+import M3Chip from './M3Chip';
 
 const meta: Meta<typeof M3Chip> = {
   component: M3Chip,
@@ -72,7 +72,7 @@ export const Elevated: Story = {
  * Deletable chip
  */
 export const Deletable: Story = {
-  render: (args) => {
+  render: (args: any) => {
     const [deleted, setDeleted] = useState(false);
     if (deleted) return <p>Chip deleted!</p>;
     return <M3Chip {...args} onDelete={() => setDeleted(true)} />;

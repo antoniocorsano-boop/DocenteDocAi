@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import M3BottomAppBar from '../M3BottomAppBar';
+import M3BottomAppBar from './M3BottomAppBar';
 
 const meta: Meta<typeof M3BottomAppBar> = {
   component: M3BottomAppBar,

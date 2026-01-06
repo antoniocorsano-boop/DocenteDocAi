@@ -4,6 +4,8 @@
 
 # DocenteDoc AI
 
+> Nota: per regole di design, codice, test e collaborazione segui la fonte canonica [.github/copilot-instructions_v2.md](.github/copilot-instructions_v2.md) (MD3 custom-first, token-only, Tailwind solo layout, coverage ≥80%, file protetti).
+
 Assistente AI per docenti basato su Google Gemini e architettura Local-First.
 
 ## ✨ Aura Design System (M3 Expressive)

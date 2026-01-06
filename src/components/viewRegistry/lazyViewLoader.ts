@@ -59,15 +59,31 @@ export const MAIN_BUNDLE_VIEWS: View[] = [
  * This triggers dynamic import of heavy views like PDFs, Calendar, etc.
  * @param viewName - Name of view to preload
  */
-export function preloadView(viewName: string): void {
-  // Views are already lazy-loaded in viewRegistry.ts
-  // This just triggers the import in background
-  if (LAZY_VIEW_LIST.includes(viewName as View)) {
-    import(`../${viewName}`).catch(err => {
-      console.warn(`[lazy-load] Failed to preload view: ${viewName}`, err);
-    }).then(() => {
-      viewLoadingMetrics.markLoaded(viewName);
-    });
+const VIEW_IMPORTERS: Partial<Record<View, () => Promise<unknown>>> = {
+  reportistica: () => import('../ReportisticaHub'),
+  calendario: () => import('../Calendar'),
+  'progettazione-hub': () => import('../ProgettazioneHub'),
+  settings: () => import('../Settings'),
+  orientamento: () => import('../OrientamentoDashboard')
+};
+
+export function preloadView(viewName: View): void {
+  if (!LAZY_VIEW_LIST.includes(viewName)) {
+    return;
   }
+
+  const importer = VIEW_IMPORTERS[viewName];
+  if (!importer) {
+    console.warn(`[lazy-load] No importer registered for view: ${viewName}`);
+    return;
+  }
+
+  importer()
+    .then(() => {
+      viewLoadingMetrics.markLoaded(viewName);
+    })
+    .catch(err => {
+      console.warn(`[lazy-load] Failed to preload view: ${viewName}`, err);
+    });
 }
 

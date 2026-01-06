@@ -1,5 +1,7 @@
 # DocenteDoc AI
 
+> Nota rapida: le istruzioni canoniche (design MD3, token-only, M3 custom-first, test/coverage) sono in [.github/copilot-instructions_v2.md](../.github/copilot-instructions_v2.md). Riferisciti a quelle per qualsiasi modifica.
+
 DocenteDoc AI è un ecosistema didattico intelligente progettato per docenti italiani. Questa applicazione web progressiva (PWA) è costruita con un'architettura **Local-First**, garantendo che tutti i dati sensibili rimangano sul dispositivo dell'utente.
 
 ## Panoramica del Progetto

@@ -60,7 +60,6 @@ describe('M3Dialog Accessibility', () => {
 
     const firstBtn = screen.getByTestId('first-btn');
     const lastBtn = screen.getByTestId('last-btn');
-    const closeBtn = screen.getByLabelText('Chiudi');
 
     // Mock activeElement
     Object.defineProperty(document, 'activeElement', {
@@ -68,12 +67,11 @@ describe('M3Dialog Accessibility', () => {
       writable: true
     });
 
-    // Tab on last element should go to first (which is the close button in the header)
+    // Tab on last element should wrap to the first focusable element in content
     fireEvent.keyDown(window, { key: 'Tab' });
-    
-    // The first focusable element is actually the close button in the header
+
     await waitFor(() => {
-      expect(closeBtn.focus).toHaveBeenCalled();
+      expect(firstBtn.focus).toHaveBeenCalled();
     });
   });
 });

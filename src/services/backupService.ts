@@ -73,7 +73,13 @@ const getDb = (): Promise<IDBDatabase> => {
                     dbInitPromise = null;
                     
                     // Elimina e ricrea il database
-                    const deleteRequest = indexedDB.deleteDatabase(DB_NAME);
+                    const deleteRequest = indexedDB.deleteDatabase(DB_NAME) as IDBOpenDBRequest | undefined;
+
+                    if (!deleteRequest) {
+                        reject(new Error('Failed to recreate database'));
+                        return;
+                    }
+
                     deleteRequest.onsuccess = () => {
                         // Riprova l'apertura
                         getDb().then(resolve).catch(reject);

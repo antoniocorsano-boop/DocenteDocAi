@@ -15,37 +15,65 @@ export const useKeyboardNavigation = (
     const { focusOnOpen = true, restoreFocus = true } = options;
     const modalRef = useRef<HTMLDivElement>(null);
     const previouslyFocusedElement = useRef<Element | null>(null);
+    const lastInteractionTarget = useRef<HTMLElement | null>(null);
+
+    useEffect(() => {
+      const recordInteraction = (event: Event) => {
+        const target = event.target as HTMLElement | null;
+        if (target && typeof target.focus === 'function') {
+          lastInteractionTarget.current = target;
+        }
+      };
+
+      document.addEventListener('mousedown', recordInteraction, true);
+      document.addEventListener('touchstart', recordInteraction, true);
+      document.addEventListener('click', recordInteraction, true);
+
+      return () => {
+        document.removeEventListener('mousedown', recordInteraction, true);
+        document.removeEventListener('touchstart', recordInteraction, true);
+        document.removeEventListener('click', recordInteraction, true);
+      };
+    }, []);
 
     useEffect(() => {
         if (!isOpen) return;
 
-        // Salva l'elemento attualmente focalizzato
-        if (restoreFocus) {
-            previouslyFocusedElement.current = document.activeElement;
+        // Salva l'elemento attualmente focalizzato (una sola volta per apertura)
+        if (restoreFocus && !previouslyFocusedElement.current) {
+          previouslyFocusedElement.current = document.activeElement && document.activeElement !== document.body
+            ? document.activeElement
+            : lastInteractionTarget.current;
         }
 
         // Focus trap: cattura tutti gli elementi focusabili nel modal
         const getFocusableElements = (): HTMLElement[] => {
-            if (!modalRef.current) return [];
-            const focusableSelectors = [
-                'a[href]',
-                'button:not([disabled])',
-                'textarea:not([disabled])',
-                'input:not([disabled])',
-                'select:not([disabled])',
-                '[tabindex]:not([tabindex="-1"])'
-            ];
-            return Array.from(
-                modalRef.current.querySelectorAll(focusableSelectors.join(', '))
-            ) as HTMLElement[];
+          if (!modalRef.current) return [];
+          const focusableSelectors = [
+            'a[href]',
+            'button:not([disabled])',
+            'textarea:not([disabled])',
+            'input:not([disabled])',
+            'select:not([disabled])',
+            '[tabindex]:not([tabindex="-1"])'
+          ];
+          const focusables = Array.from(
+            modalRef.current.querySelectorAll(focusableSelectors.join(', '))
+          ) as HTMLElement[];
+
+          // Keep DOM order but move negative-priority items (e.g., header close) to the end
+          const preferred = focusables.filter(el => Number(el.getAttribute('data-focus-priority') ?? 0) >= 0);
+          const deprioritized = focusables.filter(el => Number(el.getAttribute('data-focus-priority') ?? 0) < 0);
+          return [...preferred, ...deprioritized];
         };
 
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (!isOpen) return;
+          if (!isOpen) return;
 
             const focusableElements = getFocusableElements();
-            const firstElement = focusableElements[0];
-            const lastElement = focusableElements[focusableElements.length - 1];
+            const preferredElements = focusableElements.filter(el => Number(el.getAttribute('data-focus-priority') ?? 0) >= 0);
+            const firstElement = preferredElements[0] || focusableElements[0];
+            const lastElement = preferredElements[preferredElements.length - 1] || focusableElements[focusableElements.length - 1];
 
             switch (event.key) {
                 case 'Escape':
@@ -54,7 +82,7 @@ export const useKeyboardNavigation = (
                     break;
 
                 case 'Tab':
-                    if (focusableElements.length === 0) return;
+                  if (focusableElements.length === 0 || preferredElements.length === 0) return;
 
                     if (event.shiftKey) {
                         // Shift + Tab: vai all'ultimo elemento se siamo sul primo
@@ -75,26 +103,66 @@ export const useKeyboardNavigation = (
 
         // Aggiungi event listener
         document.addEventListener('keydown', handleKeyDown);
+        const handleFocusIn = (event: FocusEvent) => {
+          if (!isOpen || !modalRef.current) return;
+          const targetNode = event.target as Node;
+          const closestDialog = (targetNode as Element | null)?.closest('[data-testid="m3-dialog"]');
+
+          // Allow focus inside other dialog shells (e.g., nested modals)
+          if (closestDialog && closestDialog !== modalRef.current) {
+            return;
+          }
+
+          if (!modalRef.current.contains(targetNode)) {
+            const focusableElements = getFocusableElements();
+            const preferredElements = focusableElements.filter(el => Number(el.getAttribute('data-focus-priority') ?? 0) >= 0);
+
+            // If there are no preferred focusable elements, do not force focus back (allows triggers to keep focus)
+            if (preferredElements.length === 0) return;
+
+            const fallback = preferredElements[0] || focusableElements[0];
+            if (fallback && document.activeElement !== fallback) {
+              fallback.focus();
+            }
+          }
+        };
+        document.addEventListener('focusin', handleFocusIn);
 
         // Focus sul primo elemento quando il modal si apre
         if (focusOnOpen) {
-            setTimeout(() => {
-                const focusableElements = getFocusableElements();
-                if (focusableElements.length > 0) {
-                    focusableElements[0].focus();
-                }
-            }, 100); // Timeout per permettere al DOM di aggiornarsi
+          const immediateFocusable = getFocusableElements();
+          const immediatePreferred = immediateFocusable.filter(el => Number(el.getAttribute('data-focus-priority') ?? 0) >= 0);
+          if (immediatePreferred.length === 0 && previouslyFocusedElement.current instanceof HTMLElement) {
+            previouslyFocusedElement.current.focus();
+          }
+
+          setTimeout(() => {
+            const focusableElements = getFocusableElements();
+            if (focusableElements.length > 0) {
+              const target = focusableElements.find(el => Number(el.getAttribute('data-focus-priority') ?? 0) >= 0);
+              if (target) {
+                target.focus();
+              } else if (previouslyFocusedElement.current && 'focus' in previouslyFocusedElement.current) {
+                // Keep focus on the trigger when the dialog has no preferred focusable elements
+                (previouslyFocusedElement.current as HTMLElement).focus();
+              }
+            }
+          }, 100); // Timeout per permettere al DOM di aggiornarsi
         }
 
         // Cleanup
         return () => {
-            document.removeEventListener('keydown', handleKeyDown);
+          document.removeEventListener('keydown', handleKeyDown);
+          document.removeEventListener('focusin', handleFocusIn);
 
             // Ripristina il focus quando il modal si chiude
             if (restoreFocus && previouslyFocusedElement.current && typeof (previouslyFocusedElement.current as HTMLElement).focus === 'function') {
-                setTimeout(() => {
-                    (previouslyFocusedElement.current as HTMLElement).focus();
-                }, 100);
+              setTimeout(() => {
+                (previouslyFocusedElement.current as HTMLElement).focus();
+                previouslyFocusedElement.current = null;
+              }, 100);
+            } else {
+              previouslyFocusedElement.current = null;
             }
         };
     }, [isOpen, onClose, focusOnOpen, restoreFocus]);

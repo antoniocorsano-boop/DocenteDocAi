@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import M3IconButton from '../M3IconButton';
+import M3IconButton from './M3IconButton';
 
 const meta: Meta<typeof M3IconButton> = {
   component: M3IconButton,

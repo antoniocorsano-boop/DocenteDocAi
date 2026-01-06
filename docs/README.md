@@ -1,6 +1,8 @@
 
 # OrarioDoc AI: L'Ecosistema Didattico Intelligente
 
+> Nota: la guida attiva per design, sviluppo e test è [.github/copilot-instructions_v2.md](../.github/copilot-instructions_v2.md). Usa quella come riferimento (MD3 custom-first, token-only, Tailwind solo layout, file protetti, coverage ≥80%).
+
 Benvenuti nella documentazione ufficiale di **OrarioDoc AI**. L'applicazione definitiva per il docente moderno: privacy assoluta, design all'avanguardia e intelligenza artificiale integrata.
 
 ---

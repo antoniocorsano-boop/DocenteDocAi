@@ -88,6 +88,8 @@ describe('backupService (IndexedDB app_state)', () => {
     });
 
     beforeEach(() => {
+        // Ensure fake timers are applied for each test (other suites may toggle timers)
+        vi.useFakeTimers();
         vi.clearAllMocks();
         resetBackupDb();
         vi.spyOn(console, 'log').mockImplementation(() => {});
@@ -422,9 +424,11 @@ describe('backupService (IndexedDB app_state)', () => {
                 if (db.onerror) db.onerror(new Error('test error'));
                 
                 setTimeout(() => {
-                    const results = db.transaction.mock.results;
-                    if (results.length > 0) {
-                        const tx = results[results.length - 1].value;
+                    const txMock = (db as any).transaction as any;
+                    const results = txMock?.mock?.results;
+
+                    if (Array.isArray(results) && results.length > 0) {
+                        const tx = results[results.length - 1]?.value;
                         if (tx && tx.oncomplete) tx.oncomplete();
                     }
                 }, 10);

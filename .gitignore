@@ -54,3 +54,6 @@ scripts/*.local.*
 playwright-report/
 docs/screenshots/
 scripts/audit-md3-expressive.js
+
+*storybook.log
+storybook-static

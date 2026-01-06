@@ -192,6 +192,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
               <button
                 onClick={onClose}
                 className="w-10 h-10 rounded-full hover:bg-surface-container-highest flex items-center justify-center transition-colors ml-4"
+                data-focus-priority="-1"
                 aria-label="Chiudi"
               >
                 <span className="material-symbols-outlined">close</span>
