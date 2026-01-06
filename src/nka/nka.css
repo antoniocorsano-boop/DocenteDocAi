@@ -31,6 +31,14 @@
   border: 2px solid var(--md-sys-color-surface);
 }
 
+.nka-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 999;
+  backdrop-filter: blur(1px);
+}
+
 .nka-bottom-sheet {
   position: fixed;
   left: 0; right: 0; bottom: 0;

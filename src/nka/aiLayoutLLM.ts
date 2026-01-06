@@ -24,13 +24,17 @@ export async function getLLMNeuralLayout(nodes: readonly NKANode[], width: numbe
       };
     });
   } catch (error) {
-    console.error('Failed to get LLM layout, falling back to spiral:', error);
-    // Fallback to spiral demo
+    console.warn('[NKA] LLM layout generation failed, using fallback spiral:', error);
+    // Fallback to spiral demo with safe positioning
     const angleStep = (2 * Math.PI) / Math.max(nodes.length, 1);
-    return nodes.map((node, i) => ({
-      ...node,
-      x: width / 2 + Math.cos(i * angleStep) * (width / 3) * (1 + i * 0.1),
-      y: height / 2 + Math.sin(i * angleStep) * (height / 3) * (1 + i * 0.1),
-    }));
+    const radius = Math.min(width, height) / 3;
+    return nodes.map((node, i) => {
+      const angle = i * angleStep;
+      return {
+        ...node,
+        x: width / 2 + Math.cos(angle) * radius,
+        y: height / 2 + Math.sin(angle) * radius,
+      };
+    });
   }
 }

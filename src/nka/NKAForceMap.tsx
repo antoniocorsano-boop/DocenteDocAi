@@ -56,16 +56,36 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
   React.useEffect(() => {
     let cancelled = false;
     setLoading(true);
+    
+    // Set a timeout to prevent infinite loading
+    const timeout = setTimeout(() => {
+      if (!cancelled) {
+        console.warn('[NKA] LLM layout timeout, using fallback');
+        setLoading(false);
+      }
+    }, 5000);
+
     getLLMNeuralLayout(nodes, width, height, {}).then(pos => {
       if (!cancelled) {
+        clearTimeout(timeout);
         // Apply separation to avoid overlaps
         const separated = separatePositions(pos as any, nodeRadius * 2 + 8);
         setPositions(separated as any);
       }
+    }).catch(err => {
+      if (!cancelled) {
+        clearTimeout(timeout);
+        console.warn('[NKA] LLM layout error:', err);
+        setLoading(false);
+      }
     }).finally(() => {
       if (!cancelled) setLoading(false);
     });
-    return () => { cancelled = true; };
+    
+    return () => { 
+      cancelled = true;
+      clearTimeout(timeout);
+    };
      
   }, [nodes, width, height]);
 

@@ -49,7 +49,15 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
 
   if (!open) return null;
   return (
-    <div className="nka-bottom-sheet" role="dialog" aria-modal="true" aria-label="Mappa neurale">
+    <>
+      {/* Backdrop to close modal */}
+      <div 
+        className="nka-backdrop" 
+        onClick={onClose}
+        role="presentation"
+        aria-hidden="true"
+      />
+      <div className="nka-bottom-sheet" role="dialog" aria-modal="true" aria-label="Mappa neurale">
       <div className="nka-map-container">
         <NKAForceMap nodes={nodes} onNodeSelect={handleNodeSelect} />
         {/* List fallback for accessibility and actions */}
@@ -83,7 +91,8 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
         <GameMode nodes={nodes} />
       )}
       <button onClick={() => setShowGame((g: boolean) => !g)} className="nka-game-btn">{showGame ? 'Nascondi' : 'Mostra'} Modalità Gioco</button>
-    </div>
+      </div>
+    </>
   );
 };
 
