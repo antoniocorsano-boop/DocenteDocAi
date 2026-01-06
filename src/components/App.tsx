@@ -6,12 +6,14 @@ import * as React from 'react';
 import '../design-system/typography.css';
 import '../design-system/spacing.css';
 import '../design-system/breakpoints.css';
+import '../design-system/accessibility-focus.css';
 
 // Global runtime types are declared in `src/vite-env.d.ts`
 
 import AssistantFab from './AssistantFab';
 import { useAppEngine } from '../hooks/useAppEngine';
 import { Header } from './Header';
+import { SkipLink } from './accessibility/SkipLink';
 
 import NavigationRail from './NavigationRail';
 import ViewManager from './ViewManager';
@@ -245,7 +247,8 @@ export const App: React.FC = () => {
         // App Shell M3 Expressive
         return (
             <ErrorBoundary>
-                    <div className={`app-shell ${chaosStage === 'chaos' ? 'stage-chaos' : ''}`}>
+                <SkipLink />
+                <div className={`app-shell ${chaosStage === 'chaos' ? 'stage-chaos' : ''}`}>
                 {/* Fixed Header */}
                 <Header
                     title="DocenteDoc AI"

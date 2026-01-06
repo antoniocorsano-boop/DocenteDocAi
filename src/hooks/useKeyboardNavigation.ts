@@ -101,3 +101,98 @@ export const useKeyboardNavigation = (
 
     return modalRef;
 };
+
+/**
+ * Hook per la navigazione da tastiera negli elenchi
+ * Supporta: frecce (su/giu), Home/End, Enter/Space
+ * Implementa WCAG 2.1 compliance per list navigation
+ * 
+ * @param itemCount - Numero totale di elementi
+ * @param selectedIndex - Indice attualmente selezionato
+ * @param onSelect - Callback quando la selezione cambia
+ * @param onActivate - Callback quando l'elemento è attivato (Enter/Space)
+ * @param cycleItems - Se true, cicla tra elementi (wrap around)
+ * 
+ * @example
+ * const { handleKeyDown, navigateToIndex } = useListKeyboardNavigation({
+ *   itemCount: items.length,
+ *   selectedIndex: selected,
+ *   onSelect: setSelected,
+ *   onActivate: handleActivate
+ * });
+ * 
+ * <ul onKeyDown={handleKeyDown}>
+ *   {items.map((item, i) => (
+ *     <li key={i} tabIndex={i === selected ? 0 : -1}>
+ *       {item}
+ *     </li>
+ *   ))}
+ * </ul>
+ */
+export interface UseListKeyboardNavigationOptions {
+  itemCount: number;
+  selectedIndex?: number;
+  onSelect?: (index: number) => void;
+  onActivate?: (index: number) => void;
+  cycleItems?: boolean;
+}
+
+export const useListKeyboardNavigation = (options: UseListKeyboardNavigationOptions) => {
+  const {
+    itemCount,
+    selectedIndex = 0,
+    onSelect,
+    onActivate,
+    cycleItems = true
+  } = options;
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    let newIndex = selectedIndex;
+
+    switch (e.key) {
+      case 'ArrowDown':
+      case 'ArrowRight':
+        e.preventDefault();
+        newIndex = selectedIndex + 1;
+        if (newIndex >= itemCount) {
+          newIndex = cycleItems ? 0 : itemCount - 1;
+        }
+        onSelect?.(newIndex);
+        break;
+
+      case 'ArrowUp':
+      case 'ArrowLeft':
+        e.preventDefault();
+        newIndex = selectedIndex - 1;
+        if (newIndex < 0) {
+          newIndex = cycleItems ? itemCount - 1 : 0;
+        }
+        onSelect?.(newIndex);
+        break;
+
+      case 'Home':
+        e.preventDefault();
+        onSelect?.(0);
+        break;
+
+      case 'End':
+        e.preventDefault();
+        onSelect?.(itemCount - 1);
+        break;
+
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        onActivate?.(selectedIndex);
+        break;
+
+      default:
+        break;
+    }
+  }, [selectedIndex, itemCount, cycleItems, onSelect, onActivate]);
+
+  return { handleKeyDown };
+};
+
+// Re-export for convenience
+export { useCallback } from 'react';

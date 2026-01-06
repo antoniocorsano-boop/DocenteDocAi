@@ -1,0 +1,188 @@
+/**
+ * Accessibility Focus Indicators
+ * 
+ * Ensures all interactive elements have visible focus indicators
+ * that meet WCAG 2.4.7 Level AA requirements:
+ * - Minimum 3:1 contrast ratio
+ * - Visible on all themes
+ * - Consistent across browser
+ * - Support for high contrast mode
+ */
+
+/**
+ * Global focus indicator styles
+ * Applied to all interactive elements using :focus-visible
+ */
+:focus-visible {
+  /* Primary focus outline */
+  outline: 2px solid var(--md-sys-color-primary, #6750a4);
+  outline-offset: 2px;
+}
+
+/**
+ * High contrast mode support (Windows Accessibility)
+ * Ensures focus indicators remain visible in forced-colors mode
+ */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
+}
+
+/**
+ * Preferences for high contrast
+ * User has requested more contrast
+ */
+@media (prefers-contrast: more) {
+  :focus-visible {
+    outline: 3px solid var(--md-sys-color-primary, #6750a4);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 4px rgba(103, 80, 164, 0.15);
+  }
+}
+
+/**
+ * Remove default browser outlines that may conflict
+ * We use outline instead which is better for accessibility
+ */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus,
+[role="button"]:focus,
+[role="menuitem"]:focus,
+[role="tab"]:focus {
+  outline: none;
+}
+
+/**
+ * Button-specific focus styles
+ * Ensure good visibility on all button types
+ */
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary, #6750a4);
+  outline-offset: 2px;
+}
+
+/**
+ * Form input focus styles
+ * Text inputs, textarea, select
+ */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary, #6750a4);
+  outline-offset: 0;
+  box-shadow: inset 0 0 0 2px var(--md-sys-color-primary, #6750a4);
+}
+
+/**
+ * Link focus styles
+ */
+a:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary, #6750a4);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/**
+ * Focus styles for Material-UI components
+ */
+.MuiButton-root:focus-visible,
+.MuiIconButton-root:focus-visible,
+.MuiMenuItem-root:focus-visible,
+.MuiListItem-root:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary, #6750a4);
+  outline-offset: 2px;
+}
+
+/**
+ * Dark theme focus indicator adjustments
+ * Ensures visibility on dark backgrounds
+ */
+@media (prefers-color-scheme: dark) {
+  :focus-visible {
+    outline-color: var(--md-sys-color-primary, #b0a1d9);
+  }
+  
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline-color: CanvasText;
+    }
+  }
+}
+
+/**
+ * Light theme focus indicator adjustments
+ */
+@media (prefers-color-scheme: light) {
+  :focus-visible {
+    outline-color: var(--md-sys-color-primary, #6750a4);
+  }
+}
+
+/**
+ * Reduced motion support
+ * Don't animate focus changes if user prefers reduced motion
+ */
+@media (prefers-reduced-motion: reduce) {
+  :focus-visible {
+    transition: none;
+  }
+}
+
+/**
+ * Reduced motion: still show focus indicator, just not animated
+ */
+@media (prefers-reduced-motion: reduce) {
+  button:focus-visible,
+  [role="button"]:focus-visible {
+    transition: none;
+  }
+}
+
+/**
+ * Mobile/Touch - ensure focus indicators remain visible
+ * Don't remove focus on mobile devices
+ */
+@media (hover: none) and (pointer: coarse) {
+  /* Keep focus indicators visible on touch devices */
+  :focus-visible {
+    outline: 2px solid var(--md-sys-color-primary, #6750a4);
+    outline-offset: 2px;
+  }
+}
+
+/**
+ * Skip link specific focus styling
+ * Made to stand out for keyboard users
+ */
+.skip-link:focus-visible {
+  outline: 3px solid var(--md-sys-color-primary, #6750a4);
+  outline-offset: 4px;
+  top: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/**
+ * List/menu item focus styles
+ * For lists rendered with arrow key navigation
+ */
+[role="listbox"] li:focus-visible,
+[role="menubar"] li:focus-visible,
+[role="menu"] li:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary, #6750a4);
+  outline-offset: -2px;
+  background-color: var(--md-sys-color-primary, transparent);
+  background-color: rgba(103, 80, 164, 0.12);
+}
+
+/**
+ * Ensure focus indicators work with Material 3 design
+ */
+.m3-button:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary, #6750a4);
+  outline-offset: 2px;
+}

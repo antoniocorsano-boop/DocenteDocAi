@@ -1,10 +1,11 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, KnowledgeBaseEntry } from '../types';
 import AddStudentModal from './AddStudentModal';
 import ImportStudentsModal from './ImportStudentsModal';
 import StudentTransferModal from './StudentTransferModal';
 import { EmptyState, M3Button, SectionHeader, Avatar, TextField, SelectField } from './ui';
+import { useListKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 
 interface StudentManagerProps {
     students: Studente[];
@@ -22,13 +23,26 @@ interface StudentItemProps {
     onTransfer: (student: Studente) => void;
     onDelete: (id: string) => void;
     onRestore: (student: Studente) => void;
+    isFocused?: boolean;
+    onFocus?: () => void;
 }
 
-const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onRestore }: StudentItemProps) => (
+const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onRestore, isFocused, onFocus }: StudentItemProps) => {
+    const itemRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (isFocused && itemRef.current) {
+            itemRef.current.focus();
+        }
+    }, [isFocused]);
+
+    return (
     <div
+      ref={itemRef}
       className={`flex items-center gap-5 p-8 rounded-2xl transition-all hover:bg-surface-container-highest/50 group relative focus-visible:ring-2 focus-visible:ring-primary focus:outline-none ${student.isArchived ? 'opacity-60 grayscale' : ''}`}
       aria-label={`Studente ${student.cognome} ${student.nome}, classe ${student.classe}${student.isArchived ? ', archiviato' : ''}`}
-      tabIndex={0}
+      tabIndex={isFocused ? 0 : -1}
+      onFocus={onFocus}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           onEdit(student);
@@ -93,7 +107,8 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
           </M3Button>
       </div>
     </div>
-));
+  );
+});
 
 const StudentManager: React.FC<StudentManagerProps> = ({
     students, onSaveStudent, onDeleteStudent, onImportStudents, userClasses, initialClass, knowledgeBase
@@ -104,6 +119,8 @@ const StudentManager: React.FC<StudentManagerProps> = ({
     const [isImportModalOpen, setIsImportModalOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [showArchived, setShowArchived] = useState(false);
+    const [focusedStudentIndex, setFocusedStudentIndex] = useState<number>(0);
+    const listContainerRef = useRef<HTMLDivElement>(null);
 
     const filteredStudents = useMemo(() => {
         let result = students;
@@ -126,6 +143,38 @@ const StudentManager: React.FC<StudentManagerProps> = ({
 
         return result.sort((a, b) => a.cognome.localeCompare(b.cognome));
     }, [students, filterClass, searchTerm, showArchived]);
+
+    // Reset focus when filters change
+    useEffect(() => {
+        setFocusedStudentIndex(0);
+    }, [filterClass, searchTerm, showArchived]);
+
+    // Handle arrow key navigation in list
+    const handleListKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        const keysToHandle = ['ArrowUp', 'ArrowDown', 'Home', 'End'];
+        if (!keysToHandle.includes(e.key)) return;
+
+        e.preventDefault();
+        const max = filteredStudents.length - 1;
+        let newIndex = focusedStudentIndex;
+
+        switch (e.key) {
+            case 'ArrowUp':
+                newIndex = focusedStudentIndex > 0 ? focusedStudentIndex - 1 : 0;
+                break;
+            case 'ArrowDown':
+                newIndex = focusedStudentIndex < max ? focusedStudentIndex + 1 : max;
+                break;
+            case 'Home':
+                newIndex = 0;
+                break;
+            case 'End':
+                newIndex = max;
+                break;
+        }
+
+        setFocusedStudentIndex(newIndex);
+    };
 
     const handleRestoreStudent = (student: Studente) => {
         if (confirm(`Vuoi ripristinare ${student.cognome} ${student.nome} come studente attivo?`)) {
@@ -193,8 +242,12 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                     </M3Button>
                 </div>
 
-                <div className="p-8 space-y-2 max-h-[600px] overflow-y-auto custom-scrollbar">
-                    {filteredStudents.length > 0 ? filteredStudents.map(student => (
+                <div className="p-8 space-y-2 max-h-[600px] overflow-y-auto custom-scrollbar" 
+                     ref={listContainerRef}
+                     onKeyDown={handleListKeyDown}
+                     role="listbox"
+                     aria-label="Lista studenti">
+                    {filteredStudents.length > 0 ? filteredStudents.map((student, index) => (
                         <StudentItem
                             key={student.id}
                             student={student}
@@ -202,6 +255,8 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                             onTransfer={setTransferringStudent}
                             onDelete={onDeleteStudent}
                             onRestore={handleRestoreStudent}
+                            isFocused={index === focusedStudentIndex}
+                            onFocus={() => setFocusedStudentIndex(index)}
                         />
                     )) : (
                         <EmptyState
