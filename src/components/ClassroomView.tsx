@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ParticipationEntry } from '../types';
 import { PARTICIPATION_BADGES } from '../constants';
 import ClassroomTools from './ClassroomTools';
@@ -39,6 +39,8 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     const [isShareInfoOpen, setIsShareInfoOpen] = useState(false);
     const [previewingMaterial, setPreviewingMaterial] = useState<KnowledgeBaseEntry | null>(null);
     const [viewingStudentProfile, setViewingStudentProfile] = useState<Studente | null>(null);
+    const [focusedStudentIndex, setFocusedStudentIndex] = useState<number>(0);
+    const studentGridRef = useRef<HTMLDivElement>(null);
 
     const lesson = useMemo(() => {
         return lessons[draftEntry.lessonId] || {
@@ -134,6 +136,45 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
         });
     }, [classStudents, evaluations, observations]);
 
+    // Reset focus when tab changes
+    useEffect(() => {
+        setFocusedStudentIndex(0);
+    }, [activeTab]);
+
+    // Handle arrow key navigation in student grid
+    const handleStudentGridKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        const keysToHandle = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'];
+        if (!keysToHandle.includes(e.key)) return;
+
+        e.preventDefault();
+        const itemsPerRow = 4; // grid-cols-4 in lg view
+        const totalItems = studentStats.length;
+        let newIndex = focusedStudentIndex;
+
+        switch (e.key) {
+            case 'ArrowUp':
+                newIndex = Math.max(0, focusedStudentIndex - itemsPerRow);
+                break;
+            case 'ArrowDown':
+                newIndex = Math.min(totalItems - 1, focusedStudentIndex + itemsPerRow);
+                break;
+            case 'ArrowLeft':
+                newIndex = focusedStudentIndex > 0 ? focusedStudentIndex - 1 : 0;
+                break;
+            case 'ArrowRight':
+                newIndex = focusedStudentIndex < totalItems - 1 ? focusedStudentIndex + 1 : totalItems - 1;
+                break;
+            case 'Home':
+                newIndex = 0;
+                break;
+            case 'End':
+                newIndex = totalItems - 1;
+                break;
+        }
+
+        setFocusedStudentIndex(newIndex);
+    };
+
     const handlePrintHomework = async () => {
         if (!lesson) return;
         const blob = await generateHomeworkPdf(lesson, settings);
@@ -221,15 +262,37 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         )}
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {studentStats.map(stat => {
+                        <div 
+                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+                            ref={studentGridRef}
+                            onKeyDown={handleStudentGridKeyDown}
+                            role="grid"
+                            aria-label="Registro studenti con voti e presenze"
+                        >
+                            {studentStats.map((stat, index) => {
                                 const student = stat.student;
                                 const status = studentAttendance[student.id] || 'presente';
                                 const hwStatus = homeworkCheck[student.id];
                                 const badges = participation[student.id] || [];
+                                const isFocused = index === focusedStudentIndex && activeTab === 'register';
 
                                 return (
-                                    <div key={student.id} className="bg-surface-container rounded-3xl shadow-lg border border-outline-variant p-8 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] cursor-pointer" onClick={() => setViewingStudentProfile(student)}>
+                                    <div 
+                                        key={student.id} 
+                                        onClick={() => setViewingStudentProfile(student)}
+                                        onFocus={() => setFocusedStudentIndex(index)}
+                                        tabIndex={isFocused ? 0 : -1}
+                                        className={`bg-surface-container rounded-3xl shadow-lg border transition-all duration-300 hover:scale-[1.02] cursor-pointer ${isFocused ? 'focus-visible:ring-2 focus-visible:ring-primary outline-none ring-2 ring-primary' : 'border-outline-variant hover:shadow-xl'}`}
+                                        onKeyDown={e => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                setViewingStudentProfile(student);
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        role="gridcell"
+                                        aria-label={`${student.cognome} ${student.nome}, voto ${stat.grade || '-'}, presenze ${status}`}
+                                    >
+                                        <div className="p-8">
                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-8 items-center">
                                             {/* Column 1: Avatar + Name + Presence + BES/DSA */}
                                             <div className="flex items-center gap-8 col-span-1 md:col-span-2 lg:col-span-2">
@@ -310,6 +373,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                     <span className="material-symbols-outlined">more_vert</span>
                                                 </button>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 );

@@ -26,6 +26,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     const [editingEvent, setEditingEvent] = useState<Partial<EventoCalendario> | null>(null);
     const [isAiParserOpen, setIsAiParserOpen] = useState(false);
     const [popoverState, setPopoverState] = useState<{ event: EventoCalendario; anchorEl: HTMLElement } | null>(null);
+    const [focusedDateIndex, setFocusedDateIndex] = useState<number>(0);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const calendarGridRef = useRef<HTMLDivElement>(null);
 
@@ -36,34 +37,44 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             const scrollPos = Math.max(0, (hour - 1) * 60);
             scrollContainerRef.current.scrollTop = scrollPos;
         }
+        // Reset focus when view changes
+        setFocusedDateIndex(0);
     }, [viewMode]);
 
     const handleCalendarKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        // Arrow key navigation for calendar
+        // Arrow key navigation for calendar grid (month view)
         if (viewMode !== 'month') return;
 
-        const keysToHandle = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
+        const keysToHandle = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'];
         if (!keysToHandle.includes(e.key)) return;
 
         e.preventDefault();
-        const newDate = new Date(currentDate);
+        const totalDays = monthDates.length;
+        const daysPerWeek = 7;
+        let newIndex = focusedDateIndex;
 
         switch (e.key) {
             case 'ArrowLeft':
-                newDate.setDate(currentDate.getDate() - 1);
+                newIndex = focusedDateIndex > 0 ? focusedDateIndex - 1 : 0;
                 break;
             case 'ArrowRight':
-                newDate.setDate(currentDate.getDate() + 1);
+                newIndex = focusedDateIndex < totalDays - 1 ? focusedDateIndex + 1 : totalDays - 1;
                 break;
             case 'ArrowUp':
-                newDate.setDate(currentDate.getDate() - 7);
+                newIndex = Math.max(0, focusedDateIndex - daysPerWeek);
                 break;
             case 'ArrowDown':
-                newDate.setDate(currentDate.getDate() + 7);
+                newIndex = Math.min(totalDays - 1, focusedDateIndex + daysPerWeek);
+                break;
+            case 'Home':
+                newIndex = 0;
+                break;
+            case 'End':
+                newIndex = totalDays - 1;
                 break;
         }
 
-        setCurrentDate(newDate);
+        setFocusedDateIndex(newIndex);
     };
 
     const handleNavigate = (direction: 'prev' | 'next' | 'today') => {
@@ -196,7 +207,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     };
 
     const renderMonthView = () => (
-        <div className="calendar-month" role="grid" aria-label="Calendario mensile">
+        <div className="calendar-month" role="grid" aria-label="Calendario mensile" ref={calendarGridRef} onKeyDown={handleCalendarKeyDown}>
             <div className="calendar-weekdays" role="row">
                 {DAYS_SHORT.map(d => (
                     <div key={d} className="calendar-weekday" role="columnheader" aria-label={d}>{d}</div>
@@ -207,14 +218,16 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                     const isCurrentMonth = date.getMonth() === currentDate.getMonth();
                     const isToday = date.toDateString() === new Date().toDateString();
                     const dayEvents = eventi.filter(e => e.data === date.toISOString().split('T')[0]);
+                    const isFocused = i === focusedDateIndex && viewMode === 'month';
                     
                     return (
                         <div 
                             key={i} 
-                            className={`calendar-day ${!isCurrentMonth ? 'other-month' : ''} ${isToday ? 'today' : ''}`}
+                            className={`calendar-day ${!isCurrentMonth ? 'other-month' : ''} ${isToday ? 'today' : ''} ${isFocused ? 'focus-visible:ring-2 focus-visible:ring-primary ring-2 ring-primary' : ''}`}
                             role="gridcell"
-                            tabIndex={-1}
+                            tabIndex={isFocused ? 0 : -1}
                             aria-label={`${date.toLocaleDateString('it-IT')}${dayEvents.length > 0 ? `, ${dayEvents.length} eventi` : ''}`}
+                            onFocus={() => setFocusedDateIndex(i)}
                             onClick={() => {
                                 setCurrentDate(date);
                                 setViewMode('day');
