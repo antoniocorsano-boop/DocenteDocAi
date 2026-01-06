@@ -1,0 +1,305 @@
+import { Meta, Typeset } from '@storybook/blocks';
+
+<Meta title="Design System/Typography" />
+
+# Typography System
+
+Material Design 3 typography scale for DocenteDoc AI application.
+
+## Font Families
+
+### Primary Font: Roboto
+
+Roboto is the primary typeface for body text and UI elements.
+
+```css
+font-family: 'Roboto', sans-serif;
+```
+
+### Display Font: Roboto Condensed
+
+Roboto Condensed is used for headlines and large display text.
+
+```css
+font-family: 'Roboto Condensed', sans-serif;
+```
+
+### Monospace Font: Roboto Mono
+
+Roboto Mono is used for code snippets and technical content.
+
+```css
+font-family: 'Roboto Mono', monospace;
+```
+
+## Type Scale
+
+Material Design 3 type scale with 13 semantic levels:
+
+### Display
+
+Large, expressive type for marketing and hero sections.
+
+<Typeset
+  fontFamily="'Roboto Condensed', sans-serif"
+  fontSizes={[
+    '57px', // Display Large
+    '45px', // Display Medium
+    '36px', // Display Small
+  ]}
+  fontWeight={400}
+  sampleText="DocenteDoc AI"
+/>
+
+**Usage:**
+- Display Large (57px/64px): Hero headings, splash screens
+- Display Medium (45px/52px): Large marketing headers
+- Display Small (36px/44px): Section headers
+
+### Headline
+
+Emphasized, short-form text for section headers.
+
+<Typeset
+  fontFamily="'Roboto Condensed', sans-serif"
+  fontSizes={[
+    '32px', // Headline Large
+    '28px', // Headline Medium
+    '24px', // Headline Small
+  ]}
+  fontWeight={400}
+  sampleText="Classroom Management"
+/>
+
+**Usage:**
+- Headline Large (32px/40px): Page titles
+- Headline Medium (28px/36px): Section headings
+- Headline Small (24px/32px): Card titles, dialog headers
+
+### Title
+
+Medium-emphasis text for lists and detail screens.
+
+<Typeset
+  fontFamily="'Roboto', sans-serif"
+  fontSizes={[
+    '22px', // Title Large
+    '16px', // Title Medium
+    '14px', // Title Small
+  ]}
+  fontWeight={500}
+  sampleText="Assignment Details"
+/>
+
+**Usage:**
+- Title Large (22px/28px): List item headers, prominent labels
+- Title Medium (16px/24px): Card subtitles, toolbar titles
+- Title Small (14px/20px): Supporting text, metadata
+
+### Label
+
+UI labels and buttons with strong hierarchy.
+
+<Typeset
+  fontFamily="'Roboto', sans-serif"
+  fontSizes={[
+    '14px', // Label Large
+    '12px', // Label Medium
+    '11px', // Label Small
+  ]}
+  fontWeight={500}
+  sampleText="Save Document"
+/>
+
+**Usage:**
+- Label Large (14px/20px): Prominent buttons, tabs
+- Label Medium (12px/16px): Standard buttons, chips
+- Label Small (11px/16px): Small buttons, badges
+
+### Body
+
+Default text for reading and UI content.
+
+<Typeset
+  fontFamily="'Roboto', sans-serif"
+  fontSizes={[
+    '16px', // Body Large
+    '14px', // Body Medium
+    '12px', // Body Small
+  ]}
+  fontWeight={400}
+  sampleText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+/>
+
+**Usage:**
+- Body Large (16px/24px): Main content, long-form reading
+- Body Medium (14px/20px): Standard UI text, descriptions
+- Body Small (12px/16px): Captions, helper text
+
+## Font Weights
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #ddd' }}>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Weight</th>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Value</th>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Usage</th>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Light</td>
+      <td style={{ padding: '12px' }}>300</td>
+      <td style={{ padding: '12px' }}>De-emphasized text</td>
+      <td style={{ padding: '12px', fontWeight: 300 }}>Light weight text</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Regular</td>
+      <td style={{ padding: '12px' }}>400</td>
+      <td style={{ padding: '12px' }}>Body text, standard UI</td>
+      <td style={{ padding: '12px', fontWeight: 400 }}>Regular weight text</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Medium</td>
+      <td style={{ padding: '12px' }}>500</td>
+      <td style={{ padding: '12px' }}>Labels, buttons, emphasized text</td>
+      <td style={{ padding: '12px', fontWeight: 500 }}>Medium weight text</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Bold</td>
+      <td style={{ padding: '12px' }}>700</td>
+      <td style={{ padding: '12px' }}>Strong emphasis, headings</td>
+      <td style={{ padding: '12px', fontWeight: 700 }}>Bold weight text</td>
+    </tr>
+  </tbody>
+</table>
+
+## Line Height
+
+Line height values ensure readability and vertical rhythm:
+
+- **Display/Headline**: 1.2 (tight, for large text)
+- **Title/Label**: 1.4 (medium, for UI elements)
+- **Body**: 1.5 (comfortable, for reading)
+
+## Letter Spacing
+
+Tracking adjustments for optimal legibility:
+
+```css
+/* Display Large */
+letter-spacing: -0.25px;
+
+/* Headline Large */
+letter-spacing: 0;
+
+/* Body Medium */
+letter-spacing: 0.25px;
+
+/* Label Small */
+letter-spacing: 0.5px;
+```
+
+## Responsive Typography
+
+Typography scales proportionally across screen sizes:
+
+```css
+/* Mobile (< 600px) */
+--headline-large: 28px;
+--body-large: 14px;
+
+/* Tablet (600px - 1024px) */
+--headline-large: 32px;
+--body-large: 16px;
+
+/* Desktop (> 1024px) */
+--headline-large: 36px;
+--body-large: 16px;
+```
+
+## Accessibility Guidelines
+
+### Readability
+
+- **Minimum Size**: 12px for body text
+- **Optimal Reading Width**: 50-75 characters per line
+- **Line Height**: Minimum 1.5 for body text
+
+### Contrast
+
+All text meets WCAG 2.1 AA contrast requirements:
+
+- **Normal Text** (< 18px): 4.5:1 minimum
+- **Large Text** (≥ 18px or ≥ 14px bold): 3:1 minimum
+
+### Usage Examples
+
+```tsx
+// Page title
+<h1 style={{ 
+  fontFamily: 'Roboto Condensed, sans-serif',
+  fontSize: '32px',
+  fontWeight: 400,
+  lineHeight: '40px',
+  letterSpacing: 0,
+}}>
+  Classroom Dashboard
+</h1>
+
+// Body text
+<p style={{
+  fontFamily: 'Roboto, sans-serif',
+  fontSize: '14px',
+  fontWeight: 400,
+  lineHeight: '20px',
+  letterSpacing: '0.25px',
+}}>
+  Manage your students, assignments, and grades in one place.
+</p>
+
+// Button label
+<button style={{
+  fontFamily: 'Roboto, sans-serif',
+  fontSize: '14px',
+  fontWeight: 500,
+  lineHeight: '20px',
+  letterSpacing: '0.1px',
+}}>
+  Save Changes
+</button>
+```
+
+## Implementation
+
+### CSS Variables
+
+```css
+:root {
+  /* Display */
+  --font-display-large: 400 57px/64px 'Roboto Condensed', sans-serif;
+  --font-display-medium: 400 45px/52px 'Roboto Condensed', sans-serif;
+  --font-display-small: 400 36px/44px 'Roboto Condensed', sans-serif;
+
+  /* Headline */
+  --font-headline-large: 400 32px/40px 'Roboto Condensed', sans-serif;
+  --font-headline-medium: 400 28px/36px 'Roboto Condensed', sans-serif;
+  --font-headline-small: 400 24px/32px 'Roboto Condensed', sans-serif;
+
+  /* Title */
+  --font-title-large: 500 22px/28px 'Roboto', sans-serif;
+  --font-title-medium: 500 16px/24px 'Roboto', sans-serif;
+  --font-title-small: 500 14px/20px 'Roboto', sans-serif;
+
+  /* Label */
+  --font-label-large: 500 14px/20px 'Roboto', sans-serif;
+  --font-label-medium: 500 12px/16px 'Roboto', sans-serif;
+  --font-label-small: 500 11px/16px 'Roboto', sans-serif;
+
+  /* Body */
+  --font-body-large: 400 16px/24px 'Roboto', sans-serif;
+  --font-body-medium: 400 14px/20px 'Roboto', sans-serif;
+  --font-body-small: 400 12px/16px 'Roboto', sans-serif;
+}
+```

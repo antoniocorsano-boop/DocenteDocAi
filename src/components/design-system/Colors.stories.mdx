@@ -1,0 +1,219 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
+
+<Meta title="Design System/Colors" />
+
+# Color System
+
+Material Design 3 color system for DocenteDoc AI application.
+
+## Primary Colors
+
+Primary colors are used for key components and call-to-action elements.
+
+<ColorPalette>
+  <ColorItem
+    title="Primary"
+    subtitle="Main brand color"
+    colors={{
+      'Primary 100': '#1a0033',
+      'Primary 90': '#330066',
+      'Primary 80': '#4d0099',
+      'Primary 70': '#6600cc',
+      'Primary 60': '#7f1aff',
+      'Primary 50': '#9933ff',
+      'Primary 40': '#b366ff',
+      'Primary 30': '#cc99ff',
+      'Primary 20': '#e6ccff',
+      'Primary 10': '#f5e6ff',
+    }}
+  />
+</ColorPalette>
+
+## Secondary Colors
+
+Secondary colors complement the primary palette and provide visual variety.
+
+<ColorPalette>
+  <ColorItem
+    title="Secondary"
+    subtitle="Supporting brand color"
+    colors={{
+      'Secondary 100': '#001a33',
+      'Secondary 90': '#003366',
+      'Secondary 80': '#004d99',
+      'Secondary 70': '#0066cc',
+      'Secondary 60': '#1a7fff',
+      'Secondary 50': '#3399ff',
+      'Secondary 40': '#66b3ff',
+      'Secondary 30': '#99ccff',
+      'Secondary 20': '#cce6ff',
+      'Secondary 10': '#e6f5ff',
+    }}
+  />
+</ColorPalette>
+
+## Tertiary Colors
+
+Tertiary colors add accent and visual interest to the interface.
+
+<ColorPalette>
+  <ColorItem
+    title="Tertiary"
+    subtitle="Accent color"
+    colors={{
+      'Tertiary 100': '#1a3300',
+      'Tertiary 90': '#336600',
+      'Tertiary 80': '#4d9900',
+      'Tertiary 70': '#66cc00',
+      'Tertiary 60': '#7fff1a',
+      'Tertiary 50': '#99ff33',
+      'Tertiary 40': '#b3ff66',
+      'Tertiary 30': '#ccff99',
+      'Tertiary 20': '#e6ffcc',
+      'Tertiary 10': '#f5ffe6',
+    }}
+  />
+</ColorPalette>
+
+## Semantic Colors
+
+Semantic colors communicate meaning and status.
+
+<ColorPalette>
+  <ColorItem
+    title="Success"
+    subtitle="Positive actions and success states"
+    colors={{
+      'Success Dark': '#1b5e20',
+      'Success': '#4caf50',
+      'Success Light': '#81c784',
+    }}
+  />
+  <ColorItem
+    title="Warning"
+    subtitle="Caution and warning states"
+    colors={{
+      'Warning Dark': '#e65100',
+      'Warning': '#ff9800',
+      'Warning Light': '#ffb74d',
+    }}
+  />
+  <ColorItem
+    title="Error"
+    subtitle="Error states and destructive actions"
+    colors={{
+      'Error Dark': '#c62828',
+      'Error': '#f44336',
+      'Error Light': '#e57373',
+    }}
+  />
+  <ColorItem
+    title="Info"
+    subtitle="Informational messages"
+    colors={{
+      'Info Dark': '#1565c0',
+      'Info': '#2196f3',
+      'Info Light': '#64b5f6',
+    }}
+  />
+</ColorPalette>
+
+## Neutral Colors
+
+Neutral colors for text, backgrounds, and surfaces.
+
+<ColorPalette>
+  <ColorItem
+    title="Neutral"
+    subtitle="Grayscale palette"
+    colors={{
+      'Black': '#000000',
+      'Gray 900': '#212121',
+      'Gray 800': '#424242',
+      'Gray 700': '#616161',
+      'Gray 600': '#757575',
+      'Gray 500': '#9e9e9e',
+      'Gray 400': '#bdbdbd',
+      'Gray 300': '#e0e0e0',
+      'Gray 200': '#eeeeee',
+      'Gray 100': '#f5f5f5',
+      'Gray 50': '#fafafa',
+      'White': '#ffffff',
+    }}
+  />
+</ColorPalette>
+
+## Surface Colors
+
+Surface colors for cards, sheets, and backgrounds.
+
+<ColorPalette>
+  <ColorItem
+    title="Surfaces"
+    subtitle="Container and background colors"
+    colors={{
+      'Surface': '#ffffff',
+      'Surface Variant': '#f5f5f5',
+      'Surface Tint': '#f5e6ff',
+      'Background': '#fafafa',
+      'Outline': '#ddd',
+      'Outline Variant': '#e0e0e0',
+    }}
+  />
+</ColorPalette>
+
+## Text Colors
+
+Text colors for various content levels.
+
+<ColorPalette>
+  <ColorItem
+    title="Text"
+    subtitle="Text and icon colors"
+    colors={{
+      'On Surface': '#000000',
+      'On Surface Variant': '#666666',
+      'On Primary': '#ffffff',
+      'On Secondary': '#ffffff',
+      'On Error': '#ffffff',
+      'Disabled': '#9e9e9e',
+    }}
+  />
+</ColorPalette>
+
+## Accessibility Guidelines
+
+### Contrast Ratios
+
+All color combinations meet WCAG 2.1 AA standards:
+
+- **Normal Text**: Minimum 4.5:1 contrast ratio
+- **Large Text**: Minimum 3:1 contrast ratio
+- **UI Components**: Minimum 3:1 contrast ratio
+
+### Usage Examples
+
+```css
+/* Primary button */
+background-color: #6750a4; /* Primary 60 */
+color: #ffffff; /* On Primary */
+
+/* Error message */
+background-color: #fee; /* Error Light background */
+color: #c62828; /* Error Dark text */
+border: 1px solid #f44336; /* Error border */
+
+/* Disabled state */
+background-color: #f5f5f5; /* Gray 100 */
+color: #9e9e9e; /* Disabled text */
+cursor: not-allowed;
+```
+
+## Dark Mode Support
+
+All colors have dark mode variants for consistent theming:
+
+- Primary colors automatically adjust luminance
+- Surfaces become darker (#121212 base)
+- Text inverts to light-on-dark
+- Semantic colors maintain meaning while adjusting brightness

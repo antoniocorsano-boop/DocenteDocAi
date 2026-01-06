@@ -1,0 +1,526 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Design System/Accessibility" />
+
+# Accessibility Guidelines
+
+Comprehensive WCAG 2.1 AA accessibility standards for DocenteDoc AI.
+
+## Overview
+
+DocenteDoc is committed to making education accessible to everyone. All components and features follow Web Content Accessibility Guidelines (WCAG) 2.1 Level AA standards.
+
+## WCAG 2.1 Principles
+
+### 1. Perceivable
+
+Information and user interface components must be presentable to users in ways they can perceive.
+
+#### Color Contrast
+
+All text and interactive elements meet minimum contrast ratios:
+
+<table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #ddd' }}>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Element Type</th>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Minimum Ratio</th>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Normal Text (&lt; 18px)</td>
+      <td style={{ padding: '12px' }}>4.5:1</td>
+      <td style={{ padding: '12px', color: '#000', backgroundColor: '#fff' }}>Black on White (21:1)</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Large Text (≥ 18px or ≥ 14px bold)</td>
+      <td style={{ padding: '12px' }}>3:1</td>
+      <td style={{ padding: '12px', fontSize: '18px', color: '#666', backgroundColor: '#fff' }}>Gray on White (5.7:1)</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>UI Components</td>
+      <td style={{ padding: '12px' }}>3:1</td>
+      <td style={{ padding: '12px' }}>
+        <button style={{ 
+          padding: '8px 16px',
+          backgroundColor: '#6750a4',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px'
+        }}>
+          Button (4.6:1)
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+#### Alternative Text
+
+All non-text content has text alternatives:
+
+```tsx
+// Images
+<img src="classroom.jpg" alt="Students working on assignments in classroom" />
+
+// Icons (decorative)
+<span className="icon" aria-hidden="true">home</span>
+
+// Icons (functional)
+<button aria-label="Delete document">
+  <span className="icon" aria-hidden="true">delete</span>
+</button>
+
+// Complex images
+<figure>
+  <img src="chart.png" alt="Grade distribution chart" />
+  <figcaption>
+    Chart showing student grades: 5 students with A, 10 with B, 8 with C, 2 with D
+  </figcaption>
+</figure>
+```
+
+#### Audio/Video
+
+Provide captions and transcripts:
+
+```html
+<video controls>
+  <source src="lesson.mp4" type="video/mp4" />
+  <track kind="captions" src="captions-en.vtt" srclang="en" label="English" />
+  <track kind="descriptions" src="descriptions-en.vtt" srclang="en" label="English descriptions" />
+</video>
+```
+
+### 2. Operable
+
+User interface components and navigation must be operable.
+
+#### Keyboard Navigation
+
+All functionality is accessible via keyboard:
+
+<table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #ddd' }}>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Action</th>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Key</th>
+      <th style={{ padding: '12px', textAlign: 'left' }}>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Navigate Forward</td>
+      <td style={{ padding: '12px', fontFamily: 'monospace' }}>Tab</td>
+      <td style={{ padding: '12px' }}>Move to next focusable element</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Navigate Backward</td>
+      <td style={{ padding: '12px', fontFamily: 'monospace' }}>Shift + Tab</td>
+      <td style={{ padding: '12px' }}>Move to previous focusable element</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Activate</td>
+      <td style={{ padding: '12px', fontFamily: 'monospace' }}>Enter or Space</td>
+      <td style={{ padding: '12px' }}>Activate buttons, links, controls</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Navigate Options</td>
+      <td style={{ padding: '12px', fontFamily: 'monospace' }}>Arrow Keys</td>
+      <td style={{ padding: '12px' }}>Navigate menus, lists, radio groups</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #eee' }}>
+      <td style={{ padding: '12px' }}>Close/Cancel</td>
+      <td style={{ padding: '12px', fontFamily: 'monospace' }}>Escape</td>
+      <td style={{ padding: '12px' }}>Close dialogs, menus, popovers</td>
+    </tr>
+  </tbody>
+</table>
+
+#### Focus Management
+
+Focus is visible and logical:
+
+```css
+/* Clear focus indicators */
+:focus-visible {
+  outline: 2px solid #6750a4;
+  outline-offset: 2px;
+}
+
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+```
+
+<div style={{ 
+  display: 'flex', 
+  gap: '1rem',
+  marginTop: '1rem',
+  padding: '1.5rem',
+  backgroundColor: '#f5f5f5',
+  borderRadius: '8px'
+}}>
+  {['Save', 'Cancel', 'Delete'].map((label) => (
+    <button key={label} style={{ 
+      padding: '8px 24px',
+      backgroundColor: label === 'Delete' ? '#f44336' : '#6750a4',
+      color: 'white',
+      border: 'none',
+      borderRadius: '4px',
+      cursor: 'pointer'
+    }}>
+      {label}
+    </button>
+  ))}
+  <p style={{ margin: 0, fontSize: '0.9rem', color: '#666', alignSelf: 'center' }}>
+    ← Tab through these buttons
+  </p>
+</div>
+
+#### Skip Links
+
+Provide skip navigation for keyboard users:
+
+```html
+<a href="#main-content" class="skip-link">
+  Skip to main content
+</a>
+
+<style>
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #6750a4;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+</style>
+```
+
+#### Touch Targets
+
+All interactive elements meet minimum size requirements:
+
+<div style={{ 
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+  gap: '1.5rem',
+  marginTop: '1rem'
+}}>
+  <div style={{ 
+    padding: '1rem',
+    backgroundColor: '#e8f5e9',
+    borderRadius: '8px'
+  }}>
+    <div style={{ fontSize: '0.9rem', fontWeight: '500', marginBottom: '0.5rem' }}>✓ Good (44x44px)</div>
+    <button style={{ 
+      width: '44px',
+      height: '44px',
+      backgroundColor: '#4caf50',
+      color: 'white',
+      border: 'none',
+      borderRadius: '4px',
+      fontSize: '20px',
+      cursor: 'pointer'
+    }}>
+      +
+    </button>
+  </div>
+  
+  <div style={{ 
+    padding: '1rem',
+    backgroundColor: '#ffebee',
+    borderRadius: '8px'
+  }}>
+    <div style={{ fontSize: '0.9rem', fontWeight: '500', marginBottom: '0.5rem' }}>✗ Bad (32x32px)</div>
+    <button style={{ 
+      width: '32px',
+      height: '32px',
+      backgroundColor: '#f44336',
+      color: 'white',
+      border: 'none',
+      borderRadius: '4px',
+      fontSize: '16px',
+      cursor: 'pointer'
+    }}>
+      +
+    </button>
+  </div>
+</div>
+
+### 3. Understandable
+
+Information and the operation of user interface must be understandable.
+
+#### Clear Labels
+
+All form inputs have associated labels:
+
+```tsx
+// Visible label
+<div>
+  <label htmlFor="student-name">Student Name</label>
+  <input id="student-name" type="text" />
+</div>
+
+// ARIA label
+<input type="search" aria-label="Search documents" placeholder="Search..." />
+
+// Accessible description
+<input
+  type="email"
+  aria-label="Email address"
+  aria-describedby="email-help"
+/>
+<div id="email-help">We'll never share your email</div>
+```
+
+#### Error Identification
+
+Errors are clearly identified and described:
+
+<div style={{ 
+  maxWidth: '400px',
+  padding: '1.5rem',
+  backgroundColor: '#ffebee',
+  borderRadius: '8px',
+  marginTop: '1rem'
+}}>
+  <label htmlFor="error-example" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
+    Email Address *
+  </label>
+  <input
+    id="error-example"
+    type="email"
+    value="invalid-email"
+    aria-invalid="true"
+    aria-describedby="error-message"
+    style={{ 
+      width: '100%',
+      padding: '8px',
+      border: '2px solid #f44336',
+      borderRadius: '4px',
+      boxSizing: 'border-box'
+    }}
+    readOnly
+  />
+  <div id="error-message" style={{ 
+    marginTop: '0.5rem',
+    color: '#f44336',
+    fontSize: '0.9rem',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem'
+  }}>
+    <span style={{ fontFamily: 'Material Symbols Outlined' }}>error</span>
+    Please enter a valid email address
+  </div>
+</div>
+
+#### Consistent Navigation
+
+Navigation is consistent across pages:
+
+```tsx
+// Same navigation order on all pages
+<nav>
+  <a href="/">Home</a>
+  <a href="/classrooms">Classrooms</a>
+  <a href="/students">Students</a>
+  <a href="/documents">Documents</a>
+  <a href="/settings">Settings</a>
+</nav>
+```
+
+### 4. Robust
+
+Content must be robust enough to be interpreted by assistive technologies.
+
+#### Semantic HTML
+
+Use proper HTML elements:
+
+```html
+<!-- Good: Semantic HTML -->
+<header>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <article>
+    <h1>Document Title</h1>
+    <section>
+      <h2>Section Title</h2>
+      <p>Content...</p>
+    </section>
+  </article>
+</main>
+
+<footer>
+  <p>&copy; 2026 DocenteDoc</p>
+</footer>
+
+<!-- Bad: Div soup -->
+<div class="header">
+  <div class="nav">
+    <div class="link"><a href="/">Home</a></div>
+  </div>
+</div>
+```
+
+#### ARIA Attributes
+
+Use ARIA appropriately:
+
+```tsx
+// Buttons
+<button aria-label="Close dialog">×</button>
+
+// Toggles
+<button aria-pressed={isActive}>
+  {isActive ? 'Active' : 'Inactive'}
+</button>
+
+// Live regions
+<div aria-live="polite" aria-atomic="true">
+  {statusMessage}
+</div>
+
+// Dialogs
+<div role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+  <h2 id="dialog-title">Confirm Delete</h2>
+  <p id="dialog-description">Are you sure you want to delete this document?</p>
+</div>
+
+// Tabs
+<div role="tablist">
+  <button role="tab" aria-selected={selected} aria-controls="panel-1">
+    Tab 1
+  </button>
+</div>
+<div role="tabpanel" id="panel-1">
+  Content
+</div>
+```
+
+## Testing Checklist
+
+### Manual Testing
+
+- [ ] Navigate entire app using only keyboard
+- [ ] Check all focus indicators are visible
+- [ ] Verify all images have alt text
+- [ ] Ensure all forms have labels
+- [ ] Test with screen reader (NVDA, JAWS, VoiceOver)
+- [ ] Verify color contrast with tools
+- [ ] Check touch target sizes on mobile
+- [ ] Test with 200% zoom
+- [ ] Verify video/audio has captions
+
+### Automated Testing
+
+```bash
+# Install axe-core for automated testing
+npm install --save-dev @axe-core/react
+
+# Run accessibility tests
+npm run test:a11y
+```
+
+```tsx
+// Jest + Testing Library
+import { axe, toHaveNoViolations } from 'jest-axe';
+
+expect.extend(toHaveNoViolations);
+
+it('should not have accessibility violations', async () => {
+  const { container } = render(<MyComponent />);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+```
+
+## Screen Reader Support
+
+### Announcements
+
+Use live regions for dynamic content:
+
+```tsx
+// Polite announcements (wait for user to finish)
+<div aria-live="polite" aria-atomic="true">
+  Document saved successfully
+</div>
+
+// Assertive announcements (interrupt immediately)
+<div aria-live="assertive" aria-atomic="true">
+  Error: Failed to save document
+</div>
+
+// Status updates
+<div role="status" aria-live="polite">
+  Loading... {progress}%
+</div>
+```
+
+### Hidden Content
+
+Hide decorative content from screen readers:
+
+```tsx
+// Decorative icons
+<span className="icon" aria-hidden="true">★</span>
+
+// Visually hidden but accessible
+<span className="sr-only">
+  Current page: Home
+</span>
+
+<style>
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
+```
+
+## Resources
+
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [WebAIM](https://webaim.org/)
+- [A11y Project](https://www.a11yproject.com/)
+- [axe DevTools](https://www.deque.com/axe/devtools/)
+- [WAVE Tool](https://wave.webaim.org/)
+- [Color Contrast Checker](https://webaim.org/resources/contrastchecker/)
+
+## Commitment
+
+DocenteDoc is committed to:
+
+- Meeting WCAG 2.1 Level AA standards
+- Regular accessibility audits
+- User testing with assistive technologies
+- Continuous improvement based on feedback
+- Inclusive design from the start
