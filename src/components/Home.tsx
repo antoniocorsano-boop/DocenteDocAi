@@ -1,7 +1,7 @@
 
 import React, { useMemo } from 'react';
 import { View, NavigationParams } from '../types';
-import { ActionTile, M3ExpressiveCard } from './ui';
+import { ActionTile, M3ExpressiveCard, M3Button } from './ui';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useSystemStore } from '../stores/useSystemStore';
@@ -71,10 +71,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
     }), []);
 
     return (
-        <div className="home-container pt-4 md:pt-8 pb-12 px-6 md:px-8 space-y-8 max-w-7xl mx-auto">
+        <div className="home-container md:pt-8 pb-12 px-6 md:px-8" style={{ paddingTop: 'var(--md-sys-spacing-4)', maxWidth: '80rem', marginLeft: 'auto', marginRight: 'auto', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
             {/* Saluto docente */}
-            <section className="space-y-6">
-                <header className="space-y-2">
+            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
+                <header style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                     <h1 className="m3-headline-medium font-black tracking-tight text-on-surface">Buongiorno Prof. {cognomeInsegnante || nomeInsegnante}!</h1>
                     <div className="flex items-center justify-between m3-label-tiny text-primary font-black uppercase tracking-[0.3em] opacity-70">
                         <span>{todayLabel}</span>
@@ -82,9 +82,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                     </div>
                 </header>
 
-                <div className="space-y-4">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <p className="m3-label-small uppercase tracking-[0.3em] text-on-surface-variant font-black opacity-50">Azioni rapide</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: 'var(--md-sys-spacing-6)' }}>
                         {QUICK_ACTIONS.map((action) => (
                             <ActionTile
                                 key={action.label}
@@ -105,8 +105,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                 </div>
             </section>
 
-            <section className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
+                <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: 'var(--md-sys-spacing-6)' }}>
                     <M3ExpressiveCard icon="group" title="Studenti" description={`${metrics.studenti} iscritti`} color="primary" onClick={() => onNavigate('studenti' as View)} />
                     <M3ExpressiveCard icon="assignment" title="Verifiche oggi" description={`${metrics.verificheOggi} programmate`} color="secondary" onClick={() => onNavigate('evaluations' as View)} />
                     <M3ExpressiveCard icon="check_circle" title="Presenze" description={`${metrics.presenze} media`} color="tertiary" onClick={() => onNavigate('studenti' as View)} />
@@ -114,12 +114,32 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                 {nextLesson && (
                     <div className="hero-card group">
                         <div className="relative z-10">
-                            <div className="flex justify-between items-start mb-8">
-                                <div className="px-4 py-1.5 bg-primary/10 text-primary rounded-full text-[10px] font-black uppercase tracking-widest border border-primary/20">
+                            <div className="flex justify-between items-start" style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+                                <div style={{ 
+                                    padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                    backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)',
+                                    color: 'var(--md-sys-color-primary)',
+                                    borderRadius: 'var(--md-corner-full)',
+                                    fontSize: '10px',
+                                    fontWeight: '900',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.3em',
+                                    border: '1px solid color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent)'
+                                }}>
                                     Prossima Lezione
                                 </div>
-                                <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner">
-                                    <span className="material-symbols-outlined text-2xl text-primary">school</span>
+                                <div style={{
+                                    width: '48px',
+                                    height: '48px',
+                                    backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)',
+                                    backdropFilter: 'blur(8px)',
+                                    borderRadius: 'var(--md-corner-medium)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    boxShadow: 'inset 0 1px 3px color-mix(in srgb, var(--md-sys-color-on-surface) 5%, transparent)'
+                                }}>
+                                    <span className="material-symbols-outlined text-2xl" style={{ color: 'var(--md-sys-color-primary)' }}>school</span>
                                 </div>
                             </div>
                             <h2 className="m3-headline-small font-black text-on-surface tracking-tight leading-tight mb-8">
@@ -131,33 +151,37 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                             </p>
                         </div>
                         
-                        <div className="mt-10 flex gap-8 relative z-10">
-                            <button 
+                        <div className="mt-10 flex relative z-10" style={{ gap: 'var(--md-sys-spacing-6)' }}>
+                            <M3Button
+                                variant="filled"
                                 onClick={() => onNavigate('aula' as View, { classe: nextLesson.classe })}
-                                className="px-8 py-4 bg-primary text-on-primary rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-105 transition-all"
+                                aria-label="Vai alla classe"
                             >
+                                <span className="material-symbols-outlined mr-2">school</span>
                                 Vai alla classe
-                            </button>
-                            <button 
+                            </M3Button>
+                            <M3Button
+                                variant="outlined"
                                 onClick={() => onNavigate('lessons' as View)}
-                                className="px-8 py-4 bg-white/50 backdrop-blur-md text-on-surface rounded-2xl font-black text-xs uppercase tracking-widest border border-white/20 hover:bg-white/80 transition-all"
+                                aria-label="Organizza contenuti"
                             >
+                                <span className="material-symbols-outlined mr-2">edit_document</span>
                                 Organizza contenuti
-                            </button>
+                            </M3Button>
                         </div>
                     </div>
                 )}
             </section>
 
-            <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 space-y-6">
+            <section className="grid grid-cols-1 lg:grid-cols-3" style={{ gap: 'var(--md-sys-spacing-5)' }}>
+                <div className="lg:col-span-2" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
                         <M3ExpressiveCard
                             icon="history"
                             title="Attività Recenti"
                             description="Ultime azioni svolte"
                             color="surface"
                         >
-                            <div className="mt-4 space-y-3">
+                            <div className="mt-4" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                 {recentActivities.slice(0, 5).map((a) => (
                                     <div key={a.id} className="p-8 rounded-2xl bg-surface-container-low/50 border border-outline-variant/10 flex items-center justify-between group/item hover:bg-surface-container-low transition-colors">
                                         <div>
@@ -173,61 +197,182 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                             </div>
                         </M3ExpressiveCard>
 
-                    <div className="lg:col-span-1 space-y-6">
+                    <div className="lg:col-span-1" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
                         {showAiSuggestion ? (
-                            <div className="aura-glass p-8 md:p-8 h-full flex flex-col border-l-4 border-primary relative overflow-hidden group rounded-3xl">
-                                <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full group-hover:scale-150 transition-transform duration-700"></div>
-                                <div className="flex items-center gap-6 mb-8 md:mb-6 relative z-10">
-                                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                            <div style={{
+                                backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-variant) 80%, transparent)',
+                                padding: 'var(--md-sys-spacing-5)',
+                                borderRadius: 'var(--md-corner-large)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                borderLeft: '4px solid var(--md-sys-color-primary)',
+                                position: 'relative',
+                                overflow: 'hidden',
+                                minHeight: '100%'
+                            }} className="group">
+                                <div style={{
+                                    position: 'absolute',
+                                    right: '-1rem',
+                                    top: '-1rem',
+                                    width: '6rem',
+                                    height: '6rem',
+                                    backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 5%, transparent)',
+                                    borderRadius: 'var(--md-corner-full)',
+                                    transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)'
+                                }} className="group-hover:scale-150"></div>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'var(--md-sys-spacing-4)',
+                                    marginBottom: 'var(--md-sys-spacing-5)',
+                                    position: 'relative',
+                                    zIndex: 10
+                                }}>
+                                    <div style={{
+                                        width: '40px',
+                                        height: '40px',
+                                        backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)',
+                                        borderRadius: 'var(--md-corner-medium)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        color: 'var(--md-sys-color-primary)'
+                                    }}>
                                         <span className="material-symbols-outlined">auto_awesome</span>
                                     </div>
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-primary">Suggerimento AI</span>
+                                    <span style={{
+                                        fontSize: '10px',
+                                        fontWeight: '900',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.3em',
+                                        color: 'var(--md-sys-color-primary)'
+                                    }}>Suggerimento AI</span>
                                 </div>
-                                <h3 className="text-xl md:m3-title-large font-black text-on-surface mb-8 leading-tight relative z-10">{activeSuggestion.title}</h3>
-                                <p className="text-sm md:m3-body-medium text-on-surface-variant font-medium mb-6 md:mb-8 opacity-80 relative z-10">{activeSuggestion.description}</p>
-                                <div className="mt-auto flex flex-col gap-6 relative z-10">
-                                    <button 
-                                        onClick={() => onNavigate(activeSuggestion.actionView as View)}
-                                        className="w-full py-3 md:py-4 bg-primary/10 text-primary rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-primary/20 transition-all"
+                                <h3 className="m3-headline-small font-black text-on-surface leading-tight relative z-10" style={{ marginBottom: 'var(--md-sys-spacing-5)' }}>{activeSuggestion.message || 'Suggerimento'}</h3>
+                                <p className="m3-body-medium text-on-surface-variant font-medium opacity-80 relative z-10" style={{ marginBottom: 'var(--md-sys-spacing-5)' }}>Scopri come ottimizzare il tuo workflow didattico.</p>
+                                <div className="mt-auto flex flex-col relative z-10" style={{ gap: 'var(--md-sys-spacing-4)' }}>
+                                    <M3Button
+                                        variant="tonal"
+                                        onClick={() => {
+                                            if (activeSuggestion.action?.type === 'navigate' && activeSuggestion.action.payload) {
+                                                const view = typeof activeSuggestion.action.payload === 'string' 
+                                                    ? activeSuggestion.action.payload 
+                                                    : 'home';
+                                                onNavigate(view as View);
+                                            }
+                                        }}
+                                        className="w-full"
+                                        aria-label={activeSuggestion.actionLabel}
                                     >
                                         {activeSuggestion.actionLabel}
-                                    </button>
-                                    <button 
+                                    </M3Button>
+                                    <M3Button
+                                        variant="text"
                                         onClick={() => dismissSuggestion(activeSuggestion.id)}
-                                        className="w-full py-4 md:py-3 text-on-surface-variant font-black text-[9px] uppercase tracking-widest opacity-50 hover:opacity-100 transition-all"
+                                        className="w-full"
+                                        aria-label="Ignora suggerimento"
                                     >
                                         Ignora per ora
-                                    </button>
+                                    </M3Button>
                                 </div>
                             </div>
                         ) : (
-                            <div className="aura-glass p-8 md:p-8 h-full flex flex-col items-center justify-center text-center border border-dashed border-outline-variant/30 rounded-3xl">
-                                <span className="material-symbols-outlined text-4xl text-primary/30 mb-8">auto_awesome</span>
-                                <p className="m3-label-large font-black text-on-surface-variant uppercase tracking-widest opacity-40">Nessun suggerimento</p>
-                                <p className="text-[10px] font-medium text-on-surface-variant mt-4 px-4">L'assistente sta analizzando i tuoi dati per fornirti consigli personalizzati.</p>
+                            <div style={{
+                                backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-variant) 80%, transparent)',
+                                padding: 'var(--md-sys-spacing-5)',
+                                borderRadius: 'var(--md-corner-large)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                textAlign: 'center',
+                                border: '1px dashed color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)',
+                                minHeight: '100%'
+                            }}>
+                                <span className="material-symbols-outlined text-4xl" style={{
+                                    color: 'color-mix(in srgb, var(--md-sys-color-primary) 30%, transparent)',
+                                    marginBottom: 'var(--md-sys-spacing-5)'
+                                }}>auto_awesome</span>
+                                <p className="m3-label-large font-black text-on-surface-variant uppercase" style={{ letterSpacing: '0.3em', opacity: 0.4 }}>Nessun suggerimento</p>
+                                <p style={{
+                                    fontSize: '10px',
+                                    fontWeight: 500,
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    marginTop: 'var(--md-sys-spacing-3)',
+                                    paddingLeft: 'var(--md-sys-spacing-4)',
+                                    paddingRight: 'var(--md-sys-spacing-4)'
+                                }}>L'assistente sta analizzando i tuoi dati per fornirti consigli personalizzati.</p>
                             </div>
                         )}
 
                         {suggestions.length > 0 && (
-                            <div className="space-y-4">
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <p className="m3-label-small uppercase tracking-[0.3em] text-on-surface-variant font-black opacity-50">Altri consigli</p>
                                 {suggestions.slice(0, 2).map((suggestion) => (
-                                    <div key={suggestion.id} className="aura-glass p-5 border border-outline-variant/10 hover:border-primary/30 transition-all group">
-                                        <div className="flex items-start gap-8">
-                                            <div className="w-10 h-10 rounded-xl bg-tertiary/10 flex items-center justify-center text-tertiary shrink-0">
+                                    <div key={suggestion.id} style={{
+                                        backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-variant) 80%, transparent)',
+                                        padding: 'var(--md-sys-spacing-4)',
+                                        borderRadius: 'var(--md-corner-medium)',
+                                        border: '1px solid var(--md-sys-color-outline-variant)',
+                                        transition: 'border-color 0.3s ease'
+                                    }} className="hover:border-primary/30 group">
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'flex-start',
+                                            gap: 'var(--md-sys-spacing-5)'
+                                        }}>
+                                            <div style={{
+                                                width: '40px',
+                                                height: '40px',
+                                                borderRadius: 'var(--md-corner-medium)',
+                                                backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent)',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                color: 'var(--md-sys-color-tertiary)',
+                                                flexShrink: 0
+                                            }}>
                                                 <span className="material-symbols-outlined text-xl">{suggestion.icon}</span>
                                             </div>
                                             <div>
-                                                <div className="text-xs font-black text-on-surface uppercase tracking-tight">{suggestion.title}</div>
-                                                <div className="text-[10px] text-on-surface-variant mt-4 line-clamp-2">{suggestion.description}</div>
+                                                <div style={{
+                                                    fontSize: '12px',
+                                                    fontWeight: '900',
+                                                    color: 'var(--md-sys-color-on-surface)',
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '0.05em'
+                                                }}>{suggestion.title}</div>
+                                                <div style={{
+                                                    fontSize: '10px',
+                                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                                    marginTop: 'var(--md-sys-spacing-2)',
+                                                    display: '-webkit-box',
+                                                    WebkitLineClamp: 2,
+                                                    WebkitBoxOrient: 'vertical',
+                                                    overflow: 'hidden'
+                                                }}>{suggestion.description}</div>
                                                 <button
-                                                    className="mt-3 text-[9px] font-black text-primary uppercase tracking-widest hover:underline"
+                                                    style={{
+                                                        marginTop: 'var(--md-sys-spacing-3)',
+                                                        fontSize: '9px',
+                                                        fontWeight: '900',
+                                                        color: 'var(--md-sys-color-primary)',
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: '0.3em',
+                                                        background: 'none',
+                                                        border: 'none',
+                                                        cursor: 'pointer',
+                                                        textDecoration: 'none',
+                                                        transition: 'text-decoration 0.2s'
+                                                    }}
+                                                    onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                                                    onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
                                                     onClick={() => {
                                                         if (suggestion.action?.type === 'navigate' && suggestion.action.payload) {
                                                             const payload = typeof suggestion.action.payload === 'string'
                                                                 ? suggestion.action.payload
                                                                 : (suggestion.action.payload as unknown as { view: string }).view || 'home';
-                                                            onNavigate(payload as View, typeof suggestion.action.payload === 'object' ? (suggestion.action.payload as unknown as { context?: string }).context : undefined);
+                                                            onNavigate(payload as View);
                                                         }
                                                     }}
                                                 >
