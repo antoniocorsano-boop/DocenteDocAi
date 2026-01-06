@@ -35,7 +35,7 @@ export default defineConfig({
       srcDir: 'src',
       filename: 'sw.ts',
       registerType: 'autoUpdate',
-      injectRegister: 'auto',
+      injectRegister: 'false',  // Disabled due to fetch errors in production
       manifest: {
         name: 'DocenteDoc AI',
         short_name: 'DocenteDoc',
