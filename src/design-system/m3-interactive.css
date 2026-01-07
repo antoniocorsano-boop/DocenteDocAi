@@ -190,6 +190,30 @@
   border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-sys-shape-corner-medium);
   background-color: var(--md-sys-color-surface-container-low);
+  position: relative;
+  overflow: hidden;
+}
+
+.m3-interactive-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--motion-duration-short2) var(--motion-easing-standard);
+  pointer-events: none;
+}
+
+.m3-interactive-card:hover::before {
+  opacity: 0.08;
+}
+
+.m3-interactive-card:focus-visible::before {
+  opacity: 0.12;
+}
+
+.m3-interactive-card:active::before {
+  opacity: 0.12;
 }
 
 .m3-interactive-card:hover {

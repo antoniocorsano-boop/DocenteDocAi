@@ -381,3 +381,40 @@
   align-items: center;
   justify-content: center;
 }
+
+/* ============================================================================
+   AI-SPECIFIC TYPOGRAPHY - For AI-generated content and thinking states
+   ========================================================================= */
+
+.m3-display-ai {
+  font-family: var(--font-family);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.m3-thinking-indicator {
+  font-family: var(--font-family);
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  opacity: 0.7;
+  line-height: 1.4;
+}
+
+.m3-ai-content {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+.m3-ai-content-bold {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}

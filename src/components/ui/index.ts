@@ -28,3 +28,4 @@ export { default as ImageSkeleton } from './ImageSkeleton';
 export { default as QuizSkeleton } from './QuizSkeleton';
 export { default as Avatar } from './Avatar';
 export { default as AiThinkingGem } from './AiThinkingGem';
+export { default as ThinkingIndicator } from './ThinkingIndicator';

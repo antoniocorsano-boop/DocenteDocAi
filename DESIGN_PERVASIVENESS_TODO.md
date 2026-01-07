@@ -43,9 +43,9 @@ This plan addresses making all design settings pervasive throughout the applicat
 - [x] Clean up unused imports and exports
 - [x] Verify build passes with all changes
 
-### Phase 4: Advanced Features (Future) 📋 **PLANNED**
+### Phase 4: Advanced Features (Future) � **IN PROGRESS**
 
-- [ ] Add UI controls for hidden settings (`fontScale`, `contrastLevel`)
+- [x] Add UI controls for hidden settings (`fontScale`, `contrastLevel`)
 - [ ] Implement theme persistence across sessions
 - [ ] Add theme export/import functionality
 - [ ] Create theme preview system

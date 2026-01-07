@@ -330,6 +330,19 @@
     background: var(--sys-primary);
     color: var(--sys-on-primary);
     box-shadow: var(--elevation-1);
+    position: relative;
+}
+
+.tab-group .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: var(--sys-primary);
+    border-radius: 2px;
 }
 
 .tab-group.secondary .tab.active {

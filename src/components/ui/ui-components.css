@@ -32,20 +32,45 @@
 .gap-4 {
   gap: var(--md-sys-spacing-4);
 }
-.gap-8 {
-  gap: var(--md-sys-spacing-8);
+.gap-12 {
+  gap: var(--spacing-12);
 }
-.p-4 {
-  padding: var(--md-sys-spacing-4);
+.gap-16 {
+  gap: var(--spacing-16);
 }
-.p-8 {
-  padding: var(--md-sys-spacing-8);
+.p-12 {
+  padding: var(--spacing-12);
 }
-.mt-1 {
-  margin-top: 1rem;
+.p-16 {
+  padding: var(--spacing-16);
 }
-.mb-4 {
-  margin-bottom: var(--md-sys-spacing-4);
+.px-12 {
+  padding-left: var(--spacing-12);
+  padding-right: var(--spacing-12);
+}
+.py-12 {
+  padding-top: var(--spacing-12);
+  padding-bottom: var(--spacing-12);
+}
+.px-16 {
+  padding-left: var(--spacing-16);
+  padding-right: var(--spacing-16);
+}
+.py-16 {
+  padding-top: var(--spacing-16);
+  padding-bottom: var(--spacing-16);
+}
+.mt-12 {
+  margin-top: var(--spacing-12);
+}
+.mb-12 {
+  margin-bottom: var(--spacing-12);
+}
+.mt-16 {
+  margin-top: var(--spacing-16);
+}
+.mb-16 {
+  margin-bottom: var(--spacing-16);
 }
 .max-w-25rem {
   max-width: 25rem;

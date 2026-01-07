@@ -64,6 +64,8 @@ export const baseDesignSystem: Readonly<DesignSystemDefinition> = Object.freeze(
     '4': { value: '1rem', description: '16px', cssVar: '--spacing-4' },
     '6': { value: '1.5rem', description: '24px', cssVar: '--spacing-6' },
     '8': { value: '2rem', description: '32px', cssVar: '--spacing-8' },
+    '12': { value: '3rem', description: '48px', cssVar: '--spacing-12' },
+    '16': { value: '4rem', description: '64px', cssVar: '--spacing-16' },
   }
 });
 

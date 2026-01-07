@@ -8,28 +8,34 @@ interface M3ExpressiveCardProps {
     onClick?: () => void;
     className?: string;
     children?: React.ReactNode;
+    ariaLabel?: string;
 }
 
-const colorTokens: Record<string, { bg: string; fg: string }> = {
+const colorTokens: Record<string, { bg: string; fg: string; accent?: string }> = {
     primary: {
         bg: 'var(--sys-primary-container)',
-        fg: 'var(--sys-on-primary-container)'
+        fg: 'var(--sys-on-primary-container)',
+        accent: 'var(--sys-primary)'
     },
     secondary: {
         bg: 'var(--sys-secondary-container)',
-        fg: 'var(--sys-on-secondary-container)'
+        fg: 'var(--sys-on-secondary-container)',
+        accent: 'var(--sys-secondary)'
     },
     tertiary: {
         bg: 'var(--sys-tertiary-container)',
-        fg: 'var(--sys-on-tertiary-container)'
+        fg: 'var(--sys-on-tertiary-container)',
+        accent: 'var(--sys-tertiary)'
     },
     surface: {
         bg: 'var(--sys-surface-container-high)',
-        fg: 'var(--sys-on-surface)'
+        fg: 'var(--sys-on-surface)',
+        accent: 'var(--sys-primary)'
     },
     surfaceVariant: {
         bg: 'var(--sys-surface-container-low)',
-        fg: 'var(--sys-on-surface-variant)'
+        fg: 'var(--sys-on-surface-variant)',
+        accent: 'var(--sys-secondary)'
     }
 };
 
@@ -41,8 +47,9 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
     onClick,
     className = '',
     children,
+    ariaLabel,
 }) => {
-    const palette = colorTokens[color] || { bg: color, fg: 'inherit' };
+    const palette = colorTokens[color] || { bg: color, fg: 'inherit', accent: 'var(--sys-primary)' };
     const isClickable = Boolean(onClick);
 
     return (
@@ -56,10 +63,11 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             }}
             role={isClickable ? 'button' : undefined}
             tabIndex={isClickable ? 0 : undefined}
+            aria-label={ariaLabel || (isClickable ? `${title}: ${description}` : undefined)}
             className={`
-                relative overflow-hidden p-8 md:p-6 transition-all duration-300 flex flex-col min-h-[140px] md:min-h-[160px]
-                ${isClickable ? 'cursor-pointer hover:shadow-lg hover:-translate-y-1 active:scale-[0.98]' : ''}
-                aura-glass border border-white/10
+                relative overflow-hidden p-8 md:p-12 transition-all duration-300 flex flex-col min-h-[160px] md:min-h-[180px]
+                ${isClickable ? 'cursor-pointer hover:shadow-xl hover:shadow-black/10 hover:border-white/30 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2' : ''}
+                aura-glass border border-white/10 backdrop-blur-xl
                 ${className}
             `}
             style={{
@@ -68,22 +76,31 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))'
             }}
         >
-            {/* Decorative background element */}
-            <div className="absolute -top-12 -right-12 w-32 h-32 bg-white/10 blur-3xl rounded-full pointer-events-none"></div>
+            {/* Enhanced decorative background with gradient */}
+            <div
+                className="absolute -top-16 -right-16 w-40 h-40 opacity-20 blur-3xl rounded-full pointer-events-none"
+                style={{ background: `radial-gradient(circle, ${palette.accent}20 0%, transparent 70%)` }}
+            ></div>
 
-            <div className="flex items-center justify-between mb-8 relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner border border-white/10">
-                    <span className="material-symbols-outlined m3-icon-md-lg">{icon}</span>
+            {/* Subtle accent bar */}
+            <div
+                className="absolute top-0 left-0 right-0 h-1 rounded-t-xl opacity-60"
+                style={{ backgroundColor: palette.accent }}
+            ></div>
+
+            <div className="flex items-start justify-between mb-6 relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/25 to-white/10 backdrop-blur-md flex items-center justify-center shadow-lg border border-white/20 flex-shrink-0">
+                    <span className="material-symbols-outlined m3-icon-lg opacity-90">{icon}</span>
                 </div>
                 {isClickable && (
-                    <span className="material-symbols-outlined opacity-40 m3-icon-sm">arrow_forward</span>
+                    <span className="material-symbols-outlined opacity-50 m3-icon-md transition-opacity group-hover:opacity-70">arrow_forward</span>
                 )}
             </div>
-            
-            <div className="flex-grow relative z-10">
-                <h3 className="m3-title-large font-black mb-4 tracking-tight truncate">{title}</h3>
-                <p className="m3-body-medium opacity-80 leading-snug font-medium line-clamp-2">{description}</p>
-                {children && <div className="mt-4">{children}</div>}
+
+            <div className="flex-grow relative z-10 space-y-3">
+                <h3 className="m3-headline-small font-bold tracking-tight leading-tight">{title}</h3>
+                <p className="m3-body-large opacity-80 leading-relaxed font-medium line-clamp-3">{description}</p>
+                {children && <div className="mt-4 pt-3 border-t border-white/10">{children}</div>}
             </div>
         </div>
     );

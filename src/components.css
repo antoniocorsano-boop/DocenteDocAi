@@ -56,7 +56,7 @@
   backdrop-filter: blur(24px);
 }
 @media (max-width: 600px) {
-  .signin-root, .signin-form-section, .signin-hero {
+  .signin-root, .signin-form-section {
     padding: 0.5rem !important;
   }
   .signin-form-container {
@@ -64,13 +64,9 @@
     max-width: 100vw !important;
     border-radius: 1.5rem !important;
   }
-  .signin-hero-content {
-    flex-direction: column !important;
-    gap: 1.5rem !important;
-  }
 }
 @media (min-width: 601px) and (max-width: 1024px) {
-  .signin-root, .signin-form-section, .signin-hero {
+  .signin-root, .signin-form-section {
     padding: 2rem !important;
   }
   .signin-form-container {
@@ -78,13 +74,9 @@
     max-width: 80vw !important;
     border-radius: 2rem !important;
   }
-  .signin-hero-content {
-    flex-direction: row !important;
-    gap: 2rem !important;
-  }
 }
 @media (min-width: 1025px) {
-  .signin-root, .signin-form-section, .signin-hero {
+  .signin-root, .signin-form-section {
     padding: 3rem !important;
   }
   .signin-form-container {
@@ -92,51 +84,6 @@
     max-width: 600px !important;
     border-radius: 2.5rem !important;
   }
-  .signin-hero-content {
-    flex-direction: row !important;
-    gap: 3rem !important;
-  }
-}
-/* Aura Ornaments M3 Centralized */
-.aura-primary {
-  position: absolute;
-  top: -10%;
-  left: -10%;
-  width: 60%;
-  height: 60%;
-  background: var(--sys-primary, #6750A4)10%;
-  filter: blur(120px);
-  border-radius: 9999px;
-  animation: pulse 2s infinite;
-  z-index: 0;
-}
-.aura-secondary {
-  position: absolute;
-  bottom: -10%;
-  right: -10%;
-  width: 60%;
-  height: 60%;
-  background: var(--sys-secondary, #03DAC6)10%;
-  filter: blur(120px);
-  border-radius: 9999px;
-  animation: pulse 2s infinite;
-  z-index: 0;
-}
-.aura-delay {
-  animation-delay: 1s;
-}
-.aura-delay-mobile {
-  position: absolute;
-  bottom: -10%;
-  right: -10%;
-  width: 40%;
-  height: 40%;
-  background: var(--sys-secondary, #03DAC6)10%;
-  filter: blur(120px);
-  border-radius: 9999px;
-  animation: pulse 2s infinite;
-  animation-delay: 1s;
-  z-index: 0;
 }
 @keyframes pulse {
   0%, 100% { opacity: 1; }
@@ -437,17 +384,17 @@
 .group:focus-visible .m3-ripple {
   opacity: 0.10;
 }
-/* --- ACTION TILES (M3 Interactive Standardized) --- */
+/* --- ACTION TILES (M3 Interactive Modernized) --- */
 .op-tile {
   background-color: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border-radius: var(--md-sys-shape-corner-large);
-  padding: var(--md-sys-spacing-6);
+  padding: 32px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--md-sys-spacing-6);
+  gap: 16px;
   border: var(--glass-border);
   transition: all var(--motion-duration-short4) var(--motion-easing-standard);
   cursor: pointer;
@@ -455,6 +402,7 @@
   overflow: hidden;
   text-align: left;
   box-shadow: var(--elevation-1);
+  min-height: 80px;
 }
 
 /* Remove manual hover styles - now handled by m3-interactive-card */
@@ -467,18 +415,21 @@
 }
 
 .op-tile-icon-container {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--md-sys-shape-corner-medium);
+  width: 56px;
+  height: 56px;
+  border-radius: var(--md-sys-shape-corner-large);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
-  background-color: var(--sys-primary-container);
+  font-size: 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--sys-on-primary-container);
   flex-shrink: 0;
   transition: all var(--motion-duration-short3) var(--motion-easing-standard);
-  box-shadow: inset 0 0 20px rgba(255,255,255,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 /* Remove manual hover transform - now handled by component-specific logic if needed */
@@ -486,14 +437,24 @@
   /* Icon hover effects removed - using M3 standard interactions */
 }
 
+.op-tile-variant-primary .op-tile-icon-container {
+  background: linear-gradient(135deg, var(--sys-primary-container) 0%, rgba(255,255,255,0.1) 100%);
+  color: var(--sys-on-primary-container);
+}
+
 .op-tile-variant-secondary .op-tile-icon-container {
-  background-color: var(--sys-secondary-container);
+  background: linear-gradient(135deg, var(--sys-secondary-container) 0%, rgba(255,255,255,0.1) 100%);
   color: var(--sys-on-secondary-container);
 }
 
 .op-tile-variant-tertiary .op-tile-icon-container {
-  background-color: var(--sys-tertiary-container);
+  background: linear-gradient(135deg, var(--sys-tertiary-container) 0%, rgba(255,255,255,0.1) 100%);
   color: var(--sys-on-tertiary-container);
+}
+
+.op-tile-variant-surface .op-tile-icon-container {
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+  color: var(--sys-on-surface);
 }
 
 .op-tile-content {
@@ -504,28 +465,59 @@
 
 .op-tile-title {
   color: var(--sys-on-surface);
-  line-height: 1.1;
-  font-weight: 900;
-  font-size: 1.2rem;
-  letter-spacing: -0.02em;
+  line-height: 1.3;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  margin-bottom: 2px;
+}
+
+.op-tile-subtitle {
+  color: var(--sys-on-surface-variant);
+  opacity: 0.75;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
 }
 
-.op-tile-subtitle {
+.op-tile-chevron-container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255,0.08);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: all var(--motion-duration-short2) var(--motion-easing-standard);
+  flex-shrink: 0;
+}
+
+.op-tile-chevron {
+  font-size: 20px;
   color: var(--sys-on-surface-variant);
-  margin-top: 6px;
-  opacity: 0.8;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
+  opacity: 0.7;
+  transition: all var(--motion-duration-short2) var(--motion-easing-standard);
+}
+
+.op-tile:hover .op-tile-chevron-container {
+  background-color: rgba(255,255,255,0.12);
+  transform: scale(1.05);
+}
+
+.op-tile:hover .op-tile-chevron {
+  opacity: 0.9;
+  transform: translateX(2px);
 }
 
 /* --- HERO CARD (The Expressive Command Center) --- */
@@ -802,23 +794,23 @@
 
 /* --- ICON BUTTON (for close, etc) --- */
 .icon-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--md-sys-shape-corner-large);
   border: none;
   background-color: transparent;
-  color: var(--sys-on-surface-variant);
+  color: var(--sys-on-surface);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all var(--motion-duration-short2) var(--motion-easing-standard);
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .icon-button:hover {
-  background-color: var(--sys-primary-container);
-  color: var(--sys-on-primary-container);
+  background-color: var(--sys-surface-container-highest);
+  color: var(--sys-on-surface);
   transition: all var(--motion-duration-short3) var(--motion-easing-standard);
 }
 
@@ -1022,6 +1014,69 @@
 .m3-field-wrapper.error {
   border-color: var(--sys-error);
   background: var(--sys-error-container);
+}
+
+/* MD3 TextField Variants */
+.m3-field-filled {
+  background: var(--sys-surface-container-highest);
+  border: none;
+  border-bottom: 1px solid var(--sys-outline);
+  border-radius: var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-small) 0 0;
+}
+
+.m3-field-filled:hover {
+  background: var(--sys-surface-container-highest);
+  border-bottom-color: var(--sys-on-surface);
+}
+
+.m3-field-filled.group:focus-within {
+  background: var(--sys-surface-container-high);
+  border-bottom: 2px solid var(--sys-primary);
+  box-shadow: none;
+}
+
+.m3-field-outlined {
+  background: transparent;
+  border: 1px solid var(--sys-outline);
+  border-radius: var(--md-sys-shape-corner-small);
+}
+
+.m3-field-outlined:hover {
+  border-color: var(--sys-on-surface);
+}
+
+.m3-field-outlined.group:focus-within {
+  border: 2px solid var(--sys-primary);
+}
+
+/* Floating Label Support */
+.m3-field-input-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.m3-field-label-floating {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  color: var(--sys-on-surface-variant);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.m3-field-wrapper.has-value .m3-field-label-floating,
+.m3-field-wrapper.group:focus-within .m3-field-label-floating {
+  top: 8px;
+  transform: translateY(0) scale(0.75);
+  transform-origin: left top;
+  font-size: 12px;
+  color: var(--sys-primary);
 }
 
 .m3-field-input, .m3-field-select {
@@ -2320,6 +2375,29 @@
   white-space: nowrap;
 }
 
+/* MD3 State Layer (hover overlay) */
+.m3-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--motion-duration-short3) var(--motion-easing-standard);
+  pointer-events: none;
+}
+
+.m3-button:hover::before {
+  opacity: 0.08;
+}
+
+.m3-button:focus-visible::before {
+  opacity: 0.12;
+}
+
+.m3-button:active::before {
+  opacity: 0.12;
+}
+
 .m3-button:disabled {
   opacity: var(--md-sys-state-opacity-disabled);
   cursor: default;
@@ -2332,8 +2410,10 @@
 
 /* Sizes */
 .m3-button--small, .m3-button-small {
+  min-height: 48px;
+  min-width: 48px;
   height: calc(36px * var(--sys-font-scale, 1));
-  padding: 0 var(--md-sys-spacing-4);
+  padding: 6px var(--md-sys-spacing-4);
   font-size: var(--typography-label-large-fontSize);
 }
 
@@ -2433,7 +2513,7 @@
 }
 
 .m3-button__icon .material-symbols-outlined {
-  font-size: 18px !important;
+  font-size: 20px !important;
 }
 
 /* --- CUPERTINO STYLE OVERRIDES --- */

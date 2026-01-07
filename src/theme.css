@@ -10,38 +10,65 @@
 
   /* --- PALETTE M3 EXPRESSIVE (AURA) --- */
   --sys-primary: #6750A4;
+  --sys-primary-rgb: 103, 80, 164;
   --sys-on-primary: #FFFFFF;
+  --sys-on-primary-rgb: 255, 255, 255;
   --sys-primary-container: #EADDFF;
+  --sys-primary-container-rgb: 234, 221, 255;
   --sys-on-primary-container: #21005D;
+  --sys-on-primary-container-rgb: 33, 0, 93;
 
   --sys-secondary: #625B71;
+  --sys-secondary-rgb: 98, 91, 113;
   --sys-on-secondary: #FFFFFF;
+  --sys-on-secondary-rgb: 255, 255, 255;
   --sys-secondary-container: #E8DEF8;
+  --sys-secondary-container-rgb: 232, 222, 248;
   --sys-on-secondary-container: #1D192B;
+  --sys-on-secondary-container-rgb: 29, 25, 43;
 
   --sys-tertiary: #7D5260;
+  --sys-tertiary-rgb: 125, 82, 96;
   --sys-on-tertiary: #FFFFFF;
+  --sys-on-tertiary-rgb: 255, 255, 255;
   --sys-tertiary-container: #FFD8E4;
+  --sys-tertiary-container-rgb: 255, 216, 228;
   --sys-on-tertiary-container: #31111D;
+  --sys-on-tertiary-container-rgb: 49, 17, 29;
 
   --sys-background: #FDFBFF;
+  --sys-background-rgb: 253, 251, 255;
   --sys-on-background: #1C1B1F;
+  --sys-on-background-rgb: 28, 27, 31;
   --sys-surface: #FDFBFF;
+  --sys-surface-rgb: 253, 251, 255;
   --sys-on-surface: #1C1B1F;
+  --sys-on-surface-rgb: 28, 27, 31;
 
   /* Superfici Aura - Containers */
   --sys-surface-container-lowest: #FFFFFF;
+  --sys-surface-container-lowest-rgb: 255, 255, 255;
   --sys-surface-container-low: #F7F2FA;
+  --sys-surface-container-low-rgb: 247, 242, 250;
   --sys-surface-container: #F3EDF7;
+  --sys-surface-container-rgb: 243, 237, 247;
   --sys-surface-container-high: #ECE6F0;
+  --sys-surface-container-high-rgb: 236, 230, 240;
   --sys-surface-container-highest: #E6E0E9;
+  --sys-surface-container-highest-rgb: 230, 224, 233;
 
   --sys-outline: #79747E;
+  --sys-outline-rgb: 121, 116, 126;
   --sys-outline-variant: #C4C7C5;
+  --sys-outline-variant-rgb: 196, 199, 197;
   --sys-error: #B3261E;
+  --sys-error-rgb: 179, 38, 30;
   --sys-on-error: #FFFFFF;
+  --sys-on-error-rgb: 255, 255, 255;
   --sys-warning: #E65100;
+  --sys-warning-rgb: 230, 81, 0;
   --sys-on-warning: #FFFFFF;
+  --sys-on-warning-rgb: 255, 255, 255;
 
   /* Glassmorphism Presentation Layer - Default Aura */
   --glass-bg: rgba(255, 255, 255, 0.75);
@@ -199,57 +226,134 @@
   --md-sys-spacing-12: 48px;    /* Section gap */
   --md-sys-spacing-16: 64px;    /* Page section */
 
-  /* Typography Scale M3 */
-  /* Typography Scale M3 - Simple Variables */
-  --typography-display-large: 57px;
-  --typography-display-medium: 45px;
-  --typography-display-small: 36px;
-  --typography-headline-large: 32px;
-  --typography-headline-medium: 28px;
-  --typography-headline-small: 24px;
-  --typography-title-large: 22px;
-  --typography-title-medium: 16px;
-  --typography-title-small: 14px;
-  --typography-body-large: 16px;
-  --typography-body-medium: 14px;
-  --typography-body-small: 12px;
-  --typography-label-large: 14px;
-  --typography-label-medium: 12px;
-  --typography-label-small: 11px;
-
-  /* Typography Scale M3 - Extended Variables */
+  /* Typography Scale M3 - Complete Token Definitions */
+  /* Display Large */
+  --typography-display-large-fontSize: 57px;
+  --typography-display-large-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-display-large-fontWeight: 400;
+  --typography-display-large-lineHeight: 64px;
+  --typography-display-large-letterSpacing: -0.25px;
+  
+  /* Display Medium */
+  --typography-display-medium-fontSize: 45px;
+  --typography-display-medium-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-display-medium-fontWeight: 400;
+  --typography-display-medium-lineHeight: 52px;
+  --typography-display-medium-letterSpacing: 0px;
+  
+  /* Display Small */
+  --typography-display-small-fontSize: 36px;
+  --typography-display-small-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-display-small-fontWeight: 400;
+  --typography-display-small-lineHeight: 44px;
+  --typography-display-small-letterSpacing: 0px;
+  
+  /* Headline Large */
+  --typography-headline-large-fontSize: 32px;
+  --typography-headline-large-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-headline-large-fontWeight: 400;
+  --typography-headline-large-lineHeight: 40px;
+  --typography-headline-large-letterSpacing: 0px;
+  
+  /* Headline Medium */
+  --typography-headline-medium-fontSize: 28px;
+  --typography-headline-medium-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-headline-medium-fontWeight: 400;
+  --typography-headline-medium-lineHeight: 36px;
+  --typography-headline-medium-letterSpacing: 0px;
+  
+  /* Headline Small */
   --typography-headline-small-fontSize: 24px;
-  --typography-title-small-fontSize: 14px;
+  --typography-headline-small-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-headline-small-fontWeight: 400;
+  --typography-headline-small-lineHeight: 32px;
+  --typography-headline-small-letterSpacing: 0px;
+  
+  /* Title Large */
+  --typography-title-large-fontSize: 22px;
+  --typography-title-large-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-title-large-fontWeight: 400;
+  --typography-title-large-lineHeight: 28px;
+  --typography-title-large-letterSpacing: 0px;
+  
+  /* Title Medium */
   --typography-title-medium-fontSize: 16px;
+  --typography-title-medium-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-title-medium-fontWeight: 500;
+  --typography-title-medium-lineHeight: 24px;
+  --typography-title-medium-letterSpacing: 0.15px;
+  
+  /* Title Small */
+  --typography-title-small-fontSize: 14px;
+  --typography-title-small-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-title-small-fontWeight: 500;
+  --typography-title-small-lineHeight: 20px;
+  --typography-title-small-letterSpacing: 0.1px;
+  
+  /* Body Large */
   --typography-body-large-fontSize: 16px;
+  --typography-body-large-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-body-large-fontWeight: 400;
+  --typography-body-large-lineHeight: 24px;
+  --typography-body-large-letterSpacing: 0.5px;
+  
+  /* Body Medium */
   --typography-body-medium-fontSize: 14px;
+  --typography-body-medium-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-body-medium-fontWeight: 400;
+  --typography-body-medium-lineHeight: 20px;
+  --typography-body-medium-letterSpacing: 0.25px;
+  
+  /* Body Small */
   --typography-body-small-fontSize: 12px;
+  --typography-body-small-fontFamily: 'Roboto Flex', sans-serif;
+  --typography-body-small-fontWeight: 400;
+  --typography-body-small-lineHeight: 16px;
+  --typography-body-small-letterSpacing: 0.4px;
+  /* Label Large */
   --typography-label-large-fontSize: 14px;
-  --typography-label-medium-fontSize: 12px;
-  --typography-label-small-fontSize: 11px;
-  --typography-label-large-fontFamily: inherit;
-  --typography-label-medium-fontFamily: inherit;
-  --typography-label-small-fontFamily: inherit;
+  --typography-label-large-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-large-fontWeight: 500;
+  --typography-label-large-lineHeight: 20px;
+  --typography-label-large-letterSpacing: 0.1px;
+  
+  /* Label Medium */
+  --typography-label-medium-fontSize: 12px;
+  --typography-label-medium-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-medium-fontWeight: 500;
+  --typography-label-medium-lineHeight: 16px;
+  --typography-label-medium-letterSpacing: 0.5px;
+  
+  /* Label Small */
+  --typography-label-small-fontSize: 11px;
+  --typography-label-small-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-small-fontWeight: 500;
-  --typography-label-large-lineHeight: 1.4;
-  --typography-label-medium-lineHeight: 1.4;
-  --typography-label-small-lineHeight: 1.45;
+  --typography-label-small-lineHeight: 16px;
+  --typography-label-small-letterSpacing: 0.5px;
 
-  /* Forme M3 */
-  --shape-none: 0px;
-  --shape-xs: 4px;
-  --shape-s: 12px;
-  --shape-m: 16px;
-  --shape-l: 24px;
-  --shape-xl: 32px;
-  --shape-full: 9999px;
+  /* Forme M3 - LEGACY (DEPRECATED) */
+  /* ⚠️ DO NOT USE - Use --md-sys-shape-corner-* instead */
+  /* Maintained for backward compatibility only */
+  --shape-none: 0px;              /* → --md-sys-shape-corner-none */
+  --shape-xs: 4px;                /* → --md-sys-shape-corner-small (8px) */
+  --shape-s: 12px;                /* → --md-sys-shape-corner-medium */
+  --shape-m: 16px;                /* → --md-sys-shape-corner-large */
+  --shape-l: 24px;                /* ⚠️ NON-STANDARD - use 16px or 28px */
+  --shape-xl: 32px;               /* → --md-sys-shape-corner-extra-large */
+  --shape-full: 9999px;           /* → --md-sys-shape-corner-full */
 
   /* Elevazione & Ombre */
   --elevation-1: 0px 4px 12px rgba(103, 80, 164, 0.04);
   --elevation-2: 0px 8px 24px rgba(103, 80, 164, 0.08);
   --elevation-3: 0px 16px 48px rgba(103, 80, 164, 0.12);
+
+  /* MD3 Elevation Levels (Official) */
+  --md-sys-elevation-level0: none;
+  --md-sys-elevation-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15);
 
   --aura-gradient: linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%);
   
@@ -322,10 +426,10 @@
   --md-sys-color-error: var(--sys-error);
   --md-sys-color-on-error: var(--sys-on-error);
 
-  /* Elevation aliases */
-  --md-sys-elevation1: var(--elevation-1);
-  --md-sys-elevation2: var(--elevation-2);
-  --md-sys-elevation3: var(--elevation-3);
+  /* Elevation aliases - Updated to use proper MD3 levels */
+  --md-sys-elevation1: var(--md-sys-elevation-level1);
+  --md-sys-elevation2: var(--md-sys-elevation-level2);
+  --md-sys-elevation3: var(--md-sys-elevation-level3);
 
   /* Shape aliases (rounded corners) */
   --md-corner-small: var(--shape-s);
@@ -627,6 +731,30 @@ body {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border: 1px solid var(--sys-outline-variant);
   transition: all 0.3s var(--motion-easing-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+.m3-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s var(--motion-easing-standard);
+  pointer-events: none;
+}
+
+.m3-card:hover::before {
+  opacity: 0.08;
+}
+
+.m3-card:focus-visible::before {
+  opacity: 0.12;
+}
+
+.m3-card:active::before {
+  opacity: 0.12;
 }
 
 .m3-card:hover {
@@ -650,7 +778,7 @@ body {
   background: var(--sys-primary);
   color: var(--sys-on-primary);
   border: none;
-  border-radius: 100px;
+  border-radius: var(--md-sys-shape-corner-large);
   padding: calc(10px * var(--sys-font-scale, 1)) calc(24px * var(--sys-font-scale, 1));
   font-weight: 500;
   font-size: calc(14px * var(--sys-font-scale, 1));
@@ -672,7 +800,7 @@ body {
   background: var(--sys-error);
   color: var(--sys-on-error);
   border: none;
-  border-radius: calc(100px * var(--sys-radius-multiplier));
+  border-radius: var(--md-sys-shape-corner-large);
   padding: calc(10px * var(--sys-font-scale, 1)) calc(24px * var(--sys-font-scale, 1));
   font-weight: 500;
   font-size: calc(14px * var(--sys-font-scale, 1));
@@ -689,7 +817,7 @@ body {
   background: var(--sys-secondary-container);
   color: var(--sys-on-secondary-container);
   border: none;
-  border-radius: 100px;
+  border-radius: var(--md-sys-shape-corner-large);
   padding: calc(10px * var(--sys-font-scale, 1)) calc(24px * var(--sys-font-scale, 1));
   font-weight: 500;
   font-size: calc(14px * var(--sys-font-scale, 1));
@@ -707,7 +835,7 @@ body {
   background: transparent;
   border: 2px solid var(--sys-outline);
   color: var(--sys-primary);
-  border-radius: 100px;
+  border-radius: var(--md-sys-shape-corner-large);
   padding: calc(8px * var(--sys-font-scale, 1)) calc(24px * var(--sys-font-scale, 1));
   font-weight: 500;
   font-size: calc(14px * var(--sys-font-scale, 1));

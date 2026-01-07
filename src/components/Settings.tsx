@@ -178,6 +178,71 @@ const Settings: React.FC<SettingsProps> = (props) => {
         } catch { window.location.reload(); }
     };
 
+    const handleExportTheme = () => {
+        try {
+            const themeData = {
+                version: '1.0',
+                exportedAt: new Date().toISOString(),
+                themeState: themeState,
+                description: `Tema "${themeState.customizationName}" esportato da DocenteDoc AI`
+            };
+            
+            const dataStr = JSON.stringify(themeData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `tema-${themeState.customizationName.toLowerCase().replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showToast('Tema esportato con successo!', 'success');
+        } catch (error) {
+            console.error('Errore durante l\'esportazione del tema:', error);
+            showToast('Errore durante l\'esportazione del tema', 'error');
+        }
+    };
+
+    const handleImportTheme = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const content = e.target?.result as string;
+                const themeData = JSON.parse(content);
+                
+                if (!themeData.themeState) {
+                    throw new Error('File non valido: manca themeState');
+                }
+                
+                // Validate theme structure
+                const requiredFields = ['mode', 'visualStyle', 'customizationName'];
+                const missingFields = requiredFields.filter(field => !(field in themeData.themeState));
+                
+                if (missingFields.length > 0) {
+                    throw new Error(`File non valido: mancano i campi ${missingFields.join(', ')}`);
+                }
+                
+                // Apply the imported theme
+                onSaveTheme(themeData.themeState);
+                showToast(`Tema "${themeData.themeState.customizationName}" importato con successo!`, 'success');
+                
+            } catch (error) {
+                console.error('Errore durante l\'importazione del tema:', error);
+                showToast(`Errore durante l'importazione: ${error instanceof Error ? error.message : 'File non valido'}`, 'error');
+            }
+        };
+        
+        reader.readAsText(file);
+        // Reset input
+        event.target.value = '';
+    };
+
     const currentAiProfile = localAiSettings.model === AI_PROFILES.esperto.model ? 'esperto' : 'rapido';
 
     const handleAddNextYear = () => {
@@ -350,6 +415,30 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
+                                        <label className="text-xs font-bold text-on-surface">Scala Font</label>
+                                        <span className="m3-label-tiny font-black text-primary">{themeState.fontScale || 1}x</span>
+                                    </div>
+                                    <input 
+                                        type="range" min="0.8" max="1.4" step="0.1" 
+                                        value={themeState.fontScale || 1} 
+                                        onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })}
+                                        className="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <div className="flex justify-between items-center">
+                                        <label className="text-xs font-bold text-on-surface">Livello Contrasto</label>
+                                        <span className="m3-label-tiny font-black text-primary">{themeState.contrastLevel || 0}</span>
+                                    </div>
+                                    <input 
+                                        type="range" min="-50" max="50" step="5" 
+                                        value={themeState.contrastLevel || 0} 
+                                        onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })}
+                                        className="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary"
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <div className="flex justify-between items-center">
                                         <label className="text-xs font-bold text-on-surface">Arrotondamento Bordi</label>
                                         <span className="m3-label-tiny font-black text-primary">x{themeState.radiusMultiplier || 1}</span>
                                     </div>
@@ -364,6 +453,44 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             </button>
                                         ))}
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* SEZIONE 6: EXPORT/IMPORT TEMA */}
+                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
+                            <div className="flex items-center gap-8 mb-5">
+                                <span className="material-symbols-outlined text-primary">import_export</span>
+                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Backup Tema</h4>
+                            </div>
+                            <p className="m3-label-tiny text-on-surface-variant mb-6 opacity-70">Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.</p>
+                            <div className="flex gap-4">
+                                <M3Button 
+                                    onClick={handleExportTheme} 
+                                    variant="outlined"
+                                    className="flex-1 py-4 rounded-xl font-black text-xs uppercase tracking-widest"
+                                >
+                                    <span className="material-symbols-outlined mr-2">download</span>
+                                    ESPORTA TEMA
+                                </M3Button>
+                                <div className="flex-1">
+                                    <input
+                                        type="file"
+                                        accept=".json"
+                                        onChange={handleImportTheme}
+                                        className="hidden"
+                                        id="theme-import"
+                                    />
+                                    <label htmlFor="theme-import">
+                                        <M3Button 
+                                            component="span"
+                                            variant="outlined"
+                                            className="w-full py-4 rounded-xl font-black text-xs uppercase tracking-widest cursor-pointer"
+                                        >
+                                            <span className="material-symbols-outlined mr-2">upload</span>
+                                            IMPORTA TEMA
+                                        </M3Button>
+                                    </label>
                                 </div>
                             </div>
                         </div>
