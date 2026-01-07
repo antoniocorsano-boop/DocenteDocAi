@@ -57,30 +57,26 @@ registerRoute(
 
 // Default fetch handler with error recovery
 self.addEventListener('fetch', (event: FetchEvent) => {
-  // Let registered routes handle their requests
-  if (event.request.method !== 'GET') {
-    return;
-  }
+  // Only handle same-origin GET requests; let Workbox handle registered routes
+  if (event.request.method !== 'GET') return;
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin) return;
 
-  // Try to fetch, fallback to cache
+  // Try network first, fallback to cache for same-origin assets
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // Cache successful responses dynamically
         if (response && response.status === 200) {
           const cloned = response.clone();
-          caches.open('dynamic-cache').then(cache => {
-            cache.put(event.request, cloned);
-          });
+          caches.open('dynamic-cache').then(cache => cache.put(event.request, cloned));
         }
         return response;
       })
-      .catch(() => {
-        // Try to get from cache on network failure
-        return caches.match(event.request)
+      .catch(() =>
+        caches.match(event.request)
           .then(cached => cached || new Response('Offline', { status: 503 }))
-          .catch(() => new Response('Service Worker Error', { status: 500 }));
-      })
+          .catch(() => new Response('Service Worker Error', { status: 500 }))
+      )
   );
 });
 
