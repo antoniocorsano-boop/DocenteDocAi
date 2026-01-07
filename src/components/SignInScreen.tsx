@@ -26,7 +26,11 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
     const enableGsiDev = env && env.VITE_ENABLE_GSI_DEV === 'true';
     const devClientId = env && env.VITE_GSI_CLIENT_ID;
 
-    const allowedHosts = ['docentedoc.app', 'your-production-domain.example'];
+    const allowedHosts = [
+      'docentedoc.app', 
+      'docentedoc-ai.vercel.app',
+      'docentedoc-4yai3eg5x-antonios-projects-051b8d71.vercel.app'
+    ];
     const host = window.location.hostname;
 
     if (!(isProd && allowedHosts.includes(host)) && !(isDev && enableGsiDev && !!devClientId)) {
