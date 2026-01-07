@@ -72,10 +72,10 @@ export const Elevated: Story = {
  * Deletable chip
  */
 export const Deletable: Story = {
-  render: (args: M3ChipProps) => {
+  render: (args) => {
     const [deleted, setDeleted] = useState(false);
     if (deleted) return <p>Chip deleted!</p>;
-    return <M3Chip {...args} onDelete={() => setDeleted(true)} />;
+    return <M3Chip {...(args as M3ChipProps)} onDelete={() => setDeleted(true)} />;
   },
   args: {
     label: 'Click X to delete',

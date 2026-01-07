@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Uda, Competenza, UdaPlannerProps } from '../types';
 import { UdaExportModal } from './UdaExportModal';
 import Guidance from './Guidance';
@@ -270,13 +270,13 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                     style={{ animationDelay: `${idx * 50}ms` }}
                                                     onClick={() => setEditingUda(uda)}
                                                 >
-                                                    <td className="p-6">
+                                                    <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
                                                         <span className="font-black text-primary group-hover:text-primary-container transition-colors">{uda.title}</span>
                                                     </td>
-                                                    <td className="p-6">
+                                                    <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
                                                         <span className="font-bold text-on-surface/70">{uda.classe}</span>
                                                     </td>
-                                                    <td className="p-6">
+                                                    <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
                                                         <span className="font-medium text-on-surface/60">{uda.materia}</span>
                                                     </td>
                                                     <td className="p-6 text-center">
@@ -344,3 +344,4 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
 };
 
 export default UdaPlanner;
+

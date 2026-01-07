@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState } from 'react';
 import { Report } from '../types';
 import { saveAs } from '../utils/documentUtils';
@@ -39,7 +39,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                 </div>
             </div>
             <div className="card">
-                <div className="p-8">
+                <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
                     <div className="search-input-container max-w-lg">
                         <span className="material-symbols-outlined" aria-hidden="true">search</span>
                         <input 
@@ -91,3 +91,4 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
 }
 
 export default ArchivioReport;
+

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Home from '../../src/components/Home';
@@ -38,32 +38,34 @@ vi.mock('../../src/stores/useSettingsStore', () => ({
     }),
 }));
 
+// Helper to create system state
+// Helper per creare lo stato di sistema mockato
+const createSystemState = (overrides = {}) => ({
+    activeSuggestion: {
+        id: 'test-suggestion-1',
+        icon: 'lightbulb',
+        title: 'Test Suggestion',
+        message: 'Test Suggestion',
+        description: 'This is a test AI suggestion',
+        actionLabel: 'Apri',
+        action: { type: 'navigate', payload: 'home' }
+    },
+    dismissedSuggestions: new Set(),
+    suggestions: [
+        {
+            id: 'test-suggestion-2',
+            icon: 'school',
+            title: 'Other Suggestion',
+            description: 'Another test suggestion',
+            action: { type: 'navigate', payload: { view: 'aula' } }
+        }
+    ],
+    ...overrides,
+});
+
 // Mock useSystemStore
 vi.mock('../../src/stores/useSystemStore', () => ({
-    useSystemStore: vi.fn((selector) => {
-        const mockState = {
-            activeSuggestion: {
-                id: 'test-suggestion-1',
-                icon: 'lightbulb',
-                title: 'Test Suggestion',
-                message: 'Test Suggestion',
-                description: 'This is a test AI suggestion',
-                actionLabel: 'Apri',
-                action: { type: 'navigate', payload: 'home' }
-            },
-            dismissedSuggestions: new Set(),
-            suggestions: [
-                {
-                    id: 'test-suggestion-2',
-                    icon: 'school',
-                    title: 'Other Suggestion',
-                    description: 'Another test suggestion',
-                    action: { type: 'navigate', payload: { view: 'aula' } }
-                }
-            ],
-        };
-        return selector(mockState);
-    }),
+    useSystemStore: vi.fn((selector) => selector(createSystemState())),
 }));
 
 // Mock useAcademicStore
@@ -84,8 +86,16 @@ vi.mock('../../src/stores/useStudentStore', () => ({
     }),
 }));
 
+
 const mockOnNavigate = vi.fn();
 const mockDismissSuggestion = vi.fn();
+
+// Reset mocks and store state before each test
+import { useSystemStore } from '../../src/stores/useSystemStore';
+beforeEach(() => {
+    vi.clearAllMocks();
+    (useSystemStore as any).mockImplementation((selector: any) => selector(createSystemState()));
+});
 
 describe('Home Component', () => {
     it('renders welcome message', () => {
@@ -140,6 +150,7 @@ describe('Home Component', () => {
         expect(mockDismissSuggestion).toHaveBeenCalledWith('test-suggestion-1');
     });
 
+
     it('renders quick action buttons', () => {
         render(
             <Home
@@ -147,11 +158,22 @@ describe('Home Component', () => {
                 dismissSuggestion={mockDismissSuggestion}
             />
         );
-
-        const labels = ['Appello', 'Valutazioni', 'Registro', 'Documenti'];
+        // Update labels to match actual quick actions
+        const labels = ['Appello', 'Valutazioni', 'Registro', 'Progettazione'];
         labels.forEach(label => {
             expect(screen.getByText(new RegExp(label, 'i'))).toBeInTheDocument();
         });
+    });
+    it('hides AI suggestion when already dismissed', () => {
+        (useSystemStore as any).mockImplementation((selector: any) => selector(createSystemState({ dismissedSuggestions: new Set(['test-suggestion-1']) })));
+        render(
+            <Home
+                onNavigate={mockOnNavigate}
+                dismissSuggestion={mockDismissSuggestion}
+            />
+        );
+        expect(screen.getByText('Nessun suggerimento')).toBeInTheDocument();
+        expect(screen.queryByText('Suggerimento AI')).not.toBeInTheDocument();
     });
 
     it('handles metric card clicks', () => {

@@ -3,7 +3,7 @@
     inset: 0;
     pointer-events: none;
     border-radius: inherit;
-    background: radial-gradient(circle, var(--sys-primary) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--md-sys-color-primary) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.18s var(--motion-easing-standard);
     z-index: 0;
@@ -40,8 +40,8 @@
 }
 
 .hero-card-interactive {
-    background-color: var(--sys-primary-container);
-    color: var(--sys-on-primary-container);
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
     border-radius: var(--shape-xl);
     padding: var(--md-sys-spacing-4);
     cursor: pointer;
@@ -64,7 +64,7 @@
 }
 
 .hero-card-interactive:focus-visible {
-    outline: 2px solid var(--sys-primary);
+    outline: 2px solid var(--md-sys-color-primary);
     outline-offset: 2px;
 }
 
@@ -100,13 +100,13 @@
 }
 
 .expressive-card {
-    background-color: var(--sys-surface-container);
+    background-color: var(--md-sys-color-surface-container);
     border-radius: var(--shape-xl);
     padding: var(--md-sys-spacing-6);
     position: relative;
     cursor: pointer;
     transition: all var(--motion-duration-short) var(--motion-easing-standard);
-    border: 1px solid var(--sys-outline-variant);
+    border: 1px solid var(--md-sys-color-outline-variant);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -115,40 +115,40 @@
 }
 
 .expressive-card:hover {
-    background-color: var(--sys-surface-container-high);
+    background-color: var(--md-sys-color-surface-container-high);
     transform: translateY(-2px);
     box-shadow: var(--elevation-2);
 }
 
 .expressive-card:focus-visible {
-    outline: 2px solid var(--sys-primary);
+    outline: 2px solid var(--md-sys-color-primary);
     outline-offset: 2px;
 }
 
 /* Theme Variants for Bento Cards */
 .expressive-card.theme-secondary {
-    background-color: var(--sys-secondary-container);
-    color: var(--sys-on-secondary-container);
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
     border: none;
 }
 
 .expressive-card.theme-tertiary {
-    background-color: var(--sys-tertiary-container);
-    color: var(--sys-on-tertiary-container);
+    background-color: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
     border: none;
 }
 
 .expressive-card.theme-surface {
-    background-color: var(--sys-surface-container-low);
-    color: var(--sys-on-surface);
+    background-color: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface);
 }
 
 .expressive-card-icon-container {
     width: 40px;
     height: 40px;
     border-radius: var(--shape-m);
-    background-color: var(--sys-surface);
-    color: var(--sys-on-surface);
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -157,11 +157,11 @@
 }
 
 .expressive-card.theme-secondary .expressive-card-icon-container {
-    color: var(--sys-secondary);
+    color: var(--md-sys-color-secondary);
 }
 
 .expressive-card.theme-tertiary .expressive-card-icon-container {
-    color: var(--sys-tertiary);
+    color: var(--md-sys-color-tertiary);
 }
 
 .expressive-card-arrow {
@@ -179,8 +179,8 @@
     align-items: start;
     padding: var(--md-sys-spacing-4);
     border-radius: var(--shape-l);
-    background-color: var(--sys-surface-container-low);
-    border: 1px solid var(--sys-outline-variant);
+    background-color: var(--md-sys-color-surface-container-low);
+    border: 1px solid var(--md-sys-color-outline-variant);
     cursor: pointer;
     transition: all var(--motion-duration-short) var(--motion-easing-standard);
     text-align: left;
@@ -194,48 +194,48 @@
 }
 
 .expressive-tool-card:focus-visible {
-    outline: 2px solid var(--sys-primary);
+    outline: 2px solid var(--md-sys-color-primary);
     outline-offset: 2px;
 }
 
 /* VARIANTI ESPRESSIVE COLORATE */
 .expressive-tool-card.variant-primary {
-    background-color: var(--sys-primary-container);
-    color: var(--sys-on-primary-container);
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
     border: 1px solid transparent;
 }
 
 .expressive-tool-card.variant-primary:hover {
-    background-color: var(--sys-primary);
-    color: var(--sys-on-primary);
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
 }
 
 .expressive-tool-card.variant-secondary {
-    background-color: var(--sys-secondary-container);
-    color: var(--sys-on-secondary-container);
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
     border: 1px solid transparent;
 }
 
 .expressive-tool-card.variant-secondary:hover {
-    background-color: var(--sys-secondary);
-    color: var(--sys-on-secondary);
+    background-color: var(--md-sys-color-secondary);
+    color: var(--md-sys-color-on-secondary);
 }
 
 .expressive-tool-card.variant-tertiary {
-    background-color: var(--sys-tertiary-container);
-    color: var(--sys-on-tertiary-container);
+    background-color: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
     border: 1px solid transparent;
 }
 
 .expressive-tool-card.variant-tertiary:hover {
-    background-color: var(--sys-tertiary);
-    color: var(--sys-on-tertiary);
+    background-color: var(--md-sys-color-tertiary);
+    color: var(--md-sys-color-on-tertiary);
 }
 
 /* Variante Surface (Neutro) */
 .expressive-tool-card.variant-surface:hover {
-    background-color: var(--sys-surface-container-high);
-    border-color: var(--sys-outline);
+    background-color: var(--md-sys-color-surface-container-high);
+    border-color: var(--md-sys-color-outline);
 }
 
 .tool-icon {
@@ -257,9 +257,9 @@
 
 /* --- 3. CLASS CARDS (Widget Style - TINTED) --- */
 .class-card-widget {
-    background-color: var(--sys-surface-container-low);
+    background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--shape-l);
-    border: 1px solid var(--sys-outline-variant);
+    border: 1px solid var(--md-sys-color-outline-variant);
     overflow: hidden;
     cursor: pointer;
     transition: all var(--motion-duration-short) var(--motion-easing-standard);
@@ -270,12 +270,12 @@
 .class-card-widget:hover {
     transform: translateY(-4px);
     box-shadow: var(--elevation-2);
-    border-color: var(--sys-primary);
+    border-color: var(--md-sys-color-primary);
     /* Highlight border on hover */
 }
 
 .class-card-widget:focus-visible {
-    outline: 2px solid var(--sys-primary);
+    outline: 2px solid var(--md-sys-color-primary);
     outline-offset: 2px;
 }
 
@@ -328,8 +328,8 @@
     top: 12px;
     right: 50px;
     /* Left of the icon */
-    background-color: var(--sys-error);
-    color: var(--sys-on-error);
+    background-color: var(--md-sys-color-error);
+    color: var(--md-sys-color-on-error);
     width: 20px;
     height: 20px;
     border-radius: var(--shape-full);
@@ -359,8 +359,8 @@
 .agenda-event-card {
     min-width: 160px;
     max-width: 160px;
-    background-color: var(--sys-surface-container-low);
-    border: 1px solid var(--sys-outline-variant);
+    background-color: var(--md-sys-color-surface-container-low);
+    border: 1px solid var(--md-sys-color-outline-variant);
     border-radius: var(--shape-l);
     padding: var(--md-sys-spacing-3);
     display: flex;
@@ -377,18 +377,18 @@
 .agenda-event-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--elevation-1);
-    border-color: var(--sys-primary);
+    border-color: var(--md-sys-color-primary);
 }
 
 .agenda-event-card:focus-visible {
-    outline: 2px solid var(--sys-primary);
+    outline: 2px solid var(--md-sys-color-primary);
     outline-offset: 2px;
 }
 
 .agenda-event-date {
     font-size: var(--typography-label-small-fontSize);
     font-weight: 700;
-    color: var(--sys-primary);
+    color: var(--md-sys-color-primary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -397,23 +397,23 @@
     font-weight: 700;
     font-size: var(--typography-body-medium-fontSize);
     margin: var(--md-sys-spacing-1) 0 var(--md-sys-spacing-1);
-    color: var(--sys-on-surface);
+    color: var(--md-sys-color-on-surface);
     line-height: 1.2;
 }
 
 .agenda-event-subtitle {
     font-size: var(--typography-label-small-fontSize);
-    color: var(--sys-on-surface-variant);
+    color: var(--md-sys-color-on-surface-variant);
 }
 
 .agenda-event-class {
     align-self: flex-start;
     font-size: var(--typography-label-small-fontSize);
-    background-color: var(--sys-surface-container-high);
+    background-color: var(--md-sys-color-surface-container-high);
     padding: 2px 6px;
     border-radius: var(--shape-s);
     font-weight: 600;
-    color: var(--sys-on-surface);
+    color: var(--md-sys-color-on-surface);
     margin-top: auto;
 }
 
@@ -424,7 +424,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: var(--sys-surface-container-lowest);
+    background-color: var(--md-sys-color-surface-container-lowest);
     overflow: hidden;
 }
 
@@ -436,8 +436,8 @@
     flex-wrap: wrap;
     gap: var(--md-sys-spacing-4);
     padding: var(--md-sys-spacing-4) var(--md-sys-spacing-6);
-    background: var(--sys-surface);
-    border-bottom: 1px solid var(--sys-outline-variant);
+    background: var(--md-sys-color-surface);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
     flex-shrink: 0;
 }
 
@@ -456,17 +456,17 @@
 .calendar-nav-group {
     display: flex;
     align-items: center;
-    background: var(--sys-surface-container-high);
+    background: var(--md-sys-color-surface-container-high);
     border-radius: var(--shape-full);
     padding: var(--md-sys-spacing-1);
-    border: 1px solid var(--sys-outline-variant);
+    border: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .calendar-today-btn {
     padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
     font-size: var(--typography-label-medium-fontSize);
     font-weight: 700;
-    color: var(--sys-primary);
+    color: var(--md-sys-color-primary);
     background: transparent;
     border: none;
     border-radius: var(--shape-full);
@@ -475,13 +475,13 @@
 }
 
 .calendar-today-btn:hover {
-    background: var(--sys-primary-container);
+    background: var(--md-sys-color-primary-container);
 }
 
 .calendar-title {
     font-size: var(--typography-headline-small-fontSize);
     font-weight: 700;
-    color: var(--sys-on-surface);
+    color: var(--md-sys-color-on-surface);
     margin: 0;
     text-transform: capitalize;
 }
@@ -491,7 +491,7 @@
     align-items: center;
     gap: var(--md-sys-spacing-3);
     padding-left: var(--md-sys-spacing-3);
-    border-left: 1px solid var(--sys-outline-variant);
+    border-left: 1px solid var(--md-sys-color-outline-variant);
 }
 
 /* Calendar Body */
@@ -506,17 +506,17 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: var(--sys-surface);
+    background: var(--md-sys-color-surface);
     border-radius: var(--shape-xl);
-    border: 1px solid var(--sys-outline-variant);
+    border: 1px solid var(--md-sys-color-outline-variant);
     overflow: hidden;
 }
 
 .calendar-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background: var(--sys-surface-container-high);
-    border-bottom: 1px solid var(--sys-outline-variant);
+    background: var(--md-sys-color-surface-container-high);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .calendar-weekday {
@@ -524,7 +524,7 @@
     text-align: center;
     font-size: var(--typography-label-small-fontSize);
     font-weight: 700;
-    color: var(--sys-on-surface-variant);
+    color: var(--md-sys-color-on-surface-variant);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -538,9 +538,9 @@
 .calendar-day {
     min-height: 100px;
     padding: var(--md-sys-spacing-2);
-    border-right: 1px solid var(--sys-outline-variant);
-    border-bottom: 1px solid var(--sys-outline-variant);
-    background: var(--sys-surface);
+    border-right: 1px solid var(--md-sys-color-outline-variant);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    background: var(--md-sys-color-surface);
     cursor: pointer;
     transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
 }
@@ -550,11 +550,11 @@
 }
 
 .calendar-day:hover {
-    background: var(--sys-surface-container-low);
+    background: var(--md-sys-color-surface-container-low);
 }
 
 .calendar-day.other-month {
-    background: var(--sys-surface-container-lowest);
+    background: var(--md-sys-color-surface-container-lowest);
     opacity: 0.5;
 }
 
@@ -566,13 +566,13 @@
     height: 28px;
     font-size: var(--typography-body-medium-fontSize);
     font-weight: 500;
-    color: var(--sys-on-surface);
+    color: var(--md-sys-color-on-surface);
     border-radius: var(--shape-full);
 }
 
 .calendar-day-number.today {
-    background: var(--sys-primary);
-    color: var(--sys-on-primary);
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
     font-weight: 700;
 }
 
@@ -600,28 +600,28 @@
 }
 
 .calendar-event-default {
-    background: var(--sys-secondary-container);
-    color: var(--sys-on-secondary-container);
+    background: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
 }
 
 .calendar-event-urgente {
-    background: var(--sys-error-container);
-    color: var(--sys-on-error-container);
+    background: var(--md-sys-color-error-container);
+    color: var(--md-sys-color-on-error-container);
 }
 
 .calendar-event-scadenza {
-    background: var(--sys-tertiary-container);
-    color: var(--sys-on-tertiary-container);
+    background: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
 }
 
 .calendar-event-riunione {
-    background: var(--sys-primary-container);
-    color: var(--sys-on-primary-container);
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
 }
 
 .calendar-more {
     font-size: 10px;
-    color: var(--sys-on-surface-variant);
+    color: var(--md-sys-color-on-surface-variant);
     padding: 2px var(--md-sys-spacing-2);
 }
 
@@ -633,20 +633,20 @@
 }
 
 .agenda-group {
-    background: var(--sys-surface);
+    background: var(--md-sys-color-surface);
     border-radius: var(--shape-l);
     overflow: hidden;
-    border: 1px solid var(--sys-outline-variant);
+    border: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .agenda-date {
     padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
-    background: var(--sys-surface-container-high);
+    background: var(--md-sys-color-surface-container-high);
     font-size: var(--typography-title-small-fontSize);
     font-weight: 700;
-    color: var(--sys-on-surface);
+    color: var(--md-sys-color-on-surface);
     text-transform: capitalize;
-    border-bottom: 1px solid var(--sys-outline-variant);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .agenda-events {
@@ -658,7 +658,7 @@
     display: flex;
     gap: var(--md-sys-spacing-4);
     padding: var(--md-sys-spacing-4);
-    border-bottom: 1px solid var(--sys-outline-variant);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
     cursor: pointer;
     transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
 }
@@ -668,7 +668,7 @@
 }
 
 .agenda-event:hover {
-    background: var(--sys-surface-container-low);
+    background: var(--md-sys-color-surface-container-low);
 }
 
 .agenda-event-time {
@@ -676,7 +676,7 @@
     width: 80px;
     font-size: var(--typography-body-small-fontSize);
     font-weight: 600;
-    color: var(--sys-primary);
+    color: var(--md-sys-color-primary);
 }
 
 .agenda-event-content {
@@ -687,12 +687,12 @@
 .agenda-event-title {
     font-size: var(--typography-body-medium-fontSize);
     font-weight: 600;
-    color: var(--sys-on-surface);
+    color: var(--md-sys-color-on-surface);
 }
 
 .agenda-event-desc {
     font-size: var(--typography-body-small-fontSize);
-    color: var(--sys-on-surface-variant);
+    color: var(--md-sys-color-on-surface-variant);
     margin-top: var(--md-sys-spacing-1);
 }
 
@@ -705,7 +705,7 @@
     gap: var(--md-sys-spacing-4);
     padding: var(--md-sys-spacing-16);
     text-align: center;
-    color: var(--sys-on-surface-variant);
+    color: var(--md-sys-color-on-surface-variant);
 }
 
 .calendar-empty .material-symbols-outlined {
@@ -723,24 +723,24 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: var(--sys-surface);
+    background: var(--md-sys-color-surface);
     border-radius: var(--shape-xl);
-    border: 1px solid var(--sys-outline-variant);
+    border: 1px solid var(--md-sys-color-outline-variant);
     overflow: hidden;
 }
 
 .calendar-week-header {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background: var(--sys-surface-container-high);
-    border-bottom: 1px solid var(--sys-outline-variant);
+    background: var(--md-sys-color-surface-container-high);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
     flex-shrink: 0;
 }
 
 .calendar-week-day-header {
     padding: var(--md-sys-spacing-3) var(--md-sys-spacing-2);
     text-align: center;
-    border-right: 1px solid var(--sys-outline-variant);
+    border-right: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .calendar-week-day-header:last-child {
@@ -750,7 +750,7 @@
 .calendar-week-day-name {
     font-size: var(--typography-label-small-fontSize);
     font-weight: 700;
-    color: var(--sys-on-surface-variant);
+    color: var(--md-sys-color-on-surface-variant);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: var(--md-sys-spacing-1);
@@ -759,7 +759,7 @@
 .calendar-week-day-number {
     font-size: var(--typography-body-medium-fontSize);
     font-weight: 500;
-    color: var(--sys-on-surface);
+    color: var(--md-sys-color-on-surface);
     width: 28px;
     height: 28px;
     display: flex;
@@ -770,8 +770,8 @@
 }
 
 .calendar-week-day-number.today {
-    background: var(--sys-primary);
-    color: var(--sys-on-primary);
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
     font-weight: 700;
 }
 
@@ -784,7 +784,7 @@
 .calendar-week-hour {
     display: flex;
     min-height: 60px;
-    border-bottom: 1px solid var(--sys-outline-variant);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .calendar-week-hour-label {
@@ -792,9 +792,9 @@
     padding: var(--md-sys-spacing-2);
     font-size: var(--typography-body-small-fontSize);
     font-weight: 600;
-    color: var(--sys-on-surface-variant);
-    background: var(--sys-surface-container-high);
-    border-right: 1px solid var(--sys-outline-variant);
+    color: var(--md-sys-color-on-surface-variant);
+    background: var(--md-sys-color-surface-container-high);
+    border-right: 1px solid var(--md-sys-color-outline-variant);
     flex-shrink: 0;
     text-align: center;
 }
@@ -806,7 +806,7 @@
 }
 
 .calendar-week-slot {
-    border-right: 1px solid var(--sys-outline-variant);
+    border-right: 1px solid var(--md-sys-color-outline-variant);
     padding: 2px;
     position: relative;
     min-height: 60px;
@@ -817,8 +817,8 @@
 }
 
 .calendar-week-event {
-    background: var(--sys-primary-container);
-    color: var(--sys-on-primary-container);
+    background: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
     border-radius: var(--shape-s);
     padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
     font-size: 11px;
@@ -849,23 +849,23 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: var(--sys-surface);
+    background: var(--md-sys-color-surface);
     border-radius: var(--shape-xl);
-    border: 1px solid var(--sys-outline-variant);
+    border: 1px solid var(--md-sys-color-outline-variant);
     overflow: hidden;
 }
 
 .calendar-day-header {
     padding: var(--md-sys-spacing-4) var(--md-sys-spacing-6);
-    background: var(--sys-surface-container-high);
-    border-bottom: 1px solid var(--sys-outline-variant);
+    background: var(--md-sys-color-surface-container-high);
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
     flex-shrink: 0;
 }
 
 .calendar-day-title {
     font-size: var(--typography-headline-small-fontSize);
     font-weight: 700;
-    color: var(--sys-on-surface);
+    color: var(--md-sys-color-on-surface);
     margin: 0;
     text-transform: capitalize;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+﻿import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ParticipationEntry } from '../types';
 import { PARTICIPATION_BADGES } from '../constants';
 import ClassroomTools from './ClassroomTools';
@@ -292,7 +292,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                         role="gridcell"
                                         aria-label={`${student.cognome} ${student.nome}, voto ${stat.grade || '-'}, presenze ${status}`}
                                     >
-                                        <div className="p-8">
+                                        <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
                                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-8 items-center">
                                             {/* Column 1: Avatar + Name + Presence + BES/DSA */}
                                             <div className="flex items-center gap-8 col-span-1 md:col-span-2 lg:col-span-2">
@@ -618,3 +618,4 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 };
 
 export default ClassroomView;
+

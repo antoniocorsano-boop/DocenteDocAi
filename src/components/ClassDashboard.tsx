@@ -1,4 +1,4 @@
-
+﻿
 import React, { useMemo } from 'react';
 import { View, Studente, Lezione } from '../types';
 import { DAYS_OF_WEEK } from '../constants';
@@ -100,13 +100,13 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                     <section>
                         {todaysLesson ? (
                             <InfoCard variant="elevated" className="overflow-hidden bg-primary-container/30 backdrop-blur-sm border border-primary/10">
-                                <div className="p-6">
+                                <div style={{ padding: 'var(--md-sys-spacing-5)' }}>
                                     <div className="flex items-start gap-6 mb-6">
                                         <div className="w-16 h-16 rounded-2xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-lg shadow-primary/20">
                                             <span className="material-symbols-outlined text-3xl">school</span>
                                         </div>
                                         <div className="flex-grow min-w-0">
-                                            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Prossima Lezione • {todaysLesson.slot.ora}</p>
+                                            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Prossima Lezione â€¢ {todaysLesson.slot.ora}</p>
                                             <h2 className="text-2xl font-bold text-on-surface truncate">{todaysLesson.lesson.materia}</h2>
                                             <p className="text-on-surface-variant line-clamp-1 mt-4">{todaysLesson.lesson.contenuto}</p>
                                         </div>
@@ -343,3 +343,4 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 };
 
 export default React.memo(ClassDashboard);
+

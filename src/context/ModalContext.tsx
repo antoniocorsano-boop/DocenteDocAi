@@ -292,7 +292,6 @@ const ModalPortalContainer: React.FC<ModalPortalContainerProps> = ({ stack, getZ
 interface ModalPortalProps {
   id: string;
   level: number;
-  backdropZIndex: number;
   modalZIndex: number;
   backdropClickable?: boolean;
   backdropOpacity?: 'light' | 'medium' | 'dark';
@@ -307,7 +306,6 @@ interface ModalPortalProps {
 const ModalPortal: React.FC<ModalPortalProps> = ({
   id,
   level,
-  backdropZIndex,
   modalZIndex,
   backdropClickable = true,
   backdropOpacity = 'medium',

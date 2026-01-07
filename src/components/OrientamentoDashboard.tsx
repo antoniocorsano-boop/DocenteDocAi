@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState, useMemo } from 'react';
 import { 
     Studente, 
@@ -72,7 +72,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     <InfoCard 
                         key={activity.id}
                         title={activity.title}
-                        description={`${activity.durationHours} ore • ${new Date(activity.date).toLocaleDateString('it-IT')}`}
+                        description={`${activity.durationHours} ore â€¢ ${new Date(activity.date).toLocaleDateString('it-IT')}`}
                         icon="explore"
                         variant="surface"
                     >
@@ -84,8 +84,8 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 {filteredActivities.length === 0 && (
                     <div className="col-span-full">
                         <EmptyState 
-                            title="Nessuna attività" 
-                            description="Inizia aggiungendo un'attività di orientamento per questa classe." 
+                            title="Nessuna attivitÃ " 
+                            description="Inizia aggiungendo un'attivitÃ  di orientamento per questa classe." 
                             icon="explore_off" 
                         />
                     </div>
@@ -115,7 +115,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                             
                             return (
                                 <tr key={student.id} className="hover:bg-primary/5 transition-colors">
-                                    <td className="p-8">
+                                    <td style={{ padding: 'var(--md-sys-spacing-6)' }}>
                                         <div className="flex items-center gap-6">
                                             <Avatar name={`${student.nome} ${student.cognome}`} size="sm" />
                                             <span className="font-bold text-on-surface">{student.cognome} {student.nome}</span>
@@ -187,7 +187,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     <div className="mt-4">
                         <span className="text-4xl font-black text-primary">{totalHours}h</span>
                         <p className="m3-body-small text-on-surface-variant mt-4">
-                            {totalHours >= 30 ? '✅ Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
+                            {totalHours >= 30 ? 'âœ… Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
                         </p>
                     </div>
                 </InfoCard>
@@ -235,7 +235,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     </button>
                 </div>
 
-                <div className="p-8">
+                <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
                     {activeTab === 'activities' ? renderActivitiesTab() : renderStudentsTab()}
                 </div>
             </div>
@@ -246,7 +246,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 onClose={() => setIsAddActivityModalOpen(false)}
                 onSave={(a) => {
                     onSaveActivity(a);
-                    showToast('Attività salvata con successo', 'success');
+                    showToast('AttivitÃ  salvata con successo', 'success');
                 }}
                 userClasses={userClasses}
             />
@@ -270,4 +270,5 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
 };
 
 export default OrientamentoDashboard;
+
 

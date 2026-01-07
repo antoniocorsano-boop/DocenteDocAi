@@ -1,4 +1,4 @@
-/**
+﻿/**
  * AddEvaluationModal
  * 
  * Material Design 3 Expressive - Migrated from dialog-container pattern
@@ -8,7 +8,7 @@
  * Previous: dialog-backdrop + dialog-container divs
  * Current: M3Dialog wrapper with M3DialogContent, M3DialogActions
  * 
- * Status: ✅ MIGRATED & TESTED
+ * Status: âœ… MIGRATED & TESTED
  */
 
 import * as React from 'react';
@@ -141,7 +141,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                     />
                 </M3DialogContent>
 
-                <M3DialogActions className="gap-8">
+                <M3DialogActions style={{ gap: 'var(--md-sys-spacing-6)' }}>
                     <M3Button variant="text" onClick={onClose} type="button">Annulla</M3Button>
                     <M3Button variant="filled" type="submit">Salva Valutazione</M3Button>
                 </M3DialogActions>
@@ -151,3 +151,4 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
 };
 
 export default AddEvaluationModal;
+

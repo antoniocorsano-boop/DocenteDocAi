@@ -1,4 +1,4 @@
-
+﻿
 import React, { useRef, useState, useEffect } from 'react';
 import { SettingsProps } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
@@ -156,7 +156,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
     const handleAddSubject = () => {
         if (!newSubjectName.trim()) return;
         if (localSettings.disciplines.includes(newSubjectName.trim())) {
-            showToast("Materia già presente", "info");
+            showToast("Materia giÃ  presente", "info");
             return;
         }
         handleChange('disciplines', [...localSettings.disciplines, newSubjectName.trim()]);
@@ -164,7 +164,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
     };
 
     const handleForceRefresh = async () => {
-        if (!confirm("Forzare l'aggiornamento del brand? L'app verrà ricaricata per pulire i vecchi file temporanei. I tuoi dati sono al sicuro.")) return;
+        if (!confirm("Forzare l'aggiornamento del brand? L'app verrÃ  ricaricata per pulire i vecchi file temporanei. I tuoi dati sono al sicuro.")) return;
         try {
             if ('serviceWorker' in navigator) {
                 const regs = await navigator.serviceWorker.getRegistrations();
@@ -217,7 +217,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="interface_experience" title="Interfaccia & Esperienza Visiva" subtitle="Personalizza l'aspetto e il comportamento dell'app" icon="palette" variant="primary" defaultOpen={true}>
                     <div className="space-y-8">
-                        {/* SEZIONE 1: MODALITÀ INTERFACCIA */}
+                        {/* SEZIONE 1: MODALITÃ€ INTERFACCIA */}
                         <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
                             <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">dashboard_customize</span>
@@ -235,8 +235,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             />
                             <p className="m3-label-tiny text-on-surface-variant mt-3 opacity-70 px-4">
                                 {localSettings.uiMode === 'flow' 
-                                    ? 'Modalità Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.' 
-                                    : 'Modalità Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
+                                    ? 'ModalitÃ  Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.' 
+                                    : 'ModalitÃ  Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
                             </p>
                         </div>
 
@@ -387,7 +387,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     </div>
                 </SettingsGroup>
 
-                <SettingsGroup id="profile" title="Profilo & Identità" subtitle="Dati docente e istituto" icon="badge" variant="surface">
+                <SettingsGroup id="profile" title="Profilo & IdentitÃ " subtitle="Dati docente e istituto" icon="badge" variant="surface">
                     <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
@@ -396,7 +396,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <TextField label="Email Istituzionale" type="email" value={localSettings.email || ''} onChange={e => handleChange('email', e.target.value)} placeholder="nome.cognome@scuola.edu.it" />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <TextField label="Nome Istituto" value={localSettings.nomeIstituto} onChange={e => handleChange('nomeIstituto', e.target.value)} />
-                            <TextField label="Città" value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
+                            <TextField label="CittÃ " value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
                         </div>
                     </div>
                 </SettingsGroup>
@@ -520,7 +520,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                     onClick={() => setSelYears(prev => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
                                                     className={`px-4 py-4 rounded-xl text-xs font-black transition-all border ${selYears.includes(y) ? 'bg-primary text-on-primary border-primary shadow-md' : 'bg-surface-container-highest/50 text-on-surface-variant border-outline-variant/30'}`}
                                                 >
-                                                    {y}° Anno
+                                                    {y}Â° Anno
                                                 </button>
                                             ))}
                                         </div>
@@ -589,7 +589,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             onClick={() => handleChange('classi', localSettings.classi.filter(c => c !== cls))}
                                                             className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-error text-on-error text-[8px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
                                                         >
-                                                            ×
+                                                            Ã—
                                                         </button>
                                                     </div>
                                                 </th>
@@ -599,7 +599,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <tbody>
                                         {localSettings.disciplines.map(subj => (
                                             <tr key={subj}>
-                                                <td className="p-8">
+                                                <td style={{ padding: 'var(--md-sys-spacing-6)' }}>
                                                     <div className="flex items-center justify-between group">
                                                         <div className="flex flex-col">
                                                             <span className="text-xs font-bold text-on-surface uppercase tracking-tight">{subj}</span>
@@ -661,7 +661,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                             <InfoCard 
                                 title="Come funziona"
-                                description="Questa matrice è il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
+                                description="Questa matrice Ã¨ il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
                                 icon="info"
                                 variant="primary"
                                 className="mt-6 bg-primary-container/10 border-primary/20"
@@ -895,7 +895,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </SettingsGroup>
 
                 <div className="text-center m3-label-tiny text-on-surface-variant opacity-50 pt-12 pb-4">
-                    DocenteDoc AI v4.0.8 • Stable
+                    DocenteDoc AI v4.0.8 â€¢ Stable
                     <div className="pt-3">
                         <span className="font-black uppercase tracking-widest">Owner:</span> Antonio Corsano
                         <span className="block mt-4">antonio.corsano@gmail.com</span>
@@ -912,3 +912,4 @@ const Settings: React.FC<SettingsProps> = (props) => {
 };
 
 export default Settings;
+

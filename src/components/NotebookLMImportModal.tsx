@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { fetchNotebookFiles, NotebookLMFile } from '../services/notebooklmService';
 import { KnowledgeBaseEntry } from '../types';
 import { 
@@ -164,7 +164,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
       </M3DialogContent>
 
       {step !== 'done' && (
-        <M3DialogActions className="gap-8">
+        <M3DialogActions style={{ gap: 'var(--md-sys-spacing-6)' }}>
           {step === 'select' && (
             <>
               <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
@@ -190,3 +190,4 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 };
 
 export default NotebookLMImportModal;
+

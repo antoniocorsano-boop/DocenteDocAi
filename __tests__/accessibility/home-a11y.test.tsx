@@ -85,10 +85,10 @@ describe('Home Accessibility', () => {
 
   it('quick action tiles include descriptive aria-labels', () => {
     render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
-    expect(screen.getByLabelText(/Appello - Registra presenze/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Valutazioni - Inserisci voti/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Registro - Sincronizza dati/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Documenti - Modelli \& report/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Appello - Presenze/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Valutazioni - Voti/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Registro - Sync Drive/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Progettazione - UDA & PDP/i)).toBeInTheDocument();
   });
 
   it('suggestion actions expose aria-labels when active', () => {
@@ -111,7 +111,7 @@ describe('Home Accessibility', () => {
     (goToClass as HTMLButtonElement).focus();
     expect(document.activeElement).toBe(goToClass);
 
-    const quickAction = screen.getByLabelText(/Appello - Registra presenze/i);
+    const quickAction = screen.getByLabelText(/Appello - Presenze/i);
     (quickAction as HTMLButtonElement).focus();
     expect(document.activeElement).toBe(quickAction);
   });

@@ -44,7 +44,7 @@ const TimerWidget: React.FC = () => {
                  timer
             </div>
             
-            <div className="flex items-center gap-8 text-primary z-10">
+            <div className="flex items-center text-primary z-10" style={{ gap: 'var(--md-sys-spacing-8)' }}>
                 <span className="material-symbols-outlined filled-icon">timer</span>
                 <span className="m3-label-small font-bold uppercase tracking-wider">Cronometro</span>
             </div>
@@ -53,7 +53,7 @@ const TimerWidget: React.FC = () => {
                 {formatTime(time)}
             </div>
             
-            <div className="flex gap-8 w-full z-10 mt-auto">
+            <div className="flex w-full z-10 mt-auto" style={{ gap: 'var(--md-sys-spacing-8)' }}>
                 <button 
                     onClick={handleReset} 
                     className="button button-tonal flex-shrink-0 !w-12 !px-0 justify-center" 
@@ -101,7 +101,7 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
                  casino
             </div>
 
-            <div className="flex items-center gap-8 text-tertiary z-10">
+            <div className="flex items-center text-tertiary z-10" style={{ gap: 'var(--md-sys-spacing-8)' }}>
                 <span className="material-symbols-outlined filled-icon">casino</span>
                 <span className="m3-label-small font-bold uppercase tracking-wider">Estrazione</span>
             </div>

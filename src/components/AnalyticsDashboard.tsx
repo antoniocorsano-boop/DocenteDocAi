@@ -92,7 +92,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
     >
       <M3DialogContent className="space-y-6">
           {/* GDPR Notice */}
-          <div className="bg-blue-50/50 border border-blue-200/30 rounded-xl p-8 backdrop-blur-md">
+          <div className="bg-blue-50/50 border border-blue-200/30 p-8 backdrop-blur-md" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
             <div className="flex items-start gap-6">
               <span className="material-symbols-outlined text-blue-600 mt-0.5">privacy_tip</span>
               <div>
@@ -121,7 +121,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
               {/* Metriche Principali */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div className="bg-surface-container-low/50 rounded-xl p-8 border border-outline/10">
+                <div className="bg-surface-container-low/50 p-8 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
                   <div className="flex items-center gap-6">
                     <span className="material-symbols-outlined text-green-600">description</span>
                     <div>
@@ -131,7 +131,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 rounded-xl p-8 border border-outline/10">
+                <div className="bg-surface-container-low/50 p-8 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
                   <div className="flex items-center gap-6">
                     <span className="material-symbols-outlined text-blue-600">smart_toy</span>
                     <div>
@@ -141,7 +141,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 rounded-xl p-8 border border-outline/10">
+                <div className="bg-surface-container-low/50 p-8 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
                   <div className="flex items-center gap-6">
                     <span className="material-symbols-outlined text-purple-600">file_copy</span>
                     <div>
@@ -164,7 +164,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
               {/* Attività Recente */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
+                <div className="bg-surface-container-low/50 p-5 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)' }}>
                   <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Attività 7 Giorni</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
@@ -181,7 +181,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
+                <div className="bg-surface-container-low/50 p-5 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)' }}>
                   <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Funzionalità Top</h3>
                   <div className="space-y-2">
                     {stats.topFeatures.length > 0 ? stats.topFeatures.map(([feature, count]) => (
@@ -198,11 +198,11 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
               {/* Tipi Documento */}
               {stats.documentTypes.length > 0 && (
-                <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
+                <div className="bg-surface-container-low/50 p-5 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)' }}>
                   <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Documenti per Tipo</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {stats.documentTypes.map(([type, count]) => (
-                      <div key={type} className="flex justify-between items-center p-8 rounded-xl bg-surface/50">
+                      <div key={type} className="flex justify-between items-center p-8 bg-surface/50" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
                         <span className="text-sm font-medium text-on-surface-variant capitalize">{type.replace('_', ' ')}</span>
                         <span className="text-sm font-black text-primary">{count}</span>
                       </div>
@@ -218,7 +218,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary px-4">Eventi Recenti</h3>
               <div className="max-h-96 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
                 {analyticsEvents.slice(-20).reverse().map(event => (
-                  <div key={event.id} className="bg-surface-container-low/50 rounded-2xl p-6 border border-outline/5 hover:border-primary/20 transition-colors">
+                  <div key={event.id} className="bg-surface-container-low/50 p-6 border border-outline/5 hover:border-primary/20 transition-colors" style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                     <div className="flex justify-between items-start">
                       <div>
                         <p className="font-bold text-sm text-on-surface">{event.featureName}</p>
@@ -244,10 +244,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
           {activeTab === 'settings' && (
             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
+              <div className="bg-surface-container-low/50 p-5 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)' }}>
                 <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Raccolta Dati</h3>
                 <div className="space-y-4">
-                  <label className="flex items-center justify-between p-6 rounded-2xl hover:bg-surface-container-high/50 transition-colors cursor-pointer">
+                  <label className="flex items-center justify-between p-6 hover:bg-surface-container-high/50 transition-colors cursor-pointer" style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                     <div>
                       <span className="font-bold text-sm text-on-surface">Analytics Abilitati</span>
                       <p className="text-xs text-on-surface-variant">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
 
 interface DocumentGeneratorModalProps {
@@ -37,7 +37,7 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
                     />
                 </M3DialogContent>
 
-                <M3DialogActions className="gap-8">
+                <M3DialogActions style={{ gap: 'var(--md-sys-spacing-6)' }}>
                     <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                     <M3Button type="button" onClick={handleSubmit} variant="filled">
                         <span className="material-symbols-outlined mr-2">auto_awesome</span>
@@ -50,3 +50,4 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
 };
 
 export default DocumentGeneratorModal;
+

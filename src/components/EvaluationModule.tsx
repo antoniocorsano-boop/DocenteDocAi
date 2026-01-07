@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, EvaluationModuleProps, Prova } from '../types';
 import AddProvaModal from './AddProvaModal';
 import StudentProfile from './StudentProfile';
@@ -342,7 +342,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             </div>
 
                             <p className="m3-body-medium text-on-surface-variant mb-8 font-medium leading-relaxed">
-                                Situazione critica rilevata. È consigliata l&apos;attivazione di misure di recupero personalizzate.
+                                Situazione critica rilevata. Ãˆ consigliata l&apos;attivazione di misure di recupero personalizzate.
                             </p>
 
                             <div className="flex gap-6">
@@ -419,7 +419,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             {[
                                 { id: 'grid', label: 'Griglia', icon: 'grid_on' },
                                 { id: 'summary', label: 'Riepilogo', icon: 'analytics' },
-                                { id: 'risk', label: 'Criticità', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
+                                { id: 'risk', label: 'CriticitÃ ', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
                             ].map(tab => (
                                 <button
                                     key={tab.id}
@@ -443,7 +443,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     </div>
                 </div>
 
-                <div className="p-8">
+                <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
                     {activeTab === 'grid' && renderEvaluationGrid()}
                     {activeTab === 'summary' && renderSummaryView()}
                     {activeTab === 'risk' && renderRiskView()}
@@ -488,3 +488,4 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
 };
 
 export default React.memo(EvaluationModule);
+

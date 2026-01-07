@@ -45,96 +45,56 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
             maxWidth={280}
         >
             {/* Header with student info */}
-            <div
-                style={{
-                    backgroundColor: 'var(--md-sys-color-primary-container)',
-                    color: 'var(--md-sys-color-on-primary-container)',
-                    padding: 'var(--md-sys-spacing-4)',
-                }}
-            >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-4)' }}>
+            <div className="student-action-header">
+                <div className="student-action-header-row">
                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
-                    <div style={{ minWidth: 0, flex: 1 }}>
-                        <h3 style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', color: 'var(--md-sys-color-on-primary-container)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                            {student.cognome} {student.nome}
-                        </h3>
-                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.8 }}>
-                            Classe {student.classe}
-                        </p>
+                    <div className="student-action-header-info">
+                        <h3 className="student-action-header-name">{student.cognome} {student.nome}</h3>
+                        <p className="student-action-header-class">Classe {student.classe}</p>
                     </div>
                 </div>
-
                 {/* Stats Row */}
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        fontSize: 'var(--md-sys-typescale-body-small-size)',
-                    }}
-                >
+                <div className="student-action-stats-row">
                     {/* Media */}
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                        <p style={{ margin: '0 0 4px 0', fontSize: 'var(--md-sys-typescale-label-small-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                            Media
-                        </p>
-                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>
-                            {grade || '-'}
-                        </p>
+                    <div className="student-action-stats-col">
+                        <p className="student-action-stats-label">Media</p>
+                        <p className="student-action-stats-value">{grade || '-'}</p>
                     </div>
-
-                    <div style={{ width: '1px', height: '32px', backgroundColor: 'currentColor', opacity: 0.3 }} />
-
+                    <div className="student-action-stats-divider" />
                     {/* Trend */}
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                        <p style={{ margin: '0 0 4px 0', fontSize: 'var(--md-sys-typescale-label-small-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                            Trend
-                        </p>
-                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', color: trendClass }}>
-                            {trendIcon}
-                        </span>
+                    <div className="student-action-stats-col">
+                        <p className="student-action-stats-label">Trend</p>
+                        <span className="material-symbols-outlined student-action-trend-icon" style={{ color: trendClass }}>{trendIcon}</span>
                     </div>
-
-                    <div style={{ width: '1px', height: '32px', backgroundColor: 'currentColor', opacity: 0.3 }} />
-
+                    <div className="student-action-stats-divider" />
                     {/* Badge/Participation */}
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                        <p style={{ margin: '0 0 4px 0', fontSize: 'var(--md-sys-typescale-label-small-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                            Badge
-                        </p>
-                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>
-                            {participationToday}
-                        </p>
+                    <div className="student-action-stats-col">
+                        <p className="student-action-stats-label">Badge</p>
+                        <p className="student-action-stats-value">{participationToday}</p>
                     </div>
                 </div>
             </div>
-
             {/* Actions */}
-            <div style={{ padding: 'var(--md-sys-spacing-2)' }}>
-                <p style={{ margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-small-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', textTransform: 'uppercase', color: 'var(--md-sys-color-on-surface-variant)', letterSpacing: '0.5px' }}>
-                    Azioni Rapide
-                </p>
-
+            <div className="student-action-actions">
+                <p className="student-action-actions-label">Azioni Rapide</p>
                 <button
                     onClick={() => {
                         onAddEvaluation();
                         onClose();
                     }}
-                    className="m3-interactive-button"
-                    style={{ marginBottom: 'var(--md-sys-spacing-2)' }}
+                    className="m3-interactive-button student-action-add-btn"
                 >
-                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--md-sys-color-primary)' }}>add_circle</span>
+                    <span className="material-symbols-outlined student-action-add-icon">add_circle</span>
                     <span>Nuova Valutazione</span>
                 </button>
-
                 <button
                     onClick={() => {
                         onViewProfile();
                         onClose();
                     }}
-                    className="m3-interactive-button"
+                    className="m3-interactive-button student-action-profile-btn"
                 >
-                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--md-sys-color-secondary)' }}>person_search</span>
+                    <span className="material-symbols-outlined student-action-profile-icon">person_search</span>
                     <span>Profilo Completo</span>
                 </button>
             </div>

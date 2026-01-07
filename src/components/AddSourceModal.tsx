@@ -94,7 +94,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 <span className="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center m3-label-small font-extrabold">2</span> 
                                 Carica File
                             </h3>
-                            <div {...getRootProps()} className={`dropzone-area h-48 !rounded-4xl border-2 border-dashed ${isDragActive ? 'border-primary bg-primary-container/10 scale-[1.02]' : 'border-outline-variant'} transition-all flex flex-col items-center justify-center cursor-pointer`}>
+                            <div {...getRootProps()} className={`dropzone-area h-48 border-2 border-dashed ${isDragActive ? 'border-primary bg-primary-container/10 scale-[1.02]' : 'border-outline-variant'} transition-all flex flex-col items-center justify-center cursor-pointer`} style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)' }}>
                                 <input {...getInputProps()} />
                                 <span className="material-symbols-outlined text-5xl text-primary mb-8">{isDragActive ? 'download' : 'upload_file'}</span>
                                 <p className="m3-body-large font-extrabold">Trascina i file qui o clicca per sfogliare</p>

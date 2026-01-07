@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+ï»¿import React, { useState, useEffect, useMemo, useRef } from 'react';
 import NotebookLMImportModal from './NotebookLMImportModal';
 import TemplateManager from './TemplateManager';
 import { KnowledgeBaseEntry } from '../types';
@@ -115,7 +115,7 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
                 </div>
 
                 {/* Description */}
-                <InfoCard title="Introduzione" variant="elevated" className="p-8">
+                <InfoCard title="Introduzione" variant="elevated" style={{ padding: 'var(--md-sys-spacing-6)' }}>
                     <p className="text-on-surface leading-relaxed">
                         {uda.introduction}
                     </p>
@@ -141,10 +141,10 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
 
                 {/* Additional Info Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" className="p-8">
+                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" style={{ padding: 'var(--md-sys-spacing-6)' }}>
                         <p className="text-sm text-on-surface">{uda.finalProduct}</p>
                     </InfoCard>
-                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" className="p-8">
+                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" style={{ padding: 'var(--md-sys-spacing-6)' }}>
                         <p className="text-sm text-on-surface">{uda.evaluation}</p>
                     </InfoCard>
                 </div>
@@ -534,7 +534,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                         <M3ExpressiveCard
                             icon="assignment"
                             title="Planner UDA"
-                            description="Gestisci le Unità di Apprendimento, le fasi di lavoro e le competenze target."
+                            description="Gestisci le UnitÃ  di Apprendimento, le fasi di lavoro e le competenze target."
                             color="var(--sys-secondary-container)"
                             onClick={() => onNavigate('uda')}
                             className="col-span-2 md:col-span-2"
@@ -671,7 +671,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                     onImport={(importedFiles: KnowledgeBaseEntry[]) => {
                         // Aggiorna la Knowledge Base con i materiali importati
                         if (onUpdateKnowledgeBase && typeof onUpdateKnowledgeBase === 'function') {
-                            // Se è fornito un dispatcher esplicito
+                            // Se Ã¨ fornito un dispatcher esplicito
                             onUpdateKnowledgeBase([
                                 ...knowledgeBase,
                                 ...importedFiles
@@ -706,3 +706,4 @@ udas.forEach((uda) => {
 });
 
 export default ProgettazioneHub;
+

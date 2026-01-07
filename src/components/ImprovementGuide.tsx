@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+﻿import React, { useState, useEffect, useMemo } from 'react';
 import { AiSettings, Lezione, RegisterEntry, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getGoogleAIClient } from '../services/aiClient';
 import { RATING_TO_VALUE, RATING_OPTIONS } from '../constants';
@@ -78,7 +78,7 @@ const ImprovementGuide: React.FC<ImprovementGuideProps> = ({
                 setLoadingStatus("Analisi del contesto classe...");
 
                 const prompt = `
-Sei un esperto pedagogista e assistente per docenti. Il tuo compito è analizzare i dati di una classe e produrre un report sintetico e professionale, adatto per un consiglio di classe.
+Sei un esperto pedagogista e assistente per docenti. Il tuo compito Ã¨ analizzare i dati di una classe e produrre un report sintetico e professionale, adatto per un consiglio di classe.
 Dati della Classe ${selectedClass}:
 ${JSON.stringify(dataSummary, null, 2)}
 
@@ -257,7 +257,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                         icon="auto_awesome" 
                         className="!mb-0"
                     />
-                    {analysis && <AiMemoryChip label={`Dati Registro ${selectedClass} • ${settings.schoolType}`} />}
+                    {analysis && <AiMemoryChip label={`Dati Registro ${selectedClass} â€¢ ${settings.schoolType}`} />}
                 </div>
 
                 {analysis && (
@@ -301,7 +301,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             {/* Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <InfoCard title="Distribuzione Voti" icon="bar_chart" className="h-full">
-                    <div className="p-8">
+                    <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
                         <BarChart data={gradeDistributionData} color="var(--sys-secondary)" />
                     </div>
                 </InfoCard>
@@ -334,3 +334,4 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 };
 
 export default ImprovementGuide;
+

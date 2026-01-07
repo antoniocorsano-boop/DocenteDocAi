@@ -63,7 +63,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
 
     return (
         <div className="card">
-            <h2 className="m3-title-large flex items-center gap-8">
+            <h2 className="m3-title-large flex items-center" style={{ gap: 'var(--md-sys-spacing-8)' }}>
                 <span className="material-symbols-outlined text-primary">psychology</span>
                 Consulente Didattico AI
             </h2>
@@ -71,7 +71,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 Seleziona uno studente (o l'intera classe) e un obiettivo. L'AI analizzerà i dati e proporrà attività personalizzate.
             </p>
 
-            <div className="responsive-grid items-end gap-8 p-8 border rounded-lg bg-surface-container">
+            <div className="responsive-grid items-end p-8 border rounded-lg bg-surface-container" style={{ gap: 'var(--md-sys-spacing-8)' }}>
                 <div>
                     <label htmlFor="student-select-advisor" className="form-label">Studente / Gruppo</label>
                     <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} className="form-select w-full">

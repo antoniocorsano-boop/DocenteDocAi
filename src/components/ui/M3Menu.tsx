@@ -158,7 +158,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       zIndex={zIndex}
       showBackdrop={false}
     >
-      <div className="m3-menu__items" role="menu" style={{ outline: 'none' }}>
+      <div className="m3-menu__items outline-none" role="menu">
         {items.map((item, index) => (
           <React.Fragment key={item.key}>
             <button
@@ -166,60 +166,25 @@ export const M3Menu: React.FC<M3MenuProps> = ({
                 itemRefs.current[index] = el;
               }}
               role="menuitem"
-              onClick={() => handleItemClick(index)}
+              onClick={handleItemClick.bind(null, index)}
               disabled={item.disabled}
-              style={{
-                width: '100%',
-                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 'var(--md-sys-spacing-3)',
-                border: 'none',
-                background: focusedIndex === index 
-                  ? 'var(--md-sys-color-surface-container-high)'
-                  : 'transparent',
-                color: item.variant === 'error'
-                  ? 'var(--md-sys-color-error)'
-                  : 'var(--md-sys-color-on-surface)',
-                cursor: item.disabled ? 'not-allowed' : 'pointer',
-                opacity: item.disabled ? 0.5 : 1,
-                fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                lineHeight: '20px',
-                fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
-                textAlign: 'left',
-                transition: 'background-color var(--motion-duration-short2) var(--motion-easing-standard)',
-              }}
+              className={`menu-item${item.disabled ? ' not-allowed opacity-50' : ' cursor-pointer'}${focusedIndex === index ? ' bg-surface-container-high' : ''}${item.variant === 'error' ? ' error' : ''}`}
               onMouseEnter={() => !item.disabled && setFocusedIndex(index)}
               onMouseLeave={() => setFocusedIndex(-1)}
               aria-disabled={item.disabled}
             >
               {item.icon && (
-                <span className="m3-menu__item-icon" style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                  lineHeight: '1',
-                  flexShrink: 0,
-                }}>
+                <span className="m3-menu__item-icon flex align-center justify-center font-body-medium" style={{ lineHeight: '1', flexShrink: 0 }}>
                   {item.icon}
                 </span>
               )}
-              <span className="m3-menu__item-label" style={{ flex: 1 }}>
+              <span className="m3-menu__item-label flex-1">
                 {item.label}
               </span>
             </button>
             
             {item.divider && (
-              <div
-                className="m3-menu__divider"
-                style={{
-                  height: '1px',
-                  backgroundColor: 'var(--md-sys-color-outline-variant)',
-                  margin: '4px 0',
-                }}
-                role="separator"
-              />
+              <div className="m3-menu__divider border-outline-variant my-1" role="separator"></div>
             )}
           </React.Fragment>
         ))}

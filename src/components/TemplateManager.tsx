@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { DocumentTemplate } from '../types';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
@@ -376,7 +376,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
 
   const handleSave = () => {
     if (!editedTemplate.name.trim()) {
-      showToast('Il nome del template è obbligatorio', 'error');
+      showToast('Il nome del template Ã¨ obbligatorio', 'error');
       return;
     }
     onSave(editedTemplate);
@@ -557,7 +557,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
 
           {/* Configurazioni specifiche */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <InfoCard variant="elevated" className="p-8">
+            <InfoCard variant="elevated" style={{ padding: 'var(--md-sys-spacing-6)' }}>
               <h4 className="font-bold text-sm mb-8">Opzioni Visibilità</h4>
               <div className="space-y-3">
                 {editedTemplate.type === 'student_profile' && (
@@ -629,7 +629,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
               </div>
             </InfoCard>
 
-            <InfoCard variant="elevated" className="p-8">
+            <InfoCard variant="elevated" style={{ padding: 'var(--md-sys-spacing-6)' }}>
               <h4 className="font-bold text-sm mb-8">Sezioni Personalizzate</h4>
               <div className="space-y-2">
                 {(editedTemplate.config.customSections || []).map((section, idx) => (
@@ -695,7 +695,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
               
               <div>
                 <label htmlFor="html-footer" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-4">
-                  Piè di pagina (HTML)
+                  PiÃ¨ di pagina (HTML)
                 </label>
                 <textarea
                   id="html-footer"
@@ -743,7 +743,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                 <TemplatePreview template={editedTemplate} />
               </div>
 
-              <InfoCard variant="tonal" className="p-6">
+              <InfoCard variant="tonal" style={{ padding: 'var(--md-sys-spacing-5)' }}>
                 <h4 className="font-bold text-[11px] mb-8 flex items-center gap-8">
                   <span className="material-symbols-outlined text-primary text-xs">variable_insert</span>
                   Variabili (Clicca per copiare)
@@ -780,3 +780,4 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
 };
 
 export default TemplateManager;
+

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { errorLogger, ErrorLog } from '../services/errorLogger';
 
 interface ErrorLogsDashboardProps {
@@ -182,7 +182,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                     <td className="p-6 m3-label-small whitespace-nowrap">
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </td>
-                    <td className="p-6">
+                    <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
                       <span className="inline-flex items-center gap-4 px-4 py-1 rounded bg-primary/10 text-primary m3-label-small font-medium">
                         <span className="material-symbols-outlined m3-label-small">
                           {getTypeIcon(log.type)}
@@ -190,7 +190,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                         {log.type}
                       </span>
                     </td>
-                    <td className="p-6">
+                    <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
                       <span className={`inline-flex items-center gap-4 px-4 py-1 rounded m3-label-small font-medium capitalize ${getSeverityColor(log.severity)}`}>
                         {log.severity}
                       </span>
@@ -198,7 +198,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                     <td className="p-6 max-w-xs overflow-hidden text-ellipsis">
                       <span title={log.message}>{log.message}</span>
                     </td>
-                    <td className="p-6">
+                    <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
                       {log.context && (
                         <details className="m3-label-small">
                           <summary className="cursor-pointer text-primary hover:underline">View</summary>
@@ -252,3 +252,4 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 };
 
 export default ErrorLogsDashboard;
+

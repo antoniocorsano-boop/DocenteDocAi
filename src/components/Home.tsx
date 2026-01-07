@@ -71,10 +71,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
     }), []);
 
     return (
-        <div className="home-container md:pt-8 pb-12 px-6 md:px-8" style={{ paddingTop: 'var(--md-sys-spacing-4)', maxWidth: '80rem', marginLeft: 'auto', marginRight: 'auto', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
+        <div className="home-container md:pt-8 pb-12 px-6 md:px-8">
             {/* Saluto docente */}
-            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
-                <header style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+            <section className="home-section">
+                <header className="home-header">
                     <h1 className="m3-headline-medium font-black tracking-tight text-on-surface">Buongiorno Prof. {cognomeInsegnante || nomeInsegnante}!</h1>
                     <div className="flex items-center justify-between m3-label-tiny text-primary font-black uppercase tracking-[0.3em] opacity-70">
                         <span>{todayLabel}</span>
@@ -82,9 +82,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                     </div>
                 </header>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div className="home-actions">
                     <p className="m3-label-small uppercase tracking-[0.3em] text-on-surface-variant font-black opacity-50">Azioni rapide</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" style={{ gap: 'var(--md-sys-spacing-6)' }}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 home-actions-grid">
                         {QUICK_ACTIONS.map((action) => (
                             <ActionTile
                                 key={action.label}
@@ -114,32 +114,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                 {nextLesson && (
                     <div className="hero-card group">
                         <div className="relative z-10">
-                            <div className="flex justify-between items-start" style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
-                                <div style={{ 
-                                    padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                                    backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)',
-                                    color: 'var(--md-sys-color-primary)',
-                                    borderRadius: 'var(--md-corner-full)',
-                                    fontSize: 'var(--md-sys-typescale-label-small-size)',
-                                    fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.3em',
-                                    border: '1px solid color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent)'
-                                }}>
+                            <div className="hero-card-header">
+                                <div className="hero-card-label">
                                     Prossima Lezione
                                 </div>
-                                <div style={{
-                                    width: '48px',
-                                    height: '48px',
-                                    backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)',
-                                    backdropFilter: 'blur(8px)',
-                                    borderRadius: 'var(--md-corner-medium)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    boxShadow: 'var(--md-sys-elevation1)'
-                                }}>
-                                    <span className="material-symbols-outlined text-2xl" style={{ color: 'var(--md-sys-color-primary)' }}>school</span>
+                                <div className="hero-card-icon">
+                                    <span className="material-symbols-outlined text-2xl">school</span>
                                 </div>
                             </div>
                             <h2 className="m3-headline-small font-black text-on-surface tracking-tight leading-tight mb-8">
@@ -183,7 +163,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                         >
                             <div className="mt-4" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                 {recentActivities.slice(0, 5).map((a) => (
-                                    <div key={a.id} className="p-8 rounded-2xl bg-surface-container-low/50 border border-outline-variant/10 flex items-center justify-between group/item hover:bg-surface-container-low transition-colors">
+                                    <div key={a.id} className="p-8 bg-surface-container-low/50 border border-outline-variant/10 flex items-center justify-between group/item hover:bg-surface-container-low transition-colors" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
                                         <div>
                                             <div className="text-xs font-black uppercase tracking-widest text-on-surface">{a.title}</div>
                                             <div className="text-[10px] font-medium text-on-surface-variant mt-4">{a.meta}</div>

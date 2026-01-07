@@ -1,4 +1,148 @@
-﻿/* Miglioramento spaziatura e logo header */
+﻿/* MD3 Responsive Utility Classes for Login */
+.md3-bg {
+  background: var(--md3-surface, #f8f9fa);
+}
+.md3-bg-primary {
+  background: var(--md3-primary-container, #eaddff);
+}
+.md3-bg-surface {
+  background: var(--md3-surface-container-low, #f3f3f3);
+}
+.md3-bg-surface-container-high {
+  background: var(--md3-surface-container-high, #fff);
+}
+.md3-headline-large {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+.md3-headline-small {
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+.md3-title-large {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+.md3-title-medium {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.md3-body-large {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.md3-body-small {
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.md3-label-small {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.md3-label-xsmall {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.md3-logo-bg {
+  background: var(--md3-surface-container-high, #fff);
+  backdrop-filter: blur(24px);
+}
+@media (max-width: 600px) {
+  .signin-root, .signin-form-section, .signin-hero {
+    padding: 0.5rem !important;
+  }
+  .signin-form-container {
+    padding: 1rem !important;
+    max-width: 100vw !important;
+    border-radius: 1.5rem !important;
+  }
+  .signin-hero-content {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  .signin-root, .signin-form-section, .signin-hero {
+    padding: 2rem !important;
+  }
+  .signin-form-container {
+    padding: 2rem !important;
+    max-width: 80vw !important;
+    border-radius: 2rem !important;
+  }
+  .signin-hero-content {
+    flex-direction: row !important;
+    gap: 2rem !important;
+  }
+}
+@media (min-width: 1025px) {
+  .signin-root, .signin-form-section, .signin-hero {
+    padding: 3rem !important;
+  }
+  .signin-form-container {
+    padding: 2.5rem !important;
+    max-width: 600px !important;
+    border-radius: 2.5rem !important;
+  }
+  .signin-hero-content {
+    flex-direction: row !important;
+    gap: 3rem !important;
+  }
+}
+/* Aura Ornaments M3 Centralized */
+.aura-primary {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 60%;
+  height: 60%;
+  background: var(--sys-primary, #6750A4)10%;
+  filter: blur(120px);
+  border-radius: 9999px;
+  animation: pulse 2s infinite;
+  z-index: 0;
+}
+.aura-secondary {
+  position: absolute;
+  bottom: -10%;
+  right: -10%;
+  width: 60%;
+  height: 60%;
+  background: var(--sys-secondary, #03DAC6)10%;
+  filter: blur(120px);
+  border-radius: 9999px;
+  animation: pulse 2s infinite;
+  z-index: 0;
+}
+.aura-delay {
+  animation-delay: 1s;
+}
+.aura-delay-mobile {
+  position: absolute;
+  bottom: -10%;
+  right: -10%;
+  width: 40%;
+  height: 40%;
+  background: var(--sys-secondary, #03DAC6)10%;
+  filter: blur(120px);
+  border-radius: 9999px;
+  animation: pulse 2s infinite;
+  animation-delay: 1s;
+  z-index: 0;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+/* Miglioramento spaziatura e logo header */
 .header-root {
   position: fixed;
   top: 0;
@@ -293,19 +437,19 @@
 .group:focus-visible .m3-ripple {
   opacity: 0.10;
 }
-/* --- ACTION TILES (Bento Style Hardened) --- */
+/* --- ACTION TILES (M3 Interactive Standardized) --- */
 .op-tile {
   background-color: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border-radius: calc(var(--shape-xl) * var(--sys-radius-multiplier));
+  border-radius: var(--md-sys-shape-corner-large);
   padding: var(--md-sys-spacing-6);
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: var(--md-sys-spacing-6);
   border: var(--glass-border);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all var(--motion-duration-short4) var(--motion-easing-standard);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -313,21 +457,19 @@
   box-shadow: var(--elevation-1);
 }
 
+/* Remove manual hover styles - now handled by m3-interactive-card */
 .op-tile:hover {
-  background-color: var(--sys-surface-container-high);
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--elevation-3);
-  border-color: var(--sys-primary);
+  /* Hover effects now managed by m3-interactive-card class */
 }
 
 .op-tile:active {
-  transform: scale(0.97);
+  /* Active effects now managed by m3-interactive-card class */
 }
 
 .op-tile-icon-container {
   width: 60px;
   height: 60px;
-  border-radius: calc(var(--shape-m) * var(--sys-radius-multiplier));
+  border-radius: var(--md-sys-shape-corner-medium);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -335,12 +477,13 @@
   background-color: var(--sys-primary-container);
   color: var(--sys-on-primary-container);
   flex-shrink: 0;
-  transition: transform 0.4s ease;
+  transition: all var(--motion-duration-short3) var(--motion-easing-standard);
   box-shadow: inset 0 0 20px rgba(255,255,255,0.3);
 }
 
+/* Remove manual hover transform - now handled by component-specific logic if needed */
 .op-tile:hover .op-tile-icon-container {
-  transform: rotate(-5deg) scale(1.1);
+  /* Icon hover effects removed - using M3 standard interactions */
 }
 
 .op-tile-variant-secondary .op-tile-icon-container {
@@ -2157,18 +2300,18 @@
   background: radial-gradient(circle at 20% 12%, rgba(103,80,164,0.08), transparent 36%), radial-gradient(circle at 80% 0%, rgba(3,218,198,0.07), transparent 32%);
 }
 
-/* --- M3 BUTTON SYSTEM (AURA) --- */
+/* --- M3 BUTTON SYSTEM (M3 Interactive Standardized) --- */
 .m3-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  border-radius: calc(48px * var(--sys-radius-multiplier, 1));
+  gap: var(--md-sys-spacing-2);
+  border-radius: var(--md-sys-shape-corner-large);
   font-family: var(--font-family);
   font-weight: 500;
   letter-spacing: 0.1px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--motion-duration-short3) var(--motion-easing-standard);
   border: none;
   outline: none;
   position: relative;
@@ -2178,88 +2321,93 @@
 }
 
 .m3-button:disabled {
-  opacity: 0.38;
+  opacity: var(--md-sys-state-opacity-disabled);
   cursor: default;
   pointer-events: none;
 }
 
 .m3-button:active {
-  transform: scale(0.96);
+  transform: scale(0.98);
 }
 
 /* Sizes */
 .m3-button--small, .m3-button-small {
-  height: calc(32px * var(--sys-font-scale, 1));
-  padding: 0 calc(16px * var(--sys-font-scale, 1));
-  font-size: calc(12px * var(--sys-font-scale, 1));
+  height: calc(36px * var(--sys-font-scale, 1));
+  padding: 0 var(--md-sys-spacing-4);
+  font-size: var(--typography-label-large-fontSize);
 }
 
 .m3-button--medium, .m3-button-medium {
   height: calc(40px * var(--sys-font-scale, 1));
-  padding: 0 calc(24px * var(--sys-font-scale, 1));
-  font-size: calc(14px * var(--sys-font-scale, 1));
+  padding: 0 var(--md-sys-spacing-6);
+  font-size: var(--typography-label-large-fontSize);
 }
 
 .m3-button--large, .m3-button-large {
-  height: calc(56px * var(--sys-font-scale, 1));
-  padding: 0 calc(32px * var(--sys-font-scale, 1));
-  font-size: calc(16px * var(--sys-font-scale, 1));
+  height: calc(48px * var(--sys-font-scale, 1));
+  padding: 0 var(--md-sys-spacing-8);
+  font-size: var(--typography-title-medium-fontSize);
 }
 
 .m3-button--full-width, .m3-button-full-width {
   width: 100%;
 }
 
-/* Variants */
+/* Variants - Using M3 Interactive Classes */
 .m3-button--filled, .m3-button-filled {
-  background-color: var(--sys-primary);
-  color: var(--sys-on-primary);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  box-shadow: var(--md-sys-elevation1);
 }
 
 .m3-button--filled:hover, .m3-button-filled:hover {
-  background-color: color-mix(in srgb, var(--sys-primary), white 8%);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  box-shadow: var(--md-sys-elevation2);
 }
 
 .m3-button--tonal, .m3-button-tonal {
-  background-color: var(--sys-secondary-container);
-  color: var(--sys-on-secondary-container);
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
 }
 
 .m3-button--tonal:hover, .m3-button-tonal:hover {
-  background-color: color-mix(in srgb, var(--sys-secondary-container), black 4%);
+  background-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
 }
 
 .m3-button--outlined, .m3-button-outlined {
   background-color: transparent;
-  border: 1px solid var(--sys-outline);
-  color: var(--sys-primary);
+  border: 1px solid var(--md-sys-color-outline);
+  color: var(--md-sys-color-primary);
 }
 
 .m3-button--outlined:hover, .m3-button-outlined:hover {
-  background-color: rgba(103, 80, 164, 0.08);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-color: var(--md-sys-color-primary);
 }
 
 .m3-button--text, .m3-button-text {
   background-color: transparent;
-  color: var(--sys-primary);
-  padding: 0 12px;
+  color: var(--md-sys-color-primary);
+  padding: 0 var(--md-sys-spacing-3);
 }
 
 .m3-button--text:hover, .m3-button-text:hover {
-  background-color: rgba(103, 80, 164, 0.08);
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
 }
 
 .m3-button--elevated, .m3-button-elevated {
-  background-color: var(--sys-surface-container-low);
-  color: var(--sys-primary);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background-color: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-primary);
+  box-shadow: var(--md-sys-elevation1);
 }
 
 .m3-button--elevated:hover, .m3-button-elevated:hover {
-  background-color: var(--sys-surface-container-high);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  background-color: var(--md-sys-color-surface-container);
+  box-shadow: var(--md-sys-elevation2);
 }
 
 /* Colors */

@@ -71,14 +71,14 @@ describe('Home Component - Integration (lean)', () => {
   it('renders greeting, quick actions, and hero card', () => {
     render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
     expect(screen.getByText(/Buongiorno Prof\./i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Appello - Registra presenze/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Appello - Presenze/i)).toBeInTheDocument();
     expect(screen.getByText('Vai alla classe')).toBeInTheDocument();
   });
 
   it('navigates via quick actions and hero buttons', async () => {
     render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
 
-    fireEvent.click(screen.getByLabelText(/Valutazioni - Inserisci voti/i));
+    fireEvent.click(screen.getByLabelText(/Valutazioni - Voti/i));
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('evaluations', undefined));
 
     fireEvent.click(screen.getByText('Vai alla classe'));

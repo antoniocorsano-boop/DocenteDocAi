@@ -14,7 +14,7 @@
 
 .logo-d-ring {
   fill: none;
-  stroke: var(--sys-primary);
+  stroke: var(--md-sys-color-primary);
   stroke-width: 4;
   stroke-linecap: round;
   opacity: 0.4;
@@ -22,18 +22,18 @@
 }
 
 .logo-d-body {
-  fill: var(--sys-primary);
+  fill: var(--md-sys-color-primary);
   transition: fill 0.4s ease, transform 0.4s ease;
   filter: drop-shadow(0 4px 6px rgba(103, 80, 164, 0.2));
 }
 
 .logo-d-stem {
-  fill: var(--sys-outline);
+  fill: var(--md-sys-color-outline);
   opacity: 0.8;
 }
 
 .logo-main-text {
-  fill: var(--sys-on-surface);
+  fill: var(--md-sys-color-on-surface);
   font-family: 'Roboto', sans-serif;
   font-weight: 950;
   font-size: 26px;
@@ -41,16 +41,16 @@
 }
 
 .logo-ai-text {
-  fill: var(--sys-tertiary);
+  fill: var(--md-sys-color-tertiary);
   font-family: 'Roboto Mono', monospace;
   font-weight: 900;
   font-size: 14px;
-  filter: drop-shadow(0 0 2px var(--sys-tertiary));
+  filter: drop-shadow(0 0 2px var(--md-sys-color-tertiary));
 }
 
 .logo-sparkle {
-  fill: var(--sys-tertiary);
-  filter: drop-shadow(0 0 8px var(--sys-tertiary));
+  fill: var(--md-sys-color-tertiary);
+  filter: drop-shadow(0 0 8px var(--md-sys-color-tertiary));
   animation: logo-sparkle-glow 3s ease-in-out infinite;
 }
 
@@ -84,7 +84,7 @@
 
 .universe-overlay.chaos {
   opacity: 0.4;
-  background: radial-gradient(circle, var(--sys-primary-container) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--md-sys-color-primary-container) 0%, transparent 70%);
   animation: chaos-shake 0.1s infinite;
 }
 
@@ -97,7 +97,7 @@
 
 .universe-overlay.peace {
   opacity: 0;
-  background: var(--sys-primary-container);
+  background: var(--md-sys-color-primary-container);
   transform: scale(2);
   transition: all 2s var(--motion-standard);
 }

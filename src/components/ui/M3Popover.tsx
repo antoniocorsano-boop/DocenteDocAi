@@ -292,18 +292,8 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Backdrop */}
       {showBackdrop && (
         <div
-          className="m3-popover__backdrop"
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: zIndex - 1,
-            backgroundColor: 'var(--md-sys-color-scrim)',
-            opacity: 0.32,
-            cursor: 'pointer',
-          }}
+          className="m3-popover__backdrop fixed full-screen bg-scrim opacity-32 cursor-pointer"
+          style={{ zIndex: zIndex - 1 }}
           onClick={onClose}
           aria-hidden="true"
         />
@@ -312,23 +302,13 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Popover */}
       <div
         ref={popoverRef}
-        className={`m3-popover ${className}`.trim()}
+        className={`m3-popover fixed bg-surface border-outline-variant rounded shadow-elevation1 ${className || ''}`.trim()}
         style={{
-          position: 'fixed',
           top: `${position.top}px`,
           left: `${position.left}px`,
           minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth,
           maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
           zIndex,
-          backgroundColor: 'var(--md-sys-color-surface)',
-          border: '1px solid var(--md-sys-color-outline-variant)',
-          borderRadius: 'var(--md-corner-large)',
-          boxShadow: `
-            0px 5px 5px -3px rgba(0, 0, 0, 0.04),
-            0px 8px 10px 1px rgba(0, 0, 0, 0.02),
-            0px 3px 14px 2px rgba(0, 0, 0, 0.02)
-          `,
-          animation: 'm3-popover-fade-in 200ms cubic-bezier(0.4, 0, 0.2, 1)',
           transformOrigin: position.transformOrigin,
           ...style,
         }}
@@ -354,28 +334,14 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       >
         {/* Header */}
         {(title || subtitle) && (
-          <div className="m3-popover__header" style={{
-            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-            borderBottom: '1px solid var(--md-sys-color-outline-variant)',
-          }}>
+          <div className="m3-popover__header p-4 border-outline-variant">
             {title && (
-              <div className="m3-popover__title" style={{
-                fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
-                lineHeight: '24px',
-                color: 'var(--md-sys-color-on-surface)',
-                margin: '0 0 var(--md-sys-spacing-1) 0',
-              }}>
+              <div className="m3-popover__title font-body-medium font-weight-medium text-on-surface" style={{ lineHeight: '24px', margin: '0 0 var(--md-sys-spacing-1) 0' }}>
                 {title}
               </div>
             )}
             {subtitle && (
-              <div className="m3-popover__subtitle" style={{
-                fontSize: 'var(--md-sys-typescale-body-small-size)',
-                lineHeight: '16px',
-                color: 'var(--md-sys-color-on-surface-variant)',
-                margin: 0,
-              }}>
+              <div className="m3-popover__subtitle font-body-small text-on-surface-variant" style={{ lineHeight: '16px', margin: 0 }}>
                 {subtitle}
               </div>
             )}
@@ -383,11 +349,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         )}
         
         {/* Content */}
-        <div className="m3-popover__content" style={{
-          padding: 'var(--md-sys-spacing-2) 0',
-          maxHeight: 'min(25rem, 70vh)',
-          overflowY: 'auto',
-        }}>
+        <div className="m3-popover__content p-4 overflow-y-auto" style={{ maxHeight: 'min(25rem, 70vh)' }}>
           {children}
         </div>
       </div>

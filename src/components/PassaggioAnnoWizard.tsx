@@ -1,4 +1,4 @@
-
+﻿
 import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry, StudentHistoryRecord } from '../types';
 import { getNextClass } from '../utils/schoolUtils';
@@ -195,7 +195,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                         { icon: "check_circle", text: "Backup completo dei dati su Drive/Locale." },
                                         { icon: "history_edu", text: "Salvataggio storico (media voti, assenze) nel profilo studente." },
                                         { icon: "delete_sweep", text: "Reset registro voti, lezioni e assenze giornaliere." },
-                                        { icon: "trending_up", text: "Promozione classi (es. 1A → 2A) con gestione bocciature." }
+                                        { icon: "trending_up", text: "Promozione classi (es. 1A â†’ 2A) con gestione bocciature." }
                                     ].map((item, i) => (
                                         <li key={i} className="flex items-center gap-8 m3-body-large text-on-surface-variant">
                                             <span className="material-symbols-outlined text-primary text-2xl">{item.icon}</span>
@@ -240,7 +240,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                     <td className="p-8 font-black text-on-surface">{s.cognome} {s.nome}</td>
                                                     <td className="p-8 text-on-surface-variant font-medium">{s.classe}</td>
                                                     <td className={`p-8 font-black ${isInsufficient ? "text-error" : "text-primary"}`}>{grade || "-"}</td>
-                                                    <td className="p-8">
+                                                    <td style={{ padding: 'var(--md-sys-spacing-6)' }}>
                                                         <select 
                                                             value={outcome?.action || "promote"} 
                                                             onChange={(e) => handleOutcomeChange(s.id, e.target.value as OutcomeType)}
@@ -325,3 +325,4 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
 };
 
 export default PassaggioAnnoWizard;
+

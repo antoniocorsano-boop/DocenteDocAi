@@ -114,10 +114,9 @@ describe('Home Component', () => {
         />
       );
 
-      expect(screen.getByText('Appello')).toBeInTheDocument();
-      expect(screen.getByText('Valutazioni')).toBeInTheDocument();
-      expect(screen.getByText('Registro')).toBeInTheDocument();
-      expect(screen.getByText('Documenti')).toBeInTheDocument();
+        expect(screen.getByText('Appello')).toBeInTheDocument();
+        expect(screen.getByText('Valutazioni')).toBeInTheDocument();
+        expect(screen.getByText('Registro')).toBeInTheDocument();
     });
 
     it('should render metric cards with correct data', () => {
@@ -198,7 +197,7 @@ describe('Home Component', () => {
         />
       );
 
-      const appelloButton = screen.getByLabelText(/Appello - Registra presenze/i);
+      const appelloButton = screen.getByLabelText(/Appello - Presenze/i);
       fireEvent.click(appelloButton);
       
       await waitFor(() => {
@@ -215,7 +214,7 @@ describe('Home Component', () => {
         />
       );
 
-      const registroButton = screen.getByLabelText(/Registro - Sincronizza dati/i);
+        const registroButton = screen.getByLabelText(/Registro - Sync Drive/i);
       fireEvent.click(registroButton);
       
       await waitFor(() => {

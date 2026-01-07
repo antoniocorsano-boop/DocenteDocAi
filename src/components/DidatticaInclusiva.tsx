@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+﻿import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, DidatticaInclusivaProps } from '../types';
 import PianoInclusioneEditor from './PianoInclusioneEditor';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -56,7 +56,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
         <div className="space-y-8">
             <InfoCard
                 variant="tertiary"
-                className="p-6"
+                style={{ padding: 'var(--md-sys-spacing-5)' }}
             >
                 <div className="flex items-start gap-8">
                     <div className="w-12 h-12 rounded-2xl bg-tertiary/10 flex items-center justify-center text-tertiary shrink-0">
@@ -64,7 +64,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                     </div>
                     <div>
                         <h3 className="text-lg font-semibold text-tertiary mb-4">Gestione Piani Centralizzata</h3>
-                        <p className="text-on-surface-variant">Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
+                        <p className="text-on-surface-variant">Crea o modifica PDP/PEI per ogni studente. Lâ€™AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
                     </div>
                 </div>
             </InfoCard>
@@ -170,7 +170,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         variant="elevated"
                         className="overflow-hidden border-l-4 border-error"
                     >
-                        <div className="p-5">
+                        <div style={{ padding: 'var(--md-sys-spacing-4)' }}>
                             <div className="flex items-start justify-between mb-8">
                                 <div className="flex items-center gap-6">
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
@@ -252,3 +252,4 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
 };
 
 export default DidatticaInclusiva;
+

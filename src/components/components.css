@@ -1,0 +1,68 @@
+/* MD3 Home component styles for CSP compliance */
+
+.home-container {
+  padding-top: var(--md-sys-spacing-4);
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-6);
+}
+
+.home-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-5);
+}
+
+.home-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-3);
+}
+
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-4);
+}
+
+.home-actions-grid {
+  gap: var(--md-sys-spacing-6);
+}
+
+.hero-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: var(--md-sys-spacing-6);
+}
+
+.hero-card-label {
+  padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+  color: var(--md-sys-color-primary);
+  border-radius: var(--md-corner-full);
+  font-size: var(--md-sys-typescale-label-small-size);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  border: 1px solid color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent);
+}
+
+.hero-card-icon {
+  width: 48px;
+  height: 48px;
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
+  backdrop-filter: blur(8px);
+  border-radius: var(--md-corner-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--md-sys-elevation1);
+}
+
+.hero-card-icon .material-symbols-outlined {
+  color: var(--md-sys-color-primary);
+}
