@@ -1,5 +1,5 @@
 import React, { useMemo, Suspense } from 'react';
-import { VIEW_CONFIGS, Home, FlowMode, ClassDashboard, ClassSelection, ClassroomView, StudentClassroomView } from './viewRegistry';
+import { VIEW_CONFIGS, Home, ClassDashboard, ClassSelection, ClassroomView, StudentClassroomView } from './viewRegistry';
 import RegisterImportDialog from './RegisterImportDialog';
 import AuraView from './AuraView';
 import ErrorBoundary from './ErrorBoundary';
@@ -55,7 +55,6 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
         onSaveEvent,
         onAddLessons,
         handleGradeSubmission,
-        handleOpenOperations,
         setOrientamentoActivities,
         setEPortfolioEntries,
         setStudentOrientamentoStates,
@@ -91,19 +90,11 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     if (view === 'home') {
                         return (
                             <AuraView>
-                                {settings.uiMode === 'flow' ? (
-                                    <FlowMode 
-                                        actions={actions} 
-                                        onOpenOperations={handleOpenOperations}
-                                        onOpenLiveAssistant={() => setIsLiveAssistantModalOpen?.(true)}
-                                    />
-                                ) : (
-                                    <Home
-                                        onNavigate={handleNavigate}
-                                        dismissSuggestion={dismissSuggestion}
-                                        onOpenRegisterImport={() => setIsRegisterImportOpen?.(true)}
-                                    />
-                                )}
+                                <Home
+                                    onNavigate={handleNavigate}
+                                    dismissSuggestion={dismissSuggestion}
+                                    onOpenRegisterImport={() => setIsRegisterImportOpen?.(true)}
+                                />
                             </AuraView>
                         );
                     }

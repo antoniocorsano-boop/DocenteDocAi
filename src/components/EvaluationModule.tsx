@@ -419,7 +419,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             {[
                                 { id: 'grid', label: 'Griglia', icon: 'grid_on' },
                                 { id: 'summary', label: 'Riepilogo', icon: 'analytics' },
-                                { id: 'risk', label: 'CriticitÃ ', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
+                                { id: 'risk', label: 'Criticità', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
                             ].map(tab => (
                                 <button
                                     key={tab.id}

@@ -843,7 +843,7 @@ export interface AppThemeState {
     radiusMultiplier?: number;
     fontScale?: number;
     contrastLevel?: number;
-    uiMode?: 'classic' | 'flow';  // Optional for backward compatibility
+    uiMode: 'classic' | 'flow';  // Now required after safe migration
 }
 
 export interface BackupState {

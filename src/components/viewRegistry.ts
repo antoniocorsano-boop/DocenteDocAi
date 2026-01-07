@@ -3,7 +3,6 @@ import { View } from '../types';
 
 // Lazy loaded views
 export const Home = lazy(() => import('./Home'));
-export const FlowMode = lazy(() => import('./FlowMode'));
 export const Timetable = lazy(() => import('./Timetable').then(m => ({ default: m.Timetable })));
 export const Calendar = lazy(() => import('./Calendar'));
 export const Settings = lazy(() => import('./Settings'));

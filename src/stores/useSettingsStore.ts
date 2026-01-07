@@ -40,7 +40,10 @@ export const useSettingsStore = create<SettingsState & { actions: SettingsAction
             ...state,
             settings: data.settings || state.settings,
             aiSettings: data.aiSettings || state.aiSettings,
-            themeState: data.themeState || state.themeState
+            themeState: data.themeState ? {
+                ...data.themeState,
+                uiMode: data.themeState.uiMode || 'classic'  // Safe migration: add uiMode if missing
+            } : state.themeState
         })),
         reset: () => set({
             settings: DEFAULT_TIMETABLE_SETTINGS,

@@ -280,7 +280,7 @@ describe('M3Menu', () => {
     
     await waitFor(() => {
       // Button should have focus-like styling
-      expect((secondButton as HTMLElement).style.background).toBe('var(--md-sys-color-surface-container-high)');
+      expect(secondButton).toHaveClass('bg-surface-container-high');
     });
   });
 
@@ -299,7 +299,7 @@ describe('M3Menu', () => {
     );
     
     const button = container.querySelector('button[role="menuitem"]') as HTMLElement;
-    expect(button.style.color).toBe('var(--md-sys-color-error)');
+    expect(button).toHaveClass('error');
   });
 
   it('applies custom minWidth', () => {
