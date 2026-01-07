@@ -23,10 +23,10 @@ interface QuickAction {
 }
 
 const QUICK_ACTIONS: QuickAction[] = [
-    { label: 'Appello', icon: 'playlist_add_check', view: 'aula', helper: 'Registra presenze', tone: 'primary' },
-    { label: 'Valutazioni', icon: 'scoreboard', view: 'evaluations', helper: 'Inserisci voti', tone: 'secondary' },
-    { label: 'Registro', icon: 'sync', view: 'home', helper: 'Sincronizza dati', tone: 'tertiary' },
-    { label: 'Documenti', icon: 'description', view: 'progettazione-hub', helper: 'Modelli & report', tone: 'surfaceVariant' },
+    { label: 'Appello', icon: 'playlist_add_check', view: 'aula', helper: 'Presenze', tone: 'primary' },
+    { label: 'Valutazioni', icon: 'scoreboard', view: 'evaluations', helper: 'Voti', tone: 'secondary' },
+    { label: 'Registro', icon: 'sync', view: 'home', helper: 'Sync Drive', tone: 'tertiary' },
+    { label: 'Progettazione', icon: 'description', view: 'progettazione-hub', helper: 'UDA & PDP', tone: 'surfaceVariant' },
 ];
 
 const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegisterImport }) => {
@@ -120,8 +120,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                     backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)',
                                     color: 'var(--md-sys-color-primary)',
                                     borderRadius: 'var(--md-corner-full)',
-                                    fontSize: '10px',
-                                    fontWeight: '900',
+                                    fontSize: 'var(--md-sys-typescale-label-small-size)',
+                                    fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.3em',
                                     border: '1px solid color-mix(in srgb, var(--md-sys-color-primary) 20%, transparent)'
@@ -137,7 +137,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    boxShadow: 'inset 0 1px 3px color-mix(in srgb, var(--md-sys-color-on-surface) 5%, transparent)'
+                                    boxShadow: 'var(--md-sys-elevation1)'
                                 }}>
                                     <span className="material-symbols-outlined text-2xl" style={{ color: 'var(--md-sys-color-primary)' }}>school</span>
                                 </div>
@@ -218,7 +218,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                     height: '6rem',
                                     backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 5%, transparent)',
                                     borderRadius: 'var(--md-corner-full)',
-                                    transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)'
+                                    transition: 'transform var(--motion-duration-short3) var(--motion-easing-standard)'
                                 }} className="group-hover:scale-150"></div>
                                 <div style={{
                                     display: 'flex',
@@ -241,8 +241,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                         <span className="material-symbols-outlined">auto_awesome</span>
                                     </div>
                                     <span style={{
-                                        fontSize: '10px',
-                                        fontWeight: '900',
+                                        fontSize: 'var(--md-sys-typescale-label-small-size)',
+                                        fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.3em',
                                         color: 'var(--md-sys-color-primary)'
@@ -295,8 +295,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                 }}>auto_awesome</span>
                                 <p className="m3-label-large font-black text-on-surface-variant uppercase" style={{ letterSpacing: '0.3em', opacity: 0.4 }}>Nessun suggerimento</p>
                                 <p style={{
-                                    fontSize: '10px',
-                                    fontWeight: 500,
+                                    fontSize: 'var(--md-sys-typescale-label-small-size)',
+                                    fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     marginTop: 'var(--md-sys-spacing-3)',
                                     paddingLeft: 'var(--md-sys-spacing-4)',
@@ -314,7 +314,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                         padding: 'var(--md-sys-spacing-4)',
                                         borderRadius: 'var(--md-corner-medium)',
                                         border: '1px solid var(--md-sys-color-outline-variant)',
-                                        transition: 'border-color 0.3s ease'
+                                        transition: 'border-color var(--motion-duration-short3) var(--motion-easing-standard)'
                                     }} className="hover:border-primary/30 group">
                                         <div style={{
                                             display: 'flex',
@@ -336,14 +336,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                             </div>
                                             <div>
                                                 <div style={{
-                                                    fontSize: '12px',
-                                                    fontWeight: '900',
+                                                    fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                                    fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
                                                     color: 'var(--md-sys-color-on-surface)',
                                                     textTransform: 'uppercase',
                                                     letterSpacing: '0.05em'
                                                 }}>{suggestion.title}</div>
                                                 <div style={{
-                                                    fontSize: '10px',
+                                                    fontSize: 'var(--md-sys-typescale-label-small-size)',
                                                     color: 'var(--md-sys-color-on-surface-variant)',
                                                     marginTop: 'var(--md-sys-spacing-2)',
                                                     display: '-webkit-box',
@@ -354,8 +354,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                                 <button
                                                     style={{
                                                         marginTop: 'var(--md-sys-spacing-3)',
-                                                        fontSize: '9px',
-                                                        fontWeight: '900',
+                                                        fontSize: 'var(--md-sys-typescale-label-small-size)',
+                                                        fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
                                                         color: 'var(--md-sys-color-primary)',
                                                         textTransform: 'uppercase',
                                                         letterSpacing: '0.3em',
@@ -363,7 +363,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                                         border: 'none',
                                                         cursor: 'pointer',
                                                         textDecoration: 'none',
-                                                        transition: 'text-decoration 0.2s'
+                                                        transition: 'text-decoration var(--motion-duration-short2) var(--motion-easing-standard)'
                                                     }}
                                                     onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
                                                     onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}

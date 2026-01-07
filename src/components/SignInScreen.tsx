@@ -56,7 +56,7 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
 
       if (signInButtonRef.current) {
         google.accounts.id.renderButton(signInButtonRef.current, {
-          theme: 'outline', size: 'large', shape: 'pill', width: 300
+          theme: 'outline', size: 'large', shape: 'pill'
         });
         try { signInButtonRef.current.setAttribute('data-gsi-loaded', 'true'); } catch { /* ignore */ }
       }
@@ -117,7 +117,7 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
         <div className="lg:hidden absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full animate-pulse"></div>
         <div className="lg:hidden absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
 
-        <div className="relative z-10 w-full max-w-sm p-6 md:p-8 bg-surface-container-low/30 backdrop-blur-2xl rounded-4xl border border-outline-variant/20 shadow-2xl overflow-hidden">
+        <div className="relative z-10 w-full max-w-sm md:max-w-md lg:max-w-lg p-6 md:p-8 lg:p-10 bg-surface-container-low/30 backdrop-blur-2xl rounded-4xl border border-outline-variant/20 shadow-2xl overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
 
           <div className="flex flex-col items-center text-center mb-6 lg:hidden">
@@ -133,14 +133,14 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
           </div>
 
           <div className="hidden lg:block mb-6">
-            <h2 className="m3-title-large font-black text-on-surface">Accedi al tuo account</h2>
-            <p className="text-xs text-on-surface-variant opacity-70">Scegli il metodo di accesso preferito</p>
+            <h2 className="m3-title-large font-black text-on-surface text-lg md:text-xl lg:text-2xl">Accedi al tuo account</h2>
+            <p className="text-xs md:text-sm text-on-surface-variant opacity-70">Scegli il metodo di accesso preferito</p>
           </div>
 
-          <div className="space-y-6">
-            <div className="flex flex-col items-center gap-6">
+          <div className="space-y-6 md:space-y-8 lg:space-y-10">
+            <div className="flex flex-col items-center gap-6 w-full">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Accesso Istituzionale</p>
-              <div ref={signInButtonRef} className="w-full flex justify-center min-h-[40px]"></div>
+              <div ref={signInButtonRef} className="w-full flex justify-center min-h-[40px] md:min-h-[48px]"></div>
               <p className="m3-label-small italic text-on-surface-variant/40">Sincronizzazione Drive attiva per il backup sicuro.</p>
             </div>
 
@@ -175,12 +175,12 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
             </form>
           </div>
 
-          <footer className="mt-8 pt-6 border-t border-outline-variant/10 flex justify-between items-center">
+          <footer className="mt-8 md:mt-10 lg:mt-12 pt-6 md:pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-8 px-3 py-1.5 bg-primary/5 rounded-full border border-primary/10">
               <span className="material-symbols-outlined text-primary text-xs">enhanced_encryption</span>
-              <p className="text-[8px] font-black text-primary uppercase tracking-widest">Privacy First</p>
+              <p className="text-[8px] md:text-[9px] font-black text-primary uppercase tracking-widest">Privacy First</p>
             </div>
-            <p className="text-[8px] font-black text-on-surface-variant/20 uppercase tracking-widest">v4.0.0-rc1</p>
+            <p className="text-[8px] md:text-[9px] font-black text-on-surface-variant/20 uppercase tracking-widest">v4.0.0-rc1</p>
           </footer>
         </div>
       </div>

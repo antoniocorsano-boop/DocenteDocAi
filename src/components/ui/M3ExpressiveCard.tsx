@@ -81,8 +81,8 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             </div>
             
             <div className="flex-grow relative z-10">
-                <h3 className="m3-title-large font-black mb-4 tracking-tight">{title}</h3>
-                <p className="m3-body-medium opacity-80 leading-snug font-medium">{description}</p>
+                <h3 className="m3-title-large font-black mb-4 tracking-tight truncate">{title}</h3>
+                <p className="m3-body-medium opacity-80 leading-snug font-medium line-clamp-2">{description}</p>
                 {children && <div className="mt-4">{children}</div>}
             </div>
         </div>

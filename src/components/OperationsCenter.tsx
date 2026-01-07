@@ -35,8 +35,8 @@ const PROCESS_DEFINITIONS: ProcessDef[] = [
     {
         id: 'live_assistant',
         title: 'Assistente Live',
-        subtitle: 'Copilota vocale 2.0',
-        description: 'Avvia una sessione vocale con l\'AI per gestire la classe, dettare note o chiedere informazioni senza interrompere la lezione.',
+        subtitle: 'Copilota Vocale',
+        description: 'Comandi vocali per gestire la classe senza interrompere la lezione.',
         icon: 'mic',
         steps: [
             { title: 'Ascolto', desc: 'L\'AI ascolta i tuoi comandi vocali.' },
@@ -50,8 +50,8 @@ const PROCESS_DEFINITIONS: ProcessDef[] = [
     {
         id: 'video_generation',
         title: 'Video Analysis',
-        subtitle: 'Modello Veo Preview',
-        description: 'Genera video didattici in alta risoluzione partendo da un prompt testuale o una sequenza di immagini.',
+        subtitle: 'Veo AI',
+        description: 'Genera video didattici da prompt testuali o immagini.',
         icon: 'movie',
         steps: [
             { title: 'Prompt', desc: 'Descrivi la scena da generare.' },
@@ -65,8 +65,8 @@ const PROCESS_DEFINITIONS: ProcessDef[] = [
     {
         id: 'nka_map',
         title: 'Mappa Neurale',
-        subtitle: 'Neural Knowledge Assistant',
-        description: 'Esplora la mappa interattiva delle tue conoscenze e dei collegamenti tra le lezioni generati dall\'AI.',
+        subtitle: 'Knowledge Map',
+        description: 'Visualizza i collegamenti tra lezioni e concetti chiave.',
         icon: 'hub',
         steps: [
             { title: 'Analisi', desc: 'L\'AI mappa i concetti chiave.' },
@@ -80,8 +80,8 @@ const PROCESS_DEFINITIONS: ProcessDef[] = [
     {
         id: 'annual_wizard',
         title: 'Wizard Annuale',
-        subtitle: 'Calendario UDA',
-        description: 'Pianifica l\'intero anno scolastico in 5 minuti. Definisci le Unità di Apprendimento e distribuiscile automaticamente nel calendario.',
+        subtitle: 'Piano UDA',
+        description: 'Pianifica l\'anno scolastico e distribuisci le UDA nel calendario.',
         icon: 'calendar_month',
         steps: [
             { title: 'Argomenti', desc: 'Indica cosa vuoi insegnare.' },
@@ -96,8 +96,8 @@ const PROCESS_DEFINITIONS: ProcessDef[] = [
     {
         id: 'import_students',
         title: 'Importa Studenti',
-        subtitle: 'Configurazione rapida',
-        description: 'Carica gli elenchi classe partendo da un file Excel o CSV. L\'AI ti aiuterà a mappare correttamente le colonne.',
+        subtitle: 'Setup Rapido',
+        description: 'Carica elenchi classe da file Excel o CSV.',
         icon: 'group_add',
         steps: [
             { title: 'File', desc: 'Seleziona il file .csv o .xlsx.' },
@@ -111,8 +111,8 @@ const PROCESS_DEFINITIONS: ProcessDef[] = [
     {
         id: 'setup_timetable',
         title: 'Configura Orario',
-        subtitle: 'Struttura settimanale',
-        description: 'Definisci la tua matrice oraria stabile per velocizzare la registrazione delle lezioni.',
+        subtitle: 'Grid Settimanale',
+        description: 'Definisci la matrice oraria per velocizzare il registro.',
         icon: 'edit_calendar',
         steps: [
             { title: 'Grid', desc: 'Clicca sugli slot.' },
@@ -126,8 +126,8 @@ const PROCESS_DEFINITIONS: ProcessDef[] = [
     {
         id: 'load_demo',
         title: 'Carica Demo',
-        subtitle: 'Dati di prova',
-        description: 'Popola l\'app con classi, studenti e documenti di esempio per testare le funzionalità.',
+        subtitle: 'Test Data',
+        description: 'Popola l\'app con dati di esempio per test rapidi.',
         icon: 'dataset',
         steps: [
             { title: 'Caricamento', desc: 'Generazione dati.' },
@@ -141,8 +141,8 @@ const PROCESS_DEFINITIONS: ProcessDef[] = [
     {
         id: 'year_transition',
         title: 'Passaggio Anno',
-        subtitle: 'Promozione Classi',
-        description: 'Procedura guidata per chiudere l\'anno scolastico corrente, archiviare i dati e promuovere gli studenti alla classe successiva.',
+        subtitle: 'Promozioni',
+        description: 'Chiudi l\'anno, archivia dati e promuovi gli studenti.',
         icon: 'move_up',
         steps: [
             { title: 'Backup', desc: 'Salvataggio stato attuale.' },

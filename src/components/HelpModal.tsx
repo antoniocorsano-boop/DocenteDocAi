@@ -454,15 +454,15 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
     const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_releases" }) => (
         <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/10 hover:bg-surface-container-high/50 transition-all group">
             <div className="flex justify-between items-start mb-6">
-                <div className="flex items-center gap-6">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="flex items-center gap-6 flex-1 min-w-0">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
                         <span className="material-symbols-outlined">{icon}</span>
                     </div>
-                    <h4 className="m3-title-medium font-bold">{title}</h4>
+                    <h4 className="m3-title-medium font-bold truncate">{title}</h4>
                 </div>
-                <span className="px-4 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest">v4.1.0</span>
+                <span className="px-4 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest flex-shrink-0">v4.1.0</span>
             </div>
-            <p className="m3-body-medium mb-8 opacity-70 leading-relaxed text-sm">{children}</p>
+            <p className="m3-body-medium mb-8 opacity-70 leading-relaxed text-sm line-clamp-2">{children}</p>
             {actionView && actionView !== 'home' && (
                 <M3Button
                     onClick={() => { onClose(); onNavigate(actionView); }}
