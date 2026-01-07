@@ -80,9 +80,9 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
   }, [onSignInSuccess]);
 
   return (
-    <div className="fixed inset-0 flex flex-col lg:flex-row bg-surface overflow-y-auto lg:overflow-hidden" data-testid="signin-screen">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-surface overflow-auto" data-testid="signin-screen">
       {/* Left Side: Hero & Branding (Visible on Desktop) */}
-      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center p-8 overflow-hidden bg-primary-container/20">
+      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center p-10 xl:p-12 overflow-hidden bg-primary-container/20">
         {/* Aura Ornaments */}
         <div className="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] bg-primary/10 blur-[120px] rounded-full animate-pulse"></div>
         <div className="absolute -bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-secondary/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
@@ -116,12 +116,12 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
       </div>
 
       {/* Right Side: Login Form */}
-      <div className="flex-1 flex items-center justify-center p-8 relative">
+      <div className="flex-1 flex items-start lg:items-center justify-center p-6 md:p-10 lg:p-12 relative max-w-6xl mx-auto w-full">
         {/* Mobile Aura Ornaments (Hidden on Desktop) */}
         <div className="lg:hidden absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full animate-pulse"></div>
         <div className="lg:hidden absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
 
-        <div className="relative z-10 w-full max-w-sm md:max-w-md lg:max-w-lg p-6 md:p-8 lg:p-10 bg-surface-container-low/30 backdrop-blur-2xl rounded-4xl border border-outline-variant/20 shadow-2xl overflow-hidden">
+        <div className="relative z-10 w-full max-w-md md:max-w-lg lg:max-w-xl p-6 md:p-8 lg:p-10 bg-surface-container-low/30 backdrop-blur-2xl rounded-4xl border border-outline-variant/20 shadow-2xl overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
 
           <div className="flex flex-col items-center text-center mb-6 lg:hidden">
@@ -141,7 +141,7 @@ const SignInScreen: React.FC<{ onSignInSuccess: (profile: UserProfile) => void }
             <p className="text-xs md:text-sm text-on-surface-variant opacity-70">Scegli il metodo di accesso preferito</p>
           </div>
 
-          <div className="space-y-6 md:space-y-8 lg:space-y-10">
+          <div className="space-y-6 md:space-y-7 lg:space-y-8">
             <div className="flex flex-col items-center gap-6 w-full">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-on-surface-variant">Accesso Istituzionale</p>
               <div ref={signInButtonRef} className="w-full flex justify-center min-h-[40px] md:min-h-[48px]"></div>
