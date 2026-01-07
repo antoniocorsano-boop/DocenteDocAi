@@ -26,6 +26,10 @@ export const ThemeService = {
     });
 
     applyTheme(theme);
+
+    // Apply uiMode globally via data attribute (with safe fallback)
+    const uiMode = state.uiMode || 'classic';
+    document.documentElement.setAttribute('data-ui-mode', uiMode);
   },
 
   /**

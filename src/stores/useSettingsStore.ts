@@ -19,7 +19,8 @@ export const useSettingsStore = create<SettingsState & { actions: SettingsAction
         visualStyle: 'aura',
         customizationName: 'M3 Default',
         glassBlur: 30,
-        radiusMultiplier: 1
+        radiusMultiplier: 1,
+        uiMode: 'classic'  // Add default uiMode
     },
 
     actions: {
@@ -49,7 +50,8 @@ export const useSettingsStore = create<SettingsState & { actions: SettingsAction
                 visualStyle: 'aura',
                 customizationName: 'M3 Default',
                 glassBlur: 30,
-                radiusMultiplier: 1
+                radiusMultiplier: 1,
+                uiMode: 'classic'  // Add default uiMode to reset
             }
         })
     }
