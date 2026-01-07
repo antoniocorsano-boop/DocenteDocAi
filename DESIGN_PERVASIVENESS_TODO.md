@@ -27,12 +27,12 @@ This plan addresses making all design settings pervasive throughout the applicat
 - [x] Update default values to include `uiMode: 'classic'`
 - [x] Test build and linting pass
 
-### Phase 2: Global Application (Medium Risk) 🔄 **IN PROGRESS**
+### Phase 2: Global Application (Medium Risk) ✅ **COMPLETED**
 
-- [ ] Extend ThemeService to apply all design settings globally
-- [ ] Add CSS attribute selectors for `data-ui-mode`
-- [ ] Test global application without breaking local logic
-- [ ] Verify all settings are applied consistently
+- [x] Extend ThemeService to apply all design settings globally
+- [x] Add CSS attribute selectors for `data-ui-mode`
+- [x] Test global application without breaking local logic
+- [x] Verify all settings are applied consistently
 
 ### Phase 3: Migration & Cleanup (High Risk) ⏳ **PENDING**
 
@@ -223,7 +223,7 @@ if (view === 'home') {
 
 ## Current Status 📍
 
-**Phase**: Phase 2 (Global Application) - Ready for implementation
-**Risk Level**: Medium
-**Next Action**: Extend ThemeService to apply all design settings globally and add CSS attribute selectors</content>
+**Phase**: Phase 3 (Migration & Cleanup) - Ready for implementation
+**Risk Level**: High
+**Next Action**: Migrate existing user data and remove local uiMode logic</content>
 <parameter name="filePath">c:\Users\anton\DocenteDocAI-Flowise\docentedoc-ai\DESIGN_PERVASIVENESS_TODO.md

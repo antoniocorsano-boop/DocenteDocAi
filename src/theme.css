@@ -1063,3 +1063,17 @@ body {
 .m3-my-5 { margin-top: var(--md-sys-spacing-5); margin-bottom: var(--md-sys-spacing-5); }
 .m3-my-6 { margin-top: var(--md-sys-spacing-6); margin-bottom: var(--md-sys-spacing-6); }
 .m3-my-8 { margin-top: var(--md-sys-spacing-8); margin-bottom: var(--md-sys-spacing-8); }
+
+/* ============================================================================
+   UI MODE SELECTORS - Design Pervasiveness Phase 2
+   ============================================================================ */
+
+/* Classic Mode - Default UI layout */
+[data-ui-mode="classic"] {
+  /* Classic mode specific styles can be added here if needed */
+}
+
+/* Flow Mode - Alternative UI layout */
+[data-ui-mode="flow"] {
+  /* Flow mode specific styles can be added here if needed */
+}
