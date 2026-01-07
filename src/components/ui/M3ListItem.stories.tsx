@@ -91,7 +91,7 @@ export const WithLeadingElement: Story = {
           width: '24px',
           height: '24px',
           borderRadius: '4px',
-          backgroundColor: 'var(--sys-primary)',
+          backgroundColor: 'var(--md-sys-color-primary)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -114,11 +114,11 @@ export const WithTrailingElement: Story = {
     trailingElement: (
       <div
         style={{
-          backgroundColor: 'var(--sys-error)',
+          backgroundColor: 'var(--md-sys-color-error)',
           color: 'white',
           borderRadius: '12px',
           padding: '2px 8px',
-          fontSize: '12px',
+          fontSize: 'var(--md-sys-typescale-body-small-size)',
           fontWeight: 'bold',
         }}
       >
@@ -147,10 +147,10 @@ export const Full: Story = {
     headline: 'Complete Item',
     supportingText: 'With leading and trailing elements',
     leadingElement: (
-      <span style={{ fontSize: '24px' }}>📌</span>
+      <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>📌</span>
     ),
     trailingElement: (
-      <span style={{ fontSize: '18px', opacity: 0.6 }}>→</span>
+      <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', opacity: 0.6 }}>→</span>
     ),
     onClick: () => console.log('Clicked!'),
   },

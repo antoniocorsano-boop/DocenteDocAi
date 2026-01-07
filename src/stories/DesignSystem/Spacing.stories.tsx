@@ -4,13 +4,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 const SpacingDocumentation = () => (
   <div style={{ padding: '24px', fontFamily: 'var(--font-family)' }}>
-    <h1 style={{ fontSize: '36px', fontWeight: 400, marginBottom: '16px' }}>Spacing System</h1>
-    <p style={{ fontSize: '16px', lineHeight: '24px', marginBottom: '32px', color: '#666' }}>
+    <h1 style={{ fontSize: '36px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: '16px' }}>Spacing System</h1>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '24px', marginBottom: '32px', color: '#666' }}>
       Consistent spacing scale for margins, padding, and gaps to create rhythm and visual balance.
     </p>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Spacing Scale</h2>
-    <p style={{ fontSize: '14px', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Spacing Scale</h2>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
       The spacing system uses an 8px base unit, enabling flexible and predictable layouts.
     </p>
 
@@ -33,13 +33,13 @@ const SpacingDocumentation = () => (
       ))}
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Common Spacing Combinations</h2>
-    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px', marginBottom: '32px' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Common Spacing Combinations</h2>
+    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--md-sys-typescale-body-medium-size)', marginBottom: '32px' }}>
       <thead>
-        <tr style={{ backgroundColor: 'var(--sys-surface-container)', textAlign: 'left' }}>
-          <th style={{ padding: '12px', borderBottom: '2px solid var(--sys-outline-variant)' }}>Use Case</th>
-          <th style={{ padding: '12px', borderBottom: '2px solid var(--sys-outline-variant)' }}>Spacing</th>
-          <th style={{ padding: '12px', borderBottom: '2px solid var(--sys-outline-variant)' }}>Example</th>
+        <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container)', textAlign: 'left' }}>
+          <th style={{ padding: '12px', borderBottom: '2px solid var(--md-sys-color-outline-variant)' }}>Use Case</th>
+          <th style={{ padding: '12px', borderBottom: '2px solid var(--md-sys-color-outline-variant)' }}>Spacing</th>
+          <th style={{ padding: '12px', borderBottom: '2px solid var(--md-sys-color-outline-variant)' }}>Example</th>
         </tr>
       </thead>
       <tbody>
@@ -51,7 +51,7 @@ const SpacingDocumentation = () => (
           { useCase: 'Grid Gap', spacing: '16px - 24px', example: 'Between grid items' },
           { useCase: 'List Item Padding', spacing: '12px 16px', example: 'Vertical 12px, horizontal 16px' },
         ].map((row, idx) => (
-          <tr key={idx} style={{ borderBottom: '1px solid var(--sys-outline-variant)' }}>
+          <tr key={idx} style={{ borderBottom: '1px solid var(--md-sys-color-outline-variant)' }}>
             <td style={{ padding: '12px' }}><strong>{row.useCase}</strong></td>
             <td style={{ padding: '12px' }}><code>{row.spacing}</code></td>
             <td style={{ padding: '12px', color: '#666' }}>{row.example}</td>
@@ -60,21 +60,21 @@ const SpacingDocumentation = () => (
       </tbody>
     </table>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Padding Patterns</h2>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Padding Patterns</h2>
 
-    <h3 style={{ fontSize: '20px', fontWeight: 500, marginTop: '24px', marginBottom: '12px' }}>Cards & Containers</h3>
-    <div style={{ padding: '16px', backgroundColor: 'var(--sys-surface-container)', borderRadius: '8px', border: '1px solid var(--sys-outline)', marginBottom: '16px' }}>
+    <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '24px', marginBottom: '12px' }}>Cards & Containers</h3>
+    <div style={{ padding: '16px', backgroundColor: 'var(--md-sys-color-surface-container)', borderRadius: '8px', border: '1px solid var(--md-sys-color-outline)', marginBottom: '16px' }}>
       <div style={{ fontSize: '12px', color: '#666', marginBottom: '8px' }}>
         <strong>Card Padding: 16px</strong>
       </div>
-      <div style={{ padding: '12px', backgroundColor: 'var(--sys-surface-container-low)', borderRadius: '4px', fontSize: '14px' }}>
+      <div style={{ padding: '12px', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: '4px', fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
         Content inside card with consistent padding
       </div>
     </div>
 
-    <h3 style={{ fontSize: '20px', fontWeight: 500, marginTop: '24px', marginBottom: '12px' }}>Form Fields</h3>
+    <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '24px', marginBottom: '12px' }}>Form Fields</h3>
     <div style={{ marginBottom: '24px' }}>
-      <label style={{ display: 'block', fontSize: '12px', fontWeight: 500, marginBottom: '4px' }}>
+      <label style={{ display: 'block', fontSize: '12px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: '4px' }}>
         Input Label
       </label>
       <input
@@ -83,9 +83,9 @@ const SpacingDocumentation = () => (
         style={{
           width: '100%',
           padding: '12px 16px',
-          border: '1px solid var(--sys-outline)',
+          border: '1px solid var(--md-sys-color-outline)',
           borderRadius: '4px',
-          fontSize: '14px',
+          fontSize: 'var(--md-sys-typescale-body-medium-size)',
           fontFamily: 'inherit',
         }}
       />
@@ -94,21 +94,21 @@ const SpacingDocumentation = () => (
       </div>
     </div>
 
-    <h3 style={{ fontSize: '20px', fontWeight: 500, marginTop: '24px', marginBottom: '12px' }}>Buttons</h3>
+    <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '24px', marginBottom: '12px' }}>Buttons</h3>
     <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
-      <button style={{ padding: '8px 16px', backgroundColor: 'var(--sys-primary)', color: 'var(--sys-on-primary)', border: 'none', borderRadius: '24px', fontSize: '14px', fontWeight: 500, cursor: 'pointer' }}>
+      <button style={{ padding: '8px 16px', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'none', borderRadius: '24px', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', cursor: 'pointer' }}>
         Small Button
       </button>
-      <button style={{ padding: '12px 24px', backgroundColor: 'var(--sys-primary)', color: 'var(--sys-on-primary)', border: 'none', borderRadius: '24px', fontSize: '14px', fontWeight: 500, cursor: 'pointer' }}>
+      <button style={{ padding: '12px 24px', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'none', borderRadius: '24px', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', cursor: 'pointer' }}>
         Medium Button
       </button>
-      <button style={{ padding: '12px 32px', backgroundColor: 'var(--sys-primary)', color: 'var(--sys-on-primary)', border: 'none', borderRadius: '24px', fontSize: '16px', fontWeight: 500, cursor: 'pointer' }}>
+      <button style={{ padding: '12px 32px', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'none', borderRadius: '24px', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', cursor: 'pointer' }}>
         Large Button
       </button>
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Best Practices</h2>
-    <ol style={{ fontSize: '14px', lineHeight: '24px', color: '#333', paddingLeft: '20px' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Best Practices</h2>
+    <ol style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '24px', color: '#333', paddingLeft: '20px' }}>
       <li>Use multiples of 4px or 8px for consistency</li>
       <li>Maintain rhythm with the spacing scale</li>
       <li>Group related elements with smaller spacing (8px - 12px)</li>
@@ -131,7 +131,7 @@ const SpacingSwatch: React.FC<SpacingSwatchProps> = ({ value, description }) => 
     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '8px' }}>
       <div
         style={{
-          backgroundColor: 'var(--sys-primary)',
+          backgroundColor: 'var(--md-sys-color-primary)',
           width: value === '0px' ? '2px' : value,
           height: value === '0px' ? '2px' : '32px',
           borderRadius: '4px',
@@ -139,7 +139,7 @@ const SpacingSwatch: React.FC<SpacingSwatchProps> = ({ value, description }) => 
         }}
       />
       <div>
-        <strong style={{ fontSize: '14px' }}>{value}</strong>
+        <strong style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>{value}</strong>
         <p style={{ margin: '4px 0 0 0', fontSize: '12px', color: '#666' }}>
           {description}
         </p>

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import M3BottomAppBar from './M3BottomAppBar';
 
 const meta: Meta<typeof M3BottomAppBar> = {
@@ -23,13 +24,13 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: '#f5f5f5' }}>
-      <div style={{ flex: 1, padding: '2rem', overflowY: 'auto' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+      <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)', overflowY: 'auto' }}>
         <h1>Main Content</h1>
         <p>This is the main content area above the bottom app bar.</p>
       </div>
       <M3BottomAppBar>
-        <button style={{ padding: '0.75rem 1rem' }}>Home</button>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)' }}>Home</button>
         <button style={{ padding: '0.75rem 1rem' }}>Browse</button>
         <button style={{ padding: '0.75rem 1rem' }}>Create</button>
       </M3BottomAppBar>
@@ -42,12 +43,12 @@ export const Basic: Story = {
  */
 export const WithFAB: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: '#f5f5f5' }}>
-      <div style={{ flex: 1, padding: '2rem', overflowY: 'auto' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+      <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)', overflowY: 'auto' }}>
         <h1>Document List</h1>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
           {['Document 1', 'Document 2', 'Document 3'].map((doc) => (
-            <div key={doc} style={{ padding: '1rem', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+            <div key={doc} style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderRadius: 'var(--md-corner-medium)', boxShadow: 'var(--md-sys-elevation1)' }}>
               {doc}
             </div>
           ))}
@@ -59,17 +60,17 @@ export const WithFAB: Story = {
         <button
           style={{
             position: 'absolute',
-            bottom: '1.5rem',
-            right: '1rem',
+            bottom: 'var(--md-sys-spacing-6)',
+            right: 'var(--md-sys-spacing-4)',
             width: '56px',
             height: '56px',
             borderRadius: '50%',
-            backgroundColor: '#6750a4',
-            color: 'white',
+            backgroundColor: 'var(--md-sys-color-primary)',
+            color: 'var(--md-sys-color-on-primary)',
             border: 'none',
             fontSize: '1.5rem',
             cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+            boxShadow: 'var(--md-sys-elevation1)',
           }}
           title="Create new document"
         >
@@ -85,12 +86,12 @@ export const WithFAB: Story = {
  */
 export const Navigation: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: '#f5f5f5' }}>
-      <div style={{ flex: 1, padding: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+      <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)' }}>
         <h1>🏠 Home</h1>
         <p>Home screen content</p>
       </div>
-      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white', borderTop: '1px solid #e0e0e0' }}>
+      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'var(--md-sys-color-surface)', borderTop: '1px solid var(--md-sys-color-outline-variant)' }}>
         {[
           { icon: '🏠', label: 'Home' },
           { icon: '📚', label: 'Library' },
@@ -107,7 +108,7 @@ export const Navigation: Story = {
               backgroundColor: 'transparent',
               border: 'none',
               cursor: 'pointer',
-              padding: '0.75rem',
+              padding: 'var(--md-sys-spacing-3)',
               fontSize: '0.75rem',
             }}
           >
@@ -125,19 +126,19 @@ export const Navigation: Story = {
  */
 export const DocumentEditing: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: '#f5f5f5' }}>
-      <div style={{ flex: 1, padding: '2rem', backgroundColor: 'white' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+      <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface)' }}>
         <h1>Document Title</h1>
         <p>Document content here...</p>
       </div>
-      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'center', gap: '1rem', backgroundColor: 'white', borderTop: '1px solid #e0e0e0', padding: '1rem' }}>
-        <button style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f5f5f5', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderTop: '1px solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
           💾 Save
         </button>
-        <button style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f5f5f5', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
           🔍 Preview
         </button>
-        <button style={{ padding: '0.75rem 1.5rem', backgroundColor: '#f5f5f5', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
           📤 Share
         </button>
       </M3BottomAppBar>
@@ -150,20 +151,20 @@ export const DocumentEditing: Story = {
  */
 export const ClassroomToolbar: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: '#f5f5f5' }}>
-      <div style={{ flex: 1, padding: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+      <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)' }}>
         <h1>Class 1A - Mathematics</h1>
         <p>24 Students</p>
       </div>
-      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'white', borderTop: '1px solid #e0e0e0', padding: '1rem' }}>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <button style={{ padding: '0.5rem 1rem', backgroundColor: '#f5f5f5', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--md-sys-color-surface)', borderTop: '1px solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
+        <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)' }}>
+          <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
             👥 Roster
           </button>
-          <button style={{ padding: '0.5rem 1rem', backgroundColor: '#f5f5f5', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+          <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
             📊 Grades
           </button>
-          <button style={{ padding: '0.5rem 1rem', backgroundColor: '#f5f5f5', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+          <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
             📚 Materials
           </button>
         </div>
@@ -172,8 +173,8 @@ export const ClassroomToolbar: Story = {
             width: '48px',
             height: '48px',
             borderRadius: '50%',
-            backgroundColor: '#6750a4',
-            color: 'white',
+            backgroundColor: 'var(--md-sys-color-primary)',
+            color: 'var(--md-sys-color-on-primary)',
             border: 'none',
             fontSize: '1.2rem',
             cursor: 'pointer',
@@ -192,23 +193,23 @@ export const ClassroomToolbar: Story = {
  */
 export const ExtendedLabel: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: '#f5f5f5' }}>
-      <div style={{ flex: 1, padding: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+      <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)' }}>
         <h1>Content View</h1>
       </div>
-      <M3BottomAppBar style={{ display: 'flex', alignItems: 'center', gap: '1rem', backgroundColor: 'white', borderTop: '1px solid #e0e0e0', padding: '1rem' }}>
+      <M3BottomAppBar style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderTop: '1px solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
         <button
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
-            padding: '0.75rem 1.5rem',
-            backgroundColor: '#6750a4',
-            color: 'white',
+            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
+            backgroundColor: 'var(--md-sys-color-primary)',
+            color: 'var(--md-sys-color-on-primary)',
             border: 'none',
             borderRadius: '24px',
             cursor: 'pointer',
-            fontWeight: '500',
+            fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
           }}
         >
           ➕ Create Document
@@ -223,8 +224,8 @@ export const ExtendedLabel: Story = {
  */
 export const Accessibility: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: '#f5f5f5' }}>
-      <div style={{ flex: 1, padding: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '600px', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+      <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)' }}>
         <h1>Accessible Bottom App Bar</h1>
         <p>Content above the navigation bar</p>
       </div>
@@ -234,8 +235,8 @@ export const Accessibility: Story = {
         style={{
           display: 'flex',
           justifyContent: 'space-around',
-          backgroundColor: 'white',
-          borderTop: '1px solid #e0e0e0',
+          backgroundColor: 'var(--md-sys-color-surface)',
+          borderTop: '1px solid var(--md-sys-color-outline-variant)',
         }}
       >
         {[

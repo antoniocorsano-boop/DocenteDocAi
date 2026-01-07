@@ -1,11 +1,11 @@
-/* Responsive dialog-container for all screen sizes (mobile, notebook, desktop) */
+﻿/* Responsive dialog-container for all screen sizes (mobile, notebook, desktop) */
 .dialog-container {
   width: 100vw;
   max-width: 95vw;
   min-width: 320px;
   box-sizing: border-box;
   margin: 0 auto;
-  border-radius: 20px;
+  border-radius: var(--md-sys-shape-corner-large);
   background: var(--sys-surface, #fff);
   box-shadow: 0 4px 32px rgba(0,0,0,0.18);
   max-height: 90vh;
@@ -17,18 +17,18 @@
 @media (min-width: 600px) {
   .dialog-container {
     max-width: 600px;
-    border-radius: 24px;
+    border-radius: var(--md-sys-shape-corner-large);
   }
 }
 @media (min-width: 900px) {
   .dialog-container {
     max-width: 800px;
-    border-radius: 28px;
+    border-radius: var(--md-sys-shape-corner-extra-large);
   }
 }
 @media (min-width: 1200px) {
   .dialog-container {
     max-width: 950px;
-    border-radius: 32px;
+    border-radius: var(--md-sys-shape-corner-extra-large);
   }
 }

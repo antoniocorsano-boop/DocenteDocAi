@@ -4,26 +4,26 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 const TypographyDocumentation = () => (
   <div style={{ padding: '24px', fontFamily: 'var(--font-family)' }}>
-    <h1 style={{ fontSize: '36px', fontWeight: 400, marginBottom: '16px' }}>Typography System</h1>
-    <p style={{ fontSize: '16px', lineHeight: '24px', marginBottom: '32px', color: '#666' }}>
+    <h1 style={{ fontSize: '36px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: '16px' }}>Typography System</h1>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '24px', marginBottom: '32px', color: '#666' }}>
       Material Design 3 typography scales with clear hierarchy for readability and visual consistency.
     </p>
 
-    <div style={{ marginBottom: '32px', padding: '16px', backgroundColor: 'var(--sys-surface-container)', borderRadius: '8px' }}>
-      <h3 style={{ fontSize: '20px', fontWeight: 500, marginBottom: '12px' }}>Font Family</h3>
-      <p style={{ fontSize: '14px', lineHeight: '20px', marginBottom: '8px' }}>
+    <div style={{ marginBottom: '32px', padding: '16px', backgroundColor: 'var(--md-sys-color-surface-container)', borderRadius: '8px' }}>
+      <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: '12px' }}>Font Family</h3>
+      <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px', marginBottom: '8px' }}>
         <strong>Primary Font:</strong> Roboto Flex
       </p>
-      <p style={{ fontSize: '14px', lineHeight: '20px', marginBottom: '8px' }}>
+      <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px', marginBottom: '8px' }}>
         <strong>Monospace Font:</strong> Roboto Mono
       </p>
-      <p style={{ fontSize: '14px', lineHeight: '20px' }}>
+      <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px' }}>
         <strong>Variable Font Range:</strong> Weight 100-1000, Optical Size 8-144
       </p>
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Display Styles</h2>
-    <p style={{ fontSize: '14px', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Display Styles</h2>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
       Large, impactful headings for hero sections and major content divisions.
     </p>
 
@@ -49,8 +49,8 @@ const TypographyDocumentation = () => (
       letterSpacing="0px"
     />
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Headline Styles</h2>
-    <p style={{ fontSize: '14px', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Headline Styles</h2>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
       Prominent headings for content sections.
     </p>
 
@@ -79,8 +79,8 @@ const TypographyDocumentation = () => (
       compact
     />
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Title Styles</h2>
-    <p style={{ fontSize: '14px', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Title Styles</h2>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
       Section titles and card headings.
     </p>
 
@@ -91,7 +91,7 @@ const TypographyDocumentation = () => (
       lineHeight="28px"
       letterSpacing="0px"
       compact
-      bgColor="var(--sys-surface-container-low)"
+      bgColor="var(--md-sys-color-surface-container-low)"
     />
     <TypeSample
       text="Title Medium"
@@ -100,7 +100,7 @@ const TypographyDocumentation = () => (
       lineHeight="24px"
       letterSpacing="0.15px"
       compact
-      bgColor="var(--sys-surface-container-low)"
+      bgColor="var(--md-sys-color-surface-container-low)"
     />
     <TypeSample
       text="Title Small"
@@ -109,20 +109,20 @@ const TypographyDocumentation = () => (
       lineHeight="20px"
       letterSpacing="0.1px"
       compact
-      bgColor="var(--sys-surface-container-low)"
+      bgColor="var(--md-sys-color-surface-container-low)"
     />
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Body Styles</h2>
-    <p style={{ fontSize: '14px', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Body Styles</h2>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
       Body copy for main content and descriptions.
     </p>
 
-    <div style={{ marginBottom: '20px', padding: '12px', backgroundColor: 'var(--sys-surface-container-lowest)', borderRadius: '8px' }}>
-      <p style={{ margin: '0 0 6px 0', fontSize: '16px', fontWeight: 500 }}>Body Large</p>
+    <div style={{ marginBottom: '20px', padding: '12px', backgroundColor: 'var(--md-sys-color-surface-container-lowest)', borderRadius: '8px' }}>
+      <p style={{ margin: '0 0 6px 0', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>Body Large</p>
       <div style={{ fontSize: '12px', color: '#666', fontFamily: 'monospace', marginBottom: '12px' }}>
         16px • Weight 400 • Line height 24px • Letter spacing 0.5px
       </div>
-      <p style={{ margin: '0', fontSize: '16px', lineHeight: '24px', letterSpacing: '0.5px', color: '#333' }}>
+      <p style={{ margin: '0', fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '24px', letterSpacing: '0.5px', color: '#333' }}>
         This is a sample body large text. It&apos;s used for primary content and longer passages of text that need to be easily readable and comfortable to scan.
       </p>
     </div>
@@ -134,7 +134,7 @@ const TypographyDocumentation = () => (
       lineHeight="20px"
       letterSpacing="0.25px"
       compact
-      bgColor="var(--sys-surface-container-lowest)"
+      bgColor="var(--md-sys-color-surface-container-lowest)"
     />
     <TypeSample
       text="Body Small"
@@ -143,11 +143,11 @@ const TypographyDocumentation = () => (
       lineHeight="16px"
       letterSpacing="0.4px"
       compact
-      bgColor="var(--sys-surface-container-lowest)"
+      bgColor="var(--md-sys-color-surface-container-lowest)"
     />
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Label Styles</h2>
-    <p style={{ fontSize: '14px', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Label Styles</h2>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
       Labels for buttons, chips, and form fields.
     </p>
 
@@ -158,7 +158,7 @@ const TypographyDocumentation = () => (
       lineHeight="20px"
       letterSpacing="0.1px"
       compact
-      bgColor="var(--sys-surface-container-low)"
+      bgColor="var(--md-sys-color-surface-container-low)"
     />
     <TypeSample
       text="Label Medium"
@@ -167,7 +167,7 @@ const TypographyDocumentation = () => (
       lineHeight="16px"
       letterSpacing="0.5px"
       compact
-      bgColor="var(--sys-surface-container-low)"
+      bgColor="var(--md-sys-color-surface-container-low)"
     />
     <TypeSample
       text="Label Small"
@@ -176,11 +176,11 @@ const TypographyDocumentation = () => (
       lineHeight="16px"
       letterSpacing="0.5px"
       compact
-      bgColor="var(--sys-surface-container-low)"
+      bgColor="var(--md-sys-color-surface-container-low)"
     />
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Usage Guidelines</h2>
-    <ul style={{ fontSize: '14px', lineHeight: '24px', color: '#333', paddingLeft: '20px' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Usage Guidelines</h2>
+    <ul style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '24px', color: '#333', paddingLeft: '20px' }}>
       <li><strong>Display:</strong> Use for hero sections and major page titles</li>
       <li><strong>Headline:</strong> Use for section titles and subsection headings</li>
       <li><strong>Title:</strong> Use for card titles, dialog titles, and emphasis</li>
@@ -210,7 +210,7 @@ const TypeSample: React.FC<TypeSampleProps> = ({
   lineHeight,
   letterSpacing,
   compact = false,
-  bgColor = 'var(--sys-surface-container)',
+  bgColor = 'var(--md-sys-color-surface-container)',
 }) => (
   <div style={{ marginBottom: compact ? '24px' : '32px', padding: compact ? '12px' : '20px', backgroundColor: bgColor, borderRadius: '8px' }}>
     <p style={{ margin: '0 0 8px 0', fontSize, fontWeight, lineHeight, letterSpacing }}>

@@ -5,7 +5,6 @@ import AddStudentModal from './AddStudentModal';
 import ImportStudentsModal from './ImportStudentsModal';
 import StudentTransferModal from './StudentTransferModal';
 import { EmptyState, M3Button, SectionHeader, Avatar, TextField, SelectField } from './ui';
-import { useListKeyboardNavigation } from '../hooks/useKeyboardNavigation';
 
 interface StudentManagerProps {
     students: Studente[];

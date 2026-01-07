@@ -20,6 +20,18 @@ import type { ActionsPopoverProps } from '../types';
 const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
     const { onClose, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp, user, onShareClick, unreadCount, onOpenNotifications, installPrompt, onInstallApp, onNavigate } = props;
     const popoverRef = useRef<HTMLDivElement>(null);
+    
+    // Focus management: trap focus within the popover and set initial focus when opened
+    const getFocusableElements = () => {
+        if (!popoverRef.current) return [] as HTMLElement[];
+        const nodes = popoverRef.current.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        return Array.from(nodes).filter(el => {
+            const style = window.getComputedStyle(el);
+            return style.visibility !== 'hidden' && style.display !== 'none';
+        });
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -30,6 +42,16 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [onClose]);
+
+    useEffect(() => {
+        const focusables = getFocusableElements();
+        if (focusables.length > 0) {
+            focusables[0].focus();
+        } else if (popoverRef.current) {
+            popoverRef.current.setAttribute('tabindex', '-1');
+            popoverRef.current.focus();
+        }
+    }, []);
 
     const handleActionClick = (action: () => void) => {
         action();
@@ -46,7 +68,8 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
         <button 
             onClick={onClick}
             className="w-full flex items-center gap-8 p-6 rounded-xl hover:bg-surface-container-highest transition-all group text-left"
-        >
+            aria-label={label}
+            >
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
                 variant === 'error' ? 'bg-error-subtle text-error' : 
                 variant === 'secondary' ? 'bg-secondary-subtle text-secondary' : 
@@ -65,7 +88,27 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
     );
 
     return (
-        <div ref={popoverRef} className="m3-popup-menu header-actions-popover aura-glass flex flex-col gap-4 !p-8 w-80 max-w-[calc(100vw-32px)]">
+        <div
+            ref={popoverRef}
+            className="m3-popup-menu header-actions-popover aura-glass flex flex-col gap-4 !p-8 w-80 max-w-[calc(100vw-32px)]"
+            role="dialog"
+            aria-modal="true"
+            onKeyDown={(e) => {
+                if (e.key !== 'Tab') return;
+                const focusables = getFocusableElements();
+                if (focusables.length === 0) return;
+                const currentIndex = focusables.indexOf(document.activeElement as HTMLElement);
+                const goingBack = e.shiftKey;
+                e.preventDefault();
+                if (goingBack) {
+                    const prevIndex = currentIndex <= 0 ? focusables.length - 1 : currentIndex - 1;
+                    focusables[prevIndex].focus();
+                } else {
+                    const nextIndex = currentIndex === -1 || currentIndex === focusables.length - 1 ? 0 : currentIndex + 1;
+                    focusables[nextIndex].focus();
+                }
+            }}
+        >
             <div className="flex justify-between items-center p-8 mb-8 border-b border-outline-variant/10">
                 <div className="flex items-center gap-6">
                     <Avatar
@@ -214,6 +257,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
                             <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Offline</span>
                         </div>
                     )}
+                    <button
+                        className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors"
+                        aria-label="Impostazioni"
+                        onClick={() => onNavigate('settings')}
+                    >
+                        <span className="material-symbols-outlined">settings</span>
+                    </button>
                     <button
                         className="w-10 h-10 rounded-full relative flex items-center justify-center hover:bg-surface-container-highest transition-colors"
                         onClick={() => setIsActionsOpen(p => !p)}

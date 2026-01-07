@@ -46,7 +46,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
     };
 
     return (
-        <div className={`tab-group ${variant} ${className}`} role="tablist" aria-label="Sezioni di navigazione">
+        <div className={`tab-group ${variant} ${className}`} role="group" aria-label="Sezioni di navigazione">
             {tabs.map((tab, index) => {
                 const isActive = activeTab === tab.id;
                 return (
@@ -55,9 +55,8 @@ const TabGroup: React.FC<TabGroupProps> = ({
                         onClick={() => onTabChange(tab.id)}
                         onKeyDown={(e) => handleKeyDown(e, index)}
                         className={`tab ${isActive ? 'active' : ''}`}
-                        role="tab"
-                        aria-selected={isActive}
-                        aria-controls={`panel-${tab.id}`}
+                        role="button"
+                        aria-pressed={isActive}
                         id={`tab-${tab.id}`}
                         data-testid={`tab-${tab.id}`}
                         tabIndex={isActive ? 0 : -1}

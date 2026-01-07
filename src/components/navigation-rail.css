@@ -1,4 +1,4 @@
-/**
+﻿/**
  * NavigationRail - M3 Expressive Styles
  * 
  * Material Design 3 Expressive Navigation Rail component
@@ -215,7 +215,7 @@
   /* Appearance */
   background: var(--sys-error, #ba1a1a);
   color: var(--sys-on-error, #ffffff);
-  border-radius: 8px;
+  border-radius: var(--md-sys-shape-corner-small);
   
   /* Typography */
   font-size: 10px;

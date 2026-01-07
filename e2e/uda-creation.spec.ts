@@ -45,15 +45,21 @@ test.describe('DocenteDoc AI - UDA Creation Flow', () => {
   test('should create a new UDA and verify it in the list', async ({ page }) => {
     // 1. Navigate to Progettazione
     await safeClick(page, page.getByLabel('Progettazione - UDA, Rubriche, PDP'), 'Progettazione Tile');
-    await expect(page.getByText('Progettazione Didattica')).toBeVisible();
+    await expect(page.getByText('Progettazione', { exact: true })).toBeVisible();
 
-    // 2. Open UDA Planner
-    await safeClick(page, page.getByText('UDA', { exact: true }), 'UDA Card');
-    await expect(page.getByText('Unità di Apprendimento')).toBeVisible();
+    // 2. Open UDA Planner - click on "Planner UDA" card
+    const udaPlannerCard = page.getByText('Planner UDA');
+    await udaPlannerCard.first().waitFor({ state: 'visible', timeout: 5000 });
+    await safeClick(page, udaPlannerCard, 'UDA Planner Card');
+    
+    // Wait for navigation and UDA planner to load
+    await page.waitForTimeout(300);
+    await expect(page.getByText('Planner Progetti')).toBeVisible({ timeout: 10000 });
 
     // 3. Start creating a new UDA
-    await safeClick(page, 'button:has-text("Nuova UDA")', 'Nuova UDA Button');
-    await expect(page.getByText('Nuovo Progetto')).toBeVisible();
+    await safeClick(page, page.getByRole('button', { name: 'Nuovo Progetto' }), 'Nuovo Progetto Button');
+    // Wait for the modal/editor to appear with its heading
+    await expect(page.getByRole('heading', { name: 'Nuovo Progetto' })).toBeVisible({ timeout: 5000 });
 
     // 4. Fill basic info
     // Using getByLabel for TextField components

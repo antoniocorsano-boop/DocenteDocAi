@@ -248,7 +248,7 @@ export const RichContent: Story = {
     children: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div>
-          <label style={{ display: 'block', fontWeight: 500, marginBottom: '0.25rem' }}>
+          <label style={{ display: 'block', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: '0.25rem' }}>
             Theme
           </label>
           <select

@@ -60,22 +60,18 @@ const SkipLink: React.FC<SkipLinkProps> = ({
         position: 'absolute',
         top: '-40px',
         left: 0,
-        background: 'var(--sys-primary)',
-        color: 'var(--sys-on-primary)',
-        padding: '8px 16px',
+        background: 'var(--md-sys-color-primary)',
+        color: 'var(--md-sys-color-on-primary)',
+        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
         textDecoration: 'none',
         zIndex: 100,
-        borderRadius: '0 0 4px 0',
-        fontSize: '14px',
+        borderRadius: '0 0 var(--md-corner-small) 0',
+        fontSize: 'var(--md-sys-typescale-body-medium-size)',
         fontWeight: 600,
-        // Show on focus
-        '&:focus': {
-          top: 0,
-        },
       }}
-      onKeyDown={(e) => {
+      onKeyDown={(e: React.KeyboardEvent<HTMLAnchorElement>) => {
         if (e.key === 'Enter' || e.key === ' ') {
-          handleClick(e as any);
+          handleClick(e as unknown as React.MouseEvent<HTMLAnchorElement>);
         }
       }}
     >

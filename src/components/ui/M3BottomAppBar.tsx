@@ -9,20 +9,20 @@ const baseStyle: React.CSSProperties = {
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
-  gap: 12,
-  padding: '0.75rem 1rem',
-  backgroundColor: '#fff',
-  borderTop: '1px solid #e0e0e0',
+  gap: 'var(--md-sys-spacing-3)',
+  padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+  backgroundColor: 'var(--md-sys-color-surface)',
+  borderTop: '1px solid var(--md-sys-color-outline-variant)',
   boxSizing: 'border-box',
 };
 
-function M3BottomAppBar({ children, elevated, style, className, ...props }: M3BottomAppBarProps) {
+function M3BottomAppBar({ children, elevated, style, className, ...props }: M3BottomAppBarProps): React.ReactElement {
   return (
     <div
       className={className}
       style={{
         ...baseStyle,
-        boxShadow: elevated ? '0 -2px 8px rgba(0,0,0,0.12)' : 'none',
+        boxShadow: elevated ? 'var(--md-sys-elevation2)' : 'none',
         ...style,
       }}
       {...props}

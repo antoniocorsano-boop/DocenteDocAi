@@ -5,6 +5,9 @@
 @import './layout.css';
 @import './components.css';
 @import './src/design-system/legacyStyles.css';
+@import './src/design-system/m3-interactive.css';
+@import './src/design-system/motion.css';
+@import './src/styles/m3-interactive.css';
 @import './logo.css';
 @import './modules.css';
 

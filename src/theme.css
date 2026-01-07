@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0');
 @import './design-system/chip-expressive.css';
 
@@ -170,18 +170,34 @@
   --z-toast: 1700;
   --z-max: 9999;
 
-  /* Spacing Tokens M3 */
-  --spacing-0: 0px;
-  --spacing-1: 4px;      /* Extra small */
-  --spacing-2: 8px;      /* Small */
-  --spacing-3: 12px;     /* Compact */
-  --spacing-4: 16px;     /* Medium (default) */
-  --spacing-5: 20px;     /* Medium-large */
-  --spacing-6: 24px;     /* Large */
-  --spacing-8: 32px;     /* Extra large */
-  --spacing-10: 40px;    /* 2x large */
-  --spacing-12: 48px;    /* Section gap */
-  --spacing-16: 64px;    /* Page section */
+  /* Spacing Tokens M3 - LEGACY (DEPRECATED 2026-01-06) */
+  /* ⚠️ DO NOT USE - Use --md-sys-spacing-* instead */
+  /* These tokens remain for backward compatibility only */
+  /* See: UI_UNIFORMITY_AUDIT_POST_M3_MIGRATION.md (P2) */
+  --spacing-0: 0px;      /* → --md-sys-spacing-0 */
+  --spacing-1: 4px;      /* → --md-sys-spacing-1 */
+  --spacing-2: 8px;      /* → --md-sys-spacing-2 */
+  --spacing-3: 12px;     /* → --md-sys-spacing-3 */
+  --spacing-4: 16px;     /* → --md-sys-spacing-4 */
+  --spacing-5: 20px;     /* → --md-sys-spacing-5 */
+  --spacing-6: 24px;     /* → --md-sys-spacing-6 */
+  --spacing-8: 32px;     /* → --md-sys-spacing-8 */
+  --spacing-10: 40px;    /* → --md-sys-spacing-10 */
+  --spacing-12: 48px;    /* → --md-sys-spacing-12 */
+  --spacing-16: 64px;    /* → --md-sys-spacing-16 */
+
+  /* Spacing Tokens M3 - OFFICIAL (Use these) */
+  --md-sys-spacing-0: 0px;
+  --md-sys-spacing-1: 4px;      /* Extra small */
+  --md-sys-spacing-2: 8px;      /* Small */
+  --md-sys-spacing-3: 12px;     /* Compact */
+  --md-sys-spacing-4: 16px;     /* Medium (default) */
+  --md-sys-spacing-5: 20px;     /* Medium-large */
+  --md-sys-spacing-6: 24px;     /* Large */
+  --md-sys-spacing-8: 32px;     /* Extra large */
+  --md-sys-spacing-10: 40px;    /* 2x large */
+  --md-sys-spacing-12: 48px;    /* Section gap */
+  --md-sys-spacing-16: 64px;    /* Page section */
 
   /* Typography Scale M3 */
   /* Typography Scale M3 - Simple Variables */
@@ -275,6 +291,50 @@
   /* Backward compatibility */
   --motion-expressive: var(--motion-easing-expressive);
   --motion-standard: var(--motion-easing-standard);
+
+  /* --- MD3 Alias Mapping (bridge to --sys- tokens) --- */
+  /* Semantic colors */
+  --md-sys-color-primary: var(--sys-primary);
+  --md-sys-color-on-primary: var(--sys-on-primary);
+  --md-sys-color-primary-container: var(--sys-primary-container);
+  --md-sys-color-on-primary-container: var(--sys-on-primary-container);
+  --md-sys-color-secondary: var(--sys-secondary);
+  --md-sys-color-on-secondary: var(--sys-on-secondary);
+  --md-sys-color-secondary-container: var(--sys-secondary-container);
+  --md-sys-color-on-secondary-container: var(--sys-on-secondary-container);
+  --md-sys-color-tertiary: var(--sys-tertiary);
+  --md-sys-color-on-tertiary: var(--sys-on-tertiary);
+  --md-sys-color-tertiary-container: var(--sys-tertiary-container);
+  --md-sys-color-on-tertiary-container: var(--sys-on-tertiary-container);
+  --md-sys-color-background: var(--sys-background);
+  --md-sys-color-on-background: var(--sys-on-background);
+  --md-sys-color-surface: var(--sys-surface);
+  --md-sys-color-on-surface: var(--sys-on-surface);
+  --md-sys-color-surface-variant: var(--sys-surface-variant);
+  --md-sys-color-on-surface-variant: var(--sys-on-surface-variant);
+  --md-sys-color-outline: var(--sys-outline);
+  --md-sys-color-outline-variant: var(--sys-outline-variant);
+  --md-sys-color-surface-container-lowest: var(--sys-surface-container-lowest);
+  --md-sys-color-surface-container-low: var(--sys-surface-container-low);
+  --md-sys-color-surface-container: var(--sys-surface-container);
+  --md-sys-color-surface-container-high: var(--sys-surface-container-high);
+  --md-sys-color-surface-container-highest: var(--sys-surface-container-highest);
+  --md-sys-color-error: var(--sys-error);
+  --md-sys-color-on-error: var(--sys-on-error);
+
+  /* Elevation aliases */
+  --md-sys-elevation1: var(--elevation-1);
+  --md-sys-elevation2: var(--elevation-2);
+  --md-sys-elevation3: var(--elevation-3);
+
+  /* Shape aliases (rounded corners) */
+  --md-corner-small: var(--shape-s);
+  --md-corner-medium: var(--shape-m);
+  --md-corner-large: var(--shape-l);
+  --md-corner-full: var(--shape-full);
+  /* Numeric corner helpers used in stories/demos */
+  --md-corner-4: 4px;
+  --md-corner-8: 8px;
 }
 
 .theme-dark {
@@ -551,7 +611,7 @@ body {
 /* M3 Card Component - Foundation */
 .m3-card {
   background: var(--sys-surface-container);
-  border-radius: 24px;
+  border-radius: var(--md-sys-shape-corner-large);
   padding: 24px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border: 1px solid var(--sys-outline-variant);
@@ -657,7 +717,7 @@ body {
   font-weight: 500;
   font-size: calc(14px * var(--sys-font-scale, 1));
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: var(--md-sys-shape-corner-small);
   transition: all 0.2s var(--motion-easing-standard);
 }
 
@@ -669,7 +729,7 @@ body {
 .icon-button {
   width: 48px;
   height: 48px;
-  border-radius: 24px;
+  border-radius: var(--md-sys-shape-corner-large);
   border: none;
   background: transparent;
   color: var(--sys-on-surface);
@@ -708,7 +768,7 @@ body {
 .modal-panel {
   position: relative;
   background: var(--sys-surface-container-high);
-  border-radius: 28px;
+  border-radius: var(--md-sys-shape-corner-extra-large);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   z-index: var(--z-modal);
   overflow: hidden;
@@ -755,7 +815,7 @@ body {
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: var(--sys-outline-variant);
-  border-radius: 4px;
+  border-radius: var(--md-sys-shape-corner-small);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -784,7 +844,7 @@ body {
   gap: 8px;
   background: var(--sys-surface-container);
   border: 1px solid var(--sys-outline-variant);
-  border-radius: 12px;
+  border-radius: var(--md-sys-shape-corner-medium);
   padding: 12px 16px;
   transition: all 0.2s var(--motion-easing-standard);
 }
@@ -875,7 +935,7 @@ body {
   align-items: center;
   gap: 4px;
   padding: 8px 16px;
-  border-radius: 24px;
+  border-radius: var(--md-sys-shape-corner-large);
   cursor: pointer;
   transition: all 0.2s var(--motion-easing-standard);
   color: var(--sys-on-surface-variant);

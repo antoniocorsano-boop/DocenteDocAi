@@ -333,7 +333,9 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
         className={`absolute inset-0 ${opacityMap[backdropOpacity]} backdrop-blur-sm animate-in fade-in duration-300 ${
           backdropClickable ? 'cursor-pointer' : 'cursor-default'
         }`}
-        style={{ zIndex: backdropZIndex }}
+        // Ensure backdrop sits below modal content within the same stacking context
+        // The wrapper sets z-index to modalZIndex; children should use relative layering
+        style={{ zIndex: 1 }}
         onClick={backdropClickable ? onBackdropClick : undefined}
         aria-hidden="true"
         role="presentation"

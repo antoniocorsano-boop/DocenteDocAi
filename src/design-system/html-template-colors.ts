@@ -4,7 +4,7 @@
  * HTML TEMPLATE COLOR UTILITIES
  * 
  * These colors are used in HTML template strings for document generation.
- * These are NOT CSS colors used in React componentsâ€”they are part of
+ * These are NOT CSS colors used in React components—they are part of
  * generated document content via jsPDF, HTML export, etc.
  * 
  * HTML template colors are:
@@ -14,7 +14,7 @@
  * - Used by: DocumentGenerator, PDF exports, HTML reports
  * 
  * This file is EXCLUDED from the design-system/no-hardcoded-colors ESLint rule.
- * @see docs/DESIGN_SYSTEM_CONSOLIDATION.md Â§ 5 - "Exceptions & Overrides"
+ * @see docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5 - "Exceptions & Overrides"
  */
 
 export const HTML_TEMPLATE_COLORS = {
@@ -62,5 +62,5 @@ export function getStyledFooter(text: string): string {
  * @returns HTML string with styled section header
  */
 export function getStyledSectionHeader(title: string): string {
-  return `<div style="background-color: ${HTML_TEMPLATE_COLORS.structure.headerBg}; padding: 15px; border-radius: 8px;"><h2>${title}</h2></div>`;
+  return `<div style="background-color: ${HTML_TEMPLATE_COLORS.structure.headerBg}; padding: 15px; border-radius: var(--md-sys-shape-corner-small);"><h2>${title}</h2></div>`;
 }

@@ -18,6 +18,11 @@ vi.mock('../../src/components/ui', () => ({
             {children}
         </div>
     ),
+    M3Button: ({ children, onClick }: any) => (
+        <button data-testid="m3-button" onClick={onClick}>
+            {children}
+        </button>
+    ),
 }));
 
 // Mock useSettingsStore
@@ -41,9 +46,10 @@ vi.mock('../../src/stores/useSystemStore', () => ({
                 id: 'test-suggestion-1',
                 icon: 'lightbulb',
                 title: 'Test Suggestion',
+                message: 'Test Suggestion',
                 description: 'This is a test AI suggestion',
                 actionLabel: 'Apri',
-                actionView: 'home'
+                action: { type: 'navigate', payload: 'home' }
             },
             dismissedSuggestions: new Set(),
             suggestions: [
@@ -103,7 +109,7 @@ describe('Home Component', () => {
 
         expect(screen.getByText('Suggerimento AI')).toBeInTheDocument();
         expect(screen.getByText('Test Suggestion')).toBeInTheDocument();
-        expect(screen.getByText('This is a test AI suggestion')).toBeInTheDocument();
+        expect(screen.getByText('Scopri come ottimizzare il tuo workflow didattico.')).toBeInTheDocument();
     });
 
     it('handles suggestion actions', () => {

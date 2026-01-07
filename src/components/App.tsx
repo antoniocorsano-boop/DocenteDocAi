@@ -43,7 +43,7 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
             role="button"
             aria-label={actionLabel || 'Apri suggerimento'}
         >
-            <span className="text-xl" aria-hidden="true">💡</span>
+            <span className="text-xl" aria-hidden="true">??</span>
             <span className="font-bold flex-1 text-sm md:text-base truncate text-on-primary-container">
                 {message || 'Hai un suggerimento!'}
             </span>
@@ -73,7 +73,7 @@ import { NKABottomSheet, useNKAStore } from '../nka';
 export const App: React.FC = () => {
     const { chaosStage } = useUIStore();
     const { pushModal, popModal } = useModal();
-    // Stato assistant mode centralizzato (opzionale: puoi usare Zustand o context se vuoi cambiare modalità da altri punti)
+    // Stato assistant mode centralizzato (opzionale: puoi usare Zustand o context se vuoi cambiare modalit� da altri punti)
     const [assistantMode] = React.useState<'chat' | 'docs' | 'tools' | 'backup'>('chat');
     // AssistantModal montato una sola volta a livello root, usa solo modals proxy
     try {
@@ -163,11 +163,11 @@ export const App: React.FC = () => {
                                 // closes the Playwright page and interrupts the test flow.
                                 const isTest = window.__TEST_MODE === true;
                                 if (unregistered && !isTest) {
-                                    console.info('[dev] Service workers unregistered — reloading');
+                                    console.info('[dev] Service workers unregistered � reloading');
                                     // Hard reload to clear caches affected by the SW
                                     setTimeout(() => window.location.reload(), 50);
                                 } else if (unregistered && isTest) {
-                                    console.info('[dev] Service workers unregistered — skipping reload in test mode');
+                                    console.info('[dev] Service workers unregistered � skipping reload in test mode');
                                 }
                             } catch {
                                 // swallow
@@ -460,13 +460,23 @@ export const App: React.FC = () => {
                     <AssistantFab />
                 </div>
 
+                {modals.isLiveAssistantModalOpen && (
+                    <AssistantModal
+                        open={true}
+                        onClose={() => modals.setIsLiveAssistantModalOpen?.(false)}
+                        mode={assistantMode}
+                        aiSettings={aiSettings}
+                        context={{ view, viewContext }}
+                    />
+                )}
+
                 <Snackbar />
             </div>
             </ErrorBoundary>
         );
     } catch {
         // Fallback visibile: errore di caricamento o runtime
-        return <div style={{ color: 'red', padding: 'var(--spacing-8)', fontFamily: 'monospace', background: 'var(--sys-surface-variant)', fontSize: '1.2rem', whiteSpace: 'pre-wrap' }}>
+        return <div style={{ color: 'red', padding: 'var(--md-sys-spacing-8)', fontFamily: 'monospace', background: 'var(--sys-surface-variant)', fontSize: '1.2rem', whiteSpace: 'pre-wrap' }}>
             <b>ERRORE FATALE:</b> {String(err)}
             <br />
             <span>Controlla la console per dettagli tecnici.</span>

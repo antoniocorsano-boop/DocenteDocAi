@@ -208,13 +208,34 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
     if (inputRef.current) inputRef.current.focus();
   };
 
+  if (!open) return null;
+
+  const headerContent = (
+    <div className="px-4 md:px-6 py-4 md:py-6 border-b border-outline-variant/10 flex justify-between items-center shrink-0 bg-gradient-to-r from-transparent via-surface-container-highest/10 to-transparent">
+      <div className="flex-grow min-w-0">
+        <h2 className="m3-headline-small font-black text-on-surface tracking-tight">Assistente DocenteDoc AI</h2>
+      </div>
+      <button
+        onClick={onClose}
+        className="w-10 h-10 rounded-full hover:bg-surface-container-highest flex items-center justify-center transition-colors ml-4 assistant-exit-btn"
+        data-focus-priority="-1"
+        aria-label="Chiudi assistente"
+      >
+        <span className="material-symbols-outlined">close</span>
+      </button>
+    </div>
+  );
+
   return (
     <M3Dialog
       title="Assistente DocenteDoc AI"
       onClose={onClose}
       maxWidth="md"
       level={2}
-      hideBackdrop={true}
+      hideBackdrop={false}
+      headerContent={headerContent}
+      wrapperClassName="assistant-modal-overlay"
+      wrapperTestId="assistant-modal-overlay"
     >
       <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
         {mode === 'chat' && (

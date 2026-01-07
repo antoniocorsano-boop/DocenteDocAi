@@ -102,7 +102,7 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
                             <span className="text-sm font-black text-on-surface uppercase tracking-widest">Validazione Curricolo Verticale</span>
                         </div>
                         <M3Button onClick={handleValidate} variant="tonal" disabled={isValidating} className="text-[10px] font-black uppercase tracking-widest">
-                            {isValidating ? '‚è≥ Validazione...' : 'Valida con AI'}
+                            {isValidating ? '? Validazione...' : 'Valida con AI'}
                         </M3Button>
                     </div>
                     {validationResult && (
@@ -395,7 +395,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Snackbar preview / undo */}
                     {showSnackbar && lastMove && (
-                        <div style={{ position: 'fixed', right: 'var(--spacing-6)', bottom: 'var(--spacing-6)', zIndex: Z_INDEX.notification.snackbar }}>
+                        <div style={{ position: 'fixed', right: 'var(--md-sys-spacing-6)', bottom: 'var(--md-sys-spacing-6)', zIndex: Z_INDEX.notification.snackbar }}>
                             <div className="m3-card shadow-lg bg-surface-container-high border border-outline-variant flex items-center gap-6">
                                 <div className="flex-1 m3-body-medium">UDA spostata. <button className="text-primary font-bold underline ml-2" onClick={() => {
                                     const original = udas.find(u => u.id === lastMove.udaId);
@@ -412,7 +412,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Drag Preview Bubble */}
                     {previewMessage && (
-                        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--spacing-2)', zIndex: Z_INDEX.overlay.tooltip }}>
+                        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--md-sys-spacing-2)', zIndex: Z_INDEX.overlay.tooltip }}>
                             <div className="px-3 py-1 rounded-lg bg-surface/92 text-on-surface border border-outline-variant m3-body-small shadow">{previewMessage}</div>
                         </div>
                     )}
@@ -534,7 +534,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                         <M3ExpressiveCard
                             icon="assignment"
                             title="Planner UDA"
-                            description="Gestisci le Unit√† di Apprendimento, le fasi di lavoro e le competenze target."
+                            description="Gestisci le Unit‡ di Apprendimento, le fasi di lavoro e le competenze target."
                             color="var(--sys-secondary-container)"
                             onClick={() => onNavigate('uda')}
                             className="col-span-2 md:col-span-2"
@@ -671,7 +671,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                     onImport={(importedFiles: KnowledgeBaseEntry[]) => {
                         // Aggiorna la Knowledge Base con i materiali importati
                         if (onUpdateKnowledgeBase && typeof onUpdateKnowledgeBase === 'function') {
-                            // Se √® fornito un dispatcher esplicito
+                            // Se Ë fornito un dispatcher esplicito
                             onUpdateKnowledgeBase([
                                 ...knowledgeBase,
                                 ...importedFiles

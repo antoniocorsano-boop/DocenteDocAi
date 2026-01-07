@@ -19,23 +19,23 @@ function getStyles(variant: M3ChipProps['variant'], disabled?: boolean): React.C
     opacity: disabled ? 0.6 : 1,
     border: '1px solid transparent',
     backgroundColor: 'transparent',
-    color: 'var(--sys-on-surface)',
-    boxShadow: 'none',
-    transition: 'box-shadow 150ms ease, transform 150ms ease',
+    color: 'var(--md-sys-color-on-surface)',
+    boxShadow: 'var(--md-sys-elevation1)',
+    transition: 'box-shadow var(--motion-duration-short1) var(--motion-easing-standard), transform var(--motion-duration-short1) var(--motion-easing-standard)',
   };
 
   switch (variant) {
     case 'outlined':
-      return { ...base, border: '1px solid var(--sys-primary)', backgroundColor: 'transparent', color: 'var(--sys-on-surface)' };
+      return { ...base, border: '1px solid var(--md-sys-color-primary)', backgroundColor: 'transparent', color: 'var(--md-sys-color-on-surface)' };
     case 'elevated':
       return {
         ...base,
         backgroundColor: 'var(--sys-surface-dim)',
-        border: '1px solid var(--sys-outline)',
-        boxShadow: disabled ? 'none' : 'var(--sys-shadow-elevation-2)',
+        border: '1px solid var(--md-sys-color-outline)',
+        boxShadow: disabled ? 'none' : 'var(--md-sys-elevation2)',
       };
     default:
-      return { ...base, backgroundColor: 'var(--sys-primary)', color: '#fff' };
+      return { ...base, backgroundColor: 'var(--md-sys-color-primary)', color: '#fff' };
   }
 }
 

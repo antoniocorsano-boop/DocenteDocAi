@@ -41,7 +41,7 @@ function M3DatePicker({
   return (
     <div style={{ width: '100%' }} className={className}>
       {label ? (
-        <label htmlFor={inputId} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
+        <label htmlFor={inputId} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>
           {label}
         </label>
       ) : null}

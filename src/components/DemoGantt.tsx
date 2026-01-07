@@ -106,7 +106,7 @@ const GanttColumn: React.FC<GanttColumnProps> = ({ col, children }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        transition: 'background 0.2s',
+        transition: 'background-color var(--motion-duration-short2) var(--motion-easing-standard)',
       }}
     >
       {children}

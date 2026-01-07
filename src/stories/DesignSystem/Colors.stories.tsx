@@ -4,48 +4,48 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 const ColorDocumentation = () => (
   <div style={{ padding: '24px', fontFamily: 'var(--font-family)' }}>
-    <h1 style={{ fontSize: '36px', fontWeight: 400, marginBottom: '16px' }}>Material Design 3 Color System</h1>
-    <p style={{ fontSize: '16px', lineHeight: '24px', marginBottom: '32px', color: '#666' }}>
+    <h1 style={{ fontSize: '36px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: '16px' }}>Material Design 3 Color System</h1>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '24px', marginBottom: '32px', color: '#666' }}>
       The design system uses an expressive color palette based on Material Design 3 (Aura theme) with carefully selected colors for accessibility and visual hierarchy.
     </p>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Primary Colors</h2>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Primary Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
       <ColorSwatch name="Primary" token="--sys-primary" hex="#6750A4" />
       <ColorSwatch name="Primary Container" token="--sys-primary-container" hex="#EADDFF" />
       <ColorSwatch name="On Primary" token="--sys-on-primary" hex="#FFFFFF" border />
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Secondary Colors</h2>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Secondary Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
       <ColorSwatch name="Secondary" token="--sys-secondary" hex="#625B71" />
       <ColorSwatch name="Secondary Container" token="--sys-secondary-container" hex="#E8DEF8" />
       <ColorSwatch name="On Secondary" token="--sys-on-secondary" hex="#FFFFFF" border />
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Tertiary Colors</h2>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Tertiary Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
       <ColorSwatch name="Tertiary" token="--sys-tertiary" hex="#7D5260" />
       <ColorSwatch name="Tertiary Container" token="--sys-tertiary-container" hex="#FFD8E4" />
       <ColorSwatch name="On Tertiary" token="--sys-on-tertiary" hex="#FFFFFF" border />
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Semantic Colors</h2>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Semantic Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
       <ColorSwatch name="Error" token="--sys-error" hex="#B3261E" />
       <ColorSwatch name="Warning" token="--sys-warning" hex="#E65100" />
       <ColorSwatch name="On Error" token="--sys-on-error" hex="#FFFFFF" border />
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Surface & Background Colors</h2>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Surface & Background Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
       <ColorSwatch name="Background" token="--sys-background" hex="#FDFBFF" border />
       <ColorSwatch name="Surface" token="--sys-surface" hex="#FDFBFF" border />
       <ColorSwatch name="On Background" token="--sys-on-background" hex="#1C1B1F" />
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Surface Containers (Elevation)</h2>
-    <p style={{ fontSize: '14px', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Surface Containers (Elevation)</h2>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '20px', marginBottom: '16px', color: '#666' }}>
       Elevation levels for layered surfaces:
     </p>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '24px' }}>
@@ -56,14 +56,14 @@ const ColorDocumentation = () => (
       <ColorSwatch name="Highest" token="--sys-surface-container-highest" hex="#E6E0E9" border small />
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Outline & Accessibility</h2>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Outline & Accessibility</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
       <ColorSwatch name="Outline" token="--sys-outline" hex="#79747E" />
       <ColorSwatch name="Outline Variant" token="--sys-outline-variant" hex="#C4C7C5" border />
     </div>
 
-    <h2 style={{ fontSize: '28px', fontWeight: 400, marginTop: '40px', marginBottom: '20px' }}>Usage Guidelines</h2>
-    <ul style={{ fontSize: '14px', lineHeight: '24px', color: '#333', paddingLeft: '20px' }}>
+    <h2 style={{ fontSize: '28px', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '40px', marginBottom: '20px' }}>Usage Guidelines</h2>
+    <ul style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '24px', color: '#333', paddingLeft: '20px' }}>
       <li>Use <strong>Primary</strong> colors for main actions and focus states</li>
       <li>Use <strong>Secondary</strong> for supporting elements and toggles</li>
       <li>Use <strong>Tertiary</strong> for alternate accent colors</li>
@@ -92,7 +92,7 @@ const ColorSwatch: React.FC<ColorSwatchProps> = ({ name, token, hex, border = fa
         backgroundColor: `var(${token})`,
         borderRadius: '8px',
         marginBottom: '8px',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        boxShadow: 'var(--md-sys-elevation1)',
         border: border ? '2px solid var(--sys-outline-variant)' : 'none',
       }}
     />

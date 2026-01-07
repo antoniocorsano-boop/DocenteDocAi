@@ -158,7 +158,10 @@ export const useKeyboardNavigation = (
             // Ripristina il focus quando il modal si chiude
             if (restoreFocus && previouslyFocusedElement.current && typeof (previouslyFocusedElement.current as HTMLElement).focus === 'function') {
               setTimeout(() => {
-                (previouslyFocusedElement.current as HTMLElement).focus();
+                const el = previouslyFocusedElement.current as HTMLElement | null;
+                if (el && typeof el.focus === 'function') {
+                  el.focus();
+                }
                 previouslyFocusedElement.current = null;
               }, 100);
             } else {
@@ -205,7 +208,11 @@ export interface UseListKeyboardNavigationOptions {
   cycleItems?: boolean;
 }
 
-export const useListKeyboardNavigation = (options: UseListKeyboardNavigationOptions) => {
+interface UseListKeyboardNavigationResult {
+  handleKeyDown: (e: KeyboardEvent) => void;
+}
+
+export const useListKeyboardNavigation = (options: UseListKeyboardNavigationOptions): UseListKeyboardNavigationResult => {
   const {
     itemCount,
     selectedIndex = 0,

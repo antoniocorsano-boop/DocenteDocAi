@@ -40,8 +40,8 @@ test.describe('DocenteDoc AI - Annual Planning Wizard Flow', () => {
   });
 
   test('should complete the annual planning wizard steps', async ({ page }) => {
-    // 1. Navigate to Documenti
-    await safeClick(page, page.getByLabel('Documenti - Modelli & report'), 'Documenti Tile');
+    // 1. Navigate to Progettazione
+    await safeClick(page, page.getByLabel('Progettazione - UDA, Rubriche, PDP'), 'Progettazione Tile');
     await expect(page.getByText('Progettazione', { exact: true })).toBeVisible();
 
     // 2. Open Wizard Annuale

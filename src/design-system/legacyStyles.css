@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Legacy Inline Styles Consolidation
  * Material Design 3 Expressive Migration - FASE 2
  * 
@@ -30,7 +30,7 @@
   margin: 0 auto;
   padding: 0;
   overflow-y: auto;
-  border-radius: 16px;
+  border-radius: var(--md-sys-shape-corner-medium);
   box-shadow: 0 2px 24px rgba(0, 0, 0, 0.18);
   background: var(--sys-surface);
   position: relative;
@@ -321,15 +321,15 @@
 }
 
 .rounded-md {
-  border-radius: 12px;
+  border-radius: var(--md-sys-shape-corner-medium);
 }
 
 .rounded-lg {
-  border-radius: 16px;
+  border-radius: var(--md-sys-shape-corner-medium);
 }
 
 .rounded-xl {
-  border-radius: 20px;
+  border-radius: var(--md-sys-shape-corner-large);
 }
 
 /* ============================================================================
@@ -438,7 +438,7 @@
 .m3-popup-menu-legacy {
   position: absolute;
   background: var(--sys-surface);
-  border-radius: 12px;
+  border-radius: var(--md-sys-shape-corner-medium);
   box-shadow: var(--md-elevation-3);
   z-index: 1100;
   min-width: 200px;
@@ -453,7 +453,7 @@
   background: var(--sys-error-container);
   color: var(--sys-on-error-container);
   padding: 16px;
-  border-radius: 12px;
+  border-radius: var(--md-sys-shape-corner-medium);
   margin-bottom: 16px;
 }
 

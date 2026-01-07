@@ -58,7 +58,7 @@ export function validateBackupData(data: unknown): BackupPayload | null {
       slots: ensureObject(backup.slots),
       evaluations: ensureArray<Valutazione>(backup.evaluations),
       competencyEvals: ensureArray(backup.competencyEvals),
-      uda: ensureArray(backup.uda),
+      uda: ensureArray(backup.uda || (backup as Record<string, unknown> & { udas?: unknown }).udas),
       eventi: ensureArray(backup.eventi),
       knowledgeBase: ensureArray(backup.knowledgeBase),
       corpora: ensureArray(backup.corpora),

@@ -1,4 +1,4 @@
-.m3-ripple {
+﻿.m3-ripple {
     position: absolute;
     inset: 0;
     pointer-events: none;
@@ -22,7 +22,7 @@
 
 .hero-header {
     display: flex;
-    gap: var(--spacing-4);
+    gap: var(--md-sys-spacing-4);
     align-items: flex-start;
     position: relative;
     z-index: 10;
@@ -43,7 +43,7 @@
     background-color: var(--sys-primary-container);
     color: var(--sys-on-primary-container);
     border-radius: var(--shape-xl);
-    padding: var(--spacing-4);
+    padding: var(--md-sys-spacing-4);
     cursor: pointer;
     transition: all var(--motion-duration-short) var(--motion-easing-standard);
     position: relative;
@@ -53,7 +53,7 @@
 
 @media (min-width: 600px) {
     .hero-card-interactive {
-        padding: var(--spacing-6);
+        padding: var(--md-sys-spacing-6);
     }
 }
 
@@ -73,13 +73,13 @@
 .expressive-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--spacing-3);
+    gap: var(--md-sys-spacing-3);
 }
 
 @media(min-width: 600px) {
     .expressive-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: var(--spacing-4);
+        gap: var(--md-sys-spacing-4);
     }
 
     .col-span-2 {
@@ -90,7 +90,7 @@
 .expressive-wide-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-3);
+    gap: var(--md-sys-spacing-3);
 }
 
 @media(min-width: 600px) {
@@ -102,7 +102,7 @@
 .expressive-card {
     background-color: var(--sys-surface-container);
     border-radius: var(--shape-xl);
-    padding: var(--spacing-6);
+    padding: var(--md-sys-spacing-6);
     position: relative;
     cursor: pointer;
     transition: all var(--motion-duration-short) var(--motion-easing-standard);
@@ -152,7 +152,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: var(--spacing-3);
+    margin-bottom: var(--md-sys-spacing-3);
     box-shadow: var(--elevation-1);
 }
 
@@ -177,7 +177,7 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    padding: var(--spacing-4);
+    padding: var(--md-sys-spacing-4);
     border-radius: var(--shape-l);
     background-color: var(--sys-surface-container-low);
     border: 1px solid var(--sys-outline-variant);
@@ -240,7 +240,7 @@
 
 .tool-icon {
     font-size: 24px;
-    margin-bottom: var(--spacing-2);
+    margin-bottom: var(--md-sys-spacing-2);
 }
 
 .tool-title {
@@ -281,7 +281,7 @@
 
 
 .class-card-header {
-    padding: var(--spacing-3) var(--spacing-4);
+    padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -302,10 +302,10 @@
 }
 
 .class-card-body {
-    padding: var(--spacing-4);
+    padding: var(--md-sys-spacing-4);
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-2);
+    gap: var(--md-sys-spacing-2);
 }
 
 .class-stat-row {
@@ -344,7 +344,7 @@
 /* --- 4. AGENDA WIDGET (Horizontal Scroll) --- */
 .global-agenda-grid {
     display: flex;
-    gap: var(--spacing-3);
+    gap: var(--md-sys-spacing-3);
     overflow-x: auto;
     padding-bottom: 8px;
     scroll-behavior: smooth;
@@ -362,7 +362,7 @@
     background-color: var(--sys-surface-container-low);
     border: 1px solid var(--sys-outline-variant);
     border-radius: var(--shape-l);
-    padding: var(--spacing-3);
+    padding: var(--md-sys-spacing-3);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -396,7 +396,7 @@
 .agenda-event-title {
     font-weight: 700;
     font-size: var(--typography-body-medium-fontSize);
-    margin: var(--spacing-1) 0 var(--spacing-1);
+    margin: var(--md-sys-spacing-1) 0 var(--md-sys-spacing-1);
     color: var(--sys-on-surface);
     line-height: 1.2;
 }
@@ -434,8 +434,8 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: var(--spacing-4);
-    padding: var(--spacing-4) var(--spacing-6);
+    gap: var(--md-sys-spacing-4);
+    padding: var(--md-sys-spacing-4) var(--md-sys-spacing-6);
     background: var(--sys-surface);
     border-bottom: 1px solid var(--sys-outline-variant);
     flex-shrink: 0;
@@ -444,13 +444,13 @@
 .calendar-header-left {
     display: flex;
     align-items: center;
-    gap: var(--spacing-4);
+    gap: var(--md-sys-spacing-4);
 }
 
 .calendar-header-right {
     display: flex;
     align-items: center;
-    gap: var(--spacing-4);
+    gap: var(--md-sys-spacing-4);
 }
 
 .calendar-nav-group {
@@ -458,12 +458,12 @@
     align-items: center;
     background: var(--sys-surface-container-high);
     border-radius: var(--shape-full);
-    padding: var(--spacing-1);
+    padding: var(--md-sys-spacing-1);
     border: 1px solid var(--sys-outline-variant);
 }
 
 .calendar-today-btn {
-    padding: var(--spacing-2) var(--spacing-4);
+    padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
     font-size: var(--typography-label-medium-fontSize);
     font-weight: 700;
     color: var(--sys-primary);
@@ -489,8 +489,8 @@
 .calendar-actions {
     display: flex;
     align-items: center;
-    gap: var(--spacing-3);
-    padding-left: var(--spacing-3);
+    gap: var(--md-sys-spacing-3);
+    padding-left: var(--md-sys-spacing-3);
     border-left: 1px solid var(--sys-outline-variant);
 }
 
@@ -498,7 +498,7 @@
 .calendar-body {
     flex: 1;
     overflow: auto;
-    padding: var(--spacing-6);
+    padding: var(--md-sys-spacing-6);
 }
 
 /* Month View */
@@ -520,7 +520,7 @@
 }
 
 .calendar-weekday {
-    padding: var(--spacing-3) var(--spacing-2);
+    padding: var(--md-sys-spacing-3) var(--md-sys-spacing-2);
     text-align: center;
     font-size: var(--typography-label-small-fontSize);
     font-weight: 700;
@@ -537,7 +537,7 @@
 
 .calendar-day {
     min-height: 100px;
-    padding: var(--spacing-2);
+    padding: var(--md-sys-spacing-2);
     border-right: 1px solid var(--sys-outline-variant);
     border-bottom: 1px solid var(--sys-outline-variant);
     background: var(--sys-surface);
@@ -580,11 +580,11 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    margin-top: var(--spacing-2);
+    margin-top: var(--md-sys-spacing-2);
 }
 
 .calendar-event {
-    padding: 2px var(--spacing-2);
+    padding: 2px var(--md-sys-spacing-2);
     font-size: 11px;
     font-weight: 500;
     border-radius: var(--shape-xs);
@@ -622,14 +622,14 @@
 .calendar-more {
     font-size: 10px;
     color: var(--sys-on-surface-variant);
-    padding: 2px var(--spacing-2);
+    padding: 2px var(--md-sys-spacing-2);
 }
 
 /* Agenda View */
 .calendar-agenda {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-6);
+    gap: var(--md-sys-spacing-6);
 }
 
 .agenda-group {
@@ -640,7 +640,7 @@
 }
 
 .agenda-date {
-    padding: var(--spacing-3) var(--spacing-4);
+    padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
     background: var(--sys-surface-container-high);
     font-size: var(--typography-title-small-fontSize);
     font-weight: 700;
@@ -656,8 +656,8 @@
 
 .agenda-event {
     display: flex;
-    gap: var(--spacing-4);
-    padding: var(--spacing-4);
+    gap: var(--md-sys-spacing-4);
+    padding: var(--md-sys-spacing-4);
     border-bottom: 1px solid var(--sys-outline-variant);
     cursor: pointer;
     transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
@@ -693,7 +693,7 @@
 .agenda-event-desc {
     font-size: var(--typography-body-small-fontSize);
     color: var(--sys-on-surface-variant);
-    margin-top: var(--spacing-1);
+    margin-top: var(--md-sys-spacing-1);
 }
 
 /* Empty State */
@@ -702,8 +702,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-4);
-    padding: var(--spacing-16);
+    gap: var(--md-sys-spacing-4);
+    padding: var(--md-sys-spacing-16);
     text-align: center;
     color: var(--sys-on-surface-variant);
 }
@@ -738,7 +738,7 @@
 }
 
 .calendar-week-day-header {
-    padding: var(--spacing-3) var(--spacing-2);
+    padding: var(--md-sys-spacing-3) var(--md-sys-spacing-2);
     text-align: center;
     border-right: 1px solid var(--sys-outline-variant);
 }
@@ -753,7 +753,7 @@
     color: var(--sys-on-surface-variant);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: var(--spacing-1);
+    margin-bottom: var(--md-sys-spacing-1);
 }
 
 .calendar-week-day-number {
@@ -789,7 +789,7 @@
 
 .calendar-week-hour-label {
     width: 60px;
-    padding: var(--spacing-2);
+    padding: var(--md-sys-spacing-2);
     font-size: var(--typography-body-small-fontSize);
     font-weight: 600;
     color: var(--sys-on-surface-variant);
@@ -820,7 +820,7 @@
     background: var(--sys-primary-container);
     color: var(--sys-on-primary-container);
     border-radius: var(--shape-s);
-    padding: var(--spacing-1) var(--spacing-2);
+    padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
     font-size: 11px;
     font-weight: 500;
     margin-bottom: 2px;
@@ -856,7 +856,7 @@
 }
 
 .calendar-day-header {
-    padding: var(--spacing-4) var(--spacing-6);
+    padding: var(--md-sys-spacing-4) var(--md-sys-spacing-6);
     background: var(--sys-surface-container-high);
     border-bottom: 1px solid var(--sys-outline-variant);
     flex-shrink: 0;
@@ -873,20 +873,20 @@
 .calendar-day-body {
     flex: 1;
     overflow-y: auto;
-    padding: var(--spacing-6);
+    padding: var(--md-sys-spacing-6);
 }
 
 .calendar-day-events {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-3);
+    gap: var(--md-sys-spacing-3);
 }
 
 .calendar-day-event {
     background: var(--sys-surface-container-low);
     border: 1px solid var(--sys-outline-variant);
     border-radius: var(--shape-l);
-    padding: var(--spacing-4);
+    padding: var(--md-sys-spacing-4);
     cursor: pointer;
     transition: background-color var(--motion-duration-short) var(--motion-easing-standard),
         box-shadow var(--motion-duration-short) var(--motion-easing-standard);
@@ -901,7 +901,7 @@
     font-size: var(--typography-body-small-fontSize);
     font-weight: 600;
     color: var(--sys-primary);
-    margin-bottom: var(--spacing-2);
+    margin-bottom: var(--md-sys-spacing-2);
 }
 
 .calendar-day-event-content {
@@ -912,13 +912,13 @@
     font-size: var(--typography-body-medium-fontSize);
     font-weight: 600;
     color: var(--sys-on-surface);
-    margin-bottom: var(--spacing-1);
+    margin-bottom: var(--md-sys-spacing-1);
 }
 
 .calendar-day-event-desc {
     font-size: var(--typography-body-small-fontSize);
     color: var(--sys-on-surface-variant);
-    margin-bottom: var(--spacing-1);
+    margin-bottom: var(--md-sys-spacing-1);
 }
 
 .calendar-day-event-location {
@@ -931,8 +931,8 @@
 @media (max-width: 599.98px) {
     .calendar-header {
         flex-direction: column;
-        gap: var(--spacing-3);
-        padding: var(--spacing-3) var(--spacing-4);
+        gap: var(--md-sys-spacing-3);
+        padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
     }
     
     .calendar-header-left,
@@ -947,7 +947,7 @@
     
     .calendar-day {
         min-height: 60px;
-        padding: var(--spacing-1);
+        padding: var(--md-sys-spacing-1);
     }
     
     .calendar-day-number {
@@ -958,11 +958,11 @@
     
     .calendar-event {
         font-size: 10px;
-        padding: 1px var(--spacing-1);
+        padding: 1px var(--md-sys-spacing-1);
     }
     
     .calendar-body {
-        padding: var(--spacing-3);
+        padding: var(--md-sys-spacing-3);
     }
     
     .calendar-week-hour-label {
@@ -972,8 +972,8 @@
     
     .calendar-day-header,
     .calendar-day-body {
-        padding-left: var(--spacing-3);
-        padding-right: var(--spacing-3);
+        padding-left: var(--md-sys-spacing-3);
+        padding-right: var(--md-sys-spacing-3);
     }
     
     .calendar-day-title {
@@ -2203,7 +2203,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-4);
+    padding: var(--md-sys-spacing-4);
     cursor: pointer;
     list-style: none;
     user-select: none;
@@ -2250,7 +2250,7 @@
 .settings-subtitle {
     font-size: var(--typography-body-small);
     color: var(--sys-on-surface-variant);
-    margin: var(--spacing-1) 0 0 0;
+    margin: var(--md-sys-spacing-1) 0 0 0;
 }
 
 .settings-chevron {
@@ -2260,7 +2260,7 @@
 
 /* Settings Content */
 .settings-content {
-    padding: 0 var(--spacing-4) var(--spacing-4);
+    padding: 0 var(--md-sys-spacing-4) var(--md-sys-spacing-4);
     border-top: 1px solid var(--sys-outline-variant);
 }
 
@@ -2272,8 +2272,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-2);
-    padding: var(--spacing-3);
+    gap: var(--md-sys-spacing-2);
+    padding: var(--md-sys-spacing-3);
     background: var(--sys-surface-container);
     border: 2px solid var(--sys-outline-variant);
     border-radius: var(--shape-xl);
@@ -2366,7 +2366,7 @@
 
 /* Card Inner Section */
 .card-inner {
-    padding: var(--spacing-4);
+    padding: var(--md-sys-spacing-4);
     background: var(--sys-surface-container);
     border-radius: var(--shape-l);
     border: 1px solid var(--sys-outline-variant);
@@ -2387,8 +2387,8 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--spacing-2);
-    padding: var(--spacing-2) var(--spacing-4);
+    gap: var(--md-sys-spacing-2);
+    padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
     border-radius: var(--shape-full);
     border: 1px solid var(--sys-outline-variant);
     background: var(--sys-surface);

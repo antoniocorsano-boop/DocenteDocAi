@@ -1,4 +1,4 @@
-﻿import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { 
   cleanAndParseJson, 
   getLessonSuggestion, 
@@ -108,12 +108,12 @@ describe('aiService - cleanAndParseJson', () => {
     expect(() => cleanAndParseJson(jsonString)).toThrow("Il formato della risposta AI non è valido. Riprova.");
   });
 
-  it('dovrebbe trovare JSON tramite parentesi graffe se non c\'è markdown', () => {
+  it('dovrebbe trovare JSON tramite parentesi graffe se non c\'� markdown', () => {
     const text = 'Ecco il tuo JSON: {"a": 1} spero ti piaccia';
     expect(cleanAndParseJson(text)).toEqual({ a: 1 });
   });
 
-  it('dovrebbe trovare JSON tramite parentesi quadre se non c\'è markdown', () => {
+  it('dovrebbe trovare JSON tramite parentesi quadre se non c\'� markdown', () => {
     const text = 'Ecco la lista: [1, 2, 3] fine.';
     expect(cleanAndParseJson(text)).toEqual([1, 2, 3]);
   });
@@ -201,7 +201,7 @@ describe('aiService - AI Generation Functions', () => {
   describe('analyzeImage', () => {
     it('dovrebbe analizzare un\'immagine con un prompt', async () => {
       const mockImageDataUrl = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
-      const mockPrompt = 'Cosa c\'è in questa immagine?';
+      const mockPrompt = 'Cosa c\'� in questa immagine?';
       const mockApiResponse = { text: 'Una singola immagine a pixel.' };
       mockGenerateContent.mockResolvedValue(mockApiResponse);
 
@@ -279,7 +279,7 @@ describe('aiService - AI Generation Functions', () => {
       }));
     });
 
-    it('dovrebbe restituire nessuna fonte se groundingMetadata è assente', async () => {
+    it('dovrebbe restituire nessuna fonte se groundingMetadata � assente', async () => {
       const mockApiResponse = { text: 'No sources found.' };
       mockGenerateContent.mockResolvedValue(mockApiResponse);
       const result = await performWebSearch(mockAiSettings, 'query');
@@ -417,7 +417,7 @@ describe('aiService - AI Generation Functions', () => {
       await expect(generateImageFromPrompt(mockAiSettings, 'Prompt')).rejects.toThrow('Immagine non generata');
     });
 
-    it('dovrebbe lanciare errore se parts è vuoto', async () => {
+    it('dovrebbe lanciare errore se parts � vuoto', async () => {
       mockGenerateContent.mockResolvedValue({ candidates: [{ content: { parts: [] } }] });
       await expect(generateImageFromPrompt(mockAiSettings, 'Prompt')).rejects.toThrow('Immagine non generata');
     });
@@ -510,7 +510,7 @@ describe('aiService - AI Generation Functions', () => {
       }));
     });
 
-    it('dovrebbe usare response.content se response.text è assente', async () => {
+    it('dovrebbe usare response.content se response.text � assente', async () => {
       mockGenerateContent.mockResolvedValue({ content: 'Contenuto alternativo' });
       const result = await generateContent('Prompt', {});
       expect(result.content).toBe('Contenuto alternativo');

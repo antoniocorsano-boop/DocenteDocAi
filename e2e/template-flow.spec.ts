@@ -61,8 +61,8 @@ test.describe('DocenteDoc AI - Template Manager Flow', () => {
   });
 
   test('should create and edit a template with real-time preview', async ({ page }) => {
-    // 1. Navigate to Documenti
-    await safeClick(page, page.getByLabel('Documenti - Modelli & report'), 'Documenti Tile');
+    // 1. Navigate to Progettazione
+    await safeClick(page, page.getByLabel('Progettazione - UDA, Rubriche, PDP'), 'Progettazione Tile');
     await expect(page.getByText('Progettazione', { exact: true })).toBeVisible();
 
     // 2. Open Template Manager

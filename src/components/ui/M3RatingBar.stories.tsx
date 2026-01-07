@@ -84,7 +84,7 @@ export const Interactive: Story = {
             args.onChange?.(newRating);
           }}
         />
-        <p style={{ marginTop: '1rem', fontSize: '14px', color: 'var(--sys-on-surface-variant)' }}>
+        <p style={{ marginTop: '1rem', fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--sys-on-surface-variant)' }}>
           Current rating: <strong>{rating}</strong> / {args.max}
         </p>
       </div>

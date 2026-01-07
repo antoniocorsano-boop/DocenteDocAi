@@ -69,6 +69,12 @@ export interface M3DialogProps {
 
   /** If true, hide the default close button in the header */
   hideCloseButton?: boolean;
+
+  /** Optional class applied to the outer dialog shell (useful for E2E hooks) */
+  wrapperClassName?: string;
+
+  /** Optional test id applied to the dialog shell (defaults to m3-dialog) */
+  wrapperTestId?: string;
 }
 
 // ============================================================================
@@ -92,6 +98,8 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   isOpen = true,
   hideBackdrop = false,
   hideCloseButton = false,
+  wrapperClassName = '',
+  wrapperTestId,
 }) => {
   const zIndex = Number(style.zIndex) || getModalZIndex(level);
 
@@ -128,11 +136,11 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
       ref={dialogRef}
       className={`dialog-shell fixed inset-0 flex items-center justify-center p-8 pointer-events-auto ${
         mode === 'fullscreen' ? '!p-0 md:!p-8' : ''
-      }`}
+      } ${wrapperClassName}`.trim()}
       style={{ ...style, zIndex }}
       onClick={handleBackdropClick}
       role="presentation"
-      data-testid="m3-dialog"
+      data-testid={wrapperTestId || 'm3-dialog'}
       data-fullscreen={mode === 'fullscreen' ? 'true' : 'false'}
     >
       {/* Backdrop - M3 Expressive blur effect */}

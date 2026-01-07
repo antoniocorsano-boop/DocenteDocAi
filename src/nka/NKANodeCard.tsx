@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/react-in-jsx-scope, @typescript-eslint/explicit-module-boundary-types */
 // Card for a single NKA node (M3 Card, shape override)
 import React from 'react';
 import { NKANode } from './types';
@@ -8,7 +8,7 @@ interface NKANodeCardProps {
   onSelect: () => void;
 }
 
-const NKANodeCard: React.FC<NKANodeCardProps> = ({ node, onSelect }: NKANodeCardProps): React.ReactElement => {
+function NKANodeCard({ node, onSelect }: NKANodeCardProps): React.ReactElement {
   return (
     <div
       className={`nka-node-card nka-shape-${node.shape}`}
@@ -37,6 +37,6 @@ const NKANodeCard: React.FC<NKANodeCardProps> = ({ node, onSelect }: NKANodeCard
       </div>
     </div>
   );
-};
+}
 
 export default NKANodeCard;

@@ -269,7 +269,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
           onClick={isConnected ? stopSession : startSession}
           className={`w-20 h-20 rounded-full flex items-center justify-center shadow-lg transition-all ${isConnected ? 'bg-error text-on-error animate-pulse' : 'bg-primary text-on-primary hover:scale-105'
             }`}
-          style={{ borderRadius: '8px', transition: 'var(--md-easing-standard)' }}
+          style={{ borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)' }}
         >
           <span className="material-symbols-outlined text-4xl">{isConnected ? 'mic_off' : 'mic'}</span>
         </button>

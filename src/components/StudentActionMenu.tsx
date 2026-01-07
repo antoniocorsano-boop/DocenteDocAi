@@ -1,9 +1,8 @@
 
 import React, { useMemo } from 'react';
-import { Popover, Box, Button, Divider } from '@mui/material';
 import { Studente, Valutazione, ParticipationEntry } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { Avatar } from './ui';
+import { Avatar, M3Popover } from './ui';
 
 interface StudentActionMenuProps {
     student: Studente;
@@ -34,163 +33,112 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
         [participation]
     );
 
-    const trendClass = trend === 'up' ? 'var(--sys-tertiary)' : trend === 'down' ? 'var(--sys-error)' : 'var(--sys-on-surface-variant)';
+    const trendClass = trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)';
     const trendIcon = trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'trending_flat';
 
     return (
-        <Popover
+        <M3Popover
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}
             onClose={onClose}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-            PaperProps={{
-                sx: {
-                    backgroundColor: 'var(--sys-surface)',
-                    border: '1px solid var(--sys-outline-variant)',
-                    borderRadius: 'var(--shape-xl)',
-                    boxShadow: 'var(--elevation-3)',
-                    width: '280px',
-                }
-            }}
+            minWidth={280}
+            maxWidth={280}
         >
-            <Box>
-                {/* Header with student info */}
-                <Box
-                    sx={{
-                        backgroundColor: 'var(--sys-primary-container)',
-                        color: 'var(--sys-on-primary-container)',
-                        padding: '16px',
+            {/* Header with student info */}
+            <div
+                style={{
+                    backgroundColor: 'var(--md-sys-color-primary-container)',
+                    color: 'var(--md-sys-color-on-primary-container)',
+                    padding: 'var(--md-sys-spacing-4)',
+                }}
+            >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-4)' }}>
+                    <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
+                    <div style={{ minWidth: 0, flex: 1 }}>
+                        <h3 style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', color: 'var(--md-sys-color-on-primary-container)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {student.cognome} {student.nome}
+                        </h3>
+                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.8 }}>
+                            Classe {student.classe}
+                        </p>
+                    </div>
+                </div>
+
+                {/* Stats Row */}
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        fontSize: 'var(--md-sys-typescale-body-small-size)',
                     }}
                 >
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
-                        <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
-                        <Box sx={{ minWidth: 0 }}>
-                            <h3 style={{ margin: 0, fontSize: '14px', fontWeight: 500, color: 'var(--sys-on-primary-container)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {student.cognome} {student.nome}
-                            </h3>
-                            <p style={{ margin: 0, fontSize: '12px', opacity: 0.8 }}>
-                                Classe {student.classe}
-                            </p>
-                        </Box>
-                    </Box>
+                    {/* Media */}
+                    <div style={{ textAlign: 'center', flex: 1 }}>
+                        <p style={{ margin: '0 0 4px 0', fontSize: 'var(--md-sys-typescale-label-small-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            Media
+                        </p>
+                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>
+                            {grade || '-'}
+                        </p>
+                    </div>
 
-                    {/* Stats Row */}
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            fontSize: '12px',
-                        }}
-                    >
-                        {/* Media */}
-                        <Box sx={{ textAlign: 'center', flex: 1 }}>
-                            <p style={{ margin: '0 0 4px 0', fontSize: '10px', fontWeight: 700, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                                Media
-                            </p>
-                            <p style={{ margin: 0, fontSize: '16px', fontWeight: 700 }}>
-                                {grade || '-'}
-                            </p>
-                        </Box>
+                    <div style={{ width: '1px', height: '32px', backgroundColor: 'currentColor', opacity: 0.3 }} />
 
-                        <Divider orientation="vertical" sx={{ height: '32px', backgroundColor: 'currentColor', opacity: 0.3 }} />
+                    {/* Trend */}
+                    <div style={{ textAlign: 'center', flex: 1 }}>
+                        <p style={{ margin: '0 0 4px 0', fontSize: 'var(--md-sys-typescale-label-small-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            Trend
+                        </p>
+                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', color: trendClass }}>
+                            {trendIcon}
+                        </span>
+                    </div>
 
-                        {/* Trend */}
-                        <Box sx={{ textAlign: 'center', flex: 1 }}>
-                            <p style={{ margin: '0 0 4px 0', fontSize: '10px', fontWeight: 700, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                                Trend
-                            </p>
-                            <span className="material-symbols-outlined" style={{ fontSize: '20px', color: trendClass }}>
-                                {trendIcon}
-                            </span>
-                        </Box>
+                    <div style={{ width: '1px', height: '32px', backgroundColor: 'currentColor', opacity: 0.3 }} />
 
-                        <Divider orientation="vertical" sx={{ height: '32px', backgroundColor: 'currentColor', opacity: 0.3 }} />
-
-                        {/* Badge/Participation */}
-                        <Box sx={{ textAlign: 'center', flex: 1 }}>
-                            <p style={{ margin: '0 0 4px 0', fontSize: '10px', fontWeight: 700, opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                                Badge
-                            </p>
-                            <p style={{ margin: 0, fontSize: '16px', fontWeight: 700 }}>
-                                {participationToday}
-                            </p>
-                        </Box>
-                    </Box>
-                </Box>
-
-                {/* Actions */}
-                <Box sx={{ padding: '8px' }}>
-                    <p style={{ margin: '12px 16px 8px 16px', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--sys-on-surface-variant)', letterSpacing: '0.5px' }}>
-                        Azioni Rapide
-                    </p>
-
-                    <Button
-                        fullWidth
-                        onClick={() => {
-                            onAddEvaluation();
-                            onClose();
-                        }}
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 1,
-                            justifyContent: 'flex-start',
-                            px: 2,
-                            py: 1.5,
-                            borderRadius: '20px',
-                            cursor: 'pointer',
-                            border: 'none',
-                            backgroundColor: 'transparent',
-                            color: 'var(--sys-on-surface)',
-                            fontSize: '13px',
-                            textTransform: 'none',
-                            fontFamily: 'var(--font-family)',
-                            '&:hover': { backgroundColor: 'var(--sys-surface-container-highest)' },
-                            mb: 1
-                        }}
-                    >
-                        <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--sys-primary)' }}>add_circle</span>
-                        <span>Nuova Valutazione</span>
-                    </Button>
-
-                    <Button
-                        fullWidth
-                        onClick={() => {
-                            onViewProfile();
-                            onClose();
-                        }}
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 1,
-                            justifyContent: 'flex-start',
-                            px: 2,
-                            py: 1.5,
-                            borderRadius: '20px',
-                            cursor: 'pointer',
-                            border: 'none',
-                            backgroundColor: 'transparent',
-                            color: 'var(--sys-on-surface)',
-                            fontSize: '13px',
-                            textTransform: 'none',
-                            fontFamily: 'var(--font-family)',
-                            '&:hover': { backgroundColor: 'var(--sys-surface-container-highest)' },
-                        }}
-                    >
-                        <span className="material-symbols-outlined" style={{ fontSize: '20px', color: 'var(--sys-secondary)' }}>person_search</span>
-                        <span>Profilo Completo</span>
-                    </Button>
-                </Box>
-            </Box>
-        </Popover>
-    );
-};
-
-export default StudentActionMenu;
+                    {/* Badge/Participation */}
+                    <div style={{ textAlign: 'center', flex: 1 }}>
+                        <p style={{ margin: '0 0 4px 0', fontSize: 'var(--md-sys-typescale-label-small-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', opacity: 0.7, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                            Badge
+                        </p>
+                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>
+                            {participationToday}
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            {/* Actions */}
+            <div style={{ padding: 'var(--md-sys-spacing-2)' }}>
+                <p style={{ margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-small-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', textTransform: 'uppercase', color: 'var(--md-sys-color-on-surface-variant)', letterSpacing: '0.5px' }}>
+                    Azioni Rapide
+                </p>
+
+                <button
+                    onClick={() => {
+                        onAddEvaluation();
+                        onClose();
+                    }}
+                    className="m3-interactive-button"
+                    style={{ marginBottom: 'var(--md-sys-spacing-2)' }}
+                >
+                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--md-sys-color-primary)' }}>add_circle</span>
+                    <span>Nuova Valutazione</span>
+                </button>
+
+                <button
+                    onClick={() => {
+                        onViewProfile();
+                        onClose();
+                    }}
+                    className="m3-interactive-button"
+                >
+                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--md-sys-color-secondary)' }}>person_search</span>
+                    <span>Profilo Completo</span>
+                </button>
+            </div>
+        </M3Popover>
     );
 };
 
