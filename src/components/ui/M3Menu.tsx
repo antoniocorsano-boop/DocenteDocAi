@@ -158,7 +158,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       zIndex={zIndex}
       showBackdrop={false}
     >
-      <div className="m3-menu__items outline-none" role="menu">
+      <div className="m3-menu__items" role="menu" style={{ outline: 'none' }}>
         {items.map((item, index) => (
           <React.Fragment key={item.key}>
             <button
@@ -168,23 +168,23 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               role="menuitem"
               onClick={handleItemClick.bind(null, index)}
               disabled={item.disabled}
-              className={`menu-item${item.disabled ? ' opacity-[var(--md-sys-state-opacity-disabled)] cursor-not-allowed' : ' cursor-pointer hover:bg-[var(--md-sys-color-surface-container-highest)]'}${focusedIndex === index ? ' bg-[var(--md-sys-color-surface-container-high)]' : ''}${item.variant === 'error' ? ' text-[var(--md-sys-color-error)]' : ''}`}
+              className={`m3-menu-item${item.disabled ? ' opacity-[var(--md-sys-state-opacity-disabled)] cursor-not-allowed' : ' cursor-pointer'}${focusedIndex === index ? ' bg-[var(--md-sys-color-surface-container-high)]' : ''}${item.variant === 'error' ? ' text-[var(--md-sys-color-error)]' : ''}`}
               onMouseEnter={() => !item.disabled && setFocusedIndex(index)}
               onMouseLeave={() => setFocusedIndex(-1)}
               aria-disabled={item.disabled}
             >
               {item.icon && (
-                <span className="m3-menu__item-icon flex items-center justify-center text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] leading-[var(--md-sys-typescale-body-medium-line-height)] flex-shrink-0">
+                <span className="m3-menu__item-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontFamily: 'var(--md-sys-typescale-body-medium-font)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', flexShrink: 0 }}>
                   {item.icon}
                 </span>
               )}
-              <span className="m3-menu__item-label flex-grow text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">
+              <span className="m3-menu__item-label" style={{ flexGrow: 1, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontFamily: 'var(--md-sys-typescale-body-medium-font)' }}>
                 {item.label}
               </span>
             </button>
             
             {item.divider && (
-              <div className="m3-menu__divider border-[var(--md-sys-color-outline-variant)] my-[var(--md-sys-spacing-1)]" role="separator"></div>
+              <div className="m3-menu__divider" role="separator" style={{ borderBottom: '1px solid var(--md-sys-color-outline-variant)', margin: 'var(--md-sys-spacing-1) 0' }}></div>
             )}
           </React.Fragment>
         ))}

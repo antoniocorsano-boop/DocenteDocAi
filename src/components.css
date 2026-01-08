@@ -604,16 +604,16 @@
   cursor: pointer;
   border: none;
   background: none;
-  color: var(--sys-on-surface);
-  font-family: var(--font-family);
-  font-size: var(--typography-body-medium-fontSize);
-  font-weight: 700;
+  color: var(--md-sys-color-on-surface);
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
+  font-weight: var(--md-sys-typescale-body-medium-font-weight);
   transition: all 0.2s ease;
   text-align: left;
 }
 
 .m3-menu-item:hover {
-  background-color: rgba(103, 80, 164, 0.08);
+  background-color: var(--md-sys-color-surface-container-highest);
   transform: translateX(4px);
 }
 
@@ -623,29 +623,29 @@
 
 .m3-menu-item .material-symbols-outlined {
   font-size: 22px;
-  opacity: 0.7;
+  opacity: var(--md-sys-state-opacity-disabled);
 }
 
 .m3-menu-item:hover .material-symbols-outlined {
   opacity: 1;
-  color: var(--sys-primary);
+  color: var(--md-sys-color-primary);
 }
 
 .m3-menu-divider {
   height: 1px;
-  background-color: var(--sys-outline-variant);
+  background-color: var(--md-sys-color-outline-variant);
   opacity: 0.3;
   margin: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
 }
 
 .m3-menu-section-label {
   padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-1);
-  font-size: var(--typography-label-small-fontSize);
-  font-weight: 900;
+  font-size: var(--md-sys-typescale-label-small-font-size);
+  font-weight: var(--md-sys-typescale-label-small-font-weight);
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--sys-primary);
-  opacity: 0.6;
+  color: var(--md-sys-color-primary);
+  opacity: var(--md-sys-state-opacity-disabled);
 }
 
 /* --- M3 EXPRESSIVE BUTTONS --- */
