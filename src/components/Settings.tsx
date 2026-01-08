@@ -50,21 +50,21 @@ const SettingsGroup: React.FC<SettingsGroupProps> = ({
     };
 
     return (
-        <details className={`settings-card bg-surface-container-low/40 backdrop-blur-md border border-outline-variant/20 rounded-3xl overflow-hidden group transition-all duration-300 ${isOpen ? 'shadow-lg' : 'shadow-sm'}`} open={isOpen}>
-            <summary onClick={handleToggle} className="settings-summary flex items-center justify-between p-5 cursor-pointer hover:bg-surface-container-high/40 transition-colors list-none">
+        <details className={`settings-card bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-md border border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-extra-large)] overflow-hidden group transition-all duration-300 ${isOpen ? 'shadow-[var(--md-sys-elevation-level2)]' : 'shadow-sm'}`} open={isOpen}>
+            <summary onClick={handleToggle} className="settings-summary flex items-center justify-between p-5 cursor-pointer hover:bg-[var(--md-sys-color-surface-container-high)]/40 transition-colors list-none">
                 <div className="flex items-center gap-8 min-w-0">
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner ${variant === 'primary' ? 'bg-primary/10 text-primary' : variant === 'secondary' ? 'bg-secondary/10 text-secondary' : variant === 'tertiary' ? 'bg-tertiary/10 text-tertiary' : 'bg-surface-container-highest text-on-surface-variant'}`}>
+                    <div className={`w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-inner ${variant === 'primary' ? 'bg-primary/10 text-primary' : variant === 'secondary' ? 'bg-secondary/10 text-secondary' : variant === 'tertiary' ? 'bg-tertiary/10 text-tertiary' : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant'}`}>
                         <span className="material-symbols-outlined text-2xl">{icon}</span>
                     </div>
                     <div className="min-w-0">
-                        <h3 className="text-lg font-black text-on-surface tracking-tight">{title}</h3>
-                        {subtitle && <p className="text-xs text-on-surface-variant opacity-70">{subtitle}</p>}
+                        <h3 className="text-lg font-black text-[var(--md-sys-color-on-surface)] tracking-tight">{title}</h3>
+                        {subtitle && <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant opacity-70">{subtitle}</p>}
                     </div>
                 </div>
-                <span className={`material-symbols-outlined text-on-surface-variant transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>expand_more</span>
+                <span className={`material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>expand_more</span>
             </summary>
             <div 
-                className="settings-content p-6 pt-2 animate-in fade-in slide-in-from-top-2 duration-300 border-t border-outline-variant/10"
+                className="settings-content p-6 pt-2 animate-in fade-in slide-in-from-top-2 duration-300 border-t border-[var(--md-sys-color-outline-variant)]/10"
                 inert={!isOpen ? true : undefined}
                 aria-hidden={!isOpen}
             >
@@ -283,7 +283,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 <SettingsGroup id="interface_experience" title="Interfaccia & Esperienza Visiva" subtitle="Personalizza l'aspetto e il comportamento dell'app" icon="palette" variant="primary" defaultOpen={true}>
                     <div className="space-y-8">
                         {/* SEZIONE 1: MODALITÃ€ INTERFACCIA */}
-                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">dashboard_customize</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Modalità Interfaccia</h4>
@@ -298,7 +298,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 variant="primary"
                                 className="w-full"
                             />
-                            <p className="m3-label-tiny text-on-surface-variant mt-3 opacity-70 px-4">
+                            <p className="m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant mt-3 opacity-70 px-4">
                                 {localSettings.uiMode === 'flow' 
                                     ? 'ModalitÃ  Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.' 
                                     : 'ModalitÃ  Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
@@ -306,7 +306,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 2: ECOISTEMA VISIVO */}
-                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">auto_awesome</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Ecosistema Visivo</h4>
@@ -323,10 +323,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <button
                                         key={style.id}
                                         onClick={() => handleThemeChange({ visualStyle: style.id })}
-                                        className={`flex flex-col items-center p-8 rounded-2xl border transition-all ${themeState.visualStyle === style.id ? 'bg-primary-container/40 border-primary shadow-sm' : 'bg-surface-container-highest/30 border-outline-variant/20 hover:bg-surface-container-highest/50'}`}
+                                        className={`flex flex-col items-center p-8 rounded-[var(--md-sys-shape-corner-large)] border transition-all ${themeState.visualStyle === style.id ? 'bg-primary-container/40 border-primary shadow-sm' : 'bg-[var(--md-sys-color-surface-container-high)]est/30 border-[var(--md-sys-color-outline-variant)]/20 hover:bg-[var(--md-sys-color-surface-container-high)]est/50'}`}
                                     >
-                                        <span className={`material-symbols-outlined mb-8 ${themeState.visualStyle === style.id ? 'text-primary' : 'text-on-surface-variant'}`}>{style.icon}</span>
-                                        <span className={`m3-label-tiny font-black uppercase tracking-wider ${themeState.visualStyle === style.id ? 'text-primary' : 'text-on-surface-variant'}`}>{style.label}</span>
+                                        <span className={`material-symbols-outlined mb-8 ${themeState.visualStyle === style.id ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>{style.icon}</span>
+                                        <span className={`m3-label-tiny font-black uppercase tracking-wider ${themeState.visualStyle === style.id ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>{style.label}</span>
                                         <span className="text-[8px] opacity-60 mt-4 text-center">{style.desc}</span>
                                     </button>
                                 ))}
@@ -334,7 +334,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 3: TEMA E COLORI */}
-                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">palette</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Tema & Colori</h4>
@@ -366,7 +366,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ))}
                             </div>
 
-                            <div className="border-t border-outline-variant/10 pt-6">
+                            <div className="border-t border-[var(--md-sys-color-outline-variant)]/10 pt-6">
                                 <div className="flex items-center gap-8 mb-8">
                                     <span className="material-symbols-outlined text-primary text-sm">magic_button</span>
                                     <label className="m3-label-tiny font-black uppercase tracking-widest text-primary block">Generatore AI</label>
@@ -386,7 +386,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         onClick={handleGenerateThemeFromPrompt} 
                                         disabled={isGeneratingTheme || !themePrompt.trim()} 
                                         variant="filled"
-                                        className="!min-w-0 !w-14 !h-14 !p-0 shadow-lg"
+                                        className="!min-w-0 !w-14 !h-14 !p-0 shadow-[var(--md-sys-elevation-level2)]"
                                     >
                                         <span className="material-symbols-outlined">{isGeneratingTheme ? 'sync' : 'auto_awesome'}</span>
                                     </M3Button>
@@ -395,7 +395,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 4: PARAMETRI AVANZATI */}
-                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">tune</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Parametri Strutturali</h4>
@@ -403,43 +403,43 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <div className="space-y-6">
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-on-surface">Intensità Blur Vetro</label>
+                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Intensità Blur Vetro</label>
                                         <span className="m3-label-tiny font-black text-primary">{themeState.glassBlur || 30}px</span>
                                     </div>
                                     <input 
                                         type="range" min="0" max="100" step="5" 
                                         value={themeState.glassBlur || 30} 
                                         onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })}
-                                        className="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary"
+                                        className="w-full h-2 bg-[var(--md-sys-color-surface-container-high)]est rounded-[var(--md-sys-shape-corner-small)] appearance-none cursor-pointer accent-primary"
                                     />
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-on-surface">Scala Font</label>
+                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Scala Font</label>
                                         <span className="m3-label-tiny font-black text-primary">{themeState.fontScale || 1}x</span>
                                     </div>
                                     <input 
                                         type="range" min="0.8" max="1.4" step="0.1" 
                                         value={themeState.fontScale || 1} 
                                         onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })}
-                                        className="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary"
+                                        className="w-full h-2 bg-[var(--md-sys-color-surface-container-high)]est rounded-[var(--md-sys-shape-corner-small)] appearance-none cursor-pointer accent-primary"
                                     />
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-on-surface">Livello Contrasto</label>
+                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Livello Contrasto</label>
                                         <span className="m3-label-tiny font-black text-primary">{themeState.contrastLevel || 0}</span>
                                     </div>
                                     <input 
                                         type="range" min="-50" max="50" step="5" 
                                         value={themeState.contrastLevel || 0} 
                                         onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })}
-                                        className="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary"
+                                        className="w-full h-2 bg-[var(--md-sys-color-surface-container-high)]est rounded-[var(--md-sys-shape-corner-small)] appearance-none cursor-pointer accent-primary"
                                     />
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-on-surface">Arrotondamento Bordi</label>
+                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Arrotondamento Bordi</label>
                                         <span className="m3-label-tiny font-black text-primary">x{themeState.radiusMultiplier || 1}</span>
                                     </div>
                                     <div className="flex gap-8">
@@ -447,7 +447,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             <button
                                                 key={m}
                                                 onClick={() => handleThemeChange({ radiusMultiplier: m })}
-                                                className={`flex-1 py-4 rounded-xl m3-label-tiny font-black transition-all border ${themeState.radiusMultiplier === m ? 'bg-primary text-on-primary border-primary' : 'bg-surface-container-highest/50 text-on-surface-variant border-outline-variant/30'}`}
+                                                className={`flex-1 py-4 rounded-[var(--md-sys-shape-corner-medium)] m3-label-tiny font-black transition-all border ${themeState.radiusMultiplier === m ? 'bg-primary text-on-primary border-primary' : 'bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)]/30'}`}
                                             >
                                                 {m === 1 ? 'Standard' : `${m}x`}
                                             </button>
@@ -458,17 +458,17 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 6: EXPORT/IMPORT TEMA */}
-                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">import_export</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Backup Tema</h4>
                             </div>
-                            <p className="m3-label-tiny text-on-surface-variant mb-6 opacity-70">Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.</p>
+                            <p className="m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant mb-6 opacity-70">Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.</p>
                             <div className="flex gap-4">
                                 <M3Button 
                                     onClick={handleExportTheme} 
                                     variant="outlined"
-                                    className="flex-1 py-4 rounded-xl font-black text-xs uppercase tracking-widest"
+                                    className="flex-1 py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs uppercase tracking-widest"
                                 >
                                     <span className="material-symbols-outlined mr-2">download</span>
                                     ESPORTA TEMA
@@ -485,7 +485,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <M3Button 
                                             component="span"
                                             variant="outlined"
-                                            className="w-full py-4 rounded-xl font-black text-xs uppercase tracking-widest cursor-pointer"
+                                            className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs uppercase tracking-widest cursor-pointer"
                                         >
                                             <span className="material-symbols-outlined mr-2">upload</span>
                                             IMPORTA TEMA
@@ -496,16 +496,16 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 5: MANUTENZIONE BRAND */}
-                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20">
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
                             <div className="flex items-center gap-8 mb-8">
                                 <span className="material-symbols-outlined text-primary">refresh</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Manutenzione Brand</h4>
                             </div>
-                            <p className="m3-label-tiny text-on-surface-variant mb-8 opacity-70">Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</p>
+                            <p className="m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant mb-8 opacity-70">Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</p>
                             <M3Button 
                                 onClick={handleForceRefresh} 
                                 variant="tonal"
-                                className="w-full py-4 rounded-xl font-black text-xs uppercase tracking-widest"
+                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs uppercase tracking-widest"
                             >
                                 <span className="material-symbols-outlined mr-2">cached</span>
                                 AGGIORNA BRAND E CACHE
@@ -515,7 +515,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </SettingsGroup>
 
                 <SettingsGroup id="profile" title="Profilo & IdentitÃ " subtitle="Dati docente e istituto" icon="badge" variant="surface">
-                    <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 space-y-6">
+                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
                             <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} />
@@ -530,7 +530,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="ai_didattica" title="AI & Didattica" subtitle="Cervello AI e cattedra" icon="psychology" variant="secondary">
                     {/* SEZIONE 1: MODELLO AI */}
-                    <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 mb-6">
+                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 mb-6">
                         <div className="flex items-center gap-8 mb-8">
                             <span className="material-symbols-outlined text-secondary">smart_toy</span>
                             <h4 className="text-[11px] font-black uppercase tracking-widest text-secondary">Modello Intelligenza</h4>
@@ -544,9 +544,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             className="w-full"
                         />
                         
-                        <div className={`mt-4 p-8 rounded-xl border flex items-start gap-6 transition-all duration-300 ${currentAiProfile === 'esperto' ? 'bg-primary-container/20 border-primary/30' : 'bg-tertiary-container/20 border-tertiary/30'}`}>
+                        <div className={`mt-4 p-8 rounded-[var(--md-sys-shape-corner-medium)] border flex items-start gap-6 transition-all duration-300 ${currentAiProfile === 'esperto' ? 'bg-primary-container/20 border-primary/30' : 'bg-tertiary-container/20 border-tertiary/30'}`}>
                             <span className={`material-symbols-outlined text-xl mt-0.5 ${currentAiProfile === 'esperto' ? 'text-primary' : 'text-tertiary'}`}>info</span>
-                            <p className="m3-body-small leading-relaxed text-on-surface">
+                            <p className="m3-body-small leading-relaxed text-[var(--md-sys-color-on-surface)]">
                                 {AI_PROFILES[currentAiProfile as keyof typeof AI_PROFILES]?.description}
                             </p>
                         </div>
@@ -554,11 +554,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                     <div className="space-y-6">
                         {/* SEZIONE 2: ANNO SCOLASTICO */}
-                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20">
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
                             <div className="flex justify-between items-center mb-5">
                                 <div className="flex items-center gap-8">
                                     <span className="material-symbols-outlined text-primary">calendar_month</span>
-                                    <h4 className="m3-label-large font-black uppercase tracking-wide text-on-surface">Anno Scolastico</h4>
+                                    <h4 className="m3-label-large font-black uppercase tracking-wide text-[var(--md-sys-color-on-surface)]">Anno Scolastico</h4>
                                 </div>
                                 <M3Button 
                                     onClick={handleAddNextYear} 
@@ -594,11 +594,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 3: GESTIONE CATTEDRA UNIFICATA */}
-                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20">
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
                             <div className="flex items-center justify-between mb-6">
                                 <div className="flex items-center gap-8">
                                     <span className="material-symbols-outlined text-secondary">school</span>
-                                    <h4 className="m3-label-large font-black uppercase tracking-wide text-on-surface">Gestione Cattedra</h4>
+                                    <h4 className="m3-label-large font-black uppercase tracking-wide text-[var(--md-sys-color-on-surface)]">Gestione Cattedra</h4>
                                 </div>
                                 <div className="flex gap-8">
                                     <button 
@@ -615,7 +615,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </div>
 
                             {/* FORMAZIONE CLASSI STRUTTURATA (NORMATIVA ITALIANA) */}
-                            <div className="p-5 bg-primary-container/10 rounded-2xl border border-primary/20 mb-8 space-y-6">
+                            <div className="p-5 bg-primary-container/10 rounded-[var(--md-sys-shape-corner-large)] border border-primary/20 mb-8 space-y-6">
                                 <div className="flex items-center gap-8 mb-8">
                                     <span className="material-symbols-outlined text-primary">account_tree</span>
                                     <h4 className="text-[11px] font-black uppercase tracking-widest text-primary">Formazione Classi Strutturata</h4>
@@ -639,13 +639,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-3">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60">Livelli / Anni</p>
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-60">Livelli / Anni</p>
                                         <div className="flex flex-wrap gap-8">
                                             {['1', '2', '3', '4', '5'].map(y => (
                                                 <button
                                                     key={y}
                                                     onClick={() => setSelYears(prev => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
-                                                    className={`px-4 py-4 rounded-xl text-xs font-black transition-all border ${selYears.includes(y) ? 'bg-primary text-on-primary border-primary shadow-md' : 'bg-surface-container-highest/50 text-on-surface-variant border-outline-variant/30'}`}
+                                                    className={`px-4 py-4 rounded-[var(--md-sys-shape-corner-medium)] text-xs font-black transition-all border ${selYears.includes(y) ? 'bg-primary text-on-primary border-primary shadow-[var(--md-sys-elevation-level1)]' : 'bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)]/30'}`}
                                                 >
                                                     {y}Â° Anno
                                                 </button>
@@ -653,13 +653,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         </div>
                                     </div>
                                     <div className="space-y-3">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60">Sezioni</p>
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-60">Sezioni</p>
                                         <div className="flex flex-wrap gap-8">
                                             {['A', 'B', 'C', 'D', 'E', 'F'].map(s => (
                                                 <button
                                                     key={s}
                                                     onClick={() => setSelSections(prev => prev.includes(s) ? prev.filter(i => i !== s) : [...prev, s])}
-                                                    className={`w-10 h-10 rounded-xl text-xs font-black transition-all border flex items-center justify-center ${selSections.includes(s) ? 'bg-secondary text-on-secondary border-secondary shadow-md' : 'bg-surface-container-highest/50 text-on-surface-variant border-outline-variant/30'}`}
+                                                    className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] text-xs font-black transition-all border flex items-center justify-center ${selSections.includes(s) ? 'bg-secondary text-on-secondary border-secondary shadow-[var(--md-sys-elevation-level1)]' : 'bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)]/30'}`}
                                                 >
                                                     {s}
                                                 </button>
@@ -671,7 +671,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Button 
                                     onClick={handleGenerateClasses}
                                     variant="filled"
-                                    className="w-full py-4 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-lg"
+                                    className="w-full py-4 rounded-[var(--md-sys-shape-corner-large)] font-black text-xs uppercase tracking-[0.2em] shadow-[var(--md-sys-elevation-level2)]"
                                     disabled={selYears.length === 0 || selSections.length === 0}
                                 >
                                     <span className="material-symbols-outlined mr-2">auto_awesome</span>
@@ -689,7 +689,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             value={newSubjectName}
                                             onChange={e => setNewSubjectName(e.target.value)}
                                             onKeyDown={e => e.key === 'Enter' && handleAddSubject()}
-                                            className="w-full h-12 px-4 rounded-xl bg-surface-container-highest/50 border border-outline-variant/30 text-sm font-bold focus:ring-2 focus:ring-secondary outline-none transition-all"
+                                            className="w-full h-12 px-4 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-high)]est/50 border border-[var(--md-sys-color-outline-variant)]/30 text-sm font-bold focus:ring-2 focus:ring-secondary outline-none transition-all"
                                         />
                                     </div>
                                     <M3Button 
@@ -707,11 +707,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <table className="w-full border-separate border-spacing-1">
                                     <thead>
                                         <tr>
-                                            <th className="p-8 text-left text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-50">Materia / Classe</th>
+                                            <th className="p-8 text-left text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-50">Materia / Classe</th>
                                             {localSettings.classi.map(cls => (
                                                 <th key={cls} className="p-8 min-w-[60px] text-center">
                                                     <div className="relative group">
-                                                        <div className="text-xs font-black text-on-surface">{cls}</div>
+                                                        <div className="text-xs font-black text-[var(--md-sys-color-on-surface)]">{cls}</div>
                                                         <button 
                                                             onClick={() => handleChange('classi', localSettings.classi.filter(c => c !== cls))}
                                                             className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-error text-on-error text-[8px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
@@ -729,7 +729,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                 <td style={{ padding: 'var(--md-sys-spacing-6)' }}>
                                                     <div className="flex items-center justify-between group">
                                                         <div className="flex flex-col">
-                                                            <span className="text-xs font-bold text-on-surface uppercase tracking-tight">{subj}</span>
+                                                            <span className="text-xs font-bold text-[var(--md-sys-color-on-surface)] uppercase tracking-tight">{subj}</span>
                                                             <button 
                                                                 onClick={() => handleBulkAssign(localSettings.classi, [subj])}
                                                                 className="text-[8px] font-black text-primary uppercase tracking-tighter opacity-0 group-hover:opacity-100 hover:underline text-left"
@@ -739,7 +739,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                         </div>
                                                         <button 
                                                             onClick={() => handleChange('disciplines', localSettings.disciplines.filter(s => s !== subj))}
-                                                            className="w-6 h-6 rounded-lg bg-surface-container-highest/50 text-on-surface-variant text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-error-container hover:text-error"
+                                                            className="w-6 h-6 rounded-[var(--md-sys-shape-corner-small)] bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-error-container hover:text-error"
                                                         >
                                                             <span className="material-symbols-outlined m3-icon-xs">delete</span>
                                                         </button>
@@ -751,7 +751,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                         <td key={`${subj}-${cls}`} className="p-1">
                                                             <div 
                                                                 onClick={() => toggleAssociation(cls, subj)}
-                                                                className={`h-12 rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all border-2 ${assignment ? 'bg-primary-container/40 border-primary shadow-sm' : 'bg-surface-container-low/30 border-transparent hover:border-outline-variant/30'}`}
+                                                                className={`h-12 rounded-[var(--md-sys-shape-corner-medium)] flex flex-col items-center justify-center cursor-pointer transition-all border-2 ${assignment ? 'bg-primary-container/40 border-primary shadow-sm' : 'bg-[var(--md-sys-color-surface-container-low)]/30 border-transparent hover:border-[var(--md-sys-color-outline-variant)]/30'}`}
                                                             >
                                                                 {assignment ? (
                                                                     <>
@@ -767,7 +767,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                         </div>
                                                                     </>
                                                                 ) : (
-                                                                    <span className="material-symbols-outlined text-on-surface-variant/20 text-sm">add</span>
+                                                                    <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant/20 text-sm">add</span>
                                                                 )}
                                                             </div>
                                                         </td>
@@ -777,7 +777,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         ))}
                                         {localSettings.disciplines.length === 0 && (
                                             <tr>
-                                                <td colSpan={localSettings.classi.length + 1} className="p-8 text-center italic text-on-surface-variant opacity-50 text-sm">
+                                                <td colSpan={localSettings.classi.length + 1} className="p-8 text-center italic text-[var(--md-sys-color-on-surface)]-variant opacity-50 text-sm">
                                                     Aggiungi una materia per iniziare la configurazione...
                                                 </td>
                                             </tr>
@@ -799,20 +799,20 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="ai_suggestions" title="Suggerimenti AI" subtitle="Gestisci suggerimenti ignorati" icon="lightbulb" variant="tertiary">
                     <div className="space-y-4">
-                        <p className="text-sm text-on-surface-variant">
+                        <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant">
                             Qui puoi vedere i suggerimenti AI che hai ignorato e riattivarli se desideri.
                         </p>
                         {dismissedSuggestions.size === 0 ? (
-                            <p className="text-sm text-on-surface-variant italic">
+                            <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant italic">
                                 Nessun suggerimento ignorato.
                             </p>
                         ) : (
                             <div className="space-y-3">
                                 {Array.from(dismissedSuggestions).map((id) => (
-                                    <div key={id} className="p-8 rounded-2xl bg-surface-container-low/50 border border-outline-variant/20 flex items-center justify-between shadow-sm">
+                                    <div key={id} className="p-8 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-low)]/50 border border-[var(--md-sys-color-outline-variant)]/20 flex items-center justify-between shadow-sm">
                                         <div>
-                                            <div className="m3-label-medium font-black text-on-surface">Suggerimento {id}</div>
-                                            <div className="text-xs text-on-surface-variant">Ignorato in precedenza</div>
+                                            <div className="m3-label-medium font-black text-[var(--md-sys-color-on-surface)]">Suggerimento {id}</div>
+                                            <div className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Ignorato in precedenza</div>
                                         </div>
                                         <M3Button
                                             onClick={() => onReactivateSuggestion(id)}
@@ -826,7 +826,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ))}
                             </div>
                         )}
-                        <div className="pt-4 border-t border-outline-variant/10">
+                        <div className="pt-4 border-t border-[var(--md-sys-color-outline-variant)]/10">
                             <M3Button
                                 onClick={() => {
                                     // Clear all dismissed suggestions
@@ -835,7 +835,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 }}
                                 disabled={dismissedSuggestions.size === 0}
                                 variant="text"
-                                className="w-full py-4 rounded-xl font-black text-xs uppercase tracking-widest"
+                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs uppercase tracking-widest"
                             >
                                 <span className="material-symbols-outlined text-sm mr-2">history</span>
                                 Riattiva Tutti i Suggerimenti
@@ -846,15 +846,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="cloud" title="Dati & Cloud" subtitle="Backup e Storage" icon="cloud_sync" variant="surface">
                     {storageInfo && (
-                        <div className="mb-6 p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
+                        <div className="mb-6 p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex justify-between items-center mb-6">
-                                <h4 className="m3-label-large font-black text-on-surface">Storage Dispositivo</h4>
+                                <h4 className="m3-label-large font-black text-[var(--md-sys-color-on-surface)]">Storage Dispositivo</h4>
                                 <span className="text-xs font-mono font-bold text-primary">{storageInfo.used}MB / {storageInfo.total}MB</span>
                             </div>
-                            <div className="w-full bg-surface-container-highest/50 h-2.5 rounded-full overflow-hidden shadow-inner">
+                            <div className="w-full bg-[var(--md-sys-color-surface-container-high)]est/50 h-2.5 rounded-full overflow-hidden shadow-inner">
                                 <div className={`h-full ${storageInfo.percent > 80 ? 'bg-error' : 'bg-primary'} transition-all duration-1000`} style={{ width: `${storageInfo.percent}%` }}></div>
                             </div>
-                            <p className="text-[10px] text-on-surface-variant mt-3 opacity-70">Dati salvati in IndexedDB (senza limiti LocalStorage).</p>
+                            <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant mt-3 opacity-70">Dati salvati in IndexedDB (senza limiti LocalStorage).</p>
                         </div>
                     )}
 
@@ -885,9 +885,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         return null;
                     })()}
 
-                    <div className={`p-6 rounded-3xl border mb-6 flex items-center justify-between transition-all duration-500 ${driveState.isAuthenticated ? 'bg-primary-container/20 border-primary/30 shadow-md' : 'bg-surface-container-low/50 border-outline-variant/20 text-on-surface'}`}>
+                    <div className={`p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border mb-6 flex items-center justify-between transition-all duration-500 ${driveState.isAuthenticated ? 'bg-primary-container/20 border-primary/30 shadow-[var(--md-sys-elevation-level1)]' : 'bg-[var(--md-sys-color-surface-container-low)]/50 border-[var(--md-sys-color-outline-variant)]/20 text-[var(--md-sys-color-on-surface)]'}`}>
                         <div className="flex items-center gap-8">
-                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-inner ${driveState.isAuthenticated ? 'bg-primary text-on-primary' : 'bg-surface-container-highest/50 text-on-surface-variant'}`}>
+                            <div className={`w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-inner ${driveState.isAuthenticated ? 'bg-primary text-on-primary' : 'bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant'}`}>
                                 <span className="material-symbols-outlined text-3xl">{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
                             </div>
                             <div>
@@ -900,7 +900,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 onClick={() => onSyncToDrive()} 
                                 disabled={driveState.isSyncing} 
                                 variant="filled"
-                                className="!px-6 !py-3 !h-auto font-black text-xs shadow-lg flex items-center gap-8"
+                                className="!px-6 !py-3 !h-auto font-black text-xs shadow-[var(--md-sys-elevation-level2)] flex items-center gap-8"
                             >
                                 <span className="material-symbols-outlined text-sm">{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>
                                 {driveState.isSyncing ? '...' : 'Salva'}
@@ -910,7 +910,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Button 
                                     onClick={onConnectDrive} 
                                     variant="filled"
-                                    className="!px-6 !py-3 !h-auto font-black text-xs shadow-lg"
+                                    className="!px-6 !py-3 !h-auto font-black text-xs shadow-[var(--md-sys-elevation-level2)]"
                                 >
                                     Connetti
                                 </M3Button>
@@ -918,11 +918,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         )}
                     </div>
                     <div className="grid grid-cols-2 gap-8">
-                        <M3Button onClick={onExportData} variant="tonal" className="flex items-center justify-center gap-8 py-4 rounded-2xl font-black text-xs shadow-sm">
+                        <M3Button onClick={onExportData} variant="tonal" className="flex items-center justify-center gap-8 py-4 rounded-[var(--md-sys-shape-corner-large)] font-black text-xs shadow-sm">
                             <span className="material-symbols-outlined text-base">download</span> 
                             Backup Locale
                         </M3Button>
-                        <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal" className="flex items-center justify-center gap-8 py-4 rounded-2xl font-black text-xs shadow-sm">
+                        <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal" className="flex items-center justify-center gap-8 py-4 rounded-[var(--md-sys-shape-corner-large)] font-black text-xs shadow-sm">
                             <span className="material-symbols-outlined text-base">upload</span> 
                             Ripristina File
                         </M3Button>
@@ -932,15 +932,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="debug_logging" title="Debug & Logging" subtitle="Visualizza e gestisci i log degli errori" icon="bug_report" variant="surface">
                     <div className="space-y-6">
-                        <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 shadow-sm">
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex items-start justify-between gap-8 mb-8">
                                 <div>
-                                    <h4 className="m3-label-large font-black text-on-surface">Log degli Errori</h4>
-                                    <p className="text-xs text-on-surface-variant mt-4">Visualizza tutti gli errori registrati durante l'utilizzo dell'app</p>
+                                    <h4 className="m3-label-large font-black text-[var(--md-sys-color-on-surface)]">Log degli Errori</h4>
+                                    <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mt-4">Visualizza tutti gli errori registrati durante l'utilizzo dell'app</p>
                                 </div>
                                 <span className={`material-symbols-outlined text-2xl ${errorLogger.getErrorStats().total > 0 ? 'text-error' : 'text-success'}`}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
                             </div>
-                            <div className="text-xs text-on-surface-variant mb-6 p-6 bg-surface-container-low/50 rounded-xl flex items-center gap-8 border border-outline-variant/10">
+                            <div className="text-xs text-[var(--md-sys-color-on-surface)]-variant mb-6 p-6 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-medium)] flex items-center gap-8 border border-[var(--md-sys-color-outline-variant)]/10">
                                 <span className="material-symbols-outlined text-sm">info</span>
                                 <span>{errorLogger.getErrorStats().total} log registrati</span>
                             </div>
@@ -949,7 +949,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info');
                                 }}
                                 variant="tonal"
-                                className="w-full py-4 rounded-xl font-black text-xs mb-6"
+                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs mb-6"
                             >
                                 <span className="material-symbols-outlined text-sm mr-2">terminal</span> Console Browser (F12)
                             </M3Button>
@@ -966,7 +966,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     showToast('Log esportati in JSON', 'success');
                                 }}
                                 variant="tonal"
-                                className="w-full py-4 rounded-xl font-black text-xs mb-6"
+                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs mb-6"
                             >
                                 <span className="material-symbols-outlined text-sm mr-2">download</span> Esporta JSON
                             </M3Button>
@@ -978,7 +978,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     }
                                 }}
                                 variant="text"
-                                className="w-full py-4 rounded-xl font-black text-xs text-error hover:bg-error-container/30"
+                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs text-error hover:bg-error-container/30"
                             >
                                 <span className="material-symbols-outlined text-sm mr-2">delete</span> Elimina Log
                             </M3Button>
@@ -989,13 +989,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             description="Premi F12 per aprire la console, digita window.__errorLogger.getRecentErrors(10) per visualizzare gli ultimi 10 errori."
                             icon="info"
                             variant="secondary"
-                            className="bg-surface-container-low/50 border-outline-variant/20"
+                            className="bg-[var(--md-sys-color-surface-container-low)]/50 border-[var(--md-sys-color-outline-variant)]/20"
                         />
                     </div>
                 </SettingsGroup>
 
                 <SettingsGroup id="advanced" title="Avanzate" subtitle="Configurazione tecnica" icon="build" variant="surface">
-                    <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/20 mb-6 shadow-sm">
+                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 mb-6 shadow-sm">
                         <div className="flex items-center gap-8 mb-5">
                             <span className="material-symbols-outlined text-primary">key</span>
                             <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Google Cloud API</h4>
@@ -1005,7 +1005,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} leadingIcon="lock" />
                         </div>
                     </div>
-                    <div className="p-6 bg-error-container/10 rounded-3xl border border-error/20 shadow-sm">
+                    <div className="p-6 bg-error-container/10 rounded-[var(--md-sys-shape-corner-extra-large)] border border-error/20 shadow-sm">
                         <div className="flex items-center gap-8 mb-8">
                             <span className="material-symbols-outlined text-error">warning</span>
                             <h4 className="m3-label-small text-error font-black uppercase tracking-widest">Zona Pericolo</h4>
@@ -1013,7 +1013,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <M3Button 
                             onClick={() => setIsResetModalOpen(true)} 
                             variant="filled"
-                            className="w-full py-6 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg !bg-error !text-on-error"
+                            className="w-full py-6 rounded-[var(--md-sys-shape-corner-large)] font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)] !bg-error !text-on-error"
                         >
                             <span className="material-symbols-outlined mr-2">delete_forever</span> 
                             Reset Totale Dati
@@ -1021,7 +1021,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     </div>
                 </SettingsGroup>
 
-                <div className="text-center m3-label-tiny text-on-surface-variant opacity-50 pt-12 pb-4">
+                <div className="text-center m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant opacity-50 pt-12 pb-4">
                     DocenteDoc AI v4.0.8 â€¢ Stable
                     <div className="pt-3">
                         <span className="font-black uppercase tracking-widest">Owner:</span> Antonio Corsano

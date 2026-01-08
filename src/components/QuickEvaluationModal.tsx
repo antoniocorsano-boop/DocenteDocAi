@@ -136,11 +136,11 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             {selectedCompetenza && (
                 <div>
                     <label className="text-xs font-bold text-primary uppercase tracking-wider mb-6 block px-1">Livello Raggiunto</label>
-                    <div className="space-y-2 bg-surface-container-low p-6 rounded-2xl border border-outline-variant/30">
+                    <div className="space-y-2 bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/30">
                         {selectedCompetenza.livelli.map(level => (
-                            <label key={level.id} className={`flex items-center p-6 rounded-xl transition-all cursor-pointer border ${selectedLevelId === level.id ? 'bg-primary-container/30 border-primary' : 'hover:bg-surface-container-high border-transparent'}`}>
+                            <label key={level.id} className={`flex items-center p-6 rounded-[var(--md-sys-shape-corner-medium)] transition-all cursor-pointer border ${selectedLevelId === level.id ? 'bg-primary-container/30 border-primary' : 'hover:bg-[var(--md-sys-color-surface-container-high)] border-transparent'}`}>
                                 <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)} className="mr-3 accent-primary" required />
-                                <span className={`text-sm ${selectedLevelId === level.id ? 'font-bold text-on-primary-container' : 'text-on-surface'}`}>{level.descrizione}</span>
+                                <span className={`text-sm ${selectedLevelId === level.id ? 'font-bold text-on-primary-container' : 'text-[var(--md-sys-color-on-surface)]'}`}>{level.descrizione}</span>
                             </label>
                         ))}
                     </div>
@@ -164,10 +164,10 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             maxWidth="md"
             level={1}
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
                 <div className="mb-6 px-4">
-                    <h3 className="text-xl font-bold text-on-surface">{student.cognome} {student.nome}</h3>
-                    <p className="text-sm text-on-surface-variant">{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
+                    <h3 className="text-xl font-bold text-[var(--md-sys-color-on-surface)]">{student.cognome} {student.nome}</h3>
+                    <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant">{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
                 </div>
 
                 <TabGroup
@@ -187,7 +187,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                 <M3Button
                     onClick={activeTab === 'voto' ? handleSaveVoto : handleSaveCompetenza}
                     variant="filled"
-                    className="shadow-xl !px-8"
+                    className="shadow-[var(--md-sys-elevation-level3)] !px-8"
                 >
                     Registra {activeTab === 'voto' ? 'Voto' : 'Competenza'}
                 </M3Button>

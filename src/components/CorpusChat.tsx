@@ -103,9 +103,9 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                     </div>
                 )}
                  {messages.length === 0 && !isLoading && (
-                    <div className="text-center p-8 text-on-surface-variant">
+                    <div className="text-center p-8 text-[var(--md-sys-color-on-surface)]-variant">
                         <span className="material-symbols-outlined text-5xl">quiz</span>
-                        <p className="m3-body-large mt-4">Poni una domanda ai documenti in questo set.</p>
+                        <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] mt-4">Poni una domanda ai documenti in questo set.</p>
                     </div>
                 )}
                 <div ref={messagesEndRef} />
@@ -114,13 +114,13 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
             <div className="corpus-chat-shortcuts">
                 <div className="flex gap-8 p-8 justify-center">
                     <button onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
-                        <span className="material-symbols-outlined m3-body-medium mr-1">summarize</span> Riassumi
+                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mr-1">summarize</span> Riassumi
                     </button>
                     <button onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
-                        <span className="material-symbols-outlined m3-body-medium mr-1">quiz</span> Crea Quiz
+                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mr-1">quiz</span> Crea Quiz
                     </button>
                     <button onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
-                        <span className="material-symbols-outlined m3-body-medium mr-1">key</span> Concetti Chiave
+                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mr-1">key</span> Concetti Chiave
                     </button>
                 </div>
             </div>

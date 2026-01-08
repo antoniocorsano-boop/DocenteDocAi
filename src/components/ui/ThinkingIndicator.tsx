@@ -18,7 +18,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
   };
 
   return (
-    <div className={`flex items-center gap-3 p-4 rounded-xl bg-surface-container-low/50 border border-outline-variant/30 ${className}`}>
+    <div className={`flex items-center gap-3 p-4 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-low)]/50 border border-[var(--md-sys-color-outline-variant)]/30 ${className}`}>
       {/* Animated dots */}
       <div className="flex gap-1">
         <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
@@ -27,7 +27,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
       </div>
 
       {/* Message */}
-      <span className={`m3-thinking-indicator ${sizeClasses[size]} text-on-surface-variant`}>
+      <span className={`m3-thinking-indicator ${sizeClasses[size]} text-[var(--md-sys-color-on-surface)]-variant`}>
         {message}
       </span>
 

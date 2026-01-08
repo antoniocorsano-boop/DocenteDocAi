@@ -128,10 +128,10 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
                 <div className="flex flex-col gap-6 py-4">
-                    <div className="p-8 bg-primary-container/10 rounded-2xl border border-primary/20">
-                        <p className="m3-body-medium text-on-surface">
+                    <div className="p-8 bg-primary-container/10 rounded-[var(--md-sys-shape-corner-large)] border border-primary/20">
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]">
                             Stai esportando: <strong>{uda.title}</strong>
                         </p>
                     </div>
@@ -151,55 +151,55 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         <button 
                             onClick={handlePdfExport}
                             disabled={isExporting}
-                            className="flex items-center gap-8 p-8 rounded-3xl bg-surface-container-lowest hover:bg-primary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
+                            className="flex items-center gap-8 p-8 rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-low)]est hover:bg-primary-container/20 transition-all text-left border border-[var(--md-sys-color-outline-variant)]/30 group disabled:opacity-50"
                         >
-                            <div className="w-12 h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                            <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-primary-container text-on-primary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
                                 <span className="material-symbols-outlined text-2xl">picture_as_pdf</span>
                             </div>
                             <div>
                                 <p className="m3-label-large font-bold text-lg">Esporta in PDF</p>
-                                <p className="m3-body-small text-on-surface-variant">Ideale per stampa e archiviazione</p>
+                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Ideale per stampa e archiviazione</p>
                             </div>
                         </button>
 
                         <button 
                             onClick={handleDocxExport}
                             disabled={isExporting}
-                            className="flex items-center gap-8 p-8 rounded-3xl bg-surface-container-lowest hover:bg-secondary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
+                            className="flex items-center gap-8 p-8 rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-low)]est hover:bg-secondary-container/20 transition-all text-left border border-[var(--md-sys-color-outline-variant)]/30 group disabled:opacity-50"
                         >
-                            <div className="w-12 h-12 rounded-2xl bg-secondary-container text-on-secondary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                            <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-secondary-container text-on-secondary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
                                 <span className="material-symbols-outlined text-2xl">description</span>
                             </div>
                             <div>
                                 <p className="m3-label-large font-bold text-lg">Esporta in Word</p>
-                                <p className="m3-body-small text-on-surface-variant">Per modifiche manuali successive</p>
+                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Per modifiche manuali successive</p>
                             </div>
                         </button>
 
                         <button 
                             onClick={handleAiReport}
                             disabled={isExporting}
-                            className="flex items-center gap-8 p-8 rounded-3xl bg-surface-container-lowest hover:bg-tertiary-container/20 transition-all text-left border border-outline-variant/30 group disabled:opacity-50"
+                            className="flex items-center gap-8 p-8 rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-low)]est hover:bg-tertiary-container/20 transition-all text-left border border-[var(--md-sys-color-outline-variant)]/30 group disabled:opacity-50"
                         >
-                            <div className="w-12 h-12 rounded-2xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                            <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-tertiary-container text-on-tertiary-container flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
                                 <span className="material-symbols-outlined text-2xl">auto_awesome</span>
                             </div>
                             <div>
                                 <p className="m3-label-large font-bold text-lg">Report con AI</p>
-                                <p className="m3-body-small text-on-surface-variant">Genera analisi e suggerimenti didattici</p>
+                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Genera analisi e suggerimenti didattici</p>
                             </div>
                         </button>
                     </div>
 
                     {isExporting && (
-                        <div className="flex items-center justify-center gap-6 p-8 bg-surface-container-high rounded-2xl animate-pulse">
+                        <div className="flex items-center justify-center gap-6 p-8 bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-large)] animate-pulse">
                             <span className="material-symbols-outlined animate-spin">sync</span>
                             <span className="m3-label-large">Generazione in corso...</span>
                         </div>
                     )}
 
                     {markdownReport && (
-                        <div className="mt-4 p-8 bg-surface-container-lowest rounded-3xl border border-outline-variant/30">
+                        <div className="mt-4 p-8 bg-[var(--md-sys-color-surface-container-low)]est rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30">
                             <h4 className="m3-label-large mb-8 text-tertiary">Report AI Generato</h4>
                             <div className="prose prose-sm max-h-60 overflow-y-auto">
                                 {markdownReport}

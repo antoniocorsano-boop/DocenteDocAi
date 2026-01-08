@@ -25,9 +25,9 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-8">
                 <div className="space-y-1">
                     <h1 className="m3-headline-medium font-black tracking-tight">Rubriche di Valutazione</h1>
-                    <p className="m3-body-medium text-on-surface-variant">Crea e gestisci le griglie di competenza.</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Crea e gestisci le griglie di competenza.</p>
                 </div>
-                <M3Button onClick={() => setEditingRubric('new')} variant="filled" className="shadow-lg font-black text-xs uppercase tracking-widest">
+                <M3Button onClick={() => setEditingRubric('new')} variant="filled" className="shadow-[var(--md-sys-elevation-level2)] font-black text-xs uppercase tracking-widest">
                     <span className="material-symbols-outlined mr-2">add</span>
                     Crea Nuova
                 </M3Button>
@@ -53,7 +53,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                                 icon="assignment"
                                 variant="surface"
                                 onClick={() => setEditingRubric(rubrica)}
-                                className="bg-surface-container-low/30 backdrop-blur-xl border border-outline-variant/20 hover:bg-surface-container-high/50 transition-all"
+                                className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border border-[var(--md-sys-color-outline-variant)]/20 hover:bg-[var(--md-sys-color-surface-container-high)]/50 transition-all"
                             />
                         ))}
                     </div>
@@ -74,7 +74,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                     icon="visibility"
                     variant="tertiary"
                     onClick={() => onNavigate('competency-levels')}
-                    className="bg-surface-container-low/30 backdrop-blur-xl border border-outline-variant/20 hover:bg-surface-container-high/50 transition-all"
+                    className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border border-[var(--md-sys-color-outline-variant)]/20 hover:bg-[var(--md-sys-color-surface-container-high)]/50 transition-all"
                 />
             </div>
 

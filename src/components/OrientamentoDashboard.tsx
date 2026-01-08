@@ -60,7 +60,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     const renderActivitiesTab = () => (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <h3 className="m3-title-large font-black text-on-surface">Attività di Orientamento</h3>
+                <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Attività di Orientamento</h3>
                 <M3Button onClick={() => setIsAddActivityModalOpen(true)} variant="filled">
                     <span className="material-symbols-outlined mr-2">add</span>
                     Nuova Attività
@@ -76,7 +76,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                         icon="explore"
                         variant="surface"
                     >
-                        <p className="m3-body-medium text-on-surface-variant mt-4 line-clamp-2">
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mt-4 line-clamp-2">
                             {activity.description}
                         </p>
                     </InfoCard>
@@ -96,11 +96,11 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
 
     const renderStudentsTab = () => (
         <div className="space-y-6">
-            <h3 className="m3-title-large font-black text-on-surface">Stato E-Portfolio Studenti</h3>
-            <div className="aura-glass overflow-hidden border border-outline-variant/20">
+            <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Stato E-Portfolio Studenti</h3>
+            <div className="aura-glass overflow-hidden border border-[var(--md-sys-color-outline-variant)]/20">
                 <table className="w-full border-collapse">
                     <thead>
-                        <tr className="bg-surface-container-low/50">
+                        <tr className="bg-[var(--md-sys-color-surface-container-low)]/50">
                             <th className="p-8 text-left m3-label-large text-primary uppercase tracking-widest">Studente</th>
                             <th className="p-8 text-center m3-label-large text-primary uppercase tracking-widest">Ore Totali</th>
                             <th className="p-8 text-center m3-label-large text-primary uppercase tracking-widest">Capolavoro</th>
@@ -118,13 +118,13 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                                     <td style={{ padding: 'var(--md-sys-spacing-6)' }}>
                                         <div className="flex items-center gap-6">
                                             <Avatar name={`${student.nome} ${student.cognome}`} size="sm" />
-                                            <span className="font-bold text-on-surface">{student.cognome} {student.nome}</span>
+                                            <span className="font-bold text-[var(--md-sys-color-on-surface)]">{student.cognome} {student.nome}</span>
                                         </div>
                                     </td>
                                     <td className="p-8 text-center">
                                         <div className="flex flex-col items-center gap-4">
                                             <span className="font-black text-primary">{totalHours}/30h</span>
-                                            <div className="w-24 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+                                            <div className="w-24 h-1.5 bg-[var(--md-sys-color-surface-container-high)]est rounded-full overflow-hidden">
                                                 <div 
                                                     className={`h-full transition-all ${progress >= 100 ? 'bg-tertiary' : 'bg-primary'}`}
                                                     style={{ width: `${progress}%` }}
@@ -133,12 +133,12 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                                         </div>
                                     </td>
                                     <td className="p-8 text-center">
-                                        <span className={`material-symbols-outlined ${state.hasCapolavoro ? 'text-tertiary' : 'text-on-surface-variant/20'}`}>
+                                        <span className={`material-symbols-outlined ${state.hasCapolavoro ? 'text-tertiary' : 'text-[var(--md-sys-color-on-surface)]-variant/20'}`}>
                                             {state.hasCapolavoro ? 'check_circle' : 'radio_button_unchecked'}
                                         </span>
                                     </td>
                                     <td className="p-8 text-center">
-                                        <span className={`material-symbols-outlined ${state.hasAutovalutazione ? 'text-tertiary' : 'text-on-surface-variant/20'}`}>
+                                        <span className={`material-symbols-outlined ${state.hasAutovalutazione ? 'text-tertiary' : 'text-[var(--md-sys-color-on-surface)]-variant/20'}`}>
                                             {state.hasAutovalutazione ? 'check_circle' : 'radio_button_unchecked'}
                                         </span>
                                     </td>
@@ -186,7 +186,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 >
                     <div className="mt-4">
                         <span className="text-4xl font-black text-primary">{totalHours}h</span>
-                        <p className="m3-body-small text-on-surface-variant mt-4">
+                        <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant mt-4">
                             {totalHours >= 30 ? 'âœ… Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
                         </p>
                     </div>
@@ -219,17 +219,17 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 </InfoCard>
             </div>
 
-            <div className="mt-12 aura-glass rounded-[2.5rem] overflow-hidden border border-outline-variant/20">
-                <div className="flex border-b border-outline-variant/10 bg-surface/30 backdrop-blur-md p-8">
+            <div className="mt-12 aura-glass rounded-[2.5rem] overflow-hidden border border-[var(--md-sys-color-outline-variant)]/20">
+                <div className="flex border-b border-[var(--md-sys-color-outline-variant)]/10 bg-surface/30 backdrop-blur-md p-8">
                     <button 
                         onClick={() => setActiveTab('activities')}
-                        className={`flex-grow py-4 font-black text-[10px] uppercase tracking-widest transition-all rounded-2xl ${activeTab === 'activities' ? 'bg-primary text-on-primary shadow-lg' : 'text-on-surface-variant hover:bg-surface-container-high'}`}
+                        className={`flex-grow py-4 font-black text-[10px] uppercase tracking-widest transition-all rounded-[var(--md-sys-shape-corner-large)] ${activeTab === 'activities' ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level2)]' : 'text-[var(--md-sys-color-on-surface)]-variant hover:bg-[var(--md-sys-color-surface-container-high)]'}`}
                     >
                         Attività di Orientamento
                     </button>
                     <button 
                         onClick={() => setActiveTab('students')}
-                        className={`flex-grow py-4 font-black text-[10px] uppercase tracking-widest transition-all rounded-2xl ${activeTab === 'students' ? 'bg-primary text-on-primary shadow-lg' : 'text-on-surface-variant hover:bg-surface-container-high'}`}
+                        className={`flex-grow py-4 font-black text-[10px] uppercase tracking-widest transition-all rounded-[var(--md-sys-shape-corner-large)] ${activeTab === 'students' ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level2)]' : 'text-[var(--md-sys-color-on-surface)]-variant hover:bg-[var(--md-sys-color-surface-container-high)]'}`}
                     >
                         Stato Studenti
                     </button>

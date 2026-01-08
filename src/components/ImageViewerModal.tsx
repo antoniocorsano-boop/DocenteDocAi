@@ -37,20 +37,20 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
             onClose={onClose}
             maxWidth="lg"
         >
-            <M3DialogContent className="flex justify-center items-center bg-surface-container-high/30 backdrop-blur-sm p-6">
+            <M3DialogContent className="flex justify-center items-center bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm p-6">
                 <div className="relative group">
                     <img 
                         src={dataUrl} 
                         alt={prompt} 
-                        className="max-w-full max-h-[70vh] object-contain rounded-2xl shadow-2xl border border-white/10" 
+                        className="max-w-full max-h-[70vh] object-contain rounded-[var(--md-sys-shape-corner-large)] shadow-[var(--md-sys-elevation-level4)] border border-white/10" 
                     />
-                    <div className="absolute bottom-4 left-4 right-4 p-8 bg-black/40 backdrop-blur-md rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute bottom-4 left-4 right-4 p-8 bg-black/40 backdrop-blur-md rounded-[var(--md-sys-shape-corner-medium)] opacity-0 group-hover:opacity-100 transition-opacity">
                         <p className="text-white text-xs font-medium line-clamp-2 italic">"{prompt}"</p>
                     </div>
                 </div>
             </M3DialogContent>
 
-            <M3DialogActions className="bg-surface-container-high/80 backdrop-blur-md p-6 border-t border-outline-variant/30">
+            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-high)]/80 backdrop-blur-md p-6 border-t border-[var(--md-sys-color-outline-variant)]/30">
                 <M3Button 
                     onClick={handleSave} 
                     variant="outlined" 

@@ -57,6 +57,7 @@
   "devDependencies": {
     "@axe-core/cli": "^4.11.0",
     "@axe-core/playwright": "^4.11.0",
+    "@commitlint/config-conventional": "^20.3.0",
     "@eslint/js": "^9.39.2",
     "@mdx-js/mdx": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
@@ -79,6 +80,7 @@
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
     "axe-core": "^4.11.0",
+    "commitlint": "^20.3.0",
     "eslint": "^9.39.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-storybook": "^0.8.0",

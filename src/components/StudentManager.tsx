@@ -38,7 +38,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
     return (
     <div
       ref={itemRef}
-      className={`flex items-center gap-5 p-8 rounded-2xl transition-all hover:bg-surface-container-highest/50 group relative focus-visible:ring-2 focus-visible:ring-primary focus:outline-none ${student.isArchived ? 'opacity-60 grayscale' : ''}`}
+      className={`flex items-center gap-5 p-8 rounded-[var(--md-sys-shape-corner-large)] transition-all hover:bg-[var(--md-sys-color-surface-container-high)]est/50 group relative focus-visible:ring-2 focus-visible:ring-primary focus:outline-none ${student.isArchived ? 'opacity-60 grayscale' : ''}`}
       aria-label={`Studente ${student.cognome} ${student.nome}, classe ${student.classe}${student.isArchived ? ', archiviato' : ''}`}
       tabIndex={isFocused ? 0 : -1}
       onFocus={onFocus}
@@ -49,13 +49,13 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
         }
       }}
     >
-      <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="shadow-md" />
+      <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="shadow-[var(--md-sys-elevation-level1)]" />
       <div className="flex-grow min-w-0">
-          <h3 className="m3-title-large truncate font-black text-on-surface">{student.cognome} {student.nome}</h3>
+          <h3 className="m3-title-large truncate font-black text-[var(--md-sys-color-on-surface)]">{student.cognome} {student.nome}</h3>
           <div className="flex items-center gap-6 mt-4">
               <span className="px-4 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">Classe {student.classe}</span>
               {student.isArchived && (
-                  <span className="px-4 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-black uppercase tracking-widest border border-outline-variant/20">
+                  <span className="px-4 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant text-[10px] font-black uppercase tracking-widest border border-[var(--md-sys-color-outline-variant)]/20">
                       {student.archiveYear ? `Archiviato ${student.archiveYear}` : 'ARCHIVIATO'}
                   </span>
               )}
@@ -87,7 +87,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   <M3Button 
                       onClick={() => onEdit(student)} 
                       variant="icon" 
-                      className="hover:bg-surface-container-highest" 
+                      className="hover:bg-[var(--md-sys-color-surface-container-high)]est" 
                       title="Modifica dati studente"
                       aria-label={`Modifica dati per ${student.cognome} ${student.nome}`}
                   >
@@ -192,7 +192,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                             <span className="material-symbols-outlined mr-2">upload_file</span>
                             Importa
                         </M3Button>
-                        <M3Button onClick={() => setEditingStudent('new')} variant="filled" className="font-black text-xs uppercase tracking-widest shadow-lg">
+                        <M3Button onClick={() => setEditingStudent('new')} variant="filled" className="font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)]">
                             <span className="material-symbols-outlined mr-2">add</span>
                             Nuovo
                         </M3Button>
@@ -200,8 +200,8 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                 }
             />
 
-            <div className="bg-surface-container-low/30 backdrop-blur-xl rounded-2xl border border-outline-variant/20 overflow-hidden flex flex-col mt-8">
-                <div className="flex flex-wrap gap-8 items-center p-6 bg-surface-container-high/50 border-b border-outline-variant/10">
+            <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 overflow-hidden flex flex-col mt-8">
+                <div className="flex flex-wrap gap-8 items-center p-6 bg-[var(--md-sys-color-surface-container-high)]/50 border-b border-[var(--md-sys-color-outline-variant)]/10">
                     <div className="flex-grow min-w-[250px]">
                         <TextField
                             id="student-search"
@@ -210,7 +210,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
                             leadingIcon="search"
-                            className="bg-surface-container-low/50"
+                            className="bg-[var(--md-sys-color-surface-container-low)]/50"
                             aria-label="Ricerca studenti per nome o cognome"
                         />
                     </div>
@@ -224,7 +224,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                                 { value: 'all', label: 'Tutte le classi' },
                                 ...userClasses.map(c => ({ value: c, label: `Classe ${c}` }))
                             ]}
-                            className="bg-surface-container-low/50"
+                            className="bg-[var(--md-sys-color-surface-container-low)]/50"
                             aria-label="Filtra studenti per classe"
                         />
                     </div>

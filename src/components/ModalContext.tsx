@@ -156,7 +156,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
       />
 
       {/* Modal Content */}
-      <div className="relative z-10 w-full max-w-lg max-h-[90vh] rounded-3xl">
+      <div className="relative z-10 w-full max-w-lg max-h-[90vh] rounded-[var(--md-sys-shape-corner-extra-large)]">
         {children}
       </div>
     </div>,

@@ -41,7 +41,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             glass
             expressive
             color={color as any}
-            className={`p-8 md:p-12 transition-all duration-300 flex flex-col min-h-[160px] md:min-h-[180px] ${isClickable ? 'cursor-pointer hover:shadow-xl hover:shadow-black/10 hover:border-white/30 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2' : ''} ${className}`}
+            className={`p-8 md:p-12 transition-all duration-300 flex flex-col min-h-[160px] md:min-h-[180px] ${isClickable ? 'cursor-pointer hover:shadow-[var(--md-sys-elevation-level3)] hover:shadow-black/10 hover:border-white/30 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2' : ''} ${className}`}
             onClick={onClick}
             onKeyDown={(e) => {
                 if (onClick && (e.key === 'Enter' || e.key === ' ')) {
@@ -66,7 +66,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             ></div>
 
             <div className="flex items-start justify-between mb-6 relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/25 to-white/10 backdrop-blur-md flex items-center justify-center shadow-lg border border-white/20 flex-shrink-0">
+                <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-gradient-to-br from-white/25 to-white/10 backdrop-blur-md flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] border border-white/20 flex-shrink-0">
                     <span className="material-symbols-outlined m3-icon-lg opacity-90">{icon}</span>
                 </div>
                 {isClickable && (
@@ -75,8 +75,8 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             </div>
 
             <div className="flex-grow relative z-10 space-y-3">
-                <h3 className="m3-headline-small font-bold tracking-tight leading-tight">{title}</h3>
-                <p className="m3-body-large opacity-80 leading-relaxed font-medium line-clamp-3">{description}</p>
+                <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold tracking-tight leading-tight">{title}</h3>
+                <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] opacity-80 leading-relaxed font-medium line-clamp-3">{description}</p>
                 {children && <div className="mt-4 pt-3 border-t border-white/10">{children}</div>}
             </div>
         </M3SurfaceCard>

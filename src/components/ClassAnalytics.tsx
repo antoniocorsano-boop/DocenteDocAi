@@ -56,39 +56,39 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
         >
             <M3DialogContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-surface-container-low p-6 rounded-3xl border border-outline-variant">
-                        <h3 className="text-lg font-bold text-on-surface mb-8">Media Voti per Classe</h3>
+                    <div className="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]">
+                        <h3 className="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-8">Media Voti per Classe</h3>
                         <div className="flex justify-center">
                             {classPerformanceData.length > 0 ? (
                                 <BarChart data={classPerformanceData} color="var(--sys-tertiary)" />
                             ) : (
-                                <p className="text-on-surface-variant p-8">Dati insufficienti per generare il grafico.</p>
+                                <p className="text-[var(--md-sys-color-on-surface)]-variant p-8">Dati insufficienti per generare il grafico.</p>
                             )}
                         </div>
-                        <p className="text-xs text-on-surface-variant mt-4 text-center">
+                        <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mt-4 text-center">
                             Confronto della media aritmetica dei voti di tutti gli studenti per ogni classe.
                         </p>
                     </div>
 
-                    <div className="bg-surface-container-low p-6 rounded-3xl border border-outline-variant flex flex-col items-center">
-                        <h3 className="text-lg font-bold text-on-surface mb-8">Situazione Globale</h3>
+                    <div className="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)] flex flex-col items-center">
+                        <h3 className="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-8">Situazione Globale</h3>
                         <DonutChart data={globalStats} />
-                        <p className="text-xs text-on-surface-variant mt-4 text-center">
+                        <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mt-4 text-center">
                             Proporzione di studenti con media sufficiente vs insufficiente su tutte le classi.
                         </p>
                     </div>
                 </div>
                 
-                <div className="bg-surface-container-low p-6 rounded-3xl border border-outline-variant">
-                     <h3 className="text-lg font-bold text-on-surface mb-8">Dettaglio Numerico</h3>
+                <div className="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]">
+                     <h3 className="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-8">Dettaglio Numerico</h3>
                      <div className="overflow-x-auto">
                          <table className="w-full text-left border-collapse">
                              <thead>
-                                 <tr className="border-b border-outline-variant">
-                                     <th className="py-3 px-4 text-sm font-bold text-on-surface-variant">Classe</th>
-                                     <th className="py-3 px-4 text-sm font-bold text-on-surface-variant">Studenti</th>
-                                     <th className="py-3 px-4 text-sm font-bold text-on-surface-variant">Media Classe</th>
-                                     <th className="py-3 px-4 text-sm font-bold text-on-surface-variant">Verifiche Svolte</th>
+                                 <tr className="border-b border-[var(--md-sys-color-outline-variant)]">
+                                     <th className="py-3 px-4 text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant">Classe</th>
+                                     <th className="py-3 px-4 text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant">Studenti</th>
+                                     <th className="py-3 px-4 text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant">Media Classe</th>
+                                     <th className="py-3 px-4 text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant">Verifiche Svolte</th>
                                  </tr>
                              </thead>
                              <tbody>
@@ -97,11 +97,11 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                                      const avg = classPerformanceData.find(d => d.label === c)?.value || '-';
                                      const evalsCount = evaluations.filter(e => students.find(s => s.id === e.studenteId)?.classe === c).length;
                                      return (
-                                         <tr key={c} className="border-b border-outline-variant/50 hover:bg-surface-container-high transition-colors">
-                                             <td className="py-3 px-4 font-bold text-on-surface">{c}</td>
-                                             <td className="py-3 px-4 text-on-surface-variant">{sCount}</td>
-                                             <td className="py-3 px-4 text-on-surface-variant">{avg}</td>
-                                             <td className="py-3 px-4 text-on-surface-variant">{evalsCount}</td>
+                                         <tr key={c} className="border-b border-[var(--md-sys-color-outline-variant)]/50 hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors">
+                                             <td className="py-3 px-4 font-bold text-[var(--md-sys-color-on-surface)]">{c}</td>
+                                             <td className="py-3 px-4 text-[var(--md-sys-color-on-surface)]-variant">{sCount}</td>
+                                             <td className="py-3 px-4 text-[var(--md-sys-color-on-surface)]-variant">{avg}</td>
+                                             <td className="py-3 px-4 text-[var(--md-sys-color-on-surface)]-variant">{evalsCount}</td>
                                          </tr>
                                      )
                                  })}

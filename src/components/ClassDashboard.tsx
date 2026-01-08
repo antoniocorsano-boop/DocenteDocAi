@@ -28,17 +28,17 @@ interface StudentDashboardItemProps {
 
 const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: StudentDashboardItemProps) => {
     const { trend } = calculatePerformance(student.id, 'Complessivo', evaluations);
-    const trendClass = trend === 'up' ? 'text-tertiary' : trend === 'down' ? 'text-error' : 'text-on-surface-variant/40';
+    const trendClass = trend === 'up' ? 'text-tertiary' : trend === 'down' ? 'text-error' : 'text-[var(--md-sys-color-on-surface)]-variant/40';
     const trendIcon = trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'trending_flat';
 
     return (
         <button 
             onClick={() => onClick(student)}
-            className="w-full flex items-center gap-8 p-6 rounded-xl hover:bg-surface-container-high transition-all group text-left"
+            className="w-full flex items-center gap-8 p-6 rounded-[var(--md-sys-shape-corner-medium)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-all group text-left"
         >
             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
             <div className="flex-grow min-w-0">
-                <p className="font-bold text-on-surface truncate">{student.cognome} {student.nome}</p>
+                <p className="font-bold text-[var(--md-sys-color-on-surface)] truncate">{student.cognome} {student.nome}</p>
                 <div className="flex items-center gap-2.5 mt-0.5">
                     <span className={`material-symbols-outlined text-xs ${trendClass}`}>{trendIcon}</span>
                     <span className={`m3-label-tiny font-bold uppercase tracking-wider ${trendClass}`}>
@@ -46,7 +46,7 @@ const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: Stud
                     </span>
                 </div>
             </div>
-            <span className="material-symbols-outlined text-on-surface-variant/30 group-hover:translate-x-1 transition-transform">chevron_right</span>
+            <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant/30 group-hover:translate-x-1 transition-transform">chevron_right</span>
         </button>
     );
 });
@@ -102,13 +102,13 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                             <InfoCard variant="elevated" className="overflow-hidden bg-primary-container/30 backdrop-blur-sm border border-primary/10">
                                 <div style={{ padding: 'var(--md-sys-spacing-5)' }}>
                                     <div className="flex items-start gap-6 mb-6">
-                                        <div className="w-16 h-16 rounded-2xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-lg shadow-primary/20">
+                                        <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-large)] bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-[var(--md-sys-elevation-level2)] shadow-primary/20">
                                             <span className="material-symbols-outlined text-3xl">school</span>
                                         </div>
                                         <div className="flex-grow min-w-0">
                                             <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Prossima Lezione â€¢ {todaysLesson.slot.ora}</p>
-                                            <h2 className="text-2xl font-bold text-on-surface truncate">{todaysLesson.lesson.materia}</h2>
-                                            <p className="text-on-surface-variant line-clamp-1 mt-4">{todaysLesson.lesson.contenuto}</p>
+                                            <h2 className="text-2xl font-bold text-[var(--md-sys-color-on-surface)] truncate">{todaysLesson.lesson.materia}</h2>
+                                            <p className="text-[var(--md-sys-color-on-surface)]-variant line-clamp-1 mt-4">{todaysLesson.lesson.contenuto}</p>
                                         </div>
                                     </div>
                                     <M3Button
@@ -122,14 +122,14 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 </div>
                             </InfoCard>
                         ) : (
-                            <InfoCard variant="tonal" className="p-6 border border-outline-variant/30">
+                            <InfoCard variant="tonal" className="p-6 border border-[var(--md-sys-color-outline-variant)]/30">
                                 <div className="flex items-center gap-6 mb-6">
-                                    <div className="w-16 h-16 rounded-2xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center shrink-0">
+                                    <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant flex items-center justify-center shrink-0">
                                         <span className="material-symbols-outlined text-3xl">event_busy</span>
                                     </div>
                                     <div>
-                                        <h2 className="text-xl font-bold text-on-surface">Nessuna lezione programmata</h2>
-                                        <p className="text-on-surface-variant">Puoi avviare una lezione libera o un'attività improvvisata.</p>
+                                        <h2 className="text-xl font-bold text-[var(--md-sys-color-on-surface)]">Nessuna lezione programmata</h2>
+                                        <p className="text-[var(--md-sys-color-on-surface)]-variant">Puoi avviare una lezione libera o un'attività improvvisata.</p>
                                     </div>
                                 </div>
                                 <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="tonal" className="w-full">
@@ -150,7 +150,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                             >
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-xl bg-tertiary text-on-tertiary flex items-center justify-center relative shadow-md shadow-tertiary/20">
+                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-tertiary text-on-tertiary flex items-center justify-center relative shadow-[var(--md-sys-elevation-level1)] shadow-tertiary/20">
                                             <span className="material-symbols-outlined">mail</span>
                                             <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-on-error rounded-full m3-label-tiny font-bold flex items-center justify-center border-2 border-tertiary-container">
                                                 {inboxCount}
@@ -175,7 +175,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         <section>
                             <div className="flex items-center gap-6 mb-6 px-4">
                                 <span className="material-symbols-outlined text-primary">auto_stories</span>
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Registro & Didattica</h3>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Registro & Didattica</h3>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <InfoCard 
@@ -184,12 +184,12 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     onClick={() => onNavigate('register', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
                                             <span className="material-symbols-outlined">book</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-on-surface">Diario di Bordo</h4>
-                                            <p className="text-xs text-on-surface-variant">Lezioni, assenze, note</p>
+                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Diario di Bordo</h4>
+                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Lezioni, assenze, note</p>
                                         </div>
                                     </div>
                                 </InfoCard>
@@ -199,12 +199,12 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     onClick={() => onNavigate('didattica-inclusiva', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
                                             <span className="material-symbols-outlined">accessibility_new</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-on-surface">Inclusione</h4>
-                                            <p className="text-xs text-on-surface-variant">PDP, PEI e strategie</p>
+                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Inclusione</h4>
+                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">PDP, PEI e strategie</p>
                                         </div>
                                     </div>
                                 </InfoCard>
@@ -215,7 +215,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         <section>
                             <div className="flex items-center gap-6 mb-6 px-4">
                                 <span className="material-symbols-outlined text-secondary">grading</span>
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Valutazione & Competenze</h3>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Valutazione & Competenze</h3>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <InfoCard 
@@ -224,12 +224,12 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     onClick={() => onNavigate('evaluations', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
                                             <span className="material-symbols-outlined">ballot</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-on-surface">Voti</h4>
-                                            <p className="text-xs text-on-surface-variant">Registro valutazioni</p>
+                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Voti</h4>
+                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Registro valutazioni</p>
                                         </div>
                                     </div>
                                 </InfoCard>
@@ -239,12 +239,12 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     onClick={() => onNavigate('class-competency-dashboard', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
                                             <span className="material-symbols-outlined">psychology</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-on-surface">Competenze</h4>
-                                            <p className="text-xs text-on-surface-variant">Livelli e matrici</p>
+                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Competenze</h4>
+                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Livelli e matrici</p>
                                         </div>
                                     </div>
                                 </InfoCard>
@@ -254,8 +254,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 3. SEZIONE ANALISI & REPORT */}
                         <section>
                             <div className="flex items-center gap-6 mb-6 px-4">
-                                <span className="material-symbols-outlined text-on-surface-variant">analytics</span>
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-on-surface-variant">Analisi & Report</h3>
+                                <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">analytics</span>
+                                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Analisi & Report</h3>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 <InfoCard 
@@ -264,12 +264,12 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     onClick={() => onNavigate('improvement-guide', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
                                             <span className="material-symbols-outlined">query_stats</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-on-surface">Analisi AI</h4>
-                                            <p className="text-xs text-on-surface-variant">Report pedagogico</p>
+                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Analisi AI</h4>
+                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Report pedagogico</p>
                                         </div>
                                     </div>
                                 </InfoCard>
@@ -279,12 +279,12 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     onClick={() => onNavigate('consiglio-di-classe', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
+                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
                                             <span className="material-symbols-outlined">gavel</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-on-surface">Consiglio</h4>
-                                            <p className="text-xs text-on-surface-variant">Scrutini e tabelloni</p>
+                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Consiglio</h4>
+                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Scrutini e tabelloni</p>
                                         </div>
                                     </div>
                                 </InfoCard>
@@ -294,12 +294,12 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     onClick={() => onNavigate('studenti', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
+                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
                                             <span className="material-symbols-outlined">groups</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-on-surface">Anagrafica</h4>
-                                            <p className="text-xs text-on-surface-variant">Elenco studenti</p>
+                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Anagrafica</h4>
+                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Elenco studenti</p>
                                         </div>
                                     </div>
                                 </InfoCard>
@@ -310,10 +310,10 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 
                 {/* Side Column: Students List */}
                 <div className="space-y-6">
-                    <InfoCard variant="elevated" className="h-full flex flex-col bg-surface-container-lowest/50 backdrop-blur-sm">
+                    <InfoCard variant="elevated" className="h-full flex flex-col bg-[var(--md-sys-color-surface-container-low)]est/50 backdrop-blur-sm">
                         <div className="p-6 flex flex-col h-full">
                             <div className="flex justify-between items-center mb-6">
-                                <h2 className="text-lg font-bold text-on-surface">Studenti</h2>
+                                <h2 className="text-lg font-bold text-[var(--md-sys-color-on-surface)]">Studenti</h2>
                                 <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold">
                                     {filteredStudents.length}
                                 </span>
@@ -328,7 +328,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         onClick={onViewStudentProfile}
                                     />
                                 )) : (
-                                    <div className="flex flex-col items-center justify-center h-40 text-center text-on-surface-variant/40 p-8 border-2 border-dashed border-outline-variant/20 rounded-2xl">
+                                    <div className="flex flex-col items-center justify-center h-40 text-center text-[var(--md-sys-color-on-surface)]-variant/40 p-8 border-2 border-dashed border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-large)]">
                                         <span className="material-symbols-outlined text-4xl mb-8">person_off</span>
                                         <p className="text-sm">Nessuno studente in elenco.</p>
                                     </div>

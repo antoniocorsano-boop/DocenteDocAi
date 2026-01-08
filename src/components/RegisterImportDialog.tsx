@@ -125,14 +125,14 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 <option value="sidi">SIDI (Anagrafe Studenti)</option>
                             </SelectField>
                             
-                            <div className="p-8 rounded-xl bg-secondary-container/30 border border-secondary/20 flex gap-6">
+                            <div className="p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-secondary-container/30 border border-secondary/20 flex gap-6">
                                 <span className="material-symbols-outlined text-secondary">info</span>
                                 <p className="m3-body-small text-on-secondary-container">
                                     {RegisterService.getExportGuidance(provider)}
                                 </p>
                             </div>
 
-                            <p className="m3-body-medium text-on-surface-variant">
+                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">
                                 Carica il file esportato in formato <strong>CSV</strong> o <strong>Excel</strong>.
                             </p>
                         </div>
@@ -140,27 +140,27 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         <div 
                             {...getRootProps()} 
                             className={`
-                                border-2 border-dashed rounded-2xl p-12 flex flex-col items-center justify-center gap-8 transition-all
-                                ${isDragActive ? 'border-primary bg-primary/5 scale-[0.98]' : 'border-outline-variant bg-surface-container-low hover:bg-surface-container-high'}
+                                border-2 border-dashed rounded-[var(--md-sys-shape-corner-large)] p-12 flex flex-col items-center justify-center gap-8 transition-all
+                                ${isDragActive ? 'border-primary bg-primary/5 scale-[0.98]' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-low)] hover:bg-[var(--md-sys-color-surface-container-high)]'}
                                 ${isLoading ? 'opacity-50 cursor-wait' : 'cursor-pointer'}
                             `}
                         >
                             <input {...getInputProps()} />
-                            <span className={`material-symbols-outlined text-5xl ${isDragActive ? 'text-primary' : 'text-on-surface-variant'}`}>
+                            <span className={`material-symbols-outlined text-5xl ${isDragActive ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>
                                 {isLoading ? 'sync' : 'upload_file'}
                             </span>
                             <div className="text-center">
                                 <p className="m3-title-medium font-bold">
                                     {isLoading ? 'Analisi in corso...' : 'Trascina qui il file o clicca per selezionarlo'}
                                 </p>
-                                <p className="m3-body-small text-on-surface-variant">Supporta .csv, .xlsx, .xls</p>
+                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Supporta .csv, .xlsx, .xls</p>
                             </div>
                         </div>
 
                         {error && (
-                            <div className="p-8 rounded-xl bg-error-container text-on-error-container flex items-center gap-6">
+                            <div className="p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-error-container text-on-error-container flex items-center gap-6">
                                 <span className="material-symbols-outlined">error</span>
-                                <p className="m3-body-medium">{error}</p>
+                                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">{error}</p>
                             </div>
                         )}
                     </>
@@ -181,7 +181,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.cognome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, cognome: e.target.value }))}
-                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline)] bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -192,7 +192,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.nome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, nome: e.target.value }))}
-                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline)] bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -203,7 +203,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.classe}
                                             onChange={(e) => setMapping(prev => ({ ...prev, classe: e.target.value }))}
-                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline)] bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -219,7 +219,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.voto}
                                             onChange={(e) => setMapping(prev => ({ ...prev, voto: e.target.value }))}
-                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline)] bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -230,7 +230,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.data}
                                             onChange={(e) => setMapping(prev => ({ ...prev, data: e.target.value }))}
-                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline)] bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -241,7 +241,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.materia}
                                             onChange={(e) => setMapping(prev => ({ ...prev, materia: e.target.value }))}
-                                            className="w-full p-8 rounded-lg border border-outline bg-surface text-sm"
+                                            className="w-full p-8 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline)] bg-surface text-sm"
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -251,18 +251,18 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             </InfoCard>
                         </div>
 
-                        <div className="p-8 rounded-xl bg-surface-container-high overflow-x-auto">
+                        <div className="p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-high)] overflow-x-auto">
                             <p className="text-[10px] font-bold uppercase tracking-widest opacity-50 mb-8">Anteprima Dati Raw (Prime 3 righe)</p>
                             <table className="w-full text-[10px] border-collapse">
                                 <thead>
                                     <tr>
-                                        {rawData.headers.map(h => <th key={h} className="border border-outline/30 p-1 text-left bg-surface">{h}</th>)}
+                                        {rawData.headers.map(h => <th key={h} className="border border-[var(--md-sys-color-outline)]/30 p-1 text-left bg-surface">{h}</th>)}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {rawData.data.slice(0, 3).map((row, i) => (
                                         <tr key={i}>
-                                            {rawData.headers.map(h => <td key={h} className="border border-outline/30 p-1">{String(row[h] || '')}</td>)}
+                                            {rawData.headers.map(h => <td key={h} className="border border-[var(--md-sys-color-outline)]/30 p-1">{String(row[h] || '')}</td>)}
                                         </tr>
                                     ))}
                                 </tbody>
@@ -281,11 +281,11 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                             <InfoCard title="Riepilogo" icon="analytics">
                                 <ul className="space-y-2">
-                                    <li className="flex justify-between m3-body-medium">
+                                    <li className="flex justify-between text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">
                                         <span>Studenti:</span>
                                         <span className="font-bold">{result.students.length}</span>
                                     </li>
-                                    <li className="flex justify-between m3-body-medium">
+                                    <li className="flex justify-between text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">
                                         <span>Valutazioni:</span>
                                         <span className="font-bold">{result.evaluations.length}</span>
                                     </li>
@@ -313,7 +313,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </M3Button>
 
                         {result.errors.length > 0 && (
-                            <div className="p-8 rounded-xl bg-warning-container text-on-warning-container">
+                            <div className="p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-warning-container text-on-warning-container">
                                 <p className="m3-label-medium font-bold mb-8">Avvisi durante l&apos;analisi:</p>
                                 <ul className="list-disc list-inside m3-body-small opacity-80">
                                     {result.errors.slice(0, 3).map((err, i) => (

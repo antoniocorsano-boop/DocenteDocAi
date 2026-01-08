@@ -71,10 +71,10 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
                 <div className="flex flex-col gap-6 py-4">
-                    <div className="p-8 bg-secondary-container/10 rounded-2xl border border-secondary/20">
-                        <p className="m3-body-medium text-on-surface">
+                    <div className="p-8 bg-secondary-container/10 rounded-[var(--md-sys-shape-corner-large)] border border-secondary/20">
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]">
                             Gestisci lo spostamento di <strong>{student.cognome} {student.nome}</strong>
                         </p>
                     </div>
@@ -91,7 +91,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                     />
 
                     {mode === 'change_class' ? (
-                        <div className="bg-surface-container-lowest/50 p-8 rounded-3xl border border-outline-variant/30 flex flex-col gap-8">
+                        <div className="bg-[var(--md-sys-color-surface-container-low)]est/50 p-8 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 flex flex-col gap-8">
                             <h3 className="m3-label-large text-primary px-4">Nuova Destinazione</h3>
 
                             {!isCustomClass ? (
@@ -131,7 +131,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                             )}
                         </div>
                     ) : (
-                        <div className="bg-error-container/10 p-8 rounded-3xl border border-error/20 flex flex-col gap-8">
+                        <div className="bg-error-container/10 p-8 rounded-[var(--md-sys-shape-corner-extra-large)] border border-error/20 flex flex-col gap-8">
                             <h3 className="m3-label-large text-error px-4">Motivazione Uscita</h3>
                             <SelectField
                                 label="Esito"
@@ -143,7 +143,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                                 ]}
                                 fullWidth
                             />
-                            <p className="m3-body-small text-on-surface-variant px-4">
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant px-4">
                                 Lo studente verrà rimosso dall'elenco attivo e spostato nell'archivio storico.
                             </p>
                         </div>

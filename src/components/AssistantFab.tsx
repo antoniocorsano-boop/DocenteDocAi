@@ -150,7 +150,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                   <div className="assistant-fab-sheet-header">
                     <div>
                       <p className="text-sm font-semibold">Assistente AI</p>
-                      <p className="text-xs uppercase tracking-[0.5em] text-on-surface-variant">Azioni rapide</p>
+                      <p className="text-xs uppercase tracking-[0.5em] text-[var(--md-sys-color-on-surface)]-variant">Azioni rapide</p>
                     </div>
                     <button
                       className="assistant-fab-sheet-close"
@@ -171,7 +171,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                         <span className="material-symbols-outlined text-2xl">{action.icon}</span>
                         <div className="text-left">
                           <p className="font-semibold">{action.label}</p>
-                          <p className="text-xs text-on-surface-variant">{action.description}</p>
+                          <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">{action.description}</p>
                         </div>
                       </button>
                     ))}

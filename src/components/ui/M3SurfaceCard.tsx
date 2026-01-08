@@ -23,10 +23,10 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   expressive = false,
   color = 'surface'
 }) => {
-  const baseClasses = 'border rounded-2xl';
-  const variantClasses = variant === 'low' ? 'bg-surface-container-low/50' : 'bg-surface-container-high/50';
-  const interactiveClasses = interactive ? 'hover:bg-surface-container-low transition-colors' : '';
-  const glassClasses = glass ? 'aura-glass backdrop-blur-xl border-white/10' : 'border-outline-variant/10';
+  const baseClasses = 'border rounded-[var(--md-sys-shape-corner-large)]';
+  const variantClasses = variant === 'low' ? 'bg-[var(--md-sys-color-surface-container-low)]/50' : 'bg-[var(--md-sys-color-surface-container-high)]/50';
+  const interactiveClasses = interactive ? 'hover:bg-[var(--md-sys-color-surface-container-low)] transition-colors' : '';
+  const glassClasses = glass ? 'aura-glass backdrop-blur-xl border-white/10' : 'border-[var(--md-sys-color-outline-variant)]/10';
   const expressiveClasses = expressive ? 'relative overflow-hidden' : '';
 
   const colorTokens: Record<string, { bg: string; fg: string }> = {

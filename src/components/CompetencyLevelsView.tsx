@@ -41,10 +41,10 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
             </div>
             <div className="flex-grow">
                 <div className="flex justify-between items-baseline mb-4">
-                    <h3 className="m3-headline-small font-bold">{nome}</h3>
+                    <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold">{nome}</h3>
                     <span className="m3-label-medium bg-surface/50 px-4 py-0.5 rounded">Valore: {voto}</span>
                 </div>
-                <p className="m3-body-medium opacity-90">{descrizione}</p>
+                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] opacity-90">{descrizione}</p>
             </div>
         </div>
     );
@@ -65,9 +65,9 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
 
             {competenze.map(competenza => (
                 <div key={competenza.id} className="card">
-                    <div className="mb-8 border-b border-outline-variant pb-2">
-                        <h2 className="m3-headline-small text-primary">{competenza.nome}</h2>
-                        <span className="m3-label-small text-on-surface-variant bg-surface-container-high px-4 py-1 rounded">
+                    <div className="mb-8 border-b border-[var(--md-sys-color-outline-variant)] pb-2">
+                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-primary">{competenza.nome}</h2>
+                        <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant bg-[var(--md-sys-color-surface-container-high)] px-4 py-1 rounded">
                             {competenza.framework || 'Framework Standard'}
                         </span>
                     </div>

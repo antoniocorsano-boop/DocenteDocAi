@@ -110,9 +110,9 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             buttons={
                 <div className="flex flex-col md:flex-row justify-between w-full items-center gap-8">
                     <div className="flex items-center gap-6 mr-auto">
-                        <label className="flex items-center cursor-pointer gap-6 p-8 hover:bg-surface-container-high/50 rounded-2xl transition-colors group">
-                            <div className={`w-12 h-7 rounded-full relative transition-all duration-300 ${showAnswers ? 'bg-primary' : 'bg-surface-container-highest border border-outline-variant'}`}>
-                                <div className={`absolute top-1 w-5 h-5 rounded-full bg-surface shadow-lg transition-all duration-300 ${showAnswers ? 'left-6' : 'left-1'}`}></div>
+                        <label className="flex items-center cursor-pointer gap-6 p-8 hover:bg-[var(--md-sys-color-surface-container-high)]/50 rounded-[var(--md-sys-shape-corner-large)] transition-colors group">
+                            <div className={`w-12 h-7 rounded-full relative transition-all duration-300 ${showAnswers ? 'bg-primary' : 'bg-[var(--md-sys-color-surface-container-high)]est border border-[var(--md-sys-color-outline-variant)]'}`}>
+                                <div className={`absolute top-1 w-5 h-5 rounded-full bg-surface shadow-[var(--md-sys-elevation-level2)] transition-all duration-300 ${showAnswers ? 'left-6' : 'left-1'}`}></div>
                             </div>
                             <input
                                 type="checkbox"
@@ -144,14 +144,14 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             }
             fullscreen={true}
         >
-            <div className="bg-surface-container-low/30 backdrop-blur-xl p-8 md:p-12 overflow-y-auto h-full custom-scrollbar relative animate-in fade-in duration-500">
+            <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-8 md:p-12 overflow-y-auto h-full custom-scrollbar relative animate-in fade-in duration-500">
                 {/* Aura Ornaments */}
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                     <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full animate-pulse" />
                     <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
                 </div>
 
-                <div className="document-preview-paper max-w-4xl mx-auto bg-white shadow-2xl p-8 md:p-16 min-h-[100vh] relative z-10 border border-outline-variant/10 rounded-s">
+                <div className="document-preview-paper max-w-4xl mx-auto bg-white shadow-[var(--md-sys-elevation-level4)] p-8 md:p-16 min-h-[100vh] relative z-10 border border-[var(--md-sys-color-outline-variant)]/10 rounded-s">
                     {/* Watermark for preview */}
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03] select-none overflow-hidden">
                         <span className="text-[120px] font-black rotate-[-45deg] whitespace-nowrap">DOCENTEDOC AI</span>
@@ -168,11 +168,11 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                         </div>
                     </div>
 
-                    <div className="space-y-10 font-serif text-on-surface">
+                    <div className="space-y-10 font-serif text-[var(--md-sys-color-on-surface)]">
                         {quiz.questions.map((q, i) => (
                             <div key={i} className="break-inside-avoid relative group">
                                 <p className="font-bold text-xl mb-8 flex gap-6">
-                                    <span className="text-on-surface-variant opacity-40">{i + 1}.</span> 
+                                    <span className="text-[var(--md-sys-color-on-surface)]-variant opacity-40">{i + 1}.</span> 
                                     <span className="flex-1">{q.text}</span>
                                 </p>
                                 {q.type === 'multiple_choice' && (
@@ -201,7 +201,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 )}
 
                                 {showAnswers && (
-                                    <div className="mt-6 p-5 bg-secondary-container/50 backdrop-blur-sm text-on-secondary-container rounded-2xl text-base font-sans border-l-8 border-secondary flex gap-8 items-start animate-in zoom-in-95 duration-300 shadow-lg">
+                                    <div className="mt-6 p-5 bg-secondary-container/50 backdrop-blur-sm text-on-secondary-container rounded-[var(--md-sys-shape-corner-large)] text-base font-sans border-l-8 border-secondary flex gap-8 items-start animate-in zoom-in-95 duration-300 shadow-[var(--md-sys-elevation-level2)]">
                                         <span className="material-symbols-outlined text-2xl text-secondary">verified</span>
                                         <div>
                                             <strong className="block text-xs uppercase tracking-[0.2em] font-black opacity-60 mb-4">Soluzione Docente</strong>

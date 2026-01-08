@@ -61,7 +61,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                     />
                 </div>
 
-                <div className="p-5 bg-surface-container rounded-3xl border border-outline-variant">
+                <div className="p-5 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]">
                     <div className="flex justify-between items-center mb-8 px-1">
                         <label htmlFor="test-qcount-slider" className="m3-label-large font-black uppercase text-primary tracking-widest">Numero Quesiti</label>
                         <span className="text-xl font-black text-primary">{questionCount}</span>
@@ -72,7 +72,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                 <div className="space-y-3">
                     <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-4 block">Tipi di Domande</label>
                     <div className="flex flex-wrap gap-8">
-                        <label className={`cursor-pointer border rounded-full px-4 py-4 transition-all select-none flex items-center gap-8 ${questionTypes.includes('multiple_choice') ? 'bg-secondary-container border-secondary text-on-secondary-container' : 'border-outline hover:bg-surface-container-high'}`}>
+                        <label className={`cursor-pointer border rounded-full px-4 py-4 transition-all select-none flex items-center gap-8 ${questionTypes.includes('multiple_choice') ? 'bg-secondary-container border-secondary text-on-secondary-container' : 'border-[var(--md-sys-color-outline)] hover:bg-[var(--md-sys-color-surface-container-high)]'}`}>
                             <input
                                 type="checkbox"
                                 className="hidden"
@@ -83,7 +83,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                             <span className="text-sm font-medium">Scelta Multipla</span>
                         </label>
 
-                        <label className={`cursor-pointer border rounded-full px-4 py-4 transition-all select-none flex items-center gap-8 ${questionTypes.includes('true_false') ? 'bg-secondary-container border-secondary text-on-secondary-container' : 'border-outline hover:bg-surface-container-high'}`}>
+                        <label className={`cursor-pointer border rounded-full px-4 py-4 transition-all select-none flex items-center gap-8 ${questionTypes.includes('true_false') ? 'bg-secondary-container border-secondary text-on-secondary-container' : 'border-[var(--md-sys-color-outline)] hover:bg-[var(--md-sys-color-surface-container-high)]'}`}>
                             <input
                                 type="checkbox"
                                 className="hidden"

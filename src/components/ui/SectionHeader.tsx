@@ -12,12 +12,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     title, 
     subtitle,
     icon, 
-    colorClass = 'text-on-surface',
+    colorClass = 'text-[var(--md-sys-color-on-surface)]',
     className = ''
 }) => (
     <div className={`flex items-center gap-8 mb-6 mt-10 px-4 ${colorClass} ${className}`}>
         {icon && (
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+            <div className="w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] bg-primary/10 flex items-center justify-center text-primary">
                 <span className="material-symbols-outlined text-xl font-bold">{icon}</span>
             </div>
         )}

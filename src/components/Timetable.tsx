@@ -57,17 +57,17 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 {/* HEADER: M3 Command Island */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-8 px-4 md:px-0">
                     <div className="flex items-center gap-8 self-start md:self-auto">
-                        <div className="w-14 h-14 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg rotate-3 hover:rotate-0 transition-transform duration-300">
+                        <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-medium)] bg-primary-container text-on-primary-container flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] rotate-3 hover:rotate-0 transition-transform duration-300">
                             <span className="material-symbols-outlined text-3xl">calendar_view_week</span>
                         </div>
                         <div>
-                            <h1 className="m3-headline-medium font-black text-on-surface tracking-tight">Il Mio Orario</h1>
-                            <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60">Planning Settimanale</p>
+                            <h1 className="m3-headline-medium font-black text-[var(--md-sys-color-on-surface)] tracking-tight">Il Mio Orario</h1>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant font-black uppercase tracking-[0.2em] opacity-60">Planning Settimanale</p>
                         </div>
                     </div>
                     
                     {/* FLOATING COMMAND ISLAND */}
-                    <div className="flex items-center bg-surface-container-low/40 backdrop-blur-2xl rounded-2xl p-8 shadow-2xl border border-outline-variant/20 gap-8">
+                    <div className="flex items-center bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-2xl rounded-[var(--md-sys-shape-corner-large)] p-8 shadow-[var(--md-sys-elevation-level4)] border border-[var(--md-sys-color-outline-variant)]/20 gap-8">
                         <TabGroup 
                             tabs={[
                                 {id:'week', label:'Settimana', icon:'view_week'}, 
@@ -85,7 +85,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                     onClick={() => handleDayNav(-1)} 
                                     ariaLabel="Giorno precedente"
                                 />
-                                <span className="text-sm font-black min-w-[100px] text-center uppercase tracking-widest text-on-surface">
+                                <span className="text-sm font-black min-w-[100px] text-center uppercase tracking-widest text-[var(--md-sys-color-on-surface)]">
                                     {visibleDays[0]}
                                 </span>
                                 <M3IconButton 
@@ -116,9 +116,9 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 
                 {/* MATRIX CONTAINER */}
                 <div className="px-4 md:px-0 overflow-x-auto no-scrollbar">
-                    <div className={`bg-surface-container-low/30 backdrop-blur-xl rounded-5xl border border-outline-variant/20 p-6 shadow-2xl ${viewMode === 'day' ? 'max-w-2xl mx-auto' : ''}`}>
+                    <div className={`bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 p-6 shadow-[var(--md-sys-elevation-level4)] ${viewMode === 'day' ? 'max-w-2xl mx-auto' : ''}`}>
                         <div className={`timetable-matrix border-none ${viewMode === 'day' ? 'single-day-view' : ''} min-w-[320px]`}>
-                            <div className="matrix-header-time bg-surface-container-highest/50 backdrop-blur-md rounded-tl-2xl font-black text-[10px] text-on-surface-variant">ORA</div>
+                            <div className="matrix-header-time bg-[var(--md-sys-color-surface-container-high)]est/50 backdrop-blur-md rounded-tl-2xl font-black text-[10px] text-[var(--md-sys-color-on-surface)]-variant">ORA</div>
                             {visibleDays.map((day, idx) => (
                                 <div 
                                     key={day} 

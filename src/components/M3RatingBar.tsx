@@ -49,8 +49,8 @@ export default function M3RatingBar({
               border: 'none',
               background: 'transparent',
               cursor: disabled || readonly ? 'default' : 'pointer',
-              color: filled ? 'var(--sys-primary)' : 'var(--sys-outline-variant)',
-              fontSize: '1.5rem',
+              color: filled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
+              fontSize: 'var(--md-sys-typescale-headline-small)',
               lineHeight: 1,
               padding: 0,
             }}

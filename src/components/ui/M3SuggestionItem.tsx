@@ -16,7 +16,7 @@ const M3SuggestionItem: React.FC<M3SuggestionItemProps> = ({
   onClick
 }) => (
   <div
-    className={`bg-surface-variant/80 p-4 rounded-2xl border border-outline-variant hover:border-primary/30 group transition-colors ${onClick ? 'cursor-pointer' : ''} ${className}`}
+    className={`bg-surface-variant/80 p-4 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)] hover:border-primary/30 group transition-colors ${onClick ? 'cursor-pointer' : ''} ${className}`}
     onClick={onClick}
   >
     {children}

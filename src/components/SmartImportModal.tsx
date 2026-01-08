@@ -77,20 +77,20 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                     <div className="flex flex-col items-center justify-center h-full">
                         <div
                             {...getRootProps()}
-                            className={`dropzone-area w-full max-w-xl h-80 flex flex-col items-center justify-center border-2 border-dashed rounded-3xl transition-all cursor-pointer ${isDragActive ? 'border-primary bg-primary/5 scale-105' : 'border-outline-variant bg-surface-container-low hover:bg-surface-container-high hover:border-outline'}`}
+                            className={`dropzone-area w-full max-w-xl h-80 flex flex-col items-center justify-center border-2 border-dashed rounded-[var(--md-sys-shape-corner-extra-large)] transition-all cursor-pointer ${isDragActive ? 'border-primary bg-primary/5 scale-105' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-low)] hover:bg-[var(--md-sys-color-surface-container-high)] hover:border-[var(--md-sys-color-outline)]'}`}
                             data-active={isDragActive}
                         >
                             <input {...getInputProps()} />
-                            <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-md transition-colors ${isDragActive ? 'bg-primary text-on-primary' : 'bg-surface-container-highest text-primary'}`}>
+                            <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-[var(--md-sys-elevation-level1)] transition-colors ${isDragActive ? 'bg-primary text-on-primary' : 'bg-[var(--md-sys-color-surface-container-high)]est text-primary'}`}>
                                 <span className="material-symbols-outlined text-4xl">transform</span>
                             </div>
-                            <h3 className="m3-headline-small text-on-surface font-bold text-center">Carica la vecchia Programmazione</h3>
+                            <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-[var(--md-sys-color-on-surface)] font-bold text-center">Carica la vecchia Programmazione</h3>
                             <div className="mt-4 flex flex-wrap justify-center gap-8">
-                                <span className="px-3 py-1 rounded-full bg-surface-container-highest text-xs font-mono text-on-surface-variant border border-outline-variant">.PDF</span>
-                                <span className="px-3 py-1 rounded-full bg-surface-container-highest text-xs font-mono text-on-surface-variant border border-outline-variant">.DOCX</span>
-                                <span className="px-3 py-1 rounded-full bg-surface-container-highest text-xs font-mono text-on-surface-variant border border-outline-variant">.TXT</span>
+                                <span className="px-3 py-1 rounded-full bg-[var(--md-sys-color-surface-container-high)]est text-xs font-mono text-[var(--md-sys-color-on-surface)]-variant border border-[var(--md-sys-color-outline-variant)]">.PDF</span>
+                                <span className="px-3 py-1 rounded-full bg-[var(--md-sys-color-surface-container-high)]est text-xs font-mono text-[var(--md-sys-color-on-surface)]-variant border border-[var(--md-sys-color-outline-variant)]">.DOCX</span>
+                                <span className="px-3 py-1 rounded-full bg-[var(--md-sys-color-surface-container-high)]est text-xs font-mono text-[var(--md-sys-color-on-surface)]-variant border border-[var(--md-sys-color-outline-variant)]">.TXT</span>
                             </div>
-                            <p className="m3-body-medium text-on-surface-variant mt-6 text-center max-w-xs opacity-80">
+                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mt-6 text-center max-w-xs opacity-80">
                                 Trascina qui il file o clicca per selezionare.
                             </p>
                         </div>
@@ -106,24 +106,24 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             </div>
                         </div>
                         <div className="text-center space-y-2">
-                            <p className="m3-headline-small animate-pulse text-primary font-bold">{processingStatus}</p>
-                            <p className="text-on-surface-variant text-sm">L'Intelligenza Artificiale sta riorganizzando il contenuto...</p>
+                            <p className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] animate-pulse text-primary font-bold">{processingStatus}</p>
+                            <p className="text-[var(--md-sys-color-on-surface)]-variant text-sm">L'Intelligenza Artificiale sta riorganizzando il contenuto...</p>
                         </div>
                     </div>
                 )}
 
                 {step === 'result' && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full min-h-0">
-                        <div className="flex flex-col h-full min-h-0 bg-surface-container-low rounded-2xl border border-outline-variant overflow-hidden">
-                            <div className="p-8 border-b border-outline-variant bg-surface-container-low/50 backdrop-blur-sm sticky top-0 z-10 flex items-center gap-8">
-                                <span className="material-symbols-outlined text-on-surface-variant">description</span>
-                                <h3 className="m3-title-medium text-on-surface-variant font-bold">Testo Originale (Estratto)</h3>
+                        <div className="flex flex-col h-full min-h-0 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)] overflow-hidden">
+                            <div className="p-8 border-b border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-sm sticky top-0 z-10 flex items-center gap-8">
+                                <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">description</span>
+                                <h3 className="m3-title-medium text-[var(--md-sys-color-on-surface)]-variant font-bold">Testo Originale (Estratto)</h3>
                             </div>
-                            <div className="flex-grow p-6 overflow-y-auto font-mono text-xs text-on-surface-variant whitespace-pre-wrap leading-relaxed">
+                            <div className="flex-grow p-6 overflow-y-auto font-mono text-xs text-[var(--md-sys-color-on-surface)]-variant whitespace-pre-wrap leading-relaxed">
                                 {originalText}
                             </div>
                         </div>
-                        <div className="flex flex-col h-full min-h-0 bg-surface rounded-2xl border-2 border-primary/10 shadow-lg overflow-hidden relative">
+                        <div className="flex flex-col h-full min-h-0 bg-surface rounded-[var(--md-sys-shape-corner-large)] border-2 border-primary/10 shadow-[var(--md-sys-elevation-level2)] overflow-hidden relative">
                             {/* Paper texture overlay */}
                             <div className="absolute inset-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23000000\' fill-opacity=\'1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")' }}></div>
 
@@ -131,7 +131,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 <span className="material-symbols-outlined">auto_awesome</span>
                                 <h3 className="m3-title-medium font-black">Risultato Ristrutturato</h3>
                             </div>
-                            <div className="flex-grow p-8 overflow-y-auto prose max-w-none prose-headings:font-serif prose-headings:text-primary prose-p:text-on-surface prose-li:text-on-surface">
+                            <div className="flex-grow p-8 overflow-y-auto prose max-w-none prose-headings:font-serif prose-headings:text-primary prose-p:text-[var(--md-sys-color-on-surface)] prose-li:text-[var(--md-sys-color-on-surface)]">
                                 <div dangerouslySetInnerHTML={{ __html: refactoredHtml }} />
                             </div>
                         </div>

@@ -17,13 +17,13 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
             <div className="relative z-10 space-y-12 p-6 md:p-12 pb-32 max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000">
                 
                 {/* Slide 1: Intro */}
-                <div className="text-center bg-surface-container-low/30 backdrop-blur-2xl rounded-6xl p-12 border border-outline-variant/20 shadow-2xl space-y-8">
+                <div className="text-center bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-2xl rounded-6xl p-12 border border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)] space-y-8">
                     <div className="inline-block transform scale-150 mb-8">
                         <Logo title="DocenteDoc AI" />
                     </div>
                     <div className="space-y-4">
-                        <h1 className="text-5xl font-black tracking-tight text-on-surface leading-tight">Il Tuo Copilota Didattico</h1>
-                        <p className="text-xl font-medium text-on-surface-variant opacity-80 max-w-3xl mx-auto leading-relaxed">
+                        <h1 className="text-5xl font-black tracking-tight text-[var(--md-sys-color-on-surface)] leading-tight">Il Tuo Copilota Didattico</h1>
+                        <p className="text-xl font-medium text-[var(--md-sys-color-on-surface)]-variant opacity-80 max-w-3xl mx-auto leading-relaxed">
                             Tecnologia, Privacy e Innovazione al servizio dell'insegnamento.
                             Riduci il carico burocratico, aumenta l'efficacia didattica e riscopri la passione per l'insegnamento.
                         </p>
@@ -113,10 +113,10 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 </div>
 
                 {/* Slide 6: Call to Action */}
-                <div className="text-center bg-surface-container-low/30 backdrop-blur-2xl rounded-6xl p-16 border border-outline-variant/20 shadow-2xl space-y-8">
+                <div className="text-center bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-2xl rounded-6xl p-16 border border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)] space-y-8">
                     <div className="space-y-4">
-                        <h2 className="text-4xl font-black tracking-tight text-on-surface">Insegna Meglio, Vivi Meglio.</h2>
-                        <p className="text-lg font-medium text-on-surface-variant opacity-80 max-w-2xl mx-auto leading-relaxed">
+                        <h2 className="text-4xl font-black tracking-tight text-[var(--md-sys-color-on-surface)]">Insegna Meglio, Vivi Meglio.</h2>
+                        <p className="text-lg font-medium text-[var(--md-sys-color-on-surface)]-variant opacity-80 max-w-2xl mx-auto leading-relaxed">
                             DocenteDoc AI è stato creato per semplificare la tua vita professionale, garantendo sicurezza e innovazione.
                             Esplora subito il tuo copilota didattico e trasforma il tuo modo di insegnare.
                         </p>
@@ -124,7 +124,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                     <M3Button 
                         onClick={() => onNavigate('home')} 
                         variant="filled"
-                        className="!h-20 !px-12 !rounded-2xl shadow-2xl hover:shadow-primary/20 transition-all group"
+                        className="!h-20 !px-12 !rounded-[var(--md-sys-shape-corner-large)] shadow-[var(--md-sys-elevation-level4)] hover:shadow-primary/20 transition-all group"
                     >
                         <div className="flex items-center gap-8">
                             <span className="text-xl font-black uppercase tracking-widest">Inizia Subito!</span>

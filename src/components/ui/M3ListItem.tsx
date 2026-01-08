@@ -34,15 +34,15 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
             }}
             role={isClickable ? 'button' : undefined}
             tabIndex={isClickable ? 0 : undefined}
-            className={`flex items-start gap-4 p-4 rounded-xl transition-all min-h-[56px] ${isClickable ? 'cursor-pointer hover:bg-surface-container-highest focus-visible:bg-surface-container-highest active:bg-surface-container-highest' : ''} ${className}`}
+            className={`flex items-start gap-4 p-4 rounded-[var(--md-sys-shape-corner-medium)] transition-all min-h-[56px] ${isClickable ? 'cursor-pointer hover:bg-[var(--md-sys-color-surface-container-high)]est focus-visible:bg-[var(--md-sys-color-surface-container-high)]est active:bg-[var(--md-sys-color-surface-container-high)]est' : ''} ${className}`}
         >
             {leadingElement && <div className="flex-shrink-0 mt-0.5">{leadingElement}</div>}
             <div className="flex-grow min-w-0 flex flex-col gap-0.5">
-                <div className={`text-on-surface font-bold truncate ${headlineSize === 'small' ? 'm3-body-medium' : headlineSize === 'large' ? 'm3-title-medium' : 'm3-body-large'}`}>
+                <div className={`text-[var(--md-sys-color-on-surface)] font-bold truncate ${headlineSize === 'small' ? 'text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]' : headlineSize === 'large' ? 'm3-title-medium' : 'text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]'}`}>
                     {headline}
                 </div>
                 {supportingText && (
-                    <div className="m3-body-small text-on-surface-variant opacity-80">
+                    <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant opacity-80">
                         {supportingText}
                     </div>
                 )}

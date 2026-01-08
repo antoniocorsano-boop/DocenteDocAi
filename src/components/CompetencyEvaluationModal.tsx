@@ -65,13 +65,13 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
         >
             <form onSubmit={handleSubmit} className="space-y-12">
                 <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
-                    <p className="m3-body-medium text-on-surface-variant mb-8">{student.cognome} {student.nome} - {competenza.nome}</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-8">{student.cognome} {student.nome} - {competenza.nome}</p>
 
                     <div>
                         <label className="form-label">Livello Raggiunto</label>
                         <div className="space-y-8">
                             {competenza.livelli.map(level => (
-                                <div key={level.id} className={`p-12 rounded-2xl border-2 ${selectedLevelId === level.id ? 'border-primary bg-primary-container' : 'border-outline-variant bg-surface-container'}`}>
+                                <div key={level.id} className={`p-12 rounded-[var(--md-sys-shape-corner-large)] border-2 ${selectedLevelId === level.id ? 'border-primary bg-primary-container' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container)]'}`}>
                                     <label className="flex items-start cursor-pointer">
                                         <input 
                                             type="radio" 
@@ -85,9 +85,9 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                         <div className="flex-grow">
                                             <div className="flex justify-between items-baseline">
                                                 <span className="m3-title-medium">{level.nome}</span>
-                                                <span className="m3-label-large text-on-surface-variant">Voto: {level.voto}</span>
+                                                <span className="m3-label-large text-[var(--md-sys-color-on-surface)]-variant">Voto: {level.voto}</span>
                                             </div>
-                                            <p className={`m3-body-medium mt-8 ${selectedLevelId === level.id ? 'text-on-primary-container' : 'text-on-surface-variant'}`}>{level.descrizione}</p>
+                                            <p className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mt-8 ${selectedLevelId === level.id ? 'text-on-primary-container' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>{level.descrizione}</p>
                                         </div>
                                     </label>
                                 </div>
@@ -108,7 +108,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                             <label htmlFor="note" className="form-label !mb-0">Note (Opzionale)</label>
                             <div className="flex items-center gap-12">
                                 {!selectedLevelId && !isGeneratingNote && (
-                                    <span className="m3-label-small text-on-surface-variant">(Seleziona un livello)</span>
+                                    <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant">(Seleziona un livello)</span>
                                 )}
                                 <M3Button
                                     type="button"
@@ -119,9 +119,9 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                     title="Genera nota con AI"
                                 >
                                     {isGeneratingNote ? (
-                                        <span className="material-symbols-outlined m3-body-medium animate-spin">sync</span>
+                                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] animate-spin">sync</span>
                                     ) : (
-                                        <span className="material-symbols-outlined m3-body-medium">auto_awesome</span>
+                                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">auto_awesome</span>
                                     )}
                                     <span className="m3-label-medium">{isGeneratingNote ? 'Generando...' : 'Suggerisci nota'}</span>
                                 </M3Button>

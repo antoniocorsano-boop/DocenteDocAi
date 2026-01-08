@@ -68,18 +68,18 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl relative overflow-hidden">
+            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl relative overflow-hidden">
                 {/* Aura Ornaments */}
                 <div className="absolute top-[-20%] right-[-20%] w-[60%] h-[60%] bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
                 <div className="absolute bottom-[-20%] left-[-20%] w-[60%] h-[60%] bg-secondary/5 blur-[100px] rounded-full pointer-events-none" />
 
                 <div className="flex flex-col gap-6 py-4 relative z-10">
-                    <div className="bg-surface-container-lowest/40 backdrop-blur-md p-6 rounded-2xl border border-outline-variant/20 flex items-center gap-5 shadow-lg animate-in slide-in-from-top-4 duration-500">
-                        <div className="w-16 h-16 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shadow-md rotate-3">
+                    <div className="bg-[var(--md-sys-color-surface-container-low)]est/40 backdrop-blur-md p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 flex items-center gap-5 shadow-[var(--md-sys-elevation-level2)] animate-in slide-in-from-top-4 duration-500">
+                        <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-medium)] bg-primary-container text-on-primary-container flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] rotate-3">
                             <span className="material-symbols-outlined text-3xl">{getTestTypeIcon(prova.tipo)}</span>
                         </div>
                         <div className="flex-grow">
-                            <p className="m3-label-large text-on-surface-variant font-black uppercase tracking-widest mb-8 opacity-60">
+                            <p className="m3-label-large text-[var(--md-sys-color-on-surface)]-variant font-black uppercase tracking-widest mb-8 opacity-60">
                                 {student.cognome} {student.nome} • {prova.materia}
                             </p>
                             <SelectField
@@ -108,7 +108,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                 {relevantCompetencies.map((competenza, idx) => (
                                     <div 
                                         key={competenza.id} 
-                                        className="p-6 border rounded-2xl border-outline-variant/20 bg-surface-container-lowest/30 hover:bg-surface-container-high/40 transition-all duration-300 group animate-in slide-in-from-bottom-4"
+                                        className="p-6 border rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/20 bg-[var(--md-sys-color-surface-container-low)]est/30 hover:bg-[var(--md-sys-color-surface-container-high)]/40 transition-all duration-300 group animate-in slide-in-from-bottom-4"
                                         style={{ animationDelay: `${idx * 100}ms` }}
                                     >
                                         <h4 className="m3-label-large uppercase tracking-[0.15em] text-primary mb-8 font-black flex justify-between items-center">
@@ -133,7 +133,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                 return (
                                                     <label
                                                         key={level.id}
-                                                        className={`flex items-start cursor-pointer p-8 rounded-2xl transition-all border-2 ${isSelected ? 'bg-primary-container/80 text-on-primary-container border-primary/30 shadow-md scale-[1.02]' : 'bg-surface-container-lowest/50 border-transparent hover:border-outline-variant/30 hover:bg-surface-container-high/50'}`}
+                                                        className={`flex items-start cursor-pointer p-8 rounded-[var(--md-sys-shape-corner-large)] transition-all border-2 ${isSelected ? 'bg-primary-container/80 text-on-primary-container border-primary/30 shadow-[var(--md-sys-elevation-level1)] scale-[1.02]' : 'bg-[var(--md-sys-color-surface-container-low)]est/50 border-transparent hover:border-[var(--md-sys-color-outline-variant)]/30 hover:bg-[var(--md-sys-color-surface-container-high)]/50'}`}
                                                     >
                                                         <input
                                                             type="radio"
@@ -143,12 +143,12 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                             onChange={() => handleLevelChange(competenza.id, level.id)}
                                                             className="sr-only"
                                                         />
-                                                        <div className={`w-5 h-5 rounded-full border-2 mt-4 mr-4 flex items-center justify-center flex-shrink-0 transition-all ${isSelected ? 'border-primary bg-primary' : 'border-outline-variant group-hover:border-primary/50'}`}>
+                                                        <div className={`w-5 h-5 rounded-full border-2 mt-4 mr-4 flex items-center justify-center flex-shrink-0 transition-all ${isSelected ? 'border-primary bg-primary' : 'border-[var(--md-sys-color-outline-variant)] group-hover:border-primary/50'}`}>
                                                             {isSelected && <div className="w-2 h-2 bg-on-primary rounded-full" />}
                                                         </div>
                                                         <div>
-                                                            <span className={`m3-body-medium font-black block ${isSelected ? 'text-on-primary-container' : 'text-on-surface'}`}>{level.nome}</span>
-                                                            <p className={`m3-body-small text-xs mt-4 leading-relaxed ${isSelected ? 'text-on-primary-container opacity-80' : 'text-on-surface-variant opacity-70'}`}>{level.descrizione}</p>
+                                                            <span className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-black block ${isSelected ? 'text-on-primary-container' : 'text-[var(--md-sys-color-on-surface)]'}`}>{level.nome}</span>
+                                                            <p className={`m3-body-small text-xs mt-4 leading-relaxed ${isSelected ? 'text-on-primary-container opacity-80' : 'text-[var(--md-sys-color-on-surface)]-variant opacity-70'}`}>{level.descrizione}</p>
                                                         </div>
                                                     </label>
                                                 );
@@ -166,7 +166,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions className="bg-surface-container-low/50 backdrop-blur-xl border-t border-outline-variant/10">
+            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-xl border-t border-[var(--md-sys-color-outline-variant)]/10">
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button onClick={handleSubmit} variant="primary" icon="save">Salva Valutazione</M3Button>
             </M3DialogActions>

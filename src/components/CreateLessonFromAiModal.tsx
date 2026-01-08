@@ -220,7 +220,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                 onChange={e => setObiettivi(e.target.value)}
                                 rows={5}
                                 placeholder="Elenco obiettivi didattici per la lezione..."
-                                containerClassName="shadow-inner !bg-surface-container-lowest"
+                                containerClassName="shadow-inner !bg-[var(--md-sys-color-surface-container-low)]est"
                             />
                             {matchingCurriculum && !obiettivi && (
                                 <p className="text-xs text-primary mt-4 flex items-center gap-8 font-bold px-8 cursor-pointer" onClick={() => setIsObjectivePickerOpen(true)}>
@@ -232,14 +232,14 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                         
                         {slots && availableSlots.length > 0 && (
                             <div className="bg-secondary-container/10 p-12 rounded-4xl border border-secondary/20 space-y-6">
-                                <label className="m3-label-small text-on-surface-variant font-black uppercase tracking-[0.2em] px-8">Pianificazione Rapida (Opzionale)</label>
+                                <label className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant font-black uppercase tracking-[0.2em] px-8">Pianificazione Rapida (Opzionale)</label>
                                 <div className="flex flex-wrap gap-12">
                                     {availableSlots.map(([key, slot]) => (
                                         <button
                                             key={key}
                                             type="button"
                                             onClick={() => setSelectedSlotKey(prev => prev === key ? '' : key)}
-                                            className={`chip !h-12 !px-8 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-surface-container-high'}`}
+                                            className={`chip !h-12 !px-8 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-[var(--md-sys-color-surface-container-high)]'}`}
                                         >
                                             {selectedSlotKey === key && <span className="material-symbols-outlined text-base">check</span>}
                                             <span className="font-extrabold text-xs">{slot.giorno} {slot.ora}</span>
@@ -257,7 +257,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
                                     variant="text"
-                                    className="!h-auto !py-2 !px-8 flex items-center gap-8 font-black uppercase text-xs rounded-lg hover:shadow-md transition-all"
+                                    className="!h-auto !py-2 !px-8 flex items-center gap-8 font-black uppercase text-xs rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all"
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
@@ -274,14 +274,14 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                 onChange={(e) => setAdattamenti(e.target.value)} 
                                 rows={4}
                                 placeholder="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
-                                containerClassName="shadow-inner !bg-surface-container-lowest"
+                                containerClassName="shadow-inner !bg-[var(--md-sys-color-surface-container-low)]est"
                             ></TextArea>
                         </div>
                     </M3DialogContent>
 
                     <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
                         <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
-                        <M3Button type="submit" variant="filled" className="shadow-xl !px-16">
+                        <M3Button type="submit" variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-16">
                             <span className="material-symbols-outlined mr-2 font-black">{selectedSlotKey ? 'event_available' : 'archive'}</span>
                             {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
                         </M3Button>
@@ -300,10 +300,10 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                     <M3DialogContent className="space-y-8">
                         <p className="m3-label-tiny text-primary font-extrabold uppercase tracking-[0.3em]">{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
                         {matchingCurriculum.nuclei.map(nucleo => (
-                            <details key={nucleo.id} className="m3-expansion-panel shadow-md !rounded-4xl" open>
-                                <summary className="m3-expansion-summary !bg-surface-container-high">
-                                    <span className="m3-title-medium font-black text-on-surface">{nucleo.title}</span>
-                                    <span className="material-symbols-outlined text-sm text-on-surface-variant">expand_more</span>
+                            <details key={nucleo.id} className="m3-expansion-panel shadow-[var(--md-sys-elevation-level1)] !rounded-4xl" open>
+                                <summary className="m3-expansion-summary !bg-[var(--md-sys-color-surface-container-high)]">
+                                    <span className="m3-title-medium font-black text-[var(--md-sys-color-on-surface)]">{nucleo.title}</span>
+                                    <span className="material-symbols-outlined text-sm text-[var(--md-sys-color-on-surface)]-variant">expand_more</span>
                                 </summary>
                                 <div className="p-8 space-y-3 bg-surface">
                                     {nucleo.objectives.map(obj => (
@@ -311,10 +311,10 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                             key={obj.id}
                                             type="button"
                                             onClick={() => handleAddObjective(obj.text)}
-                                            className="w-full text-left p-6 rounded-xl hover:bg-surface-container-low transition-colors flex items-start gap-6 group"
+                                            className="w-full text-left p-6 rounded-[var(--md-sys-shape-corner-medium)] hover:bg-[var(--md-sys-color-surface-container-low)] transition-colors flex items-start gap-6 group"
                                         >
                                             <span className="material-symbols-outlined text-primary text-base mt-0.5 group-hover:scale-110 transition-transform">add_circle</span>
-                                            <span className="text-sm font-medium text-on-surface">{obj.text}</span>
+                                            <span className="text-sm font-medium text-[var(--md-sys-color-on-surface)]">{obj.text}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -323,7 +323,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                     </M3DialogContent>
 
                     <M3DialogActions>
-                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled" className="w-full font-black shadow-lg">CONFERMA SELEZIONE</M3Button>
+                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled" className="w-full font-black shadow-[var(--md-sys-elevation-level2)]">CONFERMA SELEZIONE</M3Button>
                     </M3DialogActions>
                 </M3Dialog>
             )}

@@ -13,7 +13,7 @@ const ProfileSelectionScreen: React.FC<ProfileSelectionScreenProps> = ({ profile
     <div className="profile-selection-screen">
       <div className="profile-selection-card">
         <h1 className="m3-headline-medium">Scegli il tuo profilo</h1>
-        <p className="m3-body-medium text-on-surface-variant">Seleziona un profilo per continuare.</p>
+        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Seleziona un profilo per continuare.</p>
         <div className="profile-list">
           {profiles.map(profile => (
             <button key={profile.id} className="profile-item" onClick={() => onSelectProfile(profile)}>

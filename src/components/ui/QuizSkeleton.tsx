@@ -13,14 +13,14 @@ const QuizSkeleton: React.FC<QuizSkeletonProps> = ({
         {Array.from({ length: questions }).map((_, i) => (
             <div key={i} className="space-y-2">
                 {/* Question skeleton */}
-                <div className="h-5 bg-surface-container-high rounded animate-pulse" style={{ width: '85%' }} />
+                <div className="h-5 bg-[var(--md-sys-color-surface-container-high)] rounded animate-pulse" style={{ width: '85%' }} />
                 
                 {/* Answer options skeleton */}
                 <div className="space-y-1 ml-4">
                     {Array.from({ length: 4 }).map((_, j) => (
                         <div
                             key={j}
-                            className="h-4 bg-surface-container-high rounded animate-pulse"
+                            className="h-4 bg-[var(--md-sys-color-surface-container-high)] rounded animate-pulse"
                             style={{
                                 width: '70%',
                                 animationDelay: `${(i * 4 + j) * 0.05}s`

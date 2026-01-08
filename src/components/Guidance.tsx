@@ -45,7 +45,7 @@ const Guidance: React.FC<GuidanceProps> = ({ id, icon, title, children, isGlobal
       </div>
       <div className="guidance-content">
         <h3 className="m3-title-medium">{title}</h3>
-        <div className="m3-body-medium">{children}</div>
+        <div className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">{children}</div>
       </div>
       <button onClick={dismiss} className="icon-button" aria-label="Chiudi suggerimento">
         <span className="material-symbols-outlined">close</span>

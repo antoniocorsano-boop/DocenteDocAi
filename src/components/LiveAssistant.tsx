@@ -52,7 +52,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
   if (isSystem) {
     return (
       <div className="flex justify-center my-2 animate-in fade-in">
-        <div className="bg-surface-container-highest px-3 py-1.5 rounded-full text-xs font-medium text-on-surface-variant flex items-center gap-8 border border-outline-variant shadow-sm">
+        <div className="bg-[var(--md-sys-color-surface-container-high)]est px-3 py-1.5 rounded-full text-xs font-medium text-[var(--md-sys-color-on-surface)]-variant flex items-center gap-8 border border-[var(--md-sys-color-outline-variant)] shadow-sm">
           <span className="material-symbols-outlined text-sm">check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
@@ -62,9 +62,9 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
 
   return (
     <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} mb-6`}>
-      <div className={`max-w-[85%] p-8 rounded-2xl text-sm leading-relaxed shadow-sm ${isUser
+      <div className={`max-w-[85%] p-8 rounded-[var(--md-sys-shape-corner-large)] text-sm leading-relaxed shadow-sm ${isUser
         ? 'bg-primary text-on-primary rounded-tr-sm'
-        : 'bg-surface-container-high text-on-surface rounded-tl-sm border border-outline-variant'
+        : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-tl-sm border border-[var(--md-sys-color-outline-variant)]'
         }`}>
         <p className="whitespace-pre-wrap">{entry.text}</p>
         {entry.sources && (
@@ -253,7 +253,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-surface-container-low overflow-hidden">
+    <div className="flex flex-col h-full bg-[var(--md-sys-color-surface-container-low)] overflow-hidden">
       <div className="flex-grow overflow-y-auto p-8 space-y-4">
         {transcripts.map((t, i) => <ChatBubble key={i} entry={t} />)}
         {transcripts.length === 0 && (
@@ -263,11 +263,11 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
           </div>
         )}
       </div>
-      <div className="p-6 bg-surface border-t border-outline-variant flex flex-col items-center gap-8">
+      <div className="p-6 bg-surface border-t border-[var(--md-sys-color-outline-variant)] flex flex-col items-center gap-8">
         <p className="text-sm font-bold text-primary animate-pulse">{status}</p>
         <button
           onClick={isConnected ? stopSession : startSession}
-          className={`w-20 h-20 rounded-full flex items-center justify-center shadow-lg transition-all ${isConnected ? 'bg-error text-on-error animate-pulse' : 'bg-primary text-on-primary hover:scale-105'
+          className={`w-20 h-20 rounded-full flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] transition-all ${isConnected ? 'bg-error text-on-error animate-pulse' : 'bg-primary text-on-primary hover:scale-105'
             }`}
           style={{ borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)' }}
         >

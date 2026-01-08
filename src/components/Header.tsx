@@ -67,23 +67,23 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
     }> = ({ icon, label, onClick, badge, variant = 'primary' }) => (
         <button 
             onClick={onClick}
-            className="w-full flex items-center gap-8 p-6 rounded-xl hover:bg-surface-container-highest transition-all group text-left"
+            className="w-full flex items-center gap-8 p-6 rounded-[var(--md-sys-shape-corner-medium)] hover:bg-[var(--md-sys-color-surface-container-high)]est transition-all group text-left"
             aria-label={label}
             >
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+            <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-small)] flex items-center justify-center shrink-0 transition-colors ${
                 variant === 'error' ? 'bg-error-subtle text-error' : 
                 variant === 'secondary' ? 'bg-secondary-subtle text-secondary' : 
                 'bg-primary-subtle text-primary'
             }`}>
                 <span className="material-symbols-outlined">{icon}</span>
             </div>
-            <span className="flex-grow font-medium text-on-surface">{label}</span>
+            <span className="flex-grow font-medium text-[var(--md-sys-color-on-surface)]">{label}</span>
             {badge !== undefined && (
                 <span className="bg-error text-on-error m3-label-tiny font-bold px-4 py-0.5 rounded-full">
                     {badge}
                 </span>
             )}
-            <span className="material-symbols-outlined text-on-surface-variant/30 group-hover:translate-x-1 transition-transform text-sm">chevron_right</span>
+            <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant/30 group-hover:translate-x-1 transition-transform text-sm">chevron_right</span>
         </button>
     );
 
@@ -109,7 +109,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 }
             }}
         >
-            <div className="flex justify-between items-center p-8 mb-8 border-b border-outline-variant/10">
+            <div className="flex justify-between items-center p-8 mb-8 border-b border-[var(--md-sys-color-outline-variant)]/10">
                 <div className="flex items-center gap-6">
                     <Avatar
                         name={props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante 
@@ -125,12 +125,12 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                                 ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}` 
                                 : props.settings?.nomeInsegnante || user?.displayName || 'Menu'}
                         </p>
-                        <p className="m3-label-small text-on-surface-variant font-medium uppercase tracking-wider">
+                        <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant font-medium uppercase tracking-wider">
                             {props.settings?.nomeIstituto || 'Docente'}
                         </p>
                     </div>
                 </div>
-                <button onClick={onClose} className="w-8 h-8 rounded-full hover:bg-surface-container-highest flex items-center justify-center transition-colors" aria-label="Chiudi menu">
+                <button onClick={onClose} className="w-8 h-8 rounded-full hover:bg-[var(--md-sys-color-surface-container-high)]est flex items-center justify-center transition-colors" aria-label="Chiudi menu">
                     <span className="material-symbols-outlined text-lg">close</span>
                 </button>
             </div>
@@ -222,7 +222,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     {showBackButton && (
                         <button
                             aria-label="Indietro"
-                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors"
+                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container-high)]est transition-colors"
                             onClick={props.onBack}
                             tabIndex={0}
                         >
@@ -258,14 +258,14 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         </div>
                     )}
                     <button
-                        className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors"
+                        className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container-high)]est transition-colors"
                         aria-label="Impostazioni"
                         onClick={() => onNavigate('settings')}
                     >
                         <span className="material-symbols-outlined">settings</span>
                     </button>
                     <button
-                        className="w-10 h-10 rounded-full relative flex items-center justify-center hover:bg-surface-container-highest transition-colors"
+                        className="w-10 h-10 rounded-full relative flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container-high)]est transition-colors"
                         onClick={() => setIsActionsOpen(p => !p)}
                         aria-label="Menu"
                         tabIndex={0}
@@ -323,10 +323,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
             >
                 <M3DialogContent>
                     <div className="flex flex-col items-center gap-6 py-4">
-                        <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary mb-8">
+                        <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-large)] bg-secondary/10 flex items-center justify-center text-secondary mb-8">
                             <span className="material-symbols-outlined text-3xl">share</span>
                         </div>
-                        <p className="text-center text-on-surface-variant max-w-xs">
+                        <p className="text-center text-[var(--md-sys-color-on-surface)]-variant max-w-xs">
                             Scansiona o copia il link per accedere alla tua app didattica da altri dispositivi.
                         </p>
                         <InfoCard variant="tonal" className="w-full p-8 flex items-center justify-between gap-6 group">

@@ -38,9 +38,9 @@ const TimerWidget: React.FC = () => {
     };
 
     return (
-        <div className="bg-surface-container border border-outline-variant rounded-2xl p-8 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-md">
+        <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-large)] p-8 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-[var(--md-sys-elevation-level1)]">
             {/* Background Decor */}
-            <div className="absolute -top-4 -right-4 m3-icon-xl-hero text-on-surface opacity-[0.03] pointer-events-none rotate-12">
+            <div className="absolute -top-4 -right-4 m3-icon-xl-hero text-[var(--md-sys-color-on-surface)] opacity-[0.03] pointer-events-none rotate-12">
                  timer
             </div>
             
@@ -49,7 +49,7 @@ const TimerWidget: React.FC = () => {
                 <span className="m3-label-small font-bold uppercase tracking-wider">Cronometro</span>
             </div>
             
-            <div className="text-6xl font-mono font-bold tracking-widest text-on-surface z-10 text-center my-2 tabular-nums">
+            <div className="text-6xl font-mono font-bold tracking-widest text-[var(--md-sys-color-on-surface)] z-10 text-center my-2 tabular-nums">
                 {formatTime(time)}
             </div>
             
@@ -95,9 +95,9 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
     };
     
     return (
-        <div className="bg-surface-container-high border border-outline-variant rounded-2xl p-8 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-md">
+        <div className="bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-large)] p-8 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-[var(--md-sys-elevation-level1)]">
              {/* Background Decor */}
-            <div className="absolute -top-4 -right-4 m3-icon-xl-hero text-on-surface opacity-[0.03] pointer-events-none rotate-12">
+            <div className="absolute -top-4 -right-4 m3-icon-xl-hero text-[var(--md-sys-color-on-surface)] opacity-[0.03] pointer-events-none rotate-12">
                  casino
             </div>
 
@@ -109,11 +109,11 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
             <div className="z-10 text-center w-full flex-grow flex items-center justify-center">
                 {selectedStudent ? (
                     <div className={`transition-all duration-200 ${isSelecting ? 'opacity-70 scale-95 blur-[1px]' : 'opacity-100 scale-100'}`}>
-                         <span className="m3-headline-small font-bold block leading-tight text-on-surface">{selectedStudent.cognome}</span>
-                         <span className="m3-label-large opacity-80 block text-on-surface-variant">{selectedStudent.nome}</span>
+                         <span className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold block leading-tight text-[var(--md-sys-color-on-surface)]">{selectedStudent.cognome}</span>
+                         <span className="m3-label-large opacity-80 block text-[var(--md-sys-color-on-surface)]-variant">{selectedStudent.nome}</span>
                     </div>
                 ) : (
-                     <div className="text-on-surface-variant/40 flex flex-col items-center">
+                     <div className="text-[var(--md-sys-color-on-surface)]-variant/40 flex flex-col items-center">
                         <span className="material-symbols-outlined m3-display-small mb-4">groups</span>
                         <span className="m3-body-small font-medium">Pronto ad estrarre</span>
                      </div>

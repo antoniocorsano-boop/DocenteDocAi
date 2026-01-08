@@ -34,33 +34,33 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
         maxWidth="lg"
         level={1}
       >
-        <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-6">
+        <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm space-y-6">
           <div className="flex flex-col gap-4">
-            <h2 className="m3-headline-small font-black text-primary">
+            <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-primary">
                 {new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
             </h2>
-            <p className="m3-label-medium text-on-surface-variant opacity-70 uppercase tracking-widest">Registro di Classe</p>
+            <p className="m3-label-medium text-[var(--md-sys-color-on-surface)]-variant opacity-70 uppercase tracking-widest">Registro di Classe</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <InfoCard title="Informazioni Lezione" icon="info">
                 <div className="space-y-2">
-                    <p className="m3-body-medium"><strong>Classe:</strong> {entry.classe}</p>
-                    <p className="m3-body-medium"><strong>Materia:</strong> {entry.materia}</p>
-                    <p className="m3-body-medium"><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Classe:</strong> {entry.classe}</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Materia:</strong> {entry.materia}</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
                 </div>
             </InfoCard>
 
             <InfoCard title="Appello" icon="group" variant="secondary">
                 <div className="space-y-2">
-                    <p className="m3-body-medium"><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</p>
-                    <p className="m3-body-medium"><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
                 </div>
             </InfoCard>
           </div>
 
           <InfoCard title="Note e Osservazioni" icon="notes" variant="tertiary">
-            <p className="m3-body-medium whitespace-pre-wrap leading-relaxed">
+            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] whitespace-pre-wrap leading-relaxed">
                 {entry.notes || 'Nessuna nota registrata per questa lezione.'}
             </p>
           </InfoCard>
@@ -104,7 +104,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
                     <td>{entry.materia}</td>
                     <td>{lesson?.contenuto || 'Lezione improvvisata'}</td>
                     <td className="text-right">
-                      <span className="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+                      <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">chevron_right</span>
                     </td>
                   </tr>
                 );
@@ -112,7 +112,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
             </tbody>
           </table>
         </div>
-        {filteredEntries.length === 0 && <p className="text-center p-8 text-on-surface-variant">Nessuna lezione registrata per questa classe.</p>}
+        {filteredEntries.length === 0 && <p className="text-center p-8 text-[var(--md-sys-color-on-surface)]-variant">Nessuna lezione registrata per questa classe.</p>}
       </div>
       {selectedEntry && renderEntryDetails(selectedEntry)}
     </div>

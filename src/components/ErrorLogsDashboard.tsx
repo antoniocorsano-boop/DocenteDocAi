@@ -70,7 +70,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="m3-headline-medium">Error Logs Dashboard</h1>
         {onClose && (
-          <button onClick={onClose} className="material-symbols-outlined m3-headline-small cursor-pointer">
+          <button onClick={onClose} className="material-symbols-outlined text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] cursor-pointer">
             close
           </button>
         )}
@@ -78,20 +78,20 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-6">
-        <div className="p-8 rounded-xl bg-surface-container border border-outline-variant">
-          <div className="m3-body-small text-on-surface-variant">Total Errors</div>
+        <div className="p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)]">
+          <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Total Errors</div>
           <div className="m3-headline-medium font-bold text-primary">{stats.total}</div>
         </div>
-        <div className="p-8 rounded-xl bg-surface-container border border-outline-variant">
-          <div className="m3-body-small text-on-surface-variant">Errors</div>
+        <div className="p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)]">
+          <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Errors</div>
           <div className="m3-headline-medium font-bold text-error">{stats.bySeverity['error'] || 0}</div>
         </div>
-        <div className="p-8 rounded-xl bg-surface-container border border-outline-variant">
-          <div className="m3-body-small text-on-surface-variant">Warnings</div>
+        <div className="p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)]">
+          <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Warnings</div>
           <div className="m3-headline-medium font-bold text-warning">{stats.bySeverity['warning'] || 0}</div>
         </div>
-        <div className="p-8 rounded-xl bg-surface-container border border-outline-variant">
-          <div className="m3-body-small text-on-surface-variant">Infos</div>
+        <div className="p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)]">
+          <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Infos</div>
           <div className="m3-headline-medium font-bold text-primary">{stats.bySeverity['info'] || 0}</div>
         </div>
       </div>
@@ -101,12 +101,12 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
         <h2 className="m3-title-medium mb-6">By Type</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {Object.entries(stats.byType).map(([type, count]) => (
-            <div key={type} className="p-6 rounded-lg bg-surface-container-low">
+            <div key={type} className="p-6 rounded-[var(--md-sys-shape-corner-small)] bg-[var(--md-sys-color-surface-container-low)]">
               <div className="flex items-center gap-8">
                 <span className="material-symbols-outlined m3-label-large">{getTypeIcon(type as ErrorLog['type'])}</span>
                 <span className="capitalize">{type}</span>
               </div>
-              <div className="m3-headline-small font-bold text-primary mt-4">{count}</div>
+              <div className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold text-primary mt-4">{count}</div>
             </div>
           ))}
         </div>
@@ -115,11 +115,11 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       {/* Controls */}
       <div className="flex gap-6 mb-6 flex-wrap">
         <div className="flex gap-8">
-          <label className="m3-body-small text-on-surface-variant">Tipo:</label>
+          <label className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Tipo:</label>
           <select
             value={filterType}
             onChange={(e) => setFilterType((e.target as HTMLSelectElement).value as ErrorLog['type'] | 'all')}
-            className="px-3 py-1 rounded border border-outline-variant bg-surface"
+            className="px-3 py-1 rounded border border-[var(--md-sys-color-outline-variant)] bg-surface"
           >
             <option value="all">Tutti</option>
             <option value="navigation">Navigation</option>
@@ -132,11 +132,11 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
         </div>
 
         <div className="flex gap-8">
-          <label className="m3-body-small text-on-surface-variant">Severity:</label>
+          <label className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Severity:</label>
           <select
             value={filterSeverity}
             onChange={(e) => setFilterSeverity((e.target as HTMLSelectElement).value as ErrorLog['severity'] | 'all')}
-            className="px-3 py-1 rounded border border-outline-variant bg-surface"
+            className="px-3 py-1 rounded border border-[var(--md-sys-color-outline-variant)] bg-surface"
           >
             <option value="all">Tutti</option>
             <option value="error">Error</option>
@@ -163,10 +163,10 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       </div>
 
       {/* Logs Table */}
-      <div className="rounded-xl border border-outline-variant overflow-hidden">
+      <div className="rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full m3-body-small">
-            <thead className="bg-surface-container-high">
+            <thead className="bg-[var(--md-sys-color-surface-container-high)]">
               <tr>
                 <th className="text-left p-6 font-semibold">Time</th>
                 <th className="text-left p-6 font-semibold">Type</th>
@@ -178,7 +178,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
             <tbody className="divide-y divide-outline-variant">
               {filteredLogs.length > 0 ? (
                 filteredLogs.map((log) => (
-                  <tr key={log.id} className="hover:bg-surface-container-low transition-colors">
+                  <tr key={log.id} className="hover:bg-[var(--md-sys-color-surface-container-low)] transition-colors">
                     <td className="p-6 m3-label-small whitespace-nowrap">
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </td>
@@ -202,7 +202,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                       {log.context && (
                         <details className="m3-label-small">
                           <summary className="cursor-pointer text-primary hover:underline">View</summary>
-                          <pre className="mt-4 p-8 bg-surface-container-low rounded m3-label-small overflow-auto max-h-24">
+                          <pre className="mt-4 p-8 bg-[var(--md-sys-color-surface-container-low)] rounded m3-label-small overflow-auto max-h-24">
                             {JSON.stringify(log.context, null, 2)}
                           </pre>
                         </details>
@@ -212,7 +212,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="p-6 text-center text-on-surface-variant">
+                  <td colSpan={5} className="p-6 text-center text-[var(--md-sys-color-on-surface)]-variant">
                     Nessun log trovato
                   </td>
                 </tr>
@@ -224,7 +224,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
       {/* Most Recent Error */}
       {stats.mostRecent && (
-        <div className="mt-6 p-8 rounded-xl bg-error/10 border border-error/20">
+        <div className="mt-6 p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-error/10 border border-error/20">
           <div className="m3-body-small font-semibold text-error mb-8">Most Recent Error</div>
           <div className="m3-body-small">
             <div>
@@ -239,7 +239,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
             {stats.mostRecent.stack && (
               <details className="mt-4">
                 <summary className="cursor-pointer text-primary hover:underline">Stack Trace</summary>
-                <pre className="mt-4 p-8 bg-surface-container-low rounded m3-label-small overflow-auto max-h-32">
+                <pre className="mt-4 p-8 bg-[var(--md-sys-color-surface-container-low)] rounded m3-label-small overflow-auto max-h-32">
                   {stats.mostRecent.stack}
                 </pre>
               </details>

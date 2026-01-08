@@ -52,7 +52,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             level={1}
         >
             <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
-                <div className="px-12 py-8 bg-surface-container-low rounded-2xl mb-12">
+                <div className="px-12 py-8 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] mb-12">
                     <TabGroup 
                         tabs={[{ id: 'text', label: 'Manuale', icon: 'content_paste' }, { id: 'json', label: 'Bridge AI', icon: 'extension' }]}
                         activeTab={activeTab}
@@ -65,7 +65,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                 </div>
 
                 <div className="space-y-12">
-                    <div className="flex flex-wrap gap-12 p-12 bg-surface-container rounded-2xl border border-outline-variant shadow-inner">
+                    <div className="flex flex-wrap gap-12 p-12 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)] shadow-inner">
                         <label className="chip cursor-pointer has-checkbox select-none flex items-center">
                             <input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)} className="mr-4 accent-primary" /> 
                             Assenti
@@ -85,13 +85,13 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                         value={activeTab === 'text' ? generatedText : generatedJson} 
                         readOnly 
                         rows={10}
-                        containerClassName="!bg-surface-container-highest shadow-inner font-mono text-xs"
+                        containerClassName="!bg-[var(--md-sys-color-surface-container-high)]est shadow-inner font-mono text-xs"
                     />
                 </div>
             </M3DialogContent>
             <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
                 <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-                <M3Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="filled" className="shadow-xl !px-16">
+                <M3Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-16">
                     <span className="material-symbols-outlined mr-2">content_copy</span> COPIA
                 </M3Button>
             </M3DialogActions>

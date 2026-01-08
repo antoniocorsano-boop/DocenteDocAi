@@ -165,9 +165,9 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             : `${MONTHS_LONG[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
         return (
-            <header className="calendar-header bg-surface-container-high/30 backdrop-blur-md border-b border-outline-variant/30 p-8 rounded-t-3xl">
+            <header className="calendar-header bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-md border-b border-[var(--md-sys-color-outline-variant)]/30 p-8 rounded-t-3xl">
                 <div className="calendar-header-left">
-                    <div className="calendar-nav-group bg-surface-container-low/50 p-1 rounded-full border border-outline-variant/20">
+                    <div className="calendar-nav-group bg-[var(--md-sys-color-surface-container-low)]/50 p-1 rounded-full border border-[var(--md-sys-color-outline-variant)]/20">
                         <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" className="!min-w-0 !p-8">
                             <span className="material-symbols-outlined" aria-hidden="true">chevron_left</span>
                         </M3Button>
@@ -176,7 +176,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                             <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
                         </M3Button>
                     </div>
-                    <h2 className="calendar-title m3-headline-small ml-4">{title}</h2>
+                    <h2 className="calendar-title text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] ml-4">{title}</h2>
                 </div>
 
                 <div className="calendar-header-right gap-8">
@@ -332,7 +332,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                 {dayEvents.length === 0 ? (
                     <div className="flex flex-col items-center justify-center p-12 text-center opacity-60">
                         <span className="material-symbols-outlined text-6xl mb-8" aria-hidden="true">event_busy</span>
-                        <p className="m3-body-large">Nessun evento per questo giorno</p>
+                        <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]">Nessun evento per questo giorno</p>
                         <M3Button variant="text" onClick={() => setEditingEvent({})} className="mt-4">Aggiungi Evento</M3Button>
                     </div>
                 ) : (
@@ -364,20 +364,20 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             {Object.keys(agendaGroups).length === 0 ? (
                 <div className="flex flex-col items-center justify-center p-12 text-center opacity-60">
                     <span className="material-symbols-outlined text-6xl mb-8" aria-hidden="true">event_busy</span>
-                    <p className="m3-body-large">Nessun evento questo mese</p>
+                    <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]">Nessun evento questo mese</p>
                 </div>
             ) : (
                 <div className="space-y-6">
                     {Object.entries(agendaGroups).map(([date, evts]) => (
-                        <div key={date} className="agenda-group bg-surface-container-high/20 rounded-2xl p-8 border border-outline-variant/20">
-                            <div className="agenda-date m3-title-medium text-primary mb-6 border-b border-outline-variant/30 pb-2">
+                        <div key={date} className="agenda-group bg-[var(--md-sys-color-surface-container-high)]/20 rounded-[var(--md-sys-shape-corner-large)] p-8 border border-[var(--md-sys-color-outline-variant)]/20">
+                            <div className="agenda-date m3-title-medium text-primary mb-6 border-b border-[var(--md-sys-color-outline-variant)]/30 pb-2">
                                 {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
                             </div>
                             <div className="agenda-events space-y-3">
                                 {evts.map(ev => (
                                     <div 
                                         key={ev.id} 
-                                        className={`agenda-event agenda-event-${ev.tipo || 'default'} hover:bg-surface-container-high/40 transition-colors cursor-pointer`}
+                                        className={`agenda-event agenda-event-${ev.tipo || 'default'} hover:bg-[var(--md-sys-color-surface-container-high)]/40 transition-colors cursor-pointer`}
                                         onClick={() => setEditingEvent(ev)}
                                     >
                                         <div className="agenda-event-time font-bold">
@@ -399,7 +399,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
 
     return (
         <div 
-            className="calendar-container bg-surface-container-low/30 backdrop-blur-xl rounded-3xl border border-outline-variant/30 shadow-xl overflow-hidden"
+            className="calendar-container bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-[var(--md-sys-elevation-level3)] overflow-hidden"
             ref={calendarGridRef}
             onKeyDown={handleCalendarKeyDown}
         >

@@ -51,15 +51,15 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
              {/* Header Section */}
             <div className="page-header-compact">
                 <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium font-black text-on-surface">Le Mie Classi</h1>
-                    <p className="page-subtitle text-on-surface-variant">Gestione studenti e analisi.</p>
+                    <h1 className="m3-headline-medium font-black text-[var(--md-sys-color-on-surface)]">Le Mie Classi</h1>
+                    <p className="page-subtitle text-[var(--md-sys-color-on-surface)]-variant">Gestione studenti e analisi.</p>
                 </div>
             </div>
 
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
                 <section className="animate-in fade-in slide-in-from-top-4">
-                    <h2 className="section-header-expressive text-sm !mb-8 text-on-surface-variant uppercase tracking-wider">
+                    <h2 className="section-header-expressive text-sm !mb-8 text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider">
                         In Arrivo (Tutte le classi)
                     </h2>
                     <div className="global-agenda-grid">
@@ -111,10 +111,10 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         })}
                     </div>
                 ) : (
-                    <div className="text-center p-12 bg-surface-container-low rounded-2xl border border-dashed border-outline-variant">
-                        <span className="material-symbols-outlined text-6xl text-on-surface-variant/50 mb-8">domain_disabled</span>
-                        <p className="m3-headline-small text-on-surface-variant">Nessuna classe definita</p>
-                        <p className="m3-body-medium text-on-surface-variant mt-4 mb-6">
+                    <div className="text-center p-12 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] border border-dashed border-[var(--md-sys-color-outline-variant)]">
+                        <span className="material-symbols-outlined text-6xl text-[var(--md-sys-color-on-surface)]-variant/50 mb-8">domain_disabled</span>
+                        <p className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-[var(--md-sys-color-on-surface)]-variant">Nessuna classe definita</p>
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mt-4 mb-6">
                             Vai nelle impostazioni per configurare le tue classi e iniziare.
                         </p>
                         <M3Button onClick={() => onNavigate('settings')} variant="filled">
@@ -236,10 +236,10 @@ const PrintCenterModal: React.FC<{
             maxWidth="md"
         >
             <M3DialogContent className="space-y-6">
-                    <p className="text-on-surface-variant">Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
+                    <p className="text-[var(--md-sys-color-on-surface)]-variant">Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-on-surface-variant ml-1">Periodo</label>
+                        <label className="text-sm font-medium text-[var(--md-sys-color-on-surface)]-variant ml-1">Periodo</label>
                         <TabGroup
                             tabs={[
                                 { id: 'primo-quadrimestre', label: '1Q' },
@@ -251,7 +251,7 @@ const PrintCenterModal: React.FC<{
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-on-surface-variant ml-1">Classi</label>
+                        <label className="text-sm font-medium text-[var(--md-sys-color-on-surface)]-variant ml-1">Classi</label>
                         <div className="flex flex-wrap gap-8">
                             {userClasses.map(c => (
                                 <div 
@@ -260,7 +260,7 @@ const PrintCenterModal: React.FC<{
                                     className={`px-4 py-4 rounded-full border cursor-pointer transition-all flex items-center gap-8 ${
                                         selectedClasses.includes(c) 
                                             ? 'bg-primary text-on-primary border-primary' 
-                                            : 'bg-surface-container-low text-on-surface-variant border-outline-variant hover:bg-surface-container-high'
+                                            : 'bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
                                     }`}
                                 >
                                     {selectedClasses.includes(c) && <span className="material-symbols-outlined text-lg">check</span>}

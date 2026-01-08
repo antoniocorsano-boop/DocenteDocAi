@@ -16,14 +16,14 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
     const [note, setNote] = useState(initialData?.note || '');
 
     const RatingStars = ({ label, value, onChange }: { label: string, value: number, onChange: (v: number) => void }) => (
-        <div className="p-5 bg-surface-container-low rounded-2xl border border-outline-variant shadow-sm">
+        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)] shadow-sm">
             <div className="flex justify-between items-center mb-8 px-4">
                 <span className="text-[10px] text-primary font-black uppercase tracking-[0.3em]">{label}</span>
                 <span className="text-lg font-black text-primary">{value}/4</span>
             </div>
             <div className="flex justify-between gap-8">
                 {[1, 2, 3, 4].map((i) => (
-                    <button key={i} type="button" onClick={() => onChange(i)} className={`flex-1 h-14 rounded-2xl flex items-center justify-center transition-all ${i <= value ? 'bg-primary text-on-primary shadow-md scale-105' : 'bg-surface border border-outline-variant text-on-surface-variant'}`}>
+                    <button key={i} type="button" onClick={() => onChange(i)} className={`flex-1 h-14 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center transition-all ${i <= value ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level1)] scale-105' : 'bg-surface border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-on-surface)]-variant'}`}>
                         <span className="material-symbols-outlined filled-icon text-2xl">{i <= value ? 'star' : 'star_outline'}</span>
                     </button>
                 ))}
@@ -43,9 +43,9 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
             maxWidth="md"
             level={1}
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
                 <div className="mb-6 px-4">
-                    <h3 className="text-xl font-bold text-on-surface">{student.cognome} {student.nome}</h3>
+                    <h3 className="text-xl font-bold text-[var(--md-sys-color-on-surface)]">{student.cognome} {student.nome}</h3>
                 </div>
                 <div className="space-y-6">
                     <RatingStars label="Autonomia" value={autonomy} onChange={setAutonomy} />
@@ -56,7 +56,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
             </M3DialogContent>
             <M3DialogActions>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button onClick={handleSave} variant="filled" className="shadow-xl !px-10">Registra Nota</M3Button>
+                <M3Button onClick={handleSave} variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-10">Registra Nota</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

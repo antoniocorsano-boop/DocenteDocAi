@@ -77,7 +77,7 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
             onClose={onClose}
             maxWidth="2xl"
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm p-6 space-y-6">
+            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm p-6 space-y-6">
                 {/* Metadata Chips */}
                 <div className="flex flex-wrap gap-8 mb-6">
                     <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center gap-4">
@@ -95,19 +95,19 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
                 </div>
 
                 {/* AI Validation Section */}
-                <div className="bg-primary-container/10 border border-primary/20 rounded-2xl p-8 space-y-3">
+                <div className="bg-primary-container/10 border border-primary/20 rounded-[var(--md-sys-shape-corner-large)] p-8 space-y-3">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-6">
                             <span className="material-symbols-outlined text-primary">verified</span>
-                            <span className="text-sm font-black text-on-surface uppercase tracking-widest">Validazione Curricolo Verticale</span>
+                            <span className="text-sm font-black text-[var(--md-sys-color-on-surface)] uppercase tracking-widest">Validazione Curricolo Verticale</span>
                         </div>
                         <M3Button onClick={handleValidate} variant="tonal" disabled={isValidating} className="text-[10px] font-black uppercase tracking-widest">
                             {isValidating ? '? Validazione...' : 'Valida con AI'}
                         </M3Button>
                     </div>
                     {validationResult && (
-                        <div className="bg-surface-container-lowest/50 p-8 rounded-xl border border-outline-variant/20 animate-in fade-in slide-in-from-top-2">
-                            <p className="text-sm text-on-surface leading-relaxed italic">
+                        <div className="bg-[var(--md-sys-color-surface-container-low)]est/50 p-8 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/20 animate-in fade-in slide-in-from-top-2">
+                            <p className="text-sm text-[var(--md-sys-color-on-surface)] leading-relaxed italic">
                                 {validationResult}
                             </p>
                         </div>
@@ -116,14 +116,14 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
 
                 {/* Description */}
                 <InfoCard title="Introduzione" variant="elevated" style={{ padding: 'var(--md-sys-spacing-6)' }}>
-                    <p className="text-on-surface leading-relaxed">
+                    <p className="text-[var(--md-sys-color-on-surface)] leading-relaxed">
                         {uda.introduction}
                     </p>
                 </InfoCard>
 
                 {/* Phases Timeline */}
                 <div>
-                    <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-8">Fasi di Lavoro</h3>
+                    <h3 className="text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider mb-8">Fasi di Lavoro</h3>
                     <div className="relative border-l-2 border-primary/30 ml-3 space-y-6 py-4">
                         {uda.phases.map((phase) => (
                             <div key={phase.id} className="relative pl-6">
@@ -132,8 +132,8 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
                                     <h4 className="font-bold text-primary">{phase.title}</h4>
                                     <span className="text-[10px] font-black bg-secondary-container text-on-secondary-container px-4 py-0.5 rounded uppercase">{phase.duration}h</span>
                                 </div>
-                                <p className="text-sm text-on-surface mt-4 font-medium">{phase.description}</p>
-                                <p className="text-xs text-on-surface-variant mt-4 italic">{phase.activities}</p>
+                                <p className="text-sm text-[var(--md-sys-color-on-surface)] mt-4 font-medium">{phase.description}</p>
+                                <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mt-4 italic">{phase.activities}</p>
                             </div>
                         ))}
                     </div>
@@ -142,10 +142,10 @@ const UdaDetailModal: React.FC<{ uda: Uda; onClose: () => void; onEdit: () => vo
                 {/* Additional Info Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" style={{ padding: 'var(--md-sys-spacing-6)' }}>
-                        <p className="text-sm text-on-surface">{uda.finalProduct}</p>
+                        <p className="text-sm text-[var(--md-sys-color-on-surface)]">{uda.finalProduct}</p>
                     </InfoCard>
                     <InfoCard title="Valutazione" icon="fact_check" variant="tonal" style={{ padding: 'var(--md-sys-spacing-6)' }}>
-                        <p className="text-sm text-on-surface">{uda.evaluation}</p>
+                        <p className="text-sm text-[var(--md-sys-color-on-surface)]">{uda.evaluation}</p>
                     </InfoCard>
                 </div>
             </M3DialogContent>
@@ -320,7 +320,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                     <span className="material-symbols-outlined">calendar_view_week</span>
                     Timeline Didattica
                 </h2>
-                <div className="flex gap-6 text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
+                <div className="flex gap-6 text-[10px] font-bold uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant">
                     <span className="flex items-center gap-4"><span className="w-2 h-2 rounded-full bg-primary-container border border-primary"></span> UDA</span>
                     <span className="flex items-center gap-4"><span className="material-symbols-outlined m3-label-small text-error">flag</span> Scadenza</span>
                 </div>
@@ -339,10 +339,10 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 {/* Empty State Overlay */}
                 {isEmpty && (
                     <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                        <div className="text-center p-8 bg-surface/80 backdrop-blur-sm rounded-xl border border-dashed border-outline-variant">
-                            <span className="material-symbols-outlined m3-headline-medium text-on-surface-variant mb-8">edit_calendar</span>
-                            <p className="m3-body-small font-medium text-on-surface">Nessuna pianificazione.</p>
-                            <p className="m3-label-small text-on-surface-variant">Usa il Wizard Annuale o crea un&apos;UDA.</p>
+                        <div className="text-center p-8 bg-surface/80 backdrop-blur-sm rounded-[var(--md-sys-shape-corner-medium)] border border-dashed border-[var(--md-sys-color-outline-variant)]">
+                            <span className="material-symbols-outlined m3-headline-medium text-[var(--md-sys-color-on-surface)]-variant mb-8">edit_calendar</span>
+                            <p className="m3-body-small font-medium text-[var(--md-sys-color-on-surface)]">Nessuna pianificazione.</p>
+                            <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant">Usa il Wizard Annuale o crea un&apos;UDA.</p>
                         </div>
                     </div>
                 )}
@@ -396,8 +396,8 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                     {/* Snackbar preview / undo */}
                     {showSnackbar && lastMove && (
                         <div style={{ position: 'fixed', right: 'var(--md-sys-spacing-6)', bottom: 'var(--md-sys-spacing-6)', zIndex: Z_INDEX.notification.snackbar }}>
-                            <div className="m3-card shadow-lg bg-surface-container-high border border-outline-variant flex items-center gap-6">
-                                <div className="flex-1 m3-body-medium">UDA spostata. <button className="text-primary font-bold underline ml-2" onClick={() => {
+                            <div className="m3-card shadow-[var(--md-sys-elevation-level2)] bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)] flex items-center gap-6">
+                                <div className="flex-1 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">UDA spostata. <button className="text-primary font-bold underline ml-2" onClick={() => {
                                     const original = udas.find(u => u.id === lastMove.udaId);
                                     if (original) {
                                         onSaveUda({ ...original, startDate: lastMove.prevStart, endDate: lastMove.prevEnd });
@@ -413,7 +413,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                     {/* Drag Preview Bubble */}
                     {previewMessage && (
                         <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--md-sys-spacing-2)', zIndex: Z_INDEX.overlay.tooltip }}>
-                            <div className="px-3 py-1 rounded-lg bg-surface/92 text-on-surface border border-outline-variant m3-body-small shadow">{previewMessage}</div>
+                            <div className="px-3 py-1 rounded-[var(--md-sys-shape-corner-small)] bg-surface/92 text-[var(--md-sys-color-on-surface)] border border-[var(--md-sys-color-outline-variant)] m3-body-small shadow">{previewMessage}</div>
                         </div>
                     )}
 
@@ -475,7 +475,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
             {/* Header */}
             <div className="py-12 text-center">
                 <h1 className="text-4xl font-black text-primary mb-8">Progettazione</h1>
-                <p className="text-on-surface-variant max-w-2xl mx-auto font-medium">
+                <p className="text-[var(--md-sys-color-on-surface)]-variant max-w-2xl mx-auto font-medium">
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>
@@ -499,11 +499,11 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                     <InfoCard 
                         title="Wizard Annuale"
                         variant="elevated" 
-                        className="bg-primary-container text-on-primary-container mb-8 p-8 cursor-pointer hover:shadow-xl transition-all group"
+                        className="bg-primary-container text-on-primary-container mb-8 p-8 cursor-pointer hover:shadow-[var(--md-sys-elevation-level3)] transition-all group"
                         onClick={() => setIsPlanningWizardOpen(true)}
                     >
                         <div className="flex justify-between items-start">
-                            <div className="p-8 bg-on-primary-container/10 rounded-3xl">
+                            <div className="p-8 bg-on-primary-container/10 rounded-[var(--md-sys-shape-corner-extra-large)]">
                                 <span className="material-symbols-outlined text-4xl">calendar_month</span>
                             </div>
                             <span className="material-symbols-outlined text-2xl opacity-50 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">arrow_outward</span>

@@ -47,8 +47,8 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
             style={{ outline: 'none' }}
         >
             <div className="flex justify-between items-start">
-                <h3 className="m3-title-medium flex items-center gap-8 text-on-surface">
-                    {icon && <span className="material-symbols-outlined text-on-surface-variant" aria-hidden="true">{icon}</span>}
+                <h3 className="m3-title-medium flex items-center gap-8 text-[var(--md-sys-color-on-surface)]">
+                    {icon && <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant" aria-hidden="true">{icon}</span>}
                     {title}
                 </h3>
                 {!isEditing && (
@@ -82,7 +82,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
                         </div>
                     </div>
                 ) : (
-                    <div className="prose text-on-surface-variant">
+                    <div className="prose text-[var(--md-sys-color-on-surface)]-variant">
                         {renderContent()}
                     </div>
                 )}

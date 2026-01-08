@@ -188,12 +188,12 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
       <M3Dialog
         title={
             <div className="flex items-center gap-8">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-sm lesson-icon-dynamic">
+                <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center flex-shrink-0 shadow-sm lesson-icon-dynamic">
                     <span className="material-symbols-outlined text-2xl">{typeIcon}</span>
                 </div>
                 <div className="min-w-0">
-                    <h2 className="m3-headline-small font-black leading-tight truncate">Piano Lezione</h2>
-                    <p className="m3-label-small text-on-surface-variant font-mono uppercase tracking-widest opacity-60">{lesson.id.split('-').slice(0,2).join('-')}</p>
+                    <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black leading-tight truncate">Piano Lezione</h2>
+                    <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant font-mono uppercase tracking-widest opacity-60">{lesson.id.split('-').slice(0,2).join('-')}</p>
                 </div>
             </div>
         }
@@ -201,30 +201,30 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         mode="fullscreen"
         level={1}
       >
-        <M3DialogContent className="bg-surface-container-lowest p-0">
+        <M3DialogContent className="bg-[var(--md-sys-color-surface-container-low)]est p-0">
             <div className="max-w-6xl mx-auto w-full">
                 {/* HERO SECTION */}
-                <div className="p-6 md:p-10 bg-surface-container-low border-b border-outline-variant/30">
+                <div className="p-6 md:p-10 bg-[var(--md-sys-color-surface-container-low)] border-b border-[var(--md-sys-color-outline-variant)]/30">
                     {lesson.unitaDiApprendimento && (
                         <div className="flex items-center gap-8 mb-8">
                             <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">UDA</span>
-                            <span className="m3-label-medium font-bold text-on-surface-variant truncate">{lesson.unitaDiApprendimento}</span>
+                            <span className="m3-label-medium font-bold text-[var(--md-sys-color-on-surface)]-variant truncate">{lesson.unitaDiApprendimento}</span>
                         </div>
                     )}
-                    <h1 className="m3-headline-medium md:m3-headline-large font-black text-on-surface mb-6 leading-tight">
+                    <h1 className="m3-headline-medium md:m3-headline-large font-black text-[var(--md-sys-color-on-surface)] mb-6 leading-tight">
                         {lesson.contenuto}
                     </h1>
                     
                     <div className="flex flex-wrap gap-6">
-                        <div className="flex items-center gap-8 px-4 py-4 rounded-2xl bg-surface-container-high border border-outline-variant/30">
+                        <div className="flex items-center gap-8 px-4 py-4 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)]/30">
                             <span className="material-symbols-outlined text-primary text-lg">school</span>
                             <span className="m3-label-large font-bold">{lesson.classe}</span>
                         </div>
-                        <div className="flex items-center gap-8 px-4 py-4 rounded-2xl bg-surface-container-high border border-outline-variant/30">
+                        <div className="flex items-center gap-8 px-4 py-4 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)]/30">
                             <span className="material-symbols-outlined text-secondary text-lg">menu_book</span>
                             <span className="m3-label-large font-bold">{lesson.materia}</span>
                         </div>
-                        <div className="flex items-center gap-8 px-4 py-4 rounded-2xl bg-surface-container-high border border-outline-variant/30">
+                        <div className="flex items-center gap-8 px-4 py-4 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)]/30">
                             <span className="material-symbols-outlined text-tertiary text-lg">category</span>
                             <span className="m3-label-large font-bold">{lesson.tipoLezione || 'Teoria'}</span>
                         </div>
@@ -236,14 +236,14 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                     <div className="lg:col-span-2 space-y-10">
                         {/* AI Assistant */}
                         {aiSettings && (
-                            <div className="p-6 bg-tertiary-container/20 border border-tertiary/20 rounded-2xl flex items-center justify-between shadow-sm group hover:shadow-md transition-all">
+                            <div className="p-6 bg-tertiary-container/20 border border-tertiary/20 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-between shadow-sm group hover:shadow-[var(--md-sys-elevation-level1)] transition-all">
                                 <div className="flex items-center gap-8">
-                                    <div className="w-12 h-12 rounded-2xl bg-tertiary text-on-tertiary flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                                    <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-tertiary text-on-tertiary flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
                                         <span className="material-symbols-outlined text-2xl">psychology</span>
                                     </div>
                                     <div>
-                                        <p className="m3-title-medium font-black text-on-surface">Assistente Pedagogico</p>
-                                        <p className="m3-body-small text-on-surface-variant opacity-80">Analizza inclusività e coinvolgimento</p>
+                                        <p className="m3-title-medium font-black text-[var(--md-sys-color-on-surface)]">Assistente Pedagogico</p>
+                                        <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant opacity-80">Analizza inclusività e coinvolgimento</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-8">
@@ -276,17 +276,17 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         {/* Objectives */}
                         <section>
                             <SectionHeader title="Obiettivi Didattici" icon="flag" />
-                            <div className="mt-4 bg-surface-container-low p-6 rounded-3xl border border-outline-variant/30 shadow-sm">
+                            <div className="mt-4 bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm">
                                 {lesson.obiettivi ? (
-                                    <div className="prose prose-sm max-w-none text-on-surface">
+                                    <div className="prose prose-sm max-w-none text-[var(--md-sys-color-on-surface)]">
                                         <ul className="list-disc pl-5 space-y-2 marker:text-primary">
                                             {lesson.obiettivi.split('\n').filter(line => line.trim()).map((line, idx) => (
-                                                <li key={idx} className="m3-body-medium leading-relaxed">{line.replace(/^- /, '')}</li>
+                                                <li key={idx} className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] leading-relaxed">{line.replace(/^- /, '')}</li>
                                             ))}
                                         </ul>
                                     </div>
                                 ) : (
-                                    <p className="m3-body-medium text-on-surface-variant italic opacity-60">Nessun obiettivo specificato.</p>
+                                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant italic opacity-60">Nessun obiettivo specificato.</p>
                                 )}
                             </div>
                         </section>
@@ -294,11 +294,11 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         {/* Content */}
                         <section>
                             <SectionHeader title="Svolgimento e Contenuti" icon="article" />
-                            <div className="mt-4 bg-surface-container-low p-6 md:p-8 rounded-3xl border border-outline-variant/30 shadow-sm min-h-[150px]">
+                            <div className="mt-4 bg-[var(--md-sys-color-surface-container-low)] p-6 md:p-8 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm min-h-[150px]">
                                 {lesson.contesto ? (
-                                    <p className="m3-body-large whitespace-pre-wrap leading-relaxed text-on-surface">{lesson.contesto}</p>
+                                    <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] whitespace-pre-wrap leading-relaxed text-[var(--md-sys-color-on-surface)]">{lesson.contesto}</p>
                                 ) : (
-                                    <p className="m3-body-medium text-on-surface-variant italic opacity-60">Nessun dettaglio sullo svolgimento.</p>
+                                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant italic opacity-60">Nessun dettaglio sullo svolgimento.</p>
                                 )}
                             </div>
                         </section>
@@ -307,7 +307,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         {lesson.nota && (
                             <section>
                                 <SectionHeader title="Note Docente" icon="sticky_note_2" />
-                                <div className="mt-4 bg-primary-container/10 p-6 rounded-3xl border border-primary/20 m3-body-medium font-medium text-on-surface-variant italic">
+                                <div className="mt-4 bg-primary-container/10 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-primary/20 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-medium text-[var(--md-sys-color-on-surface)]-variant italic">
                                     {lesson.nota}
                                 </div>
                             </section>
@@ -317,13 +317,13 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                     {/* RIGHT COLUMN */}
                     <div className="space-y-8">
                         {/* Materials */}
-                        <div className="bg-surface-container-low rounded-2xl border border-outline-variant/30 overflow-hidden shadow-sm">
-                            <div className="p-5 border-b border-outline-variant/30 bg-surface-container-high flex justify-between items-center">
+                        <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/30 overflow-hidden shadow-sm">
+                            <div className="p-5 border-b border-[var(--md-sys-color-outline-variant)]/30 bg-[var(--md-sys-color-surface-container-high)] flex justify-between items-center">
                                 <h3 className="m3-title-medium font-black flex items-center gap-6">
                                     <span className="material-symbols-outlined text-primary">attachment</span>
                                     Materiali
                                 </h3>
-                                <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="tonal" className="!w-10 !h-10 !p-0 !min-w-0 !rounded-xl">
+                                <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="tonal" className="!w-10 !h-10 !p-0 !min-w-0 !rounded-[var(--md-sys-shape-corner-medium)]">
                                     <span className="material-symbols-outlined">add</span>
                                 </M3Button>
                             </div>
@@ -331,8 +331,8 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                             <div className="p-8 space-y-2">
                                 {(lesson.materialiDidattici?.length || 0) > 0 ? (
                                     lesson.materialiDidattici!.map(material => (
-                                        <div key={material.id} className="flex items-center gap-8 p-6 hover:bg-surface-container rounded-2xl group transition-all border border-transparent hover:border-outline-variant/30">
-                                            <div className="w-10 h-10 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0 shadow-sm">
+                                        <div key={material.id} className="flex items-center gap-8 p-6 hover:bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] group transition-all border border-transparent hover:border-[var(--md-sys-color-outline-variant)]/30">
+                                            <div className="w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0 shadow-sm">
                                                 <span className="material-symbols-outlined text-lg">{getMaterialIcon(material)}</span>
                                             </div>
                                             <div className="flex-grow min-w-0">
@@ -341,7 +341,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                                 ) : (
                                                     <span 
                                                         onClick={() => material.type === 'kb' && handlePreviewKbMaterial(material)} 
-                                                        className={`m3-label-large font-bold truncate block ${material.type === 'kb' ? 'cursor-pointer hover:text-primary' : 'text-on-surface'}`}
+                                                        className={`m3-label-large font-bold truncate block ${material.type === 'kb' ? 'cursor-pointer hover:text-primary' : 'text-[var(--md-sys-color-on-surface)]'}`}
                                                     >
                                                         {material.type === 'kb' ? material.fileName : material.file?.name}
                                                     </span>
@@ -374,18 +374,18 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                             icon="diversity_3" 
                             variant={lesson.adattamenti ? 'tertiary' : 'surface'}
                         >
-                            <p className="m3-body-medium leading-relaxed">
+                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] leading-relaxed">
                                 {lesson.adattamenti || 'Nessun adattamento specifico registrato.'}
                             </p>
                         </InfoCard>
 
                         {/* Homework */}
-                        <div className="bg-surface-container-low rounded-2xl border border-outline-variant/30 p-6 shadow-sm">
+                        <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/30 p-6 shadow-sm">
                             <h3 className="m3-title-medium font-black flex items-center gap-6 mb-8">
                                 <span className="material-symbols-outlined text-secondary">assignment</span>
                                 Compiti per Casa
                             </h3>
-                            <p className="m3-body-medium text-on-surface-variant whitespace-pre-wrap leading-relaxed mb-6">
+                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant whitespace-pre-wrap leading-relaxed mb-6">
                                 {lesson.compiti || 'Nessun compito assegnato.'}
                             </p>
                             
@@ -399,9 +399,9 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                 </div>
             </div>
         </M3DialogContent>
-        <M3DialogActions className="bg-surface-container-lowest border-t border-outline-variant/30 p-8 md:p-6">
+        <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]est border-t border-[var(--md-sys-color-outline-variant)]/30 p-8 md:p-6">
             <div className="flex flex-col md:flex-row justify-between items-center w-full gap-8">
-                <span className="m3-label-medium text-on-surface-variant opacity-60 hidden md:inline">
+                <span className="m3-label-medium text-[var(--md-sys-color-on-surface)]-variant opacity-60 hidden md:inline">
                     Ultima modifica: {new Date().toLocaleDateString()}
                 </span>
                 <div className="flex gap-6 w-full md:w-auto">
@@ -414,7 +414,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         </M3Button>
                     </div>
                     <M3Button onClick={onClose} variant="text" className="!h-12 !px-8">Chiudi</M3Button>
-                    <M3Button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} variant="filled" className="!h-12 !px-8 shadow-lg">
+                    <M3Button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} variant="filled" className="!h-12 !px-8 shadow-[var(--md-sys-elevation-level2)]">
                         <span className="material-symbols-outlined mr-2">door_open</span>
                         Avvia Lezione
                     </M3Button>
@@ -431,10 +431,10 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
               maxWidth="2xl"
               level={2}
           >
-              <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+              <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
                 <h3 className="m3-title-medium mb-8 font-black">{previewingMaterial.fileName}</h3>
-                <div className="p-6 bg-surface-container-lowest rounded-3xl border border-outline-variant/30 max-h-[60vh] overflow-y-auto custom-scrollbar">
-                    <pre className="whitespace-pre-wrap m3-body-medium leading-relaxed">{sanitizeHTML(previewingMaterial.content)}</pre>
+                <div className="p-6 bg-[var(--md-sys-color-surface-container-low)]est rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                    <pre className="whitespace-pre-wrap text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] leading-relaxed">{sanitizeHTML(previewingMaterial.content)}</pre>
                 </div>
               </M3DialogContent>
               <M3DialogActions>

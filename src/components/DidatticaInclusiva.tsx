@@ -59,12 +59,12 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 style={{ padding: 'var(--md-sys-spacing-5)' }}
             >
                 <div className="flex items-start gap-8">
-                    <div className="w-12 h-12 rounded-2xl bg-tertiary/10 flex items-center justify-center text-tertiary shrink-0">
+                    <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-tertiary/10 flex items-center justify-center text-tertiary shrink-0">
                         <span className="material-symbols-outlined text-3xl">folder_shared</span>
                     </div>
                     <div>
                         <h3 className="text-lg font-semibold text-tertiary mb-4">Gestione Piani Centralizzata</h3>
-                        <p className="text-on-surface-variant">Crea o modifica PDP/PEI per ogni studente. Lâ€™AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
+                        <p className="text-[var(--md-sys-color-on-surface)]-variant">Crea o modifica PDP/PEI per ogni studente. Lâ€™AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
                     </div>
                 </div>
             </InfoCard>
@@ -73,7 +73,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 <div key={className} className="space-y-4">
                     <div className="flex items-center gap-6 px-4">
                         <div className="h-px flex-grow bg-outline-variant/30"></div>
-                        <span className="text-sm font-bold uppercase tracking-widest text-on-surface-variant/60">Classe {className}</span>
+                        <span className="text-sm font-bold uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant/60">Classe {className}</span>
                         <div className="h-px flex-grow bg-outline-variant/30"></div>
                     </div>
                     
@@ -91,20 +91,20 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                     <div className="p-8 flex items-center gap-8">
                                         <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                         <div className="flex-grow min-w-0">
-                                            <p className="font-bold text-on-surface truncate">{student.cognome} {student.nome}</p>
+                                            <p className="font-bold text-[var(--md-sys-color-on-surface)] truncate">{student.cognome} {student.nome}</p>
                                             <div className="flex items-center gap-8 mt-4">
                                                 {hasPlan ? (
                                                     <span className="m3-label-tiny font-bold uppercase tracking-wider text-tertiary bg-tertiary-container/50 px-4 py-0.5 rounded-full">
                                                         Piano Attivo
                                                     </span>
                                                 ) : (
-                                                    <span className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant/40 px-4 py-0.5 border border-outline-variant/30 rounded-full">
+                                                    <span className="m3-label-tiny font-bold uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant/40 px-4 py-0.5 border border-[var(--md-sys-color-outline-variant)]/30 rounded-full">
                                                         Standard
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${hasPlan ? 'bg-tertiary/10 text-tertiary' : 'bg-surface-container-high text-on-surface-variant group-hover:bg-primary/10 group-hover:text-primary'}`}>
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${hasPlan ? 'bg-tertiary/10 text-tertiary' : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)]-variant group-hover:bg-primary/10 group-hover:text-primary'}`}>
                                             <span className="material-symbols-outlined">{hasPlan ? 'edit' : 'add'}</span>
                                         </div>
                                     </div>
@@ -137,8 +137,8 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         <div className="flex items-center gap-8">
                             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                             <div className="flex-grow">
-                                <h3 className="font-bold text-on-surface">{student.cognome} {student.nome}</h3>
-                                <p className="text-sm text-on-surface-variant">Classe {student.classe}</p>
+                                <h3 className="font-bold text-[var(--md-sys-color-on-surface)]">{student.cognome} {student.nome}</h3>
+                                <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant">Classe {student.classe}</p>
                             </div>
                             <M3Button variant="text" size="small">
                                 Modifica
@@ -175,15 +175,15 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 <div className="flex items-center gap-6">
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                     <div>
-                                        <h3 className="font-bold text-on-surface">{student.cognome} {student.nome}</h3>
-                                        <p className="text-xs text-on-surface-variant">Classe {student.classe}</p>
+                                        <h3 className="font-bold text-[var(--md-sys-color-on-surface)]">{student.cognome} {student.nome}</h3>
+                                        <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Classe {student.classe}</p>
                                     </div>
                                 </div>
                                 <div className="bg-error/10 text-error px-4 py-1 rounded text-xs font-bold">
                                     Media: {grade}
                                 </div>
                             </div>
-                            <p className="text-sm text-on-surface-variant mb-8">
+                            <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant mb-8">
                                 Le performance recenti suggeriscono la necessità di un piano personalizzato.
                             </p>
                             <M3Button 

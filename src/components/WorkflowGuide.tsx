@@ -29,9 +29,9 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                 </div>
                                 <div className="flex-grow min-w-0">
                                     <h3 className="m3-title-medium text-lg">{workflow.title}</h3>
-                                    <p className="m3-body-small text-on-surface-variant">{workflow.description}</p>
+                                    <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{workflow.description}</p>
                                 </div>
-                                <span className="material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform">expand_more</span>
+                                <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant group-open:rotate-180 transition-transform">expand_more</span>
                             </summary>
                             <div className="workflow-card-content">
                                 <ol className="workflow-steps-list">

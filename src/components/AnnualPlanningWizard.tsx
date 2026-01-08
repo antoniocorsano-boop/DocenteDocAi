@@ -361,7 +361,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 </div>
                             </div>
 
-                            <div className="bg-surface-container-low p-8 rounded-xl border border-outline-variant">
+                            <div className="bg-[var(--md-sys-color-surface-container-low)] p-8 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
                                 <h4 className="m3-title-medium mb-8 flex items-center gap-8">
                                     <span className="material-symbols-outlined text-secondary">folder_open</span>
                                     Documenti di Riferimento (KB)
@@ -372,12 +372,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
                                             <label htmlFor={`kb-annual-${kb.id}`} className="chip w-full justify-start" title={kb.fileName}>
                                                 {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined m3-label-large">check</span>}
-                                                <span className="material-symbols-outlined text-primary mr-2 m3-body-medium">description</span>
+                                                <span className="material-symbols-outlined text-primary mr-2 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">description</span>
                                                 <span className="truncate">{kb.fileName}</span>
                                             </label>
                                         </div>
                                     )) : (
-                                        <p className="text-center p-8 m3-body-small text-on-surface-variant">Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
+                                        <p className="text-center p-8 m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
                                     )}
                                 </div>
                             </div>
@@ -418,11 +418,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'methodology' && (
                         <div className="space-y-6 animate-in fade-in slide-in-from-right-4">
                             <h3 className="m3-title-large">3. Obiettivi e Metodologie</h3>
-                            <div className="bg-secondary-container/30 p-8 rounded-xl border border-outline-variant">
+                            <div className="bg-secondary-container/30 p-8 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
                                 <div className="flex justify-between items-center mb-8">
                                     <label htmlFor="wizard-methodology-text" className="m3-title-medium">Strategie Didattiche</label>
                                     <M3Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} className="!h-auto !py-1 flex items-center gap-8" title="Suggerisci metodologie adatte al contesto">
-                                        {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span className="material-symbols-outlined m3-body-medium mr-1">lightbulb</span> Suggerisci</>}
+                                        {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mr-1">lightbulb</span> Suggerisci</>}
                                     </M3Button>
                                 </div>
                                 <textarea id="wizard-methodology-text" name="wizard-methodology-text" className="form-textarea w-full" rows={6} value={methodology} onChange={e => setMethodology(e.target.value)} />
@@ -445,9 +445,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     </button>
                                 </div>
                                 <div className="flex gap-8">
-                                    <div className="flex items-center gap-8 bg-surface-container px-3 py-1 rounded-lg">
+                                    <div className="flex items-center gap-8 bg-[var(--md-sys-color-surface-container)] px-3 py-1 rounded-[var(--md-sys-shape-corner-small)]">
                                         <label htmlFor="wizard-hours-per-week" className="m3-body-small">Ore/Sett:</label>
-                                        <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} className="w-10 bg-transparent text-center font-bold border-b border-outline-variant" title="Ore settimanali di lezione" />
+                                        <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} className="w-10 bg-transparent text-center font-bold border-b border-[var(--md-sys-color-outline-variant)]" title="Ore settimanali di lezione" />
                                     </div>
                                     <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} className="flex items-center gap-8" title="Genera lista UDA dai documenti KB">
                                         {planGenerationStatus ? <AiThinkingGem size="small" inline text={planGenerationStatus} /> : 'Genera da KB'}
@@ -466,7 +466,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 />
                             )}
 
-                            <div className="flex gap-8 items-end mb-8 p-6 bg-surface-container rounded-xl">
+                            <div className="flex gap-8 items-end mb-8 p-6 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-medium)]">
                                 <div className="flex-grow">
                                     <label htmlFor="wizard-new-uda-title" className="form-label">Titolo UDA</label>
                                     <input id="wizard-new-uda-title" name="wizard-new-uda-title" type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} className="form-input w-full" onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
@@ -480,20 +480,20 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             {planGenerationStatus ? <div className="p-8 flex justify-center"><AiThinkingGem size="medium" text={planGenerationStatus} /></div> : (
                                 <div className="space-y-3 max-h-[350px] overflow-y-auto pr-2">
                                     {plannedUdas.map((uda, idx) => (
-                                        <div key={uda.id} className="flex items-center gap-6 p-6 bg-surface-container rounded-xl border border-outline-variant shadow-sm">
-                                            <span className="material-symbols-outlined text-on-surface-variant cursor-grab active:cursor-grabbing" title="Trascina per riordinare (futuro)">drag_indicator</span>
+                                        <div key={uda.id} className="flex items-center gap-6 p-6 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)] shadow-sm">
+                                            <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant cursor-grab active:cursor-grabbing" title="Trascina per riordinare (futuro)">drag_indicator</span>
                                             
                                             <div className="flex-grow flex flex-col">
                                                 <div className="flex items-center gap-8 mb-4">
                                                     <span className="text-[10px] font-bold bg-primary text-on-primary px-4 py-0.5 rounded-full">
                                                         UDA {idx + 1}
                                                     </span>
-                                                    <p className="font-bold text-on-surface m3-body-small">{uda.title}</p>
+                                                    <p className="font-bold text-[var(--md-sys-color-on-surface)] m3-body-small">{uda.title}</p>
                                                 </div>
-                                                <p className="m3-label-small text-on-surface-variant truncate opacity-80">{uda.topic || uda.title}</p>
+                                                <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant truncate opacity-80">{uda.topic || uda.title}</p>
                                             </div>
 
-                                            <div className="flex items-center gap-8 bg-surface px-4 py-1 rounded-lg border border-outline-variant/50">
+                                            <div className="flex items-center gap-8 bg-surface px-4 py-1 rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)]/50">
                                                 <input 
                                                     id={`wizard-uda-hours-${uda.id}`}
                                                     name={`wizard-uda-hours-${uda.id}`}
@@ -503,7 +503,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     className="w-10 text-center bg-transparent font-bold m3-body-small border-none focus:ring-0 p-0" 
                                                     title="Modifica ore stimate"
                                                 />
-                                                <span className="m3-label-small text-on-surface-variant">ore</span>
+                                                <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant">ore</span>
                                             </div>
 
                                             <M3Button variant="text" color="error" onClick={() => removeUdaFromPlan(idx)} className="!w-8 !h-8" title="Rimuovi UDA">
@@ -512,7 +512,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
-                                        <p className="text-center text-on-surface-variant italic p-8">Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
+                                        <p className="text-center text-[var(--md-sys-color-on-surface)]-variant italic p-8">Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
                                     )}
                                 </div>
                             )}
@@ -526,13 +526,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div><label htmlFor="wizard-term1-end" className="form-label">Fine 1° Periodo</label><input id="wizard-term1-end" name="wizard-term1-end" type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} className="form-input w-full" /></div>
                                 <div><label htmlFor="wizard-term2-end" className="form-label">Termine Lezioni</label><input id="wizard-term2-end" name="wizard-term2-end" type="date" value={term2End} onChange={e => setTerm2End(e.target.value)} className="form-input w-full" /></div>
                             </div>
-                            <div className="relative border-l-2 border-outline-variant ml-4 space-y-6 py-4 max-h-[300px] overflow-y-auto">
+                            <div className="relative border-l-2 border-[var(--md-sys-color-outline-variant)] ml-4 space-y-6 py-4 max-h-[300px] overflow-y-auto">
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} className="relative pl-6">
                                         <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-surface ${item.end > term2End ? 'bg-error' : 'bg-primary'}`}></div>
                                         <p className="m3-label-small font-bold uppercase tracking-wide text-primary">{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
                                         <h4 className="m3-title-medium font-medium">{item.uda.title}</h4>
-                                        <p className="m3-body-small text-on-surface-variant">{item.uda.hours} ore</p>
+                                        <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{item.uda.hours} ore</p>
                                     </div>
                                 ))}
                             </div>
@@ -542,7 +542,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'document' && (
                         <div className="space-y-6 flex flex-col items-center justify-center h-full text-center animate-in zoom-in-95">
                             <div className="w-20 h-20 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-8"><span className="material-symbols-outlined text-5xl">check_circle</span></div>
-                            <h3 className="m3-headline-small">Pianificazione Completata!</h3>
+                            <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]">Pianificazione Completata!</h3>
                             <M3Button variant="filled" onClick={handleGenerateDoc} disabled={!!processingStatus} className="flex items-center gap-8" title="Scarica il documento finale">
                                 {processingStatus ? <AiThinkingGem size="small" inline text={processingStatus} /> : 'Genera Documento Programmazione'}
                             </M3Button>

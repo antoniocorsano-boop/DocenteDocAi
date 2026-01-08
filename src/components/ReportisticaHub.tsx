@@ -333,7 +333,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 maxWidth="lg"
                 level={1}
             >
-                <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-6">
+                <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm space-y-6">
                         {wizard === 'uda' && (
                             <SelectField 
                                 label="Seleziona Progetto (UDA)"
@@ -413,8 +413,8 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             {/* --- HEADER --- */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-on-surface">Reportistica & Documenti</h1>
-                    <p className="text-on-surface-variant">Genera documentazione didattica, verbali e reportistica avanzata.</p>
+                    <h1 className="text-3xl font-bold tracking-tight text-[var(--md-sys-color-on-surface)]">Reportistica & Documenti</h1>
+                    <p className="text-[var(--md-sys-color-on-surface)]-variant">Genera documentazione didattica, verbali e reportistica avanzata.</p>
                 </div>
                 <div className="flex items-center gap-8">
                     <M3Button 
@@ -478,7 +478,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                                 </div>
                             </InfoCard>
                         )) : (
-                            <div className="p-8 text-center border-2 border-dashed border-outline-variant rounded-3xl opacity-50">
+                            <div className="p-8 text-center border-2 border-dashed border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-extra-large)] opacity-50">
                                 <span className="material-symbols-rounded text-4xl mb-8">drafts</span>
                                 <p className="text-sm">Nessun documento generato di recente.</p>
                             </div>

@@ -90,19 +90,19 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
         const categoryInfo = currentView.type === 'category' ? KB_CATEGORIES.find(c => c.id === currentView.id) : null;
         return (
             <div className="space-y-6 animate-in slide-in-from-right-4">
-                <header className="flex items-center justify-between bg-surface-container-high/30 backdrop-blur-md p-8 rounded-3xl border border-outline-variant/30 shadow-sm">
+                <header className="flex items-center justify-between bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-md p-8 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm">
                     <div className="flex items-center gap-6">
                         <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" className="!min-w-0 !p-8">
                             <span className="material-symbols-outlined">arrow_back</span>
                         </M3Button>
-                        <h2 className="m3-headline-small font-black text-on-surface">{categoryInfo?.label || 'File'}</h2>
+                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)]">{categoryInfo?.label || 'File'}</h2>
                     </div>
                     <div className="relative max-w-xs w-full">
-                        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/50">search</span>
+                        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--md-sys-color-on-surface)]-variant/50">search</span>
                         <input 
                             type="text" 
                             placeholder="Cerca in questa cartella..." 
-                            className="form-input !h-11 !pl-10 !rounded-full w-full bg-surface-container-low/50 border-outline-variant/30 focus:border-primary transition-all" 
+                            className="form-input !h-11 !pl-10 !rounded-full w-full bg-[var(--md-sys-color-surface-container-low)]/50 border-[var(--md-sys-color-outline-variant)]/30 focus:border-primary transition-all" 
                             value={searchTerm} 
                             onChange={(e) => setSearchTerm(e.target.value)} 
                         />
@@ -113,17 +113,17 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     {filteredFiles.map(entry => (
                         <div 
                             key={entry.id} 
-                            className="bg-surface-container-low/40 backdrop-blur-sm p-8 rounded-2xl border border-outline-variant/20 hover:bg-surface-container-high/60 transition-all cursor-pointer group flex items-center gap-8 shadow-sm hover:shadow-md"
+                            className="bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-sm p-8 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 hover:bg-[var(--md-sys-color-surface-container-high)]/60 transition-all cursor-pointer group flex items-center gap-8 shadow-sm hover:shadow-[var(--md-sys-elevation-level1)]"
                             onClick={() => handleFileClick(entry)}
                         >
-                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner ${entry.category === 'ai_deliverable' ? 'bg-secondary-container/50 text-secondary' : 'bg-primary-container/50 text-primary'}`}>
+                            <div className={`w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-inner ${entry.category === 'ai_deliverable' ? 'bg-secondary-container/50 text-secondary' : 'bg-primary-container/50 text-primary'}`}>
                                 <span className="material-symbols-outlined text-2xl">
                                     {entry.category === 'ai_deliverable' ? 'auto_awesome' : (entry.fileContent?.mimeType === 'application/pdf' ? 'picture_as_pdf' : 'description')}
                                 </span>
                             </div>
                             <div className="flex-grow min-w-0">
-                                <p className="font-bold text-sm truncate text-on-surface">{entry.fileName}</p>
-                                <p className="m3-label-small opacity-60 text-on-surface-variant uppercase tracking-wider">
+                                <p className="font-bold text-sm truncate text-[var(--md-sys-color-on-surface)]">{entry.fileName}</p>
+                                <p className="m3-label-small opacity-60 text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider">
                                     {entry.isGenerated ? 'Generato con AI' : 'Documento locale'}
                                 </p>
                             </div>
@@ -139,7 +139,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     {filteredFiles.length === 0 && (
                         <div className="col-span-full py-20 text-center opacity-50">
                             <span className="material-symbols-outlined text-6xl mb-8">search_off</span>
-                            <p className="m3-body-large">Nessun file trovato in questa cartella.</p>
+                            <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]">Nessun file trovato in questa cartella.</p>
                         </div>
                     )}
                 </div>
@@ -155,7 +155,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     subtitle="Archivio fonti, documenti e deliverable generati dall'AI."
                     icon="database"
                 />
-                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" className="shadow-lg px-6 py-6 rounded-2xl flex items-center gap-8">
+                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" className="shadow-[var(--md-sys-elevation-level2)] px-6 py-6 rounded-[var(--md-sys-shape-corner-large)] flex items-center gap-8">
                     <span className="material-symbols-outlined">add_circle</span>
                     Carica Documenti
                 </M3Button>

@@ -162,7 +162,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 <option disabled>──────────</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </SelectField>
-                            {targetClass === 'AUTO' && <p className="text-[10px] text-on-surface-variant mt-4 px-4">Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</p>}
+                            {targetClass === 'AUTO' && <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant mt-4 px-4">Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</p>}
                         </div>
 
                         <TabGroup
@@ -189,12 +189,12 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                     }
                                     icon="description"
                                     variant="surface"
-                                    className="!p-5 !rounded-2xl mb-8"
+                                    className="!p-5 !rounded-[var(--md-sys-shape-corner-large)] mb-8"
                                 />
 
                                 <div
                                     {...getRootProps()}
-                                    className={`relative flex flex-col items-center justify-center p-8 h-48 rounded-2xl border-2 border-dashed transition-all cursor-pointer ${isLoading ? 'opacity-50 pointer-events-none' : ''} ${isDragActive ? 'border-primary bg-primary-container/10' : 'border-outline-variant/50 hover:border-primary/50 hover:bg-surface-container-high'}`}
+                                    className={`relative flex flex-col items-center justify-center p-8 h-48 rounded-[var(--md-sys-shape-corner-large)] border-2 border-dashed transition-all cursor-pointer ${isLoading ? 'opacity-50 pointer-events-none' : ''} ${isDragActive ? 'border-primary bg-primary-container/10' : 'border-[var(--md-sys-color-outline-variant)]/50 hover:border-primary/50 hover:bg-[var(--md-sys-color-surface-container-high)]'}`}
                                 >
                                     <input {...getInputProps()} />
                                     {isLoading ? (
@@ -202,7 +202,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                     ) : (
                                         <>
                                             <span className="material-symbols-outlined text-5xl text-primary mb-8">{isDragActive ? 'download' : 'upload_file'}</span>
-                                            <h3 className="m3-title-medium font-bold text-on-surface text-center">Trascina il file .csv o .xlsx qui</h3>
+                                            <h3 className="m3-title-medium font-bold text-[var(--md-sys-color-on-surface)] text-center">Trascina il file .csv o .xlsx qui</h3>
                                             <p className="m3-body-small opacity-60 mt-4 font-bold uppercase tracking-widest">o clicca per selezionare</p>
                                         </>
                                     )}
@@ -211,17 +211,17 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         ) : (
                             <div className="flex flex-col gap-8">
                                 <p className="m3-label-small uppercase text-primary font-bold">Seleziona un file CSV dalla KB</p>
-                                <div className="bg-surface-container-low rounded-xl max-h-[250px] overflow-y-auto p-8 border border-outline-variant/30 flex flex-col gap-4">
+                                <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-medium)] max-h-[250px] overflow-y-auto p-8 border border-[var(--md-sys-color-outline-variant)]/30 flex flex-col gap-4">
                                     {knowledgeBase.length > 0 ? (
                                         knowledgeBase.map(entry => (
                                             <div
                                                 key={entry.id}
                                                 onClick={() => handleKbFileSelect(entry)}
-                                                className="flex items-center gap-6 p-6 rounded-xl hover:bg-surface-container-high transition-all cursor-pointer group"
+                                                className="flex items-center gap-6 p-6 rounded-[var(--md-sys-shape-corner-medium)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-all cursor-pointer group"
                                             >
-                                                <span className="material-symbols-outlined text-primary bg-primary-container/30 p-8 rounded-lg group-hover:bg-primary group-hover:text-on-primary transition-colors">description</span>
-                                                <span className="text-sm font-bold truncate flex-grow text-on-surface">{entry.fileName}</span>
-                                                <span className="material-symbols-outlined text-on-surface-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all">chevron_right</span>
+                                                <span className="material-symbols-outlined text-primary bg-primary-container/30 p-8 rounded-[var(--md-sys-shape-corner-small)] group-hover:bg-primary group-hover:text-on-primary transition-colors">description</span>
+                                                <span className="text-sm font-bold truncate flex-grow text-[var(--md-sys-color-on-surface)]">{entry.fileName}</span>
+                                                <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all">chevron_right</span>
                                             </div>
                                         ))
                                     ) : (
@@ -235,14 +235,14 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         )}
 
                         {error && (
-                            <div className="flex items-start gap-6 p-8 bg-error-container text-on-error-container rounded-xl">
+                            <div className="flex items-start gap-6 p-8 bg-error-container text-on-error-container rounded-[var(--md-sys-shape-corner-medium)]">
                                 <span className="material-symbols-outlined">error</span>
                                 <p className="text-sm font-medium">{error}</p>
                             </div>
                         )}
 
                         {infoMessage && (
-                            <div className="p-5 bg-tertiary-container text-on-tertiary-container rounded-2xl">
+                            <div className="p-5 bg-tertiary-container text-on-tertiary-container rounded-[var(--md-sys-shape-corner-large)]">
                                 <div className="flex items-center gap-8 mb-8">
                                     <span className="material-symbols-outlined">lightbulb</span>
                                     <h3 className="m3-title-small font-bold">Suggerimento AI: XLSX to CSV</h3>
@@ -261,10 +261,10 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             description={`File: ${fileName} | Destinazione: ${targetClass === 'AUTO' ? 'Rilevamento Automatico' : targetClass}`}
                             icon="auto_awesome"
                             variant="primary"
-                            className="!p-6 !rounded-2xl"
+                            className="!p-6 !rounded-[var(--md-sys-shape-corner-large)]"
                         />
 
-                        <p className="m3-body-medium text-on-surface-variant px-4">
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant px-4">
                             Il sistema ha tentato di associare automaticamente le colonne. Verifica o correggi le associazioni.
                         </p>
 
@@ -304,17 +304,17 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 
                         <div>
                             <h4 className="m3-label-large uppercase text-primary font-bold mb-6 px-4">Anteprima Dati (Prime 3 righe)</h4>
-                            <div className="overflow-x-auto border border-outline-variant/30 rounded-xl">
+                            <div className="overflow-x-auto border border-[var(--md-sys-color-outline-variant)]/30 rounded-[var(--md-sys-shape-corner-medium)]">
                                 <table className="w-full text-sm text-left">
-                                    <thead className="text-xs text-on-surface-variant bg-surface-container-high uppercase font-bold">
+                                    <thead className="text-xs text-[var(--md-sys-color-on-surface)]-variant bg-[var(--md-sys-color-surface-container-high)] uppercase font-bold">
                                         <tr>
                                             {csvHeaders.map(h => <th key={h} className="px-4 py-3 whitespace-nowrap">{h}</th>)}
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-outline-variant/10">
                                         {csvData.slice(0, 3).map((row, index) => (
-                                            <tr key={index} className="bg-surface hover:bg-surface-container-low transition-colors">
-                                                {csvHeaders.map(h => <td key={h} className="px-4 py-3 whitespace-nowrap text-on-surface font-medium">{row[h]}</td>)}
+                                            <tr key={index} className="bg-surface hover:bg-[var(--md-sys-color-surface-container-low)] transition-colors">
+                                                {csvHeaders.map(h => <td key={h} className="px-4 py-3 whitespace-nowrap text-[var(--md-sys-color-on-surface)] font-medium">{row[h]}</td>)}
                                             </tr>
                                         ))}
                                     </tbody>
@@ -332,22 +332,22 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             description={`Stai per importare ${studentsToImport.length} studenti. Gli studenti già presenti saranno ignorati.`}
                             icon="check_circle"
                             variant="secondary"
-                            className="!p-6 !rounded-2xl"
+                            className="!p-6 !rounded-[var(--md-sys-shape-corner-large)]"
                         />
 
                         {targetClass === 'AUTO' && (
-                            <div className="p-8 bg-surface-container-low rounded-xl border border-outline-variant/30 text-sm flex gap-6 items-start">
+                            <div className="p-8 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/30 text-sm flex gap-6 items-start">
                                 <span className="material-symbols-outlined text-primary text-xl">info</span>
                                 <div>
-                                    <p className="font-bold mb-4 text-on-surface">Nota Importante</p>
-                                    <p className="text-on-surface-variant">Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</p>
+                                    <p className="font-bold mb-4 text-[var(--md-sys-color-on-surface)]">Nota Importante</p>
+                                    <p className="text-[var(--md-sys-color-on-surface)]-variant">Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</p>
                                 </div>
                             </div>
                         )}
 
-                        <div className="overflow-y-auto max-h-[400px] border border-outline-variant/30 rounded-xl custom-scrollbar">
+                        <div className="overflow-y-auto max-h-[400px] border border-[var(--md-sys-color-outline-variant)]/30 rounded-[var(--md-sys-shape-corner-medium)] custom-scrollbar">
                             <table className="w-full text-sm text-left">
-                                <thead className="sticky top-0 z-10 text-xs text-on-surface-variant bg-surface-container-high uppercase font-bold shadow-sm">
+                                <thead className="sticky top-0 z-10 text-xs text-[var(--md-sys-color-on-surface)]-variant bg-[var(--md-sys-color-surface-container-high)] uppercase font-bold shadow-sm">
                                     <tr>
                                         <th className="px-4 py-3">Cognome</th>
                                         <th className="px-4 py-3">Nome</th>
@@ -356,9 +356,9 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 </thead>
                                 <tbody className="divide-y divide-outline-variant/10">
                                     {studentsToImport.map((student, index) => (
-                                        <tr key={index} className="bg-surface hover:bg-surface-container-low transition-colors">
-                                            <td className="px-4 py-3 font-bold text-on-surface">{student.cognome}</td>
-                                            <td className="px-4 py-3 text-on-surface">{student.nome}</td>
+                                        <tr key={index} className="bg-surface hover:bg-[var(--md-sys-color-surface-container-low)] transition-colors">
+                                            <td className="px-4 py-3 font-bold text-[var(--md-sys-color-on-surface)]">{student.cognome}</td>
+                                            <td className="px-4 py-3 text-[var(--md-sys-color-on-surface)]">{student.nome}</td>
                                             <td className="px-4 py-3"><span className="px-4 py-0.5 rounded-full bg-primary-container text-on-primary-container font-black text-xs">{student.classe}</span></td>
                                         </tr>
                                     ))}
@@ -379,7 +379,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
                 {renderContent()}
             </M3DialogContent>
             <M3DialogActions>

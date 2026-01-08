@@ -95,7 +95,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
         >
             <M3DialogContent className="space-y-8">
                 <div className="px-4">
-                    <p className="m3-body-medium text-primary font-extrabold uppercase tracking-[0.2em]">{slot.giorno} • {slot.ora}</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-primary font-extrabold uppercase tracking-[0.2em]">{slot.giorno} • {slot.ora}</p>
                 </div>
 
                 <section>
@@ -107,7 +107,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                     </div>
                 </section>
 
-                <div className="bg-surface-container-lowest p-8 md:p-6 rounded-3xl md:rounded-4xl border border-outline-variant/30 shadow-inner">
+                <div className="bg-[var(--md-sys-color-surface-container-low)]est p-8 md:p-6 rounded-[var(--md-sys-shape-corner-extra-large)] md:rounded-4xl border border-[var(--md-sys-color-outline-variant)]/30 shadow-inner">
                     {activityType === 'standard' && (
                         <div className="space-y-6 animate-in slide-in-from-bottom-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -193,7 +193,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                     </M3Button>
                 )}
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button onClick={handleSave} variant="filled" className="shadow-xl !px-10">Conferma</M3Button>
+                <M3Button onClick={handleSave} variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-10">Conferma</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

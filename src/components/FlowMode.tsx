@@ -140,15 +140,15 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
 
 
     return (
-        <div className="flex flex-col h-full bg-surface-container-low/30 relative aura-glass">
+        <div className="flex flex-col h-full bg-[var(--md-sys-color-surface-container-low)]/30 relative aura-glass">
             
             {/* --- HEADER (Minimal) --- */}
-            <div className="flex justify-between items-center p-6 bg-surface/40 backdrop-blur-xl z-10 border-b border-outline-variant/20">
+            <div className="flex justify-between items-center p-6 bg-surface/40 backdrop-blur-xl z-10 border-b border-[var(--md-sys-color-outline-variant)]/20">
                 <div>
-                    <h1 className="m3-headline-small font-black text-on-surface tracking-tight">Flow</h1>
+                    <h1 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)] tracking-tight">Flow</h1>
                     <p className="m3-label-medium text-primary font-bold uppercase tracking-widest opacity-70">{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
                 </div>
-                <button onClick={onOpenOperations} className="w-12 h-12 rounded-2xl flex items-center justify-center text-primary bg-primary/10 hover:bg-primary/20 transition-all shadow-sm border border-primary/20">
+                <button onClick={onOpenOperations} className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center text-primary bg-primary/10 hover:bg-primary/20 transition-all shadow-sm border border-primary/20">
                     <span className="material-symbols-outlined text-2xl">bolt</span>
                 </button>
             </div>
@@ -157,11 +157,11 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
             <div className="flex-grow overflow-y-auto px-6 py-8 space-y-8 pb-40 custom-scrollbar">
                 {timelineItems.length === 0 && (
                     <div 
-                        className="text-center py-20 opacity-50 bg-surface-container-low/50 border border-dashed border-outline-variant/30"
+                        className="text-center py-20 opacity-50 bg-[var(--md-sys-color-surface-container-low)]/50 border border-dashed border-[var(--md-sys-color-outline-variant)]/30"
                         style={{ borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
                     >
                         <span className="material-symbols-outlined text-5xl mb-8 text-primary/40">event_busy</span>
-                        <p className="m3-title-medium font-bold text-on-surface-variant">Nessun evento o lezione oggi.</p>
+                        <p className="m3-title-medium font-bold text-[var(--md-sys-color-on-surface)]-variant">Nessun evento o lezione oggi.</p>
                         <button onClick={() => actions.handleNavigate('timetable')} className="mt-4 px-6 py-4 rounded-full bg-primary/10 text-primary font-black text-xs uppercase tracking-widest hover:bg-primary/20 transition-all">
                             Configura Orario
                         </button>
@@ -176,7 +176,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                         return (
                             <div key={item.id} className="relative pl-10">
                                 <div className="absolute left-[11px] top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/50 to-transparent rounded-full"></div>
-                                <div className="absolute left-0 top-8 w-6 h-6 rounded-full border-4 border-surface-container-low bg-primary shadow-lg z-10 animate-pulse"></div>
+                                <div className="absolute left-0 top-8 w-6 h-6 rounded-full border-4 border-surface-container-low bg-primary shadow-[var(--md-sys-elevation-level2)] z-10 animate-pulse"></div>
                                 
                                 <div className="mb-6 m3-label-small font-black text-primary uppercase tracking-[0.2em] flex items-center gap-8">
                                     <span className="relative flex h-2 w-2">
@@ -186,22 +186,22 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                     ADESSO • {item.time}
                                 </div>
                                 <div 
-                                    className="card bg-primary text-on-primary shadow-2xl p-6 transform scale-[1.02] transition-all border border-white/10"
+                                    className="card bg-primary text-on-primary shadow-[var(--md-sys-elevation-level4)] p-6 transform scale-[1.02] transition-all border border-white/10"
                                     style={{ borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
                                 >
                                     <div className="flex justify-between items-start mb-6">
                                         <div>
-                                            <h2 className="m3-headline-small font-black tracking-tight leading-tight">{item.title}</h2>
-                                            <p className="m3-body-medium opacity-80 font-medium mt-4">{item.subtitle}</p>
+                                            <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black tracking-tight leading-tight">{item.title}</h2>
+                                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] opacity-80 font-medium mt-4">{item.subtitle}</p>
                                         </div>
-                                        <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner">
+                                        <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-inner">
                                             <span className="material-symbols-outlined text-3xl">
                                                 {item.type === 'lesson' ? 'school' : 'event'}
                                             </span>
                                         </div>
                                     </div>
                                     {item.actionLabel && (
-                                        <button onClick={item.onAction} className="w-full py-4 bg-white text-primary rounded-2xl flex items-center justify-center font-black text-xs uppercase tracking-widest shadow-lg hover:bg-opacity-90 transition-all">
+                                        <button onClick={item.onAction} className="w-full py-4 bg-white text-primary rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)] hover:bg-opacity-90 transition-all">
                                             {item.actionLabel} <span className="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
                                         </button>
                                     )}
@@ -217,10 +217,10 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                 <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-outline-variant/30"></div>
                                 <div className="absolute left-[4px] top-2 w-4 h-4 rounded-full bg-outline-variant/50 border-2 border-surface-container-low"></div>
                                 <div className="flex items-center gap-6 py-4">
-                                    <span className="text-[10px] font-black text-on-surface-variant w-12 uppercase tracking-tighter">{item.time}</span>
+                                    <span className="text-[10px] font-black text-[var(--md-sys-color-on-surface)]-variant w-12 uppercase tracking-tighter">{item.time}</span>
                                     <div>
-                                        <p className="m3-body-medium font-bold text-on-surface line-through decoration-outline-variant/50">{item.title}</p>
-                                        <p className="text-[10px] font-medium text-on-surface-variant uppercase tracking-widest">{item.subtitle}</p>
+                                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-bold text-[var(--md-sys-color-on-surface)] line-through decoration-outline-variant/50">{item.title}</p>
+                                        <p className="text-[10px] font-medium text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-widest">{item.subtitle}</p>
                                     </div>
                                 </div>
                             </div>
@@ -231,19 +231,19 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                     return (
                         <div key={item.id} className="relative pl-10">
                             {!isLast && <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-outline-variant/20"></div>}
-                            <div className="absolute left-[4px] top-2 w-4 h-4 rounded-full border-2 border-primary/40 bg-surface-container-low"></div>
+                            <div className="absolute left-[4px] top-2 w-4 h-4 rounded-full border-2 border-primary/40 bg-[var(--md-sys-color-surface-container-low)]"></div>
                             
                             <div 
-                                className="card bg-surface-container-high/40 backdrop-blur-md p-5 border border-outline-variant/20 hover:border-primary/40 hover:bg-surface-container-high/60 transition-all cursor-pointer group" 
+                                className="card bg-[var(--md-sys-color-surface-container-high)]/40 backdrop-blur-md p-5 border border-[var(--md-sys-color-outline-variant)]/20 hover:border-primary/40 hover:bg-[var(--md-sys-color-surface-container-high)]/60 transition-all cursor-pointer group" 
                                 onClick={item.onAction}
                                 style={{ borderRadius: 'calc(var(--shape-l) * var(--sys-radius-multiplier))' }}
                             >
                                 <div className="flex justify-between items-center mb-6">
                                     <span className="m3-label-small font-black text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/10 uppercase tracking-widest">{item.time}</span>
-                                    {item.type === 'lesson' && <span className="text-[9px] font-black uppercase tracking-[0.2em] text-on-surface-variant opacity-50">Lezione</span>}
+                                    {item.type === 'lesson' && <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--md-sys-color-on-surface)]-variant opacity-50">Lezione</span>}
                                 </div>
-                                <h3 className="m3-title-medium font-black text-on-surface group-hover:text-primary transition-colors">{item.title}</h3>
-                                <p className="m3-body-small text-on-surface-variant font-medium mt-4">{item.subtitle}</p>
+                                <h3 className="m3-title-medium font-black text-[var(--md-sys-color-on-surface)] group-hover:text-primary transition-colors">{item.title}</h3>
+                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant font-medium mt-4">{item.subtitle}</p>
                             </div>
                         </div>
                     );
@@ -252,19 +252,19 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
 
             {/* --- MAGIC BOTTOM BAR (Floating) --- */}
             <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-surface-container-low via-surface-container-low/80 to-transparent pb-8 pt-16 pointer-events-none z-20">
-                <div className="pointer-events-auto max-w-lg mx-auto bg-surface-container-highest/80 backdrop-blur-2xl rounded-[2.5rem] shadow-2xl border border-white/10 p-4.5 flex items-center gap-6">
+                <div className="pointer-events-auto max-w-lg mx-auto bg-[var(--md-sys-color-surface-container-high)]est/80 backdrop-blur-2xl rounded-[2.5rem] shadow-[var(--md-sys-elevation-level4)] border border-white/10 p-4.5 flex items-center gap-6">
                     
-                    <button onClick={() => actions.handleNavigate('settings')} className="w-12 h-12 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all">
+                    <button onClick={() => actions.handleNavigate('settings')} className="w-12 h-12 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface)]-variant hover:bg-[var(--md-sys-color-surface-container-high)] transition-all">
                         <span className="material-symbols-outlined text-2xl">settings</span>
                     </button>
 
-                    <div className="flex-grow bg-surface-container-low/50 rounded-full h-12 flex items-center px-6 text-on-surface-variant/60 text-sm font-bold cursor-text border border-outline-variant/10 hover:border-primary/30 transition-all" onClick={onOpenLiveAssistant}>
+                    <div className="flex-grow bg-[var(--md-sys-color-surface-container-low)]/50 rounded-full h-12 flex items-center px-6 text-[var(--md-sys-color-on-surface)]-variant/60 text-sm font-bold cursor-text border border-[var(--md-sys-color-outline-variant)]/10 hover:border-primary/30 transition-all" onClick={onOpenLiveAssistant}>
                         Chiedi all'assistente...
                     </div>
 
                     <VoiceNoteRecorder onTranscription={(text) => handleAddNote({ note: text })} compact />
                     
-                    <button onClick={() => actions.handleNavigate('progettazione-hub')} className="w-12 h-12 rounded-full bg-primary text-on-primary shadow-lg hover:shadow-primary/20 hover:scale-105 transition-all flex items-center justify-center">
+                    <button onClick={() => actions.handleNavigate('progettazione-hub')} className="w-12 h-12 rounded-full bg-primary text-on-primary shadow-[var(--md-sys-elevation-level2)] hover:shadow-primary/20 hover:scale-105 transition-all flex items-center justify-center">
                         <span className="material-symbols-outlined text-2xl">add</span>
                     </button>
                 </div>

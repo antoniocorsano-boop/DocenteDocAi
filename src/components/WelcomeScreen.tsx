@@ -37,12 +37,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   };
 
   const renderSelection = () => (
-      <div className="relative z-10 w-full max-w-lg md:max-w-2xl p-8 md:p-12 mx-4 bg-surface-container-low/30 backdrop-blur-2xl rounded-5xl border border-outline-variant/20 shadow-2xl flex flex-col items-center text-center animate-in fade-in zoom-in-95 duration-500">
-          <div className="mb-10 md:mb-14 p-6 bg-surface-container-high/50 rounded-4xl border border-outline-variant/20 shadow-inner transform scale-110 md:scale-125">
+      <div className="relative z-10 w-full max-w-lg md:max-w-2xl p-8 md:p-12 mx-4 bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-2xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)] flex flex-col items-center text-center animate-in fade-in zoom-in-95 duration-500">
+          <div className="mb-10 md:mb-14 p-6 bg-[var(--md-sys-color-surface-container-high)]/50 rounded-4xl border border-[var(--md-sys-color-outline-variant)]/20 shadow-inner transform scale-110 md:scale-125">
             <Logo />
           </div>
-          <h1 className="m3-headline-medium font-black tracking-tight text-on-surface mb-8">Benvenuto, Docente</h1>
-          <p className="text-[10px] md:text-[11px] font-black text-on-surface-variant/60 uppercase tracking-[0.3em] mb-10 md:mb-14">
+          <h1 className="m3-headline-medium font-black tracking-tight text-[var(--md-sys-color-on-surface)] mb-8">Benvenuto, Docente</h1>
+          <p className="text-[10px] md:text-[11px] font-black text-[var(--md-sys-color-on-surface)]-variant/60 uppercase tracking-[0.3em] mb-10 md:mb-14">
               Configuriamo il tuo spazio di lavoro
           </p>
 
@@ -53,7 +53,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="auto_fix_high"
                 variant="primary"
                 onClick={() => setMode('wizard')}
-                className="!py-10 md:!py-12 !rounded-4xl shadow-xl shadow-primary/10 hover:shadow-primary/20 transition-all"
+                className="!py-10 md:!py-12 !rounded-4xl shadow-[var(--md-sys-elevation-level3)] shadow-primary/10 hover:shadow-primary/20 transition-all"
               />
               <ActionTile 
                 title="Accesso Rapido"
@@ -61,7 +61,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="bolt"
                 variant="surface"
                 onClick={() => setMode('quick')}
-                className="!py-10 md:!py-12 !rounded-4xl shadow-xl shadow-surface-container-highest/10 hover:shadow-surface-container-highest/20 transition-all"
+                className="!py-10 md:!py-12 !rounded-4xl shadow-[var(--md-sys-elevation-level3)] shadow-surface-container-highest/10 hover:shadow-surface-container-highest/20 transition-all"
               />
           </div>
           
@@ -70,16 +70,16 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             description="Tutto ciò che inserisci rimane salvato localmente sul tuo dispositivo. Nessun dato personale viene inviato ai nostri server."
             icon="security"
             variant="surface"
-            className="mt-10 md:mt-14 !p-6 md:!p-8 !rounded-2xl bg-surface-container-low/50 border-outline-variant/10"
+            className="mt-10 md:mt-14 !p-6 md:!p-8 !rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-low)]/50 border-[var(--md-sys-color-outline-variant)]/10"
           />
       </div>
   );
 
   const renderWizard = () => (
-    <form onSubmit={handleWizardSubmit} className="relative z-10 w-full max-w-md p-8 md:p-10 mx-4 bg-surface-container-low/30 backdrop-blur-2xl rounded-5xl border border-outline-variant/20 shadow-2xl animate-in slide-in-from-bottom-10 duration-500">
+    <form onSubmit={handleWizardSubmit} className="relative z-10 w-full max-w-md p-8 md:p-10 mx-4 bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-2xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)] animate-in slide-in-from-bottom-10 duration-500">
         <div className="w-full mb-10">
             <div className="flex justify-between items-center mb-10">
-                <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} className="bg-surface-container-high/50" />
+                <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} className="bg-[var(--md-sys-color-surface-container-high)]/50" />
                 <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">Passo {step} di 3</span>
                 <div className="w-12"></div>
             </div>
@@ -93,7 +93,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Es. Prof. Rossi"
                         autoFocus
-                        className="bg-surface-container-high/50"
+                        className="bg-[var(--md-sys-color-surface-container-high)]/50"
                     />
                 </div>
             )}
@@ -105,13 +105,13 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         label="Tipo di Scuola"
                         value={schoolType}
                         onChange={(e) => setSchoolType(e.target.value)}
-                        className="bg-surface-container-high/50"
+                        className="bg-[var(--md-sys-color-surface-container-high)]/50"
                     >
                         {Object.keys(SCHOOL_TYPES_DISCIPLINES).map(t => (
                             <option key={t} value={t}>{t}</option>
                         ))}
                     </SelectField>
-                    <p className="text-[10px] font-black text-on-surface-variant/40 mt-4 px-4 uppercase tracking-widest">Servirà per suggerire le materie corrette.</p>
+                    <p className="text-[10px] font-black text-[var(--md-sys-color-on-surface)]-variant/40 mt-4 px-4 uppercase tracking-widest">Servirà per suggerire le materie corrette.</p>
                 </div>
             )}
 
@@ -125,7 +125,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         placeholder="Es. 3A"
                         autoFocus
                         containerClassName="uppercase"
-                        className="bg-surface-container-high/50"
+                        className="bg-[var(--md-sys-color-surface-container-high)]/50"
                     />
                 </div>
             )}
@@ -136,7 +136,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 <M3Button 
                     type="button" 
                     variant="filled"
-                    className="w-full py-6 rounded-3xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-primary/20"
+                    className="w-full py-6 rounded-[var(--md-sys-shape-corner-extra-large)] font-black text-xs uppercase tracking-[0.2em] shadow-[var(--md-sys-elevation-level2)] shadow-primary/20"
                     onClick={() => setStep(s => s + 1)} 
                     disabled={(step === 1 && !name) || (step === 3 && !className)}
                     aria-label="Continua"
@@ -148,7 +148,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 <M3Button 
                     type="submit" 
                     variant="filled"
-                    className="w-full py-6 rounded-3xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-primary/20"
+                    className="w-full py-6 rounded-[var(--md-sys-shape-corner-extra-large)] font-black text-xs uppercase tracking-[0.2em] shadow-[var(--md-sys-elevation-level2)] shadow-primary/20"
                     disabled={!className}
                     aria-label="Inizia Ora"
                 >
@@ -161,15 +161,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   );
 
   const renderQuick = () => (
-      <form onSubmit={handleQuickSubmit} className="relative z-10 w-full max-w-md p-8 md:p-10 mx-4 bg-surface-container-low/30 backdrop-blur-2xl rounded-5xl border border-outline-variant/20 shadow-2xl flex flex-col items-center text-center animate-in slide-in-from-bottom-10 duration-500">
-            <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => setMode('selection')} className="absolute top-6 left-6 bg-surface-container-high/50" />
+      <form onSubmit={handleQuickSubmit} className="relative z-10 w-full max-w-md p-8 md:p-10 mx-4 bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-2xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)] flex flex-col items-center text-center animate-in slide-in-from-bottom-10 duration-500">
+            <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => setMode('selection')} className="absolute top-6 left-6 bg-[var(--md-sys-color-surface-container-high)]/50" />
           
-          <div className="mb-10 p-6 bg-surface-container-high/50 rounded-4xl border border-outline-variant/20 shadow-inner transform scale-110">
+          <div className="mb-10 p-6 bg-[var(--md-sys-color-surface-container-high)]/50 rounded-4xl border border-[var(--md-sys-color-outline-variant)]/20 shadow-inner transform scale-110">
             <Logo />
           </div>
           
-          <h1 className="m3-headline-medium font-black tracking-tight text-on-surface mb-8">Accesso Rapido</h1>
-          <p className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-[0.3em] mb-10">Configurazione manuale</p>
+          <h1 className="m3-headline-medium font-black tracking-tight text-[var(--md-sys-color-on-surface)] mb-8">Accesso Rapido</h1>
+          <p className="text-[10px] font-black text-[var(--md-sys-color-on-surface)]-variant/60 uppercase tracking-[0.3em] mb-10">Configurazione manuale</p>
           
           <div className="w-full mb-10">
             <TextField 
@@ -180,14 +180,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 placeholder="Es. Prof. Rossi"
                 required
                 autoFocus
-                className="bg-surface-container-high/50"
+                className="bg-[var(--md-sys-color-surface-container-high)]/50"
             />
           </div>
 
             <M3Button 
                 type="submit" 
                 variant="filled" 
-                className="w-full py-6 rounded-3xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-primary/20" 
+                className="w-full py-6 rounded-[var(--md-sys-shape-corner-extra-large)] font-black text-xs uppercase tracking-[0.2em] shadow-[var(--md-sys-elevation-level2)] shadow-primary/20" 
                 aria-label="Entra nella Dashboard"
             >
                 Entra nella Dashboard

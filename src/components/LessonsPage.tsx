@@ -153,8 +153,8 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                         <span className="material-symbols-outlined">lightbulb</span>
                     </div>
                     <div>
-                        <h2 className="m3-headline-small">Hai un'idea per una lezione?</h2>
-                        <p className="m3-body-medium opacity-90">
+                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]">Hai un'idea per una lezione?</h2>
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] opacity-90">
                             Tocca qui per trasformarla subito in un piano strutturato con l'AI. Dettala o scrivila.
                         </p>
                     </div>
@@ -169,10 +169,10 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                         <span className="material-symbols-outlined text-primary">auto_awesome</span>
                         <span className="m3-title-medium">Generatore Sequenze Lezioni</span>
                     </div>
-                    <span className="material-symbols-outlined text-on-surface-variant">expand_more</span>
+                    <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">expand_more</span>
                 </summary>
                 <div className="m3-expansion-content">
-                    <p className="m3-body-medium text-on-surface-variant mb-8">
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-8">
                         Seleziona le Unità di Apprendimento (UDA) e le classi. L'AI genererà una sequenza di lezioni strutturata per ogni classe, basandosi sui documenti KB selezionati.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -186,7 +186,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                         <input type="checkbox" id={`uda-select-${uda.id}`} checked={selectedUdaIds.includes(uda.id)} onChange={() => handleUdaSelection(uda.id)} />
                                         <label htmlFor={`uda-select-${uda.id}`} className="chip w-full justify-start">{selectedUdaIds.includes(uda.id) && <span className="material-symbols-outlined text-lg">check</span>}{uda.title}</label>
                                     </div>
-                                )) : <p className="m3-body-small text-on-surface-variant">Nessuna UDA trovata. Creane una nel Planner.</p>}
+                                )) : <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Nessuna UDA trovata. Creane una nel Planner.</p>}
                             </div>
                         </div>
                         {/* Class Selection */}
@@ -206,7 +206,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                         <div className="section-container">
                             <div className="flex justify-between items-center mb-8">
                                 <h3 className="m3-title-medium">3. Contesto KB</h3>
-                                <span className="text-xs text-on-surface-variant">{selectedKbIds.length} selezionati</span>
+                                <span className="text-xs text-[var(--md-sys-color-on-surface)]-variant">{selectedKbIds.length} selezionati</span>
                             </div>
                             <div className="selection-container max-h-[200px] border-none p-0 overflow-y-auto custom-scrollbar">
                                 {knowledgeBase.map(kb => (
@@ -219,7 +219,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                         </label>
                                     </div>
                                 ))}
-                                {knowledgeBase.length === 0 && <p className="m3-body-small text-on-surface-variant italic">KB vuota.</p>}
+                                {knowledgeBase.length === 0 && <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant italic">KB vuota.</p>}
                             </div>
                         </div>
                     </div>
@@ -264,7 +264,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                     {groupedLessonsByClass.length > 0 ? (
                         groupedLessonsByClass.map(([classKey, udaGroups]) => (
                             <details key={classKey} className="m3-expansion-panel" open>
-                                <summary className="m3-expansion-summary bg-surface-container-highest/30">
+                                <summary className="m3-expansion-summary bg-[var(--md-sys-color-surface-container-high)]est/30">
                                     <span className="m3-title-medium">Classe {classKey}</span>
                                     <span className="material-symbols-outlined">expand_more</span>
                                 </summary>
@@ -275,12 +275,12 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                                 <span className="m3-label-large text-primary">{udaKey} ({lessonItems.length})</span>
                                                 <span className="material-symbols-outlined text-sm">expand_more</span>
                                             </summary>
-                                            <div className="pl-2 space-y-2 border-l-2 border-outline-variant ml-4 pb-2">
+                                            <div className="pl-2 space-y-2 border-l-2 border-[var(--md-sys-color-outline-variant)] ml-4 pb-2">
                                                 {lessonItems.map(lesson => (
-                                                    <div key={lesson.id} className="m3-list-item-card !p-6 !bg-surface-container-lowest">
+                                                    <div key={lesson.id} className="m3-list-item-card !p-6 !bg-[var(--md-sys-color-surface-container-low)]est">
                                                         <div onClick={() => onViewLesson(lesson)} className="list-item-card-content">
-                                                            <p className="m3-body-medium font-medium">{lesson.contenuto}</p>
-                                                            <p className="m3-body-small text-on-surface-variant">{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</p>
+                                                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-medium">{lesson.contenuto}</p>
+                                                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</p>
                                                         </div>
                                                         <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)} className="button button-tonal !h-8 !px-3 !text-xs flex-shrink-0">
                                                             <span className="material-symbols-outlined mr-1 text-sm">door_open</span>

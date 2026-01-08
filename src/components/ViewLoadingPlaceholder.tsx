@@ -37,7 +37,7 @@ export const MinimalViewLoading: React.FC = () => {
         <div className="w-12 h-12 mx-auto rounded-full aura-glass flex items-center justify-center animate-pulse">
           <span className="material-symbols-outlined text-2xl text-primary">hourglass_bottom</span>
         </div>
-        <p className="m3-body-medium text-on-surface-variant">Caricamento...</p>
+        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Caricamento...</p>
       </div>
     </div>
   );
@@ -50,7 +50,7 @@ export const SkeletonListLoading: React.FC = () => {
   return (
     <div className="space-y-4 p-4">
       {[1, 2, 3].map(i => (
-        <div key={i} className="h-16 rounded-lg aura-glass animate-pulse" />
+        <div key={i} className="h-16 rounded-[var(--md-sys-shape-corner-small)] aura-glass animate-pulse" />
       ))}
     </div>
   );

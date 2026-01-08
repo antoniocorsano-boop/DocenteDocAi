@@ -65,23 +65,23 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                 
                 <div className="relative z-10 max-w-lg space-y-12">
                     <div className="flex flex-col items-start space-y-6">
-                        <div className="w-32 h-32 p-6 bg-surface-container-high/50 backdrop-blur-xl rounded-4xl border border-outline-variant/20 shadow-2xl">
+                        <div className="w-32 h-32 p-6 bg-[var(--md-sys-color-surface-container-high)]/50 backdrop-blur-xl rounded-4xl border border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)]">
                             <Logo />
                         </div>
                         <div className="space-y-2">
                             <span className="text-xs font-black uppercase tracking-[0.4em] text-secondary opacity-70">Portale Studenti</span>
-                            <h1 className="text-6xl font-black tracking-tighter text-on-surface leading-none">
+                            <h1 className="text-6xl font-black tracking-tighter text-[var(--md-sys-color-on-surface)] leading-none">
                                 Accesso<br /><span className="text-primary">Diario</span>
                             </h1>
-                            <p className="text-xl font-medium text-on-surface-variant opacity-70 pt-4">
+                            <p className="text-xl font-medium text-[var(--md-sys-color-on-surface)]-variant opacity-70 pt-4">
                                 {welcomeMessage}
                             </p>
                         </div>
                     </div>
 
-                    <div className="pt-12 border-t border-outline-variant/20">
+                    <div className="pt-12 border-t border-[var(--md-sys-color-outline-variant)]/20">
                         <blockquote className="space-y-4">
-                            <p className="text-2xl font-serif italic text-on-surface-variant leading-relaxed">
+                            <p className="text-2xl font-serif italic text-[var(--md-sys-color-on-surface)]-variant leading-relaxed">
                                 "{quote.text}"
                             </p>
                             <footer className="text-sm font-black uppercase tracking-[0.2em] text-primary">
@@ -99,39 +99,39 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                 <div className="lg:hidden absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-tertiary/10 rounded-full blur-[120px] animate-pulse delay-700" />
 
                 <div className="w-full max-w-lg relative z-10 animate-in fade-in zoom-in-95 duration-700">
-                    <div className="bg-surface-container-low/30 backdrop-blur-2xl p-10 rounded-5xl border border-outline-variant/20 shadow-2xl space-y-10">
+                    <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-2xl p-10 rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)] space-y-10">
                         <div className="flex flex-col items-center text-center space-y-6 lg:hidden">
                             <div className="transform scale-125 mb-8">
                                 <Logo />
                             </div>
                             <div className="space-y-2">
                                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-secondary opacity-70">Portale Studenti</span>
-                                <h1 className="text-4xl font-black tracking-tight text-on-surface">Accesso Diario</h1>
+                                <h1 className="text-4xl font-black tracking-tight text-[var(--md-sys-color-on-surface)]">Accesso Diario</h1>
                             </div>
                         </div>
 
                         <div className="hidden lg:block">
-                            <h2 className="m3-headline-small font-black text-on-surface">Identificati</h2>
-                            <p className="text-sm text-on-surface-variant opacity-70">Seleziona la tua classe per iniziare</p>
+                            <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)]">Identificati</h2>
+                            <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant opacity-70">Seleziona la tua classe per iniziare</p>
                         </div>
 
                         {step === 'class' && (
                             <div className="space-y-8">
-                                <p className="text-sm font-black uppercase tracking-widest text-center text-on-surface-variant opacity-60 lg:text-left">Seleziona la tua classe</p>
+                                <p className="text-sm font-black uppercase tracking-widest text-center text-[var(--md-sys-color-on-surface)]-variant opacity-60 lg:text-left">Seleziona la tua classe</p>
                                 <div className="grid grid-cols-2 gap-8">
                                     {uniqueClasses.map(cls => (
                                         <M3Button 
                                             key={cls} 
                                             onClick={() => handleClassSelect(cls)}
                                             variant="tonal"
-                                            className="!h-20 !text-2xl font-black !rounded-xl shadow-lg hover:shadow-xl transition-all"
+                                            className="!h-20 !text-2xl font-black !rounded-[var(--md-sys-shape-corner-medium)] shadow-[var(--md-sys-elevation-level2)] hover:shadow-[var(--md-sys-elevation-level3)] transition-all"
                                         >
                                             {cls}
                                         </M3Button>
                                     ))}
                                 </div>
                                 {uniqueClasses.length === 0 && (
-                                    <div className="p-6 bg-error/10 border border-error/20 rounded-xl text-center">
+                                    <div className="p-6 bg-error/10 border border-error/20 rounded-[var(--md-sys-shape-corner-medium)] text-center">
                                         <p className="text-error font-black uppercase tracking-widest text-xs">Nessuna classe disponibile.</p>
                                     </div>
                                 )}
@@ -146,7 +146,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
 
                     {step === 'credentials' && (
                         <form onSubmit={handleLogin} className="space-y-8">
-                            <div className="bg-primary/5 p-6 rounded-2xl border border-primary/10 flex items-center justify-between">
+                            <div className="bg-primary/5 p-6 rounded-[var(--md-sys-shape-corner-large)] border border-primary/10 flex items-center justify-between">
                                  <div className="space-y-1">
                                     <p className="text-[10px] font-black uppercase text-primary tracking-widest opacity-70">Classe Selezionata</p>
                                     <strong className="text-primary text-3xl font-black">{selectedClass}</strong>
@@ -164,7 +164,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     required 
                                     placeholder="Es. Rossi" 
                                     autoComplete="family-name"
-                                    className="bg-surface-container-high/50"
+                                    className="bg-[var(--md-sys-color-surface-container-high)]/50"
                                 />
                                 <TextField 
                                     id="student-name"
@@ -175,7 +175,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     required 
                                     placeholder="Es. Mario" 
                                     autoComplete="given-name"
-                                    className="bg-surface-container-high/50"
+                                    className="bg-[var(--md-sys-color-surface-container-high)]/50"
                                 />
                             </div>
                             <TextField 
@@ -187,18 +187,18 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                 onChange={e => setBirthDate(e.target.value)} 
                                 required 
                                 autoComplete="bday"
-                                className="bg-surface-container-high/50"
+                                className="bg-[var(--md-sys-color-surface-container-high)]/50"
                             />
 
                             {error && (
-                                <div className="p-8 bg-error/10 border border-error/20 rounded-xl text-center">
+                                <div className="p-8 bg-error/10 border border-error/20 rounded-[var(--md-sys-shape-corner-medium)] text-center">
                                     <p className="text-error font-black uppercase tracking-widest text-xs">{error}</p>
                                 </div>
                             )}
 
                             <div className="flex gap-8 pt-4">
                                 <M3Button type="button" onClick={() => setStep('class')} variant="text" className="font-black uppercase tracking-widest text-xs">Indietro</M3Button>
-                                <M3Button type="submit" variant="filled" className="flex-grow font-black uppercase tracking-widest text-xs shadow-xl">Accedi al Diario</M3Button>
+                                <M3Button type="submit" variant="filled" className="flex-grow font-black uppercase tracking-widest text-xs shadow-[var(--md-sys-elevation-level3)]">Accedi al Diario</M3Button>
                             </div>
                         </form>
                     )}

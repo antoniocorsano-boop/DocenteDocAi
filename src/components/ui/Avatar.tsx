@@ -23,7 +23,7 @@ const Avatar: React.FC<AvatarProps> = ({ name, src, size = 'md', className = '' 
     };
 
     return (
-        <div className={`relative flex-shrink-0 rounded-3xl overflow-hidden bg-primary-container text-on-primary-container flex items-center justify-center font-black ${sizeClasses[size]} ${className}`}>
+        <div className={`relative flex-shrink-0 rounded-[var(--md-sys-shape-corner-extra-large)] overflow-hidden bg-primary-container text-on-primary-container flex items-center justify-center font-black ${sizeClasses[size]} ${className}`}>
             {src ? (
                 <img src={src} alt={name} className="w-full h-full object-cover" />
             ) : (

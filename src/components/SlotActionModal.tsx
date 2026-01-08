@@ -23,8 +23,8 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
     <M3Dialog
       title={
         <div className="flex flex-col">
-          <span className="m3-headline-small">Lezione Programmata</span>
-          <span className="m3-body-small text-on-surface-variant">{slot.giorno}, {slot.ora}</span>
+          <span className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]">Lezione Programmata</span>
+          <span className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{slot.giorno}, {slot.ora}</span>
         </div>
       }
       onClose={onClose}
@@ -34,7 +34,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
       <M3DialogContent>
             {/* Interactive Hero Card */}
             <div 
-                className="hero-card-interactive bg-primary-container text-on-primary-container group cursor-pointer hover:brightness-110 transition-all rounded-3xl p-6"
+                className="hero-card-interactive bg-primary-container text-on-primary-container group cursor-pointer hover:brightness-110 transition-all rounded-[var(--md-sys-shape-corner-extra-large)] p-6"
                 onClick={onView}
                 role="button"
                 tabIndex={0}
@@ -67,7 +67,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                         {lesson.contenuto}
                     </h3>
                     {lesson.nota && (
-                        <p className="m3-body-small mt-4 italic opacity-80 flex items-start gap-4 bg-surface/10 p-8 rounded-xl">
+                        <p className="m3-body-small mt-4 italic opacity-80 flex items-start gap-4 bg-surface/10 p-8 rounded-[var(--md-sys-shape-corner-medium)]">
                             <span className="material-symbols-outlined m3-icon-xs">sticky_note_2</span>
                             {lesson.nota}
                         </p>
@@ -79,9 +79,9 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
             <div className="flex flex-col gap-6 mt-4">
                 <button 
                     onClick={onStart} 
-                    className="flex items-center gap-6 p-6 md:gap-8 md:p-8 rounded-3xl bg-primary text-on-primary hover:bg-primary/90 transition-all text-left group shadow-sm"
+                    className="flex items-center gap-6 p-6 md:gap-8 md:p-8 rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary text-on-primary hover:bg-primary/90 transition-all text-left group shadow-sm"
                 >
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-[var(--md-sys-shape-corner-large)] bg-primary-container text-on-primary-container flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
                         <span className="material-symbols-outlined text-xl md:text-2xl">door_open</span>
                     </div>
                     <div className="min-w-0">
@@ -92,9 +92,9 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
 
                 <button 
                     onClick={onEdit} 
-                    className="flex items-center gap-6 p-6 md:gap-8 md:p-8 rounded-3xl bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80 transition-all text-left group shadow-sm"
+                    className="flex items-center gap-6 p-6 md:gap-8 md:p-8 rounded-[var(--md-sys-shape-corner-extra-large)] bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80 transition-all text-left group shadow-sm"
                 >
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-surface-container-lowest text-secondary flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-low)]est text-secondary flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
                         <span className="material-symbols-outlined text-xl md:text-2xl">edit</span>
                     </div>
                     <div className="min-w-0">

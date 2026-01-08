@@ -77,24 +77,24 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
       maxWidth="4xl"
       hideBackdrop={true}
     >
-      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden px-0">
+      <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden px-0">
         {/* Left Panel: Upload and Prompt */}
-        <div className="p-12 border-r border-outline-variant flex flex-col gap-12">
+        <div className="p-12 border-r border-[var(--md-sys-color-outline-variant)] flex flex-col gap-12">
           <div>
-            <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-6">1. Carica un'immagine</h3>
+            <h3 className="text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider mb-6">1. Carica un'immagine</h3>
             <div 
               {...getRootProps()}
-              className={`flex flex-col items-center justify-center border-2 border-dashed border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors h-48 rounded-2xl cursor-pointer overflow-hidden ${isDragActive ? 'border-primary bg-primary/20' : ''}`}
+              className={`flex flex-col items-center justify-center border-2 border-dashed border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors h-48 rounded-[var(--md-sys-shape-corner-large)] cursor-pointer overflow-hidden ${isDragActive ? 'border-primary bg-primary/20' : ''}`}
             >
               <input {...getInputProps()} />
               {imagePreview ? (
                 <img src={imagePreview} alt="Preview" className="h-full w-full object-contain" />
               ) : (
                 <>
-                  <div className="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center mb-8">
+                  <div className="w-12 h-12 rounded-full bg-[var(--md-sys-color-surface-container-high)] flex items-center justify-center mb-8">
                       <span className="material-symbols-outlined text-3xl text-primary">add_photo_alternate</span>
                   </div>
-                  <div className="text-center text-on-surface-variant">
+                  <div className="text-center text-[var(--md-sys-color-on-surface)]-variant">
                       <p className="font-bold">Trascina o clicca</p>
                   </div>
                 </>
@@ -103,7 +103,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
           </div>
           
           <div className="flex-grow flex flex-col">
-            <label htmlFor="prompt-textarea" className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-8">2. Chiedi qualcosa</label>
+            <label htmlFor="prompt-textarea" className="text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider mb-8">2. Chiedi qualcosa</label>
             <textarea
               id="prompt-textarea"
               value={prompt}
@@ -112,7 +112,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
                 if (error) setError('');
               }}
               placeholder="Es. 'Descrivi cosa vedi in questa immagine'..."
-              className="w-full flex-grow p-12 bg-surface border border-outline rounded-2xl focus:border-primary focus:outline-none resize-none"
+              className="w-full flex-grow p-12 bg-surface border border-[var(--md-sys-color-outline)] rounded-[var(--md-sys-shape-corner-large)] focus:border-primary focus:outline-none resize-none"
               rows={4}
               disabled={!imageFile}
             />
@@ -130,7 +130,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
 
         {/* Right Panel: Analysis Result */}
         <div className="p-12 overflow-y-auto flex flex-col bg-surface/50">
-          <h3 className="text-sm font-bold text-on-surface-variant uppercase tracking-wider mb-8">Risultato Analisi</h3>
+          <h3 className="text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider mb-8">Risultato Analisi</h3>
           <InfoCard variant="elevated" className="flex-grow p-12 overflow-y-auto">
             {isLoading && (
               <div className="flex flex-col items-center justify-center h-full gap-12">
@@ -140,11 +140,11 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
             )}
             {analysisResult && (
                 <div className="prose prose-sm max-w-none">
-                    <p className="whitespace-pre-wrap text-on-surface leading-relaxed">{analysisResult}</p>
+                    <p className="whitespace-pre-wrap text-[var(--md-sys-color-on-surface)] leading-relaxed">{analysisResult}</p>
                 </div>
             )}
             {!analysisResult && !isLoading && (
-                <div className="flex flex-col items-center justify-center h-full text-center text-on-surface-variant opacity-50">
+                <div className="flex flex-col items-center justify-center h-full text-center text-[var(--md-sys-color-on-surface)]-variant opacity-50">
                     <span className="material-symbols-outlined text-6xl mb-8">visibility</span>
                     <p className="font-medium">Il risultato dell'analisi apparirà qui.</p>
                 </div>

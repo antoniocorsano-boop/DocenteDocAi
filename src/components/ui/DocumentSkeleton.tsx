@@ -11,13 +11,13 @@ const DocumentSkeleton: React.FC<DocumentSkeletonProps> = ({
 }) => (
     <div className={`space-y-3 ${className}`}>
         {/* Title skeleton */}
-        <div className="h-8 bg-surface-container-high rounded-lg animate-pulse" style={{ width: '70%' }} />
+        <div className="h-8 bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-small)] animate-pulse" style={{ width: '70%' }} />
         
         {/* Content lines skeleton */}
         {Array.from({ length: lines }).map((_, i) => (
             <div
                 key={i}
-                className="h-4 bg-surface-container-high rounded animate-pulse"
+                className="h-4 bg-[var(--md-sys-color-surface-container-high)] rounded animate-pulse"
                 style={{
                     width: i === lines - 1 ? '60%' : '100%',
                     animationDelay: `${i * 0.1}s`

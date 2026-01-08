@@ -46,12 +46,12 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent className="flex flex-col items-center justify-center w-full py-8 bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="flex flex-col items-center justify-center w-full py-8 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
                 <div className="text-center mb-8">
                     <div className="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mx-auto mb-8 shadow-sm">
                         <span className="material-symbols-outlined text-3xl">lock</span>
                     </div>
-                    <p className="m3-body-medium text-on-surface-variant mt-4">Inserisci il PIN docente per uscire</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mt-4">Inserisci il PIN docente per uscire</p>
                 </div>
 
                 {/* PIN Display */}
@@ -62,7 +62,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                             className={`w-4 h-4 rounded-full transition-all duration-200 ${
                                 i < pin.length 
                                     ? (error ? 'bg-error scale-125' : 'bg-primary scale-110') 
-                                    : 'bg-surface-container-highest border border-outline'
+                                    : 'bg-[var(--md-sys-color-surface-container-high)]est border border-[var(--md-sys-color-outline)]'
                             }`}
                         />
                     ))}

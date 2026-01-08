@@ -29,17 +29,17 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         role="button"
         tabIndex={0}
         aria-pressed={isSelected}
-        className={`flex flex-col items-center gap-8 p-5 rounded-2xl border-2 transition-all cursor-pointer group ${isSelected ? 'border-primary bg-primary-container shadow-xl scale-[1.02]' : 'border-outline-variant/20 bg-surface-container/30 hover:border-outline-variant/60 hover:bg-surface-container/50'}`}
+        className={`flex flex-col items-center gap-8 p-5 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all cursor-pointer group ${isSelected ? 'border-primary bg-primary-container shadow-[var(--md-sys-elevation-level3)] scale-[1.02]' : 'border-[var(--md-sys-color-outline-variant)]/20 bg-[var(--md-sys-color-surface-container)]/30 hover:border-[var(--md-sys-color-outline-variant)]/60 hover:bg-[var(--md-sys-color-surface-container)]/50'}`}
     >
         <div
-            className="w-16 h-16 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:rotate-6 group-hover:scale-110"
+            className="w-16 h-16 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center transition-all duration-500 group-hover:rotate-6 group-hover:scale-110"
             style={{ backgroundColor: isSelected ? 'var(--sys-primary)' : color + '20', color: isSelected ? 'var(--sys-on-primary)' : color }}
         >
             <span className="material-symbols-outlined text-3xl">{icon}</span>
         </div>
         <div className="flex flex-col items-center gap-4">
             <span className="text-sm font-black text-center tracking-tight">{label}</span>
-            {description && <p className="text-[10px] text-on-surface-variant text-center opacity-60 leading-tight font-medium line-clamp-2 px-4">{description}</p>}
+            {description && <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant text-center opacity-60 leading-tight font-medium line-clamp-2 px-4">{description}</p>}
         </div>
     </div>
 );

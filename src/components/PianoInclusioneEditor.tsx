@@ -102,9 +102,9 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
             maxWidth="lg"
         >
             <form onSubmit={handleSubmit} className="flex flex-col h-full">
-                <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm p-6 space-y-8 overflow-y-auto">
+                <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm p-6 space-y-8 overflow-y-auto">
                     {/* Subtitle */}
-                    <div className="pb-4 border-b border-outline-variant/30">
+                    <div className="pb-4 border-b border-[var(--md-sys-color-outline-variant)]/30">
                         <SectionHeader 
                             title={`${student.cognome} ${student.nome}`}
                             subtitle={`Classe ${student.classe} • Redazione Piano di Inclusione Personalizzato`}
@@ -145,7 +145,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     onChange={e => handleChange(section.key, e.target.value)}
                                     rows={5}
                                     placeholder={section.placeholder}
-                                    className="bg-surface-container-lowest/50"
+                                    className="bg-[var(--md-sys-color-surface-container-low)]est/50"
                                 />
                             </InfoCard>
                         ))}
@@ -158,13 +158,13 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     Obiettivi per Materia (PEI/PDP)
                                 </h3>
                             </div>
-                            <p className="text-xs text-on-surface-variant mb-8">
+                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mb-8">
                                 Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
                             </p>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {settings.disciplines.map(materia => (
-                                    <div key={materia} className="space-y-2 p-8 rounded-xl bg-surface-container-lowest/50 border border-outline-variant/30">
+                                    <div key={materia} className="space-y-2 p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-low)]est/50 border border-[var(--md-sys-color-outline-variant)]/30">
                                         <div className="flex justify-between items-center">
                                             <label className="text-xs font-bold text-primary flex items-center gap-8">
                                                 <span className="material-symbols-outlined text-[16px]">book</span>
@@ -202,7 +202,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                 </M3DialogContent>
 
                 {/* Actions */}
-                <M3DialogActions className="bg-surface-container-high/80 backdrop-blur-md p-6 border-t border-outline-variant/30">
+                <M3DialogActions className="bg-[var(--md-sys-color-surface-container-high)]/80 backdrop-blur-md p-6 border-t border-[var(--md-sys-color-outline-variant)]/30">
                     {existingPiano && (
                         <M3Button
                             type="button"

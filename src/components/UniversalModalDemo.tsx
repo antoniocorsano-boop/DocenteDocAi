@@ -18,7 +18,7 @@ const UniversalModalDemo: React.FC = () => {
         title="Esempio di Modale Universale"
         onClose={() => setOpen(false)}
       >
-        <p className="m3-body-medium text-on-surface">
+        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]">
           Questo Ã¨ un esempio di contenuto per il nuovo modale accessibile e responsive.<br />
           Premi <b>ESC</b> o clicca fuori dal modale per chiudere.
         </p>

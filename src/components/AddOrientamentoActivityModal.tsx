@@ -79,7 +79,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                 />
 
                 <div className="space-y-4">
-                    <label className="m3-label-medium text-on-surface-variant">Classi Coinvolte</label>
+                    <label className="m3-label-medium text-[var(--md-sys-color-on-surface)]-variant">Classi Coinvolte</label>
                     <div className="flex flex-wrap gap-12">
                         {userClasses.map(cls => (
                             <button
@@ -95,7 +95,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                 className={`px-8 py-4 rounded-full text-xs font-bold transition-all ${
                                     activity.classes?.includes(cls)
                                         ? 'bg-primary text-on-primary'
-                                        : 'bg-surface-container-high text-on-surface-variant'
+                                        : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)]-variant'
                                 }`}
                             >
                                 {cls}

@@ -72,12 +72,12 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
             maxWidth="xl"
             level={1}
         >
-            <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl p-12 space-y-12">
+            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-12 space-y-12">
                 <SelectField 
                     label="Classe Destinazione" 
                     value={targetClass} 
                     onChange={e => setTargetClass(e.target.value)}
-                    className="bg-surface-container-high/50"
+                    className="bg-[var(--md-sys-color-surface-container-high)]/50"
                 >
                     <option value="" disabled>Seleziona...</option>
                     {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
@@ -93,24 +93,24 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     rows={6} 
                     placeholder="Es. 'Lezione attiva su Dante usando i social media'..." 
                     autoFocus
-                    className="bg-surface-container-high/50"
+                    className="bg-[var(--md-sys-color-surface-container-high)]/50"
                 />
 
                 <div className="space-y-12">
                     <div className="flex items-center justify-between px-8">
                         <label className="flex items-center gap-8 cursor-pointer select-none">
                             <div className="switch"><input type="checkbox" checked={useKb} onChange={e => setUseKb(e.target.checked)} /><span className="slider"></span></div>
-                            <span className="text-[11px] font-black uppercase tracking-widest text-on-surface-variant">Usa Context Knowledge Base</span>
+                            <span className="text-[11px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Usa Context Knowledge Base</span>
                         </label>
                         <span className="text-[10px] font-black uppercase text-primary tracking-widest">{selectedKbIds.length} file</span>
                     </div>
                     
                     {useKb && knowledgeBase.length > 0 && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 p-12 bg-surface-container-low/50 rounded-xl border border-outline-variant/10 max-h-48 overflow-y-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 p-12 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/10 max-h-48 overflow-y-auto">
                             {knowledgeBase.map(k => (
-                                <label key={k.id} className={`flex items-center gap-8 p-12 rounded-2xl border transition-all cursor-pointer ${selectedKbIds.includes(k.id) ? 'bg-primary/10 border-primary/30' : 'bg-surface-container-high/30 border-outline-variant/10'}`}>
+                                <label key={k.id} className={`flex items-center gap-8 p-12 rounded-[var(--md-sys-shape-corner-large)] border transition-all cursor-pointer ${selectedKbIds.includes(k.id) ? 'bg-primary/10 border-primary/30' : 'bg-[var(--md-sys-color-surface-container-high)]/30 border-[var(--md-sys-color-outline-variant)]/10'}`}>
                                     <input type="checkbox" checked={selectedKbIds.includes(k.id)} onChange={() => handleKbToggle(k.id)} className="hidden" />
-                                    <span className={`material-symbols-outlined text-sm ${selectedKbIds.includes(k.id) ? 'text-primary' : 'text-on-surface-variant'}`}>
+                                    <span className={`material-symbols-outlined text-sm ${selectedKbIds.includes(k.id) ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>
                                         {selectedKbIds.includes(k.id) ? 'check_box' : 'check_box_outline_blank'}
                                     </span>
                                     <span className="text-[10px] font-black uppercase tracking-widest truncate">{k.fileName}</span>
@@ -121,20 +121,20 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 </div>
 
                 {error && (
-                    <div className="p-12 bg-error/10 border border-error/20 rounded-2xl flex items-center gap-8 text-error">
+                    <div className="p-12 bg-error/10 border border-error/20 rounded-[var(--md-sys-shape-corner-large)] flex items-center gap-8 text-error">
                         <span className="material-symbols-outlined">error</span>
                         <p className="text-xs font-black uppercase tracking-widest">{error}</p>
                     </div>
                 )}
             </M3DialogContent>
 
-            <M3DialogActions className="bg-surface-container-low/30 backdrop-blur-xl border-t border-outline-variant/10 px-12 pb-12 pt-0 gap-12">
+            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-t border-[var(--md-sys-color-outline-variant)]/10 px-12 pb-12 pt-0 gap-12">
                 <M3Button onClick={onClose} variant="text" className="font-black text-xs uppercase tracking-widest">Annulla</M3Button>
                 <M3Button 
                     onClick={handleGenerate} 
                     variant="filled" 
                     disabled={isLoading || !ideaText.trim()}
-                    className="font-black text-xs uppercase tracking-widest shadow-lg !px-10"
+                    className="font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)] !px-10"
                 >
                     {isLoading ? <AiThinkingGem size={20} /> : (
                         <div className="flex items-center gap-8">

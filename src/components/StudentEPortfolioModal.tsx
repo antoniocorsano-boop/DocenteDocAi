@@ -43,11 +43,11 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
         <M3Dialog isOpen={isOpen} onClose={onClose} title={`E-Portfolio: ${student.nome} ${student.cognome}`} maxWidth="md">
             <M3DialogContent className="space-y-8 pt-4 px-4 md:px-6">
                 {/* Status Section */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-surface-container-low p-6 rounded-3xl border border-outline-variant/20">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/20">
                     <div className="flex items-center justify-between">
                         <div>
                             <h4 className="m3-title-medium">Capolavoro</h4>
-                            <p className="m3-body-small text-on-surface-variant">Caricato nell&apos;E-Portfolio</p>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Caricato nell&apos;E-Portfolio</p>
                         </div>
                         <input 
                             type="checkbox"
@@ -59,7 +59,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                     <div className="flex items-center justify-between">
                         <div>
                             <h4 className="m3-title-medium">Autovalutazione</h4>
-                            <p className="m3-body-small text-on-surface-variant">Riflessione critica completata</p>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Riflessione critica completata</p>
                         </div>
                         <input 
                             type="checkbox"
@@ -83,7 +83,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                         </div>
                         <div className="flex gap-8 items-end">
                             <select 
-                                className="flex-grow bg-surface-container-high rounded-2xl px-4 py-3 m3-body-medium border-none focus:ring-2 focus:ring-primary min-w-0"
+                                className="flex-grow bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-large)] px-4 py-3 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] border-none focus:ring-2 focus:ring-primary min-w-0"
                                 value={newEntry.category}
                                 onChange={(e) => setNewEntry({ ...newEntry, category: e.target.value as EPortfolioEntry['category'] })}
                             >
@@ -102,10 +102,10 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                     <h4 className="m3-title-large font-black">Documenti Caricati</h4>
                     <div className="space-y-2">
                         {entries.length === 0 ? (
-                            <p className="text-center py-8 text-on-surface-variant italic">Nessun documento caricato</p>
+                            <p className="text-center py-8 text-[var(--md-sys-color-on-surface)]-variant italic">Nessun documento caricato</p>
                         ) : (
                             entries.map(entry => (
-                                <div key={entry.id} className="flex items-center justify-between p-8 bg-surface-container rounded-2xl border border-outline-variant/10">
+                                <div key={entry.id} className="flex items-center justify-between p-8 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
                                     <div>
                                         <div className="flex items-center gap-8">
                                             <span className="material-symbols-outlined text-primary text-sm">
@@ -113,7 +113,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                                             </span>
                                             <span className="font-bold">{entry.title}</span>
                                         </div>
-                                        <p className="m3-body-small text-on-surface-variant">{entry.date}</p>
+                                        <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{entry.date}</p>
                                     </div>
                                     <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-[10px] font-black uppercase tracking-wider">
                                         {entry.category}

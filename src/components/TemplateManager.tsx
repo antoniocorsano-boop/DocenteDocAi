@@ -116,7 +116,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
       case 'student_profile': return 'bg-primary-container text-on-primary-container';
       case 'lesson_plan': return 'bg-secondary-container text-on-secondary-container';
       case 'uda': return 'bg-tertiary-container text-on-tertiary-container';
-      default: return 'bg-surface-container text-on-surface-container';
+      default: return 'bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)]-container';
     }
   };
 
@@ -126,7 +126,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
       onClose={onClose}
       maxWidth="2xl"
     >
-      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+      <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
         <div className="p-6 space-y-6">
             {editingTemplate ? (
               <TemplateEditor
@@ -143,7 +143,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                 <div className="flex items-center justify-between gap-8">
                   <div className="flex-1 max-w-md">
                     <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant">
+                      <span className="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--md-sys-color-on-surface)]-variant">
                         search
                       </span>
                       <input
@@ -151,7 +151,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                         placeholder="Cerca template..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-4 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface"
+                        className="w-full pl-10 pr-4 py-4 border border-[var(--md-sys-color-outline)] rounded-[var(--md-sys-shape-corner-small)] focus:border-primary focus:outline-none bg-surface"
                       />
                     </div>
                   </div>
@@ -168,13 +168,13 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                 <div className="space-y-8">
                   {Object.keys(groupedTemplates).length === 0 ? (
                     <div className="text-center py-12">
-                      <span className="material-symbols-outlined text-6xl text-on-surface-variant/50 mb-8">
+                      <span className="material-symbols-outlined text-6xl text-[var(--md-sys-color-on-surface)]-variant/50 mb-8">
                         description
                       </span>
-                      <h3 className="text-lg font-medium text-on-surface mb-8">
+                      <h3 className="text-lg font-medium text-[var(--md-sys-color-on-surface)] mb-8">
                         {searchTerm ? 'Nessun template trovato' : 'Nessun template creato'}
                       </h3>
-                      <p className="text-on-surface-variant mb-8">
+                      <p className="text-[var(--md-sys-color-on-surface)]-variant mb-8">
                         {searchTerm
                           ? 'Prova a modificare i termini di ricerca'
                           : 'Crea il tuo primo template per personalizzare i documenti'
@@ -206,7 +206,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                             >
                               <div className="flex items-start justify-between mb-6">
                                 <div className="flex-1 min-w-0">
-                                  <h4 className="font-bold text-on-surface truncate mb-4">
+                                  <h4 className="font-bold text-[var(--md-sys-color-on-surface)] truncate mb-4">
                                     {template.name}
                                   </h4>
                                   <span className={`inline-block px-4 py-0.5 text-[10px] font-black uppercase tracking-wider rounded-full ${getTypeColor(template.type)}`}>
@@ -234,12 +234,12 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                               </div>
 
                               {template.description && (
-                                <p className="text-xs text-on-surface-variant mb-6 line-clamp-2">
+                                <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mb-6 line-clamp-2">
                                   {template.description}
                                 </p>
                               )}
 
-                              <div className="text-[10px] text-on-surface-variant mb-6 opacity-70">
+                              <div className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant mb-6 opacity-70">
                                 Aggiornato: {new Date(template.updatedAt).toLocaleDateString('it-IT')}
                               </div>
 
@@ -277,11 +277,11 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
   return (
     <InfoCard 
       variant="elevated" 
-      className="p-0 overflow-hidden border-outline/50 h-full flex flex-col"
+      className="p-0 overflow-hidden border-[var(--md-sys-color-outline)]/50 h-full flex flex-col"
       aria-label="Anteprima del documento"
       role="region"
     >
-      <div className="bg-surface-container-low p-8 border-b border-outline/30 flex items-center justify-between shrink-0">
+      <div className="bg-[var(--md-sys-color-surface-container-low)] p-8 border-b border-[var(--md-sys-color-outline)]/30 flex items-center justify-between shrink-0">
         <span className="text-[10px] font-bold uppercase tracking-widest opacity-50 ml-2">Simulazione Documento</span>
         <div className="flex gap-4">
           <div className="w-2 h-2 rounded-full bg-error/30"></div>
@@ -304,7 +304,7 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
           }} 
         />
         
-        <div className="my-6 py-8 border-2 border-dashed border-gray-200 rounded-xl flex flex-col items-center justify-center text-gray-400 bg-gray-50/50">
+        <div className="my-6 py-8 border-2 border-dashed border-gray-200 rounded-[var(--md-sys-shape-corner-medium)] flex flex-col items-center justify-center text-gray-400 bg-gray-50/50">
           <span className="material-symbols-outlined text-3xl mb-8">description</span>
           <p className="text-xs font-medium">Contenuto del Documento</p>
           <p className="text-[9px] mt-4 mb-8">(Simulazione corpo del documento)</p>
@@ -450,7 +450,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
   return (
     <div className="space-y-6">
       {/* Header Editor */}
-      <div className="flex items-center justify-between border-b border-outline-variant pb-4">
+      <div className="flex items-center justify-between border-b border-[var(--md-sys-color-outline-variant)] pb-4">
         <div className="flex gap-8">
           <M3Button 
             onClick={() => setActiveTab('config')} 
@@ -550,7 +550,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                 {isGenerating ? '...' : 'Genera'}
               </M3Button>
             </div>
-            <p className="text-[10px] text-on-surface-variant mt-4">
+            <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant mt-4">
               L'AI creerà automaticamente l'intestazione, il piè di pagina e le configurazioni ottimali.
             </p>
           </InfoCard>
@@ -567,7 +567,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         type="checkbox"
                         checked={editedTemplate.config.includeEvaluations ?? true}
                         onChange={(e) => updateConfig('includeEvaluations', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-outline text-primary focus:ring-primary"
+                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
                       />
                       <span className="text-sm group-hover:text-primary transition-colors">Includi valutazioni</span>
                     </label>
@@ -576,7 +576,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         type="checkbox"
                         checked={editedTemplate.config.includeCompetencyEvaluations ?? true}
                         onChange={(e) => updateConfig('includeCompetencyEvaluations', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-outline text-primary focus:ring-primary"
+                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
                       />
                       <span className="text-sm group-hover:text-primary transition-colors">Includi competenze</span>
                     </label>
@@ -589,7 +589,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         type="checkbox"
                         checked={editedTemplate.config.includeObjectives ?? true}
                         onChange={(e) => updateConfig('includeObjectives', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-outline text-primary focus:ring-primary"
+                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
                       />
                       <span className="text-sm group-hover:text-primary transition-colors">Includi obiettivi</span>
                     </label>
@@ -598,7 +598,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         type="checkbox"
                         checked={editedTemplate.config.includeMaterials ?? true}
                         onChange={(e) => updateConfig('includeMaterials', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-outline text-primary focus:ring-primary"
+                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
                       />
                       <span className="text-sm group-hover:text-primary transition-colors">Includi materiali</span>
                     </label>
@@ -611,7 +611,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         type="checkbox"
                         checked={editedTemplate.config.includePhases ?? true}
                         onChange={(e) => updateConfig('includePhases', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-outline text-primary focus:ring-primary"
+                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
                       />
                       <span className="text-sm group-hover:text-primary transition-colors">Includi fasi</span>
                     </label>
@@ -620,7 +620,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         type="checkbox"
                         checked={editedTemplate.config.includeEvaluation ?? true}
                         onChange={(e) => updateConfig('includeEvaluation', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-outline text-primary focus:ring-primary"
+                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
                       />
                       <span className="text-sm group-hover:text-primary transition-colors">Includi valutazione</span>
                     </label>
@@ -642,7 +642,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         newSections[idx] = e.target.value;
                         updateConfig('customSections', newSections);
                       }}
-                      className="flex-1 px-4 py-1 border border-outline rounded bg-surface text-xs"
+                      className="flex-1 px-4 py-1 border border-[var(--md-sys-color-outline)] rounded bg-surface text-xs"
                     />
                     <button 
                       onClick={() => {
@@ -680,42 +680,42 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
               </div>
               
               <div>
-                <label htmlFor="html-header" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-4">
+                <label htmlFor="html-header" className="block text-[10px] font-black uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant mb-4">
                   Intestazione (HTML)
                 </label>
                 <textarea
                   id="html-header"
                   value={editedTemplate.content?.header || ''}
                   onChange={(e) => updateContent('header', e.target.value)}
-                  className="w-full px-3 py-4 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
+                  className="w-full px-3 py-4 border border-[var(--md-sys-color-outline)] rounded-[var(--md-sys-shape-corner-small)] focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
                   rows={8}
                   placeholder="<h1>Titolo</h1>..."
                 />
               </div>
               
               <div>
-                <label htmlFor="html-footer" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-4">
+                <label htmlFor="html-footer" className="block text-[10px] font-black uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant mb-4">
                   PiÃ¨ di pagina (HTML)
                 </label>
                 <textarea
                   id="html-footer"
                   value={editedTemplate.content?.footer || ''}
                   onChange={(e) => updateContent('footer', e.target.value)}
-                  className="w-full px-3 py-4 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
+                  className="w-full px-3 py-4 border border-[var(--md-sys-color-outline)] rounded-[var(--md-sys-shape-corner-small)] focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
                   rows={4}
                   placeholder="<p>Pagina {{page}}</p>..."
                 />
               </div>
               
               <div>
-                <label htmlFor="custom-css" className="block text-[10px] font-black uppercase tracking-wider text-on-surface-variant mb-4">
+                <label htmlFor="custom-css" className="block text-[10px] font-black uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant mb-4">
                   CSS Personalizzato
                 </label>
                 <textarea
                   id="custom-css"
                   value={editedTemplate.content?.customCss || ''}
                   onChange={(e) => updateContent('customCss', e.target.value)}
-                  className="w-full px-3 py-4 border border-outline rounded-lg focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
+                  className="w-full px-3 py-4 border border-[var(--md-sys-color-outline)] rounded-[var(--md-sys-shape-corner-small)] focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
                   rows={4}
                   placeholder=".header { color: red; }..."
                 />
@@ -752,7 +752,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                   {availableVariables.map(v => (
                     <button 
                       key={v.name} 
-                      className="px-4 py-1 rounded bg-surface-container-low border border-outline/30 hover:border-primary/50 text-[10px] font-mono text-primary transition-colors"
+                      className="px-4 py-1 rounded bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline)]/30 hover:border-primary/50 text-[10px] font-mono text-primary transition-colors"
                       onClick={() => {
                         navigator.clipboard.writeText(v.name);
                         showToast(`Copiato: ${v.name}`, 'info');

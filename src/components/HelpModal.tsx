@@ -10,10 +10,10 @@ type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'fa
 const ManualSection: React.FC<{ title: string; icon: string; colorClass: string; defaultOpen?: boolean; children: React.ReactNode }> = ({ title, icon, colorClass, defaultOpen = false, children }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
-        <div className="bg-surface-container-low/30 backdrop-blur-md rounded-2xl border border-outline-variant/20 overflow-hidden mb-16">
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-md rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 overflow-hidden mb-16">
             <button 
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full p-16 flex items-center justify-between hover:bg-surface-container-high/50 transition-colors"
+                className="w-full p-16 flex items-center justify-between hover:bg-[var(--md-sys-color-surface-container-high)]/50 transition-colors"
             >
                 <div className="flex items-center gap-12">
                     <span className={`material-symbols-outlined ${colorClass}`}>{icon}</span>
@@ -27,7 +27,7 @@ const ManualSection: React.FC<{ title: string; icon: string; colorClass: string;
 };
 
 const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }> = ({ scenario, steps, tip }) => (
-    <div className="bg-surface-container-high/50 p-16 rounded-xl border border-outline-variant/10 mb-16">
+    <div className="bg-[var(--md-sys-color-surface-container-high)]/50 p-16 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/10 mb-16">
         <p className="text-xs font-black uppercase tracking-widest text-primary mb-8">{scenario}</p>
         <ol className="space-y-4">
             {steps.map((step, i) => (
@@ -38,7 +38,7 @@ const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }>
             ))}
         </ol>
         {tip && (
-            <div className="mt-4 pt-4 border-t border-outline-variant/10 flex gap-12 items-start">
+            <div className="mt-4 pt-4 border-t border-[var(--md-sys-color-outline-variant)]/10 flex gap-12 items-start">
                 <span className="material-symbols-outlined text-secondary text-base">lightbulb</span>
                 <p className="text-[12px] italic opacity-70">{tip}</p>
             </div>
@@ -191,10 +191,10 @@ const vocalAssistantGuideData = {
 
 const SetupGuide = () => (
     <div className="space-y-6">
-        <h2 className="m3-headline-small font-black">Guida alla Configurazione Iniziale</h2>
-        <p className="m3-body-medium text-on-surface-variant">Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</p>
+        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Guida alla Configurazione Iniziale</h2>
+        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</p>
 
-        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
             <h3 className="m3-title-medium text-primary font-bold mb-6">1. Impostazioni Generali</h3>
             <p className="text-sm mb-6">Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
             <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
@@ -203,7 +203,7 @@ const SetupGuide = () => (
             </ul>
         </div>
 
-        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
             <h3 className="m3-title-medium text-primary font-bold mb-6">2. Configurazione Classi e Materie</h3>
             <p className="text-sm mb-6">Sempre in Impostazioni:</p>
             <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
@@ -212,7 +212,7 @@ const SetupGuide = () => (
             </ul>
         </div>
 
-        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
             <h3 className="m3-title-medium text-primary font-bold mb-6">3. Inserimento Studenti</h3>
             <p className="text-sm mb-6">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
             <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
@@ -221,7 +221,7 @@ const SetupGuide = () => (
             </ul>
         </div>
 
-        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/20">
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
             <h3 className="m3-title-medium text-primary font-bold mb-6">4. Costruzione Orario</h3>
             <p className="text-sm mb-6">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
             <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
@@ -240,10 +240,10 @@ const DigitalTeacherManual = () => {
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-b border-outline-variant/10 pb-6">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-b border-[var(--md-sys-color-outline-variant)]/10 pb-6">
                 <div>
-                    <h2 className="m3-headline-small font-black">Manuale Integrale e Normativa</h2>
-                    <p className="m3-body-medium text-on-surface-variant">Versione 4.1.0 - M3 Expressive Edition</p>
+                    <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Manuale Integrale e Normativa</h2>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Versione 4.1.0 - M3 Expressive Edition</p>
                 </div>
                 <M3Button onClick={downloadManual} variant="outlined" className="font-black text-xs uppercase tracking-widest">
                     <span className="material-symbols-outlined mr-2">download</span>
@@ -260,7 +260,7 @@ const DigitalTeacherManual = () => {
             />
 
             <ManualSection title="1. Normativa, Sicurezza e Privacy" icon="security" colorClass="text-tertiary" defaultOpen>
-                <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/10 space-y-4">
+                <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10 space-y-4">
                      <h4 className="m3-title-small font-black text-primary uppercase tracking-widest text-[10px]">GDPR & Sovranità del Dato</h4>
                      <p className="text-sm leading-relaxed">L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</p>
                      
@@ -309,13 +309,13 @@ const DigitalTeacherManual = () => {
 
             <ManualSection title="3. Visione Strategica per Stakeholders" icon="campaign" colorClass="text-secondary">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/10">
+                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
                         <h4 className="font-black mb-6 flex gap-8 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-primary">admin_panel_settings</span> Per il Dirigente</h4>
-                        <p className="text-sm text-on-surface-variant leading-relaxed">Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
+                        <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant leading-relaxed">Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
                     </div>
-                    <div className="p-5 bg-surface-container-low/50 rounded-2xl border border-outline-variant/10">
+                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
                         <h4 className="font-black mb-6 flex gap-8 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-secondary">engineering</span> Per l'Animatore Digitale</h4>
-                        <p className="text-sm text-on-surface-variant leading-relaxed">Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
+                        <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant leading-relaxed">Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
                     </div>
                 </div>
             </ManualSection>
@@ -326,24 +326,24 @@ const DigitalTeacherManual = () => {
 
 const VocalAssistantGuideContent = () => (
     <div className="space-y-6">
-        <h2 className="m3-headline-small font-black flex items-center gap-6">
+        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black flex items-center gap-6">
             <span className="material-symbols-outlined text-primary text-3xl">mic</span>
             Il tuo Copilota Didattico
         </h2>
-        <p className="m3-body-medium text-on-surface-variant mb-6 leading-relaxed">
+        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-6 leading-relaxed">
             L'Assistente Live non è solo una chat: è collegato al registro, ai tuoi documenti e ora anche a <strong>Google Search</strong>. Premi il microfono e prova questi comandi:
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {vocalAssistantGuideData.sections.map((section, idx) => (
-                <div key={idx} className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/10">
+                <div key={idx} className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
                     <h3 className="m3-title-medium text-primary font-bold mb-8 flex items-center gap-8">
                         <span className="material-symbols-outlined text-sm">record_voice_over</span>
                         {section.title}
                     </h3>
                     <ul className="space-y-3">
                         {section.commands.map((cmd, cIdx) => (
-                            <li key={cIdx} className="text-sm font-medium text-on-surface bg-surface-container-high/30 p-6 rounded-xl border border-outline-variant/5">"{cmd}"</li>
+                            <li key={cIdx} className="text-sm font-medium text-[var(--md-sys-color-on-surface)] bg-[var(--md-sys-color-surface-container-high)]/30 p-6 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/5">"{cmd}"</li>
                         ))}
                     </ul>
                 </div>
@@ -362,21 +362,21 @@ const VocalAssistantGuideContent = () => (
 
 const UserGuide = () => (
     <div className="space-y-6">
-        <h2 className="m3-headline-small font-black">Guida Rapida al Flusso di Lavoro</h2>
+        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Guida Rapida al Flusso di Lavoro</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-            <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-primary border border-outline-variant/10">
+            <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-l-4 border-l-primary border border-[var(--md-sys-color-outline-variant)]/10">
                 <h3 className="font-black m3-title-medium mb-8 text-primary uppercase tracking-widest text-xs">1. Centro Operativo</h3>
                 <p className="text-sm leading-relaxed opacity-80">Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</p>
             </div>
-            <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-secondary border border-outline-variant/10">
+            <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-l-4 border-l-secondary border border-[var(--md-sys-color-outline-variant)]/10">
                 <h3 className="font-black m3-title-medium mb-8 text-secondary uppercase tracking-widest text-xs">2. Progettazione Intelligente</h3>
                 <p className="text-sm leading-relaxed opacity-80">Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</p>
             </div>
-            <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-tertiary border border-outline-variant/10">
+            <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-l-4 border-l-tertiary border border-[var(--md-sys-color-outline-variant)]/10">
                 <h3 className="font-black m3-title-medium mb-8 text-tertiary uppercase tracking-widest text-xs">3. In Aula (Continuità)</h3>
                 <p className="text-sm leading-relaxed opacity-80">Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</p>
             </div>
-            <div className="p-5 bg-surface-container-low/50 rounded-2xl border-l-4 border-l-error border border-outline-variant/10">
+            <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-l-4 border-l-error border border-[var(--md-sys-color-outline-variant)]/10">
                 <h3 className="font-black m3-title-medium mb-8 text-error uppercase tracking-widest text-xs">4. Analisi & Report</h3>
                 <p className="text-sm leading-relaxed opacity-80">Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</p>
             </div>
@@ -386,8 +386,8 @@ const UserGuide = () => (
 
 const TechnicalSpecs = () => (
     <div className="space-y-6">
-        <h2 className="m3-headline-small font-black">{specsContentData.title}</h2>
-        <div className="bg-surface-container-low/50 p-6 rounded-3xl border border-outline-variant/10">
+        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">{specsContentData.title}</h2>
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/10">
             <ul className="space-y-4">
                 {specsContentData.specs.map((spec, index) => (
                     <li key={index} className="flex gap-8 items-start">
@@ -402,10 +402,10 @@ const TechnicalSpecs = () => (
 
 const NormativaContent: React.FC = () => (
     <div className="space-y-6">
-        <h2 className="m3-headline-small font-black">Privacy e Cloud</h2>
-        <p className="m3-body-medium text-on-surface-variant leading-relaxed">OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
+        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Privacy e Cloud</h2>
+        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant leading-relaxed">OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
         
-        <div className="bg-surface-container-low/50 p-6 rounded-3xl border border-outline-variant/10">
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/10">
             <h3 className="m3-title-medium font-bold text-primary mb-8">I Tuoi Dati, Il Tuo Cloud</h3>
             <ul className="space-y-3">
                 <li className="flex gap-6 text-sm">
@@ -435,15 +435,15 @@ const NormativaContent: React.FC = () => (
 
 const FaqContent = () => (
     <div className="space-y-6">
-        <h2 className="m3-headline-small font-black">Domande Frequenti (FAQ)</h2>
+        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Domande Frequenti (FAQ)</h2>
         <div className="space-y-3 mt-6">
             {faqContentData.map((faq, i) => (
-                <details key={i} className="faq-item group bg-surface-container-low/50 rounded-2xl border border-outline-variant/10 overflow-hidden transition-all hover:bg-surface-container-high/50">
+                <details key={i} className="faq-item group bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10 overflow-hidden transition-all hover:bg-[var(--md-sys-color-surface-container-high)]/50">
                     <summary className="m3-title-medium cursor-pointer p-5 list-none flex justify-between items-center group-open:bg-primary/5 font-bold">
                         <span dangerouslySetInnerHTML={{ __html: faq.q }}></span>
                         <span className="material-symbols-outlined transition-transform duration-300 group-open:rotate-180">expand_more</span>
                     </summary>
-                    <div className="m3-body-medium p-5 pt-0 opacity-80 leading-relaxed text-sm" dangerouslySetInnerHTML={{ __html: faq.a }}></div>
+                    <div className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] p-5 pt-0 opacity-80 leading-relaxed text-sm" dangerouslySetInnerHTML={{ __html: faq.a }}></div>
                 </details>
             ))}
         </div>
@@ -452,17 +452,17 @@ const FaqContent = () => (
 
 const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
     const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_releases" }) => (
-        <div className="bg-surface-container-low/50 p-5 rounded-2xl border border-outline-variant/10 hover:bg-surface-container-high/50 transition-all group">
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10 hover:bg-[var(--md-sys-color-surface-container-high)]/50 transition-all group">
             <div className="flex justify-between items-start mb-6">
                 <div className="flex items-center gap-6 flex-1 min-w-0">
-                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+                    <div className="w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
                         <span className="material-symbols-outlined">{icon}</span>
                     </div>
                     <h4 className="m3-title-medium font-bold truncate">{title}</h4>
                 </div>
                 <span className="px-4 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest flex-shrink-0">v4.1.0</span>
             </div>
-            <p className="m3-body-medium mb-8 opacity-70 leading-relaxed text-sm line-clamp-2">{children}</p>
+            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mb-8 opacity-70 leading-relaxed text-sm line-clamp-2">{children}</p>
             {actionView && actionView !== 'home' && (
                 <M3Button
                     onClick={() => { onClose(); onNavigate(actionView); }}
@@ -477,7 +477,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
     );
     return (
         <div className="space-y-6">
-            <h2 className="m3-headline-small font-black">Novità della versione 4.1.0</h2>
+            <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Novità della versione 4.1.0</h2>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <ImprovementCard title="Design M3 Expressive" actionView="settings" icon="palette">
@@ -505,19 +505,19 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 </ImprovementCard>
             </div>
 
-            <div className="p-8 rounded-4xl bg-primary-container/20 text-on-primary-container border border-primary/20 shadow-xl mt-8">
+            <div className="p-8 rounded-4xl bg-primary-container/20 text-on-primary-container border border-primary/20 shadow-[var(--md-sys-elevation-level3)] mt-8">
                 <div className="flex flex-col md:flex-row gap-6 items-center">
-                    <div className="w-20 h-20 rounded-3xl bg-primary text-on-primary flex items-center justify-center shadow-lg flex-shrink-0">
+                    <div className="w-20 h-20 rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary text-on-primary flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] flex-shrink-0">
                         <span className="material-symbols-outlined text-4xl">picture_as_pdf</span>
                     </div>
                     <div className="flex-grow text-center md:text-left">
                         <h3 className="m3-title-large font-black">Manuale Completo PDF</h3>
-                        <p className="m3-body-medium mt-4 opacity-70">
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mt-4 opacity-70">
                             Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
                         </p>
                     </div>
                 </div>
-                 <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" className="w-full !h-16 mt-8 font-black text-sm uppercase tracking-widest shadow-lg">
+                 <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" className="w-full !h-16 mt-8 font-black text-sm uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)]">
                     <span className="material-symbols-outlined mr-2">{isGenerating ? 'pending' : 'download'}</span>
                     {isGenerating ? 'Generazione...' : 'Scarica Manuale & Guida PDF'}
                 </M3Button>
@@ -605,9 +605,9 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
       level={2}
       hideBackdrop={true}
     >
-      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-xl">
+      <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-xl">
         <div className="space-y-8">
-          <div className="p-5 rounded-3xl bg-primary-container/10 border border-primary/20 text-sm shadow-inner">
+          <div className="p-5 rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary-container/10 border border-primary/20 text-sm shadow-inner">
             <div className="flex items-center gap-6 mb-6">
                 <span className="material-symbols-outlined text-primary">campaign</span>
                 <b className="text-primary uppercase tracking-widest text-[10px]">Novità Dicembre 2025</b>

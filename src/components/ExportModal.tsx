@@ -346,7 +346,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                         onTabChange={(id) => setSubjectScope(id as 'teacher' | 'all')}
                         className="w-full"
                     />
-                    <p className="text-xs text-on-surface-variant px-4 leading-relaxed">
+                    <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant px-4 leading-relaxed">
                         {subjectScope === 'teacher'
                             ? "Il report includerà solo le tue discipline configurate in Impostazioni. La media generale (Σ) sarà calcolata solo su queste materie."
                             : "Il report includerà tutte le discipline che hanno almeno una valutazione per questa classe. La media generale (Σ) sarà calcolata su tutte le materie."}
@@ -364,7 +364,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                         onTabChange={(id) => handleOptionChange('format', id)}
                         className="w-full"
                     />
-                    <p className="text-xs text-on-surface-variant px-4 leading-relaxed">
+                    <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant px-4 leading-relaxed">
                         {exportOptions.format === 'pdf'
                             ? 'Genera un report grafico di una pagina, ideale per la stampa e la condivisione.'
                             : 'Genera un file CSV con i dati riepilogativi, utile per analisi in fogli di calcolo.'}
@@ -373,7 +373,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
             </M3DialogContent>
             <M3DialogActions>
                 <M3Button type="button" onClick={onClose} variant="text" disabled={isExporting}>Annulla</M3Button>
-                <M3Button type="button" onClick={handleExport} variant="filled" className="shadow-xl !px-8" disabled={isExporting}>
+                <M3Button type="button" onClick={handleExport} variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-8" disabled={isExporting}>
                     <span className="material-symbols-outlined mr-2">{isExporting ? 'sync' : 'download'}</span>
                     {isExporting ? 'Esportazione...' : `Esporta ${exportOptions.format.toUpperCase()}`}
                 </M3Button>

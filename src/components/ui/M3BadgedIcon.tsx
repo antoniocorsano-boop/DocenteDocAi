@@ -13,7 +13,7 @@ const M3BadgedIcon: React.FC<M3BadgedIconProps> = ({
     badge, 
     badgeColor = 'bg-error text-on-error', 
     size = 'md', 
-    color = 'text-on-surface' 
+    color = 'text-[var(--md-sys-color-on-surface)]' 
 }) => {
     const sizeMap = {
         sm: { container: 'text-lg', badge: 'text-xs px-1.5 py-0.5' },

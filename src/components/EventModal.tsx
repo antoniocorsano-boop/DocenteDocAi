@@ -112,7 +112,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                         value={event.descrizione || ''} 
                         onChange={e => handleChange('descrizione', e.target.value)} 
                         rows={3}
-                        containerClassName="shadow-inner !bg-surface-container-lowest"
+                        containerClassName="shadow-inner !bg-[var(--md-sys-color-surface-container-low)]est"
                     />
                 </form>
             </M3DialogContent>
@@ -123,7 +123,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                     </M3Button>
                 )}
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button onClick={handleSubmit} variant="filled" className="shadow-xl !px-10">Salva</M3Button>
+                <M3Button onClick={handleSubmit} variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-10">Salva</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

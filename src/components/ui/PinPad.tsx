@@ -16,7 +16,7 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                         key={i} 
                         onClick={onDelete} 
                         aria-label="Cancella"
-                        className="w-20 h-20 rounded-2xl flex items-center justify-center hover:bg-surface-container-high transition-all active:scale-90"
+                        className="w-20 h-20 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container-high)] transition-all active:scale-90"
                     >
                         <span className="material-symbols-outlined text-3xl font-light">backspace</span>
                     </button>
@@ -26,7 +26,7 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                         key={i} 
                         onClick={() => onInput(key)} 
                         aria-label={`Cifra ${key}`}
-                        className="w-20 h-20 rounded-2xl bg-surface-container text-3xl font-extrabold border-2 border-outline-variant/30 hover:border-primary hover:bg-surface hover:shadow-xl active:scale-90 transition-all"
+                        className="w-20 h-20 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container)] text-3xl font-extrabold border-2 border-[var(--md-sys-color-outline-variant)]/30 hover:border-primary hover:bg-surface hover:shadow-[var(--md-sys-elevation-level3)] active:scale-90 transition-all"
                     >
                         {key}
                     </button>

@@ -46,22 +46,22 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
     };
 
     return (
-        <div className="bg-surface-container-low/30 backdrop-blur-xl rounded-5xl border border-outline-variant/20 p-8 shadow-2xl animate-in slide-in-from-right-4 duration-500 relative overflow-hidden">
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 p-8 shadow-[var(--md-sys-elevation-level4)] animate-in slide-in-from-right-4 duration-500 relative overflow-hidden">
             {/* Aura Ornaments */}
             <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-tertiary/10 blur-[100px] rounded-full pointer-events-none" />
             
             <div className="relative z-10">
-                <div className="flex justify-between items-center mb-10 border-b border-outline-variant/10 pb-8">
+                <div className="flex justify-between items-center mb-10 border-b border-[var(--md-sys-color-outline-variant)]/10 pb-8">
                     <div className="flex items-center gap-5">
-                        <div className="w-16 h-16 rounded-xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-lg rotate-3">
+                        <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-medium)] bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] rotate-3">
                             <span className="material-symbols-outlined text-3xl">{udaProp === 'new' ? 'add_task' : 'edit_document'}</span>
                         </div>
                         <div>
                             <h2 className="m3-headline-medium font-black tracking-tight">{udaProp === 'new' ? 'Nuovo Progetto' : 'Modifica Progetto'}</h2>
-                            <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60 mt-4">{currentUda.title || 'Senza titolo'}</p>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant font-black uppercase tracking-[0.2em] opacity-60 mt-4">{currentUda.title || 'Senza titolo'}</p>
                         </div>
                     </div>
-                    <M3Button onClick={onClose} variant="text" className="!w-12 !h-12 !p-0 !min-w-0 !rounded-full hover:bg-surface-container-high">
+                    <M3Button onClick={onClose} variant="text" className="!w-12 !h-12 !p-0 !min-w-0 !rounded-full hover:bg-[var(--md-sys-color-surface-container-high)]">
                         <span className="material-symbols-outlined text-2xl">close</span>
                     </M3Button>
                 </div>
@@ -93,7 +93,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         />
                     </div>
 
-                    <div className="bg-surface-container-lowest/40 backdrop-blur-md p-6 rounded-2xl border border-outline-variant/20 shadow-inner group transition-all hover:bg-surface-container-lowest/60">
+                    <div className="bg-[var(--md-sys-color-surface-container-low)]est/40 backdrop-blur-md p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-inner group transition-all hover:bg-[var(--md-sys-color-surface-container-low)]est/60">
                         <TextField 
                             label="Link Deliverable (NotebookLM)"
                             value={currentUda.externalLink || ''}
@@ -119,14 +119,14 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                     <div>
                         <label className="text-[11px] text-primary font-black uppercase tracking-[0.3em] px-4 mb-6 block opacity-60">Competenze Target</label>
                         <div 
-                            className="bg-surface-container-lowest/30 backdrop-blur-sm p-6 rounded-2xl border border-outline-variant/20 cursor-pointer hover:bg-surface-container-high/40 transition-all shadow-inner group flex flex-wrap gap-6 min-h-[80px] items-center" 
+                            className="bg-[var(--md-sys-color-surface-container-low)]est/30 backdrop-blur-sm p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 cursor-pointer hover:bg-[var(--md-sys-color-surface-container-high)]/40 transition-all shadow-inner group flex flex-wrap gap-6 min-h-[80px] items-center" 
                             onClick={() => setIsCompetencyPickerOpen(true)}
                         >
                             {currentUda.competencyIds.length > 0 ? (
                                 currentUda.competencyIds.map(id => {
                                     const c = competenze.find(comp => comp.id === id);
                                     return (
-                                        <span key={id} className="bg-primary text-on-primary text-[10px] font-black px-4 py-4 rounded-full shadow-md animate-in zoom-in-95">
+                                        <span key={id} className="bg-primary text-on-primary text-[10px] font-black px-4 py-4 rounded-full shadow-[var(--md-sys-elevation-level1)] animate-in zoom-in-95">
                                             {c?.codice}
                                         </span>
                                     );
@@ -140,7 +140,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         </div>
                     </div>
 
-                    <div className="flex justify-end gap-8 pt-10 border-t border-outline-variant/10">
+                    <div className="flex justify-end gap-8 pt-10 border-t border-[var(--md-sys-color-outline-variant)]/10">
                         {udaProp !== 'new' && (
                             <M3Button 
                                 onClick={() => { if(confirm('Eliminare questo progetto?')) { onDeleteUda(currentUda.id); onClose(); }}} 
@@ -152,7 +152,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             </M3Button>
                         )}
                         <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                        <M3Button onClick={handleSave} variant="primary" icon="save" className="shadow-xl">Salva Progetto</M3Button>
+                        <M3Button onClick={handleSave} variant="primary" icon="save" className="shadow-[var(--md-sys-elevation-level3)]">Salva Progetto</M3Button>
                     </div>
                 </div>
 
@@ -163,7 +163,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         maxWidth="2xl"
                         level={2}
                     >
-                        <M3DialogContent className="bg-surface-container-low/30 backdrop-blur-xl">
+                        <M3DialogContent className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-8">
                                 {competenze.map(comp => {
                                     const isSelected = currentUda.competencyIds.includes(comp.id);
@@ -171,9 +171,9 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                         <div 
                                             key={comp.id} 
                                             onClick={() => handleCompetencyToggle(comp.id)}
-                                            className={`flex items-center gap-8 p-8 rounded-2xl cursor-pointer transition-all border-2 ${isSelected ? 'bg-primary-container text-on-primary-container border-primary/30 shadow-md' : 'bg-surface-container-lowest/50 border-transparent hover:bg-surface-container-high/50'}`}
+                                            className={`flex items-center gap-8 p-8 rounded-[var(--md-sys-shape-corner-large)] cursor-pointer transition-all border-2 ${isSelected ? 'bg-primary-container text-on-primary-container border-primary/30 shadow-[var(--md-sys-elevation-level1)]' : 'bg-[var(--md-sys-color-surface-container-low)]est/50 border-transparent hover:bg-[var(--md-sys-color-surface-container-high)]/50'}`}
                                         >
-                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${isSelected ? 'border-primary bg-primary' : 'border-outline-variant'}`}>
+                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${isSelected ? 'border-primary bg-primary' : 'border-[var(--md-sys-color-outline-variant)]'}`}>
                                                 {isSelected && <span className="material-symbols-outlined text-on-primary text-sm">check</span>}
                                             </div>
                                             <div className="min-w-0">
@@ -185,7 +185,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                 })}
                             </div>
                         </M3DialogContent>
-                        <M3DialogActions className="bg-surface-container-low/50 backdrop-blur-xl border-t border-outline-variant/10">
+                        <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-xl border-t border-[var(--md-sys-color-outline-variant)]/10">
                             <M3Button onClick={() => setIsCompetencyPickerOpen(false)} variant="primary" className="w-full">Conferma Selezione</M3Button>
                         </M3DialogActions>
                     </M3Dialog>
@@ -215,19 +215,19 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
             <div className="relative z-10 space-y-8">
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 px-4 md:px-0">
                     <div className="flex items-center gap-5 self-start md:self-auto">
-                        <div className="w-16 h-16 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg rotate-3 hover:rotate-0 transition-transform duration-300">
+                        <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-medium)] bg-primary-container text-on-primary-container flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] rotate-3 hover:rotate-0 transition-transform duration-300">
                             <span className="material-symbols-outlined text-3xl">assignment</span>
                         </div>
                         <div>
-                            <h1 className="m3-headline-medium font-black text-on-surface tracking-tight">Planner Progetti</h1>
-                            <p className="m3-body-small text-on-surface-variant font-black uppercase tracking-[0.2em] opacity-60">Organizza le tue UDA</p>
+                            <h1 className="m3-headline-medium font-black text-[var(--md-sys-color-on-surface)] tracking-tight">Planner Progetti</h1>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant font-black uppercase tracking-[0.2em] opacity-60">Organizza le tue UDA</p>
                         </div>
                     </div>
                     <M3Button 
                         onClick={() => setEditingUda('new')} 
                         variant="primary" 
                         icon="add"
-                        className="shadow-xl"
+                        className="shadow-[var(--md-sys-elevation-level3)]"
                     >
                         Nuovo Progetto
                     </M3Button>
@@ -249,12 +249,12 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                     />
                 ) : (
                     <div className="px-4 md:px-0">
-                        <div className="bg-surface-container-low/30 backdrop-blur-xl rounded-5xl border border-outline-variant/20 overflow-hidden shadow-2xl">
+                        <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 overflow-hidden shadow-[var(--md-sys-elevation-level4)]">
                             {udas.length > 0 ? (
                                 <div className="overflow-x-auto no-scrollbar">
                                     <table className="w-full border-collapse">
                                         <thead>
-                                            <tr className="bg-surface-container-high/50 backdrop-blur-md">
+                                            <tr className="bg-[var(--md-sys-color-surface-container-high)]/50 backdrop-blur-md">
                                                 <th className="text-left p-6 m3-label-large uppercase tracking-[0.2em] opacity-60">Titolo Progetto</th>
                                                 <th className="text-left p-6 m3-label-large uppercase tracking-[0.2em] opacity-60">Classe</th>
                                                 <th className="text-left p-6 m3-label-large uppercase tracking-[0.2em] opacity-60">Materia</th>
@@ -266,7 +266,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                             {udas.map((uda, idx) => (
                                                 <tr 
                                                     key={uda.id} 
-                                                    className="group hover:bg-surface-container-high/40 transition-all cursor-pointer animate-in slide-in-from-bottom-4"
+                                                    className="group hover:bg-[var(--md-sys-color-surface-container-high)]/40 transition-all cursor-pointer animate-in slide-in-from-bottom-4"
                                                     style={{ animationDelay: `${idx * 50}ms` }}
                                                     onClick={() => setEditingUda(uda)}
                                                 >
@@ -274,10 +274,10 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                         <span className="font-black text-primary group-hover:text-primary-container transition-colors">{uda.title}</span>
                                                     </td>
                                                     <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
-                                                        <span className="font-bold text-on-surface/70">{uda.classe}</span>
+                                                        <span className="font-bold text-[var(--md-sys-color-on-surface)]/70">{uda.classe}</span>
                                                     </td>
                                                     <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
-                                                        <span className="font-medium text-on-surface/60">{uda.materia}</span>
+                                                        <span className="font-medium text-[var(--md-sys-color-on-surface)]/60">{uda.materia}</span>
                                                     </td>
                                                     <td className="p-6 text-center">
                                                         {uda.externalLink && (

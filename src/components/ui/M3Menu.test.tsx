@@ -280,7 +280,7 @@ describe('M3Menu', () => {
     
     await waitFor(() => {
       // Button should have focus-like styling
-      expect(secondButton).toHaveClass('bg-surface-container-high');
+      expect(secondButton).toHaveClass('bg-[var(--md-sys-color-surface-container-high)]');
     });
   });
 

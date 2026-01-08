@@ -106,7 +106,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
               <span className="material-symbols-outlined text-4xl text-primary">cloud_off</span>
             </div>
             <h3 className="text-xl font-bold mb-8">Connessione Google Richiesta</h3>
-            <p className="text-on-surface-variant mb-8 max-w-xs">
+            <p className="text-[var(--md-sys-color-on-surface)]-variant mb-8 max-w-xs">
               Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
             </p>
             <M3Button variant="filled" onClick={onConnect} className="px-8">
@@ -120,14 +120,14 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
             {step === 'select' && !loading && !error && (
               <>
-                <p className="mb-8 text-on-surface-variant">Seleziona i materiali da importare nella Knowledge Base.</p>
+                <p className="mb-8 text-[var(--md-sys-color-on-surface)]-variant">Seleziona i materiali da importare nella Knowledge Base.</p>
                 <div className="max-h-64 overflow-y-auto border rounded mb-8">
-                  {files.length === 0 && <div className="p-8 text-center text-on-surface-variant">Nessun file trovato.</div>}
+                  {files.length === 0 && <div className="p-8 text-center text-[var(--md-sys-color-on-surface)]-variant">Nessun file trovato.</div>}
                   {files.map(f => (
-                    <label key={f.id} className="flex items-center gap-6 px-4 py-4 border-b last:border-b-0 cursor-pointer hover:bg-surface-container-low">
+                    <label key={f.id} className="flex items-center gap-6 px-4 py-4 border-b last:border-b-0 cursor-pointer hover:bg-[var(--md-sys-color-surface-container-low)]">
                       <input type="checkbox" checked={selected.has(f.id)} onChange={() => handleSelect(f.id)} />
                       <span className="flex-1 font-medium">{f.name}</span>
-                      <span className="m3-label-small text-on-surface-variant">{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
+                      <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant">{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
                     </label>
                   ))}
                 </div>
@@ -138,10 +138,10 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
         {step === 'catalog' && (
           <>
-            <p className="mb-8 text-on-surface-variant">Catalogazione materiali importati:</p>
+            <p className="mb-8 text-[var(--md-sys-color-on-surface)]-variant">Catalogazione materiali importati:</p>
             <div className="space-y-4 max-h-64 overflow-y-auto">
               {imported.map(entry => (
-                <div key={entry.id} className="p-6 border rounded bg-surface-container-low">
+                <div key={entry.id} className="p-6 border rounded bg-[var(--md-sys-color-surface-container-low)]">
                   <div className="font-bold mb-4">{entry.fileName}</div>
                   <div className="flex gap-8 mb-4">
                     <input className="input" placeholder="Materia (opzionale)" value={catalogData[entry.id]?.materia || ''} onChange={e => handleCatalogChange(entry.id, 'materia', e.target.value)} />

@@ -81,9 +81,9 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                 className="bg-error-container/10 border-error/20"
             />
 
-            <div className="bg-surface-container-low/30 backdrop-blur-xl rounded-3xl p-6 border border-outline-variant/30 shadow-sm">
+            <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-extra-large)] p-6 border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm">
                 <h2 className="m3-title-large mb-8">Aggiungi una Nuova Fonte</h2>
-                <p className="m3-body-medium text-on-surface-variant mb-6">
+                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-6">
                     Puoi incollare l'URL della pagina delle circolari del tuo istituto. L'app *tenterebbe* di cercare un feed RSS.
                 </p>
                 <div className="flex flex-col md:flex-row gap-8">
@@ -109,14 +109,14 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                 </div>
             </div>
             
-            <div className="bg-surface-container-low/30 backdrop-blur-xl rounded-3xl p-6 border border-outline-variant/30 shadow-sm">
+            <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-extra-large)] p-6 border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm">
                 <h2 className="m3-title-large mb-6">Fonti Monitorate</h2>
                  <div className="space-y-4">
                     {sources.length > 0 ? sources.map(source => (
-                        <div key={source.id} className="bg-surface-container-high/50 rounded-2xl overflow-hidden border border-outline-variant/20">
+                        <div key={source.id} className="bg-[var(--md-sys-color-surface-container-high)]/50 rounded-[var(--md-sys-shape-corner-large)] overflow-hidden border border-[var(--md-sys-color-outline-variant)]/20">
                             <div className="p-8 flex items-start justify-between">
                                 <div className="flex items-center gap-8 truncate">
-                                    <div className="w-12 h-12 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
+                                    <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
                                         <span className="material-symbols-outlined">rss_feed</span>
                                     </div>
                                     <div className="truncate">
@@ -143,7 +143,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                 </div>
                             </div>
                             
-                            <div className="p-8 border-t border-outline-variant/10 bg-surface-container-lowest/30 text-on-surface-variant">
+                            <div className="p-8 border-t border-[var(--md-sys-color-outline-variant)]/10 bg-[var(--md-sys-color-surface-container-low)]est/30 text-[var(--md-sys-color-on-surface)]-variant">
                                 <p className="m3-body-small italic text-center opacity-60">
                                     La funzionalità di aggiornamento feed è disabilitata per motivi di privacy. Analizza manualmente incollando il testo.
                                 </p>
@@ -153,7 +153,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         <div className="flex flex-col items-center justify-center py-12 text-center opacity-50">
                             <span className="material-symbols-outlined text-6xl mb-8">rss_feed</span>
                             <p className="m3-title-medium font-bold">Nessuna fonte monitorata</p>
-                            <p className="m3-body-medium">Aggiungi il sito della tua scuola per ricevere notifiche sulle circolari.</p>
+                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">Aggiungi il sito della tua scuola per ricevere notifiche sulle circolari.</p>
                         </div>
                     )}
                 </div>

@@ -202,11 +202,11 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         if (!currentStudent) {
                             return (
                                 <div className="flex flex-col items-center justify-center h-full p-6 text-center">
-                                    <h2 className="m3-headline-small text-error mb-8">Errore Accesso Studente</h2>
-                                    <p className="m3-body-medium text-on-surface-variant mb-8">
+                                    <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-error mb-8">Errore Accesso Studente</h2>
+                                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-8">
                                         Impossibile trovare il profilo studente selezionato.
                                     </p>
-                                    <button onClick={() => handleNavigate('student-dashboard')} className="button button-filled rounded-lg mt-4">
+                                    <button onClick={() => handleNavigate('student-dashboard')} className="button button-filled rounded-[var(--md-sys-shape-corner-small)] mt-4">
                                         Torna al Login
                                     </button>
                                 </div>

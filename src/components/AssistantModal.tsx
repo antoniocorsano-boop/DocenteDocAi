@@ -211,13 +211,13 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   if (!open) return null;
 
   const headerContent = (
-    <div className="px-4 md:px-6 py-4 md:py-6 border-b border-outline-variant/10 flex justify-between items-center shrink-0 bg-gradient-to-r from-transparent via-surface-container-highest/10 to-transparent">
+    <div className="px-4 md:px-6 py-4 md:py-6 border-b border-[var(--md-sys-color-outline-variant)]/10 flex justify-between items-center shrink-0 bg-gradient-to-r from-transparent via-surface-container-highest/10 to-transparent">
       <div className="flex-grow min-w-0">
-        <h2 className="m3-headline-small font-black text-on-surface tracking-tight">Assistente DocenteDoc AI</h2>
+        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)] tracking-tight">Assistente DocenteDoc AI</h2>
       </div>
       <button
         onClick={onClose}
-        className="w-10 h-10 rounded-full hover:bg-surface-container-highest flex items-center justify-center transition-colors ml-4 assistant-exit-btn"
+        className="w-10 h-10 rounded-full hover:bg-[var(--md-sys-color-surface-container-high)]est flex items-center justify-center transition-colors ml-4 assistant-exit-btn"
         data-focus-priority="-1"
         aria-label="Chiudi assistente"
       >
@@ -242,21 +242,21 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           <>
             <div className="assistant-messages space-y-4 h-64 overflow-y-auto custom-scrollbar">
               {messages.length === 0 && (
-                <div className="text-center text-primary m3-body-medium py-8">Come posso aiutarti?</div>
+                <div className="text-center text-primary text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] py-8">Come posso aiutarti?</div>
               )}
               {messages.map((msg, i) => (
                 <div
                   key={i}
-                  className={`m3-body-small p-8 rounded-2xl ${
+                  className={`m3-body-small p-8 rounded-[var(--md-sys-shape-corner-large)] ${
                     msg.role === 'user'
                       ? 'bg-primary text-on-primary ml-12'
-                      : 'bg-surface-container-highest text-on-surface mr-12'
+                      : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)] mr-12'
                   }`}
                 >
                   {msg.text}
                 </div>
               ))}
-              {loading && <div className="m3-body-small text-on-surface-variant italic animate-pulse">Sto pensando…</div>}
+              {loading && <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant italic animate-pulse">Sto pensando…</div>}
             </div>
             <div className="assistant-prompts flex flex-wrap gap-12">
               {SUGGESTED_PROMPTS.map((p) => (
@@ -306,14 +306,14 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                 </M3Button>
               </div>
             </div>
-            {nbError && <div className="m3-body-small text-error p-12 bg-error-container rounded-xl">{nbError}</div>}
-            {nbLoading && <div className="m3-body-small text-on-surface-variant animate-pulse">Caricamento…</div>}
+            {nbError && <div className="m3-body-small text-error p-12 bg-error-container rounded-[var(--md-sys-shape-corner-medium)]">{nbError}</div>}
+            {nbLoading && <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant animate-pulse">Caricamento…</div>}
             <div className="space-y-4 max-h-48 overflow-y-auto custom-scrollbar">
               {nbFiles.map(file => (
-                <div key={file.id} className="flex items-center justify-between bg-surface-container p-8 rounded-2xl border border-outline-variant/30">
+                <div key={file.id} className="flex items-center justify-between bg-[var(--md-sys-color-surface-container)] p-8 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/30">
                   <div className="flex-1 min-w-0">
                     <p className="m3-body-small font-medium truncate">{file.name}</p>
-                    <p className="m3-body-small text-on-surface-variant m3-label-small">{new Date(file.lastModified).toLocaleDateString()}</p>
+                    <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant m3-label-small">{new Date(file.lastModified).toLocaleDateString()}</p>
                   </div>
                   <M3Button
                     variant="text"
@@ -330,7 +330,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       </M3DialogContent>
 
       {/* Input Footer */}
-      <M3DialogActions className="!flex-col gap-8 px-12 pb-12 pt-0 bg-surface-container-lowest border-t border-outline-variant/10">
+      <M3DialogActions className="!flex-col gap-8 px-12 pb-12 pt-0 bg-[var(--md-sys-color-surface-container-low)]est border-t border-[var(--md-sys-color-outline-variant)]/10">
         <div className="flex gap-12 items-end w-full">
           <div className="flex-1">
             <TextField
@@ -357,7 +357,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             variant="filled"
             onClick={handleSend}
             disabled={loading || !input.trim()}
-            className="!h-16 !w-16 !p-0 !min-w-0 flex items-center justify-center !rounded-2xl"
+            className="!h-16 !w-16 !p-0 !min-w-0 flex items-center justify-center !rounded-[var(--md-sys-shape-corner-large)]"
           >
             <span className="material-symbols-outlined">send</span>
           </M3Button>

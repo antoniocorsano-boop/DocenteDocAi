@@ -12,7 +12,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     if (data.length === 0) {
-        return <div className="flex items-center justify-center h-full text-on-surface-variant opacity-50">Nessun dato disponibile.</div>;
+        return <div className="flex items-center justify-center h-full text-[var(--md-sys-color-on-surface)]-variant opacity-50">Nessun dato disponibile.</div>;
     }
 
     const padding = 30;
@@ -103,7 +103,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
             {/* Tooltip */}
             {hoveredIndex !== null && (
                 <div 
-                    className="absolute bg-surface-container-highest text-on-surface p-8 rounded shadow-lg text-xs pointer-events-none transform -translate-x-1/2 -translate-y-full border border-outline-variant z-10"
+                    className="absolute bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)] p-8 rounded shadow-[var(--md-sys-elevation-level2)] text-xs pointer-events-none transform -translate-x-1/2 -translate-y-full border border-[var(--md-sys-color-outline-variant)] z-10"
                     style={{ 
                         left: `${(getX(hoveredIndex) / width) * 100}%`, 
                         top: `${(getY(data[hoveredIndex].value) / height) * 100}%`,
@@ -127,7 +127,7 @@ interface RadarChartProps {
 
 export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 }) => {
     if (data.length === 0) {
-        return <div className="flex items-center justify-center h-[300px] text-on-surface-variant opacity-50">Dati competenze non disponibili.</div>;
+        return <div className="flex items-center justify-center h-[300px] text-[var(--md-sys-color-on-surface)]-variant opacity-50">Dati competenze non disponibili.</div>;
     }
 
     const center = size / 2;

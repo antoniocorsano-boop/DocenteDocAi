@@ -274,7 +274,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         return (
                             <tr key={student.id}>
                                 <td className="sticky-col-student">
-                                    <M3Button variant="text" onClick={() => onViewStudentProfile(student)} className="font-medium rounded-lg" type="button">
+                                    <M3Button variant="text" onClick={() => onViewStudentProfile(student)} className="font-medium rounded-[var(--md-sys-shape-corner-small)]" type="button">
                                         {student.cognome} {student.nome}
                                     </M3Button>
                                 </td>
@@ -298,8 +298,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <td className={`min-w-[200px] md:min-w-[300px] ${getCellClassName('giudizio')}`}>
                                     <div className='flex items-start gap-2'>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)} className="form-textarea !py-1 flex-grow" rows={2} placeholder="Giudizio sintetico..."></textarea>
-                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="rounded-lg" title="Suggerisci con AI" type="button">
-                                            <span className="material-symbols-outlined m3-body-medium">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="rounded-[var(--md-sys-shape-corner-small)]" title="Suggerisci con AI" type="button">
+                                            <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
                                 </td>}
@@ -340,7 +340,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                         <span className="m3-label-large">Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
                                             <span className={`flex items-center gap-4 m3-label-large ${trendClass}`}>
-                                                <span className="material-symbols-outlined m3-body-medium">{trendIcon}</span>
+                                                <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">{trendIcon}</span>
                                             </span>
                                         )}
                                     </div>
@@ -370,15 +370,15 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <div>
                                     <div className="flex justify-between items-center mb-4">
                                         <label htmlFor={`giudizio-${student.id}`} className="form-label !mb-0">Note/Giudizio</label>
-                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="!h-auto !py-1 !px-4 rounded-lg" title="Suggerisci con AI" type="button">
-                                            <span className="material-symbols-outlined m3-body-medium">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="!h-auto !py-1 !px-4 rounded-[var(--md-sys-shape-corner-small)]" title="Suggerisci con AI" type="button">
+                                            <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
                                     <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)} className="form-textarea w-full" rows={4} placeholder="Giudizio sintetico..."></textarea>
                                 </div>
                                 {showFinalGrades && (
                                     <>
-                                        <hr className="border-outline-variant" />
+                                        <hr className="border-[var(--md-sys-color-outline-variant)]" />
                                         <div className='responsive-grid'>
                                             <div>
                                                 <label htmlFor={`votoAmmissione-${student.id}`} className="form-label">Voto di Ammissione</label>
@@ -456,7 +456,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                                 <span className="material-symbols-outlined">description</span>
                             </div>
-                            <h3 className="m3-title-large font-black text-on-surface">Report Narrativo Suggerito</h3>
+                            <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Report Narrativo Suggerito</h3>
                         </div>
                         <div className="flex gap-8">
                             <M3Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</M3Button>
@@ -469,14 +469,14 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             </M3Button>
                         </div>
                     </div>
-                    <div className="prose prose-sm max-w-none text-on-surface leading-relaxed whitespace-pre-wrap italic bg-surface-container-lowest/50 p-6 rounded-2xl border border-outline-variant/20">
+                    <div className="prose prose-sm max-w-none text-[var(--md-sys-color-on-surface)] leading-relaxed whitespace-pre-wrap italic bg-[var(--md-sys-color-surface-container-low)]est/50 p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
                         {narrativeReport}
                     </div>
                 </InfoCard>
             )}
 
-            <InfoCard variant="elevated" className="bg-surface-container-lowest overflow-hidden">
-                 <div className="p-8 flex flex-wrap justify-between items-center gap-8 border-b border-outline-variant/30">
+            <InfoCard variant="elevated" className="bg-[var(--md-sys-color-surface-container-low)]est overflow-hidden">
+                 <div className="p-8 flex flex-wrap justify-between items-center gap-8 border-b border-[var(--md-sys-color-outline-variant)]/30">
                     <div className="flex flex-wrap gap-8">
                         {Object.keys(expandedColumns).map(key => (
                             <M3Button

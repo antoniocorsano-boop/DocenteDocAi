@@ -14,7 +14,7 @@ const LoadingModal: React.FC<LoadingModalProps> = ({ message }) => {
       hideCloseButton
       hideBackdrop={true}
     >
-      <M3DialogContent className="flex flex-col items-center justify-center py-8 bg-surface-container-high/30 backdrop-blur-sm">
+      <M3DialogContent className="flex flex-col items-center justify-center py-8 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
         <div className="relative w-16 h-16 mb-6">
           <div className="absolute inset-0 border-4 border-primary/20 rounded-full"></div>
           <div className="absolute inset-0 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>

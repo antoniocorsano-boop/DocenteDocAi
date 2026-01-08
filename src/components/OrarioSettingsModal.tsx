@@ -30,7 +30,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
       maxWidth="md"
       level={2}
     >
-      <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
+      <M3DialogContent className="space-y-6 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
         <div className="flex flex-col gap-6">
           <div>
             <p className="m3-label-large mb-6 opacity-70 uppercase tracking-widest">Tipologia Attività</p>

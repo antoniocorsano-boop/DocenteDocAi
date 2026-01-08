@@ -166,7 +166,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                     description={performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
                     icon={trendIcon}
                     variant="surface"
-                    className="bg-surface-container-low/30 backdrop-blur-xl border-outline-variant/20 h-32"
+                    className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-[var(--md-sys-color-outline-variant)]/20 h-32"
                 />
                 <InfoCard 
                     title="Assenze"
@@ -186,16 +186,16 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
 
             {onOpenInclusionPlanEditor && (
                 <div 
-                    className="bg-tertiary-container/10 backdrop-blur-xl border border-tertiary/20 rounded-2xl p-6 flex items-center justify-between cursor-pointer hover:bg-tertiary-container/20 transition-all group"
+                    className="bg-tertiary-container/10 backdrop-blur-xl border border-tertiary/20 rounded-[var(--md-sys-shape-corner-large)] p-6 flex items-center justify-between cursor-pointer hover:bg-tertiary-container/20 transition-all group"
                     onClick={() => onOpenInclusionPlanEditor(student)}
                 >
                     <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 rounded-2xl bg-tertiary text-on-tertiary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                        <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-tertiary text-on-tertiary flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] group-hover:scale-110 transition-transform">
                             <span className="material-symbols-outlined text-3xl">accessibility_new</span>
                         </div>
                         <div>
-                            <h3 className="m3-title-large font-black text-on-surface">Piano di Inclusione (BES/DSA)</h3>
-                            <p className="m3-body-medium text-on-surface-variant opacity-70">Gestisci misure compensative e dispensative.</p>
+                            <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Piano di Inclusione (BES/DSA)</h3>
+                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant opacity-70">Gestisci misure compensative e dispensative.</p>
                         </div>
                     </div>
                     <span className="material-symbols-outlined text-tertiary text-3xl group-hover:translate-x-2 transition-transform">arrow_forward</span>
@@ -203,15 +203,15 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             )}
 
             {/* AI Judgment Suggestion Section */}
-            <div className="bg-primary-container/10 backdrop-blur-xl border border-primary/20 rounded-2xl p-6 space-y-4">
+            <div className="bg-primary-container/10 backdrop-blur-xl border border-primary/20 rounded-[var(--md-sys-shape-corner-large)] p-6 space-y-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 rounded-2xl bg-primary text-on-primary flex items-center justify-center shadow-lg">
+                        <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-primary text-on-primary flex items-center justify-center shadow-[var(--md-sys-elevation-level2)]">
                             <span className="material-symbols-outlined text-3xl">psychology</span>
                         </div>
                         <div>
-                            <h3 className="m3-title-large font-black text-on-surface">Consulente AI: Giudizio</h3>
-                            <p className="m3-body-medium text-on-surface-variant opacity-70">Genera una bozza di giudizio basata sui dati.</p>
+                            <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Consulente AI: Giudizio</h3>
+                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant opacity-70">Genera una bozza di giudizio basata sui dati.</p>
                         </div>
                     </div>
                     <M3Button 
@@ -225,12 +225,12 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 </div>
 
                 {aiJudgment && (
-                    <div className="bg-surface-container-lowest/50 p-8 rounded-xl border border-outline-variant/20 animate-in fade-in slide-in-from-top-2">
+                    <div className="bg-[var(--md-sys-color-surface-container-low)]est/50 p-8 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/20 animate-in fade-in slide-in-from-top-2">
                         <div className="flex items-center gap-8 mb-8 text-primary">
                             <span className="material-symbols-outlined text-sm">auto_awesome</span>
                             <span className="text-[10px] font-black uppercase tracking-widest">Suggerimento AI</span>
                         </div>
-                        <p className="m3-body-medium text-on-surface leading-relaxed italic">
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)] leading-relaxed italic">
                             "{aiJudgment}"
                         </p>
                         <div className="flex justify-end mt-4">
@@ -251,14 +251,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             </div>
 
             {isTerminalYear && (
-                <div className="bg-surface-container-low/30 backdrop-blur-xl border border-outline-variant/20 rounded-2xl p-6 flex items-center justify-between">
+                <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-large)] p-6 flex items-center justify-between">
                     <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                        <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-primary/10 text-primary flex items-center justify-center">
                             <span className="material-symbols-outlined text-3xl">workspace_premium</span>
                         </div>
                         <div>
-                            <h3 className="m3-title-large font-black text-on-surface">Certificazione Competenze</h3>
-                            <p className="m3-body-medium text-on-surface-variant opacity-70">Fine ciclo studi</p>
+                            <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Certificazione Competenze</h3>
+                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant opacity-70">Fine ciclo studi</p>
                         </div>
                     </div>
                     <M3Button onClick={handleGenerateCertification} variant="tonal" className="font-black text-xs uppercase tracking-widest" disabled={isExporting}>
@@ -273,18 +273,18 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
         <div className="space-y-6 animate-in fade-in">
             {Object.entries(groupedEvaluations).length > 0 ? (
                 Object.entries(groupedEvaluations).map(([materia, evals]: [string, Valutazione[]]) => (
-                    <div key={materia} className="bg-surface-container-low/30 backdrop-blur-xl rounded-2xl border border-outline-variant/20 overflow-hidden">
-                        <div className="flex items-center justify-between p-6 bg-surface-container-high/50">
+                    <div key={materia} className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 overflow-hidden">
+                        <div className="flex items-center justify-between p-6 bg-[var(--md-sys-color-surface-container-high)]/50">
                             <div className="flex items-center gap-8">
-                                <div className="w-12 h-12 rounded-2xl bg-primary text-on-primary flex items-center justify-center font-black text-xl shadow-md">
+                                <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-primary text-on-primary flex items-center justify-center font-black text-xl shadow-[var(--md-sys-elevation-level1)]">
                                     {materia.substring(0, 2).toUpperCase()}
                                 </div>
                                 <div>
-                                    <h3 className="m3-title-large font-black text-on-surface">{materia}</h3>
+                                    <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">{materia}</h3>
                                     <p className="text-[10px] font-black uppercase tracking-widest text-primary opacity-70">{evals.length} prove registrate</p>
                                 </div>
                             </div>
-                            <div className="bg-primary-container/30 px-4 py-4 rounded-2xl border border-primary/20">
+                            <div className="bg-primary-container/30 px-4 py-4 rounded-[var(--md-sys-shape-corner-large)] border border-primary/20">
                                 <span className="text-xs font-black text-primary uppercase tracking-widest mr-2">Media:</span>
                                 <span className="m3-title-large font-black text-primary">
                                     {(evals.reduce((a, b) => a + (parseFloat(b.voto) || 0), 0) / evals.length).toFixed(1)}
@@ -296,7 +296,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                 <M3ListItem
                                     key={ev.id}
                                     leadingElement={
-                                        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-sm ${parseFloat(ev.voto) < 6 ? 'bg-error text-on-error' : 'bg-surface-container-highest text-on-surface'}`}>
+                                        <div className={`w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center font-black text-xl shadow-sm ${parseFloat(ev.voto) < 6 ? 'bg-error text-on-error' : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]'}`}>
                                             {ev.voto}
                                         </div>
                                     }
@@ -304,13 +304,13 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     supportingText={`${ev.tipo} ${ev.note ? `• ${ev.note}` : ''}`}
                                     trailingElement={
                                         <div className="flex items-center gap-8">
-                                            <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest opacity-60">{new Date(ev.data).toLocaleDateString()}</span>
+                                            <span className="text-[10px] font-black text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-widest opacity-60">{new Date(ev.data).toLocaleDateString()}</span>
                                             <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" className="text-error hover:bg-error/10">
                                                 <span className="material-symbols-outlined">delete</span>
                                             </M3Button>
                                         </div>
                                     }
-                                    className="hover:bg-surface-container-high/50 rounded-2xl transition-all"
+                                    className="hover:bg-[var(--md-sys-color-surface-container-high)]/50 rounded-[var(--md-sys-shape-corner-large)] transition-all"
                                 />
                             ))}
                         </div>
@@ -327,7 +327,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                     {Object.values(groupedCompetencyEvals).map(({ competenza, evals }) => {
                         const latest = evals.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
                         const level = competenza.livelli.find(l => l.id === latest.livelloId);
-                        let levelColor = "bg-surface-container-high/50 text-on-surface-variant";
+                        let levelColor = "bg-[var(--md-sys-color-surface-container-high)]/50 text-[var(--md-sys-color-on-surface)]-variant";
                         
                         if (level?.nome.includes("Avanzato") || level?.nome.includes("A -")) {
                             levelColor = "bg-primary-container/30 text-primary border-primary/20";
@@ -338,27 +338,27 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                         }
 
                         return (
-                            <div key={competenza.id} className="bg-surface-container-low/30 backdrop-blur-xl p-6 rounded-2xl border border-outline-variant/20">
+                            <div key={competenza.id} className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
                                 <div className="flex justify-between items-start mb-8">
                                     <div>
                                         <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-4">{competenza.codice}</p>
-                                        <h3 className="m3-title-large font-black text-on-surface">{competenza.nome}</h3>
+                                        <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">{competenza.nome}</h3>
                                     </div>
-                                    <div className={`px-4 py-4 rounded-2xl border font-black text-xs uppercase tracking-widest ${levelColor}`}>
+                                    <div className={`px-4 py-4 rounded-[var(--md-sys-shape-corner-large)] border font-black text-xs uppercase tracking-widest ${levelColor}`}>
                                         {level?.nome}
                                     </div>
                                 </div>
-                                <div className="bg-surface-container-high/50 p-5 rounded-2xl border border-outline-variant/10">
+                                <div className="bg-[var(--md-sys-color-surface-container-high)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
                                     <div className="flex items-center gap-8 mb-8 opacity-60">
                                         <span className="material-symbols-outlined text-sm">event</span>
                                         <span className="text-[10px] font-black uppercase tracking-widest">{new Date(latest.data).toLocaleDateString()}</span>
                                     </div>
-                                    <p className="m3-body-medium text-on-surface leading-relaxed">{level?.descrizione}</p>
+                                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)] leading-relaxed">{level?.descrizione}</p>
                                 </div>
                                 {latest.nota && (
                                     <div className="mt-4 flex gap-6 items-start pl-4 border-l-4 border-primary/30">
                                         <span className="material-symbols-outlined text-primary text-sm mt-4">chat_bubble</span>
-                                        <p className="m3-body-small italic text-on-surface-variant">&ldquo;{latest.nota}&rdquo;</p>
+                                        <p className="m3-body-small italic text-[var(--md-sys-color-on-surface)]-variant">&ldquo;{latest.nota}&rdquo;</p>
                                     </div>
                                 )}
                             </div>
@@ -374,7 +374,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             {studentReceptions.length > 0 ? (
                 <div className="space-y-4">
                     {(studentReceptions || []).map(lesson => (
-                        <div key={lesson.id} className="bg-surface-container-low/30 backdrop-blur-xl p-6 rounded-2xl border border-outline-variant/20 relative overflow-hidden group">
+                        <div key={lesson.id} className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 relative overflow-hidden group">
                             <div className="absolute left-0 top-0 bottom-0 w-2 bg-tertiary"></div>
                             <div className="flex justify-between items-start mb-6 pl-2">
                                 <div className="flex items-center gap-8">
@@ -383,11 +383,11 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                 </div>
                                 <span className="text-[10px] font-black uppercase tracking-widest opacity-50">{new Date(lesson.data).toLocaleDateString()}</span>
                             </div>
-                            <p className="m3-title-medium font-bold pl-2 text-on-surface leading-relaxed">{lesson.contenuto}</p>
+                            <p className="m3-title-medium font-bold pl-2 text-[var(--md-sys-color-on-surface)] leading-relaxed">{lesson.contenuto}</p>
                             {lesson.obiettivi && (
                                 <div className="mt-4 pl-2">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant opacity-60 mb-4">Esito / Obiettivi</p>
-                                    <p className="m3-body-small text-on-surface-variant">{lesson.obiettivi}</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-60 mb-4">Esito / Obiettivi</p>
+                                    <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{lesson.obiettivi}</p>
                                 </div>
                             )}
                         </div>
@@ -408,14 +408,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
         <div className="page-layout pb-24">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
                 <div className="flex items-center gap-6">
-                    <M3Button onClick={onBack} variant="icon" className="bg-surface-container-high/50">
+                    <M3Button onClick={onBack} variant="icon" className="bg-[var(--md-sys-color-surface-container-high)]/50">
                         <span className="material-symbols-outlined">arrow_back</span>
                     </M3Button>
                     <div className="flex items-center gap-5">
                         <Avatar 
                             name={`${student.nome} ${student.cognome}`} 
                             size="xl" 
-                            className="shadow-xl border-4 border-surface-container-high"
+                            className="shadow-[var(--md-sys-elevation-level3)] border-4 border-surface-container-high"
                         />
                         <div>
                             <h1 className="m3-headline-medium font-black tracking-tight">{student.cognome} {student.nome}</h1>
@@ -432,7 +432,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                         <span className="material-symbols-outlined mr-2">record_voice_over</span>
                         Colloquio
                     </M3Button>
-                    <M3Button onClick={handleExportPdf} variant="filled" className="flex-grow md:flex-grow-0 shadow-lg font-black text-xs uppercase tracking-widest" disabled={isExporting}>
+                    <M3Button onClick={handleExportPdf} variant="filled" className="flex-grow md:flex-grow-0 shadow-[var(--md-sys-elevation-level2)] font-black text-xs uppercase tracking-widest" disabled={isExporting}>
                         <span className="material-symbols-outlined mr-2">download</span>
                         Esporta PDF
                     </M3Button>

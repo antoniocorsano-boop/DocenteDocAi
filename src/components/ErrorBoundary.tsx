@@ -56,31 +56,31 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-surface p-6">
-			<div className="max-w-md w-full bg-surface-container-high rounded-3xl p-8 shadow-xl border border-outline-variant/20 text-center">
+			<div className="max-w-md w-full bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-extra-large)] p-8 shadow-[var(--md-sys-elevation-level3)] border border-[var(--md-sys-color-outline-variant)]/20 text-center">
 				<div className="w-16 h-16 bg-error-container rounded-full flex items-center justify-center mx-auto mb-6">
 					<span className="material-symbols-outlined text-3xl text-on-error-container">error</span>
 				</div>
 
-				<h2 className="m3-headline-small font-black text-on-surface mb-8">
+				<h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)] mb-8">
 					Oops! Qualcosa è andato storto
 				</h2>
 
-				<p className="m3-body-large text-on-surface-variant mb-6">
+				<p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant mb-6">
 					Si è verificato un errore imprevisto nell'applicazione.
 					La pagina verrà ricaricata automaticamente tra pochi secondi.
 				</p>
 
-				<div className="flex items-center justify-center gap-8 text-sm text-on-surface-variant">
+				<div className="flex items-center justify-center gap-8 text-sm text-[var(--md-sys-color-on-surface)]-variant">
 					<span className="material-symbols-outlined animate-spin">refresh</span>
 					<span>Ricaricamento in corso...</span>
 				</div>
 
 				{process.env.NODE_ENV === 'development' && error && (
 					<details className="mt-6 text-left">
-						<summary className="cursor-pointer text-sm font-medium text-on-surface-variant hover:text-on-surface">
+						<summary className="cursor-pointer text-sm font-medium text-[var(--md-sys-color-on-surface)]-variant hover:text-[var(--md-sys-color-on-surface)]">
 							Dettagli errore (solo in sviluppo)
 						</summary>
-						<pre className="mt-4 p-6 bg-surface-container rounded-lg text-xs overflow-auto max-h-32 text-on-surface-variant">
+						<pre className="mt-4 p-6 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-small)] text-xs overflow-auto max-h-32 text-[var(--md-sys-color-on-surface)]-variant">
 							{error.stack}
 						</pre>
 					</details>

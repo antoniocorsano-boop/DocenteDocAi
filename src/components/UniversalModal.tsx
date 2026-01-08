@@ -18,7 +18,7 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
       maxWidth="sm"
       level={1}
     >
-      <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm">
+      <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
         {children}
       </M3DialogContent>
       <M3DialogActions>

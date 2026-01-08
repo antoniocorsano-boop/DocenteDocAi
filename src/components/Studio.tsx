@@ -191,7 +191,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     <div className="flex justify-between items-start w-full mb-8">
                         <span className="material-symbols-outlined tool-icon group-hover:scale-110 transition-transform">{action.icon}</span>
                         {action.requiresContent && (
-                            <span className={`text-[10px] px-1.5 py-0.5 rounded border ${selectedFileIds.length > 0 ? 'border-current opacity-70' : 'border-outline text-outline'}`}>
+                            <span className={`text-[10px] px-1.5 py-0.5 rounded border ${selectedFileIds.length > 0 ? 'border-current opacity-70' : 'border-[var(--md-sys-color-outline)] text-outline'}`}>
                                 Input KB
                             </span>
                         )}
@@ -236,8 +236,8 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     maxWidth="sm"
                     level={2}
                 >
-                    <M3DialogContent className="bg-surface-container-high/30 backdrop-blur-sm space-y-4">
-                        <p className="m3-body-medium text-on-surface-variant">
+                    <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm space-y-4">
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">
                             Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
                         </p>
                         <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="link-button flex items-center gap-8">
@@ -273,8 +273,8 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         />
                     </div>
                      <div className="flex items-center gap-8 pb-2">
-                        <span className="material-symbols-outlined text-on-surface-variant">attachment</span>
-                        <p className="m3-body-medium text-on-surface-variant font-bold">
+                        <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">attachment</span>
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant font-bold">
                             {selectedFileIds.length} file selezionati
                         </p>
                     </div>
@@ -293,7 +293,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p className="text-sm text-on-surface-variant italic p-8">Nessun file disponibile in questo set.</p>
+                        <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant italic p-8">Nessun file disponibile in questo set.</p>
                     )}
                 </div>
             </div>
@@ -315,7 +315,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                                 <span className="material-symbols-outlined text-tertiary">design_services</span>
                                 Generazione & Creatività
                             </h2>
-                            <p className="m3-body-small text-on-surface-variant mt-4">Crea nuovi contenuti didattici.</p>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant mt-4">Crea nuovi contenuti didattici.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'generation'))}
                     </div>
@@ -327,7 +327,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                                 <span className="material-symbols-outlined text-secondary">analytics</span>
                                 Analisi & Sintesi
                             </h2>
-                            <p className="m3-body-small text-on-surface-variant mt-4">Rielabora e comprendi i documenti.</p>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant mt-4">Rielabora e comprendi i documenti.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'analysis'))}
                     </div>

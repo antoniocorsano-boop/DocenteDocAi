@@ -19,9 +19,9 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
         type="button"
         onClick={onClick}
         aria-pressed={selected}
-        className={`flex flex-col items-center justify-center p-8 md:p-8 rounded-3xl md:rounded-4xl border-2 transition-all gap-8 md:gap-8 min-w-[100px] md:min-w-[140px] group ${selected ? 'border-primary bg-primary-container text-on-primary-container shadow-2xl scale-[1.05]' : 'border-outline-variant/30 bg-surface-container/50 hover:border-outline hover:bg-surface-container-high'} ${className}`}
+        className={`flex flex-col items-center justify-center p-8 md:p-8 rounded-[var(--md-sys-shape-corner-extra-large)] md:rounded-4xl border-2 transition-all gap-8 md:gap-8 min-w-[100px] md:min-w-[140px] group ${selected ? 'border-primary bg-primary-container text-on-primary-container shadow-[var(--md-sys-elevation-level4)] scale-[1.05]' : 'border-[var(--md-sys-color-outline-variant)]/30 bg-[var(--md-sys-color-surface-container)]/50 hover:border-[var(--md-sys-color-outline)] hover:bg-[var(--md-sys-color-surface-container-high)]'} ${className}`}
     >
-        <div className={`w-10 h-10 md:w-16 md:h-16 rounded-xl flex items-center justify-center transition-all ${selected ? 'bg-primary text-on-primary shadow-lg' : 'bg-surface text-primary group-hover:scale-110'}`}>
+        <div className={`w-10 h-10 md:w-16 md:h-16 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center transition-all ${selected ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level2)]' : 'bg-surface text-primary group-hover:scale-110'}`}>
             <span className="material-symbols-outlined text-2xl md:text-4xl">{icon}</span>
         </div>
         <span className="text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.1em] md:tracking-[0.2em]">{label}</span>

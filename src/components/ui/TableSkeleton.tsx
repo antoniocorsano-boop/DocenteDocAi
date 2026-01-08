@@ -17,7 +17,7 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
             {Array.from({ length: columns }).map((_, i) => (
                 <div
                     key={i}
-                    className="h-6 bg-surface-container-high rounded animate-pulse flex-1"
+                    className="h-6 bg-[var(--md-sys-color-surface-container-high)] rounded animate-pulse flex-1"
                     style={{ animationDelay: `${i * 0.05}s` }}
                 />
             ))}
@@ -29,7 +29,7 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
                 {Array.from({ length: columns }).map((_, colIndex) => (
                     <div
                         key={colIndex}
-                        className="h-4 bg-surface-container-high rounded animate-pulse flex-1"
+                        className="h-4 bg-[var(--md-sys-color-surface-container-high)] rounded animate-pulse flex-1"
                         style={{
                             animationDelay: `${(rowIndex * columns + colIndex) * 0.05}s`,
                             width: Math.random() > 0.5 ? '100%' : '80%'

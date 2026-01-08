@@ -15,10 +15,10 @@ const M3SuggestionCard: React.FC<M3SuggestionCardProps> = ({
   variant = 'active',
   className = ''
 }) => {
-  const baseClasses = 'bg-surface-variant/80 p-5 rounded-3xl';
+  const baseClasses = 'bg-surface-variant/80 p-5 rounded-[var(--md-sys-shape-corner-extra-large)]';
   const variantClasses = variant === 'active'
     ? 'border-l-4 border-primary'
-    : 'border border-outline-variant/30';
+    : 'border border-[var(--md-sys-color-outline-variant)]/30';
 
   return (
     <div className={`${baseClasses} ${variantClasses} ${className}`}>

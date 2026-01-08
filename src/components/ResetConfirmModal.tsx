@@ -18,12 +18,12 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent className="space-y-6 bg-surface-container-high/30 backdrop-blur-sm">
+            <M3DialogContent className="space-y-6 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
                 <div className="flex items-center gap-6 text-error mb-8">
                     <span className="material-symbols-outlined text-3xl">warning</span>
                     <span className="font-bold">Azione Irreversibile</span>
                 </div>
-                <p className="m3-body-large leading-relaxed">
+                <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] leading-relaxed">
                     Stai per cancellare <strong>TUTTI</strong> i dati locali (studenti, voti, lezioni). 
                     Questa azione è <strong className="text-error">irreversibile</strong> se non hai un backup su Drive.
                 </p>
@@ -38,7 +38,7 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
                 />
             </M3DialogContent>
 
-            <M3DialogActions className="bg-surface-container-lowest border-t border-outline-variant/30">
+            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]est border-t border-[var(--md-sys-color-outline-variant)]/30">
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button 
                     onClick={onConfirm} 

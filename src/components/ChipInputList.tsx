@@ -42,21 +42,21 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
         <div className="mb-8">
              <div className="flex items-center justify-between mb-8 px-1">
                 <div className="flex items-center gap-6">
-                    <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primary-container text-primary'}`}>
+                    <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-sm transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primary-container text-primary'}`}>
                         <span className="material-symbols-outlined text-xl">{icon}</span>
                     </div>
                     <div>
-                        <label className="m3-label-large font-black text-on-surface uppercase tracking-widest block">
+                        <label className="m3-label-large font-black text-[var(--md-sys-color-on-surface)] uppercase tracking-widest block">
                             {label}
                         </label>
-                        <span className="text-[10px] font-bold text-on-surface-variant opacity-50 uppercase tracking-tighter">
+                        <span className="text-[10px] font-bold text-[var(--md-sys-color-on-surface)]-variant opacity-50 uppercase tracking-tighter">
                             {items.length} {items.length === 1 ? 'elemento' : 'elementi'} salvati
                         </span>
                     </div>
                 </div>
              </div>
              
-             <div className="p-8 bg-surface-container-low rounded-3xl border border-outline-variant/50 shadow-inner-sm">
+             <div className="p-8 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/50 shadow-inner-sm">
                 <div className="m3-chip-grid mb-8">
                     {items.map((item, index) => (
                         <div key={index} className={`m3-expressive-chip variant-${variant} animate-in zoom-in-95 duration-200`}>
@@ -74,7 +74,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     ))}
                     
                     {items.length === 0 && (
-                        <p className="text-xs text-on-surface-variant italic opacity-40 py-4 px-4">Nessun elemento aggiunto...</p>
+                        <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant italic opacity-40 py-4 px-4">Nessun elemento aggiunto...</p>
                     )}
                 </div>
                 
@@ -95,13 +95,13 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     <button 
                         type="button"
                         onClick={(e) => { e.stopPropagation(); handleAdd(); }}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${newItem.trim() ? 'bg-primary text-on-primary shadow-md scale-110' : 'bg-surface-container-highest text-on-surface-variant opacity-30'}`}
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${newItem.trim() ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level1)] scale-110' : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant opacity-30'}`}
                         disabled={!newItem.trim()}
                     >
                         <span className="material-symbols-outlined text-sm">arrow_forward</span>
                     </button>
                 </div>
-                <p className="text-[9px] text-on-surface-variant opacity-40 mt-3 px-4 uppercase tracking-widest font-bold">
+                <p className="text-[9px] text-[var(--md-sys-color-on-surface)]-variant opacity-40 mt-3 px-4 uppercase tracking-widest font-bold">
                     Premi Invio o usa la virgola per aggiungere più elementi
                 </p>
             </div>

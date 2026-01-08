@@ -108,16 +108,16 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
     const renderStep2 = () => (
         <>
             <M3DialogContent className="space-y-6">
-                <div className="p-5 bg-primary-container/20 rounded-3xl border border-primary/20 flex items-center justify-between">
+                <div className="p-5 bg-primary-container/20 rounded-[var(--md-sys-shape-corner-extra-large)] border border-primary/20 flex items-center justify-between">
                     <div>
                         <p className="text-[9px] font-black uppercase tracking-widest text-primary">Context Active</p>
-                        <h3 className="m3-title-large font-black text-on-surface">{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
+                        <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
                     </div>
                     <M3Button variant="tonal" onClick={() => setStep(1)} className="!h-10 !px-4 text-xs font-bold uppercase">Cambia</M3Button>
                 </div>
 
                 <div className="action-list space-y-3">
-                    <button onClick={handleGeneratePdf} className="op-tile op-tile-variant-primary !bg-surface shadow-md group rounded-lg hover:shadow-md transition-all w-full text-left">
+                    <button onClick={handleGeneratePdf} className="op-tile op-tile-variant-primary !bg-surface shadow-[var(--md-sys-elevation-level1)] group rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all w-full text-left">
                         <div className="op-tile-icon-container"><span className="material-symbols-outlined group-hover:scale-110 transition-transform">picture_as_pdf</span></div>
                         <div className="op-tile-content">
                             <p className="op-tile-title">Tabellone Dati (PDF)</p>
@@ -126,7 +126,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     </button>
                 </div>
                 
-                <p className="m3-body-small text-on-surface-variant italic text-center px-4">
+                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant italic text-center px-4">
                     Il report verrà generato e aperto in una nuova scheda del browser.
                 </p>
             </M3DialogContent>

@@ -215,7 +215,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
     if (loadingStatus) {
         return (
-            <div className="flex flex-col justify-center items-center p-12 h-64 bg-surface-container-low/30 backdrop-blur-xl rounded-5xl border border-outline-variant/20 animate-in fade-in zoom-in-95 duration-500">
+            <div className="flex flex-col justify-center items-center p-12 h-64 bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 animate-in fade-in zoom-in-95 duration-500">
                 <AiThinkingGem size="large" text={loadingStatus} />
             </div>
         );
@@ -232,10 +232,10 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-surface-container-low/30 backdrop-blur-xl p-8 rounded-5xl border border-outline-variant/20">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-8 rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20">
                 <div className="space-y-1">
-                    <h1 className="text-3xl font-black tracking-tight text-on-surface">Analisi Classe {selectedClass}</h1>
-                    <p className="text-on-surface-variant font-medium opacity-70">Report generato per il consiglio di classe.</p>
+                    <h1 className="text-3xl font-black tracking-tight text-[var(--md-sys-color-on-surface)]">Analisi Classe {selectedClass}</h1>
+                    <p className="text-[var(--md-sys-color-on-surface)]-variant font-medium opacity-70">Report generato per il consiglio di classe.</p>
                 </div>
                 <div className="flex gap-6">
                     <M3Button onClick={handleExportDocx} variant="outlined" className="font-black text-xs uppercase tracking-widest">
@@ -250,7 +250,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             </div>
 
             {/* AI Summary */}
-            <div className="bg-surface-container-low/30 backdrop-blur-xl p-8 rounded-5xl border border-outline-variant/20 space-y-8">
+            <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-8 rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 space-y-8">
                 <div className="flex justify-between items-center">
                     <SectionHeader 
                         title="Sintesi dell'AI" 
@@ -318,7 +318,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                 <div className="space-y-10 p-8">
                     {competencyLevelData.map(compData => (
                         <div key={compData.name} className="space-y-4">
-                            <h3 className="text-sm font-black uppercase tracking-widest text-on-surface-variant opacity-70">{compData.name}</h3>
+                            <h3 className="text-sm font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-70">{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
                                 color="var(--sys-tertiary)"
