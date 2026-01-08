@@ -116,7 +116,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             opacity: 0.8,
             border: '1px solid var(--md-sys-color-outline)',
             padding: 'var(--md-sys-spacing-8)',
-            backdropFilter: 'blur(8px)',
+            backdropFilter: 'blur(var(--md-sys-spacing-2))',
             borderRadius: 'var(--md-sys-shape-corner-extra-large)'
           }}>
             <div style={{
@@ -699,9 +699,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       />
                       <div style={{
                         width: '44px',
-                        height: '24px',
+                        height: 'var(--md-sys-spacing-6)',
                         backgroundColor: analyticsSettings.enabled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                        borderRadius: '12px',
+                        borderRadius: 'var(--md-sys-spacing-3)',
                         position: 'relative',
                         transition: 'background-color 0.2s ease'
                       }}>
@@ -738,6 +738,14 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   {analyticsSettings.enabled && (
                     <>
                       <label style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: 'var(--md-sys-spacing-6)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s ease'
+                      }}
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
@@ -794,9 +802,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           />
                           <div style={{
                             width: '44px',
-                            height: '24px',
+                            height: 'var(--md-sys-spacing-6)',
                             backgroundColor: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                            borderRadius: '12px',
+                            borderRadius: 'var(--md-sys-spacing-3)',
                             position: 'relative',
                             transition: 'background-color 0.2s ease'
                           }}>
@@ -871,9 +879,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           />
                           <div style={{
                             width: '44px',
-                            height: '24px',
+                            height: 'var(--md-sys-spacing-6)',
                             backgroundColor: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                            borderRadius: '12px',
+                            borderRadius: 'var(--md-sys-spacing-3)',
                             position: 'relative',
                             transition: 'background-color 0.2s ease'
                           }}>
@@ -1003,3 +1011,5 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 };
 
 export default AnalyticsDashboard;
+
+

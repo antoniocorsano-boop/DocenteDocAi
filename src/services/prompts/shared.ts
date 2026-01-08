@@ -5,3 +5,5 @@ export const JSON_OUTPUT_FORMAT_LESSON = `{
     "compiti": "Una breve idea concreta per i compiti a casa.",
     "adattamenti": "Un elenco puntato di 1-2 suggerimenti per l'inclusività basati sui piani forniti, formattato come stringa con \\n. Se non sono necessari o non ci sono piani, restituisci una stringa vuota."
 }`;
+
+

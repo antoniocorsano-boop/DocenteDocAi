@@ -40,3 +40,4 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
 };
 
 export default ThinkingIndicator;
+

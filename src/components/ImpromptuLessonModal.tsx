@@ -95,3 +95,5 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
 };
 
 export default ImpromptuLessonModal;
+
+

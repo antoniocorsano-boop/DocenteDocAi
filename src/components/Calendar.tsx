@@ -462,3 +462,5 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
 };
 
 export default Calendar;
+
+

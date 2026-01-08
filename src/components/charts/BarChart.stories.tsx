@@ -41,7 +41,7 @@ export const VerticalDefault: Story = {
       { label: 'May', value: 56 },
       { label: 'Jun', value: 55 },
     ],
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     horizontal: false,
   },
 };
@@ -55,7 +55,7 @@ export const HorizontalDefault: Story = {
       { label: 'Product D', value: 70 },
       { label: 'Product E', value: 110 },
     ],
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     horizontal: true,
   },
 };
@@ -69,7 +69,7 @@ export const StudentGrades: Story = {
       { label: 'D', value: 15 },
       { label: 'F', value: 5 },
     ],
-    color: 'var(--sys-tertiary)',
+    color: 'var(--md-sys-color-tertiary)',
     horizontal: false,
   },
 };
@@ -90,7 +90,7 @@ export const MonthlyRevenue: Story = {
       { label: 'Nov', value: 29000 },
       { label: 'Dec', value: 32000 },
     ],
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     horizontal: false,
   },
 };
@@ -103,7 +103,7 @@ export const TaskCompletion: Story = {
       { label: 'Week 3', value: 15 },
       { label: 'Week 4', value: 10 },
     ],
-    color: 'var(--sys-secondary)',
+    color: 'var(--md-sys-color-secondary)',
     horizontal: false,
   },
 };
@@ -144,7 +144,7 @@ export const SmallDataset: Story = {
       { label: 'Yes', value: 75 },
       { label: 'No', value: 25 },
     ],
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     horizontal: false,
   },
 };
@@ -181,7 +181,7 @@ export const ZeroValues: Story = {
       { label: 'Q3', value: 0 },
       { label: 'Q4', value: 75 },
     ],
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     horizontal: false,
   },
 };
@@ -198,3 +198,5 @@ export const UniformValues: Story = {
     horizontal: false,
   },
 };
+
+

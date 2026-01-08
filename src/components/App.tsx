@@ -25,9 +25,7 @@ import { ThemeService } from '../services/ThemeService';
 import { Z_INDEX } from '../design-system/zIndex';
 import Snackbar from './Snackbar';
 import { useRestoreAssist } from './useRestoreAssist';
-import type { UserProfile } from '../types';
-
-import type { AiSuggestion, SystemSuggestion } from '../types';
+import type { UserProfile, AiSuggestion, SystemSuggestion, KnowledgeBaseEntry, EventoCalendario } from '../types';
 import ErrorBoundary from './ErrorBoundary';
 type SuggestionBannerProps = { suggestion: AiSuggestion | SystemSuggestion; onAction: () => void };
 // Banner Suggestion Assistant
@@ -63,7 +61,6 @@ import OperationsCenter from './OperationsCenter';
 import VideoAnalysisModal from './VideoAnalysisModal';
 import CircolareAnalysisModal from './CircolareAnalysisModal';
 import LoadingModal from './LoadingModal';
-import BackupInfoModal from './BackupInfoModal';
 import { NKABottomSheet, useNKAStore } from '../nka';
 
 /**
@@ -326,14 +323,6 @@ export const App: React.FC = () => {
                     isAiProcessing={isGlobalAiLoading}
                     installPrompt={installPrompt}
                     onInstallApp={actions.handleInstallApp}
-                    onOpenBackupInfo={() => pushModal({
-                        id: 'backup-info-modal',
-                        component: (
-                            <BackupInfoModal
-                                onClose={() => popModal('backup-info-modal')}
-                            />
-                        )
-                    })}
                     onOpenOperations={() => pushModal({
                         id: 'operations-center',
                         component: (
@@ -347,11 +336,14 @@ export const App: React.FC = () => {
                                             component: (
                                                 <PassaggioAnnoWizard
                                                     onClose={() => popModal('year-transition-wizard')}
-                                                    onPromote={actions.handlePromoteStudents}
-                                                    onReset={actions.handleResetYearData}
-                                                    onExport={actions.handleExportData}
                                                     students={appState.students}
                                                     settings={appState.settings}
+                                                    evaluations={appState.evaluations}
+                                                    competencyEvaluations={appState.competencyEvals}
+                                                    register={appState.finalizedRegister}
+                                                    onPromoteStudents={actions.handlePromoteStudents}
+                                                    onBackupData={actions.handleExportData}
+                                                    onResetData={actions.handleResetYearData}
                                                 />
                                             )
                                         });
@@ -377,10 +369,6 @@ export const App: React.FC = () => {
                                             component: (
                                                 <VideoAnalysisModal 
                                                     onClose={() => popModal('video-analysis-modal')}
-                                                    onSave={(lesson) => {
-                                                        actions.setLessons((prev: Record<string, Lezione>) => ({ ...prev, [lesson.id]: lesson }));
-                                                        popModal('video-analysis-modal');
-                                                    }}
                                                 />
                                             )
                                         });
@@ -454,7 +442,7 @@ export const App: React.FC = () => {
                 {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
                 {/* Super AI Assistant FAB: floating, multi-action, modal */}
                 <div 
-                    className="fixed right-6 bottom-[calc(64px+24px)] md:bottom-6 pointer-events-auto"
+                    className="fixed right-6 bottom-[calc(64px+var(--md-sys-spacing-6))] md:bottom-6 pointer-events-auto"
                     style={{ zIndex: Z_INDEX.assistant.fab }}
                 >
                     <AssistantFab />
@@ -474,12 +462,14 @@ export const App: React.FC = () => {
             </div>
             </ErrorBoundary>
         );
-    } catch {
+    } catch (err) {
         // Fallback visibile: errore di caricamento o runtime
-        return <div style={{ color: 'red', padding: 'var(--md-sys-spacing-8)', fontFamily: 'monospace', background: 'var(--sys-surface-variant)', fontSize: '1.2rem', whiteSpace: 'pre-wrap' }}>
+        return <div style={{ color: 'red', padding: 'var(--md-sys-spacing-8)', fontFamily: 'monospace', background: 'var(--md-sys-color-surface-variant)', fontSize: '1.2rem', whiteSpace: 'pre-wrap' }}>
             <b>ERRORE FATALE:</b> {String(err)}
             <br />
             <span>Controlla la console per dettagli tecnici.</span>
         </div>;
     }
 };
+
+

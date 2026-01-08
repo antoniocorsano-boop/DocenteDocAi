@@ -448,6 +448,11 @@ a:focus-visible {
   --md-sys-shape-corner-large: 16px;
   --md-sys-shape-corner-extra-large: 28px;
   --md-sys-shape-corner-full: 1000px;
+
+  /* M3 Expressive - Soft Corner Variants (Phase 2) */
+  --md-sys-shape-corner-small-soft: 10px;    /* Softer than small for supportive elements */
+  --md-sys-shape-corner-medium-soft: 16px;   /* Softer than medium for calming cards */
+  --md-sys-shape-corner-large-soft: 20px;    /* Softer than large for welcoming modals */
 }
 
 /* Elevation System */

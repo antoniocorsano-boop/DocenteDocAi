@@ -784,3 +784,5 @@ export const generateFullAppGuidePdf = async (
     const pdfBytes = await pdfDoc.save();
     return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
 };
+
+

@@ -156,3 +156,5 @@ export function hasMinimumData(data: BackupPayload): boolean {
   
   return hasStudents || hasLessons || hasSlots;
 }
+
+

@@ -52,10 +52,10 @@
 }
 
 .hero-card-icon {
-  width: 48px;
-  height: 48px;
+  width: var(--md-sys-spacing-12);
+  height: var(--md-sys-spacing-12);
   background-color: color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--md-sys-spacing-2));
   border-radius: var(--md-corner-medium);
   display: flex;
   align-items: center;
@@ -66,3 +66,5 @@
 .hero-card-icon .material-symbols-outlined {
   color: var(--md-sys-color-primary);
 }
+
+

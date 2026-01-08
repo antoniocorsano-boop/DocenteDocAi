@@ -71,7 +71,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 Seleziona uno studente (o l'intera classe) e un obiettivo. L'AI analizzerà i dati e proporrà attività personalizzate.
             </p>
 
-            <div className="responsive-grid items-end p-8 border rounded-[var(--md-sys-shape-corner-small)] bg-[var(--md-sys-color-surface-container)]" style={{ gap: 'var(--md-sys-spacing-8)' }}>
+            <div className="responsive-grid items-end p-8 border rounded-[var(--md-sys-shape-corner-medium-soft)] bg-[var(--md-sys-color-surface-container)]" style={{ gap: 'var(--md-sys-spacing-8)' }}>
                 <div>
                     <label htmlFor="student-select-advisor" className="form-label">Studente / Gruppo</label>
                     <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} className="form-select w-full">
@@ -103,7 +103,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 <div className="mt-6 space-y-4">
                     <h3 className="m3-title-medium">Suggerimenti dell'AI:</h3>
                     {advice.map((item, index) => (
-                        <div key={index} className="p-8 rounded-[var(--md-sys-shape-corner-small)] bg-[var(--md-sys-color-surface-container-high)]">
+                        <div key={index} className="p-8 rounded-[var(--md-sys-shape-corner-small-soft)] bg-[var(--md-sys-color-surface-container-high)]">
                             <h4 className="m3-title-small font-bold">{item.titolo}</h4>
                             <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mt-4 whitespace-pre-wrap">{item.descrizione}</p>
                         </div>
@@ -115,3 +115,5 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
 };
 
 export default AiAdvisor;
+
+

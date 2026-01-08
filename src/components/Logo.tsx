@@ -104,3 +104,5 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, className, o
 
 export { LogoComponent as Logo };
 export default LogoComponent;
+
+

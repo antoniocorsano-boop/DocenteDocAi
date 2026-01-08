@@ -68,3 +68,5 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
 };
 
 export default Menu;
+
+

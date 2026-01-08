@@ -166,7 +166,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                                     : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant border border-[var(--md-sys-color-outline-variant)]'}
                                                             `}
                                                         >
-                                                            {isActive && <span className="material-symbols-outlined text-[16px]">check</span>}
+                                                            {isActive && <span className="material-symbols-outlined text-[var(--md-sys-spacing-4)]">check</span>}
                                                             <span className="chip-expressive__label">{subj}</span>
                                                         </button>
                                                     );
@@ -190,3 +190,5 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
         </div>
     );
 };
+
+

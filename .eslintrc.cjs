@@ -34,6 +34,14 @@ module.exports = {
       {
         selector: "Literal[value='curriculum']",
         message: "Use the canonical Italian view name 'curriculum-manager' instead of 'curriculum'."
+      },
+      {
+        selector: 'Literal[value=/\\d+px/]',
+        message: 'Use MD3 spacing tokens instead of hardcoded px.'
+      },
+      {
+        selector: 'Literal[value=/--sys-/]',
+        message: 'Use --md-sys- tokens instead of legacy --sys-.'
       }
     ]
   }

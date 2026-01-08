@@ -60,7 +60,7 @@
   /* Base tablet styles */
   :root {
     --content-max-width: 720px;
-    --content-padding: 24px;
+    --content-padding: var(--md-sys-spacing-6);
     --grid-columns: 2;
   }
 }
@@ -75,7 +75,7 @@
 @media (min-width: 840px) {
   :root {
     --content-max-width: 960px;
-    --content-padding: 32px;
+    --content-padding: var(--md-sys-spacing-8);
     --grid-columns: 3;
   }
 }
@@ -104,7 +104,7 @@
 @media (min-width: 1240px) {
   :root {
     --content-max-width: 1400px;
-    --content-padding: 48px;
+    --content-padding: var(--md-sys-spacing-12);
     --grid-columns: 6;
   }
 }
@@ -283,23 +283,23 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--spacing-4, 16px);
-  padding-right: var(--spacing-4, 16px);
+  padding-left: var(--spacing-4, var(--md-sys-spacing-4));
+  padding-right: var(--spacing-4, var(--md-sys-spacing-4));
 }
 
 @media (min-width: 600px) {
   .responsive-container {
     max-width: 720px;
-    padding-left: var(--spacing-6, 24px);
-    padding-right: var(--spacing-6, 24px);
+    padding-left: var(--spacing-6, var(--md-sys-spacing-6));
+    padding-right: var(--spacing-6, var(--md-sys-spacing-6));
   }
 }
 
 @media (min-width: 840px) {
   .responsive-container {
     max-width: 960px;
-    padding-left: var(--spacing-8, 32px);
-    padding-right: var(--spacing-8, 32px);
+    padding-left: var(--spacing-8, var(--md-sys-spacing-8));
+    padding-right: var(--spacing-8, var(--md-sys-spacing-8));
   }
 }
 
@@ -323,18 +323,18 @@
 .stack-compact {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3, 12px);
+  gap: var(--spacing-3, var(--md-sys-spacing-3));
 }
 
 @media (min-width: 600px) {
   .stack-compact {
-    gap: var(--spacing-4, 16px);
+    gap: var(--spacing-4, var(--md-sys-spacing-4));
   }
 }
 
 @media (min-width: 1024px) {
   .stack-compact {
-    gap: var(--spacing-6, 24px);
+    gap: var(--spacing-6, var(--md-sys-spacing-6));
   }
 }
 
@@ -342,18 +342,18 @@
 .inline-compact {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-2, 8px);
+  gap: var(--spacing-2, var(--md-sys-spacing-2));
 }
 
 @media (min-width: 600px) {
   .inline-compact {
-    gap: var(--spacing-3, 12px);
+    gap: var(--spacing-3, var(--md-sys-spacing-3));
   }
 }
 
 @media (min-width: 1024px) {
   .inline-compact {
-    gap: var(--spacing-4, 16px);
+    gap: var(--spacing-4, var(--md-sys-spacing-4));
   }
 }
 
@@ -441,7 +441,7 @@
   }
   
   .hover-lift:hover {
-    box-shadow: var(--elevation-2, 0 4px 16px rgba(0, 0, 0, 0.12));
+    box-shadow: var(--elevation-2, 0 var(--md-sys-spacing-1) var(--md-sys-spacing-4) rgba(0, 0, 0, 0.12));
   }
 }
 
@@ -451,7 +451,9 @@
   a,
   [role="button"],
   .interactive {
-    min-height: 48px;
-    min-width: 48px;
+    min-height: var(--md-sys-spacing-12);
+    min-width: var(--md-sys-spacing-12);
   }
 }
+
+

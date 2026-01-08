@@ -26,3 +26,5 @@ const LoadingModal: React.FC<LoadingModalProps> = ({ message }) => {
 };
 
 export default LoadingModal;
+
+

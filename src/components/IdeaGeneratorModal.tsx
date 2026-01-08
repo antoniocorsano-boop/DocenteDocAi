@@ -149,3 +149,5 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
 };
 
 export default IdeaGeneratorModal;
+
+

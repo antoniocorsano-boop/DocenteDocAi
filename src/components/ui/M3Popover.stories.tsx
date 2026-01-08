@@ -30,7 +30,7 @@ export const Basic: Story = {
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="filled"
+          variant="primary"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Open Popover
@@ -66,7 +66,7 @@ export const WithActions: Story = {
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="filled"
+          variant="primary"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Event Actions
@@ -94,7 +94,7 @@ export const WithActions: Story = {
                 textAlign: 'left',
                 color: 'var(--md-sys-color-on-surface)',
                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                transition: 'background 200ms',
+                transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
@@ -118,7 +118,7 @@ export const WithActions: Story = {
                 textAlign: 'left',
                 color: 'var(--md-sys-color-error)',
                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                transition: 'background 200ms',
+                transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
@@ -146,7 +146,7 @@ export const PositionedTop: Story = {
     return (
       <div style={{ padding: 'calc(var(--md-sys-spacing-8)*2) var(--md-sys-spacing-8) var(--md-sys-spacing-8) var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="filled"
+          variant="primary"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Popover Above
@@ -182,7 +182,7 @@ export const ScrollableContent: Story = {
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="filled"
+          variant="primary"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Long List
@@ -211,7 +211,7 @@ export const ScrollableContent: Story = {
                   textAlign: 'left',
                   color: 'var(--md-sys-color-on-surface)',
                   fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                  transition: 'background 200ms',
+                  transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
                   borderBottom: '1px solid var(--md-sys-color-outline-variant)',
                 }}
                 onMouseEnter={(e) => {
@@ -241,7 +241,7 @@ export const NoBackdrop: Story = {
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="outlined"
+          variant="outline"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Quick Menu
@@ -270,7 +270,7 @@ export const NoBackdrop: Story = {
                   textAlign: 'left',
                   color: 'var(--md-sys-color-on-surface)',
                   fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                  transition: 'background 200ms',
+                  transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
@@ -288,3 +288,5 @@ export const NoBackdrop: Story = {
     );
   },
 };
+
+

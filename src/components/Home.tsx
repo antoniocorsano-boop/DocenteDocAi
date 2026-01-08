@@ -86,13 +86,15 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
     return (
         <div style={{
             minHeight: '100vh',
+            maxHeight: '100vh',  // ✅ Limita altezza massima
             display: 'flex',
             flexDirection: 'column',
             gap: 'var(--md-sys-spacing-8)',
             paddingBottom: 'var(--md-sys-spacing-12)',
             paddingLeft: 'var(--md-sys-spacing-6)',
             paddingRight: 'var(--md-sys-spacing-6)',
-            overflowY: 'auto'
+            overflowY: 'auto',  // ✅ Scrolling abilitato
+            overflowX: 'hidden' // ✅ Previene scroll orizzontale
         }}>
             {/* section: saluto docente + data */}
             <section style={{
@@ -101,6 +103,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                 <header>
                     <M3Typography
                         variant="headline-medium"
+                        as="h1"
                         style={{
                             fontWeight: '900',
                             letterSpacing: 'var(--md-sys-typescale-headline-medium-tracking)',
@@ -237,6 +240,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                             </div>
                             <M3Typography
                                 variant="headline-small"
+                                as="h2"
                                 style={{
                                     fontWeight: '900',
                                     color: 'var(--md-sys-color-on-surface)',
@@ -280,7 +284,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                             zIndex: 10
                         }}>
                             <M3Button
-                                variant="filled"
+                                variant="primary"
                                 onClick={() => onNavigate('aula' as View, { classe: nextLesson!.classe })}
                                 aria-label="Vai alla classe"
                             >
@@ -290,7 +294,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                 Vai alla classe
                             </M3Button>
                             <M3Button
-                                variant="outlined"
+                                variant="outline"
                                 onClick={() => onNavigate('lessons' as View)}
                                 aria-label="Organizza contenuti"
                             >
@@ -380,11 +384,12 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
             {/* section: suggerimenti AI */}
             <section>
                 {showAiSuggestion ? (
-                    <M3SuggestionCard variant="active" style={{
-                        position: 'relative',
-                        overflow: 'hidden',
-                        minHeight: '100%'
-                    }}>
+                    <M3SuggestionCard variant="active">
+                        <div style={{
+                            position: 'relative',
+                            overflow: 'hidden',
+                            minHeight: '100%'
+                        }}>
                         <div style={{
                             position: 'absolute',
                             right: 'calc(var(--md-sys-spacing-2) * -1)',
@@ -393,9 +398,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                             height: 'var(--md-sys-spacing-24)',
                             backgroundColor: 'var(--md-sys-color-primary)',
                             opacity: 0.05,
-                            borderRadius: '50%',
-                            transition: 'transform 0.3s ease'
-                        }}></div>
+                            borderRadius: '50%'
+                        }} className="m3-transition-transform"></div>
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -462,7 +466,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                             gap: 'var(--md-sys-spacing-4)'
                         }}>
                             <M3Button
-                                variant="tonal"
+                                variant="secondary"
                                 onClick={() => {
                                     if (activeSuggestion!.action?.type === 'navigate' && activeSuggestion!.action.payload) {
                                         const view = typeof activeSuggestion!.action.payload === 'string'
@@ -489,7 +493,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                 Ignora per ora
                             </M3Button>
                         </div>
-                    </M3SuggestionCard>
+                    </div>
+                </M3SuggestionCard>
                 ) : (
                     <M3EmptyStateCard>
                         <span className="material-symbols-outlined" style={{
@@ -601,6 +606,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                             {suggestion.description}
                                         </M3Typography>
                                         <button
+                                            className="m3-transition-color"
                                             style={{
                                                 marginTop: 'var(--md-sys-spacing-3)',
                                                 fontSize: 'var(--md-sys-typescale-label-small-font-size)',
@@ -611,8 +617,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
                                                 background: 'none',
                                                 border: 'none',
                                                 cursor: 'pointer',
-                                                textDecoration: 'none',
-                                                transition: 'text-decoration 0.2s ease'
+                                                textDecoration: 'none'
                                             }}
                                             onClick={() => {
                                                 if (suggestion.action?.type === 'navigate' && suggestion.action.payload) {
@@ -644,3 +649,5 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion, onOpenRegist
 };
 
 export default React.memo(Home);
+
+

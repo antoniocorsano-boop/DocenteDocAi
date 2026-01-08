@@ -39,3 +39,5 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({ title, subtitle, icon
 };
 
 export default SettingsSection;
+
+

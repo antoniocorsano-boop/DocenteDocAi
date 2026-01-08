@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, DidatticaInclusivaProps } from '../types';
 import PianoInclusioneEditor from './PianoInclusioneEditor';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -64,7 +64,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                     </div>
                     <div>
                         <h3 className="text-lg font-semibold text-tertiary mb-4">Gestione Piani Centralizzata</h3>
-                        <p className="text-[var(--md-sys-color-on-surface)]-variant">Crea o modifica PDP/PEI per ogni studente. Lâ€™AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
+                        <p className="text-[var(--md-sys-color-on-surface)]-variant">Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
                     </div>
                 </div>
             </InfoCard>
@@ -184,7 +184,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 </div>
                             </div>
                             <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant mb-8">
-                                Le performance recenti suggeriscono la necessità di un piano personalizzato.
+                                Le performance recenti suggeriscono la necessit� di un piano personalizzato.
                             </p>
                             <M3Button 
                                 onClick={() => setEditingStudent(student)} 
@@ -252,4 +252,6 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
 };
 
 export default DidatticaInclusiva;
+
+
 

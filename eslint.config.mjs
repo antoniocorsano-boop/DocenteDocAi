@@ -23,6 +23,7 @@ export default defineConfig([
       "**/test-results/**",
       "**/.venv/**",
       "**/docentedoc-ai/docentedoc-ai/**",
+      "**/*.ipynb",
       "**/vendor-*.js",
       "**/react-vendor-*.js",
       "**/vendor-react-check.js",

@@ -1338,3 +1338,5 @@ export interface TechnicalDocumentContent {
 
 // --- EXTENDED DATA STATE FOR TESTING ---
 // Legacy ExtendedDataState removed. Use AppState for comprehensive state representation.
+
+

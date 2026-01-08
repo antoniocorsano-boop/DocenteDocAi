@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { DocumentTemplate } from '../types';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
@@ -376,7 +376,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
 
   const handleSave = () => {
     if (!editedTemplate.name.trim()) {
-      showToast('Il nome del template Ã¨ obbligatorio', 'error');
+      showToast('Il nome del template è obbligatorio', 'error');
       return;
     }
     onSave(editedTemplate);
@@ -551,14 +551,14 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
               </M3Button>
             </div>
             <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant mt-4">
-              L'AI creerà automaticamente l'intestazione, il piè di pagina e le configurazioni ottimali.
+              L'AI creer� automaticamente l'intestazione, il pi� di pagina e le configurazioni ottimali.
             </p>
           </InfoCard>
 
           {/* Configurazioni specifiche */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <InfoCard variant="elevated" style={{ padding: 'var(--md-sys-spacing-6)' }}>
-              <h4 className="font-bold text-sm mb-8">Opzioni Visibilità</h4>
+              <h4 className="font-bold text-sm mb-8">Opzioni Visibilit�</h4>
               <div className="space-y-3">
                 {editedTemplate.type === 'student_profile' && (
                   <>
@@ -695,7 +695,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
               
               <div>
                 <label htmlFor="html-footer" className="block text-[10px] font-black uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant mb-4">
-                  PiÃ¨ di pagina (HTML)
+                  Piè di pagina (HTML)
                 </label>
                 <textarea
                   id="html-footer"
@@ -780,4 +780,6 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
 };
 
 export default TemplateManager;
+
+
 

@@ -61,8 +61,8 @@ export const Default: Story = {
             onClick={() => setIsOpen(true)}
             style={{
               padding: '0.5rem 1rem',
-              backgroundColor: 'var(--sys-primary)',
-              color: 'var(--sys-on-primary)',
+              backgroundColor: 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-on-primary)',
               border: 'none',
               borderRadius: '6px',
               cursor: 'pointer',
@@ -102,8 +102,8 @@ export const WithHeadline: Story = {
             onClick={() => setIsOpen(true)}
             style={{
               padding: '0.5rem 1rem',
-              backgroundColor: 'var(--sys-primary)',
-              color: 'var(--sys-on-primary)',
+              backgroundColor: 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-on-primary)',
               border: 'none',
               borderRadius: '6px',
               cursor: 'pointer',
@@ -136,8 +136,8 @@ export const WithButtons: Story = {
         <button
           style={{
             padding: '0.5rem 1.5rem',
-            backgroundColor: 'var(--sys-surface-container)',
-            color: 'var(--sys-on-surface)',
+            backgroundColor: 'var(--md-sys-color-surface-container)',
+            color: 'var(--md-sys-color-on-surface)',
             border: '1px solid var(--sys-outline)',
             borderRadius: '6px',
             cursor: 'pointer',
@@ -216,8 +216,8 @@ export const Fullscreen: Story = {
             onClick={() => setIsOpen(true)}
             style={{
               padding: '0.5rem 1rem',
-              backgroundColor: 'var(--sys-primary)',
-              color: 'var(--sys-on-primary)',
+              backgroundColor: 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-on-primary)',
               border: 'none',
               borderRadius: '6px',
               cursor: 'pointer',
@@ -255,7 +255,7 @@ export const RichContent: Story = {
             style={{
               width: '100%',
               padding: '0.5rem',
-              borderRadius: '4px',
+              borderRadius: 'var(--md-sys-spacing-1)',
               border: '1px solid var(--sys-outline)',
             }}
           >
@@ -276,8 +276,8 @@ export const RichContent: Story = {
       <button
         style={{
           padding: '0.5rem 1.5rem',
-          backgroundColor: 'var(--sys-primary)',
-          color: 'var(--sys-on-primary)',
+          backgroundColor: 'var(--md-sys-color-primary)',
+          color: 'var(--md-sys-color-on-primary)',
           border: 'none',
           borderRadius: '6px',
           cursor: 'pointer',
@@ -297,8 +297,8 @@ export const RichContent: Story = {
             onClick={() => setIsOpen(true)}
             style={{
               padding: '0.5rem 1rem',
-              backgroundColor: 'var(--sys-primary)',
-              color: 'var(--sys-on-primary)',
+              backgroundColor: 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-on-primary)',
               border: 'none',
               borderRadius: '6px',
               cursor: 'pointer',
@@ -338,8 +338,8 @@ export const SmallDialog: Story = {
             onClick={() => setIsOpen(true)}
             style={{
               padding: '0.5rem 1rem',
-              backgroundColor: 'var(--sys-primary)',
-              color: 'var(--sys-on-primary)',
+              backgroundColor: 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-on-primary)',
               border: 'none',
               borderRadius: '6px',
               cursor: 'pointer',
@@ -359,3 +359,5 @@ export const SmallDialog: Story = {
     );
   },
 };
+
+

@@ -146,3 +146,5 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
 };
 
 export default CorpusChat;
+
+

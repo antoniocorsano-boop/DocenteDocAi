@@ -158,7 +158,7 @@ export const WithAction: Story = {
       <button
         style={{
           padding: '0.5rem 1rem',
-          background: 'var(--sys-primary)',
+          background: 'var(--md-sys-color-primary)',
           color: 'white',
           border: 'none',
           borderRadius: '20px',
@@ -278,3 +278,5 @@ export const Accessibility: Story = {
 
 // Import React for the Dismissible story
 import React from 'react';
+
+

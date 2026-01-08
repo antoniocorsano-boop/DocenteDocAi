@@ -120,3 +120,5 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
         </button>
     );
 };
+
+

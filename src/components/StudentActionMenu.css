@@ -39,7 +39,7 @@
   flex: 1;
 }
 .student-action-stats-label {
-  margin: 0 0 4px 0;
+  margin: 0 0 var(--md-sys-spacing-1) 0;
   font-size: var(--md-sys-typescale-label-small-size);
   font-weight: var(--md-sys-typescale-body-medium-weight);
   opacity: 0.7;
@@ -53,7 +53,7 @@
 }
 .student-action-stats-divider {
   width: 1px;
-  height: 32px;
+  height: var(--md-sys-spacing-8);
   background-color: currentColor;
   opacity: 0.3;
 }
@@ -82,3 +82,5 @@
   font-size: var(--md-sys-typescale-body-medium-size);
   color: var(--md-sys-color-secondary);
 }
+
+

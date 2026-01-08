@@ -91,3 +91,5 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
 }
 
 export default RubricheManager;
+
+

@@ -55,3 +55,5 @@ describe('ChipInputList', () => {
     expect(onRemove).toHaveBeenCalledWith(0);
   });
 });
+
+

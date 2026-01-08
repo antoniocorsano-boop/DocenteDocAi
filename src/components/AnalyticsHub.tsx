@@ -166,9 +166,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 </div>
 
                 <div className="flex-grow flex items-center justify-center w-full">
-                    {chartType === 'trend' && <LineChart data={trendData} color="var(--sys-primary)" />}
+                    {chartType === 'trend' && <LineChart data={trendData} color="var(--md-sys-color-primary)" />}
                     {chartType === 'radar' && <RadarChart data={radarData} color="var(--sys-tertiary)" />}
-                    {chartType === 'dist' && <div className="w-full max-w-2xl"><BarChart data={distData} color="var(--sys-secondary)" /></div>}
+                    {chartType === 'dist' && <div className="w-full max-w-2xl"><BarChart data={distData} color="var(--md-sys-color-secondary)" /></div>}
                 </div>
 
                 {(isAiLoading || aiInsight) && (
@@ -196,3 +196,5 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 };
 
 export default AnalyticsHub;
+
+

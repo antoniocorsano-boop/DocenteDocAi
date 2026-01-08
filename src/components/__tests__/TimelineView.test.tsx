@@ -52,3 +52,5 @@ describe('ProgettazioneHub Gantt integration', () => {
     expect(modalHeading).toBeInTheDocument();
   });
 });
+
+

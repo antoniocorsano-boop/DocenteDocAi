@@ -7,9 +7,9 @@ import { NKANode } from './types';
 const sampleNodes: NKANode[] = [
   { id: '1', label: 'Introduzione', color: 'var(--sys-error)', elevation: 1, depth: 0, shape: 'circle', actions: [] },
   { id: '2', label: 'Concetti Base', color: 'var(--sys-tertiary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
-  { id: '3', label: 'Applicazioni', color: 'var(--sys-secondary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
-  { id: '4', label: 'Esempi Pratici', color: 'var(--sys-primary)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
-  { id: '5', label: 'Conclusioni', color: 'var(--sys-surface-variant)', elevation: 4, depth: 3, shape: 'circle', actions: [] },
+  { id: '3', label: 'Applicazioni', color: 'var(--md-sys-color-secondary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
+  { id: '4', label: 'Esempi Pratici', color: 'var(--md-sys-color-primary)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
+  { id: '5', label: 'Conclusioni', color: 'var(--md-sys-color-surface-variant)', elevation: 4, depth: 3, shape: 'circle', actions: [] },
 ];
 
 const meta = {
@@ -73,10 +73,10 @@ export const Interactive: Story = {
           onClick={() => setOpen(true)}
           style={{
             padding: '1rem 2rem',
-            background: 'var(--sys-primary)',
-            color: 'var(--sys-on-primary)',
+            background: 'var(--md-sys-color-primary)',
+            color: 'var(--md-sys-color-on-primary)',
             border: 'none',
-            borderRadius: '24px',
+            borderRadius: 'var(--md-sys-spacing-6)',
             cursor: 'pointer',
             fontSize: '1rem',
             fontWeight: 600,
@@ -85,7 +85,7 @@ export const Interactive: Story = {
           Open Knowledge Map
         </button>
         {selectedNode && (
-          <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--sys-surface-container)', borderRadius: '8px' }}>
+          <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-spacing-2)' }}>
             <strong>Selected Node:</strong> {selectedNode.label}
           </div>
         )}
@@ -131,8 +131,8 @@ export const LinearPath: Story = {
   args: {
     open: true,
     nodes: [
-      { id: '1', label: 'Step 1: Introduction', color: 'var(--sys-primary)', elevation: 1, depth: 0, shape: 'circle', actions: [] },
-      { id: '2', label: 'Step 2: Setup', color: 'var(--sys-secondary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
+      { id: '1', label: 'Step 1: Introduction', color: 'var(--md-sys-color-primary)', elevation: 1, depth: 0, shape: 'circle', actions: [] },
+      { id: '2', label: 'Step 2: Setup', color: 'var(--md-sys-color-secondary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
       { id: '3', label: 'Step 3: Configuration', color: 'var(--sys-tertiary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
       { id: '4', label: 'Step 4: Implementation', color: 'var(--sys-error)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
       { id: '5', label: 'Step 5: Testing', color: 'var(--sys-warning)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
@@ -154,10 +154,10 @@ export const ComplexNetwork: Story = {
   args: {
     open: true,
     nodes: [
-      { id: 'root', label: 'Root Concept', color: 'var(--sys-primary)', elevation: 4, depth: 0, shape: 'circle', actions: [] },
-      { id: 'branch1', label: 'Branch A', color: 'var(--sys-secondary)', elevation: 3, depth: 1, shape: 'circle', actions: [] },
-      { id: 'branch2', label: 'Branch B', color: 'var(--sys-secondary)', elevation: 3, depth: 1, shape: 'circle', actions: [] },
-      { id: 'branch3', label: 'Branch C', color: 'var(--sys-secondary)', elevation: 3, depth: 1, shape: 'circle', actions: [] },
+      { id: 'root', label: 'Root Concept', color: 'var(--md-sys-color-primary)', elevation: 4, depth: 0, shape: 'circle', actions: [] },
+      { id: 'branch1', label: 'Branch A', color: 'var(--md-sys-color-secondary)', elevation: 3, depth: 1, shape: 'circle', actions: [] },
+      { id: 'branch2', label: 'Branch B', color: 'var(--md-sys-color-secondary)', elevation: 3, depth: 1, shape: 'circle', actions: [] },
+      { id: 'branch3', label: 'Branch C', color: 'var(--md-sys-color-secondary)', elevation: 3, depth: 1, shape: 'circle', actions: [] },
       { id: 'leaf1', label: 'Leaf A1', color: 'var(--sys-tertiary)', elevation: 2, depth: 2, shape: 'circle', actions: [] },
       { id: 'leaf2', label: 'Leaf A2', color: 'var(--sys-tertiary)', elevation: 2, depth: 2, shape: 'circle', actions: [] },
       { id: 'leaf3', label: 'Leaf B1', color: 'var(--sys-tertiary)', elevation: 2, depth: 2, shape: 'circle', actions: [] },
@@ -179,8 +179,10 @@ export const ComplexNetwork: Story = {
 export const SingleNode: Story = {
   args: {
     open: true,
-    nodes: [{ id: '1', label: 'Single Concept', color: 'var(--sys-primary)', elevation: 1, depth: 0, shape: 'circle', actions: [] }],
+    nodes: [{ id: '1', label: 'Single Concept', color: 'var(--md-sys-color-primary)', elevation: 1, depth: 0, shape: 'circle', actions: [] }],
     onClose: () => console.log('Close'),
     onNodeSelect: (node) => console.log('Selected node:', node),
   },
 };
+
+

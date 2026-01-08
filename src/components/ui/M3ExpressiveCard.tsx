@@ -1,6 +1,11 @@
 import React from 'react';
 import M3SurfaceCard from './M3SurfaceCard';
 
+const isValidColor = (color: string): color is 'primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant' => {
+  const validColors: ('primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant')[] = ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant'];
+  return validColors.includes(color as 'primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant');
+};
+
 interface M3ExpressiveCardProps {
     icon: string;
     title: string;
@@ -27,12 +32,12 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
     ariaLabel,
 }) => {
     const palette = {
-        primary: { bg: 'var(--sys-primary-container)', fg: 'var(--sys-on-primary-container)', accent: 'var(--sys-primary)' },
-        secondary: { bg: 'var(--sys-secondary-container)', fg: 'var(--sys-on-secondary-container)', accent: 'var(--sys-secondary)' },
+        primary: { bg: 'var(--md-sys-color-primary-container)', fg: 'var(--md-sys-color-on-primary-container)', accent: 'var(--md-sys-color-primary)' },
+        secondary: { bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--sys-on-secondary-container)', accent: 'var(--md-sys-color-secondary)' },
         tertiary: { bg: 'var(--sys-tertiary-container)', fg: 'var(--sys-on-tertiary-container)', accent: 'var(--sys-tertiary)' },
-        surface: { bg: 'var(--sys-surface-container-high)', fg: 'var(--sys-on-surface)', accent: 'var(--sys-primary)' },
-        surfaceVariant: { bg: 'var(--sys-surface-container-low)', fg: 'var(--sys-on-surface-variant)', accent: 'var(--sys-secondary)' }
-    }[color] || { bg: color, fg: 'inherit', accent: 'var(--sys-primary)' };
+        surface: { bg: 'var(--md-sys-color-surface-container-high)', fg: 'var(--md-sys-color-on-surface)', accent: 'var(--md-sys-color-primary)' },
+        surfaceVariant: { bg: 'var(--md-sys-color-surface-container-low)', fg: 'var(--md-sys-color-on-surface-variant)', accent: 'var(--md-sys-color-secondary)' }
+    }[color] || { bg: color, fg: 'inherit', accent: 'var(--md-sys-color-primary)' };
 
     const isClickable = Boolean(onClick);
 
@@ -40,7 +45,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
         <M3SurfaceCard
             glass
             expressive
-            color={color as any}
+            color={isValidColor(color) ? color : undefined}
             className={`p-8 md:p-12 transition-all duration-300 flex flex-col min-h-[160px] md:min-h-[180px] ${isClickable ? 'cursor-pointer hover:shadow-[var(--md-sys-elevation-level3)] hover:shadow-black/10 hover:border-white/30 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2' : ''} ${className}`}
             onClick={onClick}
             onKeyDown={(e) => {
@@ -84,3 +89,5 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
 };
 
 export default M3ExpressiveCard;
+
+

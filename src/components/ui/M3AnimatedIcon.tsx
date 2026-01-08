@@ -33,3 +33,5 @@ const M3AnimatedIcon: React.FC<M3AnimatedIconProps> = ({
 };
 
 export default M3AnimatedIcon;
+
+

@@ -1,4 +1,4 @@
-ï»¿import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import NotebookLMImportModal from './NotebookLMImportModal';
 import TemplateManager from './TemplateManager';
 import { KnowledgeBaseEntry } from '../types';
@@ -534,8 +534,8 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                         <M3ExpressiveCard
                             icon="assignment"
                             title="Planner UDA"
-                            description="Gestisci le UnitÃ  di Apprendimento, le fasi di lavoro e le competenze target."
-                            color="var(--sys-secondary-container)"
+                            description="Gestisci le Unità di Apprendimento, le fasi di lavoro e le competenze target."
+                            color="var(--md-sys-color-secondary-container)"
                             onClick={() => onNavigate('uda')}
                             className="col-span-2 md:col-span-2"
                         />
@@ -553,7 +553,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="transform"
                             title="Importa & Ristruttura"
                             description="Converti vecchi file in documenti standard."
-                            color="var(--sys-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => setIsSmartImportOpen(true)}
                             className="col-span-1 border-primary/50 border-dashed"
                         />
@@ -564,7 +564,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="cloud_download"
                             title="Importa da NotebookLM"
                             description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
-                            color="var(--sys-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => setIsNotebookLMImportOpen(true)}
                             className="col-span-1 border-primary/50 border-dashed"
                         />
@@ -573,7 +573,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="folder_open"
                             title="Knowledge Base"
                             description="Archivio documenti."
-                            color="var(--sys-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => onNavigate('knowledge-base')}
                             className="col-span-1"
                         />
@@ -582,7 +582,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="description"
                             title="Template"
                             description="Gestisci i modelli per UDA e verifiche."
-                            color="var(--sys-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => setIsTemplateManagerOpen(true)}
                             className="col-span-1"
                         />
@@ -591,7 +591,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="history_edu"
                             title="Lezioni"
                             description="Piani di lezione."
-                            color="var(--sys-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => onNavigate('lessons')}
                             className="col-span-1"
                         />
@@ -600,7 +600,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="schema"
                             title="Rubriche"
                             description="Griglie valutazione."
-                            color="var(--sys-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => onNavigate('rubriche')}
                             className="col-span-1"
                         />
@@ -609,7 +609,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="print"
                             title="Report"
                             description="Stampe & PDF."
-                            color="var(--sys-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => onNavigate('reportistica')}
                             className="col-span-1"
                         />
@@ -671,7 +671,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                     onImport={(importedFiles: KnowledgeBaseEntry[]) => {
                         // Aggiorna la Knowledge Base con i materiali importati
                         if (onUpdateKnowledgeBase && typeof onUpdateKnowledgeBase === 'function') {
-                            // Se Ã¨ fornito un dispatcher esplicito
+                            // Se è fornito un dispatcher esplicito
                             onUpdateKnowledgeBase([
                                 ...knowledgeBase,
                                 ...importedFiles
@@ -706,4 +706,6 @@ udas.forEach((uda) => {
 });
 
 export default ProgettazioneHub;
+
+
 

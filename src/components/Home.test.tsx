@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, within, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 import Home from './Home';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
@@ -32,6 +33,35 @@ vi.mock('./ui', async () => {
      <button onClick={onClick} data-variant={variant} aria-label={ariaLabel} {...props}>
         {children}
       </button>
+    ),
+    M3Typography: ({ children, variant, as, style }: any) => {
+      const Component = as || 'span';
+      return React.createElement(Component, { 'data-testid': 'm3-typography', style }, children);
+    },
+    M3HeroCard: ({ children, onClick }: any) => (
+      <div data-testid="m3-hero-card" onClick={onClick}>
+        {children}
+      </div>
+    ),
+    M3SuggestionCard: ({ children, onClick }: any) => (
+      <div data-testid="m3-suggestion-card" onClick={onClick}>
+        {children}
+      </div>
+    ),
+    M3SuggestionItem: ({ children }: any) => (
+      <div data-testid="m3-suggestion-item">
+        {children}
+      </div>
+    ),
+    M3ActivityItem: ({ children }: any) => (
+      <div data-testid="m3-activity-item">
+        {children}
+      </div>
+    ),
+    M3EmptyStateCard: ({ children }: any) => (
+      <div data-testid="m3-empty-state-card">
+        {children}
+      </div>
     ),
   };
 });
@@ -637,3 +667,5 @@ describe('Home Component', () => {
     });
   });
 });
+
+

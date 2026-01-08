@@ -133,7 +133,7 @@ export const WithChildren: Story = {
     description: 'Learn more about this component',
     color: 'primary',
     children: (
-      <div style={{ marginTop: '1rem', fontSize: '12px', opacity: 0.8 }}>
+      <div style={{ marginTop: '1rem', fontSize: 'var(--md-sys-spacing-3)', opacity: 0.8 }}>
         <p>Additional content can be added via children prop</p>
         <p>This allows for more complex card layouts</p>
       </div>
@@ -175,3 +175,5 @@ export const ColorGrid: Story = {
     );
   },
 };
+
+

@@ -84,7 +84,7 @@ export const Interactive: Story = {
             args.onChange?.(newRating);
           }}
         />
-        <p style={{ marginTop: '1rem', fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--sys-on-surface-variant)' }}>
+        <p style={{ marginTop: '1rem', fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>
           Current rating: <strong>{rating}</strong> / {args.max}
         </p>
       </div>
@@ -135,3 +135,5 @@ export const ThreeStarRating: Story = {
     onChange: (rating) => console.log(`Quick rating: ${rating}/3`),
   },
 };
+
+

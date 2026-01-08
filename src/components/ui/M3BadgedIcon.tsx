@@ -35,3 +35,5 @@ const M3BadgedIcon: React.FC<M3BadgedIconProps> = ({
 };
 
 export default M3BadgedIcon;
+
+

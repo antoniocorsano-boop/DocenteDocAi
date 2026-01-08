@@ -88,7 +88,7 @@ export const InContext: Story = {
     label: 'Student Level',
   },
   render: () => (
-    <div style={{ padding: '2rem', background: 'var(--sys-surface-container)', borderRadius: '8px' }}>
+    <div style={{ padding: '2rem', background: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-spacing-2)' }}>
       <h3 style={{ marginBottom: '1rem' }}>AI Response Generated With Context:</h3>
       <div style={{ marginBottom: '1rem' }}>
         <p>
@@ -153,7 +153,7 @@ export const Interactive: Story = {
         cursor: 'help',
       }}
     >
-      <p style={{ fontSize: '0.9rem', color: 'var(--sys-on-surface-variant)' }}>
+      <p style={{ fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)' }}>
         Hover over the chips to see what context the AI system is using:
       </p>
       <AiMemoryChip label="Student Learning Profile" />
@@ -171,3 +171,5 @@ export const Interactive: Story = {
     },
   },
 };
+
+

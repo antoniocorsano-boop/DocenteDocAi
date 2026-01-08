@@ -37,8 +37,8 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
         .m3-tooltip {
           position: absolute;
           z-index: 3000;
-          background: var(--sys-on-surface, #222);
-          color: var(--sys-surface, #fff);
+          background: var(--md-sys-color-on-surface, #222);
+          color: var(--md-sys-color-surface, #fff);
           font-size: 0.92rem;
           font-weight: 500;
           padding: 0.38em 1em;
@@ -49,10 +49,10 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
           opacity: 0.97;
           animation: tooltip-in 0.18s cubic-bezier(0.34,1.56,0.64,1) both;
         }
-        .m3-tooltip-top { left: 50%; bottom: 120%; transform: translateX(-50%); margin-bottom: 8px; }
-        .m3-tooltip-bottom { left: 50%; top: 120%; transform: translateX(-50%); margin-top: 8px; }
-        .m3-tooltip-left { right: 120%; top: 50%; transform: translateY(-50%); margin-right: 8px; }
-        .m3-tooltip-right { left: 120%; top: 50%; transform: translateY(-50%); margin-left: 8px; }
+        .m3-tooltip-top { left: 50%; bottom: 120%; transform: translateX(-50%); margin-bottom: var(--md-sys-spacing-2); }
+        .m3-tooltip-bottom { left: 50%; top: 120%; transform: translateX(-50%); margin-top: var(--md-sys-spacing-2); }
+        .m3-tooltip-left { right: 120%; top: 50%; transform: translateY(-50%); margin-right: var(--md-sys-spacing-2); }
+        .m3-tooltip-right { left: 120%; top: 50%; transform: translateY(-50%); margin-left: var(--md-sys-spacing-2); }
         @keyframes tooltip-in {
           from { opacity: 0; transform: scale(0.98); }
           to { opacity: 0.97; transform: scale(1); }
@@ -63,3 +63,5 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
 };
 
 export default Tooltip;
+
+

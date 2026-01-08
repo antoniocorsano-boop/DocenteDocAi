@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ParticipationEntry } from '../types';
 import { PARTICIPATION_BADGES } from '../constants';
 import ClassroomTools from './ClassroomTools';
@@ -618,4 +618,6 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 };
 
 export default ClassroomView;
+
+
 

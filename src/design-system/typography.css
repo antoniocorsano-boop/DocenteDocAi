@@ -42,7 +42,7 @@
 
 .m3-headline-large {
   font-family: var(--typography-headline-large-family, 'Roboto', sans-serif);
-  font-size: calc(var(--typography-headline-large-size, 32px) * var(--sys-font-scale, 1));
+  font-size: calc(var(--typography-headline-large-size, var(--md-sys-spacing-8)) * var(--sys-font-scale, 1));
   font-weight: var(--typography-headline-large-weight, 400);
   line-height: calc(var(--typography-headline-large-height, 40px) * var(--sys-font-scale, 1));
   letter-spacing: var(--typography-headline-large-tracking, 0px);
@@ -58,9 +58,9 @@
 
 .m3-headline-small {
   font-family: var(--typography-headline-small-family, 'Roboto', sans-serif);
-  font-size: calc(var(--typography-headline-small-size, 24px) * var(--sys-font-scale, 1));
+  font-size: calc(var(--typography-headline-small-size, var(--md-sys-spacing-6)) * var(--sys-font-scale, 1));
   font-weight: var(--typography-headline-small-weight, 400);
-  line-height: calc(var(--typography-headline-small-height, 32px) * var(--sys-font-scale, 1));
+  line-height: calc(var(--typography-headline-small-height, var(--md-sys-spacing-8)) * var(--sys-font-scale, 1));
   letter-spacing: var(--typography-headline-small-tracking, 0px);
 }
 
@@ -78,9 +78,9 @@
 
 .m3-title-medium {
   font-family: var(--typography-title-medium-family, 'Roboto', sans-serif);
-  font-size: calc(var(--typography-title-medium-size, 16px) * var(--sys-font-scale, 1));
+  font-size: calc(var(--typography-title-medium-size, var(--md-sys-spacing-4)) * var(--sys-font-scale, 1));
   font-weight: var(--typography-title-medium-weight, 500);
-  line-height: calc(var(--typography-title-medium-height, 24px) * var(--sys-font-scale, 1));
+  line-height: calc(var(--typography-title-medium-height, var(--md-sys-spacing-6)) * var(--sys-font-scale, 1));
   letter-spacing: var(--typography-title-medium-tracking, 0.15px);
 }
 
@@ -106,9 +106,9 @@
 
 .m3-label-medium {
   font-family: var(--typography-label-medium-family, 'Roboto', sans-serif);
-  font-size: calc(var(--typography-label-medium-size, 12px) * var(--sys-font-scale, 1));
+  font-size: calc(var(--typography-label-medium-size, var(--md-sys-spacing-3)) * var(--sys-font-scale, 1));
   font-weight: var(--typography-label-medium-weight, 500);
-  line-height: calc(var(--typography-label-medium-height, 16px) * var(--sys-font-scale, 1));
+  line-height: calc(var(--typography-label-medium-height, var(--md-sys-spacing-4)) * var(--sys-font-scale, 1));
   letter-spacing: var(--typography-label-medium-tracking, 0.5px);
 }
 
@@ -116,7 +116,7 @@
   font-family: var(--typography-label-small-family, 'Roboto', sans-serif);
   font-size: calc(var(--typography-label-small-size, 11px) * var(--sys-font-scale, 1));
   font-weight: var(--typography-label-small-weight, 500);
-  line-height: calc(var(--typography-label-small-height, 16px) * var(--sys-font-scale, 1));
+  line-height: calc(var(--typography-label-small-height, var(--md-sys-spacing-4)) * var(--sys-font-scale, 1));
   letter-spacing: var(--typography-label-small-tracking, 0.5px);
 }
 
@@ -134,9 +134,9 @@
 
 .m3-body-large {
   font-family: var(--typography-body-large-family, 'Roboto', sans-serif);
-  font-size: calc(var(--typography-body-large-size, 16px) * var(--sys-font-scale, 1));
+  font-size: calc(var(--typography-body-large-size, var(--md-sys-spacing-4)) * var(--sys-font-scale, 1));
   font-weight: var(--typography-body-large-weight, 400);
-  line-height: calc(var(--typography-body-large-height, 24px) * var(--sys-font-scale, 1));
+  line-height: calc(var(--typography-body-large-height, var(--md-sys-spacing-6)) * var(--sys-font-scale, 1));
   letter-spacing: var(--typography-body-large-tracking, 0.5px);
 }
 
@@ -150,10 +150,10 @@
 
 .m3-body-small {
   font-family: var(--typography-body-small-family, 'Roboto', sans-serif);
-  font-size: calc(var(--typography-body-small-size, 12px) * var(--sys-font-scale, 1));
+  font-size: calc(var(--typography-body-small-size, var(--md-sys-spacing-3)) * var(--sys-font-scale, 1));
   font-weight: var(--typography-body-small-weight, 400);
-  line-height: calc(var(--typography-body-small-height, 16px) * var(--sys-font-scale, 1));
-  letter-spacing: var(--typography-body-small-tracking, 0.4px);
+  line-height: calc(var(--typography-body-small-height, var(--md-sys-spacing-4)) * var(--sys-font-scale, 1));
+  letter-spacing: var(--typography-body-small-tracking, 0.var(--md-sys-spacing-1));
 }
 
 /* ============================================================================
@@ -260,7 +260,7 @@
 
 /* Focus visible for keyboard navigation */
 :focus-visible {
-  outline: 2px solid var(--sys-primary, #6750A4);
+  outline: 2px solid var(--md-sys-color-primary, #6750A4);
   outline-offset: 2px;
 }
 
@@ -293,18 +293,18 @@
    ========================================================================= */
 
 .m3-icon-xs {
-  font-size: calc(16px * var(--sys-font-scale, 1)) !important;
-  width: calc(16px * var(--sys-font-scale, 1));
-  height: calc(16px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-4) * var(--sys-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-4) * var(--sys-font-scale, 1));
+  height: calc(var(--md-sys-spacing-4) * var(--sys-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-tiny {
-  font-size: calc(12px * var(--sys-font-scale, 1)) !important;
-  width: calc(12px * var(--sys-font-scale, 1));
-  height: calc(12px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1));
+  height: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -320,9 +320,9 @@
 }
 
 .m3-icon-medium, .m3-icon-base {
-  font-size: calc(24px * var(--sys-font-scale, 1)) !important;
-  width: calc(24px * var(--sys-font-scale, 1));
-  height: calc(24px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  height: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -338,9 +338,9 @@
 }
 
 .m3-icon-lg {
-  font-size: calc(32px * var(--sys-font-scale, 1)) !important;
-  width: calc(32px * var(--sys-font-scale, 1));
-  height: calc(32px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
+  height: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -356,9 +356,9 @@
 }
 
 .m3-icon-2xl {
-  font-size: calc(48px * var(--sys-font-scale, 1)) !important;
-  width: calc(48px * var(--sys-font-scale, 1));
-  height: calc(48px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-12) * var(--sys-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-12) * var(--sys-font-scale, 1));
+  height: calc(var(--md-sys-spacing-12) * var(--sys-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -418,3 +418,5 @@
   line-height: 1.6;
   letter-spacing: 0.01em;
 }
+
+

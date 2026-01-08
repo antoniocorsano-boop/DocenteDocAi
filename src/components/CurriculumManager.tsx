@@ -298,3 +298,5 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
 };
 
 export default CurriculumManager;
+
+

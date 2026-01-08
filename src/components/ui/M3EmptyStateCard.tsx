@@ -19,3 +19,4 @@ const M3EmptyStateCard: React.FC<M3EmptyStateCardProps> = ({
 );
 
 export default M3EmptyStateCard;
+

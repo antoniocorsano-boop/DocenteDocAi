@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { AiSettings, Lezione, RegisterEntry, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getGoogleAIClient } from '../services/aiClient';
 import { RATING_TO_VALUE, RATING_OPTIONS } from '../constants';
@@ -78,7 +78,7 @@ const ImprovementGuide: React.FC<ImprovementGuideProps> = ({
                 setLoadingStatus("Analisi del contesto classe...");
 
                 const prompt = `
-Sei un esperto pedagogista e assistente per docenti. Il tuo compito Ã¨ analizzare i dati di una classe e produrre un report sintetico e professionale, adatto per un consiglio di classe.
+Sei un esperto pedagogista e assistente per docenti. Il tuo compito è analizzare i dati di una classe e produrre un report sintetico e professionale, adatto per un consiglio di classe.
 Dati della Classe ${selectedClass}:
 ${JSON.stringify(dataSummary, null, 2)}
 
@@ -86,7 +86,7 @@ Basandoti su questi dati, genera una risposta in formato JSON con la seguente st
 {
   "sintesiGenerale": "Un paragrafo che riassume l'andamento generale della classe, il clima e il livello di partecipazione.",
   "puntiDiForza": ["Un elenco di 2-3 punti di forza principali della classe (es. 'Buona collaborazione', 'Solide basi nelle materie pratiche')."],
-  "areeDiMiglioramento": ["Un elenco di 2-3 aree dove la classe mostra difficoltà o incertezze (es. 'Fragilità nel problem solving complesso', 'Applicazione del metodo di studio da consolidare')."],
+  "areeDiMiglioramento": ["Un elenco di 2-3 aree dove la classe mostra difficolt� o incertezze (es. 'Fragilit� nel problem solving complesso', 'Applicazione del metodo di studio da consolidare')."],
   "casiParticolari": ["Un elenco di 2-3 osservazioni su trend specifici, senza fare nomi, mas descrivendo le situazioni (es. 'Si nota un piccolo gruppo di studenti con un rendimento eccellente e in costante crescita.', 'Alcuni studenti mostrano un calo di rendimento nelle prove scritte, pur mantenendo un buon orale.')."]
 }
 Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve essere solo l'oggetto JSON.
@@ -175,8 +175,8 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
         if (totalObjectives === 0) return null;
 
         return [
-            { label: 'Raggiunti', value: checkedObjectives, color: 'var(--sys-primary)' },
-            { label: 'Non Verificati', value: totalObjectives - checkedObjectives, color: 'var(--sys-surface-container-highest)' }
+            { label: 'Raggiunti', value: checkedObjectives, color: 'var(--md-sys-color-primary)' },
+            { label: 'Non Verificati', value: totalObjectives - checkedObjectives, color: 'var(--md-sys-color-surface-container-highest)' }
         ];
     }, [register, lessons, selectedClass]);
 
@@ -185,7 +185,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
         if (!analysis) return;
 
         let html = `
-        <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body { font-family: 'Roboto', sans-serif; line-height: 1.6; } h1 { color: var(--sys-primary); /* MD3 fix */ } h2 { color: var(--sys-primary); /* MD3 fix */ border-bottom: 1px solid var(--sys-outline-variant); /* MD3 fix */ padding-bottom: 5px; margin-top: 20px; } p { margin-bottom: 10px; } ul { margin-bottom: 10px; } strong { color: var(--sys-primary); /* MD3 fix */ } .header-info { background-color: var(--sys-surface); /* MD3 fix */ padding: 12px; border-radius: var(--md-corner-4); /* MD3 fix */ margin-bottom: 20px; }</style>
+        <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body { font-family: 'Roboto', sans-serif; line-height: 1.6; } h1 { color: var(--md-sys-color-primary); /* MD3 fix */ } h2 { color: var(--md-sys-color-primary); /* MD3 fix */ border-bottom: 1px solid var(--md-sys-color-outline-variant); /* MD3 fix */ padding-bottom: 5px; margin-top: 20px; } p { margin-bottom: 10px; } ul { margin-bottom: 10px; } strong { color: var(--md-sys-color-primary); /* MD3 fix */ } .header-info { background-color: var(--md-sys-color-surface); /* MD3 fix */ padding: var(--md-sys-spacing-3); border-radius: var(--md-corner-4); /* MD3 fix */ margin-bottom: 20px; }</style>
         `;
 
         html += `<h1>Analisi Classe ${selectedClass}</h1>`;
@@ -257,7 +257,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                         icon="auto_awesome" 
                         className="!mb-0"
                     />
-                    {analysis && <AiMemoryChip label={`Dati Registro ${selectedClass} â€¢ ${settings.schoolType}`} />}
+                    {analysis && <AiMemoryChip label={`Dati Registro ${selectedClass} • ${settings.schoolType}`} />}
                 </div>
 
                 {analysis && (
@@ -302,7 +302,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <InfoCard title="Distribuzione Voti" icon="bar_chart" className="h-full">
                     <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
-                        <BarChart data={gradeDistributionData} color="var(--sys-secondary)" />
+                        <BarChart data={gradeDistributionData} color="var(--md-sys-color-secondary)" />
                     </div>
                 </InfoCard>
                 {objectiveAchievementData && (
@@ -334,4 +334,6 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 };
 
 export default ImprovementGuide;
+
+
 

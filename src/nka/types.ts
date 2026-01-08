@@ -6,3 +6,5 @@ export interface NKASettings {
   sound: boolean;
   reducedMotion: boolean;
 }
+
+

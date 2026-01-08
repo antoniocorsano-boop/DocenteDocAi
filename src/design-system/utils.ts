@@ -8,14 +8,14 @@ import { Theme, ColorTokens } from '../types'; // FIX: Updated import path to ty
  * These HEX color values are HARDCODED by design. They are the SOURCE OF TRUTH
  * for the Material Design 3 default color system. These values are used to:
  * 
- * 1. Generate CSS variables (--sys-primary, --sys-secondary, etc.)
+ * 1. Generate CSS variables (--md-sys-color-primary, --md-sys-color-secondary, etc.)
  * 2. Define the design token system in src/design-system/index.ts
  * 3. Automatically switch between light and dark mode
  * 
  * These values MUST NOT be used directly in component code.
  * Instead, always use the generated CSS variables:
  *   ❌ WRONG: color: '#6750A4'
- *   ✅ RIGHT: color: 'var(--sys-primary)'
+ *   ✅ RIGHT: color: 'var(--md-sys-color-primary)'
  * 
  * Documented in: docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5 (Exceptions)
  */
@@ -168,3 +168,5 @@ export const getLegibleTextColor = (hexBackgroundColor: string): string => {
 
     return contrastBlack >= contrastWhite ? '#000000' : '#FFFFFF';
 };
+
+

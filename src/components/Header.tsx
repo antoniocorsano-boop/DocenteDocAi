@@ -90,7 +90,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
     return (
         <div
             ref={popoverRef}
-            className="m3-popup-menu header-actions-popover aura-glass flex flex-col gap-4 !p-8 w-80 max-w-[calc(100vw-32px)]"
+            className="m3-popup-menu header-actions-popover aura-glass flex flex-col gap-4 !p-8 w-80 max-w-[calc(100vw-var(--md-sys-spacing-8))]"
             role="dialog"
             aria-modal="true"
             onKeyDown={(e) => {
@@ -355,3 +355,5 @@ export const Header: React.FC<HeaderProps> = (props) => {
         </>
     );
     }
+
+

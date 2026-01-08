@@ -24,3 +24,5 @@ describe('useNKAStore', () => {
     expect(useNKAStore.getState().settings).toEqual(settings);
   });
 });
+
+

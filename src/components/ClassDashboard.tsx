@@ -1,4 +1,4 @@
-﻿
+
 import React, { useMemo } from 'react';
 import { View, Studente, Lezione } from '../types';
 import { DAYS_OF_WEEK } from '../constants';
@@ -106,7 +106,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             <span className="material-symbols-outlined text-3xl">school</span>
                                         </div>
                                         <div className="flex-grow min-w-0">
-                                            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Prossima Lezione â€¢ {todaysLesson.slot.ora}</p>
+                                            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Prossima Lezione • {todaysLesson.slot.ora}</p>
                                             <h2 className="text-2xl font-bold text-[var(--md-sys-color-on-surface)] truncate">{todaysLesson.lesson.materia}</h2>
                                             <p className="text-[var(--md-sys-color-on-surface)]-variant line-clamp-1 mt-4">{todaysLesson.lesson.contenuto}</p>
                                         </div>
@@ -129,7 +129,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     </div>
                                     <div>
                                         <h2 className="text-xl font-bold text-[var(--md-sys-color-on-surface)]">Nessuna lezione programmata</h2>
-                                        <p className="text-[var(--md-sys-color-on-surface)]-variant">Puoi avviare una lezione libera o un'attività improvvisata.</p>
+                                        <p className="text-[var(--md-sys-color-on-surface)]-variant">Puoi avviare una lezione libera o un'attivit� improvvisata.</p>
                                     </div>
                                 </div>
                                 <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="tonal" className="w-full">
@@ -343,4 +343,6 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 };
 
 export default React.memo(ClassDashboard);
+
+
 

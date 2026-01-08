@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, EvaluationModuleProps, Prova } from '../types';
 import AddProvaModal from './AddProvaModal';
 import StudentProfile from './StudentProfile';
@@ -342,7 +342,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             </div>
 
                             <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-8 font-medium leading-relaxed">
-                                Situazione critica rilevata. Ãˆ consigliata l&apos;attivazione di misure di recupero personalizzate.
+                                Situazione critica rilevata. È consigliata l&apos;attivazione di misure di recupero personalizzate.
                             </p>
 
                             <div className="flex gap-6">
@@ -366,7 +366,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                 <div className="col-span-full">
                     <div className="aura-glass p-12 text-center">
                         <span className="material-symbols-outlined text-6xl text-tertiary mb-8 opacity-40">verified_user</span>
-                        <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)]">Nessuna criticità</h3>
+                        <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)]">Nessuna criticit�</h3>
                         <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant mt-4">Tutti gli studenti mantengono una media sufficiente.</p>
                     </div>
                 </div>
@@ -419,7 +419,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             {[
                                 { id: 'grid', label: 'Griglia', icon: 'grid_on' },
                                 { id: 'summary', label: 'Riepilogo', icon: 'analytics' },
-                                { id: 'risk', label: 'Criticità', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
+                                { id: 'risk', label: 'Criticit�', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
                             ].map(tab => (
                                 <button
                                     key={tab.id}
@@ -488,4 +488,6 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
 };
 
 export default React.memo(EvaluationModule);
+
+
 

@@ -133,7 +133,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                         containerClassName="flex-grow !mb-0" 
                                         placeholder="Es. Programmazioni 2024" 
                                     />
-                                    <M3Button onClick={handleCreateCorpus} variant="filled" className="mt-7 font-black !px-8 shadow-[var(--md-sys-elevation-level1)]">CREA</M3Button>
+                                    <M3Button onClick={handleCreateCorpus} variant="primary" className="mt-7 font-black !px-8 shadow-[var(--md-sys-elevation-level1)]">CREA</M3Button>
                                 </div>
                             )}
                         </section>
@@ -146,3 +146,5 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
 };
 
 export default AddSourceModal;
+
+

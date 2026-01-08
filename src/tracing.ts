@@ -24,3 +24,5 @@ provider.register();
 
 // Note: Auto-instrumentations for web may not cover all, especially custom AI calls
 // For Google GenAI, you may need manual instrumentation
+
+

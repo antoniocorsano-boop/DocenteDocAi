@@ -54,7 +54,7 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
   };
 
   const visualTransform = transform ? `translateX(${transform.x}px)` : undefined;
-  const outlineStyle = isDragging ? '2px solid var(--sys-primary)' : keyboardDrag ? '3px dashed var(--sys-primary)' : undefined;
+  const outlineStyle = isDragging ? '2px solid var(--md-sys-color-primary)' : keyboardDrag ? '3px dashed var(--md-sys-color-primary)' : undefined;
 
   return (
     <div
@@ -71,10 +71,10 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
       style={{
         transform: visualTransform,
         outline: outlineStyle,
-        background: 'var(--sys-primary)',
+        background: 'var(--md-sys-color-primary)',
         color: 'white',
         borderRadius: 8,
-        padding: '8px 16px',
+        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
         margin: 4,
         cursor: keyboardDrag ? 'grabbing' : 'grab',
         userSelect: 'none',
@@ -99,8 +99,8 @@ const GanttColumn: React.FC<GanttColumnProps> = ({ col, children }) => {
       style={{
         minWidth: 120,
         minHeight: 60,
-        background: isOver ? 'var(--sys-secondary-container)' : 'var(--sys-surface)',
-        border: '1px solid var(--sys-outline-variant)',
+        background: isOver ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface)',
+        border: '1px solid var(--md-sys-color-outline-variant)',
         borderRadius: 8,
         margin: 4,
         display: 'flex',
@@ -169,3 +169,5 @@ export const DemoGantt: React.FC = () => {
 };
 
 export default DemoGantt;
+
+

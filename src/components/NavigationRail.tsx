@@ -7,7 +7,7 @@ import './navigation-rail.css';
  * 
  * Specifications:
  * - Width: 80px (icon + label stacked)
- * - Icons: 24px Material Symbols
+ * - Icons: var(--md-sys-spacing-6) Material Symbols
  * - Labels: .m3-label-medium
  * - Elevation: flat with surface-variant border
  * - Animation: 0.3s smooth transitions
@@ -111,3 +111,5 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
 };
 
 export default NavigationRail;
+
+

@@ -39,6 +39,6 @@ describe('M3ChoiceCard', () => {
     
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('aria-pressed', 'false');
-    expect(button.className).toContain('bg-surface-container/50');
+    expect(button.className).toContain('bg-[var(--md-sys-color-surface-container)]/50');
   });
 });

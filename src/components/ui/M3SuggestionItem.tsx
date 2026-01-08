@@ -24,3 +24,4 @@ const M3SuggestionItem: React.FC<M3SuggestionItemProps> = ({
 );
 
 export default M3SuggestionItem;
+

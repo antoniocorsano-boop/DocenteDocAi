@@ -239,3 +239,5 @@ export const isNotebookLMAuthenticated = async (): Promise<boolean> => {
 export const notebookLMLogout = (): void => {
   // Il logout viene gestito centralmente da googleDriveService
 };
+
+

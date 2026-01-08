@@ -78,3 +78,5 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
 };
 
 export default ImageViewerModal;
+
+

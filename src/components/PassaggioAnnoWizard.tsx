@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry, StudentHistoryRecord } from '../types';
 import { getNextClass } from '../utils/schoolUtils';
@@ -195,7 +195,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                         { icon: "check_circle", text: "Backup completo dei dati su Drive/Locale." },
                                         { icon: "history_edu", text: "Salvataggio storico (media voti, assenze) nel profilo studente." },
                                         { icon: "delete_sweep", text: "Reset registro voti, lezioni e assenze giornaliere." },
-                                        { icon: "trending_up", text: "Promozione classi (es. 1A â†’ 2A) con gestione bocciature." }
+                                        { icon: "trending_up", text: "Promozione classi (es. 1A → 2A) con gestione bocciature." }
                                     ].map((item, i) => (
                                         <li key={i} className="flex items-center gap-8 text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant">
                                             <span className="material-symbols-outlined text-primary text-2xl">{item.icon}</span>
@@ -273,9 +273,9 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             </div>
                             <h3 className="m3-headline-medium font-black text-[var(--md-sys-color-on-surface)] mb-8">Confermi l'operazione?</h3>
                             <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant mb-10 leading-relaxed">
-                                L'anno scolastico verrà impostato a <strong className="text-primary">{nextYear}</strong>.
+                                L'anno scolastico verr� impostato a <strong className="text-primary">{nextYear}</strong>.
                                 <br/><br/>
-                                ⚠️ I dati giornalieri verranno <strong className="text-error">resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
+                                ?? I dati giornalieri verranno <strong className="text-error">resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
                             </p>
                             
                             <div className="p-6 bg-[var(--md-sys-color-surface-container-low)]/50 border border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-large)] text-left">
@@ -325,4 +325,6 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
 };
 
 export default PassaggioAnnoWizard;
+
+
 

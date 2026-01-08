@@ -127,3 +127,5 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
 };
 
 export default CompetencyManager;
+
+

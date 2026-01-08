@@ -203,3 +203,5 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
 };
 
 export default CircolareAnalysisModal;
+
+

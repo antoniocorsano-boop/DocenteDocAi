@@ -564,9 +564,9 @@ export const useAppEngine = () => {
             tools: 'Tools description',
             startPos: 0,
             width: 100,
-            color: 'var(--sys-primary)',
+            color: 'var(--md-sys-color-primary)',
             borderColor: 'var(--sys-outline)',
-            textColor: 'var(--sys-on-primary)',
+            textColor: 'var(--md-sys-color-on-primary)',
         };
         setUda(prev => [...prev, newUda]); // Use destructured action
     }, [setUda]);
@@ -1007,3 +1007,5 @@ export const useAppEngine = () => {
         modals: modalsProxy
     };
 };
+
+

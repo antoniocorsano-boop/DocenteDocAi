@@ -110,3 +110,5 @@ self.addEventListener('activate', (event: ExtendableEvent) => {
     })
   );
 });
+
+

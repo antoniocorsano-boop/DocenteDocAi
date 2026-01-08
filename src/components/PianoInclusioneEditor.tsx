@@ -167,7 +167,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     <div key={materia} className="space-y-2 p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-low)]est/50 border border-[var(--md-sys-color-outline-variant)]/30">
                                         <div className="flex justify-between items-center">
                                             <label className="text-xs font-bold text-primary flex items-center gap-8">
-                                                <span className="material-symbols-outlined text-[16px]">book</span>
+                                                <span className="material-symbols-outlined text-[var(--md-sys-spacing-4)]">book</span>
                                                 {materia}
                                             </label>
                                             <M3Button
@@ -235,3 +235,5 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
 };
 
 export default PianoInclusioneEditor;
+
+

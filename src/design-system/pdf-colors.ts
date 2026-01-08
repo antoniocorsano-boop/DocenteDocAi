@@ -75,3 +75,5 @@ export function getTrendColor(trend: string | undefined): string {
       return PDF_COLORS.trend.stable;
   }
 }
+
+

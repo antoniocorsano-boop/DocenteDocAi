@@ -18,3 +18,5 @@ describe('NKAHeaderAuraButton', () => {
     expect(onClick).toHaveBeenCalled();
   });
 });
+
+

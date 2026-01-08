@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState } from 'react';
 import { Report } from '../types';
 import { saveAs } from '../utils/documentUtils';
@@ -91,4 +91,6 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
 }
 
 export default ArchivioReport;
+
+
 

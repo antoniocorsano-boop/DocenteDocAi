@@ -171,7 +171,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             // const performance = student ? calculatePerformance(student.id, 'Complessivo', evaluations.filter(e => e.studenteId === student.id)) : { grade: null, trend: null };
             
             let html = `
-            <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); table { width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif; } th, td { border: 1px solid #000; padding: 8px; text-align: left; vertical-align: top; } th { background-color: var(--sys-primary); font-weight: bold; } /* MD3 fix */ h1 { font-family: 'Roboto', sans-serif; color: var(--sys-primary); } /* MD3 fix */ p { font-family: 'Roboto', sans-serif; }</style>
+            <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); table { width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif; } th, td { border: 1px solid #000; padding: var(--md-sys-spacing-2); text-align: left; vertical-align: top; } th { background-color: var(--md-sys-color-primary); font-weight: bold; } /* MD3 fix */ h1 { font-family: 'Roboto', sans-serif; color: var(--md-sys-color-primary); } /* MD3 fix */ p { font-family: 'Roboto', sans-serif; }</style>
             `;
             
             html += `<h1>Tabellone Scrutinio: ${selectedClass}</h1>`;
@@ -500,3 +500,5 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
 };
 
 export default ConsiglioClasse;
+
+

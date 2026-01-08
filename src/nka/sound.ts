@@ -42,3 +42,5 @@ export const playNkaSound = (type: 'node' | 'action' | 'badge'): void => {
     console.warn('[NKA] Sound initialization error:', err);
   }
 };
+
+

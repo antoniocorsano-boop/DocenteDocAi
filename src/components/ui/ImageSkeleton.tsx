@@ -21,3 +21,5 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
 );
 
 export default ImageSkeleton;
+
+

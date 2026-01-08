@@ -37,3 +37,5 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
 };
 
 export default PinPad;
+
+

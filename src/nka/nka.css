@@ -1,4 +1,4 @@
-﻿/* NKA custom styles (M3-compliant overrides only) */
+/* NKA custom styles (M3-compliant overrides only) */
 .nka-aura-btn {
   position: relative;
   border: none;
@@ -6,7 +6,7 @@
   outline: none;
   cursor: pointer;
   border-radius: 50%;
-  padding: 8px;
+  padding: var(--md-sys-spacing-2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,8 +22,8 @@
 }
 .nka-badge {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: var(--md-sys-spacing-1);
+  right: var(--md-sys-spacing-1);
   width: 10px;
   height: 10px;
   background: var(--md-sys-color-primary30);
@@ -44,17 +44,17 @@
   left: 0; right: 0; bottom: 0;
   background: var(--md-sys-color-surface-container-lowest);
   box-shadow: var(--md-sys-elevation3);
-  border-radius: var(--md-sys-shape-corner-large) 24px 0 0;
+  border-radius: var(--md-sys-shape-corner-large) var(--md-sys-spacing-6) 0 0;
   z-index: 1000;
   min-height: 40vh;
-  padding: 16px;
+  padding: var(--md-sys-spacing-4);
   animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1);
 }
 
 .nka-close-btn {
   position: absolute;
-  top: 8px;
-  right: 16px;
+  top: var(--md-sys-spacing-2);
+  right: var(--md-sys-spacing-4);
   background: none;
   border: none;
   font-size: 2rem;
@@ -62,8 +62,8 @@
   cursor: pointer;
 }
 .nka-node-card {
-  margin: 12px 0;
-  padding: 16px;
+  margin: var(--md-sys-spacing-3) 0;
+  padding: var(--md-sys-spacing-4);
   background: var(--md-sys-color-surface);
   box-shadow: var(--md-sys-elevation1);
   border-radius: var(--md-sys-shape-corner-large);
@@ -85,11 +85,11 @@
 .nka-node-depth {
   font-size: 0.95rem;
   color: var(--md-sys-color-on-surface-variant);
-  margin-bottom: 8px;
+  margin-bottom: var(--md-sys-spacing-2);
 }
 .nka-node-actions {
   display: flex;
-  gap: 8px;
+  gap: var(--md-sys-spacing-2);
 }
 .nka-action-btn {
   background: none;
@@ -97,7 +97,7 @@
   color: var(--md-sys-color-primary);
   font-weight: 500;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
   border-radius: var(--md-sys-shape-corner-small);
   transition: background 0.2s;
 }
@@ -107,10 +107,12 @@
 .nka-settings-toggle {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin: 16px 0;
+  gap: var(--md-sys-spacing-1);
+  margin: var(--md-sys-spacing-4) 0;
 }
 .nka-settings-subtitle {
   font-size: 0.95rem;
   color: var(--md-sys-color-on-surface-variant);
 }
+
+

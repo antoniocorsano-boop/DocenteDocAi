@@ -130,3 +130,5 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
 };
 
 export default React.memo(EventModal);
+
+

@@ -66,3 +66,5 @@ export const getAvatarColors = (str: string): { bg: string; textColor: string } 
     const index = Math.abs(hash % AVATAR_PALETTES.length);
     return AVATAR_PALETTES[index];
 };
+
+

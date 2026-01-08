@@ -187,7 +187,7 @@ describe('EvaluationModule', () => {
       />
     );
 
-    fireEvent.click(screen.getByText(/Criticità/i));
+    fireEvent.click(screen.getByText(/Criticit�/i));
     await waitFor(() => {
       // Check if at least one "at risk" student is shown, or handle empty state gracefully
       const atRiskStudent = screen.queryByText(/Gialli Alessandro/i);
@@ -199,7 +199,7 @@ describe('EvaluationModule', () => {
       } else {
         // If no "at risk" students, check for empty state message
         expect(
-          screen.getByText(/Nessuno studente a rischio|Nessuna criticità/i)
+          screen.getByText(/Nessuno studente a rischio|Nessuna criticit�/i)
         ).toBeInTheDocument();
       }
     });
@@ -376,7 +376,7 @@ describe('EvaluationModule', () => {
         lessons={mockLessons}
       />
     );
-    fireEvent.click(screen.getByText(/Criticità/i));
+    fireEvent.click(screen.getByText(/Criticit�/i));
     await waitFor(() => {
       const btn = screen.queryByText(/Piano Inclusione/i);
       if (btn) {
@@ -433,9 +433,9 @@ describe('EvaluationModule', () => {
         lessons={mockLessons}
       />
     );
-    fireEvent.click(screen.getByText(/Criticità/i));
+    fireEvent.click(screen.getByText(/Criticit�/i));
     await waitFor(() => {
-      expect(screen.getByText(/Nessuna criticità/i)).toBeInTheDocument();
+      expect(screen.getByText(/Nessuna criticit�/i)).toBeInTheDocument();
     });
   });
 

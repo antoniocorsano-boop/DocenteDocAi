@@ -24,3 +24,5 @@ const NKAHeaderIntegration: React.FC<NKAHeaderIntegrationProps> = ({ onOpenNKA, 
 };
 
 export default NKAHeaderIntegration;
+
+

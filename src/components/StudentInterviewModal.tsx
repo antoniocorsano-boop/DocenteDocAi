@@ -82,7 +82,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
 
                             <h3 className="m3-title-medium mb-8 font-bold">Media per Materia</h3>
                             <div className="md:h-64 h-48">
-                                <BarChart data={subjectAverages} color="var(--sys-primary)" horizontal />
+                                <BarChart data={subjectAverages} color="var(--md-sys-color-primary)" horizontal />
                             </div>
                         </div>
 
@@ -167,3 +167,5 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
 };
 
 export default StudentInterviewModal;
+
+

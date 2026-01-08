@@ -202,3 +202,5 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
 };
 
 export default KnowledgeBase;
+
+

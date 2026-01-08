@@ -20,3 +20,5 @@ export function getAINeuralLayout(nodes: readonly NKANode[], width: number, heig
     y: height / 2 + Math.sin(i * angleStep) * (height / 3) * (1 + i * 0.1),
   }));
 }
+
+

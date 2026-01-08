@@ -1,4 +1,4 @@
-﻿
+
 import React, { useRef, useState, useEffect } from 'react';
 import { SettingsProps } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
@@ -156,7 +156,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
     const handleAddSubject = () => {
         if (!newSubjectName.trim()) return;
         if (localSettings.disciplines.includes(newSubjectName.trim())) {
-            showToast("Materia giÃ  presente", "info");
+            showToast("Materia già presente", "info");
             return;
         }
         handleChange('disciplines', [...localSettings.disciplines, newSubjectName.trim()]);
@@ -164,7 +164,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
     };
 
     const handleForceRefresh = async () => {
-        if (!confirm("Forzare l'aggiornamento del brand? L'app verrÃ  ricaricata per pulire i vecchi file temporanei. I tuoi dati sono al sicuro.")) return;
+        if (!confirm("Forzare l'aggiornamento del brand? L'app verrà ricaricata per pulire i vecchi file temporanei. I tuoi dati sono al sicuro.")) return;
         try {
             if ('serviceWorker' in navigator) {
                 const regs = await navigator.serviceWorker.getRegistrations();
@@ -252,7 +252,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
             handleChange('annoScolasticoCorrente', nextYear);
             showToast(`Anno ${nextYear} aggiunto e selezionato.`, 'success');
         } else {
-            showToast(`Anno ${nextYear} già presente.`, 'info');
+            showToast(`Anno ${nextYear} gi� presente.`, 'info');
         }
     };
 
@@ -282,11 +282,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="interface_experience" title="Interfaccia & Esperienza Visiva" subtitle="Personalizza l'aspetto e il comportamento dell'app" icon="palette" variant="primary" defaultOpen={true}>
                     <div className="space-y-8">
-                        {/* SEZIONE 1: MODALITÃ€ INTERFACCIA */}
+                        {/* SEZIONE 1: MODALITÀ INTERFACCIA */}
                         <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">dashboard_customize</span>
-                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Modalità Interfaccia</h4>
+                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Modalit� Interfaccia</h4>
                             </div>
                             <TabGroup
                                 tabs={[
@@ -300,8 +300,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             />
                             <p className="m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant mt-3 opacity-70 px-4">
                                 {localSettings.uiMode === 'flow' 
-                                    ? 'ModalitÃ  Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.' 
-                                    : 'ModalitÃ  Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
+                                    ? 'Modalità Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.' 
+                                    : 'Modalità Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
                             </p>
                         </div>
 
@@ -327,7 +327,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     >
                                         <span className={`material-symbols-outlined mb-8 ${themeState.visualStyle === style.id ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>{style.icon}</span>
                                         <span className={`m3-label-tiny font-black uppercase tracking-wider ${themeState.visualStyle === style.id ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>{style.label}</span>
-                                        <span className="text-[8px] opacity-60 mt-4 text-center">{style.desc}</span>
+                                        <span className="text-[var(--md-sys-spacing-2)] opacity-60 mt-4 text-center">{style.desc}</span>
                                     </button>
                                 ))}
                             </div>
@@ -356,8 +356,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         key={theme.name}
                                         name={theme.name}
                                         colors={{
-                                            primary: theme.colors.primary ?? 'var(--sys-primary)',
-                                            secondary: theme.colors.secondary ?? 'var(--sys-secondary)',
+                                            primary: theme.colors.primary ?? 'var(--md-sys-color-primary)',
+                                            secondary: theme.colors.secondary ?? 'var(--md-sys-color-secondary)',
                                             tertiary: theme.colors.tertiary ?? 'var(--sys-tertiary)'
                                         }}
                                         isSelected={themeState.customizationName === theme.name}
@@ -403,7 +403,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <div className="space-y-6">
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Intensità Blur Vetro</label>
+                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Intensit� Blur Vetro</label>
                                         <span className="m3-label-tiny font-black text-primary">{themeState.glassBlur || 30}px</span>
                                     </div>
                                     <input 
@@ -514,7 +514,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     </div>
                 </SettingsGroup>
 
-                <SettingsGroup id="profile" title="Profilo & IdentitÃ " subtitle="Dati docente e istituto" icon="badge" variant="surface">
+                <SettingsGroup id="profile" title="Profilo & Identità" subtitle="Dati docente e istituto" icon="badge" variant="surface">
                     <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
@@ -523,7 +523,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <TextField label="Email Istituzionale" type="email" value={localSettings.email || ''} onChange={e => handleChange('email', e.target.value)} placeholder="nome.cognome@scuola.edu.it" />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <TextField label="Nome Istituto" value={localSettings.nomeIstituto} onChange={e => handleChange('nomeIstituto', e.target.value)} />
-                            <TextField label="CittÃ " value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
+                            <TextField label="Città" value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
                         </div>
                     </div>
                 </SettingsGroup>
@@ -647,7 +647,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                     onClick={() => setSelYears(prev => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
                                                     className={`px-4 py-4 rounded-[var(--md-sys-shape-corner-medium)] text-xs font-black transition-all border ${selYears.includes(y) ? 'bg-primary text-on-primary border-primary shadow-[var(--md-sys-elevation-level1)]' : 'bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)]/30'}`}
                                                 >
-                                                    {y}Â° Anno
+                                                    {y}° Anno
                                                 </button>
                                             ))}
                                         </div>
@@ -714,9 +714,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                         <div className="text-xs font-black text-[var(--md-sys-color-on-surface)]">{cls}</div>
                                                         <button 
                                                             onClick={() => handleChange('classi', localSettings.classi.filter(c => c !== cls))}
-                                                            className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-error text-on-error text-[8px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+                                                            className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-error text-on-error text-[var(--md-sys-spacing-2)] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
                                                         >
-                                                            Ã—
+                                                            ×
                                                         </button>
                                                     </div>
                                                 </th>
@@ -732,7 +732,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             <span className="text-xs font-bold text-[var(--md-sys-color-on-surface)] uppercase tracking-tight">{subj}</span>
                                                             <button 
                                                                 onClick={() => handleBulkAssign(localSettings.classi, [subj])}
-                                                                className="text-[8px] font-black text-primary uppercase tracking-tighter opacity-0 group-hover:opacity-100 hover:underline text-left"
+                                                                className="text-[var(--md-sys-spacing-2)] font-black text-primary uppercase tracking-tighter opacity-0 group-hover:opacity-100 hover:underline text-left"
                                                             >
                                                                 Associa a tutte
                                                             </button>
@@ -763,7 +763,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                                 onChange={e => updateAssignmentHours(assignment.id, parseInt(e.target.value) || 1)}
                                                                                 className="w-6 bg-transparent text-[10px] font-black text-primary text-center outline-none"
                                                                             />
-                                                                            <span className="text-[8px] font-bold text-primary/60">h</span>
+                                                                            <span className="text-[var(--md-sys-spacing-2)] font-bold text-primary/60">h</span>
                                                                         </div>
                                                                     </>
                                                                 ) : (
@@ -788,7 +788,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                             <InfoCard 
                                 title="Come funziona"
-                                description="Questa matrice Ã¨ il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
+                                description="Questa matrice è il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
                                 icon="info"
                                 variant="primary"
                                 className="mt-6 bg-primary-container/10 border-primary/20"
@@ -1022,7 +1022,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </SettingsGroup>
 
                 <div className="text-center m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant opacity-50 pt-12 pb-4">
-                    DocenteDoc AI v4.0.8 â€¢ Stable
+                    DocenteDoc AI v4.0.8 • Stable
                     <div className="pt-3">
                         <span className="font-black uppercase tracking-widest">Owner:</span> Antonio Corsano
                         <span className="block mt-4">antonio.corsano@gmail.com</span>
@@ -1039,4 +1039,6 @@ const Settings: React.FC<SettingsProps> = (props) => {
 };
 
 export default Settings;
+
+
 

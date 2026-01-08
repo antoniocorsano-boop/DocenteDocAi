@@ -369,3 +369,5 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
 }
 
 export default AssistantModal;
+
+

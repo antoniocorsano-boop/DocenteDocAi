@@ -33,7 +33,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     >
         <div
             className="w-16 h-16 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center transition-all duration-500 group-hover:rotate-6 group-hover:scale-110"
-            style={{ backgroundColor: isSelected ? 'var(--sys-primary)' : color + '20', color: isSelected ? 'var(--sys-on-primary)' : color }}
+            style={{ backgroundColor: isSelected ? 'var(--md-sys-color-primary)' : color + '20', color: isSelected ? 'var(--md-sys-color-on-primary)' : color }}
         >
             <span className="material-symbols-outlined text-3xl">{icon}</span>
         </div>
@@ -45,3 +45,5 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 );
 
 export default CategoryCard;
+
+

@@ -23,3 +23,5 @@ interface AppInstrumentation {
     // allow additional runtime fields without breaking type checks
     [key: string]: unknown;
 }
+
+

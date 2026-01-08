@@ -45,3 +45,5 @@ const ManualSection: React.FC<ManualSectionProps> = ({
 );
 
 export default ManualSection;
+
+

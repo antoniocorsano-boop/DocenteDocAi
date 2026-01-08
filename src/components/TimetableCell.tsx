@@ -19,7 +19,7 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
   
   let customStyle: React.CSSProperties = {};
   if (isDisposition) {
-      customStyle = { backgroundColor: 'var(--sys-secondary-container)', color: 'var(--sys-on-secondary-container)' };
+      customStyle = { backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--sys-on-secondary-container)' };
   } else if (isRicevimento) {
       customStyle = { backgroundColor: 'var(--sys-tertiary-container)', color: 'var(--sys-on-tertiary-container)' };
   } else if (classe) {
@@ -96,3 +96,5 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
 };
 
 export default TimetableCell;
+
+

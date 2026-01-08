@@ -35,8 +35,8 @@ export const RATING_TO_VALUE: Record<string, number> = {
 
 export const PARTICIPATION_BADGES: ParticipationBadge[] = [
     { id: 'positive', label: 'Positivo', icon: 'star', color: 'var(--sys-tertiary)' },
-    { id: 'question', label: 'Domanda', icon: 'lightbulb', color: 'var(--sys-primary)' },
-    { id: 'collaboration', label: 'Collabora', icon: 'groups', color: 'var(--sys-secondary)' },
+    { id: 'question', label: 'Domanda', icon: 'lightbulb', color: 'var(--md-sys-color-primary)' },
+    { id: 'collaboration', label: 'Collabora', icon: 'groups', color: 'var(--md-sys-color-secondary)' },
     { id: 'distraction', label: 'Disturbo', icon: 'sms_failed', color: 'var(--sys-error)' },
 ];
 
@@ -62,10 +62,10 @@ export const AI_PROFILES = {
 
 // === KNOWLEDGE BASE CATEGORIES ===
 export const KB_CATEGORIES = [
-    { id: 'programmazione', label: 'Programmazione & UDA', icon: 'model_training', color: 'var(--sys-primary)', description: 'Piani annuali, progettazione e unità di apprendimento' },
+    { id: 'programmazione', label: 'Programmazione & UDA', icon: 'model_training', color: 'var(--md-sys-color-primary)', description: 'Piani annuali, progettazione e unità di apprendimento' },
     { id: 'normativa', label: 'Normativa & Circolari', icon: 'gavel', color: 'var(--sys-tertiary)', description: 'Leggi, regolamenti e comunicazioni ufficiali' },
-    { id: 'ai_deliverable', label: 'AI Deliverables', icon: 'auto_awesome', color: 'var(--sys-secondary)', description: 'Analisi e progetti generati con NotebookLM o altri assistenti' },
-    { id: 'materiale_didattico', label: 'Materiale Didattico', icon: 'menu_book', color: 'var(--sys-secondary)', description: 'Dispense, slide e testi per gli studenti' },
+    { id: 'ai_deliverable', label: 'AI Deliverables', icon: 'auto_awesome', color: 'var(--md-sys-color-secondary)', description: 'Analisi e progetti generati con NotebookLM o altri assistenti' },
+    { id: 'materiale_didattico', label: 'Materiale Didattico', icon: 'menu_book', color: 'var(--md-sys-color-secondary)', description: 'Dispense, slide e testi per gli studenti' },
     { id: 'valutazione', label: 'Valutazione & Griglie', icon: 'grading', color: 'var(--sys-error)', description: 'Rubriche, test e criteri di voto' },
     { id: 'inclusione', label: 'Inclusione (BES/DSA)', icon: 'accessibility_new', color: 'var(--sys-tertiary)', description: 'PEI, PDP e normative specifiche' },
     { id: 'archivio', label: 'Archivio Generale', icon: 'folder', color: 'var(--sys-outline)', description: 'Altri documenti non categorizzati' },
@@ -216,7 +216,7 @@ export const DEFAULT_TIMETABLE_SETTINGS: TimetableSettings = {
  * When used in components, always reference the generated CSS tokens,
  * not these hardcoded values:
  *   ❌ WRONG: backgroundColor: '#6750A4'
- *   ✅ RIGHT: backgroundColor: 'var(--sys-primary)'
+ *   ✅ RIGHT: backgroundColor: 'var(--md-sys-color-primary)'
  */
 export const THEME_CUSTOMIZATIONS: ThemeCustomization[] = [
     { name: 'M3 Default', colors: { primary: '#6750A4', secondary: '#625B71', tertiary: '#7D5260' } },
@@ -254,3 +254,5 @@ export const SCHOOL_LEVELS = [
     "Scuola Secondaria di I Grado",
     "Scuola Secondaria di II Grado"
 ];
+
+

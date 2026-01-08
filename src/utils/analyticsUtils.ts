@@ -179,3 +179,5 @@ export const calculateGradeDistribution = (
 
     return Object.entries(distribution).map(([label, value]) => ({ label, value }));
 };
+
+

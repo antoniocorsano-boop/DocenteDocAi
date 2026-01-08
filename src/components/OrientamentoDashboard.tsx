@@ -1,4 +1,4 @@
-﻿
+
 import React, { useState, useMemo } from 'react';
 import { 
     Studente, 
@@ -60,10 +60,10 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     const renderActivitiesTab = () => (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
-                <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Attività di Orientamento</h3>
+                <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Attivit� di Orientamento</h3>
                 <M3Button onClick={() => setIsAddActivityModalOpen(true)} variant="filled">
                     <span className="material-symbols-outlined mr-2">add</span>
-                    Nuova Attività
+                    Nuova Attivit�
                 </M3Button>
             </div>
 
@@ -72,7 +72,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     <InfoCard 
                         key={activity.id}
                         title={activity.title}
-                        description={`${activity.durationHours} ore â€¢ ${new Date(activity.date).toLocaleDateString('it-IT')}`}
+                        description={`${activity.durationHours} ore • ${new Date(activity.date).toLocaleDateString('it-IT')}`}
                         icon="explore"
                         variant="surface"
                     >
@@ -84,8 +84,8 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 {filteredActivities.length === 0 && (
                     <div className="col-span-full">
                         <EmptyState 
-                            title="Nessuna attivitÃ " 
-                            description="Inizia aggiungendo un'attivitÃ  di orientamento per questa classe." 
+                            title="Nessuna attività" 
+                            description="Inizia aggiungendo un'attività di orientamento per questa classe." 
                             icon="explore_off" 
                         />
                     </div>
@@ -187,7 +187,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     <div className="mt-4">
                         <span className="text-4xl font-black text-primary">{totalHours}h</span>
                         <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant mt-4">
-                            {totalHours >= 30 ? 'âœ… Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
+                            {totalHours >= 30 ? '✅ Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
                         </p>
                     </div>
                 </InfoCard>
@@ -225,7 +225,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                         onClick={() => setActiveTab('activities')}
                         className={`flex-grow py-4 font-black text-[10px] uppercase tracking-widest transition-all rounded-[var(--md-sys-shape-corner-large)] ${activeTab === 'activities' ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level2)]' : 'text-[var(--md-sys-color-on-surface)]-variant hover:bg-[var(--md-sys-color-surface-container-high)]'}`}
                     >
-                        Attività di Orientamento
+                        Attivit� di Orientamento
                     </button>
                     <button 
                         onClick={() => setActiveTab('students')}
@@ -246,7 +246,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 onClose={() => setIsAddActivityModalOpen(false)}
                 onSave={(a) => {
                     onSaveActivity(a);
-                    showToast('AttivitÃ  salvata con successo', 'success');
+                    showToast('Attività salvata con successo', 'success');
                 }}
                 userClasses={userClasses}
             />
@@ -270,5 +270,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
 };
 
 export default OrientamentoDashboard;
+
+
 
 

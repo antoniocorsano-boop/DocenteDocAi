@@ -120,3 +120,5 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
 };
 
 export default RegisterView;
+
+

@@ -157,3 +157,5 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
 };
 
 export default RubricEditor;
+
+

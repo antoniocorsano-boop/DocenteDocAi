@@ -23,3 +23,5 @@ export function unlockNode(state: GameState, nodeId: string): GameState {
   const badges = unlocked.length % 3 === 0 ? [...state.badges, `Badge${unlocked.length}`] : state.badges;
   return { unlocked, progress, badges };
 }
+
+

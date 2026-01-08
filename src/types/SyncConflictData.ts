@@ -6,3 +6,5 @@ export interface SyncConflictData {
   lastModifiedLocal: string;
   lastModifiedRemote: string;
 }
+
+

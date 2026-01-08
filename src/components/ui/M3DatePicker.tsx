@@ -16,7 +16,6 @@ const inputStyle: React.CSSProperties = {
   color: 'var(--md-sys-color-on-surface)',
   fontFamily: 'var(--md-sys-typescale-body-large-font)',
   fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
 };
 
 const inputFocusStyle: React.CSSProperties = {
@@ -84,6 +83,7 @@ function M3DatePicker({
       <input
         id={inputId}
         type="date"
+        className="m3-transition-interactive"
         style={{ ...getInputStyle(), ...(style as React.CSSProperties) }}
         aria-invalid={showError || undefined}
         aria-describedby={helperText || showError ? `${inputId}-helper` : undefined}
@@ -106,3 +106,5 @@ function M3DatePicker({
 }
 
 export default M3DatePicker;
+
+

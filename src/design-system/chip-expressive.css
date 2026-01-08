@@ -10,7 +10,7 @@
 :root {
 	--chip-bg: rgba(0, 0, 0, 0.04);
 	--chip-bg-hover: rgba(0, 0, 0, 0.06);
-	--chip-color: var(--sys-on-surface, #111827);
+	--chip-color: var(--md-sys-color-on-surface, #111827);
 	--chip-radius: 9999px;
 	--chip-padding-y: 0.25rem;
 	--chip-padding-x: 0.6rem;
@@ -63,8 +63,8 @@
 
 /* color variants to map to semantic tokens */
 .chip-expressive--primary {
-	background: color-mix(in srgb, var(--sys-primary) 12%, transparent);
-	color: var(--sys-on-primary);
+	background: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
+	color: var(--md-sys-color-on-primary);
 }
 
 .chip-expressive--outline {
@@ -86,4 +86,6 @@
 }
 
 /* End of chip-expressive.css */
+
+
 

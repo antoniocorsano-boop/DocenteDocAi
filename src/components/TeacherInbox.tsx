@@ -133,3 +133,5 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
 };
 
 export default TeacherInbox;
+
+

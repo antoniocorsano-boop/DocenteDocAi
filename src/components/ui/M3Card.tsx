@@ -20,13 +20,6 @@ const M3Card: React.FC<M3CardProps> = ({
 }) => {
   const isClickable = Boolean(onClick);
 
-  // Variant classes using MD3 design tokens
-  const variantClasses = {
-    elevated: 'm3-card--elevated',
-    outlined: 'm3-card--outlined',
-    filled: 'm3-card--filled'
-  };
-
   // Padding styles using MD3 spacing tokens
   const paddingStyles = {
     none: '0',
@@ -34,6 +27,30 @@ const M3Card: React.FC<M3CardProps> = ({
     medium: 'var(--md-sys-spacing-4)',
     large: 'var(--md-sys-spacing-6)'
   };
+
+  // Variant styles using MD3 design tokens
+  const variantStyles = {
+    elevated: {
+      backgroundColor: 'var(--md-sys-color-surface-container-low)',
+      boxShadow: 'var(--md-sys-elevation-level-1)',
+      border: 'none'
+    },
+    outlined: {
+      backgroundColor: 'var(--md-sys-color-surface)',
+      boxShadow: 'none',
+      border: '1px solid var(--md-sys-color-outline-variant)'
+    },
+    filled: {
+      backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+      boxShadow: 'none',
+      border: 'none'
+    }
+  };
+
+  // Hover styles for clickable cards
+  const hoverStyles = isClickable ? {
+    cursor: 'pointer'
+  } : {};
 
   return (
     <div
@@ -47,15 +64,22 @@ const M3Card: React.FC<M3CardProps> = ({
       role={isClickable ? 'button' : undefined}
       tabIndex={isClickable ? 0 : undefined}
       aria-label={ariaLabel}
-      className={cn(
-        'm3-card',
-        variantClasses[variant],
-        isClickable && 'm3-card--clickable',
-        className
-      )}
+      className={cn(className, isClickable && 'm3-transition-interactive')}
       style={{
         padding: paddingStyles[padding],
-        borderRadius: 'var(--md-sys-shape-corner-large)'
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        ...variantStyles[variant],
+        ...hoverStyles
+      }}
+      onMouseEnter={(e) => {
+        if (isClickable && variant === 'elevated') {
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level-2)';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (isClickable && variant === 'elevated') {
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level-1)';
+        }
       }}
     >
       {children}
@@ -64,3 +88,5 @@ const M3Card: React.FC<M3CardProps> = ({
 };
 
 export default M3Card;
+
+

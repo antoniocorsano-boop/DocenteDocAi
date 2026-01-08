@@ -207,3 +207,5 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
 };
 
 export default VoiceNoteRecorder;
+
+

@@ -19,3 +19,4 @@ const M3ActivityItem: React.FC<M3ActivityItemProps> = ({
 );
 
 export default M3ActivityItem;
+

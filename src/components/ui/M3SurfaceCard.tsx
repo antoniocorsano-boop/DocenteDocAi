@@ -8,6 +8,11 @@ interface M3SurfaceCardProps {
   glass?: boolean; // For glass effects
   expressive?: boolean; // For expressive styling
   color?: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant';
+  onClick?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
+  role?: string;
+  tabIndex?: number;
+  'aria-label'?: string;
 }
 
 /**
@@ -21,7 +26,12 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   interactive = false,
   glass = false,
   expressive = false,
-  color = 'surface'
+  color = 'surface',
+  onClick,
+  onKeyDown,
+  role,
+  tabIndex,
+  'aria-label': ariaLabel,
 }) => {
   const baseClasses = 'border rounded-[var(--md-sys-shape-corner-large)]';
   const variantClasses = variant === 'low' ? 'bg-[var(--md-sys-color-surface-container-low)]/50' : 'bg-[var(--md-sys-color-surface-container-high)]/50';
@@ -30,11 +40,11 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   const expressiveClasses = expressive ? 'relative overflow-hidden' : '';
 
   const colorTokens: Record<string, { bg: string; fg: string }> = {
-    primary: { bg: 'var(--sys-primary-container)', fg: 'var(--sys-on-primary-container)' },
-    secondary: { bg: 'var(--sys-secondary-container)', fg: 'var(--sys-on-secondary-container)' },
+    primary: { bg: 'var(--md-sys-color-primary-container)', fg: 'var(--md-sys-color-on-primary-container)' },
+    secondary: { bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--sys-on-secondary-container)' },
     tertiary: { bg: 'var(--sys-tertiary-container)', fg: 'var(--sys-on-tertiary-container)' },
-    surface: { bg: 'var(--sys-surface-container-high)', fg: 'var(--sys-on-surface)' },
-    surfaceVariant: { bg: 'var(--sys-surface-container-low)', fg: 'var(--sys-on-surface-variant)' }
+    surface: { bg: 'var(--md-sys-color-surface-container-high)', fg: 'var(--md-sys-color-on-surface)' },
+    surfaceVariant: { bg: 'var(--md-sys-color-surface-container-low)', fg: 'var(--md-sys-color-on-surface-variant)' }
   };
 
   const palette = colorTokens[color];
@@ -47,6 +57,11 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
         color: palette.fg,
         borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))'
       }}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      role={role}
+      tabIndex={tabIndex}
+      aria-label={ariaLabel}
     >
       {children}
     </div>
@@ -54,3 +69,4 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
 };
 
 export default M3SurfaceCard;
+

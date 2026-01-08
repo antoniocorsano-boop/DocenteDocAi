@@ -64,3 +64,5 @@ export function getStyledFooter(text: string): string {
 export function getStyledSectionHeader(title: string): string {
   return `<div style="background-color: ${HTML_TEMPLATE_COLORS.structure.headerBg}; padding: 15px; border-radius: var(--md-sys-shape-corner-small);"><h2>${title}</h2></div>`;
 }
+
+

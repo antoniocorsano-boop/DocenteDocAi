@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import React from 'react';
 import Home from './Home';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
@@ -13,25 +14,54 @@ vi.mock('../stores/useSystemStore');
 vi.mock('../stores/useStudentStore');
 
 // Mock UI components (coerenti con i unit tests)
-vi.mock('./ui', async () => {
-  return {
-    ActionTile: ({ title, subtitle, onClick }: any) => (
-      <button onClick={onClick} aria-label={`${title} - ${subtitle}`}>{title}</button>
-    ),
-    M3ExpressiveCard: ({ title, description, children }: any) => (
-      <div>
-        <div>{title}</div>
-        <div>{description}</div>
-        {children}
-      </div>
-    ),
-    M3Button: ({ children, onClick, variant, 'aria-label': ariaLabel, ...props }: any) => (
-      <button onClick={onClick} data-variant={variant} aria-label={ariaLabel} {...props}>
-        {children}
-      </button>
-    ),
-  };
-});
+vi.mock('./ui', () => ({
+  ActionTile: ({ title, subtitle, onClick }: any) => (
+    <button onClick={onClick} aria-label={`${title} - ${subtitle}`} style={{ padding: 'var(--md-sys-spacing-4)' }}>
+      {title}
+    </button>
+  ),
+  M3ExpressiveCard: ({ title, description, children }: any) => (
+    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+      <div>{title}</div>
+      <div>{description}</div>
+      {children}
+    </div>
+  ),
+  M3Button: ({ children, onClick, variant, 'aria-label': ariaLabel, ...props }: any) => (
+    <button onClick={onClick} data-variant={variant} aria-label={ariaLabel} {...props} style={{ color: 'var(--md-sys-color-primary)' }}>
+      {children}
+    </button>
+  ),
+  M3Typography: ({ children, variant, as, style }: any) => {
+    const Component = as || 'span';
+    return React.createElement(Component, { 'data-testid': 'm3-typography', style: { ...style, fontSize: 'var(--md-sys-typescale-body-large-font-size)' } }, children);
+  },
+  M3HeroCard: ({ children, onClick }: any) => (
+    <div data-testid="m3-hero-card" onClick={onClick} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+      {children}
+    </div>
+  ),
+  M3SuggestionCard: ({ children, onClick }: any) => (
+    <div data-testid="m3-suggestion-card" onClick={onClick}>
+      {children}
+    </div>
+  ),
+  M3SuggestionItem: ({ children }: any) => (
+    <div data-testid="m3-suggestion-item">
+      {children}
+    </div>
+  ),
+  M3ActivityItem: ({ children }: any) => (
+    <div data-testid="m3-activity-item">
+      {children}
+    </div>
+  ),
+  M3EmptyStateCard: ({ children }: any) => (
+    <div data-testid="m3-empty-state-card">
+      {children}
+    </div>
+  ),
+}));
 
 // Default mock data
 const defaultMockStores = {
@@ -115,3 +145,5 @@ describe('Home Component - Integration (lean)', () => {
     expect(container.querySelectorAll('[style*="--md-corner"]').length).toBeGreaterThan(0);
   });
 });
+
+

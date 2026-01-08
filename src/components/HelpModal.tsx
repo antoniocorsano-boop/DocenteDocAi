@@ -32,7 +32,7 @@ const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }>
         <ol className="space-y-4">
             {steps.map((step, i) => (
                 <li key={i} className="text-sm flex gap-12">
-                    <span className="w-8 h-8 rounded-full bg-primary/10 text-primary text-[12px] flex items-center justify-center flex-shrink-0 font-bold">{i+1}</span>
+                    <span className="w-8 h-8 rounded-full bg-primary/10 text-primary text-[var(--md-sys-spacing-3)] flex items-center justify-center flex-shrink-0 font-bold">{i+1}</span>
                     <span dangerouslySetInnerHTML={{ __html: step }}></span>
                 </li>
             ))}
@@ -40,7 +40,7 @@ const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }>
         {tip && (
             <div className="mt-4 pt-4 border-t border-[var(--md-sys-color-outline-variant)]/10 flex gap-12 items-start">
                 <span className="material-symbols-outlined text-secondary text-base">lightbulb</span>
-                <p className="text-[12px] italic opacity-70">{tip}</p>
+                <p className="text-[var(--md-sys-spacing-3)] italic opacity-70">{tip}</p>
             </div>
         )}
     </div>
@@ -642,3 +642,5 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
 };
 
 export default HelpModal;
+
+

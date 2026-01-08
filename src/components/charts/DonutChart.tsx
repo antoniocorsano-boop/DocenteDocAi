@@ -55,10 +55,10 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
             );
           })}
         </g>
-         <text x="100" y="95" textAnchor="middle" className="donut-chart-center-text" fill="var(--sys-on-surface)" fontWeight="bold" fontSize="24">
+         <text x="100" y="95" textAnchor="middle" className="donut-chart-center-text" fill="var(--md-sys-color-on-surface)" fontWeight="bold" fontSize="24">
             {summary.value}
         </text>
-        <text x="100" y="115" textAnchor="middle" className="donut-chart-center-label" fill="var(--sys-on-surface-variant)" fontSize="12">
+        <text x="100" y="115" textAnchor="middle" className="donut-chart-center-label" fill="var(--md-sys-color-on-surface-variant)" fontSize="12">
             {summary.label}
         </text>
       </svg>
@@ -67,3 +67,5 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
 };
 
 export default DonutChart;
+
+

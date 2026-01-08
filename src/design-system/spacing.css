@@ -1,9 +1,9 @@
-﻿/**
+/**
  * Material Design 3 Expressive - Spacing System
- * Base Unit: 4px grid system
+ * Base Unit: var(--md-sys-spacing-1) grid system
  * 
  * Provides utility classes for consistent spacing across the application.
- * All spacing values are based on 4px increments for pixel-perfect alignment.
+ * All spacing values are based on var(--md-sys-spacing-1) increments for pixel-perfect alignment.
  */
 
 /* ========================================
@@ -11,17 +11,17 @@
    ======================================== */
 
 :root {
-  /* 4px base unit multiples */
+  /* var(--md-sys-spacing-1) base unit multiples */
   --spacing-0: 0;
-  --spacing-1: 0.25rem;  /* 4px  */
-  --spacing-2: 0.5rem;   /* 8px  */
-  --spacing-3: 0.75rem;  /* 12px */
-  --spacing-4: 1rem;     /* 16px */
+  --spacing-1: 0.25rem;  /* var(--md-sys-spacing-1)  */
+  --spacing-2: 0.5rem;   /* var(--md-sys-spacing-2)  */
+  --spacing-3: 0.75rem;  /* var(--md-sys-spacing-3) */
+  --spacing-4: 1rem;     /* var(--md-sys-spacing-4) */
   --spacing-5: 1.25rem;  /* 20px */
-  --spacing-6: 1.5rem;   /* 24px */
-  --spacing-8: 2rem;     /* 32px */
+  --spacing-6: 1.5rem;   /* var(--md-sys-spacing-6) */
+  --spacing-8: 2rem;     /* var(--md-sys-spacing-8) */
   --spacing-10: 2.5rem;  /* 40px */
-  --spacing-12: 3rem;    /* 48px */
+  --spacing-12: 3rem;    /* var(--md-sys-spacing-12) */
   --spacing-16: 4rem;    /* 64px */
   --spacing-20: 5rem;    /* 80px */
   --spacing-24: 6rem;    /* 96px */
@@ -332,3 +332,5 @@
     max-width: 1536px;
   }
 }
+
+

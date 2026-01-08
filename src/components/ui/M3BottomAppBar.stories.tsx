@@ -170,8 +170,8 @@ export const ClassroomToolbar: Story = {
         </div>
         <button
           style={{
-            width: '48px',
-            height: '48px',
+            width: 'var(--md-sys-spacing-12)',
+            height: 'var(--md-sys-spacing-12)',
             borderRadius: '50%',
             backgroundColor: 'var(--md-sys-color-primary)',
             color: 'var(--md-sys-color-on-primary)',
@@ -207,7 +207,7 @@ export const ExtendedLabel: Story = {
             backgroundColor: 'var(--md-sys-color-primary)',
             color: 'var(--md-sys-color-on-primary)',
             border: 'none',
-            borderRadius: '24px',
+            borderRadius: 'var(--md-sys-spacing-6)',
             cursor: 'pointer',
             fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
           }}
@@ -277,7 +277,7 @@ export const Accessibility: Story = {
 - **Screen Reader**: Announces navigation items and current page
 - **ARIA Attributes**: role="navigation", aria-label, aria-current
 - **Focus Management**: Clear focus indicators on all buttons
-- **Touch Target**: Minimum 48px height for touch targets
+- **Touch Target**: Minimum var(--md-sys-spacing-12) height for touch targets
 - **Icon Labels**: Text labels for all icon buttons
 
 ### Best Practices:
@@ -293,3 +293,5 @@ export const Accessibility: Story = {
     },
   },
 };
+
+

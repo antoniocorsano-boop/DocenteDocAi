@@ -53,3 +53,5 @@ const ParticipationBadgePicker: React.FC<ParticipationBadgePickerProps> = ({ anc
 };
 
 export default ParticipationBadgePicker;
+
+

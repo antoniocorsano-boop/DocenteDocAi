@@ -249,3 +249,5 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
 };
 
 export default ClassCompetencyDashboard;
+
+

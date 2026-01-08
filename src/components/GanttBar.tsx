@@ -30,9 +30,11 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
             }}
             title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''})`}
         >
-            <div className="gantt-bar-inner truncate" style={{ padding: '6px 8px' }}>{uda.title}</div>
+            <div className="gantt-bar-inner truncate" style={{ padding: '6px var(--md-sys-spacing-2)' }}>{uda.title}</div>
         </div>
     );
 };
 
 export default GanttBar;
+
+

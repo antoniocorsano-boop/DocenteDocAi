@@ -33,3 +33,5 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => (
 );
 
 export default UseCaseCard;
+
+

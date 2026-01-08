@@ -57,7 +57,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
                         className="icon-button m3-interactive"
                         aria-label="Modifica contenuto"
                         tabIndex={0}
-                        style={{ background: 'var(--sys-surface-container-high)', borderRadius: 'var(--shape-s)' }}
+                        style={{ background: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--shape-s)' }}
                     >
                         <span className="material-symbols-outlined" aria-hidden="true">edit</span>
                     </button>
@@ -74,7 +74,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
                             rows={Math.max(5, currentContent.split('\n').length)}
                             autoFocus
                             aria-label="Modifica contenuto"
-                            style={{ borderRadius: 'var(--shape-s)', background: 'var(--sys-surface-container)', color: 'var(--sys-on-surface)' }}
+                            style={{ borderRadius: 'var(--shape-s)', background: 'var(--md-sys-color-surface-container)', color: 'var(--md-sys-color-on-surface)' }}
                         />
                         <div className="flex justify-end gap-8">
                             <button onClick={handleCancel} className="button button-text m3-interactive" aria-label="Annulla modifica">Annulla</button>
@@ -92,3 +92,5 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
 };
 
 export default EditableContentCard;
+
+

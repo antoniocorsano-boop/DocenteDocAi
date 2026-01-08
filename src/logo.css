@@ -1,7 +1,7 @@
 .app-logo-container {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--md-sys-spacing-2);
   cursor: pointer;
   user-select: none;
   transition: transform 0.5s var(--motion-expressive);
@@ -24,7 +24,7 @@
 .logo-d-body {
   fill: var(--md-sys-color-primary);
   transition: fill 0.4s ease, transform 0.4s ease;
-  filter: drop-shadow(0 4px 6px rgba(103, 80, 164, 0.2));
+  filter: drop-shadow(0 var(--md-sys-spacing-1) 6px rgba(103, 80, 164, 0.2));
 }
 
 .logo-d-stem {
@@ -50,7 +50,7 @@
 
 .logo-sparkle {
   fill: var(--md-sys-color-tertiary);
-  filter: drop-shadow(0 0 8px var(--md-sys-color-tertiary));
+  filter: drop-shadow(0 0 var(--md-sys-spacing-2) var(--md-sys-color-tertiary));
   animation: logo-sparkle-glow 3s ease-in-out infinite;
 }
 
@@ -112,3 +112,4 @@
   from { transform: scale(3); opacity: 0; }
   to { transform: scale(0); opacity: 1; }
 }
+

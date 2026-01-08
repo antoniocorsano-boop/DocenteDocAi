@@ -215,7 +215,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                         return (
                             <div key={item.id} className="relative pl-10 opacity-40 grayscale-[0.5]">
                                 <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-outline-variant/30"></div>
-                                <div className="absolute left-[4px] top-2 w-4 h-4 rounded-full bg-outline-variant/50 border-2 border-surface-container-low"></div>
+                                <div className="absolute left-[var(--md-sys-spacing-1)] top-2 w-4 h-4 rounded-full bg-outline-variant/50 border-2 border-surface-container-low"></div>
                                 <div className="flex items-center gap-6 py-4">
                                     <span className="text-[10px] font-black text-[var(--md-sys-color-on-surface)]-variant w-12 uppercase tracking-tighter">{item.time}</span>
                                     <div>
@@ -231,7 +231,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                     return (
                         <div key={item.id} className="relative pl-10">
                             {!isLast && <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-outline-variant/20"></div>}
-                            <div className="absolute left-[4px] top-2 w-4 h-4 rounded-full border-2 border-primary/40 bg-[var(--md-sys-color-surface-container-low)]"></div>
+                            <div className="absolute left-[var(--md-sys-spacing-1)] top-2 w-4 h-4 rounded-full border-2 border-primary/40 bg-[var(--md-sys-color-surface-container-low)]"></div>
                             
                             <div 
                                 className="card bg-[var(--md-sys-color-surface-container-high)]/40 backdrop-blur-md p-5 border border-[var(--md-sys-color-outline-variant)]/20 hover:border-primary/40 hover:bg-[var(--md-sys-color-surface-container-high)]/60 transition-all cursor-pointer group" 
@@ -275,3 +275,5 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
 };
 
 export default React.memo(FlowMode);
+
+

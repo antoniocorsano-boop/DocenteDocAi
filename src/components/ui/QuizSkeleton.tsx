@@ -34,3 +34,5 @@ const QuizSkeleton: React.FC<QuizSkeletonProps> = ({
 );
 
 export default QuizSkeleton;
+
+

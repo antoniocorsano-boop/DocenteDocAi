@@ -26,8 +26,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     data: [
-      { label: 'Completed', value: 65, color: 'var(--sys-primary)' },
-      { label: 'In Progress', value: 25, color: 'var(--sys-secondary)' },
+      { label: 'Completed', value: 65, color: 'var(--md-sys-color-primary)' },
+      { label: 'In Progress', value: 25, color: 'var(--md-sys-color-secondary)' },
       { label: 'Pending', value: 10, color: 'var(--sys-tertiary)' },
     ],
   },
@@ -36,11 +36,11 @@ export const Default: Story = {
 export const GradeDistribution: Story = {
   args: {
     data: [
-      { label: 'A', value: 20, color: 'var(--sys-primary)' },
-      { label: 'B', value: 35, color: 'var(--sys-secondary)' },
+      { label: 'A', value: 20, color: 'var(--md-sys-color-primary)' },
+      { label: 'B', value: 35, color: 'var(--md-sys-color-secondary)' },
       { label: 'C', value: 30, color: 'var(--sys-tertiary)' },
       { label: 'D', value: 10, color: 'var(--sys-error)' },
-      { label: 'F', value: 5, color: 'var(--sys-surface-variant)' },
+      { label: 'F', value: 5, color: 'var(--md-sys-color-surface-variant)' },
     ],
   },
 };
@@ -48,8 +48,8 @@ export const GradeDistribution: Story = {
 export const BudgetAllocation: Story = {
   args: {
     data: [
-      { label: 'Salaries', value: 40, color: 'var(--sys-primary)' },
-      { label: 'Operations', value: 25, color: 'var(--sys-secondary)' },
+      { label: 'Salaries', value: 40, color: 'var(--md-sys-color-primary)' },
+      { label: 'Operations', value: 25, color: 'var(--md-sys-color-secondary)' },
       { label: 'Marketing', value: 20, color: 'var(--sys-tertiary)' },
       { label: 'R&D', value: 15, color: 'var(--sys-error)' },
     ],
@@ -59,9 +59,9 @@ export const BudgetAllocation: Story = {
 export const TaskStatus: Story = {
   args: {
     data: [
-      { label: 'Done', value: 45, color: 'var(--sys-primary)' },
-      { label: 'In Progress', value: 30, color: 'var(--sys-secondary)' },
-      { label: 'Todo', value: 25, color: 'var(--sys-surface-variant)' },
+      { label: 'Done', value: 45, color: 'var(--md-sys-color-primary)' },
+      { label: 'In Progress', value: 30, color: 'var(--md-sys-color-secondary)' },
+      { label: 'Todo', value: 25, color: 'var(--md-sys-color-surface-variant)' },
     ],
   },
 };
@@ -69,8 +69,8 @@ export const TaskStatus: Story = {
 export const BrowserShare: Story = {
   args: {
     data: [
-      { label: 'Chrome', value: 65, color: 'var(--sys-primary)' },
-      { label: 'Safari', value: 20, color: 'var(--sys-secondary)' },
+      { label: 'Chrome', value: 65, color: 'var(--md-sys-color-primary)' },
+      { label: 'Safari', value: 20, color: 'var(--md-sys-color-secondary)' },
       { label: 'Firefox', value: 10, color: 'var(--sys-tertiary)' },
       { label: 'Edge', value: 5, color: 'var(--sys-error)' },
     ],
@@ -80,7 +80,7 @@ export const BrowserShare: Story = {
 export const TwoSegments: Story = {
   args: {
     data: [
-      { label: 'Pass', value: 85, color: 'var(--sys-primary)' },
+      { label: 'Pass', value: 85, color: 'var(--md-sys-color-primary)' },
       { label: 'Fail', value: 15, color: 'var(--sys-error)' },
     ],
   },
@@ -93,9 +93,9 @@ export const ManySegments: Story = {
       { label: 'Segment 2', value: 12, color: 'var(--sys-error-container)' },
       { label: 'Segment 3', value: 10, color: 'var(--sys-tertiary)' },
       { label: 'Segment 4', value: 13, color: 'var(--sys-tertiary-container)' },
-      { label: 'Segment 5', value: 11, color: 'var(--sys-secondary)' },
-      { label: 'Segment 6', value: 14, color: 'var(--sys-primary)' },
-      { label: 'Segment 7', value: 10, color: 'var(--sys-surface-variant)' },
+      { label: 'Segment 5', value: 11, color: 'var(--md-sys-color-secondary)' },
+      { label: 'Segment 6', value: 14, color: 'var(--md-sys-color-primary)' },
+      { label: 'Segment 7', value: 10, color: 'var(--md-sys-color-surface-variant)' },
       { label: 'Segment 8', value: 15, color: 'var(--sys-outline)' },
     ],
   },
@@ -104,7 +104,7 @@ export const ManySegments: Story = {
 export const AttendanceRate: Story = {
   args: {
     data: [
-      { label: 'Present', value: 90, color: 'var(--sys-primary)' },
+      { label: 'Present', value: 90, color: 'var(--md-sys-color-primary)' },
       { label: 'Absent', value: 5, color: 'var(--sys-error)' },
       { label: 'Excused', value: 5, color: 'var(--sys-tertiary)' },
     ],
@@ -114,8 +114,8 @@ export const AttendanceRate: Story = {
 export const CourseCompletion: Story = {
   args: {
     data: [
-      { label: 'Completed', value: 75, color: 'var(--sys-primary)' },
-      { label: 'Remaining', value: 25, color: 'var(--sys-surface-container-high)' },
+      { label: 'Completed', value: 75, color: 'var(--md-sys-color-primary)' },
+      { label: 'Remaining', value: 25, color: 'var(--md-sys-color-surface-container-high)' },
     ],
   },
 };
@@ -124,9 +124,9 @@ export const DocumentTypes: Story = {
   args: {
     data: [
       { label: 'PDF', value: 40, color: 'var(--sys-error)' },
-      { label: 'DOCX', value: 30, color: 'var(--sys-primary)' },
+      { label: 'DOCX', value: 30, color: 'var(--md-sys-color-primary)' },
       { label: 'PPTX', value: 20, color: 'var(--sys-tertiary)' },
-      { label: 'XLSX', value: 10, color: 'var(--sys-secondary)' },
+      { label: 'XLSX', value: 10, color: 'var(--md-sys-color-secondary)' },
     ],
   },
 };
@@ -135,8 +135,8 @@ export const Equal: Story = {
   args: {
     data: [
       { label: 'Q1', value: 25, color: 'var(--sys-error)' },
-      { label: 'Q2', value: 25, color: 'var(--sys-primary)' },
-      { label: 'Q3', value: 25, color: 'var(--sys-secondary)' },
+      { label: 'Q2', value: 25, color: 'var(--md-sys-color-primary)' },
+      { label: 'Q3', value: 25, color: 'var(--md-sys-color-secondary)' },
       { label: 'Q4', value: 25, color: 'var(--sys-tertiary)' },
     ],
   },
@@ -145,7 +145,7 @@ export const Equal: Story = {
 export const StudentEngagement: Story = {
   args: {
     data: [
-      { label: 'Highly Engaged', value: 35, color: 'var(--sys-primary)' },
+      { label: 'Highly Engaged', value: 35, color: 'var(--md-sys-color-primary)' },
       { label: 'Moderately Engaged', value: 45, color: 'var(--sys-tertiary)' },
       { label: 'Low Engagement', value: 20, color: 'var(--sys-error)' },
     ],
@@ -158,8 +158,10 @@ export const CustomColors: Story = {
       { label: 'Category A', value: 30, color: 'var(--sys-error-container)' },
       { label: 'Category B', value: 25, color: 'var(--sys-tertiary)' },
       { label: 'Category C', value: 20, color: 'var(--sys-tertiary-container)' },
-      { label: 'Category D', value: 15, color: 'var(--sys-secondary)' },
-      { label: 'Category E', value: 10, color: 'var(--sys-primary)' },
+      { label: 'Category D', value: 15, color: 'var(--md-sys-color-secondary)' },
+      { label: 'Category E', value: 10, color: 'var(--md-sys-color-primary)' },
     ],
   },
 };
+
+

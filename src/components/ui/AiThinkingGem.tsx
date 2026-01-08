@@ -22,7 +22,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                 <div 
                     className="absolute inset-0 rounded-full animate-pulse opacity-40" 
                     style={{ 
-                        background: 'var(--sys-primary-container)',
+                        background: 'var(--md-sys-color-primary-container)',
                         transform: 'scale(1.2)'
                     }} 
                 />
@@ -31,7 +31,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                 <div 
                     className="absolute inset-0 rounded-full" 
                     style={{ 
-                        background: 'conic-gradient(from 0deg, transparent 0%, var(--sys-primary) 50%, var(--sys-tertiary) 100%)',
+                        background: 'conic-gradient(from 0deg, transparent 0%, var(--md-sys-color-primary) 50%, var(--sys-tertiary) 100%)',
                         maskImage: 'radial-gradient(closest-side, transparent 78%, black 82%)',
                         WebkitMaskImage: 'radial-gradient(closest-side, transparent 78%, black 82%)',
                         animation: 'spin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite'
@@ -57,3 +57,5 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
 };
 
 export default AiThinkingGem;
+
+

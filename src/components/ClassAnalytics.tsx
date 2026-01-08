@@ -43,7 +43,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
         }).length;
 
         return [
-            { label: 'Sufficienti', value: totalStudents - studentsWithInsufficient, color: 'var(--sys-primary)' },
+            { label: 'Sufficienti', value: totalStudents - studentsWithInsufficient, color: 'var(--md-sys-color-primary)' },
             { label: 'Insufficienti', value: studentsWithInsufficient, color: 'var(--sys-error)' }
         ];
     }, [students, evaluations]);
@@ -118,3 +118,5 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
 };
 
 export default ClassAnalytics;
+
+

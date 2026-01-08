@@ -1,4 +1,4 @@
-﻿/**
+/**
  * AddEvaluationModal
  *
  * Material Design 3 Expressive - Fully Migrated
@@ -8,7 +8,7 @@
  * Previous: dialog-backdrop + dialog-container divs + Tailwind classes
  * Current: Pure M3Dialog with M3DialogContent, M3DialogActions + MD3 design tokens
  *
- * Status: ✅ FULLY MIGRATED & ACCESSIBLE
+ * Status: ? FULLY MIGRATED & ACCESSIBLE
  */
 
 import * as React from 'react';
@@ -201,4 +201,6 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
 };
 
 export default AddEvaluationModal;
+
+
 

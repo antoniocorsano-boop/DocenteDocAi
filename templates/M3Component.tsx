@@ -52,15 +52,14 @@ const [ComponentName]: React.FC<[ComponentName]Props> = ({
 
     return (
         <div
-            className={className}
+            className={`${className} m3-transition-hover`}
             style={{
                 backgroundColor: colors.background,
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 padding: 'var(--md-sys-spacing-4)',
                 boxShadow: 'var(--md-sys-elevation-level1)',
                 border: `1px solid var(--md-sys-color-outline-variant)`,
-                cursor: onClick ? 'pointer' : 'default',
-                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)'
+                cursor: onClick ? 'pointer' : 'default'
             }}
             onClick={onClick}
             onMouseEnter={(e) => {

@@ -102,3 +102,5 @@ export const sendEmail = async (to: string, subject: string, body: string): Prom
         throw new Error("Impossibile inviare la mail. Verifica l'indirizzo e la connessione.");
     }
 };
+
+

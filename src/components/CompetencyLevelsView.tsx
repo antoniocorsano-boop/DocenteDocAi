@@ -83,3 +83,5 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
 };
 
 export default CompetencyLevelsView;
+
+

@@ -160,3 +160,5 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
         </div>
     );
 });
+
+

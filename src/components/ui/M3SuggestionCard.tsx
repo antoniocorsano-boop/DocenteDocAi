@@ -28,3 +28,4 @@ const M3SuggestionCard: React.FC<M3SuggestionCardProps> = ({
 };
 
 export default M3SuggestionCard;
+

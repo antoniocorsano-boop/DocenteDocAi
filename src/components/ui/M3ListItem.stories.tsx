@@ -88,9 +88,9 @@ export const WithLeadingElement: Story = {
     leadingElement: (
       <div
         style={{
-          width: '24px',
-          height: '24px',
-          borderRadius: '4px',
+          width: 'var(--md-sys-spacing-6)',
+          height: 'var(--md-sys-spacing-6)',
+          borderRadius: 'var(--md-sys-spacing-1)',
           backgroundColor: 'var(--md-sys-color-primary)',
           display: 'flex',
           alignItems: 'center',
@@ -116,8 +116,8 @@ export const WithTrailingElement: Story = {
         style={{
           backgroundColor: 'var(--md-sys-color-error)',
           color: 'white',
-          borderRadius: '12px',
-          padding: '2px 8px',
+          borderRadius: 'var(--md-sys-spacing-3)',
+          padding: '2px var(--md-sys-spacing-2)',
           fontSize: 'var(--md-sys-typescale-body-small-size)',
           fontWeight: 'bold',
         }}
@@ -155,3 +155,5 @@ export const Full: Story = {
     onClick: () => console.log('Clicked!'),
   },
 };
+
+

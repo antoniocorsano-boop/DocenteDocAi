@@ -74,3 +74,5 @@ export const generateNextSchoolYear = (currentYear: string): string => {
     const y = now.getFullYear();
     return `${y}/${y + 1}`;
 };
+
+

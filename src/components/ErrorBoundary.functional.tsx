@@ -53,3 +53,5 @@ const ErrorBoundary: React.FC<Props> = ({ children }) => {
 };
 
 export default ErrorBoundary;
+
+

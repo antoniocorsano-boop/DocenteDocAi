@@ -24,3 +24,5 @@ Regole:
 - Seleziona archi/curve se utile
 `;
 }
+
+

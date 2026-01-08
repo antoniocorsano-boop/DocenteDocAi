@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import UniversalModal from './UniversalModal';
 import { M3Button } from './ui';
 
@@ -19,7 +19,7 @@ const UniversalModalDemo: React.FC = () => {
         onClose={() => setOpen(false)}
       >
         <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]">
-          Questo Ã¨ un esempio di contenuto per il nuovo modale accessibile e responsive.<br />
+          Questo è un esempio di contenuto per il nuovo modale accessibile e responsive.<br />
           Premi <b>ESC</b> o clicca fuori dal modale per chiudere.
         </p>
         <div className="flex justify-end gap-3 mt-8">
@@ -45,4 +45,6 @@ const UniversalModalDemo: React.FC = () => {
 };
 
 export default UniversalModalDemo;
+
+
 

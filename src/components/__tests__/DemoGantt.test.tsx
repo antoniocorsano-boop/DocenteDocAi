@@ -31,3 +31,5 @@ describe('DemoGantt keyboard accessibility', () => {
     expect(lives.some(live => /colonna 2/.test(live.textContent || ''))).toBe(true);
   });
 });
+
+

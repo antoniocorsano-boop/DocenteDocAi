@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchNotebookFiles, NotebookLMFile } from '../services/notebooklmService';
 import { KnowledgeBaseEntry } from '../types';
 import { 
@@ -190,4 +190,6 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 };
 
 export default NotebookLMImportModal;
+
+
 

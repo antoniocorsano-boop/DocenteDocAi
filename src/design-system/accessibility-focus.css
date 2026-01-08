@@ -38,7 +38,7 @@
   :focus-visible {
     outline: 3px solid var(--md-sys-color-primary, #6750a4);
     outline-offset: 3px;
-    box-shadow: 0 0 0 4px rgba(103, 80, 164, 0.15);
+    box-shadow: 0 0 0 var(--md-sys-spacing-1) rgba(103, 80, 164, 0.15);
   }
 }
 
@@ -161,9 +161,9 @@ a:focus-visible {
  */
 .skip-link:focus-visible {
   outline: 3px solid var(--md-sys-color-primary, #6750a4);
-  outline-offset: 4px;
+  outline-offset: var(--md-sys-spacing-1);
   top: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px var(--md-sys-spacing-2) rgba(0, 0, 0, 0.15);
 }
 
 /**
@@ -186,3 +186,5 @@ a:focus-visible {
   outline: 2px solid var(--md-sys-color-primary, #6750a4);
   outline-offset: 2px;
 }
+
+

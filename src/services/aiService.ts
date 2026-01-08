@@ -596,3 +596,5 @@ export const generateTemplateWithAi = async (aiSettings: AiSettings, description
         return cleanAndParseJson(response.text || '{}');
     });
 };
+
+

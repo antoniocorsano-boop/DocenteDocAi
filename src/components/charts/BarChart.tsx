@@ -56,7 +56,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
               y={chartHeight - 5}
               textAnchor="middle"
               fontSize="12"
-              fill="var(--sys-on-surface-variant)"
+              fill="var(--md-sys-color-on-surface-variant)"
               className="chart-text"
             >
               {d.label}
@@ -82,7 +82,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
                             y={yPos + rowHeight / 2}
                             dominantBaseline="middle"
                             fontSize="12"
-                            fill="var(--sys-on-surface-variant)"
+                            fill="var(--md-sys-color-on-surface-variant)"
                             className="chart-text"
                         >
                             {d.label}
@@ -103,7 +103,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
                              y={yPos + rowHeight / 2}
                              dominantBaseline="middle"
                              fontSize="12"
-                             fill="var(--sys-on-surface)"
+                             fill="var(--md-sys-color-on-surface)"
                              fontWeight="bold"
                              className="chart-text"
                         >
@@ -137,3 +137,5 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
 };
 
 export default BarChart;
+
+

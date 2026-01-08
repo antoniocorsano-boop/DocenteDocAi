@@ -81,10 +81,12 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
             </M3DialogContent>
             <M3DialogActions>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button form="add-student-form" type="submit" variant="filled">Salva</M3Button>
+                <M3Button form="add-student-form" type="submit" variant="primary">Salva</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );
 };
 
 export default AddStudentModal;
+
+

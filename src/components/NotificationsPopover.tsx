@@ -147,3 +147,5 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
 };
 
 export default NotificationsPopover;
+
+

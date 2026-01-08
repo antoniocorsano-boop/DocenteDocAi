@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import React from 'react';
 import Home from '../../src/components/Home';
 import { View } from '../../src/types';
 
@@ -22,6 +23,35 @@ vi.mock('../../src/components/ui', () => ({
         <button data-testid="m3-button" onClick={onClick}>
             {children}
         </button>
+    ),
+    M3Typography: ({ children, variant, as, style }: any) => {
+        const Component = as || 'span';
+        return React.createElement(Component, { 'data-testid': 'm3-typography', style }, children);
+    },
+    M3HeroCard: ({ children, onClick }: any) => (
+        <div data-testid="m3-hero-card" onClick={onClick}>
+            {children}
+        </div>
+    ),
+    M3SuggestionCard: ({ children, onClick }: any) => (
+        <div data-testid="m3-suggestion-card" onClick={onClick}>
+            {children}
+        </div>
+    ),
+    M3SuggestionItem: ({ children }: any) => (
+        <div data-testid="m3-suggestion-item">
+            {children}
+        </div>
+    ),
+    M3ActivityItem: ({ children }: any) => (
+        <div data-testid="m3-activity-item">
+            {children}
+        </div>
+    ),
+    M3EmptyStateCard: ({ children }: any) => (
+        <div data-testid="m3-empty-state-card">
+            {children}
+        </div>
     ),
 }));
 

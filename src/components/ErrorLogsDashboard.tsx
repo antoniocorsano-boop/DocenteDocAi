@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { errorLogger, ErrorLog } from '../services/errorLogger';
 
 interface ErrorLogsDashboardProps {
@@ -252,4 +252,6 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 };
 
 export default ErrorLogsDashboard;
+
+
 

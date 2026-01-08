@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
 
 interface DocumentGeneratorModalProps {
@@ -50,4 +50,6 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
 };
 
 export default DocumentGeneratorModal;
+
+
 

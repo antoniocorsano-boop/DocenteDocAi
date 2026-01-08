@@ -4,16 +4,16 @@ import { useUIStore } from '../stores/useUIStore';
 
 const SNACKBAR_COLORS = {
   success: {
-    bg: 'var(--sys-primary)',
-    color: 'var(--sys-on-primary)'
+    bg: 'var(--md-sys-color-primary)',
+    color: 'var(--md-sys-color-on-primary)'
   },
   error: {
     bg: 'var(--sys-error)',
     color: 'var(--sys-on-error)'
   },
   info: {
-    bg: 'var(--sys-surface-container-highest)',
-    color: 'var(--sys-on-surface)'
+    bg: 'var(--md-sys-color-surface-container-highest)',
+    color: 'var(--md-sys-color-on-surface)'
   }
 };
 
@@ -94,7 +94,7 @@ const Snackbar: React.FC = () => {
         .m3-snackbar {
           position: fixed;
           left: 50%;
-          bottom: 32px;
+          bottom: var(--md-sys-spacing-8);
           transform: translateX(-50%);
           min-width: 220px;
           max-width: 90vw;
@@ -118,7 +118,7 @@ const Snackbar: React.FC = () => {
           border-radius: 50%;
           cursor: pointer;
           padding: 0.2rem;
-          transition: background 0.18s;
+          transition: background var(--motion-duration-short2) var(--motion-easing-standard);
         }
         .snackbar-close-btn:hover {
           background: rgba(0,0,0,0.07);
@@ -133,3 +133,5 @@ const Snackbar: React.FC = () => {
 };
 
 export default Snackbar;
+
+

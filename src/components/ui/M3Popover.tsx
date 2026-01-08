@@ -23,7 +23,7 @@
  * 1. Calculate initial position based on anchor element and alignment props
  * 2. Check if popover fits within viewport boundaries (top, bottom, left, right)
  * 3. If overflow detected, automatically flip to opposite side (e.g., bottom ? top)
- * 4. Apply 8px minimum margin from viewport edges
+ * 4. Apply var(--md-sys-spacing-2) minimum margin from viewport edges
  * 5. Re-calculate on scroll, resize, or anchor element movement
  * 
  * Click-outside behavior:
@@ -336,12 +336,12 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         {(title || subtitle) && (
           <div className="m3-popover__header p-[var(--md-sys-spacing-4)] border-b border-[var(--md-sys-color-outline-variant)]">
             {title && (
-              <div className="m3-popover__title font-body-medium font-weight-medium text-[var(--md-sys-color-on-surface)]" style={{ lineHeight: '24px', margin: '0 0 var(--md-sys-spacing-1) 0' }}>
+              <div className="m3-popover__title font-body-medium font-weight-medium text-[var(--md-sys-color-on-surface)]" style={{ lineHeight: 'var(--md-sys-spacing-6)', margin: '0 0 var(--md-sys-spacing-1) 0' }}>
                 {title}
               </div>
             )}
             {subtitle && (
-              <div className="m3-popover__subtitle font-body-small text-[var(--md-sys-color-on-surface-variant)]" style={{ lineHeight: '16px', margin: 0 }}>
+              <div className="m3-popover__subtitle font-body-small text-[var(--md-sys-color-on-surface-variant)]" style={{ lineHeight: 'var(--md-sys-spacing-4)', margin: 0 }}>
                 {subtitle}
               </div>
             )}
@@ -367,7 +367,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         }
         
         .m3-popover__content::-webkit-scrollbar {
-          width: 8px;
+          width: var(--md-sys-spacing-2);
         }
         
         .m3-popover__content::-webkit-scrollbar-track {
@@ -388,3 +388,5 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
 };
 
 export default M3Popover;
+
+

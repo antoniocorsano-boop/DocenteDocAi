@@ -50,7 +50,7 @@ export const Default: Story = {
     id: '1',
     label: 'Mathematics',
     icon: 'calculate',
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     isSelected: false,
     onClick: () => console.log('Mathematics selected'),
   },
@@ -61,7 +61,7 @@ export const Selected: Story = {
     id: '2',
     label: 'Science',
     icon: 'science',
-    color: 'var(--sys-secondary)',
+    color: 'var(--md-sys-color-secondary)',
     isSelected: true,
     onClick: () => console.log('Science selected'),
   },
@@ -96,7 +96,7 @@ export const Arts: Story = {
     id: '5',
     label: 'Arts',
     icon: 'palette',
-    color: 'var(--sys-surface-variant)',
+    color: 'var(--md-sys-color-surface-variant)',
     isSelected: false,
     onClick: () => console.log('Arts selected'),
   },
@@ -118,7 +118,7 @@ export const PhysicalEducation: Story = {
     id: '7',
     label: 'Physical Ed.',
     icon: 'sports_soccer',
-    color: 'var(--sys-secondary)',
+    color: 'var(--md-sys-color-secondary)',
     isSelected: false,
     description: 'Health and sports',
     onClick: () => console.log('PE selected'),
@@ -130,7 +130,7 @@ export const Technology: Story = {
     id: '8',
     label: 'Technology',
     icon: 'computer',
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     isSelected: false,
     description: 'Digital skills',
     onClick: () => console.log('Technology selected'),
@@ -142,7 +142,7 @@ export const Interactive: Story = {
     id: '1',
     label: 'Math',
     icon: 'calculate',
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     isSelected: false,
     onClick: () => {},
   },
@@ -150,8 +150,8 @@ export const Interactive: Story = {
     const [selected, setSelected] = useState<string>('1');
 
     const categories = [
-      { id: '1', label: 'Math', icon: 'calculate', color: 'var(--sys-primary)' },
-      { id: '2', label: 'Science', icon: 'science', color: 'var(--sys-secondary)' },
+      { id: '1', label: 'Math', icon: 'calculate', color: 'var(--md-sys-color-primary)' },
+      { id: '2', label: 'Science', icon: 'science', color: 'var(--md-sys-color-secondary)' },
       { id: '3', label: 'English', icon: 'language', color: 'var(--sys-tertiary)' },
       { id: '4', label: 'History', icon: 'history', color: 'var(--sys-error)' },
     ];
@@ -194,7 +194,7 @@ export const AllCategories: Story = {
     id: '1',
     label: 'Mathematics',
     icon: 'calculate',
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     isSelected: false,
     onClick: () => {},
   },
@@ -202,14 +202,14 @@ export const AllCategories: Story = {
     const [selected, setSelected] = useState<string>('1');
 
     const categories = [
-      { id: '1', label: 'Mathematics', icon: 'calculate', color: 'var(--sys-primary)', description: 'Numbers and logic' },
-      { id: '2', label: 'Science', icon: 'science', color: 'var(--sys-secondary)', description: 'Natural sciences' },
+      { id: '1', label: 'Mathematics', icon: 'calculate', color: 'var(--md-sys-color-primary)', description: 'Numbers and logic' },
+      { id: '2', label: 'Science', icon: 'science', color: 'var(--md-sys-color-secondary)', description: 'Natural sciences' },
       { id: '3', label: 'Literature', icon: 'library_books', color: 'var(--sys-tertiary)', description: 'Language & writing' },
       { id: '4', label: 'History', icon: 'history', color: 'var(--sys-error)', description: 'Past events' },
-      { id: '5', label: 'Arts', icon: 'palette', color: 'var(--sys-surface-variant)', description: 'Creative expression' },
+      { id: '5', label: 'Arts', icon: 'palette', color: 'var(--md-sys-color-surface-variant)', description: 'Creative expression' },
       { id: '6', label: 'Music', icon: 'music_note', color: 'var(--sys-outline)', description: 'Rhythm & sound' },
-      { id: '7', label: 'PE', icon: 'sports_soccer', color: 'var(--sys-secondary)', description: 'Health & sports' },
-      { id: '8', label: 'Tech', icon: 'computer', color: 'var(--sys-primary)', description: 'Digital skills' },
+      { id: '7', label: 'PE', icon: 'sports_soccer', color: 'var(--md-sys-color-secondary)', description: 'Health & sports' },
+      { id: '8', label: 'Tech', icon: 'computer', color: 'var(--md-sys-color-primary)', description: 'Digital skills' },
     ];
 
     return (
@@ -251,7 +251,7 @@ export const Grid: Story = {
     id: '1',
     label: 'Math',
     icon: 'calculate',
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     isSelected: false,
     onClick: () => {},
   },
@@ -268,7 +268,7 @@ export const Grid: Story = {
         id="1"
         label="Math"
         icon="calculate"
-        color="var(--sys-primary)"
+        color="var(--md-sys-color-primary)"
         isSelected={false}
         onClick={() => {}}
       />
@@ -276,7 +276,7 @@ export const Grid: Story = {
         id="2"
         label="Science"
         icon="science"
-        color="var(--sys-secondary)"
+        color="var(--md-sys-color-secondary)"
         isSelected={true}
         onClick={() => {}}
       />
@@ -341,7 +341,7 @@ export const Accessibility: Story = {
     id: '1',
     label: 'Accessible Category',
     icon: 'accessibility_new',
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     isSelected: false,
     description: 'Keyboard navigable and screen reader friendly',
     onClick: () => console.log('Accessibility selected'),
@@ -360,14 +360,14 @@ export const CustomColors: Story = {
     id: '0',
     label: 'Color 1',
     icon: 'palette',
-    color: 'var(--sys-primary)',
+    color: 'var(--md-sys-color-primary)',
     isSelected: false,
     onClick: () => {},
   },
   render: () => {
     const [selected, setSelected] = useState<string>('1');
 
-    const colors = ['var(--sys-primary)', 'var(--sys-secondary)', 'var(--sys-tertiary)', 'var(--sys-error)', 'var(--sys-surface-variant)', 'var(--sys-outline)'];
+    const colors = ['var(--md-sys-color-primary)', 'var(--md-sys-color-secondary)', 'var(--sys-tertiary)', 'var(--sys-error)', 'var(--md-sys-color-surface-variant)', 'var(--sys-outline)'];
 
     return (
       <div
@@ -401,3 +401,5 @@ export const CustomColors: Story = {
     },
   },
 };
+
+
