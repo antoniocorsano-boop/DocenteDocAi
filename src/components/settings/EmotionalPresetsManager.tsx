@@ -9,11 +9,12 @@
  * @since 2026-01-08
  */
 
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import M3Typography from '../ui/M3Typography';
 import M3Card from '../ui/M3Card';
 import M3Button from '../ui/M3Button';
 import { EmotionalPreset } from '../../types';
+import { ThemeService } from '../../services/ThemeService';
 
 interface EmotionalPresetOption {
   id: EmotionalPreset;
@@ -34,6 +35,44 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({
   onPresetChange,
   className = ''
 }) => {
+  const [previewPreset, setPreviewPreset] = useState<EmotionalPreset | undefined>(undefined);
+  const [isPreviewing, setIsPreviewing] = useState(false);
+
+  const handlePresetHover = useCallback((preset: EmotionalPreset) => {
+    if (isPreviewing) return; // Prevent multiple previews
+    
+    setPreviewPreset(preset);
+    setIsPreviewing(true);
+    
+    // Apply preview theme
+    const previewState = {
+      mode: 'light' as const,
+      visualStyle: 'aura' as const,
+      customizationName: 'Preview',
+      uiMode: 'classic' as const,
+      emotionalPreset: preset
+    };
+    
+    ThemeService.applyThemeState(previewState);
+  }, [isPreviewing]);
+
+  const handlePresetLeave = useCallback(() => {
+    if (!isPreviewing) return;
+    
+    setIsPreviewing(false);
+    setPreviewPreset(undefined);
+    
+    // Restore original theme
+    const originalState = {
+      mode: 'light' as const,
+      visualStyle: 'aura' as const,
+      customizationName: 'Default',
+      uiMode: 'classic' as const,
+      emotionalPreset: selectedPreset
+    };
+    
+    ThemeService.applyThemeState(originalState);
+  }, [isPreviewing, selectedPreset]);
 
   const presetOptions: EmotionalPresetOption[] = [
     {
@@ -95,12 +134,14 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({
   ];
 
   const handlePresetSelect = (preset: EmotionalPreset) => {
-    setPreviewPreset(preset);
+    setPreviewPreset(undefined);
+    setIsPreviewing(false);
     onPresetChange(preset);
   };
 
   const handleClearPreset = () => {
     setPreviewPreset(undefined);
+    setIsPreviewing(false);
     onPresetChange(undefined);
   };
 
@@ -111,8 +152,33 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({
           Stile Emozionale
         </M3Typography>
         <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-          Scegli come l'interfaccia dovrebbe adattarsi al tuo stato d'animo
+          Passa il mouse sui preset per vedere un'anteprima dal vivo. Clicca per applicare permanentemente.
         </M3Typography>
+        {isPreviewing && (
+          <div style={{
+            marginTop: 'var(--md-sys-spacing-3)',
+            padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+            backgroundColor: 'var(--md-sys-color-primary-container)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            border: '1px solid var(--md-sys-color-primary)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--md-sys-spacing-2)'
+          }}>
+            <span className="material-symbols-outlined" style={{ 
+              fontSize: '16px', 
+              color: 'var(--md-sys-color-on-primary-container)' 
+            }}>
+              visibility
+            </span>
+            <M3Typography variant="label-small" style={{ 
+              color: 'var(--md-sys-color-on-primary-container)',
+              fontWeight: '600'
+            }}>
+              Anteprima: {presetOptions.find(p => p.id === previewPreset)?.name}
+            </M3Typography>
+          </div>
+        )}
       </div>
 
       <div
@@ -129,11 +195,28 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({
             key={preset.id}
             variant="elevated"
             onClick={() => handlePresetSelect(preset.id)}
+            onMouseEnter={() => handlePresetHover(preset.id)}
+            onMouseLeave={handlePresetLeave}
             style={{
               padding: 'var(--md-sys-spacing-4)',
               cursor: 'pointer',
-              transition: 'all var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard)',
-              border: selectedPreset === preset.id ? `2px solid ${preset.color}` : 'none'
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              border: selectedPreset === preset.id ? `2px solid ${preset.color}` : 
+                     previewPreset === preset.id ? `2px solid ${preset.color}60` : '1px solid var(--md-sys-color-outline-variant)',
+              backgroundColor: selectedPreset === preset.id ? 
+                             'var(--md-sys-color-primary-container)' :
+                             previewPreset === preset.id ? 
+                             'var(--md-sys-color-secondary-container)' : 
+                             'var(--md-sys-color-surface-container)',
+              transform: previewPreset === preset.id ? 'scale(1.02)' : 'scale(1)',
+              boxShadow: previewPreset === preset.id ? 
+                        `var(--md-sys-elevation-level-3), 0 0 20px ${preset.color}30` : 
+                        selectedPreset === preset.id ?
+                        'var(--md-sys-elevation-level-2)' :
+                        'var(--md-sys-elevation-level-1)',
+              position: 'relative',
+              overflow: 'hidden',
+              filter: previewPreset === preset.id ? 'brightness(1.05)' : 'brightness(1)'
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
@@ -148,12 +231,40 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '24px'
+                  fontSize: '24px',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transform: previewPreset === preset.id ? 'scale(1.1) rotate(5deg)' : 'scale(1) rotate(0deg)',
+                  boxShadow: previewPreset === preset.id ? 
+                           `0 4px 12px ${preset.color}40` : 
+                           'none',
+                  position: 'relative'
                 }}
               >
                 <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>
                   {preset.icon}
                 </span>
+                {selectedPreset === preset.id && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '-4px',
+                    right: '-4px',
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--md-sys-color-primary)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '2px solid var(--md-sys-color-surface)'
+                  }}>
+                    <span className="material-symbols-outlined" style={{ 
+                      fontSize: '12px', 
+                      color: 'var(--md-sys-color-on-primary)' 
+                    }}>
+                      check
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div style={{ flex: 1 }}>
