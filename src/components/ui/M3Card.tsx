@@ -22,17 +22,17 @@ const M3Card: React.FC<M3CardProps> = ({
 
   // Variant classes using MD3 design tokens
   const variantClasses = {
-    elevated: 'bg-[var(--md-sys-color-surface)] shadow-[var(--md-sys-elevation-level1)] border border-[var(--md-sys-color-surface-variant)]',
-    outlined: 'bg-[var(--md-sys-color-surface)] border-2 border-[var(--md-sys-color-outline)] shadow-none',
-    filled: 'bg-[var(--md-sys-color-surface-variant)] shadow-none border-none'
+    elevated: 'm3-card--elevated',
+    outlined: 'm3-card--outlined',
+    filled: 'm3-card--filled'
   };
 
-  // Padding classes using MD3 spacing tokens
-  const paddingClasses = {
-    none: 'p-0',
-    small: 'p-3',
-    medium: 'p-4',
-    large: 'p-6'
+  // Padding styles using MD3 spacing tokens
+  const paddingStyles = {
+    none: '0',
+    small: 'var(--md-sys-spacing-3)',
+    medium: 'var(--md-sys-spacing-4)',
+    large: 'var(--md-sys-spacing-6)'
   };
 
   return (
@@ -48,12 +48,15 @@ const M3Card: React.FC<M3CardProps> = ({
       tabIndex={isClickable ? 0 : undefined}
       aria-label={ariaLabel}
       className={cn(
-        'relative overflow-hidden transition-all duration-300 rounded-[var(--md-sys-shape-corner-large)]',
+        'm3-card',
         variantClasses[variant],
-        paddingClasses[padding],
-        isClickable && 'cursor-pointer hover:shadow-[var(--md-sys-elevation-level2)] focus-visible:ring-2 focus-visible:ring-[var(--md-sys-color-primary)] focus-visible:ring-offset-2 active:scale-[0.98]',
+        isClickable && 'm3-card--clickable',
         className
       )}
+      style={{
+        padding: paddingStyles[padding],
+        borderRadius: 'var(--md-sys-shape-corner-large)'
+      }}
     >
       {children}
     </div>

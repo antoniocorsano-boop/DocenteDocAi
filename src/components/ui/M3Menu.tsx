@@ -168,23 +168,41 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               role="menuitem"
               onClick={handleItemClick.bind(null, index)}
               disabled={item.disabled}
-              className={`m3-menu-item${item.disabled ? ' opacity-[var(--md-sys-state-opacity-disabled)] cursor-not-allowed' : ' cursor-pointer'}${focusedIndex === index ? ' bg-[var(--md-sys-color-surface-container-high)]' : ''}${item.variant === 'error' ? ' text-[var(--md-sys-color-error)]' : ''}`}
+              className={`m3-menu-item${item.disabled ? '' : ''}${focusedIndex === index ? ' m3-menu-item--focused' : ''}${item.variant === 'error' ? ' m3-menu-item--error' : ''}`}
+              style={{
+                opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : '1',
+                cursor: item.disabled ? 'not-allowed' : 'pointer',
+                backgroundColor: focusedIndex === index ? 'var(--md-sys-color-surface-container-high)' : 'transparent',
+                color: item.variant === 'error' ? 'var(--md-sys-color-error)' : 'inherit'
+              }}
               onMouseEnter={() => !item.disabled && setFocusedIndex(index)}
               onMouseLeave={() => setFocusedIndex(-1)}
               aria-disabled={item.disabled}
             >
               {item.icon && (
-                <span className="m3-menu__item-icon" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontFamily: 'var(--md-sys-typescale-body-medium-font)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', flexShrink: 0 }}>
+                <span className="m3-menu__item-icon" style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                  fontFamily: 'var(--md-sys-typescale-body-medium-font)',
+                  lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                  flexShrink: 0
+                }}>
                   {item.icon}
                 </span>
               )}
-              <span className="m3-menu__item-label" style={{ flexGrow: 1, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontFamily: 'var(--md-sys-typescale-body-medium-font)' }}>
+              <span className="m3-menu__item-label" style={{
+                flexGrow: 1,
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                fontFamily: 'var(--md-sys-typescale-body-medium-font)'
+              }}>
                 {item.label}
               </span>
             </button>
             
             {item.divider && (
-              <div className="m3-menu__divider" role="separator" style={{ borderBottom: '1px solid var(--md-sys-color-outline-variant)', margin: 'var(--md-sys-spacing-1) 0' }}></div>
+              <div className="m3-menu__divider" role="separator"></div>
             )}
           </React.Fragment>
         ))}

@@ -621,6 +621,14 @@
   transform: scale(0.98);
 }
 
+.m3-menu-item--focused {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.m3-menu-item--error {
+  color: var(--md-sys-color-error);
+}
+
 .m3-menu-item .material-symbols-outlined {
   font-size: 22px;
   opacity: var(--md-sys-state-opacity-disabled);
@@ -2620,4 +2628,46 @@
 
 [data-visual-style="expressive"] .m3-field-wrapper:focus-within {
   box-shadow: 0 0 0 2px var(--sys-primary);
+}
+
+/* M3Card Component Styles */
+.m3-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.m3-card--elevated {
+  background-color: var(--md-sys-color-surface);
+  box-shadow: var(--md-sys-elevation-level1);
+  border: 1px solid var(--md-sys-color-surface-variant);
+}
+
+.m3-card--outlined {
+  background-color: var(--md-sys-color-surface);
+  border: 2px solid var(--md-sys-color-outline);
+  box-shadow: none;
+}
+
+.m3-card--filled {
+  background-color: var(--md-sys-color-surface-variant);
+  box-shadow: none;
+  border: none;
+}
+
+.m3-card--clickable {
+  cursor: pointer;
+}
+
+.m3-card--clickable:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.m3-card--clickable:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+.m3-card--clickable:active {
+  transform: scale(0.98);
 }
