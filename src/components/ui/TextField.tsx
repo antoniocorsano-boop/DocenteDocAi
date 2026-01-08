@@ -34,7 +34,7 @@ const TextField: React.FC<TextFieldProps> = ({
         <div className={`m3-field-container ${fullWidthClass} ${containerClassName}`}>
             <div className={`m3-field-wrapper ${variantClass} ${error ? 'error' : ''} group ${isLabelFloating ? 'has-value' : ''}`}>
                 {leadingIcon && (
-                    <span className="material-symbols-outlined opacity-60 group-focus-within:opacity-100 group-focus-within:text-primary transition-all">
+                    <span className="material-symbols-outlined opacity-[var(--md-sys-state-opacity-disabled)] group-focus-within:opacity-100 group-focus-within:text-[var(--md-sys-color-primary)] transition-all">
                         {leadingIcon}
                     </span>
                 )}
@@ -63,13 +63,13 @@ const TextField: React.FC<TextFieldProps> = ({
                         }}
                     />
                 {error && errorMessage && (
-                    <span className="material-symbols-outlined text-error ml-2" aria-hidden="true">error</span>
+                    <span className="material-symbols-outlined text-[var(--md-sys-color-error)] ml-[var(--md-sys-spacing-2)]" aria-hidden="true">error</span>
                 )}
                 </div>
             </div>
             {error && errorMessage && (
-                <div id={describedBy} className="m3-field-error text-error text-xs mt-1 flex items-center gap-1">
-                    <span className="material-symbols-outlined text-error text-sm">error</span>
+                <div id={describedBy} className="m3-field-error text-[var(--md-sys-color-error)] text-[var(--md-sys-typescale-body-small)] mt-[var(--md-sys-spacing-1)] flex items-center gap-[var(--md-sys-spacing-1)]">
+                    <span className="material-symbols-outlined text-[var(--md-sys-color-error)] text-[var(--md-sys-typescale-body-small)]">error</span>
                     {errorMessage}
                 </div>
             )}

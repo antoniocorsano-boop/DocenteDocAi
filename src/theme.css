@@ -965,36 +965,38 @@ body {
 .m3-field-container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--md-sys-spacing-2);
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: var(--md-sys-spacing-4);
 }
 
 .m3-field-label {
-  font-size: var(--typography-label-large-fontSize);
-  font-weight: var(--typography-label-large-fontWeight);
-  color: var(--sys-on-surface);
+  font-size: var(--md-sys-typescale-label-large);
+  font-weight: var(--md-sys-typescale-label-large-font);
+  color: var(--md-sys-color-on-surface);
+  line-height: var(--md-sys-typescale-label-large-line-height);
 }
 
 .m3-field-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: var(--sys-surface-container);
-  border: 1px solid var(--sys-outline-variant);
-  border-radius: var(--md-sys-shape-corner-medium);
-  padding: 12px 16px;
-  transition: all 0.2s var(--motion-easing-standard);
+  gap: var(--md-sys-spacing-2);
+  background: var(--md-sys-color-surface-container-highest);
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--md-sys-shape-corner-large);
+  padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .m3-field-wrapper:focus-within {
-  border-color: var(--sys-primary);
-  box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.1);
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 0 2px var(--md-sys-color-primary)/12;
 }
 
 .m3-field-wrapper.error {
-  border-color: var(--sys-error);
+  border-color: var(--md-sys-color-error);
+  box-shadow: 0 0 0 2px var(--md-sys-color-error)/12;
 }
 
 .m3-field-input,
@@ -1002,21 +1004,24 @@ body {
   flex: 1;
   border: none;
   background: transparent;
-  color: var(--sys-on-surface);
-  font-size: var(--typography-body-large-fontSize);
-  font-family: inherit;
+  color: var(--md-sys-color-on-surface);
+  font-size: var(--md-sys-typescale-body-large);
+  font-family: var(--md-sys-typescale-body-large-font);
+  line-height: var(--md-sys-typescale-body-large-line-height);
   outline: none;
 }
 
 .m3-field-input::placeholder,
 .m3-field-select::placeholder {
-  color: var(--sys-on-surface-variant);
-  opacity: 0.6;
+  color: var(--md-sys-color-on-surface-variant);
+  opacity: var(--md-sys-state-opacity-disabled);
 }
 
 .m3-field-error {
-  font-size: var(--typography-label-medium-fontSize);
-  color: var(--sys-error);
+  font-size: var(--md-sys-typescale-body-small);
+  font-weight: var(--md-sys-typescale-body-small-font);
+  color: var(--md-sys-color-error);
+  line-height: var(--md-sys-typescale-body-small-line-height);
   display: flex;
   align-items: center;
   gap: 4px;
