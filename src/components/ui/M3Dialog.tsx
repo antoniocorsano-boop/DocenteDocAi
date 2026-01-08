@@ -134,9 +134,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   return (
     <div
       ref={dialogRef}
-      className={`dialog-shell fixed inset-0 flex items-center justify-center p-8 pointer-events-auto ${
-        mode === 'fullscreen' ? '!p-0 md:!p-8' : ''
-      } ${wrapperClassName}`.trim()}
+      className={`dialog-backdrop ${wrapperClassName}`.trim()}
       style={{ ...style, zIndex }}
       onClick={handleBackdropClick}
       role="presentation"
@@ -154,23 +152,11 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
 
       {/* Dialog Panel - M3 Expressive */}
       <div
-        className={`
-          relative z-10
-          bg-[var(--md-sys-color-surface-container-high)]
-          border border-[var(--md-sys-color-outline-variant)]/20
-          shadow-[var(--md-sys-elevation-level4)]
-          overflow-hidden
-          animate-in zoom-in-95 duration-300
-          flex flex-col
-          mx-4
-          aura-glass
-          ${
-            mode === 'fullscreen'
-              ? 'w-full h-full md:h-[90vh] md:max-w-5xl md:rounded-[var(--md-sys-shape-corner-extra-large)] rounded-[var(--md-sys-shape-corner-large)]'
-              : `w-full ${maxWidthMap[maxWidth]} max-h-[90vh] rounded-[var(--md-sys-shape-corner-large)] md:rounded-[var(--md-sys-shape-corner-extra-large)]`
-          }
-          ${className}
-        `}
+        className={`dialog-container ${
+          mode === 'fullscreen'
+            ? 'w-full h-full md:h-[90vh] md:max-w-5xl'
+            : `w-full ${maxWidthMap[maxWidth]} max-h-[90vh]`
+        } ${className}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="dialog-title"
@@ -179,9 +165,9 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         {headerContent ? (
           headerContent
         ) : (
-          <div className="px-4 md:px-6 py-4 md:py-6 border-b border-[var(--md-sys-color-outline-variant)]/10 flex justify-between items-center shrink-0 bg-gradient-to-r from-transparent via-[var(--md-sys-color-surface-container-highest)]/10 to-transparent">
+          <div className="dialog-header">
             {/* Title & Subtitle */}
-            <div className="flex-grow min-w-0">
+            <div>
               <h2
                 id="dialog-title"
                 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)] tracking-tight"
@@ -199,7 +185,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
             {!hideCloseButton && (
               <button
                 onClick={onClose}
-                className="w-10 h-10 rounded-full hover:bg-[var(--md-sys-color-surface-container-highest)] flex items-center justify-center transition-colors ml-4"
+                className="icon-button hover:bg-[var(--md-sys-color-surface-container-highest)] flex items-center justify-center transition-colors"
                 data-focus-priority="-1"
                 aria-label="Chiudi"
               >
@@ -210,13 +196,13 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         )}
 
         {/* Content Section */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar p-8 md:p-6">
+        <div className="dialog-content">
           {children}
         </div>
 
         {/* Footer Section */}
         {(buttons || footerContent) && (
-          <div className="px-4 md:px-6 py-4 border-t border-[var(--md-sys-color-outline-variant)]/10 bg-[var(--md-sys-color-surface-container-low)]/50 flex justify-end items-center gap-6 shrink-0">
+          <div className="dialog-footer">
             {footerContent || buttons}
           </div>
         )}
@@ -231,7 +217,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
 export const M3DialogContent: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
   className = '',
-}) => <div className={`m3-dialog-content ${className}`}>{children}</div>;
+}) => <div className={`dialog-content ${className}`}>{children}</div>;
 
 /**
  * M3DialogActions - Actions/footer wrapper component
@@ -239,7 +225,7 @@ export const M3DialogContent: React.FC<{ children: React.ReactNode; className?: 
 export const M3DialogActions: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
   className = '',
-}) => <footer className={`m3-dialog-actions flex justify-end gap-6 ${className}`}>{children}</footer>;
+}) => <div className={`dialog-footer ${className}`}>{children}</div>;
 
 /**
  * M3ConfirmDialog - Simple yes/no confirmation
