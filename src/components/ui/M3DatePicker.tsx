@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import React, { useId, useState } from 'react';
 
 export type M3DatePickerProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -8,21 +8,39 @@ export type M3DatePickerProps = React.InputHTMLAttributes<HTMLInputElement> & {
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
-  padding: '0.5rem',
-  borderRadius: 4,
-  border: '1px solid #ccc',
+  padding: 'var(--md-sys-spacing-3)',
+  borderRadius: 'var(--md-sys-shape-corner-small)',
+  border: '1px solid var(--md-sys-color-outline)',
   boxSizing: 'border-box',
+  backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+  color: 'var(--md-sys-color-on-surface)',
+  fontFamily: 'var(--md-sys-typescale-body-large-font)',
+  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+};
+
+const inputFocusStyle: React.CSSProperties = {
+  ...inputStyle,
+  borderColor: 'var(--md-sys-color-primary)',
+  boxShadow: '0 0 0 2px var(--md-sys-color-primary-container)',
+};
+
+const inputErrorStyle: React.CSSProperties = {
+  ...inputStyle,
+  borderColor: 'var(--md-sys-color-error)',
+  boxShadow: '0 0 0 2px var(--md-sys-color-error-container)',
 };
 
 const helperStyle: React.CSSProperties = {
-  marginTop: '0.25rem',
-  fontSize: '0.85rem',
-  color: '#666',
+  marginTop: 'var(--md-sys-spacing-1)',
+  fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+  fontFamily: 'var(--md-sys-typescale-body-small-font)',
+  color: 'var(--md-sys-color-on-surface-variant)',
 };
 
 const errorStyle: React.CSSProperties = {
   ...helperStyle,
-  color: 'var(--sys-error)',
+  color: 'var(--md-sys-color-error)',
 };
 
 function M3DatePicker({
@@ -37,20 +55,40 @@ function M3DatePicker({
   const autoId = useId();
   const inputId = id ?? autoId;
   const showError = Boolean(error);
+  const [isFocused, setIsFocused] = useState(false);
+
+  // Determine input style based on state
+  const getInputStyle = () => {
+    if (showError) return inputErrorStyle;
+    if (isFocused) return inputFocusStyle;
+    return inputStyle;
+  };
 
   return (
     <div style={{ width: '100%' }} className={className}>
       {label ? (
-        <label htmlFor={inputId} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>
+        <label 
+          htmlFor={inputId} 
+          style={{ 
+            display: 'block', 
+            marginBottom: 'var(--md-sys-spacing-2)', 
+            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+            fontFamily: 'var(--md-sys-typescale-body-large-font)',
+            fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+            color: 'var(--md-sys-color-on-surface)'
+          }}
+        >
           {label}
         </label>
       ) : null}
       <input
         id={inputId}
         type="date"
-        style={{ ...inputStyle, ...(style as React.CSSProperties) }}
+        style={{ ...getInputStyle(), ...(style as React.CSSProperties) }}
         aria-invalid={showError || undefined}
         aria-describedby={helperText || showError ? `${inputId}-helper` : undefined}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         {...inputProps}
       />
       {helperText && !showError ? (
