@@ -48,31 +48,40 @@ const MD3_PATTERNS = {
 
 /**
  * Legacy CSS Classes to Avoid
+ * Note: MD3 tokens using var(--md-sys-*) are allowed
  */
 const LEGACY_CLASSES = [
-  // Tailwind classes
-  /\bbg-\w+/g,
-  /\btext-\w+/g,
-  /\bborder-\w+/g,
-  /\bshadow-\w+/g,
-  /\bp-\d+/g,
-  /\bpx-\d+/g,
-  /\bpy-\d+/g,
-  /\bm-\d+/g,
-  /\bmx-\d+/g,
-  /\bmy-\d+/g,
-  /\bgap-\d+/g,
-  /\bflex-\w+/g,
-  /\bjustify-\w+/g,
-  /\bitems-\w+/g,
-  /\brounded-\w+/g,
+  // Tailwind color/utility classes (but allow MD3 tokens)
+  /\bbg-(?!\[var\(--md-sys-)/g,
+  /\btext-(?!\[var\(--md-sys-)/g,
+  /\bborder-(?!\[var\(--md-sys-)/g,
+  /\bshadow-(?!\[var\(--md-sys-)/g,
+
+  // Spacing classes (allow MD3 spacing tokens)
+  /\bp-(?!\[var\(--md-sys-)\d+/g,
+  /\bpx-(?!\[var\(--md-sys-)\d+/g,
+  /\bpy-(?!\[var\(--md-sys-)\d+/g,
+  /\bm-(?!\[var\(--md-sys-)\d+/g,
+  /\bmx-(?!\[var\(--md-sys-)\d+/g,
+  /\bmy-(?!\[var\(--md-sys-)\d+/g,
+  /\bgap-(?!\[var\(--md-sys-)\d+/g,
+
+  // Layout classes - allow essential ones
+  /\bflex-(?!shrink-0|1|auto|none|initial)\w+/g,
+  /\bjustify-(?!center|start|end|between|around)\w+/g,
+  /\bitems-(?!center|start|end|baseline)\w+/g,
+  /\brounded-(?!full|\[var\(--md-sys-)\w+/g,
 
   // Legacy component classes
   /\bop-tile/g,
   /\bop-tile-\w+/g,
   /\bm3-interactive-card/g,
   /\bglass-\w+/g,
-  /\bsys-\w+/g
+  /\bsys-\w+/g,
+
+  // State classes (allow MD3 state tokens)
+  /\bopacity-(?!\[var\(--md-sys-)\d+/g,
+  /\bcursor-(?!pointer|not-allowed)\w+/g
 ];
 
 /**

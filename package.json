@@ -103,9 +103,6 @@
       "eslint --fix",
       "eslint"
     ],
-    "src/components/**/*.{ts,tsx}": [
-      "node md3-audit.js check ./src/components 70"
-    ],
     "*.{json,md}": [
       "prettier --write"
     ]

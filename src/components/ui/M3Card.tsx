@@ -1,59 +1,63 @@
 import React from 'react';
+import { cn } from '../../utils/cn';
 
 interface M3CardProps {
-    children: React.ReactNode;
-    className?: string;
-    onClick?: () => void;
-    variant?: 'elevated' | 'outlined' | 'filled';
-    ariaLabel?: string;
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+  variant?: 'elevated' | 'outlined' | 'filled';
+  padding?: 'none' | 'small' | 'medium' | 'large';
+  ariaLabel?: string;
 }
 
 const M3Card: React.FC<M3CardProps> = ({
-    children,
-    className = '',
-    onClick,
-    variant = 'elevated',
-    ariaLabel
+  children,
+  className,
+  onClick,
+  variant = 'elevated',
+  padding = 'medium',
+  ariaLabel
 }) => {
-    const isClickable = Boolean(onClick);
+  const isClickable = Boolean(onClick);
 
-    const variantClasses = {
-        elevated: 'bg-surface-container-low shadow-elevation-1 border-white/10',
-        outlined: 'bg-surface border-outline/30 shadow-none',
-        filled: 'bg-surface-container-high shadow-elevation-1 border-white/5'
-    };
+  // Variant classes using MD3 design tokens
+  const variantClasses = {
+    elevated: 'bg-[var(--md-sys-color-surface)] shadow-[var(--md-sys-elevation-level1)] border border-[var(--md-sys-color-surface-variant)]',
+    outlined: 'bg-[var(--md-sys-color-surface)] border-2 border-[var(--md-sys-color-outline)] shadow-none',
+    filled: 'bg-[var(--md-sys-color-surface-variant)] shadow-none border-none'
+  };
 
-    return (
-        <div
-            onClick={onClick}
-            onKeyDown={(e) => {
-                if (onClick && (e.key === 'Enter' || e.key === ' ')) {
-                    e.preventDefault();
-                    onClick();
-                }
-            }}
-            role={isClickable ? 'button' : undefined}
-            tabIndex={isClickable ? 0 : undefined}
-            aria-label={ariaLabel}
-            className={`
-                relative overflow-hidden p-6 transition-all duration-300
-                ${variantClasses[variant]}
-                backdrop-blur-sm border
-                ${isClickable ? 'cursor-pointer hover:shadow-elevation-2 hover:border-white/20 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2' : ''}
-                ${className}
-            `}
-            style={{
-                borderRadius: 'calc(var(--shape-large) * var(--sys-radius-multiplier))'
-            }}
-        >
-            {/* Subtle glass effect overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50 pointer-events-none"></div>
+  // Padding classes using MD3 spacing tokens
+  const paddingClasses = {
+    none: 'p-0',
+    small: 'p-3',
+    medium: 'p-4',
+    large: 'p-6'
+  };
 
-            <div className="relative z-10">
-                {children}
-            </div>
-        </div>
-    );
+  return (
+    <div
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (onClick && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      role={isClickable ? 'button' : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      aria-label={ariaLabel}
+      className={cn(
+        'relative overflow-hidden transition-all duration-300 rounded-[var(--md-sys-shape-corner-large)]',
+        variantClasses[variant],
+        paddingClasses[padding],
+        isClickable && 'cursor-pointer hover:shadow-[var(--md-sys-elevation-level2)] focus-visible:ring-2 focus-visible:ring-[var(--md-sys-color-primary)] focus-visible:ring-offset-2 active:scale-[0.98]',
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default M3Card;
