@@ -832,6 +832,37 @@ export interface DriveSyncState {
     error?: string;
 }
 
+export type EmotionalPreset =
+    | 'calm'        // Calmo - toni blu/verde soft, spaziatura rilassata
+    | 'energetic'   // Energico - colori vivaci, contrasto alto, animazioni veloci
+    | 'creative'    // Creativo - colori caldi, forme morbide, spaziatura generosa
+    | 'focused'     // Concentrato - contrasto alto, colori neutri, spaziatura minima
+    | 'relaxed'     // Rilassato - colori pastello, spaziatura ampia, forme arrotondate
+    | 'professional' // Professionale - colori formali, contrasto medio, spaziatura standard
+    | 'playful'     // Giocoso - colori brillanti, forme irregolari, animazioni giocose
+    | 'minimal';    // Minimale - colori monocromatici, spaziatura ridotta, forme geometriche
+
+export interface EmotionalPresetTokens {
+    // Color overrides
+    primary?: string;
+    secondary?: string;
+    tertiary?: string;
+    // Motion & timing overrides
+    motionDuration?: string;
+    motionEasing?: string;
+    // Shape & spacing overrides
+    cornerRadius?: string;
+    spacingScale?: number;
+    // Typography overrides
+    fontWeight?: string;
+    letterSpacing?: string;
+    // Elevation & shadow overrides
+    elevationLevel?: number;
+    // Additional visual properties
+    backdropBlur?: string;
+    opacity?: number;
+}
+
 export interface AppThemeState {
     mode: 'light' | 'dark' | 'system';
     visualStyle: 'aura' | 'flat' | 'minimal' | 'cupertino' | 'windows' | 'expressive';
@@ -844,6 +875,8 @@ export interface AppThemeState {
     fontScale?: number;
     contrastLevel?: number;
     uiMode: 'classic' | 'flow';  // Now required after safe migration
+    // Emotional Style Presets - Phase 1 Foundation
+    emotionalPreset?: EmotionalPreset;
 }
 
 export interface BackupState {

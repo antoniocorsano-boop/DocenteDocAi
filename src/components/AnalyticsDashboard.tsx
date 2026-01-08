@@ -746,14 +746,6 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         cursor: 'pointer',
                         transition: 'background-color 0.2s ease'
                       }}
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: 'var(--md-sys-spacing-6)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        cursor: 'pointer',
-                        transition: 'background-color 0.2s ease'
-                      }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
                         e.currentTarget.style.opacity = '0.5';

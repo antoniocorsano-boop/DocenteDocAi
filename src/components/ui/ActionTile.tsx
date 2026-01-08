@@ -200,7 +200,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 style={{
                     position: 'absolute',
                     inset: 0,
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)',
+                    background: 'linear-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent)',
                     transform: 'translateX(-100%)',
                     pointerEvents: 'none'
                 }}

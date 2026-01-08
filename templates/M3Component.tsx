@@ -10,7 +10,7 @@
 import React from 'react';
 import M3Typography from '../ui/M3Typography';
 
-interface [ComponentName]Props {
+interface M3ComponentProps {
     // Define your props here
     title?: string;
     variant?: 'primary' | 'secondary' | 'surface';
@@ -19,7 +19,7 @@ interface [ComponentName]Props {
     className?: string;
 }
 
-const [ComponentName]: React.FC<[ComponentName]Props> = ({
+const M3Component: React.FC<M3ComponentProps> = ({
     title,
     variant = 'surface',
     onClick,
@@ -107,4 +107,4 @@ const [ComponentName]: React.FC<[ComponentName]Props> = ({
     );
 };
 
-export default [ComponentName];
+export default M3Component;

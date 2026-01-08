@@ -16,6 +16,7 @@ import ChipInputList from './ChipInputList';
 import ResetConfirmModal from './ResetConfirmModal';
 import { useSettingsLogic } from '../hooks/useSettingsLogic';
 import { errorLogger } from '../services/errorLogger';
+import EmotionalPresetsManager from './settings/EmotionalPresetsManager';
 
 interface SettingsGroupProps {
     id: string;
@@ -252,7 +253,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
             handleChange('annoScolasticoCorrente', nextYear);
             showToast(`Anno ${nextYear} aggiunto e selezionato.`, 'success');
         } else {
-            showToast(`Anno ${nextYear} già presente.`, 'info');
+            showToast(`Anno ${nextYear} giï¿½ presente.`, 'info');
         }
     };
 
@@ -286,7 +287,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex items-center gap-8 mb-5">
                                 <span className="material-symbols-outlined text-primary">dashboard_customize</span>
-                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Modalità Interfaccia</h4>
+                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Modalitï¿½ Interfaccia</h4>
                             </div>
                             <TabGroup
                                 tabs={[
@@ -394,6 +395,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </div>
                         </div>
 
+                        {/* SEZIONE 3.5: PRESET EMOZIONALI - Phase 1 Foundation */}
+                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
+                            <EmotionalPresetsManager
+                                selectedPreset={themeState.emotionalPreset}
+                                onPresetChange={(preset) => handleThemeChange({ emotionalPreset: preset })}
+                            />
+                        </div>
+
                         {/* SEZIONE 4: PARAMETRI AVANZATI */}
                         <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
                             <div className="flex items-center gap-8 mb-5">
@@ -403,7 +412,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <div className="space-y-6">
                                 <div className="space-y-2">
                                     <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Intensità Blur Vetro</label>
+                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Intensitï¿½ Blur Vetro</label>
                                         <span className="m3-label-tiny font-black text-primary">{themeState.glassBlur || 30}px</span>
                                     </div>
                                     <input 
