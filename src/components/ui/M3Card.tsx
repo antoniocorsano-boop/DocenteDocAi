@@ -5,8 +5,11 @@ interface M3CardProps {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
   variant?: 'elevated' | 'outlined' | 'filled';
   padding?: 'none' | 'small' | 'medium' | 'large';
+  style?: React.CSSProperties;
   ariaLabel?: string;
 }
 
@@ -14,8 +17,11 @@ const M3Card: React.FC<M3CardProps> = ({
   children,
   className,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
   variant = 'elevated',
   padding = 'medium',
+  style,
   ariaLabel
 }) => {
   const isClickable = Boolean(onClick);
@@ -69,17 +75,20 @@ const M3Card: React.FC<M3CardProps> = ({
         padding: paddingStyles[padding],
         borderRadius: 'var(--md-sys-shape-corner-large)',
         ...variantStyles[variant],
-        ...hoverStyles
+        ...hoverStyles,
+        ...style
       }}
       onMouseEnter={(e) => {
         if (isClickable && variant === 'elevated') {
           e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level-2)';
         }
+        onMouseEnter?.(e);
       }}
       onMouseLeave={(e) => {
         if (isClickable && variant === 'elevated') {
           e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level-1)';
         }
+        onMouseLeave?.(e);
       }}
     >
       {children}

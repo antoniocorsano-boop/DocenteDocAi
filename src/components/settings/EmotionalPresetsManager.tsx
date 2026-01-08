@@ -282,7 +282,7 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({
 
       <div className="presets-actions" style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
         <M3Button
-          variant="outlined"
+          variant="outline"
           onClick={handleClearPreset}
           disabled={!selectedPreset}
         >
