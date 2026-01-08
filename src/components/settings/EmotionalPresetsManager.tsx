@@ -9,7 +9,7 @@
  * @since 2026-01-08
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import M3Typography from '../ui/M3Typography';
 import M3Card from '../ui/M3Card';
 import M3Button from '../ui/M3Button';
@@ -34,7 +34,6 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({
   onPresetChange,
   className = ''
 }) => {
-  const [previewPreset, setPreviewPreset] = useState<EmotionalPreset | undefined>(selectedPreset);
 
   const presetOptions: EmotionalPresetOption[] = [
     {

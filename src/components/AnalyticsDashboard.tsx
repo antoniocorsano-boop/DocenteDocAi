@@ -718,6 +718,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       </div>
                     </div>
                   </label>
+                  <label>
                     <div>
                       <span className="font-bold text-sm text-[var(--md-sys-color-on-surface)]">Analytics Abilitati</span>
                       <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">
