@@ -46,7 +46,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
         >
             <form id="add-prova-form" onSubmit={handleSubmit}>
                 <M3DialogContent className="space-y-6">
-                    <p className="m3-body-medium text-on-surface-variant">
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">
                         Stai creando una nuova colonna nella griglia di valutazione per la classe selezionata.
                     </p>
 

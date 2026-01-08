@@ -37,7 +37,7 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
     const actionLabel = 'actionLabel' in suggestion ? suggestion.actionLabel : 'Apri';
     return (
         <div
-            className="fixed top-0 left-0 right-0 aura-glass py-4 px-4 flex items-center justify-center gap-6 cursor-pointer border-b border-white/10 shadow-lg animate-in slide-in-from-top duration-500"
+            className="fixed top-0 left-0 right-0 aura-glass py-4 px-4 flex items-center justify-center gap-6 cursor-pointer border-b border-white/10 shadow-[var(--md-sys-elevation-level2)] animate-in slide-in-from-top duration-500"
             style={{ zIndex: Z_INDEX.notification.banner }}
             onClick={onAction}
             role="button"
@@ -211,12 +211,12 @@ export const App: React.FC = () => {
         // Show loading screen during restore
         if (modals.isRestoring) {
             return (
-                <div className="flex items-center justify-center h-screen bg-surface-container-low">
+                <div className="flex items-center justify-center h-screen bg-[var(--md-sys-color-surface-container-low)]">
                     <div className="text-center space-y-4">
-                        <div className="w-16 h-16 mx-auto rounded-3xl aura-glass flex items-center justify-center animate-pulse">
+                        <div className="w-16 h-16 mx-auto rounded-[var(--md-sys-shape-corner-extra-large)] aura-glass flex items-center justify-center animate-pulse">
                             <span className="material-symbols-outlined text-4xl text-primary">sync</span>
                         </div>
-                        <p className="m3-label-large text-on-surface tracking-widest uppercase">Caricamento...</p>
+                        <p className="m3-label-large text-[var(--md-sys-color-on-surface)] tracking-widest uppercase">Caricamento...</p>
                     </div>
                 </div>
             );
@@ -226,13 +226,13 @@ export const App: React.FC = () => {
         const restoreAssist = useRestoreAssist(appState, actions, modals);
         if (restoreAssist.show) {
             return (
-                <div className="flex items-center justify-center h-screen bg-surface-container-low">
+                <div className="flex items-center justify-center h-screen bg-[var(--md-sys-color-surface-container-low)]">
                     <div className="text-center space-y-4 max-w-xs px-6">
-                        <div className="w-16 h-16 mx-auto rounded-3xl aura-glass flex items-center justify-center">
+                        <div className="w-16 h-16 mx-auto rounded-[var(--md-sys-shape-corner-extra-large)] aura-glass flex items-center justify-center">
                             <span className="material-symbols-outlined text-4xl text-primary">build</span>
                         </div>
-                        <h2 className="m3-headline-small font-bold">Assistenza ripristino</h2>
-                        <p className="m3-body-medium text-on-surface-variant">Stiamo preparando il tuo ambiente di lavoro.</p>
+                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold">Assistenza ripristino</h2>
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Stiamo preparando il tuo ambiente di lavoro.</p>
                     </div>
                 </div>
             );

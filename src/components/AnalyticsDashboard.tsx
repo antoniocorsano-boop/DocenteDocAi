@@ -719,8 +719,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     </div>
                   </label>
                     <div>
-                      <span className="font-bold text-sm text-on-surface">Analytics Abilitati</span>
-                      <p className="text-xs text-on-surface-variant">
+                      <span className="font-bold text-sm text-[var(--md-sys-color-on-surface)]">Analytics Abilitati</span>
+                      <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">
                         Consenti raccolta dati anonimi di utilizzo
                       </p>
                     </div>

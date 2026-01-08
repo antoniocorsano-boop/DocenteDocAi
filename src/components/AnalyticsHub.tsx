@@ -117,7 +117,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     </SelectField>
                     <div className="space-y-2 md:space-y-3">
                         <label className="m3-label-small text-primary font-black uppercase tracking-[0.25em] px-4 block">Modalità Vista</label>
-                        <div className="flex gap-4 bg-surface-container-high p-1 rounded-xl">
+                        <div className="flex gap-4 bg-[var(--md-sys-color-surface-container-high)] p-1 rounded-[var(--md-sys-shape-corner-medium)]">
                             <M3Button 
                                 onClick={() => setChartType('trend')} 
                                 variant={chartType === 'trend' ? 'filled' : 'text'}
@@ -148,9 +148,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             </InfoCard>
 
             {/* Responsive Card: Chart & AI */}
-            <InfoCard variant="elevated" className="p-6 md:p-8 min-h-[300px] md:min-h-[450px] flex flex-col bg-surface-container-lowest">
+            <InfoCard variant="elevated" className="p-6 md:p-8 min-h-[300px] md:min-h-[450px] flex flex-col bg-[var(--md-sys-color-surface-container-low)]est">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-8 mb-8">
-                    <h2 className="text-sm font-bold text-on-surface-variant uppercase tracking-widest">
+                    <h2 className="text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-widest">
                         {chartType === 'trend' && 'Andamento Temporale'}
                         {chartType === 'radar' && 'Radar Competenze'}
                         {chartType === 'dist' && 'Distribuzione Voti'}
@@ -172,7 +172,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 </div>
 
                 {(isAiLoading || aiInsight) && (
-                    <div className="mt-8 p-6 bg-surface-container-high rounded-3xl border border-outline-variant/30 shadow-inner w-full max-w-2xl mx-auto">
+                    <div className="mt-8 p-6 bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-inner w-full max-w-2xl mx-auto">
                         {isAiLoading ? (
                             <AiThinkingGem size="small" text="Elaborazione Insight..." inline />
                         ) : (
@@ -181,7 +181,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                         <span className="material-symbols-outlined text-primary">lightbulb</span>
                                     </div>
-                                    <p className="text-on-surface font-medium leading-relaxed">{aiInsight}</p>
+                                    <p className="text-[var(--md-sys-color-on-surface)] font-medium leading-relaxed">{aiInsight}</p>
                                 </div>
                                 <div className="pl-14">
                                     <AiMemoryChip label={`Insight AI • Dati Classe ${selectedClass}`} />
