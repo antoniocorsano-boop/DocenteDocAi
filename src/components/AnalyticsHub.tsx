@@ -148,7 +148,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             </InfoCard>
 
             {/* Responsive Card: Chart & AI */}
-            <InfoCard variant="elevated" className="p-6 md:p-8 min-h-[450px] flex flex-col bg-surface-container-lowest">
+            <InfoCard variant="elevated" className="p-6 md:p-8 min-h-[300px] md:min-h-[450px] flex flex-col bg-surface-container-lowest">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-8 mb-8">
                     <h2 className="text-sm font-bold text-on-surface-variant uppercase tracking-widest">
                         {chartType === 'trend' && 'Andamento Temporale'}

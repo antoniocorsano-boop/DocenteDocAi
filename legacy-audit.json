@@ -1,0 +1,44 @@
+[
+  {
+    "name": "ActionTile",
+    "file": "src/components/ui/ActionTile.tsx",
+    "baseComponent": "button",
+    "issues": [],
+    "scrollable": true
+  },
+  {
+    "name": "AddEvaluationModal",
+    "file": "src/components/AddEvaluationModal.tsx",
+    "baseComponent": "M3Dialog",
+    "issues": [],
+    "scrollable": true
+  },
+  {
+    "name": "AnalyticsDashboard",
+    "file": "src/components/AnalyticsDashboard.tsx",
+    "baseComponent": "M3Dialog",
+    "issues": [],
+    "scrollable": true
+  },
+  {
+    "name": "M3HeroCard",
+    "file": "src/components/ui/M3HeroCard.tsx",
+    "baseComponent": "M3HeroCard",
+    "issues": [],
+    "scrollable": true
+  },
+  {
+    "name": "M3SuggestionCard",
+    "file": "src/components/ui/M3SuggestionCard.tsx",
+    "baseComponent": "M3SuggestionCard",
+    "issues": [],
+    "scrollable": true
+  },
+  {
+    "name": "Home",
+    "file": "src/components/Home.tsx",
+    "baseComponent": "div",
+    "issues": [],
+    "scrollable": true
+  }
+]

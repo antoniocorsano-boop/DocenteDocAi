@@ -319,7 +319,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 </span>
                             </div>
 
-                            <div className="space-y-2 flex-grow overflow-y-auto pr-1 max-h-[600px] custom-scrollbar">
+                            <div className="space-y-2 flex-grow overflow-y-auto pr-1 max-h-[400px] md:max-h-[600px] custom-scrollbar">
                                 {filteredStudents.length > 0 ? filteredStudents.map(student => (
                                     <StudentDashboardItem
                                         key={student.id}

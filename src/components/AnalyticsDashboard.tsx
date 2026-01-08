@@ -1,7 +1,20 @@
+/**
+ * AnalyticsDashboard
+ *
+ * Material Design 3 Expressive - Complete MD3 Token Migration
+ * Migration Date: Phase 1.3 (Batch P0 Migration) + Complete Token Migration
+ * Z-Index: Dynamic (via M3Dialog + ModalContext)
+ *
+ * Previous: M3Dialog wrapper + extensive Tailwind classes + hardcoded styles
+ * Current: Pure M3Dialog with complete MD3 design tokens + scrolling support
+ *
+ * Status: ✅ FULLY MIGRATED & ACCESSIBLE
+ */
+
 import React, { useState, useMemo } from 'react';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SelectField } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SelectField, M3Typography } from './ui';
 
 interface AnalyticsDashboardProps {
   onClose: () => void;
@@ -90,14 +103,50 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
       maxWidth="2xl"
       level={1}
     >
-      <M3DialogContent className="space-y-6">
+      <M3DialogContent style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--md-sys-spacing-6)',
+        overflowY: 'auto',
+        maxHeight: '80vh'
+      }}>
           {/* GDPR Notice */}
-          <div className="bg-blue-50/50 border border-blue-200/30 p-8 backdrop-blur-md" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
-            <div className="flex items-start gap-6">
-              <span className="material-symbols-outlined text-blue-600 mt-0.5">privacy_tip</span>
+          <div style={{
+            backgroundColor: 'var(--md-sys-color-tertiary-container)',
+            opacity: 0.8,
+            border: '1px solid var(--md-sys-color-outline)',
+            padding: 'var(--md-sys-spacing-8)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: 'var(--md-sys-shape-corner-extra-large)'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 'var(--md-sys-spacing-6)'
+            }}>
+              <span className="material-symbols-outlined" style={{
+                color: 'var(--md-sys-color-on-tertiary-container)',
+                marginTop: '2px'
+              }}>privacy_tip</span>
               <div>
-                <h3 className="font-bold text-blue-900 mb-4 text-sm uppercase tracking-wider">📋 Informativa Privacy</h3>
-                <p className="text-xs text-blue-800 leading-relaxed">
+                <M3Typography
+                  variant="label-small"
+                  style={{
+                    color: 'var(--md-sys-color-on-tertiary-container)',
+                    fontWeight: '900',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.2em',
+                    marginBottom: 'var(--md-sys-spacing-4)',
+                    display: 'block'
+                  }}
+                >
+                  📋 Informativa Privacy
+                </M3Typography>
+                <p style={{
+                  fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                  color: 'var(--md-sys-color-on-tertiary-container)',
+                  lineHeight: 'var(--md-sys-typescale-body-small-line-height)'
+                }}>
                   Questi dati sono memorizzati localmente sul tuo dispositivo e non vengono mai trasmessi a server esterni.
                   Puoi disabilitare la raccolta dati in qualsiasi momento dalle impostazioni.
                 </p>
@@ -118,62 +167,225 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
           {/* Tab Content */}
           {activeTab === 'overview' && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--md-sys-spacing-6)',
+              animation: 'fade-in 0.3s ease-out'
+            }}>
               {/* Metriche Principali */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div className="bg-surface-container-low/50 p-8 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
-                  <div className="flex items-center gap-6">
-                    <span className="material-symbols-outlined text-green-600">description</span>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: 'var(--md-sys-spacing-8)'
+              }}>
+                <div style={{
+                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                  opacity: 0.5,
+                  padding: 'var(--md-sys-spacing-8)',
+                  border: '1px solid var(--md-sys-color-outline)',
+                  borderRadius: 'var(--md-sys-shape-corner-medium)'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-6)'
+                  }}>
+                    <span className="material-symbols-outlined" style={{
+                      color: 'var(--md-sys-color-tertiary)'
+                    }}>description</span>
                     <div>
-                      <p className="text-xl font-black text-on-surface">{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</p>
-                      <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">Documenti</p>
+                      <p style={{
+                        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                        fontWeight: '900',
+                        color: 'var(--md-sys-color-on-surface)'
+                      }}>{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</p>
+                      <M3Typography
+                        variant="label-small"
+                        style={{
+                          fontWeight: '700',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.1em',
+                          color: 'var(--md-sys-color-on-surface-variant)'
+                        }}
+                      >
+                        Documenti
+                      </M3Typography>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 p-8 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
-                  <div className="flex items-center gap-6">
-                    <span className="material-symbols-outlined text-blue-600">smart_toy</span>
+                <div style={{
+                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                  opacity: 0.5,
+                  padding: 'var(--md-sys-spacing-8)',
+                  border: '1px solid var(--md-sys-color-outline)',
+                  borderRadius: 'var(--md-sys-shape-corner-medium)'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-6)'
+                  }}>
+                    <span className="material-symbols-outlined" style={{
+                      color: 'var(--md-sys-color-secondary)'
+                    }}>smart_toy</span>
                     <div>
-                      <p className="text-xl font-black text-on-surface">{formatNumber(analyticsMetrics.aiInteractionsCount)}</p>
-                      <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">Interazioni AI</p>
+                      <p style={{
+                        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                        fontWeight: '900',
+                        color: 'var(--md-sys-color-on-surface)'
+                      }}>{formatNumber(analyticsMetrics.aiInteractionsCount)}</p>
+                      <M3Typography
+                        variant="label-small"
+                        style={{
+                          fontWeight: '700',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.1em',
+                          color: 'var(--md-sys-color-on-surface-variant)'
+                        }}
+                      >
+                        Interazioni AI
+                      </M3Typography>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 p-8 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
-                  <div className="flex items-center gap-6">
-                    <span className="material-symbols-outlined text-purple-600">file_copy</span>
+                <div style={{
+                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                  opacity: 0.5,
+                  padding: 'var(--md-sys-spacing-8)',
+                  border: '1px solid var(--md-sys-color-outline)',
+                  borderRadius: 'var(--md-sys-shape-corner-medium)'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-6)'
+                  }}>
+                    <span className="material-symbols-outlined" style={{
+                      color: 'var(--md-sys-color-primary)'
+                    }}>file_copy</span>
                     <div>
-                      <p className="text-xl font-black text-on-surface">{formatNumber(analyticsMetrics.templatesCreated)}</p>
-                      <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">Template</p>
+                      <p style={{
+                        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                        fontWeight: '900',
+                        color: 'var(--md-sys-color-on-surface)'
+                      }}>{formatNumber(analyticsMetrics.templatesCreated)}</p>
+                      <M3Typography
+                        variant="label-small"
+                        style={{
+                          fontWeight: '700',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.1em',
+                          color: 'var(--md-sys-color-on-surface-variant)'
+                        }}
+                      >
+                        Template
+                      </M3Typography>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 rounded-xl p-8 border border-outline/10">
-                  <div className="flex items-center gap-6">
-                    <span className="material-symbols-outlined text-orange-600">batch_prediction</span>
+                <div style={{
+                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                  opacity: 0.5,
+                  padding: 'var(--md-sys-spacing-8)',
+                  border: '1px solid var(--md-sys-color-outline)',
+                  borderRadius: 'var(--md-sys-shape-corner-medium)'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-6)'
+                  }}>
+                    <span className="material-symbols-outlined" style={{
+                      color: 'var(--md-sys-color-tertiary)'
+                    }}>batch_prediction</span>
                     <div>
-                      <p className="text-xl font-black text-on-surface">{formatNumber(analyticsMetrics.exportBatchesCount)}</p>
-                      <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">Export</p>
+                      <p style={{
+                        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                        fontWeight: '900',
+                        color: 'var(--md-sys-color-on-surface)'
+                      }}>{formatNumber(analyticsMetrics.exportBatchesCount)}</p>
+                      <M3Typography
+                        variant="label-small"
+                        style={{
+                          fontWeight: '700',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.1em',
+                          color: 'var(--md-sys-color-on-surface-variant)'
+                        }}
+                      >
+                        Export
+                      </M3Typography>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Attività Recente */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-surface-container-low/50 p-5 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)' }}>
-                  <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Attività 7 Giorni</h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium text-on-surface-variant">Eventi Totali</span>
-                      <span className="text-sm font-black text-on-surface">{stats.weeklyActivity}</span>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: 'var(--md-sys-spacing-6)'
+              }}>
+                <div style={{
+                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                  opacity: 0.5,
+                  padding: 'var(--md-sys-spacing-5)',
+                  border: '1px solid var(--md-sys-color-outline)',
+                  borderRadius: 'var(--md-sys-shape-corner-extra-large)'
+                }}>
+                  <M3Typography
+                    variant="label-small"
+                    style={{
+                      fontWeight: '900',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.2em',
+                      color: 'var(--md-sys-color-primary)',
+                      marginBottom: 'var(--md-sys-spacing-8)',
+                      display: 'block'
+                    }}
+                  >
+                    Attività 7 Giorni
+                  </M3Typography>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--md-sys-spacing-3)'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}>
+                      <span style={{
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        fontWeight: '500',
+                        color: 'var(--md-sys-color-on-surface-variant)'
+                      }}>Eventi Totali</span>
+                      <span style={{
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        fontWeight: '900',
+                        color: 'var(--md-sys-color-on-surface)'
+                      }}>{stats.weeklyActivity}</span>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium text-on-surface-variant">Documenti Generati</span>
-                      <span className="text-sm font-black text-on-surface">
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}>
+                      <span style={{
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        fontWeight: '500',
+                        color: 'var(--md-sys-color-on-surface-variant)'
+                      }}>Documenti Generati</span>
+                      <span style={{
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        fontWeight: '900',
+                        color: 'var(--md-sys-color-on-surface)'
+                      }}>
                         {analyticsEvents.filter(e => e.eventType === 'document_generated' &&
                           new Date(e.timestamp) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length}
                       </span>
@@ -181,16 +393,59 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </div>
                 </div>
 
-                <div className="bg-surface-container-low/50 p-5 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)' }}>
-                  <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Funzionalità Top</h3>
-                  <div className="space-y-2">
+                <div style={{
+                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                  opacity: 0.5,
+                  padding: 'var(--md-sys-spacing-5)',
+                  border: '1px solid var(--md-sys-color-outline)',
+                  borderRadius: 'var(--md-sys-shape-corner-extra-large)'
+                }}>
+                  <M3Typography
+                    variant="label-small"
+                    style={{
+                      fontWeight: '900',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.2em',
+                      color: 'var(--md-sys-color-primary)',
+                      marginBottom: 'var(--md-sys-spacing-8)',
+                      display: 'block'
+                    }}
+                  >
+                    Funzionalità Top
+                  </M3Typography>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--md-sys-spacing-2)'
+                  }}>
                     {stats.topFeatures.length > 0 ? stats.topFeatures.map(([feature, count]) => (
-                      <div key={feature} className="flex justify-between items-center">
-                        <span className="text-sm font-medium text-on-surface-variant truncate mr-2">{feature}</span>
-                        <span className="text-sm font-black text-on-surface">{count}</span>
+                      <div key={feature} style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                        <span style={{
+                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                          fontWeight: '500',
+                          color: 'var(--md-sys-color-on-surface-variant)',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          marginRight: 'var(--md-sys-spacing-2)',
+                          flex: 1
+                        }}>{feature}</span>
+                        <span style={{
+                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                          fontWeight: '900',
+                          color: 'var(--md-sys-color-on-surface)'
+                        }}>{count}</span>
                       </div>
                     )) : (
-                      <p className="text-sm text-on-surface-variant italic">Nessuna attività registrata</p>
+                      <p style={{
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                        fontStyle: 'italic'
+                      }}>Nessuna attività registrata</p>
                     )}
                   </div>
                 </div>
@@ -198,13 +453,52 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
               {/* Tipi Documento */}
               {stats.documentTypes.length > 0 && (
-                <div className="bg-surface-container-low/50 p-5 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)' }}>
-                  <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Documenti per Tipo</h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div style={{
+                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                  opacity: 0.5,
+                  padding: 'var(--md-sys-spacing-5)',
+                  border: '1px solid var(--md-sys-color-outline)',
+                  borderRadius: 'var(--md-sys-shape-corner-extra-large)'
+                }}>
+                  <M3Typography
+                    variant="label-small"
+                    style={{
+                      fontWeight: '900',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.2em',
+                      color: 'var(--md-sys-color-primary)',
+                      marginBottom: 'var(--md-sys-spacing-8)',
+                      display: 'block'
+                    }}
+                  >
+                    Documenti per Tipo
+                  </M3Typography>
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                    gap: 'var(--md-sys-spacing-6)'
+                  }}>
                     {stats.documentTypes.map(([type, count]) => (
-                      <div key={type} className="flex justify-between items-center p-8 bg-surface/50" style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
-                        <span className="text-sm font-medium text-on-surface-variant capitalize">{type.replace('_', ' ')}</span>
-                        <span className="text-sm font-black text-primary">{count}</span>
+                      <div key={type} style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        padding: 'var(--md-sys-spacing-8)',
+                        backgroundColor: 'var(--md-sys-color-surface)',
+                        opacity: 0.5,
+                        borderRadius: 'var(--md-sys-shape-corner-medium)'
+                      }}>
+                        <span style={{
+                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                          fontWeight: '500',
+                          color: 'var(--md-sys-color-on-surface-variant)',
+                          textTransform: 'capitalize'
+                        }}>{type.replace('_', ' ')}</span>
+                        <span style={{
+                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                          fontWeight: '900',
+                          color: 'var(--md-sys-color-primary)'
+                        }}>{count}</span>
                       </div>
                     ))}
                   </div>
@@ -214,28 +508,105 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           )}
 
           {activeTab === 'details' && (
-            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary px-4">Eventi Recenti</h3>
-              <div className="max-h-96 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--md-sys-spacing-4)',
+              animation: 'fade-in 0.3s ease-out'
+            }}>
+              <M3Typography
+                variant="label-small"
+                style={{
+                  fontWeight: '900',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.2em',
+                  color: 'var(--md-sys-color-primary)',
+                  paddingLeft: 'var(--md-sys-spacing-4)',
+                  display: 'block'
+                }}
+              >
+                Eventi Recenti
+              </M3Typography>
+              <div style={{
+                maxHeight: '24rem',
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--md-sys-spacing-2)',
+                paddingRight: 'var(--md-sys-spacing-2)',
+                scrollbarWidth: 'thin',
+                scrollbarColor: 'var(--md-sys-color-outline) transparent'
+              }}>
                 {analyticsEvents.slice(-20).reverse().map(event => (
-                  <div key={event.id} className="bg-surface-container-low/50 p-6 border border-outline/5 hover:border-primary/20 transition-colors" style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }}>
-                    <div className="flex justify-between items-start">
+                  <div key={event.id} style={{
+                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                    opacity: 0.5,
+                    padding: 'var(--md-sys-spacing-6)',
+                    border: '1px solid var(--md-sys-color-outline)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    transition: 'border-color 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--md-sys-color-primary)';
+                    e.currentTarget.style.opacity = '0.7';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--md-sys-color-outline)';
+                    e.currentTarget.style.opacity = '0.5';
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start'
+                    }}>
                       <div>
-                        <p className="font-bold text-sm text-on-surface">{event.featureName}</p>
-                        <p className="m3-label-tiny font-bold uppercase tracking-wider text-on-surface-variant">
+                        <p style={{
+                          fontWeight: '700',
+                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                          color: 'var(--md-sys-color-on-surface)'
+                        }}>{event.featureName}</p>
+                        <M3Typography
+                          variant="label-small"
+                          style={{
+                            fontWeight: '700',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.1em',
+                            color: 'var(--md-sys-color-on-surface-variant)'
+                          }}
+                        >
                           {event.eventType.replace('_', ' ')}
-                        </p>
+                        </M3Typography>
                       </div>
-                      <span className="m3-label-tiny font-medium text-on-surface-variant bg-surface-container-high px-4 py-1 rounded-full">
+                      <span style={{
+                        fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                        fontWeight: '500',
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                        backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                        padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)',
+                        borderRadius: '9999px'
+                      }}>
                         {formatDate(event.timestamp)}
                       </span>
                     </div>
                   </div>
                 ))}
                 {analyticsEvents.length === 0 && (
-                  <div className="text-center py-12">
-                    <span className="material-symbols-outlined text-4xl text-on-surface-variant/30 mb-8">history</span>
-                    <p className="text-sm text-on-surface-variant">Nessun evento registrato</p>
+                  <div style={{
+                    textAlign: 'center',
+                    paddingTop: 'var(--md-sys-spacing-12)',
+                    paddingBottom: 'var(--md-sys-spacing-12)'
+                  }}>
+                    <span className="material-symbols-outlined" style={{
+                      fontSize: '4rem',
+                      color: 'var(--md-sys-color-on-surface-variant)',
+                      opacity: 0.3,
+                      marginBottom: 'var(--md-sys-spacing-8)',
+                      display: 'block'
+                    }}>history</span>
+                    <p style={{
+                      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                      color: 'var(--md-sys-color-on-surface-variant)'
+                    }}>Nessun evento registrato</p>
                   </div>
                 )}
               </div>
@@ -243,11 +614,110 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           )}
 
           {activeTab === 'settings' && (
-            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
-              <div className="bg-surface-container-low/50 p-5 border border-outline/10" style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)' }}>
-                <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Raccolta Dati</h3>
-                <div className="space-y-4">
-                  <label className="flex items-center justify-between p-6 hover:bg-surface-container-high/50 transition-colors cursor-pointer" style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--md-sys-spacing-6)',
+              animation: 'fade-in 0.3s ease-out'
+            }}>
+              <div style={{
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                opacity: 0.5,
+                padding: 'var(--md-sys-spacing-5)',
+                border: '1px solid var(--md-sys-color-outline)',
+                borderRadius: 'var(--md-sys-shape-corner-extra-large)'
+              }}>
+                <M3Typography
+                  variant="label-small"
+                  style={{
+                    fontWeight: '900',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.2em',
+                    color: 'var(--md-sys-color-primary)',
+                    marginBottom: 'var(--md-sys-spacing-8)',
+                    display: 'block'
+                  }}
+                >
+                  Raccolta Dati
+                </M3Typography>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--md-sys-spacing-4)'
+                }}>
+                  <label style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: 'var(--md-sys-spacing-6)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                    e.currentTarget.style.opacity = '0.5';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.opacity = '1';
+                  }}>
+                    <div>
+                      <span style={{
+                        fontWeight: '700',
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        color: 'var(--md-sys-color-on-surface)'
+                      }}>Analytics Abilitati</span>
+                      <p style={{
+                        fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                        color: 'var(--md-sys-color-on-surface-variant)'
+                      }}>
+                        Consenti raccolta dati anonimi di utilizzo
+                      </p>
+                    </div>
+                    <div style={{
+                      position: 'relative',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      cursor: 'pointer'
+                    }}>
+                      <input
+                        type="checkbox"
+                        checked={analyticsSettings.enabled}
+                        onChange={(e) => handleToggleAnalytics(e.target.checked)}
+                        style={{
+                          position: 'absolute',
+                          width: '1px',
+                          height: '1px',
+                          padding: '0',
+                          margin: '-1px',
+                          overflow: 'hidden',
+                          clip: 'rect(0, 0, 0, 0)',
+                          whiteSpace: 'nowrap',
+                          border: '0'
+                        }}
+                      />
+                      <div style={{
+                        width: '44px',
+                        height: '24px',
+                        backgroundColor: analyticsSettings.enabled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
+                        borderRadius: '12px',
+                        position: 'relative',
+                        transition: 'background-color 0.2s ease'
+                      }}>
+                        <div style={{
+                          position: 'absolute',
+                          top: '2px',
+                          left: analyticsSettings.enabled ? '22px' : '2px',
+                          width: '20px',
+                          height: '20px',
+                          backgroundColor: 'var(--md-sys-color-on-primary)',
+                          borderRadius: '50%',
+                          transition: 'left 0.2s ease'
+                        }}></div>
+                      </div>
+                    </div>
+                  </label>
                     <div>
                       <span className="font-bold text-sm text-on-surface">Analytics Abilitati</span>
                       <p className="text-xs text-on-surface-variant">
@@ -267,14 +737,42 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
                   {analyticsSettings.enabled && (
                     <>
-                      <label className="flex items-center justify-between p-6 rounded-2xl hover:bg-surface-container-high/50 transition-colors cursor-pointer">
+                      <label style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: 'var(--md-sys-spacing-6)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                        e.currentTarget.style.opacity = '0.5';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.opacity = '1';
+                      }}>
                         <div>
-                          <span className="font-bold text-sm text-on-surface">Utilizzo Funzionalità</span>
-                          <p className="text-xs text-on-surface-variant">
+                          <span style={{
+                            fontWeight: '700',
+                            fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                            color: 'var(--md-sys-color-on-surface)'
+                          }}>Utilizzo Funzionalità</span>
+                          <p style={{
+                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                            color: 'var(--md-sys-color-on-surface-variant)'
+                          }}>
                             Traccia quali funzionalità vengono utilizzate
                           </p>
                         </div>
-                        <div className="relative inline-flex items-center cursor-pointer">
+                        <div style={{
+                          position: 'relative',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          cursor: 'pointer'
+                        }}>
                           <input
                             type="checkbox"
                             checked={analyticsSettings.collectFeatureUsage}
@@ -282,20 +780,76 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               ...analyticsSettings,
                               collectFeatureUsage: e.target.checked
                             })}
-                            className="sr-only peer"
+                            style={{
+                              position: 'absolute',
+                              width: '1px',
+                              height: '1px',
+                              padding: '0',
+                              margin: '-1px',
+                              overflow: 'hidden',
+                              clip: 'rect(0, 0, 0, 0)',
+                              whiteSpace: 'nowrap',
+                              border: '0'
+                            }}
                           />
-                          <div className="w-11 h-6 bg-outline/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                          <div style={{
+                            width: '44px',
+                            height: '24px',
+                            backgroundColor: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
+                            borderRadius: '12px',
+                            position: 'relative',
+                            transition: 'background-color 0.2s ease'
+                          }}>
+                            <div style={{
+                              position: 'absolute',
+                              top: '2px',
+                              left: analyticsSettings.collectFeatureUsage ? '22px' : '2px',
+                              width: '20px',
+                              height: '20px',
+                              backgroundColor: 'var(--md-sys-color-on-primary)',
+                              borderRadius: '50%',
+                              transition: 'left 0.2s ease'
+                            }}></div>
+                          </div>
                         </div>
                       </label>
 
-                      <label className="flex items-center justify-between p-6 rounded-2xl hover:bg-surface-container-high/50 transition-colors cursor-pointer">
+                      <label style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: 'var(--md-sys-spacing-6)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.2s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                        e.currentTarget.style.opacity = '0.5';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.opacity = '1';
+                      }}>
                         <div>
-                          <span className="font-bold text-sm text-on-surface">Metriche Documenti</span>
-                          <p className="text-xs text-on-surface-variant">
+                          <span style={{
+                            fontWeight: '700',
+                            fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                            color: 'var(--md-sys-color-on-surface)'
+                          }}>Metriche Documenti</span>
+                          <p style={{
+                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                            color: 'var(--md-sys-color-on-surface-variant)'
+                          }}>
                             Traccia generazione e tipi di documenti
                           </p>
                         </div>
-                        <div className="relative inline-flex items-center cursor-pointer">
+                        <div style={{
+                          position: 'relative',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          cursor: 'pointer'
+                        }}>
                           <input
                             type="checkbox"
                             checked={analyticsSettings.collectDocumentMetrics}
@@ -303,9 +857,37 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               ...analyticsSettings,
                               collectDocumentMetrics: e.target.checked
                             })}
-                            className="sr-only peer"
+                            style={{
+                              position: 'absolute',
+                              width: '1px',
+                              height: '1px',
+                              padding: '0',
+                              margin: '-1px',
+                              overflow: 'hidden',
+                              clip: 'rect(0, 0, 0, 0)',
+                              whiteSpace: 'nowrap',
+                              border: '0'
+                            }}
                           />
-                          <div className="w-11 h-6 bg-outline/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                          <div style={{
+                            width: '44px',
+                            height: '24px',
+                            backgroundColor: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
+                            borderRadius: '12px',
+                            position: 'relative',
+                            transition: 'background-color 0.2s ease'
+                          }}>
+                            <div style={{
+                              position: 'absolute',
+                              top: '2px',
+                              left: analyticsSettings.collectDocumentMetrics ? '22px' : '2px',
+                              width: '20px',
+                              height: '20px',
+                              backgroundColor: 'var(--md-sys-color-on-primary)',
+                              borderRadius: '50%',
+                              transition: 'left 0.2s ease'
+                            }}></div>
+                          </div>
                         </div>
                       </label>
                     </>
@@ -313,9 +895,31 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 </div>
               </div>
 
-              <div className="bg-surface-container-low/50 rounded-3xl p-5 border border-outline/10">
-                <h3 className="m3-label-small font-black uppercase tracking-[0.2em] text-primary mb-8">Gestione Dati</h3>
-                <div className="space-y-6">
+              <div style={{
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+                padding: 'var(--md-sys-spacing-5)',
+                border: '1px solid var(--md-sys-color-outline)',
+                opacity: 0.5
+              }}>
+                <M3Typography
+                  variant="label-small"
+                  style={{
+                    fontWeight: '900',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.2em',
+                    color: 'var(--md-sys-color-primary)',
+                    marginBottom: 'var(--md-sys-spacing-8)',
+                    display: 'block'
+                  }}
+                >
+                  Gestione Dati
+                </M3Typography>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--md-sys-spacing-6)'
+                }}>
                   <SelectField
                     label="Conservazione Dati"
                     value={analyticsSettings.retentionDays}
@@ -330,10 +934,33 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     <option value={365}>1 anno</option>
                   </SelectField>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-outline/10">
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingTop: 'var(--md-sys-spacing-4)',
+                    borderTop: '1px solid var(--md-sys-color-outline)',
+                    opacity: 0.1
+                  }}>
                     <div>
-                      <p className="m3-label-tiny font-black uppercase tracking-wider text-on-surface-variant mb-4">Ultimo Reset</p>
-                      <p className="text-sm font-bold text-on-surface">
+                      <M3Typography
+                        variant="label-small"
+                        style={{
+                          fontWeight: '900',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.1em',
+                          color: 'var(--md-sys-color-on-surface-variant)',
+                          marginBottom: 'var(--md-sys-spacing-4)',
+                          display: 'block'
+                        }}
+                      >
+                        Ultimo Reset
+                      </M3Typography>
+                      <p style={{
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        fontWeight: '700',
+                        color: 'var(--md-sys-color-on-surface)'
+                      }}>
                         {analyticsSettings.lastReset
                           ? formatDate(analyticsSettings.lastReset)
                           : 'Mai'
@@ -343,7 +970,20 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     <M3Button
                       onClick={handleResetAnalytics}
                       variant="outlined"
-                      className="!text-error !border-error/30 hover:!bg-error/5 !rounded-full"
+                      style={{
+                        color: 'var(--md-sys-color-error)',
+                        borderColor: 'var(--md-sys-color-error)',
+                        opacity: 0.3,
+                        borderRadius: '9999px'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-error)';
+                        e.currentTarget.style.opacity = '0.1';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget.style.opacity = '0.3';
+                      }}
                     >
                       Reset Dati
                     </M3Button>

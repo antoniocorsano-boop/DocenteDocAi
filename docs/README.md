@@ -1,67 +1,121 @@
+# DocenteDoc AI - Documentazione Tecnica
 
-# OrarioDoc AI: L'Ecosistema Didattico Intelligente
+> **Documentazione Ufficiale** - Sistema di documentazione document-driven per il progetto DocenteDoc AI
 
-> Nota: la guida attiva per design, sviluppo e test è [.github/copilot-instructions_v2.md](../.github/copilot-instructions_v2.md). Usa quella come riferimento (MD3 custom-first, token-only, Tailwind solo layout, file protetti, coverage ≥80%).
+## 📋 Panoramica
 
-Benvenuti nella documentazione ufficiale di **OrarioDoc AI**. L'applicazione definitiva per il docente moderno: privacy assoluta, design all'avanguardia e intelligenza artificiale integrata.
+Questa è la documentazione tecnica ufficiale del progetto **DocenteDoc AI**, organizzata secondo principi di **document-driven operativity**. La documentazione è strutturata per supportare lo sviluppo, deployment e manutenzione del progetto attraverso documenti viventi che evolvono con il codice.
 
----
+### 🎯 Principi Organizzativi
 
-## 🎯 La Nostra Filosofia: "Docente Digitale Sereno"
-
-### 🛡️ Privacy-First & Cloud Personale
-*   **Local-First:** Voti, registro e anagrafica vivono nel `LocalStorage`.
-*   **Hybrid Storage:** File pesanti (KB) in `IndexedDB`.
-*   **Cloud Backup:** Sync sicuro su **Google Drive** personale (OAuth 2.0).
-    *   *Nota:* Il backup crea un archivio completo (`.json`). I file non vengono sparsi nel Drive, mantenendo il cloud dell'utente ordinato.
-
-### 2. Design System "M3 Expressive"
-*   **Identità "Geometric Touch":** Logo vettoriale interattivo.
-*   **Theme Studio AI:** Generatore temi basato su prompt (es. "Foresta", "Cyberpunk").
-*   **Zero-FOUC:** Caricamento istantaneo del tema senza sfarfallii visivi.
-
-### 3. Workflow Intelligente
-*   **Centro Operativo (Action Hub):** Un pannello unificato (icona ⚡) che raccoglie tutti i processi, divisi per contesto.
-*   **Suggestion Engine:** L'app analizza lo stato del sistema e suggerisce la prossima azione logica tramite badge di notifica.
-*   **Gamification:** Sistema di badge "Traguardi" per guidare i nuovi utenti passo dopo passo.
+- **Document-Driven Development**: Ogni decisione tecnica è documentata e tracciata
+- **Living Documentation**: I documenti operativi vengono aggiornati con il codice
+- **Archive Intelligente**: Materiale storico preservato ma separato dall'operativo
+- **Navigazione Strutturata**: Indici chiari e cross-referenze tra documenti
 
 ---
 
-## 📚 Funzionalità Principali
+## 📚 Documenti Operativi Principali
 
-### ⚡ Setup & Onboarding
-*   **Wizard "Primi Passi":** Configurazione guidata (Nome, Scuola, Prima Classe).
-*   **Centro Operativo:** Accesso centralizzato a tutte le procedure complesse (Importazione, Wizard Annuale).
+| Documento | Scopo | Stato |
+|-----------|-------|-------|
+| [`DEVELOPMENT.md`](./DEVELOPMENT.md) | Guida sviluppo, workflow e best practices | 🚧 In creazione |
+| [`ARCHITECTURE.md`](./ARCHITECTURE.md) | Architettura sistema e design patterns | 📋 Pianificato |
+| [`DEPLOYMENT.md`](./DEPLOYMENT.md) | Procedure deployment e configurazione | 📋 Pianificato |
+| [`TESTING.md`](./TESTING.md) | Strategia testing e coverage | 📋 Pianificato |
+| [`MD3_GUIDE.md`](./MD3_GUIDE.md) | Guida Material Design 3 e tema system | 📋 Pianificato |
 
-### 🗓️ Orario & Aula
-*   **Smart Matrix:** Orario settimanale/giornaliero.
-*   **Aula Mode:** Strumenti live (Timer, Estrazione, Note Vocali).
-*   **Assistente Vocale Live:** Interazione a mani libere con supporto iOS/Safari ottimizzato.
+### 🔗 Documenti di Supporto
 
-### 🧠 Progettazione
-*   **Knowledge Base:** RAG su documenti PDF/DOCX con indicizzazione locale.
-*   **Timeline Gantt:** Pianificazione visiva annuale dinamica.
-*   **Studio AI:** Generatore di Verifiche, Immagini e Materiali.
-
-### 🎓 Valutazione & Analytics
-*   **Analytics Hub:** Dashboard con grafici Trend e Radar competenze.
-*   **Valutazione Unificata:** Voto + Competenza in un click.
-*   **Teacher Inbox:** Gestione centralizzata dei compiti consegnati dagli studenti.
-
-### 🎒 Portale Studente
-*   **Accesso Semplificato:** Login senza password basato sull'anagrafica di classe.
-*   **Diario Intelligente:** Filtra automaticamente i compiti solo delle lezioni svolte.
-*   **Upload:** Consegna elaborati digitali direttamente al docente.
+- [**Root README**](../README.md) - Panoramica progetto e quick start
+- [**Contributing Guide**](../CONTRIBUTING.md) - Linee guida contributi
+- [**Changelog**](../CHANGELOG.md) - Cronologia modifiche versione
 
 ---
 
-## 🚀 Per Iniziare
+## 📁 Struttura Repository
 
-1.  Segui il **Wizard di Benvenuto**.
-2.  Apri il **Centro Operativo** (⚡) e osserva i suggerimenti.
-3.  Importa gli studenti o configura l'orario.
-4.  Attiva il **Backup Drive** nelle impostazioni per la sicurezza dei dati.
+```
+docs/
+├── README.md              # Questo file - Indice principale
+├── DEVELOPMENT.md         # Guida sviluppo operativo
+├── ARCHITECTURE.md        # Architettura e design
+├── DEPLOYMENT.md          # Deployment e configurazione
+├── TESTING.md             # Testing e qualità
+├── MD3_GUIDE.md           # Guida Material Design 3
+└── archive/               # Archivio storico organizzato
+    ├── 2025/             # Documenti 2025 per categoria
+    │   ├── phases/       # Report fasi progetto
+    │   ├── lint-audit/   # Audit qualità codice
+    │   ├── md3-migration/# Migrazione MD3
+    │   ├── deployment/   # Deployment storici
+    │   └── completion-reports/ # Report completamento
+    └── 2026/             # Documenti 2026
+```
 
 ---
 
-*Versione: 4.0.0 RC1 (Release Candidate)*
+## 🔄 Workflow Document-Driven
+
+### 📝 Processo di Sviluppo
+
+1. **Planning**: Consultare `DEVELOPMENT.md` per workflow attivi
+2. **Implementazione**: Seguire patterns in `ARCHITECTURE.md`
+3. **Testing**: Applicare strategia in `TESTING.md`
+4. **Deployment**: Usare procedure in `DEPLOYMENT.md`
+5. **Documentazione**: Aggiornare documenti viventi
+
+### 🔍 Ricerca e Consultazione
+
+- **Documenti Attivi**: Usare sempre la versione in `docs/` (non archivio)
+- **Storico**: Consultare `docs/archive/` per evoluzione e decisioni passate
+- **Cross-Reference**: Ogni documento linka agli altri per contesto completo
+
+### 📊 Metriche e Quality Gates
+
+- **Coverage Testing**: ≥80% (tracciato in `TESTING.md`)
+- **Lint Quality**: Zero violazioni critiche (audit in `lint-audit/`)
+- **Bundle Size**: Monitorato e documentato (`BUNDLE_SIZE_METRICS.md`)
+- **Performance**: Lighthouse PWA audit obbligatorio
+
+---
+
+## 🏗️ Principi Architetturali
+
+### 🎨 Design System
+- **Material Design 3**: Implementazione custom-first
+- **Token-Only Approach**: No CSS custom, solo design tokens
+- **Tailwind Layout-Only**: Tailwind solo per layout, MD3 per componenti
+
+### 🔒 Sicurezza e Privacy
+- **Local-First Storage**: Dati in LocalStorage/IndexedDB
+- **OAuth 2.0 Google Drive**: Backup sicuro personale
+- **Zero External Dependencies**: Privacy massima
+
+### 🚀 Performance
+- **Zero FOUC**: Caricamento tema istantaneo
+- **Bundle Optimization**: Code splitting e lazy loading
+- **PWA Ready**: Service worker e offline capability
+
+---
+
+## 📞 Contatti e Supporto
+
+### 👥 Team di Sviluppo
+- **Tech Lead**: [Nome] - Architettura e performance
+- **UX Lead**: [Nome] - Design system e user experience
+- **QA Lead**: [Nome] - Testing e quality assurance
+
+### 📮 Canali di Comunicazione
+- **Issues**: GitHub Issues per bug e feature requests
+- **Discussions**: GitHub Discussions per domande generali
+- **Documentation**: PR su documentazione benvenute
+
+### 🔧 Troubleshooting
+- **Build Issues**: Consultare `DEVELOPMENT.md` sezione troubleshooting
+- **Deployment Problems**: Vedere `DEPLOYMENT.md` guide operative
+- **Design Inconsistencies**: Riferimento `MD3_GUIDE.md`
+
+---
+
+*Questa documentazione è viva e si evolve con il progetto. Ultimo aggiornamento: $(date '+%Y-%m-%d')*

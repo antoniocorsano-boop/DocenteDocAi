@@ -2,13 +2,16 @@
 
 ## Purpose
 
-This document defines the **technical, architectural, and design intent** of the DocenteDoc AI project.
+This document defines the **technical, architectural, and design intent**
+of the DocenteDoc AI project.
 
 It is the **source of truth** for:
+
 - AI coding agents (GitHub Copilot, VS Code Agent Mode)
 - Human contributors and reviewers
 
-Clarity, consistency, and explainability are prioritized over cleverness or premature optimization.
+Clarity, consistency, and explainability are prioritized over cleverness or
+premature optimization.
 
 ---
 
@@ -16,11 +19,11 @@ Clarity, consistency, and explainability are prioritized over cleverness or prem
 
 **DocenteDoc AI** is a Progressive Web App (PWA) designed for Italian teachers.
 
-The application follows a **Local-First architecture**:
-- Sensitive data remains on the user’s device
+The application follows a **Local-First architecture**:- Sensitive data remains on the user’s device
 - Cloud services are optional and user-controlled (BYOC)
 
-The project is both a real application and a didactic artifact.
+The project is both a real application and a
+didactic artifact.
 
 ---
 
@@ -36,17 +39,20 @@ The project is both a real application and a didactic artifact.
 ## Tech Stack (Non-negotiable)
 
 ### Core
-- **React 18** – Functional components only  
-- **TypeScript** – Strict mode enabled  
-- **Vite** – Build tool and dev server  
-- **Zustand** – Centralized state management  
+
+- **React 18** – Functional components only
+- **TypeScript** – Strict mode enabled
+- **Vite** – Build tool and dev server
+- **Zustand** – Centralized state management
 
 ### State Management Rules
-- Zustand is the only state management solution  
-- No Redux  
-- No React Context for application state  
+
+- Zustand is the only state management solution
+- No Redux
+- No React Context for application state
 
 Example:
+
 ```ts
 const students = useDataStore(state => state.studenti);
 ```
@@ -163,6 +169,43 @@ Tailwind is allowed **ONLY** for:
 - Transitional or legacy styles must be documented
 
 ---
+
+---
+
+## Design System Enforcement (Mandatory)
+
+The visual system is enforced through **base UI components and design tokens**.
+
+### Non-negotiable Rules
+
+1. **No page-level component may define:**
+   - colors
+   - background surfaces
+   - border-radius
+   - elevation / shadows  
+   These decisions must live in **base UI components** (e.g. `M3SurfaceCard`, `M3Button`) or in **design tokens**.
+
+2. **Repeated visual patterns MUST be extracted**
+   If the same surface/layout/style appears in more than one page, a shared base component is required.
+
+3. **Pages compose, components decide**
+   Pages are responsible for:
+   - layout
+   - spacing between blocks
+   - navigation flow  
+   Components are responsible for:
+   - look & feel
+   - interaction states
+   - visual consistency.
+
+4. **When in doubt, do not invent**
+   If a visual or interaction pattern is unclear:
+   - stop
+   - explain the uncertainty
+   - propose alternatives  
+   Never introduce a new style ad-hoc.
+
+Violation of these rules is considered a design regression.
 
 ## Login Screen – Mandatory Requirements
 

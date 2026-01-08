@@ -68,7 +68,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                 <div>
                                     <span className="agenda-event-date">{new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}</span>
                                     <h4 className="agenda-event-title">{test.materia}</h4>
-                                    <p className="agenda-event-subtitle truncate max-w-[150px]">{test.argomento || test.tipo}</p>
+                                    <p className="agenda-event-subtitle truncate max-w-[120px] md:max-w-[150px]">{test.argomento || test.tipo}</p>
                                 </div>
                                 <div className="agenda-event-class">{test.className}</div>
                             </div>

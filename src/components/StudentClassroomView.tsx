@@ -265,7 +265,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                                 <p className="text-[10px] font-medium text-on-surface-variant opacity-60">{new Date(sub.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                                             </div>
                                             <div className="flex flex-col items-end gap-8">
-                                                <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${sub.status === 'graded' ? 'bg-green-500/10 text-green-600' : 'bg-amber-500/10 text-amber-600'}`}>
+                                                <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${sub.status === 'graded' ? 'bg-secondary-container/50 text-on-secondary-container' : 'bg-tertiary-container/50 text-on-tertiary-container'}`}>
                                                     {sub.status === 'graded' ? 'Valutato' : 'In attesa'}
                                                 </span>
                                                 {sub.teacherFeedback && <span className="text-xs font-black text-primary">Voto: {sub.teacherFeedback}</span>}

@@ -1,4 +1,5 @@
 import React from 'react';
+import M3SurfaceCard from './M3SurfaceCard';
 
 interface M3ExpressiveCardProps {
     icon: string;
@@ -11,34 +12,10 @@ interface M3ExpressiveCardProps {
     ariaLabel?: string;
 }
 
-const colorTokens: Record<string, { bg: string; fg: string; accent?: string }> = {
-    primary: {
-        bg: 'var(--sys-primary-container)',
-        fg: 'var(--sys-on-primary-container)',
-        accent: 'var(--sys-primary)'
-    },
-    secondary: {
-        bg: 'var(--sys-secondary-container)',
-        fg: 'var(--sys-on-secondary-container)',
-        accent: 'var(--sys-secondary)'
-    },
-    tertiary: {
-        bg: 'var(--sys-tertiary-container)',
-        fg: 'var(--sys-on-tertiary-container)',
-        accent: 'var(--sys-tertiary)'
-    },
-    surface: {
-        bg: 'var(--sys-surface-container-high)',
-        fg: 'var(--sys-on-surface)',
-        accent: 'var(--sys-primary)'
-    },
-    surfaceVariant: {
-        bg: 'var(--sys-surface-container-low)',
-        fg: 'var(--sys-on-surface-variant)',
-        accent: 'var(--sys-secondary)'
-    }
-};
-
+/**
+ * M3ExpressiveCard - Expressive card component built on M3SurfaceCard base.
+ * Provides enhanced visual styling with glass effects and decorative elements.
+ */
 const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
     icon,
     title,
@@ -49,11 +26,22 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
     children,
     ariaLabel,
 }) => {
-    const palette = colorTokens[color] || { bg: color, fg: 'inherit', accent: 'var(--sys-primary)' };
+    const palette = {
+        primary: { bg: 'var(--sys-primary-container)', fg: 'var(--sys-on-primary-container)', accent: 'var(--sys-primary)' },
+        secondary: { bg: 'var(--sys-secondary-container)', fg: 'var(--sys-on-secondary-container)', accent: 'var(--sys-secondary)' },
+        tertiary: { bg: 'var(--sys-tertiary-container)', fg: 'var(--sys-on-tertiary-container)', accent: 'var(--sys-tertiary)' },
+        surface: { bg: 'var(--sys-surface-container-high)', fg: 'var(--sys-on-surface)', accent: 'var(--sys-primary)' },
+        surfaceVariant: { bg: 'var(--sys-surface-container-low)', fg: 'var(--sys-on-surface-variant)', accent: 'var(--sys-secondary)' }
+    }[color] || { bg: color, fg: 'inherit', accent: 'var(--sys-primary)' };
+
     const isClickable = Boolean(onClick);
 
     return (
-        <div
+        <M3SurfaceCard
+            glass
+            expressive
+            color={color as any}
+            className={`p-8 md:p-12 transition-all duration-300 flex flex-col min-h-[160px] md:min-h-[180px] ${isClickable ? 'cursor-pointer hover:shadow-xl hover:shadow-black/10 hover:border-white/30 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2' : ''} ${className}`}
             onClick={onClick}
             onKeyDown={(e) => {
                 if (onClick && (e.key === 'Enter' || e.key === ' ')) {
@@ -64,17 +52,6 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             role={isClickable ? 'button' : undefined}
             tabIndex={isClickable ? 0 : undefined}
             aria-label={ariaLabel || (isClickable ? `${title}: ${description}` : undefined)}
-            className={`
-                relative overflow-hidden p-8 md:p-12 transition-all duration-300 flex flex-col min-h-[160px] md:min-h-[180px]
-                ${isClickable ? 'cursor-pointer hover:shadow-xl hover:shadow-black/10 hover:border-white/30 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2' : ''}
-                aura-glass border border-white/10 backdrop-blur-xl
-                ${className}
-            `}
-            style={{
-                backgroundColor: palette.bg,
-                color: palette.fg,
-                borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))'
-            }}
         >
             {/* Enhanced decorative background with gradient */}
             <div
@@ -102,7 +79,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 <p className="m3-body-large opacity-80 leading-relaxed font-medium line-clamp-3">{description}</p>
                 {children && <div className="mt-4 pt-3 border-t border-white/10">{children}</div>}
             </div>
-        </div>
+        </M3SurfaceCard>
     );
 };
 

@@ -348,7 +348,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                             <p className="font-medium m3-body-small truncate">{doc.title}</p>
                             <p className="m3-label-small text-on-surface-variant truncate">{doc.subtitle}</p>
                             <span className={`inline-block px-4 py-0.5 m3-label-small rounded-full mt-4 ${
-                              doc.format === 'pdf' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'
+                              doc.format === 'pdf' ? 'bg-error-container text-on-error-container' : 'bg-primary-container text-on-primary-container'
                             }`}>
                               {doc.format.toUpperCase()}
                             </span>

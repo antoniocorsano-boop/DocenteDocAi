@@ -113,10 +113,10 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
 
   const getTypeColor = (type: DocumentTemplate['type']) => {
     switch (type) {
-      case 'student_profile': return 'bg-blue-100 text-blue-800';
-      case 'lesson_plan': return 'bg-green-100 text-green-800';
-      case 'uda': return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'student_profile': return 'bg-primary-container text-on-primary-container';
+      case 'lesson_plan': return 'bg-secondary-container text-on-secondary-container';
+      case 'uda': return 'bg-tertiary-container text-on-tertiary-container';
+      default: return 'bg-surface-container text-on-surface-container';
     }
   };
 

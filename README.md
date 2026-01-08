@@ -1,53 +1,106 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # DocenteDoc AI
 
-> Nota: per regole di design, codice, test e collaborazione segui la fonte canonica [.github/copilot-instructions_v2.md](.github/copilot-instructions_v2.md) (MD3 custom-first, token-only, Tailwind solo layout, coverage ≥80%, file protetti).
+> **Assistente AI intelligente per docenti italiani** - Local-First Architecture con Google Gemini
 
-Assistente AI per docenti basato su Google Gemini e architettura Local-First.
+[![Material Design 3](https://img.shields.io/badge/Material%20Design%203-Compliant-6750A4)](docs/MD3_GUIDE.md)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 
-## ✨ Aura Design System (M3 Expressive)
-
-L'applicazione utilizza il nuovo **Aura Design System**, un'evoluzione di Material Design 3 focalizzata sull'espressività e la chiarezza visiva:
-
-- **Glassmorphism**: Utilizzo estensivo di `backdrop-blur-2xl` e trasparenze per un'interfaccia leggera e moderna.
-- **Aura Aesthetic**: Palette cromatica dinamica con gradienti soffusi e "Aura Ornaments" (glow effects).
-- **High-Radius Corners**: Angoli arrotondati fino a `48px` per un look organico e accogliente.
-- **Centralized UI**: Tutti i componenti core sono centralizzati in `src/components/ui/` per massima coerenza.
-
-## Requisiti
-
-- Node.js 18+
-- npm o yarn
-
-## Installazione
+## 🚀 Quick Start
 
 ```bash
+# Install dependencies
 npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
-## Configurazione
+## 📚 Documentazione
 
-Crea un file `.env` con le seguenti variabili:
+### 🏗️ **Documentazione Operativa**
+- **[Guida Sviluppo](docs/DEVELOPMENT.md)** - Setup, workflow, best practices
+- **[Architettura](docs/ARCHITECTURE.md)** - Design system, componenti, struttura
+- **[Deployment](docs/DEPLOYMENT.md)** - CI/CD, ambienti, rilascio
+- **[Testing](docs/TESTING.md)** - Unit, integration, visual regression
+- **[Material Design 3](docs/MD3_GUIDE.md)** - Guida completa MD3 implementation
 
-```env
-# API Keys
-OPENAI_API_KEY=your_openai_key
+### 🛠️ **Guide Specializzate**
+- **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Risoluzione problemi comuni
+- **[Contributing](CONTRIBUTING.md)** - Come contribuire al progetto
+- **[Roadmap](docs/ROADMAP.md)** - Pianificazione futura
 
-# Flowise
-FLOWISE_USERNAME=admin
-FLOWISE_PASSWORD=your_password
-```
+### 📖 **Archivio Storico**
+- **[Documentazione 2025](docs/archive/2025/)** - Fasi di sviluppo completate
+- **[Report Completamento](docs/archive/2025/completion-reports/)** - Report tecnici archiviati
 
-## Avvio
+## 🎨 Design System
+
+**Aura Design System** - Material Design 3 Expressive implementation:
+
+- **Glassmorphism**: Backdrop blur effects per interfaccia moderna
+- **Dynamic Colors**: Palette adattiva basata sul tema
+- **High-Radius Corners**: Angoli arrotondati fino a 48px
+- **Centralized Components**: Tutti i componenti in `src/components/ui/`
+
+## 🏛️ Architettura
+
+- **Local-First**: Dati prioritariamente locali con sync opzionale
+- **Component-Driven**: Sviluppo basato su componenti riutilizzabili
+- **Type-Safe**: TypeScript end-to-end con controlli rigorosi
+- **Performance-First**: Code splitting, lazy loading, ottimizzazioni
+
+## 📋 Requisiti
+
+- **Node.js**: 18+
+- **Package Manager**: npm/yarn
+- **Browser**: Chrome 90+, Firefox 88+, Safari 14+
+
+## 🔧 Configurazione
 
 ```bash
-npm start
+# Copia template environment
+cp .env.example .env
+
+# Configura API keys
+# OPENAI_API_KEY=your_key
+# FLOWISE_USERNAME=admin
+# FLOWISE_PASSWORD=your_password
 ```
 
-### Enabling Google Sign-In (GSI) in development
+## 🎯 Workflow Sviluppo
+
+```bash
+# Sviluppo attivo
+npm run dev
+
+# Testing completo
+npm run test:ci
+
+# Audit MD3 compliance
+npm run md3:audit
+
+# Build produzione
+npm run build
+```
+
+## 📞 Supporto
+
+- **📖 [Documentazione Completa](docs/)**
+- **🐛 [Issue Tracker](https://github.com/your-repo/issues)**
+- **💬 [Discussions](https://github.com/your-repo/discussions)**
+
+## 📄 Licenza
+
+ISC License - vedere [LICENSE](LICENSE) per dettagli.
+
+---
+
+**DocenteDoc AI** - Trasformiamo l'insegnamento con l'intelligenza artificiale.
 By default the app **skips** loading Google Identity (GSI) in development to avoid noisy 403s when the OAuth Client ID is not configured for localhost. To enable GSI in dev set the following in a local `.env` file (not checked into git):
 
 ```bash

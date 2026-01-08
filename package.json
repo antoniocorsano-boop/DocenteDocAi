@@ -11,10 +11,14 @@
     "test:unit": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest --run",
+    "test:visual": "playwright test __tests__/visual-regression/",
+    "test:visual:update": "playwright test __tests__/visual-regression/ --update-snapshots",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "lint:heal": "node scripts/lint-heal.js",
     "lint:metrics": "node scripts/lint-metrics.js",
+    "md3:audit": "node md3-audit.js audit ./src/components",
+    "md3:check": "node md3-audit.js check ./src/components 70",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -98,6 +102,9 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "eslint"
+    ],
+    "src/components/**/*.{ts,tsx}": [
+      "node md3-audit.js check ./src/components 70"
     ],
     "*.{json,md}": [
       "prettier --write"

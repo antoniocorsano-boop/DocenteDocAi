@@ -136,7 +136,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                 <div className="flex items-start justify-between gap-8 mb-6">
                                     <div className="flex-grow min-w-0">
                                         <div className="flex items-center gap-8 mb-4">
-                                            <span className="m3-label-tiny font-bold uppercase tracking-wider bg-primary-container text-on-primary-container px-4 py-0.5 rounded-md truncate max-w-[100px]">
+                                            <span className="m3-label-tiny font-bold uppercase tracking-wider bg-primary-container text-on-primary-container px-4 py-0.5 rounded-md truncate max-w-[120px] md:max-w-[150px]">
                                                 {summary.competency.codice}
                                             </span>
                                             <span className="text-xs text-on-surface-variant">

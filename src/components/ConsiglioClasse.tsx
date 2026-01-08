@@ -295,7 +295,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </td>
                                 </>}
                                 {expandedColumns.giudizio &&
-                                <td className={`min-w-[300px] ${getCellClassName('giudizio')}`}>
+                                <td className={`min-w-[200px] md:min-w-[300px] ${getCellClassName('giudizio')}`}>
                                     <div className='flex items-start gap-2'>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)} className="form-textarea !py-1 flex-grow" rows={2} placeholder="Giudizio sintetico..."></textarea>
                                         <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} className="rounded-lg" title="Suggerisci con AI" type="button">

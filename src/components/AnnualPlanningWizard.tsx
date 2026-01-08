@@ -541,7 +541,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                     {step === 'document' && (
                         <div className="space-y-6 flex flex-col items-center justify-center h-full text-center animate-in zoom-in-95">
-                            <div className="w-20 h-20 rounded-full bg-green-100 text-green-700 flex items-center justify-center mb-8"><span className="material-symbols-outlined text-5xl">check_circle</span></div>
+                            <div className="w-20 h-20 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-8"><span className="material-symbols-outlined text-5xl">check_circle</span></div>
                             <h3 className="m3-headline-small">Pianificazione Completata!</h3>
                             <M3Button variant="filled" onClick={handleGenerateDoc} disabled={!!processingStatus} className="flex items-center gap-8" title="Scarica il documento finale">
                                 {processingStatus ? <AiThinkingGem size="small" inline text={processingStatus} /> : 'Genera Documento Programmazione'}
