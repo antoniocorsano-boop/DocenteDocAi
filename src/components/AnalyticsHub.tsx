@@ -1,3 +1,8 @@
+/**
+ * AnalyticsHub.tsx
+ * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
+ */
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
 import { LineChart, RadarChart } from './charts/AdvancedCharts';
@@ -82,11 +87,11 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
     if (userClasses.length === 0) {
         return (
-            <div className="page-layout max-w-6xl mx-auto w-full px-4">
+            <div className="analytics-hub-empty-layout">
                 <SectionHeader 
                     title="Analytics Hub"
                     subtitle="Analisi dati classe e studente."
-                    className="py-12 text-center"
+                    className="analytics-hub-header"
                 />
                 <EmptyState title="Nessuna classe" description="Configura le tue classi nelle Impostazioni." icon="bar_chart_off" />
             </div>
@@ -94,16 +99,16 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
     }
 
     return (
-        <div className="page-layout max-w-6xl mx-auto w-full px-4 pb-24">
+        <div className="analytics-hub-main-layout">
             <SectionHeader 
                 title="Analytics Hub"
                 subtitle="Analisi dati classe e studente."
-                className="py-12 text-center"
+                className="analytics-hub-header"
             />
 
             {/* Responsive Card: Filters */}
-            <InfoCard variant="tonal" className="p-6 mb-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 items-end">
+            <InfoCard variant="tonal" className="analytics-hub-filters-card">
+                <div className="analytics-hub-filters-grid">
                     <SelectField label="Classe" value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setSelectedStudentId('all'); }}>
                         {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                     </SelectField>
@@ -115,13 +120,13 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         <option value="all">Tutte le Materie</option>
                         {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                     </SelectField>
-                    <div className="space-y-2 md:space-y-3">
-                        <label className="m3-label-small text-primary font-black uppercase tracking-[0.25em] px-4 block">Modalità Vista</label>
-                        <div className="flex gap-4 bg-[var(--md-sys-color-surface-container-high)] p-1 rounded-[var(--md-sys-shape-corner-medium)]">
+                    <div className="analytics-hub-chart-mode">
+                        <label className="analytics-hub-label">Modalità Vista</label>
+                        <div className="analytics-hub-chart-buttons">
                             <M3Button 
                                 onClick={() => setChartType('trend')} 
                                 variant={chartType === 'trend' ? 'filled' : 'text'}
-                                className="flex-1 !min-w-0 !px-0"
+                                className="analytics-hub-chart-button"
                                 title="Trend Temporale"
                             >
                                 <span className="material-symbols-outlined">show_chart</span>
@@ -129,7 +134,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             <M3Button 
                                 onClick={() => setChartType('radar')} 
                                 variant={chartType === 'radar' ? 'filled' : 'text'}
-                                className="flex-1 !min-w-0 !px-0"
+                                className="analytics-hub-chart-button"
                                 title="Radar Competenze"
                             >
                                 <span className="material-symbols-outlined">radar</span>
@@ -137,7 +142,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             <M3Button 
                                 onClick={() => setChartType('dist')} 
                                 variant={chartType === 'dist' ? 'filled' : 'text'}
-                                className="flex-1 !min-w-0 !px-0"
+                                className="analytics-hub-chart-button"
                                 title="Distribuzione Voti"
                             >
                                 <span className="material-symbols-outlined">bar_chart</span>

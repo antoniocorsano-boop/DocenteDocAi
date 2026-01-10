@@ -44,8 +44,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           relative overflow-hidden
         "
       >
-        {/* Background gradient animation */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-tertiary/5 animate-pulse"></div>
+        {/* Background gradient animation - MOVED BELOW CONTENT */}
 
         <div
           className="
@@ -108,6 +107,9 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           </div>
           <span className="md3-label-medium">Usato da 10.000+ docenti italiani</span>
         </div>
+
+        {/* Background gradient animation - BELOW ALL CONTENT */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-tertiary/5 animate-pulse pointer-events-none" style={{ zIndex: -1 }}></div>
       </section>
 
       {/* Features Section */}

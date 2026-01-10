@@ -7,6 +7,11 @@
  * - CompetencyLevelsView
  */
 
+/**
+ * EvaluationViews.tsx
+ * // M3Expressive refactor: Componente renderer senza stili, già conforme M3.
+ */
+
 import React from 'react';
 import EvaluationModule from '../EvaluationModule';
 import RegisterView from '../RegisterView';

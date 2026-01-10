@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    aria-pressed="false"
+    class="flex flex-col items-center gap-8 p-5 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all cursor-pointer group border-[var(--md-sys-color-outline-variant)]/20 bg-[var(--md-sys-color-surface-container)]/30 hover:border-[var(--md-sys-color-outline-variant)]/60 hover:bg-[var(--md-sys-color-surface-container)]/50"
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="w-16 h-16 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center transition-all duration-500 group-hover:rotate-6 group-hover:scale-110"
+      style="color: blue;"
+    >
+      <span
+        class="material-symbols-outlined text-3xl"
+      >
+        test
+      </span>
+    </div>
+    <div
+      class="flex flex-col items-center gap-4"
+    >
+      <span
+        class="text-sm font-black text-center tracking-tight"
+      >
+        Test
+      </span>
+    </div>
+  </div>
+</div>
+`;

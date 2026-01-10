@@ -1,4 +1,7 @@
 
+// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
+// ...existing code...
 import React, { useState } from 'react';
 
 function useGuidanceDismissed(id: string): [boolean, () => void] {
@@ -45,7 +48,7 @@ const Guidance: React.FC<GuidanceProps> = ({ id, icon, title, children, isGlobal
       </div>
       <div className="guidance-content">
         <h3 className="m3-title-medium">{title}</h3>
-        <div className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">{children}</div>
+        <div className="guidance-content-text">{children}</div>
       </div>
       <button onClick={dismiss} className="icon-button" aria-label="Chiudi suggerimento">
         <span className="material-symbols-outlined">close</span>

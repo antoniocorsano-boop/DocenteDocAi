@@ -1,15 +1,16 @@
 
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useRef, useState, useEffect } from 'react';
 import { SettingsProps } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
 import { generateNextSchoolYear } from '../utils/schoolUtils';
-import { 
-    TextField, 
-    SelectField, 
-    TabGroup, 
-    SectionHeader, 
-    M3Button, 
-    InfoCard 
+import {
+    TextField,
+    SelectField,
+    TabGroup,
+    SectionHeader,
+    M3Button,
+    InfoCard
 } from './ui';
 import ThemeBubble from './ThemeBubble';
 import ChipInputList from './ChipInputList';
@@ -265,10 +266,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
     };
 
     return (
-        <div className="page-layout max-w-full mx-auto w-full px-4 pb-24">
-            <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-8">
-                    <M3Button onClick={onClose} variant="text" className="!min-w-0 !p-8">
+        <div className="settings-main-layout">
+            <div className="settings-header-section">
+                <div className="settings-header-content">
+                    <M3Button onClick={onClose} variant="text" className="settings-back-button">
                         <span className="material-symbols-outlined">arrow_back</span>
                     </M3Button>
                     <SectionHeader 
@@ -279,13 +280,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </div>
             </div>
 
-            <div className="max-w-3xl mx-auto w-full space-y-6">
+            <div className="settings-content-container">
 
                 <SettingsGroup id="interface_experience" title="Interfaccia & Esperienza Visiva" subtitle="Personalizza l'aspetto e il comportamento dell'app" icon="palette" variant="primary" defaultOpen={true}>
-                    <div className="space-y-8">
+                    <div className="settings-interface-sections">
                         {/* SEZIONE 1: MODALITÀ INTERFACCIA */}
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
-                            <div className="flex items-center gap-8 mb-5">
+                        <div className="settings-interface-mode-section">
+                            <div className="settings-section-header">
                                 <span className="material-symbols-outlined text-primary">dashboard_customize</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Modalit� Interfaccia</h4>
                             </div>
@@ -297,9 +298,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 activeTab={localSettings.uiMode || 'classic'}
                                 onTabChange={(id) => handleChange('uiMode', id)}
                                 variant="primary"
-                                className="w-full"
+                                className="settings-tab-group"
                             />
-                            <p className="m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant mt-3 opacity-70 px-4">
+                            <p className="settings-interface-description">
                                 {localSettings.uiMode === 'flow' 
                                     ? 'Modalità Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.' 
                                     : 'Modalità Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
@@ -307,12 +308,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 2: ECOISTEMA VISIVO */}
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
-                            <div className="flex items-center gap-8 mb-5">
+                        <div className="settings-visual-ecosystem-section">
+                            <div className="settings-section-header">
                                 <span className="material-symbols-outlined text-primary">auto_awesome</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Ecosistema Visivo</h4>
                             </div>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                            <div className="settings-visual-styles-grid">
                                 {[
                                     { id: 'aura', label: 'Aura', icon: 'blur_on', desc: 'Glassmorphism' },
                                     { id: 'expressive', label: 'Google', icon: 'android', desc: 'Expressive' },
@@ -324,34 +325,34 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <button
                                         key={style.id}
                                         onClick={() => handleThemeChange({ visualStyle: style.id })}
-                                        className={`flex flex-col items-center p-8 rounded-[var(--md-sys-shape-corner-large)] border transition-all ${themeState.visualStyle === style.id ? 'bg-primary-container/40 border-primary shadow-sm' : 'bg-[var(--md-sys-color-surface-container-high)]est/30 border-[var(--md-sys-color-outline-variant)]/20 hover:bg-[var(--md-sys-color-surface-container-high)]est/50'}`}
+                                        className={`settings-visual-style-button ${themeState.visualStyle === style.id ? 'settings-visual-style-button-active' : 'settings-visual-style-button-inactive'}`}
                                     >
-                                        <span className={`material-symbols-outlined mb-8 ${themeState.visualStyle === style.id ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>{style.icon}</span>
-                                        <span className={`m3-label-tiny font-black uppercase tracking-wider ${themeState.visualStyle === style.id ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>{style.label}</span>
-                                        <span className="text-[var(--md-sys-spacing-2)] opacity-60 mt-4 text-center">{style.desc}</span>
+                                        <span className={`settings-visual-style-icon ${themeState.visualStyle === style.id ? 'settings-visual-style-icon-active' : 'settings-visual-style-icon-inactive'}`}>{style.icon}</span>
+                                        <span className={`settings-visual-style-label ${themeState.visualStyle === style.id ? 'settings-visual-style-label-active' : 'settings-visual-style-label-inactive'}`}>{style.label}</span>
+                                        <span className="settings-visual-style-description">{style.desc}</span>
                                     </button>
                                 ))}
                             </div>
                         </div>
 
                         {/* SEZIONE 3: TEMA E COLORI */}
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
-                            <div className="flex items-center gap-8 mb-5">
+                        <div className="settings-theme-colors-section">
+                            <div className="settings-section-header">
                                 <span className="material-symbols-outlined text-primary">palette</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Tema & Colori</h4>
                             </div>
                             
-                            <div className="mb-8">
+                            <div className="settings-theme-mode-container">
                                 <TabGroup
                                     tabs={[{ id: 'light', label: 'Chiaro', icon: 'light_mode' }, { id: 'dark', label: 'Scuro', icon: 'dark_mode' }, { id: 'system', label: 'Sistema', icon: 'brightness_auto' }]}
                                     activeTab={themeState.mode}
                                     onTabChange={(id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode })}
                                     variant="primary"
-                                    className="w-full"
+                                    className="settings-tab-group"
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-8">
+                            <div className="settings-theme-bubbles-grid">
                                 {THEME_CUSTOMIZATIONS.map(theme => (
                                     <ThemeBubble
                                         key={theme.name}
@@ -396,7 +397,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 3.5: PRESET EMOZIONALI - Phase 1 Foundation */}
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
+                        <div className="settings-emotional-presets-section">
                             <EmotionalPresetsManager
                                 selectedPreset={themeState.emotionalPreset}
                                 onPresetChange={(preset) => handleThemeChange({ emotionalPreset: preset })}
@@ -404,59 +405,59 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 4: PARAMETRI AVANZATI */}
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
-                            <div className="flex items-center gap-8 mb-5">
+                        <div className="settings-advanced-parameters-section">
+                            <div className="settings-section-header">
                                 <span className="material-symbols-outlined text-primary">tune</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Parametri Strutturali</h4>
                             </div>
-                            <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Intensit� Blur Vetro</label>
-                                        <span className="m3-label-tiny font-black text-primary">{themeState.glassBlur || 30}px</span>
+                            <div className="settings-advanced-parameters-content">
+                                <div className="settings-parameter-item">
+                                    <div className="settings-parameter-header">
+                                        <label className="settings-parameter-label">Intensit� Blur Vetro</label>
+                                        <span className="settings-parameter-value">{themeState.glassBlur || 30}px</span>
                                     </div>
                                     <input 
                                         type="range" min="0" max="100" step="5" 
                                         value={themeState.glassBlur || 30} 
                                         onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })}
-                                        className="w-full h-2 bg-[var(--md-sys-color-surface-container-high)]est rounded-[var(--md-sys-shape-corner-small)] appearance-none cursor-pointer accent-primary"
+                                        className="settings-parameter-slider"
                                     />
                                 </div>
-                                <div className="space-y-2">
-                                    <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Scala Font</label>
-                                        <span className="m3-label-tiny font-black text-primary">{themeState.fontScale || 1}x</span>
+                                <div className="settings-parameter-item">
+                                    <div className="settings-parameter-header">
+                                        <label className="settings-parameter-label">Scala Font</label>
+                                        <span className="settings-parameter-value">{themeState.fontScale || 1}x</span>
                                     </div>
                                     <input 
                                         type="range" min="0.8" max="1.4" step="0.1" 
                                         value={themeState.fontScale || 1} 
                                         onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })}
-                                        className="w-full h-2 bg-[var(--md-sys-color-surface-container-high)]est rounded-[var(--md-sys-shape-corner-small)] appearance-none cursor-pointer accent-primary"
+                                        className="settings-parameter-slider"
                                     />
                                 </div>
-                                <div className="space-y-2">
-                                    <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Livello Contrasto</label>
-                                        <span className="m3-label-tiny font-black text-primary">{themeState.contrastLevel || 0}</span>
+                                <div className="settings-parameter-item">
+                                    <div className="settings-parameter-header">
+                                        <label className="settings-parameter-label">Livello Contrasto</label>
+                                        <span className="settings-parameter-value">{themeState.contrastLevel || 0}</span>
                                     </div>
                                     <input 
                                         type="range" min="-50" max="50" step="5" 
                                         value={themeState.contrastLevel || 0} 
                                         onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })}
-                                        className="w-full h-2 bg-[var(--md-sys-color-surface-container-high)]est rounded-[var(--md-sys-shape-corner-small)] appearance-none cursor-pointer accent-primary"
+                                        className="settings-parameter-slider"
                                     />
                                 </div>
-                                <div className="space-y-2">
-                                    <div className="flex justify-between items-center">
-                                        <label className="text-xs font-bold text-[var(--md-sys-color-on-surface)]">Arrotondamento Bordi</label>
-                                        <span className="m3-label-tiny font-black text-primary">x{themeState.radiusMultiplier || 1}</span>
+                                <div className="settings-parameter-item">
+                                    <div className="settings-parameter-header">
+                                        <label className="settings-parameter-label">Arrotondamento Bordi</label>
+                                        <span className="settings-parameter-value">x{themeState.radiusMultiplier || 1}</span>
                                     </div>
-                                    <div className="flex gap-8">
+                                    <div className="settings-radius-buttons">
                                         {[0.5, 1, 1.5, 2].map(m => (
                                             <button
                                                 key={m}
                                                 onClick={() => handleThemeChange({ radiusMultiplier: m })}
-                                                className={`flex-1 py-4 rounded-[var(--md-sys-shape-corner-medium)] m3-label-tiny font-black transition-all border ${themeState.radiusMultiplier === m ? 'bg-primary text-on-primary border-primary' : 'bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)]/30'}`}
+                                                className={`settings-radius-button ${themeState.radiusMultiplier === m ? 'settings-radius-button-active' : 'settings-radius-button-inactive'}`}
                                             >
                                                 {m === 1 ? 'Standard' : `${m}x`}
                                             </button>
@@ -467,22 +468,22 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 6: EXPORT/IMPORT TEMA */}
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
-                            <div className="flex items-center gap-8 mb-5">
+                        <div className="settings-theme-backup-section">
+                            <div className="settings-section-header">
                                 <span className="material-symbols-outlined text-primary">import_export</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Backup Tema</h4>
                             </div>
-                            <p className="m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant mb-6 opacity-70">Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.</p>
-                            <div className="flex gap-4">
+                            <p className="settings-section-description">Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.</p>
+                            <div className="settings-theme-backup-buttons">
                                 <M3Button 
                                     onClick={handleExportTheme} 
                                     variant="outlined"
-                                    className="flex-1 py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs uppercase tracking-widest"
+                                    className="settings-export-button"
                                 >
                                     <span className="material-symbols-outlined mr-2">download</span>
                                     ESPORTA TEMA
                                 </M3Button>
-                                <div className="flex-1">
+                                <div className="settings-import-container">
                                     <input
                                         type="file"
                                         accept=".json"
@@ -494,7 +495,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <M3Button 
                                             component="span"
                                             variant="outlined"
-                                            className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs uppercase tracking-widest cursor-pointer"
+                                            className="settings-import-button"
                                         >
                                             <span className="material-symbols-outlined mr-2">upload</span>
                                             IMPORTA TEMA
@@ -505,16 +506,16 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 5: MANUTENZIONE BRAND */}
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-                            <div className="flex items-center gap-8 mb-8">
+                        <div className="settings-brand-maintenance-section">
+                            <div className="settings-section-header">
                                 <span className="material-symbols-outlined text-primary">refresh</span>
                                 <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Manutenzione Brand</h4>
                             </div>
-                            <p className="m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant mb-8 opacity-70">Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</p>
+                            <p className="settings-section-description">Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</p>
                             <M3Button 
                                 onClick={handleForceRefresh} 
                                 variant="tonal"
-                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs uppercase tracking-widest"
+                                className="settings-refresh-button"
                             >
                                 <span className="material-symbols-outlined mr-2">cached</span>
                                 AGGIORNA BRAND E CACHE
@@ -524,13 +525,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </SettingsGroup>
 
                 <SettingsGroup id="profile" title="Profilo & Identità" subtitle="Dati docente e istituto" icon="badge" variant="surface">
-                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="settings-profile-section">
+                        <div className="settings-profile-grid">
                             <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
                             <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} />
                         </div>
                         <TextField label="Email Istituzionale" type="email" value={localSettings.email || ''} onChange={e => handleChange('email', e.target.value)} placeholder="nome.cognome@scuola.edu.it" />
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="settings-profile-grid">
                             <TextField label="Nome Istituto" value={localSettings.nomeIstituto} onChange={e => handleChange('nomeIstituto', e.target.value)} />
                             <TextField label="Città" value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
                         </div>
@@ -539,8 +540,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="ai_didattica" title="AI & Didattica" subtitle="Cervello AI e cattedra" icon="psychology" variant="secondary">
                     {/* SEZIONE 1: MODELLO AI */}
-                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 mb-6">
-                        <div className="flex items-center gap-8 mb-8">
+                    <div className="settings-ai-model-section">
+                        <div className="settings-section-header">
                             <span className="material-symbols-outlined text-secondary">smart_toy</span>
                             <h4 className="text-[11px] font-black uppercase tracking-widest text-secondary">Modello Intelligenza</h4>
                         </div>
@@ -550,36 +551,36 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             activeTab={currentAiProfile}
                             onTabChange={(id) => handleAiProfileChange(id as keyof typeof AI_PROFILES)}
                             variant="primary"
-                            className="w-full"
+                            className="settings-tab-group"
                         />
                         
-                        <div className={`mt-4 p-8 rounded-[var(--md-sys-shape-corner-medium)] border flex items-start gap-6 transition-all duration-300 ${currentAiProfile === 'esperto' ? 'bg-primary-container/20 border-primary/30' : 'bg-tertiary-container/20 border-tertiary/30'}`}>
-                            <span className={`material-symbols-outlined text-xl mt-0.5 ${currentAiProfile === 'esperto' ? 'text-primary' : 'text-tertiary'}`}>info</span>
-                            <p className="m3-body-small leading-relaxed text-[var(--md-sys-color-on-surface)]">
+                        <div className={`settings-ai-profile-info ${currentAiProfile === 'esperto' ? 'settings-ai-profile-info-expert' : 'settings-ai-profile-info-fast'}`}>
+                            <span className={`settings-ai-profile-info-icon ${currentAiProfile === 'esperto' ? 'settings-ai-profile-info-icon-expert' : 'settings-ai-profile-info-icon-fast'}`}>info</span>
+                            <p className="settings-ai-profile-description">
                                 {AI_PROFILES[currentAiProfile as keyof typeof AI_PROFILES]?.description}
                             </p>
                         </div>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="settings-ai-sections">
                         {/* SEZIONE 2: ANNO SCOLASTICO */}
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-                            <div className="flex justify-between items-center mb-5">
-                                <div className="flex items-center gap-8">
+                        <div className="settings-school-year-section">
+                            <div className="settings-section-header-with-action">
+                                <div className="settings-section-header">
                                     <span className="material-symbols-outlined text-primary">calendar_month</span>
                                     <h4 className="m3-label-large font-black uppercase tracking-wide text-[var(--md-sys-color-on-surface)]">Anno Scolastico</h4>
                                 </div>
                                 <M3Button 
                                     onClick={handleAddNextYear} 
                                     variant="tonal"
-                                    className="!px-4 !py-4 !h-auto text-xs font-black uppercase tracking-widest shadow-sm"
+                                    className="settings-add-year-button"
                                 >
                                     <span className="material-symbols-outlined text-sm mr-2">add_circle</span>
                                     Aggiungi
                                 </M3Button>
                             </div>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                            <div className="settings-school-year-grid">
                                 <SelectField 
                                     label="Anno Corrente" 
                                     value={localSettings.annoScolasticoCorrente} 
@@ -589,7 +590,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     {localSettings.anniScolastici.map(year => <option key={year} value={year}>{year}</option>)}
                                 </SelectField>
                                 
-                                <div className="pt-1">
+                                <div className="settings-chip-input-container">
                                     <ChipInputList 
                                         label="Storico Anni" 
                                         items={localSettings.anniScolastici} 
@@ -603,20 +604,20 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 3: GESTIONE CATTEDRA UNIFICATA */}
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-                            <div className="flex items-center justify-between mb-6">
-                                <div className="flex items-center gap-8">
+                        <div className="settings-teaching-assignments-section">
+                            <div className="settings-section-header-with-action">
+                                <div className="settings-section-header">
                                     <span className="material-symbols-outlined text-secondary">school</span>
                                     <h4 className="m3-label-large font-black uppercase tracking-wide text-[var(--md-sys-color-on-surface)]">Gestione Cattedra</h4>
                                 </div>
-                                <div className="flex gap-8">
+                                <div className="settings-clear-all-container">
                                     <button 
                                         onClick={() => {
                                             if(confirm("Sei sicuro di voler svuotare tutta la cattedra?")) {
                                                 handleChange('teachingAssignments', []);
                                             }
                                         }}
-                                        className="text-[10px] font-bold text-error uppercase tracking-widest hover:underline"
+                                        className="settings-clear-all-button"
                                     >
                                         Svuota Tutto
                                     </button>
@@ -624,13 +625,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </div>
 
                             {/* FORMAZIONE CLASSI STRUTTURATA (NORMATIVA ITALIANA) */}
-                            <div className="p-5 bg-primary-container/10 rounded-[var(--md-sys-shape-corner-large)] border border-primary/20 mb-8 space-y-6">
-                                <div className="flex items-center gap-8 mb-8">
+                            <div className="settings-class-formation-section">
+                                <div className="settings-section-header">
                                     <span className="material-symbols-outlined text-primary">account_tree</span>
                                     <h4 className="text-[11px] font-black uppercase tracking-widest text-primary">Formazione Classi Strutturata</h4>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="settings-class-formation-grid">
                                     <SelectField 
                                         label="Ordinamento Scolastico" 
                                         value={selLevel} 
@@ -646,29 +647,29 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     />
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-3">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-60">Livelli / Anni</p>
-                                        <div className="flex flex-wrap gap-8">
+                                <div className="settings-class-formation-grid-secondary">
+                                    <div className="settings-year-selection">
+                                        <p className="settings-selection-label">Livelli / Anni</p>
+                                        <div className="settings-year-buttons">
                                             {['1', '2', '3', '4', '5'].map(y => (
                                                 <button
                                                     key={y}
                                                     onClick={() => setSelYears(prev => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
-                                                    className={`px-4 py-4 rounded-[var(--md-sys-shape-corner-medium)] text-xs font-black transition-all border ${selYears.includes(y) ? 'bg-primary text-on-primary border-primary shadow-[var(--md-sys-elevation-level1)]' : 'bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)]/30'}`}
+                                                    className={`settings-year-button ${selYears.includes(y) ? 'settings-year-button-active' : 'settings-year-button-inactive'}`}
                                                 >
                                                     {y}° Anno
                                                 </button>
                                             ))}
                                         </div>
                                     </div>
-                                    <div className="space-y-3">
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-60">Sezioni</p>
-                                        <div className="flex flex-wrap gap-8">
+                                    <div className="settings-section-selection">
+                                        <p className="settings-selection-label">Sezioni</p>
+                                        <div className="settings-section-buttons">
                                             {['A', 'B', 'C', 'D', 'E', 'F'].map(s => (
                                                 <button
                                                     key={s}
                                                     onClick={() => setSelSections(prev => prev.includes(s) ? prev.filter(i => i !== s) : [...prev, s])}
-                                                    className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] text-xs font-black transition-all border flex items-center justify-center ${selSections.includes(s) ? 'bg-secondary text-on-secondary border-secondary shadow-[var(--md-sys-elevation-level1)]' : 'bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)]/30'}`}
+                                                    className={`settings-section-button ${selSections.includes(s) ? 'settings-section-button-active' : 'settings-section-button-inactive'}`}
                                                 >
                                                     {s}
                                                 </button>
@@ -680,7 +681,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Button 
                                     onClick={handleGenerateClasses}
                                     variant="filled"
-                                    className="w-full py-4 rounded-[var(--md-sys-shape-corner-large)] font-black text-xs uppercase tracking-[0.2em] shadow-[var(--md-sys-elevation-level2)]"
+                                    className="settings-generate-classes-button"
                                     disabled={selYears.length === 0 || selSections.length === 0}
                                 >
                                     <span className="material-symbols-outlined mr-2">auto_awesome</span>
@@ -689,22 +690,22 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </div>
 
                             {/* INPUT RAPIDI PER AGGIUNGERE MATERIE */}
-                            <div className="grid grid-cols-1 gap-8 mb-8">
-                                <div className="flex gap-8">
-                                    <div className="flex-grow relative">
+                            <div className="settings-subject-input-container">
+                                <div className="settings-subject-input-row">
+                                    <div className="settings-subject-input-wrapper">
                                         <input 
                                             type="text" 
                                             placeholder="Aggiungi Materia Singola (es: Italiano)" 
                                             value={newSubjectName}
                                             onChange={e => setNewSubjectName(e.target.value)}
                                             onKeyDown={e => e.key === 'Enter' && handleAddSubject()}
-                                            className="w-full h-12 px-4 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-high)]est/50 border border-[var(--md-sys-color-outline-variant)]/30 text-sm font-bold focus:ring-2 focus:ring-secondary outline-none transition-all"
+                                            className="settings-subject-input"
                                         />
                                     </div>
                                     <M3Button 
                                         onClick={handleAddSubject}
                                         variant="filled"
-                                        className="!min-w-0 !w-12 !h-12 !p-0 shadow-sm !bg-secondary !text-on-secondary"
+                                        className="settings-add-subject-button"
                                     >
                                         <span className="material-symbols-outlined">add</span>
                                     </M3Button>
@@ -712,18 +713,18 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </div>
 
                             {/* MATRICE INTERATTIVA */}
-                            <div className="overflow-x-auto -mx-5 px-5 pb-4 custom-scrollbar">
-                                <table className="w-full border-separate border-spacing-1">
+                            <div className="settings-teaching-matrix-container">
+                                <table className="settings-teaching-matrix">
                                     <thead>
                                         <tr>
-                                            <th className="p-8 text-left text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-50">Materia / Classe</th>
+                                            <th className="settings-matrix-header">Materia / Classe</th>
                                             {localSettings.classi.map(cls => (
-                                                <th key={cls} className="p-8 min-w-[60px] text-center">
-                                                    <div className="relative group">
-                                                        <div className="text-xs font-black text-[var(--md-sys-color-on-surface)]">{cls}</div>
+                                                <th key={cls} className="settings-matrix-class-header">
+                                                    <div className="settings-class-header-content">
+                                                        <div className="settings-class-name">{cls}</div>
                                                         <button 
                                                             onClick={() => handleChange('classi', localSettings.classi.filter(c => c !== cls))}
-                                                            className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-error text-on-error text-[var(--md-sys-spacing-2)] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-sm"
+                                                            className="settings-remove-class-button"
                                                         >
                                                             ×
                                                         </button>
@@ -735,20 +736,20 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <tbody>
                                         {localSettings.disciplines.map(subj => (
                                             <tr key={subj}>
-                                                <td style={{ padding: 'var(--md-sys-spacing-6)' }}>
-                                                    <div className="flex items-center justify-between group">
-                                                        <div className="flex flex-col">
-                                                            <span className="text-xs font-bold text-[var(--md-sys-color-on-surface)] uppercase tracking-tight">{subj}</span>
+                                                <td className="settings-matrix-subject-cell">
+                                                    <div className="settings-subject-cell-content">
+                                                        <div className="settings-subject-info">
+                                                            <span className="settings-subject-name">{subj}</span>
                                                             <button 
                                                                 onClick={() => handleBulkAssign(localSettings.classi, [subj])}
-                                                                className="text-[var(--md-sys-spacing-2)] font-black text-primary uppercase tracking-tighter opacity-0 group-hover:opacity-100 hover:underline text-left"
+                                                                className="settings-assign-all-button"
                                                             >
                                                                 Associa a tutte
                                                             </button>
                                                         </div>
                                                         <button 
                                                             onClick={() => handleChange('disciplines', localSettings.disciplines.filter(s => s !== subj))}
-                                                            className="w-6 h-6 rounded-[var(--md-sys-shape-corner-small)] bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant text-[10px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-error-container hover:text-error"
+                                                            className="settings-remove-subject-button"
                                                         >
                                                             <span className="material-symbols-outlined m3-icon-xs">delete</span>
                                                         </button>
@@ -757,26 +758,26 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                 {localSettings.classi.map(cls => {
                                                     const assignment = localSettings.teachingAssignments.find(a => a.classId === cls && a.subjectId === subj);
                                                     return (
-                                                        <td key={`${subj}-${cls}`} className="p-1">
+                                                        <td key={`${subj}-${cls}`} className="settings-matrix-assignment-cell">
                                                             <div 
                                                                 onClick={() => toggleAssociation(cls, subj)}
-                                                                className={`h-12 rounded-[var(--md-sys-shape-corner-medium)] flex flex-col items-center justify-center cursor-pointer transition-all border-2 ${assignment ? 'bg-primary-container/40 border-primary shadow-sm' : 'bg-[var(--md-sys-color-surface-container-low)]/30 border-transparent hover:border-[var(--md-sys-color-outline-variant)]/30'}`}
+                                                                className={`settings-assignment-toggle ${assignment ? 'settings-assignment-toggle-active' : 'settings-assignment-toggle-inactive'}`}
                                                             >
                                                                 {assignment ? (
                                                                     <>
-                                                                        <span className="material-symbols-outlined text-primary text-sm">check_circle</span>
-                                                                        <div className="flex items-center gap-4 mt-0.5" onClick={e => e.stopPropagation()}>
+                                                                        <span className="settings-assignment-check-icon">check_circle</span>
+                                                                        <div className="settings-assignment-hours-input" onClick={e => e.stopPropagation()}>
                                                                             <input 
                                                                                 type="number" 
                                                                                 value={assignment.hoursPerWeek}
                                                                                 onChange={e => updateAssignmentHours(assignment.id, parseInt(e.target.value) || 1)}
-                                                                                className="w-6 bg-transparent text-[10px] font-black text-primary text-center outline-none"
+                                                                                className="settings-hours-input"
                                                                             />
-                                                                            <span className="text-[var(--md-sys-spacing-2)] font-bold text-primary/60">h</span>
+                                                                            <span className="settings-hours-label">h</span>
                                                                         </div>
                                                                     </>
                                                                 ) : (
-                                                                    <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant/20 text-sm">add</span>
+                                                                    <span className="settings-assignment-add-icon">add</span>
                                                                 )}
                                                             </div>
                                                         </td>
@@ -786,7 +787,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         ))}
                                         {localSettings.disciplines.length === 0 && (
                                             <tr>
-                                                <td colSpan={localSettings.classi.length + 1} className="p-8 text-center italic text-[var(--md-sys-color-on-surface)]-variant opacity-50 text-sm">
+                                                <td colSpan={localSettings.classi.length + 1} className="settings-empty-matrix-message">
                                                     Aggiungi una materia per iniziare la configurazione...
                                                 </td>
                                             </tr>
@@ -800,33 +801,33 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 description="Questa matrice è il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
                                 icon="info"
                                 variant="primary"
-                                className="mt-6 bg-primary-container/10 border-primary/20"
+                                className="settings-matrix-info-card"
                             />
                         </div>
                     </div>
                 </SettingsGroup>
 
                 <SettingsGroup id="ai_suggestions" title="Suggerimenti AI" subtitle="Gestisci suggerimenti ignorati" icon="lightbulb" variant="tertiary">
-                    <div className="space-y-4">
-                        <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant">
+                    <div className="settings-ai-suggestions-content">
+                        <p className="settings-ai-suggestions-description">
                             Qui puoi vedere i suggerimenti AI che hai ignorato e riattivarli se desideri.
                         </p>
                         {dismissedSuggestions.size === 0 ? (
-                            <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant italic">
+                            <p className="settings-no-dismissed-suggestions">
                                 Nessun suggerimento ignorato.
                             </p>
                         ) : (
-                            <div className="space-y-3">
+                            <div className="settings-dismissed-suggestions-list">
                                 {Array.from(dismissedSuggestions).map((id) => (
-                                    <div key={id} className="p-8 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-low)]/50 border border-[var(--md-sys-color-outline-variant)]/20 flex items-center justify-between shadow-sm">
-                                        <div>
-                                            <div className="m3-label-medium font-black text-[var(--md-sys-color-on-surface)]">Suggerimento {id}</div>
-                                            <div className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Ignorato in precedenza</div>
+                                    <div key={id} className="settings-dismissed-suggestion-item">
+                                        <div className="settings-suggestion-info">
+                                            <div className="settings-suggestion-title">Suggerimento {id}</div>
+                                            <div className="settings-suggestion-status">Ignorato in precedenza</div>
                                         </div>
                                         <M3Button
                                             onClick={() => onReactivateSuggestion(id)}
                                             variant="tonal"
-                                            className="!px-4 !py-4 !h-auto text-xs font-black flex items-center gap-8"
+                                            className="settings-reactivate-suggestion-button"
                                         >
                                             <span className="material-symbols-outlined text-sm">refresh</span>
                                             Riattiva
@@ -835,7 +836,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ))}
                             </div>
                         )}
-                        <div className="pt-4 border-t border-[var(--md-sys-color-outline-variant)]/10">
+                        <div className="settings-suggestions-footer">
                             <M3Button
                                 onClick={() => {
                                     // Clear all dismissed suggestions
@@ -844,9 +845,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 }}
                                 disabled={dismissedSuggestions.size === 0}
                                 variant="text"
-                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs uppercase tracking-widest"
+                                className="settings-reactivate-all-button"
                             >
-                                <span className="material-symbols-outlined text-sm mr-2">history</span>
                                 Riattiva Tutti i Suggerimenti
                             </M3Button>
                         </div>
@@ -855,15 +855,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                 <SettingsGroup id="cloud" title="Dati & Cloud" subtitle="Backup e Storage" icon="cloud_sync" variant="surface">
                     {storageInfo && (
-                        <div className="mb-6 p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
-                            <div className="flex justify-between items-center mb-6">
-                                <h4 className="m3-label-large font-black text-[var(--md-sys-color-on-surface)]">Storage Dispositivo</h4>
-                                <span className="text-xs font-mono font-bold text-primary">{storageInfo.used}MB / {storageInfo.total}MB</span>
+                        <div className="settings-storage-info-section">
+                            <div className="settings-storage-header">
+                                <h4 className="settings-storage-title">Storage Dispositivo</h4>
+                                <span className="settings-storage-usage">{storageInfo.used}MB / {storageInfo.total}MB</span>
                             </div>
-                            <div className="w-full bg-[var(--md-sys-color-surface-container-high)]est/50 h-2.5 rounded-full overflow-hidden shadow-inner">
-                                <div className={`h-full ${storageInfo.percent > 80 ? 'bg-error' : 'bg-primary'} transition-all duration-1000`} style={{ width: `${storageInfo.percent}%` }}></div>
+                            <div className="settings-storage-bar">
+                                <div className={`settings-storage-bar-fill ${storageInfo.percent > 80 ? 'settings-storage-bar-fill-warning' : 'settings-storage-bar-fill-normal'}`} style={{ width: `${storageInfo.percent}%` }}></div>
                             </div>
-                            <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant mt-3 opacity-70">Dati salvati in IndexedDB (senza limiti LocalStorage).</p>
+                            <p className="settings-storage-description">Dati salvati in IndexedDB (senza limiti LocalStorage).</p>
                         </div>
                     )}
 
@@ -887,21 +887,21 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     description="Esegui un backup cloud e verifica il ripristino periodicamente per la sicurezza dei tuoi dati."
                                     icon="warning"
                                     variant="secondary"
-                                    className="mb-6 bg-warning-container/20 border-warning/30"
+                                    className="settings-cloud-reminder-card"
                                 />
                             );
                         }
                         return null;
                     })()}
 
-                    <div className={`p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border mb-6 flex items-center justify-between transition-all duration-500 ${driveState.isAuthenticated ? 'bg-primary-container/20 border-primary/30 shadow-[var(--md-sys-elevation-level1)]' : 'bg-[var(--md-sys-color-surface-container-low)]/50 border-[var(--md-sys-color-outline-variant)]/20 text-[var(--md-sys-color-on-surface)]'}`}>
-                        <div className="flex items-center gap-8">
-                            <div className={`w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-inner ${driveState.isAuthenticated ? 'bg-primary text-on-primary' : 'bg-[var(--md-sys-color-surface-container-high)]est/50 text-[var(--md-sys-color-on-surface)]-variant'}`}>
+                    <div className={`settings-drive-status-section ${driveState.isAuthenticated ? 'settings-drive-status-connected' : 'settings-drive-status-disconnected'}`}>
+                        <div className="settings-drive-status-content">
+                            <div className={`settings-drive-status-icon ${driveState.isAuthenticated ? 'settings-drive-status-icon-connected' : 'settings-drive-status-icon-disconnected'}`}>
                                 <span className="material-symbols-outlined text-3xl">{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
                             </div>
-                            <div>
-                                <h4 className="font-black m3-label-large uppercase tracking-widest">{driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}</h4>
-                                <p className="text-[10px] font-bold opacity-60 mt-4 uppercase tracking-tighter">{driveState.lastSyncTime ? `Ultimo: ${(new Date(driveState.lastSyncTime)).toLocaleString()}` : 'Nessun backup cloud'}</p>
+                            <div className="settings-drive-status-info">
+                                <h4 className="settings-drive-status-title">{driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}</h4>
+                                <p className="settings-drive-status-last-sync">{driveState.lastSyncTime ? `Ultimo: ${(new Date(driveState.lastSyncTime)).toLocaleString()}` : 'Nessun backup cloud'}</p>
                             </div>
                         </div>
                         {driveState.isAuthenticated ? (
@@ -909,7 +909,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 onClick={() => onSyncToDrive()} 
                                 disabled={driveState.isSyncing} 
                                 variant="filled"
-                                className="!px-6 !py-3 !h-auto font-black text-xs shadow-[var(--md-sys-elevation-level2)] flex items-center gap-8"
+                                className="settings-drive-sync-button"
                             >
                                 <span className="material-symbols-outlined text-sm">{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>
                                 {driveState.isSyncing ? '...' : 'Salva'}
@@ -919,19 +919,19 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Button 
                                     onClick={onConnectDrive} 
                                     variant="filled"
-                                    className="!px-6 !py-3 !h-auto font-black text-xs shadow-[var(--md-sys-elevation-level2)]"
+                                    className="settings-drive-connect-button"
                                 >
                                     Connetti
                                 </M3Button>
                             )
                         )}
                     </div>
-                    <div className="grid grid-cols-2 gap-8">
-                        <M3Button onClick={onExportData} variant="tonal" className="flex items-center justify-center gap-8 py-4 rounded-[var(--md-sys-shape-corner-large)] font-black text-xs shadow-sm">
+                    <div className="settings-cloud-actions-grid">
+                        <M3Button onClick={onExportData} variant="tonal" className="settings-export-local-button">
                             <span className="material-symbols-outlined text-base">download</span> 
                             Backup Locale
                         </M3Button>
-                        <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal" className="flex items-center justify-center gap-8 py-4 rounded-[var(--md-sys-shape-corner-large)] font-black text-xs shadow-sm">
+                        <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal" className="settings-import-file-button">
                             <span className="material-symbols-outlined text-base">upload</span> 
                             Ripristina File
                         </M3Button>
@@ -940,12 +940,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </SettingsGroup>
 
                 <SettingsGroup id="debug_logging" title="Debug & Logging" subtitle="Visualizza e gestisci i log degli errori" icon="bug_report" variant="surface">
-                    <div className="space-y-6">
-                        <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 shadow-sm">
-                            <div className="flex items-start justify-between gap-8 mb-8">
-                                <div>
-                                    <h4 className="m3-label-large font-black text-[var(--md-sys-color-on-surface)]">Log degli Errori</h4>
-                                    <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mt-4">Visualizza tutti gli errori registrati durante l'utilizzo dell'app</p>
+                    <div className="settings-debug-content">
+                        <div className="settings-error-logs-section">
+                            <div className="settings-error-logs-header">
+                                <div className="settings-error-logs-info">
+                                    <h4 className="settings-error-logs-title">Log degli Errori</h4>
+                                    <p className="settings-error-logs-description">Visualizza tutti gli errori registrati durante l'utilizzo dell'app</p>
                                 </div>
                                 <span className={`material-symbols-outlined text-2xl ${errorLogger.getErrorStats().total > 0 ? 'text-error' : 'text-success'}`}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
                             </div>

@@ -1,4 +1,6 @@
 
+/* M3Expressive - ParticipationBadgePicker Component */
+
 import React, { useEffect, useRef } from 'react';
 import { ParticipationBadge } from '../types';
 import { PARTICIPATION_BADGES } from '../constants';
@@ -32,19 +34,19 @@ const ParticipationBadgePicker: React.FC<ParticipationBadgePickerProps> = ({ anc
     }
 
     return (
-        <div ref={popoverRef} className="m3-popup-menu !p-3 w-[280px]" style={style}>
-            <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant mb-6 px-1">Assegna Badge</p>
-            <div className="grid grid-cols-2 gap-6">
+        <div ref={popoverRef} className="participation-badge-picker-container m3-popup-menu" style={style}>
+            <p className="participation-badge-picker-title">Assegna Badge</p>
+            <div className="participation-badge-picker-grid">
                 {PARTICIPATION_BADGES.map(badge => (
                     <button 
                         key={badge.id}
-                        className="flex flex-col items-center justify-center p-4 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors border border-transparent hover:border-[var(--md-sys-color-outline-variant)]"
+                        className="participation-badge-picker-button"
                         onClick={() => onSelect(badge.id)}
                     >
-                        <span className="material-symbols-outlined m3-icon-medium mb-4" style={{ color: badge.color }}>
+                        <span className="participation-badge-picker-icon material-symbols-outlined" style={{ color: badge.color }}>
                             {badge.icon}
                         </span>
-                        <span className="m3-label-small text-center">{badge.label}</span>
+                        <span className="participation-badge-picker-label">{badge.label}</span>
                     </button>
                 ))}
             </div>

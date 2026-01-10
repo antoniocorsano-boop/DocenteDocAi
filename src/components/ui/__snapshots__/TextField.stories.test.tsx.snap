@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TextField Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    class="m3-field-container  "
+  >
+    <div
+      class="m3-field-wrapper m3-field-outlined  group "
+    >
+      <div
+        class="m3-field-input-wrapper"
+      >
+        <label
+          class="m3-field-label "
+        >
+          Test
+        </label>
+        <input
+          aria-label="Test"
+          class="m3-field-input"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

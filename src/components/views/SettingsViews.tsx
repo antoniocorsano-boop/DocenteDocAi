@@ -8,6 +8,11 @@
  * - FeedManager
  */
 
+/**
+ * SettingsViews.tsx
+ * // M3Expressive refactor: Componente renderer senza stili, già conforme M3.
+ */
+
 import React from 'react';
 import Settings from '../Settings';
 import Home from '../Home';

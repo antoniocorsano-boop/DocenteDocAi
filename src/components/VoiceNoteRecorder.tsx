@@ -1,3 +1,5 @@
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
 
 import React, { useState, useRef, useEffect } from 'react';
 import { getGoogleAIClient } from '../services/aiClient.ts';
@@ -192,20 +194,22 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             type="button"
             onClick={isRecording ? stopRecording : startRecording}
             disabled={isProcessing}
-            className={`button ${compact ? 'icon-button' : 'button-tonal'} ${isRecording ? 'bg-error-container text-on-error-container' : ''}`}
+            className={`voice-note-recorder-button ${compact ? 'icon-button' : 'button-tonal'} ${isRecording ? 'voice-note-recorder-button.recording' : ''}`}
             style={visualizerStyle}
             title={isRecording ? "Ferma registrazione" : "Detta nota vocale"}
         >
             {isProcessing ? (
-                <span className="button-spinner !w-5 !h-5 !border-2"></span>
+                <span className="button-spinner voice-note-recorder-spinner"></span>
             ) : (
-                <span className="material-symbols-outlined">{isRecording ? 'mic_off' : 'mic'}</span>
+                <span className="material-symbols-outlined voice-note-recorder-icon">{isRecording ? 'mic_off' : 'mic'}</span>
             )}
-            {!compact && !isProcessing && <span className="ml-2">{isRecording ? 'Stop' : 'Detta Nota'}</span>}
+            {!compact && !isProcessing && <span className="voice-note-recorder-label">{isRecording ? 'Stop' : 'Detta Nota'}</span>}
         </button>
     );
 };
 
 export default VoiceNoteRecorder;
+
+// M3Expressive refactor COMPLETED: VoiceNoteRecorder.tsx - Replaced hardcoded Tailwind classes with dedicated voice-note-recorder-* CSS classes using M3 tokens for button states, spinner sizing, icon styling, and label spacing.
 
 

@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SelectField Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    class="m3-field-container  "
+  >
+    <label
+      class="m3-field-label"
+    >
+      Test
+    </label>
+    <div
+      class="m3-field-wrapper relative group"
+    >
+      <select
+        aria-label="Test"
+        class="m3-field-select"
+      >
+        <option>
+          Test
+        </option>
+      </select>
+      <span
+        class="material-symbols-outlined absolute right-[var(--md-sys-spacing-6)] top-1/2 -translate-y-1/2 pointer-events-none opacity-[var(--md-sys-state-opacity-disabled)] group-focus-within:text-[var(--md-sys-color-primary)] group-focus-within:opacity-100 transition-all"
+      >
+        expand_more
+      </span>
+    </div>
+  </div>
+</div>
+`;

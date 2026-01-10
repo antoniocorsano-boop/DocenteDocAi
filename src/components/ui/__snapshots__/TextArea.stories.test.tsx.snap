@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TextArea Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    class="m3-field-container  "
+  >
+    <label
+      class="m3-field-label"
+    />
+    <div
+      class="m3-field-wrapper group"
+    >
+      <textarea
+        class="m3-field-input resize-none"
+        rows="3"
+      />
+    </div>
+  </div>
+</div>
+`;

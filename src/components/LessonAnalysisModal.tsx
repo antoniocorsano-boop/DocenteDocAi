@@ -1,4 +1,5 @@
 
+// M3Expressive: LessonAnalysisModal - AI-powered lesson analysis results with M3 tokens
 import React from 'react';
 import { LessonAnalysisResult } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, AiMemoryChip } from './ui';
@@ -18,48 +19,48 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
             maxWidth="xl"
             level={1}
         >
-            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
-                <div className="space-y-6">
+            <M3DialogContent className="lesson-analysis-modal-content">
+                <div className="lesson-analysis-modal-main-content">
                     {contextLabel && <AiMemoryChip label={contextLabel} />}
                     
                     {/* Section 1: Engagement */}
-                    <div className="card border-l-4 border-l-primary bg-[var(--md-sys-color-surface-container-low)]">
-                        <div className="flex items-center gap-6 mb-8">
-                             <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
-                                <span className="material-symbols-outlined text-xl">rocket_launch</span>
+                    <div className="lesson-analysis-modal-section-card">
+                        <div className="lesson-analysis-modal-section-header">
+                             <div className="lesson-analysis-modal-icon-container primary">
+                                <span className="material-symbols-outlined lesson-analysis-modal-icon">rocket_launch</span>
                              </div>
-                             <h3 className="m3-title-large text-primary">Strategie di Coinvolgimento</h3>
+                             <h3 className="m3-title-large lesson-analysis-modal-section-title">Strategie di Coinvolgimento</h3>
                         </div>
-                        <div className="space-y-4">
+                        <div className="lesson-analysis-modal-content-area">
                             {result.engagementSuggestions.map((item, index) => (
-                                <div key={index} className="p-6 bg-surface rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <h4 className="m3-title-medium font-bold">{item.title}</h4>
-                                        <span className="chip text-xs bg-primary-container text-on-primary-container border-none">{item.activityType}</span>
+                                <div key={index} className="lesson-analysis-modal-item-card">
+                                    <div className="lesson-analysis-modal-item-header">
+                                        <h4 className="m3-title-medium lesson-analysis-modal-item-title">{item.title}</h4>
+                                        <span className="chip lesson-analysis-modal-activity-type-chip">{item.activityType}</span>
                                     </div>
-                                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">{item.description}</p>
+                                    <p className="lesson-analysis-modal-item-description">{item.description}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
 
                     {/* Section 2: Inclusivity */}
-                    <div className="card border-l-4 border-l-tertiary bg-[var(--md-sys-color-surface-container-low)]">
-                         <div className="flex items-center gap-6 mb-8">
-                             <div className="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
-                                <span className="material-symbols-outlined text-xl">diversity_3</span>
+                    <div className="lesson-analysis-modal-section-card tertiary">
+                         <div className="lesson-analysis-modal-section-header">
+                             <div className="lesson-analysis-modal-icon-container tertiary">
+                                <span className="material-symbols-outlined lesson-analysis-modal-icon">diversity_3</span>
                              </div>
-                             <h3 className="m3-title-large text-tertiary">Adattamenti per l'Inclusività (UDL)</h3>
+                             <h3 className="m3-title-large lesson-analysis-modal-section-title tertiary">Adattamenti per l'Inclusività (UDL)</h3>
                         </div>
-                        <div className="space-y-4">
+                        <div className="lesson-analysis-modal-content-area">
                             {result.inclusivityAdaptations.map((item, index) => (
-                                <div key={index} className="p-6 bg-surface rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)] flex gap-8 items-start">
-                                     <div className="w-16 flex-shrink-0 pt-1">
-                                         <span className="block text-[10px] font-bold uppercase tracking-wide text-[var(--md-sys-color-on-surface)]-variant text-center bg-[var(--md-sys-color-surface-container-high)] rounded px-1 py-0.5">
+                                <div key={index} className="lesson-analysis-modal-item-card lesson-analysis-modal-inclusivity-item">
+                                     <div className="lesson-analysis-modal-target-group-badge">
+                                         <span className="lesson-analysis-modal-target-group-label">
                                              {item.targetGroup}
                                          </span>
                                      </div>
-                                     <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]">{item.suggestion}</p>
+                                     <p className="lesson-analysis-modal-inclusivity-suggestion">{item.suggestion}</p>
                                 </div>
                             ))}
                         </div>

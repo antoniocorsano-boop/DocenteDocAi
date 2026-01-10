@@ -1,4 +1,9 @@
 
+/**
+ * ReportisticaHub.tsx
+ * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
+ */
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { Report, Studente, Lezione, Uda, TimetableSettings, Valutazione, ValutazioneCompetenza, AiSettings, KnowledgeBaseEntry, PianoInclusione, EventoCalendario } from '../types';
 import { saveAs } from '../utils/documentUtils';
@@ -333,7 +338,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 maxWidth="lg"
                 level={1}
             >
-                <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm space-y-6">
+                <M3DialogContent className="reportistica-hub-dialog-content">
                         {wizard === 'uda' && (
                             <SelectField 
                                 label="Seleziona Progetto (UDA)"
@@ -409,14 +414,14 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
     };
 
     return (
-        <div className="space-y-8 pb-20">
+        <div className="reportistica-hub-main-layout">
             {/* --- HEADER --- */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="reportistica-hub-header">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-[var(--md-sys-color-on-surface)]">Reportistica & Documenti</h1>
-                    <p className="text-[var(--md-sys-color-on-surface)]-variant">Genera documentazione didattica, verbali e reportistica avanzata.</p>
+                    <h1 className="reportistica-hub-title">Reportistica & Documenti</h1>
+                    <p className="reportistica-hub-subtitle">Genera documentazione didattica, verbali e reportistica avanzata.</p>
                 </div>
-                <div className="flex items-center gap-8">
+                <div className="reportistica-hub-actions">
                     <M3Button 
                         variant="tonal" 
                         startIcon={<span className="material-symbols-outlined">folder_zip</span>}
@@ -428,8 +433,8 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             </div>
 
             {/* --- QUICK ACTIONS / RECENT --- */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 space-y-4">
+            <div className="reportistica-hub-grid">
+                <div className="reportistica-hub-main-column">
                     <SectionHeader 
                         title="Documentazione Didattica" 
                         subtitle="Seleziona la fase dell'anno scolastico"

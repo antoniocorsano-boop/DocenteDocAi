@@ -1,3 +1,8 @@
+/**
+ * KnowledgeBase.tsx
+ * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
+ */
+
 import React, { useState, useMemo } from 'react';
 import { KnowledgeBaseEntry, Corpus, AiSettings, TimetableSettings } from '../types';
 import AddSourceModal from './AddSourceModal';
@@ -70,7 +75,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     };
 
     const renderFolderDashboard = () => (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 animate-in fade-in">
+        <div className="knowledge-base-folder-grid">
              {KB_CATEGORIES.map(cat => (
                  <CategoryCard 
                     key={cat.id} 
@@ -89,57 +94,57 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     const renderFileList = () => {
         const categoryInfo = currentView.type === 'category' ? KB_CATEGORIES.find(c => c.id === currentView.id) : null;
         return (
-            <div className="space-y-6 animate-in slide-in-from-right-4">
-                <header className="flex items-center justify-between bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-md p-8 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm">
-                    <div className="flex items-center gap-6">
-                        <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" className="!min-w-0 !p-8">
+            <div className="knowledge-base-file-list">
+                <header className="knowledge-base-file-header">
+                    <div className="knowledge-base-file-header-content">
+                        <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" className="knowledge-base-back-button">
                             <span className="material-symbols-outlined">arrow_back</span>
                         </M3Button>
-                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)]">{categoryInfo?.label || 'File'}</h2>
+                        <h2 className="knowledge-base-file-title">{categoryInfo?.label || 'File'}</h2>
                     </div>
-                    <div className="relative max-w-xs w-full">
-                        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[var(--md-sys-color-on-surface)]-variant/50">search</span>
+                    <div className="knowledge-base-search-container">
+                        <span className="knowledge-base-search-icon">search</span>
                         <input 
                             type="text" 
                             placeholder="Cerca in questa cartella..." 
-                            className="form-input !h-11 !pl-10 !rounded-full w-full bg-[var(--md-sys-color-surface-container-low)]/50 border-[var(--md-sys-color-outline-variant)]/30 focus:border-primary transition-all" 
+                            className="knowledge-base-search-input" 
                             value={searchTerm} 
                             onChange={(e) => setSearchTerm(e.target.value)} 
                         />
                     </div>
                 </header>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="knowledge-base-file-grid">
                     {filteredFiles.map(entry => (
                         <div 
                             key={entry.id} 
-                            className="bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-sm p-8 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 hover:bg-[var(--md-sys-color-surface-container-high)]/60 transition-all cursor-pointer group flex items-center gap-8 shadow-sm hover:shadow-[var(--md-sys-elevation-level1)]"
+                            className="knowledge-base-file-card"
                             onClick={() => handleFileClick(entry)}
                         >
-                            <div className={`w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-inner ${entry.category === 'ai_deliverable' ? 'bg-secondary-container/50 text-secondary' : 'bg-primary-container/50 text-primary'}`}>
-                                <span className="material-symbols-outlined text-2xl">
+                            <div className="knowledge-base-file-icon">
+                                <span className="material-symbols-outlined knowledge-base-file-icon-symbol">
                                     {entry.category === 'ai_deliverable' ? 'auto_awesome' : (entry.fileContent?.mimeType === 'application/pdf' ? 'picture_as_pdf' : 'description')}
                                 </span>
                             </div>
-                            <div className="flex-grow min-w-0">
-                                <p className="font-bold text-sm truncate text-[var(--md-sys-color-on-surface)]">{entry.fileName}</p>
-                                <p className="m3-label-small opacity-60 text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider">
+                            <div className="knowledge-base-file-info">
+                                <p className="knowledge-base-file-name">{entry.fileName}</p>
+                                <p className="knowledge-base-file-type">
                                     {entry.isGenerated ? 'Generato con AI' : 'Documento locale'}
                                 </p>
                             </div>
                             <M3Button 
                                 onClick={(e) => { e.stopPropagation(); handleDeleteFile(entry.id); }} 
                                 variant="text" 
-                                className="!min-w-0 !p-8 text-error opacity-0 group-hover:opacity-100 hover:bg-error-container/30 transition-all"
+                                className="knowledge-base-file-delete"
                             >
-                                <span className="material-symbols-outlined text-xl">delete</span>
+                                <span className="material-symbols-outlined knowledge-base-file-delete-icon">delete</span>
                             </M3Button>
                         </div>
                     ))}
                     {filteredFiles.length === 0 && (
-                        <div className="col-span-full py-20 text-center opacity-50">
-                            <span className="material-symbols-outlined text-6xl mb-8">search_off</span>
-                            <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]">Nessun file trovato in questa cartella.</p>
+                        <div className="knowledge-base-empty">
+                            <span className="material-symbols-outlined knowledge-base-empty-icon">search_off</span>
+                            <p className="knowledge-base-empty-text">Nessun file trovato in questa cartella.</p>
                         </div>
                     )}
                 </div>

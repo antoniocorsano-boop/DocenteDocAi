@@ -1,3 +1,4 @@
+// M3Expressive: HelpModal - Comprehensive help and documentation modal with M3 tokens
 import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
@@ -10,37 +11,37 @@ type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'fa
 const ManualSection: React.FC<{ title: string; icon: string; colorClass: string; defaultOpen?: boolean; children: React.ReactNode }> = ({ title, icon, colorClass, defaultOpen = false, children }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
-        <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-md rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 overflow-hidden mb-16">
-            <button 
+        <div className="help-modal-manual-section">
+            <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full p-16 flex items-center justify-between hover:bg-[var(--md-sys-color-surface-container-high)]/50 transition-colors"
+                className="help-modal-manual-section-button"
             >
-                <div className="flex items-center gap-12">
-                    <span className={`material-symbols-outlined ${colorClass}`}>{icon}</span>
-                    <span className="m3-title-medium font-bold">{title}</span>
+                <div className="help-modal-manual-section-header">
+                    <span className={`material-symbols-outlined help-modal-manual-section-icon ${colorClass}`}>{icon}</span>
+                    <span className="help-modal-manual-section-title">{title}</span>
                 </div>
-                <span className={`material-symbols-outlined transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>expand_more</span>
+                <span className={`material-symbols-outlined help-modal-manual-section-expand-icon ${isOpen ? 'expanded' : ''}`}>expand_more</span>
             </button>
-            {isOpen && <div className="p-16 pt-0 animate-in fade-in slide-in-from-top-2">{children}</div>}
+            {isOpen && <div className="help-modal-manual-section-content">{children}</div>}
         </div>
     );
 };
 
 const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }> = ({ scenario, steps, tip }) => (
-    <div className="bg-[var(--md-sys-color-surface-container-high)]/50 p-16 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/10 mb-16">
-        <p className="text-xs font-black uppercase tracking-widest text-primary mb-8">{scenario}</p>
-        <ol className="space-y-4">
+    <div className="help-modal-use-case-card">
+        <p className="help-modal-scenario">{scenario}</p>
+        <ol className="help-modal-steps">
             {steps.map((step, i) => (
-                <li key={i} className="text-sm flex gap-12">
-                    <span className="w-8 h-8 rounded-full bg-primary/10 text-primary text-[var(--md-sys-spacing-3)] flex items-center justify-center flex-shrink-0 font-bold">{i+1}</span>
+                <li key={i} className="help-modal-step">
+                    <span className="help-modal-step-number">{i+1}</span>
                     <span dangerouslySetInnerHTML={{ __html: step }}></span>
                 </li>
             ))}
         </ol>
         {tip && (
-            <div className="mt-4 pt-4 border-t border-[var(--md-sys-color-outline-variant)]/10 flex gap-12 items-start">
-                <span className="material-symbols-outlined text-secondary text-base">lightbulb</span>
-                <p className="text-[var(--md-sys-spacing-3)] italic opacity-70">{tip}</p>
+            <div className="help-modal-tip">
+                <span className="material-symbols-outlined help-modal-tip-icon">lightbulb</span>
+                <p className="help-modal-tip-text">{tip}</p>
             </div>
         )}
     </div>

@@ -12,6 +12,7 @@ import {
     AiThinkingGem 
 } from './ui';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for inclusion plan editor dialog, form sections, and AI generation features
 type SectionKey = 'puntiDiForza' | 'areeDiIntervento' | 'misureCompensative' | 'misureDispensative' | 'criteriValutazionePersonalizzati';
 
 const createEmptyPiano = (studentId: string): PianoInclusione => ({
@@ -101,10 +102,10 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
             onClose={onClose}
             maxWidth="lg"
         >
-            <form onSubmit={handleSubmit} className="flex flex-col h-full">
-                <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm p-6 space-y-8 overflow-y-auto">
+            <form onSubmit={handleSubmit} className="piano-inclusione-editor-form">
+                <M3DialogContent className="piano-inclusione-editor-content">
                     {/* Subtitle */}
-                    <div className="pb-4 border-b border-[var(--md-sys-color-outline-variant)]/30">
+                    <div className="piano-inclusione-editor-subtitle">
                         <SectionHeader 
                             title={`${student.cognome} ${student.nome}`}
                             subtitle={`Classe ${student.classe} • Redazione Piano di Inclusione Personalizzato`}
@@ -113,11 +114,11 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                     </div>
 
                     {/* Sections */}
-                    <div className="space-y-6">
+                    <div className="piano-inclusione-editor-sections">
                         {sections.map(section => (
-                            <InfoCard key={section.key} variant="elevated" className="p-6 space-y-4">
-                                <div className="flex justify-between items-center">
-                                    <h3 className="text-sm font-bold text-primary uppercase tracking-wider">
+                            <InfoCard key={section.key} variant="elevated" className="piano-inclusione-editor-section">
+                                <div className="piano-inclusione-editor-section-header">
+                                    <h3 className="piano-inclusione-editor-section-title">
                                         {section.label}
                                     </h3>
                                     <M3Button
@@ -126,7 +127,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                         disabled={loadingSection === section.key}
                                         variant="tonal"
                                         size="small"
-                                        className="!rounded-full"
+                                        className="piano-inclusione-editor-ai-button"
                                     >
                                         {loadingSection === section.key ? (
                                             <AiThinkingGem size="small" inline text="Generando..." />
@@ -145,13 +146,13 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     onChange={e => handleChange(section.key, e.target.value)}
                                     rows={5}
                                     placeholder={section.placeholder}
-                                    className="bg-[var(--md-sys-color-surface-container-low)]est/50"
+                                    className="piano-inclusione-editor-textarea"
                                 />
                             </InfoCard>
                         ))}
 
                         {/* Obiettivi per Materia */}
-                        <InfoCard variant="elevated" className="p-6 space-y-4">
+                        <InfoCard variant="elevated" className="piano-inclusione-editor-materie-section">
                             <div className="flex items-center gap-8 mb-8">
                                 <span className="material-symbols-outlined text-primary">subject</span>
                                 <h3 className="text-sm font-bold text-primary uppercase tracking-wider">
@@ -162,11 +163,11 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                 Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
                             </p>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="piano-inclusione-editor-materie-grid">
                                 {settings.disciplines.map(materia => (
-                                    <div key={materia} className="space-y-2 p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-low)]est/50 border border-[var(--md-sys-color-outline-variant)]/30">
-                                        <div className="flex justify-between items-center">
-                                            <label className="text-xs font-bold text-primary flex items-center gap-8">
+                                    <div key={materia} className="piano-inclusione-editor-materia-item">
+                                        <div className="piano-inclusione-editor-materia-header">
+                                            <label className="piano-inclusione-editor-materia-title">
                                                 <span className="material-symbols-outlined text-[var(--md-sys-spacing-4)]">book</span>
                                                 {materia}
                                             </label>
@@ -202,7 +203,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                 </M3DialogContent>
 
                 {/* Actions */}
-                <M3DialogActions className="bg-[var(--md-sys-color-surface-container-high)]/80 backdrop-blur-md p-6 border-t border-[var(--md-sys-color-outline-variant)]/30">
+                <M3DialogActions className="piano-inclusione-editor-actions">
                     {existingPiano && (
                         <M3Button
                             type="button"

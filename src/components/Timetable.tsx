@@ -5,6 +5,8 @@ import { DAYS_OF_WEEK } from '../constants';
 import Guidance from './Guidance';
 import { TabGroup, M3IconButton, M3Button } from './ui';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, and animations
+
 interface TimetableProps {
     slots: Record<string, Slot>;
     lessons: Record<string, Lezione>;
@@ -48,26 +50,26 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
   }, [viewMode, currentDayIndex]);
 
     return (
-        <div className="page-layout pb-16 relative overflow-hidden animate-in fade-in duration-700">
+        <div className="timetable-page-layout">
             {/* Aura Ornaments */}
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[120px] rounded-full animate-pulse pointer-events-none" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 blur-[120px] rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
+            <div className="timetable-aura-ornament-primary" />
+            <div className="timetable-aura-ornament-secondary" />
 
-            <div className="relative z-10 space-y-6">
+            <div className="timetable-content">
                 {/* HEADER: M3 Command Island */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-8 px-4 md:px-0">
-                    <div className="flex items-center gap-8 self-start md:self-auto">
-                        <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-medium)] bg-primary-container text-on-primary-container flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] rotate-3 hover:rotate-0 transition-transform duration-300">
-                            <span className="material-symbols-outlined text-3xl">calendar_view_week</span>
+                <div className="timetable-header">
+                    <div className="timetable-header-leading">
+                        <div className="timetable-header-icon-container">
+                            <span className="material-symbols-outlined timetable-header-icon">calendar_view_week</span>
                         </div>
-                        <div>
-                            <h1 className="m3-headline-medium font-black text-[var(--md-sys-color-on-surface)] tracking-tight">Il Mio Orario</h1>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant font-black uppercase tracking-[0.2em] opacity-60">Planning Settimanale</p>
+                        <div className="timetable-header-title-container">
+                            <h1 className="timetable-header-title">Il Mio Orario</h1>
+                            <p className="timetable-header-subtitle">Planning Settimanale</p>
                         </div>
                     </div>
                     
                     {/* FLOATING COMMAND ISLAND */}
-                    <div className="flex items-center bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-2xl rounded-[var(--md-sys-shape-corner-large)] p-8 shadow-[var(--md-sys-elevation-level4)] border border-[var(--md-sys-color-outline-variant)]/20 gap-8">
+                    <div className="timetable-command-island">
                         <TabGroup 
                             tabs={[
                                 {id:'week', label:'Settimana', icon:'view_week'}, 
@@ -79,13 +81,13 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                         />
                         
                         {viewMode === 'day' && (
-                            <div className="flex items-center gap-8 pr-2 animate-in slide-in-from-left-3">
+                            <div className="timetable-day-navigation">
                                 <M3IconButton 
                                     icon="chevron_left" 
                                     onClick={() => handleDayNav(-1)} 
                                     ariaLabel="Giorno precedente"
                                 />
-                                <span className="text-sm font-black min-w-[100px] text-center uppercase tracking-widest text-[var(--md-sys-color-on-surface)]">
+                                <span className="timetable-day-navigation-label">
                                     {visibleDays[0]}
                                 </span>
                                 <M3IconButton 
@@ -97,7 +99,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                         )}
                     </div>
 
-                    <div className="flex items-center gap-8 self-end md:self-auto">
+                    <div className="timetable-header-trailing">
                         <M3Button 
                             onClick={() => window.print()} 
                             variant="secondary"
@@ -108,21 +110,21 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     </div>
                 </div>
 
-                <div className="px-4 md:px-0">
+                <div className="timetable-guidance-container">
                     <Guidance id="timetable-pro-tips-aura" icon="auto_awesome" title="Consiglio Rapido" isGloballyEnabled={showGuidanceTips}>
                         <p>Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.</p>
                     </Guidance>
                 </div>
                 
                 {/* MATRIX CONTAINER */}
-                <div className="px-4 md:px-0 overflow-x-auto no-scrollbar">
-                    <div className={`bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 p-6 shadow-[var(--md-sys-elevation-level4)] ${viewMode === 'day' ? 'max-w-2xl mx-auto' : ''}`}>
-                        <div className={`timetable-matrix border-none ${viewMode === 'day' ? 'single-day-view' : ''} min-w-[320px]`}>
-                            <div className="matrix-header-time bg-[var(--md-sys-color-surface-container-high)]est/50 backdrop-blur-md rounded-tl-2xl font-black text-[10px] text-[var(--md-sys-color-on-surface)]-variant">ORA</div>
+                <div className="timetable-matrix-container">
+                    <div className={`timetable-matrix-wrapper ${viewMode === 'day' ? 'single-day-view' : ''}`}>
+                        <div className={`timetable-matrix ${viewMode === 'day' ? 'single-day-view' : ''} min-w-[320px]`}>
+                            <div className="timetable-matrix-header-time">ORA</div>
                             {visibleDays.map((day, idx) => (
                                 <div 
                                     key={day} 
-                                    className={`matrix-header-cell ${day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] ? 'today font-black bg-primary/10' : ''} ${idx === visibleDays.length - 1 ? 'rounded-tr-2xl' : ''}`}
+                                    className={`timetable-matrix-header-cell ${day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] ? 'today' : ''} ${idx === visibleDays.length - 1 ? 'rounded-tr-2xl' : ''}`}
                                 >
                                     {day.substring(0, 3)}
                                 </div>
@@ -130,7 +132,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
 
                             {settings.timeSlots.map((time, timeIdx) => (
                                 <React.Fragment key={time}>
-                                    <div className={`matrix-time-label font-mono font-black opacity-60 text-[10px] ${timeIdx === settings.timeSlots.length - 1 ? 'rounded-bl-2xl' : ''}`}>
+                                    <div className={`timetable-matrix-time-label ${timeIdx === settings.timeSlots.length - 1 ? 'rounded-bl-2xl' : ''}`}>
                                         {time}
                                     </div>
                                     {visibleDays.map((day, dayIdx) => {
@@ -140,7 +142,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                         return (
                                             <div 
                                                 key={slotKey} 
-                                                className={`matrix-cell-wrapper transition-all duration-300 hover:scale-[1.02] hover:z-20 ${timeIdx === settings.timeSlots.length - 1 && dayIdx === visibleDays.length - 1 ? 'rounded-br-2xl' : ''}`} 
+                                                className={`timetable-matrix-cell-wrapper ${timeIdx === settings.timeSlots.length - 1 && dayIdx === visibleDays.length - 1 ? 'rounded-br-2xl' : ''}`} 
                                                 onClick={() => handleCellClick(day, time)}
                                             >
                                                 <TimetableCell 
@@ -160,5 +162,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
         </div>
     );
 });
+
+export default Timetable;
 
 

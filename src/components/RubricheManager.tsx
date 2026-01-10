@@ -1,4 +1,6 @@
 
+/* M3Expressive - RubricheManager Component */
+
 import React, { useState } from 'react';
 import { Competenza, Rubrica, View } from '../types';
 import RubricEditor from './RubricEditor';
@@ -21,13 +23,13 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
     };
 
     return (
-        <div className="page-layout pb-24">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-8">
-                <div className="space-y-1">
-                    <h1 className="m3-headline-medium font-black tracking-tight">Rubriche di Valutazione</h1>
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Crea e gestisci le griglie di competenza.</p>
-                </div>
-                <M3Button onClick={() => setEditingRubric('new')} variant="filled" className="shadow-[var(--md-sys-elevation-level2)] font-black text-xs uppercase tracking-widest">
+        <div className="rubriche-manager-page-layout">
+            <div className="rubriche-manager-header">
+            <div className="rubriche-manager-title-section">
+                <div className="rubriche-manager-title">Rubriche di Valutazione</div>
+                <p className="rubriche-manager-subtitle">Crea e gestisci le griglie di competenza.</p>
+            </div>
+                <M3Button onClick={() => setEditingRubric('new')} variant="filled" className="rubriche-manager-create-button">
                     <span className="material-symbols-outlined mr-2">add</span>
                     Crea Nuova
                 </M3Button>
@@ -38,13 +40,13 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 description="Crea rubriche di valutazione riutilizzabili basate sulle tue competenze. Usale durante le interrogazioni o le prove pratiche per una valutazione oggettiva."
                 icon="schema"
                 variant="secondary"
-                className="bg-secondary-container/10 border-secondary/20 mb-8"
+                className="rubriche-manager-info-card"
             />
 
-            <div className="space-y-6">
-                <SectionHeader title="I tuoi Modelli" icon="assignment" variant="primary" />
+            <div className="rubriche-manager-content">
+                <div className="rubriche-manager-templates-section">
                 {rubriche.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="rubriche-manager-grid">
                         {rubriche.map(rubrica => (
                             <ActionTile 
                                 key={rubrica.id}
@@ -53,7 +55,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                                 icon="assignment"
                                 variant="surface"
                                 onClick={() => setEditingRubric(rubrica)}
-                                className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border border-[var(--md-sys-color-outline-variant)]/20 hover:bg-[var(--md-sys-color-surface-container-high)]/50 transition-all"
+                                className="rubriche-manager-rubric-card"
                             />
                         ))}
                     </div>
@@ -64,9 +66,10 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                         icon="schema"
                     />
                 )}
+                </div>
             </div>
             
-            <div className="mt-12 space-y-6">
+            <div className="rubriche-manager-references-section">
                 <SectionHeader title="Riferimenti" icon="menu_book" variant="tertiary" />
                 <ActionTile 
                     title="Descrittori Livelli"
@@ -74,7 +77,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                     icon="visibility"
                     variant="tertiary"
                     onClick={() => onNavigate('competency-levels')}
-                    className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border border-[var(--md-sys-color-outline-variant)]/20 hover:bg-[var(--md-sys-color-surface-container-high)]/50 transition-all"
+                    className="rubriche-manager-reference-card"
                 />
             </div>
 

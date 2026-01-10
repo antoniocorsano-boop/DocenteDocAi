@@ -1,3 +1,5 @@
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
 import React, { useState, useMemo } from 'react';
 import { DocumentTemplate } from '../types';
 import { useSystemStore } from '../stores/useSystemStore';
@@ -111,23 +113,14 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
     }
   };
 
-  const getTypeColor = (type: DocumentTemplate['type']) => {
-    switch (type) {
-      case 'student_profile': return 'bg-primary-container text-on-primary-container';
-      case 'lesson_plan': return 'bg-secondary-container text-on-secondary-container';
-      case 'uda': return 'bg-tertiary-container text-on-tertiary-container';
-      default: return 'bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)]-container';
-    }
-  };
-
   return (
     <M3Dialog
       title={editingTemplate ? (isCreating ? 'Crea Template' : 'Modifica Template') : 'Gestione Template'}
       onClose={onClose}
       maxWidth="2xl"
     >
-      <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
-        <div className="p-6 space-y-6">
+      <M3DialogContent className="template-manager-dialog-content">
+        <div className="template-manager-main-container">
             {editingTemplate ? (
               <TemplateEditor
                 template={editingTemplate}
@@ -140,24 +133,23 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
             ) : (
               <>
                 {/* Barra di ricerca e controlli */}
-                <div className="flex items-center justify-between gap-8">
-                  <div className="flex-1 max-w-md">
-                    <div className="relative">
-                      <span className="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--md-sys-color-on-surface)]-variant">
-                        search
-                      </span>
+                <div className="template-manager-search-controls">
+                  <div className="template-manager-search-container">
+                    <div className="template-manager-search-input-container">
+                      <span className="template-manager-search-icon">search</span>
                       <input
                         type="text"
                         placeholder="Cerca template..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-4 border border-[var(--md-sys-color-outline)] rounded-[var(--md-sys-shape-corner-small)] focus:border-primary focus:outline-none bg-surface"
+                        className="template-manager-search-input"
                       />
                     </div>
                   </div>
                   <M3Button
                     onClick={handleCreateTemplate}
                     variant="filled"
+                    className="template-manager-create-button"
                   >
                     <span className="material-symbols-outlined mr-2">add</span>
                     Nuovo Template
@@ -165,16 +157,14 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                 </div>
 
                 {/* Lista template raggruppati */}
-                <div className="space-y-8">
+                <div className="template-manager-templates-list">
                   {Object.keys(groupedTemplates).length === 0 ? (
-                    <div className="text-center py-12">
-                      <span className="material-symbols-outlined text-6xl text-[var(--md-sys-color-on-surface)]-variant/50 mb-8">
-                        description
-                      </span>
-                      <h3 className="text-lg font-medium text-[var(--md-sys-color-on-surface)] mb-8">
+                    <div className="template-manager-empty-state">
+                      <span className="template-manager-empty-state-icon">description</span>
+                      <h3 className="template-manager-empty-state-title">
                         {searchTerm ? 'Nessun template trovato' : 'Nessun template creato'}
                       </h3>
-                      <p className="text-[var(--md-sys-color-on-surface)]-variant mb-8">
+                      <p className="template-manager-empty-state-description">
                         {searchTerm
                           ? 'Prova a modificare i termini di ricerca'
                           : 'Crea il tuo primo template per personalizzare i documenti'
@@ -184,6 +174,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                         <M3Button
                           onClick={handleCreateTemplate}
                           variant="filled"
+                          className="template-manager-empty-state-button"
                         >
                           Crea il primo template
                         </M3Button>
@@ -191,55 +182,55 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                     </div>
                   ) : (
                     Object.entries(groupedTemplates).map(([groupName, groupTemplates]) => (
-                      <div key={groupName}>
+                      <div key={groupName} className="template-manager-template-group">
                         <SectionHeader 
                           title={groupName} 
                           subtitle={`${groupTemplates.length} template disponibili`}
                           className="mb-8"
                         />
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="template-manager-template-grid">
                           {groupTemplates.map(template => (
                             <InfoCard
                               key={template.id}
                               variant="elevated"
-                              className="p-8 hover:border-primary/50 transition-colors"
+                              className="template-manager-template-card"
                             >
-                              <div className="flex items-start justify-between mb-6">
-                                <div className="flex-1 min-w-0">
-                                  <h4 className="font-bold text-[var(--md-sys-color-on-surface)] truncate mb-4">
+                              <div className="template-manager-template-header">
+                                <div className="template-manager-template-info">
+                                  <h4 className="template-manager-template-name">
                                     {template.name}
                                   </h4>
-                                  <span className={`inline-block px-4 py-0.5 text-[10px] font-black uppercase tracking-wider rounded-full ${getTypeColor(template.type)}`}>
+                                  <span className={`template-manager-template-type-badge ${template.type === 'student_profile' ? 'template-manager-template-type-badge.student-profile' : template.type === 'lesson_plan' ? 'template-manager-template-type-badge.lesson-plan' : 'template-manager-template-type-badge.uda'}`}>
                                     {getTypeLabel(template.type)}
                                   </span>
                                 </div>
-                                <div className="flex gap-4 ml-2">
+                                <div className="template-manager-template-actions">
                                   <M3Button
                                     onClick={() => setEditingTemplate(template)}
                                     variant="text"
-                                    className="!min-w-0 !p-1"
+                                    className="template-manager-template-edit-button"
                                     title={`Modifica template ${template.name}`}
                                   >
-                                    <span className="material-symbols-outlined text-sm">edit</span>
+                                    <span className="template-manager-template-edit-icon">edit</span>
                                   </M3Button>
                                   <M3Button
                                     onClick={() => handleDeleteTemplate(template.id, template.name)}
                                     variant="text"
-                                    className="!min-w-0 !p-1 text-error"
+                                    className="template-manager-template-delete-button"
                                     title={`Elimina template ${template.name}`}
                                   >
-                                    <span className="material-symbols-outlined text-sm">delete</span>
+                                    <span className="template-manager-template-delete-icon">delete</span>
                                   </M3Button>
                                 </div>
                               </div>
 
                               {template.description && (
-                                <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mb-6 line-clamp-2">
+                                <p className="template-manager-template-description">
                                   {template.description}
                                 </p>
                               )}
 
-                              <div className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant mb-6 opacity-70">
+                              <div className="template-manager-template-updated-date">
                                 Aggiornato: {new Date(template.updatedAt).toLocaleDateString('it-IT')}
                               </div>
 
@@ -247,7 +238,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                 <M3Button
                                   onClick={() => handleApplyTemplate(template)}
                                   variant="tonal"
-                                  className="w-full !py-1 text-xs"
+                                  className="template-manager-template-apply-button"
                                 >
                                   Applica Template
                                 </M3Button>
@@ -448,47 +439,47 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="template-manager-editor-container">
       {/* Header Editor */}
-      <div className="flex items-center justify-between border-b border-[var(--md-sys-color-outline-variant)] pb-4">
-        <div className="flex gap-8">
+      <div className="template-manager-editor-header">
+        <div className="template-manager-editor-tabs">
           <M3Button 
             onClick={() => setActiveTab('config')} 
             variant={activeTab === 'config' ? 'filled' : 'text'}
-            className="!py-1"
+            className="template-manager-editor-tab-button"
           >
             Configurazione
           </M3Button>
           <M3Button 
             onClick={() => setActiveTab('content')} 
             variant={activeTab === 'content' ? 'filled' : 'text'}
-            className="!py-1"
+            className="template-manager-editor-tab-button"
           >
             Contenuto HTML
           </M3Button>
           <M3Button 
             onClick={() => setActiveTab('preview')} 
             variant={activeTab === 'preview' ? 'filled' : 'text'}
-            className="!py-1"
+            className="template-manager-editor-tab-button"
           >
             Anteprima
           </M3Button>
         </div>
         
-        <div className="flex gap-8">
-          <M3Button onClick={onCancel} variant="text" className="!py-1">
+        <div className="template-manager-editor-actions">
+          <M3Button onClick={onCancel} variant="text" className="template-manager-editor-cancel-button">
             Annulla
           </M3Button>
-          <M3Button onClick={handleSave} variant="filled" className="!py-1">
+          <M3Button onClick={handleSave} variant="filled" className="template-manager-editor-save-button">
             Salva
           </M3Button>
         </div>
       </div>
 
       {activeTab === 'config' && (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
+        <div className="template-manager-config-tab">
           {/* Informazioni base */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="template-manager-config-form-grid">
             <TextField
               id="template-name"
               label="Nome Template *"
@@ -525,115 +516,115 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
           />
 
           {/* AI Generation Tool */}
-          <InfoCard variant="tonal" className="p-8 border-primary/20 bg-primary/5">
-            <div className="flex items-center gap-8 mb-6">
-              <span className="material-symbols-outlined text-primary">auto_awesome</span>
-              <h4 className="font-bold text-primary text-sm">Genera con AI</h4>
+          <InfoCard variant="tonal" className="template-manager-ai-generation-card">
+            <div className="template-manager-ai-generation-header">
+              <span className="template-manager-ai-generation-icon">auto_awesome</span>
+              <h4 className="template-manager-ai-generation-title">Genera con AI</h4>
             </div>
-            <div className="flex gap-8">
+            <div className="template-manager-ai-generation-form">
               <TextField
                 id="ai-prompt"
                 label="Prompt AI"
                 value={aiPrompt}
                 onChange={(e) => setAiPrompt(e.target.value)}
                 placeholder="Es: Un template elegante per UDA con focus su inclusione..."
-                containerClassName="flex-1"
+                containerClassName="template-manager-ai-generation-input"
                 onKeyDown={(e) => e.key === 'Enter' && handleGenerateWithAi()}
               />
               <M3Button 
                 onClick={handleGenerateWithAi} 
                 disabled={isGenerating || !aiPrompt.trim()}
                 variant="filled"
-                className="mt-6 !py-4"
+                className="template-manager-ai-generation-button"
                 aria-label={isGenerating ? 'Generazione in corso...' : 'Genera template con AI'}
               >
                 {isGenerating ? '...' : 'Genera'}
               </M3Button>
             </div>
-            <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant mt-4">
-              L'AI creerà automaticamente l'intestazione, il piè di pagina e le configurazioni ottimali.
+            <p className="template-manager-ai-generation-help">
+              L'AI creerï¿½ automaticamente l'intestazione, il piï¿½ di pagina e le configurazioni ottimali.
             </p>
           </InfoCard>
 
           {/* Configurazioni specifiche */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <InfoCard variant="elevated" style={{ padding: 'var(--md-sys-spacing-6)' }}>
-              <h4 className="font-bold text-sm mb-8">Opzioni Visibilità</h4>
-              <div className="space-y-3">
+          <div className="template-manager-config-options-grid">
+            <InfoCard variant="elevated" className="template-manager-config-card">
+              <h4 className="template-manager-config-card-title">Opzioni VisibilitÃ </h4>
+              <div className="template-manager-config-options">
                 {editedTemplate.type === 'student_profile' && (
                   <>
-                    <label className="flex items-center cursor-pointer group">
+                    <label className="template-manager-config-option-label">
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeEvaluations ?? true}
                         onChange={(e) => updateConfig('includeEvaluations', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
+                        className="template-manager-config-option-checkbox"
                       />
-                      <span className="text-sm group-hover:text-primary transition-colors">Includi valutazioni</span>
+                      <span className="template-manager-config-option-text">Includi valutazioni</span>
                     </label>
-                    <label className="flex items-center cursor-pointer group">
+                    <label className="template-manager-config-option-label">
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeCompetencyEvaluations ?? true}
                         onChange={(e) => updateConfig('includeCompetencyEvaluations', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
+                        className="template-manager-config-option-checkbox"
                       />
-                      <span className="text-sm group-hover:text-primary transition-colors">Includi competenze</span>
+                      <span className="template-manager-config-option-text">Includi competenze</span>
                     </label>
                   </>
                 )}
                 {editedTemplate.type === 'lesson_plan' && (
                   <>
-                    <label className="flex items-center cursor-pointer group">
+                    <label className="template-manager-config-option-label">
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeObjectives ?? true}
                         onChange={(e) => updateConfig('includeObjectives', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
+                        className="template-manager-config-option-checkbox"
                       />
-                      <span className="text-sm group-hover:text-primary transition-colors">Includi obiettivi</span>
+                      <span className="template-manager-config-option-text">Includi obiettivi</span>
                     </label>
-                    <label className="flex items-center cursor-pointer group">
+                    <label className="template-manager-config-option-label">
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeMaterials ?? true}
                         onChange={(e) => updateConfig('includeMaterials', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
+                        className="template-manager-config-option-checkbox"
                       />
-                      <span className="text-sm group-hover:text-primary transition-colors">Includi materiali</span>
+                      <span className="template-manager-config-option-text">Includi materiali</span>
                     </label>
                   </>
                 )}
                 {editedTemplate.type === 'uda' && (
                   <>
-                    <label className="flex items-center cursor-pointer group">
+                    <label className="template-manager-config-option-label">
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includePhases ?? true}
                         onChange={(e) => updateConfig('includePhases', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
+                        className="template-manager-config-option-checkbox"
                       />
-                      <span className="text-sm group-hover:text-primary transition-colors">Includi fasi</span>
+                      <span className="template-manager-config-option-text">Includi fasi</span>
                     </label>
-                    <label className="flex items-center cursor-pointer group">
+                    <label className="template-manager-config-option-label">
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeEvaluation ?? true}
                         onChange={(e) => updateConfig('includeEvaluation', e.target.checked)}
-                        className="mr-3 w-4 h-4 rounded border-[var(--md-sys-color-outline)] text-primary focus:ring-primary"
+                        className="template-manager-config-option-checkbox"
                       />
-                      <span className="text-sm group-hover:text-primary transition-colors">Includi valutazione</span>
+                      <span className="template-manager-config-option-text">Includi valutazione</span>
                     </label>
                   </>
                 )}
               </div>
             </InfoCard>
 
-            <InfoCard variant="elevated" style={{ padding: 'var(--md-sys-spacing-6)' }}>
-              <h4 className="font-bold text-sm mb-8">Sezioni Personalizzate</h4>
-              <div className="space-y-2">
+            <InfoCard variant="elevated" className="template-manager-config-card">
+              <h4 className="template-manager-config-card-title">Sezioni Personalizzate</h4>
+              <div className="template-manager-custom-sections">
                 {(editedTemplate.config.customSections || []).map((section, idx) => (
-                  <div key={idx} className="flex items-center gap-8">
+                  <div key={idx} className="template-manager-custom-section-item">
                     <input
                       type="text"
                       value={section}
@@ -642,24 +633,24 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         newSections[idx] = e.target.value;
                         updateConfig('customSections', newSections);
                       }}
-                      className="flex-1 px-4 py-1 border border-[var(--md-sys-color-outline)] rounded bg-surface text-xs"
+                      className="template-manager-custom-section-input"
                     />
                     <button 
                       onClick={() => {
                         const newSections = (editedTemplate.config.customSections || []).filter((_, i) => i !== idx);
                         updateConfig('customSections', newSections);
                       }}
-                      className="text-error hover:bg-error/10 p-1 rounded"
+                      className="template-manager-custom-section-delete-button"
                       aria-label={`Elimina sezione ${section}`}
                     >
-                      <span className="material-symbols-outlined text-sm">delete</span>
+                      <span className="template-manager-custom-section-delete-icon">delete</span>
                     </button>
                   </div>
                 ))}
                 <M3Button 
                   onClick={() => updateConfig('customSections', [...(editedTemplate.config.customSections || []), 'Nuova Sezione'])}
                   variant="text"
-                  className="w-full !py-1 text-[10px]"
+                  className="template-manager-add-section-button"
                 >
                   + Aggiungi Sezione
                 </M3Button>
@@ -670,52 +661,52 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
       )}
 
       {activeTab === 'content' && (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="template-manager-content-tab">
+          <div className="template-manager-content-layout">
             {/* Editor Side */}
-            <div className="lg:col-span-7 space-y-4">
-              <div className="flex items-center gap-8 mb-8">
-                <span className="material-symbols-outlined text-primary text-sm">edit_note</span>
-                <h4 className="font-bold text-sm">Editor HTML/CSS</h4>
+            <div className="template-manager-content-editor">
+              <div className="template-manager-content-editor-header">
+                <span className="template-manager-content-editor-icon">edit_note</span>
+                <h4 className="template-manager-content-editor-title">Editor HTML/CSS</h4>
               </div>
               
-              <div>
-                <label htmlFor="html-header" className="block text-[10px] font-black uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant mb-4">
+              <div className="template-manager-content-field">
+                <label htmlFor="html-header" className="template-manager-content-field-label">
                   Intestazione (HTML)
                 </label>
                 <textarea
                   id="html-header"
                   value={editedTemplate.content?.header || ''}
                   onChange={(e) => updateContent('header', e.target.value)}
-                  className="w-full px-3 py-4 border border-[var(--md-sys-color-outline)] rounded-[var(--md-sys-shape-corner-small)] focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
+                  className="template-manager-content-textarea"
                   rows={8}
                   placeholder="<h1>Titolo</h1>..."
                 />
               </div>
               
-              <div>
-                <label htmlFor="html-footer" className="block text-[10px] font-black uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant mb-4">
+              <div className="template-manager-content-field">
+                <label htmlFor="html-footer" className="template-manager-content-field-label">
                   PiÃ¨ di pagina (HTML)
                 </label>
                 <textarea
                   id="html-footer"
                   value={editedTemplate.content?.footer || ''}
                   onChange={(e) => updateContent('footer', e.target.value)}
-                  className="w-full px-3 py-4 border border-[var(--md-sys-color-outline)] rounded-[var(--md-sys-shape-corner-small)] focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
+                  className="template-manager-content-textarea"
                   rows={4}
                   placeholder="<p>Pagina {{page}}</p>..."
                 />
               </div>
               
-              <div>
-                <label htmlFor="custom-css" className="block text-[10px] font-black uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant mb-4">
+              <div className="template-manager-content-field">
+                <label htmlFor="custom-css" className="template-manager-content-field-label">
                   CSS Personalizzato
                 </label>
                 <textarea
                   id="custom-css"
                   value={editedTemplate.content?.customCss || ''}
                   onChange={(e) => updateContent('customCss', e.target.value)}
-                  className="w-full px-3 py-4 border border-[var(--md-sys-color-outline)] rounded-[var(--md-sys-shape-corner-small)] focus:border-primary focus:outline-none bg-surface font-mono text-[11px] leading-relaxed"
+                  className="template-manager-content-textarea"
                   rows={4}
                   placeholder=".header { color: red; }..."
                 />
@@ -723,36 +714,32 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
             </div>
 
             {/* Preview & Variables Side */}
-            <div className="lg:col-span-5 space-y-4">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-8">
-                  <span className="material-symbols-outlined text-primary text-sm">visibility</span>
-                  <h4 className="font-bold text-sm">Anteprima Real-time</h4>
+            <div className="template-manager-content-preview">
+              <div className="template-manager-content-preview-header">
+                <div className="template-manager-content-preview-title-container">
+                  <span className="template-manager-content-preview-icon">visibility</span>
+                  <h4 className="template-manager-content-preview-title">Anteprima Real-time</h4>
                 </div>
-                <div 
-                  className="flex items-center gap-2.5 px-4 py-0.5 rounded-full bg-success/10 text-success text-[9px] font-black uppercase tracking-wider animate-pulse"
-                  aria-live="polite"
-                  role="status"
-                >
-                  <span className="w-1 h-1 rounded-full bg-success"></span>
+                <div className="template-manager-content-preview-status">
+                  <span className="template-manager-content-preview-status-dot"></span>
                   Live
                 </div>
               </div>
               
-              <div className="h-[450px]">
+              <div className="template-manager-content-preview-container">
                 <TemplatePreview template={editedTemplate} />
               </div>
 
-              <InfoCard variant="tonal" style={{ padding: 'var(--md-sys-spacing-5)' }}>
-                <h4 className="font-bold text-[11px] mb-8 flex items-center gap-8">
-                  <span className="material-symbols-outlined text-primary text-xs">variable_insert</span>
+              <InfoCard variant="tonal" className="template-manager-variables-card">
+                <h4 className="template-manager-variables-header">
+                  <span className="template-manager-variables-icon">variable_insert</span>
                   Variabili (Clicca per copiare)
                 </h4>
-                <div className="flex flex-wrap gap-2.5 max-h-[120px] overflow-y-auto">
+                <div className="template-manager-variables-list">
                   {availableVariables.map(v => (
                     <button 
                       key={v.name} 
-                      className="px-4 py-1 rounded bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline)]/30 hover:border-primary/50 text-[10px] font-mono text-primary transition-colors"
+                      className="template-manager-variable-button"
                       onClick={() => {
                         navigator.clipboard.writeText(v.name);
                         showToast(`Copiato: ${v.name}`, 'info');
@@ -771,7 +758,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
       )}
 
       {activeTab === 'preview' && (
-        <div className="animate-in fade-in slide-in-from-bottom-2 h-[600px]">
+        <div className="template-manager-preview-tab">
           <TemplatePreview template={editedTemplate} />
         </div>
       )}

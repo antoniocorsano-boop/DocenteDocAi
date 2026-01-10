@@ -1,4 +1,5 @@
 
+// M3Expressive: EventActionPopover - Event action management popover with M3 tokens
 import React from 'react';
 import { M3Popover } from './ui';
 import { EventoCalendario } from '../types';
@@ -44,25 +45,13 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
         >
             {/* Event Description */}
             {event.descrizione && (
-                <div style={{
-                    padding: 'var(--md-sys-spacing-4)',
-                    marginBottom: 'var(--md-sys-spacing-2)',
-                    backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                    borderRadius: 'var(--md-sys-shape-corner-medium)',
-                    color: 'var(--md-sys-color-on-surface)',
-                    fontSize: 'var(--md-sys-typescale-body-small-size)',
-                    opacity: 0.8,
-                    display: '-webkit-box',
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                }}>
+                <div className="event-action-popover-description">
                     {event.descrizione}
                 </div>
             )}
 
             {/* Action Buttons */}
-            <div style={{ display: 'flex', flexDirection: 'column', padding: '0 var(--md-sys-spacing-2) var(--md-sys-spacing-2) var(--md-sys-spacing-2)', gap: 'var(--md-sys-spacing-1)' }}>
+            <div className="event-action-popover-actions">
                 <button
                     onClick={handleEdit}
                     className="m3-interactive-button"

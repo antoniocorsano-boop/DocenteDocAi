@@ -1,4 +1,5 @@
 
+// M3Expressive: QuickNotePopover - Quick note input popover with voice recording
 import React, { useState } from 'react';
 import { M3Popover, TextField, M3Button } from './ui';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
@@ -31,26 +32,11 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
             maxWidth={300}
         >
             {/* Header */}
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                    backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                    borderBottom: '1px solid var(--md-sys-color-outline-variant)',
-                    gap: 'var(--md-sys-spacing-2)',
-                }}
-            >
-                <h3 style={{ 
-                    margin: 0, 
-                    fontSize: 'var(--md-sys-typescale-body-medium-size)', 
-                    fontWeight: 'var(--md-sys-typescale-body-medium-weight)', 
-                    color: 'var(--md-sys-color-on-surface)' 
-                }}>
+            <div className="quick-note-popover-header">
+                <h3 className="quick-note-popover-title">
                     Nota Rapida
                 </h3>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                <div className="quick-note-popover-actions">
                     <VoiceNoteRecorder onTranscription={handleTranscription} compact={true} />
                     <button
                         onClick={onClose}
@@ -65,7 +51,7 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
             </div>
 
             {/* Content */}
-            <div style={{ padding: 'var(--md-sys-spacing-4)' }}>
+            <div className="quick-note-popover-content">
                 <TextField
                     multiline
                     rows={4}
@@ -81,8 +67,7 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
                     variant="filled"
                     fullWidth
                     onClick={handleSave}
-                    className="mt-4"
-                    style={{ marginTop: 'var(--md-sys-spacing-4)' }}
+                    className="quick-note-popover-save-button"
                 >
                     Salva Nota
                 </M3Button>

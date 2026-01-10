@@ -1,3 +1,4 @@
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState, useMemo } from 'react';
 import { RegisterEntry, RegisterViewProps } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
@@ -34,33 +35,33 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
         maxWidth="lg"
         level={1}
       >
-        <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm space-y-6">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-primary">
+        <M3DialogContent className="register-view-dialog-content">
+          <div className="register-view-dialog-header">
+            <h2 className="register-view-dialog-date">
                 {new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
             </h2>
-            <p className="m3-label-medium text-[var(--md-sys-color-on-surface)]-variant opacity-70 uppercase tracking-widest">Registro di Classe</p>
+            <p className="register-view-dialog-label">Registro di Classe</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="register-view-dialog-grid">
             <InfoCard title="Informazioni Lezione" icon="info">
-                <div className="space-y-2">
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Classe:</strong> {entry.classe}</p>
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Materia:</strong> {entry.materia}</p>
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
+                <div className="register-view-info-content">
+                    <p className="register-view-info-item"><strong>Classe:</strong> {entry.classe}</p>
+                    <p className="register-view-info-item"><strong>Materia:</strong> {entry.materia}</p>
+                    <p className="register-view-info-item"><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
                 </div>
             </InfoCard>
 
             <InfoCard title="Appello" icon="group" variant="secondary">
-                <div className="space-y-2">
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</p>
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]"><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
+                <div className="register-view-attendance-content">
+                    <p className="register-view-attendance-item"><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</p>
+                    <p className="register-view-attendance-item"><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
                 </div>
             </InfoCard>
           </div>
 
           <InfoCard title="Note e Osservazioni" icon="notes" variant="tertiary">
-            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] whitespace-pre-wrap leading-relaxed">
+            <p className="register-view-notes-text">
                 {entry.notes || 'Nessuna nota registrata per questa lezione.'}
             </p>
           </InfoCard>
@@ -73,38 +74,38 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
   };
   
   return (
-    <div className="space-y-4">
+    <div className="register-view-container">
       {!isModalMode && (
-        <div className="page-header-compact">
-          <div className="page-header-title-group">
-            <h1 className="m3-headline-medium font-black">Diario di Bordo {initialClass && ` - ${initialClass}`}</h1>
-            <p className="page-subtitle">Registro sintetico delle lezioni.</p>
+        <div className="register-view-header">
+          <div className="register-view-title-group">
+            <h1 className="register-view-title">Diario di Bordo {initialClass && ` - ${initialClass}`}</h1>
+            <p className="register-view-subtitle">Registro sintetico delle lezioni.</p>
           </div>
         </div>
       )}
-      <div className={isModalMode ? "" : "card"}>
-        <div className="table-container">
-          <table className="table">
+      <div className={isModalMode ? "" : "register-view-card"}>
+        <div className="register-view-table-container">
+          <table className="register-view-table">
             <thead>
               <tr>
                 <th>Data</th>
                 <th>Classe</th>
                 <th>Materia</th>
                 <th>Argomento</th>
-                <th className="text-right"></th>
+                <th className="register-view-table-actions"></th>
               </tr>
             </thead>
             <tbody>
               {filteredEntries.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(entry => {
                 const lesson = lessons[entry.lessonId];
                 return (
-                  <tr key={entry.id} className="interactive-row" onClick={() => setSelectedEntry(entry)}>
+                  <tr key={entry.id} className="register-view-table-row" onClick={() => setSelectedEntry(entry)}>
                     <td>{new Date(entry.date).toLocaleDateString('it-IT')}</td>
                     <td>{entry.classe}</td>
                     <td>{entry.materia}</td>
                     <td>{lesson?.contenuto || 'Lezione improvvisata'}</td>
-                    <td className="text-right">
-                      <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">chevron_right</span>
+                    <td className="register-view-table-actions">
+                      <span className="register-view-table-chevron">chevron_right</span>
                     </td>
                   </tr>
                 );
@@ -112,7 +113,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
             </tbody>
           </table>
         </div>
-        {filteredEntries.length === 0 && <p className="text-center p-8 text-[var(--md-sys-color-on-surface)]-variant">Nessuna lezione registrata per questa classe.</p>}
+        {filteredEntries.length === 0 && <p className="register-view-empty">Nessuna lezione registrata per questa classe.</p>}
       </div>
       {selectedEntry && renderEntryDetails(selectedEntry)}
     </div>

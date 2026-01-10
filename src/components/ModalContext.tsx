@@ -41,12 +41,43 @@ export const useModal = (): ModalContextType => {
  */
 export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [stack, setStack] = useState<ModalInstance[]>([]);
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+
+  // Effect: manage modal-root container lifecycle
+  React.useEffect(() => {
+    if (stack.length === 0) {
+      // No modals, remove modal-root if present
+      if (portalContainer) {
+        document.body.removeChild(portalContainer);
+        setPortalContainer(null);
+      }
+      return;
+    }
+    // Modals present, ensure modal-root exists
+    let container = document.getElementById('modal-root');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'modal-root';
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '100%';
+      container.style.height = '100%';
+      container.style.pointerEvents = 'auto';
+      container.style.zIndex = getModalZIndex(0).toString();
+      document.body.appendChild(container);
+    }
+    setPortalContainer(container);
+    return () => {
+      if (container && stack.length === 0) {
+        document.body.removeChild(container);
+      }
+    };
+  }, [stack.length, portalContainer]);
 
   const pushModal = useCallback((id: string, component: React.ReactNode) => {
     setStack((prev) => {
-      // Prevent duplicate modals
       if (prev.some((m) => m.id === id)) return prev;
-
       const newLevel = prev.length + 1;
       return [...prev, { id, component, level: newLevel }];
     });
@@ -75,8 +106,10 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   return (
     <ModalContext.Provider value={value}>
       {children}
-      {/* Portal for modals - renders outside of component tree */}
-      <ModalPortalContainer modals={stack} getZIndex={getZIndex} />
+      {/* Only render modal portal container if there are active modals */}
+      {stack.length > 0 && portalContainer && (
+        <ModalPortalContainer modals={stack} getZIndex={getZIndex} />
+      )}
     </ModalContext.Provider>
   );
 };

@@ -6,6 +6,11 @@
  * - LessonsPage
  */
 
+/**
+ * SchedulingViews.tsx
+ * // M3Expressive refactor: Componente renderer senza stili, già conforme M3.
+ */
+
 import React from 'react';
 import { Timetable } from '../Timetable';
 import Calendar from '../Calendar';

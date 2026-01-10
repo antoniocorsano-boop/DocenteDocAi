@@ -1,3 +1,6 @@
+// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
+// ...existing code...
 import React, { useMemo, Suspense } from 'react';
 import { VIEW_CONFIGS, Home, ClassDashboard, ClassSelection, ClassroomView, StudentClassroomView } from './viewRegistry';
 import RegisterImportDialog from './RegisterImportDialog';
@@ -157,7 +160,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         const currentDraftEntry = draftKey !== undefined ? draftRegister[draftKey] : undefined;
                         
                         if (!currentDraftEntry) {
-                            return <div className="p-8 text-error">Errore: Dati lezione in bozza non trovati.</div>;
+                            return <div className="view-manager-error-message">Errore: Dati lezione in bozza non trovati.</div>;
                         }
 
                         return (
@@ -201,12 +204,12 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         const currentStudent = students.find(s => s.id === studentId);
                         if (!currentStudent) {
                             return (
-                                <div className="flex flex-col items-center justify-center h-full p-6 text-center">
-                                    <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-error mb-8">Errore Accesso Studente</h2>
-                                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-8">
+                                <div className="view-manager-error-container">
+                                    <h2 className="view-manager-error-title">Errore Accesso Studente</h2>
+                                    <p className="view-manager-error-description">
                                         Impossibile trovare il profilo studente selezionato.
                                     </p>
-                                    <button onClick={() => handleNavigate('student-dashboard')} className="button button-filled rounded-[var(--md-sys-shape-corner-small)] mt-4">
+                                    <button onClick={() => handleNavigate('student-dashboard')} className="view-manager-error-button">
                                         Torna al Login
                                     </button>
                                 </div>

@@ -1,4 +1,9 @@
 
+/**
+ * LessonsPage.tsx
+ * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
+ */
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { Lezione, LessonsPageProps, CurriculumSubject, TimetableSettings } from '../types';
 import { generateLessonSequenceForClass } from '../services/aiService';
@@ -134,27 +139,27 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
 
 
     return (
-        <div className="pt-3 px-4 md:px-6">
-            <div className="space-y-4">
-            <div className="page-header-compact">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium">Progetta Lezioni</h1>
-                    <p className="page-subtitle">Genera e orchestra sequenze di lezioni partendo da UDA e classi.</p>
+        <div className="lessons-page-container">
+            <div className="lessons-page-content">
+            <div className="lessons-page-header">
+                <div className="lessons-page-title-group">
+                    <h1 className="lessons-page-title">Progetta Lezioni</h1>
+                    <p className="lessons-page-subtitle">Genera e orchestra sequenze di lezioni partendo da UDA e classi.</p>
                 </div>
             </div>
 
             {/* Expressive Idea Card */}
             <div
-                className="hero-card"
+                className="lessons-page-idea-card"
                 onClick={() => setIsIdeaModalOpen(true)}
             >
-                <div className="hero-header">
-                    <div className="hero-icon-bg">
+                <div className="lessons-page-idea-header">
+                    <div className="lessons-page-idea-icon">
                         <span className="material-symbols-outlined">lightbulb</span>
                     </div>
                     <div>
-                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]">Hai un'idea per una lezione?</h2>
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] opacity-90">
+                        <h2 className="lessons-page-idea-title">Hai un'idea per una lezione?</h2>
+                        <p className="lessons-page-idea-description">
                             Tocca qui per trasformarla subito in un piano strutturato con l'AI. Dettala o scrivila.
                         </p>
                     </div>
@@ -163,30 +168,30 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
 
 
             {/* Lesson Sequence Generator */}
-            <details className="m3-expansion-panel">
-                <summary className="m3-expansion-summary">
-                    <div className="flex items-center gap-8">
-                        <span className="material-symbols-outlined text-primary">auto_awesome</span>
-                        <span className="m3-title-medium">Generatore Sequenze Lezioni</span>
+            <details className="lessons-page-expansion-panel">
+                <summary className="lessons-page-expansion-summary">
+                    <div className="lessons-page-expansion-header">
+                        <span className="material-symbols-outlined lessons-page-expansion-icon">auto_awesome</span>
+                        <span className="lessons-page-expansion-title">Generatore Sequenze Lezioni</span>
                     </div>
-                    <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">expand_more</span>
+                    <span className="material-symbols-outlined lessons-page-expansion-arrow">expand_more</span>
                 </summary>
-                <div className="m3-expansion-content">
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-8">
+                <div className="lessons-page-expansion-content">
+                    <p className="lessons-page-expansion-description">
                         Seleziona le Unità di Apprendimento (UDA) e le classi. L'AI genererà una sequenza di lezioni strutturata per ogni classe, basandosi sui documenti KB selezionati.
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="lessons-page-selection-grid">
                         {/* UDA Selection */}
-                        <div className="section-container">
-                            <h3 className="m3-title-medium mb-8">1. Seleziona UDA</h3>
+                        <div className="lessons-page-selection-section">
+                            <h3 className="lessons-page-selection-title">1. Seleziona UDA</h3>
                             {/* Centralized Selection Container */}
-                            <div className="selection-container max-h-[200px] border-none p-0 overflow-y-auto custom-scrollbar">
+                            <div className="lessons-page-selection-container">
                                 {udas.length > 0 ? udas.map(uda => (
-                                    <div key={uda.id} className="chip-checkbox">
+                                    <div key={uda.id} className="lessons-page-chip-checkbox">
                                         <input type="checkbox" id={`uda-select-${uda.id}`} checked={selectedUdaIds.includes(uda.id)} onChange={() => handleUdaSelection(uda.id)} />
-                                        <label htmlFor={`uda-select-${uda.id}`} className="chip w-full justify-start">{selectedUdaIds.includes(uda.id) && <span className="material-symbols-outlined text-lg">check</span>}{uda.title}</label>
+                                        <label htmlFor={`uda-select-${uda.id}`} className="lessons-page-chip">{selectedUdaIds.includes(uda.id) && <span className="material-symbols-outlined lessons-page-chip-check">check</span>}{uda.title}</label>
                                     </div>
-                                )) : <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Nessuna UDA trovata. Creane una nel Planner.</p>}
+                                )) : <p className="lessons-page-no-data">Nessuna UDA trovata. Creane una nel Planner.</p>}
                             </div>
                         </div>
                         {/* Class Selection */}

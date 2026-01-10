@@ -1,3 +1,4 @@
+// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 // ...existing code...
 import AssistantModal from './AssistantModal';
@@ -245,7 +246,7 @@ export const App: React.FC = () => {
         return (
             <ErrorBoundary>
                 <SkipLink />
-                <div className={`app-shell ${chaosStage === 'chaos' ? 'stage-chaos' : ''}`}>
+                <div className={`app-shell-container ${chaosStage === 'chaos' ? 'stage-chaos' : ''}`}>
                 {/* Fixed Header */}
                 <Header
                     title="DocenteDoc AI"
@@ -401,7 +402,7 @@ export const App: React.FC = () => {
                     hasSuggestion={!!activeSuggestion}
                 />
 
-                <div className="app-body">
+                <div className="app-shell-body">
                     {/* M3 Expressive Navigation Rail - vertical left navigation */}
                     <NavigationRail
                         items={[
@@ -417,8 +418,8 @@ export const App: React.FC = () => {
                     />
 
                     {/* Main Scrollable Content */}
-                    <main className="main-content custom-scrollbar">
-                        <div className="content-container">
+                    <main className="app-shell-main-content custom-scrollbar">
+                        <div className="app-shell-content-container">
                             {/* Banner Suggestion Assistant (solo se suggestion richiede modale) */}
                             {activeSuggestion && activeSuggestion.action?.type === 'modal' && typeof activeSuggestion.action?.payload === 'string' && activeSuggestion.action.payload === 'isLiveAssistantModalOpen' && !modals.isLiveAssistantModalOpen && (
                               <SuggestionBanner
@@ -442,7 +443,7 @@ export const App: React.FC = () => {
                 {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
                 {/* Super AI Assistant FAB: floating, multi-action, modal */}
                 <div 
-                    className="fixed right-6 bottom-[calc(64px+var(--md-sys-spacing-6))] md:bottom-6 pointer-events-auto"
+                    className="app-shell-fab-container"
                     style={{ zIndex: Z_INDEX.assistant.fab }}
                 >
                     <AssistantFab />

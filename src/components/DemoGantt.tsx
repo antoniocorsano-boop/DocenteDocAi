@@ -1,6 +1,7 @@
 import React from 'react';
 import { DndContext, useDraggable, useDroppable, DragEndEvent } from '@dnd-kit/core';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for drag-and-drop interactions, colors, spacing, and transitions
 interface GanttBarProps {
   id: string;
   title: string;
@@ -54,7 +55,6 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
   };
 
   const visualTransform = transform ? `translateX(${transform.x}px)` : undefined;
-  const outlineStyle = isDragging ? '2px solid var(--md-sys-color-primary)' : keyboardDrag ? '3px dashed var(--md-sys-color-primary)' : undefined;
 
   return (
     <div
@@ -66,19 +66,11 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
       aria-label={`Sposta UDA ${title}`}
       aria-grabbed={keyboardDrag || isDragging}
       aria-pressed={keyboardDrag}
-      className={`gantt-bar ${isDragging ? 'dragging' : ''} ${keyboardDrag ? 'keyboard-dragging' : ''}`}
+      className={`gantt-bar ${isDragging ? 'gantt-bar-dragging' : ''} ${keyboardDrag ? 'gantt-bar-keyboard-dragging' : ''}`}
       onKeyDown={handleKeyDown}
       style={{
-        transform: visualTransform,
-        outline: outlineStyle,
-        background: 'var(--md-sys-color-primary)',
-        color: 'white',
-        borderRadius: 8,
-        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-        margin: 4,
-        cursor: keyboardDrag ? 'grabbing' : 'grab',
-        userSelect: 'none',
-      }}
+        '--gantt-bar-transform': visualTransform,
+      } as React.CSSProperties}
     >
       <div>{title}{keyboardDrag ? ` — col ${targetCol + 1}` : null}</div>
     </div>
@@ -95,19 +87,7 @@ const GanttColumn: React.FC<GanttColumnProps> = ({ col, children }) => {
   return (
     <div
       ref={setNodeRef}
-      className="gantt-col"
-      style={{
-        minWidth: 120,
-        minHeight: 60,
-        background: isOver ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface)',
-        border: '1px solid var(--md-sys-color-outline-variant)',
-        borderRadius: 8,
-        margin: 4,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'background-color var(--motion-duration-short2) var(--motion-easing-standard)',
-      }}
+      className={`gantt-col ${isOver ? 'gantt-col-over' : ''}`}
     >
       {children}
     </div>
@@ -154,7 +134,7 @@ export const DemoGantt: React.FC = () => {
       <div>
         {/* ARIA live region for screen reader announcements */}
         <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">{liveMessage}</div>
-        <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
+        <div className="demo-gantt-container">
           {[...Array(NUM_COLS)].map((_, col) => (
             <GanttColumn key={col} col={col}>
               {state.bars.filter((b) => b.col === col).map((b) => (

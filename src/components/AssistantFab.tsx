@@ -1,3 +1,6 @@
+// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
+// ...existing code...
 import React from 'react';
 import { useUIStore } from '../stores/useUIStore';
 import { Z_INDEX } from '../design-system/zIndex';
@@ -44,7 +47,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
   }, [isAssistantOpen, menuOpen]);
 
   // Log ad ogni render per debug profondo, saltato in test-mode
-  safeConsole('info', '[AssistantFab][RENDER]', { menuOpen, mode });
+  safeConsole('info', '[AssistantFab][RENDER]', `menuOpen: ${menuOpen}, mode: ${mode}`);
 
   // Use store hook for modal toggle and reduce noisy logging during tests
   const toggleModal = useUIStore(state => state.actions.toggleModal);
@@ -149,8 +152,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                 <div className="assistant-fab-sheet" role="dialog" aria-modal="true" aria-label="Azioni assistente">
                   <div className="assistant-fab-sheet-header">
                     <div>
-                      <p className="text-sm font-semibold">Assistente AI</p>
-                      <p className="text-xs uppercase tracking-[0.5em] text-[var(--md-sys-color-on-surface)]-variant">Azioni rapide</p>
+                      <p className="assistant-fab-sheet-title">Assistente AI</p>
+                      <p className="assistant-fab-sheet-subtitle">Azioni rapide</p>
                     </div>
                     <button
                       className="assistant-fab-sheet-close"
@@ -168,10 +171,10 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                         onClick={() => handleAction(action)}
                         aria-label={action.label}
                       >
-                        <span className="material-symbols-outlined text-2xl">{action.icon}</span>
-                        <div className="text-left">
-                          <p className="font-semibold">{action.label}</p>
-                          <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">{action.description}</p>
+                        <span className="material-symbols-outlined assistant-fab-action-icon">{action.icon}</span>
+                        <div className="assistant-fab-action-text">
+                          <p className="assistant-fab-action-label">{action.label}</p>
+                          <p className="assistant-fab-action-description">{action.description}</p>
                         </div>
                       </button>
                     ))}
@@ -207,7 +210,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       aria-label={a.label}
                     >
                       <span className="material-symbols-outlined">{a.icon}</span>
-                      <span className="ml-2 font-medium">{a.label}</span>
+                      <span className="assistant-fab-menu-label">{a.label}</span>
                     </button>
                   );
                 })}

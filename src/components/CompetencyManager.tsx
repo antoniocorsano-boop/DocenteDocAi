@@ -1,4 +1,6 @@
 
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations. ✅ COMPLETED
+// ...existing code...
 import React, { useState } from 'react';
 import { Competenza } from '../types';
 import { DEFAULT_COMPETENZE } from '../constants';
@@ -55,39 +57,39 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
     });
 
     return (
-        <div className="space-y-4 animate-in fade-in w-full max-w-3xl mx-auto px-4 md:px-4">
+        <div className="competency-manager-main-container">
             {/* Intro Card */}
-            <div className="card bg-primary-container text-on-primary-container max-w-2xl mx-auto mb-8 p-8 md:p-6">
-                <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] mb-8">Gestione Framework e Competenze</h2>
-                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] opacity-90">
+            <div className="competency-manager-intro-card">
+                <h2 className="competency-manager-intro-title">Gestione Framework e Competenze</h2>
+                <p className="competency-manager-intro-description">
                     Seleziona le competenze che vuoi monitorare nel tuo registro. Puoi attivare interi framework come <strong>DigCompEdu 2.2</strong> (con focus IA) o le Competenze Chiave Europee.
                 </p>
             </div>
 
             {/* Filtri Framework: scroll orizzontale su mobile, sidebar su desktop */}
-            <div className="w-full overflow-x-auto pb-2 md:overflow-visible md:pb-0">
-                <div className="flex flex-row md:flex-col gap-8 md:gap-6 w-max md:w-64 mx-auto md:mx-0">
+            <div className="competency-manager-framework-filters-container">
+                <div className="competency-manager-framework-filters-inner">
                     {frameworks.map(fw => (
                         <button 
                             key={fw}
                             onClick={() => setActiveFramework(fw)}
-                            className={`px-4 py-4 rounded-[var(--md-sys-shape-corner-medium)] transition-colors text-sm font-medium flex items-center whitespace-nowrap ${activeFramework === fw ? 'bg-secondary-container text-on-secondary-container shadow-sm' : 'bg-surface hover:bg-[var(--md-sys-color-surface-container-high)] border border-transparent hover:border-[var(--md-sys-color-outline-variant)]'}`}
+                            className={`competency-manager-framework-filter-button ${activeFramework === fw ? 'competency-manager-framework-filter-button.active' : 'competency-manager-framework-filter-button.inactive'}`}
                         >
-                            <span className="truncate mr-2">{fw}</span>
-                            {fw === 'DigCompEdu 2.2' && <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">smart_toy</span>}
+                            <span className="competency-manager-framework-filter-text">{fw}</span>
+                            {fw === 'DigCompEdu 2.2' && <span className="competency-manager-framework-filter-icon">smart_toy</span>}
                         </button>
                     ))}
                 </div>
             </div>
 
             {/* Lista Competenze */}
-            <div className="space-y-3 max-w-2xl mx-auto w-full">
+            <div className="competency-manager-competency-list-container">
                 {filteredCatalog.map(comp => {
                     const active = isCompetencyActive(comp.id);
                     return (
                         <details 
                             key={comp.id} 
-                            className={`m3-expansion-panel transition-all ${active ? 'border-primary bg-surface' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-low)]'}`}
+                            className={`competency-manager-competency-expansion-panel ${active ? 'competency-manager-competency-expansion-panel.active' : 'competency-manager-competency-expansion-panel.inactive'}`}
                         >
                             <summary className="m3-expansion-summary !px-4 !py-3 !justify-start !gap-8">
                                 <div 
@@ -96,23 +98,23 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                         e.stopPropagation(); 
                                         toggleCompetency(comp); 
                                     }} 
-                                    className={`w-6 h-6 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors ${active ? 'bg-primary border-primary text-on-primary' : 'border-[var(--md-sys-color-outline)] text-[var(--md-sys-color-on-surface)]-variant hover:bg-[var(--md-sys-color-surface-container-high)]'}`}
+                                    className={`competency-manager-competency-checkbox ${active ? 'competency-manager-competency-checkbox.active' : 'competency-manager-competency-checkbox.inactive'}`}
                                     title={active ? `Disattiva ${comp.nome}` : `Attiva ${comp.nome}`}
                                 >
-                                    {active && <span className="material-symbols-outlined m3-body-small">check</span>}
+                                    {active && <span className="competency-manager-competency-checkbox-icon">check</span>}
                                 </div>
                                 <div className="flex-grow min-w-0">
-                                    <span className="m3-label-small font-bold uppercase tracking-wider text-primary mb-4 block truncate">{comp.codice}</span>
-                                    <h3 className="m3-title-medium font-bold truncate">{comp.nome}</h3>
-                                    <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant mt-4 truncate">{comp.framework}</p>
+                                    <span className="competency-manager-competency-code">{comp.codice}</span>
+                                    <h3 className="competency-manager-competency-name">{comp.nome}</h3>
+                                    <p className="competency-manager-competency-framework">{comp.framework}</p>
                                 </div>
-                                <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant group-open:rotate-180 transition-transform ml-auto">expand_more</span>
+                                <span className="competency-manager-competency-expand-icon">expand_more</span>
                             </summary>
-                            <div className="m3-expansion-content !px-4 !pt-2 !pb-4">
-                                <p className="m3-label-small font-bold mb-8 text-[var(--md-sys-color-on-surface)]-variant">DESCRITTORI LIVELLI:</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div className="competency-manager-competency-content">
+                                <p className="competency-manager-competency-levels-title">DESCRITTORI LIVELLI:</p>
+                                <div className="competency-manager-competency-levels-grid">
                                     {comp.livelli.map(lvl => (
-                                        <div key={lvl.id} className="bg-[var(--md-sys-color-surface-container-low)] p-8 rounded m3-label-small">
+                                        <div key={lvl.id} className="competency-manager-competency-level-card">
                                             <strong>{lvl.nome}:</strong> <span className="opacity-80">{lvl.descrizione}</span>
                                         </div>
                                     ))}

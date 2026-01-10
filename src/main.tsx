@@ -6,7 +6,7 @@
 import './polyfills';
 
 // Initialize tracing
-import './tracing';
+// import './tracing';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -42,10 +42,10 @@ import './modules.css';
 const isTestMode = (typeof window !== 'undefined' && (window as { __TEST_MODE?: boolean }).__TEST_MODE === true) || ((import.meta as ImportMeta).env?.VITE_TEST_MODE === 'true');
 if (!isTestMode) {
   try {
-    localStorage.clear();
+    // TEMPORARILY DISABLED: localStorage.clear();
     if (typeof window !== 'undefined' && 'indexedDB' in window) {
-      indexedDB.deleteDatabase('OrarioDocAI_BackupDB');
-      indexedDB.deleteDatabase('OrarioDocAI_Data');
+      // TEMPORARILY DISABLED: indexedDB.deleteDatabase('OrarioDocAI_BackupDB');
+      // TEMPORARILY DISABLED: indexedDB.deleteDatabase('OrarioDocAI_Data');
     }
   } catch {
     // Ignore errors during cleanup in non-test runs

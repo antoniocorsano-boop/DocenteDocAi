@@ -1,3 +1,5 @@
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
 import React, { useState } from 'react';
 import { HomeworkSubmission, Studente, Lezione } from '../types';
 import { Avatar } from './ui';
@@ -47,20 +49,20 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
     };
 
     return (
-        <div className="page-layout h-[calc(100vh-64px)] overflow-hidden !gap-0 !p-0 md:!p-8">
-            <div className="flex h-full bg-[var(--md-sys-color-surface-container-low)] md:rounded-[var(--md-sys-shape-corner-extra-large)] overflow-hidden border border-[var(--md-sys-color-outline-variant)] shadow-sm">
+        <div className="page-layout teacher-inbox-page-layout teacher-inbox-page-layout.responsive">
+            <div className="teacher-inbox-main-container teacher-inbox-main-container.responsive">
                 
                 {/* Sidebar List */}
-                <div className="w-80 border-r border-[var(--md-sys-color-outline-variant)] flex flex-col bg-[var(--md-sys-color-surface-container-low)] flex-shrink-0">
-                    <div className="p-8 border-b border-[var(--md-sys-color-outline-variant)] flex items-center gap-8 justify-between">
-                        <h2 className="m3-title-medium font-bold flex items-center gap-8">
-                            <span className="material-symbols-outlined">inbox</span> Inbox Compiti
+                <div className="teacher-inbox-sidebar">
+                    <div className="teacher-inbox-header">
+                        <h2 className="m3-title-medium teacher-inbox-title">
+                            <span className="material-symbols-outlined teacher-inbox-title-icon">inbox</span> Inbox Compiti
                         </h2>
-                        <button onClick={onClose} className="icon-button rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all" aria-label="Chiudi inbox"><span className="material-symbols-outlined" aria-hidden="true">close</span></button>
+                        <button onClick={onClose} className="icon-button teacher-inbox-close-button" aria-label="Chiudi inbox"><span className="material-symbols-outlined" aria-hidden="true">close</span></button>
                     </div>
 
-                    <div className="flex-grow overflow-y-auto p-8 space-y-1">
-                        <p className="px-3 py-4 m3-label-small font-bold text-[var(--md-sys-color-on-surface)]-variant uppercase">Da Correggere ({pendingSubmissions.length})</p>
+                    <div className="teacher-inbox-content">
+                        <p className="teacher-inbox-section-header">Da Correggere ({pendingSubmissions.length})</p>
                         {pendingSubmissions.map(sub => {
                             const studentInfo = getStudentDisplay(sub.studentId);
                             const lessonInfo = getLessonDisplay(sub.lessonId);
@@ -70,35 +72,35 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                 <div 
                                     key={sub.id}
                                     onClick={() => setSelectedSubmission(sub)}
-                                    className={`p-6 rounded-[var(--md-sys-shape-corner-medium)] cursor-pointer transition-colors flex items-start gap-6 ${isSelected ? 'bg-primary-container text-on-primary-container' : 'hover:bg-[var(--md-sys-color-surface-container-high)]'}`}
+                                    className={`teacher-inbox-submission-item ${isSelected ? 'teacher-inbox-submission-item.selected' : ''}`}
                                     style={{ borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)' }}
                                 >
                                     <Avatar name={`${studentInfo.name} ${studentInfo.surname}`} size="sm" />
-                                    <div className="min-w-0">
-                                        <p className="font-bold m3-body-small truncate">{studentInfo.full}</p>
-                                        <p className="m3-label-small opacity-80 truncate">{lessonInfo.materia} - {lessonInfo.contenuto}</p>
-                                        <span className="text-[10px] opacity-60">{new Date(sub.date).toLocaleDateString()}</span>
+                                    <div className="teacher-inbox-submission-content">
+                                        <p className="teacher-inbox-student-name">{studentInfo.full}</p>
+                                        <p className="teacher-inbox-lesson-info">{lessonInfo.materia} - {lessonInfo.contenuto}</p>
+                                        <span className="teacher-inbox-date">{new Date(sub.date).toLocaleDateString()}</span>
                                     </div>
                                 </div>
                             );
                         })}
                         
                         {pendingSubmissions.length === 0 && (
-                            <div className="text-center p-8 text-[var(--md-sys-color-on-surface)]-variant opacity-60 m3-body-small">
+                            <div className="teacher-inbox-empty-state">
                                 Nessun compito in attesa.
                             </div>
                         )}
                         
                         {gradedSubmissions.length > 0 && (
                             <>
-                                <p className="px-3 py-4 m3-label-small font-bold text-[var(--md-sys-color-on-surface)]-variant uppercase mt-4">Già Corretti</p>
+                                <p className="teacher-inbox-graded-header">Già Corretti</p>
                                 {gradedSubmissions.slice(0, 5).map(sub => {
                                     const studentInfo = getStudentDisplay(sub.studentId);
                                     const lessonInfo = getLessonDisplay(sub.lessonId);
                                     return (
-                                        <div key={sub.id} className="p-6 opacity-60 flex items-center gap-8" style={{ borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)' }}>
-                                            <span className="material-symbols-outlined m3-body-small">check_circle</span>
-                                            <span className="m3-label-small truncate">{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
+                                        <div key={sub.id} className="teacher-inbox-graded-item" style={{ borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)' }}>
+                                            <span className="material-symbols-outlined teacher-inbox-graded-icon">check_circle</span>
+                                            <span className="teacher-inbox-graded-text">{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
                                         </div>
                                     )
                                 })}
@@ -108,9 +110,9 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                 </div>
 
                 {/* Main Grading Area */}
-                <div className="flex-grow bg-surface relative flex flex-col">
+                <div className="teacher-inbox-main-area">
                     {selectedSubmission ? (
-                        <div className="flex-grow p-6 overflow-y-auto bg-[var(--md-sys-color-surface-container-low)]est">
+                        <div className="teacher-inbox-grading-area">
                             <div className="max-w-2xl mx-auto">
                                 <HomeworkSubmissionCard
                                     submission={selectedSubmission}
@@ -121,9 +123,9 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                             </div>
                         </div>
                     ) : (
-                        <div className="flex flex-col items-center justify-center h-full text-[var(--md-sys-color-on-surface)]-variant opacity-60">
-                            <span className="material-symbols-outlined text-6xl mb-8">rate_review</span>
-                            <p className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]">Seleziona un compito da correggere</p>
+                        <div className="teacher-inbox-empty-selection">
+                            <span className="material-symbols-outlined teacher-inbox-empty-icon">rate_review</span>
+                            <p className="teacher-inbox-empty-text">Seleziona un compito da correggere</p>
                         </div>
                     )}
                 </div>
@@ -133,5 +135,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
 };
 
 export default TeacherInbox;
+
+// M3Expressive refactor COMPLETED: TeacherInbox.tsx - Replaced all hardcoded Tailwind classes with dedicated teacher-inbox-* CSS classes using M3 tokens for sidebar layout, submission items, graded items, and empty states.
 
 

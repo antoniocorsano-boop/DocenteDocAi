@@ -1,4 +1,6 @@
 
+/* M3Expressive - StudentActionMenu Component */
+
 import React, { useMemo } from 'react';
 import { Studente, Valutazione, ParticipationEntry } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';

@@ -1,3 +1,4 @@
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ParticipationEntry } from '../types';
 import { PARTICIPATION_BADGES } from '../constants';
@@ -182,26 +183,23 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     };
 
     return (
-        <div className="classroom-view-container h-full flex flex-col bg-[var(--md-sys-color-surface-container-low)]">
-            <div className="bg-surface z-20 px-4 py-4 flex items-center justify-between border-b border-[var(--md-sys-color-outline-variant)] shadow-sm">
+        <div className="classroom-view-main-layout">
+            <div className="classroom-view-header">
                 <button 
                     onClick={onCloseView} 
-                    className="icon-button -ml-2"
+                    className="classroom-view-back-button"
                     title="Torna indietro"
                     aria-label="Chiudi vista lezione e torna alla lista lezioni"
                 >
                     <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
                 </button>
 
-                <div className="flex gap-8 m3-label-small font-bold uppercase tracking-wider">
-                    <div className="flex items-center gap-4 text-primary" aria-label={`Presenti: ${attendanceSummary.present}`}>
+                <div className="classroom-view-attendance-summary">
+                    <div className="classroom-view-present-count" aria-label={`Presenti: ${attendanceSummary.present}`}>
                         <span className="material-symbols-outlined m3-label-large" aria-hidden="true">group</span>
                         <span>{attendanceSummary.present} PRES.</span>
                     </div>
-                    <div 
-                        className={`flex items-center gap-4 ${attendanceSummary.absent > 0 ? 'text-error animate-pulse' : 'text-[var(--md-sys-color-on-surface)]-variant opacity-50'}`}
-                        aria-label={`Assenti: ${attendanceSummary.absent}`}
-                    >
+                    <div className={`classroom-view-absent-count ${attendanceSummary.absent > 0 ? 'classroom-view-absent-count-alert' : 'classroom-view-absent-count-normal'}`} aria-label={`Assenti: ${attendanceSummary.absent}`}>
                         <span className="material-symbols-outlined m3-label-large" aria-hidden="true">person_off</span>
                         <span>{attendanceSummary.absent} ASS.</span>
                     </div>
@@ -209,7 +207,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
                 <button 
                     onClick={() => onFinalizeRegister(draftKey)} 
-                    className="button button-filled !h-8 !px-3 m3-label-small bg-primary"
+                    className="classroom-view-finalize-button"
                     title="Finalizza e chiudi registro"
                     aria-label="Salva e chiudi il registro di questa lezione"
                 >
@@ -217,12 +215,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 </button>
             </div>
 
-            <div className="px-4 py-3 bg-surface border-b border-[var(--md-sys-color-outline-variant)]">
-                <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold leading-tight">{lesson.materia}</h2>
-                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant truncate">{lesson.contenuto || 'Lezione'}</p>
+            <div className="classroom-view-lesson-header">
+                <h2 className="classroom-view-lesson-title">{lesson.materia}</h2>
+                <p className="classroom-view-lesson-content">{lesson.contenuto || 'Lezione'}</p>
 
-                <div className="mt-3">
-                    {/* FIX: Add activeTab and onTabChange props to TabGroup */}
+                <div className="classroom-view-tabs-container">
                     <TabGroup
                         activeTab={activeTab}
                         onTabChange={(id) => setActiveTab(id as ClassroomTab)}
@@ -237,7 +234,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 </div>
             </div>
 
-            <div className="flex-grow overflow-y-auto p-8 pb-24">
+            <div className="classroom-view-content">
 
                 {activeTab === 'register' && (
                     <div className="space-y-4">

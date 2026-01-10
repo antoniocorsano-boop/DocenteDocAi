@@ -1,6 +1,8 @@
 import React from 'react';
 import RestoreAssistModal from './RestoreAssistModal';
 
+// M3Expressive: Controller component that delegates to RestoreAssistModal - no inline classes to refactor
+
 interface RestoreAssistControllerProps {
   isOpen: boolean;
   error?: string;

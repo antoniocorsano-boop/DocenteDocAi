@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Avatar Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    class="relative flex-shrink-0 rounded-[var(--md-sys-shape-corner-extra-large)] overflow-hidden bg-primary-container text-on-primary-container flex items-center justify-center font-black w-12 h-12 text-sm "
+  >
+    <span>
+      TU
+    </span>
+  </div>
+</div>
+`;

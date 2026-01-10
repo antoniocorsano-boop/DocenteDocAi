@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { M3Button } from './ui';
 import { SystemSuggestion } from '../types';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for assistant development tools interface
 interface AssistantDevToolsActions {
   setActiveSuggestion: (suggestion: SystemSuggestion | null) => void;
 }
@@ -36,8 +37,8 @@ const AssistantDevTools: React.FC<Props> = ({ actions }) => {
   };
 
   return (
-    <div className="assistant-dev-tools" aria-hidden={false}>
-      <div style={{ display: 'flex', gap: 8 }}>
+    <div className="assistant-dev-tools-container" aria-hidden={false}>
+      <div className="assistant-dev-tools-controls">
         <M3Button variant="outlined" onClick={toggleSuggestion}>
           {suggestionOn ? 'Rimuovi suggerimento' : 'Simula suggerimento'}
         </M3Button>
