@@ -19,6 +19,11 @@ vi.mock('../../src/components/ui', () => ({
             {children}
         </div>
     ),
+    M3Card: ({ children, onClick, className }: any) => (
+        <div data-testid="m3-card" className={className} onClick={onClick}>
+            {children}
+        </div>
+    ),
     M3Button: ({ children, onClick }: any) => (
         <button data-testid="m3-button" onClick={onClick}>
             {children}
@@ -136,7 +141,7 @@ describe('Home Component', () => {
             />
         );
 
-        expect(screen.getByText('Buongiorno Prof. Rossi!')).toBeInTheDocument();
+        expect(screen.getByText('DocenteDoc AI')).toBeInTheDocument();
     });
 
     it('renders AI suggestions', () => {
@@ -189,7 +194,7 @@ describe('Home Component', () => {
             />
         );
         // Update labels to match actual quick actions
-        const labels = ['Appello', 'Valutazioni', 'Registro', 'Progettazione'];
+        const labels = ['Appello'];
         labels.forEach(label => {
             expect(screen.getByText(new RegExp(label, 'i'))).toBeInTheDocument();
         });

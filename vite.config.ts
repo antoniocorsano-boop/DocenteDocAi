@@ -30,12 +30,12 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    VitePWA({
+    ...(process.env.NODE_ENV === 'production' ? [VitePWA({
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'sw.ts',
       registerType: 'autoUpdate',
-      injectRegister: 'false',  // Disabled due to fetch errors in production
+      injectRegister: false,  // Boolean false instead of string 'false'
       manifest: {
         name: 'DocenteDoc AI',
         short_name: 'DocenteDoc',
@@ -74,7 +74,7 @@ export default defineConfig({
         enabled: true,
         type: 'module'
       }
-    }),
+    })] : []),
     createHtmlPlugin({
       minify: true,
     }),

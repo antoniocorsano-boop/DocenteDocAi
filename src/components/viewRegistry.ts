@@ -3,7 +3,7 @@ import { View } from '../types';
 
 // Lazy loaded views
 export const Home = lazy(() => import('./Home'));
-export const Timetable = lazy(() => import('./Timetable').then(m => ({ default: m.Timetable })));
+export const Timetable = lazy(() => import('./Timetable'));
 export const Calendar = lazy(() => import('./Calendar'));
 export const Settings = lazy(() => import('./Settings'));
 export const ClassSelection = lazy(() => import('./ClassSelection'));
@@ -29,9 +29,9 @@ export const ConsiglioClasse = lazy(() => import('./ConsiglioClasse'));
 export const CompetencyLevelsView = lazy(() => import('./CompetencyLevelsView'));
 export const CurriculumManager = lazy(() => import('./CurriculumManager'));
 export const TeacherPresentationView = lazy(() => import('./TeacherPresentationView'));
-export const Studio = lazy(() => import('./Studio').then(m => ({ default: m.Studio })));
+export const Studio = lazy(() => import('./Studio'));
 export const OrientamentoDashboard = lazy(() => import('./OrientamentoDashboard'));
-export const LiveAssistant = lazy(() => import('./LiveAssistant').then(m => ({ default: m.LiveAssistant })));
+export const LiveAssistant = lazy(() => import('./LiveAssistant'));
 
 export interface ViewConfig {
     id: View;

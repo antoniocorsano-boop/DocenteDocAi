@@ -1,4 +1,5 @@
 
+// M3Expressive: QuickEvaluationModal - Quick student evaluation modal with M3 tokens
 import React, { useState } from 'react';
 import { Studente, Lezione, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
@@ -75,10 +76,10 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     const selectedCompetenza = settings.competenze.find(c => c.id === selectedCompetenzaId);
 
     const renderVotoTab = () => (
-        <div className="space-y-6 animate-in fade-in">
+        <div className="quick-evaluation-modal-content">
             <div>
-                <label className="text-xs font-bold text-primary uppercase tracking-wider mb-6 block px-1">Tipo Prova</label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
+                <label className="quick-evaluation-modal-label">Tipo Prova</label>
+                <div className="quick-evaluation-modal-test-type-grid">
                     {EVALUATION_TYPES.map(t => (
                         <M3ChoiceCard
                             key={t}
@@ -86,13 +87,13 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                             label={t}
                             onClick={() => setTipo(t)}
                             selected={tipo === t}
-                            className="!min-h-[70px] !p-8"
+                            className="quick-evaluation-modal-choice-card"
                         />
                     ))}
                 </div>
             </div>
             
-            <div className="grid grid-cols-1 gap-8">
+            <div className="quick-evaluation-modal-form-grid">
                 <SelectField
                     id="voto"
                     label="Voto / Giudizio"
@@ -123,7 +124,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     );
     
     const renderCompetenzaTab = () => (
-        <div className="space-y-6 animate-in fade-in">
+        <div className="quick-evaluation-modal-content">
             <SelectField
                 id="competenza"
                 label="Competenza"
@@ -135,12 +136,12 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
 
             {selectedCompetenza && (
                 <div>
-                    <label className="text-xs font-bold text-primary uppercase tracking-wider mb-6 block px-1">Livello Raggiunto</label>
-                    <div className="space-y-2 bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/30">
+                    <label className="quick-evaluation-modal-label">Livello Raggiunto</label>
+                    <div className="quick-evaluation-modal-competency-levels">
                         {selectedCompetenza.livelli.map(level => (
-                            <label key={level.id} className={`flex items-center p-6 rounded-[var(--md-sys-shape-corner-medium)] transition-all cursor-pointer border ${selectedLevelId === level.id ? 'bg-primary-container/30 border-primary' : 'hover:bg-[var(--md-sys-color-surface-container-high)] border-transparent'}`}>
-                                <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)} className="mr-3 accent-primary" required />
-                                <span className={`text-sm ${selectedLevelId === level.id ? 'font-bold text-on-primary-container' : 'text-[var(--md-sys-color-on-surface)]'}`}>{level.descrizione}</span>
+                            <label key={level.id} className={`quick-evaluation-modal-level-option ${selectedLevelId === level.id ? 'selected' : ''}`}>
+                                <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)} className="quick-evaluation-modal-level-radio" required />
+                                <span className={`quick-evaluation-modal-level-text ${selectedLevelId === level.id ? 'selected' : ''}`}>{level.descrizione}</span>
                             </label>
                         ))}
                     </div>
@@ -164,10 +165,10 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             maxWidth="md"
             level={1}
         >
-            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
-                <div className="mb-6 px-4">
-                    <h3 className="text-xl font-bold text-[var(--md-sys-color-on-surface)]">{student.cognome} {student.nome}</h3>
-                    <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant">{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
+            <M3DialogContent className="quick-evaluation-modal-dialog-content">
+                <div className="quick-evaluation-modal-header">
+                    <h3 className="quick-evaluation-modal-student-name">{student.cognome} {student.nome}</h3>
+                    <p className="quick-evaluation-modal-lesson-info">{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
                 </div>
 
                 <TabGroup
@@ -177,7 +178,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                     ]}
                     activeTab={activeTab}
                     onTabChange={(id) => setActiveTab(id as 'voto' | 'competenza')}
-                    className="mb-6"
+                    className="quick-evaluation-modal-tab-group"
                 />
 
                 {activeTab === 'voto' ? renderVotoTab() : renderCompetenzaTab()}
@@ -187,7 +188,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                 <M3Button
                     onClick={activeTab === 'voto' ? handleSaveVoto : handleSaveCompetenza}
                     variant="filled"
-                    className="shadow-[var(--md-sys-elevation-level3)] !px-8"
+                    className="quick-evaluation-modal-save-button"
                 >
                     Registra {activeTab === 'voto' ? 'Voto' : 'Competenza'}
                 </M3Button>

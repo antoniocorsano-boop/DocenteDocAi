@@ -1,3 +1,6 @@
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
+// ...existing code...
 /**
  * Material Design 3 Expressive - Modal Management System
  * Architettura degli Overlay - Soluzione "Modal Hell"
@@ -15,7 +18,7 @@
 
 import React, { createContext, useContext, useCallback, useState, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { getModalZIndex } from '../design-system/zIndex';
+import { getModalZIndex, Z_INDEX } from '../design-system/zIndex';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -130,10 +133,20 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const [stack, setStack] = useState<ModalInstance[]>([]);
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
-  // Initialize portal container on mount
+  // Initialize portal container ONLY when needed
   useEffect(() => {
+    if (stack.length === 0) {
+      // No modals, ensure container is removed
+      if (portalContainer) {
+        document.body.removeChild(portalContainer);
+        setPortalContainer(null);
+      }
+      return;
+    }
+
+    // Modals exist, ensure container is created
     let container = document.getElementById('modal-root');
-    
+
     if (!container) {
       container = document.createElement('div');
       container.id = 'modal-root';
@@ -142,20 +155,20 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
       container.style.left = '0';
       container.style.width = '100%';
       container.style.height = '100%';
-      container.style.pointerEvents = 'none';
-      container.style.zIndex = '1000';
+      container.style.pointerEvents = 'auto'; // Allow interactions when modals are present
+      container.style.zIndex = Z_INDEX.modal.backdrop.toString(); // Use semantic z-index
       document.body.appendChild(container);
     }
 
     setPortalContainer(container);
 
     return () => {
-      // Cleanup: remove empty portal container
-      if (container && container.children.length === 0) {
+      // Cleanup: remove container when no modals
+      if (container && stack.length === 0) {
         document.body.removeChild(container);
       }
     };
-  }, []);
+  }, [stack.length, portalContainer]);
 
   // Push modal to stack
   const pushModal = useCallback(
@@ -312,24 +325,18 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
   onBackdropClick,
   children,
 }) => {
-  const opacityMap = {
-    light: 'bg-black/20',
-    medium: 'bg-black/40',
-    dark: 'bg-black/60',
-  };
-
   return (
     <div
       key={`modal-portal-${id}`}
-      className="fixed inset-0 flex items-center justify-center p-4 pointer-events-auto"
+      className="modal-portal-container"
       style={{ zIndex: modalZIndex }}
       data-modal-id={id}
       data-modal-level={level}
     >
       {/* Backdrop - M3 Expressive with blur */}
       <div
-        className={`absolute inset-0 ${opacityMap[backdropOpacity]} backdrop-blur-sm animate-in fade-in duration-300 ${
-          backdropClickable ? 'cursor-pointer' : 'cursor-default'
+        className={`modal-portal-backdrop modal-portal-backdrop.${backdropOpacity} ${
+          backdropClickable ? 'modal-portal-backdrop.clickable' : ''
         }`}
         // Ensure backdrop sits below modal content within the same stacking context
         // The wrapper sets z-index to modalZIndex; children should use relative layering
@@ -341,7 +348,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
 
       {/* Modal Content Wrapper */}
       <div
-        className="relative z-10 w-full h-full flex items-center justify-center animate-in zoom-in-95 duration-300"
+        className="modal-portal-content-wrapper"
         role="dialog"
         aria-modal="true"
         data-modal-portal-content
@@ -355,6 +362,8 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
 // ============================================================================
 // EXPORTS
 // ============================================================================
+
+// M3Expressive refactor COMPLETED: ModalContext.tsx - Replaced all hardcoded Tailwind classes with dedicated modal-portal-* CSS classes using M3 tokens for positioning, backdrop opacity, animations, and interactions.
 
 export { ModalContext, type ModalContextType, type ModalInstance, type PushModalOptions };
 

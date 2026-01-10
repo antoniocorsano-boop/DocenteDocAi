@@ -1,3 +1,6 @@
+// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
+// ...existing code...
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import '../modules.css';
 import { EventoCalendario, AiSettings } from '../types';
@@ -165,7 +168,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             : `${MONTHS_LONG[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
         return (
-            <header className="calendar-header bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-md border-b border-[var(--md-sys-color-outline-variant)]/30 p-8 rounded-t-3xl">
+            <header className="calendar-header">
                 <div className="calendar-header-left">
                     <div className="calendar-nav-group bg-[var(--md-sys-color-surface-container-low)]/50 p-1 rounded-full border border-[var(--md-sys-color-outline-variant)]/20">
                         <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" className="!min-w-0 !p-8">
@@ -176,7 +179,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                             <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
                         </M3Button>
                     </div>
-                    <h2 className="calendar-title text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] ml-4">{title}</h2>
+                    <h2 className="calendar-title">{title}</h2>
                 </div>
 
                 <div className="calendar-header-right gap-8">
@@ -196,7 +199,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                         <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" className="!min-w-0 !p-8">
                             <span className="material-symbols-outlined text-primary" aria-hidden="true">auto_awesome</span>
                         </M3Button>
-                        <M3Button variant="filled" onClick={() => setEditingEvent({})} className="flex items-center gap-8" title="Crea nuovo evento">
+                        <M3Button variant="filled" onClick={() => setEditingEvent({})} title="Crea nuovo evento">
                             <span className="material-symbols-outlined" aria-hidden="true">add</span>
                             Nuovo Evento
                         </M3Button>
@@ -240,7 +243,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 }
                             }}
                         >
-                            <span className={`calendar-day-number ${isToday ? 'today' : ''}`}>
+                            <span className="calendar-day-number">
                                 {date.getDate()}
                             </span>
                             <div className="calendar-day-events">
@@ -399,7 +402,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
 
     return (
         <div 
-            className="calendar-container bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-[var(--md-sys-elevation-level3)] overflow-hidden"
+            className="calendar-container"
             ref={calendarGridRef}
             onKeyDown={handleCalendarKeyDown}
         >

@@ -1,3 +1,5 @@
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, KnowledgeBaseEntry } from '../types';
@@ -38,7 +40,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
     return (
     <div
       ref={itemRef}
-      className={`flex items-center gap-5 p-8 rounded-[var(--md-sys-shape-corner-large)] transition-all hover:bg-[var(--md-sys-color-surface-container-high)]est/50 group relative focus-visible:ring-2 focus-visible:ring-primary focus:outline-none ${student.isArchived ? 'opacity-60 grayscale' : ''}`}
+      className={`student-manager-item-card ${student.isArchived ? 'student-manager-item-card.archived' : ''}`}
       aria-label={`Studente ${student.cognome} ${student.nome}, classe ${student.classe}${student.isArchived ? ', archiviato' : ''}`}
       tabIndex={isFocused ? 0 : -1}
       onFocus={onFocus}
@@ -49,25 +51,25 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
         }
       }}
     >
-      <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="shadow-[var(--md-sys-elevation-level1)]" />
-      <div className="flex-grow min-w-0">
-          <h3 className="m3-title-large truncate font-black text-[var(--md-sys-color-on-surface)]">{student.cognome} {student.nome}</h3>
-          <div className="flex items-center gap-6 mt-4">
-              <span className="px-4 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">Classe {student.classe}</span>
+      <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="student-manager-item-avatar" />
+      <div className="student-manager-item-content">
+          <h3 className="student-manager-item-name">{student.cognome} {student.nome}</h3>
+          <div className="student-manager-item-badges">
+              <span className="student-manager-class-badge">Classe {student.classe}</span>
               {student.isArchived && (
-                  <span className="px-4 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant text-[10px] font-black uppercase tracking-widest border border-[var(--md-sys-color-outline-variant)]/20">
+                  <span className="student-manager-archive-badge">
                       {student.archiveYear ? `Archiviato ${student.archiveYear}` : 'ARCHIVIATO'}
                   </span>
               )}
           </div>
       </div>
 
-      <div className="flex gap-8 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
+      <div className="student-manager-item-actions">
           {student.isArchived ? (
               <M3Button 
                   onClick={() => onRestore(student)} 
                   variant="icon" 
-                  className="text-primary hover:bg-primary/10" 
+                  className="student-manager-action-button student-manager-action-button.restore" 
                   title="Ripristina Studente come attivo"
                   aria-label={`Ripristina ${student.cognome} ${student.nome} come studente attivo`}
               >
@@ -78,7 +80,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   <M3Button 
                       onClick={() => onTransfer(student)} 
                       variant="icon" 
-                      className="text-secondary hover:bg-secondary/10" 
+                      className="student-manager-action-button student-manager-action-button.transfer" 
                       title="Cambia classe o trasferisci studente"
                       aria-label={`Cambia classe per ${student.cognome} ${student.nome}`}
                   >
@@ -87,7 +89,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   <M3Button 
                       onClick={() => onEdit(student)} 
                       variant="icon" 
-                      className="hover:bg-[var(--md-sys-color-surface-container-high)]est" 
+                      className="student-manager-action-button student-manager-action-button.edit" 
                       title="Modifica dati studente"
                       aria-label={`Modifica dati per ${student.cognome} ${student.nome}`}
                   >
@@ -98,7 +100,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
           <M3Button 
               onClick={() => { if (confirm(`Eliminare definitivamente ${student.cognome} ${student.nome}?`)) onDelete(student.id); }} 
               variant="icon" 
-              className="text-error hover:bg-error/10" 
+              className="student-manager-action-button student-manager-action-button.delete" 
               title="Elimina studente definitivamente"
               aria-label={`Elimina ${student.cognome} ${student.nome} dal sistema`}
           >
@@ -182,27 +184,27 @@ const StudentManager: React.FC<StudentManagerProps> = ({
     };
 
     return (
-        <div className="page-layout pb-24">
+        <div className="page-layout student-manager-page-layout">
             <SectionHeader
                 title="Gestione Studenti"
                 subtitle="Archivia, importa e aggiorna anagrafica e stato classe."
                 actions={
-                    <div className="flex gap-6">
-                        <M3Button onClick={() => setIsImportModalOpen(true)} variant="tonal" className="font-black text-xs uppercase tracking-widest">
-                            <span className="material-symbols-outlined mr-2">upload_file</span>
+                    <div className="student-manager-actions">
+                        <M3Button onClick={() => setIsImportModalOpen(true)} variant="tonal" className="student-manager-import-button">
+                            <span className="material-symbols-outlined student-manager-import-icon">upload_file</span>
                             Importa
                         </M3Button>
-                        <M3Button onClick={() => setEditingStudent('new')} variant="filled" className="font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)]">
-                            <span className="material-symbols-outlined mr-2">add</span>
+                        <M3Button onClick={() => setEditingStudent('new')} variant="filled" className="student-manager-add-button">
+                            <span className="material-symbols-outlined student-manager-add-icon">add</span>
                             Nuovo
                         </M3Button>
                     </div>
                 }
             />
 
-            <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 overflow-hidden flex flex-col mt-8">
-                <div className="flex flex-wrap gap-8 items-center p-6 bg-[var(--md-sys-color-surface-container-high)]/50 border-b border-[var(--md-sys-color-outline-variant)]/10">
-                    <div className="flex-grow min-w-[250px]">
+            <div className="student-manager-container">
+                <div className="student-manager-filters">
+                    <div className="student-manager-search-field">
                         <TextField
                             id="student-search"
                             label="Cerca studente per nome..."
@@ -210,11 +212,10 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
                             leadingIcon="search"
-                            className="bg-[var(--md-sys-color-surface-container-low)]/50"
                             aria-label="Ricerca studenti per nome o cognome"
                         />
                     </div>
-                    <div className="w-48">
+                    <div className="student-manager-class-filter">
                         <SelectField
                             id="class-filter"
                             label="Seleziona classe"
@@ -224,24 +225,23 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                                 { value: 'all', label: 'Tutte le classi' },
                                 ...userClasses.map(c => ({ value: c, label: `Classe ${c}` }))
                             ]}
-                            className="bg-[var(--md-sys-color-surface-container-low)]/50"
                             aria-label="Filtra studenti per classe"
                         />
                     </div>
                     <M3Button
                         onClick={() => setShowArchived(!showArchived)}
                         variant={showArchived ? "tonal" : "text"}
-                        className={`font-black text-[10px] uppercase tracking-widest ${showArchived ? 'bg-secondary-container/30 text-secondary' : ''}`}
+                        className={`student-manager-archive-toggle ${showArchived ? 'student-manager-archive-toggle.active' : ''}`}
                         title={showArchived ? 'Nascondi studenti archiviati' : 'Mostra studenti archiviati'}
                         aria-label={showArchived ? 'Nascondi archivio studenti' : 'Mostra archivio studenti'}
                         aria-pressed={showArchived}
                     >
-                        <span className="material-symbols-outlined text-base mr-2" aria-hidden="true">{showArchived ? 'archive' : 'unarchive'}</span>
+                        <span className="material-symbols-outlined student-manager-archive-icon" aria-hidden="true">{showArchived ? 'archive' : 'unarchive'}</span>
                         {showArchived ? 'Archivio ON' : 'Archivio OFF'}
                     </M3Button>
                 </div>
 
-                <div className="p-8 space-y-2 max-h-[600px] overflow-y-auto custom-scrollbar" 
+                <div className="student-manager-list" 
                      ref={listContainerRef}
                      onKeyDown={handleListKeyDown}
                      role="listbox"
@@ -299,5 +299,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
 };
 
 export default StudentManager;
+
+// M3Expressive refactor COMPLETED: StudentManager.tsx - Replaced all hardcoded Tailwind classes with dedicated student-manager-* CSS classes using M3 tokens for student cards, badges, actions, filters, and layout.
 
 

@@ -40,24 +40,24 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 return {
                     background: 'var(--md-sys-color-primary-container)',
                     iconColor: 'var(--md-sys-color-on-primary-container)',
-                    iconBg: 'var(--md-sys-color-primary-container)'
+                    iconBg: 'var(--md-sys-color-primary)' // or another suitable M3 token
                 };
             case 'secondary':
                 return {
                     background: 'var(--md-sys-color-secondary-container)',
                     iconColor: 'var(--md-sys-color-on-secondary-container)',
-                    iconBg: 'var(--md-sys-color-secondary-container)'
+                    iconBg: 'var(--md-sys-color-secondary)'
                 };
             case 'tertiary':
                 return {
                     background: 'var(--md-sys-color-tertiary-container)',
                     iconColor: 'var(--md-sys-color-on-tertiary-container)',
-                    iconBg: 'var(--md-sys-color-tertiary-container)'
+                    iconBg: 'var(--md-sys-color-tertiary)'
                 };
             case 'surface':
             default:
                 return {
-                    background: 'var(--md-sys-color-surface-container)',
+                    background: 'var(--md-sys-color-surface)',
                     iconColor: 'var(--md-sys-color-on-surface)',
                     iconBg: 'var(--md-sys-color-surface-variant)'
                 };

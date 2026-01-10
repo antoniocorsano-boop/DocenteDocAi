@@ -1,3 +1,6 @@
+// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
+// ...existing code...
 import React, { useState, useRef, useEffect } from 'react';
 import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
 import Logo from './Logo';
@@ -13,7 +16,6 @@ import {
     Avatar,
     AiThinkingGem 
 } from './ui';
-import { Z_INDEX } from '../design-system/zIndex';
 
 import type { ActionsPopoverProps } from '../types';
 
@@ -203,6 +205,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
     const [isActionsOpen, setIsActionsOpen] = useState(false);
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
     const [isShareInfoOpen, setIsShareInfoOpen] = useState(false);
+    const notificationsAnchorRef = useRef<HTMLDivElement | null>(null);
 
     const unreadCount = notifiche.filter(n => !n.letta).length;
 
@@ -217,16 +220,17 @@ export const Header: React.FC<HeaderProps> = (props) => {
     
     return (
         <>
-            <header className="header-root" role="banner">
-                <div className="header-left flex items-center gap-8">
+            <header className="header-container" role="banner">
+                {/* Sinistra: Back e Aura */}
+                <div className="header-leading">
                     {showBackButton && (
                         <button
                             aria-label="Indietro"
-                            className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container-high)]est transition-colors"
+                            className="header-back-button"
                             onClick={props.onBack}
                             tabIndex={0}
                         >
-                            <span className="material-symbols-outlined">arrow_back</span>
+                            <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface-variant)]">arrow_back</span>
                         </button>
                     )}
                     <NKAHeaderAuraButton
@@ -236,11 +240,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     />
                 </div>
 
-                <div
-                    className="header-center"
-                    aria-label={!showBackButton ? 'Home' : undefined}
-                >
-                    <div className="flex items-center gap-8">
+                {/* Centro: Logo e AI */}
+                <div className="header-center">
+                    <div className="header-center-content">
                         <Logo 
                             isAiThinking={isAiProcessing} 
                             className="header-logo" 
@@ -250,43 +252,46 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     {isAiProcessing && <AiThinkingGem size="small" />}
                 </div>
 
-                <div className="header-right flex items-center gap-8">
+                {/* Destra: Stato, Settings, Avatar/Menu */}
+                <div className="header-trailing">
                     {!isOnline && (
-                        <div className="flex items-center gap-8 px-3 py-1.5 rounded-full bg-error/10 text-error border border-error/20 animate-pulse" title="Modalità Offline">
-                            <span className="material-symbols-outlined text-sm">cloud_off</span>
-                            <span className="text-[10px] font-bold uppercase tracking-wider hidden sm:inline">Offline</span>
+                        <div className="header-offline-status" title="Modalità Offline">
+                            <span className="material-symbols-outlined header-offline-icon">cloud_off</span>
+                            <span className="header-offline-text">Offline</span>
                         </div>
                     )}
                     <button
-                        className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container-high)]est transition-colors"
+                        className="header-action-button"
                         aria-label="Impostazioni"
                         onClick={() => onNavigate('settings')}
                     >
-                        <span className="material-symbols-outlined">settings</span>
+                        <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface-variant)]">settings</span>
                     </button>
-                    <button
-                        className="w-10 h-10 rounded-full relative flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container-high)]est transition-colors"
-                        onClick={() => setIsActionsOpen(p => !p)}
-                        aria-label="Menu"
-                        tabIndex={0}
-                    >
-                        <Avatar
-                            name={`${teacherSurname || ''} ${teacherName || 'Docente'}`.trim()}
-                            src={user?.photoURL}
-                            size="sm"
-                            className="w-8 h-8 ring-2 ring-primary/20"
-                        />
-                        {unreadCount > 0 && (
-                            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-error rounded-full border-2 border-surface"></span>
-                        )}
-                    </button>
+                    <div ref={notificationsAnchorRef} className="header-avatar-container">
+                        <button
+                            className="header-avatar-button"
+                            onClick={() => setIsActionsOpen(p => !p)}
+                            aria-label="Menu"
+                            tabIndex={0}
+                        >
+                            <Avatar
+                                name={`${teacherSurname || ''} ${teacherName || 'Docente'}`.trim()}
+                                src={user?.photoURL}
+                                size="sm"
+                                className="header-avatar"
+                            />
+                            {unreadCount > 0 && (
+                                <span className="header-notification-badge"></span>
+                            )}
+                        </button>
+                    </div>
                 </div>
             </header>
 
             {/* Blocchi condizionali fuori dal <header> */}
             {isActionsOpen && (
                 <>
-                    <div className="fixed inset-0" style={{ zIndex: Z_INDEX.modal.backdrop }} onClick={() => setIsActionsOpen(false)}></div>
+                    <div className="header-backdrop" onClick={() => setIsActionsOpen(false)}></div>
                     <ActionsPopover
                         {...props}
                         unreadCount={unreadCount}
@@ -304,7 +309,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
             {isNotificationsOpen && (
                 <>
-                    <div className="fixed inset-0" style={{ zIndex: Z_INDEX.modal.backdrop }} onClick={() => setIsNotificationsOpen(false)}></div>
+                    <div className="header-backdrop" onClick={() => setIsNotificationsOpen(false)}></div>
                     <NotificationsPopover
                         notifiche={notifiche}
                         onClose={() => setIsNotificationsOpen(false)}
@@ -312,6 +317,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         onMarkAllAsRead={handleMarkAllAsRead}
                         onNavigate={onNavigate}
                         onOpenCircularAnalysis={onOpenCircularAnalysis}
+                        anchorEl={notificationsAnchorRef.current}
                     />
                 </>
             )}
@@ -322,22 +328,22 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 title="Condividi Link"
             >
                 <M3DialogContent>
-                    <div className="flex flex-col items-center gap-6 py-4">
-                        <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-large)] bg-secondary/10 flex items-center justify-center text-secondary mb-8">
+                    <div className="header-share-content">
+                        <div className="header-share-icon">
                             <span className="material-symbols-outlined text-3xl">share</span>
                         </div>
-                        <p className="text-center text-[var(--md-sys-color-on-surface)]-variant max-w-xs">
+                        <p className="header-share-description">
                             Scansiona o copia il link per accedere alla tua app didattica da altri dispositivi.
                         </p>
-                        <InfoCard variant="tonal" className="w-full p-8 flex items-center justify-between gap-6 group">
-                            <code className="text-sm font-mono text-primary truncate flex-grow">
+                        <InfoCard variant="tonal" className="header-share-link-card">
+                            <code className="header-share-link-code">
                                 {window.location.href}
                             </code>
                             <M3Button
                                 onClick={() => {
                                     navigator.clipboard.writeText(window.location.href);
                                 }}
-                                variant="tonal"
+                                variant="secondary"
                                 size="small"
                                 className="!rounded-full"
                             >

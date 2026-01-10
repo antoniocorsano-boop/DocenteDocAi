@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AiSettings, Corpus, ChatMessage, KnowledgeBaseEntry } from '../types';
 import { generateAnswerFromCorpus } from '../services/aiService';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for corpus chat interface, message bubbles, and input controls
 interface CorpusChatProps {
     corpus: Corpus;
     aiSettings: AiSettings;
@@ -77,50 +78,55 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
 
     return (
         <div className="corpus-chat-container">
-            <div className="kb-preview-header">
+            <div className="corpus-chat-header">
                 <button className="icon-button kb-mobile-back-button" onClick={onClose} aria-label="Torna alla lista">
                     <span className="material-symbols-outlined">arrow_back</span>
                 </button>
-                <div className="flex items-center gap-8 truncate">
-                    <span className="material-symbols-outlined text-secondary">chat</span>
-                    <h3 className="m3-title-medium truncate">Chat con "{corpus.displayName}"</h3>
+                <div className="corpus-chat-header-content">
+                    <span className="material-symbols-outlined corpus-chat-header-icon">chat</span>
+                    <h3 className="corpus-chat-header-title">Chat con "{corpus.displayName}"</h3>
                 </div>
             </div>
             
             <div className="corpus-chat-messages">
                 {messages.map((msg, index) => (
-                    <div key={index} className={`chat-message-bubble ${msg.role}`}>
-                        <div className="chat-message-content">
-                            <p className="whitespace-pre-wrap">{msg.text}</p>
+                    <div key={index} className={`corpus-chat-message-bubble corpus-chat-message-bubble-${msg.role}`}>
+                        <div className="corpus-chat-message-content">
+                            <p>{msg.text}</p>
                         </div>
                     </div>
                 ))}
                 {isLoading && (
-                     <div className="chat-message-bubble model">
-                        <div className="chat-message-content">
-                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary"></div>
+                     <div className="corpus-chat-message-bubble corpus-chat-message-bubble-model">
+                        <div className="corpus-chat-message-content">
+                            <div className="corpus-chat-loading">
+                                <div className="corpus-chat-loading-spinner"></div>
+                            </div>
                         </div>
                     </div>
                 )}
                  {messages.length === 0 && !isLoading && (
-                    <div className="text-center p-8 text-[var(--md-sys-color-on-surface)]-variant">
-                        <span className="material-symbols-outlined text-5xl">quiz</span>
-                        <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] mt-4">Poni una domanda ai documenti in questo set.</p>
+                    <div className="corpus-chat-empty">
+                        <span className="material-symbols-outlined corpus-chat-empty-icon">quiz</span>
+                        <p className="corpus-chat-empty-text">Poni una domanda ai documenti in questo set.</p>
                     </div>
                 )}
                 <div ref={messagesEndRef} />
             </div>
 
             <div className="corpus-chat-shortcuts">
-                <div className="flex gap-8 p-8 justify-center">
-                    <button onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
-                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mr-1">summarize</span> Riassumi
+                <div className="corpus-chat-shortcuts-container">
+                    <button onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} className="corpus-chat-shortcut-button">
+                        <span className="material-symbols-outlined corpus-chat-shortcut-icon">summarize</span>
+                        <span className="corpus-chat-shortcut-text">Riassumi</span>
                     </button>
-                    <button onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
-                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mr-1">quiz</span> Crea Quiz
+                    <button onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} className="corpus-chat-shortcut-button">
+                        <span className="material-symbols-outlined corpus-chat-shortcut-icon">quiz</span>
+                        <span className="corpus-chat-shortcut-text">Crea Quiz</span>
                     </button>
-                    <button onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} className="button button-tonal !h-auto !py-1 !px-3 m3-label-small">
-                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mr-1">key</span> Concetti Chiave
+                    <button onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} className="corpus-chat-shortcut-button">
+                        <span className="material-symbols-outlined corpus-chat-shortcut-icon">key</span>
+                        <span className="corpus-chat-shortcut-text">Concetti Chiave</span>
                     </button>
                 </div>
             </div>
@@ -134,11 +140,11 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     placeholder="Fai una domanda..."
-                    className="form-input flex-grow"
+                    className="corpus-chat-input"
                     disabled={isLoading}
                 />
-                <button type="submit" className="button button-filled" disabled={isLoading || !chatInput.trim()}>
-                    <span className="material-symbols-outlined">send</span>
+                <button type="submit" className="corpus-chat-send-button" disabled={isLoading || !chatInput.trim()}>
+                    <span className="material-symbols-outlined corpus-chat-send-icon">send</span>
                 </button>
             </form>
         </div>

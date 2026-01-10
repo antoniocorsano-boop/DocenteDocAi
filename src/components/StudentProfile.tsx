@@ -1,4 +1,5 @@
 
+// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -152,72 +153,72 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     };
 
     const renderOverview = () => (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="student-profile-overview">
+            <div className="student-profile-stats-grid">
                 <InfoCard 
                     title="Media Voti"
                     description={performance.grade || '-'}
                     icon="analytics"
                     variant="primary"
-                    className="bg-primary-container/20 border-primary/20 h-32"
+                    className="student-profile-stat-card-primary"
                 />
                 <InfoCard 
                     title="Andamento"
                     description={performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
                     icon={trendIcon}
                     variant="surface"
-                    className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-[var(--md-sys-color-outline-variant)]/20 h-32"
+                    className="student-profile-stat-card-surface"
                 />
                 <InfoCard 
                     title="Assenze"
                     description={`${attendanceStats.absences} ore`}
                     icon="event_busy"
                     variant="secondary"
-                    className="bg-secondary-container/10 border-secondary/20 h-32"
+                    className="student-profile-stat-card-secondary"
                 />
                 <InfoCard 
                     title="Ritardi"
                     description={`${attendanceStats.lates} ingressi`}
                     icon="schedule"
                     variant="tertiary"
-                    className="bg-tertiary-container/10 border-tertiary/20 h-32"
+                    className="student-profile-stat-card-tertiary"
                 />
             </div>
 
             {onOpenInclusionPlanEditor && (
                 <div 
-                    className="bg-tertiary-container/10 backdrop-blur-xl border border-tertiary/20 rounded-[var(--md-sys-shape-corner-large)] p-6 flex items-center justify-between cursor-pointer hover:bg-tertiary-container/20 transition-all group"
+                    className="student-profile-inclusion-card"
                     onClick={() => onOpenInclusionPlanEditor(student)}
                 >
-                    <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-tertiary text-on-tertiary flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] group-hover:scale-110 transition-transform">
-                            <span className="material-symbols-outlined text-3xl">accessibility_new</span>
+                    <div className="student-profile-inclusion-content">
+                        <div className="student-profile-inclusion-icon">
+                            <span className="material-symbols-outlined student-profile-inclusion-icon-symbol">accessibility_new</span>
                         </div>
                         <div>
-                            <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Piano di Inclusione (BES/DSA)</h3>
-                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant opacity-70">Gestisci misure compensative e dispensative.</p>
+                            <h3 className="student-profile-inclusion-title">Piano di Inclusione (BES/DSA)</h3>
+                            <p className="student-profile-inclusion-subtitle">Gestisci misure compensative e dispensative.</p>
                         </div>
                     </div>
-                    <span className="material-symbols-outlined text-tertiary text-3xl group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                    <span className="material-symbols-outlined student-profile-inclusion-arrow">arrow_forward</span>
                 </div>
             )}
 
             {/* AI Judgment Suggestion Section */}
-            <div className="bg-primary-container/10 backdrop-blur-xl border border-primary/20 rounded-[var(--md-sys-shape-corner-large)] p-6 space-y-4">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-primary text-on-primary flex items-center justify-center shadow-[var(--md-sys-elevation-level2)]">
-                            <span className="material-symbols-outlined text-3xl">psychology</span>
+            <div className="student-profile-ai-section">
+                <div className="student-profile-ai-header">
+                    <div className="student-profile-ai-content">
+                        <div className="student-profile-ai-icon">
+                            <span className="material-symbols-outlined student-profile-ai-icon-symbol">psychology</span>
                         </div>
                         <div>
-                            <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Consulente AI: Giudizio</h3>
-                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant opacity-70">Genera una bozza di giudizio basata sui dati.</p>
+                            <h3 className="student-profile-ai-title">Consulente AI: Giudizio</h3>
+                            <p className="student-profile-ai-subtitle">Genera una bozza di giudizio basata sui dati.</p>
                         </div>
                     </div>
                     <M3Button 
                         onClick={handleGenerateAiJudgment} 
                         variant="filled" 
-                        className="font-black text-xs uppercase tracking-widest"
+                        className="student-profile-ai-generate-button"
                         disabled={isLoadingAi}
                     >
                         {isLoadingAi ? '⏳' : 'Genera Bozza'}
@@ -225,24 +226,24 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 </div>
 
                 {aiJudgment && (
-                    <div className="bg-[var(--md-sys-color-surface-container-low)]est/50 p-8 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/20 animate-in fade-in slide-in-from-top-2">
-                        <div className="flex items-center gap-8 mb-8 text-primary">
-                            <span className="material-symbols-outlined text-sm">auto_awesome</span>
-                            <span className="text-[10px] font-black uppercase tracking-widest">Suggerimento AI</span>
+                    <div className="student-profile-ai-judgment">
+                        <div className="student-profile-ai-judgment-header">
+                            <span className="material-symbols-outlined student-profile-ai-judgment-icon">auto_awesome</span>
+                            <span className="student-profile-ai-judgment-label">Suggerimento AI</span>
                         </div>
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)] leading-relaxed italic">
+                        <p className="student-profile-ai-judgment-text">
                             "{aiJudgment}"
                         </p>
-                        <div className="flex justify-end mt-4">
+                        <div className="student-profile-ai-judgment-actions">
                             <M3Button 
                                 onClick={() => {
                                     navigator.clipboard.writeText(aiJudgment);
                                     alert("Giudizio copiato negli appunti!");
                                 }} 
                                 variant="text" 
-                                className="text-[10px] font-black uppercase tracking-widest"
+                                className="student-profile-ai-copy-button"
                             >
-                                <span className="material-symbols-outlined text-sm mr-2">content_copy</span>
+                                <span className="material-symbols-outlined student-profile-ai-copy-icon">content_copy</span>
                                 Copia Testo
                             </M3Button>
                         </div>
@@ -251,17 +252,17 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             </div>
 
             {isTerminalYear && (
-                <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-large)] p-6 flex items-center justify-between">
-                    <div className="flex items-center gap-5">
-                        <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-primary/10 text-primary flex items-center justify-center">
-                            <span className="material-symbols-outlined text-3xl">workspace_premium</span>
+                <div className="student-profile-certification-card">
+                    <div className="student-profile-certification-content">
+                        <div className="student-profile-certification-icon">
+                            <span className="material-symbols-outlined student-profile-certification-icon-symbol">workspace_premium</span>
                         </div>
                         <div>
-                            <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Certificazione Competenze</h3>
-                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant opacity-70">Fine ciclo studi</p>
+                            <h3 className="student-profile-certification-title">Certificazione Competenze</h3>
+                            <p className="student-profile-certification-subtitle">Fine ciclo studi</p>
                         </div>
                     </div>
-                    <M3Button onClick={handleGenerateCertification} variant="tonal" className="font-black text-xs uppercase tracking-widest" disabled={isExporting}>
+                    <M3Button onClick={handleGenerateCertification} variant="tonal" className="student-profile-certification-button" disabled={isExporting}>
                         Genera PDF
                     </M3Button>
                 </div>
@@ -270,47 +271,47 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     );
 
     const renderGrades = () => (
-        <div className="space-y-6 animate-in fade-in">
+        <div className="student-profile-grades">
             {Object.entries(groupedEvaluations).length > 0 ? (
                 Object.entries(groupedEvaluations).map(([materia, evals]: [string, Valutazione[]]) => (
-                    <div key={materia} className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 overflow-hidden">
-                        <div className="flex items-center justify-between p-6 bg-[var(--md-sys-color-surface-container-high)]/50">
-                            <div className="flex items-center gap-8">
-                                <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-primary text-on-primary flex items-center justify-center font-black text-xl shadow-[var(--md-sys-elevation-level1)]">
+                    <div key={materia} className="student-profile-grade-subject">
+                        <div className="student-profile-grade-subject-header">
+                            <div className="student-profile-grade-subject-info">
+                                <div className="student-profile-grade-subject-icon">
                                     {materia.substring(0, 2).toUpperCase()}
                                 </div>
                                 <div>
-                                    <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">{materia}</h3>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-primary opacity-70">{evals.length} prove registrate</p>
+                                    <h3 className="student-profile-grade-subject-title">{materia}</h3>
+                                    <p className="student-profile-grade-subject-count">{evals.length} prove registrate</p>
                                 </div>
                             </div>
-                            <div className="bg-primary-container/30 px-4 py-4 rounded-[var(--md-sys-shape-corner-large)] border border-primary/20">
-                                <span className="text-xs font-black text-primary uppercase tracking-widest mr-2">Media:</span>
-                                <span className="m3-title-large font-black text-primary">
+                            <div className="student-profile-grade-subject-average">
+                                <span className="student-profile-grade-subject-average-label">Media:</span>
+                                <span className="student-profile-grade-subject-average-value">
                                     {(evals.reduce((a, b) => a + (parseFloat(b.voto) || 0), 0) / evals.length).toFixed(1)}
                                 </span>
                             </div>
                         </div>
-                        <div className="p-8 space-y-2">
+                        <div className="student-profile-grade-subject-list">
                             {evals.map(ev => (
                                 <M3ListItem
                                     key={ev.id}
                                     leadingElement={
-                                        <div className={`w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center font-black text-xl shadow-sm ${parseFloat(ev.voto) < 6 ? 'bg-error text-on-error' : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]'}`}>
+                                        <div className={`student-profile-grade-voto ${parseFloat(ev.voto) < 6 ? 'student-profile-grade-voto-low' : 'student-profile-grade-voto-normal'}`}>
                                             {ev.voto}
                                         </div>
                                     }
                                     headline={ev.argomento || 'Verifica'}
                                     supportingText={`${ev.tipo} ${ev.note ? `• ${ev.note}` : ''}`}
                                     trailingElement={
-                                        <div className="flex items-center gap-8">
-                                            <span className="text-[10px] font-black text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-widest opacity-60">{new Date(ev.data).toLocaleDateString()}</span>
-                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" className="text-error hover:bg-error/10">
+                                        <div className="student-profile-grade-actions">
+                                            <span className="student-profile-grade-date">{new Date(ev.data).toLocaleDateString()}</span>
+                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" className="student-profile-grade-delete">
                                                 <span className="material-symbols-outlined">delete</span>
                                             </M3Button>
                                         </div>
                                     }
-                                    className="hover:bg-[var(--md-sys-color-surface-container-high)]/50 rounded-[var(--md-sys-shape-corner-large)] transition-all"
+                                    className="student-profile-grade-item"
                                 />
                             ))}
                         </div>
@@ -321,44 +322,44 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     );
 
     const renderCompetencies = () => (
-        <div className="space-y-6 animate-in fade-in">
+        <div className="student-profile-competencies">
             {Object.entries(groupedCompetencyEvals).length > 0 ? (
-                <div className="grid grid-cols-1 gap-8">
+                <div className="student-profile-competencies-grid">
                     {Object.values(groupedCompetencyEvals).map(({ competenza, evals }) => {
                         const latest = evals.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
                         const level = competenza.livelli.find(l => l.id === latest.livelloId);
-                        let levelColor = "bg-[var(--md-sys-color-surface-container-high)]/50 text-[var(--md-sys-color-on-surface)]-variant";
+                        let levelColor = "student-profile-competency-level-default";
                         
                         if (level?.nome.includes("Avanzato") || level?.nome.includes("A -")) {
-                            levelColor = "bg-primary-container/30 text-primary border-primary/20";
+                            levelColor = "student-profile-competency-level-advanced";
                         } else if (level?.nome.includes("Intermedio") || level?.nome.includes("B -")) {
-                            levelColor = "bg-secondary-container/30 text-secondary border-secondary/20";
+                            levelColor = "student-profile-competency-level-intermediate";
                         } else if (level?.nome.includes("Base") || level?.nome.includes("C -")) {
-                            levelColor = "bg-tertiary-container/30 text-tertiary border-tertiary/20";
+                            levelColor = "student-profile-competency-level-basic";
                         }
 
                         return (
-                            <div key={competenza.id} className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-                                <div className="flex justify-between items-start mb-8">
+                            <div key={competenza.id} className="student-profile-competency-card">
+                                <div className="student-profile-competency-header">
                                     <div>
-                                        <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-4">{competenza.codice}</p>
-                                        <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">{competenza.nome}</h3>
+                                        <p className="student-profile-competency-code">{competenza.codice}</p>
+                                        <h3 className="student-profile-competency-title">{competenza.nome}</h3>
                                     </div>
-                                    <div className={`px-4 py-4 rounded-[var(--md-sys-shape-corner-large)] border font-black text-xs uppercase tracking-widest ${levelColor}`}>
+                                    <div className={`student-profile-competency-level ${levelColor}`}>
                                         {level?.nome}
                                     </div>
                                 </div>
-                                <div className="bg-[var(--md-sys-color-surface-container-high)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
-                                    <div className="flex items-center gap-8 mb-8 opacity-60">
-                                        <span className="material-symbols-outlined text-sm">event</span>
-                                        <span className="text-[10px] font-black uppercase tracking-widest">{new Date(latest.data).toLocaleDateString()}</span>
+                                <div className="student-profile-competency-details">
+                                    <div className="student-profile-competency-date">
+                                        <span className="material-symbols-outlined student-profile-competency-date-icon">event</span>
+                                        <span className="student-profile-competency-date-text">{new Date(latest.data).toLocaleDateString()}</span>
                                     </div>
-                                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)] leading-relaxed">{level?.descrizione}</p>
+                                    <p className="student-profile-competency-description">{level?.descrizione}</p>
                                 </div>
                                 {latest.nota && (
-                                    <div className="mt-4 flex gap-6 items-start pl-4 border-l-4 border-primary/30">
-                                        <span className="material-symbols-outlined text-primary text-sm mt-4">chat_bubble</span>
-                                        <p className="m3-body-small italic text-[var(--md-sys-color-on-surface)]-variant">&ldquo;{latest.nota}&rdquo;</p>
+                                    <div className="student-profile-competency-note">
+                                        <span className="material-symbols-outlined student-profile-competency-note-icon">chat_bubble</span>
+                                        <p className="student-profile-competency-note-text">&ldquo;{latest.nota}&rdquo;</p>
                                     </div>
                                 )}
                             </div>
@@ -370,24 +371,24 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     );
 
     const renderNotes = () => (
-        <div className="space-y-6 animate-in fade-in">
+        <div className="student-profile-notes">
             {studentReceptions.length > 0 ? (
-                <div className="space-y-4">
+                <div className="student-profile-notes-list">
                     {(studentReceptions || []).map(lesson => (
-                        <div key={lesson.id} className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 relative overflow-hidden group">
-                            <div className="absolute left-0 top-0 bottom-0 w-2 bg-tertiary"></div>
-                            <div className="flex justify-between items-start mb-6 pl-2">
-                                <div className="flex items-center gap-8">
-                                    <span className="material-symbols-outlined text-tertiary">meeting_room</span>
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-tertiary bg-tertiary-container/30 px-3 py-1 rounded-full">Ricevimento</span>
+                        <div key={lesson.id} className="student-profile-note-card">
+                            <div className="student-profile-note-accent"></div>
+                            <div className="student-profile-note-header">
+                                <div className="student-profile-note-type">
+                                    <span className="material-symbols-outlined student-profile-note-type-icon">meeting_room</span>
+                                    <span className="student-profile-note-type-badge">Ricevimento</span>
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-widest opacity-50">{new Date(lesson.data).toLocaleDateString()}</span>
+                                <span className="student-profile-note-date">{new Date(lesson.data).toLocaleDateString()}</span>
                             </div>
-                            <p className="m3-title-medium font-bold pl-2 text-[var(--md-sys-color-on-surface)] leading-relaxed">{lesson.contenuto}</p>
+                            <p className="student-profile-note-content">{lesson.contenuto}</p>
                             {lesson.obiettivi && (
-                                <div className="mt-4 pl-2">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-60 mb-4">Esito / Obiettivi</p>
-                                    <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{lesson.obiettivi}</p>
+                                <div className="student-profile-note-objectives">
+                                    <p className="student-profile-note-objectives-label">Esito / Obiettivi</p>
+                                    <p className="student-profile-note-objectives-text">{lesson.obiettivi}</p>
                                 </div>
                             )}
                         </div>
@@ -405,35 +406,35 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     ];
 
     return (
-        <div className="page-layout pb-24">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
-                <div className="flex items-center gap-6">
-                    <M3Button onClick={onBack} variant="icon" className="bg-[var(--md-sys-color-surface-container-high)]/50">
+        <div className="student-profile-layout">
+            <div className="student-profile-header">
+                <div className="student-profile-header-info">
+                    <M3Button onClick={onBack} variant="icon" className="student-profile-back-button">
                         <span className="material-symbols-outlined">arrow_back</span>
                     </M3Button>
-                    <div className="flex items-center gap-5">
+                    <div className="student-profile-header-details">
                         <Avatar 
                             name={`${student.nome} ${student.cognome}`} 
                             size="xl" 
-                            className="shadow-[var(--md-sys-elevation-level3)] border-4 border-surface-container-high"
+                            className="student-profile-avatar"
                         />
                         <div>
-                            <h1 className="m3-headline-medium font-black tracking-tight">{student.cognome} {student.nome}</h1>
-                            <div className="flex items-center gap-6 mt-4">
-                                <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">Classe {student.classe}</span>
-                                {student.hasBES && <span className="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-[10px] font-black uppercase tracking-widest border border-tertiary/20">BES</span>}
-                                {student.hasDSA && <span className="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-[10px] font-black uppercase tracking-widest border border-tertiary/20">DSA</span>}
+                            <h1 className="student-profile-name">{student.cognome} {student.nome}</h1>
+                            <div className="student-profile-badges">
+                                <span className="student-profile-class-badge">Classe {student.classe}</span>
+                                {student.hasBES && <span className="student-profile-bes-badge">BES</span>}
+                                {student.hasDSA && <span className="student-profile-dsa-badge">DSA</span>}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="flex gap-6 w-full md:w-auto">
-                    <M3Button onClick={() => setIsInterviewModeOpen(true)} variant="tonal" className="flex-grow md:flex-grow-0 font-black text-xs uppercase tracking-widest">
-                        <span className="material-symbols-outlined mr-2">record_voice_over</span>
+                <div className="student-profile-header-actions">
+                    <M3Button onClick={() => setIsInterviewModeOpen(true)} variant="tonal" className="student-profile-interview-button">
+                        <span className="material-symbols-outlined student-profile-interview-icon">record_voice_over</span>
                         Colloquio
                     </M3Button>
-                    <M3Button onClick={handleExportPdf} variant="filled" className="flex-grow md:flex-grow-0 shadow-[var(--md-sys-elevation-level2)] font-black text-xs uppercase tracking-widest" disabled={isExporting}>
-                        <span className="material-symbols-outlined mr-2">download</span>
+                    <M3Button onClick={handleExportPdf} variant="filled" className="student-profile-export-button" disabled={isExporting}>
+                        <span className="material-symbols-outlined student-profile-export-icon">download</span>
                         Esporta PDF
                     </M3Button>
                 </div>
@@ -444,10 +445,10 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 activeTab={activeTab} 
                 onTabChange={(id) => setActiveTab(id as ProfileTab)}
                 variant="primary"
-                className="mb-8"
+                className="student-profile-tabs"
             />
 
-            <div className="mt-8">
+            <div className="student-profile-content">
                 {activeTab === 'overview' && renderOverview()}
                 {activeTab === 'grades' && renderGrades()}
                 {activeTab === 'competencies' && renderCompetencies()}

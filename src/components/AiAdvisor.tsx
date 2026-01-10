@@ -4,6 +4,7 @@ import { AiSettings, Studente, TimetableSettings, Valutazione, ValutazioneCompet
 import { getAIPedagogicalAdvice } from '../services/aiService';
 import { AiThinkingGem } from './ui';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for AI advisor interface, form controls, and advice display
 interface AiAdvisorProps {
     students: Studente[];
     evaluations: Valutazione[];
@@ -62,50 +63,50 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
     };
 
     return (
-        <div className="card">
-            <h2 className="m3-title-large flex items-center" style={{ gap: 'var(--md-sys-spacing-8)' }}>
-                <span className="material-symbols-outlined text-primary">psychology</span>
+        <div className="ai-advisor-card">
+            <h2 className="ai-advisor-header">
+                <span className="material-symbols-outlined ai-advisor-icon">psychology</span>
                 Consulente Didattico AI
             </h2>
-            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mt-4 mb-8">
+            <p className="ai-advisor-description">
                 Seleziona uno studente (o l'intera classe) e un obiettivo. L'AI analizzerà i dati e proporrà attività personalizzate.
             </p>
 
-            <div className="responsive-grid items-end p-8 border rounded-[var(--md-sys-shape-corner-medium-soft)] bg-[var(--md-sys-color-surface-container)]" style={{ gap: 'var(--md-sys-spacing-8)' }}>
-                <div>
-                    <label htmlFor="student-select-advisor" className="form-label">Studente / Gruppo</label>
-                    <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} className="form-select w-full">
+            <div className="ai-advisor-form">
+                <div className="ai-advisor-form-group">
+                    <label htmlFor="student-select-advisor" className="ai-advisor-label">Studente / Gruppo</label>
+                    <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} className="ai-advisor-select">
                         <option value="all">Tutta la classe</option>
                         {students.map(s => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
                     </select>
                 </div>
-                <div>
-                    <label className="form-label">Tipo di Intervento</label>
-                    <div className="segmented-button-group">
-                        <button type="button" onClick={() => setRequestType('recupero')} className={`segmented-button ${requestType === 'recupero' ? 'active' : ''}`}>Recupero</button>
-                        <button type="button" onClick={() => setRequestType('potenziamento')} className={`segmented-button ${requestType === 'potenziamento' ? 'active' : ''}`}>Potenziamento</button>
+                <div className="ai-advisor-form-group">
+                    <label className="ai-advisor-label">Tipo di Intervento</label>
+                    <div className="ai-advisor-segmented-group">
+                        <button type="button" onClick={() => setRequestType('recupero')} className={`ai-advisor-segmented-button ${requestType === 'recupero' ? 'active' : ''}`}>Recupero</button>
+                        <button type="button" onClick={() => setRequestType('potenziamento')} className={`ai-advisor-segmented-button ${requestType === 'potenziamento' ? 'active' : ''}`}>Potenziamento</button>
                     </div>
                 </div>
-                 <div className="md:col-span-2">
-                    <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} className="button button-filled w-full">
+                 <div className="ai-advisor-form-span-full">
+                    <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} className="ai-advisor-generate-button">
                         {advisorStatus ? <AiThinkingGem size="small" inline text="" /> : 'Genera Consiglio'}
                     </button>
                 </div>
             </div>
 
             {advisorStatus && (
-                 <div className="flex justify-center items-center p-8">
+                 <div className="ai-advisor-status">
                     <AiThinkingGem size="medium" text={advisorStatus} />
                 </div>
             )}
-            {error && <p className="text-error mt-4 text-center">{error}</p>}
+            {error && <p className="ai-advisor-error">{error}</p>}
             {advice && (
-                <div className="mt-6 space-y-4">
-                    <h3 className="m3-title-medium">Suggerimenti dell'AI:</h3>
+                <div className="ai-advisor-advice-section">
+                    <h3 className="ai-advisor-advice-title">Suggerimenti dell'AI:</h3>
                     {advice.map((item, index) => (
-                        <div key={index} className="p-8 rounded-[var(--md-sys-shape-corner-small-soft)] bg-[var(--md-sys-color-surface-container-high)]">
-                            <h4 className="m3-title-small font-bold">{item.titolo}</h4>
-                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mt-4 whitespace-pre-wrap">{item.descrizione}</p>
+                        <div key={index} className="ai-advisor-advice-item">
+                            <h4 className="ai-advisor-advice-item-title">{item.titolo}</h4>
+                            <p className="ai-advisor-advice-item-description">{item.descrizione}</p>
                         </div>
                     ))}
                 </div>

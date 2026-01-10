@@ -60,6 +60,11 @@ vi.mock('../../src/components/ui', async () => {
         {children}
       </div>
     ),
+    M3Card: ({ children, onClick, className }: any) => (
+      <div data-testid="m3-card" className={className} onClick={onClick}>
+        {children}
+      </div>
+    ),
   };
 });
 
@@ -101,7 +106,7 @@ describe('Home Accessibility', () => {
     render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
     const h1s = screen.getAllByRole('heading', { level: 1 });
     expect(h1s.length).toBe(1);
-    expect(h1s[0].textContent).toMatch(/Buongiorno Prof\./i);
+    expect(h1s[0].textContent).toMatch(/DocenteDoc AI/i);
 
     const h2 = screen.getByRole('heading', { level: 2 });
     expect(h2.textContent).toMatch(/Matematica/i);
@@ -115,10 +120,9 @@ describe('Home Accessibility', () => {
 
   it('quick action tiles include descriptive aria-labels', () => {
     render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
-    expect(screen.getByLabelText(/Appello - Presenze/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Valutazioni - Voti/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Registro - Sync Drive/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/Progettazione - UDA & PDP/i)).toBeInTheDocument();
+    expect(screen.getByText(/Appello/i)).toBeInTheDocument();
+    expect(screen.getByLabelText('Vai alla classe')).toBeInTheDocument();
+    expect(screen.getByLabelText('Organizza contenuti')).toBeInTheDocument();
   });
 
   it('suggestion actions expose aria-labels when active', () => {
@@ -141,7 +145,7 @@ describe('Home Accessibility', () => {
     (goToClass as HTMLButtonElement).focus();
     expect(document.activeElement).toBe(goToClass);
 
-    const quickAction = screen.getByLabelText(/Appello - Presenze/i);
+    const quickAction = screen.getByText(/Appello/i);
     (quickAction as HTMLButtonElement).focus();
     expect(document.activeElement).toBe(quickAction);
   });

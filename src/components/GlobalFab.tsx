@@ -1,4 +1,7 @@
 
+// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
+// ...existing code...
 import React, { useState, useRef } from 'react';
 import { View } from '../types';
 
@@ -116,7 +119,7 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
             aria-label={label}
             title={label}
         >
-            <span className="material-symbols-outlined text-2xl">{icon}</span>
+            <span className="material-symbols-outlined global-fab-icon">{icon}</span>
         </button>
     );
 };

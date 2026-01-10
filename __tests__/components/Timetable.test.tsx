@@ -74,7 +74,7 @@ describe('Timetable', () => {
       />
     );
 
-    const slotElement = screen.getByText('1A').closest('.matrix-cell-wrapper');
+    const slotElement = screen.getByText('1A').closest('.timetable-cell');
     fireEvent.click(slotElement!);
     expect(mockOnShowSlotActions).toHaveBeenCalledWith(mockSlots['Lunedì-08:00'], mockLessons['l1']);
   });
@@ -96,7 +96,7 @@ describe('Timetable', () => {
     // Find the cell wrapper. Since we don't have text to grab, we can use test-ids if available, 
     // or rely on the structure. Here we iterate finding empty cells is harder without specific selectors.
     // However, Martedì-09:00 has data but NO lessonId.
-    const slotElement = screen.getByText('2B').closest('.matrix-cell-wrapper');
+    const slotElement = screen.getByText('2B').closest('.timetable-cell');
     fireEvent.click(slotElement!);
     expect(mockOnEditSlot).toHaveBeenCalledWith('Martedì', '09:00');
   });

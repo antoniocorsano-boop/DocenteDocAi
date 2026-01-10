@@ -92,4 +92,11 @@
   color: var(--md-sys-color-primary, #1976d2);
 }
 
+/* Dedicated class for menu navigation labels */
+.nav-label {
+  font-weight: 900; /* font-black equivalent */
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
 

@@ -1,3 +1,6 @@
+// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
+// ...existing code...
 import React from 'react';
 import { View } from '../types';
 import './Menu.css';
@@ -57,7 +60,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
                 {active ? item.activeIcon : item.icon}
               </span>
             </div>
-            <span className="m3-label-small font-black uppercase tracking-[0.2em]">
+            <span className="m3-label-small nav-label">
               {item.label}
             </span>
           </button>

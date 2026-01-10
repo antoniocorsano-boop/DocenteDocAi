@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InfoCard Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    class="m3-info-card p-6 md:p-10 shadow-[var(--md-sys-elevation-level3)] md:shadow-[var(--md-sys-elevation-level4)] backdrop-blur-2xl border border-white/10 dark:border-black/10 overflow-hidden relative group transition-all duration-500 hover:shadow-primary/10  bg-[var(--md-sys-color-surface-container)]/80 text-[var(--md-sys-color-on-surface)] border-[var(--md-sys-color-outline-variant)]/10 "
+    style="border-radius: calc(var(--shape-xl) * var(--sys-radius-multiplier));"
+  >
+    <div
+      class="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-white/20 transition-all duration-700 pointer-events-none"
+    />
+    <div
+      class="flex flex-col md:flex-row gap-8 items-start relative z-10"
+    >
+      <div
+        class="flex-grow"
+      >
+        <h3
+          class="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-extrabold mb-6 tracking-tight"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

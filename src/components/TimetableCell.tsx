@@ -3,6 +3,8 @@ import { Lezione, Slot } from '../types';
 import { generateHueFromString } from '../utils/colorUtils';
 import { LESSON_TYPE_ICONS } from '../constants';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, and animations
+
 interface TimetableCellProps {
     slot: Slot;
     lesson?: Lezione;
@@ -34,7 +36,7 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
     if (!hasContent) {
         return (
             <div
-                className={`timetable-tile empty group ${className || ''}`}
+                className={`timetable-cell timetable-cell-empty ${className || ''}`}
                 onClick={onClick}
                 role="button"
                 aria-label={`Aggiungi lezione a ${slot.giorno} ${slot.ora}`}
@@ -46,9 +48,9 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
                     }
                 }}
             >
-                <span className="m3-ripple" aria-hidden="true" />
-                <div className="flex flex-col items-center justify-center opacity-0 group-hover:opacity-40 transition-opacity">
-                    <span className="material-symbols-outlined text-xl text-primary">add_circle</span>
+                <span className="timetable-cell-ripple" aria-hidden="true" />
+                <div className="timetable-cell-add-icon">
+                    <span className="material-symbols-outlined">add_circle</span>
                 </div>
             </div>
         );
@@ -56,7 +58,7 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
 
     return (
         <div
-            className={`timetable-tile ${isDone ? 'is-done' : ''} ${className || ''}`}
+            className={`timetable-cell timetable-cell-content ${isDone ? 'is-done' : ''} ${isDisposition ? 'timetable-cell-disposition' : ''} ${isRicevimento ? 'timetable-cell-ricevimento' : ''} ${className || ''}`}
             style={customStyle}
             onClick={onClick}
             role="button"
@@ -69,28 +71,28 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
                 }
             }}
         >
-            <span className="m3-ripple" aria-hidden="true" />
+            <span className="timetable-cell-ripple" aria-hidden="true" />
             {/* Status Badges (Top) */}
-            <div className="absolute top-1.5 inset-x-1.5 flex justify-between items-center pointer-events-none">
-                <div className="flex gap-4">
-                    {isDone && <div className="w-2 h-2 rounded-full bg-primary animate-pulse" title="Svolta"></div>}
-                    {hasAi && <span className="material-symbols-outlined text-[10px] text-tertiary">auto_awesome</span>}
+            <div className="timetable-cell-status-badges">
+                <div className="timetable-cell-status-indicators">
+                    {isDone && <div className="timetable-cell-done-indicator" title="Svolta"></div>}
+                    {hasAi && <span className="timetable-cell-ai-indicator material-symbols-outlined">auto_awesome</span>}
                 </div>
-                {typeIcon && <span className="material-symbols-outlined m3-icon-tiny opacity-50">{typeIcon}</span>}
+                {typeIcon && <span className="timetable-cell-type-icon material-symbols-outlined">{typeIcon}</span>}
             </div>
 
             {/* Labels */}
-            <div className="mt-4 flex flex-col items-center w-full min-w-0">
-                <span className="tile-class text-sm font-black truncate w-full text-center leading-none">
+            <div className="timetable-cell-labels">
+                <span className="timetable-cell-class-label">
                     {isDisposition ? 'DISP.' : (isRicevimento ? 'RICEV.' : classe)}
                 </span>
-                <span className="tile-subject text-[10px] font-bold opacity-60 truncate w-full text-center mt-0.5">
+                <span className="timetable-cell-subject-label">
                     {isDisposition ? 'Sostituzione' : (isRicevimento ? 'Genitori' : materia)}
                 </span>
             </div>
 
             {/* Hover Sparkle */}
-            <div className="absolute inset-0 bg-white/10 opacity-0 hover:opacity-100 transition-opacity pointer-events-none"></div>
+            <div className="timetable-cell-sparkle"></div>
         </div>
     );
 };

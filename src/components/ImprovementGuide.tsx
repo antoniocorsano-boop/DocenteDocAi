@@ -1,3 +1,4 @@
+// M3Expressive: ImprovementGuide - Class analysis and improvement report with M3 tokens
 import React, { useState, useEffect, useMemo } from 'react';
 import { AiSettings, Lezione, RegisterEntry, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getGoogleAIClient } from '../services/aiClient';
@@ -86,7 +87,7 @@ Basandoti su questi dati, genera una risposta in formato JSON con la seguente st
 {
   "sintesiGenerale": "Un paragrafo che riassume l'andamento generale della classe, il clima e il livello di partecipazione.",
   "puntiDiForza": ["Un elenco di 2-3 punti di forza principali della classe (es. 'Buona collaborazione', 'Solide basi nelle materie pratiche')."],
-  "areeDiMiglioramento": ["Un elenco di 2-3 aree dove la classe mostra difficoltà o incertezze (es. 'Fragilità nel problem solving complesso', 'Applicazione del metodo di studio da consolidare')."],
+  "areeDiMiglioramento": ["Un elenco di 2-3 aree dove la classe mostra difficoltï¿½ o incertezze (es. 'Fragilitï¿½ nel problem solving complesso', 'Applicazione del metodo di studio da consolidare')."],
   "casiParticolari": ["Un elenco di 2-3 osservazioni su trend specifici, senza fare nomi, mas descrivendo le situazioni (es. 'Si nota un piccolo gruppo di studenti con un rendimento eccellente e in costante crescita.', 'Alcuni studenti mostrano un calo di rendimento nelle prove scritte, pur mantenendo un buon orale.')."]
 }
 Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve essere solo l'oggetto JSON.
@@ -215,7 +216,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
     if (loadingStatus) {
         return (
-            <div className="flex flex-col justify-center items-center p-12 h-64 bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 animate-in fade-in zoom-in-95 duration-500">
+            <div className="improvement-guide-loading">
                 <AiThinkingGem size="large" text={loadingStatus} />
             </div>
         );
@@ -223,35 +224,35 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
     if (error) {
         return (
-            <div className="p-12 bg-error/10 border border-error/20 rounded-5xl text-center animate-in fade-in slide-in-from-bottom-4">
-                <span className="material-symbols-outlined text-error text-5xl mb-8">error</span>
-                <p className="text-error font-black uppercase tracking-widest">{error}</p>
+            <div className="improvement-guide-error">
+                <span className="material-symbols-outlined improvement-guide-error-icon">error</span>
+                <p className="improvement-guide-error-text">{error}</p>
             </div>
         );
     }
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-700">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-8 rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20">
-                <div className="space-y-1">
-                    <h1 className="text-3xl font-black tracking-tight text-[var(--md-sys-color-on-surface)]">Analisi Classe {selectedClass}</h1>
-                    <p className="text-[var(--md-sys-color-on-surface)]-variant font-medium opacity-70">Report generato per il consiglio di classe.</p>
+        <div className="improvement-guide-content">
+            <div className="improvement-guide-header">
+                <div className="improvement-guide-header-info">
+                    <h1 className="improvement-guide-title">Analisi Classe {selectedClass}</h1>
+                    <p className="improvement-guide-subtitle">Report generato per il consiglio di classe.</p>
                 </div>
-                <div className="flex gap-6">
-                    <M3Button onClick={handleExportDocx} variant="outlined" className="font-black text-xs uppercase tracking-widest">
-                        <span className="material-symbols-outlined mr-2">description</span>
+                <div className="improvement-guide-actions">
+                    <M3Button onClick={handleExportDocx} variant="outlined" className="improvement-guide-button">
+                        <span className="material-symbols-outlined improvement-guide-button-icon">description</span>
                         Esporta Word
                     </M3Button>
-                    <M3Button onClick={() => window.print()} variant="tonal" className="font-black text-xs uppercase tracking-widest">
-                        <span className="material-symbols-outlined mr-2">print</span>
+                    <M3Button onClick={() => window.print()} variant="tonal" className="improvement-guide-button">
+                        <span className="material-symbols-outlined improvement-guide-button-icon">print</span>
                         Stampa
                     </M3Button>
                 </div>
             </div>
 
             {/* AI Summary */}
-            <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-8 rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 space-y-8">
-                <div className="flex justify-between items-center">
+            <div className="improvement-guide-analysis-section">
+                <div className="improvement-guide-section-header">
                     <SectionHeader 
                         title="Sintesi dell'AI" 
                         icon="auto_awesome" 
@@ -261,7 +262,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                 </div>
 
                 {analysis && (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="improvement-guide-charts-grid">
                         <EditableContentCard
                             title="Sintesi Generale"
                             icon="summarize"
@@ -299,7 +300,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             />
 
             {/* Charts */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="improvement-guide-charts-grid-wide">
                 <InfoCard title="Distribuzione Voti" icon="bar_chart" className="h-full">
                     <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
                         <BarChart data={gradeDistributionData} color="var(--md-sys-color-secondary)" />

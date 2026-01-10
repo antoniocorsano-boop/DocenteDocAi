@@ -219,7 +219,7 @@
 .m3-interactive-card:hover {
   background-color: var(--md-sys-color-surface-container);
   transform: translateY(-2px);
-  box-shadow: var(--elevation-2);
+  box-shadow: var(--md-sys-elevation-level2);
   border-color: var(--md-sys-color-outline);
 }
 

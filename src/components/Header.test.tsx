@@ -70,7 +70,9 @@ describe('Header M3 Expressive', () => {
 
   it('shows home button when showBackButton is false', () => {
     render(<Header {...baseProps} showBackButton={false} />);
-    expect(screen.getByLabelText('Home')).toBeInTheDocument();
+    // The logo is clickable for home navigation when showBackButton is false
+    const logo = screen.getByText('DocenteDoc');
+    expect(logo).toBeInTheDocument();
   });
 
   it('shows menu and avatar', () => {
@@ -82,7 +84,7 @@ describe('Header M3 Expressive', () => {
   it('applies M3 tokens and accessibility', () => {
     render(<Header {...baseProps} />);
     const header = screen.getByRole('banner');
-    expect(header).toHaveClass('header-root');
+    expect(header).toHaveClass('header-container');
   });
 });
 

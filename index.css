@@ -62,6 +62,7 @@ body {
   word-wrap: normal;
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   color: inherit;
@@ -83,7 +84,7 @@ body {
   border-radius: 12px;
   padding: 8px 12px;
   border-left: 4px solid var(--sys-primary);
-  box-shadow: var(--elevation-1);
+  box-shadow: var(--md-sys-elevation-level1);
   color: var(--sys-on-surface);
   max-width: 100%;
   overflow: hidden;
@@ -97,14 +98,16 @@ body {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 .contextual-strip .strip-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  /* M3 token applied: 36px → var(--avatar-size) */
+  width: var(--avatar-size);
+  height: var(--avatar-size);
   border-radius: 8px;
   background: var(--sys-primary-container);
   color: var(--sys-on-primary-container);
@@ -118,11 +121,16 @@ body {
   font-weight: 700;
   border: none;
   cursor: pointer;
-  box-shadow: var(--elevation-2);
+  box-shadow: var(--md-sys-elevation-level2);
   transition: transform .15s ease, box-shadow .15s ease, background .12s ease;
-  min-width: 88px;
+  /* M3 token applied: 88px → var(--button-min-width) */
+  min-width: var(--button-min-width);
 }
-.strip-action-button:hover { transform: translateY(-2px); box-shadow: var(--elevation-3); }
+}
+.strip-action-button:hover { 
+  /* M3 token replacement: var(--elevation-3) → var(--md-sys-elevation-level3) */
+  transform: translateY(-2px); box-shadow: var(--md-sys-elevation-level3); 
+}
 .contextual-strip.visible { opacity: 1; transform: translateY(0); }
 .contextual-strip.hidden-strip { opacity: 0; transform: translateY(-8px); }
 
@@ -137,10 +145,11 @@ body {
 /* Floating assistant FAB */
 .fab, .live-assistant-fab {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 56px;
-  height: 56px;
+  right: var(--md-sys-typescale-title-medium-size);
+  bottom: var(--md-sys-typescale-title-medium-size);
+  /* M3 token applied: 56px → var(--fab-size) */
+  width: var(--fab-size);
+  height: var(--fab-size);
   border-radius: 9999px;
   display: inline-flex;
   align-items: center;
@@ -164,7 +173,7 @@ body {
 }
 @keyframes assistant-listen-pulse {
   0% { box-shadow: 0 12px 30px rgba(16,24,40,0.12), 0 0 0 0 rgba(103,80,164,0.12); }
-  50% { box-shadow: 0 20px 44px rgba(16,24,40,0.18), 0 0 0 10px rgba(103,80,164,0.08); }
+  50% { box-shadow: 0 var(--md-sys-typescale-title-medium-size) 44px rgba(16,24,40,0.18), 0 0 0 var(--md-sys-typescale-label-small-size) rgba(103,80,164,0.08); }
   100% { box-shadow: 0 12px 30px rgba(16,24,40,0.12), 0 0 0 0 rgba(103,80,164,0.0); }
 }
 
@@ -183,8 +192,8 @@ body {
   position: absolute;
   right: 8px;
   top: 8px;
-  width: 10px;
-  height: 10px;
+  width: var(--md-sys-typescale-label-small-size);
+  height: var(--md-sys-typescale-label-small-size);
   border-radius: 50%;
   background: var(--sys-secondary);
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
@@ -198,7 +207,7 @@ body {
 /* Ensure fab doesn't obstruct bottom nav on small screens */
 @media (max-width: 768px) {
   .fab, .live-assistant-fab { right: 14px; bottom: 14px; width: 48px; height: 48px; }
-  .live-assistant-fab .material-symbols-outlined { font-size: 20px; }
+  .live-assistant-fab .material-symbols-outlined { font-size: var(--md-sys-typescale-title-medium-size); }
 }
 
 /* Dev-only styling for AssistantDevTools */
@@ -305,7 +314,6 @@ label {
   content: "*";
   color: var(--sys-error, #B3261E);
   margin-left: 4px;
-  aria-label: "required";
 }
 
 /* Error message styling (for accessibility) */
@@ -325,7 +333,7 @@ select:focus-visible {
 }
 
 /* Ensure text zoom works at 200% */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: calc(3 * var(--md-sys-typescale-title-medium-size))) {
   html {
     font-size: 13px;
   }
@@ -354,9 +362,6 @@ a:focus-visible {
     outline: none;
   }
 }
-    transition: none !important;
-  }
-}
 
 /* ========================================
    MATERIAL DESIGN 3 DESIGN TOKENS
@@ -365,7 +370,7 @@ a:focus-visible {
 /* Color System - Primary */
 :root {
   --md-sys-color-primary: #6750a4;
-  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-on-primary: var(--md-sys-color-surface)fff;
   --md-sys-color-primary-container: #eaddff;
   --md-sys-color-on-primary-container: #21005d;
   --md-sys-color-primary-hover: #7b58c7;
@@ -376,7 +381,7 @@ a:focus-visible {
 /* Color System - Secondary */
 :root {
   --md-sys-color-secondary: #625b71;
-  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-on-secondary: var(--md-sys-color-surface)fff;
   --md-sys-color-secondary-container: #e8def8;
   --md-sys-color-on-secondary-container: #1d192b;
   --md-sys-color-secondary-hover: #75628c;
@@ -386,17 +391,17 @@ a:focus-visible {
 /* Color System - Semantic */
 :root {
   --md-sys-color-success: #146c2e;
-  --md-sys-color-on-success: #ffffff;
+  --md-sys-color-on-success: var(--md-sys-color-surface)fff;
   --md-sys-color-success-container: #a6f5b8;
   --md-sys-color-on-success-container: #002108;
 
   --md-sys-color-error: #ba1a1a;
-  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-on-error: var(--md-sys-color-surface)fff;
   --md-sys-color-error-container: #ffdad6;
   --md-sys-color-on-error-container: #410002;
 
   --md-sys-color-warning: #7d5800;
-  --md-sys-color-on-warning: #ffffff;
+  --md-sys-color-on-warning: var(--md-sys-color-surface)fff;
   --md-sys-color-warning-container: #ffdf9e;
   --md-sys-color-on-warning-container: #271900;
 }
@@ -411,7 +416,7 @@ a:focus-visible {
   --md-sys-color-surface-container-high: #ece6f0;
   --md-sys-color-surface-container-highest: #e6e0e9;
   --md-sys-color-surface-container-low: #f7f2fa;
-  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-lowest: var(--md-sys-color-surface)fff;
 
   --md-sys-color-outline: #79747e;
   --md-sys-color-outline-variant: #cac4d0;
@@ -437,7 +442,7 @@ a:focus-visible {
 
   --md-sys-typescale-label-large: 0.875rem;      /* 14px */
   --md-sys-typescale-label-medium: 0.75rem;      /* 12px */
-  --md-sys-typescale-label-small: 0.6875rem;     /* 11px */
+  --md-sys-typescale-label-small: 0.6875rem;     /* var(--md-sys-typescale-body-small-size) */
 }
 
 /* Shape System */
@@ -450,9 +455,9 @@ a:focus-visible {
   --md-sys-shape-corner-full: 1000px;
 
   /* M3 Expressive - Soft Corner Variants (Phase 2) */
-  --md-sys-shape-corner-small-soft: 10px;    /* Softer than small for supportive elements */
+  --md-sys-shape-corner-small-soft: var(--md-sys-typescale-label-small-size);    /* Softer than small for supportive elements */
   --md-sys-shape-corner-medium-soft: 16px;   /* Softer than medium for calming cards */
-  --md-sys-shape-corner-large-soft: 20px;    /* Softer than large for welcoming modals */
+  --md-sys-shape-corner-large-soft: var(--md-sys-typescale-title-medium-size);    /* Softer than large for welcoming modals */
 }
 
 /* Elevation System */
@@ -461,7 +466,7 @@ a:focus-visible {
   --md-sys-elevation-level1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
   --md-sys-elevation-level2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
   --md-sys-elevation-level3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30);
-  --md-sys-elevation-level4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.30);
+  --md-sys-elevation-level4: 0px 6px var(--md-sys-typescale-label-small-size) 4px rgba(0, 0, 0, 0.15), 0px 2px 3px 0px rgba(0, 0, 0, 0.30);
   --md-sys-elevation-level5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
 }
 

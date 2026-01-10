@@ -1,14 +1,26 @@
 
 import React, { useState } from 'react';
 import { QuestionType } from '../types';
-import { 
-    M3Dialog, 
-    M3DialogContent, 
-    M3DialogActions, 
-    M3Button, 
-    TabGroup, 
-    TextField 
+import {
+    M3Dialog,
+    M3DialogContent,
+    M3DialogActions,
+    M3Button,
+    TabGroup,
+    TextField
 } from './ui';
+
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, and animations
+
+interface TestGeneratorModalProps {
+    onClose: () => void;
+    onGenerate: (config: {
+        topic: string;
+        difficulty: 'easy' | 'medium' | 'hard';
+        questionCount: number;
+        questionTypes: QuestionType[];
+    }) => void;
+}
 
 interface TestGeneratorModalProps {
     onClose: () => void;
@@ -41,7 +53,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
             title="Generatore Verifiche"
             headline="Crea una verifica personalizzata con AI"
         >
-            <M3DialogContent className="flex flex-col gap-6 pt-2">
+            <M3DialogContent className="test-generator-modal-content">
                 <TextField
                     id="test-topic-input"
                     label="Argomento Specifico"
@@ -50,53 +62,62 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                     placeholder="Es. Rivoluzione Francese"
                 />
 
-                <div>
-                    <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-4 mb-6 block">Difficoltà</label>
+                <div className="test-generator-modal-form-section">
+                    <label className="test-generator-modal-difficulty-label">Difficoltà</label>
                     <TabGroup
                         tabs={[{ id: 'easy', label: 'Base' }, { id: 'medium', label: 'Intermedio' }, { id: 'hard', label: 'Avanzato' }]}
                         activeTab={difficulty}
                         onTabChange={(id) => setDifficulty(id as 'easy' | 'medium' | 'hard')}
                         variant="primary"
-                        className="w-full"
+                        className="test-generator-modal-difficulty-tabs"
                     />
                 </div>
 
-                <div className="p-5 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]">
-                    <div className="flex justify-between items-center mb-8 px-1">
-                        <label htmlFor="test-qcount-slider" className="m3-label-large font-black uppercase text-primary tracking-widest">Numero Quesiti</label>
-                        <span className="text-xl font-black text-primary">{questionCount}</span>
+                <div className="test-generator-modal-question-count-section">
+                    <div className="test-generator-modal-question-count-header">
+                        <label htmlFor="test-qcount-slider" className="test-generator-modal-question-count-label">Numero Quesiti</label>
+                        <span className="test-generator-modal-question-count-value">{questionCount}</span>
                     </div>
-                    <input id="test-qcount-slider" name="test-qcount-slider" type="range" min="5" max="20" value={questionCount} onChange={e => setQuestionCount(parseInt(e.target.value))} className="w-full accent-primary" />
+                    <input
+                        id="test-qcount-slider"
+                        name="test-qcount-slider"
+                        type="range"
+                        min="5"
+                        max="20"
+                        value={questionCount}
+                        onChange={e => setQuestionCount(parseInt(e.target.value))}
+                        className="test-generator-modal-question-count-input"
+                    />
                 </div>
 
-                <div className="space-y-3">
-                    <label className="text-[11px] text-primary font-black uppercase tracking-[0.2em] px-4 block">Tipi di Domande</label>
-                    <div className="flex flex-wrap gap-8">
-                        <label className={`cursor-pointer border rounded-full px-4 py-4 transition-all select-none flex items-center gap-8 ${questionTypes.includes('multiple_choice') ? 'bg-secondary-container border-secondary text-on-secondary-container' : 'border-[var(--md-sys-color-outline)] hover:bg-[var(--md-sys-color-surface-container-high)]'}`}>
+                <div className="test-generator-modal-question-types-section">
+                    <label className="test-generator-modal-question-types-label">Tipi di Domande</label>
+                    <div className="test-generator-modal-question-types-grid">
+                        <label className={`test-generator-modal-question-type-chip ${questionTypes.includes('multiple_choice') ? 'selected' : ''}`}>
                             <input
                                 type="checkbox"
                                 className="hidden"
                                 checked={questionTypes.includes('multiple_choice')}
                                 onChange={() => toggleQuestionType('multiple_choice')}
                             />
-                            {questionTypes.includes('multiple_choice') && <span className="material-symbols-outlined text-sm">check</span>}
-                            <span className="text-sm font-medium">Scelta Multipla</span>
+                            {questionTypes.includes('multiple_choice') && <span className="test-generator-modal-question-type-icon material-symbols-outlined">check</span>}
+                            <span className="test-generator-modal-question-type-label">Scelta Multipla</span>
                         </label>
 
-                        <label className={`cursor-pointer border rounded-full px-4 py-4 transition-all select-none flex items-center gap-8 ${questionTypes.includes('true_false') ? 'bg-secondary-container border-secondary text-on-secondary-container' : 'border-[var(--md-sys-color-outline)] hover:bg-[var(--md-sys-color-surface-container-high)]'}`}>
+                        <label className={`test-generator-modal-question-type-chip ${questionTypes.includes('true_false') ? 'selected' : ''}`}>
                             <input
                                 type="checkbox"
                                 className="hidden"
                                 checked={questionTypes.includes('true_false')}
                                 onChange={() => toggleQuestionType('true_false')}
                             />
-                            {questionTypes.includes('true_false') && <span className="material-symbols-outlined text-sm">check</span>}
-                            <span className="text-sm font-medium">Vero/Falso</span>
+                            {questionTypes.includes('true_false') && <span className="test-generator-modal-question-type-icon material-symbols-outlined">check</span>}
+                            <span className="test-generator-modal-question-type-label">Vero/Falso</span>
                         </label>
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions>
+            <M3DialogActions className="test-generator-modal-actions">
                 <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
                 <M3Button 
                     variant="filled" 

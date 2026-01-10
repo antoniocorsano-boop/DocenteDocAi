@@ -1,3 +1,6 @@
+// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// ...existing code...
+// ...existing code...
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { useUIStore } from '../stores/useUIStore';
 
@@ -22,8 +25,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
 		console.error('ErrorBoundary caught an error:', error, errorInfo);
-
-		// In a real app, you might want to send this to an error reporting service
+        console.error('ErrorBoundary: Full error stack:', error.stack);
 		// For now, we'll just log it and show a user-friendly message
 	}
 
@@ -55,32 +57,32 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 	}, [showToast]);
 
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-surface p-6">
-			<div className="max-w-md w-full bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-extra-large)] p-8 shadow-[var(--md-sys-elevation-level3)] border border-[var(--md-sys-color-outline-variant)]/20 text-center">
-				<div className="w-16 h-16 bg-error-container rounded-full flex items-center justify-center mx-auto mb-6">
-					<span className="material-symbols-outlined text-3xl text-on-error-container">error</span>
+		<div className="error-boundary-container">
+			<div className="error-boundary-card">
+				<div className="error-boundary-icon-container">
+					<span className="material-symbols-outlined error-boundary-icon">error</span>
 				</div>
 
-				<h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)] mb-8">
+				<h2 className="error-boundary-title">
 					Oops! Qualcosa è andato storto
 				</h2>
 
-				<p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant mb-6">
+				<p className="error-boundary-description">
 					Si è verificato un errore imprevisto nell'applicazione.
 					La pagina verrà ricaricata automaticamente tra pochi secondi.
 				</p>
 
-				<div className="flex items-center justify-center gap-8 text-sm text-[var(--md-sys-color-on-surface)]-variant">
-					<span className="material-symbols-outlined animate-spin">refresh</span>
+				<div className="error-boundary-loading">
+					<span className="material-symbols-outlined error-boundary-loading-icon">refresh</span>
 					<span>Ricaricamento in corso...</span>
 				</div>
 
 				{process.env.NODE_ENV === 'development' && error && (
-					<details className="mt-6 text-left">
-						<summary className="cursor-pointer text-sm font-medium text-[var(--md-sys-color-on-surface)]-variant hover:text-[var(--md-sys-color-on-surface)]">
+					<details className="error-boundary-details">
+						<summary className="error-boundary-details-summary">
 							Dettagli errore (solo in sviluppo)
 						</summary>
-						<pre className="mt-4 p-6 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-small)] text-xs overflow-auto max-h-32 text-[var(--md-sys-color-on-surface)]-variant">
+						<pre className="error-boundary-details-pre">
 							{error.stack}
 						</pre>
 					</details>

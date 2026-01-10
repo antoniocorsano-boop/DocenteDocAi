@@ -15,6 +15,24 @@
  * - Settings (Home, Settings, KnowledgeBase, Studio, FeedManager)
  */
 
+/**
+ * ViewRouters.ts
+ * // M3Expressive refactor: File di routing senza stili, già conforme M3.
+ * Centralizza i router per tutte le categorie di viste
+ * Usato da ViewManager per il rendering dinamico
+ *
+ * NOTE: Preferire i nomi canonici in italiano per le view (es. 'calendario', 'uda', 'reportistica').
+ * English aliases (eg. 'calendar', 'udas', 'reports') **non sono più accettati**; usare i token canonici italiani (es. 'calendario', 'uda', 'reportistica').
+ * Questo file ora richiede i nomi canonici: le occorrenze inglesi devono essere migrate.
+ *
+ * Categorie di viste:
+ * - Scheduling (Timetable, Calendar, Lessons)
+ * - Evaluation (Evaluations, Register, Competency)
+ * - Planning (UDA, Rubric, Inclusion, Curriculum)
+ * - Analytics (Analytics, Reports, ConsiglioClasse)
+ * - Settings (Home, Settings, KnowledgeBase, Studio, FeedManager)
+ */
+
 import * as React from 'react';
 import { messages } from '../../messages';
 import { SchedulingViewsRenderer } from './SchedulingViews';

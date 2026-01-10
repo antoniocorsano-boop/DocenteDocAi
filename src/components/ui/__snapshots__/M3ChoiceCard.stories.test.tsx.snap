@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`M3ChoiceCard Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <button
+    aria-pressed="false"
+    class="flex flex-col items-center justify-center p-8 md:p-8 rounded-[var(--md-sys-shape-corner-extra-large)] md:rounded-4xl border-2 transition-all gap-8 md:gap-8 min-w-[100px] md:min-w-[140px] group border-[var(--md-sys-color-outline-variant)]/30 bg-[var(--md-sys-color-surface-container)]/50 hover:border-[var(--md-sys-color-outline)] hover:bg-[var(--md-sys-color-surface-container-high)] "
+    type="button"
+  >
+    <div
+      class="w-10 h-10 md:w-16 md:h-16 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center transition-all bg-surface text-primary group-hover:scale-110"
+    >
+      <span
+        class="material-symbols-outlined text-2xl md:text-4xl"
+      >
+        test
+      </span>
+    </div>
+    <span
+      class="text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.1em] md:tracking-[0.2em]"
+    >
+      Test
+    </span>
+  </button>
+</div>
+`;

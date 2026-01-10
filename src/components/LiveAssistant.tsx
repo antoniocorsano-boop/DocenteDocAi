@@ -5,6 +5,7 @@ import { getGoogleAIClient } from '../services/aiClient.ts';
 import { performWebSearch } from '../services/aiService.ts';
 import { AiMemoryChip } from './ui';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for live assistant chat bubbles, audio controls, and status indicators
 // --- AUDIO ENCODING & DECODING ---
 function encode(bytes: Uint8Array): string {
   let binary = '';
@@ -51,8 +52,8 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
 
   if (isSystem) {
     return (
-      <div className="flex justify-center my-2 animate-in fade-in">
-        <div className="bg-[var(--md-sys-color-surface-container-high)]est px-3 py-1.5 rounded-full text-xs font-medium text-[var(--md-sys-color-on-surface)]-variant flex items-center gap-8 border border-[var(--md-sys-color-outline-variant)] shadow-sm">
+      <div className="live-assistant-system-message">
+        <div className="live-assistant-system-bubble">
           <span className="material-symbols-outlined text-sm">check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
@@ -61,18 +62,15 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
   }
 
   return (
-    <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} mb-6`}>
-      <div className={`max-w-[85%] p-8 rounded-[var(--md-sys-shape-corner-large)] text-sm leading-relaxed shadow-sm ${isUser
-        ? 'bg-primary text-on-primary rounded-tr-sm'
-        : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] rounded-tl-sm border border-[var(--md-sys-color-outline-variant)]'
-        }`}>
+    <div className={`live-assistant-chat-bubble-full ${isUser ? 'live-assistant-chat-bubble-justify-end' : 'live-assistant-chat-bubble-justify-start'} live-assistant-chat-bubble-margin-bottom`}>
+      <div className={`live-assistant-chat-bubble ${isUser ? 'live-assistant-chat-bubble-user' : 'live-assistant-chat-bubble-ai'}`}>
         <p className="whitespace-pre-wrap">{entry.text}</p>
         {entry.sources && (
-          <div className="mt-4 pt-2 border-t border-white/20">
-            <p className="text-[10px] opacity-80 font-bold mb-4">FONTI:</p>
-            <div className="flex flex-wrap gap-4">
+          <div className="live-assistant-sources">
+            <p className="live-assistant-sources-title">FONTI:</p>
+            <div className="live-assistant-sources-list">
               {entry.sources.map((s, i) => (
-                <a key={i} href={s.uri} target="_blank" rel="noreferrer" className="text-[10px] underline opacity-90 hover:opacity-100 truncate max-w-[150px] block">
+                <a key={i} href={s.uri} target="_blank" rel="noreferrer" className="live-assistant-source-link">
                   {s.title}
                 </a>
               ))}
@@ -253,25 +251,23 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-[var(--md-sys-color-surface-container-low)] overflow-hidden">
-      <div className="flex-grow overflow-y-auto p-8 space-y-4">
+    <div className="live-assistant-container">
+      <div className="live-assistant-chat-area">
         {transcripts.map((t, i) => <ChatBubble key={i} entry={t} />)}
         {transcripts.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full opacity-40">
-            <span className="material-symbols-outlined text-6xl">graphic_eq</span>
-            <p className="mt-4 m3-title-medium">L'assistente è pronto ad ascoltarti.</p>
+          <div className="live-assistant-empty-state">
+            <span className="material-symbols-outlined live-assistant-empty-icon">graphic_eq</span>
+            <p className="live-assistant-empty-text">L'assistente è pronto ad ascoltarti.</p>
           </div>
         )}
       </div>
-      <div className="p-6 bg-surface border-t border-[var(--md-sys-color-outline-variant)] flex flex-col items-center gap-8">
-        <p className="text-sm font-bold text-primary animate-pulse">{status}</p>
+      <div className="live-assistant-controls">
+        <p className="live-assistant-status">{status}</p>
         <button
           onClick={isConnected ? stopSession : startSession}
-          className={`w-20 h-20 rounded-full flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] transition-all ${isConnected ? 'bg-error text-on-error animate-pulse' : 'bg-primary text-on-primary hover:scale-105'
-            }`}
-          style={{ borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)' }}
+          className={`live-assistant-mic-button ${isConnected ? 'live-assistant-mic-button-connected' : 'live-assistant-mic-button-disconnected'}`}
         >
-          <span className="material-symbols-outlined text-4xl">{isConnected ? 'mic_off' : 'mic'}</span>
+          <span className="material-symbols-outlined live-assistant-mic-icon">{isConnected ? 'mic_off' : 'mic'}</span>
         </button>
       </div>
     </div>

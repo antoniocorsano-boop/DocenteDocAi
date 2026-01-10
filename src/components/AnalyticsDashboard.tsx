@@ -11,6 +11,20 @@
  * Status: ✅ FULLY MIGRATED & ACCESSIBLE
  */
 
+/**
+ * AnalyticsDashboard
+ *
+ * Material Design 3 Expressive - Complete MD3 Token Migration
+ * Migration Date: Phase 1.3 (Batch P0 Migration) + Complete Token Migration
+ * Z-Index: Dynamic (via M3Dialog + ModalContext)
+ *
+ * Previous: M3Dialog wrapper + extensive Tailwind classes + hardcoded styles
+ * Current: Pure M3Dialog with complete MD3 design tokens + scrolling support
+ *
+ * Status: ✅ FULLY MIGRATED & ACCESSIBLE
+ * // M3Expressive refactor: Già completamente migrato, confermato conforme M3.
+ */
+
 import React, { useState, useMemo } from 'react';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';

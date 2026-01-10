@@ -1,12 +1,17 @@
 
+/**
+ * ClassDashboard.tsx
+ * // M3Expressive refactor: Applied M3 tokens for colors, spacing, and elevation. Removed inline Tailwind, using dedicated CSS classes with M3 variables.
+ */
+
 import React, { useMemo } from 'react';
-import { View, Studente, Lezione } from '../types';
+import { View, Studente, Lezione, Valutazione, Slot } from '../types';
 import { DAYS_OF_WEEK } from '../constants';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { 
     SectionHeader, 
-    InfoCard, 
     M3Button,
+    M3Card,
     Avatar 
 } from './ui';
 import { useStudentStore } from '../stores/useStudentStore';
@@ -28,25 +33,25 @@ interface StudentDashboardItemProps {
 
 const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: StudentDashboardItemProps) => {
     const { trend } = calculatePerformance(student.id, 'Complessivo', evaluations);
-    const trendClass = trend === 'up' ? 'text-tertiary' : trend === 'down' ? 'text-error' : 'text-[var(--md-sys-color-on-surface)]-variant/40';
+    const trendClass = trend === 'up' ? 'class-dashboard-trend-up' : trend === 'down' ? 'class-dashboard-trend-down' : 'class-dashboard-trend-neutral';
     const trendIcon = trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'trending_flat';
 
     return (
         <button 
             onClick={() => onClick(student)}
-            className="w-full flex items-center gap-8 p-6 rounded-[var(--md-sys-shape-corner-medium)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-all group text-left"
+            className="class-dashboard-student-item group"
         >
             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
             <div className="flex-grow min-w-0">
-                <p className="font-bold text-[var(--md-sys-color-on-surface)] truncate">{student.cognome} {student.nome}</p>
-                <div className="flex items-center gap-2.5 mt-0.5">
-                    <span className={`material-symbols-outlined text-xs ${trendClass}`}>{trendIcon}</span>
-                    <span className={`m3-label-tiny font-bold uppercase tracking-wider ${trendClass}`}>
+                <p className="class-dashboard-student-name">{student.cognome} {student.nome}</p>
+                <div className="class-dashboard-trend-container">
+                    <span className={`material-symbols-outlined class-dashboard-trend-icon ${trendClass}`}>{trendIcon}</span>
+                    <span className={`class-dashboard-trend-label ${trendClass}`}>
                         {trend === 'up' ? 'In crescita' : trend === 'down' ? 'In calo' : 'Stabile'}
                     </span>
                 </div>
             </div>
-            <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant/30 group-hover:translate-x-1 transition-transform">chevron_right</span>
+            <span className="material-symbols-outlined class-dashboard-chevron">chevron_right</span>
         </button>
     );
 });
@@ -85,74 +90,73 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     }, [submissions, filteredStudents]);
 
     return (
-        <div className="page-layout max-w-full mx-auto w-full px-4 pb-24">
+        <div className="class-dashboard-layout">
             <SectionHeader 
                 title={`Cruscotto Classe ${selectedClass}`}
                 subtitle="Gestione didattica, valutazioni e monitoraggio in tempo reale"
                 className="py-6 md:py-12 text-center"
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="class-dashboard-main-grid">
                 {/* Main Column */}
-                <div className="lg:col-span-2 space-y-10">
+                <div className="class-dashboard-main-column">
 
                     {/* Hero Section: Lesson or Action */}
                     <section>
                         {todaysLesson ? (
-                            <InfoCard variant="elevated" className="overflow-hidden bg-primary-container/30 backdrop-blur-sm border border-primary/10">
-                                <div style={{ padding: 'var(--md-sys-spacing-5)' }}>
-                                    <div className="flex items-start gap-6 mb-6">
-                                        <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-large)] bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-[var(--md-sys-elevation-level2)] shadow-primary/20">
-                                            <span className="material-symbols-outlined text-3xl">school</span>
+                            <M3Card className="class-dashboard-hero-card">
+                                <div className="class-dashboard-hero-padding">
+                                    <div className="class-dashboard-hero-content">
+                                        <div className="class-dashboard-hero-icon">
+                                            <span className="material-symbols-outlined class-dashboard-icon-large">school</span>
                                         </div>
                                         <div className="flex-grow min-w-0">
-                                            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-4">Prossima Lezione • {todaysLesson.slot.ora}</p>
-                                            <h2 className="text-2xl font-bold text-[var(--md-sys-color-on-surface)] truncate">{todaysLesson.lesson.materia}</h2>
-                                            <p className="text-[var(--md-sys-color-on-surface)]-variant line-clamp-1 mt-4">{todaysLesson.lesson.contenuto}</p>
+                                            <p className="class-dashboard-hero-label">Prossima Lezione • {todaysLesson.slot.ora}</p>
+                                            <h2 className="class-dashboard-hero-title">{todaysLesson.lesson.materia}</h2>
+                                            <p className="class-dashboard-hero-description">{todaysLesson.lesson.contenuto}</p>
                                         </div>
                                     </div>
                                     <M3Button
                                         onClick={() => onStartPlannedLesson(todaysLesson.lesson.classe, todaysLesson.lesson.materia, `${todaysLesson.slot.giorno}-${todaysLesson.slot.ora}`, todaysLesson.lesson)}
-                                        variant="filled"
-                                        className="w-full py-4"
+                                        variant="primary"
+                                        className="class-dashboard-button-full"
                                     >
-                                        <span className="material-symbols-outlined mr-2">door_open</span>
+                                        <span className="material-symbols-outlined class-dashboard-icon-margin">door_open</span>
                                         Avvia Aula Digitale
                                     </M3Button>
                                 </div>
-                            </InfoCard>
+                            </M3Card>
                         ) : (
-                            <InfoCard variant="tonal" className="p-6 border border-[var(--md-sys-color-outline-variant)]/30">
+                            <M3Card className="class-dashboard-no-lesson-card">
                                 <div className="flex items-center gap-6 mb-6">
                                     <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant flex items-center justify-center shrink-0">
-                                        <span className="material-symbols-outlined text-3xl">event_busy</span>
+                                        <span className="material-symbols-outlined class-dashboard-icon-large">event_busy</span>
                                     </div>
                                     <div>
                                         <h2 className="text-xl font-bold text-[var(--md-sys-color-on-surface)]">Nessuna lezione programmata</h2>
-                                        <p className="text-[var(--md-sys-color-on-surface)]-variant">Puoi avviare una lezione libera o un'attivit� improvvisata.</p>
+                                        <p className="text-[var(--md-sys-color-on-surface)]-variant">Puoi avviare una lezione libera o un'attività improvvisata.</p>
                                     </div>
                                 </div>
-                                <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="tonal" className="w-full">
-                                    <span className="material-symbols-outlined mr-2">add_circle</span>
+                                <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="secondary" className="w-full">
+                                    <span className="material-symbols-outlined class-dashboard-icon-margin">add_circle</span>
                                     Avvia Lezione Improvvisata
                                 </M3Button>
-                            </InfoCard>
+                            </M3Card>
                         )}
                     </section>
 
                     {/* INBOX WIDGET */}
                     {inboxCount > 0 && (
                         <section className="animate-in fade-in slide-in-from-top-2">
-                            <InfoCard 
-                                variant="elevated"
-                                className="bg-tertiary-container/40 backdrop-blur-sm border border-tertiary/10 p-8 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all"
+                            <M3Card 
+                                className="class-dashboard-inbox"
                                 onClick={() => onNavigate('teacher-inbox')}
                             >
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-tertiary text-on-tertiary flex items-center justify-center relative shadow-[var(--md-sys-elevation-level1)] shadow-tertiary/20">
+                                        <div className="class-dashboard-inbox-icon">
                                             <span className="material-symbols-outlined">mail</span>
-                                            <span className="absolute -top-1 -right-1 w-5 h-5 bg-error text-on-error rounded-full m3-label-tiny font-bold flex items-center justify-center border-2 border-tertiary-container">
+                                            <span className="class-dashboard-inbox-badge">
                                                 {inboxCount}
                                             </span>
                                         </div>
@@ -161,11 +165,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             <p className="text-sm text-on-tertiary-container/70">{inboxCount} elaborati consegnati da valutare.</p>
                                         </div>
                                     </div>
-                                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-tertiary/10 text-tertiary">
+                                    <div className="class-dashboard-inbox-arrow">
                                         <span className="material-symbols-outlined">arrow_forward</span>
                                     </div>
                                 </div>
-                            </InfoCard>
+                            </M3Card>
                         </section>
                     )}
 
@@ -173,153 +177,146 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                     <div className="space-y-10">
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section>
-                            <div className="flex items-center gap-6 mb-6 px-4">
+                            <div className="class-dashboard-section-header">
                                 <span className="material-symbols-outlined text-primary">auto_stories</span>
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Registro & Didattica</h3>
+                                <h3 className="class-dashboard-label-small">Registro & Didattica</h3>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <InfoCard 
-                                    variant="tonal" 
-                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all group"
+                            <div className="class-dashboard-tools-grid">
+                                <M3Card 
+                                    className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('register', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                        <div className="class-dashboard-tool-icon-primary">
                                             <span className="material-symbols-outlined">book</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Diario di Bordo</h4>
-                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Lezioni, assenze, note</p>
+                                            <h4 className="class-dashboard-card-title">Diario di Bordo</h4>
+                                            <p className="class-dashboard-card-desc">Lezioni, assenze, note</p>
                                         </div>
                                     </div>
-                                </InfoCard>
-                                <InfoCard 
-                                    variant="tonal" 
-                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all group"
+                                </M3Card>
+                                <M3Card 
+                                    className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('didattica-inclusiva', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+                                        <div className="class-dashboard-tool-icon-tertiary">
                                             <span className="material-symbols-outlined">accessibility_new</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Inclusione</h4>
-                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">PDP, PEI e strategie</p>
+                                            <h4 className="class-dashboard-card-title">Inclusione</h4>
+                                            <p className="class-dashboard-card-desc">PDP, PEI e strategie</p>
                                         </div>
                                     </div>
-                                </InfoCard>
+                                </M3Card>
                             </div>
                         </section>
 
                         {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
                         <section>
-                            <div className="flex items-center gap-6 mb-6 px-4">
+                            <div className="class-dashboard-section-header">
                                 <span className="material-symbols-outlined text-secondary">grading</span>
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Valutazione & Competenze</h3>
+                                <h3 className="class-dashboard-label-small">Valutazione & Competenze</h3>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <InfoCard 
-                                    variant="tonal" 
-                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all group"
+                            <div className="class-dashboard-tools-grid">
+                                <M3Card 
+                                    className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('evaluations', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                        <div className="class-dashboard-tool-icon-secondary">
                                             <span className="material-symbols-outlined">ballot</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Voti</h4>
-                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Registro valutazioni</p>
+                                            <h4 className="class-dashboard-card-title">Voti</h4>
+                                            <p className="class-dashboard-card-desc">Registro valutazioni</p>
                                         </div>
                                     </div>
-                                </InfoCard>
-                                <InfoCard 
-                                    variant="tonal" 
-                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all group"
+                                </M3Card>
+                                <M3Card 
+                                    className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('class-competency-dashboard', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-on-secondary transition-colors">
+                                        <div className="class-dashboard-tool-icon-secondary">
                                             <span className="material-symbols-outlined">psychology</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Competenze</h4>
-                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Livelli e matrici</p>
+                                            <h4 className="class-dashboard-card-title">Competenze</h4>
+                                            <p className="class-dashboard-card-desc">Livelli e matrici</p>
                                         </div>
                                     </div>
-                                </InfoCard>
+                                </M3Card>
                             </div>
                         </section>
 
                         {/* 3. SEZIONE ANALISI & REPORT */}
                         <section>
-                            <div className="flex items-center gap-6 mb-6 px-4">
+                            <div className="class-dashboard-section-header">
                                 <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">analytics</span>
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Analisi & Report</h3>
+                                <h3 className="class-dashboard-label-small">Analisi & Report</h3>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                <InfoCard 
-                                    variant="tonal" 
-                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-tertiary/20 transition-all group"
+                            <div className="class-dashboard-tools-grid">
+                                <M3Card 
+                                    className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('improvement-guide', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-tertiary/10 text-tertiary flex items-center justify-center group-hover:bg-tertiary group-hover:text-on-tertiary transition-colors">
+                                        <div className="class-dashboard-tool-icon-tertiary">
                                             <span className="material-symbols-outlined">query_stats</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Analisi AI</h4>
-                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Report pedagogico</p>
+                                            <h4 className="class-dashboard-card-title">Analisi AI</h4>
+                                            <p className="class-dashboard-card-desc">Report pedagogico</p>
                                         </div>
                                     </div>
-                                </InfoCard>
-                                <InfoCard 
-                                    variant="tonal" 
-                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-outline/20 transition-all group"
+                                </M3Card>
+                                <M3Card 
+                                    className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('consiglio-di-classe', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
+                                        <div className="class-dashboard-tool-icon-outline">
                                             <span className="material-symbols-outlined">gavel</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Consiglio</h4>
-                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Scrutini e tabelloni</p>
+                                            <h4 className="class-dashboard-card-title">Consiglio</h4>
+                                            <p className="class-dashboard-card-desc">Scrutini e tabelloni</p>
                                         </div>
                                     </div>
-                                </InfoCard>
-                                <InfoCard 
-                                    variant="tonal" 
-                                    className="p-8 cursor-pointer hover:ring-2 hover:ring-outline/20 transition-all group"
+                                </M3Card>
+                                <M3Card 
+                                    className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('studenti', selectedClass)}
                                 >
                                     <div className="flex items-center gap-8">
-                                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant flex items-center justify-center group-hover:bg-outline group-hover:text-on-outline transition-colors">
+                                        <div className="class-dashboard-tool-icon-outline">
                                             <span className="material-symbols-outlined">groups</span>
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">Anagrafica</h4>
-                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">Elenco studenti</p>
+                                            <h4 className="class-dashboard-card-title">Anagrafica</h4>
+                                            <p className="class-dashboard-card-desc">Elenco studenti</p>
                                         </div>
                                     </div>
-                                </InfoCard>
+                                </M3Card>
                             </div>
                         </section>
                     </div>
                 </div>
 
                 {/* Side Column: Students List */}
-                <div className="space-y-6">
-                    <InfoCard variant="elevated" className="h-full flex flex-col bg-[var(--md-sys-color-surface-container-low)]est/50 backdrop-blur-sm">
-                        <div className="p-6 flex flex-col h-full">
-                            <div className="flex justify-between items-center mb-6">
-                                <h2 className="text-lg font-bold text-[var(--md-sys-color-on-surface)]">Studenti</h2>
-                                <span className="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold">
+                <div className="class-dashboard-side-column">
+                    <M3Card variant="elevated" className="class-dashboard-student-card">
+                        <div className="class-dashboard-student-card-content">
+                            <div className="class-dashboard-student-header">
+                                <h2 className="class-dashboard-title-medium">Studenti</h2>
+                                <span className="class-dashboard-student-count">
                                     {filteredStudents.length}
                                 </span>
                             </div>
 
-                            <div className="space-y-2 flex-grow overflow-y-auto pr-1 max-h-[400px] md:max-h-[600px] custom-scrollbar">
+                            <div className="class-dashboard-student-list">
                                 {filteredStudents.length > 0 ? filteredStudents.map(student => (
                                     <StudentDashboardItem
                                         key={student.id}
@@ -328,14 +325,14 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         onClick={onViewStudentProfile}
                                     />
                                 )) : (
-                                    <div className="flex flex-col items-center justify-center h-40 text-center text-[var(--md-sys-color-on-surface)]-variant/40 p-8 border-2 border-dashed border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-large)]">
-                                        <span className="material-symbols-outlined text-4xl mb-8">person_off</span>
+                                    <div className="class-dashboard-empty-state">
+                                        <span className="material-symbols-outlined">person_off</span>
                                         <p className="text-sm">Nessuno studente in elenco.</p>
                                     </div>
                                 )}
                             </div>
                         </div>
-                    </InfoCard>
+                    </M3Card>
                 </div>
             </div>
         </div>

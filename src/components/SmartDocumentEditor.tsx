@@ -6,6 +6,8 @@ import { sanitizeHTML } from '../utils/securityUtils';
 import { saveAs } from '../utils/documentUtils';
 import { AiThinkingGem } from './ui';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation, and animations
+
 interface SmartDocumentEditorProps {
     initialContent: string;
     documentTitle: string;
@@ -282,54 +284,54 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
     }, [editorRef, editorTitle]);
 
     return (
-        <div className="fixed inset-0 z-[1050] bg-surface flex flex-col animate-in fade-in">
+        <div className="smart-document-editor-overlay">
             {/* TOOLBAR */}
-            <div className="flex items-center justify-between p-8 border-b border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container)] shadow-sm">
-                <div className="flex items-center gap-8">
+            <div className="smart-document-editor-toolbar">
+                <div className="smart-document-editor-toolbar-left">
                     <button onClick={handleCloseSafe} className="icon-button" aria-label="Chiudi editor"><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
                     <input 
                         type="text" 
                         value={editorTitle} 
                         onChange={(e) => { setEditorTitle(e.target.value); setIsDirty(true); }} 
-                        className="bg-transparent border-none m3-title-large font-bold text-[var(--md-sys-color-on-surface)] focus:ring-0"
+                        className="smart-document-editor-title-input"
                     />
-                    {isDirty && <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant bg-[var(--md-sys-color-surface-container-high)]est px-4 py-0.5 rounded-full">• Modificato</span>}
+                    {isDirty && <span className="smart-document-editor-dirty-indicator">• Modificato</span>}
                 </div>
                 
-                <div className="flex items-center gap-4 bg-surface rounded-[var(--md-sys-shape-corner-small)] border border-[var(--md-sys-color-outline-variant)] p-1 hidden md:flex">
-                    <button onClick={() => execCmd('bold')} className="icon-button !w-8 !h-8 rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all" title="Grassetto" aria-label="Applica grassetto"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_bold</span></button>
-                    <button onClick={() => execCmd('italic')} className="icon-button !w-8 !h-8 rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all" title="Corsivo" aria-label="Applica corsivo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_italic</span></button>
-                    <button onClick={() => execCmd('formatBlock', 'h2')} className="icon-button !w-8 !h-8 rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all" title="Titolo" aria-label="Applica stile titolo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">title</span></button>
-                    <div className="w-px h-6 bg-outline-variant mx-1"></div>
-                    <button onClick={() => execCmd('insertUnorderedList')} className="icon-button !w-8 !h-8 rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all" title="Elenco" aria-label="Inserisci elenco puntato"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_list_bulleted</span></button>
-                    <button onClick={handleAiTable} className="icon-button !w-8 !h-8 text-primary rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all" title="Tabella AI" aria-label="Genera tabella con AI"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">table_chart</span></button>
+                <div className="smart-document-editor-format-toolbar hidden md:flex">
+                    <button onClick={() => execCmd('bold')} className="smart-document-editor-format-button icon-button" title="Grassetto" aria-label="Applica grassetto"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_bold</span></button>
+                    <button onClick={() => execCmd('italic')} className="smart-document-editor-format-button icon-button" title="Corsivo" aria-label="Applica corsivo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_italic</span></button>
+                    <button onClick={() => execCmd('formatBlock', 'h2')} className="smart-document-editor-format-button icon-button" title="Titolo" aria-label="Applica stile titolo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">title</span></button>
+                    <div className="smart-document-editor-format-separator"></div>
+                    <button onClick={() => execCmd('insertUnorderedList')} className="smart-document-editor-format-button icon-button" title="Elenco" aria-label="Inserisci elenco puntato"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_list_bulleted</span></button>
+                    <button onClick={handleAiTable} className="smart-document-editor-format-button icon-button text-primary" title="Tabella AI" aria-label="Genera tabella con AI"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">table_chart</span></button>
                 </div>
 
-                <div className="flex gap-8">
-                    <button onClick={handleCopyForGoogleDocs} className="button button-tonal !h-9 !px-3 m3-label-large rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all" title="Copia per Google Docs">
-                        <span className="material-symbols-outlined mr-2 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">content_copy</span> Docs
+                <div className="smart-document-editor-toolbar-right">
+                    <button onClick={handleCopyForGoogleDocs} className="smart-document-editor-action-button button button-tonal" title="Copia per Google Docs">
+                        <span className="material-symbols-outlined smart-document-editor-action-icon">content_copy</span> Docs
                     </button>
-                    <button onClick={handleDownload} className="button button-outlined !h-9 !px-3 m3-label-large rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all">
-                        <span className="material-symbols-outlined mr-2 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">download</span> DOCX
+                    <button onClick={handleDownload} className="smart-document-editor-action-button button button-outlined">
+                        <span className="material-symbols-outlined smart-document-editor-action-icon">download</span> DOCX
                     </button>
-                    <button onClick={handlePrint} className="icon-button !w-9 !h-9 rounded-[var(--md-sys-shape-corner-small)] hover:bg-[var(--md-sys-color-surface-container-high)] transition-all" title="Stampa / PDF" aria-label="Stampa o salva come PDF">
+                    <button onClick={handlePrint} className="smart-document-editor-print-button icon-button" title="Stampa / PDF" aria-label="Stampa o salva come PDF">
                         <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" aria-hidden="true">print</span>
                     </button>
                     {onSaveToKb && (
-                        <button onClick={handleSave} className="button button-filled !h-9 !px-3 m3-label-large rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all">
-                            <span className="material-symbols-outlined mr-2 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">save</span> Salva
+                        <button onClick={handleSave} className="smart-document-editor-action-button button button-filled">
+                            <span className="material-symbols-outlined smart-document-editor-action-icon">save</span> Salva
                         </button>
                     )}
                 </div>
             </div>
 
             {/* EDITOR AREA */}
-            <div className="flex-grow overflow-y-auto bg-[var(--md-sys-color-surface-container-low)] p-8 md:p-8">
+            <div className="smart-document-editor-editor-area">
                 <div 
                     ref={editorRef}
                     contentEditable
                     onInput={handleInput}
-                    className="max-w-4xl mx-auto min-h-[800px] bg-white text-black p-12 shadow-[var(--md-sys-elevation-level1)] outline-none prose focus:ring-2 ring-primary/20 transition-shadow"
+                    className="smart-document-editor-editor"
                     style={{ fontFamily: "'Times New Roman', serif", fontSize: '12pt', lineHeight: '1.5' }}
                 >
                 </div>
@@ -338,24 +340,24 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             {/* AI FLOATING MENU */}
             {aiMenuPosition && (
                 <div 
-                    className="absolute bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-medium)] shadow-[var(--md-sys-elevation-level3)] border border-[var(--md-sys-color-outline-variant)] p-8 flex flex-col gap-4 z-[1060] animate-in zoom-in-95"
+                    className="smart-document-editor-ai-menu"
                     style={{ top: aiMenuPosition.top, left: aiMenuPosition.left }}
                 >
-                    <div className="flex items-center gap-8 px-4 pb-2 border-b border-[var(--md-sys-color-outline-variant)] mb-4">
+                    <div className="smart-document-editor-ai-menu-header">
                         <AiThinkingGem size="small" />
-                        <span className="m3-label-small font-bold text-[var(--md-sys-color-on-surface)]-variant">AI Assistant</span>
+                        <span className="smart-document-editor-ai-menu-title">AI Assistant</span>
                     </div>
                     {isAiThinking ? (
-                        <div className="p-8 text-center m3-label-small">Elaborazione...</div>
+                        <div className="smart-document-editor-ai-thinking">Elaborazione...</div>
                     ) : (
                         <>
-                            <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} className="text-left px-3 py-4 hover:bg-secondary-container rounded-[var(--md-sys-shape-corner-small)] m3-body-small flex gap-8">
+                            <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} className="smart-document-editor-ai-option">
                                 <span className="material-symbols-outlined m3-body-small">history_edu</span> Rendi Formale
                             </button>
-                            <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} className="text-left px-3 py-4 hover:bg-secondary-container rounded-[var(--md-sys-shape-corner-small)] m3-body-small flex gap-8">
+                            <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} className="smart-document-editor-ai-option">
                                 <span className="material-symbols-outlined m3-body-small">unfold_more</span> Espandi
                             </button>
-                            <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} className="text-left px-3 py-4 hover:bg-secondary-container rounded-[var(--md-sys-shape-corner-small)] m3-body-small flex gap-8">
+                            <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} className="smart-document-editor-ai-option">
                                 <span className="material-symbols-outlined m3-body-small">format_list_bulleted</span> Sintetizza
                             </button>
                         </>

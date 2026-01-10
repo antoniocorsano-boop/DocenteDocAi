@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // ...vite-env.d.ts should not be imported directly...
+/**
+ * Studio.tsx
+ * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { KnowledgeBaseEntry, StudioProps, GeneratedQuiz } from '../types'; 
 import { generateStudioOutput, generateFormattedDocument, generateImageFromPrompt, generateQuiz } from '../services/aiService';
@@ -174,7 +179,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
     };
 
     const renderActionGrid = (actions: StudioAction[]) => (
-        <div className="expressive-grid">
+        <div className="studio-action-grid">
             {actions.map((action) => (
                 <button
                     key={action.id}
@@ -184,20 +189,20 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         else if (action.id === 'quiz') setIsTestGeneratorOpen(true);
                         else runTask(action.id);
                     }}
-                    className={`expressive-tool-card ${action.variant} relative overflow-hidden group`}
+                    className={`studio-action-card ${action.variant}`}
                     disabled={isLoading || (action.requiresContent && selectedFileIds.length === 0) || (action.id === 'image' && hasApiKey === false)}
                     title={(action.id === 'image' && hasApiKey === false) ? "API Key richiesta per la generazione di immagini." : (action.requiresContent && selectedFileIds.length === 0 ? "Seleziona almeno un documento per abilitare questa azione" : action.description)}
                 >
-                    <div className="flex justify-between items-start w-full mb-8">
-                        <span className="material-symbols-outlined tool-icon group-hover:scale-110 transition-transform">{action.icon}</span>
+                    <div className="studio-action-header">
+                        <span className="studio-action-icon">{action.icon}</span>
                         {action.requiresContent && (
-                            <span className={`text-[10px] px-1.5 py-0.5 rounded border ${selectedFileIds.length > 0 ? 'border-current opacity-70' : 'border-[var(--md-sys-color-outline)] text-outline'}`}>
+                            <span className="studio-action-badge">
                                 Input KB
                             </span>
                         )}
                     </div>
-                    <span className="tool-title">{action.title}</span>
-                    <span className="tool-subtitle mt-4 line-clamp-2">{action.description}</span>
+                    <span className="studio-action-title">{action.title}</span>
+                    <span className="studio-action-description">{action.description}</span>
                 </button>
             ))}
         </div>
@@ -214,11 +219,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
     };
 
     return (
-        <div className="page-layout pb-24">
-            <div className="page-header-compact">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium">Studio AI</h1>
-                    <p className="page-subtitle">Laboratorio per trasformare e generare contenuti con il tuo contesto.</p>
+        <div className="studio-main-layout">
+            <div className="studio-header">
+                <div className="studio-title-group">
+                    <h1 className="studio-title">Studio AI</h1>
+                    <p className="studio-subtitle">Laboratorio per trasformare e generare contenuti con il tuo contesto.</p>
                 </div>
             </div>
             
@@ -236,12 +241,12 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     maxWidth="sm"
                     level={2}
                 >
-                    <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm space-y-4">
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">
+                    <M3DialogContent className="studio-dialog-content">
+                        <p className="studio-dialog-text">
                             Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
                         </p>
-                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="link-button flex items-center gap-8">
-                            <span className="material-symbols-outlined text-sm">info</span>
+                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="studio-link">
+                            <span className="material-symbols-outlined studio-link-icon">info</span>
                             Scopri di più sul billing
                         </a>
                     </M3DialogContent>

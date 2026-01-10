@@ -5,6 +5,7 @@ import { saveAs } from '../utils/documentUtils';
 
 import { M3IconButton } from './ui';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for report archive layout, search functionality, and table styling
 interface ArchivioReportProps {
     reportistica: Report[];
     onDeleteReport: (reportId: string) => void;
@@ -31,36 +32,36 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
     };
 
     return (
-        <div className="space-y-4">
-            <div className="page-header-compact">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium">Archivio Report</h1>
-                    <p className="page-subtitle">Consulta, esporta e salva i report generati con l'AI.</p>
+        <div className="archivio-report-container">
+            <div className="archivio-report-header">
+                <div className="archivio-report-title-group">
+                    <h1 className="archivio-report-title">Archivio Report</h1>
+                    <p className="archivio-report-subtitle">Consulta, esporta e salva i report generati con l'AI.</p>
                 </div>
             </div>
-            <div className="card">
-                <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
-                    <div className="search-input-container max-w-lg">
-                        <span className="material-symbols-outlined" aria-hidden="true">search</span>
+            <div className="archivio-report-card">
+                <div className="archivio-report-card-content">
+                    <div className="archivio-report-search-container">
+                        <span className="material-symbols-outlined archivio-report-search-icon" aria-hidden="true">search</span>
                         <input 
                             type="text"
                             placeholder="Cerca report per nome o contesto..."
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
-                            className="search-input"
+                            className="archivio-report-search-input"
                             aria-label="Cerca report per nome o contesto"
                         />
                     </div>
                 </div>
-                 <div className="table-container">
-                    <table className="table">
+                 <div className="archivio-report-table-container">
+                    <table className="archivio-report-table">
                         <thead>
                             <tr>
                                 <th>Nome Report</th>
                                 <th>Data Creazione</th>
                                 <th>Contesto</th>
                                 <th>Modello Usato</th>
-                                <th className="text-right">Azioni</th>
+                                <th className="archivio-report-table-actions">Azioni</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,11 +71,11 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                     <td>{new Date(report.dataCreazione).toLocaleDateString('it-IT')}</td>
                                     <td>{report.contesto.titolo}</td>
                                     <td>
-                                        <span className={`chip m3-label-small border-none ${report.modelloUsato.tipo === 'pdf' ? 'bg-error-container text-on-error-container' : 'bg-primary-container text-on-primary-container'}`}>
+                                        <span className={`archivio-report-chip ${report.modelloUsato.tipo === 'pdf' ? 'archivio-report-chip-pdf' : 'archivio-report-chip-other'}`}>
                                             {report.modelloUsato.nome}
                                         </span>
                                     </td>
-                                    <td className="text-right">
+                                    <td className="archivio-report-table-actions">
                                             <M3IconButton onClick={() => onSaveReportToKb(report)} title="Salva in Knowledge Base" ariaLabel="Salva report in Knowledge Base" icon="inventory_2" />
                                             <M3IconButton onClick={() => handleDownload(report)} title="Scarica" ariaLabel="Scarica report" icon="download" />
                                             <M3IconButton onClick={() => onDeleteReport(report.id)} title="Elimina" ariaLabel="Elimina report" icon="delete" />
@@ -84,7 +85,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                         </tbody>
                     </table>
                 </div>
-                {filteredReports.length === 0 && <p className="text-center p-8 text-[var(--md-sys-color-on-surface)]-variant">{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
+                {filteredReports.length === 0 && <p className="archivio-report-empty">{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
             </div>
         </div>
     );

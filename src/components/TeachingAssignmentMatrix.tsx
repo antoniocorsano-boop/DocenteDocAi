@@ -1,4 +1,5 @@
 
+// M3Expressive: TeachingAssignmentMatrix - Teaching assignment configuration matrix with M3 tokens
 import React, { useEffect, useMemo, useState } from 'react';
 import { TeachingAssignment } from '../types';
 import { generateHueFromString } from '../utils/colorUtils';
@@ -44,16 +45,16 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
 
     if (assignments.length === 0) {
         return (
-            <div className="p-8 text-center border-2 border-dashed border-primary/20 rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary-container/5 animate-in fade-in zoom-in-95 duration-500">
-                <div className="w-16 h-16 bg-primary-container/20 rounded-full flex items-center justify-center mx-auto mb-8">
-                    <span className="material-symbols-outlined text-4xl text-primary">bolt</span>
+            <div className="teaching-assignment-matrix-empty-state">
+                <div className="teaching-assignment-matrix-empty-icon-container">
+                    <span className="material-symbols-outlined teaching-assignment-matrix-empty-icon">bolt</span>
                 </div>
-                <h3 className="m3-title-medium font-black text-[var(--md-sys-color-on-surface)] mb-8 uppercase tracking-wide">Configura la Cattedra</h3>
-                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant max-w-[280px] mx-auto mb-6 leading-relaxed">
+                <h3 className="teaching-assignment-matrix-empty-title">Configura la Cattedra</h3>
+                <p className="teaching-assignment-matrix-empty-text">
                     Usa lo strumento di <strong>Configurazione Rapida</strong> sopra per associare le tue materie alle classi in un colpo solo.
                 </p>
-                <div className="flex justify-center">
-                    <div className="px-4 py-4 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest animate-pulse">
+                <div className="teaching-assignment-matrix-empty-hint">
+                    <div className="teaching-assignment-matrix-empty-hint-content">
                         Scorri verso l'alto ↑
                     </div>
                 </div>
@@ -64,16 +65,16 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
     return (
         <div className="teaching-assignment-matrix-container">
             {/* DESKTOP VIEW: MD3 Table */}
-            <div className="hidden md:block overflow-hidden border border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-low)] shadow-sm">
-                <div className="overflow-x-auto custom-scrollbar">
-                    <table className="w-full text-sm border-collapse">
+            <div className="teaching-assignment-matrix-desktop-table">
+                <div className="teaching-assignment-matrix-table-scroll">
+                    <table className="teaching-assignment-matrix-table">
                         <thead>
                             <tr>
-                                <th className="p-8 text-left sticky left-0 bg-[var(--md-sys-color-surface-container-high)] z-10 border-b border-r border-[var(--md-sys-color-outline-variant)] min-w-[120px] text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-widest text-[11px] font-black shadow-sm">
+                                <th className="teaching-assignment-matrix-table-header">
                                     Cattedra
                                 </th>
                                 {subjects.map(subj => (
-                                    <th key={subj} className="p-8 text-center min-w-[110px] border-b border-[var(--md-sys-color-outline-variant)] font-bold text-[var(--md-sys-color-on-surface)]-variant bg-[var(--md-sys-color-surface-container-high)] whitespace-nowrap uppercase tracking-wide text-[11px]">
+                                    <th key={subj} className="teaching-assignment-matrix-table-header-cell">
                                         {subj}
                                     </th>
                                 ))}
@@ -81,27 +82,22 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                         </thead>
                         <tbody>
                             {classes.map(cls => (
-                                <tr key={cls} className="border-b border-[var(--md-sys-color-outline-variant)]/30 last:border-none hover:bg-[var(--md-sys-color-surface-container)] transition-colors">
-                                    <td className="p-8 font-bold sticky left-0 bg-[var(--md-sys-color-surface-container-low)] border-r border-[var(--md-sys-color-outline-variant)] z-10 text-primary m3-title-small">
+                                <tr key={cls} className="teaching-assignment-matrix-table-body-row">
+                                    <td className="teaching-assignment-matrix-table-body-cell">
                                         {cls}
                                     </td>
                                     {subjects.map(subj => {
                                         const isActive = assignments.some(a => a.classId === cls && a.subjectId === subj);
                                         
                                         return (
-                                            <td key={`${cls}-${subj}`} className="p-8 text-center">
+                                            <td key={`${cls}-${subj}`} className="teaching-assignment-matrix-table-data-cell">
                                                 <button 
                                                     onClick={() => toggleAssignment(cls, subj)}
-                                                    className={`
-                                                        w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] border-2 transition-all duration-200 flex items-center justify-center mx-auto
-                                                        ${isActive 
-                                                            ? 'scale-105 shadow-[var(--md-sys-elevation-level1)] border-primary bg-primary text-on-primary' 
-                                                            : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container-high)]est/20 text-primary/40 hover:bg-primary-container/30 hover:border-primary hover:text-primary hover:scale-105'}
-                                                    `}
+                                                    className={`teaching-assignment-matrix-toggle-button ${isActive ? 'active' : ''}`}
                                                     title={isActive ? `Rimuovi ${subj} da ${cls}` : `Assegna ${subj} a ${cls}`}
                                                     aria-label={`${subj} in ${cls}: ${isActive ? 'Assegnato' : 'Non assegnato'}`}
                                                 >
-                                                    <span className={`material-symbols-outlined text-lg ${isActive ? 'font-black' : 'opacity-60'}`}>
+                                                    <span className={`material-symbols-outlined teaching-assignment-matrix-toggle-icon ${isActive ? 'active' : ''}`}>
                                                         {isActive ? 'check_circle' : 'add_circle'}
                                                     </span>
                                                 </button>
@@ -127,47 +123,42 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                 }, [classes, openClass]);
 
                 return (
-                    <div className="block md:hidden space-y-3">
+                    <div className="teaching-assignment-matrix-mobile-view">
                         {classes.map(cls => {
                             const isActiveClass = openClass === cls || !useAccordion;
                             const toggleAccordion = () => setOpenClass(prev => (prev === cls ? null : cls));
 
                             return (
-                                <div key={cls} className="bg-[var(--md-sys-color-surface-container-low)] border border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-large)] shadow-sm">
+                                <div key={cls} className="teaching-assignment-matrix-mobile-card">
                                     <button
                                         type="button"
                                         onClick={toggleAccordion}
-                                        className="w-full flex items-center justify-between px-4 py-3 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)] font-black text-sm uppercase tracking-wider text-left"
+                                        className="teaching-assignment-matrix-mobile-header"
                                         aria-expanded={isActiveClass}
                                     >
-                                        <span className="flex items-center gap-6">
-                                            <span className="w-8 h-8 rounded-full bg-primary-container text-primary flex items-center justify-center text-xs font-black">
+                                        <span className="teaching-assignment-matrix-mobile-header-content">
+                                            <span className="teaching-assignment-matrix-mobile-class-badge">
                                                 {cls}
                                             </span>
-                                            <span>Classe {cls}</span>
+                                            <span className="teaching-assignment-matrix-mobile-class-label">Classe {cls}</span>
                                         </span>
-                                        <span className="material-symbols-outlined text-lg transition-transform duration-200" aria-hidden="true">
+                                        <span className="teaching-assignment-matrix-mobile-expand-icon" aria-hidden="true">
                                             {isActiveClass ? 'expand_less' : 'expand_more'}
                                         </span>
                                     </button>
                                     {isActiveClass && (
-                                        <div className="px-4 py-3 border-t border-[var(--md-sys-color-outline-variant)]">
-                                            <div className="flex flex-wrap gap-8">
+                                        <div className="teaching-assignment-matrix-mobile-content">
+                                            <div className="teaching-assignment-matrix-mobile-chips">
                                                 {subjects.map(subj => {
                                                     const isActive = assignments.some(a => a.classId === cls && a.subjectId === subj);
                                                     return (
                                                         <button
                                                             key={subj}
                                                             onClick={() => toggleAssignment(cls, subj)}
-                                                            className={`
-                                                                chip-expressive chip-expressive--clickable transition-all
-                                                                ${isActive 
-                                                                    ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level1)] scale-105' 
-                                                                    : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant border border-[var(--md-sys-color-outline-variant)]'}
-                                                            `}
+                                                            className={`teaching-assignment-matrix-mobile-chip ${isActive ? 'active' : ''}`}
                                                         >
-                                                            {isActive && <span className="material-symbols-outlined text-[var(--md-sys-spacing-4)]">check</span>}
-                                                            <span className="chip-expressive__label">{subj}</span>
+                                                            {isActive && <span className="teaching-assignment-matrix-mobile-chip-check">check</span>}
+                                                            <span className="teaching-assignment-matrix-mobile-chip-label">{subj}</span>
                                                         </button>
                                                     );
                                                 })}
@@ -181,9 +172,10 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                 );
             })()}
 
-            <div className="mt-4 p-8 bg-[var(--md-sys-color-surface-container-low)]est border border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-medium)] text-center">
-                <p className="m3-label-medium text-[var(--md-sys-color-on-surface)]-variant flex items-center justify-center gap-8">
-                    <span className="material-symbols-outlined text-sm">info</span>
+            {/* INFO SECTION */}
+            <div className="teaching-assignment-matrix-info-section">
+                <p className="teaching-assignment-matrix-info-text">
+                    <span className="teaching-assignment-matrix-info-icon">info</span>
                     Tocca le materie per assegnarle alle classi.
                 </p>
             </div>

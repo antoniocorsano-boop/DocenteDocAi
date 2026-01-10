@@ -1,6 +1,7 @@
 import React from 'react';
 import { Uda } from '../types';
 
+// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for positioning, colors, and interactions
 interface GanttBarProps {
     uda: Uda & {
         startPos: number;
@@ -13,24 +14,34 @@ interface GanttBarProps {
 }
 
 const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
+    const handleClick = () => {
+        console.log(`Audit: Clicked on GanttBar for UDA ${uda.id}: ${uda.title}`);
+        onClick();
+    };
+
     return (
         <div
             role="button"
             tabIndex={0}
-            aria-label={uda.title}
-            onClick={onClick}
-            className="gantt-bar"
-            style={{
-                left: `${uda.startPos}%`,
-                width: `${uda.width}%`,
-                backgroundColor: uda.color,
-                borderColor: uda.borderColor,
-                color: uda.textColor,
-                cursor: 'pointer',
+            aria-label={`UDA: ${uda.title}`}
+            onClick={handleClick}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleClick();
+                }
             }}
+            className="gantt-bar gantt-bar-positioned gantt-bar-colored"
+            style={{
+                '--gantt-bar-left': `${uda.startPos}%`,
+                '--gantt-bar-width': `${uda.width}%`,
+                '--gantt-bar-bg': uda.color,
+                '--gantt-bar-border': uda.borderColor,
+                '--gantt-bar-text': uda.textColor,
+            } as React.CSSProperties}
             title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''})`}
         >
-            <div className="gantt-bar-inner truncate" style={{ padding: '6px var(--md-sys-spacing-2)' }}>{uda.title}</div>
+            <div className="gantt-bar-inner truncate">{uda.title}</div>
         </div>
     );
 };

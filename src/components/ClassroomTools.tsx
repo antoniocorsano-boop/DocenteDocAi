@@ -1,4 +1,6 @@
 
+/* M3Expressive - ClassroomTools Component */
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Studente } from '../types';
 
@@ -38,32 +40,32 @@ const TimerWidget: React.FC = () => {
     };
 
     return (
-        <div className="bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-large)] p-8 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-[var(--md-sys-elevation-level1)]">
+        <div className="classroom-tools-timer-widget">
             {/* Background Decor */}
-            <div className="absolute -top-4 -right-4 m3-icon-xl-hero text-[var(--md-sys-color-on-surface)] opacity-[0.03] pointer-events-none rotate-12">
+            <div className="classroom-tools-timer-background-decor material-symbols-outlined">
                  timer
             </div>
             
-            <div className="flex items-center text-primary z-10" style={{ gap: 'var(--md-sys-spacing-8)' }}>
-                <span className="material-symbols-outlined filled-icon">timer</span>
-                <span className="m3-label-small font-bold uppercase tracking-wider">Cronometro</span>
+            <div className="classroom-tools-timer-header">
+                <span className="classroom-tools-timer-icon material-symbols-outlined">timer</span>
+                <span className="classroom-tools-timer-title">Cronometro</span>
             </div>
             
-            <div className="text-6xl font-mono font-bold tracking-widest text-[var(--md-sys-color-on-surface)] z-10 text-center my-2 tabular-nums">
+            <div className="classroom-tools-timer-display">
                 {formatTime(time)}
             </div>
             
-            <div className="flex w-full z-10 mt-auto" style={{ gap: 'var(--md-sys-spacing-8)' }}>
+            <div className="classroom-tools-timer-controls">
                 <button 
                     onClick={handleReset} 
-                    className="button button-tonal flex-shrink-0 !w-12 !px-0 justify-center" 
+                    className="classroom-tools-timer-reset-button button button-tonal" 
                     title="Reset"
                 >
                     <span className="material-symbols-outlined">restart_alt</span>
                 </button>
                 <button 
                     onClick={handleStartPause} 
-                    className={`button ${isActive ? 'button-outlined' : 'button-filled'} flex-grow justify-center`}
+                    className={`classroom-tools-timer-start-pause-button button ${isActive ? 'button-outlined' : 'button-filled'}`}
                 >
                     <span className="material-symbols-outlined mr-2">{isActive ? 'pause' : 'play_arrow'}</span>
                     {isActive ? 'Pausa' : 'Avvia'}
@@ -95,27 +97,27 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
     };
     
     return (
-        <div className="bg-[var(--md-sys-color-surface-container-high)] border border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-large)] p-8 flex flex-col justify-between h-48 shadow-sm relative overflow-hidden group transition-all hover:shadow-[var(--md-sys-elevation-level1)]">
+        <div className="classroom-tools-random-student-widget">
              {/* Background Decor */}
-            <div className="absolute -top-4 -right-4 m3-icon-xl-hero text-[var(--md-sys-color-on-surface)] opacity-[0.03] pointer-events-none rotate-12">
+            <div className="classroom-tools-random-student-background-decor material-symbols-outlined">
                  casino
             </div>
 
-            <div className="flex items-center text-tertiary z-10" style={{ gap: 'var(--md-sys-spacing-8)' }}>
-                <span className="material-symbols-outlined filled-icon">casino</span>
-                <span className="m3-label-small font-bold uppercase tracking-wider">Estrazione</span>
+            <div className="classroom-tools-random-student-header">
+                <span className="classroom-tools-random-student-icon material-symbols-outlined">casino</span>
+                <span className="classroom-tools-random-student-title">Estrazione</span>
             </div>
 
-            <div className="z-10 text-center w-full flex-grow flex items-center justify-center">
+            <div className="classroom-tools-random-student-content">
                 {selectedStudent ? (
-                    <div className={`transition-all duration-200 ${isSelecting ? 'opacity-70 scale-95 blur-[1px]' : 'opacity-100 scale-100'}`}>
-                         <span className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold block leading-tight text-[var(--md-sys-color-on-surface)]">{selectedStudent.cognome}</span>
-                         <span className="m3-label-large opacity-80 block text-[var(--md-sys-color-on-surface)]-variant">{selectedStudent.nome}</span>
+                    <div className={`classroom-tools-random-student-info ${isSelecting ? 'selecting' : ''}`}>
+                         <span className="classroom-tools-random-student-name">{selectedStudent.cognome}</span>
+                         <span className="classroom-tools-random-student-first-name">{selectedStudent.nome}</span>
                     </div>
                 ) : (
-                     <div className="text-[var(--md-sys-color-on-surface)]-variant/40 flex flex-col items-center">
-                        <span className="material-symbols-outlined m3-display-small mb-4">groups</span>
-                        <span className="m3-body-small font-medium">Pronto ad estrarre</span>
+                     <div className="classroom-tools-random-student-empty-state">
+                        <span className="classroom-tools-random-student-empty-state-icon material-symbols-outlined">groups</span>
+                        <span className="classroom-tools-random-student-empty-state-text">Pronto ad estrarre</span>
                      </div>
                 )}
             </div>
@@ -123,7 +125,7 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
             <button 
                 onClick={handleSelect} 
                 disabled={isSelecting || presentStudents.length === 0} 
-                className="button button-filled w-full justify-center z-10 bg-tertiary text-on-tertiary shadow-sm mt-auto"
+                className="classroom-tools-random-student-button button button-filled"
             >
                 {isSelecting ? 'Estrazione...' : 'Estrai Studente'}
             </button>
@@ -136,7 +138,7 @@ const ClassroomTools: React.FC<ClassroomToolsProps> = ({ students, studentAttend
     const presentStudents = students.filter(s => studentAttendance[s.id] === 'presente');
     
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="classroom-tools-grid">
             <TimerWidget />
             <RandomStudentWidget presentStudents={presentStudents} />
             

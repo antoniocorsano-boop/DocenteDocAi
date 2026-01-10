@@ -17,7 +17,8 @@
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.32);
+  /* M3 token replacement: rgba(0, 0, 0, 0.32) → var(--md-sys-color-scrim) */
+  background: var(--md-sys-color-scrim);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +32,7 @@
   padding: 0;
   overflow-y: auto;
   border-radius: var(--md-sys-shape-corner-medium);
-  box-shadow: 0 2px var(--md-sys-spacing-6) rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px var(--md-sys-spacing-6) var(--md-sys-color-shadow);
   background: var(--md-sys-color-surface);
   position: relative;
   outline: none;
@@ -313,7 +314,7 @@
 }
 
 .shadow-elevation-1 {
-  box-shadow: 0 2px var(--md-sys-spacing-6) rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px var(--md-sys-spacing-6) var(--md-sys-color-shadow);
 }
 
 .shadow-elevation-2 {
@@ -441,7 +442,8 @@
   border-radius: var(--md-sys-shape-corner-medium);
   box-shadow: var(--md-elevation-3);
   z-index: 1100;
-  min-width: 200px;
+  /* M3 token applied: 200px → var(--popup-min-width) */
+  min-width: var(--popup-min-width);
   padding: var(--md-sys-spacing-2) 0;
 }
 
