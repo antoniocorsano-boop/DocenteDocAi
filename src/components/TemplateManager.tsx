@@ -295,7 +295,7 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
           }} 
         />
         
-        <div className="my-6 py-8 border-2 border-dashed border-gray-200 rounded-[var(--md-sys-shape-corner-medium)] flex flex-col items-center justify-center text-gray-400 bg-gray-50/50">
+        <div className="my-6 py-8 border-2 border-dashed border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-medium)] flex flex-col items-center justify-center text-[var(--md-sys-color-outline)] bg-[var(--md-sys-color-surface-container-low)]/50">
           <span className="material-symbols-outlined text-3xl mb-8">description</span>
           <p className="text-xs font-medium">Contenuto del Documento</p>
           <p className="text-[9px] mt-4 mb-8">(Simulazione corpo del documento)</p>
@@ -303,32 +303,32 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
           <div className="w-full px-8 space-y-3">
             {template.type === 'student_profile' && (
               <>
-                <div className="h-2 bg-gray-200 rounded w-3/4"></div>
-                <div className="h-2 bg-gray-200 rounded w-1/2"></div>
+                <div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded w-3/4"></div>
+                <div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded w-1/2"></div>
                 <div className="grid grid-cols-3 gap-8 mt-4">
-                  <div className="h-12 bg-gray-100 rounded border border-gray-200"></div>
-                  <div className="h-12 bg-gray-100 rounded border border-gray-200"></div>
-                  <div className="h-12 bg-gray-100 rounded border border-gray-200"></div>
+                  <div className="h-12 bg-[var(--md-sys-color-surface-container-high)] rounded border border-[var(--md-sys-color-outline-variant)]"></div>
+                  <div className="h-12 bg-[var(--md-sys-color-surface-container-high)] rounded border border-[var(--md-sys-color-outline-variant)]"></div>
+                  <div className="h-12 bg-[var(--md-sys-color-surface-container-high)] rounded border border-[var(--md-sys-color-outline-variant)]"></div>
                 </div>
               </>
             )}
             {template.type === 'lesson_plan' && (
               <>
-                <div className="h-4 bg-gray-200 rounded w-1/4 mb-8"></div>
+                <div className="h-4 bg-[var(--md-sys-color-outline-variant)] rounded w-1/4 mb-8"></div>
                 <div className="space-y-2">
-                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-gray-300 mt-4"></div><div className="h-2 bg-gray-200 rounded flex-1"></div></div>
-                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-gray-300 mt-4"></div><div className="h-2 bg-gray-200 rounded flex-1"></div></div>
-                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-gray-300 mt-4"></div><div className="h-2 bg-gray-200 rounded flex-1"></div></div>
+                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-[var(--md-sys-color-outline)] mt-4"></div><div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded flex-1"></div></div>
+                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-[var(--md-sys-color-outline)] mt-4"></div><div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded flex-1"></div></div>
+                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-[var(--md-sys-color-outline)] mt-4"></div><div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded flex-1"></div></div>
                 </div>
               </>
             )}
             {template.type === 'uda' && (
               <>
-                <div className="border border-gray-200 rounded overflow-hidden">
-                  <div className="bg-gray-100 h-6 border-b border-gray-200"></div>
+                <div className="border border-[var(--md-sys-color-outline-variant)] rounded overflow-hidden">
+                  <div className="bg-[var(--md-sys-color-surface-container-high)] h-6 border-b border-[var(--md-sys-color-outline-variant)]"></div>
                   <div className="p-8 space-y-2">
-                    <div className="h-2 bg-gray-200 rounded"></div>
-                    <div className="h-2 bg-gray-200 rounded w-5/6"></div>
+                    <div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded"></div>
+                    <div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded w-5/6"></div>
                   </div>
                 </div>
               </>

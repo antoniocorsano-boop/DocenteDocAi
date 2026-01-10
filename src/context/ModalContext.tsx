@@ -1,6 +1,3 @@
-// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
-// ...existing code...
 /**
  * Material Design 3 Expressive - Modal Management System
  * Architettura degli Overlay - Soluzione "Modal Hell"
@@ -362,8 +359,6 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
 // ============================================================================
 // EXPORTS
 // ============================================================================
-
-// M3Expressive refactor COMPLETED: ModalContext.tsx - Replaced all hardcoded Tailwind classes with dedicated modal-portal-* CSS classes using M3 tokens for positioning, backdrop opacity, animations, and interactions.
 
 export { ModalContext, type ModalContextType, type ModalInstance, type PushModalOptions };
 

@@ -73,7 +73,7 @@
 
 .hero-card-interactive:hover {
     filter: brightness(0.95);
-    transform: translateY(-2px);
+    transform: translateY(calc(var(--md-sys-spacing-1) * -1)); /* M3 token applied: -2px → calc(var(--md-sys-spacing-1) * -1) */
     box-shadow: var(--md-sys-elevation-level2);
 }
 
@@ -132,7 +132,7 @@
 
 .expressive-card:hover {
     background-color: var(--md-sys-color-surface-container-high);
-    transform: translateY(-2px);
+    transform: translateY(calc(var(--md-sys-spacing-1) * -1)); /* M3 token applied: -2px → calc(var(--md-sys-spacing-1) * -1) */
     box-shadow: var(--md-sys-elevation-level2);
 }
 

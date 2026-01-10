@@ -42,8 +42,8 @@ export const Default: Story = {
   args: {
     open: true,
     nodes: sampleNodes,
-    onClose: () => console.log('Close'),
-    onNodeSelect: (node) => console.log('Selected node:', node),
+    onClose: () => {},
+    onNodeSelect: (node) => {},
   },
 };
 
@@ -51,8 +51,8 @@ export const Closed: Story = {
   args: {
     open: false,
     nodes: sampleNodes,
-    onClose: () => console.log('Close'),
-    onNodeSelect: (node) => console.log('Selected node:', node),
+    onClose: () => {},
+    onNodeSelect: (node) => {},
   },
 };
 
@@ -60,8 +60,8 @@ export const Interactive: Story = {
   args: {
     open: true,
     nodes: sampleNodes,
-    onClose: () => console.log('Close'),
-    onNodeSelect: (node: NKANode) => console.log('Selected node:', node),
+    onClose: () => {},
+    onNodeSelect: (node: NKANode) => {},
   },
   render: (args) => {
     const [open, setOpen] = React.useState(args.open);

@@ -7,7 +7,6 @@
 @import './src/design-system/legacyStyles.css';
 @import './src/design-system/m3-interactive.css';
 @import './src/design-system/motion.css';
-@import './src/styles/m3-interactive.css';
 @import './logo.css';
 @import './modules.css';
 
@@ -53,7 +52,7 @@ body {
   font-family: 'Material Symbols Outlined', 'Material Symbols Outlined Fallback', Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;
+  font-size: var(--md-sys-typescale-title-medium);
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;
@@ -79,11 +78,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--md-sys-spacing-3);
   background: color-mix(in srgb, var(--sys-surface-container-high) 85%, black 2%);
-  border-radius: 12px;
-  padding: 8px 12px;
-  border-left: 4px solid var(--sys-primary);
+  border-radius: var(--md-sys-shape-corner-medium);
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-3);
+  border-left: var(--md-sys-spacing-1) solid var(--sys-primary);
   box-shadow: var(--md-sys-elevation-level1);
   color: var(--sys-on-surface);
   max-width: 100%;
@@ -105,10 +104,10 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  /* M3 token applied: 36px → var(--avatar-size) */
+ 
   width: var(--avatar-size);
   height: var(--avatar-size);
-  border-radius: 8px;
+  border-radius: var(--md-sys-shape-corner-small);
   background: var(--sys-primary-container);
   color: var(--sys-on-primary-container);
   flex-shrink: 0;
@@ -116,23 +115,24 @@ body {
 .strip-action-button {
   background: var(--sys-primary);
   color: var(--sys-on-primary);
-  border-radius: 9999px;
-  padding: 6px 12px;
+  border-radius: var(--md-sys-shape-corner-full);
+  padding: var(--md-sys-spacing-1) var(--md-sys-spacing-3);
   font-weight: 700;
   border: none;
   cursor: pointer;
   box-shadow: var(--md-sys-elevation-level2);
   transition: transform .15s ease, box-shadow .15s ease, background .12s ease;
-  /* M3 token applied: 88px → var(--button-min-width) */
+ 
   min-width: var(--button-min-width);
 }
 }
 .strip-action-button:hover { 
   /* M3 token replacement: var(--elevation-3) → var(--md-sys-elevation-level3) */
-  transform: translateY(-2px); box-shadow: var(--md-sys-elevation-level3); 
+  transform: translateY(calc(var(--md-sys-spacing-1) * -1));
+  box-shadow: var(--md-sys-elevation-level3); 
 }
 .contextual-strip.visible { opacity: 1; transform: translateY(0); }
-.contextual-strip.hidden-strip { opacity: 0; transform: translateY(-8px); }
+.contextual-strip.hidden-strip { opacity: 0; transform: translateY(calc(var(--md-sys-spacing-2) * -1)); }
 
 .hide-scrollbar {
   -ms-overflow-style: none;
@@ -147,25 +147,25 @@ body {
   position: fixed;
   right: var(--md-sys-typescale-title-medium-size);
   bottom: var(--md-sys-typescale-title-medium-size);
-  /* M3 token applied: 56px → var(--fab-size) */
+ 
   width: var(--fab-size);
   height: var(--fab-size);
-  border-radius: 9999px;
+  border-radius: var(--md-sys-shape-corner-full);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: var(--sys-primary);
   color: var(--sys-on-primary);
-  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.12);
+  box-shadow: var(--md-sys-elevation-level3);
   z-index: 9999;
   cursor: pointer;
   border: none;
   transition: transform .15s ease, box-shadow .15s ease, box-shadow 0.2s ease;
   touch-action: none; /* better drag behaviour */
 }
-.fab:focus, .live-assistant-fab:focus { outline: none; box-shadow: 0 0 0 4px rgba(103,80,164,0.18); }
-.live-assistant-fab .material-symbols-outlined { font-size: 24px; pointer-events: none; }
-.fab:hover, .live-assistant-fab:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(16,24,40,0.18); }
+.fab:focus, .live-assistant-fab:focus { outline: none; box-shadow: 0 0 0 var(--md-sys-spacing-1) rgba(103,80,164,0.18); /* Manual check: focus ring color needs semantic token */ }
+.live-assistant-fab .material-symbols-outlined { font-size: var(--md-sys-typescale-title-medium); pointer-events: none; }
+.fab:hover, .live-assistant-fab:hover { transform: translateY(calc(var(--md-sys-spacing-1) * -1)); box-shadow: 0 18px 40px rgba(16,24,40,0.18); /* Manual check: elevation needs semantic token */ }
 
 /* Listening state: subtle pulsing ring and increased shadow */
 .fab.listening, .live-assistant-fab.listening {
@@ -181,8 +181,8 @@ body {
 .fab::before, .live-assistant-fab::before {
   content: '';
   position: absolute;
-  inset: -8px;
-  border-radius: 9999px;
+  inset: calc(var(--md-sys-spacing-2) * -1);
+  border-radius: var(--md-sys-shape-corner-full);
   pointer-events: none;
 }
 
@@ -190,13 +190,13 @@ body {
 .live-assistant-fab::after {
   content: '';
   position: absolute;
-  right: 8px;
-  top: 8px;
+  right: var(--md-sys-spacing-2);
+  top: var(--md-sys-spacing-2);
   width: var(--md-sys-typescale-label-small-size);
   height: var(--md-sys-typescale-label-small-size);
   border-radius: 50%;
   background: var(--sys-secondary);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* Manual check: shadow needs semantic token */
   display: none;
 }
 .live-assistant-fab[data-has-notification='true']::after { display: block; }
@@ -256,15 +256,15 @@ select:focus-visible,
 /* Skip link styling (hidden by default, visible on focus) */
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: calc(var(--md-sys-spacing-5) * -1);
   left: 0;
   background-color: var(--sys-primary, #6750A4);
   color: var(--sys-on-primary, #FFFFFF);
-  padding: 8px 16px;
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-3);
   text-decoration: none;
   z-index: 100;
-  border-radius: 0 0 4px 0;
-  font-size: 14px;
+  border-radius: var(--md-sys-shape-corner-small);
+  font-size: var(--md-sys-typescale-label-large);
   font-weight: 600;
   transition: top 0.2s ease-in-out;
 }
@@ -295,16 +295,16 @@ select:focus-visible,
   overflow: visible;
   clip: auto;
   white-space: normal;
-  padding: 8px 16px;
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-3);
   background-color: var(--sys-primary, #6750A4);
   color: var(--sys-on-primary, #FFFFFF);
-  border-radius: 4px;
+  border-radius: var(--md-sys-shape-corner-small);
 }
 
 /* Form field accessibility */
 label {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: var(--md-sys-spacing-1);
   font-weight: 500;
   color: var(--sys-on-surface, #1C1B1F);
 }
@@ -313,15 +313,15 @@ label {
 .required::after {
   content: "*";
   color: var(--sys-error, #B3261E);
-  margin-left: 4px;
+  margin-left: var(--md-sys-spacing-1);
 }
 
 /* Error message styling (for accessibility) */
 .error-message,
 [role="alert"] {
   color: var(--sys-error, #B3261E);
-  font-size: 12px;
-  margin-top: 4px;
+  font-size: var(--md-sys-typescale-label-medium);
+  margin-top: var(--md-sys-spacing-1);
 }
 
 /* Input focus states */

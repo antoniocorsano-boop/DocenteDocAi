@@ -24,6 +24,7 @@ DocenteDoc AI usa un design system consolidato per semplificare manutenzione e D
 ### ✅ ALLOWED - Usa questi
 
 #### 1️⃣ **M3 Components** (`src/components/ui/M3*.tsx`)
+
 Per TUTTI gli elementi UI semantici:
 
 ```tsx
@@ -43,14 +44,15 @@ Per TUTTI gli elementi UI semantici:
 </M3Dialog>
 
 // ✅ Icon Button
-<M3IconButton 
-  icon="edit" 
+<M3IconButton
+  icon="edit"
   aria-label="Modifica"
   onClick={handler}
 />
 ```
 
 **Tutti gli M3 componenti disponibili:**
+
 - M3Button (filled, outlined, text, tonal, elevated)
 - M3Card, M3ExpressiveCard
 - M3Dialog, M3BottomAppBar
@@ -61,6 +63,7 @@ Per TUTTI gli elementi UI semantici:
 - E altri... vedi `src/components/ui/index.ts`
 
 #### 2️⃣ **Tailwind CSS** (layout, spacing, responsive)
+
 Per struttura e layout:
 
 ```tsx
@@ -114,6 +117,106 @@ const StyledDiv = styled.div`...`;
 // ❌ Hardcoded pixel values
 <div style={{ padding: '24px' }}>    // ❌ Non-semantic
 ```
+
+---
+
+## 1.1 Best Practices Material Design 3
+
+### 🎨 Principi Fondamentali M3
+
+**1. Usa sempre token semantici**
+
+```tsx
+// ✅ SEMANTIC: Token M3 per significato
+<div className="bg-surface text-on-surface p-4 rounded-medium">
+  {/* bg-surface = var(--sys-surface) */}
+  {/* text-on-surface = var(--sys-on-surface) */}
+  {/* p-4 = var(--md-sys-spacing-4) */}
+  {/* rounded-medium = var(--md-sys-shape-corner-medium) */}
+</div>
+
+// ❌ ANTI-PATTERN: Valori hardcoded
+<div style={{
+  backgroundColor: '#FFFBFE',
+  color: '#1C1B1F',
+  padding: '16px',
+  borderRadius: '12px'
+}}>
+```
+
+**2. Componenti prima di stili custom**
+
+```tsx
+// ✅ COMPONENT-BASED: Estendi componenti esistenti
+const CustomButton = ({ variant, ...props }) => (
+  <M3Button variant={variant || "primary"} {...props} />
+);
+
+// ❌ STYLE-BASED: Duplica logica di styling
+const customButtonStyles =
+  "bg-primary text-on-primary px-6 py-3 rounded-medium";
+```
+
+**3. Accessibilità integrata**
+
+```tsx
+// ✅ ACCESSIBLE: ARIA labels e focus management
+<M3Button
+  aria-label="Elimina elemento"
+  onClick={handleDelete}
+>
+  <DeleteIcon />
+</M3Button>
+
+// ❌ INACCESSIBLE: Icone senza contesto
+<button onClick={handleDelete}>
+  <DeleteIcon /> {/* Screen reader non sa cosa fa */}
+</button>
+```
+
+### 🧪 Testing M3
+
+**Test di regressione obbligatori:**
+
+```bash
+# Verifica token M3 applicati
+npm test __tests__/m3-regression.test.ts
+
+# Test accessibilità WCAG 2.1 AA
+npm test __tests__/m3-accessibility.test.ts
+
+# Snapshot test per componenti
+npm run test:snapshots
+```
+
+**Pattern di test:**
+
+```tsx
+describe("M3ComponentName", () => {
+  it("should use M3 tokens", () => {
+    render(<M3Component />);
+    // Verifica che usi var(--token-name)
+  });
+
+  it("should be accessible", () => {
+    // Test axe-core o attributi ARIA
+  });
+});
+```
+
+### 📚 Documentazione
+
+- Leggi `docs/M3_MIGRATION_GUIDE.md` per dettagli completi
+- Usa Storybook per esempi di componenti M3
+- Controlla `DESIGN_TOKEN_MAP_M3.md` per token disponibili
+
+### 🚨 Errori Comuni da Evitare
+
+1. **Non usare colori hardcoded** - Usa sempre alias M3
+2. **Non mischiare sistemi** - Scegli M3 components o Tailwind, non entrambi
+3. **Non saltare test** - Tutti i componenti devono passare test M3
+4. **Non creare componenti duplicati** - Estendi quelli esistenti
+5. **Non ignorare accessibilità** - Testa con screen reader
 
 ---
 
@@ -199,24 +302,24 @@ START: What component do I need?
 
 ```tsx
 // Semantic colors (mapped to var(--md-sys-color-*))
-text-primary          // Primary brand color
-text-secondary        // Secondary brand color
-text-tertiary         // Tertiary brand color
-text-error            // Error/danger color
-text-on-surface       // Main text color
-text-on-surface-variant    // Secondary text
-text-outline          // Borders, dividers
+text - primary; // Primary brand color
+text - secondary; // Secondary brand color
+text - tertiary; // Tertiary brand color
+text - error; // Error/danger color
+text - on - surface; // Main text color
+text - on - surface - variant; // Secondary text
+text - outline; // Borders, dividers
 
-bg-surface            // Main background
-bg-surface-container  // Card/raised background
-bg-surface-container-high
-bg-surface-container-highest
-bg-primary-container  // Lightweight primary
-bg-error-container    // Lightweight error
+bg - surface; // Main background
+bg - surface - container; // Card/raised background
+bg - surface - container - high;
+bg - surface - container - highest;
+bg - primary - container; // Lightweight primary
+bg - error - container; // Lightweight error
 
 // With opacity
-className="bg-primary/20"  // 20% opacity (light highlight)
-className="text-on-surface/60"  // 60% opacity (secondary text)
+className = "bg-primary/20"; // 20% opacity (light highlight)
+className = "text-on-surface/60"; // 60% opacity (secondary text)
 ```
 
 ### MD3 Token Namespaces & Alias Bridge (2026-01-06)
@@ -291,8 +394,8 @@ src/components/ui/
 └── ../__tests__/M3Popover.test.tsx  // Tests
 
 // Usage:
-<M3Popover 
-  open={open} 
+<M3Popover
+  open={open}
   anchorEl={buttonRef}
   onClose={handleClose}
   title="Opzioni"
@@ -324,7 +427,7 @@ src/components/ui/
 
 ```tsx
 // ✅ CORRECT: Mock only what's used
-vi.mock('./ui', () => ({
+vi.mock("./ui", () => ({
   M3Button: ({ children, onClick }) => (
     <button onClick={onClick}>{children}</button>
   ),
@@ -333,8 +436,8 @@ vi.mock('./ui', () => ({
 }));
 
 // ❌ WRONG: Mocking unused MUI
-vi.mock('@mui/material', () => ({
-  Popover: () => <div />,  // ← Why? We don't use MUI
+vi.mock("@mui/material", () => ({
+  Popover: () => <div />, // ← Why? We don't use MUI
   Box: ({ children }) => <div>{children}</div>,
 }));
 ```
@@ -343,13 +446,13 @@ vi.mock('@mui/material', () => ({
 
 ```tsx
 // ✅ Verify aria-labels on interactive elements
-expect(screen.getByRole('button', { name: /modifica/i })).toBeInTheDocument();
+expect(screen.getByRole("button", { name: /modifica/i })).toBeInTheDocument();
 
 // ✅ Verify semantic HTML
-expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
 
 // ✅ Verify M3 tokens in styles
-expect(element).toHaveStyle({ color: 'var(--md-sys-color-primary)' });
+expect(element).toHaveStyle({ color: "var(--md-sys-color-primary)" });
 ```
 
 ---
@@ -402,16 +505,16 @@ When reviewing PRs, verify:
 ### Form with Validation
 
 ```tsx
-import { TextField, M3Button } from './ui';
+import { TextField, M3Button } from "./ui";
 
 export const MyForm = () => {
-  const [name, setName] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name) {
-      setError('Nome richiesto');
+      setError("Nome richiesto");
       return;
     }
     // Handle submission
@@ -465,7 +568,7 @@ export const ConfirmDialog = ({ open, onClose, onConfirm, title, message }) => {
       <div className="space-y-6">
         <h2 className="m3-headline-small text-on-surface">{title}</h2>
         <p className="m3-body-medium text-on-surface-variant">{message}</p>
-        
+
         <div className="flex gap-4 justify-end">
           <M3Button variant="text" onClick={onClose}>
             Annulla
@@ -529,6 +632,132 @@ Then submit PR with description of changes. Team will review design system compl
 
 ---
 
-**Last updated:** January 6, 2026  
+## 7. Aggiornamenti M3 2026 - Nuovi Token e Pattern
+
+### 🆕 Token di Elevazione MD3
+
+**Sostituiscono shadow-sm, shadow-md, etc. con valori semantici:**
+
+```tsx
+// ✅ MD3 Elevation tokens (raccomandati)
+shadow-[var(--md-sys-elevation-level1)]    // 1dp - Cards, buttons
+shadow-[var(--md-sys-elevation-level2)]    // 3dp - App bars, menus
+shadow-[var(--md-sys-elevation-level3)]    // 6dp - Dialogs, bottom sheets
+shadow-[var(--md-sys-elevation-level4)]    // 8dp - Nav drawers, modals
+shadow-[var(--md-sys-elevation-level5)]    // 12dp - High emphasis
+
+// ❌ Legacy Tailwind shadows (da evitare)
+shadow-sm    // → usa shadow-[var(--md-sys-elevation-level1)]
+shadow-md    // → usa shadow-[var(--md-sys-elevation-level2)]
+shadow-lg    // → usa shadow-[var(--md-sys-elevation-level3)]
+```
+
+### 🆕 Token di Forma MD3
+
+**Border radius semantici per componenti:**
+
+```tsx
+// ✅ MD3 Shape tokens
+rounded-[var(--md-sys-shape-corner-extra-small)]    // 4px - Chips, small elements
+rounded-[var(--md-sys-shape-corner-small)]          // 8px - Buttons, cards
+rounded-[var(--md-sys-shape-corner-medium)]         // 12px - Dialogs, larger cards
+rounded-[var(--md-sys-shape-corner-large)]          // 16px - Bottom sheets, surfaces
+rounded-[var(--md-sys-shape-corner-extra-large)]    // 28px - FABs, special elements
+
+// ❌ Hardcoded border-radius
+rounded-sm    // → usa rounded-[var(--md-sys-shape-corner-extra-small)]
+rounded      // → usa rounded-[var(--md-sys-shape-corner-small)]
+rounded-lg   // → usa rounded-[var(--md-sys-shape-corner-large)]
+```
+
+### 🆕 Pattern di Stato Interattivi
+
+**Hover e focus states semantici:**
+
+```tsx
+// ✅ Interactive state pattern
+<button className="
+  bg-surface text-on-surface p-4 rounded-large
+  hover:bg-surface-container-highest
+  focus-visible:ring-2 focus-visible:ring-primary/50
+  active:scale-[0.98] transition-all
+">
+  Interactive Element
+</button>
+
+// ✅ Glass effect components
+<div className="
+  bg-surface/80 backdrop-blur-xl border border-white/10
+  shadow-[var(--md-sys-elevation-level2)]
+">
+  Glass morphism effect
+</div>
+```
+
+### 🆕 Token di Movimento MD3
+
+**Animazioni e transizioni semantiche:**
+
+```tsx
+// ✅ MD3 Motion tokens
+transition-all duration-[var(--md-sys-motion-duration-short1)]    // 50ms - Quick interactions
+transition-all duration-[var(--md-sys-motion-duration-short2)]    // 100ms - Button presses
+transition-all duration-[var(--md-sys-motion-duration-short3)]    // 150ms - Card reveals
+transition-all duration-[var(--md-sys-motion-duration-short4)]    // 200ms - Page transitions
+
+// ✅ Easing functions
+transition-all ease-[var(--md-sys-motion-easing-standard)]       // Standard easing
+transition-all ease-[var(--md-sys-motion-easing-emphasized)]     // Emphasized easing
+```
+
+### 🔄 Pattern di Migrazione Legacy
+
+**Come aggiornare componenti esistenti:**
+
+```tsx
+// BEFORE (legacy)
+<div className="bg-gray-100 border border-gray-200 shadow-sm rounded-lg p-4">
+  Legacy component
+</div>
+
+// AFTER (MD3)
+<div className="
+  bg-[var(--md-sys-color-surface-container-high)]
+  border border-[var(--md-sys-color-outline-variant)]
+  shadow-[var(--md-sys-elevation-level1)]
+  rounded-[var(--md-sys-shape-corner-large)]
+  p-4
+">
+  MD3 component
+</div>
+```
+
+### 📋 Checklist Migrazione Componenti
+
+Prima di fare commit, verifica:
+
+- [ ] **Colori:** Usa solo `var(--md-sys-color-*)` tokens
+- [ ] **Elevazione:** Usa `shadow-[var(--md-sys-elevation-level*)]`
+- [ ] **Forma:** Usa `rounded-[var(--md-sys-shape-corner-*)]`
+- [ ] **Spaziatura:** Usa solo valori M3 scale (p-4, p-6, gap-4, etc.)
+- [ ] **Test:** Componente ha test M3 e Storybook story
+- [ ] **Accessibilità:** ARIA labels e focus management corretti
+
+### 🛠️ Strumenti di Migrazione
+
+```bash
+# Verifica token M3 applicati
+npm run validate:m3
+
+# Audit componenti legacy
+npm run md3:audit
+
+# Genera report migrazione
+npm run md3:check
+```
+
+---
+
+**Last updated:** January 8, 2026  
 **Status:** ACTIVE POLICY  
 **Questions?** Ask in PR review or team discussion.

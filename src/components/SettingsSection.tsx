@@ -21,7 +21,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({ title, subtitle, icon
     if (variant === 'tertiary') { iconClass = 'bg-tertiary-container text-on-tertiary-container'; textClass = 'text-tertiary'; }
 
     return (
-        <section className={`bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)] overflow-hidden mb-6 shadow-sm ${className}`}>
+        <section className={`bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)] overflow-hidden mb-6 shadow-[var(--md-sys-elevation-level1)] ${className}`}>
             <div className="flex items-center gap-8 p-5 border-b border-[var(--md-sys-color-outline-variant)]/50 bg-surface/50 backdrop-blur-sm">
                 <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center flex-shrink-0 ${iconClass}`}>
                     <span className="material-symbols-outlined text-2xl">{icon}</span>

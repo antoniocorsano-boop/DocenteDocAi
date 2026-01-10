@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { OrientamentoActivity } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField, TextArea } from './ui';
+import { UI_TEXT } from '../constants/ui-text';
 
 interface AddOrientamentoActivityModalProps {
     isOpen: boolean;
@@ -105,7 +106,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                 </div>
             </M3DialogContent>
             <M3DialogActions>
-                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
+                <M3Button onClick={onClose} variant="text">{UI_TEXT.CANCEL}</M3Button>
                 <M3Button onClick={handleSave} variant="primary" disabled={!activity.title}>Salva Attività</M3Button>
             </M3DialogActions>
         </M3Dialog>

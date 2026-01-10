@@ -48,7 +48,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
         >
             <M3DialogContent className="flex flex-col items-center justify-center w-full py-8 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
                 <div className="text-center mb-8">
-                    <div className="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mx-auto mb-8 shadow-sm">
+                    <div className="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mx-auto mb-8 shadow-[var(--md-sys-elevation-level1)]">
                         <span className="material-symbols-outlined text-3xl">lock</span>
                     </div>
                     <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mt-4">Inserisci il PIN docente per uscire</p>

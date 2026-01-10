@@ -42,7 +42,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
         <div className="mb-8">
              <div className="flex items-center justify-between mb-8 px-1">
                 <div className="flex items-center gap-6">
-                    <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-sm transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primary-container text-primary'}`}>
+                    <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primary-container text-primary'}`}>
                         <span className="material-symbols-outlined text-xl">{icon}</span>
                     </div>
                     <div>
