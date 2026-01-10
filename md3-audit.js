@@ -73,11 +73,14 @@ const LEGACY_CLASSES = [
   /\brounded-(?!full|\[var\(--md-sys-)\w+/g,
 
   // Legacy component classes
-  /\bop-tile/g,
+  /\bop-tile(?!-)/g,
   /\bop-tile-\w+/g,
   /\bm3-interactive-card/g,
   /\bglass-\w+/g,
-  /\bsys-\w+/g,
+  // Only match sys- in className contexts, not CSS variable names
+  /className="[^"]*\bsys-\w+/g,
+  /className='[^']*\bsys-\w+/g,
+  /className={`[^`]*\bsys-\w+/g,
 
   // State classes (allow MD3 state tokens)
   /\bopacity-(?!\[var\(--md-sys-)\d+/g,
@@ -231,12 +234,19 @@ class MD3Auditor {
    * Check component structure compliance
    */
   checkComponentStructure(content, lines, result) {
-    // Check for hardcoded text without M3Typography
+    // Check for hardcoded text without M3Typography - but skip code patterns
     const textWithoutTypography = content.match(/>([^<>{}]+)</g);
     if (textWithoutTypography) {
       textWithoutTypography.forEach(match => {
         const text = match.slice(1, -1).trim();
-        if (text.length > 0 && !text.includes('{') && !text.includes('}')) {
+        // Skip if it's code-like (contains parentheses, semicolons, brackets, etc)
+        // Skip if it's very short (likely not user-facing text)
+        // Only report if it looks like actual user-facing text
+        const isCodeLike = /[();=\[\]{}]/.test(text) || text.includes('const ') || text.includes('function') || text.includes('=>');
+        const isVeryShort = text.length < 3;
+        const isUserFacingText = text.length > 15 && /[a-zA-Z]{3,}/.test(text);
+        
+        if (!isCodeLike && !isVeryShort && isUserFacingText && !text.includes('{') && !text.includes('}')) {
           const lineNumber = this.getLineNumber(content, content.indexOf(match));
           result.addIssue(
             'info',
