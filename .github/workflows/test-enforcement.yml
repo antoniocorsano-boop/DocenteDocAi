@@ -1,4 +1,4 @@
-name: Lint Check & Code Quality
+name: Test Suite & MD3 Enforcement
 
 on:
   push:
@@ -7,36 +7,52 @@ on:
     branches: [main, develop]
 
 jobs:
-  lint:
+  test-suite:
     runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-    
+
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Setup Node.js ${{ matrix.node-version }}
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20.x
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
-      - name: Run ESLint
-        run: npm run lint
+
+      - name: Run Vitest (Unit Tests)
+        run: npm run test:ci
         continue-on-error: false
-      
-      - name: Block MD3 violations
+
+      - name: Run Playwright (E2E & Visual Regression)
+        run: npx playwright install --with-deps && npx playwright test e2e/
+        continue-on-error: false
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            test-results/
+            playwright-report/
+            coverage/
+
+  md3-classname-blocker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Block className usage
         run: |
-          echo "🔍 Scanning for MD3 violations..."
-          
+          echo "🔍 Scanning for forbidden className usage..."
+
           # Find all className occurrences (excluding node_modules and allowed files)
           CLASSNAME_FILES=$(find src/ -name "*.tsx" -o -name "*.ts" -o -name "*.jsx" -o -name "*.js" | grep -v node_modules | xargs grep -l "className=" 2>/dev/null || true)
-          
+
           if [ -n "$CLASSNAME_FILES" ]; then
             echo "❌ CRITICAL: Found className usage in the following files:"
             echo "$CLASSNAME_FILES"
@@ -45,10 +61,10 @@ jobs:
             echo "Use MD3 inline styles with tokens: style={{ backgroundColor: 'var(--md-sys-color-surface)' }}"
             exit 1
           fi
-          
+
           # Check for Tailwind/utility class libraries
           TAILWIND_FILES=$(find src/ -name "*.tsx" -o -name "*.ts" -o -name "*.jsx" -o -name "*.js" | grep -v node_modules | xargs grep -l "clsx\|classnames\|tw\|tailwind" 2>/dev/null || true)
-          
+
           if [ -n "$TAILWIND_FILES" ]; then
             echo "❌ CRITICAL: Found Tailwind/utility class libraries in the following files:"
             echo "$TAILWIND_FILES"
@@ -57,10 +73,16 @@ jobs:
             echo "Use MD3 design tokens exclusively."
             exit 1
           fi
-          
+
+          echo "✅ No forbidden className or utility CSS usage found."
+
+      - name: Block hardcoded values
+        run: |
+          echo "🔍 Scanning for hardcoded CSS values..."
+
           # Find hardcoded px, rem, em values (excluding allowed patterns)
           HARDCODED_FILES=$(find src/ -name "*.tsx" -o -name "*.ts" -o -name "*.jsx" -o -name "*.js" | grep -v node_modules | xargs grep -l "[0-9]\+\(px\|rem\|em\|vh\|vw\|vmin\|vmax\)" 2>/dev/null | grep -v "var(--" || true)
-          
+
           if [ -n "$HARDCODED_FILES" ]; then
             echo "❌ CRITICAL: Found hardcoded CSS values in the following files:"
             echo "$HARDCODED_FILES"
@@ -69,10 +91,10 @@ jobs:
             echo "Use MD3 spacing tokens: var(--md-sys-spacing-*)"
             exit 1
           fi
-          
+
           # Find hardcoded hex colors
           HEX_COLOR_FILES=$(find src/ -name "*.tsx" -o -name "*.ts" -o -name "*.jsx" -o -name "*.js" | grep -v node_modules | xargs grep -l "#[0-9a-fA-F]\{3,8\}" 2>/dev/null | grep -v "var(--" || true)
-          
+
           if [ -n "$HEX_COLOR_FILES" ]; then
             echo "❌ CRITICAL: Found hardcoded hex colors in the following files:"
             echo "$HEX_COLOR_FILES"
@@ -81,89 +103,5 @@ jobs:
             echo "Use MD3 color tokens: var(--md-sys-color-*)"
             exit 1
           fi
-          
-          echo "✅ No MD3 violations found."
-      
-      - name: Generate lint report
-        if: always()
-        run: |
-          npm run lint -- --format=json > lint-report.json || true
-          echo "## ESLint Report" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Lint check completed" >> $GITHUB_STEP_SUMMARY
-      
-      - name: Upload lint report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lint-report-${{ matrix.node-version }}
-          path: lint-report.json
 
-  type-check:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Run TypeScript type check
-        run: npx tsc --noEmit
-
-  format-check:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Check code formatting
-        run: |
-          npm run lint -- --format=json > format-check.json || true
-          # Extract error count
-          ERRORS=$(jq '[.[] | select(.messages | length > 0)] | length' format-check.json || echo "0")
-          if [ "$ERRORS" -gt 0 ]; then
-            echo "❌ Found $ERRORS files with lint errors"
-            exit 1
-          else
-            echo "✅ All files properly formatted"
-          fi
-
-  build:
-    runs-on: ubuntu-latest
-    needs: [lint, type-check]
-    
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Build project
-        run: npm run build
-      
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
+          echo "✅ No hardcoded CSS values or colors found."
