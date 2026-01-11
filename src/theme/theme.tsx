@@ -1,45 +1,23 @@
-/*
-COPILOT TASK:
-Generate a full ESLint configuration for this React/MD3 project.
-- Infrastructure files: tokens.ts, theme.tsx
-- UI components: all other .tsx files
-Rules:
-- Keep TypeScript, hooks, and unused-vars active everywhere.
-- Apply strict MD3 UI rules only to UI components.
-- Relax MD3-specific rules in tokens.ts and theme.tsx (like no-hardcoded-colors, no className, no Tailwind)
-- Explain why each override exists in comments
-*/
-
-
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { tokens } from './tokens';
+import { tokenLayers, TokenLayers, SysLayer, RefLayer, CompLayer, MotionLayer, ElevationLayer } from './tokens';
 
-// Tipo per gli overrides
-export interface ThemeOverrides {
-  colors?: Partial<typeof tokens.colors>;
-  typography?: Partial<typeof tokens.typography>;
-  spacing?: Partial<typeof tokens.spacing>;
-  motion?: Partial<typeof tokens.motion>;
-}
+// Type for preset overrides (partial token layers)
+export type PresetOverrides = Partial<TokenLayers>;
 
-// Tipo per il tema
+// Type for the theme context
 export interface Theme {
-  colors: typeof tokens.colors;
-  typography: typeof tokens.typography;
-  spacing: typeof tokens.spacing;
-  motion: typeof tokens.motion;
-  breakpoints: typeof tokens.breakpoints;
-  isDark: boolean;
-  toggleDarkMode: () => void;
-  overrides: ThemeOverrides;
-  updateOverrides: (newOverrides: ThemeOverrides) => void;
+  layers: TokenLayers;
+  overrides: PresetOverrides;
+  updateOverrides: (newOverrides: PresetOverrides) => void;
   resetOverrides: () => void;
+  verifyOverridesApplied: () => boolean;
+  verifyResetState: () => boolean;
 }
 
-// Crea il context
+// Create the context
 const ThemeContext = createContext<Theme | undefined>(undefined);
 
-// Hook per usare il tema
+// Hook to use the theme
 export const useTheme = (): Theme => {
   const context = useContext(ThemeContext);
   if (!context) {
@@ -51,19 +29,13 @@ export const useTheme = (): Theme => {
 // M3ThemeProvider component
 interface M3ThemeProviderProps {
   children: ReactNode;
-  defaultDark?: boolean;
 }
 
-export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children, defaultDark = false }) => {
-  const [isDark, setIsDark] = useState(defaultDark);
-  const [overrides, setOverrides] = useState<ThemeOverrides>({});
+export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) => {
+  const [overrides, setOverrides] = useState<PresetOverrides>({});
 
-  // Carica il tema e gli overrides dal localStorage
+  // Load overrides from localStorage on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem('m3-theme');
-    if (savedTheme) {
-      setIsDark(savedTheme === 'dark');
-    }
     const savedOverrides = localStorage.getItem('m3-theme-overrides');
     if (savedOverrides) {
       try {
@@ -74,50 +46,93 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children, defa
     }
   }, []);
 
-  // Salva il tema e gli overrides nel localStorage
-  useEffect(() => {
-    localStorage.setItem('m3-theme', isDark ? 'dark' : 'light');
-    // Applica classe al body per CSS globale
-    document.body.className = isDark ? 'dark' : 'light';
-  }, [isDark]);
-
+  // Save overrides to localStorage
   useEffect(() => {
     localStorage.setItem('m3-theme-overrides', JSON.stringify(overrides));
   }, [overrides]);
 
-  const toggleDarkMode = () => setIsDark(!isDark);
-
-  const updateOverrides = (newOverrides: ThemeOverrides) => {
+  // Function to update overrides safely using token layers
+  const updateOverrides = (newOverrides: PresetOverrides) => {
     setOverrides(prev => ({ ...prev, ...newOverrides }));
   };
 
+  // Function to reset overrides, returning to default sys layer
   const resetOverrides = () => {
     setOverrides({});
   };
 
-  // Funzione per unire gli overrides con i token base
-  const mergeTokens = <T extends Record<string, any>>(base: T, override?: Partial<T>): T => {
+  // Function to merge token layers with overrides
+  const mergeLayers = <T extends Record<string, any>>(base: T, override?: Partial<T>): T => {
     if (!override) return base;
-    const merged = { ...base };
+    const merged = { ...base } as T;
     Object.keys(override).forEach(key => {
       if (override[key] !== undefined) {
-        merged[key] = override[key];
+        if (typeof override[key] === 'object' && override[key] !== null && typeof merged[key] === 'object' && merged[key] !== null) {
+          (merged as any)[key] = { ...(merged as any)[key], ...(override as any)[key] };
+        } else {
+          (merged as any)[key] = override[key];
+        }
       }
     });
     return merged;
   };
 
+  // Merged layers with overrides applied
+  const layers: TokenLayers = {
+    sys: mergeLayers(tokenLayers.sys, overrides.sys),
+    ref: mergeLayers(tokenLayers.ref, overrides.ref),
+    comp: mergeLayers(tokenLayers.comp, overrides.comp),
+    motion: mergeLayers(tokenLayers.motion, overrides.motion),
+    elevation: mergeLayers(tokenLayers.elevation, overrides.elevation),
+  };
+
+  // Verification function: Confirms all applied overrides exist in tokens.ts layers
+  const verifyOverridesApplied = (): boolean => {
+    const checkLayer = <T extends Record<string, any>>(base: T, override?: Partial<T>): boolean => {
+      if (!override) return true;
+      return Object.keys(override).every(key => key in base);
+    };
+
+    return (
+      checkLayer(tokenLayers.sys, overrides.sys) &&
+      checkLayer(tokenLayers.ref, overrides.ref) &&
+      checkLayer(tokenLayers.comp, overrides.comp) &&
+      checkLayer(tokenLayers.motion, overrides.motion) &&
+      checkLayer(tokenLayers.elevation, overrides.elevation)
+    );
+  };
+
+  // Verification function: Confirms resetOverrides restores default token values
+  const verifyResetState = (): boolean => {
+    const defaultLayers: TokenLayers = {
+      sys: tokenLayers.sys,
+      ref: tokenLayers.ref,
+      comp: tokenLayers.comp,
+      motion: tokenLayers.motion,
+      elevation: tokenLayers.elevation,
+    };
+
+    const isEqual = (a: any, b: any): boolean => {
+      if (typeof a !== typeof b) return false;
+      if (typeof a === 'object' && a !== null && b !== null) {
+        const keysA = Object.keys(a);
+        const keysB = Object.keys(b);
+        if (keysA.length !== keysB.length) return false;
+        return keysA.every(key => isEqual(a[key], b[key]));
+      }
+      return a === b;
+    };
+
+    return isEqual(layers, defaultLayers);
+  };
+
   const theme: Theme = {
-    colors: mergeTokens(isDark ? tokens.colors.dark : tokens.colors.light, overrides.colors),
-    typography: mergeTokens(tokens.typography, overrides.typography),
-    spacing: mergeTokens(tokens.spacing, overrides.spacing),
-    motion: mergeTokens(tokens.motion, overrides.motion),
-    breakpoints: tokens.breakpoints,
-    isDark,
-    toggleDarkMode,
+    layers,
     overrides,
     updateOverrides,
     resetOverrides,
+    verifyOverridesApplied,
+    verifyResetState,
   };
 
   return (

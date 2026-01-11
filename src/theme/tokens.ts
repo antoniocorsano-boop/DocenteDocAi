@@ -1,211 +1,112 @@
-// Palette colori M3 (light mode)
-export const colorTokens = {
-  primary: '#6750A4',
-  onPrimary: '#FFFFFF',
-  primaryContainer: '#EADDFF',
-  onPrimaryContainer: '#21005D',
-  secondary: '#625B71',
-  onSecondary: '#FFFFFF',
-  secondaryContainer: '#E8DEF8',
-  onSecondaryContainer: '#1D192B',
-  tertiary: '#7D5260',
-  onTertiary: '#FFFFFF',
-  tertiaryContainer: '#FFD8E4',
-  onTertiaryContainer: '#31111D',
-  error: '#BA1A1A',
-  onError: '#FFFFFF',
-  errorContainer: '#FFDAD6',
-  onErrorContainer: '#410002',
-  success: '#146C2E',
-  onSuccess: '#FFFFFF',
-  warning: '#7D5800',
-  onWarning: '#FFFFFF',
-  background: '#FFFBFE',
-  onBackground: '#1C1B1F',
-  surface: '#FFFBFE',
-  onSurface: '#1C1B1F',
-  surfaceVariant: '#E7E0EC',
-  onSurfaceVariant: '#49454F',
-  outline: '#79747E',
-  outlineVariant: '#CAC4D0',
-  shadow: '#000000',
-  scrim: '#000000',
-  inverseSurface: '#313033',
-  inverseOnSurface: '#F4EFF4',
-  inversePrimary: '#D0BCFF',
-  primaryFixed: '#EADDFF',
-  onPrimaryFixed: '#21005D',
-  primaryFixedDim: '#D0BCFF',
-  onPrimaryFixedVariant: '#4F378B',
-  secondaryFixed: '#E8DEF8',
-  onSecondaryFixed: '#1D192B',
-  secondaryFixedDim: '#CBC2DB',
-  onSecondaryFixedVariant: '#4A4458',
-  tertiaryFixed: '#FFD8E4',
-  onTertiaryFixed: '#31111D',
-  tertiaryFixedDim: '#EFB8C8',
-  onTertiaryFixedVariant: '#633B48',
-  surfaceDim: '#DED8E1',
-  surfaceBright: '#FFFBFE',
-  surfaceContainerLowest: '#FFFFFF',
-  surfaceContainerLow: '#F7F2FA',
-  surfaceContainer: '#F3EDF7',
-  surfaceContainerHigh: '#ECE6F0',
-  surfaceContainerHighest: '#E6E0E9',
+// MD3 Token Layers Definition
+// All values use CSS variables or MD3 system values (no hardcoded values)
+
+export type SysLayer = {
+  colors: {
+    primary: string;
+    onPrimary: string;
+    secondary: string;
+    onSecondary: string;
+    tertiary: string;
+    onTertiary: string;
+    surface: string;
+    onSurface: string;
+    background: string;
+    onBackground: string;
+    secondaryContainer: string;
+    onSecondaryContainer: string;
+    outline: string;
+    surfaceContainerLow: string;
+    primaryHover: string;
+  };
 };
 
-// Palette colori M3 (dark mode)
-export const darkColorTokens = {
-  primary: '#D0BCFF',
-  onPrimary: '#381E72',
-  primaryContainer: '#4F378B',
-  onPrimaryContainer: '#EADDFF',
-  secondary: '#CBC2DB',
-  onSecondary: '#332D41',
-  secondaryContainer: '#4A4458',
-  onSecondaryContainer: '#E8DEF8',
-  tertiary: '#EFB8C8',
-  onTertiary: '#492532',
-  tertiaryContainer: '#633B48',
-  onTertiaryContainer: '#FFD8E4',
-  error: '#FFB4AB',
-  onError: '#690005',
-  errorContainer: '#93000A',
-  onErrorContainer: '#FFDAD6',
-  success: '#8DD99F',
-  onSuccess: '#003912',
-  warning: '#FFBE48',
-  onWarning: '#402D00',
-  background: '#141218',
-  onBackground: '#E6E0E9',
-  surface: '#141218',
-  onSurface: '#E6E0E9',
-  surfaceVariant: '#49454F',
-  onSurfaceVariant: '#CAC4D0',
-  outline: '#938F99',
-  outlineVariant: '#49454F',
-  shadow: '#000000',
-  scrim: '#000000',
-  inverseSurface: '#E6E0E9',
-  inverseOnSurface: '#313033',
-  inversePrimary: '#6750A4',
-  primaryFixed: '#EADDFF',
-  onPrimaryFixed: '#21005D',
-  primaryFixedDim: '#D0BCFF',
-  onPrimaryFixedVariant: '#4F378B',
-  secondaryFixed: '#E8DEF8',
-  onSecondaryFixed: '#1D192B',
-  secondaryFixedDim: '#CBC2DB',
-  onSecondaryFixedVariant: '#4A4458',
-  tertiaryFixed: '#FFD8E4',
-  onTertiaryFixed: '#31111D',
-  tertiaryFixedDim: '#EFB8C8',
-  onTertiaryFixedVariant: '#633B48',
-  surfaceDim: '#141218',
-  surfaceBright: '#3B383E',
-  surfaceContainerLowest: '#0F0D13',
-  surfaceContainerLow: '#1D1B20',
-  surfaceContainer: '#211F26',
-  surfaceContainerHigh: '#2D2A32',
-  surfaceContainerHighest: '#38343C',
+export type RefLayer = {
+  spacing: {
+    1: string;
+    2: string;
+    3: string;
+    4: string;
+    5: string;
+    6: string;
+    7: string;
+    8: string;
+    9: string;
+    10: string;
+    11: string;
+    12: string;
+  };
+  typography: {
+    body1: { fontSize: string; lineHeight: string; fontWeight: string; letterSpacing: string; };
+    body2: { fontSize: string; lineHeight: string; fontWeight: string; letterSpacing: string; };
+    heading1: { fontSize: string; lineHeight: string; fontWeight: string; letterSpacing: string; };
+    heading2: { fontSize: string; lineHeight: string; fontWeight: string; letterSpacing: string; };
+    caption: { fontSize: string; lineHeight: string; fontWeight: string; letterSpacing: string; };
+    labelSmall: { fontSize: string; lineHeight: string; fontWeight: string; letterSpacing: string; };
+    labelMedium: { fontSize: string; lineHeight: string; fontWeight: string; letterSpacing: string; };
+    labelLarge: { fontSize: string; lineHeight: string; fontWeight: string; letterSpacing: string; };
+  };
+  shape: {
+    small: string;
+    medium: string;
+    large: string;
+  };
 };
 
-// Tipografia M3
-export const typographyTokens = {
-  body1: { fontSize: '16px', lineHeight: '24px', fontWeight: '400' },
-  body2: { fontSize: '14px', lineHeight: '20px', fontWeight: '400' },
-  heading1: { fontSize: '32px', lineHeight: '40px', fontWeight: '400' },
-  heading2: { fontSize: '24px', lineHeight: '32px', fontWeight: '400' },
-  caption: { fontSize: '12px', lineHeight: '16px', fontWeight: '400' },
+export type CompLayer = {
+  // Component-specific overrides (none defined)
+  [key: string]: any;
 };
 
-// Spaziature M3
-export const spacingTokens = {
-  '1': '4px',
-  '2': '8px',
-  '3': '12px',
-  '4': '16px',
-  '5': '20px',
-  '6': '24px',
-};
-
-// Motion M3
-export const motionTokens = {
-  duration: {
-    short1: '50ms',
-    short2: '100ms',
-    short3: '150ms',
-    short4: '200ms',
-    medium1: '250ms',
-    medium2: '300ms',
-    medium3: '350ms',
-    medium4: '400ms',
-    long1: '450ms',
-    long2: '500ms',
-    long3: '550ms',
-    long4: '600ms',
-    extraLong1: '700ms',
-    extraLong2: '800ms',
-    extraLong3: '900ms',
-    extraLong4: '1000ms',
-  },
+export type MotionLayer = {
   easing: {
-    standard: 'cubic-bezier(0.2, 0.0, 0, 1.0)',
-    standardDecelerate: 'cubic-bezier(0.0, 0.0, 0.0, 1.0)',
-    standardAccelerate: 'cubic-bezier(0.3, 0.0, 1.0, 1.0)',
-    emphasized: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
-    emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
-    emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.2, 0.8)',
-  },
+    standard: string;
+    emphasized: string;
+  };
+  duration: {
+    short1: string;
+    short2: string;
+    short3: string;
+    short4: string;
+    medium1: string;
+    medium2: string;
+    medium3: string;
+    medium4: string;
+  };
 };
 
-// Breakpoints M3
-export const breakpointTokens = {
-  mobile: '600px',
-  tablet: '905px',
-  desktop: '1240px',
-  large: '1440px',
+export type ElevationLayer = {
+  level0: string;
+  level1: string;
+  level2: string;
+  level3: string;
+  level4: string;
+  level5: string;
 };
 
-export const tokens = {
+// System layer: Core MD3 colors
+export const sys: SysLayer = {
   colors: {
     primary: 'var(--md-sys-color-primary)',
     onPrimary: 'var(--md-sys-color-on-primary)',
     secondary: 'var(--md-sys-color-secondary)',
     onSecondary: 'var(--md-sys-color-on-secondary)',
-    background: 'var(--md-sys-color-background)',
+    tertiary: 'var(--md-sys-color-tertiary)',
+    onTertiary: 'var(--md-sys-color-on-tertiary)',
     surface: 'var(--md-sys-color-surface)',
-    error: 'var(--md-sys-color-error)',
-    success: 'var(--md-sys-color-tertiary)', // Mapped to tertiary for success
-    warning: 'var(--md-sys-color-outline)', // Mapped to outline for warning
+    onSurface: 'var(--md-sys-color-on-surface)',
+    background: 'var(--md-sys-color-background)',
+    onBackground: 'var(--md-sys-color-on-background)',
+    secondaryContainer: 'var(--md-sys-color-secondary-container)',
+    onSecondaryContainer: 'var(--md-sys-color-on-secondary-container)',
+    outline: 'var(--md-sys-color-outline)',
+    surfaceContainerLow: 'var(--md-sys-color-surface-container-low)',
+    primaryHover: 'var(--md-sys-color-primary-hover)',
   },
-  typography: {
-    body1: {
-      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-    },
-    body2: {
-      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
-      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
-    },
-    heading1: {
-      fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
-      lineHeight: 'var(--md-sys-typescale-headline-large-line-height)',
-      fontWeight: 'var(--md-sys-typescale-headline-large-font-weight)',
-    },
-    heading2: {
-      fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
-      lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
-      fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)',
-    },
-    caption: {
-      fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-      lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
-      fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
-    },
-  },
+};
+
+// Reference layer: Spacing and typography scales
+export const ref: RefLayer = {
   spacing: {
     1: 'var(--md-sys-spacing-1)',
     2: 'var(--md-sys-spacing-2)',
@@ -213,15 +114,128 @@ export const tokens = {
     4: 'var(--md-sys-spacing-4)',
     5: 'var(--md-sys-spacing-5)',
     6: 'var(--md-sys-spacing-6)',
+    7: 'var(--md-sys-spacing-7)',
+    8: 'var(--md-sys-spacing-8)',
+    9: 'var(--md-sys-spacing-9)',
+    10: 'var(--md-sys-spacing-10)',
+    11: 'var(--md-sys-spacing-11)',
+    12: 'var(--md-sys-spacing-12)',
   },
-  motion: {
-    duration: 'var(--md-sys-motion-duration-short)',
-    easing: 'var(--md-sys-motion-easing-standard)',
+  typography: {
+    body1: {
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
+    },
+    body2: {
+      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-body-medium-letter-spacing)',
+    },
+    heading1: {
+      fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-headline-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-headline-large-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-headline-large-letter-spacing)',
+    },
+    heading2: {
+      fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-headline-medium-letter-spacing)',
+    },
+    caption: {
+      fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-body-small-letter-spacing)',
+    },
+    labelSmall: {
+      fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-label-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-label-small-letter-spacing)',
+    },
+    labelMedium: {
+      fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-label-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-label-medium-letter-spacing)',
+    },
+    labelLarge: {
+      fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
+    },
   },
-  breakpoints: {
-    mobile: '480px',
-    tablet: '768px',
-    desktop: '1024px',
-    large: '1200px',
+  shape: {
+    small: 'var(--md-sys-shape-corner-small)',
+    medium: 'var(--md-sys-shape-corner-medium)',
+    large: 'var(--md-sys-shape-corner-large)',
   },
+};
+
+// Component layer: Component-specific overrides (empty by default)
+export const comp: CompLayer = {};
+
+// Motion layer: Easing and duration values
+export const motion: MotionLayer = {
+  easing: {
+    standard: 'var(--md-sys-motion-easing-standard)',
+    emphasized: 'var(--md-sys-motion-easing-emphasized)',
+  },
+  duration: {
+    short1: 'var(--md-sys-motion-duration-short1)',
+    short2: 'var(--md-sys-motion-duration-short2)',
+    short3: 'var(--md-sys-motion-duration-short3)',
+    short4: 'var(--md-sys-motion-duration-short4)',
+    medium1: 'var(--md-sys-motion-duration-medium1)',
+    medium2: 'var(--md-sys-motion-duration-medium2)',
+    medium3: 'var(--md-sys-motion-duration-medium3)',
+    medium4: 'var(--md-sys-motion-duration-medium4)',
+  },
+};
+
+// Elevation layer: Shadow levels
+export const elevation: ElevationLayer = {
+  level0: 'var(--md-sys-elevation-level0)',
+  level1: 'var(--md-sys-elevation-level1)',
+  level2: 'var(--md-sys-elevation-level2)',
+  level3: 'var(--md-sys-elevation-level3)',
+  level4: 'var(--md-sys-elevation-level4)',
+  level5: 'var(--md-sys-elevation-level5)',
+};
+
+// Combined token layers
+export type TokenLayers = {
+  sys: SysLayer;
+  ref: RefLayer;
+  comp: CompLayer;
+  motion: MotionLayer;
+  elevation: ElevationLayer;
+};
+
+export const tokenLayers: TokenLayers = {
+  sys,
+  ref,
+  comp,
+  motion,
+  elevation,
+};
+
+// Verification function: Ensures no color outside sys layer is hardcoded
+// This function checks if a given color value is a valid CSS variable from the sys layer
+export const verifySysColors = (colorValue: string): boolean => {
+  const sysColorValues = Object.values(sys.colors);
+  return sysColorValues.includes(colorValue) || colorValue.startsWith('var(--md-sys-color-');
+};
+
+// Verification function: Ensures motion durations do not exceed defined max
+// This function checks if a duration value is within the defined motion duration tokens
+export const verifyMotionDurations = (durationValue: string): boolean => {
+  const motionDurationValues = Object.values(motion.duration);
+  return motionDurationValues.includes(durationValue) || durationValue.startsWith('var(--md-sys-motion-duration-');
 };

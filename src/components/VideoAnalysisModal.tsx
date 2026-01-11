@@ -163,7 +163,9 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                 <div className="flex flex-col gap-6">
                     <div className="bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-md p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 flex items-start gap-8 shadow-sm">
                         <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
-                            <span className="material-symbols-outlined">edit_note</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>edit_note</span>
                         </div>
                         <div>
                             <h3 className="m3-label-large font-black uppercase tracking-widest text-primary mb-4">1. Prompt Descrittivo</h3>
@@ -197,7 +199,9 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                 <div className="flex flex-col gap-6">
                     <div className="bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-md p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 flex items-start gap-8 shadow-sm">
                         <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
-                            <span className="material-symbols-outlined">movie</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>movie</span>
                         </div>
                         <div>
                             <h3 className="m3-label-large font-black uppercase tracking-widest text-secondary mb-4">2. Risultato</h3>

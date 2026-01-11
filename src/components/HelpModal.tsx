@@ -389,7 +389,9 @@ const TechnicalSpecs = () => (
     <div className="space-y-6">
         <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">{specsContentData.title}</h2>
         <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/10">
-            <ul className="space-y-4">
+            <ul style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                 {specsContentData.specs.map((spec, index) => (
                     <li key={index} className="flex gap-8 items-start">
                         <span className="material-symbols-outlined text-primary mt-4">check_circle</span>
@@ -457,7 +459,9 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
             <div className="flex justify-between items-start mb-6">
                 <div className="flex items-center gap-6 flex-1 min-w-0">
                     <div className="w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
-                        <span className="material-symbols-outlined">{icon}</span>
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>{icon}</span>
                     </div>
                     <h4 className="m3-title-medium font-bold truncate">{title}</h4>
                 </div>
@@ -607,7 +611,9 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
       hideBackdrop={true}
     >
       <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-xl">
-        <div className="space-y-8">
+        <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
           <div className="p-5 rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary-container/10 border border-primary/20 text-sm shadow-inner">
             <div className="flex items-center gap-6 mb-6">
                 <span className="material-symbols-outlined text-primary">campaign</span>

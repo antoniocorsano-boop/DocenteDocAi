@@ -236,7 +236,9 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 
                         {error && (
                             <div className="flex items-start gap-6 p-8 bg-error-container text-on-error-container rounded-[var(--md-sys-shape-corner-medium)]">
-                                <span className="material-symbols-outlined">error</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>error</span>
                                 <p className="text-sm font-medium">{error}</p>
                             </div>
                         )}
@@ -244,7 +246,9 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         {infoMessage && (
                             <div className="p-5 bg-tertiary-container text-on-tertiary-container rounded-[var(--md-sys-shape-corner-large)]">
                                 <div className="flex items-center gap-8 mb-8">
-                                    <span className="material-symbols-outlined">lightbulb</span>
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>lightbulb</span>
                                     <h3 className="m3-title-small font-bold">Suggerimento AI: XLSX to CSV</h3>
                                 </div>
                                 <div className="prose prose-sm max-w-none text-on-tertiary-container opacity-90" dangerouslySetInnerHTML={{ __html: infoMessage.replace(/\n/g, '<br />') }} />

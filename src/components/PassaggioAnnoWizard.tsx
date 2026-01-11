@@ -190,7 +190,9 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             
                             <div className="p-8 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
                                 <h3 className="m3-title-large font-black mb-6 text-[var(--md-sys-color-on-surface)]">Checklist Automatica</h3>
-                                <ul className="space-y-4">
+                                <ul style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                                     {[
                                         { icon: "check_circle", text: "Backup completo dei dati su Drive/Locale." },
                                         { icon: "history_edu", text: "Salvataggio storico (media voti, assenze) nel profilo studente." },
@@ -273,7 +275,9 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             </div>
                             <h3 className="m3-headline-medium font-black text-[var(--md-sys-color-on-surface)] mb-8">Confermi l'operazione?</h3>
                             <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant mb-10 leading-relaxed">
-                                L'anno scolastico verrà impostato a <strong className="text-primary">{nextYear}</strong>.
+                                L'anno scolastico verrï¿½ impostato a <strong style={{
+  color: 'var(--md-sys-color-primary)'
+}}>{nextYear}</strong>.
                                 <br/><br/>
                                 ?? I dati giornalieri verranno <strong className="text-error">resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
                             </p>

@@ -441,7 +441,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         title="Info sulla sequenza"
                                         aria-label="Mostra informazioni sulla sequenza UDA"
                                     >
-                                        <span className="material-symbols-outlined" aria-hidden="true">help</span>
+                                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">help</span>
                                     </button>
                                 </div>
                                 <div className="flex gap-8">

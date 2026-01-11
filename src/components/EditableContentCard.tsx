@@ -59,7 +59,9 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
                         tabIndex={0}
                         style={{ background: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--shape-s)' }}
                     >
-                        <span className="material-symbols-outlined" aria-hidden="true">edit</span>
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">edit</span>
                     </button>
                 )}
             </div>

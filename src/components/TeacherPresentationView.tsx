@@ -21,7 +21,9 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                     <div className="inline-block transform scale-150 mb-8">
                         <Logo title="DocenteDoc AI" />
                     </div>
-                    <div className="space-y-4">
+                    <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                         <h1 className="text-5xl font-black tracking-tight text-[var(--md-sys-color-on-surface)] leading-tight">Il Tuo Copilota Didattico</h1>
                         <p className="text-xl font-medium text-[var(--md-sys-color-on-surface)]-variant opacity-80 max-w-3xl mx-auto leading-relaxed">
                             Tecnologia, Privacy e Innovazione al servizio dell'insegnamento.
@@ -31,7 +33,9 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 </div>
 
                 {/* Slide 2: Privacy */}
-                <div className="space-y-8">
+                <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                     <SectionHeader title="La Nostra Promessa: Privacy Assoluta" icon="security" className="!mb-0" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <InfoCard
@@ -48,7 +52,9 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 </div>
 
                 {/* Slide 3: AI */}
-                <div className="space-y-8">
+                <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                     <SectionHeader title="L'Intelligenza Artificiale al Tuo Fianco" icon="psychology" className="!mb-0" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                          <InfoCard
@@ -65,7 +71,9 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 </div>
                 
                 {/* Slide 4: Workflows */}
-                <div className="space-y-8">
+                <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                     <SectionHeader title="Flussi di Lavoro Semplificati" icon="alt_route" className="!mb-0" />
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <ActionTile 
@@ -96,7 +104,9 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 </div>
 
                 {/* Slide 5: Impact */}
-                <div className="space-y-8">
+                <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                     <SectionHeader title="L'Impatto sul Futuro" icon="school" className="!mb-0" />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <InfoCard
@@ -114,7 +124,9 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
 
                 {/* Slide 6: Call to Action */}
                 <div className="text-center bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-2xl rounded-6xl p-16 border border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)] space-y-8">
-                    <div className="space-y-4">
+                    <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                         <h2 className="text-4xl font-black tracking-tight text-[var(--md-sys-color-on-surface)]">Insegna Meglio, Vivi Meglio.</h2>
                         <p className="text-lg font-medium text-[var(--md-sys-color-on-surface)]-variant opacity-80 max-w-2xl mx-auto leading-relaxed">
                             DocenteDoc AI è stato creato per semplificare la tua vita professionale, garantendo sicurezza e innovazione.

@@ -165,7 +165,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
         <div className="gantt-container">
             <div className="gantt-header">
                 <h2 className="timeline-view-header-title">
-                    <span className="material-symbols-outlined">calendar_view_week</span>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>calendar_view_week</span>
                     Timeline Didattica
                 </h2>
                 <div className="timeline-view-header-legend">
@@ -254,7 +256,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                                         setLastMove(null);
                                     }
                                 }}>Annulla</button></div>
-                                <button onClick={() => setShowSnackbar(false)} aria-label="Chiudi" className="icon-button"><span className="material-symbols-outlined">close</span></button>
+                                <button onClick={() => setShowSnackbar(false)} aria-label="Chiudi" className="icon-button"><span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>close</span></button>
                             </div>
                         </div>
                     )}

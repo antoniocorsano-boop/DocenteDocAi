@@ -122,7 +122,9 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
 
                 {error && (
                     <div className="p-12 bg-error/10 border border-error/20 rounded-[var(--md-sys-shape-corner-large)] flex items-center gap-8 text-error">
-                        <span className="material-symbols-outlined">error</span>
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>error</span>
                         <p className="text-xs font-black uppercase tracking-widest">{error}</p>
                     </div>
                 )}

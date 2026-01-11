@@ -98,7 +98,9 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 <header className="knowledge-base-file-header">
                     <div className="knowledge-base-file-header-content">
                         <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" className="knowledge-base-back-button">
-                            <span className="material-symbols-outlined">arrow_back</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>arrow_back</span>
                         </M3Button>
                         <h2 className="knowledge-base-file-title">{categoryInfo?.label || 'File'}</h2>
                     </div>
@@ -161,7 +163,9 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     icon="database"
                 />
                 <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" className="shadow-[var(--md-sys-elevation-level2)] px-6 py-6 rounded-[var(--md-sys-shape-corner-large)] flex items-center gap-8">
-                    <span className="material-symbols-outlined">add_circle</span>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>add_circle</span>
                     Carica Documenti
                 </M3Button>
             </div>

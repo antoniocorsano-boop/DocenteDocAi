@@ -50,9 +50,6 @@ interface M3ComponentTemplateProps {
   /** Callback for action button clicks */
   onAction?: () => void;
 
-  /** Additional CSS classes for layout customization */
-  className?: string;
-
   /** Test identifier for automated testing */
   'data-testid'?: string;
 }
@@ -64,7 +61,6 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
   leadingIcon,
   actionLabel,
   onAction,
-  className = '',
   'data-testid': dataTestId
 }) => {
   // Color mapping based on variant - using MD3 color roles
@@ -95,7 +91,6 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
 
   return (
     <div
-      className={className}
       data-testid={dataTestId}
       role="region"
       aria-label={`${title} component`}
@@ -141,8 +136,8 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
             aria-hidden="true"
           >
             <span
-              className="material-symbols-outlined"
               style={{
+                fontFamily: 'Material Symbols Outlined',
                 fontSize: 'var(--md-sys-spacing-4)' // 16px icon size
               }}
             >
@@ -195,7 +190,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
           {/* Action button using M3Button component */}
           <M3Button
             onClick={onAction}
-            variant="primary"
+            variant="filled"
             size="small"
             style={{
               // Custom styling using MD3 tokens if needed

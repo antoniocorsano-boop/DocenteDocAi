@@ -307,7 +307,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                         <div className="student-profile-grade-actions">
                                             <span className="student-profile-grade-date">{new Date(ev.data).toLocaleDateString()}</span>
                                             <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" className="student-profile-grade-delete">
-                                                <span className="material-symbols-outlined">delete</span>
+                                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>delete</span>
                                             </M3Button>
                                         </div>
                                     }
@@ -410,7 +412,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             <div className="student-profile-header">
                 <div className="student-profile-header-info">
                     <M3Button onClick={onBack} variant="icon" className="student-profile-back-button">
-                        <span className="material-symbols-outlined">arrow_back</span>
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>arrow_back</span>
                     </M3Button>
                     <div className="student-profile-header-details">
                         <Avatar 

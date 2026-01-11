@@ -53,7 +53,9 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
                         variant="small"
                     />
 
-                    <div className="space-y-4">
+                    <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                         <SelectField 
                             label="Materia" 
                             value={materia} 

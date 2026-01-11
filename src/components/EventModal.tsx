@@ -57,8 +57,12 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent className="space-y-8">
-                <form id="event-modal-form" onSubmit={handleSubmit} className="space-y-8">
+            <M3DialogContent style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
+                <form id="event-modal-form" onSubmit={handleSubmit} style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                     <div>
                         <label className="text-[11px] text-primary font-black uppercase tracking-[0.25em] px-4 mb-8 block">Tipo Evento</label>
                         <div className="flex gap-6 overflow-x-auto pb-2 custom-scrollbar">

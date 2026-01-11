@@ -454,7 +454,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                     <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-6">
                             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-                                <span className="material-symbols-outlined">description</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>description</span>
                             </div>
                             <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">Report Narrativo Suggerito</h3>
                         </div>

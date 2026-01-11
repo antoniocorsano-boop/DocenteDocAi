@@ -122,7 +122,9 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                 <M3Button 
                     variant="filled" 
                     onClick={handleSubmit}
-                    startIcon={<span className="material-symbols-outlined">auto_awesome</span>}
+                    startIcon={<span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>auto_awesome</span>}
                 >
                     Genera
                 </M3Button>

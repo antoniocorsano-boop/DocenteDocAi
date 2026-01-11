@@ -133,8 +133,8 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                         aria-label="Chiudi notifiche"
                     >
                         <span
-                            className="material-symbols-outlined"
                             style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 fontSize: 'var(--md-sys-spacing-4)',
                                 color: 'inherit'
                             }}
@@ -235,8 +235,8 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                         }}
                                     >
                                         <span
-                                            className="material-symbols-outlined"
                                             style={{
+                                                fontFamily: 'Material Symbols Outlined',
                                                 fontSize: 'var(--md-sys-spacing-4)',
                                                 color: 'inherit'
                                             }}
@@ -329,7 +329,9 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                         size="small"
                                                     >
                                                         <span
-                                                            className="material-symbols-outlined"
+                                                            style={{
+  fontFamily: 'Material Symbols Outlined'
+}}
                                                             style={{
                                                                 fontSize: 'var(--md-sys-spacing-3)',
                                                                 marginRight: 'var(--md-sys-spacing-1)',
@@ -374,7 +376,9 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             }}
                         >
                             <span
-                                className="material-symbols-outlined"
+                                style={{
+  fontFamily: 'Material Symbols Outlined'
+}}
                                 style={{
                                     fontSize: 'var(--md-sys-spacing-7)',
                                     color: 'inherit'

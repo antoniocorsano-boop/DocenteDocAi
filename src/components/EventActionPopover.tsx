@@ -56,7 +56,9 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
                     onClick={handleEdit}
                     className="m3-interactive-button"
                 >
-                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
                         edit
                     </span>
                     <span>Modifica</span>
@@ -66,7 +68,9 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
                     onClick={handleDelete}
                     className="m3-interactive-button m3-interactive-error"
                 >
-                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
                         delete
                     </span>
                     <span>Elimina</span>

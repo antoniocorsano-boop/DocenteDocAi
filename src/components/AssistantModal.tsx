@@ -221,7 +221,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         data-focus-priority="-1"
         aria-label="Chiudi assistente"
       >
-        <span className="material-symbols-outlined">close</span>
+        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>close</span>
       </button>
     </div>
   );
@@ -273,7 +275,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         )}
 
         {mode === 'docs' && (
-          <div className="space-y-8">
+          <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-12">
                 <span className="material-symbols-outlined text-secondary">import_contacts</span>
@@ -286,7 +290,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   disabled={nbLoading}
                   className="!p-12"
                 >
-                  <span className="material-symbols-outlined">sync</span>
+                  <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>sync</span>
                 </M3Button>
                 <input
                   type="file"
@@ -302,7 +308,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   disabled={nbLoading}
                   className="!p-12"
                 >
-                  <span className="material-symbols-outlined">upload</span>
+                  <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>upload</span>
                 </M3Button>
               </div>
             </div>
@@ -320,7 +328,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                     className="text-error !p-12"
                     onClick={() => handleNbDelete(file.id)}
                   >
-                    <span className="material-symbols-outlined">delete</span>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>delete</span>
                   </M3Button>
                 </div>
               ))}
@@ -349,7 +359,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             onClick={isRecording ? stopVoiceInput : startVoiceInput}
             title={isRecording ? 'Stop' : 'Voice input'}
           >
-            <span className="material-symbols-outlined">
+            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>
               {isRecording ? 'mic' : 'mic_none'}
             </span>
           </M3Button>
@@ -359,7 +371,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             disabled={loading || !input.trim()}
             className="!h-16 !w-16 !p-0 !min-w-0 flex items-center justify-center !rounded-[var(--md-sys-shape-corner-large)]"
           >
-            <span className="material-symbols-outlined">send</span>
+            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>send</span>
           </M3Button>
         </div>
         {voiceError && <p className="m3-body-small text-error w-full text-center">{voiceError}</p>}

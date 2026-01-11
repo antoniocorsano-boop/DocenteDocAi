@@ -243,8 +243,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                 }}
               >
                 <span
-                  className="material-symbols-outlined"
                   style={{
+                    fontFamily: 'Material Symbols Outlined',
                     fontSize: 'var(--md-sys-spacing-6)', // 24px
                     lineHeight: 1,
                     color: 'inherit',

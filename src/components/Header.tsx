@@ -165,8 +165,8 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     }}
                 >
                     <span
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--md-sys-spacing-4)'
                         }}
                     >
@@ -200,8 +200,8 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     </span>
                 )}
                 <span
-                    className="material-symbols-outlined"
                     style={{
+                        fontFamily: 'Material Symbols Outlined',
                         color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 30%, transparent)',
                         fontSize: 'var(--md-sys-spacing-3)',
                         transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
@@ -267,14 +267,24 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 }}
             >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                    <Avatar
-                        name={props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante
-                            ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}`
-                            : props.settings?.nomeInsegnante || user?.displayName || 'Docente'}
-                        src={user?.photoURL}
-                        size="sm"
-                        className="w-10 h-10 ring-2 ring-primary-subtle"
-                    />
+                    <div style={{
+                        width: 'var(--md-sys-spacing-6)',
+                        height: 'var(--md-sys-spacing-6)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '2px solid var(--md-sys-color-primary)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        overflow: 'hidden'
+                    }}>
+                        <Avatar
+                            name={props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante
+                                ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}`
+                                : props.settings?.nomeInsegnante || user?.displayName || 'Docente'}
+                            src={user?.photoURL}
+                            size="sm"
+                        />
+                    </div>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <M3Typography
                             variant="label-medium"
@@ -328,8 +338,8 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     aria-label="Chiudi menu"
                 >
                     <span
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--md-sys-spacing-4)'
                         }}
                     >
@@ -499,8 +509,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
                             }}
                         >
                             <span
-                                className="material-symbols-outlined"
                                 style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: 'var(--md-sys-spacing-4)'
                                 }}
                             >
@@ -518,11 +528,15 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 {/* Center section: Logo and AI indicator */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', flex: 1, justifyContent: 'center' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
-                        <Logo
-                            isAiThinking={isAiProcessing}
-                            onHomeNavigate={() => !showBackButton && onNavigate('home')}
-                            className="cursor-pointer transition-all"
-                        />
+                        <div style={{
+                            cursor: 'pointer',
+                            transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
+                        }}>
+                            <Logo
+                                isAiThinking={isAiProcessing}
+                                onHomeNavigate={() => !showBackButton && onNavigate('home')}
+                            />
+                        </div>
                     </div>
                     {isAiProcessing && <AiThinkingGem size="small" />}
                 </div>
@@ -543,8 +557,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
                             }}
                         >
                             <span
-                                className="material-symbols-outlined"
                                 style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: 'var(--md-sys-spacing-3)'
                                 }}
                             >
@@ -587,8 +601,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         }}
                     >
                         <span
-                            className="material-symbols-outlined"
                             style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 fontSize: 'var(--md-sys-spacing-4)'
                             }}
                         >
@@ -635,12 +649,21 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                 e.currentTarget.style.outlineOffset = '0';
                             }}
                         >
-                            <Avatar
-                                name={`${teacherSurname || ''} ${teacherName || 'Docente'}`.trim()}
-                                src={user?.photoURL}
-                                size="sm"
-                                className="w-10 h-10"
-                            />
+                            <div style={{
+                                width: 'var(--md-sys-spacing-6)',
+                                height: 'var(--md-sys-spacing-6)',
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                overflow: 'hidden'
+                            }}>
+                                <Avatar
+                                    name={`${teacherSurname || ''} ${teacherName || 'Docente'}`.trim()}
+                                    src={user?.photoURL}
+                                    size="sm"
+                                />
+                            </div>
                             {unreadCount > 0 && (
                                 <span
                                     style={{
@@ -752,7 +775,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                 fontSize: 'var(--md-sys-spacing-7)' // 3xl equivalent
                             }}
                         >
-                            <span className="material-symbols-outlined">share</span>
+                            <span
+                            style={{
+                                fontFamily: 'Material Symbols Outlined'
+                            }}
+                        >
+                            share
+                        </span>
                         </div>
                         <M3Typography
                             variant="body-medium"
@@ -781,7 +810,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                         onClick={() => {
                                             navigator.clipboard.writeText(window.location.href);
                                         }}
-                                        variant="secondary"
+                                        variant="tonal"
                                         size="small"
                                         style={{
                                             borderRadius: 'var(--md-sys-shape-corner-full)',
@@ -789,13 +818,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                         }}
                                     >
                                         <span
-                                            className="material-symbols-outlined"
-                                            style={{
-                                                fontSize: 'var(--md-sys-spacing-4)'
-                                            }}
-                                        >
-                                            content_copy
-                                        </span>
+                                        style={{
+                                            fontFamily: 'Material Symbols Outlined',
+                                            fontSize: 'var(--md-sys-spacing-4)'
+                                        }}
+                                    >
+                                        content_copy
+                                    </span>
                                     </M3Button>
                                 </div>
                             </InfoCard>

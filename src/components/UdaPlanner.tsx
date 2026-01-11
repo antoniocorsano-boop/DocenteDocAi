@@ -170,7 +170,9 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                 })
                             ) : (
                                 <div className="uda-competency-placeholder">
-                                    <span className="material-symbols-outlined">add_circle</span>
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>add_circle</span>
                                     <span className="uda-competency-placeholder-text">Tocca per selezionare competenze</span>
                                 </div>
                             )}
@@ -184,13 +186,17 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                 variant="text" 
                                 className="uda-editor-actions-delete"
                             >
-                                <span className="material-symbols-outlined">delete</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>delete</span>
                                 Elimina
                             </M3Button>
                         )}
                         <M3Button onClick={handleClose} variant="text">Annulla</M3Button>
                         <M3Button onClick={handleSave} variant="primary" className="shadow-elevation-level3">
-                            <span className="material-symbols-outlined">save</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>save</span>
                             Salva Progetto
                         </M3Button>
                     </div>
@@ -298,7 +304,9 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                         variant="primary" 
                         className="shadow-elevation-level3"
                     >
-                        <span className="material-symbols-outlined">add</span>
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>add</span>
                         Nuovo Progetto
                     </M3Button>
                 </div>
@@ -368,14 +376,18 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                                 variant="text" 
                                                                 className="uda-table-action-button"
                                                             >
-                                                                <span className="material-symbols-outlined">ios_share</span>
+                                                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>ios_share</span>
                                                             </M3Button>
                                                             <M3Button 
                                                                 onClick={() => handleEditUda(uda)} 
                                                                 variant="text" 
                                                                 className="uda-table-action-button"
                                                             >
-                                                                <span className="material-symbols-outlined">edit</span>
+                                                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>edit</span>
                                                             </M3Button>
                                                         </div>
                                                     </td>

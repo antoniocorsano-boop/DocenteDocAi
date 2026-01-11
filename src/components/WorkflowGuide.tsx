@@ -86,7 +86,9 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                 color: 'var(--md-sys-color-on-surface)',
                 fontWeight: 900
             }}>
-                <span className="material-symbols-outlined" style={{
+                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                     fontSize: '28px',
                     color: 'var(--md-sys-color-secondary)'
                 }}>alt_route</span>
@@ -132,7 +134,9 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                     color: `var(--md-sys-color-on-${workflow.themeColor}-container)`,
                                     flexShrink: 0
                                 }}>
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                                         fontSize: '24px'
                                     }}>{workflow.icon}</span>
                                 </div>
@@ -151,7 +155,9 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                         margin: 0
                                     }}>{workflow.description}</M3Typography>
                                 </div>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     fontSize: '20px',
                                     transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
@@ -231,7 +237,9 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                         e.currentTarget.style.boxShadow = 'none';
                                     }}
                                 >
-                                    Avvia Percorso <span className="material-symbols-outlined" style={{
+                                    Avvia Percorso <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                                         fontSize: '16px'
                                     }}>arrow_forward</span>
                                 </button>

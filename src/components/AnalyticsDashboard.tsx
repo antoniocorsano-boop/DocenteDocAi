@@ -138,7 +138,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               alignItems: 'flex-start',
               gap: 'var(--md-sys-spacing-6)'
             }}>
-              <span className="material-symbols-outlined" style={{
+              <span style={{
+                fontFamily: 'Material Symbols Outlined',
                 color: 'var(--md-sys-color-on-tertiary-container)',
                 marginTop: '2px'
               }}>privacy_tip</span>
@@ -205,7 +206,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'
                   }}>
-                    <span className="material-symbols-outlined" style={{
+                    <span style={{
+                      fontFamily: 'Material Symbols Outlined',
                       color: 'var(--md-sys-color-tertiary)'
                     }}>description</span>
                     <div>
@@ -241,7 +243,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'
                   }}>
-                    <span className="material-symbols-outlined" style={{
+                    <span style={{
+                      fontFamily: 'Material Symbols Outlined',
                       color: 'var(--md-sys-color-secondary)'
                     }}>smart_toy</span>
                     <div>
@@ -277,7 +280,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'
                   }}>
-                    <span className="material-symbols-outlined" style={{
+                    <span style={{
+                      fontFamily: 'Material Symbols Outlined',
                       color: 'var(--md-sys-color-primary)'
                     }}>file_copy</span>
                     <div>
@@ -313,7 +317,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'
                   }}>
-                    <span className="material-symbols-outlined" style={{
+                    <span style={{
+                      fontFamily: 'Material Symbols Outlined',
                       color: 'var(--md-sys-color-tertiary)'
                     }}>batch_prediction</span>
                     <div>
@@ -610,7 +615,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     paddingTop: 'var(--md-sys-spacing-12)',
                     paddingBottom: 'var(--md-sys-spacing-12)'
                   }}>
-                    <span className="material-symbols-outlined" style={{
+                    <span style={{
+                      fontFamily: 'Material Symbols Outlined',
                       fontSize: '4rem',
                       color: 'var(--md-sys-color-on-surface-variant)',
                       opacity: 0.3,

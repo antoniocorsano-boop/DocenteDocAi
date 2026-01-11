@@ -50,7 +50,9 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
             >
                 <span className="timetable-cell-ripple" aria-hidden="true" />
                 <div className="timetable-cell-add-icon">
-                    <span className="material-symbols-outlined">add_circle</span>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>add_circle</span>
                 </div>
             </div>
         );

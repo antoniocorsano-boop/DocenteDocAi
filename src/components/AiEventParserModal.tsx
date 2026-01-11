@@ -44,7 +44,9 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                     Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarrà automaticamente date, orari e dettagli per creare l'evento nel calendario.
                 </p>
 
-                <div className="space-y-4">
+                <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                     <label htmlFor="event-text" className="form-label">Testo della comunicazione</label>
                     <textarea
                         id="event-text"

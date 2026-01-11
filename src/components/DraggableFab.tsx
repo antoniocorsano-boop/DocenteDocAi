@@ -115,7 +115,9 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
             aria-label={ariaLabel}
             title={ariaLabel}
         >
-            <span className="material-symbols-outlined">mic</span>
+            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>mic</span>
         </button>
     );
 };

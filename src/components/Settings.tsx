@@ -106,7 +106,8 @@ const SettingsGroup: React.FC<{
                             : 'var(--md-sys-color-on-surface-variant)',
                         boxShadow: 'var(--md-sys-elevation-level1)'
                     }}>
-                        <span className="material-symbols-outlined" style={{
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
                             fontSize: '24px'
                         }}>{icon}</span>
                     </div>
@@ -124,7 +125,8 @@ const SettingsGroup: React.FC<{
                         }}>{subtitle}</M3Typography>}
                     </div>
                 </div>
-                <span className="material-symbols-outlined" style={{
+                <span style={{
+                    fontFamily: 'Material Symbols Outlined',
                     color: 'var(--md-sys-color-on-surface-variant)',
                     fontSize: '20px',
                     transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
@@ -370,7 +372,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     flex: 1
                 }}>
                     <M3Button onClick={onClose} variant="text">
-                        <span className="material-symbols-outlined">arrow_back</span>
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>arrow_back</span>
                     </M3Button>
                     <SectionHeader
                         title="Impostazioni"
@@ -427,7 +431,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-3)'
                             }}>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '20px',
                                     color: 'var(--md-sys-color-primary)'
                                 }}>dashboard_customize</span>
@@ -467,7 +472,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-3)'
                             }}>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '20px',
                                     color: 'var(--md-sys-color-primary)'
                                 }}>auto_awesome</span>
@@ -524,7 +530,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             }
                                         } }
                                     >
-                                        <span className="material-symbols-outlined" style={{
+                                        <span style={{
+                                            fontFamily: 'Material Symbols Outlined',
                                             fontSize: '24px',
                                             color: themeState.visualStyle === style.id
                                                 ? 'var(--md-sys-color-on-primary-container)'
@@ -560,7 +567,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-3)'
                             }}>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '20px',
                                     color: 'var(--md-sys-color-primary)'
                                 }}>palette</span>
@@ -612,7 +620,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     gap: 'var(--md-sys-spacing-4)',
                                     marginBottom: 'var(--md-sys-spacing-4)'
                                 }}>
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         fontSize: '16px',
                                         color: 'var(--md-sys-color-primary)'
                                     }}>magic_button</span>
@@ -639,7 +648,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <M3Button
                                         onClick={handleGenerateThemeFromPrompt}
                                         disabled={isGeneratingTheme || !themePrompt.trim()}
-                                        variant="primary"
+                                        variant="filled"
                                         style={{
                                             minWidth: '0',
                                             width: 'var(--md-sys-spacing-14)',
@@ -649,7 +658,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             borderRadius: 'var(--md-sys-shape-corner-large)'
                                         }}
                                     >
-                                        <span className="material-symbols-outlined">{isGeneratingTheme ? 'sync' : 'auto_awesome'}</span>
+                                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>{isGeneratingTheme ? 'sync' : 'auto_awesome'}</span>
                                     </M3Button>
                                 </div>
                             </div>
@@ -684,7 +695,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 paddingBottom: 'var(--md-sys-spacing-3)',
                                 borderBottom: '1px solid var(--md-sys-color-outline-variant)'
                             }}>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '24px',
                                     color: 'var(--md-sys-color-primary)'
                                 }}>tune</span>
@@ -874,7 +886,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         {[0.5, 1, 1.5, 2].map(m => (
                                             <M3Button
                                                 key={m}
-                                                variant={themeState.radiusMultiplier === m ? 'primary' : 'outline'}
+                                                variant={themeState.radiusMultiplier === m ? 'filled' : 'outlined'}
                                                 size="small"
                                                 onClick={() => handleThemeChange('radiusMultiplier', m)}
                                                 style={{
@@ -903,7 +915,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 gap: 'var(--md-sys-spacing-3)',
                                 marginBottom: 'var(--md-sys-spacing-3)'
                             }}>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '24px',
                                     color: 'var(--md-sys-color-primary)'
                                 }}>import_export</span>
@@ -936,9 +949,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             }}>
                                 <M3Button
                                     onClick={handleExportTheme}
-                                    variant="outline"
+                                    variant="outlined"
                                 >
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         marginRight: 'var(--md-sys-spacing-2)',
                                         fontSize: '18px'
                                     }}>download</span>
@@ -963,9 +977,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         cursor: 'pointer'
                                     }}>
                                         <M3Button
-                                            variant="outline"
+                                            variant="outlined"
                                         >
-                                            <span className="material-symbols-outlined" style={{
+                                            <span style={{
+                                                fontFamily: 'Material Symbols Outlined',
                                                 marginRight: 'var(--md-sys-spacing-2)',
                                                 fontSize: '18px'
                                             }}>upload</span>
@@ -987,7 +1002,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-3)'
                             }}>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '20px',
                                     color: 'var(--md-sys-color-primary)'
                                 }}>refresh</span>
@@ -1004,9 +1020,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             }}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</M3Typography>
                             <M3Button
                                 onClick={handleForceRefresh}
-                                variant="secondary"
+                                variant="tonal"
                             >
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     marginRight: 'var(--md-sys-spacing-2)'
                                 }}>cached</span>
                                 AGGIORNA BRAND E CACHE
@@ -1024,7 +1041,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-3)'
                             }}>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '20px',
                                     color: 'var(--md-sys-color-primary)'
                                 }}>tune</span>
@@ -1114,7 +1132,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             gap: 'var(--md-sys-spacing-3)',
                             marginBottom: 'var(--md-sys-spacing-4)'
                         }}>
-                            <span className="material-symbols-outlined" style={{
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 fontSize: '24px',
                                 color: 'var(--md-sys-color-secondary)'
                             }}>smart_toy</span>
@@ -1150,7 +1169,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ? 'var(--md-sys-color-secondary)'
                                 : 'var(--md-sys-color-primary)'}`
                         }}>
-                            <span className="material-symbols-outlined" style={{
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 fontSize: '20px',
                                 color: currentAiProfile === 'esperto'
                                     ? 'var(--md-sys-color-on-secondary-container)'
@@ -1195,7 +1215,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     alignItems: 'center',
                                     gap: 'var(--md-sys-spacing-3)'
                                 }}>
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         fontSize: '24px',
                                         color: 'var(--md-sys-color-primary)'
                                     }}>calendar_month</span>
@@ -1213,9 +1234,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 </div>
                                 <M3Button
                                     onClick={handleAddNextYear}
-                                    variant="secondary"
+                                    variant="tonal"
                                 >
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         fontSize: '18px',
                                         marginRight: 'var(--md-sys-spacing-2)'
                                     }}>add_circle</span>
@@ -1269,7 +1291,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     alignItems: 'center',
                                     gap: 'var(--md-sys-spacing-3)'
                                 }}>
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         fontSize: '24px',
                                         color: 'var(--md-sys-color-secondary)'
                                     }}>school</span>
@@ -1291,7 +1314,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             handleChange('teachingAssignments', []);
                                         }
                                     } }
-                                    variant="outline"
+                                    variant="outlined"
                                 >
                                     Svuota Tutto
                                 </M3Button>
@@ -1311,7 +1334,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     gap: 'var(--md-sys-spacing-3)',
                                     marginBottom: 'var(--md-sys-spacing-4)'
                                 }}>
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         fontSize: '24px',
                                         color: 'var(--md-sys-color-primary)'
                                     }}>account_tree</span>
@@ -1376,7 +1400,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             {['1', '2', '3', '4', '5'].map(y => (
                                                 <M3Button
                                                     key={y}
-                                                    variant={selYears.includes(y) ? 'primary' : 'outline'}
+                                                    variant={selYears.includes(y) ? 'filled' : 'outlined'}
                                                     size="small"
                                                     onClick={() => setSelYears(prev => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
                                                     style={{
@@ -1410,7 +1434,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             {['A', 'B', 'C', 'D', 'E', 'F'].map(s => (
                                                 <M3Button
                                                     key={s}
-                                                    variant={selSections.includes(s) ? 'primary' : 'outline'}
+                                                    variant={selSections.includes(s) ? 'filled' : 'outlined'}
                                                     size="small"
                                                     onClick={() => setSelSections(prev => prev.includes(s) ? prev.filter(i => i !== s) : [...prev, s])}
                                                     style={{
@@ -1426,10 +1450,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                                 <M3Button
                                     onClick={handleGenerateClasses}
-                                    variant="primary"
+                                    variant="filled"
                                     disabled={selYears.length === 0 || selSections.length === 0}
                                 >
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         marginRight: 'var(--md-sys-spacing-2)',
                                         fontSize: '18px'
                                     }}>auto_awesome</span>
@@ -1479,9 +1504,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     </div>
                                     <M3Button
                                         onClick={handleAddSubject}
-                                        variant="primary"
+                                        variant="filled"
                                     >
-                                        <span className="material-symbols-outlined" style={{
+                                        <span style={{
+                                            fontFamily: 'Material Symbols Outlined',
                                             fontSize: '18px'
                                         }}>add</span>
                                     </M3Button>
@@ -1592,7 +1618,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             }}>{subj}</span>
                                                             <M3Button
                                                                 onClick={() => handleBulkAssign(subj)}
-                                                                variant="outline"
+                                                                variant="outlined"
                                                                 size="small"
                                                             >
                                                                 Associa a tutte
@@ -1615,7 +1641,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                 e.currentTarget.style.backgroundColor = 'transparent';
                                                             } }
                                                         >
-                                                            <span className="material-symbols-outlined" style={{
+                                                            <span style={{
+                                                                fontFamily: 'Material Symbols Outlined',
                                                                 fontSize: '16px'
                                                             }}>delete</span>
                                                         </button>
@@ -1656,7 +1683,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             >
                                                                 {assignment ? (
                                                                     <>
-                                                                        <span className="material-symbols-outlined" style={{
+                                                                        <span style={{
+                                                                            fontFamily: 'Material Symbols Outlined',
                                                                             color: 'var(--md-sys-color-primary)',
                                                                             fontSize: '18px',
                                                                             marginRight: 'var(--md-sys-spacing-2)'
@@ -1687,7 +1715,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                         </div>
                                                                     </>
                                                                 ) : (
-                                                                    <span className="material-symbols-outlined" style={{
+                                                                    <span style={{
+                                                                        fontFamily: 'Material Symbols Outlined',
                                                                         color: 'var(--md-sys-color-outline-variant)',
                                                                         fontSize: '18px'
                                                                     }}>add</span>
@@ -1800,9 +1829,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         </div>
                                         <M3Button
                                             onClick={() => onReactivateSuggestion(id)}
-                                            variant="secondary"
+                                            variant="tonal"
                                         >
-                                            <span className="material-symbols-outlined" style={{
+                                            <span style={{
+                                                fontFamily: 'Material Symbols Outlined',
                                                 fontSize: '18px',
                                                 marginRight: 'var(--md-sys-spacing-2)'
                                             }}>refresh</span>
@@ -1965,7 +1995,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 backgroundColor: driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
                                 color: driveState.isAuthenticated ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)'
                             }}>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '24px'
                                 }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
                             </div>
@@ -1997,9 +2028,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <M3Button
                                 onClick={() => onSyncToDrive()}
                                 disabled={driveState.isSyncing}
-                                variant="primary"
+                                variant="filled"
                             >
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '18px',
                                     marginRight: 'var(--md-sys-spacing-2)'
                                 }}>{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>
@@ -2009,7 +2041,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             settings.googleClientId && (
                                 <M3Button
                                     onClick={onConnectDrive}
-                                    variant="primary"
+                                    variant="filled"
                                 >
                                     Connetti
                                 </M3Button>
@@ -2022,15 +2054,17 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         gap: 'var(--md-sys-spacing-3)',
                         marginTop: 'var(--md-sys-spacing-4)'
                     }}>
-                        <M3Button onClick={onExportData} variant="secondary">
-                            <span className="material-symbols-outlined" style={{
+                        <M3Button onClick={onExportData} variant="tonal">
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 fontSize: '18px',
                                 marginRight: 'var(--md-sys-spacing-2)'
                             }}>download</span>
                             Backup Locale
                         </M3Button>
-                        <M3Button onClick={() => fileInputRef.current?.click()} variant="secondary">
-                            <span className="material-symbols-outlined" style={{
+                        <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal">
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 fontSize: '18px',
                                 marginRight: 'var(--md-sys-spacing-2)'
                             }}>upload</span>
@@ -2092,10 +2126,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         Visualizza tutti gli errori registrati durante l'utilizzo dell'app
                                     </M3Typography>
                                 </div>
-                                <span className="material-symbols-outlined" style={{
-                                    fontSize: '24px',
-                                    color: errorLogger.getErrorStats().total > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
-                                }}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
+                                <span style={{
+                                fontFamily: 'Material Symbols Outlined',
+                                fontSize: '24px',
+                                color: errorLogger.getErrorStats().total > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
+                            }}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
                             </div>
                             <div style={{
                                 display: 'flex',
@@ -2107,7 +2142,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 border: '1px solid var(--md-sys-color-outline-variant)',
                                 marginBottom: 'var(--md-sys-spacing-4)'
                             }}>
-                                <span className="material-symbols-outlined" style={{
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: '18px',
                                     color: 'var(--md-sys-color-primary)'
                                 }}>info</span>
@@ -2129,14 +2165,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     onClick={() => {
                                         showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info');
                                     } }
-                                    variant="secondary"
+                                    variant="tonal"
                                     style={{
                                         width: '100%',
                                         padding: 'var(--md-sys-spacing-4)',
                                         borderRadius: 'var(--md-sys-shape-corner-medium)'
                                     }}
                                 >
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         fontSize: '18px',
                                         marginRight: 'var(--md-sys-spacing-2)'
                                     }}>terminal</span>
@@ -2154,14 +2191,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         URL.revokeObjectURL(url);
                                         showToast('Log esportati in JSON', 'success');
                                     } }
-                                    variant="secondary"
+                                    variant="tonal"
                                     style={{
                                         width: '100%',
                                         padding: 'var(--md-sys-spacing-4)',
                                         borderRadius: 'var(--md-sys-shape-corner-medium)'
                                     }}
                                 >
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         fontSize: '18px',
                                         marginRight: 'var(--md-sys-spacing-2)'
                                     }}>download</span>
@@ -2189,7 +2227,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         e.currentTarget.style.backgroundColor = 'transparent';
                                     } }
                                 >
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         fontSize: '18px',
                                         marginRight: 'var(--md-sys-spacing-2)'
                                     }}>delete</span>
@@ -2228,7 +2267,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             gap: 'var(--md-sys-spacing-8)',
                             marginBottom: 'var(--md-sys-spacing-5)'
                         }}>
-                            <span className="material-symbols-outlined" style={{
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 color: 'var(--md-sys-color-primary)',
                                 fontSize: 'var(--md-sys-typescale-label-large-size)'
                             }}>key</span>
@@ -2261,7 +2301,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             gap: 'var(--md-sys-spacing-8)',
                             marginBottom: 'var(--md-sys-spacing-8)'
                         }}>
-                            <span className="material-symbols-outlined" style={{
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 color: 'var(--md-sys-color-error)',
                                 fontSize: 'var(--md-sys-typescale-label-large-size)'
                             }}>warning</span>
@@ -2274,7 +2315,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
                         <M3Button
                             onClick={() => setIsResetModalOpen(true)}
-                            variant="primary"
+                            variant="filled"
                             style={{
                                 width: '100%',
                                 padding: 'var(--md-sys-spacing-6)',
@@ -2288,7 +2329,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 color: 'var(--md-sys-color-on-error)'
                             }}
                         >
-                            <span className="material-symbols-outlined" style={{
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 marginRight: 'var(--md-sys-spacing-2)',
                                 fontSize: 'var(--md-sys-typescale-label-large-size)'
                             }}>delete_forever</span>
@@ -2347,7 +2389,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             e.currentTarget.style.color = 'var(--md-sys-color-on-surface)';
                         }}
                     >
-                        <span className="material-symbols-outlined" style={{
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--md-sys-typescale-label-large-size)',
                             marginRight: 'var(--md-sys-spacing-2)'
                         }}>logout</span>

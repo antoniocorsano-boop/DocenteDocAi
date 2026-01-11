@@ -69,7 +69,9 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
 
                     <div>
                         <label className="form-label">Livello Raggiunto</label>
-                        <div className="space-y-8">
+                        <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                             {competenza.livelli.map(level => (
                                 <div key={level.id} className={`p-12 rounded-[var(--md-sys-shape-corner-large)] border-2 ${selectedLevelId === level.id ? 'border-primary bg-primary-container' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container)]'}`}>
                                     <label className="flex items-start cursor-pointer">

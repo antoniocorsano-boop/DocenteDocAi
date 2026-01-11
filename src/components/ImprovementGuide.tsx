@@ -318,7 +318,9 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             <InfoCard title="Livelli di Competenza" icon="school">
                 <div className="space-y-10 p-8">
                     {competencyLevelData.map(compData => (
-                        <div key={compData.name} className="space-y-4">
+                        <div key={compData.name} style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                             <h3 className="text-sm font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-70">{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}

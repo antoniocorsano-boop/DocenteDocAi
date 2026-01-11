@@ -97,7 +97,9 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     variant="filled" 
                     onClick={() => setStep(2)} 
                     disabled={!selectedClass}
-                    endIcon={<span className="material-symbols-outlined">arrow_forward</span>}
+                    endIcon={<span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>arrow_forward</span>}
                 >
                     Continua
                 </M3Button>

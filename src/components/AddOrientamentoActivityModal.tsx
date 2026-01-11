@@ -79,7 +79,9 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                     rows={3}
                 />
 
-                <div className="space-y-4">
+                <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                     <label className="m3-label-medium text-[var(--md-sys-color-on-surface)]-variant">Classi Coinvolte</label>
                     <div className="flex flex-wrap gap-12">
                         {userClasses.map(cls => (

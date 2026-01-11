@@ -172,11 +172,15 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                 <div className="calendar-header-left">
                     <div className="calendar-nav-group bg-[var(--md-sys-color-surface-container-low)]/50 p-1 rounded-full border border-[var(--md-sys-color-outline-variant)]/20">
                         <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" className="!min-w-0 !p-8">
-                            <span className="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">chevron_left</span>
                         </M3Button>
                         <M3Button variant="tonal" onClick={() => handleNavigate('today')} className="!px-4 !py-1 !h-auto" title="Torna a oggi">Oggi</M3Button>
                         <M3Button variant="text" onClick={() => handleNavigate('next')} title="Mese successivo" aria-label="Vai al mese successivo" className="!min-w-0 !p-8">
-                            <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">chevron_right</span>
                         </M3Button>
                     </div>
                     <h2 className="calendar-title">{title}</h2>
@@ -200,7 +204,9 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                             <span className="material-symbols-outlined text-primary" aria-hidden="true">auto_awesome</span>
                         </M3Button>
                         <M3Button variant="filled" onClick={() => setEditingEvent({})} title="Crea nuovo evento">
-                            <span className="material-symbols-outlined" aria-hidden="true">add</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">add</span>
                             Nuovo Evento
                         </M3Button>
                     </div>

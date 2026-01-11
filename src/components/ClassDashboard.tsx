@@ -155,7 +155,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-8">
                                         <div className="class-dashboard-inbox-icon">
-                                            <span className="material-symbols-outlined">mail</span>
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>mail</span>
                                             <span className="class-dashboard-inbox-badge">
                                                 {inboxCount}
                                             </span>
@@ -166,7 +168,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         </div>
                                     </div>
                                     <div className="class-dashboard-inbox-arrow">
-                                        <span className="material-symbols-outlined">arrow_forward</span>
+                                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>arrow_forward</span>
                                     </div>
                                 </div>
                             </M3Card>
@@ -188,7 +192,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div className="flex items-center gap-8">
                                         <div className="class-dashboard-tool-icon-primary">
-                                            <span className="material-symbols-outlined">book</span>
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>book</span>
                                         </div>
                                         <div>
                                             <h4 className="class-dashboard-card-title">Diario di Bordo</h4>
@@ -202,7 +208,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div className="flex items-center gap-8">
                                         <div className="class-dashboard-tool-icon-tertiary">
-                                            <span className="material-symbols-outlined">accessibility_new</span>
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>accessibility_new</span>
                                         </div>
                                         <div>
                                             <h4 className="class-dashboard-card-title">Inclusione</h4>
@@ -226,7 +234,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div className="flex items-center gap-8">
                                         <div className="class-dashboard-tool-icon-secondary">
-                                            <span className="material-symbols-outlined">ballot</span>
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>ballot</span>
                                         </div>
                                         <div>
                                             <h4 className="class-dashboard-card-title">Voti</h4>
@@ -240,7 +250,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div className="flex items-center gap-8">
                                         <div className="class-dashboard-tool-icon-secondary">
-                                            <span className="material-symbols-outlined">psychology</span>
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>psychology</span>
                                         </div>
                                         <div>
                                             <h4 className="class-dashboard-card-title">Competenze</h4>
@@ -264,7 +276,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div className="flex items-center gap-8">
                                         <div className="class-dashboard-tool-icon-tertiary">
-                                            <span className="material-symbols-outlined">query_stats</span>
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>query_stats</span>
                                         </div>
                                         <div>
                                             <h4 className="class-dashboard-card-title">Analisi AI</h4>
@@ -278,7 +292,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div className="flex items-center gap-8">
                                         <div className="class-dashboard-tool-icon-outline">
-                                            <span className="material-symbols-outlined">gavel</span>
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>gavel</span>
                                         </div>
                                         <div>
                                             <h4 className="class-dashboard-card-title">Consiglio</h4>
@@ -292,7 +308,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div className="flex items-center gap-8">
                                         <div className="class-dashboard-tool-icon-outline">
-                                            <span className="material-symbols-outlined">groups</span>
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>groups</span>
                                         </div>
                                         <div>
                                             <h4 className="class-dashboard-card-title">Anagrafica</h4>
@@ -326,7 +344,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     />
                                 )) : (
                                     <div className="class-dashboard-empty-state">
-                                        <span className="material-symbols-outlined">person_off</span>
+                                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>person_off</span>
                                         <p className="text-sm">Nessuno studente in elenco.</p>
                                     </div>
                                 )}

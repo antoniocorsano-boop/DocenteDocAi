@@ -151,7 +151,9 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                                         : 'bg-[var(--md-sys-color-surface-container-low)] border-[var(--md-sys-color-outline-variant)]/30 hover:bg-[var(--md-sys-color-surface-container)]'
                                                 }`}
                                             >
-                                                <span className="material-symbols-outlined">
+                                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>
                                                     {isSelected ? 'check_circle' : 'description'}
                                                 </span>
                                                 <span className="truncate text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] flex-1">{entry.fileName}</span>
@@ -184,7 +186,9 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         )}
 
                         {activeTab === 'link' && (
-                            <div className="space-y-4">
+                            <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                                 <TextField 
                                     label="URL (es. https://...)" 
                                     value={linkUrl} 
@@ -225,7 +229,9 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                         variant="text" 
                                         className="text-error !p-8 !min-w-0 opacity-0 group-hover:opacity-100 transition-opacity"
                                     >
-                                        <span className="material-symbols-outlined">close</span>
+                                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>close</span>
                                     </M3Button>
                                 </div>
                             ))}

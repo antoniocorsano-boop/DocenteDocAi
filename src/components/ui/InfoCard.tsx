@@ -71,7 +71,9 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 justifyContent: 'center'
                             }}>
                                 <span
-                                    className="material-symbols-outlined"
+                                    style={{
+  fontFamily: 'Material Symbols Outlined'
+}}
                                     style={{
                                         fontSize: '24px',
                                         color: colors.onSurfaceVariant
@@ -101,7 +103,9 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 }}
                                 aria-label="Chiudi"
                             >
-                                <span className="material-symbols-outlined">close</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>close</span>
                             </button>
                         )}
                     </div>

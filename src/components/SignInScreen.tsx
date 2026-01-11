@@ -63,7 +63,9 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
         <h1
           className="md3-display-small tracking-tight text-[var(--md-sys-color-on-surface)] mb-4 max-w-4xl"
         >
-          DocenteDoc AI: <span className="text-primary">L'AI che trasforma</span> la tua didattica
+          DocenteDoc AI: <span style={{
+  color: 'var(--md-sys-color-primary)'
+}}>L'AI che trasforma</span> la tua didattica
         </h1>
 
         <p className="md3-headline-small text-[var(--md-sys-color-on-surface)]-variant mb-8 max-w-2xl">
@@ -80,7 +82,9 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           >
             <span className="flex items-center gap-2 uppercase font-bold tracking-[0.2em]">
               Inizia Gratuitamente
-              <span className="material-symbols-outlined">arrow_forward</span>
+              <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>arrow_forward</span>
             </span>
           </M3Button>
 
@@ -93,7 +97,9 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           >
             <span className="flex items-center gap-2 uppercase font-bold tracking-[0.2em]">
               Vedi Demo
-              <span className="material-symbols-outlined">play_arrow</span>
+              <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>play_arrow</span>
             </span>
           </M3Button>
         </div>
@@ -319,7 +325,9 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
             >
               <span className="flex items-center justify-center uppercase font-bold tracking-[0.2em] gap-2">
                 Entra Gratuitamente
-                <span className="material-symbols-outlined">arrow_forward</span>
+                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>arrow_forward</span>
               </span>
             </M3Button>
           </form>

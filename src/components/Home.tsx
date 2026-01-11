@@ -155,7 +155,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                                     alignItems: 'center',
                                     justifyContent: 'center'
                                 }}>
-                                    <span className="material-symbols-outlined" style={{
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                                         fontSize: 'var(--md-sys-typescale-display-small-font-size)',
                                         color: 'var(--md-sys-color-primary)'
                                     }}>school</span>
@@ -279,7 +281,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                         <div className="home-suggestion-bg m3-transition-transform"></div>
                         <div className="home-suggestion-header">
                             <div className="home-suggestion-icon">
-                                <span className="material-symbols-outlined">auto_awesome</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>auto_awesome</span>
                             </div>
                             <M3Typography
                                 variant="body-medium"
@@ -330,7 +334,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                 </M3SuggestionCard>
                 ) : (
                     <M3EmptyStateCard>
-                        <span className="material-symbols-outlined" style={{
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                             fontSize: 'var(--md-sys-typescale-display-large-font-size)',
                             color: 'var(--md-sys-color-primary)',
                             opacity: 0.3,

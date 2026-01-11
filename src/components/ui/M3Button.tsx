@@ -1,6 +1,5 @@
 import React, { ButtonHTMLAttributes } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../theme/theme';
 
 interface M3ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'filled' | 'outlined' | 'text' | 'tonal' | 'elevated';
@@ -23,136 +22,107 @@ const M3Button: React.FC<M3ButtonProps> = ({
   title,
   ...props
 }) => {
-  // Base styles using MD3 design tokens
+  // Use theme layers correctly
+  const { layers } = useTheme();
+  const { sys, ref, motion, elevation } = layers;
+
+  // Base style
   const baseStyle: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
     outline: 'none',
-    borderRadius: 'var(--md-sys-shape-corner-medium)',
+    borderRadius: ref.shape.medium,
     cursor: disabled ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.38 : 1,
     pointerEvents: disabled ? 'none' : 'auto',
     border: 'none',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    width: fullWidth ? '100%' : 'auto',
+    gap: ref.spacing[2]
   };
 
-  // Variant styles using MD3 design tokens
+  // Variant styles
   const getVariantStyles = (): React.CSSProperties => {
     switch (variant) {
       case 'filled':
         return {
-          backgroundColor: 'var(--md-sys-color-primary)',
-          color: 'var(--md-sys-color-on-primary)',
-          boxShadow: 'var(--md-sys-elevation-level0)'
+          backgroundColor: sys.colors.primary,
+          color: sys.colors.onPrimary,
+          boxShadow: elevation.level1
         };
       case 'outlined':
         return {
           backgroundColor: 'transparent',
-          color: 'var(--md-sys-color-primary)',
-          border: '1px solid var(--md-sys-color-outline)'
+          color: sys.colors.primary,
+          border: `1px solid ${sys.colors.outline}`
         };
       case 'text':
         return {
           backgroundColor: 'transparent',
-          color: 'var(--md-sys-color-primary)'
+          color: sys.colors.primary
         };
       case 'tonal':
         return {
-          backgroundColor: 'var(--md-sys-color-secondary-container)',
-          color: 'var(--md-sys-color-on-secondary-container)'
+          backgroundColor: sys.colors.secondaryContainer,
+          color: sys.colors.onSecondaryContainer
         };
       case 'elevated':
         return {
-          backgroundColor: 'var(--md-sys-color-surface-container-low)',
-          color: 'var(--md-sys-color-primary)',
-          boxShadow: 'var(--md-sys-elevation-level1)'
+          backgroundColor: sys.colors.surfaceContainerLow,
+          color: sys.colors.primary,
+          boxShadow: elevation.level2
         };
       default:
         return {
-          backgroundColor: 'var(--md-sys-color-primary)',
-          color: 'var(--md-sys-color-on-primary)'
+          backgroundColor: sys.colors.primary,
+          color: sys.colors.onPrimary
         };
     }
   };
 
-  // Size styles using MD3 spacing tokens
+  // Size styles
   const getSizeStyles = (): React.CSSProperties => {
     switch (size) {
       case 'small':
         return {
-          height: 'var(--md-sys-spacing-9)', // 36px
-          padding: '0 var(--md-sys-spacing-4)', // 0 16px
-          gap: 'var(--md-sys-spacing-2)', // 8px
-          borderRadius: 'var(--md-sys-shape-corner-small)',
-          fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-          fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
-          lineHeight: 'var(--md-sys-typescale-label-medium-line-height)',
-          letterSpacing: 'var(--md-sys-typescale-label-medium-letter-spacing)'
+          height: ref.spacing[9],
+          padding: `0 ${ref.spacing[4]}`,
+          borderRadius: ref.shape.small,
+          fontSize: ref.typography.labelMedium.fontSize,
+          fontWeight: ref.typography.labelMedium.fontWeight,
+          lineHeight: ref.typography.labelMedium.lineHeight,
+          letterSpacing: ref.typography.labelMedium.letterSpacing
         };
       case 'large':
         return {
-          height: 'var(--md-sys-spacing-12)', // 48px
-          padding: '0 var(--md-sys-spacing-6)', // 0 24px
-          gap: 'var(--md-sys-spacing-2)', // 8px
-          borderRadius: 'var(--md-sys-shape-corner-large)',
-          fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-          fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-          lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-          letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)'
-        };
-      default: // medium
-        return {
-          height: 'var(--md-sys-spacing-10)', // 40px
-          padding: '0 var(--md-sys-spacing-6)', // 0 24px
-          gap: 'var(--md-sys-spacing-2)', // 8px
-          borderRadius: 'var(--md-sys-shape-corner-medium)',
-          fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-          fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-          lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-          letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)'
-        };
-    }
-  };
-
-  // Hover and focus styles
-  const getHoverStyles = (): React.CSSProperties => {
-    if (disabled) return {};
-
-    switch (variant) {
-      case 'filled':
-        return {
-          boxShadow: 'var(--md-sys-elevation-level1)',
-          backgroundColor: 'var(--md-sys-color-primary-hover)' // This might need to be calculated
-        };
-      case 'outlined':
-        return {
-          backgroundColor: 'var(--md-sys-color-primary-container)',
-          borderColor: 'var(--md-sys-color-primary)'
-        };
-      case 'text':
-        return {
-          backgroundColor: 'var(--md-sys-color-primary-container)'
-        };
-      case 'tonal':
-        return {
-          boxShadow: 'var(--md-sys-elevation-level1)'
-        };
-      case 'elevated':
-        return {
-          boxShadow: 'var(--md-sys-elevation-level2)'
+          height: ref.spacing[12],
+          padding: `0 ${ref.spacing[6]}`,
+          borderRadius: ref.shape.large,
+          fontSize: ref.typography.labelLarge.fontSize,
+          fontWeight: ref.typography.labelLarge.fontWeight,
+          lineHeight: ref.typography.labelLarge.lineHeight,
+          letterSpacing: ref.typography.labelLarge.letterSpacing
         };
       default:
-        return {};
+        // medium
+        return {
+          height: ref.spacing[10],
+          padding: `0 ${ref.spacing[6]}`,
+          borderRadius: ref.shape.medium,
+          fontSize: ref.typography.labelLarge.fontSize,
+          fontWeight: ref.typography.labelLarge.fontWeight,
+          lineHeight: ref.typography.labelLarge.lineHeight,
+          letterSpacing: ref.typography.labelLarge.letterSpacing
+        };
     }
   };
 
   const combinedStyle: React.CSSProperties = {
     ...baseStyle,
     ...getVariantStyles(),
-    ...getSizeStyles(),
-    ...(fullWidth && { width: '100%' })
+    ...getSizeStyles()
   };
 
   return (
@@ -164,20 +134,19 @@ const M3Button: React.FC<M3ButtonProps> = ({
       title={title}
       style={combinedStyle}
       onMouseEnter={(e) => {
-        if (!disabled) {
-          const hoverStyles = getHoverStyles();
-          Object.assign(e.currentTarget.style, hoverStyles);
+        if (!disabled && variant === 'filled') {
+          e.currentTarget.style.backgroundColor = sys.colors.primaryHover;
+          e.currentTarget.style.boxShadow = elevation.level1;
         }
       }}
       onMouseLeave={(e) => {
         if (!disabled) {
-          // Reset to original styles
           Object.assign(e.currentTarget.style, combinedStyle);
         }
       }}
       onFocus={(e) => {
         if (!disabled) {
-          e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
+          e.currentTarget.style.outline = `2px solid ${sys.colors.primary}`;
           e.currentTarget.style.outlineOffset = '2px';
         }
       }}
@@ -196,5 +165,3 @@ const M3Button: React.FC<M3ButtonProps> = ({
 };
 
 export default M3Button;
-
-

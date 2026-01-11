@@ -329,7 +329,9 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                     Materiali
                                 </h3>
                                 <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="tonal" className="lesson-view-materials-add-button">
-                                    <span className="material-symbols-outlined">add</span>
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>add</span>
                                 </M3Button>
                             </div>
                             
@@ -355,11 +357,15 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                             <div className="lesson-view-material-actions">
                                                 {material.type === 'file' && (
                                                     <M3Button onClick={() => handleDownloadMaterial(material)} variant="text" className="lesson-view-material-download" title="Scarica">
-                                                        <span className="material-symbols-outlined">download</span>
+                                                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>download</span>
                                                     </M3Button>
                                                 )}
                                                 <M3Button onClick={() => handleRemoveMaterial(material.id)} variant="text" className="lesson-view-material-remove" title="Rimuovi">
-                                                    <span className="material-symbols-outlined">close</span>
+                                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>close</span>
                                                 </M3Button>
                                             </div>
                                         </div>
@@ -412,10 +418,14 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                 <div className="lesson-view-actions-buttons">
                     <div className="lesson-view-export-buttons">
                         <M3Button onClick={handleExportDocx} disabled={isExporting} variant="tonal" className="lesson-view-export-docx" title="Esporta Word">
-                            <span className="material-symbols-outlined">description</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>description</span>
                         </M3Button>
                         <M3Button onClick={handleExport} disabled={isExporting} variant="tonal" className="lesson-view-export-pdf" title="Esporta PDF">
-                            <span className="material-symbols-outlined">picture_as_pdf</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>picture_as_pdf</span>
                         </M3Button>
                     </div>
                     <M3Button onClick={onClose} variant="text" className="lesson-view-close-button">Chiudi</M3Button>

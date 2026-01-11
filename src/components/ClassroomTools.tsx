@@ -61,7 +61,9 @@ const TimerWidget: React.FC = () => {
                     className="classroom-tools-timer-reset-button button button-tonal" 
                     title="Reset"
                 >
-                    <span className="material-symbols-outlined">restart_alt</span>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>restart_alt</span>
                 </button>
                 <button 
                     onClick={handleStartPause} 

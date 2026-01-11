@@ -89,7 +89,9 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                 </div>
 
                 {/* Description */}
-                <InfoCard title="Introduzione" variant="elevated" className="p-4">
+                <InfoCard title="Introduzione" variant="elevated" style={{
+  padding: 'var(--md-sys-spacing-4)'
+}}>
                     <p className="text-on-surface leading-relaxed">
                         {uda.introduction}
                     </p>
@@ -115,10 +117,14 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
 
                 {/* Additional Info Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" className="p-4">
+                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" style={{
+  padding: 'var(--md-sys-spacing-4)'
+}}>
                         <p className="text-sm text-on-surface">{uda.finalProduct}</p>
                     </InfoCard>
-                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" className="p-4">
+                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" style={{
+  padding: 'var(--md-sys-spacing-4)'
+}}>
                         <p className="text-sm text-on-surface">{uda.evaluation}</p>
                     </InfoCard>
                 </div>

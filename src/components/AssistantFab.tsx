@@ -142,7 +142,9 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           aria-label="Assistente AI"
           onClick={handleFabClick}
         >
-          <span className="material-symbols-outlined">auto_mode</span>
+          <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>auto_mode</span>
         </button>
         {menuOpen && (
           <>
@@ -160,7 +162,9 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       aria-label="Chiudi menu assistente"
                       onClick={() => setMenuOpen(false)}
                     >
-                      <span className="material-symbols-outlined">close</span>
+                      <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>close</span>
                     </button>
                   </div>
                   <div className="assistant-fab-sheet-actions">
@@ -191,7 +195,9 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                   className="assistant-fab-menu-close"
                   onClick={() => setMenuOpen(false)}
                 >
-                  <span className="material-symbols-outlined">close</span>
+                  <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>close</span>
                 </button>
                 {ACTIONS.map((a, i) => {
                   const offset = (i + 1) * 72; // spacing between actions
@@ -209,7 +215,9 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       onClick={() => handleAction(a)}
                       aria-label={a.label}
                     >
-                      <span className="material-symbols-outlined">{a.icon}</span>
+                      <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>{a.icon}</span>
                       <span className="assistant-fab-menu-label">{a.label}</span>
                     </button>
                   );

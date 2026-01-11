@@ -112,7 +112,9 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
             <M3DialogContent className="space-y-6">
                 {step === 'upload' && (
                     <>
-                        <div className="space-y-4">
+                        <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                             <SelectField
                                 label="Seleziona il tuo Registro Elettronico"
                                 value={provider}
@@ -159,7 +161,9 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
 
                         {error && (
                             <div className="p-8 rounded-[var(--md-sys-shape-corner-medium)] bg-error-container text-on-error-container flex items-center gap-6">
-                                <span className="material-symbols-outlined">error</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>error</span>
                                 <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">{error}</p>
                             </div>
                         )}

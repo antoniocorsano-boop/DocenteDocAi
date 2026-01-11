@@ -424,7 +424,9 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 <div className="reportistica-hub-actions">
                     <M3Button 
                         variant="tonal" 
-                        startIcon={<span className="material-symbols-outlined">folder_zip</span>}
+                        startIcon={<span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>folder_zip</span>}
                         onClick={() => setIsBatchExportOpen(true)}
                     >
                         Export Massivo
@@ -466,7 +468,9 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     </div>
                 </div>
 
-                <div className="space-y-4">
+                <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                     <SectionHeader title="Documenti Recenti" icon="history" />
                     <div className="space-y-3">
                         {recentDocs.length > 0 ? recentDocs.map(doc => (
@@ -493,7 +497,9 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             </div>
 
             {/* --- ARCHIVE --- */}
-            <div className="space-y-4">
+            <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                 <SectionHeader title="Archivio Report" icon="inventory_2" />
                 <ArchivioReport 
                     reportistica={props.reportistica} 

@@ -119,7 +119,9 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <span className="material-symbols-outlined" style={{
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                             fontSize: '20px',
                             color: 'var(--md-sys-color-on-primary-container)'
                         }}>chat</span>
@@ -221,7 +223,9 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             alignItems: 'center',
                             justifyContent: 'center'
                         }}>
-                            <span className="material-symbols-outlined" style={{
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                                 fontSize: '32px',
                                 color: 'var(--md-sys-color-on-secondary-container)'
                             }}>quiz</span>
@@ -269,7 +273,9 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             e.currentTarget.style.transform = 'scale(1)';
                         }}
                     >
-                        <span className="material-symbols-outlined" style={{
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                             fontSize: '18px',
                             color: 'var(--md-sys-color-on-secondary-container)'
                         }}>summarize</span>
@@ -302,7 +308,9 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             e.currentTarget.style.transform = 'scale(1)';
                         }}
                     >
-                        <span className="material-symbols-outlined" style={{
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                             fontSize: '18px',
                             color: 'var(--md-sys-color-on-tertiary-container)'
                         }}>quiz</span>
@@ -335,7 +343,9 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             e.currentTarget.style.transform = 'scale(1)';
                         }}
                     >
-                        <span className="material-symbols-outlined" style={{
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                             fontSize: '18px',
                             color: 'var(--md-sys-color-on-primary-container)'
                         }}>key</span>
@@ -404,7 +414,9 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                     }}
                 >
-                    <span className="material-symbols-outlined" style={{
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                         fontSize: '20px'
                     }}>send</span>
                 </button>

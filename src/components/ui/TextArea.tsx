@@ -79,9 +79,8 @@ const TextArea: React.FC<TextAreaProps> = ({
                 />
                 {error && errorMessage && (
                     <span
-                        // eslint-disable-next-line design-system/no-classname
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             position: 'absolute',
                             left: 'var(--md-sys-spacing-2)',
                             top: 'var(--md-sys-spacing-2)',
@@ -106,9 +105,8 @@ const TextArea: React.FC<TextAreaProps> = ({
                     }}
                 >
                     <span
-                        // eslint-disable-next-line design-system/no-classname
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
                             fontSize: 'var(--md-sys-typescale-body-small-font-size)'
                         }}

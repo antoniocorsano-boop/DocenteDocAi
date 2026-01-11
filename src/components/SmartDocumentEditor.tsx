@@ -288,7 +288,9 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             {/* TOOLBAR */}
             <div className="smart-document-editor-toolbar">
                 <div className="smart-document-editor-toolbar-left">
-                    <button onClick={handleCloseSafe} className="icon-button" aria-label="Chiudi editor"><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
+                    <button onClick={handleCloseSafe} className="icon-button" aria-label="Chiudi editor"><span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">arrow_back</span></button>
                     <input 
                         type="text" 
                         value={editorTitle} 

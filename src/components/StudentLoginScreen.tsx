@@ -71,7 +71,9 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                         <div className="space-y-2">
                             <span className="text-xs font-black uppercase tracking-[0.4em] text-secondary opacity-70">Portale Studenti</span>
                             <h1 className="text-6xl font-black tracking-tighter text-[var(--md-sys-color-on-surface)] leading-none">
-                                Accesso<br /><span className="text-primary">Diario</span>
+                                Accesso<br /><span style={{
+  color: 'var(--md-sys-color-primary)'
+}}>Diario</span>
                             </h1>
                             <p className="text-xl font-medium text-[var(--md-sys-color-on-surface)]-variant opacity-70 pt-4">
                                 {welcomeMessage}
@@ -80,7 +82,9 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                     </div>
 
                     <div className="pt-12 border-t border-[var(--md-sys-color-outline-variant)]/20">
-                        <blockquote className="space-y-4">
+                        <blockquote style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                             <p className="text-2xl font-serif italic text-[var(--md-sys-color-on-surface)]-variant leading-relaxed">
                                 "{quote.text}"
                             </p>
@@ -116,7 +120,9 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                         </div>
 
                         {step === 'class' && (
-                            <div className="space-y-8">
+                            <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                                 <p className="text-sm font-black uppercase tracking-widest text-center text-[var(--md-sys-color-on-surface)]-variant opacity-60 lg:text-left">Seleziona la tua classe</p>
                                 <div className="grid grid-cols-2 gap-8">
                                     {uniqueClasses.map(cls => (
@@ -145,7 +151,9 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                         )}
 
                     {step === 'credentials' && (
-                        <form onSubmit={handleLogin} className="space-y-8">
+                        <form onSubmit={handleLogin} style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                             <div className="bg-primary/5 p-6 rounded-[var(--md-sys-shape-corner-large)] border border-primary/10 flex items-center justify-between">
                                  <div className="space-y-1">
                                     <p className="text-[10px] font-black uppercase text-primary tracking-widest opacity-70">Classe Selezionata</p>

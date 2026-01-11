@@ -84,9 +84,8 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     {children}
                 </select>
                 <span
-                    // eslint-disable-next-line design-system/no-classname
-                    className="material-symbols-outlined"
                     style={{
+                        fontFamily: 'Material Symbols Outlined',
                         position: 'absolute',
                         right: 'var(--md-sys-spacing-2)',
                         top: '50%',
@@ -102,9 +101,8 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 </span>
                 {error && (
                     <span
-                        // eslint-disable-next-line design-system/no-classname
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             position: 'absolute',
                             left: 'var(--md-sys-spacing-2)',
                             top: '50%',
@@ -129,9 +127,8 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     }}
                 >
                     <span
-                        // eslint-disable-next-line design-system/no-classname
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
                             fontSize: 'var(--md-sys-typescale-body-small-font-size)'
                         }}

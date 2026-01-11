@@ -99,7 +99,10 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
       onClose={onClose}
       maxWidth="xl"
     >
-      <M3DialogContent className="py-4">
+      <M3DialogContent style={{
+  paddingTop: 'var(--md-sys-spacing-4)',
+  paddingBottom: 'var(--md-sys-spacing-4)'
+}}>
         {!isAuthenticated ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">

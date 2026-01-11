@@ -145,7 +145,9 @@ const TabGroup: React.FC<TabGroupProps> = ({
                     >
                         {tab.icon && (
                             <span
-                                className="material-symbols-outlined"
+                                style={{
+  fontFamily: 'Material Symbols Outlined'
+}}
                                 style={{
                                     fontSize: 'var(--md-sys-typescale-label-small-font-size)'
                                 }}

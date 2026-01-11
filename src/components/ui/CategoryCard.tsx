@@ -105,7 +105,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                 e.currentTarget.style.transform = 'rotate(0deg) scale(1)';
             }}
         >
-            <span className="material-symbols-outlined" style={{
+            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{
                 fontSize: '28px'
             }}>{icon}</span>
         </div>

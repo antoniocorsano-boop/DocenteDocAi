@@ -119,7 +119,9 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                             <div className="feed-manager-source-header">
                                 <div className="feed-manager-source-info">
                                     <div className="feed-manager-source-icon-container">
-                                        <span className="material-symbols-outlined">rss_feed</span>
+                                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>rss_feed</span>
                                     </div>
                                     <div className="feed-manager-source-details">
                                         <p className="feed-manager-source-title">{source.title}</p>
@@ -132,7 +134,9 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                         variant="text" 
                                         className="feed-manager-source-delete-button"
                                     >
-                                        <span className="material-symbols-outlined">delete</span>
+                                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>delete</span>
                                     </M3Button>
                                     <M3Button 
                                         onClick={() => handleCheckForUpdates(source)} 

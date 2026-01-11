@@ -53,7 +53,9 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     const sortedClasses = Object.keys(studentsByClass).sort();
 
     const renderOverview = () => (
-        <div className="space-y-8">
+        <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
             <InfoCard
                 variant="tertiary"
                 style={{ padding: 'var(--md-sys-spacing-5)' }}
@@ -70,7 +72,9 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
             </InfoCard>
 
             {sortedClasses.map(className => (
-                <div key={className} className="space-y-4">
+                <div key={className} style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                     <div className="flex items-center gap-6 px-4">
                         <div className="h-px flex-grow bg-outline-variant/30"></div>
                         <span className="text-sm font-bold uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant/60">Classe {className}</span>
@@ -105,7 +109,9 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                             </div>
                                         </div>
                                         <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${hasPlan ? 'bg-tertiary/10 text-tertiary' : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)]-variant group-hover:bg-primary/10 group-hover:text-primary'}`}>
-                                            <span className="material-symbols-outlined">{hasPlan ? 'edit' : 'add'}</span>
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>{hasPlan ? 'edit' : 'add'}</span>
                                         </div>
                                     </div>
                                 </InfoCard>
@@ -184,7 +190,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 </div>
                             </div>
                             <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant mb-8">
-                                Le performance recenti suggeriscono la necessità di un piano personalizzato.
+                                Le performance recenti suggeriscono la necessitï¿½ di un piano personalizzato.
                             </p>
                             <M3Button 
                                 onClick={() => setEditingStudent(student)} 
@@ -217,8 +223,13 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 className="py-12 text-center"
             />
 
-            <div className="space-y-8">
-                <div className="flex justify-center">
+            <div style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
+                <div style={{
+  display: 'flex',
+  justifyContent: 'center'
+}}>
                     <TabGroup
                         activeTab={activeTab}
                         onTabChange={(id) => setActiveTab(id)}

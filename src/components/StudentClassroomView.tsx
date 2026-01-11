@@ -125,7 +125,9 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                     </div>
                 </div>
                 <M3Button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} variant="tonal" className="!w-12 !h-12 !p-0 !rounded-full text-error">
-                    <span className="material-symbols-outlined">power_settings_new</span>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>power_settings_new</span>
                 </M3Button>
                 
                 {isExitMenuOpen && (
@@ -145,7 +147,9 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 onClick={() => { setIsPinModalOpen(true); setIsExitMenuOpen(false); }}
                                 className="p-8 text-left hover:bg-error/10 text-error rounded-[var(--md-sys-shape-corner-medium)] flex items-center gap-8 transition-colors mt-4"
                             >
-                                <span className="material-symbols-outlined">lock</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>lock</span>
                                 <div className="space-y-0.5">
                                     <p className="font-black text-xs uppercase tracking-widest">Menu Docente</p>
                                     <p className="text-[10px] opacity-70">Richiede PIN di sicurezza</p>
@@ -225,7 +229,9 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 icon="pending_actions" 
                                 className="!mb-0"
                             />
-                            <div className="space-y-4">
+                            <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                                 {pendingHomework.map(lesson => (
                                     <M3ExpressiveCard key={lesson.id} className="p-8 border-l-8 border-l-primary">
                                         <div className="flex justify-between items-start mb-8">

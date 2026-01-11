@@ -71,7 +71,9 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                 </div>
 
                 {/* Add Entry Section */}
-                <div className="space-y-4">
+                <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                     <h4 className="m3-title-large font-black">Aggiungi Documento/Riflessione</h4>
                     <div className="flex flex-col sm:flex-row gap-8">
                         <div className="flex-1">
@@ -98,7 +100,9 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                 </div>
 
                 {/* Entries List */}
-                <div className="space-y-4">
+                <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                     <h4 className="m3-title-large font-black">Documenti Caricati</h4>
                     <div className="space-y-2">
                         {entries.length === 0 ? (

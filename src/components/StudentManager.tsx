@@ -73,7 +73,9 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   title="Ripristina Studente come attivo"
                   aria-label={`Ripristina ${student.cognome} ${student.nome} come studente attivo`}
               >
-                  <span className="material-symbols-outlined" aria-hidden="true">restore_from_trash</span>
+                  <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">restore_from_trash</span>
               </M3Button>
           ) : (
               <>
@@ -84,7 +86,9 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                       title="Cambia classe o trasferisci studente"
                       aria-label={`Cambia classe per ${student.cognome} ${student.nome}`}
                   >
-                      <span className="material-symbols-outlined" aria-hidden="true">transfer_within_a_station</span>
+                      <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">transfer_within_a_station</span>
                   </M3Button>
                   <M3Button 
                       onClick={() => onEdit(student)} 
@@ -93,7 +97,9 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                       title="Modifica dati studente"
                       aria-label={`Modifica dati per ${student.cognome} ${student.nome}`}
                   >
-                      <span className="material-symbols-outlined" aria-hidden="true">edit</span>
+                      <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">edit</span>
                   </M3Button>
               </>
           )}
@@ -104,7 +110,9 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
               title="Elimina studente definitivamente"
               aria-label={`Elimina ${student.cognome} ${student.nome} dal sistema`}
           >
-              <span className="material-symbols-outlined" aria-hidden="true">delete</span>
+              <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">delete</span>
           </M3Button>
       </div>
     </div>

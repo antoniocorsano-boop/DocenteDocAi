@@ -6,7 +6,9 @@
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
-import [ComponentName] from './[ComponentName]';
+
+// TODO: Replace [ComponentName] with your actual component
+const ComponentName = (props: any) => <div>Replace with your component</div>;
 
 const meta = {
   title: 'MD3 Components/[ComponentName]',

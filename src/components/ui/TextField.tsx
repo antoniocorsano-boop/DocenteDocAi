@@ -71,9 +71,8 @@ const TextField: React.FC<TextFieldProps> = ({
             >
                 {leadingIcon && (
                     <span
-                        // eslint-disable-next-line design-system/no-classname
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             color: isFocused
                                 ? 'var(--md-sys-color-primary)'
                                 : 'color-mix(in srgb, var(--md-sys-color-on-surface-variant), var(--md-sys-state-opacity-disabled))',
@@ -142,9 +141,8 @@ const TextField: React.FC<TextFieldProps> = ({
                 </div>
                 {error && (
                     <span
-                        // eslint-disable-next-line design-system/no-classname
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
                             fontSize: 'var(--md-sys-spacing-4)'
                         }}
@@ -165,9 +163,8 @@ const TextField: React.FC<TextFieldProps> = ({
                     }}
                 >
                     <span
-                        // eslint-disable-next-line design-system/no-classname
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
                             fontSize: 'var(--md-sys-typescale-body-small-font-size)'
                         }}

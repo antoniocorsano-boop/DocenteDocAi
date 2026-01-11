@@ -191,7 +191,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     title="Torna indietro"
                     aria-label="Chiudi vista lezione e torna alla lista lezioni"
                 >
-                    <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">arrow_back</span>
                 </button>
 
                 <div className="classroom-view-attendance-summary">
@@ -237,7 +239,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             <div className="classroom-view-content">
 
                 {activeTab === 'register' && (
-                    <div className="space-y-4">
+                    <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                         {lesson.obiettivi && (
                             <div className="bg-[var(--md-sys-color-surface-container)] p-6 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)] mb-8">
                                 <p className="m3-label-small font-bold text-primary uppercase mb-8">Obiettivi Didattici</p>
@@ -368,7 +372,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                     className="icon-button text-[var(--md-sys-color-on-surface)]-variant"
                                                     aria-label={`Azioni per ${student.name}`}
                                                 >
-                                                    <span className="material-symbols-outlined" aria-hidden="true">more_vert</span>
+                                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">more_vert</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -426,7 +432,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 {lesson.materialiDidattici.map(mat => (
                                     <div key={mat.id} className="bg-surface p-6 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)] flex items-center gap-6 cursor-pointer active:bg-[var(--md-sys-color-surface-container)]" onClick={() => handlePreviewMaterial(mat)}>
                                         <div className="w-10 h-10 rounded-[var(--md-sys-shape-corner-small)] bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
-                                            <span className="material-symbols-outlined">
+                                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>
                                                 {mat.type === 'link' ? 'link' : 'article'}
                                             </span>
                                         </div>
@@ -459,7 +467,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
             <div className="fixed bottom-6 right-6 z-30">
                 <button onClick={onOpenLiveAssistant} className="fab bg-tertiary-container text-on-tertiary-container shadow-[var(--md-sys-elevation-level2)]">
-                    <span className="material-symbols-outlined">mic</span>
+                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>mic</span>
                 </button>
             </div>
 
@@ -485,7 +495,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 className="flex flex-col items-center gap-8 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary-container/30 hover:bg-primary-container/50 transition-colors group"
                             >
                                 <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] group-hover:scale-110 transition-transform">
-                                    <span className="material-symbols-outlined">grading</span>
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>grading</span>
                                 </div>
                                 <span className="m3-label-tiny font-black uppercase tracking-wider text-primary">Voto</span>
                             </button>
@@ -494,7 +506,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 className="flex flex-col items-center gap-8 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] bg-secondary-container/30 hover:bg-secondary-container/50 transition-colors group"
                             >
                                 <div className="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] group-hover:scale-110 transition-transform">
-                                    <span className="material-symbols-outlined">visibility</span>
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>visibility</span>
                                 </div>
                                 <span className="m3-label-tiny font-black uppercase tracking-wider text-secondary">Osserva</span>
                             </button>
@@ -503,7 +517,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 className="flex flex-col items-center gap-8 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-high)]/50 hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors group"
                             >
                                 <div className="w-12 h-12 rounded-full bg-on-surface-variant text-surface flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] group-hover:scale-110 transition-transform">
-                                    <span className="material-symbols-outlined">person</span>
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>person</span>
                                 </div>
                                 <span className="m3-label-tiny font-black uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant">Profilo</span>
                             </button>

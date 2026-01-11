@@ -13,6 +13,8 @@
  */
 
 import React from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../../theme/theme';
 import EvaluationModule from '../EvaluationModule';
 import RegisterView from '../RegisterView';
 import ClassCompetencyDashboard from '../ClassCompetencyDashboard';

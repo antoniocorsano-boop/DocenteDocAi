@@ -129,7 +129,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                 className="analytics-hub-chart-button"
                                 title="Trend Temporale"
                             >
-                                <span className="material-symbols-outlined">show_chart</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>show_chart</span>
                             </M3Button>
                             <M3Button 
                                 onClick={() => setChartType('radar')} 
@@ -137,7 +139,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                 className="analytics-hub-chart-button"
                                 title="Radar Competenze"
                             >
-                                <span className="material-symbols-outlined">radar</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>radar</span>
                             </M3Button>
                             <M3Button 
                                 onClick={() => setChartType('dist')} 
@@ -145,7 +149,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                 className="analytics-hub-chart-button"
                                 title="Distribuzione Voti"
                             >
-                                <span className="material-symbols-outlined">bar_chart</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>bar_chart</span>
                             </M3Button>
                         </div>
                     </div>
@@ -181,7 +187,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         {isAiLoading ? (
                             <AiThinkingGem size="small" text="Elaborazione Insight..." inline />
                         ) : (
-                            <div className="space-y-4">
+                            <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                                 <div className="flex gap-8">
                                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                         <span className="material-symbols-outlined text-primary">lightbulb</span>

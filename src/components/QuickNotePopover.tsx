@@ -43,7 +43,9 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
                         className="m3-interactive-close"
                         aria-label="Chiudi nota"
                     >
-                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
                             close
                         </span>
                     </button>

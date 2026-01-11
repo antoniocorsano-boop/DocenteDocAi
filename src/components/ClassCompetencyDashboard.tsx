@@ -126,7 +126,9 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 </div>
             </div>
 
-            <div className="space-y-4">
+            <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                 {competencySummaries.map(summary => {
                     const notEvaluatedCount = classStudents.length - summary.totalEvaluated;
                     return (

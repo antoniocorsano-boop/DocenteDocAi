@@ -535,7 +535,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </div>
 
                                             <button onClick={() => removeUdaFromPlan(idx)} className="icon-button text-error hover:bg-error-container/30 !w-8 !h-8" title="Rimuovi UDA" aria-label="Rimuovi questa UDA dal piano">
-                                                <span className="material-symbols-outlined" aria-hidden="true">delete</span>
+                                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}} aria-hidden="true">delete</span>
                                             </button>
                                         </div>
                                     ))}
@@ -599,7 +601,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <M3Button onClick={handleGenerateDoc} disabled={isProcessing} variant="filled" className="flex items-center gap-6 px-8 py-6 rounded-[var(--md-sys-shape-corner-large)]" title="Scarica il documento finale">
                                 {isProcessing ? <AiThinkingGem size="small" inline text="Generazione..." /> : (
                                     <>
-                                        <span className="material-symbols-outlined">description</span>
+                                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>description</span>
                                         Genera Documento Word
                                     </>
                                 )}

@@ -134,7 +134,9 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
               }}
             >
               <span
-                className="material-symbols-outlined"
+                style={{
+  fontFamily: 'Material Symbols Outlined'
+}}
                 style={{
                   fontSize: 'var(--md-sys-spacing-7)', // 28px
                   color: active ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',

@@ -127,7 +127,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 className="curriculum-manager-nucleus-delete-button" 
                                 title="Elimina Nucleo"
                             >
-                                <span className="material-symbols-outlined">delete</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>delete</span>
                             </M3Button>
                         </div>
                         <div className="curriculum-manager-objectives-container">
@@ -191,7 +193,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                 <div className="curriculum-manager-sidebar">
                     <div className="curriculum-manager-sidebar-header">
                         <M3Button onClick={() => onNavigate('home')} variant="text" className="curriculum-manager-sidebar-back-button">
-                            <span className="material-symbols-outlined">arrow_back</span>
+                            <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>arrow_back</span>
                         </M3Button>
                         <h1 className="curriculum-manager-sidebar-title">Curricoli</h1>
                     </div>

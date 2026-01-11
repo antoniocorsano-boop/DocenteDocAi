@@ -15,7 +15,9 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => (
             <p className="m3-label-small text-primary uppercase font-black tracking-[0.2em] opacity-70">Scenario</p>
         </div>
         <p className="m3-title-large font-extrabold mb-5 leading-tight italic">"{scenario}"</p>
-        <ol className="space-y-4">
+        <ol style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
             {steps.map((step, i) => (
                 <li key={i} className="flex gap-8 items-start group">
                     <span className="w-6 h-6 rounded-full bg-[var(--md-sys-color-surface-container-high)]est flex items-center justify-center text-[10px] font-black flex-shrink-0 mt-0.5 group-hover:bg-primary group-hover:text-on-primary transition-colors">{i + 1}</span>

@@ -297,7 +297,9 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                     maxWidth="2xl"
                     level={2}
                 >
-                    <M3DialogContent className="space-y-8">
+                    <M3DialogContent style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                         <p className="m3-label-tiny text-primary font-extrabold uppercase tracking-[0.3em]">{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
                         {matchingCurriculum.nuclei.map(nucleo => (
                             <details key={nucleo.id} className="m3-expansion-panel shadow-[var(--md-sys-elevation-level1)] !rounded-4xl" open>

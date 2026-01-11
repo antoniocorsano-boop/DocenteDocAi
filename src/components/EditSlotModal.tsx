@@ -93,8 +93,13 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent className="space-y-8">
-                <div className="px-4">
+            <M3DialogContent style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
+                <div style={{
+  paddingLeft: 'var(--md-sys-spacing-4)',
+  paddingRight: 'var(--md-sys-spacing-4)'
+}}>
                     <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-primary font-extrabold uppercase tracking-[0.2em]">{slot.giorno} • {slot.ora}</p>
                 </div>
 

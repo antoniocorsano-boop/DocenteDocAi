@@ -1,32 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/vitest';
 import React from 'react';
 import M3Button from '../src/components/ui/M3Button';
 import { M3ThemeProvider } from '../src/theme/theme';
-
-// Mock window for responsive behavior
-beforeEach(() => {
-  Object.defineProperty(window, 'innerWidth', {
-    writable: true,
-    value: 1024
-  });
-
-  // Mock matchMedia for theme detection
-  Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: (query: string) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addListener: () => {},
-      removeListener: () => {},
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      dispatchEvent: () => {},
-    }),
-  });
-});
 
 /**
  * M3 Accessibility Tests
@@ -34,6 +10,28 @@ beforeEach(() => {
  */
 
 describe('M3 Accessibility Tests', () => {
+  beforeEach(() => {
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      value: 1024
+    });
+    
+    // Mock matchMedia for theme detection
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: (query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: () => {},
+        removeListener: () => {},
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        dispatchEvent: () => {},
+      }),
+    });
+  });
+
   describe('Theme Provider', () => {
     it('should render children correctly', () => {
       const { container } = render(
@@ -137,7 +135,7 @@ describe('M3 Accessibility Tests', () => {
       const button = container.querySelector('button');
       // Verifica che sia focusabile (i button sono naturalmente focusabili)
       expect(button).toBeInTheDocument();
-      expect(button!.tagName).toBe('BUTTON');
+      expect(button?.tagName).toBe('BUTTON');
     });
   });
 });

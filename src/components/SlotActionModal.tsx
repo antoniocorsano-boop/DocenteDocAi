@@ -22,7 +22,10 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
   return (
     <M3Dialog
       title={
-        <div className="flex flex-col">
+        <div style={{
+  display: 'flex',
+  flexDirection: 'column'
+}}>
           <span className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]">Lezione Programmata</span>
           <span className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{slot.giorno}, {slot.ora}</span>
         </div>

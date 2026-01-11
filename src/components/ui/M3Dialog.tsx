@@ -265,7 +265,9 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
               >
                 <span
                   // eslint-disable-next-line design-system/no-classname
-                  className="material-symbols-outlined"
+                  style={{
+  fontFamily: 'Material Symbols Outlined'
+}}
                   style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     color: 'var(--md-sys-color-on-surface-variant)'

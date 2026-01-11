@@ -114,7 +114,9 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                         <>
                             <div className="bg-[var(--md-sys-color-surface-container-high)] p-12 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/30 flex gap-12">
                                 <span className="material-symbols-outlined text-primary">info</span>
-                                <div className="space-y-4">
+                                <div style={{
+  marginTop: 'var(--md-sys-spacing-4)'
+}}>
                                     <h3 className="m3-label-large font-bold">Procedura Manuale (Privacy-Safe)</h3>
                                     <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">L'AI analizza solo il testo che incolli qui. Non accediamo direttamente ai link per privacy.</p>
                                     <ol className="list-decimal pl-8 space-y-2 m3-label-small text-[var(--md-sys-color-on-surface)]-variant/80">
@@ -152,7 +154,9 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                         <div className="space-y-12 animate-in fade-in">
                             <div className="p-12 bg-secondary-container/30 text-on-secondary-container rounded-[var(--md-sys-shape-corner-large)] border border-secondary/10">
                                 <h3 className="m3-label-large font-bold mb-12 flex items-center gap-12">
-                                    <span className="material-symbols-outlined">summarize</span>
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>summarize</span>
                                     Riepilogo AI
                                 </h3>
                                 <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] opacity-90 leading-relaxed">{result.summary}</p>

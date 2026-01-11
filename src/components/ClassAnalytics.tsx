@@ -58,7 +58,10 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]">
                         <h3 className="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-8">Media Voti per Classe</h3>
-                        <div className="flex justify-center">
+                        <div style={{
+  display: 'flex',
+  justifyContent: 'center'
+}}>
                             {classPerformanceData.length > 0 ? (
                                 <BarChart data={classPerformanceData} color="var(--sys-tertiary)" />
                             ) : (

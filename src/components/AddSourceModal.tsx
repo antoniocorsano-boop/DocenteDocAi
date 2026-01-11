@@ -61,7 +61,9 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent className="space-y-8">
+            <M3DialogContent style={{
+  marginTop: 'var(--md-sys-spacing-8)'
+}}>
                 {isLoading ? (
                     <div className="flex flex-col items-center justify-center h-64">
                         <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary"></div>
@@ -120,7 +122,9 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                     className="!h-14 !px-6 !rounded-[var(--md-sys-shape-corner-medium)]" 
                                     title={isCreating ? "Annulla creazione" : "Crea nuova raccolta"}
                                 >
-                                    <span className="material-symbols-outlined">{isCreating ? 'remove' : 'add'}</span>
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>{isCreating ? 'remove' : 'add'}</span>
                                 </M3Button>
                             </div>
                             {isCreating && (

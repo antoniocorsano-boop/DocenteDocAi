@@ -44,14 +44,18 @@ const Guidance: React.FC<GuidanceProps> = ({ id, icon, title, children, isGlobal
   return (
     <div className="guidance-card">
       <div className="guidance-icon">
-        <span className="material-symbols-outlined">{icon}</span>
+        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>{icon}</span>
       </div>
       <div className="guidance-content">
         <h3 className="m3-title-medium">{title}</h3>
         <div className="guidance-content-text">{children}</div>
       </div>
       <button onClick={dismiss} className="icon-button" aria-label="Chiudi suggerimento">
-        <span className="material-symbols-outlined">close</span>
+        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>close</span>
       </button>
     </div>
   );

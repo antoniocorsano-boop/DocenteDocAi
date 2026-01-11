@@ -155,7 +155,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
             >
                 <div className="lessons-page-idea-header">
                     <div className="lessons-page-idea-icon">
-                        <span className="material-symbols-outlined">lightbulb</span>
+                        <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>lightbulb</span>
                     </div>
                     <div>
                         <h2 className="lessons-page-idea-title">Hai un'idea per una lezione?</h2>
@@ -259,7 +261,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                         </div>
                         {(filterClass || filterUda) && (
                             <button onClick={() => { setFilterClass(''); setFilterUda(''); }} className="button button-text !py-1 !px-4" title="Rimuovi filtri">
-                                <span className="material-symbols-outlined">filter_alt_off</span>
+                                <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>filter_alt_off</span>
                             </button>
                         )}
                     </div>
@@ -271,7 +275,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                             <details key={classKey} className="m3-expansion-panel" open>
                                 <summary className="m3-expansion-summary bg-[var(--md-sys-color-surface-container-high)]est/30">
                                     <span className="m3-title-medium">Classe {classKey}</span>
-                                    <span className="material-symbols-outlined">expand_more</span>
+                                    <span style={{
+  fontFamily: 'Material Symbols Outlined'
+}}>expand_more</span>
                                 </summary>
                                 <div className="m3-expansion-content !p-8">
                                     {Object.entries(udaGroups).map(([udaKey, lessonItems]) => (
