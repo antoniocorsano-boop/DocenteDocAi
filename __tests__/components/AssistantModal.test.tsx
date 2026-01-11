@@ -12,7 +12,7 @@ describe('AssistantModal', () => {
     expect(screen.getByText('Assistente DocenteDoc AI')).toBeInTheDocument();
     expect(screen.getByText('Come posso usare questa funzione?')).toBeInTheDocument();
 
-    const input = screen.getByPlaceholderText(/Scrivi una domanda/i);
+    const input = screen.getByLabelText(/Scrivi una domanda/i);
     fireEvent.change(input, { target: { value: 'ciao' } });
 
     const sendButton = screen.getByRole('button', { name: /send/i });

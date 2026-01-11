@@ -145,8 +145,8 @@ describe('ExportModal', () => {
       />
     );
     // TabGroup per formato: PDF attivo
-    const pdfTab = screen.getByTestId('tab-pdf');
-    expect(pdfTab.className).toContain('active');
+    const pdfTab = screen.getByRole('tab', { name: 'PDF Grafico' });
+    expect(pdfTab).toHaveAttribute('aria-selected', 'true');
     // Bottone mostra "Esporta PDF"
     expect(screen.getByText(/Esporta PDF/i)).toBeInTheDocument();
   });

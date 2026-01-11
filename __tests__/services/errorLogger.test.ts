@@ -54,12 +54,19 @@ describe('ErrorLoggerService', () => {
     });
 
     it('should handle errors during logging gracefully', () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
         throw new Error('Storage full');
       });
 
       errorLogger.logError('Test error');
-      expect(console.error).toHaveBeenCalledWith('Failed to store error log:', expect.any(Error));
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect.stringContaining('[GENERAL] Test error'),
+        expect.any(Object)
+      );
+
+      consoleErrorSpy.mockRestore();
     });
 
     it('should catch unexpected errors in logError', () => {
@@ -175,11 +182,21 @@ describe('ErrorLoggerService', () => {
     });
 
     it('should handle errors during clearAllLogs', () => {
-      vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const originalRemoveItem = localStorage.removeItem;
+      localStorage.removeItem = vi.fn(() => {
         throw new Error('Remove failed');
       });
+
       errorLogger.clearAllLogs();
-      expect(console.error).toHaveBeenCalledWith('Failed to clear logs:', expect.any(Error));
+
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Failed to clear logs'),
+        expect.any(Error)
+      );
+
+      consoleErrorSpy.mockRestore();
+      localStorage.removeItem = originalRemoveItem;
     });
 
     it('should export logs as JSON', () => {

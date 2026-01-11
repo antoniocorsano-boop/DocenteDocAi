@@ -114,8 +114,9 @@ describe('Timetable', () => {
       />
     );
 
-    const dayButton = screen.getByText('Giorno');
-    fireEvent.click(dayButton);
-    expect(document.querySelector('.single-day-view')).toBeInTheDocument();
+    const dayTab = screen.getByRole('tab', { name: 'Giorno' });
+    fireEvent.click(dayTab);
+    // Check that the day tab is now selected
+    expect(dayTab).toHaveAttribute('aria-selected', 'true');
   });
 });

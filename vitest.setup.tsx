@@ -1,6 +1,29 @@
 import '@testing-library/jest-dom/vitest';
 import { vi } from 'vitest';
 
+// Override the render function globally
+vi.mock('@testing-library/react', async () => {
+  const actual = await vi.importActual('@testing-library/react');
+  const { render: rtlRender } = actual as { render: (ui: React.ReactElement, options?: Record<string, unknown>) => unknown };
+  const { M3ThemeProvider } = await import('./src/theme/theme');
+  const React = await import('react');
+
+  const renderWithTheme = (ui: React.ReactElement, options?: Record<string, unknown>) => {
+    const Wrapper = ({ children }: { children: React.ReactNode }) => (
+      React.createElement(M3ThemeProvider, null, children)
+    );
+    return rtlRender(ui, { wrapper: Wrapper, ...options });
+  };
+
+  return {
+    ...actual,
+    render: renderWithTheme,
+  };
+});
+
+// Setup root div for jsdom
+document.body.innerHTML = '<div id="root"></div>';
+
 // Mock localStorage for vitest
 const localStorageMock = (() => {
   let store: Record<string, string> = {};
@@ -27,15 +50,12 @@ Object.defineProperty(window, 'localStorage', {
 // in the jsdom environment used by the tests. Provide no-op implementations
 // so components that call them do not crash the tests.
 if (typeof window !== 'undefined') {
-	// window.scrollTo
-	// @ts-expect-error - scrollTo not in jsdom
-	if (typeof window.scrollTo !== 'function') window.scrollTo = () => {};
-	// HTMLElement.prototype.scrollTo
-	// @ts-expect-error - scrollTo not in jsdom
-	if (typeof (window.HTMLElement as unknown as { prototype: { scrollTo?: unknown } }).prototype.scrollTo !== 'function') {
-		// @ts-expect-error - scrollTo not in jsdom
-		(window.HTMLElement as unknown as { prototype: Record<string, unknown> }).prototype.scrollTo = function () {};
-	}
+  // window.scrollTo
+  if (typeof window.scrollTo !== 'function') window.scrollTo = () => {};
+  // HTMLElement.prototype.scrollTo
+  if (typeof (window.HTMLElement as unknown as { prototype: { scrollTo?: unknown } }).prototype.scrollTo !== 'function') {
+    (window.HTMLElement as unknown as { prototype: Record<string, unknown> }).prototype.scrollTo = function () {};
+  }
 }
 
 // Mock Google APIs

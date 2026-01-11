@@ -4,25 +4,26 @@ exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-pressed="false"
-    class="flex flex-col items-center gap-8 p-5 rounded-[var(--md-sys-shape-corner-large)] border-2 transition-all cursor-pointer group border-[var(--md-sys-color-outline-variant)]/20 bg-[var(--md-sys-color-surface-container)]/30 hover:border-[var(--md-sys-color-outline-variant)]/60 hover:bg-[var(--md-sys-color-surface-container)]/50"
     role="button"
+    style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-5); border-radius: var(--md-sys-shape-corner-large); border: 1px solid var(--md-sys-color-outline-variant); background-color: var(--md-sys-color-surface-container); box-shadow: var(--md-sys-elevation-level1); cursor: pointer; transition: all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: scale(1); outline: none;"
     tabindex="0"
   >
     <div
-      class="w-16 h-16 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center transition-all duration-500 group-hover:rotate-6 group-hover:scale-110"
-      style="color: blue;"
+      style="width: 64px; height: 64px; border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center; color: blue; transition: all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: rotate(0deg) scale(1);"
     >
       <span
-        class="material-symbols-outlined text-3xl"
+        class="material-symbols-outlined"
+        style="font-size: 28px;"
       >
         test
       </span>
     </div>
     <div
-      class="flex flex-col items-center gap-4"
+      style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-2);"
     >
       <span
-        class="text-sm font-black text-center tracking-tight"
+        class=""
+        style="color: var(--md-sys-color-on-surface); font-family: var(--md-sys-typescale-label-large-font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: 900; line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: -0.025em; text-align: center; margin: 0px;"
       >
         Test
       </span>

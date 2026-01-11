@@ -3,22 +3,15 @@
 exports[`InfoCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    class="m3-info-card p-6 md:p-10 shadow-[var(--md-sys-elevation-level3)] md:shadow-[var(--md-sys-elevation-level4)] backdrop-blur-2xl border border-white/10 dark:border-black/10 overflow-hidden relative group transition-all duration-500 hover:shadow-primary/10  bg-[var(--md-sys-color-surface-container)]/80 text-[var(--md-sys-color-on-surface)] border-[var(--md-sys-color-outline-variant)]/10 "
-    style="border-radius: calc(var(--shape-xl) * var(--sys-radius-multiplier));"
+    class=""
+    style="padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); background-color: var(--md-sys-color-surface-container-low); box-shadow: var(--md-sys-elevation-level-1); border: medium; position: relative; cursor: default;"
   >
     <div
-      class="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-white/20 transition-all duration-700 pointer-events-none"
-    />
-    <div
-      class="flex flex-col md:flex-row gap-8 items-start relative z-10"
+      style="display: flex; flex-direction: column; gap: 16px;"
     >
       <div
-        class="flex-grow"
-      >
-        <h3
-          class="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-extrabold mb-6 tracking-tight"
-        />
-      </div>
+        style="display: flex; flex-direction: column; gap: 12px;"
+      />
     </div>
   </div>
 </div>
