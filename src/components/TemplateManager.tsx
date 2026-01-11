@@ -151,7 +151,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                     variant="filled"
                     className="template-manager-create-button"
                   >
-                    <span className="material-symbols-outlined mr-2">add</span>
+                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add</span>
                     Nuovo Template
                   </M3Button>
                 </div>
@@ -186,7 +186,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                         <SectionHeader 
                           title={groupName} 
                           subtitle={`${groupTemplates.length} template disponibili`}
-                          className="mb-8"
+                          style={{ marginBottom: "var(--md-sys-spacing-8)" }}
                         />
                         <div className="template-manager-template-grid">
                           {groupTemplates.map(template => (
@@ -268,19 +268,19 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
   return (
     <InfoCard 
       variant="elevated" 
-      className="p-0 overflow-hidden border-[var(--md-sys-color-outline)]/50 h-full flex flex-col"
+      className="p-0 overflow-hidden border-[var(--md-sys-color-outline)]/50" style={{ height: "100%", display: "flex", flexDirection: "column" }}
       aria-label="Anteprima del documento"
       role="region"
     >
-      <div className="bg-[var(--md-sys-color-surface-container-low)] p-8 border-b border-[var(--md-sys-color-outline)]/30 flex items-center justify-between shrink-0">
-        <span className="text-[10px] font-bold uppercase tracking-widest opacity-50 ml-2">Simulazione Documento</span>
-        <div className="flex gap-4">
-          <div className="w-2 h-2 rounded-full bg-error/30"></div>
-          <div className="w-2 h-2 rounded-full bg-warning/30"></div>
-          <div className="w-2 h-2 rounded-full bg-success/30"></div>
+      <div className="bg-[var(--md-sys-color-surface-container-low)] border-[var(--md-sys-color-outline)]/30 shrink-0" style={{ padding: "var(--md-sys-spacing-8)", borderBottom: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <span className="text-[10px]" style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.5", marginLeft: "0.5rem" }}>Simulazione Documento</span>
+        <div style={{ display: "flex", gap: "var(--md-sys-spacing-4)" }}>
+          <div className="bg-error/30" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
+          <div className="bg-warning/30" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
+          <div className="bg-success/30" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
         </div>
       </div>
-      <div className="p-6 bg-white text-black shadow-inner overflow-y-auto flex-1">
+      <div className="text-black shadow-inner" style={{ padding: "var(--md-sys-spacing-6)", backgroundColor: "white", overflowY: "auto", flex: "1" }}>
         <style>
           {template.content?.customCss || ''}
         </style>
@@ -295,40 +295,40 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
           }} 
         />
         
-        <div className="my-6 py-8 border-2 border-dashed border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-medium)] flex flex-col items-center justify-center text-[var(--md-sys-color-outline)] bg-[var(--md-sys-color-surface-container-low)]/50">
-          <span className="material-symbols-outlined text-3xl mb-8">description</span>
-          <p className="text-xs font-medium">Contenuto del Documento</p>
-          <p className="text-[9px] mt-4 mb-8">(Simulazione corpo del documento)</p>
+        <div className="my-6 py-8 border-2 border-dashed border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-medium)] text-[var(--md-sys-color-outline)] bg-[var(--md-sys-color-surface-container-low)]/50" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <span className="material-symbols-outlined text-3xl" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>description</span>
+          <p style={{ fontSize: "0.75rem", fontWeight: "500" }}>Contenuto del Documento</p>
+          <p className="text-[9px]" style={{ marginTop: "var(--md-sys-spacing-4)", marginBottom: "var(--md-sys-spacing-8)" }}>(Simulazione corpo del documento)</p>
           
-          <div className="w-full px-8 space-y-3">
+          <div className="px-8" style={{ width: "100%", gap: "var(--md-sys-spacing-3)" }}>
             {template.type === 'student_profile' && (
               <>
-                <div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded w-3/4"></div>
-                <div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded w-1/2"></div>
-                <div className="grid grid-cols-3 gap-8 mt-4">
-                  <div className="h-12 bg-[var(--md-sys-color-surface-container-high)] rounded border border-[var(--md-sys-color-outline-variant)]"></div>
-                  <div className="h-12 bg-[var(--md-sys-color-surface-container-high)] rounded border border-[var(--md-sys-color-outline-variant)]"></div>
-                  <div className="h-12 bg-[var(--md-sys-color-surface-container-high)] rounded border border-[var(--md-sys-color-outline-variant)]"></div>
+                <div className="bg-[var(--md-sys-color-outline-variant)] w-3/4" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
+                <div className="bg-[var(--md-sys-color-outline-variant)] w-1/2" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--md-sys-spacing-8)", marginTop: "var(--md-sys-spacing-4)" }}>
+                  <div className="bg-[var(--md-sys-color-surface-container-high)] border-[var(--md-sys-color-outline-variant)]" style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
+                  <div className="bg-[var(--md-sys-color-surface-container-high)] border-[var(--md-sys-color-outline-variant)]" style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
+                  <div className="bg-[var(--md-sys-color-surface-container-high)] border-[var(--md-sys-color-outline-variant)]" style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
                 </div>
               </>
             )}
             {template.type === 'lesson_plan' && (
               <>
-                <div className="h-4 bg-[var(--md-sys-color-outline-variant)] rounded w-1/4 mb-8"></div>
-                <div className="space-y-2">
-                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-[var(--md-sys-color-outline)] mt-4"></div><div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded flex-1"></div></div>
-                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-[var(--md-sys-color-outline)] mt-4"></div><div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded flex-1"></div></div>
-                  <div className="flex gap-8"><div className="w-2 h-2 rounded-full bg-[var(--md-sys-color-outline)] mt-4"></div><div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded flex-1"></div></div>
+                <div className="bg-[var(--md-sys-color-outline-variant)] w-1/4" style={{ height: "1rem", borderRadius: "0.375rem", marginBottom: "var(--md-sys-spacing-8)" }}></div>
+                <div style={{ gap: "var(--md-sys-spacing-2)" }}>
+                  <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}><div className="bg-[var(--md-sys-color-outline)]" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px", marginTop: "var(--md-sys-spacing-4)" }}></div><div className="bg-[var(--md-sys-color-outline-variant)]" style={{ height: "0.5rem", borderRadius: "0.375rem", flex: "1" }}></div></div>
+                  <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}><div className="bg-[var(--md-sys-color-outline)]" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px", marginTop: "var(--md-sys-spacing-4)" }}></div><div className="bg-[var(--md-sys-color-outline-variant)]" style={{ height: "0.5rem", borderRadius: "0.375rem", flex: "1" }}></div></div>
+                  <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}><div className="bg-[var(--md-sys-color-outline)]" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px", marginTop: "var(--md-sys-spacing-4)" }}></div><div className="bg-[var(--md-sys-color-outline-variant)]" style={{ height: "0.5rem", borderRadius: "0.375rem", flex: "1" }}></div></div>
                 </div>
               </>
             )}
             {template.type === 'uda' && (
               <>
-                <div className="border border-[var(--md-sys-color-outline-variant)] rounded overflow-hidden">
-                  <div className="bg-[var(--md-sys-color-surface-container-high)] h-6 border-b border-[var(--md-sys-color-outline-variant)]"></div>
-                  <div className="p-8 space-y-2">
-                    <div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded"></div>
-                    <div className="h-2 bg-[var(--md-sys-color-outline-variant)] rounded w-5/6"></div>
+                <div className="border-[var(--md-sys-color-outline-variant)] overflow-hidden" style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem" }}>
+                  <div className="bg-[var(--md-sys-color-surface-container-high)] border-[var(--md-sys-color-outline-variant)]" style={{ height: "1.5rem", borderBottom: "1px solid var(--md-sys-color-outline)" }}></div>
+                  <div style={{ padding: "var(--md-sys-spacing-8)", gap: "var(--md-sys-spacing-2)" }}>
+                    <div className="bg-[var(--md-sys-color-outline-variant)]" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
+                    <div className="bg-[var(--md-sys-color-outline-variant)] w-5/6" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
                   </div>
                 </div>
               </>

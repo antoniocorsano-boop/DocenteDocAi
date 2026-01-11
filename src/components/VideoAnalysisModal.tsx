@@ -126,28 +126,28 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
     const renderContent = () => {
         if (hasApiKey === null) {
             return (
-                <div className="flex flex-col items-center justify-center p-20 gap-6">
+                <div className="p-20" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "var(--md-sys-spacing-6)" }}>
                     <div className="relative">
-                        <div className="w-20 h-20 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="material-symbols-outlined text-primary animate-pulse">movie</span>
+                        <div className="border-4 border-primary/20 border-t-primary animate-spin" style={{ width: "5rem", height: "5rem", borderRadius: "9999px" }}></div>
+                        <div className="absolute inset-0" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <span className="material-symbols-outlined animate-pulse" style={{ color: "var(--md-sys-color-primary)" }}>movie</span>
                         </div>
                     </div>
-                    <p className="m3-label-large font-black uppercase tracking-[0.3em] opacity-40 animate-pulse">Inizializzazione...</p>
+                    <p className="m3-label-large tracking-[0.3em] animate-pulse" style={{ fontWeight: "900", textTransform: "uppercase", opacity: "0.4" }}>Inizializzazione...</p>
                 </div>
             );
         }
 
         if (!hasApiKey) {
             return (
-                <div className="flex flex-col items-center justify-center text-center p-12 bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-5xl border border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)] max-w-2xl mx-auto mt-10 animate-in zoom-in-95 duration-500">
-                    <div className="w-24 h-24 rounded-[var(--md-sys-shape-corner-large)] bg-primary-container text-on-primary-container flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] mb-8 rotate-3">
+                <div className="p-12 bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl rounded-5xl border-[var(--md-sys-color-outline-variant)]/20 shadow-[var(--md-sys-elevation-level4)] max-w-2xl mt-10 animate-in zoom-in-95 duration-500" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", border: "1px solid var(--md-sys-color-outline)", marginLeft: "auto", marginRight: "auto" }}>
+                    <div className="rounded-[var(--md-sys-shape-corner-large)] text-on-primary-container shadow-[var(--md-sys-elevation-level2)] rotate-3" style={{ width: "6rem", height: "6rem", backgroundColor: "var(--md-sys-color-primary-container)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "var(--md-sys-spacing-8)" }}>
                         <span className="material-symbols-outlined text-5xl">vpn_key</span>
                     </div>
-                    <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black tracking-tight mb-8">API Key Richiesta</h3>
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant max-w-sm mb-8 leading-relaxed">
+                    <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]" style={{ fontWeight: "900", letterSpacing: "-0.005em", marginBottom: "var(--md-sys-spacing-8)" }}>API Key Richiesta</h3>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant max-w-sm" style={{ marginBottom: "var(--md-sys-spacing-8)", lineHeight: "1.625" }}>
                         Per utilizzare la generazione video (modello Veo), è necessaria una API Key abilitata al billing.
-                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline ml-1 font-black">
+                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="hover:underline ml-1" style={{ color: "var(--md-sys-color-primary)", fontWeight: "900" }}>
                             Scopri di più
                         </a>
                     </p>
@@ -159,21 +159,21 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
         }
 
         return (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full p-8 md:p-8 animate-in fade-in duration-700">
-                <div className="flex flex-col gap-6">
-                    <div className="bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-md p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 flex items-start gap-8 shadow-sm">
-                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-primary/10 text-primary flex items-center justify-center flex-shrink-0">
+            <div className="lg:grid-cols-2 md:p-8 animate-in fade-in duration-700" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)", height: "100%", padding: "var(--md-sys-spacing-8)" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+                    <div className="bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-md rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/20 shadow-sm" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-8)" }}>
+                        <div className="rounded-[var(--md-sys-shape-corner-large)] bg-primary/10" style={{ width: "3rem", height: "3rem", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>edit_note</span>
                         </div>
                         <div>
-                            <h3 className="m3-label-large font-black uppercase tracking-widest text-primary mb-4">1. Prompt Descrittivo</h3>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant opacity-70">Descrivi la scena che vuoi creare. Sii dettagliato per un risultato migliore.</p>
+                            <h3 className="m3-label-large" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: "var(--md-sys-spacing-4)" }}>1. Prompt Descrittivo</h3>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ opacity: "0.7" }}>Descrivi la scena che vuoi creare. Sii dettagliato per un risultato migliore.</p>
                         </div>
                     </div>
                     
-                    <div className="flex-grow flex flex-col">
+                    <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
                         <TextArea
                             id="prompt-textarea"
                             value={prompt}
@@ -183,50 +183,50 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             }}
                             placeholder="Es. 'Un gatto astronauta fluttua nello spazio, inseguendo un gomitolo di lana cosmico'..."
                             containerClassName="flex-grow"
-                            className="h-full min-h-[300px] !bg-[var(--md-sys-color-surface-container-low)]/20 backdrop-blur-sm !rounded-[var(--md-sys-shape-corner-large)] !border-[var(--md-sys-color-outline-variant)]/20"
+                            className="min-h-[300px] !bg-[var(--md-sys-color-surface-container-low)]/20 backdrop-blur-sm !rounded-[var(--md-sys-shape-corner-large)] !border-[var(--md-sys-color-outline-variant)]/20" style={{ height: "100%" }}
                             label="Descrizione Video"
                         />
                     </div>
 
                     {error && (
-                        <div className="flex items-center gap-6 p-8 bg-error-container/80 backdrop-blur-md text-on-error-container rounded-[var(--md-sys-shape-corner-large)] text-sm font-bold border border-error/20 animate-in slide-in-from-top-2">
-                            <span className="material-symbols-outlined text-xl">error</span>
+                        <div className="bg-error-container/80 backdrop-blur-md text-on-error-container rounded-[var(--md-sys-shape-corner-large)] border-error/20 animate-in slide-in-from-top-2" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", padding: "var(--md-sys-spacing-8)", fontSize: "0.875rem", fontWeight: "bold", border: "1px solid var(--md-sys-color-outline)" }}>
+                            <span className="material-symbols-outlined" style={{ fontSize: "1.25rem" }}>error</span>
                             {error}
                         </div>
                     )}
                 </div>
 
-                <div className="flex flex-col gap-6">
-                    <div className="bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-md p-6 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 flex items-start gap-8 shadow-sm">
-                        <div className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] bg-secondary/10 text-secondary flex items-center justify-center flex-shrink-0">
+                <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+                    <div className="bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-md rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/20 shadow-sm" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-8)" }}>
+                        <div className="rounded-[var(--md-sys-shape-corner-large)] bg-secondary/10" style={{ width: "3rem", height: "3rem", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>movie</span>
                         </div>
                         <div>
-                            <h3 className="m3-label-large font-black uppercase tracking-widest text-secondary mb-4">2. Risultato</h3>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant opacity-70">Il video generato apparirà qui sotto.</p>
+                            <h3 className="m3-label-large" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", marginBottom: "var(--md-sys-spacing-4)" }}>2. Risultato</h3>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ opacity: "0.7" }}>Il video generato apparirà qui sotto.</p>
                         </div>
                     </div>
 
-                    <div className="flex-grow rounded-5xl bg-[var(--md-sys-color-surface-container-low)]/20 backdrop-blur-xl border border-[var(--md-sys-color-outline-variant)]/20 flex flex-col items-center justify-center p-8 min-h-[400px] relative overflow-hidden shadow-[var(--md-sys-elevation-level4)] group">
+                    <div className="rounded-5xl bg-[var(--md-sys-color-surface-container-low)]/20 backdrop-blur-xl border-[var(--md-sys-color-outline-variant)]/20 min-h-[400px] relative overflow-hidden shadow-[var(--md-sys-elevation-level4)] group" style={{ flexGrow: "1", border: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "var(--md-sys-spacing-8)" }}>
                         {isLoading ? (
-                            <div className="text-center z-10 relative">
-                                <div className="relative mb-8">
-                                    <div className="w-24 h-24 rounded-full border-4 border-primary/10 border-t-primary animate-spin mx-auto"></div>
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <span className="material-symbols-outlined text-3xl text-primary animate-pulse">auto_videocam</span>
+                            <div className="z-10 relative" style={{ textAlign: "center" }}>
+                                <div className="relative" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
+                                    <div className="border-4 border-primary/10 border-t-primary animate-spin" style={{ width: "6rem", height: "6rem", borderRadius: "9999px", marginLeft: "auto", marginRight: "auto" }}></div>
+                                    <div className="absolute inset-0" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                        <span className="material-symbols-outlined text-3xl animate-pulse" style={{ color: "var(--md-sys-color-primary)" }}>auto_videocam</span>
                                     </div>
                                 </div>
-                                <p className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-primary animate-pulse tracking-tight">{loadingMessage}</p>
-                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant mt-4 font-bold uppercase tracking-widest opacity-60">Questa operazione può richiedere alcuni minuti.</p>
+                                <p className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] animate-pulse" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", letterSpacing: "-0.005em" }}>{loadingMessage}</p>
+                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ marginTop: "var(--md-sys-spacing-4)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>Questa operazione può richiedere alcuni minuti.</p>
                             </div>
                         ) : generatedVideoUrl ? (
-                            <div className="w-full h-full flex flex-col animate-in zoom-in-95 duration-500">
-                                <div className="relative flex-grow rounded-[var(--md-sys-shape-corner-large)] overflow-hidden shadow-[var(--md-sys-elevation-level4)] bg-black border border-white/10">
-                                    <video src={generatedVideoUrl} controls autoPlay loop className="w-full h-full object-contain"></video>
+                            <div className="animate-in zoom-in-95 duration-500" style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
+                                <div className="relative rounded-[var(--md-sys-shape-corner-large)] overflow-hidden shadow-[var(--md-sys-elevation-level4)] border-white/10" style={{ flexGrow: "1", backgroundColor: "black", border: "1px solid var(--md-sys-color-outline)" }}>
+                                    <video src={generatedVideoUrl} controls autoPlay loop className="object-contain" style={{ width: "100%", height: "100%" }}></video>
                                 </div>
-                                <div className="mt-6 flex justify-center">
+                                <div style={{ marginTop: "var(--md-sys-spacing-6)", display: "flex", justifyContent: "center" }}>
                                     <M3Button 
                                         onClick={() => {
                                             const a = document.createElement('a');
@@ -243,15 +243,15 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                                 </div>
                             </div>
                         ) : (
-                            <div className="text-center text-[var(--md-sys-color-on-surface)]-variant/20 flex flex-col items-center group-hover:scale-110 transition-transform duration-700">
-                                <span className="material-symbols-outlined m3-icon-hero mb-8 opacity-20">videocam_off</span>
-                                <p className="m3-label-large font-black uppercase tracking-[0.3em] opacity-40">In attesa di generazione</p>
+                            <div className="text-[var(--md-sys-color-on-surface)]-variant/20 group-hover:scale-110 duration-700" style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", transition: "transform 300ms" }}>
+                                <span className="material-symbols-outlined m3-icon-hero" style={{ marginBottom: "var(--md-sys-spacing-8)", opacity: "0.2" }}>videocam_off</span>
+                                <p className="m3-label-large tracking-[0.3em]" style={{ fontWeight: "900", textTransform: "uppercase", opacity: "0.4" }}>In attesa di generazione</p>
                             </div>
                         )}
 
                         {/* Background effect */}
                         {!generatedVideoUrl && (
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 opacity-50 pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 pointer-events-none" style={{ opacity: "0.5" }} />
                         )}
                     </div>
                 </div>
@@ -266,7 +266,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             title="Generazione Video con AI"
             headline="Crea brevi clip video partendo da una descrizione testuale"
             buttons={
-                <div className="flex gap-6">
+                <div style={{ display: "flex", gap: "var(--md-sys-spacing-6)" }}>
                     <M3Button onClick={onClose} variant="text" disabled={isLoading}>Chiudi</M3Button>
                     {hasApiKey && (
                         <M3Button 
@@ -283,12 +283,12 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             mode="fullscreen"
             hideBackdrop={true}
         >
-            <div className="h-full relative overflow-hidden bg-[var(--md-sys-color-surface-container-low)]est/50">
+            <div className="relative overflow-hidden bg-[var(--md-sys-color-surface-container-low)]est/50" style={{ height: "100%" }}>
                 {/* Aura Ornaments */}
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full animate-pulse pointer-events-none" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '2s' }} />
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] animate-pulse pointer-events-none" style={{ borderRadius: "9999px" }} />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] animate-pulse pointer-events-none" style={{ borderRadius: "9999px" }} style={{ animationDelay: '2s' }} />
                 
-                <div className="relative z-10 h-full overflow-y-auto custom-scrollbar">
+                <div className="relative z-10 custom-scrollbar" style={{ height: "100%", overflowY: "auto" }}>
                     {renderContent()}
                 </div>
             </div>

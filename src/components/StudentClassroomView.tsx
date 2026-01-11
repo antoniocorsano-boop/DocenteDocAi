@@ -101,58 +101,58 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
         };
         const { getRootProps, getInputProps } = useFileDrop({ onDrop, multiple: false });
         return (
-            <div {...getRootProps()} className="cursor-pointer border-2 border-dashed border-primary/30 bg-primary/5 rounded-[var(--md-sys-shape-corner-medium)] p-6 text-center hover:bg-primary/10 transition-all mt-4 group">
+            <div {...getRootProps()} className="border-2 border-dashed border-primary/30 bg-primary/5 rounded-[var(--md-sys-shape-corner-medium)] hover:bg-primary/10 group" style={{ cursor: "pointer", padding: "var(--md-sys-spacing-6)", textAlign: "center", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", marginTop: "var(--md-sys-spacing-4)" }}>
                 <input {...getInputProps()} />
-                <span className="material-symbols-outlined text-primary text-3xl mb-8 group-hover:scale-110 transition-transform">cloud_upload</span>
-                <p className="text-xs font-black uppercase tracking-widest text-primary">Carica Elaborato</p>
-                <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant opacity-60 mt-4">Trascina qui il file o clicca per selezionare</p>
+                <span className="material-symbols-outlined text-3xl group-hover:scale-110" style={{ color: "var(--md-sys-color-primary)", marginBottom: "var(--md-sys-spacing-8)", transition: "transform 300ms" }}>cloud_upload</span>
+                <p style={{ fontSize: "0.75rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)" }}>Carica Elaborato</p>
+                <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ opacity: "0.6", marginTop: "var(--md-sys-spacing-4)" }}>Trascina qui il file o clicca per selezionare</p>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-surface relative overflow-hidden">
+        <div className="relative overflow-hidden" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", backgroundColor: "var(--md-sys-color-surface)" }}>
             {/* Aura Ornaments */}
-            <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-tertiary/5 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-primary/5 blur-[120px] pointer-events-none" style={{ borderRadius: "9999px" }} />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-tertiary/5 blur-[120px] pointer-events-none" style={{ borderRadius: "9999px" }} />
 
-            <header className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-b border-[var(--md-sys-color-outline-variant)]/10 p-6 flex justify-between items-center sticky top-0 z-50">
-                <div className="flex items-center gap-8">
+            <header className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-[var(--md-sys-color-outline-variant)]/10 sticky top-0 z-50" style={{ borderBottom: "1px solid var(--md-sys-color-outline)", padding: "var(--md-sys-spacing-6)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" className="shadow-[var(--md-sys-elevation-level2)] border-2 border-white/20" />
                     <div className="space-y-0.5">
-                        <h1 className="text-xl font-black tracking-tight text-[var(--md-sys-color-on-surface)]">Diario di Classe</h1>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-70">Classe {student.classe} • {student.nome} {student.cognome}</p>
+                        <h1 className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "1.25rem", fontWeight: "900", letterSpacing: "-0.005em" }}>Diario di Classe</h1>
+                        <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7" }}>Classe {student.classe} • {student.nome} {student.cognome}</p>
                     </div>
                 </div>
-                <M3Button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} variant="tonal" className="!w-12 !h-12 !p-0 !rounded-full text-error">
+                <M3Button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} variant="tonal" className="!w-12 !h-12 !p-0 !rounded-full" style={{ color: "var(--md-sys-color-error)" }}>
                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>power_settings_new</span>
                 </M3Button>
                 
                 {isExitMenuOpen && (
-                    <div className="absolute top-20 right-6 bg-[var(--md-sys-color-surface-container-high)]/90 backdrop-blur-2xl border border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-large)] shadow-[var(--md-sys-elevation-level4)] p-6 z-[60] w-64 flex flex-col animate-in fade-in zoom-in-95 duration-300">
+                    <div className="absolute top-20 right-6 bg-[var(--md-sys-color-surface-container-high)]/90 backdrop-blur-2xl border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-large)] shadow-[var(--md-sys-elevation-level4)] z-[60] w-64 animate-in fade-in zoom-in-95 duration-300" style={{ border: "1px solid var(--md-sys-color-outline)", padding: "var(--md-sys-spacing-6)", display: "flex", flexDirection: "column" }}>
                         <button 
                             onClick={() => { onLogout(); setIsExitMenuOpen(false); }}
-                            className="p-8 text-left hover:bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)] rounded-[var(--md-sys-shape-corner-medium)] flex items-center gap-8 transition-colors"
+                            className="hover:bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface)] rounded-[var(--md-sys-shape-corner-medium)]" style={{ padding: "var(--md-sys-spacing-8)", textAlign: "left", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", transition: "color 300ms" }}
                         >
                             <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">logout</span>
                             <div className="space-y-0.5">
-                                <p className="font-black text-xs uppercase tracking-widest">Termina Sessione</p>
-                                <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant opacity-70">Torna al login studenti</p>
+                                <p style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Termina Sessione</p>
+                                <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ opacity: "0.7" }}>Torna al login studenti</p>
                             </div>
                         </button>
                         {onExitMode && (
                             <button 
                                 onClick={() => { setIsPinModalOpen(true); setIsExitMenuOpen(false); }}
-                                className="p-8 text-left hover:bg-error/10 text-error rounded-[var(--md-sys-shape-corner-medium)] flex items-center gap-8 transition-colors mt-4"
+                                className="hover:bg-error/10 rounded-[var(--md-sys-shape-corner-medium)]" style={{ padding: "var(--md-sys-spacing-8)", textAlign: "left", color: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", transition: "color 300ms", marginTop: "var(--md-sys-spacing-4)" }}
                             >
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>lock</span>
                                 <div className="space-y-0.5">
-                                    <p className="font-black text-xs uppercase tracking-widest">Menu Docente</p>
-                                    <p className="text-[10px] opacity-70">Richiede PIN di sicurezza</p>
+                                    <p style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Menu Docente</p>
+                                    <p className="text-[10px]" style={{ opacity: "0.7" }}>Richiede PIN di sicurezza</p>
                                 </div>
                             </button>
                         )}
@@ -161,7 +161,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 {isExitMenuOpen && <div className="fixed inset-0 z-50" onClick={() => setIsExitMenuOpen(false)}></div>}
             </header>
 
-            <div className="bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-md p-8 border-b border-[var(--md-sys-color-outline-variant)]/10">
+            <div className="bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-md border-[var(--md-sys-color-outline-variant)]/10" style={{ padding: "var(--md-sys-spacing-8)", borderBottom: "1px solid var(--md-sys-color-outline)" }}>
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id) => setActiveTab(id as 'feed' | 'homework' | 'materials')}
@@ -171,32 +171,32 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         { id: 'homework', label: 'Compiti', icon: 'assignment', badge: pendingHomework.length || undefined },
                         { id: 'materials', label: 'Materiali', icon: 'folder' }
                     ]}
-                    className="max-w-2xl mx-auto"
+                    className="max-w-2xl" style={{ marginLeft: "auto", marginRight: "auto" }}
                 />
             </div>
 
-            <main className="flex-grow overflow-y-auto p-6 pb-24 space-y-8 relative z-10">
+            <main className="pb-24 relative z-10" style={{ flexGrow: "1", overflowY: "auto", padding: "var(--md-sys-spacing-6)", gap: "var(--md-sys-spacing-8)" }}>
                 
                 {activeTab === 'feed' && (
-                    <div className="space-y-6 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-500" style={{ gap: "var(--md-sys-spacing-6)", marginLeft: "auto", marginRight: "auto" }}>
                         {feedItems.length > 0 ? feedItems.map((item) => (
-                            <M3ExpressiveCard key={item.id} className="p-8 space-y-6">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-6">
-                                        <span className="text-[10px] font-black uppercase tracking-widest bg-secondary/10 text-secondary px-3 py-1.5 rounded-full">
+                            <M3ExpressiveCard key={item.id} style={{ padding: "var(--md-sys-spacing-8)", gap: "var(--md-sys-spacing-6)" }}>
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}>
+                                        <span className="text-[10px] bg-secondary/10 px-3 py-1.5" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", borderRadius: "9999px" }}>
                                             {new Date(item.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'short' })}
                                         </span>
-                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">{item.title}</span>
+                                        <span className="text-[10px] tracking-[0.2em]" style={{ fontWeight: "900", textTransform: "uppercase", color: "var(--md-sys-color-primary)" }}>{item.title}</span>
                                     </div>
                                 </div>
-                                <h3 className="text-2xl font-black tracking-tight text-[var(--md-sys-color-on-surface)]">{item.content}</h3>
+                                <h3 className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "1.5rem", fontWeight: "900", letterSpacing: "-0.005em" }}>{item.content}</h3>
                                 {item.homework && (
-                                    <div className="bg-tertiary/5 p-6 rounded-[var(--md-sys-shape-corner-large)] border border-tertiary/10 space-y-3">
-                                        <div className="flex items-center gap-8 text-tertiary">
-                                            <span className="material-symbols-outlined text-lg">home_work</span>
-                                            <span className="text-[10px] font-black uppercase tracking-widest">Compito per casa</span>
+                                    <div className="bg-tertiary/5 rounded-[var(--md-sys-shape-corner-large)] border-tertiary/10" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", gap: "var(--md-sys-spacing-3)" }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", color: "var(--md-sys-color-tertiary)" }}>
+                                            <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>home_work</span>
+                                            <span className="text-[10px]" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Compito per casa</span>
                                         </div>
-                                        <p className="text-sm font-medium leading-relaxed text-[var(--md-sys-color-on-surface)]-variant">{item.homework}</p>
+                                        <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem", fontWeight: "500", lineHeight: "1.625" }}>{item.homework}</p>
                                     </div>
                                 )}
                                 {settings && (
@@ -204,26 +204,26 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                         onClick={() => handleDownloadHomeworkSheet(item.originalLesson)}
                                         disabled={isGeneratingPdf}
                                         variant="text"
-                                        className="w-full font-black text-[10px] uppercase tracking-widest"
+                                        className="text-[10px]" style={{ width: "100%", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}
                                      >
-                                         <span className="material-symbols-outlined mr-2 text-sm">print</span>
+                                         <span className="material-symbols-outlined" style={{ marginRight: "0.5rem", fontSize: "0.875rem" }}>print</span>
                                          {isGeneratingPdf ? 'Generazione PDF...' : 'Scarica Scheda Lezione'}
                                      </M3Button>
                                 )}
                             </M3ExpressiveCard>
                         )) : (
-                            <div className="text-center p-20 bg-[var(--md-sys-color-surface-container-low)]/30 rounded-5xl border border-[var(--md-sys-color-outline-variant)]/10">
-                                <span className="material-symbols-outlined text-6xl mb-8 text-[var(--md-sys-color-on-surface)]-variant opacity-20">feed</span>
-                                <p className="text-sm font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-40">Nessuna attività recente nel registro.</p>
+                            <div className="p-20 bg-[var(--md-sys-color-surface-container-low)]/30 rounded-5xl border-[var(--md-sys-color-outline-variant)]/10" style={{ textAlign: "center", border: "1px solid var(--md-sys-color-outline)" }}>
+                                <span className="material-symbols-outlined text-6xl text-[var(--md-sys-color-on-surface)]-variant" style={{ marginBottom: "var(--md-sys-spacing-8)", opacity: "0.2" }}>feed</span>
+                                <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.4" }}>Nessuna attività recente nel registro.</p>
                             </div>
                         )}
                     </div>
                 )}
 
                 {activeTab === 'homework' && (
-                    <div className="space-y-10 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="space-y-10 max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-500" style={{ marginLeft: "auto", marginRight: "auto" }}>
                         
-                        <div className="space-y-6">
+                        <div style={{ gap: "var(--md-sys-spacing-6)" }}>
                             <SectionHeader 
                                 title={`Da Consegnare (${pendingHomework.length})`} 
                                 icon="pending_actions" 
@@ -233,54 +233,54 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
                                 {pendingHomework.map(lesson => (
-                                    <M3ExpressiveCard key={lesson.id} className="p-8 border-l-8 border-l-primary">
-                                        <div className="flex justify-between items-start mb-8">
-                                            <div className="space-y-1">
-                                                <h4 className="text-xl font-black tracking-tight">{lesson.materia}</h4>
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-60">{lesson.contenuto}</p>
+                                    <M3ExpressiveCard key={lesson.id} className="border-l-8 border-l-primary" style={{ padding: "var(--md-sys-spacing-8)" }}>
+                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "var(--md-sys-spacing-8)" }}>
+                                            <div style={{ gap: "var(--md-sys-spacing-1)" }}>
+                                                <h4 style={{ fontSize: "1.25rem", fontWeight: "900", letterSpacing: "-0.005em" }}>{lesson.materia}</h4>
+                                                <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>{lesson.contenuto}</p>
                                             </div>
-                                            <span className="text-[9px] font-black uppercase tracking-widest bg-primary/10 text-primary px-3 py-1 rounded-full">Nuovo</span>
+                                            <span className="text-[9px] bg-primary/10 px-3 py-1" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", borderRadius: "9999px" }}>Nuovo</span>
                                         </div>
-                                        <div className="p-6 bg-[var(--md-sys-color-surface-container-high)]/50 rounded-[var(--md-sys-shape-corner-medium)] text-sm font-medium leading-relaxed">
+                                        <div className="bg-[var(--md-sys-color-surface-container-high)]/50 rounded-[var(--md-sys-shape-corner-medium)]" style={{ padding: "var(--md-sys-spacing-6)", fontSize: "0.875rem", fontWeight: "500", lineHeight: "1.625" }}>
                                             {lesson.compiti}
                                         </div>
                                         <UploadButton lessonId={lesson.id} />
                                     </M3ExpressiveCard>
                                 ))}
                                 {pendingHomework.length === 0 && (
-                                    <div className="p-12 bg-[var(--md-sys-color-surface-container-low)]/30 rounded-5xl border border-[var(--md-sys-color-outline-variant)]/10 text-center">
-                                        <p className="text-sm font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-40">Nessun compito in sospeso.</p>
+                                    <div className="p-12 bg-[var(--md-sys-color-surface-container-low)]/30 rounded-5xl border-[var(--md-sys-color-outline-variant)]/10" style={{ border: "1px solid var(--md-sys-color-outline)", textAlign: "center" }}>
+                                        <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.4" }}>Nessun compito in sospeso.</p>
                                     </div>
                                 )}
                             </div>
                         </div>
 
-                        <div className="space-y-6">
+                        <div style={{ gap: "var(--md-sys-spacing-6)" }}>
                             <SectionHeader 
                                 title="Storico Consegne" 
                                 icon="history" 
                                 className="!mb-0"
                             />
-                            <div className="space-y-3">
+                            <div style={{ gap: "var(--md-sys-spacing-3)" }}>
                                 {submittedHomework.map(sub => {
                                     const relatedLesson = lessons.find(l => l.id === sub.lessonId);
                                     return (
-                                        <div key={sub.id} className="p-6 bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10 flex justify-between items-center group hover:bg-[var(--md-sys-color-surface-container-low)] transition-colors">
-                                            <div className="space-y-1">
-                                                <p className="font-black text-sm uppercase tracking-widest">{relatedLesson?.materia || 'Materia'}</p>
-                                                <p className="text-[10px] font-medium text-[var(--md-sys-color-on-surface)]-variant opacity-60">{new Date(sub.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
+                                        <div key={sub.id} className="bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-xl rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/10 group hover:bg-[var(--md-sys-color-surface-container-low)]" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color 300ms" }}>
+                                            <div style={{ gap: "var(--md-sys-spacing-1)" }}>
+                                                <p style={{ fontWeight: "900", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>{relatedLesson?.materia || 'Materia'}</p>
+                                                <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "500", opacity: "0.6" }}>{new Date(sub.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</p>
                                             </div>
-                                            <div className="flex flex-col items-end gap-8">
+                                            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "var(--md-sys-spacing-8)" }}>
                                                 <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full ${sub.status === 'graded' ? 'bg-secondary-container/50 text-on-secondary-container' : 'bg-tertiary-container/50 text-on-tertiary-container'}`}>
                                                     {sub.status === 'graded' ? 'Valutato' : 'In attesa'}
                                                 </span>
-                                                {sub.teacherFeedback && <span className="text-xs font-black text-primary">Voto: {sub.teacherFeedback}</span>}
+                                                {sub.teacherFeedback && <span style={{ fontSize: "0.75rem", fontWeight: "900", color: "var(--md-sys-color-primary)" }}>Voto: {sub.teacherFeedback}</span>}
                                             </div>
                                         </div>
                                     )
                                 })}
                                 {submittedHomework.length === 0 && (
-                                    <p className="text-center text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-40 py-8">Nessuna consegna effettuata.</p>
+                                    <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant py-8" style={{ textAlign: "center", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.4" }}>Nessuna consegna effettuata.</p>
                                 )}
                             </div>
                         </div>
@@ -288,21 +288,21 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'materials' && (
-                     <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+                     <div className="md:grid-cols-3 max-w-3xl animate-in fade-in slide-in-from-bottom-4 duration-500" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--md-sys-spacing-6)", marginLeft: "auto", marginRight: "auto" }}>
                         {kb.map(entry => (
-                            <M3ExpressiveCard key={entry.id} className="!p-6 flex flex-col items-center text-center gap-8 hover:scale-105 transition-transform cursor-pointer group">
-                                <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-medium)] bg-secondary/10 text-secondary flex items-center justify-center group-hover:bg-secondary group-hover:text-white transition-colors">
+                            <M3ExpressiveCard key={entry.id} className="!p-6 hover:scale-105 group" style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "var(--md-sys-spacing-8)", transition: "transform 300ms", cursor: "pointer" }}>
+                                <div className="rounded-[var(--md-sys-shape-corner-medium)] bg-secondary/10 group-hover:bg-secondary group-hover:text-white" style={{ width: "4rem", height: "4rem", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "color 300ms" }}>
                                     <span className="material-symbols-outlined text-3xl">
                                         {entry.fileName.endsWith('.pdf') ? 'picture_as_pdf' : 'description'}
                                     </span>
                                 </div>
-                                <p className="text-[10px] font-black uppercase tracking-widest line-clamp-2 leading-relaxed">{entry.fileName}</p>
+                                <p className="text-[10px] line-clamp-2" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", lineHeight: "1.625" }}>{entry.fileName}</p>
                             </M3ExpressiveCard>
                         ))}
                         {kb.length === 0 && (
-                            <div className="col-span-full text-center p-20 bg-[var(--md-sys-color-surface-container-low)]/30 rounded-5xl border border-[var(--md-sys-color-outline-variant)]/10">
-                                <span className="material-symbols-outlined text-6xl mb-8 text-[var(--md-sys-color-on-surface)]-variant opacity-20">folder_off</span>
-                                <p className="text-sm font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-40">Nessun materiale condiviso.</p>
+                            <div className="col-span-full p-20 bg-[var(--md-sys-color-surface-container-low)]/30 rounded-5xl border-[var(--md-sys-color-outline-variant)]/10" style={{ textAlign: "center", border: "1px solid var(--md-sys-color-outline)" }}>
+                                <span className="material-symbols-outlined text-6xl text-[var(--md-sys-color-on-surface)]-variant" style={{ marginBottom: "var(--md-sys-spacing-8)", opacity: "0.2" }}>folder_off</span>
+                                <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.4" }}>Nessun materiale condiviso.</p>
                             </div>
                         )}
                      </div>

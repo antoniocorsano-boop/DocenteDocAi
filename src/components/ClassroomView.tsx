@@ -243,16 +243,16 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
                         {lesson.obiettivi && (
-                            <div className="bg-[var(--md-sys-color-surface-container)] p-6 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)] mb-8">
-                                <p className="m3-label-small font-bold text-primary uppercase mb-8">Obiettivi Didattici</p>
-                                <div className="space-y-2">
+                            <div className="bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-medium)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", marginBottom: "var(--md-sys-spacing-8)" }}>
+                                <p className="m3-label-small" style={{ fontWeight: "bold", color: "var(--md-sys-color-primary)", textTransform: "uppercase", marginBottom: "var(--md-sys-spacing-8)" }}>Obiettivi Didattici</p>
+                                <div style={{ gap: "var(--md-sys-spacing-2)" }}>
                                     {lesson.obiettivi.split('\n').filter(o => o.trim()).map((obj, idx) => (
-                                        <label key={idx} className="flex items-start gap-6 cursor-pointer p-1 hover:bg-surface rounded">
+                                        <label key={idx} className="hover:bg-surface" style={{ display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-6)", cursor: "pointer", padding: "var(--md-sys-spacing-1)", borderRadius: "0.375rem" }}>
                                             <input
                                                 type="checkbox"
                                                 checked={checkedObjectives[idx] || false}
                                                 onChange={(e) => handleObjectiveCheck(idx, e.target.checked)}
-                                                className="mt-0.5 accent-primary w-4 h-4"
+                                                className="mt-0.5 accent-primary" style={{ width: "1rem", height: "1rem" }}
                                             />
                                             <span className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] leading-tight ${checkedObjectives[idx] ? 'line-through opacity-50' : 'text-[var(--md-sys-color-on-surface)]'}`}>
                                                 {obj.replace(/^- /, '')}
@@ -264,7 +264,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         )}
 
                         <div 
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+                            className="md:grid-cols-2 lg:grid-cols-4" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}
                             ref={studentGridRef}
                             onKeyDown={handleStudentGridKeyDown}
                             role="grid"
@@ -294,9 +294,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                         aria-label={`${student.cognome} ${student.nome}, voto ${stat.grade || '-'}, presenze ${status}`}
                                     >
                                         <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-8 items-center">
+                                        <div className="md:grid-cols-2 lg:grid-cols-7" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)", alignItems: "center" }}>
                                             {/* Column 1: Avatar + Name + Presence + BES/DSA */}
-                                            <div className="flex items-center gap-8 col-span-1 md:col-span-2 lg:col-span-2">
+                                            <div className="col-span-1 md:col-span-2 lg:col-span-2" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); handleAttendanceToggle(student.id); }}
                                                     className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center transition-colors flex-shrink-0 ${status === 'presente' ? 'bg-primary-container text-primary' :
@@ -307,21 +307,21 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                         {status === 'presente' ? 'check' : status === 'assente' ? 'close' : 'schedule'}
                                                     </span>
                                                 </button>
-                                                <Avatar name={`${student.nome} ${student.cognome}`} className="w-8 h-8 flex-shrink-0" />
-                                                <div className="min-w-0 flex-1">
+                                                <Avatar name={`${student.nome} ${student.cognome}`} style={{ width: "2rem", height: "2rem", flexShrink: "0" }} />
+                                                <div style={{ minWidth: "0", flex: "1" }}>
                                                     <h3 className={`m3-title-small font-bold truncate ${status === 'assente' ? 'line-through' : ''}`}>
                                                         {student.cognome} {student.nome}
                                                     </h3>
-                                                    <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant truncate">{student.classe}</p>
+                                                    <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.classe}</p>
                                                 </div>
                                             </div>
 
                                             {/* Column 2: Average + Trend */}
-                                            <div className="text-center col-span-1">
+                                            <div className="col-span-1" style={{ textAlign: "center" }}>
                                                 <span className={`m3-title-large font-bold ${parseFloat(stat.grade || '0') > 7 ? 'text-primary' : parseFloat(stat.grade || '0') > 6 ? 'text-secondary' : 'text-error'}`}>
                                                     {stat.grade || '-'}
                                                 </span>
-                                                <div className="flex justify-center mt-4">
+                                                <div style={{ display: "flex", justifyContent: "center", marginTop: "var(--md-sys-spacing-4)" }}>
                                                     <span className={`material-symbols-outlined m3-label-large ${stat.trend === 'up' ? 'animate-bounce text-tertiary' : stat.trend === 'down' ? 'animate-pulse text-error' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>
                                                         {stat.trend === 'up' ? 'trending_up' : stat.trend === 'down' ? 'trending_down' : 'trending_flat'}
                                                     </span>
@@ -329,28 +329,28 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             </div>
 
                                             {/* Column 3: Written Evals */}
-                                            <div className="text-center col-span-1">
-                                                <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant block">Scritti</span>
-                                                <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] font-bold">{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</p>
+                                            <div className="col-span-1" style={{ textAlign: "center" }}>
+                                                <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "block" }}>Scritti</span>
+                                                <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]" style={{ fontWeight: "bold" }}>{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</p>
                                             </div>
 
                                             {/* Column 4: Oral Evals */}
-                                            <div className="text-center col-span-1">
-                                                <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant block">Orali</span>
-                                                <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] font-bold">{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</p>
+                                            <div className="col-span-1" style={{ textAlign: "center" }}>
+                                                <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "block" }}>Orali</span>
+                                                <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]" style={{ fontWeight: "bold" }}>{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</p>
                                             </div>
 
                                             {/* Column 5: Notes */}
-                                            <div className="text-center col-span-1">
+                                            <div className="col-span-1" style={{ textAlign: "center" }}>
                                                 {stat.notes ? (
-                                                    <span className="material-symbols-outlined text-primary m3-label-large" title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
+                                                    <span className="material-symbols-outlined m3-label-large" style={{ color: "var(--md-sys-color-primary)" }} title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
                                                 ) : (
                                                     <span className="text-outline">-</span>
                                                 )}
                                             </div>
 
                                             {/* Column 6: Homework + Participation */}
-                                            <div className="flex flex-col items-center gap-4 col-span-1">
+                                            <div className="col-span-1" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
                                                 {hwStatus && (
                                                     <span className={`m3-label-small px-4 py-1 rounded-full border ${hwStatus === 'missing' ? 'border-error text-error bg-error-container' :
                                                             hwStatus === 'partial' ? 'border-[var(--md-sys-color-outline)] text-[var(--md-sys-color-on-surface)]-variant bg-[var(--md-sys-color-surface-container)]' : 'border-primary text-primary bg-primary-container'
@@ -359,14 +359,14 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                     </span>
                                                 )}
                                                 {badges.length > 0 && (
-                                                    <span className="m3-label-small px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container flex items-center gap-4">
+                                                    <span className="m3-label-small py-1 text-on-secondary-container" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "9999px", backgroundColor: "var(--md-sys-color-secondary-container)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
                                                         <span className="material-symbols-outlined m3-label-small">star</span> {badges.length}
                                                     </span>
                                                 )}
                                             </div>
 
                                             {/* Column 7: Actions */}
-                                            <div className="text-center col-span-1">
+                                            <div className="col-span-1" style={{ textAlign: "center" }}>
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); setSelectedStudentForActions(student); }}
                                                     className="icon-button text-[var(--md-sys-color-on-surface)]-variant"
@@ -387,32 +387,32 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'notes' && (
-                    <div className="space-y-4 animate-in fade-in">
-                        <div className="bg-surface p-8 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]">
-                            <div className="flex justify-between items-center mb-8">
+                    <div className="animate-in fade-in" style={{ gap: "var(--md-sys-spacing-4)" }}>
+                        <div className="rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]" style={{ backgroundColor: "var(--md-sys-color-surface)", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--md-sys-spacing-8)" }}>
                                 <label className="m3-label-large">Note Pubbliche (Registro)</label>
                                 <VoiceNoteRecorder onTranscription={(text) => onUpdateDraftEntry(draftKey, { notes: (draftEntry.notes ? draftEntry.notes + '\n' : '') + text })} compact />
                             </div>
                             <textarea
                                 value={draftEntry.notes || ''}
                                 onChange={e => onUpdateDraftEntry(draftKey, { notes: e.target.value })}
-                                className="form-textarea w-full bg-[var(--md-sys-color-surface-container-low)]"
+                                className="form-textarea bg-[var(--md-sys-color-surface-container-low)]" style={{ width: "100%" }}
                                 rows={8}
                                 placeholder="Argomenti trattati, note disciplinari, promemoria..."
                             />
                         </div>
 
-                        <div className="grid grid-cols-2 gap-6">
-                            <button onClick={() => setIsCopyModalOpen(true)} className="button button-tonal w-full justify-center">
-                                <span className="material-symbols-outlined mr-2">content_copy</span>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--md-sys-spacing-6)" }}>
+                            <button onClick={() => setIsCopyModalOpen(true)} className="button button-tonal" style={{ width: "100%", justifyContent: "center" }}>
+                                <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>content_copy</span>
                                 Copia
                             </button>
-                            <button onClick={() => setIsShareInfoOpen(true)} className="button button-outlined w-full justify-center">
-                                <span className="material-symbols-outlined mr-2">share</span>
+                            <button onClick={() => setIsShareInfoOpen(true)} className="button button-outlined" style={{ width: "100%", justifyContent: "center" }}>
+                                <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>share</span>
                                 Condividi
                             </button>
-                            <button onClick={handlePrintHomework} className="button button-filled w-full justify-center col-span-2">
-                                <span className="material-symbols-outlined mr-2">assignment</span>
+                            <button onClick={handlePrintHomework} className="button button-filled col-span-2" style={{ width: "100%", justifyContent: "center" }}>
+                                <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>assignment</span>
                                 Stampa Compiti (PDF)
                             </button>
                         </div>
@@ -426,39 +426,39 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'resources' && (
-                    <div className="space-y-4 animate-in fade-in">
+                    <div className="animate-in fade-in" style={{ gap: "var(--md-sys-spacing-4)" }}>
                         {lesson.materialiDidattici && lesson.materialiDidattici.length > 0 ? (
-                            <div className="grid grid-cols-1 gap-6">
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-6)" }}>
                                 {lesson.materialiDidattici.map(mat => (
-                                    <div key={mat.id} className="bg-surface p-6 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)] flex items-center gap-6 cursor-pointer active:bg-[var(--md-sys-color-surface-container)]" onClick={() => handlePreviewMaterial(mat)}>
-                                        <div className="w-10 h-10 rounded-[var(--md-sys-shape-corner-small)] bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+                                    <div key={mat.id} className="rounded-[var(--md-sys-shape-corner-medium)] border-[var(--md-sys-color-outline-variant)] active:bg-[var(--md-sys-color-surface-container)]" style={{ backgroundColor: "var(--md-sys-color-surface)", padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", cursor: "pointer" }} onClick={() => handlePreviewMaterial(mat)}>
+                                        <div className="rounded-[var(--md-sys-shape-corner-small)] text-on-tertiary-container" style={{ width: "2.5rem", height: "2.5rem", backgroundColor: "var(--md-sys-color-tertiary-container)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>
                                                 {mat.type === 'link' ? 'link' : 'article'}
                                             </span>
                                         </div>
-                                        <div className="flex-grow min-w-0">
-                                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-bold truncate">{mat.label || mat.fileName}</p>
-                                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant uppercase">{mat.type}</p>
+                                        <div style={{ flexGrow: "1", minWidth: "0" }}>
+                                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{mat.label || mat.fileName}</p>
+                                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ textTransform: "uppercase" }}>{mat.type}</p>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <div className="text-center p-8 opacity-60">
-                                <span className="material-symbols-outlined m3-headline-large mb-8">folder_off</span>
+                            <div style={{ textAlign: "center", padding: "var(--md-sys-spacing-8)", opacity: "0.6" }}>
+                                <span className="material-symbols-outlined m3-headline-large" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>folder_off</span>
                                 <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">Nessun materiale.</p>
                             </div>
                         )}
 
                         {lesson.adattamenti && (
-                            <div className="p-8 bg-secondary-container text-on-secondary-container rounded-[var(--md-sys-shape-corner-medium)]">
-                                <h3 className="m3-title-medium font-bold flex items-center gap-8 mb-8">
+                            <div className="text-on-secondary-container rounded-[var(--md-sys-shape-corner-medium)]" style={{ padding: "var(--md-sys-spacing-8)", backgroundColor: "var(--md-sys-color-secondary-container)" }}>
+                                <h3 className="m3-title-medium" style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-8)" }}>
                                     <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">accessibility_new</span>
                                     Inclusione
                                 </h3>
-                                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] opacity-90 whitespace-pre-wrap">{lesson.adattamenti}</p>
+                                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ opacity: "0.9", whiteSpace: "pre-wrap" }}>{lesson.adattamenti}</p>
                             </div>
                         )}
                     </div>
@@ -466,7 +466,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             </div>
 
             <div className="fixed bottom-6 right-6 z-30">
-                <button onClick={onOpenLiveAssistant} className="fab bg-tertiary-container text-on-tertiary-container shadow-[var(--md-sys-elevation-level2)]">
+                <button onClick={onOpenLiveAssistant} className="fab text-on-tertiary-container shadow-[var(--md-sys-elevation-level2)]" style={{ backgroundColor: "var(--md-sys-color-tertiary-container)" }}>
                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>mic</span>
@@ -481,69 +481,69 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     level={1}
                 >
                     <M3DialogContent>
-                        <div className="flex items-center gap-8 mb-6 border-b border-[var(--md-sys-color-outline)]/10 pb-4">
-                            <Avatar name={`${selectedStudentForActions.nome} ${selectedStudentForActions.cognome}`} className="w-12 h-12" />
+                        <div className="border-[var(--md-sys-color-outline)]/10 pb-4" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-6)", borderBottom: "1px solid var(--md-sys-color-outline)" }}>
+                            <Avatar name={`${selectedStudentForActions.nome} ${selectedStudentForActions.cognome}`} style={{ width: "3rem", height: "3rem" }} />
                             <div>
-                                <h3 className="text-lg font-black text-[var(--md-sys-color-on-surface)]">{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</h3>
-                                <p className="m3-label-tiny font-bold uppercase tracking-wider text-primary">Azioni Rapide</p>
+                                <h3 className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "1.125rem", fontWeight: "900" }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</h3>
+                                <p className="m3-label-tiny" style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--md-sys-color-primary)" }}>Azioni Rapide</p>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-6 mb-8">
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--md-sys-spacing-6)", marginBottom: "var(--md-sys-spacing-8)" }}>
                             <button 
                                 onClick={() => { setQuickEvalStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} 
-                                className="flex flex-col items-center gap-8 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary-container/30 hover:bg-primary-container/50 transition-colors group"
+                                className="rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary-container/30 hover:bg-primary-container/50 group" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--md-sys-spacing-8)", padding: "var(--md-sys-spacing-6)", transition: "color 300ms" }}
                             >
-                                <div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] group-hover:scale-110 transition-transform">
+                                <div className="shadow-[var(--md-sys-elevation-level1)] group-hover:scale-110" style={{ width: "3rem", height: "3rem", borderRadius: "9999px", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>grading</span>
                                 </div>
-                                <span className="m3-label-tiny font-black uppercase tracking-wider text-primary">Voto</span>
+                                <span className="m3-label-tiny" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--md-sys-color-primary)" }}>Voto</span>
                             </button>
                             <button 
                                 onClick={() => { setObservationStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} 
-                                className="flex flex-col items-center gap-8 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] bg-secondary-container/30 hover:bg-secondary-container/50 transition-colors group"
+                                className="rounded-[var(--md-sys-shape-corner-extra-large)] bg-secondary-container/30 hover:bg-secondary-container/50 group" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--md-sys-spacing-8)", padding: "var(--md-sys-spacing-6)", transition: "color 300ms" }}
                             >
-                                <div className="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] group-hover:scale-110 transition-transform">
+                                <div className="shadow-[var(--md-sys-elevation-level1)] group-hover:scale-110" style={{ width: "3rem", height: "3rem", borderRadius: "9999px", backgroundColor: "var(--md-sys-color-secondary)", color: "var(--md-sys-color-on-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>visibility</span>
                                 </div>
-                                <span className="m3-label-tiny font-black uppercase tracking-wider text-secondary">Osserva</span>
+                                <span className="m3-label-tiny" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--md-sys-color-secondary)" }}>Osserva</span>
                             </button>
                             <button 
                                 onClick={() => { setViewingStudentProfile(selectedStudentForActions); setSelectedStudentForActions(null); }} 
-                                className="flex flex-col items-center gap-8 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-high)]/50 hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors group"
+                                className="rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-high)]/50 hover:bg-[var(--md-sys-color-surface-container-high)] group" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--md-sys-spacing-8)", padding: "var(--md-sys-spacing-6)", transition: "color 300ms" }}
                             >
-                                <div className="w-12 h-12 rounded-full bg-on-surface-variant text-surface flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] group-hover:scale-110 transition-transform">
+                                <div className="bg-on-surface-variant text-surface shadow-[var(--md-sys-elevation-level1)] group-hover:scale-110" style={{ width: "3rem", height: "3rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>person</span>
                                 </div>
-                                <span className="m3-label-tiny font-black uppercase tracking-wider text-[var(--md-sys-color-on-surface)]-variant">Profilo</span>
+                                <span className="m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em" }}>Profilo</span>
                             </button>
                         </div>
 
-                        <div className="mb-6">
-                            <p className="m3-label-tiny font-black uppercase tracking-[0.2em] text-[var(--md-sys-color-on-surface)]-variant mb-6 px-4">Partecipazione</p>
-                            <div className="flex gap-8 overflow-x-auto pb-2 custom-scrollbar">
+                        <div style={{ marginBottom: "var(--md-sys-spacing-6)" }}>
+                            <p className="m3-label-tiny tracking-[0.2em] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "900", textTransform: "uppercase", marginBottom: "var(--md-sys-spacing-6)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>Partecipazione</p>
+                            <div className="pb-2 custom-scrollbar" style={{ display: "flex", gap: "var(--md-sys-spacing-8)", overflowX: "auto" }}>
                                 {PARTICIPATION_BADGES.map(badge => (
                                     <button
                                         key={badge.id}
                                         onClick={() => handleParticipation(selectedStudentForActions.id, badge.id as ParticipationEntry['type'])}
-                                        className="chip !h-10 !px-4 !rounded-full border-none bg-[var(--md-sys-color-surface-container-high)] hover:bg-[var(--md-sys-color-surface-container-high)]est transition-colors flex items-center gap-8"
+                                        className="chip !h-10 !px-4 !rounded-full bg-[var(--md-sys-color-surface-container-high)] hover:bg-[var(--md-sys-color-surface-container-high)]est" style={{ border: "none", transition: "color 300ms", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}
                                         style={{ color: badge.color }}
                                     >
-                                        <span className="material-symbols-outlined text-lg">{badge.icon}</span>
-                                        <span className="text-xs font-bold">{badge.label}</span>
+                                        <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>{badge.icon}</span>
+                                        <span style={{ fontSize: "0.75rem", fontWeight: "bold" }}>{badge.label}</span>
                                     </button>
                                 ))}
                             </div>
                         </div>
 
                         <div>
-                            <p className="m3-label-tiny font-black uppercase tracking-[0.2em] text-[var(--md-sys-color-on-surface)]-variant mb-6 px-4">Compiti</p>
+                            <p className="m3-label-tiny tracking-[0.2em] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "900", textTransform: "uppercase", marginBottom: "var(--md-sys-spacing-6)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>Compiti</p>
                             <TabGroup
                                 tabs={[
                                     { id: 'completed', label: 'Svolti' },
@@ -552,7 +552,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 ]}
                                 activeTab={homeworkCheck[selectedStudentForActions.id] || 'default'}
                                 onTabChange={(id) => { handleHomeworkChange(selectedStudentForActions.id, id as HomeworkStatus); setSelectedStudentForActions(null); }}
-                                className="w-full"
+                                style={{ width: "100%" }}
                             />
                         </div>
                     </M3DialogContent>
@@ -613,7 +613,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             )}
 
             {viewingStudentProfile && (
-                <div className="fixed inset-0 z-[1600] bg-surface overflow-y-auto animate-in slide-in-from-bottom-10">
+                <div className="fixed inset-0 z-[1600] animate-in slide-in-from-bottom-10" style={{ backgroundColor: "var(--md-sys-color-surface)", overflowY: "auto" }}>
                     <StudentProfile
                         student={viewingStudentProfile}
                         evaluations={evaluations.filter(e => e.studenteId === viewingStudentProfile.id)}

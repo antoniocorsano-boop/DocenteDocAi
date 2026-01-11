@@ -140,29 +140,29 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
 
 
     return (
-        <div className="flex flex-col h-full bg-[var(--md-sys-color-surface-container-low)]/30 relative aura-glass">
+        <div className="bg-[var(--md-sys-color-surface-container-low)]/30 relative aura-glass" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
             
             {/* --- HEADER (Minimal) --- */}
-            <div className="flex justify-between items-center p-6 bg-surface/40 backdrop-blur-xl z-10 border-b border-[var(--md-sys-color-outline-variant)]/20">
+            <div className="bg-surface/40 backdrop-blur-xl z-10 border-[var(--md-sys-color-outline-variant)]/20" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "var(--md-sys-spacing-6)", borderBottom: "1px solid var(--md-sys-color-outline)" }}>
                 <div>
-                    <h1 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)] tracking-tight">Flow</h1>
-                    <p className="m3-label-medium text-primary font-bold uppercase tracking-widest opacity-70">{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
+                    <h1 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Flow</h1>
+                    <p className="m3-label-medium" style={{ color: "var(--md-sys-color-primary)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7" }}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
                 </div>
-                <button onClick={onOpenOperations} className="w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center text-primary bg-primary/10 hover:bg-primary/20 transition-all shadow-sm border border-primary/20">
-                    <span className="material-symbols-outlined text-2xl">bolt</span>
+                <button onClick={onOpenOperations} className="rounded-[var(--md-sys-shape-corner-large)] bg-primary/10 hover:bg-primary/20 shadow-sm border-primary/20" style={{ width: "3rem", height: "3rem", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", border: "1px solid var(--md-sys-color-outline)" }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>bolt</span>
                 </button>
             </div>
 
             {/* --- TIMELINE STREAM --- */}
-            <div className="flex-grow overflow-y-auto px-6 py-8 space-y-8 pb-40 custom-scrollbar">
+            <div className="px-6 py-8 pb-40 custom-scrollbar" style={{ flexGrow: "1", overflowY: "auto", gap: "var(--md-sys-spacing-8)" }}>
                 {timelineItems.length === 0 && (
                     <div 
-                        className="text-center py-20 opacity-50 bg-[var(--md-sys-color-surface-container-low)]/50 border border-dashed border-[var(--md-sys-color-outline-variant)]/30"
+                        className="py-20 bg-[var(--md-sys-color-surface-container-low)]/50 border-dashed border-[var(--md-sys-color-outline-variant)]/30" style={{ textAlign: "center", opacity: "0.5", border: "1px solid var(--md-sys-color-outline)" }}
                         style={{ borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
                     >
-                        <span className="material-symbols-outlined text-5xl mb-8 text-primary/40">event_busy</span>
-                        <p className="m3-title-medium font-bold text-[var(--md-sys-color-on-surface)]-variant">Nessun evento o lezione oggi.</p>
-                        <button onClick={() => actions.handleNavigate('timetable')} className="mt-4 px-6 py-4 rounded-full bg-primary/10 text-primary font-black text-xs uppercase tracking-widest hover:bg-primary/20 transition-all">
+                        <span className="material-symbols-outlined text-5xl text-primary/40" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>event_busy</span>
+                        <p className="m3-title-medium text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "bold" }}>Nessun evento o lezione oggi.</p>
+                        <button onClick={() => actions.handleNavigate('timetable')} className="px-6 bg-primary/10 hover:bg-primary/20" style={{ marginTop: "var(--md-sys-spacing-4)", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)", borderRadius: "9999px", color: "var(--md-sys-color-primary)", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}>
                             Configura Orario
                         </button>
                     </div>
@@ -175,34 +175,34 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                         // HERO CARD FOR CURRENT EVENT
                         return (
                             <div key={item.id} className="relative pl-10">
-                                <div className="absolute left-[11px] top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/50 to-transparent rounded-full"></div>
-                                <div className="absolute left-0 top-8 w-6 h-6 rounded-full border-4 border-surface-container-low bg-primary shadow-[var(--md-sys-elevation-level2)] z-10 animate-pulse"></div>
+                                <div className="absolute left-[11px] top-0 bottom-0 bg-gradient-to-b from-primary via-primary/50 to-transparent" style={{ width: "0.25rem", borderRadius: "9999px" }}></div>
+                                <div className="absolute left-0 top-8 border-4 border-surface-container-low shadow-[var(--md-sys-elevation-level2)] z-10 animate-pulse" style={{ width: "1.5rem", height: "1.5rem", borderRadius: "9999px", backgroundColor: "var(--md-sys-color-primary)" }}></div>
                                 
-                                <div className="mb-6 m3-label-small font-black text-primary uppercase tracking-[0.2em] flex items-center gap-8">
-                                    <span className="relative flex h-2 w-2">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                                <div className="m3-label-small tracking-[0.2em]" style={{ marginBottom: "var(--md-sys-spacing-6)", fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                                    <span className="relative" style={{ display: "flex", height: "0.5rem", width: "0.5rem" }}>
+                                        <span className="animate-ping absolute" style={{ display: "inline-flex", height: "100%", width: "100%", borderRadius: "9999px", backgroundColor: "var(--md-sys-color-primary)", opacity: "0.75" }}></span>
+                                        <span className="relative" style={{ display: "inline-flex", borderRadius: "9999px", height: "0.5rem", width: "0.5rem", backgroundColor: "var(--md-sys-color-primary)" }}></span>
                                     </span>
                                     ADESSO • {item.time}
                                 </div>
                                 <div 
-                                    className="card bg-primary text-on-primary shadow-[var(--md-sys-elevation-level4)] p-6 transform scale-[1.02] transition-all border border-white/10"
+                                    className="card shadow-[var(--md-sys-elevation-level4)] transform scale-[1.02] border-white/10" style={{ backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", padding: "var(--md-sys-spacing-6)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", border: "1px solid var(--md-sys-color-outline)" }}
                                     style={{ borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
                                 >
-                                    <div className="flex justify-between items-start mb-6">
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "var(--md-sys-spacing-6)" }}>
                                         <div>
-                                            <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black tracking-tight leading-tight">{item.title}</h2>
-                                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] opacity-80 font-medium mt-4">{item.subtitle}</p>
+                                            <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]" style={{ fontWeight: "900", letterSpacing: "-0.005em", lineHeight: "1.25" }}>{item.title}</h2>
+                                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ opacity: "0.8", fontWeight: "500", marginTop: "var(--md-sys-spacing-4)" }}>{item.subtitle}</p>
                                         </div>
-                                        <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-inner">
+                                        <div className="w-14 h-14 bg-white/20 backdrop-blur-md rounded-[var(--md-sys-shape-corner-large)] shadow-inner" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                                             <span className="material-symbols-outlined text-3xl">
                                                 {item.type === 'lesson' ? 'school' : 'event'}
                                             </span>
                                         </div>
                                     </div>
                                     {item.actionLabel && (
-                                        <button onClick={item.onAction} className="w-full py-4 bg-white text-primary rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)] hover:bg-opacity-90 transition-all">
-                                            {item.actionLabel} <span className="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+                                        <button onClick={item.onAction} className="rounded-[var(--md-sys-shape-corner-large)] shadow-[var(--md-sys-elevation-level2)] hover:bg-opacity-90" style={{ width: "100%", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)", backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}>
+                                            {item.actionLabel} <span className="material-symbols-outlined" style={{ marginLeft: "0.5rem", fontSize: "0.875rem" }}>arrow_forward</span>
                                         </button>
                                     )}
                                 </div>
@@ -213,14 +213,14 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                     // PAST ITEMS (Compact, Faded)
                     if (item.status === 'past') {
                         return (
-                            <div key={item.id} className="relative pl-10 opacity-40 grayscale-[0.5]">
+                            <div key={item.id} className="relative pl-10 grayscale-[0.5]" style={{ opacity: "0.4" }}>
                                 <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-outline-variant/30"></div>
-                                <div className="absolute left-[var(--md-sys-spacing-1)] top-2 w-4 h-4 rounded-full bg-outline-variant/50 border-2 border-surface-container-low"></div>
-                                <div className="flex items-center gap-6 py-4">
-                                    <span className="text-[10px] font-black text-[var(--md-sys-color-on-surface)]-variant w-12 uppercase tracking-tighter">{item.time}</span>
+                                <div className="absolute left-[var(--md-sys-spacing-1)] top-2 bg-outline-variant/50 border-2 border-surface-container-low" style={{ width: "1rem", height: "1rem", borderRadius: "9999px" }}></div>
+                                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)" }}>
+                                    <span className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant tracking-tighter" style={{ fontWeight: "900", width: "3rem", textTransform: "uppercase" }}>{item.time}</span>
                                     <div>
-                                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-bold text-[var(--md-sys-color-on-surface)] line-through decoration-outline-variant/50">{item.title}</p>
-                                        <p className="text-[10px] font-medium text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-widest">{item.subtitle}</p>
+                                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)] line-through decoration-outline-variant/50" style={{ fontWeight: "bold" }}>{item.title}</p>
+                                        <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "500", textTransform: "uppercase", letterSpacing: "0.1em" }}>{item.subtitle}</p>
                                     </div>
                                 </div>
                             </div>
@@ -231,19 +231,19 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                     return (
                         <div key={item.id} className="relative pl-10">
                             {!isLast && <div className="absolute left-[11px] top-0 bottom-0 w-0.5 bg-outline-variant/20"></div>}
-                            <div className="absolute left-[var(--md-sys-spacing-1)] top-2 w-4 h-4 rounded-full border-2 border-primary/40 bg-[var(--md-sys-color-surface-container-low)]"></div>
+                            <div className="absolute left-[var(--md-sys-spacing-1)] top-2 border-2 border-primary/40 bg-[var(--md-sys-color-surface-container-low)]" style={{ width: "1rem", height: "1rem", borderRadius: "9999px" }}></div>
                             
                             <div 
-                                className="card bg-[var(--md-sys-color-surface-container-high)]/40 backdrop-blur-md p-5 border border-[var(--md-sys-color-outline-variant)]/20 hover:border-primary/40 hover:bg-[var(--md-sys-color-surface-container-high)]/60 transition-all cursor-pointer group" 
+                                className="card bg-[var(--md-sys-color-surface-container-high)]/40 backdrop-blur-md border-[var(--md-sys-color-outline-variant)]/20 hover:border-primary/40 hover:bg-[var(--md-sys-color-surface-container-high)]/60 group" style={{ padding: "var(--md-sys-spacing-5)", border: "1px solid var(--md-sys-color-outline)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", cursor: "pointer" }} 
                                 onClick={item.onAction}
                                 style={{ borderRadius: 'calc(var(--shape-l) * var(--sys-radius-multiplier))' }}
                             >
-                                <div className="flex justify-between items-center mb-6">
-                                    <span className="m3-label-small font-black text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/10 uppercase tracking-widest">{item.time}</span>
-                                    {item.type === 'lesson' && <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[var(--md-sys-color-on-surface)]-variant opacity-50">Lezione</span>}
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--md-sys-spacing-6)" }}>
+                                    <span className="m3-label-small bg-primary/10 px-3 py-1 border-primary/10" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", borderRadius: "9999px", border: "1px solid var(--md-sys-color-outline)", textTransform: "uppercase", letterSpacing: "0.1em" }}>{item.time}</span>
+                                    {item.type === 'lesson' && <span className="text-[9px] tracking-[0.2em] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "900", textTransform: "uppercase", opacity: "0.5" }}>Lezione</span>}
                                 </div>
-                                <h3 className="m3-title-medium font-black text-[var(--md-sys-color-on-surface)] group-hover:text-primary transition-colors">{item.title}</h3>
-                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant font-medium mt-4">{item.subtitle}</p>
+                                <h3 className="m3-title-medium text-[var(--md-sys-color-on-surface)] group-hover:text-primary" style={{ fontWeight: "900", transition: "color 300ms" }}>{item.title}</h3>
+                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "500", marginTop: "var(--md-sys-spacing-4)" }}>{item.subtitle}</p>
                             </div>
                         </div>
                     );
@@ -251,21 +251,21 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
             </div>
 
             {/* --- MAGIC BOTTOM BAR (Floating) --- */}
-            <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-surface-container-low via-surface-container-low/80 to-transparent pb-8 pt-16 pointer-events-none z-20">
-                <div className="pointer-events-auto max-w-lg mx-auto bg-[var(--md-sys-color-surface-container-high)]est/80 backdrop-blur-2xl rounded-[2.5rem] shadow-[var(--md-sys-elevation-level4)] border border-white/10 p-4.5 flex items-center gap-6">
+            <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/80 to-transparent pb-8 pt-16 pointer-events-none z-20" style={{ padding: "var(--md-sys-spacing-6)" }}>
+                <div className="pointer-events-auto max-w-lg bg-[var(--md-sys-color-surface-container-high)]est/80 backdrop-blur-2xl rounded-[2.5rem] shadow-[var(--md-sys-elevation-level4)] border-white/10 p-4.5" style={{ marginLeft: "auto", marginRight: "auto", border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}>
                     
-                    <button onClick={() => actions.handleNavigate('settings')} className="w-12 h-12 rounded-full flex items-center justify-center text-[var(--md-sys-color-on-surface)]-variant hover:bg-[var(--md-sys-color-surface-container-high)] transition-all">
-                        <span className="material-symbols-outlined text-2xl">settings</span>
+                    <button onClick={() => actions.handleNavigate('settings')} className="text-[var(--md-sys-color-on-surface)]-variant hover:bg-[var(--md-sys-color-surface-container-high)]" style={{ width: "3rem", height: "3rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>settings</span>
                     </button>
 
-                    <div className="flex-grow bg-[var(--md-sys-color-surface-container-low)]/50 rounded-full h-12 flex items-center px-6 text-[var(--md-sys-color-on-surface)]-variant/60 text-sm font-bold cursor-text border border-[var(--md-sys-color-outline-variant)]/10 hover:border-primary/30 transition-all" onClick={onOpenLiveAssistant}>
+                    <div className="bg-[var(--md-sys-color-surface-container-low)]/50 px-6 text-[var(--md-sys-color-on-surface)]-variant/60 cursor-text border-[var(--md-sys-color-outline-variant)]/10 hover:border-primary/30" style={{ flexGrow: "1", borderRadius: "9999px", height: "3rem", display: "flex", alignItems: "center", fontSize: "0.875rem", fontWeight: "bold", border: "1px solid var(--md-sys-color-outline)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} onClick={onOpenLiveAssistant}>
                         Chiedi all'assistente...
                     </div>
 
                     <VoiceNoteRecorder onTranscription={(text) => handleAddNote({ note: text })} compact />
                     
-                    <button onClick={() => actions.handleNavigate('progettazione-hub')} className="w-12 h-12 rounded-full bg-primary text-on-primary shadow-[var(--md-sys-elevation-level2)] hover:shadow-primary/20 hover:scale-105 transition-all flex items-center justify-center">
-                        <span className="material-symbols-outlined text-2xl">add</span>
+                    <button onClick={() => actions.handleNavigate('progettazione-hub')} className="shadow-[var(--md-sys-elevation-level2)] hover:shadow-primary/20 hover:scale-105" style={{ width: "3rem", height: "3rem", borderRadius: "9999px", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>add</span>
                     </button>
                 </div>
             </div>

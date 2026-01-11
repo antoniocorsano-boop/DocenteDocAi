@@ -191,41 +191,41 @@ const vocalAssistantGuideData = {
 };
 
 const SetupGuide = () => (
-    <div className="space-y-6">
-        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Guida alla Configurazione Iniziale</h2>
-        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</p>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+        <h2 style={{ fontSize: "var(--md-sys-typescale-headline-small-size)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Guida alla Configurazione Iniziale</h2>
+        <p style={{ fontSize: "var(--md-sys-typescale-body-medium-size)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: "var(--md-sys-color-on-surface)" }}>Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</p>
 
-        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-            <h3 className="m3-title-medium text-primary font-bold mb-6">1. Impostazioni Generali</h3>
-            <p className="text-sm mb-6">Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
-            <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
+        <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)" }}>
+            <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-6)" }}>1. Impostazioni Generali</h3>
+            <p style={{ fontSize: "0.875rem", marginBottom: "var(--md-sys-spacing-6)" }}>Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
+            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
                 <li>Inserisci il tuo Nome e l'Istituto.</li>
                 <li><strong>Importante:</strong> Nella sezione "Generale", imposta le date di <strong>Inizio</strong> e <strong>Fine Attività Didattica</strong>. Queste date sono fondamentali per visualizzare correttamente la Timeline dei progetti.</li>
             </ul>
         </div>
 
-        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-            <h3 className="m3-title-medium text-primary font-bold mb-6">2. Configurazione Classi e Materie</h3>
-            <p className="text-sm mb-6">Sempre in Impostazioni:</p>
-            <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
+        <div style={{ backgroundColor: "rgba(var(--md-sys-color-surface-container-low-rgb), 0.5)", padding: "var(--md-sys-spacing-5)", borderRadius: "var(--md-sys-shape-corner-large)", border: "1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.2)" }}>
+            <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-6)" }}>2. Configurazione Classi e Materie</h3>
+            <p style={{ fontSize: "0.875rem", marginBottom: "var(--md-sys-spacing-6)" }}>Sempre in Impostazioni:</p>
+            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
                 <li>Sezione <strong>Orario & Materie</strong>: Aggiungi le materie che insegni.</li>
                 <li>Sezione <strong>Classi</strong>: Seleziona le combinazioni Anno/Sezione (es. 1A, 3B) che avrai quest'anno.</li>
             </ul>
         </div>
 
-        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-            <h3 className="m3-title-medium text-primary font-bold mb-6">3. Inserimento Studenti</h3>
-            <p className="text-sm mb-6">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
-            <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
+        <div style={{ backgroundColor: "rgba(var(--md-sys-color-surface-container-low-rgb), 0.5)", padding: "var(--md-sys-spacing-5)", borderRadius: "var(--md-sys-shape-corner-large)", border: "1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.2)" }}>
+            <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-6)" }}>3. Inserimento Studenti</h3>
+            <p style={{ fontSize: "0.875rem", marginBottom: "var(--md-sys-spacing-6)" }}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
+            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
                 <li>Puoi aggiungere gli studenti manualmente uno ad uno.</li>
                 <li>Oppure usa l'importazione CSV per caricare l'elenco completo da un file Excel/CSV.</li>
             </ul>
         </div>
 
-        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-            <h3 className="m3-title-medium text-primary font-bold mb-6">4. Costruzione Orario</h3>
-            <p className="text-sm mb-6">Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
-            <ul className="list-disc pl-5 space-y-2 text-sm opacity-80">
+        <div style={{ backgroundColor: "rgba(var(--md-sys-color-surface-container-low-rgb), 0.5)", padding: "var(--md-sys-spacing-5)", borderRadius: "var(--md-sys-shape-corner-large)", border: "1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.2)" }}>
+            <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-6)" }}>4. Costruzione Orario</h3>
+            <p style={{ fontSize: "0.875rem", marginBottom: "var(--md-sys-spacing-6)" }}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
+            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
                 <li>Tocca una cella vuota della griglia.</li>
                 <li>Assegna Classe e Materia per creare il tuo orario settimanale stabile.</li>
             </ul>
@@ -240,14 +240,14 @@ const DigitalTeacherManual = () => {
     };
 
     return (
-        <div className="space-y-6">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-b border-[var(--md-sys-color-outline-variant)]/10 pb-6">
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)", borderBottom: "1px solid var(--md-sys-color-outline-variant)", paddingBottom: "var(--md-sys-spacing-6)", justifyContent: "space-between", alignItems: "flex-start" }} className="md:flex-row md:items-center">
                 <div>
-                    <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Manuale Integrale e Normativa</h2>
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Versione 4.1.0 - M3 Expressive Edition</p>
+                    <h2 style={{ fontSize: "var(--md-sys-typescale-headline-small-size)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Manuale Integrale e Normativa</h2>
+                    <p style={{ fontSize: "var(--md-sys-typescale-body-medium-size)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: "var(--md-sys-color-on-surface)" }}>Versione 4.1.0 - M3 Expressive Edition</p>
                 </div>
-                <M3Button onClick={downloadManual} variant="outlined" className="font-black text-xs uppercase tracking-widest">
-                    <span className="material-symbols-outlined mr-2">download</span>
+                <M3Button onClick={downloadManual} variant="outlined" style={{ fontWeight: "900", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>download</span>
                     Scarica .MD
                 </M3Button>
             </div>
@@ -261,13 +261,13 @@ const DigitalTeacherManual = () => {
             />
 
             <ManualSection title="1. Normativa, Sicurezza e Privacy" icon="security" colorClass="text-tertiary" defaultOpen>
-                <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10 space-y-4">
-                     <h4 className="m3-title-small font-black text-primary uppercase tracking-widest text-[10px]">GDPR & Sovranità del Dato</h4>
-                     <p className="text-sm leading-relaxed">L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-4)", backgroundColor: "var(--md-sys-color-surface-container-low)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-4)" }}>
+                     <h4 className="m3-title-small" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em" }}>GDPR & Sovranità del Dato</h4>
+                     <p style={{ fontSize: "0.875rem", lineHeight: "1.625" }}>L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</p>
                      
-                     <h4 className="m3-title-small font-black text-primary uppercase tracking-widest text-[10px] mt-4">Norme Scolastiche</h4>
-                     <p className="text-sm leading-relaxed">Il sistema supporta nativamente:</p>
-                     <ul className="list-disc pl-5 text-sm space-y-1 opacity-80">
+                     <h4 className="m3-title-small" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Norme Scolastiche</h4>
+                     <p style={{ fontSize: "0.875rem", lineHeight: "1.625" }}>Il sistema supporta nativamente:</p>
+                     <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-1)" }}>
                          <li><strong>L. 170/2010 & Dir. BES:</strong> Modulo Inclusione dedicato.</li>
                          <li><strong>DPR 122/2009:</strong> Valutazione formativa e sommativa.</li>
                          <li><strong>O.M. 172/2020:</strong> Valutazione descrittiva primaria (livelli di competenza).</li>
@@ -276,7 +276,7 @@ const DigitalTeacherManual = () => {
             </ManualSection>
 
             <ManualSection title="2. Manuale Operativo" icon="school" colorClass="text-primary">
-                <h4 className="m3-title-small font-black mb-6 uppercase tracking-widest text-[10px]">Configurazione & Strategia</h4>
+                <h4 className="m3-title-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Configurazione & Strategia</h4>
                 <UseCaseCard 
                     scenario="Voglio che l'app conosca il mio metodo."
                     steps={[
@@ -286,7 +286,7 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4 className="m3-title-small font-black mb-6 mt-6 uppercase tracking-widest text-[10px]">In Aula</h4>
+                <h4 className="m3-title-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>In Aula</h4>
                 <UseCaseCard 
                     scenario="Devo segnare una nota disciplinare mentre spiego."
                     steps={[
@@ -296,7 +296,7 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4 className="m3-title-small font-black mb-6 mt-6 uppercase tracking-widest text-[10px]">Valutazione</h4>
+                <h4 className="m3-title-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Valutazione</h4>
                  <UseCaseCard 
                     scenario="Voglio dare un voto completo."
                     steps={[
@@ -309,14 +309,14 @@ const DigitalTeacherManual = () => {
             </ManualSection>
 
             <ManualSection title="3. Visione Strategica per Stakeholders" icon="campaign" colorClass="text-secondary">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
-                        <h4 className="font-black mb-6 flex gap-8 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-primary">admin_panel_settings</span> Per il Dirigente</h4>
-                        <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant leading-relaxed">Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "var(--md-sys-spacing-8)" }}>
+                    <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)" }}>
+                        <h4 style={{ fontWeight: "900", alignItems: "center", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}><span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>admin_panel_settings</span> Per il Dirigente</h4>
+                        <p style={{ fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625" }}>Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
                     </div>
-                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
-                        <h4 className="font-black mb-6 flex gap-8 items-center text-xs uppercase tracking-widest"><span className="material-symbols-outlined text-secondary">engineering</span> Per l'Animatore Digitale</h4>
-                        <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant leading-relaxed">Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
+                    <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)" }}>
+                        <h4 style={{ fontWeight: "900", alignItems: "center", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}><span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-secondary)" }}>engineering</span> Per l'Animatore Digitale</h4>
+                        <p style={{ fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625" }}>Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
                     </div>
                 </div>
             </ManualSection>
@@ -326,25 +326,25 @@ const DigitalTeacherManual = () => {
 };
 
 const VocalAssistantGuideContent = () => (
-    <div className="space-y-6">
-        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black flex items-center gap-6">
-            <span className="material-symbols-outlined text-primary text-3xl">mic</span>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900", alignItems: "center" }}>
+            <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>mic</span>
             Il tuo Copilota Didattico
         </h2>
-        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-6 leading-relaxed">
+        <p style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625" }}>
             L'Assistente Live non è solo una chat: è collegato al registro, ai tuoi documenti e ora anche a <strong>Google Search</strong>. Premi il microfono e prova questi comandi:
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
             {vocalAssistantGuideData.sections.map((section, idx) => (
-                <div key={idx} className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
-                    <h3 className="m3-title-medium text-primary font-bold mb-8 flex items-center gap-8">
-                        <span className="material-symbols-outlined text-sm">record_voice_over</span>
+                <div key={idx} style={{ backgroundColor: "rgba(var(--md-sys-color-surface-container-low-rgb), 0.5)", padding: "var(--md-sys-spacing-5)", borderRadius: "var(--md-sys-shape-corner-large)", border: "1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.1)" }}>
+                    <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-8)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>record_voice_over</span>
                         {section.title}
                     </h3>
-                    <ul className="space-y-3">
+                    <ul style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-3)" }}>
                         {section.commands.map((cmd, cIdx) => (
-                            <li key={cIdx} className="text-sm font-medium text-[var(--md-sys-color-on-surface)] bg-[var(--md-sys-color-surface-container-high)]/30 p-6 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/5">"{cmd}"</li>
+                            <li key={cIdx} style={{ fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", backgroundColor: "var(--md-sys-color-surface-container-high)", borderRadius: "var(--md-sys-shape-corner-medium)" }}>"{cmd}"</li>
                         ))}
                     </ul>
                 </div>
@@ -362,40 +362,40 @@ const VocalAssistantGuideContent = () => (
 );
 
 const UserGuide = () => (
-    <div className="space-y-6">
-        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Guida Rapida al Flusso di Lavoro</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-            <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-l-4 border-l-primary border border-[var(--md-sys-color-outline-variant)]/10">
-                <h3 className="font-black m3-title-medium mb-8 text-primary uppercase tracking-widest text-xs">1. Centro Operativo</h3>
-                <p className="text-sm leading-relaxed opacity-80">Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</p>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Guida Rapida al Flusso di Lavoro</h2>
+        <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)", marginTop: "var(--md-sys-spacing-6)" }}>
+            <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", borderLeft: "4px solid" }}>
+                <h3 className="m3-title-medium" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem" }}>1. Centro Operativo</h3>
+                <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</p>
             </div>
-            <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-l-4 border-l-secondary border border-[var(--md-sys-color-outline-variant)]/10">
-                <h3 className="font-black m3-title-medium mb-8 text-secondary uppercase tracking-widest text-xs">2. Progettazione Intelligente</h3>
-                <p className="text-sm leading-relaxed opacity-80">Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</p>
+            <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", borderLeft: "4px solid" }}>
+                <h3 className="m3-title-medium" style={{ fontWeight: "900", color: "var(--md-sys-color-secondary)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem" }}>2. Progettazione Intelligente</h3>
+                <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</p>
             </div>
-            <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-l-4 border-l-tertiary border border-[var(--md-sys-color-outline-variant)]/10">
-                <h3 className="font-black m3-title-medium mb-8 text-tertiary uppercase tracking-widest text-xs">3. In Aula (Continuità)</h3>
-                <p className="text-sm leading-relaxed opacity-80">Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</p>
+            <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", borderLeft: "4px solid" }}>
+                <h3 className="m3-title-medium" style={{ fontWeight: "900", color: "var(--md-sys-color-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem" }}>3. In Aula (Continuità)</h3>
+                <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</p>
             </div>
-            <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-l-4 border-l-error border border-[var(--md-sys-color-outline-variant)]/10">
-                <h3 className="font-black m3-title-medium mb-8 text-error uppercase tracking-widest text-xs">4. Analisi & Report</h3>
-                <p className="text-sm leading-relaxed opacity-80">Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</p>
+            <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", borderLeft: "4px solid" }}>
+                <h3 className="m3-title-medium" style={{ fontWeight: "900", color: "var(--md-sys-color-error)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem" }}>4. Analisi & Report</h3>
+                <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</p>
             </div>
         </div>
     </div>
 );
 
 const TechnicalSpecs = () => (
-    <div className="space-y-6">
-        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">{specsContentData.title}</h2>
-        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/10">
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>{specsContentData.title}</h2>
+        <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-extra-large)" }}>
             <ul style={{
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
                 {specsContentData.specs.map((spec, index) => (
-                    <li key={index} className="flex gap-8 items-start">
-                        <span className="material-symbols-outlined text-primary mt-4">check_circle</span>
-                        <span className="text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: spec }}></span>
+                    <li key={index} style={{ alignItems: "flex-start" }}>
+                        <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>check_circle</span>
+                        <span style={{ fontSize: "0.875rem", lineHeight: "1.625" }} dangerouslySetInnerHTML={{ __html: spec }}></span>
                     </li>
                 ))}
             </ul>
@@ -404,23 +404,23 @@ const TechnicalSpecs = () => (
 );
 
 const NormativaContent: React.FC = () => (
-    <div className="space-y-6">
-        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Privacy e Cloud</h2>
-        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant leading-relaxed">OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Privacy e Cloud</h2>
+        <p style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625" }}>OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
         
-        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/10">
-            <h3 className="m3-title-medium font-bold text-primary mb-8">I Tuoi Dati, Il Tuo Cloud</h3>
-            <ul className="space-y-3">
-                <li className="flex gap-6 text-sm">
-                    <span className="material-symbols-outlined text-primary text-sm mt-0.5">shield</span>
+        <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-extra-large)" }}>
+            <h3 className="m3-title-medium" style={{ fontWeight: "bold", color: "var(--md-sys-color-primary)" }}>I Tuoi Dati, Il Tuo Cloud</h3>
+            <ul style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-3)" }}>
+                <li style={{ fontSize: "0.875rem" }}>
+                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)", fontSize: "0.875rem", marginTop: "0.125rem" }}>shield</span>
                     Non esiste un server centrale di OrarioDoc che legge i tuoi dati.
                 </li>
-                <li className="flex gap-6 text-sm">
-                    <span className="material-symbols-outlined text-primary text-sm mt-0.5">devices</span>
+                <li style={{ fontSize: "0.875rem" }}>
+                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)", fontSize: "0.875rem", marginTop: "0.125rem" }}>devices</span>
                     Tutto viene salvato nel tuo dispositivo (IndexedDB).
                 </li>
-                <li className="flex gap-6 text-sm">
-                    <span className="material-symbols-outlined text-primary text-sm mt-0.5">cloud_done</span>
+                <li style={{ fontSize: "0.875rem" }}>
+                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)", fontSize: "0.875rem", marginTop: "0.125rem" }}>cloud_done</span>
                     Il backup avviene sul <strong>TUO Google Drive</strong> personale. L'app ha accesso solo alla propria cartella di backup.
                 </li>
             </ul>
@@ -437,16 +437,16 @@ const NormativaContent: React.FC = () => (
 );
 
 const FaqContent = () => (
-    <div className="space-y-6">
-        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Domande Frequenti (FAQ)</h2>
-        <div className="space-y-3 mt-6">
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Domande Frequenti (FAQ)</h2>
+        <div style={{ marginTop: "var(--md-sys-spacing-6)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-3)" }}>
             {faqContentData.map((faq, i) => (
-                <details key={i} className="faq-item group bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10 overflow-hidden transition-all hover:bg-[var(--md-sys-color-surface-container-high)]/50">
-                    <summary className="m3-title-medium cursor-pointer p-5 list-none flex justify-between items-center group-open:bg-primary/5 font-bold">
+                <details key={i} className="faq-item group hover:bg-[var(--md-sys-color-surface-container-high)]/50" style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", overflow: "hidden" }}>
+                    <summary className="m3-title-medium group-open:bg-primary/5" style={{ cursor: "pointer", listStyle: "none", justifyContent: "space-between", alignItems: "center", fontWeight: "bold" }}>
                         <span dangerouslySetInnerHTML={{ __html: faq.q }}></span>
-                        <span className="material-symbols-outlined transition-transform duration-300 group-open:rotate-180">expand_more</span>
+                        <span className="material-symbols-outlined duration-300 group-open:rotate-180" style={{ transition: "transform 300ms" }}>expand_more</span>
                     </summary>
-                    <div className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] p-5 pt-0 opacity-80 leading-relaxed text-sm" dangerouslySetInnerHTML={{ __html: faq.a }}></div>
+                    <div style={{ paddingTop: "0" }} style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.8", lineHeight: "1.625", fontSize: "0.875rem" }} dangerouslySetInnerHTML={{ __html: faq.a }}></div>
                 </details>
             ))}
         </div>
@@ -455,36 +455,36 @@ const FaqContent = () => (
 
 const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
     const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_releases" }) => (
-        <div className="bg-[var(--md-sys-color-surface-container-low)]/50 p-5 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10 hover:bg-[var(--md-sys-color-surface-container-high)]/50 transition-all group">
-            <div className="flex justify-between items-start mb-6">
-                <div className="flex items-center gap-6 flex-1 min-w-0">
-                    <div className="w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+        <div className="group hover:bg-[var(--md-sys-color-surface-container-high)]/50" style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)" }}>
+            <div style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
+                <div style={{ alignItems: "center", flex: "1", minWidth: "0" }}>
+                    <div className="group-hover:scale-110" style={{ transition: "transform 300ms" }} style={{ width: "2.5rem", height: "2.5rem", borderRadius: "var(--md-sys-shape-corner-medium)", color: "var(--md-sys-color-primary)", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>{icon}</span>
                     </div>
-                    <h4 className="m3-title-medium font-bold truncate">{title}</h4>
+                    <h4 className="m3-title-medium" style={{ fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{title}</h4>
                 </div>
-                <span className="px-4 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-black uppercase tracking-widest flex-shrink-0">v4.1.0</span>
+                <span style={{ color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", flexShrink: "0" }}>v4.1.0</span>
             </div>
-            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mb-8 opacity-70 leading-relaxed text-sm line-clamp-2">{children}</p>
+            <p style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.7", lineHeight: "1.625", fontSize: "0.875rem", display: "-webkit-box", WebkitLineClamp: "2", WebkitBoxOrient: "vertical", overflow: "hidden" }}>{children}</p>
             {actionView && actionView !== 'home' && (
                 <M3Button
                     onClick={() => { onClose(); onNavigate(actionView); }}
                     variant="tonal"
-                    className="w-full font-black text-[10px] uppercase tracking-widest"
+                    style={{ width: "100%", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}
                 >
-                    <span className="material-symbols-outlined mr-2 text-sm">arrow_forward</span>
+                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem", fontSize: "0.875rem" }}>arrow_forward</span>
                     Vai alla funzione
                 </M3Button>
             )}
         </div>
     );
     return (
-        <div className="space-y-6">
-            <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black">Novità della versione 4.1.0</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+            <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Novità della versione 4.1.0</h2>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="lg:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
                 <ImprovementCard title="Design M3 Expressive" actionView="settings" icon="palette">
                     Interfaccia completamente rinnovata con il nuovo design system Material 3 Expressive: layout adattivi, motion system e colori dinamici.
                 </ImprovementCard>
@@ -510,20 +510,20 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 </ImprovementCard>
             </div>
 
-            <div className="p-8 rounded-4xl bg-primary-container/20 text-on-primary-container border border-primary/20 shadow-[var(--md-sys-elevation-level3)] mt-8">
-                <div className="flex flex-col md:flex-row gap-6 items-center">
-                    <div className="w-20 h-20 rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary text-on-primary flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] flex-shrink-0">
+            <div className="rounded-4xl bg-primary-container/20 text-on-primary-container border-primary/20 shadow-[var(--md-sys-elevation-level3)] mt-8" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
+                <div className="md:flex-row" style={{ alignItems: "center" }}>
+                    <div className="shadow-[var(--md-sys-elevation-level2)]" style={{ width: "5rem", height: "5rem", borderRadius: "var(--md-sys-shape-corner-extra-large)", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
                         <span className="material-symbols-outlined text-4xl">picture_as_pdf</span>
                     </div>
-                    <div className="flex-grow text-center md:text-left">
-                        <h3 className="m3-title-large font-black">Manuale Completo PDF</h3>
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mt-4 opacity-70">
+                    <div className="md:text-left" style={{ flexGrow: "1", textAlign: "center" }}>
+                        <h3 className="m3-title-large" style={{ fontWeight: "900" }}>Manuale Completo PDF</h3>
+                        <p style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.7" }}>
                             Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
                         </p>
                     </div>
                 </div>
-                 <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" className="w-full !h-16 mt-8 font-black text-sm uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)]">
-                    <span className="material-symbols-outlined mr-2">{isGenerating ? 'pending' : 'download'}</span>
+                 <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" className="!h-16 shadow-[var(--md-sys-elevation-level2)]" style={{ width: "100%", fontWeight: "900", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>{isGenerating ? 'pending' : 'download'}</span>
                     {isGenerating ? 'Generazione...' : 'Scarica Manuale & Guida PDF'}
                 </M3Button>
         </div>
@@ -610,20 +610,20 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
       level={2}
       hideBackdrop={true}
     >
-      <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-xl">
+      <M3DialogContent className="backdrop-blur-xl" style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }}>
         <div style={{
   marginTop: 'var(--md-sys-spacing-8)'
 }}>
-          <div className="p-5 rounded-[var(--md-sys-shape-corner-extra-large)] bg-primary-container/10 border border-primary/20 text-sm shadow-inner">
-            <div className="flex items-center gap-6 mb-6">
-                <span className="material-symbols-outlined text-primary">campaign</span>
-                <b className="text-primary uppercase tracking-widest text-[10px]">Novità Dicembre 2025</b>
+          <div className="shadow-inner" style={{ borderRadius: "var(--md-sys-shape-corner-extra-large)", fontSize: "0.875rem" }}>
+            <div style={{ alignItems: "center" }}>
+                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>campaign</span>
+                <b style={{ color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Novità Dicembre 2025</b>
             </div>
-            <ul className="list-disc pl-5 space-y-2 opacity-80 text-xs leading-relaxed">
+            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
               <li>Tutti i pulsanti ora seguono Material Design 3 (filled, tonal, outlined, icon, segmented)</li>
               <li>Migliorata accessibilità, responsive e coerenza visiva</li>
               <li>Focus visibile, aria-label obbligatorio, test aggiornati</li>
-              <li>Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener" className="text-primary hover:underline font-bold">guida M3 aggiornata</a> per dettagli e best practice</li>
+              <li>Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener" className="hover:underline" style={{ color: "var(--md-sys-color-primary)", fontWeight: "bold" }}>guida M3 aggiornata</a> per dettagli e best practice</li>
             </ul>
           </div>
 
@@ -632,7 +632,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
             activeTab={activeTab}
             onTabChange={(id) => setActiveTab(id as HelpTab)}
             variant="primary"
-            className="w-full"
+            style={{ width: "100%" }}
           />
 
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -642,7 +642,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
       </M3DialogContent>
 
       <M3DialogActions>
-        <M3Button onClick={onClose} variant="text" disabled={isGenerating} className="font-black text-xs uppercase tracking-widest">Chiudi</M3Button>
+        <M3Button onClick={onClose} variant="text" disabled={isGenerating} style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Chiudi</M3Button>
       </M3DialogActions>
     </M3Dialog>
   );
