@@ -12,6 +12,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
+import { useTheme } from '../../theme/theme';
 import M3Popover from './M3Popover';
 
 // ============================================================================
@@ -63,9 +64,6 @@ export interface M3MenuProps {
   /** Max width of menu */
   maxWidth?: number | string;
   
-  /** Custom CSS class */
-  className?: string;
-  
   /** Z-index */
   zIndex?: number;
 }
@@ -82,9 +80,10 @@ export const M3Menu: React.FC<M3MenuProps> = ({
   title,
   minWidth = 200,
   maxWidth = 320,
-  className = '',
   zIndex = 1300,
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const theme = useTheme();
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   
@@ -154,11 +153,10 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       title={title}
       minWidth={minWidth}
       maxWidth={maxWidth}
-      className={`m3-menu ${className}`.trim()}
       zIndex={zIndex}
       showBackdrop={false}
     >
-      <div className="m3-menu__items" role="menu" style={{ outline: 'none' }}>
+      <div role="menu" style={{ outline: 'none' }}>
         {items.map((item, index) => (
           <React.Fragment key={item.key}>
             <button
@@ -168,7 +166,6 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               role="menuitem"
               onClick={handleItemClick.bind(null, index)}
               disabled={item.disabled}
-              className={`m3-menu-item${item.disabled ? '' : ''}${focusedIndex === index ? ' m3-menu-item--focused' : ''}${item.variant === 'error' ? ' m3-menu-item--error' : ''}`}
               style={{
                 opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : '1',
                 cursor: item.disabled ? 'not-allowed' : 'pointer',
@@ -180,29 +177,40 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               aria-disabled={item.disabled}
             >
               {item.icon && (
-                <span className="m3-menu__item-icon" style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                  fontFamily: 'var(--md-sys-typescale-body-medium-font)',
-                  lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
-                  flexShrink: 0
-                }}>
+                <span
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                    fontFamily: 'var(--md-sys-typescale-body-medium-font)',
+                    lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                    flexShrink: 0
+                  }}
+                >
                   {item.icon}
                 </span>
               )}
-              <span className="m3-menu__item-label" style={{
-                flexGrow: 1,
-                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                fontFamily: 'var(--md-sys-typescale-body-medium-font)'
-              }}>
+              <span
+                style={{
+                  flexGrow: 1,
+                  fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                  fontFamily: 'var(--md-sys-typescale-body-medium-font)'
+                }}
+              >
                 {item.label}
               </span>
             </button>
             
             {item.divider && (
-              <div className="m3-menu__divider" role="separator"></div>
+              <div
+                role="separator"
+                style={{
+                  height: '1px',
+                  backgroundColor: 'var(--md-sys-color-outline-variant)',
+                  margin: 'var(--md-sys-spacing-1) 0'
+                }}
+              ></div>
             )}
           </React.Fragment>
         ))}

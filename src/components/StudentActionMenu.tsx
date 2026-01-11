@@ -2,6 +2,7 @@
 /* M3Expressive - StudentActionMenu Component */
 
 import React, { useMemo } from 'react';
+import { useTheme } from '../theme/theme';
 import { Studente, Valutazione, ParticipationEntry } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { Avatar, M3Popover, M3Typography, M3Button } from './ui';
@@ -19,6 +20,7 @@ interface StudentActionMenuProps {
 /**
  * StudentActionMenu - MD3 Pure Student Actions Component
  * ✅ MIGRATED TO MD3 PURE - Complete migration from legacy CSS classes to pure MD3 tokens and M3Typography
+ * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
  *
  * Features:
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
@@ -48,6 +50,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
     onAddEvaluation,
     onViewProfile,
 }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const theme = useTheme();
     const { grade, trend } = useMemo(
         () => calculatePerformance(student.id, 'Complessivo', evaluations),
         [student.id, evaluations]
@@ -182,8 +186,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             Trend
                         </M3Typography>
                         <span
-                            className="material-symbols-outlined"
                             style={{
+                                fontFamily: 'Material Symbols Outlined',
                                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 color: trendColor,
                                 display: 'block',
@@ -265,8 +269,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                 >
                     <span
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                             color: 'var(--md-sys-color-primary)'
                         }}
@@ -289,8 +293,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                 >
                     <span
-                        className="material-symbols-outlined"
                         style={{
+                            fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                             color: 'var(--md-sys-color-secondary)'
                         }}

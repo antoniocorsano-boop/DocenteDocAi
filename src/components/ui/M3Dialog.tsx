@@ -11,6 +11,7 @@
  */
 
 import React, { useCallback } from 'react';
+import { useTheme } from '../../theme/theme';
 import { getModalZIndex } from '../../design-system/zIndex';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 
@@ -43,9 +44,6 @@ export interface M3DialogProps {
   /** Called when modal should close */
   onClose: () => void;
   
-  /** Custom CSS classes */
-  className?: string;
-  
   /** Allow closing via backdrop click */
   backdropClickable?: boolean;
   
@@ -69,10 +67,7 @@ export interface M3DialogProps {
 
   /** If true, hide the default close button in the header */
   hideCloseButton?: boolean;
-
-  /** Optional class applied to the outer dialog shell (useful for E2E hooks) */
-  wrapperClassName?: string;
-
+  
   /** Optional test id applied to the dialog shell (defaults to m3-dialog) */
   wrapperTestId?: string;
 }
@@ -88,7 +83,6 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   buttons,
   mode = 'modal',
   onClose,
-  className = '',
   backdropClickable = true,
   maxWidth = 'lg',
   headerContent,
@@ -98,9 +92,10 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   isOpen = true,
   hideBackdrop = false,
   hideCloseButton = false,
-  wrapperClassName = '',
   wrapperTestId,
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const theme = useTheme();
   const zIndex = Number(style.zIndex) || getModalZIndex(level);
 
   // Use centralized keyboard navigation hook
@@ -134,8 +129,15 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   return (
     <div
       ref={dialogRef}
-      className={`dialog-backdrop ${wrapperClassName}`.trim()}
-      style={{ ...style, zIndex }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex,
+        ...style
+      }}
       onClick={handleBackdropClick}
       role="presentation"
       data-testid={wrapperTestId || 'm3-dialog'}
@@ -144,19 +146,45 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
       {/* Backdrop - M3 Expressive blur effect */}
       {!hideBackdrop && (
         <div
-          className="absolute inset-0 bg-black/40 animate-in fade-in duration-300"
-          style={{ backdropFilter: `blur(var(--sys-glass-blur))` }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'var(--md-sys-color-scrim)',
+            opacity: 'var(--md-sys-state-opacity-scrim)',
+            backdropFilter: 'blur(var(--sys-glass-blur))',
+            animation: 'fade-in 300ms ease-out'
+          }}
           aria-hidden="true"
         />
       )}
 
       {/* Dialog Panel - M3 Expressive */}
       <div
-        className={`dialog-container ${
-          mode === 'fullscreen'
-            ? 'w-full h-full md:h-[90vh] md:max-w-5xl'
-            : `w-full ${maxWidthMap[maxWidth]} max-h-[90vh]`
-        } ${className}`}
+        style={{
+          width: '100%',
+          ...(mode === 'fullscreen'
+            ? {
+                height: '100%',
+                maxHeight: '90vh',
+                maxWidth: '80rem' // 5xl
+              }
+            : {
+                maxWidth: maxWidthMap[maxWidth],
+                maxHeight: '90vh'
+              }
+          ),
+          margin: 'auto',
+          backgroundColor: 'var(--md-sys-color-surface-container-high)',
+          borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+          boxShadow: 'var(--md-sys-elevation-level3)',
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+          zIndex: zIndex + 1
+        }}
         role="dialog"
         aria-modal="true"
         aria-labelledby="dialog-title"
@@ -165,17 +193,47 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         {headerContent ? (
           headerContent
         ) : (
-          <div className="dialog-header">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              padding: 'var(--md-sys-spacing-6)',
+              borderBottom: '1px solid var(--md-sys-color-outline-variant)'
+            }}
+          >
             {/* Title & Subtitle */}
             <div>
               <h2
                 id="dialog-title"
-                className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)] tracking-tight"
+                style={{
+                  fontFamily: 'var(--md-sys-typescale-headline-small-font-family)',
+                  fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                  fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)',
+                  lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
+                  letterSpacing: 'var(--md-sys-typescale-headline-small-letter-spacing)',
+                  color: 'var(--md-sys-color-on-surface)',
+                  margin: 0
+                }}
               >
                 {title}
               </h2>
               {headline && (
-                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface-variant)] opacity-80 line-clamp-2 mt-4 leading-snug">
+                <p
+                  style={{
+                    fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
+                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                    fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
+                    lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                    color: 'var(--md-sys-color-on-surface-variant)',
+                    opacity: 0.8,
+                    margin: 'var(--md-sys-spacing-4) 0 0 0',
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden'
+                  }}
+                >
                   {headline}
                 </p>
               )}
@@ -185,24 +243,63 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
             {!hideCloseButton && (
               <button
                 onClick={onClose}
-                className="icon-button hover:bg-[var(--md-sys-color-surface-container-highest)] flex items-center justify-center transition-colors"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: 'var(--md-sys-spacing-2)',
+                  borderRadius: 'var(--md-sys-shape-corner-full)',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background-color 150ms ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-highest)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
                 data-focus-priority="-1"
                 aria-label="Chiudi"
               >
-                <span className="material-symbols-outlined">close</span>
+                <span
+                  // eslint-disable-next-line design-system/no-classname
+                  className="material-symbols-outlined"
+                  style={{
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    color: 'var(--md-sys-color-on-surface-variant)'
+                  }}
+                >
+                  close
+                </span>
               </button>
             )}
           </div>
         )}
 
         {/* Content Section */}
-        <div className="dialog-content">
+        <div
+          style={{
+            flex: 1,
+            padding: 'var(--md-sys-spacing-6)',
+            overflowY: 'auto'
+          }}
+        >
           {children}
         </div>
 
         {/* Footer Section */}
         {(buttons || footerContent) && (
-          <div className="dialog-footer">
+          <div
+            style={{
+              padding: 'var(--md-sys-spacing-6)',
+              borderTop: '1px solid var(--md-sys-color-outline-variant)',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: 'var(--md-sys-spacing-3)'
+            }}
+          >
             {footerContent || buttons}
           </div>
         )}
@@ -214,18 +311,42 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
 /**
  * M3DialogContent - Content wrapper component
  */
-export const M3DialogContent: React.FC<{ children: React.ReactNode; className?: string }> = ({
+export const M3DialogContent: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }> = ({
   children,
-  className = '',
-}) => <div className={`dialog-content ${className}`}>{children}</div>;
+  style = {},
+}) => (
+  <div
+    style={{
+      flex: 1,
+      padding: 'var(--md-sys-spacing-6)',
+      overflowY: 'auto',
+      ...style
+    }}
+  >
+    {children}
+  </div>
+);
 
 /**
  * M3DialogActions - Actions/footer wrapper component
  */
-export const M3DialogActions: React.FC<{ children: React.ReactNode; className?: string }> = ({
+export const M3DialogActions: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }> = ({
   children,
-  className = '',
-}) => <div className={`dialog-footer ${className}`}>{children}</div>;
+  style = {},
+}) => (
+  <div
+    style={{
+      padding: 'var(--md-sys-spacing-6)',
+      borderTop: '1px solid var(--md-sys-color-outline-variant)',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      gap: 'var(--md-sys-spacing-3)',
+      ...style
+    }}
+  >
+    {children}
+  </div>
+);
 
 /**
  * M3ConfirmDialog - Simple yes/no confirmation
@@ -254,17 +375,54 @@ export const M3ConfirmDialog: React.FC<{
       maxWidth="sm"
       buttons={
         <>
-          <button onClick={onCancel} className="m3-button-text">{cancelText}</button>
-          <button 
-            onClick={onConfirm} 
-            className={danger ? 'm3-button-error' : 'm3-button-filled'}
+          <button
+            onClick={onCancel}
+            style={{
+              padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+              border: 'none',
+              backgroundColor: 'transparent',
+              color: 'var(--md-sys-color-primary)',
+              borderRadius: 'var(--md-sys-shape-corner-large)',
+              fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
+              fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+              fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+              cursor: 'pointer'
+            }}
+          >
+            {cancelText}
+          </button>
+          <button
+            onClick={onConfirm}
+            style={{
+              padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+              border: 'none',
+              backgroundColor: danger ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-on-primary)',
+              borderRadius: 'var(--md-sys-shape-corner-large)',
+              fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
+              fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+              fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+              cursor: 'pointer'
+            }}
           >
             {confirmText}
           </button>
         </>
       }
     >
-      <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)] py-4">{message}</p>
+      <p
+        style={{
+          fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
+          fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+          fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+          lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+          color: 'var(--md-sys-color-on-surface)',
+          padding: 'var(--md-sys-spacing-4) 0',
+          margin: 0
+        }}
+      >
+        {message}
+      </p>
     </M3Dialog>
   );
 };

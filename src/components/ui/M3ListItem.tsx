@@ -1,4 +1,6 @@
 import React from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../../hooks/useTheme';
 
 interface M3ListItemProps {
     headline: React.ReactNode;
@@ -7,7 +9,6 @@ interface M3ListItemProps {
     leadingElement?: React.ReactNode;
     trailingElement?: React.ReactNode;
     onClick?: () => void;
-    className?: string;
     children?: React.ReactNode;
 }
 
@@ -18,7 +19,6 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
     leadingElement, 
     trailingElement, 
     onClick, 
-    className = '', 
     children 
 }) => {
     const isClickable = Boolean(onClick);
@@ -34,21 +34,86 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
             }}
             role={isClickable ? 'button' : undefined}
             tabIndex={isClickable ? 0 : undefined}
-            className={`flex items-start gap-4 p-4 rounded-[var(--md-sys-shape-corner-medium)] transition-all min-h-[56px] ${isClickable ? 'cursor-pointer hover:bg-[var(--md-sys-color-surface-container-high)]est focus-visible:bg-[var(--md-sys-color-surface-container-high)]est active:bg-[var(--md-sys-color-surface-container-high)]est' : ''} ${className}`}
+            style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 'var(--md-sys-spacing-4)',
+                padding: 'var(--md-sys-spacing-4)',
+                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                minHeight: 'var(--md-sys-spacing-14)',
+                cursor: isClickable ? 'pointer' : 'default',
+                backgroundColor: 'transparent',
+                outline: 'none',
+                border: 'none',
+                textAlign: 'left',
+                width: '100%'
+            }}
+            onMouseEnter={(e) => {
+                if (isClickable) {
+                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                }
+            }}
+            onMouseLeave={(e) => {
+                if (isClickable) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                }
+            }}
+            onFocus={(e) => {
+                if (isClickable) {
+                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                    e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
+                    e.currentTarget.style.outlineOffset = '2px';
+                }
+            }}
+            onBlur={(e) => {
+                if (isClickable) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.outline = 'none';
+                    e.currentTarget.style.outlineOffset = '0';
+                }
+            }}
         >
-            {leadingElement && <div className="flex-shrink-0 mt-0.5">{leadingElement}</div>}
-            <div className="flex-grow min-w-0 flex flex-col gap-0.5">
-                <div className={`text-[var(--md-sys-color-on-surface)] font-bold truncate ${headlineSize === 'small' ? 'text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]' : headlineSize === 'large' ? 'm3-title-medium' : 'text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]'}`}>
+            {leadingElement && <div style={{ flexShrink: 0, marginTop: 'var(--md-sys-spacing-1)' }}>{leadingElement}</div>}
+            <div style={{ flexGrow: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
+                <div style={{
+                    color: 'var(--md-sys-color-on-surface)',
+                    fontWeight: 'bold',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    ...(headlineSize === 'small' && {
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
+                        lineHeight: 'var(--md-sys-typescale-body-medium-line-height)'
+                    }),
+                    ...(headlineSize === 'large' && {
+                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                        fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
+                        lineHeight: 'var(--md-sys-typescale-title-medium-line-height)'
+                    }),
+                    ...(headlineSize === 'medium' && {
+                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+                        lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
+                    })
+                }}>
                     {headline}
                 </div>
                 {supportingText && (
-                    <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant opacity-80">
+                    <div style={{
+                        fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                        fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
+                        lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                        opacity: 0.8
+                    }}>
                         {supportingText}
                     </div>
                 )}
                 {children}
             </div>
-            {trailingElement && <div className="flex-shrink-0 flex items-center gap-8 self-center">{trailingElement}</div>}
+            {trailingElement && <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)', alignSelf: 'center' }}>{trailingElement}</div>}
         </div>
     );
 };

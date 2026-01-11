@@ -1,5 +1,6 @@
 import React from 'react';
-import { cn } from '../../utils/cn';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../../hooks/useTheme';
 
 export type M3ChipProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
@@ -9,91 +10,131 @@ export type M3ChipProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 function M3Chip({ label, variant = 'filled', disabled, onDelete, className, ...buttonProps }: M3ChipProps): React.ReactElement {
-  // MD3 Chip variants using design tokens
-  const variantClasses = {
-    filled: cn(
-      'bg-[var(--md-sys-color-secondary-container)]',
-      'text-[var(--md-sys-color-on-secondary-container)]',
-      'border border-[var(--md-sys-color-secondary-container)]',
-      'hover:bg-[var(--md-sys-color-secondary-container)]/80',
-      'active:bg-[var(--md-sys-color-secondary-container)]/60'
-    ),
-    outlined: cn(
-      'bg-[var(--md-sys-color-surface)]',
-      'text-[var(--md-sys-color-on-surface-variant)]',
-      'border-2 border-[var(--md-sys-color-outline)]',
-      'hover:bg-[var(--md-sys-color-on-surface-variant)]/8',
-      'active:bg-[var(--md-sys-color-on-surface-variant)]/12'
-    ),
-    elevated: cn(
-      'bg-[var(--md-sys-color-surface)]',
-      'text-[var(--md-sys-color-on-surface-variant)]',
-      'border border-[var(--md-sys-color-surface-variant)]',
-      'shadow-[var(--md-sys-elevation-level1)]',
-      'hover:shadow-[var(--md-sys-elevation-level2)]',
-      'active:shadow-[var(--md-sys-elevation-level1)]'
-    )
+  const [isHovered, setIsHovered] = React.useState(false);
+  const [isFocused, setIsFocused] = React.useState(false);
+
+  // Variant styles using MD3 design tokens
+  const getVariantStyles = (): React.CSSProperties => {
+    const baseStyles: React.CSSProperties = {};
+
+    switch (variant) {
+      case 'outlined':
+        baseStyles.backgroundColor = 'var(--md-sys-color-surface)';
+        baseStyles.color = 'var(--md-sys-color-on-surface-variant)';
+        baseStyles.border = '2px solid var(--md-sys-color-outline)';
+        if (isHovered || isFocused) {
+          baseStyles.borderColor = 'var(--md-sys-color-on-surface-variant)';
+        }
+        break;
+      case 'elevated':
+        baseStyles.backgroundColor = 'var(--md-sys-color-surface)';
+        baseStyles.color = 'var(--md-sys-color-on-surface-variant)';
+        baseStyles.border = '1px solid var(--md-sys-color-surface-variant)';
+        baseStyles.boxShadow = 'var(--md-sys-elevation-level1)';
+        if (isHovered || isFocused) {
+          baseStyles.boxShadow = 'var(--md-sys-elevation-level2)';
+        }
+        break;
+      default: // filled
+        baseStyles.backgroundColor = 'var(--md-sys-color-secondary-container)';
+        baseStyles.color = 'var(--md-sys-color-on-secondary-container)';
+        baseStyles.border = '1px solid var(--md-sys-color-secondary-container)';
+        if (isHovered || isFocused) {
+          baseStyles.backgroundColor = 'var(--md-sys-color-secondary-container-hover)';
+        }
+        break;
+    }
+
+    return baseStyles;
   };
 
-  const disabledClasses = disabled ? cn(
-    'opacity-[var(--md-sys-state-opacity-disabled)]',
-    'cursor-not-allowed',
-    'pointer-events-none'
-  ) : '';
+  // Container styles
+  const containerStyle: React.CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 'var(--md-sys-spacing-2)',
+    borderRadius: 'var(--md-sys-shape-corner-small)',
+    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)',
+    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+    opacity: disabled ? 0.38 : 1,
+    cursor: disabled ? 'not-allowed' : 'default',
+    pointerEvents: disabled ? 'none' : 'auto'
+  };
+
+  // Button styles
+  const buttonStyle: React.CSSProperties = {
+    fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
+    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+    letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
+    borderRadius: 'var(--md-sys-shape-corner-small)',
+    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+    outline: 'none',
+    border: 'none',
+    backgroundColor: 'transparent',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    ...getVariantStyles()
+  };
+
+  // Delete button styles
+  const deleteButtonStyle: React.CSSProperties = {
+    width: 'var(--md-sys-spacing-4)',
+    height: 'var(--md-sys-spacing-4)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 'var(--md-sys-shape-corner-full)',
+    color: 'var(--md-sys-color-on-surface-variant)',
+    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+    outline: 'none',
+    border: 'none',
+    backgroundColor: 'transparent',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    opacity: isHovered || isFocused ? 0.8 : 1
+  };
+
+  // Icon styles
+  const iconStyle: React.CSSProperties = {
+    fontFamily: 'Material Symbols Outlined',
+    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+    fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
+    userSelect: 'none'
+  };
+
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
 
   return (
-    <div className={cn(
-      'inline-flex items-center gap-[var(--md-sys-spacing-2)]',
-      'rounded-[var(--md-sys-shape-corner-small)]',
-      'px-[var(--md-sys-spacing-3)] py-[var(--md-sys-spacing-1)]',
-      'transition-all duration-200',
-      className
-    )}>
-      <button
-        type="button"
-        disabled={disabled}
-        className={cn(
-          'text-[var(--md-sys-typescale-label-large)]',
-          'font-[var(--md-sys-typescale-label-large-font)]',
-          'leading-[var(--md-sys-typescale-label-large-line-height)]',
-          'rounded-[var(--md-sys-shape-corner-small)]',
-          'transition-all duration-200',
-          'focus-visible:outline-none',
-          'focus-visible:ring-2',
-          'focus-visible:ring-[var(--md-sys-color-primary)]',
-          'focus-visible:ring-offset-1',
-          variantClasses[variant],
-          disabledClasses
-        )}
-        {...buttonProps}
-      >
+    <button
+      style={buttonStyle}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      disabled={disabled}
+      {...buttonProps}
+    >
+      <span style={containerStyle}>
         {label}
-      </button>
-      {onDelete && (
-        <button
-          type="button"
-          aria-label="Delete chip"
-          onClick={onDelete}
-          disabled={disabled}
-          className={cn(
-            'w-[var(--md-sys-spacing-4)] h-[var(--md-sys-spacing-4)]',
-            'flex items-center justify-center',
-            'rounded-full',
-            'text-[var(--md-sys-color-on-surface-variant)]',
-            'hover:bg-[var(--md-sys-color-on-surface-variant)]/8',
-            'active:bg-[var(--md-sys-color-on-surface-variant)]/12',
-            'transition-colors duration-200',
-            'focus-visible:outline-none',
-            'focus-visible:ring-2',
-            'focus-visible:ring-[var(--md-sys-color-primary)]',
-            'focus-visible:ring-offset-1',
-            disabled && 'opacity-[var(--md-sys-state-opacity-disabled)] cursor-not-allowed pointer-events-none'
-          )}
-        >
-          <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-small)]">close</span>
-        </button>
-      )}
-    </div>
+        {onDelete && (
+          <button
+            type="button"
+            style={deleteButtonStyle}
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete();
+            }}
+            disabled={disabled}
+            aria-label="Remove"
+          >
+            <span style={iconStyle}>close</span>
+          </button>
+        )}
+      </span>
+    </button>
   );
 }
 

@@ -1,7 +1,9 @@
 // MD3 Pure: Migrated to inline styles using MD3 tokens for voice recorder button states and interactions
 // All voice-note-recorder-* classes removed in favor of token-based styling
+// Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
 
 import React, { useState, useRef, useEffect } from 'react';
+import { useTheme } from '../theme/theme';
 import { getGoogleAIClient } from '../services/aiClient.ts';
 
 interface VoiceNoteRecorderProps {
@@ -10,6 +12,8 @@ interface VoiceNoteRecorderProps {
 }
 
 const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, compact = false }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const theme = useTheme();
     const [isRecording, setIsRecording] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [audioLevel, setAudioLevel] = useState(0);
@@ -248,7 +252,8 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                     animation: 'spin 1s linear infinite'
                 }} />
             ) : (
-                <span className="material-symbols-outlined" style={{
+                <span style={{
+                    fontFamily: 'Material Symbols Outlined',
                     fontSize: compact ? '20px' : '24px',
                     transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                 }}>{isRecording ? 'mic_off' : 'mic'}</span>

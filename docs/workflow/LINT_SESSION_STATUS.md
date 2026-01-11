@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED, DO NOT EDIT -->
+
 # Lint Refactoring - Session Complete ✅
 
 ## Quick Status

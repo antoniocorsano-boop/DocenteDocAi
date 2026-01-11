@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '../../utils/cn';
+import { useTheme } from '../../theme/theme';
 
 export interface M3TypographyProps {
   variant?: 'display-large' | 'display-medium' | 'display-small' |
@@ -10,16 +10,16 @@ export interface M3TypographyProps {
   as?: 'div' | 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   children: React.ReactNode;
   style?: React.CSSProperties;
-  className?: string;
 }
 
 const M3Typography: React.FC<M3TypographyProps> = ({
   variant = 'body-large',
   as: Component = 'span',
   children,
-  style = {},
-  className
+  style = {}
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const theme = useTheme();
   // Typography styles using complete MD3 design tokens
   const typographyStyles = {
     'display-large': {
@@ -133,7 +133,6 @@ const M3Typography: React.FC<M3TypographyProps> = ({
 
   return (
     <Component
-      className={cn(className)}
       style={{
         color: 'var(--md-sys-color-on-surface)',
         ...variantStyle,

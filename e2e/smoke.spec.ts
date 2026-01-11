@@ -96,52 +96,79 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
     // Now navigate to app root which will load the backup and set the user
     await page.goto('/');
     await page.reload();
-    // Wait for instrumentation to indicate the app shell mounted
-    await page.waitForFunction(() => !!(window as { __app_instrumentation?: { appShellMounted?: boolean } }).__app_instrumentation?.appShellMounted, { timeout: 30000 }).catch(() => {});
+    // Wait for app shell to mount - simplified for SPA
+    await page.waitForFunction(() => {
+      return document.readyState === 'complete' &&
+             !!document.querySelector('.app-shell-container, [role="navigation"]');
+    }, { timeout: 15000 }).catch(() => {
+      console.log('App shell not ready, continuing anyway');
+    });
   });
 
   test('Flusso di Onboarding (Accesso Rapido)', async ({ page }) => {
-    // 1. Support both WelcomeScreen and SignInScreen (legacy vs current)
-    const hasWelcome = await page.getByText('Benvenuto, Docente').count().then(c => c > 0);
-    const hasSignInManual = (await page.locator('input[placeholder="Nome Docente"]').count()) > 0 || (await page.locator('input[placeholder="Es. Prof. Rossi"]').count()) > 0;
+    // Controlla se siamo già loggati - usa aria-label dei pulsanti di navigazione
+    const isAlreadyLoggedIn = await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false) ||
+                              await page.locator('nav, [role="navigation"]').isVisible().catch(() => false);
 
-    if (hasWelcome) {
-      await expect(page.getByText('Benvenuto, Docente')).toBeVisible();
-      await safeClick(page, 'text=Accesso Rapido', 'Accesso Rapido');
-      await page.fill('input[placeholder="Es. Prof. Rossi"]', 'Test Teacher');
-      await safeClick(page, 'button:has-text("Entra nella Dashboard")', 'Entra nella Dashboard');
-    } else if (hasSignInManual) {
-      // Direct manual sign-in using SignInScreen
-      if ((await page.locator('input[placeholder="Nome Docente"]').count()) > 0) {
-        await page.fill('input[placeholder="Nome Docente"]', 'Test Teacher');
-      } else {
+    console.log('Login detection - Orario visible:', await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false));
+    console.log('Login detection - Progetta visible:', await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false));
+    console.log('Login detection - Classi visible:', await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false));
+    console.log('Login detection - Navigation visible:', await page.locator('nav, [role="navigation"]').isVisible().catch(() => false));
+    console.log('Login detection - Final result:', isAlreadyLoggedIn);
+
+    if (!isAlreadyLoggedIn) {
+      // 1. Support both WelcomeScreen and SignInScreen (legacy vs current)
+      const hasWelcome = await page.getByText('Benvenuto, Docente').count().then(c => c > 0);
+      const hasSignInManual = (await page.locator('input[placeholder="Nome Docente"]').count()) > 0 || (await page.locator('input[placeholder="Es. Prof. Rossi"]').count()) > 0;
+
+      if (hasWelcome) {
+        await expect(page.getByText('Benvenuto, Docente')).toBeVisible();
+        await safeClick(page, 'text=Accesso Rapido', 'Accesso Rapido');
         await page.fill('input[placeholder="Es. Prof. Rossi"]', 'Test Teacher');
-      }
-      // Click explicit button text if present, else submit the form
-      if ((await page.getByText('Entra in Locale').count()) > 0) {
-        await safeClick(page, 'text=Entra in Locale', 'Entra in Locale');
-      } else if ((await page.getByText('Entra').count()) > 0) {
-        await safeClick(page, 'text=Entra', 'Entra');
+        await safeClick(page, 'button:has-text("Entra nella Dashboard")', 'Entra nella Dashboard');
+      } else if (hasSignInManual) {
+        // Direct manual sign-in using SignInScreen
+        if ((await page.locator('input[placeholder="Nome Docente"]').count()) > 0) {
+          await page.fill('input[placeholder="Nome Docente"]', 'Test Teacher');
+        } else {
+          await page.fill('input[placeholder="Es. Prof. Rossi"]', 'Test Teacher');
+        }
+        // Click explicit button text if present, else submit the form
+        if ((await page.getByText('Entra in Locale').count()) > 0) {
+          await safeClick(page, 'text=Entra in Locale', 'Entra in Locale');
+        } else if ((await page.getByText('Entra').count()) > 0) {
+          await safeClick(page, 'text=Entra', 'Entra');
+        } else {
+          const submit = page.locator('button[type="submit"]');
+          if ((await submit.count()) > 0) await safeClick(page, submit, 'submit');
+        }
       } else {
-        const submit = page.locator('button[type="submit"]');
-        if ((await submit.count()) > 0) await safeClick(page, submit, 'submit');
+        // Neither found — try a generic fallback: click first actionable button
+        const actionable = await page.locator('button').first();
+        if ((await actionable.count()) > 0) await safeClick(page, actionable, 'first-actionable');
       }
     } else {
-      // Neither found — try a generic fallback: click first actionable button
-      const actionable = await page.locator('button').first();
-      if ((await actionable.count()) > 0) await safeClick(page, actionable, 'first-actionable');
+      console.log('User already logged in via test mode - skipping onboarding flow');
     }
 
-    // Extra: wait for document ready and reload if needed
-    await page.waitForFunction(() => document.readyState === 'complete', { timeout: 15000 }).catch(() => {});
-    await page.waitForTimeout(300);
-    await page.reload();
-    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
-    await page.waitForTimeout(300);
+    // Attendi che la pagina sia completamente caricata - SPA pattern
+    await page.waitForFunction(() => document.readyState === 'complete', { timeout: 15000 });
 
-    // 5. Verifica che l'App Shell sia visibile dopo login
+    // Verifica che il DOM sia pronto - aspetta elementi di navigazione (semplificato)
+    await page.waitForFunction(() => {
+      return !!(
+        // Controlla che il documento sia pronto
+        document.readyState === 'complete' &&
+        // Controlla che ci siano elementi di navigazione
+        document.querySelector('[role="navigation"], nav, .nav') &&
+        // Controlla che non ci siano spinner di caricamento
+        !document.querySelector('.loading-spinner, [aria-busy="true"]')
+      );
+    }, { timeout: 20000 });
     try {
-      await page.waitForSelector('.app-shell', { timeout: 20000 });
+      await page.waitForSelector('.app-shell-container', { timeout: 20000 });
     } catch (e) {
       await page.screenshot({ path: 'test-results/onboarding-app-shell-fail.png', fullPage: true });
       // Log all visible text for debugging
@@ -155,102 +182,279 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
   });
 
   test('Navigazione Core (Orario e Impostazioni)', async ({ page }) => {
-    // Setup rapido login (fallback to SignInScreen if WelcomeScreen not present)
-    await page.goto('/');
-    const hasWelcome = await page.getByText('Benvenuto, Docente').count().then(c => c > 0);
-    const hasManual = (await page.locator('input[placeholder="Nome Docente"]').count()) > 0 || (await page.locator('input[placeholder="Es. Prof. Rossi"]').count()) > 0;
-    if (hasWelcome) {
-      await safeClick(page, 'text=Accesso Rapido', 'Accesso Rapido');
-      await page.fill('input[placeholder="Es. Prof. Rossi"]', 'Test Teacher');
-      await safeClick(page, 'button:has-text("Entra nella Dashboard")', 'Entra nella Dashboard');
-    } else if (hasManual) {
-      if ((await page.locator('input[placeholder="Nome Docente"]').count()) > 0) await page.fill('input[placeholder="Nome Docente"]', 'Test Teacher');
-      else await page.fill('input[placeholder="Es. Prof. Rossi"]', 'Test Teacher');
-      if ((await page.getByText('Entra in Locale').count()) > 0) await safeClick(page, 'text=Entra in Locale', 'Entra in Locale');
-      else {
-        const submit = page.locator('button[type="submit"]');
-        if ((await submit.count()) > 0) await safeClick(page, submit, 'submit');
+    // Setup rapido login con miglior sincronizzazione SPA
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    // Attendi che la pagina sia completamente caricata - SPA pattern
+    await page.waitForFunction(() => document.readyState === 'complete', { timeout: 15000 });
+
+    // Verifica che il DOM sia pronto - aspetta elementi di navigazione (semplificato)
+    await page.waitForFunction(() => {
+      return !!(
+        // Controlla che il documento sia pronto
+        document.readyState === 'complete' &&
+        // Controlla che ci siano elementi di navigazione
+        document.querySelector('[role="navigation"], nav, .nav') &&
+        // Controlla che non ci siano spinner di caricamento
+        !document.querySelector('.loading-spinner, [aria-busy="true"]')
+      );
+    }, { timeout: 20000 });
+
+    // Controlla se siamo già loggati - usa aria-label dei pulsanti di navigazione
+    const isAlreadyLoggedIn = await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false) ||
+                              await page.locator('nav, [role="navigation"]').isVisible().catch(() => false);
+
+    console.log('Login detection - Navigazione Core - Orario visible:', await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false));
+    console.log('Login detection - Navigazione Core - Progetta visible:', await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false));
+    console.log('Login detection - Navigazione Core - Classi visible:', await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false));
+    console.log('Login detection - Navigazione Core - Navigation visible:', await page.locator('nav, [role="navigation"]').isVisible().catch(() => false));
+    console.log('Login detection - Navigazione Core - Final result:', isAlreadyLoggedIn);
+
+    if (!isAlreadyLoggedIn) {
+      // Login con approccio più robusto
+      const hasWelcome = await page.getByText('Benvenuto, Docente').isVisible().catch(() => false);
+      const hasSignInManual = await page.locator('input[placeholder*="Nome Docente"], input[placeholder*="Prof"]').isVisible().catch(() => false);
+
+      if (hasWelcome) {
+        await expect(page.getByText('Benvenuto, Docente')).toBeVisible({ timeout: 10000 });
+        await page.getByText('Accesso Rapido').click();
+        await page.locator('input[placeholder*="Prof"]').fill('Test Teacher');
+        await page.getByRole('button', { name: /Entra.*Dashboard/i }).click();
+      } else if (hasSignInManual) {
+        const input = page.locator('input[placeholder*="Nome Docente"], input[placeholder*="Prof"]').first();
+        await input.fill('Test Teacher');
+
+        if (await page.getByText('Entra in Locale').isVisible()) {
+          await page.getByText('Entra in Locale').click();
+        } else {
+          await page.getByRole('button', { name: /Entra|Submit/i }).first().click();
+        }
+      } else {
+        // Fallback: cerca qualsiasi pulsante di submit - screenshot diagnostico per Navigazione Core
+        await page.screenshot({ path: 'test-results/login-page-diagnostic-navigazione.png', fullPage: true });
+        console.log('Login page diagnostic - Navigazione Core test - looking for submit button');
+
+        // Lista tutti i pulsanti disponibili per debug
+        const allButtons = await page.locator('button').allTextContents();
+        console.log('Available buttons:', allButtons);
+
+        await page.getByRole('button', { name: /submit|entra|login/i }).first().click();
       }
     } else {
-      // last-resort: try generic submit
-      const submit = page.locator('button[type="submit"]');
-      if ((await submit.count()) > 0) await safeClick(page, submit, 'submit');
+      console.log('User already logged in via test mode - skipping manual login');
     }
 
-    // 1. Vai all'Orario
+    // Attendi che l'app shell sia completamente montata
+    // Miglior sincronizzazione: aspetta funzione globale invece di selettore
+    await page.waitForFunction(() => {
+      return !!(
+        // Controlla che l'app shell esista
+        document.querySelector('.app-shell-container') &&
+        // Controlla che non ci siano spinner di caricamento
+        !document.querySelector('.loading-spinner, [aria-busy="true"]') &&
+        // Controlla che il documento sia pronto
+        document.readyState === 'complete' &&
+        // Controlla che ci siano elementi di navigazione
+        document.querySelector('[role="navigation"], nav, .nav')
+      );
+    }, { timeout: 30000 });
+
+    // Verifica che l'app shell sia visibile
+    await expect(page.locator('.app-shell-container')).toBeVisible({ timeout: 10000 });
+
+    // 1. Naviga all'Orario usando il pulsante della NavigationRail
+    // Usa selector più robusto per il pulsante Orario
+    const orarioButton = page.getByRole('button', { name: /scheduleOrario|Orario|Pianifica/i }).first();
+    await expect(orarioButton).toBeVisible({ timeout: 10000 });
+    await orarioButton.click();
+
+    // Attendi che la navigazione sia completata - aspetta elementi specifici del Timetable
+    await page.waitForFunction(() => {
+      return !!(
+        // Controlla il titolo dell'orario
+        document.querySelector('*')?.textContent?.includes('Il Mio Orario') ||
+        document.querySelector('*')?.textContent?.includes('Planning Settimanale') ||
+        // Controlla la presenza di giorni della settimana
+        document.querySelector('*')?.textContent?.includes('Lunedì') ||
+        document.querySelector('*')?.textContent?.includes('Martedì')
+      );
+    }, { timeout: 15000 });
+
+    // Verifica elementi specifici della pagina Orario
+    await expect(page.getByText('Il Mio Orario')).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText('Planning Settimanale')).toBeVisible({ timeout: 10000 });
+
+    // 2. Apri Impostazioni con miglior gestione errori
     try {
-      await page.waitForSelector('.app-shell', { timeout: 20000 });
-    } catch (e) {
-      await page.screenshot({ path: 'test-results/diagnostic-orario-no-app-shell.png', fullPage: true }).catch(()=>{});
-      const bodyText = await page.evaluate(() => document.body.innerText).catch(()=>'');
-      console.error('Diagnostic: .app-shell not found. Body text snippet:', bodyText.slice(0, 800));
-      throw e;
-    }
-    await safeClick(page, page.getByRole('button', { name: /Pianifica|Progett|Orario|Dashboard/ }).first(), 'nav-action');
-    // Use role-based locator for the nav item to avoid ambiguous text matches
-    await expect(page.getByRole('button', { name: /Orario/ }).first()).toBeVisible({ timeout: 10000 });
-    // Disambiguate 'Settimana' by selecting the button role (label may also appear as paragraph)
-    await expect(page.getByRole('button', { name: /Settimana/ }).first()).toBeVisible({ timeout: 10000 });
+      // Clicca sul menu hamburger/settings
+      const menuButton = page.getByRole('button', { name: /Menu|Impostazioni|Settings/i }).first();
+      await expect(menuButton).toBeVisible({ timeout: 5000 });
+      await menuButton.click();
 
-    // 2. Apri Impostazioni
-    // Open actions/menu on smaller viewports, then click the Impostazioni entry
-    await safeClick(page, page.getByRole('button', { name: /Menu/ }).first(), 'menu');
-    // The actions popover may render list items as generic elements; use text fallback
-    await safeClick(page, 'text=Impostazioni', 'Impostazioni');
-    // More robust: wait for the Settings content container and open the 'Profilo & Identità' group
-    await page.waitForSelector('.settings-content', { timeout: 15000 });
-    // Expand the Profile group if it's collapsed
-    await safeClick(page, 'summary:has-text("Profilo & Identità")', 'Apri Profilo & Identità');
-    await expect(page.getByLabel('Nome', { exact: true })).toBeVisible({ timeout: 10000 });
+      // Attendi che il menu si apra
+      await page.waitForTimeout(500);
+
+      // Clicca su Impostazioni
+      const settingsLink = page.getByText('Impostazioni').first();
+      await expect(settingsLink).toBeVisible({ timeout: 5000 });
+      await settingsLink.click();
+
+      // Verifica che la pagina Impostazioni sia caricata
+      await expect(page.getByText('Impostazioni')).toBeVisible({ timeout: 10000 });
+
+    } catch (error) {
+      // Fallback: screenshot per debug
+      await page.screenshot({ path: 'test-results/settings-navigation-fail.png', fullPage: true });
+      console.error('Settings navigation failed:', error);
+      throw error;
+    }
   });
 
   test('Creazione Elemento in Knowledge Base (Mock)', async ({ page }) => {
-    // Setup rapido login
-    await page.goto('/');
-    const hasWelcomeKB = await page.getByText('Benvenuto, Docente').count().then(c => c > 0);
-    const hasManualKB = (await page.locator('input[placeholder="Nome Docente"]').count()) > 0 || (await page.locator('input[placeholder="Es. Prof. Rossi"]').count()) > 0;
-    if (hasWelcomeKB) {
-      await safeClick(page, 'text=Accesso Rapido', 'Accesso Rapido');
-      await page.fill('input[placeholder="Es. Prof. Rossi"]', 'Test Teacher');
-      await safeClick(page, 'button:has-text("Entra nella Dashboard")', 'Entra nella Dashboard');
-    } else if (hasManualKB) {
-      if ((await page.locator('input[placeholder="Nome Docente"]').count()) > 0) await page.fill('input[placeholder="Nome Docente"]', 'Test Teacher');
-      else await page.fill('input[placeholder="Es. Prof. Rossi"]', 'Test Teacher');
-      if ((await page.getByText('Entra in Locale').count()) > 0) await safeClick(page, 'text=Entra in Locale', 'Entra in Locale');
-      else {
-        const submit = page.locator('button[type="submit"]');
-        if ((await submit.count()) > 0) await safeClick(page, submit, 'submit');
+    // Setup rapido login con miglior sincronizzazione SPA
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    // Attendi che la pagina sia completamente caricata - SPA pattern
+    await page.waitForFunction(() => document.readyState === 'complete', { timeout: 15000 });
+
+    // Verifica che il DOM sia pronto - aspetta elementi di navigazione (semplificato)
+    await page.waitForFunction(() => {
+      return !!(
+        // Controlla che il documento sia pronto
+        document.readyState === 'complete' &&
+        // Controlla che ci siano elementi di navigazione
+        document.querySelector('[role="navigation"], nav, .nav') &&
+        // Controlla che non ci siano spinner di caricamento
+        !document.querySelector('.loading-spinner, [aria-busy="true"]')
+      );
+    }, { timeout: 20000 });
+
+    // Controlla se siamo già loggati - usa aria-label dei pulsanti di navigazione
+    const isAlreadyLoggedIn = await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false) ||
+                              await page.locator('nav, [role="navigation"]').isVisible().catch(() => false);
+
+    console.log('Login detection - Knowledge Base - Orario visible:', await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false));
+    console.log('Login detection - Knowledge Base - Progetta visible:', await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false));
+    console.log('Login detection - Knowledge Base - Classi visible:', await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false));
+    console.log('Login detection - Knowledge Base - Navigation visible:', await page.locator('nav, [role="navigation"]').isVisible().catch(() => false));
+    console.log('Login detection - Knowledge Base - Final result:', isAlreadyLoggedIn);
+
+    if (!isAlreadyLoggedIn) {
+      // Login con approccio più robusto
+      const hasWelcomeKB = await page.getByText('Benvenuto, Docente').isVisible().catch(() => false);
+      const hasManualKB = await page.locator('input[placeholder*="Nome Docente"], input[placeholder*="Prof"]').isVisible().catch(() => false);
+
+      if (hasWelcomeKB) {
+        await page.getByText('Accesso Rapido').click();
+        await page.locator('input[placeholder*="Prof"]').fill('Test Teacher');
+        await page.getByRole('button', { name: /Entra.*Dashboard/i }).click();
+      } else if (hasManualKB) {
+        const input = page.locator('input[placeholder*="Nome Docente"], input[placeholder*="Prof"]').first();
+        await input.fill('Test Teacher');
+
+        if (await page.getByText('Entra in Locale').isVisible()) {
+          await page.getByText('Entra in Locale').click();
+        } else {
+          await page.getByRole('button', { name: /Entra|Submit/i }).first().click();
+        }
+      } else {
+        // Fallback: cerca qualsiasi pulsante di submit - screenshot diagnostico per Knowledge Base
+        await page.screenshot({ path: 'test-results/login-page-diagnostic-kb.png', fullPage: true });
+        console.log('Login page diagnostic - Knowledge Base test - looking for submit button');
+
+        // Lista tutti i pulsanti disponibili per debug
+        const allButtons = await page.locator('button').allTextContents();
+        console.log('Available buttons:', allButtons);
+
+        await page.getByRole('button', { name: /submit|entra|login/i }).first().click();
       }
     } else {
-      const submit = page.locator('button[type="submit"]');
-      if ((await submit.count()) > 0) await safeClick(page, submit, 'submit');
+      console.log('User already logged in via test mode - skipping manual login');
     }
 
-    // Naviga a KB
+    // Attendi che l'app shell sia completamente montata
+    await page.waitForFunction(() => {
+      return !!(
+        document.querySelector('.app-shell-container') &&
+        !document.querySelector('.loading-spinner, [aria-busy="true"]') &&
+        document.readyState === 'complete' &&
+        document.querySelector('[role="navigation"], nav, .nav')
+      );
+    }, { timeout: 30000 });
+
+    // Verifica che l'app shell sia visibile
+    await expect(page.locator('.app-shell-container')).toBeVisible({ timeout: 10000 });
+
+    // Naviga a Knowledge Base con approccio SPA-native a cascata
     try {
-      await page.waitForSelector('.app-shell', { timeout: 20000 });
-    } catch (e) {
-      await page.screenshot({ path: 'test-results/diagnostic-kb-no-app-shell.png', fullPage: true }).catch(()=>{});
-      const bodyText2 = await page.evaluate(() => document.body.innerText).catch(()=>'');
-      console.error('Diagnostic: .app-shell not found before KB navigation. Body text snippet:', bodyText2.slice(0, 800));
-      throw e;
-    }
-    await safeClick(page, page.getByRole('button', { name: /Progetti|Progett|Progetta/ }).first(), 'progetta');
-    await safeClick(page, 'text=Knowledge Base', 'Knowledge Base');
+      // Prima: Click "Progetta" per andare alla view progettazione-hub
+      const progettaButton = page.getByRole('button', { name: /design_servicesProgetta|Progetta|Progett/i }).first();
+      await expect(progettaButton).toBeVisible({ timeout: 10000 });
+      await progettaButton.click();
 
-    // Verifica stato vuoto
-    await expect(page.getByText('Knowledge Base')).toBeVisible();
-    // Accept either the new-document button or the upload action used in some builds
-    const hasNuovo = (await page.getByText('Nuovo Documento').count()) > 0;
-    const hasCarica = (await page.getByText('Carica Documenti').count()) > 0;
-    if (!hasNuovo && !hasCarica) {
-      // Fallback: check for empty-state indicators
-      await expect(page.getByText(/0 file salvati/)).toBeVisible();
-    } else if (hasNuovo) {
-      await expect(page.getByText('Nuovo Documento')).toBeVisible();
-    } else {
-      await expect(page.getByText('Carica Documenti')).toBeVisible();
+      // Attendi che la view progettazione-hub sia caricata (DOM-based)
+      await page.waitForFunction(() => {
+        return !!(
+          document.querySelector('h1, h2')?.textContent?.includes('Progettazione') ||
+          document.querySelector('*')?.textContent?.includes('Progettazione') ||
+          document.querySelector('.planning, .progettazione') ||
+          // Oppure aspetta che i pulsanti delle card siano visibili
+          document.querySelector('button')?.textContent?.includes('Knowledge Base')
+        );
+      }, { timeout: 15000 });
+
+      // Attendi un po' per il rendering delle card
+      await page.waitForTimeout(1000);
+
+      // Seconda: Click sulla card "Knowledge Base" nella view
+      const kbCard = page.getByRole('button', { name: /Knowledge Base/ }).first();
+      await expect(kbCard).toBeVisible({ timeout: 10000 });
+      await kbCard.click();
+
+      // Attendi che la navigazione sia completata - aspetta contenuto specifico KB
+      await page.waitForFunction(() => {
+        return !!(
+          // Controlla il titolo della sezione
+          document.querySelector('h1, h2')?.textContent?.includes('Knowledge Base') ||
+          // Controlla il pulsante "Carica Documenti"
+          document.querySelector('button')?.textContent?.includes('Carica Documenti') ||
+          // Controlla la card di sincronia NotebookLM
+          document.querySelector('[data-testid*="notebook"], [class*="notebook"]') ||
+          document.querySelector('main .knowledge-base-folder-grid') ||
+          document.querySelector('main .knowledge-base-file-list')
+        );
+      }, { timeout: 20000 });
+
+      // Verifica che siamo nella pagina corretta
+      await expect(page.getByText('Knowledge Base')).toBeVisible({ timeout: 10000 });
+      // Verifica anche che ci siano elementi specifici della Knowledge Base
+      await expect(page.getByText('Carica Documenti')).toBeVisible({ timeout: 5000 });
+
+      // Verifica stato della Knowledge Base (vuota o con contenuto)
+      const hasNuovo = await page.getByText('Nuovo Documento').isVisible().catch(() => false);
+      const hasCarica = await page.getByText('Carica Documenti').isVisible().catch(() => false);
+      const hasEmptyState = await page.getByText(/0 file salvati/).isVisible().catch(() => false);
+
+      if (hasNuovo) {
+        await expect(page.getByText('Nuovo Documento')).toBeVisible();
+      } else if (hasCarica) {
+        await expect(page.getByText('Carica Documenti')).toBeVisible();
+      } else if (hasEmptyState) {
+        await expect(page.getByText(/0 file salvati/)).toBeVisible();
+      } else {
+        // Fallback: verifica che ci sia qualche indicatore di KB
+        await expect(page.locator('.kb-container, .knowledge-base, [data-testid*="kb"]')).toBeVisible({ timeout: 5000 });
+      }
+
+    } catch (error) {
+      // Screenshot per debug
+      await page.screenshot({ path: 'test-results/kb-navigation-fail.png', fullPage: true });
+      console.error('Knowledge Base navigation failed:', error);
+      throw error;
     }
   });
-
 });

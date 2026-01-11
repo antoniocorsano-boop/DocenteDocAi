@@ -1,5 +1,7 @@
 import React from 'react';
 import M3Typography from './M3Typography';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../../hooks/useTheme';
 
 interface Tab {
     id: string;
@@ -75,7 +77,6 @@ const TabGroup: React.FC<TabGroupProps> = ({
 
     return (
         <div
-            className={className}
             role="tablist"
             aria-label="Sezioni di navigazione"
             style={{

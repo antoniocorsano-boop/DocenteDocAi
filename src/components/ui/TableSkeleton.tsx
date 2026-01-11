@@ -1,45 +1,58 @@
 import React from 'react';
+import { useTheme } from '../../theme/theme';
 
 interface TableSkeletonProps {
     rows?: number;
     columns?: number;
-    className?: string;
 }
 
-const TableSkeleton: React.FC<TableSkeletonProps> = ({ 
-    rows = 3, 
-    columns = 3, 
-    className = '' 
-}) => (
-    <div className={`space-y-2 ${className}`}>
-        {/* Table header skeleton */}
-        <div className="flex gap-8">
-            {Array.from({ length: columns }).map((_, i) => (
-                <div
-                    key={i}
-                    className="h-6 bg-[var(--md-sys-color-surface-container-high)] rounded animate-pulse flex-1"
-                    style={{ animationDelay: `${i * 0.05}s` }}
-                />
-            ))}
-        </div>
-        
-        {/* Table rows skeleton */}
-        {Array.from({ length: rows }).map((_, rowIndex) => (
-            <div key={rowIndex} className="flex gap-8">
-                {Array.from({ length: columns }).map((_, colIndex) => (
+const TableSkeleton: React.FC<TableSkeletonProps> = ({
+    rows = 3,
+    columns = 3
+}) => {
+    const { spacing } = useTheme();
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: spacing[2] }}>
+            {/* Table header skeleton */}
+            <div style={{ display: 'flex', gap: spacing[6] }}>
+                {Array.from({ length: columns }).map((_, i) => (
                     <div
-                        key={colIndex}
-                        className="h-4 bg-[var(--md-sys-color-surface-container-high)] rounded animate-pulse flex-1"
+                        key={i}
                         style={{
-                            animationDelay: `${(rowIndex * columns + colIndex) * 0.05}s`,
-                            width: Math.random() > 0.5 ? '100%' : '80%'
+                            height: '24px',
+                            backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                            borderRadius: 'var(--md-sys-shape-corner-small)',
+                            animation: 'pulse 2s ease-in-out infinite',
+                            flex: 1,
+                            animationDelay: `${i * 0.05}s`
                         }}
                     />
                 ))}
             </div>
-        ))}
-    </div>
-);
+
+            {/* Table rows skeleton */}
+            {Array.from({ length: rows }).map((_, rowIndex) => (
+                <div key={rowIndex} style={{ display: 'flex', gap: spacing[6] }}>
+                    {Array.from({ length: columns }).map((_, colIndex) => (
+                        <div
+                            key={colIndex}
+                            style={{
+                                height: '16px',
+                                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                animation: 'pulse 2s ease-in-out infinite',
+                                flex: 1,
+                                animationDelay: `${(rowIndex * columns + colIndex) * 0.05}s`,
+                                width: Math.random() > 0.5 ? '100%' : '80%'
+                            }}
+                        />
+                    ))}
+                </div>
+            ))}
+        </div>
+    );
+};
 
 export default TableSkeleton;
 

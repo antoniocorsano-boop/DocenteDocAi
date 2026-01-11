@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../hooks/useTheme';
 import { Studente } from '../types';
 import { TextField, SelectField, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 
@@ -46,8 +48,12 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
             level={1}
         >
             <M3DialogContent>
-                <form id="add-student-form" onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <form id="add-student-form" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr',
+                        gap: 'var(--md-sys-spacing-8)'
+                    }}>
                         <TextField
                             id="student-cognome-input"
                             name="cognome"

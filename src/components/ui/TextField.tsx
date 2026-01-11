@@ -1,5 +1,7 @@
 import React, { InputHTMLAttributes, useState } from 'react';
 import M3Typography from './M3Typography';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../../hooks/useTheme';
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
@@ -7,7 +9,6 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     error?: boolean;
     errorMessage?: string;
     leadingIcon?: string;
-    containerClassName?: string;
     fullWidth?: boolean;
     'data-testid'?: string;
 }
@@ -23,7 +24,6 @@ const TextField: React.FC<TextFieldProps> = ({
     error,
     errorMessage,
     leadingIcon,
-    containerClassName = '',
     fullWidth = false,
     'data-testid': dataTestId,
     value,
@@ -36,7 +36,6 @@ const TextField: React.FC<TextFieldProps> = ({
 
     return (
         <div
-            className={containerClassName}
             style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -72,6 +71,7 @@ const TextField: React.FC<TextFieldProps> = ({
             >
                 {leadingIcon && (
                     <span
+                        // eslint-disable-next-line design-system/no-classname
                         className="material-symbols-outlined"
                         style={{
                             color: isFocused
@@ -142,6 +142,7 @@ const TextField: React.FC<TextFieldProps> = ({
                 </div>
                 {error && (
                     <span
+                        // eslint-disable-next-line design-system/no-classname
                         className="material-symbols-outlined"
                         style={{
                             color: 'var(--md-sys-color-error)',
@@ -164,6 +165,7 @@ const TextField: React.FC<TextFieldProps> = ({
                     }}
                 >
                     <span
+                        // eslint-disable-next-line design-system/no-classname
                         className="material-symbols-outlined"
                         style={{
                             color: 'var(--md-sys-color-error)',

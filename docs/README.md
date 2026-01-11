@@ -38,11 +38,9 @@ Questa è la documentazione tecnica ufficiale del progetto **DocenteDoc AI**, or
 ```
 docs/
 ├── README.md              # Questo file - Indice principale
-├── DEVELOPMENT.md         # Guida sviluppo operativo
-├── ARCHITECTURE.md        # Architettura e design
-├── DEPLOYMENT.md          # Deployment e configurazione
-├── TESTING.md             # Testing e qualità
-├── MD3_GUIDE.md           # Guida Material Design 3
+├── guides/                # Guide step-by-step e tutorial
+├── reference/             # Specifiche tecniche e token
+├── workflow/              # Procedure, checklist e piani
 └── archive/               # Archivio storico organizzato
     ├── 2025/             # Documenti 2025 per categoria
     │   ├── phases/       # Report fasi progetto
@@ -52,6 +50,33 @@ docs/
     │   └── completion-reports/ # Report completamento
     └── 2026/             # Documenti 2026
 ```
+
+### 📚 Guides
+Guide operative e tutorial:
+- [CONTRIBUTING_STYLING.md](guides/CONTRIBUTING_STYLING.md) - Linee guida styling
+- [E2E_SPA_TESTING_GUIDE.md](guides/E2E_SPA_TESTING_GUIDE.md) - Guida testing E2E
+- [LINT_EXECUTION_GUIDE.md](guides/LINT_EXECUTION_GUIDE.md) - Guida esecuzione lint
+- ... (vedi [elenco completo](guides/))
+
+### 🔧 Reference
+Specifiche tecniche:
+- [DESIGN_TOKEN_MAP_M3.md](reference/DESIGN_TOKEN_MAP_M3.md) - Mappa token MD3
+- [MD3_DEVELOPMENT_GUIDE.md](reference/MD3_DEVELOPMENT_GUIDE.md) - Guida sviluppo MD3
+- [ROADMAP_2026.md](reference/ROADMAP_2026.md) - Roadmap futura
+- ... (vedi [elenco completo](reference/))
+
+### ⚙️ Workflow
+Procedure e checklist:
+- [M3_MIGRATION_CHECKLIST.md](workflow/M3_MIGRATION_CHECKLIST.md) - Checklist migrazione MD3
+- [TODO.md](workflow/TODO.md) - Lista TODO attiva
+- [LINT_SESSION_STATUS.md](workflow/LINT_SESSION_STATUS.md) - Status sessione lint (auto-generato)
+- ... (vedi [elenco completo](workflow/))
+
+### 📜 Archive
+Documentazione storica:
+- [CHANGELOG.md](archive/CHANGELOG.md) - Changelog storico
+- [HOTFIX_*.md](archive/) - Hotfix passati
+- ... (vedi [elenco completo](archive/))
 
 ---
 

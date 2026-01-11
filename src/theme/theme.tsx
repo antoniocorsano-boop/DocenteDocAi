@@ -1,22 +1,34 @@
+/*
+COPILOT TASK:
+Generate a full ESLint configuration for this React/MD3 project.
+- Infrastructure files: tokens.ts, theme.tsx
+- UI components: all other .tsx files
+Rules:
+- Keep TypeScript, hooks, and unused-vars active everywhere.
+- Apply strict MD3 UI rules only to UI components.
+- Relax MD3-specific rules in tokens.ts and theme.tsx (like no-hardcoded-colors, no className, no Tailwind)
+- Explain why each override exists in comments
+*/
 
-import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
-import { colorTokens, darkColorTokens, typographyTokens, spacingTokens, motionTokens, breakpointTokens } from './tokens';
+
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { tokens } from './tokens';
 
 // Tipo per gli overrides
 export interface ThemeOverrides {
-  colors?: Partial<typeof colorTokens>;
-  typography?: Partial<typeof typographyTokens>;
-  spacing?: Partial<typeof spacingTokens>;
-  motion?: Partial<typeof motionTokens>;
+  colors?: Partial<typeof tokens.colors>;
+  typography?: Partial<typeof tokens.typography>;
+  spacing?: Partial<typeof tokens.spacing>;
+  motion?: Partial<typeof tokens.motion>;
 }
 
 // Tipo per il tema
 export interface Theme {
-  colors: typeof colorTokens;
-  typography: typeof typographyTokens;
-  spacing: typeof spacingTokens;
-  motion: typeof motionTokens;
-  breakpoints: typeof breakpointTokens;
+  colors: typeof tokens.colors;
+  typography: typeof tokens.typography;
+  spacing: typeof tokens.spacing;
+  motion: typeof tokens.motion;
+  breakpoints: typeof tokens.breakpoints;
   isDark: boolean;
   toggleDarkMode: () => void;
   overrides: ThemeOverrides;
@@ -96,11 +108,11 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children, defa
   };
 
   const theme: Theme = {
-    colors: mergeTokens(isDark ? darkColorTokens : colorTokens, overrides.colors),
-    typography: mergeTokens(typographyTokens, overrides.typography),
-    spacing: mergeTokens(spacingTokens, overrides.spacing),
-    motion: mergeTokens(motionTokens, overrides.motion),
-    breakpoints: breakpointTokens,
+    colors: mergeTokens(isDark ? tokens.colors.dark : tokens.colors.light, overrides.colors),
+    typography: mergeTokens(tokens.typography, overrides.typography),
+    spacing: mergeTokens(tokens.spacing, overrides.spacing),
+    motion: mergeTokens(tokens.motion, overrides.motion),
+    breakpoints: tokens.breakpoints,
     isDark,
     toggleDarkMode,
     overrides,

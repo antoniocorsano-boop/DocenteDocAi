@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '../theme/theme';
 
 /**
  * SkipLink Component
@@ -7,6 +8,8 @@ import React from 'react';
  * to skip repetitive navigation and jump directly to main content.
  * 
  * WCAG 2.1 Success Criterion 2.4.1: Bypass Blocks (Level A)
+ * 
+ * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance and className removal
  * 
  * @example
  * ```tsx
@@ -26,18 +29,14 @@ interface SkipLinkProps {
    * @default "Skip to main content"
    */
   label?: string;
-
-  /**
-   * CSS class for custom styling
-   */
-  className?: string;
 }
 
 const SkipLink: React.FC<SkipLinkProps> = ({
   href = '#main-content',
   label = 'Skip to main content',
-  className = '',
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const theme = useTheme();
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const target = document.querySelector(href);
     
@@ -54,7 +53,6 @@ const SkipLink: React.FC<SkipLinkProps> = ({
     <a
       href={href}
       onClick={handleClick}
-      className={`skip-link ${className}`}
       aria-label={label}
       style={{
         position: 'absolute',

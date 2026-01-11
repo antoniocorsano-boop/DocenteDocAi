@@ -1,3 +1,19 @@
+# ⚠️ ARCHIVED MIGRATION DOCUMENT
+
+This document was used during a document-driven migration to Material Design 3.
+
+Status:
+- NOT executable code
+- NOT a runtime source of truth
+- NOT enforced by lint or tests
+
+Current sources of truth:
+- global.css (MD3 CSS custom properties)
+- tokens.ts
+- React components in /src
+
+This file is kept for historical referenc
+
 # CONTESTO:
 Abbiamo un progetto React migrato a Material Design 3 (M3). 
 Obiettivo: creare un sistema centralizzato di stile avanzato e aggiornare automaticamente tutti i componenti React esistenti.

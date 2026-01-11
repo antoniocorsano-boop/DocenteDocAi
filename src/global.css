@@ -1,11 +1,11 @@
-/* Variabili CSS M3 per light mode */
+/* Light mode defaults */
 :root {
-  --md-sys-color-primary: #6750A4;
-  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary: #6750a4;
+  --md-sys-color-on-primary: #ffffff;
   --md-sys-color-primary-container: #EADDFF;
   --md-sys-color-on-primary-container: #21005D;
-  --md-sys-color-secondary: #625B71;
-  --md-sys-color-on-secondary: #FFFFFF;
+  --md-sys-color-secondary: #625b71;
+  --md-sys-color-on-secondary: #ffffff;
   --md-sys-color-secondary-container: #E8DEF8;
   --md-sys-color-on-secondary-container: #1D192B;
   --md-sys-color-tertiary: #7D5260;
@@ -53,6 +53,12 @@
   --md-sys-color-surface-container-high: #ECE6F0;
   --md-sys-color-surface-container-highest: #E6E0E9;
 
+  --md-sys-typescale-body-large-font-size: 1rem;
+  --md-sys-typescale-body-large-line-height: 1.5;
+  --md-sys-typescale-body-large-font-weight: 400;
+  --md-sys-typescale-body-medium-font-size: 0.875rem;
+  --md-sys-typescale-body-medium-line-height: 1.4;
+  --md-sys-typescale-body-medium-font-weight: 400;
   --md-sys-typescale-body1-font-size: theme.typography.body1.fontSize;
   --md-sys-typescale-body1-line-height: theme.typography.body1.lineHeight;
   --md-sys-typescale-body1-font-weight: theme.typography.body1.fontWeight;
@@ -101,17 +107,17 @@
   --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.2, 0.8);
 }
 
-/* Variabili CSS M3 per dark mode */
+/* Dark mode overrides */
 .dark {
-  --md-sys-color-primary: #D0BCFF;
-  --md-sys-color-on-primary: #381E72;
+  --md-sys-color-primary: #d0bcff;
+  --md-sys-color-on-primary: #381e72;
   --md-sys-color-primary-container: #4F378B;
   --md-sys-color-on-primary-container: #EADDFF;
-  --md-sys-color-secondary: #CBC2DB;
-  --md-sys-color-on-secondary: #332D41;
+  --md-sys-color-secondary: #ccc2dc;
+  --md-sys-color-on-secondary: #332d41;
   --md-sys-color-secondary-container: #4A4458;
   --md-sys-color-on-secondary-container: #E8DEF8;
-  --md-sys-color-tertiary: #EFB8C8;
+  --md-sys-color-tertiary: #efb8c8;
   --md-sys-color-on-tertiary: #492532;
   --md-sys-color-tertiary-container: #633B48;
   --md-sys-color-on-tertiary-container: #FFD8E4;

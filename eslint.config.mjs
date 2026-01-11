@@ -8,6 +8,9 @@ import { defineConfig } from "eslint/config";
 import noHardcodedColors from "./eslint-rules/no-hardcoded-colors.js";
 import enforceTokenUsage from "./eslint-rules/enforce-token-usage.js";
 import noNewCssFiles from "./eslint-rules/no-new-css-files.js";
+import noClassname from "./eslint-rules/no-classname.js";
+import noTailwindClasses from "./eslint-rules/no-tailwind-classes.js";
+import requireUseTheme from "./eslint-rules/require-useTheme.js";
 
 export default defineConfig([
   {
@@ -102,7 +105,10 @@ export default defineConfig([
         rules: {
           'no-hardcoded-colors': noHardcodedColors,
           'enforce-token-usage': enforceTokenUsage,
-          'no-new-css-files': noNewCssFiles
+          'no-new-css-files': noNewCssFiles,
+          'no-classname': noClassname,
+          'no-tailwind-classes': noTailwindClasses,
+          'require-useTheme': requireUseTheme
         }
       }
     },
@@ -110,9 +116,25 @@ export default defineConfig([
       'design-system/no-hardcoded-colors': 'error',
       'design-system/enforce-token-usage': 'warn',
       'design-system/no-new-css-files': 'warn',
+      'design-system/no-classname': 'error',
+      'design-system/no-tailwind-classes': 'error',
+      'design-system/require-useTheme': 'warn',
       // MUI restriction removed - migration complete (Phase 3, 2026-01-06)
       // Previously blocked @mui/material, @emotion/react, @emotion/styled
       // All components now use custom M3 implementation (see PHASE_3_MIGRATION_COMPLETE.md)
+    }
+  },
+  // Infrastructure files: Relax MD3-specific rules
+  // Reason: tokens.ts and theme.tsx define MD3 tokens and may need direct CSS variable usage,
+  // utility classes for token generation, or className for theme application
+  {
+    files: ['src/theme/tokens.ts', 'src/theme/theme.tsx'],
+    rules: {
+      'design-system/no-classname': 'off', // May need className for body theme application
+      'design-system/no-tailwind-classes': 'off', // May use utility classes in token definitions
+      'design-system/require-useTheme': 'off', // Infrastructure files don't consume theme
+      'design-system/no-hardcoded-colors': 'warn', // Still warn but allow for token definitions
+      'design-system/enforce-token-usage': 'off' // May define tokens directly
     }
   },
   {

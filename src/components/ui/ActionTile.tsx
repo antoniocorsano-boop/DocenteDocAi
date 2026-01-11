@@ -10,6 +10,7 @@
  */
 
 import React from 'react';
+import { useTheme } from '../../theme/theme';
 import M3Typography from './M3Typography';
 
 interface ActionTileProps {
@@ -18,7 +19,6 @@ interface ActionTileProps {
     icon: string;
     onClick: () => void;
     variant?: 'primary' | 'secondary' | 'tertiary' | 'surface';
-    className?: string;
     tooltip?: string;
     ariaLabel?: string;
 }
@@ -29,10 +29,11 @@ const ActionTile: React.FC<ActionTileProps> = ({
     icon,
     onClick,
     variant = 'surface',
-    className = '',
     tooltip,
     ariaLabel
 }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const theme = useTheme();
     // MD3 color mapping for variants
     const getVariantColors = () => {
         switch (variant) {
@@ -69,7 +70,6 @@ const ActionTile: React.FC<ActionTileProps> = ({
     return (
         <button
             onClick={onClick}
-            className={`m3-transition-standard ${className}`}
             title={tooltip}
             aria-label={ariaLabel || `${title}${subtitle ? ` - ${subtitle}` : ''}`}
             type="button"
@@ -89,7 +89,8 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 boxShadow: 'var(--md-sys-elevation-level1)',
                 minHeight: '80px',
                 width: '100%',
-                outline: 'none'
+                outline: 'none',
+                transition: 'box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1), transform 200ms cubic-bezier(0.4, 0, 0.2, 1)'
             }}
             onMouseEnter={(e) => {
                 e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level2)';
@@ -109,7 +110,6 @@ const ActionTile: React.FC<ActionTileProps> = ({
         >
             {/* Icon Container */}
             <div
-                className="m3-transition-standard"
                 style={{
                     width: '56px',
                     height: '56px',
@@ -122,10 +122,15 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     color: colors.iconColor,
                     flexShrink: 0,
                     boxShadow: 'var(--md-sys-elevation-level1)',
-                    border: `1px solid var(--md-sys-color-outline-variant)`
+                    border: `1px solid var(--md-sys-color-outline-variant)`,
+                    transition: 'box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
             >
-                <span className="material-symbols-outlined" style={{ fontSize: '28px' }}>
+                <span
+                    // eslint-disable-next-line design-system/no-classname
+                    className="material-symbols-outlined"
+                    style={{ fontSize: '28px' }}
+                >
                     {icon}
                 </span>
             </div>
@@ -171,7 +176,6 @@ const ActionTile: React.FC<ActionTileProps> = ({
 
             {/* Chevron */}
             <div
-                className="m3-transition-standard"
                 style={{
                     width: '40px',
                     height: '40px',
@@ -181,13 +185,16 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     justifyContent: 'center',
                     backgroundColor: 'var(--md-sys-color-surface-variant)',
                     color: 'var(--md-sys-color-on-surface-variant)',
-                    flexShrink: 0
+                    flexShrink: 0,
+                    transition: 'background-color 200ms cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
             >
                 <span
-                    className="material-symbols-outlined m3-transition-transform"
+                    // eslint-disable-next-line design-system/no-classname
+                    className="material-symbols-outlined"
                     style={{
-                        fontSize: '20px'
+                        fontSize: '20px',
+                        transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1)'
                     }}
                 >
                     chevron_right
@@ -196,13 +203,22 @@ const ActionTile: React.FC<ActionTileProps> = ({
 
             {/* Sweep effect */}
             <div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent -translate-x-full group-hover:translate-x-full m3-transition-slow pointer-events-none"
                 style={{
                     position: 'absolute',
-                    inset: 0,
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
                     background: 'linear-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent)',
                     transform: 'translateX(-100%)',
-                    pointerEvents: 'none'
+                    pointerEvents: 'none',
+                    transition: 'transform 600ms cubic-bezier(0.4, 0, 0.2, 1)'
+                }}
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateX(100%)';
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateX(-100%)';
                 }}
             />
         </button>

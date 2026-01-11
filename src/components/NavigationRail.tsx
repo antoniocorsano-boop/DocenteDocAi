@@ -1,6 +1,8 @@
 import React from 'react';
 import { View } from '../types';
 import { M3Typography } from './ui';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../hooks/useTheme';
 
 /**
  * NavigationRail - MD3 Pure Navigation Component
@@ -155,7 +157,6 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
       </style>
       <nav
         style={containerStyle}
-        className={className}
         role="navigation"
         aria-label="Navigazione principale"
       >

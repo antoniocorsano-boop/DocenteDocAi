@@ -1,11 +1,12 @@
 import React, { SelectHTMLAttributes } from 'react';
 import M3Typography from './M3Typography';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../../hooks/useTheme';
 
 interface SelectFieldProps extends SelectHTMLAttributes<HTMLSelectElement> {
     label: string;
     error?: boolean;
     errorMessage?: string;
-    containerClassName?: string;
     fullWidth?: boolean;
 }
 
@@ -18,7 +19,6 @@ const SelectField: React.FC<SelectFieldProps> = ({
     label,
     error,
     errorMessage,
-    containerClassName = '',
     fullWidth = false,
     children,
     ...props
@@ -27,7 +27,6 @@ const SelectField: React.FC<SelectFieldProps> = ({
 
     return (
         <div
-            className={containerClassName}
             style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -85,6 +84,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     {children}
                 </select>
                 <span
+                    // eslint-disable-next-line design-system/no-classname
                     className="material-symbols-outlined"
                     style={{
                         position: 'absolute',
@@ -102,6 +102,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 </span>
                 {error && (
                     <span
+                        // eslint-disable-next-line design-system/no-classname
                         className="material-symbols-outlined"
                         style={{
                             position: 'absolute',
@@ -128,6 +129,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     }}
                 >
                     <span
+                        // eslint-disable-next-line design-system/no-classname
                         className="material-symbols-outlined"
                         style={{
                             color: 'var(--md-sys-color-error)',

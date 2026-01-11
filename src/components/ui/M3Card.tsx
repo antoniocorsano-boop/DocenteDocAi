@@ -1,9 +1,9 @@
 import React from 'react';
-import { cn } from '../../utils/cn';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../../hooks/useTheme';
 
 interface M3CardProps {
   children: React.ReactNode;
-  className?: string;
   onClick?: () => void;
   onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
   onMouseLeave?: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -15,7 +15,6 @@ interface M3CardProps {
 
 const M3Card: React.FC<M3CardProps> = ({
   children,
-  className,
   onClick,
   onMouseEnter,
   onMouseLeave,
@@ -27,36 +26,53 @@ const M3Card: React.FC<M3CardProps> = ({
   const isClickable = Boolean(onClick);
 
   // Padding styles using MD3 spacing tokens
-  const paddingStyles = {
-    none: '0',
-    small: 'var(--md-sys-spacing-3)',
-    medium: 'var(--md-sys-spacing-4)',
-    large: 'var(--md-sys-spacing-6)'
-  };
-
-  // Variant styles using MD3 design tokens
-  const variantStyles = {
-    elevated: {
-      backgroundColor: 'var(--md-sys-color-surface-container-low)',
-      boxShadow: 'var(--md-sys-elevation-level-1)',
-      border: 'none'
-    },
-    outlined: {
-      backgroundColor: 'var(--md-sys-color-surface)',
-      boxShadow: 'none',
-      border: '1px solid var(--md-sys-color-outline-variant)'
-    },
-    filled: {
-      backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-      boxShadow: 'none',
-      border: 'none'
+  const getPaddingStyles = (): string => {
+    switch (padding) {
+      case 'none':
+        return '0';
+      case 'small':
+        return 'var(--md-sys-spacing-3)'; // 12px
+      case 'large':
+        return 'var(--md-sys-spacing-6)'; // 24px
+      default: // medium
+        return 'var(--md-sys-spacing-4)'; // 16px
     }
   };
 
-  // Hover styles for clickable cards
-  const hoverStyles = isClickable ? {
-    cursor: 'pointer'
-  } : {};
+  // Variant styles using MD3 design tokens
+  const getVariantStyles = (): React.CSSProperties => {
+    switch (variant) {
+      case 'outlined':
+        return {
+          backgroundColor: 'var(--md-sys-color-surface)',
+          boxShadow: 'none',
+          border: '1px solid var(--md-sys-color-outline-variant)'
+        };
+      case 'filled':
+        return {
+          backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+          boxShadow: 'none',
+          border: 'none'
+        };
+      default: // elevated
+        return {
+          backgroundColor: 'var(--md-sys-color-surface-container-low)',
+          boxShadow: 'var(--md-sys-elevation-level1)',
+          border: 'none'
+        };
+    }
+  };
+
+  // Base styles
+  const baseStyle: React.CSSProperties = {
+    padding: getPaddingStyles(),
+    borderRadius: 'var(--md-sys-shape-corner-large)',
+    transition: isClickable ? 'box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)' : undefined,
+    cursor: isClickable ? 'pointer' : undefined,
+    outline: 'none',
+    ...getVariantStyles(),
+    ...style
+  };
 
   return (
     <div
@@ -70,25 +86,30 @@ const M3Card: React.FC<M3CardProps> = ({
       role={isClickable ? 'button' : undefined}
       tabIndex={isClickable ? 0 : undefined}
       aria-label={ariaLabel}
-      className={cn(className, isClickable && 'm3-transition-interactive')}
-      style={{
-        padding: paddingStyles[padding],
-        borderRadius: 'var(--md-sys-shape-corner-large)',
-        ...variantStyles[variant],
-        ...hoverStyles,
-        ...style
-      }}
+      style={baseStyle}
       onMouseEnter={(e) => {
         if (isClickable && variant === 'elevated') {
-          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level-2)';
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level2)';
         }
         onMouseEnter?.(e);
       }}
       onMouseLeave={(e) => {
         if (isClickable && variant === 'elevated') {
-          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level-1)';
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level1)';
         }
         onMouseLeave?.(e);
+      }}
+      onFocus={(e) => {
+        if (isClickable) {
+          e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
+          e.currentTarget.style.outlineOffset = '2px';
+        }
+      }}
+      onBlur={(e) => {
+        if (isClickable) {
+          e.currentTarget.style.outline = 'none';
+          e.currentTarget.style.outlineOffset = '0';
+        }
       }}
     >
       {children}

@@ -1,5 +1,7 @@
 
 import React, { useState } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useTheme } from '../hooks/useTheme';
 import { Valutazione } from '../types';
 import { EVALUATION_TYPES } from '../constants';
 import { M3ChoiceCard, M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField } from './ui';
@@ -45,8 +47,15 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
             level={1}
         >
             <form id="add-prova-form" onSubmit={handleSubmit}>
-                <M3DialogContent className="space-y-6">
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">
+                <M3DialogContent style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
+                    <p style={{
+                        fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
+                        lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                        letterSpacing: 'var(--md-sys-typescale-body-medium-letter-spacing)',
+                        color: 'var(--md-sys-color-on-surface-variant)'
+                    }}>
                         Stai creando una nuova colonna nella griglia di valutazione per la classe selezionata.
                     </p>
 
@@ -60,7 +69,11 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                         required
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: '1fr',
+                        gap: 'var(--md-sys-spacing-8)'
+                    }}>
                         <TextField
                             id="prova-data"
                             name="data"
@@ -83,8 +96,29 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                     </div>
 
                     <div>
-                        <label className="m3-label-tiny text-primary font-extrabold uppercase tracking-[0.3em] px-5 text-left opacity-70 mb-8 block">Tipo Prova</label>
-                        <div className="flex gap-8 overflow-x-auto pb-2 custom-scrollbar">
+                        <label style={{
+                            fontFamily: 'var(--md-sys-typescale-label-small-font-family)',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
+                            lineHeight: 'var(--md-sys-typescale-label-small-line-height)',
+                            letterSpacing: 'var(--md-sys-typescale-label-small-letter-spacing)',
+                            color: 'var(--md-sys-color-primary)',
+                            fontWeight: '800',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.3em',
+                            paddingLeft: 'var(--md-sys-spacing-5)',
+                            paddingRight: 'var(--md-sys-spacing-5)',
+                            textAlign: 'left',
+                            opacity: 0.7,
+                            marginBottom: 'var(--md-sys-spacing-8)',
+                            display: 'block'
+                        }}>Tipo Prova</label>
+                        <div style={{
+                            display: 'flex',
+                            gap: 'var(--md-sys-spacing-8)',
+                            overflowX: 'auto',
+                            paddingBottom: 'var(--md-sys-spacing-2)'
+                        }}>
                             {EVALUATION_TYPES.map(t => (
                                 <M3ChoiceCard
                                     key={t}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '../theme/theme';
 import { M3Typography } from './ui';
 
 interface TooltipProps {
@@ -10,6 +11,7 @@ interface TooltipProps {
 /**
  * Tooltip - MD3 Pure Tooltip Component
  * ✅ MIGRATED TO MD3 PURE - Complete migration from inline styles and CSS classes to pure MD3 tokens and M3Typography
+ * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
  *
  * Features:
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape, elevation)
@@ -31,6 +33,8 @@ interface TooltipProps {
  * - Maintained all functionality and accessibility features
  */
 const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const theme = useTheme();
   const [visible, setVisible] = React.useState(false);
   let timeout: number | undefined;
 

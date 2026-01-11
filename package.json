@@ -27,7 +27,11 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "pretest:snapshots": "node generateStorySnapshots.mjs",
-    "test:snapshots": "vitest run"
+    "test:snapshots": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:smoke": "playwright test e2e/smoke.spec.ts --project chromium-stable",
+    "test:e2e:spa": "playwright test --project spa-navigation",
+    "test:e2e:ci": "playwright test --project chromium-stable --shard=1/2"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

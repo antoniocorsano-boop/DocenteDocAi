@@ -1,40 +1,102 @@
-
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
+  timeout: 60000,
+  expect: {
+    timeout: 20000,
+  },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+
   use: {
-    baseURL: process.env.PW_BASE_URL || 'http://localhost:5173',
+    headless: true,
+    actionTimeout: 30000,
+    navigationTimeout: 45000,
     trace: 'on-first-retry',
-    video: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    baseURL: 'http://localhost:5173',
+    // SPA-specific configurations
+    ignoreHTTPSErrors: true,
+    bypassCSP: true, // Per development server
   },
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    /* Scommentare per testare su mobile e altri browser
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-    */
-  ],
+
   webServer: {
-    // During local E2E debugging prefer the dev server so changes in `src/` are
-    // reflected immediately. CI can still use preview by overriding this.
-    command: 'npm run dev -- --port 5173',
-    url: process.env.PW_BASE_URL || 'http://localhost:5173',
-    reuseExistingServer: true,
-    timeout: 120 * 1000,
+    command: 'npm run dev',
+    url: 'http://localhost:5173',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120000,
   },
+
+  projects: [
+    // Progetti stabili: tutti i test smoke
+    {
+      name: 'chromium-stable',
+      use: {
+        ...devices['Desktop Chrome'],
+        // SPA optimizations
+        launchOptions: {
+          args: [
+            '--disable-web-security',
+            '--disable-features=VizDisplayCompositor',
+            '--no-sandbox',
+            '--disable-setuid-sandbox'
+          ]
+        }
+      },
+      testMatch: ['**/smoke.spec.ts', '**/spa-navigation-example.spec.ts'],
+    },
+
+    // Test fragili isolati
+    {
+      name: 'chromium-flaky',
+      use: {
+        ...devices['Desktop Chrome'],
+        headless: true,
+        launchOptions: {
+          args: [
+            '--disable-web-security',
+            '--disable-features=VizDisplayCompositor',
+            '--no-sandbox',
+            '--disable-setuid-sandbox'
+          ]
+        }
+      },
+      testMatch: ['**/smoke.spec.ts', '**/spa-navigation-example.spec.ts'],
+      retries: 2,
+      workers: 1, // limitare parallelismo
+    },
+
+    // SPA-specific test project
+    {
+      name: 'spa-navigation',
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: [
+            '--disable-web-security',
+            '--disable-features=VizDisplayCompositor',
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            // SPA-specific flags
+            '--disable-background-timer-throttling',
+            '--disable-renderer-backgrounding',
+            '--disable-backgrounding-occluded-windows'
+          ]
+        }
+      },
+      testMatch: ['**/spa-*.spec.ts', '**-spa-migration.spec.ts'],
+      retries: 1,
+      workers: 2,
+    },
+  ],
+
+  outputDir: 'test-results',
+  reporter: [
+    ['dot'],
+    ['json', { outputFile: 'test-results/results.json' }],
+    ['html', { open: 'never', outputFolder: 'playwright-report' }],
+  ],
 });

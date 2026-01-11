@@ -1,4 +1,3 @@
-
 // Palette colori M3 (light mode)
 export const colorTokens = {
   primary: '#6750A4',
@@ -166,4 +165,63 @@ export const breakpointTokens = {
   tablet: '905px',
   desktop: '1240px',
   large: '1440px',
+};
+
+export const tokens = {
+  colors: {
+    primary: 'var(--md-sys-color-primary)',
+    onPrimary: 'var(--md-sys-color-on-primary)',
+    secondary: 'var(--md-sys-color-secondary)',
+    onSecondary: 'var(--md-sys-color-on-secondary)',
+    background: 'var(--md-sys-color-background)',
+    surface: 'var(--md-sys-color-surface)',
+    error: 'var(--md-sys-color-error)',
+    success: 'var(--md-sys-color-tertiary)', // Mapped to tertiary for success
+    warning: 'var(--md-sys-color-outline)', // Mapped to outline for warning
+  },
+  typography: {
+    body1: {
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+    },
+    body2: {
+      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
+    },
+    heading1: {
+      fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-headline-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-headline-large-font-weight)',
+    },
+    heading2: {
+      fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)',
+    },
+    caption: {
+      fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
+    },
+  },
+  spacing: {
+    1: 'var(--md-sys-spacing-1)',
+    2: 'var(--md-sys-spacing-2)',
+    3: 'var(--md-sys-spacing-3)',
+    4: 'var(--md-sys-spacing-4)',
+    5: 'var(--md-sys-spacing-5)',
+    6: 'var(--md-sys-spacing-6)',
+  },
+  motion: {
+    duration: 'var(--md-sys-motion-duration-short)',
+    easing: 'var(--md-sys-motion-easing-standard)',
+  },
+  breakpoints: {
+    mobile: '480px',
+    tablet: '768px',
+    desktop: '1024px',
+    large: '1200px',
+  },
 };

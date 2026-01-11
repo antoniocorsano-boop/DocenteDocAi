@@ -1,3 +1,5 @@
+<!-- AUTO-GENERATED, DO NOT EDIT -->
+
 # Home.tsx - Test Suite Implementation Summary
 
 **Data:** 6 Gennaio 2026  

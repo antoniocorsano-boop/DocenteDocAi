@@ -1,8 +1,8 @@
 import React from 'react';
+import { useTheme } from '../../theme/theme';
 
 interface M3SurfaceCardProps {
   children: React.ReactNode;
-  className?: string;
   variant?: 'low' | 'high'; // For opacity variations
   interactive?: boolean; // For hover states
   glass?: boolean; // For glass effects
@@ -21,7 +21,6 @@ interface M3SurfaceCardProps {
  */
 const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   children,
-  className = '',
   variant = 'low',
   interactive = false,
   glass = false,
@@ -33,29 +32,62 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   tabIndex,
   'aria-label': ariaLabel,
 }) => {
-  const baseClasses = 'border rounded-[var(--md-sys-shape-corner-large)]';
-  const variantClasses = variant === 'low' ? 'bg-[var(--md-sys-color-surface-container-low)]/50' : 'bg-[var(--md-sys-color-surface-container-high)]/50';
-  const interactiveClasses = interactive ? 'hover:bg-[var(--md-sys-color-surface-container-low)] transition-colors' : '';
-  const glassClasses = glass ? 'aura-glass backdrop-blur-xl border-white/10' : 'border-[var(--md-sys-color-outline-variant)]/10';
-  const expressiveClasses = expressive ? 'relative overflow-hidden' : '';
+  const { motion } = useTheme();
 
   const colorTokens: Record<string, { bg: string; fg: string }> = {
     primary: { bg: 'var(--md-sys-color-primary-container)', fg: 'var(--md-sys-color-on-primary-container)' },
-    secondary: { bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--sys-on-secondary-container)' },
-    tertiary: { bg: 'var(--sys-tertiary-container)', fg: 'var(--sys-on-tertiary-container)' },
+    secondary: { bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--md-sys-color-on-secondary-container)' },
+    tertiary: { bg: 'var(--md-sys-color-tertiary-container)', fg: 'var(--md-sys-color-on-tertiary-container)' },
     surface: { bg: 'var(--md-sys-color-surface-container-high)', fg: 'var(--md-sys-color-on-surface)' },
     surfaceVariant: { bg: 'var(--md-sys-color-surface-container-low)', fg: 'var(--md-sys-color-on-surface-variant)' }
   };
 
   const palette = colorTokens[color];
 
+  const baseStyle = {
+    border: glass ? '1px solid var(--md-sys-color-outline-variant)' : '1px solid var(--md-sys-color-outline-variant)',
+    borderRadius: 'var(--md-sys-shape-corner-large)',
+    position: expressive ? 'relative' : undefined,
+    overflow: expressive ? 'hidden' : undefined,
+    backdropFilter: glass ? 'blur(16px)' : undefined,
+    WebkitBackdropFilter: glass ? 'blur(16px)' : undefined, // Safari support
+  };
+
+  const variantStyle = variant === 'low'
+    ? { backgroundColor: glass ? undefined : palette.bg, opacity: 0.5 }
+    : { backgroundColor: glass ? undefined : palette.bg, opacity: 0.5 };
+
+  const interactiveStyle = interactive ? {
+    transition: `background-color ${motion.duration.short2} ${motion.easing.standard}`,
+    cursor: onClick ? 'pointer' : undefined
+  } : {};
+
+  const glassStyle = glass ? {
+    backgroundColor: 'var(--md-sys-color-surface)',
+    opacity: 0.1,
+  } : {};
+
+  const combinedStyle = {
+    ...baseStyle,
+    ...variantStyle,
+    ...interactiveStyle,
+    ...glassStyle,
+    color: palette.fg,
+  };
+
   return (
     <div
-      className={`${baseClasses} ${variantClasses} ${interactiveClasses} ${glassClasses} ${expressiveClasses} ${className}`}
-      style={{
-        backgroundColor: glass ? undefined : palette.bg,
-        color: palette.fg,
-        borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))'
+      style={combinedStyle}
+      onMouseEnter={(e) => {
+        if (interactive) {
+          e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (interactive) {
+          e.currentTarget.style.backgroundColor = glass ? 'var(--md-sys-color-surface)' : palette.bg;
+          if (glass) e.currentTarget.style.opacity = '0.1';
+        }
       }}
       onClick={onClick}
       onKeyDown={onKeyDown}

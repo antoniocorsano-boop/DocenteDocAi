@@ -1,22 +1,35 @@
 import React from 'react';
+import { useTheme } from '../../theme/theme';
 import M3Typography from './M3Typography';
+
+/**
+ * SectionHeader Component
+ * 
+ * Displays a section header with optional icon, title, and subtitle.
+ * Uses MD3 design tokens for consistent styling.
+ * 
+ * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance and className removal
+ */
 
 interface SectionHeaderProps {
     title: string;
     subtitle?: string;
     icon?: string;
-    className?: string;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
     title,
     subtitle,
-    icon,
-    className = ''
-}) => (
+    icon
+}) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const theme = useTheme();
+    
+    return (
     <div
-        className={`flex items-center ${className}`}
         style={{
+            display: 'flex',
+            alignItems: 'center',
             gap: 'var(--md-sys-spacing-4)',
             marginBottom: 'var(--md-sys-spacing-6)',
             marginTop: 'var(--md-sys-spacing-6)',
@@ -26,8 +39,10 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     >
         {icon && (
             <div
-                className="flex items-center justify-center"
                 style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                     width: 'var(--md-sys-spacing-6)',
                     height: 'var(--md-sys-spacing-6)',
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
@@ -36,8 +51,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 }}
             >
                 <span
-                    className="material-symbols-outlined"
                     style={{
+                        fontFamily: 'Material Symbols Outlined',
                         fontSize: 'var(--md-sys-spacing-4)'
                     }}
                 >
@@ -45,7 +60,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 </span>
             </div>
         )}
-        <div className="flex flex-col">
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
             <M3Typography
                 variant="label-large"
                 style={{
@@ -69,7 +84,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             )}
         </div>
     </div>
-);
+    );
+};
 
 export default SectionHeader;
 

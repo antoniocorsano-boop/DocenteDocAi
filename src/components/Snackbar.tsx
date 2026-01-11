@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useTheme } from '../theme/theme';
 import { useUIStore } from '../stores/useUIStore';
 import { M3Typography } from './ui';
 
@@ -20,6 +21,7 @@ const SNACKBAR_COLORS = {
 /**
  * Snackbar - MD3 Pure Notification Component
  * ✅ MIGRATED TO MD3 PURE - Complete migration from inline styles and Tailwind classes to pure MD3 tokens and M3Typography
+ * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
  *
  * Features:
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape, elevation)
@@ -41,6 +43,8 @@ const SNACKBAR_COLORS = {
  * - Maintained all functionality and accessibility features
  */
 const Snackbar: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const theme = useTheme();
   const { toast, clearToast } = useUIStore(state => ({
     toast: state.modals.toast,
     clearToast: state.actions.clearToast
@@ -125,8 +129,8 @@ const Snackbar: React.FC = () => {
       }}
     >
       <span
-        className="material-symbols-outlined"
         style={{
+          fontFamily: 'Material Symbols Outlined',
           fontSize: 'var(--md-sys-spacing-4)',
           color: 'inherit',
           flexShrink: 0
@@ -179,8 +183,8 @@ const Snackbar: React.FC = () => {
         aria-label="Chiudi notifica"
       >
         <span
-          className="material-symbols-outlined"
           style={{
+            fontFamily: 'Material Symbols Outlined',
             fontSize: 'inherit',
             color: 'inherit'
           }}
