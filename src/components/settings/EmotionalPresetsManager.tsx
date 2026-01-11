@@ -1,300 +1,526 @@
-/**
- * EmotionalPresetsManager Component - Phase 1 Foundation
- *
- * Manages the selection and preview of emotional style presets.
- * Provides an intuitive interface for users to choose how the UI should adapt
- * to their emotional state, with live preview capabilities.
- *
- * @version 1.0.0 - Phase 1 Implementation
- * @since 2026-01-08
- */
-
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTheme, ThemeOverrides } from '../../theme/theme';
 import M3Typography from '../ui/M3Typography';
 import M3Card from '../ui/M3Card';
-import M3Button from '../ui/M3Button';
+import { M3Button } from '../M3Button';
 import { EmotionalPreset } from '../../types';
-import { ThemeService } from '../../services/ThemeService';
-
-interface EmotionalPresetOption {
-  id: EmotionalPreset;
-  name: string;
-  description: string;
-  icon: string;
-  color: string;
-}
 
 interface EmotionalPresetsManagerProps {
-  selectedPreset?: EmotionalPreset;
-  onPresetChange: (preset: EmotionalPreset | undefined) => void;
-  className?: string;
+  selectedPreset: EmotionalPreset | null;
+  onPresetChange: (preset: EmotionalPreset) => void;
 }
+
+interface PresetDefinition {
+  name: string;
+  description: string;
+  overrides: ThemeOverrides;
+}
+
+const presets: Record<EmotionalPreset, PresetDefinition> = {
+  calm: {
+    name: 'Calm',
+    description: 'Soft colors, generous spacing, slow motion, relaxed typography for a serene experience.',
+    overrides: {
+      colors: {
+        primary: 'var(--md-sys-color-primary)',
+        secondary: 'var(--md-sys-color-secondary)',
+        tertiary: 'var(--md-sys-color-tertiary)',
+        surface: 'var(--md-sys-color-surface)',
+        onSurface: 'var(--md-sys-color-on-surface)',
+        background: 'var(--md-sys-color-background)',
+        onBackground: 'var(--md-sys-color-on-background)',
+      },
+      spacing: {
+        '4': '20px',
+        '5': '24px',
+        '6': '32px',
+      },
+      motion: {
+        easing: {
+          standard: 'cubic-bezier(0.4, 0, 0.6, 1)',
+          standardDecelerate: 'cubic-bezier(0.0, 0.0, 0.0, 1.0)',
+          standardAccelerate: 'cubic-bezier(0.3, 0.0, 1.0, 1.0)',
+          emphasized: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.2, 0.8)',
+        },
+        duration: {
+          short1: '50ms',
+          short2: '150ms',
+          short3: '150ms',
+          short4: '200ms',
+          medium1: '250ms',
+          medium2: '400ms',
+          medium3: '350ms',
+          medium4: '400ms',
+          long1: '450ms',
+          long2: '500ms',
+          long3: '550ms',
+          long4: '600ms',
+          extraLong1: '700ms',
+          extraLong2: '800ms',
+          extraLong3: '900ms',
+          extraLong4: '1000ms',
+        },
+      },
+      typography: {
+        body1: { fontSize: '16px', lineHeight: '24px', fontWeight: '300' },
+        body2: { fontSize: '14px', lineHeight: '20px', fontWeight: '300' },
+        heading1: { fontSize: '32px', lineHeight: '40px', fontWeight: '300' },
+        heading2: { fontSize: '24px', lineHeight: '32px', fontWeight: '300' },
+        caption: { fontSize: '12px', lineHeight: '16px', fontWeight: '400' },
+      },
+    },
+  },
+  energetic: {
+    name: 'Energetic',
+    description: 'Vibrant colors, tight spacing, fast motion, bold typography for an exciting vibe.',
+    overrides: {
+      colors: {
+        primary: 'var(--md-sys-color-primary)',
+        secondary: 'var(--md-sys-color-secondary)',
+        tertiary: 'var(--md-sys-color-tertiary)',
+        surface: 'var(--md-sys-color-surface)',
+        onSurface: 'var(--md-sys-color-on-surface)',
+        background: 'var(--md-sys-color-background)',
+        onBackground: 'var(--md-sys-color-on-background)',
+      },
+      spacing: {
+        '1': '2px',
+        '2': '6px',
+        '3': '10px',
+        '4': '12px',
+      },
+      motion: {
+        easing: {
+          standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          standardDecelerate: 'cubic-bezier(0.0, 0.0, 0.0, 1.0)',
+          standardAccelerate: 'cubic-bezier(0.3, 0.0, 1.0, 1.0)',
+          emphasized: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.2, 0.8)',
+        },
+        duration: {
+          short1: '25ms',
+          short2: '75ms',
+          short3: '150ms',
+          short4: '200ms',
+          medium1: '200ms',
+          medium2: '300ms',
+          medium3: '350ms',
+          medium4: '400ms',
+          long1: '450ms',
+          long2: '500ms',
+          long3: '550ms',
+          long4: '600ms',
+          extraLong1: '700ms',
+          extraLong2: '800ms',
+          extraLong3: '900ms',
+          extraLong4: '1000ms',
+        },
+      },
+      typography: {
+        body1: { fontSize: '16px', lineHeight: '24px', fontWeight: '600' },
+        body2: { fontSize: '14px', lineHeight: '20px', fontWeight: '600' },
+        heading1: { fontSize: '32px', lineHeight: '40px', fontWeight: '700' },
+        heading2: { fontSize: '24px', lineHeight: '32px', fontWeight: '700' },
+        caption: { fontSize: '12px', lineHeight: '16px', fontWeight: '400' },
+      },
+    },
+  },
+  creative: {
+    name: 'Creative',
+    description: 'Playful colors, varied spacing, bouncy motion, artistic typography for inspiration.',
+    overrides: {
+      colors: {
+        primary: 'var(--md-sys-color-primary)',
+        secondary: 'var(--md-sys-color-secondary)',
+        tertiary: 'var(--md-sys-color-tertiary)',
+        surface: 'var(--md-sys-color-surface)',
+        onSurface: 'var(--md-sys-color-on-surface)',
+        background: 'var(--md-sys-color-background)',
+        onBackground: 'var(--md-sys-color-on-background)',
+      },
+      spacing: {
+        '2': '10px',
+        '4': '18px',
+        '6': '28px',
+      },
+      motion: {
+        easing: {
+          standard: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+          standardDecelerate: 'cubic-bezier(0.0, 0.0, 0.0, 1.0)',
+          standardAccelerate: 'cubic-bezier(0.3, 0.0, 1.0, 1.0)',
+          emphasized: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+          emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.2, 0.8)',
+        },
+        duration: {
+          short1: '50ms',
+          short2: '120ms',
+          short3: '150ms',
+          short4: '200ms',
+          medium1: '250ms',
+          medium2: '350ms',
+          medium3: '350ms',
+          medium4: '400ms',
+          long1: '450ms',
+          long2: '500ms',
+          long3: '550ms',
+          long4: '600ms',
+          extraLong1: '700ms',
+          extraLong2: '800ms',
+          extraLong3: '900ms',
+          extraLong4: '1000ms',
+        },
+      },
+      typography: {
+        body1: { fontSize: '17px', lineHeight: '24px', fontWeight: '400' },
+        body2: { fontSize: '15px', lineHeight: '20px', fontWeight: '400' },
+        heading1: { fontSize: '34px', lineHeight: '40px', fontWeight: '500' },
+        heading2: { fontSize: '26px', lineHeight: '32px', fontWeight: '500' },
+        caption: { fontSize: '12px', lineHeight: '16px', fontWeight: '400' },
+      },
+    },
+  },
+  focused: {
+    name: 'Focused',
+    description: 'Neutral colors, compact spacing, precise motion, clear typography for concentration.',
+    overrides: {
+      colors: {
+        primary: 'var(--md-sys-color-primary)',
+        secondary: 'var(--md-sys-color-secondary)',
+        tertiary: 'var(--md-sys-color-tertiary)',
+        surface: 'var(--md-sys-color-surface)',
+        onSurface: 'var(--md-sys-color-on-surface)',
+        background: 'var(--md-sys-color-background)',
+        onBackground: 'var(--md-sys-color-on-background)',
+      },
+      spacing: {
+        '1': '3px',
+        '2': '7px',
+        '3': '11px',
+        '4': '14px',
+      },
+      motion: {
+        easing: {
+          standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          standardDecelerate: 'cubic-bezier(0.0, 0.0, 0.0, 1.0)',
+          standardAccelerate: 'cubic-bezier(0.3, 0.0, 1.0, 1.0)',
+          emphasized: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.2, 0.8)',
+        },
+        duration: {
+          short1: '40ms',
+          short2: '80ms',
+          short3: '150ms',
+          short4: '200ms',
+          medium1: '220ms',
+          medium2: '300ms',
+          medium3: '350ms',
+          medium4: '400ms',
+          long1: '450ms',
+          long2: '500ms',
+          long3: '550ms',
+          long4: '600ms',
+          extraLong1: '700ms',
+          extraLong2: '800ms',
+          extraLong3: '900ms',
+          extraLong4: '1000ms',
+        },
+      },
+      typography: {
+        body1: { fontSize: '16px', lineHeight: '24px', fontWeight: '500' },
+        body2: { fontSize: '14px', lineHeight: '20px', fontWeight: '500' },
+        heading1: { fontSize: '32px', lineHeight: '40px', fontWeight: '600' },
+        heading2: { fontSize: '24px', lineHeight: '32px', fontWeight: '600' },
+        caption: { fontSize: '12px', lineHeight: '16px', fontWeight: '400' },
+      },
+    },
+  },
+  relaxed: {
+    name: 'Relaxed',
+    description: 'Warm colors, comfortable spacing, gentle motion, easy typography for leisure.',
+    overrides: {
+      colors: {
+        primary: 'var(--md-sys-color-primary)',
+        secondary: 'var(--md-sys-color-secondary)',
+        tertiary: 'var(--md-sys-color-tertiary)',
+        surface: 'var(--md-sys-color-surface)',
+        onSurface: 'var(--md-sys-color-on-surface)',
+        background: 'var(--md-sys-color-background)',
+        onBackground: 'var(--md-sys-color-on-background)',
+      },
+      spacing: {
+        '3': '14px',
+        '4': '18px',
+        '5': '22px',
+        '6': '28px',
+      },
+      motion: {
+        easing: {
+          standard: 'cubic-bezier(0.4, 0, 0.6, 1)',
+          standardDecelerate: 'cubic-bezier(0.0, 0.0, 0.0, 1.0)',
+          standardAccelerate: 'cubic-bezier(0.3, 0.0, 1.0, 1.0)',
+          emphasized: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.2, 0.8)',
+        },
+        duration: {
+          short1: '50ms',
+          short2: '130ms',
+          short3: '150ms',
+          short4: '200ms',
+          medium1: '250ms',
+          medium2: '380ms',
+          medium3: '350ms',
+          medium4: '400ms',
+          long1: '450ms',
+          long2: '500ms',
+          long3: '550ms',
+          long4: '600ms',
+          extraLong1: '700ms',
+          extraLong2: '800ms',
+          extraLong3: '900ms',
+          extraLong4: '1000ms',
+        },
+      },
+      typography: {
+        body1: { fontSize: '16px', lineHeight: '24px', fontWeight: '400' },
+        body2: { fontSize: '14px', lineHeight: '20px', fontWeight: '400' },
+        heading1: { fontSize: '32px', lineHeight: '40px', fontWeight: '400' },
+        heading2: { fontSize: '24px', lineHeight: '32px', fontWeight: '400' },
+        caption: { fontSize: '12px', lineHeight: '16px', fontWeight: '400' },
+      },
+    },
+  },
+  professional: {
+    name: 'Professional',
+    description: 'Subdued colors, balanced spacing, smooth motion, formal typography for business.',
+    overrides: {
+      colors: {
+        primary: 'var(--md-sys-color-primary)',
+        secondary: 'var(--md-sys-color-secondary)',
+        tertiary: 'var(--md-sys-color-tertiary)',
+        surface: 'var(--md-sys-color-surface)',
+        onSurface: 'var(--md-sys-color-on-surface)',
+        background: 'var(--md-sys-color-background)',
+        onBackground: 'var(--md-sys-color-on-background)',
+      },
+      spacing: {
+        '2': '8px',
+        '3': '12px',
+        '4': '16px',
+        '5': '20px',
+      },
+      motion: {
+        easing: {
+          standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          standardDecelerate: 'cubic-bezier(0.0, 0.0, 0.0, 1.0)',
+          standardAccelerate: 'cubic-bezier(0.3, 0.0, 1.0, 1.0)',
+          emphasized: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.2, 0.8)',
+        },
+        duration: {
+          short1: '50ms',
+          short2: '100ms',
+          short3: '150ms',
+          short4: '200ms',
+          medium1: '250ms',
+          medium2: '300ms',
+          medium3: '350ms',
+          medium4: '400ms',
+          long1: '450ms',
+          long2: '500ms',
+          long3: '550ms',
+          long4: '600ms',
+          extraLong1: '700ms',
+          extraLong2: '800ms',
+          extraLong3: '900ms',
+          extraLong4: '1000ms',
+        },
+      },
+      typography: {
+        body1: { fontSize: '16px', lineHeight: '24px', fontWeight: '400' },
+        body2: { fontSize: '14px', lineHeight: '20px', fontWeight: '400' },
+        heading1: { fontSize: '32px', lineHeight: '40px', fontWeight: '500' },
+        heading2: { fontSize: '24px', lineHeight: '32px', fontWeight: '500' },
+        caption: { fontSize: '12px', lineHeight: '16px', fontWeight: '400' },
+      },
+    },
+  },
+  playful: {
+    name: 'Playful',
+    description: 'Fun colors, irregular spacing, lively motion, whimsical typography for joy.',
+    overrides: {
+      colors: {
+        primary: 'var(--md-sys-color-primary)',
+        secondary: 'var(--md-sys-color-secondary)',
+        tertiary: 'var(--md-sys-color-tertiary)',
+        surface: 'var(--md-sys-color-surface)',
+        onSurface: 'var(--md-sys-color-on-surface)',
+        background: 'var(--md-sys-color-background)',
+        onBackground: 'var(--md-sys-color-on-background)',
+      },
+      spacing: {
+        '1': '5px',
+        '3': '13px',
+        '5': '21px',
+      },
+      motion: {
+        easing: {
+          standard: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+          standardDecelerate: 'cubic-bezier(0.0, 0.0, 0.0, 1.0)',
+          standardAccelerate: 'cubic-bezier(0.3, 0.0, 1.0, 1.0)',
+          emphasized: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+          emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.2, 0.8)',
+        },
+        duration: {
+          short1: '50ms',
+          short2: '110ms',
+          short3: '150ms',
+          short4: '200ms',
+          medium1: '250ms',
+          medium2: '330ms',
+          medium3: '350ms',
+          medium4: '400ms',
+          long1: '450ms',
+          long2: '500ms',
+          long3: '550ms',
+          long4: '600ms',
+          extraLong1: '700ms',
+          extraLong2: '800ms',
+          extraLong3: '900ms',
+          extraLong4: '1000ms',
+        },
+      },
+      typography: {
+        body1: { fontSize: '16px', lineHeight: '24px', fontWeight: '400' },
+        body2: { fontSize: '14px', lineHeight: '20px', fontWeight: '400' },
+        heading1: { fontSize: '33px', lineHeight: '40px', fontWeight: '600' },
+        heading2: { fontSize: '25px', lineHeight: '32px', fontWeight: '600' },
+        caption: { fontSize: '12px', lineHeight: '16px', fontWeight: '400' },
+      },
+    },
+  },
+  minimal: {
+    name: 'Minimal',
+    description: 'Monochrome colors, sparse spacing, subtle motion, clean typography for simplicity.',
+    overrides: {
+      colors: {
+        primary: 'var(--md-sys-color-primary)',
+        secondary: 'var(--md-sys-color-secondary)',
+        tertiary: 'var(--md-sys-color-tertiary)',
+        surface: 'var(--md-sys-color-surface)',
+        onSurface: 'var(--md-sys-color-on-surface)',
+        background: 'var(--md-sys-color-background)',
+        onBackground: 'var(--md-sys-color-on-background)',
+      },
+      spacing: {
+        '1': '4px',
+        '2': '8px',
+        '3': '12px',
+        '4': '16px',
+      },
+      motion: {
+        easing: {
+          standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
+          standardDecelerate: 'cubic-bezier(0.0, 0.0, 0.0, 1.0)',
+          standardAccelerate: 'cubic-bezier(0.3, 0.0, 1.0, 1.0)',
+          emphasized: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedDecelerate: 'cubic-bezier(0.05, 0.7, 0.1, 1.0)',
+          emphasizedAccelerate: 'cubic-bezier(0.3, 0.0, 0.2, 0.8)',
+        },
+        duration: {
+          short1: '50ms',
+          short2: '100ms',
+          short3: '150ms',
+          short4: '200ms',
+          medium1: '250ms',
+          medium2: '300ms',
+          medium3: '350ms',
+          medium4: '400ms',
+          long1: '450ms',
+          long2: '500ms',
+          long3: '550ms',
+          long4: '600ms',
+          extraLong1: '700ms',
+          extraLong2: '800ms',
+          extraLong3: '900ms',
+          extraLong4: '1000ms',
+        },
+      },
+      typography: {
+        body1: { fontSize: '16px', lineHeight: '24px', fontWeight: '400' },
+        body2: { fontSize: '14px', lineHeight: '20px', fontWeight: '400' },
+        heading1: { fontSize: '32px', lineHeight: '40px', fontWeight: '400' },
+        heading2: { fontSize: '24px', lineHeight: '32px', fontWeight: '400' },
+        caption: { fontSize: '12px', lineHeight: '16px', fontWeight: '400' },
+      },
+    },
+  },
+};
 
 const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({
   selectedPreset,
-  onPresetChange,
-  className = ''
+  onPresetChange
 }) => {
-  const [previewPreset, setPreviewPreset] = useState<EmotionalPreset | undefined>(undefined);
-  const [isPreviewing, setIsPreviewing] = useState(false);
+  const { updateOverrides, resetOverrides, spacing } = useTheme();
+  const [hoveredPreset, setHoveredPreset] = useState<EmotionalPreset | null>(null);
 
-  const handlePresetHover = useCallback((preset: EmotionalPreset) => {
-    if (isPreviewing) return; // Prevent multiple previews
-    
-    setPreviewPreset(preset);
-    setIsPreviewing(true);
-    
-    // Apply preview theme
-    const previewState = {
-      mode: 'light' as const,
-      visualStyle: 'aura' as const,
-      customizationName: 'Preview',
-      uiMode: 'classic' as const,
-      emotionalPreset: preset
-    };
-    
-    ThemeService.applyThemeState(previewState);
-  }, [isPreviewing]);
-
-  const handlePresetLeave = useCallback(() => {
-    if (!isPreviewing) return;
-    
-    setIsPreviewing(false);
-    setPreviewPreset(undefined);
-    
-    // Restore original theme
-    const originalState = {
-      mode: 'light' as const,
-      visualStyle: 'aura' as const,
-      customizationName: 'Default',
-      uiMode: 'classic' as const,
-      emotionalPreset: selectedPreset
-    };
-    
-    ThemeService.applyThemeState(originalState);
-  }, [isPreviewing, selectedPreset]);
-
-  const presetOptions: EmotionalPresetOption[] = [
-    {
-      id: 'calm',
-      name: 'Calmo',
-      description: 'Toni rilassanti, spaziatura ampia, movimenti fluidi',
-      icon: 'spa',
-      color: 'var(--md-sys-color-primary-light)'
-    },
-    {
-      id: 'energetic',
-      name: 'Energico',
-      description: 'Colori vivaci, contrasto alto, animazioni dinamiche',
-      icon: 'flash_on',
-      color: 'var(--md-sys-color-primary)'
-    },
-    {
-      id: 'creative',
-      name: 'Creativo',
-      description: 'Colori caldi, forme morbide, ispirazione artistica',
-      icon: 'palette',
-      color: 'var(--md-sys-color-tertiary)'
-    },
-    {
-      id: 'focused',
-      name: 'Concentrato',
-      description: 'Contrasto elevato, colori neutri, distrazioni minime',
-      icon: 'center_focus_strong',
-      color: 'var(--md-sys-color-outline)'
-    },
-    {
-      id: 'relaxed',
-      name: 'Rilassato',
-      description: 'Colori pastello, spaziatura generosa, atmosfera tranquilla',
-      icon: 'self_improvement',
-      color: 'var(--md-sys-color-secondary-light)'
-    },
-    {
-      id: 'professional',
-      name: 'Professionale',
-      description: 'Colori formali, equilibrio perfetto, affidabilità',
-      icon: 'business_center',
-      color: 'var(--md-sys-color-primary)'
-    },
-    {
-      id: 'playful',
-      name: 'Giocoso',
-      description: 'Colori brillanti, forme irregolari, energia positiva',
-      icon: 'celebration',
-      color: 'var(--md-sys-color-tertiary)'
-    },
-    {
-      id: 'minimal',
-      name: 'Minimale',
-      description: 'Colori monocromatici, pulizia essenziale, semplicità',
-      icon: 'remove',
-      color: 'var(--md-sys-color-on-surface)'
+  useEffect(() => {
+    const activePreset = hoveredPreset || selectedPreset;
+    if (activePreset) {
+      updateOverrides(presets[activePreset].overrides);
+    } else {
+      resetOverrides();
     }
-  ];
+  }, [hoveredPreset, selectedPreset, updateOverrides, resetOverrides]);
 
-  const handlePresetSelect = (preset: EmotionalPreset) => {
-    setPreviewPreset(undefined);
-    setIsPreviewing(false);
+  const handleSelect = (preset: EmotionalPreset) => {
     onPresetChange(preset);
   };
 
-  const handleClearPreset = () => {
-    setPreviewPreset(undefined);
-    setIsPreviewing(false);
-    onPresetChange(undefined);
-  };
-
   return (
-    <div className={`emotional-presets-manager ${className}`}>
-      <div className="presets-header" style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
-        <M3Typography variant="headline-small" style={{ marginBottom: 'var(--md-sys-spacing-2)' }}>
-          Stile Emozionale
-        </M3Typography>
-        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-          Passa il mouse sui preset per vedere un'anteprima dal vivo. Clicca per applicare permanentemente.
-        </M3Typography>
-        {isPreviewing && (
-          <div style={{
-            marginTop: 'var(--md-sys-spacing-3)',
-            padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-            backgroundColor: 'var(--md-sys-color-primary-container)',
-            borderRadius: 'var(--md-sys-shape-corner-large)',
-            border: '1px solid var(--md-sys-color-primary)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'var(--md-sys-spacing-2)'
-          }}>
-            <span className="material-symbols-outlined" style={{ 
-              fontSize: '16px', 
-              color: 'var(--md-sys-color-on-primary-container)' 
-            }}>
-              visibility
-            </span>
-            <M3Typography variant="label-small" style={{ 
-              color: 'var(--md-sys-color-on-primary-container)',
-              fontWeight: '600'
-            }}>
-              Anteprima: {presetOptions.find(p => p.id === previewPreset)?.name}
-            </M3Typography>
-          </div>
-        )}
-      </div>
-
-      <div
-        className="presets-grid"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 'var(--md-sys-spacing-4)',
-          marginBottom: 'var(--md-sys-spacing-6)'
-        }}
-      >
-        {presetOptions.map((preset) => (
+    <div style={{ padding: spacing['4'], display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: spacing['4'] }}>
+      {(Object.keys(presets) as EmotionalPreset[]).map((presetKey) => {
+        const preset = presets[presetKey];
+        const isSelected = selectedPreset === presetKey;
+        const isHovered = hoveredPreset === presetKey;
+        return (
           <M3Card
-            key={preset.id}
-            variant="elevated"
-            onClick={() => handlePresetSelect(preset.id)}
-            onMouseEnter={() => handlePresetHover(preset.id)}
-            onMouseLeave={handlePresetLeave}
+            key={presetKey}
             style={{
-              padding: 'var(--md-sys-spacing-4)',
+              padding: spacing['4'],
               cursor: 'pointer',
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              border: selectedPreset === preset.id ? `2px solid ${preset.color}` : 
-                     previewPreset === preset.id ? `2px solid ${preset.color}60` : '1px solid var(--md-sys-color-outline-variant)',
-              backgroundColor: selectedPreset === preset.id ? 
-                             'var(--md-sys-color-primary-container)' :
-                             previewPreset === preset.id ? 
-                             'var(--md-sys-color-secondary-container)' : 
-                             'var(--md-sys-color-surface-container)',
-              transform: previewPreset === preset.id ? 'scale(1.02)' : 'scale(1)',
-              boxShadow: previewPreset === preset.id ? 
-                        `var(--md-sys-elevation-level-3), 0 0 20px ${preset.color}30` : 
-                        selectedPreset === preset.id ?
-                        'var(--md-sys-elevation-level-2)' :
-                        'var(--md-sys-elevation-level-1)',
-              position: 'relative',
-              overflow: 'hidden',
-              filter: previewPreset === preset.id ? 'brightness(1.05)' : 'brightness(1)'
+              border: isSelected ? `2px solid var(--md-sys-color-primary)` : 'none',
+              opacity: isHovered ? 0.8 : 1,
             }}
+            onMouseEnter={() => setHoveredPreset(presetKey)}
+            onMouseLeave={() => setHoveredPreset(null)}
+            onClick={() => handleSelect(presetKey)}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-              <div
-                className="preset-icon"
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: 'var(--md-sys-shape-corner-large)',
-                  backgroundColor: preset.color,
-                  color: 'var(--md-sys-color-on-primary)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '24px',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  transform: previewPreset === preset.id ? 'scale(1.1) rotate(5deg)' : 'scale(1) rotate(0deg)',
-                  boxShadow: previewPreset === preset.id ? 
-                           `0 4px 12px ${preset.color}40` : 
-                           'none',
-                  position: 'relative'
-                }}
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>
-                  {preset.icon}
-                </span>
-                {selectedPreset === preset.id && (
-                  <div style={{
-                    position: 'absolute',
-                    top: '-4px',
-                    right: '-4px',
-                    width: '20px',
-                    height: '20px',
-                    borderRadius: '50%',
-                    backgroundColor: 'var(--md-sys-color-primary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '2px solid var(--md-sys-color-surface)'
-                  }}>
-                    <span className="material-symbols-outlined" style={{ 
-                      fontSize: '12px', 
-                      color: 'var(--md-sys-color-on-primary)' 
-                    }}>
-                      check
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              <div style={{ flex: 1 }}>
-                <M3Typography variant="title-medium" style={{ marginBottom: 'var(--md-sys-spacing-1)' }}>
-                  {preset.name}
-                </M3Typography>
-                <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-                  {preset.description}
-                </M3Typography>
-              </div>
-            </div>
+            <M3Typography variant="title-medium" style={{ marginBottom: spacing['2'] }}>
+              {preset.name}
+            </M3Typography>
+            <M3Typography variant="body-medium" style={{ marginBottom: spacing['3'] }}>
+              {preset.description}
+            </M3Typography>
+            {isSelected ? (
+              <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-primary)' }}>
+                Selected
+              </M3Typography>
+            ) : (
+              <M3Button variant="primary" size="small">
+                Select
+              </M3Button>
+            )}
           </M3Card>
-        ))}
-      </div>
-
-      <div className="presets-actions" style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
-        <M3Button
-          variant="outline"
-          onClick={handleClearPreset}
-          disabled={!selectedPreset}
-        >
-          Ripristina Predefinito
-        </M3Button>
-
-        {selectedPreset && (
-          <M3Typography variant="label-medium" style={{ alignSelf: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
-            Stile attivo: {presetOptions.find(p => p.id === selectedPreset)?.name}
-          </M3Typography>
-        )}
-      </div>
+        );
+      })}
     </div>
   );
 };

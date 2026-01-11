@@ -18,6 +18,10 @@ import './layout.css';
 import './components.css';
 import './logo.css';
 import './modules.css';
+import './global.css';
+
+// Theme imports
+import { M3ThemeProvider } from './theme/theme';
 
 /**
  * STORAGE RECOVERY:
@@ -152,9 +156,11 @@ async function bootstrapApp() {
     root.render(
       <ErrorBoundary>
         <React.StrictMode>
-          <ModalProvider>
-            <App />
-          </ModalProvider>
+          <M3ThemeProvider>
+            <ModalProvider>
+              <App />
+            </ModalProvider>
+          </M3ThemeProvider>
         </React.StrictMode>
       </ErrorBoundary>
     );

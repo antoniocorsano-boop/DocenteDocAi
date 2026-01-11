@@ -556,7 +556,7 @@
 /* Text Size */
 .text-xs { font-size: 11px; }
 .text-sm { font-size: 13px; }
-.text-base { font-size: 14px; }
+.text-base { font-size: theme.typography.body2.fontSize; }
 .text-lg { font-size: var(--md-sys-spacing-4); }
 .text-xl { font-size: 18px; }
 .text-2xl { font-size: var(--md-sys-spacing-6); }
@@ -638,7 +638,7 @@
 .transition-all { transition: all var(--motion-duration-short4) var(--motion-easing-standard); }
 .transition-colors { transition: background-color var(--motion-duration-short3) var(--motion-easing-standard), color var(--motion-duration-short3) var(--motion-easing-standard); }
 .transition-transform { transition: transform var(--motion-duration-short4) var(--motion-easing-standard); }
-.duration-300 { transition-duration: 300ms; }
+.duration-300 { transition-duration: theme.motion.duration.medium2; }
 
 /* Transform */
 .rotate-180 { transform: rotate(180deg); }
@@ -824,8 +824,8 @@
 }
 
 /* Duration Utilities */
-.duration-500 { transition-duration: 500ms; }
-.duration-700 { transition-duration: 700ms; }
+.duration-500 { transition-duration: theme.motion.duration.long2; }
+.duration-700 { transition-duration: theme.motion.duration.extraLong1; }
 
 /* Delay Utilities */
 .delay-150 { animation-delay: 150ms; }

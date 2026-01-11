@@ -31,7 +31,7 @@
   width: 100vw;
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px var(--md-sys-spacing-4) var(--md-sys-spacing-8) var(--md-sys-spacing-4);
+  padding: theme.spacing['5'] var(--md-sys-spacing-4) var(--md-sys-spacing-8) var(--md-sys-spacing-4);
   min-height: 30vh;
   max-height: 80vh;
   overflow-y: auto;

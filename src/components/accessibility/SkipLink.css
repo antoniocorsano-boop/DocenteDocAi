@@ -18,7 +18,7 @@
   background-color: var(--md-sys-color-primary, #6750a4);
   color: var(--md-sys-color-on-primary, #fff);
   text-decoration: none;
-  font-size: 14px;
+  font-size: theme.typography.body2.fontSize;
   font-weight: 500;
   border-radius: var(--md-sys-shape-corner-small);
   

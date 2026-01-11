@@ -1,3 +1,6 @@
+// --- EMOTIONAL PRESETS ---
+export type EmotionalPreset = 'calm' | 'energetic' | 'creative' | 'focused' | 'relaxed' | 'professional' | 'playful' | 'minimal';
+
 // --- HEADER ACTIONS POPOVER ---
 export interface ActionsPopoverProps extends HeaderProps {
     onClose: () => void;

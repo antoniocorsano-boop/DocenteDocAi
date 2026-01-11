@@ -1,5 +1,5 @@
-// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
+// MD3 Pure: Migrated to inline styles using MD3 tokens for voice recorder button states and interactions
+// All voice-note-recorder-* classes removed in favor of token-based styling
 
 import React, { useState, useRef, useEffect } from 'react';
 import { getGoogleAIClient } from '../services/aiClient.ts';
@@ -194,22 +194,80 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             type="button"
             onClick={isRecording ? stopRecording : startRecording}
             disabled={isProcessing}
-            className={`voice-note-recorder-button ${compact ? 'icon-button' : 'button-tonal'} ${isRecording ? 'voice-note-recorder-button.recording' : ''}`}
-            style={visualizerStyle}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: compact ? '0' : 'var(--md-sys-spacing-2)',
+                padding: compact ? 'var(--md-sys-spacing-3)' : 'var(--md-sys-spacing-4) var(--md-sys-spacing-5)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                border: 'none',
+                backgroundColor: isRecording 
+                    ? 'var(--md-sys-color-error-container)' 
+                    : 'var(--md-sys-color-secondary-container)',
+                color: isRecording 
+                    ? 'var(--md-sys-color-on-error-container)' 
+                    : 'var(--md-sys-color-on-secondary-container)',
+                fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                fontWeight: 600,
+                cursor: isProcessing ? 'not-allowed' : 'pointer',
+                opacity: isProcessing ? 0.6 : 1,
+                transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                position: 'relative',
+                overflow: 'hidden',
+                minWidth: compact ? '48px' : 'auto',
+                height: compact ? '48px' : 'auto',
+                boxShadow: isRecording ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
+                ...visualizerStyle
+            }}
             title={isRecording ? "Ferma registrazione" : "Detta nota vocale"}
+            onMouseEnter={(e) => {
+                if (!isProcessing) {
+                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.boxShadow = isRecording 
+                        ? 'var(--md-sys-elevation-level3)' 
+                        : 'var(--md-sys-elevation-level2)';
+                }
+            }}
+            onMouseLeave={(e) => {
+                if (!isProcessing) {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = isRecording 
+                        ? 'var(--md-sys-elevation-level2)' 
+                        : 'var(--md-sys-elevation-level1)';
+                }
+            }}
         >
             {isProcessing ? (
-                <span className="button-spinner voice-note-recorder-spinner"></span>
+                <div style={{
+                    width: '20px',
+                    height: '20px',
+                    border: '2px solid var(--md-sys-color-outline)',
+                    borderTop: '2px solid var(--md-sys-color-primary)',
+                    borderRadius: '50%',
+                    animation: 'spin 1s linear infinite'
+                }} />
             ) : (
-                <span className="material-symbols-outlined voice-note-recorder-icon">{isRecording ? 'mic_off' : 'mic'}</span>
+                <span className="material-symbols-outlined" style={{
+                    fontSize: compact ? '20px' : '24px',
+                    transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+                }}>{isRecording ? 'mic_off' : 'mic'}</span>
             )}
-            {!compact && !isProcessing && <span className="voice-note-recorder-label">{isRecording ? 'Stop' : 'Detta Nota'}</span>}
+            {!compact && !isProcessing && (
+                <span style={{
+                    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                    fontWeight: 600,
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase'
+                }}>{isRecording ? 'Stop' : 'Detta Nota'}</span>
+            )}
         </button>
     );
 };
 
 export default VoiceNoteRecorder;
 
-// M3Expressive refactor COMPLETED: VoiceNoteRecorder.tsx - Replaced hardcoded Tailwind classes with dedicated voice-note-recorder-* CSS classes using M3 tokens for button states, spinner sizing, icon styling, and label spacing.
+// MD3 Pure Migration COMPLETED: VoiceNoteRecorder.tsx - Converted to inline styles using MD3 tokens
+// All voice-note-recorder-* CSS classes removed, using token-based button states and interactions
 
 

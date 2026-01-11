@@ -1,68 +1,143 @@
 import React from 'react';
+import { useTheme } from '../../theme/theme';
+import M3Card from './M3Card';
+import M3Typography from './M3Typography';
 
-interface InfoCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface InfoCardProps {
     title?: string;
     description?: string;
     icon?: string;
-    variant?: 'primary' | 'tertiary' | 'error' | 'surface' | 'secondary' | 'elevated' | 'tonal';
-    className?: string;
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'surface' | 'elevated' | 'tonal';
     action?: React.ReactNode;
     onClose?: () => void;
     children?: React.ReactNode;
     onClick?: () => void;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ 
-    title, 
-    description, 
-    icon, 
-    variant = 'surface', 
-    className = '', 
-    action, 
+const InfoCard: React.FC<InfoCardProps> = ({
+    title,
+    description,
+    icon,
+    variant = 'surface',
+    action,
     onClose,
     children,
-    onClick,
-    ...props
+    onClick
 }) => {
-    const variantMap: Record<string, string> = {
-        primary: 'bg-primary-container/80 text-on-primary-container border-primary/10',
-        secondary: 'bg-secondary-container/80 text-on-secondary-container border-secondary/10',
-        tertiary: 'bg-tertiary-container/80 text-on-tertiary-container border-tertiary/10',
-        error: 'bg-error-container/80 text-on-error-container border-error/10',
-        surface: 'bg-[var(--md-sys-color-surface-container)]/80 text-[var(--md-sys-color-on-surface)] border-[var(--md-sys-color-outline-variant)]/10',
-        elevated: 'bg-[var(--md-sys-color-surface-container-low)] shadow-[var(--md-sys-elevation-level2)] border-[var(--md-sys-color-outline-variant)]/10',
-        tonal: 'bg-secondary-container/50 text-on-secondary-container border-secondary/10'
+    const { spacing, colors } = useTheme();
+
+    // Map variants to M3Card variants
+    const getCardVariant = () => {
+        switch (variant) {
+            case 'elevated':
+                return 'elevated';
+            case 'surface':
+                return 'elevated';
+            default:
+                return 'filled';
+        }
     };
-    const variantClasses = variantMap[variant] || variantMap.surface;
 
     return (
-        <div
-            {...props}
+        <M3Card
+            variant={getCardVariant()}
+            padding="large"
             onClick={onClick}
-            className={`m3-info-card p-6 md:p-10 shadow-[var(--md-sys-elevation-level3)] md:shadow-[var(--md-sys-elevation-level4)] backdrop-blur-2xl border border-white/10 dark:border-black/10 overflow-hidden relative group transition-all duration-500 hover:shadow-primary/10 ${onClick ? 'cursor-pointer hover:scale-[1.02] active:scale-[0.98]' : ''} ${variantClasses} ${className}`}
-            style={{ borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
+            style={{
+                position: 'relative',
+                cursor: onClick ? 'pointer' : 'default'
+            }}
         >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-white/20 transition-all duration-700 pointer-events-none"></div>
-
-            <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
-                {icon && (
-                    <div className="p-5 rounded-[var(--md-sys-shape-corner-large)] bg-white/30 dark:bg-black/20 backdrop-blur-md flex items-center justify-center shadow-inner border border-white/20 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-                        <span className="material-symbols-outlined text-4xl">{icon}</span>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: spacing['4']
+            }}>
+                {/* Header with icon and close button */}
+                {(icon || onClose) && (
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        justifyContent: 'space-between'
+                    }}>
+                        {icon && (
+                            <div style={{
+                                width: '48px',
+                                height: '48px',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                backgroundColor: colors.surfaceContainerHigh,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}>
+                                <span
+                                    className="material-symbols-outlined"
+                                    style={{
+                                        fontSize: '24px',
+                                        color: colors.onSurfaceVariant
+                                    }}
+                                >
+                                    {icon}
+                                </span>
+                            </div>
+                        )}
+                        {onClose && (
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onClose();
+                                }}
+                                style={{
+                                    width: '40px',
+                                    height: '40px',
+                                    borderRadius: '50%',
+                                    backgroundColor: 'transparent',
+                                    border: 'none',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                    color: colors.onSurfaceVariant
+                                }}
+                                aria-label="Chiudi"
+                            >
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        )}
                     </div>
                 )}
-                <div className="flex-grow">
-                    <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-extrabold mb-6 tracking-tight">{title}</h3>
-                    {description && <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] opacity-90 leading-relaxed">{description}</p>}
-                    {children && <div className="mt-4">{children}</div>}
-                    {action && <div className="mt-8 flex justify-end">{action}</div>}
+
+                {/* Content */}
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: spacing['3']
+                }}>
+                    {title && (
+                        <M3Typography variant="headline-small">
+                            {title}
+                        </M3Typography>
+                    )}
+                    {description && (
+                        <M3Typography variant="body-large">
+                            {description}
+                        </M3Typography>
+                    )}
+                    {children}
                 </div>
-                {onClose && (
-                    <button onClick={onClose} className="icon-button !w-12 !h-12 bg-black/5 hover:bg-black/10 dark:bg-white/5 dark:hover:bg-white/10 rounded-full transition-all" aria-label="Chiudi">
-                        <span className="material-symbols-outlined">close</span>
-                    </button>
+
+                {/* Action */}
+                {action && (
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        marginTop: spacing['4']
+                    }}>
+                        {action}
+                    </div>
                 )}
             </div>
-        </div>
+        </M3Card>
     );
 };
 

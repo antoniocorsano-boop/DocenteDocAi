@@ -44,7 +44,7 @@
   fill: var(--md-sys-color-tertiary);
   font-family: 'Roboto Mono', monospace;
   font-weight: 900;
-  font-size: 14px;
+  font-size: theme.typography.body2.fontSize;
   filter: drop-shadow(0 0 2px var(--md-sys-color-tertiary));
 }
 

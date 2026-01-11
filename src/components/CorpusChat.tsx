@@ -3,8 +3,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AiSettings, Corpus, ChatMessage, KnowledgeBaseEntry } from '../types';
 import { generateAnswerFromCorpus } from '../services/aiService';
+import { M3IconButton, M3Typography } from './ui';
 
-// M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for corpus chat interface, message bubbles, and input controls
+// MD3 Pure: Migrated to inline styles using MD3 tokens for chat interface, message bubbles, and input controls
+// All corpus-chat-* classes removed in favor of token-based styling
+
+// Add this CSS animation to your global styles or component:
+// @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 interface CorpusChatProps {
     corpus: Corpus;
     aiSettings: AiSettings;
@@ -77,74 +82,331 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
     }
 
     return (
-        <div className="corpus-chat-container">
-            <div className="corpus-chat-header">
-                <button className="icon-button kb-mobile-back-button" onClick={onClose} aria-label="Torna alla lista">
-                    <span className="material-symbols-outlined">arrow_back</span>
-                </button>
-                <div className="corpus-chat-header-content">
-                    <span className="material-symbols-outlined corpus-chat-header-icon">chat</span>
-                    <h3 className="corpus-chat-header-title">Chat con "{corpus.displayName}"</h3>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100vh',
+            backgroundColor: 'var(--md-sys-color-surface)',
+            maxWidth: '800px',
+            margin: '0 auto'
+        }}>
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: 'var(--md-sys-spacing-4)',
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                gap: 'var(--md-sys-spacing-3)'
+            }}>
+                <M3IconButton 
+                    icon="arrow_back" 
+                    onClick={onClose} 
+                    ariaLabel="Torna alla lista"
+                />
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-3)',
+                    minWidth: 0,
+                    flex: 1
+                }}>
+                    <div style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        backgroundColor: 'var(--md-sys-color-primary-container)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
+                        <span className="material-symbols-outlined" style={{
+                            fontSize: '20px',
+                            color: 'var(--md-sys-color-on-primary-container)'
+                        }}>chat</span>
+                    </div>
+                    <M3Typography variant="title-large" style={{
+                        color: 'var(--md-sys-color-on-surface)',
+                        fontWeight: 600,
+                        minWidth: 0,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap'
+                    }}>Chat con "{corpus.displayName}"</M3Typography>
                 </div>
             </div>
             
-            <div className="corpus-chat-messages">
+            <div style={{
+                flex: 1,
+                overflowY: 'auto',
+                padding: 'var(--md-sys-spacing-4)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--md-sys-spacing-3)'
+            }}>
                 {messages.map((msg, index) => (
-                    <div key={index} className={`corpus-chat-message-bubble corpus-chat-message-bubble-${msg.role}`}>
-                        <div className="corpus-chat-message-content">
-                            <p>{msg.text}</p>
+                    <div key={index} style={{
+                        display: 'flex',
+                        justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start',
+                        marginBottom: 'var(--md-sys-spacing-2)'
+                    }}>
+                        <div style={{
+                            maxWidth: '70%',
+                            padding: 'var(--md-sys-spacing-3)',
+                            borderRadius: msg.role === 'user' 
+                                ? 'var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-large)'
+                                : 'var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small)',
+                            backgroundColor: msg.role === 'user' 
+                                ? 'var(--md-sys-color-primary-container)' 
+                                : 'var(--md-sys-color-surface-container-high)',
+                            border: `1px solid var(--md-sys-color-outline-variant)`
+                        }}>
+                            <M3Typography variant="body-large" style={{
+                                color: msg.role === 'user' 
+                                    ? 'var(--md-sys-color-on-primary-container)' 
+                                    : 'var(--md-sys-color-on-surface)',
+                                margin: 0,
+                                lineHeight: 1.4
+                            }}>{msg.text}</M3Typography>
                         </div>
                     </div>
                 ))}
                 {isLoading && (
-                     <div className="corpus-chat-message-bubble corpus-chat-message-bubble-model">
-                        <div className="corpus-chat-message-content">
-                            <div className="corpus-chat-loading">
-                                <div className="corpus-chat-loading-spinner"></div>
-                            </div>
+                     <div style={{
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        marginBottom: 'var(--md-sys-spacing-2)'
+                    }}>
+                        <div style={{
+                            maxWidth: '70%',
+                            padding: 'var(--md-sys-spacing-3)',
+                            borderRadius: 'var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small)',
+                            backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                            border: `1px solid var(--md-sys-color-outline-variant)`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-2)'
+                        }}>
+                            <div style={{
+                                width: '16px',
+                                height: '16px',
+                                border: '2px solid var(--md-sys-color-outline)',
+                                borderTop: '2px solid var(--md-sys-color-primary)',
+                                borderRadius: '50%',
+                                animation: 'spin 1s linear infinite'
+                            }} />
+                            <M3Typography variant="body-medium" style={{
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                margin: 0
+                            }}>Sto pensando...</M3Typography>
                         </div>
                     </div>
                 )}
                  {messages.length === 0 && !isLoading && (
-                    <div className="corpus-chat-empty">
-                        <span className="material-symbols-outlined corpus-chat-empty-icon">quiz</span>
-                        <p className="corpus-chat-empty-text">Poni una domanda ai documenti in questo set.</p>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flex: 1,
+                        padding: 'var(--md-sys-spacing-8)',
+                        textAlign: 'center',
+                        gap: 'var(--md-sys-spacing-4)'
+                    }}>
+                        <div style={{
+                            width: '64px',
+                            height: '64px',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            backgroundColor: 'var(--md-sys-color-secondary-container)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <span className="material-symbols-outlined" style={{
+                                fontSize: '32px',
+                                color: 'var(--md-sys-color-on-secondary-container)'
+                            }}>quiz</span>
+                        </div>
+                        <M3Typography variant="body-large" style={{
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            margin: 0,
+                            maxWidth: '300px'
+                        }}>Poni una domanda ai documenti in questo set.</M3Typography>
                     </div>
                 )}
                 <div ref={messagesEndRef} />
             </div>
 
-            <div className="corpus-chat-shortcuts">
-                <div className="corpus-chat-shortcuts-container">
-                    <button onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} className="corpus-chat-shortcut-button">
-                        <span className="material-symbols-outlined corpus-chat-shortcut-icon">summarize</span>
-                        <span className="corpus-chat-shortcut-text">Riassumi</span>
+            <div style={{
+                padding: 'var(--md-sys-spacing-4)',
+                borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                backgroundColor: 'var(--md-sys-color-surface-container-low)'
+            }}>
+                <div style={{
+                    display: 'flex',
+                    gap: 'var(--md-sys-spacing-2)',
+                    flexWrap: 'wrap'
+                }}>
+                    <button 
+                        onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} 
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-3)',
+                            backgroundColor: 'var(--md-sys-color-secondary-container)',
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            cursor: 'pointer',
+                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                            textDecoration: 'none'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-secondary-container-hover)';
+                            e.currentTarget.style.transform = 'scale(1.02)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-secondary-container)';
+                            e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                    >
+                        <span className="material-symbols-outlined" style={{
+                            fontSize: '18px',
+                            color: 'var(--md-sys-color-on-secondary-container)'
+                        }}>summarize</span>
+                        <M3Typography variant="label-large" style={{
+                            color: 'var(--md-sys-color-on-secondary-container)',
+                            fontWeight: 500,
+                            margin: 0
+                        }}>Riassumi</M3Typography>
                     </button>
-                    <button onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} className="corpus-chat-shortcut-button">
-                        <span className="material-symbols-outlined corpus-chat-shortcut-icon">quiz</span>
-                        <span className="corpus-chat-shortcut-text">Crea Quiz</span>
+                    <button 
+                        onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} 
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-3)',
+                            backgroundColor: 'var(--md-sys-color-tertiary-container)',
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            cursor: 'pointer',
+                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                            textDecoration: 'none'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-tertiary-container-hover)';
+                            e.currentTarget.style.transform = 'scale(1.02)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-tertiary-container)';
+                            e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                    >
+                        <span className="material-symbols-outlined" style={{
+                            fontSize: '18px',
+                            color: 'var(--md-sys-color-on-tertiary-container)'
+                        }}>quiz</span>
+                        <M3Typography variant="label-large" style={{
+                            color: 'var(--md-sys-color-on-tertiary-container)',
+                            fontWeight: 500,
+                            margin: 0
+                        }}>Crea Quiz</M3Typography>
                     </button>
-                    <button onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} className="corpus-chat-shortcut-button">
-                        <span className="material-symbols-outlined corpus-chat-shortcut-icon">key</span>
-                        <span className="corpus-chat-shortcut-text">Concetti Chiave</span>
+                    <button 
+                        onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} 
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-3)',
+                            backgroundColor: 'var(--md-sys-color-primary-container)',
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            cursor: 'pointer',
+                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                            textDecoration: 'none'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-primary-container-hover)';
+                            e.currentTarget.style.transform = 'scale(1.02)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-primary-container)';
+                            e.currentTarget.style.transform = 'scale(1)';
+                        }}
+                    >
+                        <span className="material-symbols-outlined" style={{
+                            fontSize: '18px',
+                            color: 'var(--md-sys-color-on-primary-container)'
+                        }}>key</span>
+                        <M3Typography variant="label-large" style={{
+                            color: 'var(--md-sys-color-on-primary-container)',
+                            fontWeight: 500,
+                            margin: 0
+                        }}>Concetti Chiave</M3Typography>
                     </button>
                 </div>
             </div>
 
             <form 
                 onSubmit={(e) => { e.preventDefault(); handleSendMessage(chatInput); }}
-                className="corpus-chat-input-form"
+                style={{
+                    display: 'flex',
+                    padding: 'var(--md-sys-spacing-4)',
+                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                    borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                    gap: 'var(--md-sys-spacing-2)'
+                }}
             >
                 <input
                     type="text"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     placeholder="Fai una domanda..."
-                    className="corpus-chat-input"
+                    style={{
+                        flex: 1,
+                        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        border: '1px solid var(--md-sys-color-outline)',
+                        backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                        color: 'var(--md-sys-color-on-surface)',
+                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                        lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                        outline: 'none',
+                        transition: 'border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+                    }}
+                    onFocus={(e) => {
+                        e.target.style.borderColor = 'var(--md-sys-color-primary)';
+                    }}
+                    onBlur={(e) => {
+                        e.target.style.borderColor = 'var(--md-sys-color-outline)';
+                    }}
                     disabled={isLoading}
                 />
-                <button type="submit" className="corpus-chat-send-button" disabled={isLoading || !chatInput.trim()}>
-                    <span className="material-symbols-outlined corpus-chat-send-icon">send</span>
+                <button 
+                    type="submit" 
+                    disabled={isLoading || !chatInput.trim()}
+                    style={{
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        border: 'none',
+                        backgroundColor: (isLoading || !chatInput.trim()) 
+                            ? 'var(--md-sys-color-surface-container-high)' 
+                            : 'var(--md-sys-color-primary)',
+                        color: (isLoading || !chatInput.trim()) 
+                            ? 'var(--md-sys-color-on-surface-variant)' 
+                            : 'var(--md-sys-color-on-primary)',
+                        cursor: (isLoading || !chatInput.trim()) ? 'not-allowed' : 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+                    }}
+                >
+                    <span className="material-symbols-outlined" style={{
+                        fontSize: '20px'
+                    }}>send</span>
                 </button>
             </form>
         </div>

@@ -1,31 +1,73 @@
 import React from 'react';
+import M3Typography from './M3Typography';
 
 interface SectionHeaderProps {
     title: string;
     subtitle?: string;
     icon?: string;
-    colorClass?: string;
     className?: string;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ 
-    title, 
+const SectionHeader: React.FC<SectionHeaderProps> = ({
+    title,
     subtitle,
-    icon, 
-    colorClass = 'text-[var(--md-sys-color-on-surface)]',
+    icon,
     className = ''
 }) => (
-    <div className={`flex items-center gap-8 mb-6 mt-10 px-4 ${colorClass} ${className}`}>
+    <div
+        className={`flex items-center ${className}`}
+        style={{
+            gap: 'var(--md-sys-spacing-4)',
+            marginBottom: 'var(--md-sys-spacing-6)',
+            marginTop: 'var(--md-sys-spacing-6)',
+            paddingLeft: 'var(--md-sys-spacing-4)',
+            paddingRight: 'var(--md-sys-spacing-4)'
+        }}
+    >
         {icon && (
-            <div className="w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] bg-primary/10 flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-xl font-bold">{icon}</span>
+            <div
+                className="flex items-center justify-center"
+                style={{
+                    width: 'var(--md-sys-spacing-6)',
+                    height: 'var(--md-sys-spacing-6)',
+                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                    backgroundColor: 'var(--md-sys-color-primary-container)',
+                    color: 'var(--md-sys-color-on-primary-container)'
+                }}
+            >
+                <span
+                    className="material-symbols-outlined"
+                    style={{
+                        fontSize: 'var(--md-sys-spacing-4)'
+                    }}
+                >
+                    {icon}
+                </span>
             </div>
         )}
         <div className="flex flex-col">
-            <h3 className="text-[11px] font-extrabold uppercase tracking-[0.5em] opacity-40">{title}</h3>
-            {subtitle && <p className="text-xs opacity-60 mt-4">{subtitle}</p>}
+            <M3Typography
+                variant="label-large"
+                style={{
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5em',
+                    color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 40%, transparent)'
+                }}
+            >
+                {title}
+            </M3Typography>
+            {subtitle && (
+                <M3Typography
+                    variant="body-small"
+                    style={{
+                        marginTop: 'var(--md-sys-spacing-4)',
+                        color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 60%, transparent)'
+                    }}
+                >
+                    {subtitle}
+                </M3Typography>
+            )}
         </div>
-        <div className="flex-grow h-px bg-gradient-to-r from-outline-variant/50 to-transparent ml-4"></div>
     </div>
 );
 

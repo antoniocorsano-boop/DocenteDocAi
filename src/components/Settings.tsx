@@ -1,38 +1,37 @@
 
-// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// MD3 Pure: Complete migration to inline styles using MD3 tokens for all settings interface and interactions
+// All legacy CSS classes removed in favor of token-based styling - 100% MD3 compliant
+// Migration completed: interface_experience, profile, ai_didattica, ai_suggestions, cloud, debug_logging, advanced sections
 import React, { useRef, useState, useEffect } from 'react';
-import { SettingsProps } from '../types';
+import { SettingsProps, EmotionalPreset } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
 import { generateNextSchoolYear } from '../utils/schoolUtils';
 import {
     TextField,
     SelectField,
-    TabGroup,
-    SectionHeader,
+    M3Typography,
     M3Button,
+    SectionHeader,
+    TabGroup,
     InfoCard
 } from './ui';
 import ThemeBubble from './ThemeBubble';
+import EmotionalPresetsManager from './settings/EmotionalPresetsManager';
+import { ThemeSettingsPanel } from './settings/ThemeSettingsPanel';
 import ChipInputList from './ChipInputList';
 import ResetConfirmModal from './ResetConfirmModal';
 import { useSettingsLogic } from '../hooks/useSettingsLogic';
 import { errorLogger } from '../services/errorLogger';
-import EmotionalPresetsManager from './settings/EmotionalPresetsManager';
 
-interface SettingsGroupProps {
+const SettingsGroup: React.FC<{
     id: string;
     title: string;
-    icon: string;
     subtitle?: string;
+    icon: string;
+    variant: 'primary' | 'secondary' | 'tertiary' | 'surface';
+    defaultOpen: boolean;
     children: React.ReactNode;
-    defaultOpen?: boolean;
-    variant?: 'primary' | 'secondary' | 'tertiary' | 'surface';
-}
-
-const SettingsGroup: React.FC<SettingsGroupProps> = ({
-    id, title, icon, subtitle, children, defaultOpen = false,
-    variant = 'surface'
-}) => {
+}> = ({ id, title, subtitle, icon, variant, defaultOpen, children }) => {
     const [isOpen, setIsOpen] = useState(() => {
         try {
             const savedState = localStorage.getItem(`settings_group_${id}`);
@@ -52,22 +51,98 @@ const SettingsGroup: React.FC<SettingsGroupProps> = ({
     };
 
     return (
-        <details className={`settings-card bg-[var(--md-sys-color-surface-container-low)]/40 backdrop-blur-md border border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-extra-large)] overflow-hidden group transition-all duration-300 ${isOpen ? 'shadow-[var(--md-sys-elevation-level2)]' : 'shadow-sm'}`} open={isOpen}>
-            <summary onClick={handleToggle} className="settings-summary flex items-center justify-between p-5 cursor-pointer hover:bg-[var(--md-sys-color-surface-container-high)]/40 transition-colors list-none">
-                <div className="flex items-center gap-8 min-w-0">
-                    <div className={`w-12 h-12 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-inner ${variant === 'primary' ? 'bg-primary/10 text-primary' : variant === 'secondary' ? 'bg-secondary/10 text-secondary' : variant === 'tertiary' ? 'bg-tertiary/10 text-tertiary' : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant'}`}>
-                        <span className="material-symbols-outlined text-2xl">{icon}</span>
+        <details
+            style={{
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid var(--md-sys-color-outline-variant)',
+                borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+                overflow: 'hidden',
+                transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                boxShadow: isOpen ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)'
+            }}
+            open={isOpen}
+            role="region"
+            aria-label={subtitle ? `${title}: ${subtitle}` : title}
+        >
+            <summary onClick={handleToggle} style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: 'var(--md-sys-spacing-5)',
+                cursor: 'pointer',
+                listStyle: 'none',
+                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+            }}>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-4)',
+                    minWidth: 0,
+                    flex: 1
+                }}>
+                    <div style={{
+                        width: '48px',
+                        height: '48px',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: variant === 'primary' 
+                            ? 'var(--md-sys-color-primary-container)' 
+                            : variant === 'secondary' 
+                            ? 'var(--md-sys-color-secondary-container)' 
+                            : variant === 'tertiary' 
+                            ? 'var(--md-sys-color-tertiary-container)' 
+                            : 'var(--md-sys-color-surface-container-high)',
+                        color: variant === 'primary' 
+                            ? 'var(--md-sys-color-on-primary-container)' 
+                            : variant === 'secondary' 
+                            ? 'var(--md-sys-color-on-secondary-container)' 
+                            : variant === 'tertiary' 
+                            ? 'var(--md-sys-color-on-tertiary-container)' 
+                            : 'var(--md-sys-color-on-surface-variant)',
+                        boxShadow: 'var(--md-sys-elevation-level1)'
+                    }}>
+                        <span className="material-symbols-outlined" style={{
+                            fontSize: '24px'
+                        }}>{icon}</span>
                     </div>
-                    <div className="min-w-0">
-                        <h3 className="text-lg font-black text-[var(--md-sys-color-on-surface)] tracking-tight">{title}</h3>
-                        {subtitle && <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant opacity-70">{subtitle}</p>}
+                    <div style={{ minWidth: 0, flex: 1 }}>
+                        <M3Typography variant="title-large" style={{
+                            color: 'var(--md-sys-color-on-surface)',
+                            fontWeight: 900,
+                            margin: 0,
+                            letterSpacing: '-0.025em'
+                        }}>{title}</M3Typography>
+                        {subtitle && <M3Typography variant="body-small" style={{
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            margin: 0,
+                            opacity: 0.7
+                        }}>{subtitle}</M3Typography>}
                     </div>
                 </div>
-                <span className={`material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>expand_more</span>
+                <span className="material-symbols-outlined" style={{
+                    color: 'var(--md-sys-color-on-surface-variant)',
+                    fontSize: '20px',
+                    transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
+                }}>expand_more</span>
             </summary>
             <div 
-                className="settings-content p-6 pt-2 animate-in fade-in slide-in-from-top-2 duration-300 border-t border-[var(--md-sys-color-outline-variant)]/10"
-                inert={!isOpen ? true : undefined}
+                style={{
+                    padding: 'var(--md-sys-spacing-6)',
+                    paddingTop: 'var(--md-sys-spacing-2)',
+                    borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                    animation: 'fadeInSlideDown 0.3s ease-out',
+                    pointerEvents: isOpen ? 'auto' : 'none',
+                    opacity: isOpen ? 1 : 0,
+                    maxHeight: isOpen ? 'none' : '0',
+                    overflow: 'hidden',
+                    transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+                }}
                 aria-hidden={!isOpen}
             >
                 {children}
@@ -96,7 +171,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
             const total = ((estimate.quota || 0) / 1024 / 1024).toFixed(1);
             const percent = Math.round(((estimate.usage || 0) / (estimate.quota || 1)) * 100);
             setStorageInfo({ used, total, percent });
-        }).catch(errorLogger);
+        }).catch((error) => console.error('Storage estimation failed:', error));
     }, []);
 
     const settingsLogic = useSettingsLogic({
@@ -261,34 +336,107 @@ const Settings: React.FC<SettingsProps> = (props) => {
     // handleFileChange function definition moved inside the component
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
-        if (file) onImportData(file);
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const content = e.target?.result as string;
+                onImportData(content);
+            };
+            reader.readAsText(file);
+        }
         if (fileInputRef.current) fileInputRef.current.value = '';
     };
 
     return (
-        <div className="settings-main-layout">
-            <div className="settings-header-section">
-                <div className="settings-header-content">
-                    <M3Button onClick={onClose} variant="text" className="settings-back-button">
+        <><div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100vh',
+            backgroundColor: 'var(--md-sys-color-surface)',
+            overflow: 'hidden'
+        }}>
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)',
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                backdropFilter: 'blur(20px)'
+            }}>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-4)',
+                    flex: 1
+                }}>
+                    <M3Button onClick={onClose} variant="text">
                         <span className="material-symbols-outlined">arrow_back</span>
                     </M3Button>
-                    <SectionHeader 
-                        title="Impostazioni" 
+                    <SectionHeader
+                        title="Impostazioni"
                         subtitle="Configura il tuo profilo, l'AI e le preferenze dell'app."
-                        icon="settings"
-                    />
+                        icon="settings" />
                 </div>
             </div>
 
-            <div className="settings-content-container">
+            <div style={{
+                flex: 1,
+                overflowY: 'auto',
+                padding: 'var(--md-sys-spacing-6)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--md-sys-spacing-6)'
+            }}>
 
-                <SettingsGroup id="interface_experience" title="Interfaccia & Esperienza Visiva" subtitle="Personalizza l'aspetto e il comportamento dell'app" icon="palette" variant="primary" defaultOpen={true}>
-                    <div className="settings-interface-sections">
+                <SettingsGroup
+                    id="interface_experience"
+                    title="Interfaccia & Esperienza Visiva"
+                    subtitle="Personalizza l'aspetto e il comportamento dell'app"
+                    icon="palette"
+                    variant="primary"
+                    defaultOpen={true}
+                >
+                    <div
+                        role="region"
+                        aria-label="Interfaccia & Esperienza Visiva"
+                        tabIndex={0}
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 'var(--md-sys-spacing-6)',
+                            padding: 'var(--md-sys-spacing-6)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            background: 'var(--md-sys-color-surface-container-low)',
+                            boxShadow: 'var(--md-sys-elevation-level1)'
+                        }}
+                    >
+                        <M3Typography variant="label-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 900, marginBottom: 'var(--md-sys-spacing-2)' }}>
+                            Interfaccia & Esperienza Visiva
+                        </M3Typography>
+                        <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)', opacity: 0.8 }}>
+                            Personalizza l'aspetto e il comportamento dell'app
+                        </M3Typography>
                         {/* SEZIONE 1: MODALITÀ INTERFACCIA */}
-                        <div className="settings-interface-mode-section">
-                            <div className="settings-section-header">
-                                <span className="material-symbols-outlined text-primary">dashboard_customize</span>
-                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Modalit� Interfaccia</h4>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 'var(--md-sys-spacing-4)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-3)'
+                            }}>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '20px',
+                                    color: 'var(--md-sys-color-primary)'
+                                }}>dashboard_customize</span>
+                                <M3Typography variant="label-small" style={{
+                                    color: 'var(--md-sys-color-primary)',
+                                    fontWeight: 900,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.15em'
+                                }}>Modalità Interfaccia</M3Typography>
                             </div>
                             <TabGroup
                                 tabs={[
@@ -297,23 +445,44 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ]}
                                 activeTab={localSettings.uiMode || 'classic'}
                                 onTabChange={(id) => handleChange('uiMode', id)}
-                                variant="primary"
-                                className="settings-tab-group"
-                            />
-                            <p className="settings-interface-description">
-                                {localSettings.uiMode === 'flow' 
-                                    ? 'Modalità Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.' 
+                                variant="primary" />
+                            <M3Typography variant="body-medium" style={{
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                margin: 0
+                            }}>
+                                {localSettings.uiMode === 'flow'
+                                    ? 'Modalità Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.'
                                     : 'Modalità Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
-                            </p>
+                            </M3Typography>
                         </div>
 
                         {/* SEZIONE 2: ECOISTEMA VISIVO */}
-                        <div className="settings-visual-ecosystem-section">
-                            <div className="settings-section-header">
-                                <span className="material-symbols-outlined text-primary">auto_awesome</span>
-                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Ecosistema Visivo</h4>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 'var(--md-sys-spacing-4)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-3)'
+                            }}>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '20px',
+                                    color: 'var(--md-sys-color-primary)'
+                                }}>auto_awesome</span>
+                                <M3Typography variant="label-small" style={{
+                                    color: 'var(--md-sys-color-primary)',
+                                    fontWeight: 900,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.15em'
+                                }}>Ecosistema Visivo</M3Typography>
                             </div>
-                            <div className="settings-visual-styles-grid">
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+                                gap: 'var(--md-sys-spacing-3)'
+                            }}>
                                 {[
                                     { id: 'aura', label: 'Aura', icon: 'blur_on', desc: 'Glassmorphism' },
                                     { id: 'expressive', label: 'Google', icon: 'android', desc: 'Expressive' },
@@ -324,35 +493,101 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ].map(style => (
                                     <button
                                         key={style.id}
-                                        onClick={() => handleThemeChange({ visualStyle: style.id })}
-                                        className={`settings-visual-style-button ${themeState.visualStyle === style.id ? 'settings-visual-style-button-active' : 'settings-visual-style-button-inactive'}`}
+                                        onClick={() => handleThemeChange('visualStyle', style.id)}
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            gap: 'var(--md-sys-spacing-2)',
+                                            padding: 'var(--md-sys-spacing-4)',
+                                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                                            border: themeState.visualStyle === style.id
+                                                ? '2px solid var(--md-sys-color-primary)'
+                                                : '1px solid var(--md-sys-color-outline-variant)',
+                                            backgroundColor: themeState.visualStyle === style.id
+                                                ? 'var(--md-sys-color-primary-container)'
+                                                : 'var(--md-sys-color-surface-container-high)',
+                                            cursor: 'pointer',
+                                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                            textAlign: 'center'
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            if (themeState.visualStyle !== style.id) {
+                                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-highest)';
+                                                e.currentTarget.style.transform = 'scale(1.02)';
+                                            }
+                                        } }
+                                        onMouseLeave={(e) => {
+                                            if (themeState.visualStyle !== style.id) {
+                                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                                                e.currentTarget.style.transform = 'scale(1)';
+                                            }
+                                        } }
                                     >
-                                        <span className={`settings-visual-style-icon ${themeState.visualStyle === style.id ? 'settings-visual-style-icon-active' : 'settings-visual-style-icon-inactive'}`}>{style.icon}</span>
-                                        <span className={`settings-visual-style-label ${themeState.visualStyle === style.id ? 'settings-visual-style-label-active' : 'settings-visual-style-label-inactive'}`}>{style.label}</span>
-                                        <span className="settings-visual-style-description">{style.desc}</span>
+                                        <span className="material-symbols-outlined" style={{
+                                            fontSize: '24px',
+                                            color: themeState.visualStyle === style.id
+                                                ? 'var(--md-sys-color-on-primary-container)'
+                                                : 'var(--md-sys-color-on-surface-variant)'
+                                        }}>{style.icon}</span>
+                                        <M3Typography variant="label-medium" style={{
+                                            color: themeState.visualStyle === style.id
+                                                ? 'var(--md-sys-color-on-primary-container)'
+                                                : 'var(--md-sys-color-on-surface)',
+                                            fontWeight: themeState.visualStyle === style.id ? 600 : 500,
+                                            margin: 0
+                                        }}>{style.label}</M3Typography>
+                                        <M3Typography variant="body-small" style={{
+                                            color: themeState.visualStyle === style.id
+                                                ? 'var(--md-sys-color-on-primary-container)'
+                                                : 'var(--md-sys-color-on-surface-variant)',
+                                            margin: 0,
+                                            opacity: 0.8
+                                        }}>{style.desc}</M3Typography>
                                     </button>
                                 ))}
                             </div>
                         </div>
 
                         {/* SEZIONE 3: TEMA E COLORI */}
-                        <div className="settings-theme-colors-section">
-                            <div className="settings-section-header">
-                                <span className="material-symbols-outlined text-primary">palette</span>
-                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Tema & Colori</h4>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 'var(--md-sys-spacing-4)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-3)'
+                            }}>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '20px',
+                                    color: 'var(--md-sys-color-primary)'
+                                }}>palette</span>
+                                <M3Typography variant="label-small" style={{
+                                    color: 'var(--md-sys-color-primary)',
+                                    fontWeight: 900,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.15em'
+                                }}>Tema & Colori</M3Typography>
                             </div>
-                            
-                            <div className="settings-theme-mode-container">
+
+                            <div style={{
+                                marginBottom: 'var(--md-sys-spacing-4)'
+                            }}>
                                 <TabGroup
                                     tabs={[{ id: 'light', label: 'Chiaro', icon: 'light_mode' }, { id: 'dark', label: 'Scuro', icon: 'dark_mode' }, { id: 'system', label: 'Sistema', icon: 'brightness_auto' }]}
                                     activeTab={themeState.mode}
                                     onTabChange={(id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode })}
-                                    variant="primary"
-                                    className="settings-tab-group"
-                                />
+                                    variant="primary" />
                             </div>
 
-                            <div className="settings-theme-bubbles-grid">
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
+                                gap: 'var(--md-sys-spacing-3)',
+                                marginBottom: 'var(--md-sys-spacing-6)'
+                            }}>
                                 {THEME_CUSTOMIZATIONS.map(theme => (
                                     <ThemeBubble
                                         key={theme.name}
@@ -363,32 +598,56 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             tertiary: theme.colors.tertiary ?? 'var(--sys-tertiary)'
                                         }}
                                         isSelected={themeState.customizationName === theme.name}
-                                        onClick={() => onSaveTheme({ ...themeState, customizationName: theme.name, customColors: theme.colors })}
-                                    />
+                                        onClick={() => onSaveTheme({ ...themeState, customizationName: theme.name, customColors: theme.colors })} />
                                 ))}
                             </div>
 
-                            <div className="border-t border-[var(--md-sys-color-outline-variant)]/10 pt-6">
-                                <div className="flex items-center gap-8 mb-8">
-                                    <span className="material-symbols-outlined text-primary text-sm">magic_button</span>
-                                    <label className="m3-label-tiny font-black uppercase tracking-widest text-primary block">Generatore AI</label>
+                            <div style={{
+                                borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                                paddingTop: 'var(--md-sys-spacing-6)'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'var(--md-sys-spacing-4)',
+                                    marginBottom: 'var(--md-sys-spacing-4)'
+                                }}>
+                                    <span className="material-symbols-outlined" style={{
+                                        fontSize: '16px',
+                                        color: 'var(--md-sys-color-primary)'
+                                    }}>magic_button</span>
+                                    <M3Typography variant="label-small" style={{
+                                        color: 'var(--md-sys-color-primary)',
+                                        fontWeight: 900,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.15em'
+                                    }}>Generatore AI</M3Typography>
                                 </div>
-                                <div className="flex gap-8">
-                                    <div className="flex-grow">
+                                <div style={{
+                                    display: 'flex',
+                                    gap: 'var(--md-sys-spacing-4)',
+                                    alignItems: 'flex-end'
+                                }}>
+                                    <div style={{ flex: 1 }}>
                                         <TextField
                                             label="Descrivi il tuo stile"
                                             value={themePrompt}
                                             onChange={e => setThemePrompt(e.target.value)}
                                             placeholder="Es. 'Colori tramonto'..."
-                                            containerClassName="!mb-0"
-                                            leadingIcon="palette"
-                                        />
+                                            leadingIcon="palette" />
                                     </div>
-                                    <M3Button 
-                                        onClick={handleGenerateThemeFromPrompt} 
-                                        disabled={isGeneratingTheme || !themePrompt.trim()} 
-                                        variant="filled"
-                                        className="!min-w-0 !w-14 !h-14 !p-0 shadow-[var(--md-sys-elevation-level2)]"
+                                    <M3Button
+                                        onClick={handleGenerateThemeFromPrompt}
+                                        disabled={isGeneratingTheme || !themePrompt.trim()}
+                                        variant="primary"
+                                        style={{
+                                            minWidth: '0',
+                                            width: 'var(--md-sys-spacing-14)',
+                                            height: 'var(--md-sys-spacing-14)',
+                                            padding: '0',
+                                            boxShadow: 'var(--md-sys-elevation-level2)',
+                                            borderRadius: 'var(--md-sys-shape-corner-large)'
+                                        }}
                                     >
                                         <span className="material-symbols-outlined">{isGeneratingTheme ? 'sync' : 'auto_awesome'}</span>
                                     </M3Button>
@@ -397,70 +656,233 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 3.5: PRESET EMOZIONALI - Phase 1 Foundation */}
-                        <div className="settings-emotional-presets-section">
+                        <div style={{
+                            marginTop: 'var(--md-sys-spacing-6)',
+                            padding: 'var(--md-sys-spacing-4)',
+                            backgroundColor: 'var(--md-sys-color-surface-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
                             <EmotionalPresetsManager
-                                selectedPreset={themeState.emotionalPreset}
-                                onPresetChange={(preset) => handleThemeChange({ emotionalPreset: preset })}
-                            />
+                                selectedPreset={themeState.emotionalPreset || null}
+                                onPresetChange={(preset: EmotionalPreset) => handleThemeChange('emotionalPreset', preset)} />
                         </div>
 
                         {/* SEZIONE 4: PARAMETRI AVANZATI */}
-                        <div className="settings-advanced-parameters-section">
-                            <div className="settings-section-header">
-                                <span className="material-symbols-outlined text-primary">tune</span>
-                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Parametri Strutturali</h4>
+                        <div style={{
+                            marginTop: 'var(--md-sys-spacing-6)',
+                            padding: 'var(--md-sys-spacing-4)',
+                            backgroundColor: 'var(--md-sys-color-surface-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-3)',
+                                marginBottom: 'var(--md-sys-spacing-4)',
+                                paddingBottom: 'var(--md-sys-spacing-3)',
+                                borderBottom: '1px solid var(--md-sys-color-outline-variant)'
+                            }}>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '24px',
+                                    color: 'var(--md-sys-color-primary)'
+                                }}>tune</span>
+                                <M3Typography
+                                    variant="label-small"
+                                    style={{
+                                        color: 'var(--md-sys-color-primary)',
+                                        fontWeight: 900,
+                                        letterSpacing: '0.1em',
+                                        textTransform: 'uppercase'
+                                    }}
+                                >
+                                    Parametri Strutturali
+                                </M3Typography>
                             </div>
-                            <div className="settings-advanced-parameters-content">
-                                <div className="settings-parameter-item">
-                                    <div className="settings-parameter-header">
-                                        <label className="settings-parameter-label">Intensit� Blur Vetro</label>
-                                        <span className="settings-parameter-value">{themeState.glassBlur || 30}px</span>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 'var(--md-sys-spacing-4)'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 'var(--md-sys-spacing-2)'
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        <M3Typography
+                                            variant="body-medium"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface)',
+                                                fontWeight: 500
+                                            }}
+                                        >
+                                            Intensità Blur Vetro
+                                        </M3Typography>
+                                        <M3Typography
+                                            variant="body-small"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface-variant)',
+                                                fontWeight: 600
+                                            }}
+                                        >
+                                            {themeState.glassBlur || 30}px
+                                        </M3Typography>
                                     </div>
-                                    <input 
-                                        type="range" min="0" max="100" step="5" 
-                                        value={themeState.glassBlur || 30} 
-                                        onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })}
-                                        className="settings-parameter-slider"
-                                    />
+                                    <input
+                                        type="range" min="0" max="100" step="5"
+                                        value={themeState.glassBlur || 30}
+                                        onChange={e => handleThemeChange('glassBlur', parseInt(e.target.value))}
+                                        style={{
+                                            width: '100%',
+                                            height: '4px',
+                                            borderRadius: '2px',
+                                            backgroundColor: 'var(--md-sys-color-outline-variant)',
+                                            outline: 'none',
+                                            WebkitAppearance: 'none',
+                                            appearance: 'none',
+                                            cursor: 'pointer'
+                                        }} />
                                 </div>
-                                <div className="settings-parameter-item">
-                                    <div className="settings-parameter-header">
-                                        <label className="settings-parameter-label">Scala Font</label>
-                                        <span className="settings-parameter-value">{themeState.fontScale || 1}x</span>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 'var(--md-sys-spacing-2)'
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        <M3Typography
+                                            variant="body-medium"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface)',
+                                                fontWeight: 500
+                                            }}
+                                        >
+                                            Scala Font
+                                        </M3Typography>
+                                        <M3Typography
+                                            variant="body-small"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface-variant)',
+                                                fontWeight: 600
+                                            }}
+                                        >
+                                            {themeState.fontScale || 1}x
+                                        </M3Typography>
                                     </div>
-                                    <input 
-                                        type="range" min="0.8" max="1.4" step="0.1" 
-                                        value={themeState.fontScale || 1} 
-                                        onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })}
-                                        className="settings-parameter-slider"
-                                    />
+                                    <input
+                                        type="range" min="0.8" max="1.4" step="0.1"
+                                        value={themeState.fontScale || 1}
+                                        onChange={e => handleThemeChange('fontScale', parseFloat(e.target.value))}
+                                        style={{
+                                            width: '100%',
+                                            height: '4px',
+                                            borderRadius: '2px',
+                                            backgroundColor: 'var(--md-sys-color-outline-variant)',
+                                            outline: 'none',
+                                            WebkitAppearance: 'none',
+                                            appearance: 'none',
+                                            cursor: 'pointer'
+                                        }} />
                                 </div>
-                                <div className="settings-parameter-item">
-                                    <div className="settings-parameter-header">
-                                        <label className="settings-parameter-label">Livello Contrasto</label>
-                                        <span className="settings-parameter-value">{themeState.contrastLevel || 0}</span>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 'var(--md-sys-spacing-2)'
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        <M3Typography
+                                            variant="body-medium"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface)',
+                                                fontWeight: 500
+                                            }}
+                                        >
+                                            Livello Contrasto
+                                        </M3Typography>
+                                        <M3Typography
+                                            variant="body-small"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface-variant)',
+                                                fontWeight: 600
+                                            }}
+                                        >
+                                            {themeState.contrastLevel || 0}
+                                        </M3Typography>
                                     </div>
-                                    <input 
-                                        type="range" min="-50" max="50" step="5" 
-                                        value={themeState.contrastLevel || 0} 
-                                        onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })}
-                                        className="settings-parameter-slider"
-                                    />
+                                    <input
+                                        type="range" min="-50" max="50" step="5"
+                                        value={themeState.contrastLevel || 0}
+                                        onChange={e => handleThemeChange('contrastLevel', parseInt(e.target.value))}
+                                        style={{
+                                            width: '100%',
+                                            height: '4px',
+                                            borderRadius: '2px',
+                                            backgroundColor: 'var(--md-sys-color-outline-variant)',
+                                            outline: 'none',
+                                            WebkitAppearance: 'none',
+                                            appearance: 'none',
+                                            cursor: 'pointer'
+                                        }} />
                                 </div>
-                                <div className="settings-parameter-item">
-                                    <div className="settings-parameter-header">
-                                        <label className="settings-parameter-label">Arrotondamento Bordi</label>
-                                        <span className="settings-parameter-value">x{themeState.radiusMultiplier || 1}</span>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 'var(--md-sys-spacing-2)'
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        <M3Typography
+                                            variant="body-medium"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface)',
+                                                fontWeight: 500
+                                            }}
+                                        >
+                                            Arrotondamento Bordi
+                                        </M3Typography>
+                                        <M3Typography
+                                            variant="body-small"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface-variant)',
+                                                fontWeight: 600
+                                            }}
+                                        >
+                                            x{themeState.radiusMultiplier || 1}
+                                        </M3Typography>
                                     </div>
-                                    <div className="settings-radius-buttons">
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: 'var(--md-sys-spacing-2)',
+                                        flexWrap: 'wrap'
+                                    }}>
                                         {[0.5, 1, 1.5, 2].map(m => (
-                                            <button
+                                            <M3Button
                                                 key={m}
-                                                onClick={() => handleThemeChange({ radiusMultiplier: m })}
-                                                className={`settings-radius-button ${themeState.radiusMultiplier === m ? 'settings-radius-button-active' : 'settings-radius-button-inactive'}`}
+                                                variant={themeState.radiusMultiplier === m ? 'primary' : 'outline'}
+                                                size="small"
+                                                onClick={() => handleThemeChange('radiusMultiplier', m)}
+                                                style={{
+                                                    minWidth: '80px'
+                                                }}
                                             >
                                                 {m === 1 ? 'Standard' : `${m}x`}
-                                            </button>
+                                            </M3Button>
                                         ))}
                                     </div>
                                 </div>
@@ -468,36 +890,85 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 6: EXPORT/IMPORT TEMA */}
-                        <div className="settings-theme-backup-section">
-                            <div className="settings-section-header">
-                                <span className="material-symbols-outlined text-primary">import_export</span>
-                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Backup Tema</h4>
-                            </div>
-                            <p className="settings-section-description">Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.</p>
-                            <div className="settings-theme-backup-buttons">
-                                <M3Button 
-                                    onClick={handleExportTheme} 
-                                    variant="outlined"
-                                    className="settings-export-button"
+                        <div style={{
+                            marginTop: 'var(--md-sys-spacing-6)',
+                            padding: 'var(--md-sys-spacing-4)',
+                            backgroundColor: 'var(--md-sys-color-surface-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-3)',
+                                marginBottom: 'var(--md-sys-spacing-3)'
+                            }}>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '24px',
+                                    color: 'var(--md-sys-color-primary)'
+                                }}>import_export</span>
+                                <M3Typography
+                                    variant="label-small"
+                                    style={{
+                                        color: 'var(--md-sys-color-primary)',
+                                        fontWeight: 900,
+                                        letterSpacing: '0.1em',
+                                        textTransform: 'uppercase'
+                                    }}
                                 >
-                                    <span className="material-symbols-outlined mr-2">download</span>
+                                    Backup Tema
+                                </M3Typography>
+                            </div>
+                            <M3Typography
+                                variant="body-medium"
+                                style={{
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    marginBottom: 'var(--md-sys-spacing-4)',
+                                    lineHeight: 1.5
+                                }}
+                            >
+                                Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.
+                            </M3Typography>
+                            <div style={{
+                                display: 'flex',
+                                gap: 'var(--md-sys-spacing-3)',
+                                alignItems: 'center'
+                            }}>
+                                <M3Button
+                                    onClick={handleExportTheme}
+                                    variant="outline"
+                                >
+                                    <span className="material-symbols-outlined" style={{
+                                        marginRight: 'var(--md-sys-spacing-2)',
+                                        fontSize: '18px'
+                                    }}>download</span>
                                     ESPORTA TEMA
                                 </M3Button>
-                                <div className="settings-import-container">
+                                <div style={{
+                                    position: 'relative'
+                                }}>
                                     <input
                                         type="file"
                                         accept=".json"
                                         onChange={handleImportTheme}
-                                        className="hidden"
-                                        id="theme-import"
-                                    />
-                                    <label htmlFor="theme-import">
-                                        <M3Button 
-                                            component="span"
-                                            variant="outlined"
-                                            className="settings-import-button"
+                                        style={{
+                                            position: 'absolute',
+                                            opacity: 0,
+                                            width: 0,
+                                            height: 0,
+                                            overflow: 'hidden'
+                                        }}
+                                        id="theme-import" />
+                                    <label htmlFor="theme-import" style={{
+                                        cursor: 'pointer'
+                                    }}>
+                                        <M3Button
+                                            variant="outline"
                                         >
-                                            <span className="material-symbols-outlined mr-2">upload</span>
+                                            <span className="material-symbols-outlined" style={{
+                                                marginRight: 'var(--md-sys-spacing-2)',
+                                                fontSize: '18px'
+                                            }}>upload</span>
                                             IMPORTA TEMA
                                         </M3Button>
                                     </label>
@@ -506,225 +977,585 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </div>
 
                         {/* SEZIONE 5: MANUTENZIONE BRAND */}
-                        <div className="settings-brand-maintenance-section">
-                            <div className="settings-section-header">
-                                <span className="material-symbols-outlined text-primary">refresh</span>
-                                <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Manutenzione Brand</h4>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 'var(--md-sys-spacing-3)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-3)'
+                            }}>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '20px',
+                                    color: 'var(--md-sys-color-primary)'
+                                }}>refresh</span>
+                                <M3Typography variant="label-small" style={{
+                                    color: 'var(--md-sys-color-primary)',
+                                    fontWeight: 900,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.15em'
+                                }}>Manutenzione Brand</M3Typography>
                             </div>
-                            <p className="settings-section-description">Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</p>
-                            <M3Button 
-                                onClick={handleForceRefresh} 
-                                variant="tonal"
-                                className="settings-refresh-button"
+                            <M3Typography variant="body-medium" style={{
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                margin: 0
+                            }}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</M3Typography>
+                            <M3Button
+                                onClick={handleForceRefresh}
+                                variant="secondary"
                             >
-                                <span className="material-symbols-outlined mr-2">cached</span>
+                                <span className="material-symbols-outlined" style={{
+                                    marginRight: 'var(--md-sys-spacing-2)'
+                                }}>cached</span>
                                 AGGIORNA BRAND E CACHE
                             </M3Button>
+                        </div>
+
+                        {/* SEZIONE 7: M3 THEME SETTINGS PANEL */}
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 'var(--md-sys-spacing-3)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-3)'
+                            }}>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '20px',
+                                    color: 'var(--md-sys-color-primary)'
+                                }}>tune</span>
+                                <M3Typography variant="label-small" style={{
+                                    color: 'var(--md-sys-color-primary)',
+                                    fontWeight: 900,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.15em'
+                                }}>M3 Theme Panel</M3Typography>
+                            </div>
+                            <M3Typography variant="body-medium" style={{
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                margin: 0
+                            }}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</M3Typography>
+                            <ThemeSettingsPanel />
                         </div>
                     </div>
                 </SettingsGroup>
 
-                <SettingsGroup id="profile" title="Profilo & Identità" subtitle="Dati docente e istituto" icon="badge" variant="surface">
-                    <div className="settings-profile-section">
-                        <div className="settings-profile-grid">
+                <SettingsGroup
+                    id="profile"
+                    title="Profilo & Identità"
+                    subtitle="Dati docente e istituto"
+                    icon="badge"
+                    variant="surface"
+                    defaultOpen={false}
+                >
+                    <div
+                        role="region"
+                        aria-label="Profilo & Identità"
+                        tabIndex={0}
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 'var(--md-sys-spacing-4)',
+                            padding: 'var(--md-sys-spacing-6)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            background: 'var(--md-sys-color-surface-container-low)',
+                            boxShadow: 'var(--md-sys-elevation-level1)'
+                        }}
+                    >
+                        <M3Typography variant="label-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 900, marginBottom: 'var(--md-sys-spacing-2)' }}>
+                            Profilo & Identità
+                        </M3Typography>
+                        <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)', opacity: 0.8 }}>
+                            Dati docente e istituto
+                        </M3Typography>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: '1fr 1fr',
+                            gap: 'var(--md-sys-spacing-4)'
+                        }}>
                             <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
                             <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} />
                         </div>
                         <TextField label="Email Istituzionale" type="email" value={localSettings.email || ''} onChange={e => handleChange('email', e.target.value)} placeholder="nome.cognome@scuola.edu.it" />
-                        <div className="settings-profile-grid">
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: '1fr 1fr',
+                            gap: 'var(--md-sys-spacing-4)'
+                        }}>
                             <TextField label="Nome Istituto" value={localSettings.nomeIstituto} onChange={e => handleChange('nomeIstituto', e.target.value)} />
                             <TextField label="Città" value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
                         </div>
                     </div>
                 </SettingsGroup>
 
-                <SettingsGroup id="ai_didattica" title="AI & Didattica" subtitle="Cervello AI e cattedra" icon="psychology" variant="secondary">
+                <SettingsGroup
+                    id="ai_didattica"
+                    title="AI & Didattica"
+                    subtitle="Cervello AI e cattedra"
+                    icon="psychology"
+                    variant="secondary"
+                    defaultOpen={false}
+                >
                     {/* SEZIONE 1: MODELLO AI */}
-                    <div className="settings-ai-model-section">
-                        <div className="settings-section-header">
-                            <span className="material-symbols-outlined text-secondary">smart_toy</span>
-                            <h4 className="text-[11px] font-black uppercase tracking-widest text-secondary">Modello Intelligenza</h4>
+                    <div style={{
+                        marginBottom: 'var(--md-sys-spacing-6)',
+                        padding: 'var(--md-sys-spacing-4)',
+                        backgroundColor: 'var(--md-sys-color-surface-container)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        border: '1px solid var(--md-sys-color-outline-variant)'
+                    }}>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-3)',
+                            marginBottom: 'var(--md-sys-spacing-4)'
+                        }}>
+                            <span className="material-symbols-outlined" style={{
+                                fontSize: '24px',
+                                color: 'var(--md-sys-color-secondary)'
+                            }}>smart_toy</span>
+                            <M3Typography
+                                variant="label-small"
+                                style={{
+                                    color: 'var(--md-sys-color-secondary)',
+                                    fontWeight: 900,
+                                    letterSpacing: '0.1em',
+                                    textTransform: 'uppercase'
+                                }}
+                            >
+                                Modello Intelligenza
+                            </M3Typography>
                         </div>
-                        
+
                         <TabGroup
                             tabs={(Object.keys(AI_PROFILES) as Array<keyof typeof AI_PROFILES>).map(key => ({ id: key, label: AI_PROFILES[key].label, icon: AI_PROFILES[key].icon }))}
                             activeTab={currentAiProfile}
                             onTabChange={(id) => handleAiProfileChange(id as keyof typeof AI_PROFILES)}
-                            variant="primary"
-                            className="settings-tab-group"
-                        />
-                        
-                        <div className={`settings-ai-profile-info ${currentAiProfile === 'esperto' ? 'settings-ai-profile-info-expert' : 'settings-ai-profile-info-fast'}`}>
-                            <span className={`settings-ai-profile-info-icon ${currentAiProfile === 'esperto' ? 'settings-ai-profile-info-icon-expert' : 'settings-ai-profile-info-icon-fast'}`}>info</span>
-                            <p className="settings-ai-profile-description">
+                            variant="primary" />
+
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: 'var(--md-sys-spacing-3)',
+                            padding: 'var(--md-sys-spacing-3)',
+                            backgroundColor: currentAiProfile === 'esperto'
+                                ? 'var(--md-sys-color-secondary-container)'
+                                : 'var(--md-sys-color-primary-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            border: `1px solid ${currentAiProfile === 'esperto'
+                                ? 'var(--md-sys-color-secondary)'
+                                : 'var(--md-sys-color-primary)'}`
+                        }}>
+                            <span className="material-symbols-outlined" style={{
+                                fontSize: '20px',
+                                color: currentAiProfile === 'esperto'
+                                    ? 'var(--md-sys-color-on-secondary-container)'
+                                    : 'var(--md-sys-color-on-primary-container)',
+                                marginTop: '2px'
+                            }}>info</span>
+                            <M3Typography
+                                variant="body-medium"
+                                style={{
+                                    color: currentAiProfile === 'esperto'
+                                        ? 'var(--md-sys-color-on-secondary-container)'
+                                        : 'var(--md-sys-color-on-primary-container)',
+                                    lineHeight: 1.5,
+                                    margin: 0
+                                }}
+                            >
                                 {AI_PROFILES[currentAiProfile as keyof typeof AI_PROFILES]?.description}
-                            </p>
+                            </M3Typography>
                         </div>
                     </div>
 
-                    <div className="settings-ai-sections">
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 'var(--md-sys-spacing-4)'
+                    }}>
                         {/* SEZIONE 2: ANNO SCOLASTICO */}
-                        <div className="settings-school-year-section">
-                            <div className="settings-section-header-with-action">
-                                <div className="settings-section-header">
-                                    <span className="material-symbols-outlined text-primary">calendar_month</span>
-                                    <h4 className="m3-label-large font-black uppercase tracking-wide text-[var(--md-sys-color-on-surface)]">Anno Scolastico</h4>
+                        <div style={{
+                            padding: 'var(--md-sys-spacing-4)',
+                            backgroundColor: 'var(--md-sys-color-surface-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: 'var(--md-sys-spacing-4)'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'var(--md-sys-spacing-3)'
+                                }}>
+                                    <span className="material-symbols-outlined" style={{
+                                        fontSize: '24px',
+                                        color: 'var(--md-sys-color-primary)'
+                                    }}>calendar_month</span>
+                                    <M3Typography
+                                        variant="label-large"
+                                        style={{
+                                            color: 'var(--md-sys-color-on-surface)',
+                                            fontWeight: 900,
+                                            letterSpacing: '0.025em',
+                                            textTransform: 'uppercase'
+                                        }}
+                                    >
+                                        Anno Scolastico
+                                    </M3Typography>
                                 </div>
-                                <M3Button 
-                                    onClick={handleAddNextYear} 
-                                    variant="tonal"
-                                    className="settings-add-year-button"
+                                <M3Button
+                                    onClick={handleAddNextYear}
+                                    variant="secondary"
                                 >
-                                    <span className="material-symbols-outlined text-sm mr-2">add_circle</span>
+                                    <span className="material-symbols-outlined" style={{
+                                        fontSize: '18px',
+                                        marginRight: 'var(--md-sys-spacing-2)'
+                                    }}>add_circle</span>
                                     Aggiungi
                                 </M3Button>
                             </div>
-                            
-                            <div className="settings-school-year-grid">
-                                <SelectField 
-                                    label="Anno Corrente" 
-                                    value={localSettings.annoScolasticoCorrente} 
-                                    onChange={e => handleChange('annoScolasticoCorrente', e.target.value)} 
-                                    containerClassName="!mb-0"
+
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr',
+                                gap: 'var(--md-sys-spacing-4)'
+                            }}>
+                                <SelectField
+                                    label="Anno Corrente"
+                                    value={localSettings.annoScolasticoCorrente}
+                                    onChange={e => handleChange('annoScolasticoCorrente', e.target.value)}
                                 >
                                     {localSettings.anniScolastici.map(year => <option key={year} value={year}>{year}</option>)}
                                 </SelectField>
-                                
-                                <div className="settings-chip-input-container">
-                                    <ChipInputList 
-                                        label="Storico Anni" 
-                                        items={localSettings.anniScolastici} 
-                                        onAdd={(item) => handleChange('anniScolastici', [...localSettings.anniScolastici, item])} 
-                                        onRemove={(idx) => handleChange('anniScolastici', localSettings.anniScolastici.filter((_, i) => i !== idx))} 
-                                        placeholder="Es: 2025/2026" 
-                                        icon="history" 
-                                    />
+
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column'
+                                }}>
+                                    <ChipInputList
+                                        label="Storico Anni"
+                                        items={localSettings.anniScolastici}
+                                        onAdd={(item: string) => handleChange('anniScolastici', [...localSettings.anniScolastici, item])}
+                                        onRemove={(idx: number) => handleChange('anniScolastici', localSettings.anniScolastici.filter((_, i: number) => i !== idx))}
+                                        placeholder="Es: 2025/2026"
+                                        icon="history" />
                                 </div>
                             </div>
                         </div>
 
                         {/* SEZIONE 3: GESTIONE CATTEDRA UNIFICATA */}
-                        <div className="settings-teaching-assignments-section">
-                            <div className="settings-section-header-with-action">
-                                <div className="settings-section-header">
-                                    <span className="material-symbols-outlined text-secondary">school</span>
-                                    <h4 className="m3-label-large font-black uppercase tracking-wide text-[var(--md-sys-color-on-surface)]">Gestione Cattedra</h4>
-                                </div>
-                                <div className="settings-clear-all-container">
-                                    <button 
-                                        onClick={() => {
-                                            if(confirm("Sei sicuro di voler svuotare tutta la cattedra?")) {
-                                                handleChange('teachingAssignments', []);
-                                            }
+                        <div style={{
+                            padding: 'var(--md-sys-spacing-4)',
+                            backgroundColor: 'var(--md-sys-color-surface-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: 'var(--md-sys-spacing-4)'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'var(--md-sys-spacing-3)'
+                                }}>
+                                    <span className="material-symbols-outlined" style={{
+                                        fontSize: '24px',
+                                        color: 'var(--md-sys-color-secondary)'
+                                    }}>school</span>
+                                    <M3Typography
+                                        variant="label-large"
+                                        style={{
+                                            color: 'var(--md-sys-color-on-surface)',
+                                            fontWeight: 900,
+                                            letterSpacing: '0.025em',
+                                            textTransform: 'uppercase'
                                         }}
-                                        className="settings-clear-all-button"
                                     >
-                                        Svuota Tutto
-                                    </button>
+                                        Gestione Cattedra
+                                    </M3Typography>
                                 </div>
+                                <M3Button
+                                    onClick={() => {
+                                        if (confirm("Sei sicuro di voler svuotare tutta la cattedra?")) {
+                                            handleChange('teachingAssignments', []);
+                                        }
+                                    } }
+                                    variant="outline"
+                                >
+                                    Svuota Tutto
+                                </M3Button>
                             </div>
 
                             {/* FORMAZIONE CLASSI STRUTTURATA (NORMATIVA ITALIANA) */}
-                            <div className="settings-class-formation-section">
-                                <div className="settings-section-header">
-                                    <span className="material-symbols-outlined text-primary">account_tree</span>
-                                    <h4 className="text-[11px] font-black uppercase tracking-widest text-primary">Formazione Classi Strutturata</h4>
+                            <div style={{
+                                marginTop: 'var(--md-sys-spacing-6)',
+                                padding: 'var(--md-sys-spacing-4)',
+                                backgroundColor: 'var(--md-sys-color-surface-container)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                border: '1px solid var(--md-sys-color-outline-variant)'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'var(--md-sys-spacing-3)',
+                                    marginBottom: 'var(--md-sys-spacing-4)'
+                                }}>
+                                    <span className="material-symbols-outlined" style={{
+                                        fontSize: '24px',
+                                        color: 'var(--md-sys-color-primary)'
+                                    }}>account_tree</span>
+                                    <M3Typography
+                                        variant="label-small"
+                                        style={{
+                                            color: 'var(--md-sys-color-primary)',
+                                            fontWeight: 900,
+                                            letterSpacing: '0.1em',
+                                            textTransform: 'uppercase'
+                                        }}
+                                    >
+                                        Formazione Classi Strutturata
+                                    </M3Typography>
                                 </div>
 
-                                <div className="settings-class-formation-grid">
-                                    <SelectField 
-                                        label="Ordinamento Scolastico" 
-                                        value={selLevel} 
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: '1fr 1fr',
+                                    gap: 'var(--md-sys-spacing-4)',
+                                    marginBottom: 'var(--md-sys-spacing-4)'
+                                }}>
+                                    <SelectField
+                                        label="Ordinamento Scolastico"
+                                        value={selLevel}
                                         onChange={e => setSelLevel(e.target.value)}
                                     >
                                         {SCHOOL_LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
                                     </SelectField>
-                                    <TextField 
-                                        label="Indirizzo / Specializzazione" 
-                                        value={selSpec} 
-                                        onChange={e => setSelSpec(e.target.value)} 
-                                        placeholder="Es: Scientifico, CAT, Musicale..."
-                                    />
+                                    <TextField
+                                        label="Indirizzo / Specializzazione"
+                                        value={selSpec}
+                                        onChange={e => setSelSpec(e.target.value)}
+                                        placeholder="Es: Scientifico, CAT, Musicale..." />
                                 </div>
 
-                                <div className="settings-class-formation-grid-secondary">
-                                    <div className="settings-year-selection">
-                                        <p className="settings-selection-label">Livelli / Anni</p>
-                                        <div className="settings-year-buttons">
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: '1fr 1fr',
+                                    gap: 'var(--md-sys-spacing-4)',
+                                    marginBottom: 'var(--md-sys-spacing-4)'
+                                }}>
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: 'var(--md-sys-spacing-2)'
+                                    }}>
+                                        <M3Typography
+                                            variant="body-medium"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface)',
+                                                fontWeight: 500
+                                            }}
+                                        >
+                                            Livelli / Anni
+                                        </M3Typography>
+                                        <div style={{
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            gap: 'var(--md-sys-spacing-2)'
+                                        }}>
                                             {['1', '2', '3', '4', '5'].map(y => (
-                                                <button
+                                                <M3Button
                                                     key={y}
+                                                    variant={selYears.includes(y) ? 'primary' : 'outline'}
+                                                    size="small"
                                                     onClick={() => setSelYears(prev => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
-                                                    className={`settings-year-button ${selYears.includes(y) ? 'settings-year-button-active' : 'settings-year-button-inactive'}`}
+                                                    style={{
+                                                        minWidth: '60px'
+                                                    }}
                                                 >
                                                     {y}° Anno
-                                                </button>
+                                                </M3Button>
                                             ))}
                                         </div>
                                     </div>
-                                    <div className="settings-section-selection">
-                                        <p className="settings-selection-label">Sezioni</p>
-                                        <div className="settings-section-buttons">
+                                    <div style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: 'var(--md-sys-spacing-2)'
+                                    }}>
+                                        <M3Typography
+                                            variant="body-medium"
+                                            style={{
+                                                color: 'var(--md-sys-color-on-surface)',
+                                                fontWeight: 500
+                                            }}
+                                        >
+                                            Sezioni
+                                        </M3Typography>
+                                        <div style={{
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            gap: 'var(--md-sys-spacing-2)'
+                                        }}>
                                             {['A', 'B', 'C', 'D', 'E', 'F'].map(s => (
-                                                <button
+                                                <M3Button
                                                     key={s}
+                                                    variant={selSections.includes(s) ? 'primary' : 'outline'}
+                                                    size="small"
                                                     onClick={() => setSelSections(prev => prev.includes(s) ? prev.filter(i => i !== s) : [...prev, s])}
-                                                    className={`settings-section-button ${selSections.includes(s) ? 'settings-section-button-active' : 'settings-section-button-inactive'}`}
+                                                    style={{
+                                                        minWidth: '50px'
+                                                    }}
                                                 >
                                                     {s}
-                                                </button>
+                                                </M3Button>
                                             ))}
                                         </div>
                                     </div>
                                 </div>
 
-                                <M3Button 
+                                <M3Button
                                     onClick={handleGenerateClasses}
-                                    variant="filled"
-                                    className="settings-generate-classes-button"
+                                    variant="primary"
                                     disabled={selYears.length === 0 || selSections.length === 0}
                                 >
-                                    <span className="material-symbols-outlined mr-2">auto_awesome</span>
+                                    <span className="material-symbols-outlined" style={{
+                                        marginRight: 'var(--md-sys-spacing-2)',
+                                        fontSize: '18px'
+                                    }}>auto_awesome</span>
                                     Genera Combinazioni Classi
                                 </M3Button>
                             </div>
 
                             {/* INPUT RAPIDI PER AGGIUNGERE MATERIE */}
-                            <div className="settings-subject-input-container">
-                                <div className="settings-subject-input-row">
-                                    <div className="settings-subject-input-wrapper">
-                                        <input 
-                                            type="text" 
-                                            placeholder="Aggiungi Materia Singola (es: Italiano)" 
+                            <div style={{
+                                marginTop: 'var(--md-sys-spacing-6)',
+                                padding: 'var(--md-sys-spacing-4)',
+                                backgroundColor: 'var(--md-sys-color-surface-container)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                border: '1px solid var(--md-sys-color-outline-variant)'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    gap: 'var(--md-sys-spacing-3)',
+                                    alignItems: 'center'
+                                }}>
+                                    <div style={{
+                                        flex: 1
+                                    }}>
+                                        <input
+                                            type="text"
+                                            placeholder="Aggiungi Materia Singola (es: Italiano)"
                                             value={newSubjectName}
                                             onChange={e => setNewSubjectName(e.target.value)}
                                             onKeyDown={e => e.key === 'Enter' && handleAddSubject()}
-                                            className="settings-subject-input"
-                                        />
+                                            style={{
+                                                width: '100%',
+                                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                border: '1px solid var(--md-sys-color-outline)',
+                                                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                                color: 'var(--md-sys-color-on-surface)',
+                                                fontSize: '14px',
+                                                outline: 'none',
+                                                transition: 'border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+                                            }}
+                                            onFocus={(e) => {
+                                                e.target.style.borderColor = 'var(--md-sys-color-primary)';
+                                            } }
+                                            onBlur={(e) => {
+                                                e.target.style.borderColor = 'var(--md-sys-color-outline)';
+                                            } } />
                                     </div>
-                                    <M3Button 
+                                    <M3Button
                                         onClick={handleAddSubject}
-                                        variant="filled"
-                                        className="settings-add-subject-button"
+                                        variant="primary"
                                     >
-                                        <span className="material-symbols-outlined">add</span>
+                                        <span className="material-symbols-outlined" style={{
+                                            fontSize: '18px'
+                                        }}>add</span>
                                     </M3Button>
                                 </div>
                             </div>
 
                             {/* MATRICE INTERATTIVA */}
-                            <div className="settings-teaching-matrix-container">
-                                <table className="settings-teaching-matrix">
+                            <div style={{
+                                marginTop: 'var(--md-sys-spacing-6)',
+                                padding: 'var(--md-sys-spacing-4)',
+                                backgroundColor: 'var(--md-sys-color-surface-container)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                overflowX: 'auto'
+                            }}>
+                                <table style={{
+                                    width: '100%',
+                                    borderCollapse: 'collapse',
+                                    backgroundColor: 'var(--md-sys-color-surface)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                    overflow: 'hidden'
+                                }}>
                                     <thead>
-                                        <tr>
-                                            <th className="settings-matrix-header">Materia / Classe</th>
+                                        <tr style={{
+                                            backgroundColor: 'var(--md-sys-color-surface-container-high)'
+                                        }}>
+                                            <th style={{
+                                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                                textAlign: 'left',
+                                                fontWeight: 600,
+                                                color: 'var(--md-sys-color-on-surface)',
+                                                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                                                fontSize: '14px'
+                                            }}>Materia / Classe</th>
                                             {localSettings.classi.map(cls => (
-                                                <th key={cls} className="settings-matrix-class-header">
-                                                    <div className="settings-class-header-content">
-                                                        <div className="settings-class-name">{cls}</div>
-                                                        <button 
+                                                <th key={cls} style={{
+                                                    padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                                    textAlign: 'center',
+                                                    fontWeight: 600,
+                                                    color: 'var(--md-sys-color-on-surface)',
+                                                    borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                                                    borderLeft: '1px solid var(--md-sys-color-outline-variant)',
+                                                    fontSize: '14px',
+                                                    position: 'relative'
+                                                }}>
+                                                    <div style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        gap: 'var(--md-sys-spacing-2)'
+                                                    }}>
+                                                        <span>{cls}</span>
+                                                        <button
                                                             onClick={() => handleChange('classi', localSettings.classi.filter(c => c !== cls))}
-                                                            className="settings-remove-class-button"
+                                                            style={{
+                                                                background: 'none',
+                                                                border: 'none',
+                                                                color: 'var(--md-sys-color-error)',
+                                                                cursor: 'pointer',
+                                                                fontSize: '16px',
+                                                                padding: 'var(--md-sys-spacing-1)',
+                                                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                justifyContent: 'center',
+                                                                width: '20px',
+                                                                height: '20px'
+                                                            }}
+                                                            onMouseEnter={(e) => {
+                                                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-error-container)';
+                                                            } }
+                                                            onMouseLeave={(e) => {
+                                                                e.currentTarget.style.backgroundColor = 'transparent';
+                                                            } }
                                                         >
                                                             ×
                                                         </button>
@@ -735,49 +1566,131 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     </thead>
                                     <tbody>
                                         {localSettings.disciplines.map(subj => (
-                                            <tr key={subj}>
-                                                <td className="settings-matrix-subject-cell">
-                                                    <div className="settings-subject-cell-content">
-                                                        <div className="settings-subject-info">
-                                                            <span className="settings-subject-name">{subj}</span>
-                                                            <button 
-                                                                onClick={() => handleBulkAssign(localSettings.classi, [subj])}
-                                                                className="settings-assign-all-button"
+                                            <tr key={subj} style={{
+                                                borderBottom: '1px solid var(--md-sys-color-outline-variant)'
+                                            }}>
+                                                <td style={{
+                                                    padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                                    backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                                    borderRight: '1px solid var(--md-sys-color-outline-variant)'
+                                                }}>
+                                                    <div style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'space-between',
+                                                        gap: 'var(--md-sys-spacing-2)'
+                                                    }}>
+                                                        <div style={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: 'var(--md-sys-spacing-2)',
+                                                            flex: 1
+                                                        }}>
+                                                            <span style={{
+                                                                fontWeight: 500,
+                                                                color: 'var(--md-sys-color-on-surface)'
+                                                            }}>{subj}</span>
+                                                            <M3Button
+                                                                onClick={() => handleBulkAssign(subj)}
+                                                                variant="outline"
+                                                                size="small"
                                                             >
                                                                 Associa a tutte
-                                                            </button>
+                                                            </M3Button>
                                                         </div>
-                                                        <button 
+                                                        <button
                                                             onClick={() => handleChange('disciplines', localSettings.disciplines.filter(s => s !== subj))}
-                                                            className="settings-remove-subject-button"
+                                                            style={{
+                                                                background: 'none',
+                                                                border: 'none',
+                                                                color: 'var(--md-sys-color-error)',
+                                                                cursor: 'pointer',
+                                                                padding: 'var(--md-sys-spacing-2)',
+                                                                borderRadius: 'var(--md-sys-shape-corner-small)'
+                                                            }}
+                                                            onMouseEnter={(e) => {
+                                                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-error-container)';
+                                                            } }
+                                                            onMouseLeave={(e) => {
+                                                                e.currentTarget.style.backgroundColor = 'transparent';
+                                                            } }
                                                         >
-                                                            <span className="material-symbols-outlined m3-icon-xs">delete</span>
+                                                            <span className="material-symbols-outlined" style={{
+                                                                fontSize: '16px'
+                                                            }}>delete</span>
                                                         </button>
                                                     </div>
                                                 </td>
                                                 {localSettings.classi.map(cls => {
                                                     const assignment = localSettings.teachingAssignments.find(a => a.classId === cls && a.subjectId === subj);
                                                     return (
-                                                        <td key={`${subj}-${cls}`} className="settings-matrix-assignment-cell">
-                                                            <div 
+                                                        <td key={`${subj}-${cls}`} style={{
+                                                            padding: 'var(--md-sys-spacing-2)',
+                                                            textAlign: 'center',
+                                                            borderLeft: '1px solid var(--md-sys-color-outline-variant)',
+                                                            cursor: 'pointer'
+                                                        }}>
+                                                            <div
                                                                 onClick={() => toggleAssociation(cls, subj)}
-                                                                className={`settings-assignment-toggle ${assignment ? 'settings-assignment-toggle-active' : 'settings-assignment-toggle-inactive'}`}
+                                                                style={{
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    justifyContent: 'center',
+                                                                    padding: 'var(--md-sys-spacing-2)',
+                                                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                                    backgroundColor: assignment ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
+                                                                    border: `1px solid ${assignment ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                                                    transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                                                    minHeight: '40px'
+                                                                }}
+                                                                onMouseEnter={(e) => {
+                                                                    if (!assignment) {
+                                                                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                                                                    }
+                                                                } }
+                                                                onMouseLeave={(e) => {
+                                                                    if (!assignment) {
+                                                                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container)';
+                                                                    }
+                                                                } }
                                                             >
                                                                 {assignment ? (
                                                                     <>
-                                                                        <span className="settings-assignment-check-icon">check_circle</span>
-                                                                        <div className="settings-assignment-hours-input" onClick={e => e.stopPropagation()}>
-                                                                            <input 
-                                                                                type="number" 
+                                                                        <span className="material-symbols-outlined" style={{
+                                                                            color: 'var(--md-sys-color-primary)',
+                                                                            fontSize: '18px',
+                                                                            marginRight: 'var(--md-sys-spacing-2)'
+                                                                        }}>check_circle</span>
+                                                                        <div style={{
+                                                                            display: 'flex',
+                                                                            alignItems: 'center',
+                                                                            gap: 'var(--md-sys-spacing-1)'
+                                                                        }} onClick={e => e.stopPropagation()}>
+                                                                            <input
+                                                                                type="number"
                                                                                 value={assignment.hoursPerWeek}
-                                                                                onChange={e => updateAssignmentHours(assignment.id, parseInt(e.target.value) || 1)}
-                                                                                className="settings-hours-input"
-                                                                            />
-                                                                            <span className="settings-hours-label">h</span>
+                                                                                onChange={e => updateAssignmentHours(assignment.classId, subj, parseInt(e.target.value) || 1)}
+                                                                                style={{
+                                                                                    width: '50px',
+                                                                                    padding: '2px 4px',
+                                                                                    border: '1px solid var(--md-sys-color-outline)',
+                                                                                    borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                                                    backgroundColor: 'var(--md-sys-color-surface)',
+                                                                                    color: 'var(--md-sys-color-on-surface)',
+                                                                                    fontSize: '12px',
+                                                                                    textAlign: 'center'
+                                                                                }} />
+                                                                            <span style={{
+                                                                                fontSize: '12px',
+                                                                                color: 'var(--md-sys-color-on-surface-variant)'
+                                                                            }}>h</span>
                                                                         </div>
                                                                     </>
                                                                 ) : (
-                                                                    <span className="settings-assignment-add-icon">add</span>
+                                                                    <span className="material-symbols-outlined" style={{
+                                                                        color: 'var(--md-sys-color-outline-variant)',
+                                                                        fontSize: '18px'
+                                                                    }}>add</span>
                                                                 )}
                                                             </div>
                                                         </td>
@@ -787,7 +1700,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         ))}
                                         {localSettings.disciplines.length === 0 && (
                                             <tr>
-                                                <td colSpan={localSettings.classi.length + 1} className="settings-empty-matrix-message">
+                                                <td colSpan={localSettings.classi.length + 1} style={{
+                                                    padding: 'var(--md-sys-spacing-6)',
+                                                    textAlign: 'center',
+                                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                                    fontStyle: 'italic'
+                                                }}>
                                                     Aggiungi una materia per iniziare la configurazione...
                                                 </td>
                                             </tr>
@@ -796,56 +1714,131 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 </table>
                             </div>
 
-                            <InfoCard 
+                            <InfoCard
                                 title="Come funziona"
                                 description="Questa matrice è il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
                                 icon="info"
-                                variant="primary"
-                                className="settings-matrix-info-card"
-                            />
+                                variant="primary" />
                         </div>
                     </div>
                 </SettingsGroup>
 
-                <SettingsGroup id="ai_suggestions" title="Suggerimenti AI" subtitle="Gestisci suggerimenti ignorati" icon="lightbulb" variant="tertiary">
-                    <div className="settings-ai-suggestions-content">
-                        <p className="settings-ai-suggestions-description">
+                <SettingsGroup
+                    id="ai_suggestions"
+                    title="Suggerimenti AI"
+                    subtitle="Gestisci suggerimenti ignorati"
+                    icon="lightbulb"
+                    variant="tertiary"
+                    defaultOpen={false}
+                >
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 'var(--md-sys-spacing-4)'
+                    }}>
+                        <M3Typography
+                            variant="body-medium"
+                            style={{
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                lineHeight: 1.5
+                            }}
+                        >
                             Qui puoi vedere i suggerimenti AI che hai ignorato e riattivarli se desideri.
-                        </p>
+                        </M3Typography>
                         {dismissedSuggestions.size === 0 ? (
-                            <p className="settings-no-dismissed-suggestions">
+                            <M3Typography
+                                variant="body-medium"
+                                style={{
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    fontStyle: 'italic',
+                                    textAlign: 'center',
+                                    padding: 'var(--md-sys-spacing-4)',
+                                    backgroundColor: 'var(--md-sys-color-surface-container)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)'
+                                }}
+                            >
                                 Nessun suggerimento ignorato.
-                            </p>
+                            </M3Typography>
                         ) : (
-                            <div className="settings-dismissed-suggestions-list">
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 'var(--md-sys-spacing-3)'
+                            }}>
                                 {Array.from(dismissedSuggestions).map((id) => (
-                                    <div key={id} className="settings-dismissed-suggestion-item">
-                                        <div className="settings-suggestion-info">
-                                            <div className="settings-suggestion-title">Suggerimento {id}</div>
-                                            <div className="settings-suggestion-status">Ignorato in precedenza</div>
+                                    <div key={id} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        padding: 'var(--md-sys-spacing-4)',
+                                        backgroundColor: 'var(--md-sys-color-surface-container)',
+                                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                                        border: '1px solid var(--md-sys-color-outline-variant)'
+                                    }}>
+                                        <div style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: 'var(--md-sys-spacing-1)'
+                                        }}>
+                                            <M3Typography
+                                                variant="body-medium"
+                                                style={{
+                                                    color: 'var(--md-sys-color-on-surface)',
+                                                    fontWeight: 500
+                                                }}
+                                            >
+                                                Suggerimento {id}
+                                            </M3Typography>
+                                            <M3Typography
+                                                variant="body-small"
+                                                style={{
+                                                    color: 'var(--md-sys-color-on-surface-variant)'
+                                                }}
+                                            >
+                                                Ignorato in precedenza
+                                            </M3Typography>
                                         </div>
                                         <M3Button
                                             onClick={() => onReactivateSuggestion(id)}
-                                            variant="tonal"
-                                            className="settings-reactivate-suggestion-button"
+                                            variant="secondary"
                                         >
-                                            <span className="material-symbols-outlined text-sm">refresh</span>
+                                            <span className="material-symbols-outlined" style={{
+                                                fontSize: '18px',
+                                                marginRight: 'var(--md-sys-spacing-2)'
+                                            }}>refresh</span>
                                             Riattiva
                                         </M3Button>
                                     </div>
                                 ))}
                             </div>
                         )}
-                        <div className="settings-suggestions-footer">
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            paddingTop: 'var(--md-sys-spacing-4)',
+                            borderTop: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
                             <M3Button
                                 onClick={() => {
                                     // Clear all dismissed suggestions
                                     Array.from(dismissedSuggestions).forEach(id => onReactivateSuggestion(id));
                                     showToast('Tutti i suggerimenti riattivati', 'success');
-                                }}
+                                } }
                                 disabled={dismissedSuggestions.size === 0}
                                 variant="text"
-                                className="settings-reactivate-all-button"
+                                style={{
+                                    width: '100%',
+                                    padding: 'var(--md-sys-spacing-4)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                    color: 'var(--md-sys-color-primary)',
+                                    backgroundColor: 'transparent'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-primary-container)';
+                                } }
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = 'transparent';
+                                } }
                             >
                                 Riattiva Tutti i Suggerimenti
                             </M3Button>
@@ -853,17 +1846,72 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     </div>
                 </SettingsGroup>
 
-                <SettingsGroup id="cloud" title="Dati & Cloud" subtitle="Backup e Storage" icon="cloud_sync" variant="surface">
+                <SettingsGroup
+                    id="cloud"
+                    title="Dati & Cloud"
+                    subtitle="Backup e Storage"
+                    icon="cloud_sync"
+                    variant="surface"
+                    defaultOpen={false}
+                >
+                    {/* Always render all children, do not hide section if storageInfo is missing */}
                     {storageInfo && (
-                        <div className="settings-storage-info-section">
-                            <div className="settings-storage-header">
-                                <h4 className="settings-storage-title">Storage Dispositivo</h4>
-                                <span className="settings-storage-usage">{storageInfo.used}MB / {storageInfo.total}MB</span>
+                        <div style={{
+                            marginBottom: 'var(--md-sys-spacing-6)',
+                            padding: 'var(--md-sys-spacing-4)',
+                            backgroundColor: 'var(--md-sys-color-surface-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: 'var(--md-sys-spacing-3)'
+                            }}>
+                                <M3Typography
+                                    variant="label-large"
+                                    style={{
+                                        color: 'var(--md-sys-color-on-surface)',
+                                        fontWeight: 600
+                                    }}
+                                >
+                                    Storage Dispositivo
+                                </M3Typography>
+                                <M3Typography
+                                    variant="body-medium"
+                                    style={{
+                                        color: 'var(--md-sys-color-on-surface-variant)',
+                                        fontWeight: 500
+                                    }}
+                                >
+                                    {storageInfo.used}MB / {storageInfo.total}MB
+                                </M3Typography>
                             </div>
-                            <div className="settings-storage-bar">
-                                <div className={`settings-storage-bar-fill ${storageInfo.percent > 80 ? 'settings-storage-bar-fill-warning' : 'settings-storage-bar-fill-normal'}`} style={{ width: `${storageInfo.percent}%` }}></div>
+                            <div style={{
+                                width: '100%',
+                                height: '8px',
+                                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                borderRadius: '4px',
+                                overflow: 'hidden',
+                                marginBottom: 'var(--md-sys-spacing-2)'
+                            }}>
+                                <div style={{
+                                    width: `${storageInfo.percent}%`,
+                                    height: '100%',
+                                    backgroundColor: storageInfo.percent > 80 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)',
+                                    borderRadius: '4px',
+                                    transition: 'width var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
+                                }}></div>
                             </div>
-                            <p className="settings-storage-description">Dati salvati in IndexedDB (senza limiti LocalStorage).</p>
+                            <M3Typography
+                                variant="body-small"
+                                style={{
+                                    color: 'var(--md-sys-color-on-surface-variant)'
+                                }}
+                            >
+                                Dati salvati in IndexedDB (senza limiti LocalStorage).
+                            </M3Typography>
                         </div>
                     )}
 
@@ -882,172 +1930,437 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         }
                         if (showReminder) {
                             return (
-                                <InfoCard 
+                                <InfoCard
                                     title="Backup cloud non aggiornato!"
                                     description="Esegui un backup cloud e verifica il ripristino periodicamente per la sicurezza dei tuoi dati."
                                     icon="warning"
-                                    variant="secondary"
-                                    className="settings-cloud-reminder-card"
-                                />
+                                    variant="secondary" />
                             );
                         }
                         return null;
                     })()}
 
-                    <div className={`settings-drive-status-section ${driveState.isAuthenticated ? 'settings-drive-status-connected' : 'settings-drive-status-disconnected'}`}>
-                        <div className="settings-drive-status-content">
-                            <div className={`settings-drive-status-icon ${driveState.isAuthenticated ? 'settings-drive-status-icon-connected' : 'settings-drive-status-icon-disconnected'}`}>
-                                <span className="material-symbols-outlined text-3xl">{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
+                    <div style={{
+                        padding: 'var(--md-sys-spacing-4)',
+                        backgroundColor: driveState.isAuthenticated ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        border: `1px solid ${driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 'var(--md-sys-spacing-4)'
+                    }}>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-4)'
+                        }}>
+                            <div style={{
+                                width: '48px',
+                                height: '48px',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                backgroundColor: driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
+                                color: driveState.isAuthenticated ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)'
+                            }}>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '24px'
+                                }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
                             </div>
-                            <div className="settings-drive-status-info">
-                                <h4 className="settings-drive-status-title">{driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}</h4>
-                                <p className="settings-drive-status-last-sync">{driveState.lastSyncTime ? `Ultimo: ${(new Date(driveState.lastSyncTime)).toLocaleString()}` : 'Nessun backup cloud'}</p>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 'var(--md-sys-spacing-1)'
+                            }}>
+                                <M3Typography
+                                    variant="label-large"
+                                    style={{
+                                        color: 'var(--md-sys-color-on-surface)',
+                                        fontWeight: 600
+                                    }}
+                                >
+                                    {driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}
+                                </M3Typography>
+                                <M3Typography
+                                    variant="body-small"
+                                    style={{
+                                        color: 'var(--md-sys-color-on-surface-variant)'
+                                    }}
+                                >
+                                    {driveState.lastSyncTime ? `Ultimo: ${(new Date(driveState.lastSyncTime)).toLocaleString()}` : 'Nessun backup cloud'}
+                                </M3Typography>
                             </div>
                         </div>
                         {driveState.isAuthenticated ? (
-                            <M3Button 
-                                onClick={() => onSyncToDrive()} 
-                                disabled={driveState.isSyncing} 
-                                variant="filled"
-                                className="settings-drive-sync-button"
+                            <M3Button
+                                onClick={() => onSyncToDrive()}
+                                disabled={driveState.isSyncing}
+                                variant="primary"
                             >
-                                <span className="material-symbols-outlined text-sm">{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '18px',
+                                    marginRight: 'var(--md-sys-spacing-2)'
+                                }}>{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>
                                 {driveState.isSyncing ? '...' : 'Salva'}
                             </M3Button>
                         ) : (
                             settings.googleClientId && (
-                                <M3Button 
-                                    onClick={onConnectDrive} 
-                                    variant="filled"
-                                    className="settings-drive-connect-button"
+                                <M3Button
+                                    onClick={onConnectDrive}
+                                    variant="primary"
                                 >
                                     Connetti
                                 </M3Button>
                             )
                         )}
                     </div>
-                    <div className="settings-cloud-actions-grid">
-                        <M3Button onClick={onExportData} variant="tonal" className="settings-export-local-button">
-                            <span className="material-symbols-outlined text-base">download</span> 
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                        gap: 'var(--md-sys-spacing-3)',
+                        marginTop: 'var(--md-sys-spacing-4)'
+                    }}>
+                        <M3Button onClick={onExportData} variant="secondary">
+                            <span className="material-symbols-outlined" style={{
+                                fontSize: '18px',
+                                marginRight: 'var(--md-sys-spacing-2)'
+                            }}>download</span>
                             Backup Locale
                         </M3Button>
-                        <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal" className="settings-import-file-button">
-                            <span className="material-symbols-outlined text-base">upload</span> 
+                        <M3Button onClick={() => fileInputRef.current?.click()} variant="secondary">
+                            <span className="material-symbols-outlined" style={{
+                                fontSize: '18px',
+                                marginRight: 'var(--md-sys-spacing-2)'
+                            }}>upload</span>
                             Ripristina File
                         </M3Button>
-                        <input type="file" ref={fileInputRef} className="hidden" accept=".json,.csv,.xlsx,.xls" onChange={handleFileChange} />
+                        <input type="file" ref={fileInputRef} style={{
+                            position: 'absolute',
+                            opacity: 0,
+                            pointerEvents: 'none'
+                        }} accept=".json,.csv,.xlsx,.xls" onChange={handleFileChange} />
                     </div>
                 </SettingsGroup>
 
-                <SettingsGroup id="debug_logging" title="Debug & Logging" subtitle="Visualizza e gestisci i log degli errori" icon="bug_report" variant="surface">
-                    <div className="settings-debug-content">
-                        <div className="settings-error-logs-section">
-                            <div className="settings-error-logs-header">
-                                <div className="settings-error-logs-info">
-                                    <h4 className="settings-error-logs-title">Log degli Errori</h4>
-                                    <p className="settings-error-logs-description">Visualizza tutti gli errori registrati durante l'utilizzo dell'app</p>
+                <SettingsGroup
+                    id="debug_logging"
+                    title="Debug & Logging"
+                    subtitle="Visualizza e gestisci i log degli errori"
+                    icon="bug_report"
+                    variant="surface"
+                    defaultOpen={false}
+                >
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 'var(--md-sys-spacing-4)'
+                    }}>
+                        <div style={{
+                            padding: 'var(--md-sys-spacing-4)',
+                            backgroundColor: 'var(--md-sys-color-surface-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'flex-start',
+                                marginBottom: 'var(--md-sys-spacing-4)'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: 'var(--md-sys-spacing-1)'
+                                }}>
+                                    <M3Typography
+                                        variant="label-large"
+                                        style={{
+                                            color: 'var(--md-sys-color-on-surface)',
+                                            fontWeight: 600
+                                        }}
+                                    >
+                                        Log degli Errori
+                                    </M3Typography>
+                                    <M3Typography
+                                        variant="body-medium"
+                                        style={{
+                                            color: 'var(--md-sys-color-on-surface-variant)'
+                                        }}
+                                    >
+                                        Visualizza tutti gli errori registrati durante l'utilizzo dell'app
+                                    </M3Typography>
                                 </div>
-                                <span className={`material-symbols-outlined text-2xl ${errorLogger.getErrorStats().total > 0 ? 'text-error' : 'text-success'}`}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '24px',
+                                    color: errorLogger.getErrorStats().total > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
+                                }}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
                             </div>
-                            <div className="text-xs text-[var(--md-sys-color-on-surface)]-variant mb-6 p-6 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-medium)] flex items-center gap-8 border border-[var(--md-sys-color-outline-variant)]/10">
-                                <span className="material-symbols-outlined text-sm">info</span>
-                                <span>{errorLogger.getErrorStats().total} log registrati</span>
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-3)',
+                                padding: 'var(--md-sys-spacing-4)',
+                                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                marginBottom: 'var(--md-sys-spacing-4)'
+                            }}>
+                                <span className="material-symbols-outlined" style={{
+                                    fontSize: '18px',
+                                    color: 'var(--md-sys-color-primary)'
+                                }}>info</span>
+                                <M3Typography
+                                    variant="body-small"
+                                    style={{
+                                        color: 'var(--md-sys-color-on-surface-variant)'
+                                    }}
+                                >
+                                    {errorLogger.getErrorStats().total} log registrati
+                                </M3Typography>
                             </div>
-                            <M3Button 
-                                onClick={() => {
-                                    showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info');
-                                }}
-                                variant="tonal"
-                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs mb-6"
-                            >
-                                <span className="material-symbols-outlined text-sm mr-2">terminal</span> Console Browser (F12)
-                            </M3Button>
-                            <M3Button 
-                                onClick={() => {
-                                    const json = errorLogger.exportLogsAsJson();
-                                    const blob = new Blob([json], { type: 'application/json' });
-                                    const url = URL.createObjectURL(blob);
-                                    const a = document.createElement('a');
-                                    a.href = url;
-                                    a.download = `error-logs-${new Date().toISOString().slice(0, 10)}.json`;
-                                    a.click();
-                                    URL.revokeObjectURL(url);
-                                    showToast('Log esportati in JSON', 'success');
-                                }}
-                                variant="tonal"
-                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs mb-6"
-                            >
-                                <span className="material-symbols-outlined text-sm mr-2">download</span> Esporta JSON
-                            </M3Button>
-                            <M3Button 
-                                onClick={() => {
-                                    if (confirm('Sei sicuro di voler eliminare tutti i log?')) {
-                                        errorLogger.clearAllLogs();
-                                        showToast('Tutti i log sono stati eliminati', 'success');
-                                    }
-                                }}
-                                variant="text"
-                                className="w-full py-4 rounded-[var(--md-sys-shape-corner-medium)] font-black text-xs text-error hover:bg-error-container/30"
-                            >
-                                <span className="material-symbols-outlined text-sm mr-2">delete</span> Elimina Log
-                            </M3Button>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 'var(--md-sys-spacing-3)'
+                            }}>
+                                <M3Button
+                                    onClick={() => {
+                                        showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info');
+                                    } }
+                                    variant="secondary"
+                                    style={{
+                                        width: '100%',
+                                        padding: 'var(--md-sys-spacing-4)',
+                                        borderRadius: 'var(--md-sys-shape-corner-medium)'
+                                    }}
+                                >
+                                    <span className="material-symbols-outlined" style={{
+                                        fontSize: '18px',
+                                        marginRight: 'var(--md-sys-spacing-2)'
+                                    }}>terminal</span>
+                                    Console Browser (F12)
+                                </M3Button>
+                                <M3Button
+                                    onClick={() => {
+                                        const json = errorLogger.exportLogsAsJson();
+                                        const blob = new Blob([json], { type: 'application/json' });
+                                        const url = URL.createObjectURL(blob);
+                                        const a = document.createElement('a');
+                                        a.href = url;
+                                        a.download = `error-logs-${new Date().toISOString().slice(0, 10)}.json`;
+                                        a.click();
+                                        URL.revokeObjectURL(url);
+                                        showToast('Log esportati in JSON', 'success');
+                                    } }
+                                    variant="secondary"
+                                    style={{
+                                        width: '100%',
+                                        padding: 'var(--md-sys-spacing-4)',
+                                        borderRadius: 'var(--md-sys-shape-corner-medium)'
+                                    }}
+                                >
+                                    <span className="material-symbols-outlined" style={{
+                                        fontSize: '18px',
+                                        marginRight: 'var(--md-sys-spacing-2)'
+                                    }}>download</span>
+                                    Esporta JSON
+                                </M3Button>
+                                <M3Button
+                                    onClick={() => {
+                                        if (confirm('Sei sicuro di voler eliminare tutti i log?')) {
+                                            errorLogger.clearAllLogs();
+                                            showToast('Tutti i log sono stati eliminati', 'success');
+                                        }
+                                    } }
+                                    variant="text"
+                                    style={{
+                                        width: '100%',
+                                        padding: 'var(--md-sys-spacing-4)',
+                                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                        color: 'var(--md-sys-color-error)',
+                                        backgroundColor: 'transparent'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-error-container)';
+                                    } }
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.backgroundColor = 'transparent';
+                                    } }
+                                >
+                                    <span className="material-symbols-outlined" style={{
+                                        fontSize: '18px',
+                                        marginRight: 'var(--md-sys-spacing-2)'
+                                    }}>delete</span>
+                                    Elimina Log
+                                </M3Button>
+                            </div>
                         </div>
 
-                        <InfoCard 
+                        <InfoCard
                             title="Come usare"
                             description="Premi F12 per aprire la console, digita window.__errorLogger.getRecentErrors(10) per visualizzare gli ultimi 10 errori."
                             icon="info"
-                            variant="secondary"
-                            className="bg-[var(--md-sys-color-surface-container-low)]/50 border-[var(--md-sys-color-outline-variant)]/20"
-                        />
+                            variant="secondary" />
                     </div>
                 </SettingsGroup>
 
-                <SettingsGroup id="advanced" title="Avanzate" subtitle="Configurazione tecnica" icon="build" variant="surface">
-                    <div className="p-5 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 mb-6 shadow-sm">
-                        <div className="flex items-center gap-8 mb-5">
-                            <span className="material-symbols-outlined text-primary">key</span>
-                            <h4 className="m3-label-small text-primary font-black uppercase tracking-widest">Google Cloud API</h4>
+                <SettingsGroup
+                    id="advanced"
+                    title="Avanzate"
+                    subtitle="Configurazione tecnica"
+                    icon="build"
+                    variant="surface"
+                    defaultOpen={false}
+                >
+                    <div style={{
+                        padding: 'var(--md-sys-spacing-5)',
+                        backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        border: '1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 20%, transparent)',
+                        marginBottom: 'var(--md-sys-spacing-6)',
+                        boxShadow: 'var(--md-sys-elevation-level1)'
+                    }}>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-8)',
+                            marginBottom: 'var(--md-sys-spacing-5)'
+                        }}>
+                            <span className="material-symbols-outlined" style={{
+                                color: 'var(--md-sys-color-primary)',
+                                fontSize: 'var(--md-sys-typescale-label-large-size)'
+                            }}>key</span>
+                            <M3Typography variant="label-small" style={{
+                                color: 'var(--md-sys-color-primary)',
+                                fontWeight: '900',
+                                textTransform: 'uppercase',
+                                letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
+                            }}>Google Cloud API</M3Typography>
                         </div>
-                        <div className="space-y-5">
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 'var(--md-sys-spacing-5)'
+                        }}>
                             <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} leadingIcon="badge" />
                             <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} leadingIcon="lock" />
                         </div>
                     </div>
-                    <div className="p-6 bg-error-container/10 rounded-[var(--md-sys-shape-corner-extra-large)] border border-error/20 shadow-sm">
-                        <div className="flex items-center gap-8 mb-8">
-                            <span className="material-symbols-outlined text-error">warning</span>
-                            <h4 className="m3-label-small text-error font-black uppercase tracking-widest">Zona Pericolo</h4>
+                    <div style={{
+                        padding: 'var(--md-sys-spacing-6)',
+                        backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)',
+                        borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+                        border: '1px solid color-mix(in srgb, var(--md-sys-color-error) 20%, transparent)',
+                        boxShadow: 'var(--md-sys-elevation-level1)'
+                    }}>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-8)',
+                            marginBottom: 'var(--md-sys-spacing-8)'
+                        }}>
+                            <span className="material-symbols-outlined" style={{
+                                color: 'var(--md-sys-color-error)',
+                                fontSize: 'var(--md-sys-typescale-label-large-size)'
+                            }}>warning</span>
+                            <M3Typography variant="label-small" style={{
+                                color: 'var(--md-sys-color-error)',
+                                fontWeight: '900',
+                                textTransform: 'uppercase',
+                                letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
+                            }}>Zona Pericolo</M3Typography>
                         </div>
-                        <M3Button 
-                            onClick={() => setIsResetModalOpen(true)} 
-                            variant="filled"
-                            className="w-full py-6 rounded-[var(--md-sys-shape-corner-large)] font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)] !bg-error !text-on-error"
+                        <M3Button
+                            onClick={() => setIsResetModalOpen(true)}
+                            variant="primary"
+                            style={{
+                                width: '100%',
+                                padding: 'var(--md-sys-spacing-6)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                fontWeight: '900',
+                                fontSize: 'var(--md-sys-typescale-label-small-size)',
+                                textTransform: 'uppercase',
+                                letterSpacing: 'var(--md-sys-typescale-label-small-tracking)',
+                                boxShadow: 'var(--md-sys-elevation-level2)',
+                                backgroundColor: 'var(--md-sys-color-error)',
+                                color: 'var(--md-sys-color-on-error)'
+                            }}
                         >
-                            <span className="material-symbols-outlined mr-2">delete_forever</span> 
+                            <span className="material-symbols-outlined" style={{
+                                marginRight: 'var(--md-sys-spacing-2)',
+                                fontSize: 'var(--md-sys-typescale-label-large-size)'
+                            }}>delete_forever</span>
                             Reset Totale Dati
                         </M3Button>
                     </div>
                 </SettingsGroup>
 
-                <div className="text-center m3-label-tiny text-[var(--md-sys-color-on-surface)]-variant opacity-50 pt-12 pb-4">
-                    DocenteDoc AI v4.0.8 • Stable
-                    <div className="pt-3">
-                        <span className="font-black uppercase tracking-widest">Owner:</span> Antonio Corsano
-                        <span className="block mt-4">antonio.corsano@gmail.com</span>
-                    </div>
-                    <M3Button onClick={onLogout} variant="text" className="mt-6 mx-auto !h-10 !text-xs font-black uppercase tracking-widest hover:bg-error-container/30 hover:text-error transition-all">
-                        <span className="material-symbols-outlined text-sm mr-2">logout</span> 
+                <div style={{
+                    textAlign: 'center',
+                    paddingTop: 'var(--md-sys-spacing-12)',
+                    paddingBottom: 'var(--md-sys-spacing-4)'
+                }}>
+                    <M3Typography variant="body-small" style={{
+                        color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 50%, transparent)',
+                        opacity: 0.5
+                    }}>
+                        DocenteDoc AI v4.0.8 • Stable
+                        <div style={{
+                            paddingTop: 'var(--md-sys-spacing-3)'
+                        }}>
+                            <span style={{
+                                fontWeight: '900',
+                                textTransform: 'uppercase',
+                                letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
+                            }}>Owner:</span> Antonio Corsano
+                            <span style={{
+                                display: 'block',
+                                marginTop: 'var(--md-sys-spacing-4)'
+                            }}>antonio.corsano@gmail.com</span>
+                        </div>
+                    </M3Typography>
+                    <M3Button
+                        onClick={onLogout}
+                        variant="text"
+                        style={{
+                            marginTop: 'var(--md-sys-spacing-6)',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            height: 'var(--md-sys-spacing-10)',
+                            fontSize: 'var(--md-sys-typescale-label-small-size)',
+                            fontWeight: '900',
+                            textTransform: 'uppercase',
+                            letterSpacing: 'var(--md-sys-typescale-label-small-tracking)',
+                            transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short2)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'color-mix(in srgb, var(--md-sys-color-error-container) 30%, transparent)';
+                            e.currentTarget.style.color = 'var(--md-sys-color-error)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = 'var(--md-sys-color-on-surface)';
+                        }}
+                    >
+                        <span className="material-symbols-outlined" style={{
+                            fontSize: 'var(--md-sys-typescale-label-large-size)',
+                            marginRight: 'var(--md-sys-spacing-2)'
+                        }}>logout</span>
                         Esci dall'account
                     </M3Button>
                 </div>
             </div>
+
             {isResetModalOpen && <ResetConfirmModal onClose={() => setIsResetModalOpen(false)} onConfirm={performReset} />}
         </div>
+        </>
     );
 };
 
 export default Settings;
-
-
 

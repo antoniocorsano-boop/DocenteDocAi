@@ -120,7 +120,7 @@
   border-radius: var(--md-sys-shape-corner-large);
   background-color: transparent;
   color: var(--md-sys-color-on-surface);
-  font-size: 14px;
+  font-size: theme.typography.body2.fontSize;
   font-weight: 500;
   font-family: var(--font-family);
   cursor: pointer;
@@ -275,7 +275,7 @@
   border-radius: var(--md-sys-shape-corner-small);
   background-color: transparent;
   color: var(--md-sys-color-on-surface);
-  font-size: 14px;
+  font-size: theme.typography.body2.fontSize;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--motion-duration-short2) var(--motion-easing-standard);
