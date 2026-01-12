@@ -119,8 +119,8 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
       onClose={onClose}
       maxWidth="2xl"
     >
-      <M3DialogContent className="template-manager-dialog-content">
-        <div className="template-manager-main-container">
+      <M3DialogContent style={{ padding: 0 }}>
+        <div style={{ display: "flex", flexDirection: "column", padding: "var(--md-sys-spacing-16)" }}>
             {editingTemplate ? (
               <TemplateEditor
                 template={editingTemplate}
@@ -133,23 +133,23 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
             ) : (
               <>
                 {/* Barra di ricerca e controlli */}
-                <div className="template-manager-search-controls">
-                  <div className="template-manager-search-container">
-                    <div className="template-manager-search-input-container">
-                      <span className="template-manager-search-icon">search</span>
+                <div style={{ display: "flex", gap: "var(--md-sys-spacing-12)", marginBottom: "var(--md-sys-spacing-16)" }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", backgroundColor: "var(--md-sys-color-surface-container)", borderRadius: "var(--md-sys-shape-corner-full)", padding: "var(--md-sys-spacing-8) var(--md-sys-spacing-12)" }}>
+                      <span style={{ color: "var(--md-sys-color-on-surface-variant)", fontSize: "1.5rem" }}>search</span>
                       <input
                         type="text"
                         placeholder="Cerca template..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="template-manager-search-input"
+                        style={{ border: "none", backgroundColor: "transparent", width: "100%", color: "var(--md-sys-color-on-surface)", fontSize: "1rem", outline: "none" }}
                       />
                     </div>
                   </div>
                   <M3Button
                     onClick={handleCreateTemplate}
                     variant="filled"
-                    className="template-manager-create-button"
+                    style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}
                   >
                     <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add</span>
                     Nuovo Template
@@ -157,14 +157,14 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                 </div>
 
                 {/* Lista template raggruppati */}
-                <div className="template-manager-templates-list">
+                <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-16)" }}>
                   {Object.keys(groupedTemplates).length === 0 ? (
-                    <div className="template-manager-empty-state">
-                      <span className="template-manager-empty-state-icon">description</span>
-                      <h3 className="template-manager-empty-state-title">
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "var(--md-sys-spacing-32)", gap: "var(--md-sys-spacing-16)" }}>
+                      <span style={{ fontSize: "3rem", color: "var(--md-sys-color-outline-variant)" }}>description</span>
+                      <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium)", fontWeight: "500", color: "var(--md-sys-color-on-surface)" }}>
                         {searchTerm ? 'Nessun template trovato' : 'Nessun template creato'}
                       </h3>
-                      <p className="template-manager-empty-state-description">
+                      <p style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface-variant)" }}>
                         {searchTerm
                           ? 'Prova a modificare i termini di ricerca'
                           : 'Crea il tuo primo template per personalizzare i documenti'
@@ -182,29 +182,29 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                     </div>
                   ) : (
                     Object.entries(groupedTemplates).map(([groupName, groupTemplates]) => (
-                      <div key={groupName} className="template-manager-template-group">
+                      <div key={groupName} style={{ display: "flex", flexDirection: "column" }}>
                         <SectionHeader 
                           title={groupName} 
                           subtitle={`${groupTemplates.length} template disponibili`}
                           style={{ marginBottom: "var(--md-sys-spacing-8)" }}
                         />
-                        <div className="template-manager-template-grid">
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "var(--md-sys-spacing-12)" }}>
                           {groupTemplates.map(template => (
                             <InfoCard
                               key={template.id}
                               variant="elevated"
-                              className="template-manager-template-card"
+                              style={{ cursor: "pointer", transition: "all 0.2s ease-in-out" }}
                             >
-                              <div className="template-manager-template-header">
-                                <div className="template-manager-template-info">
-                                  <h4 className="template-manager-template-name">
+                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "var(--md-sys-spacing-12)" }}>
+                                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+                                  <h4 style={{ fontSize: "var(--md-sys-typescale-title-small)", fontWeight: "500", color: "var(--md-sys-color-on-surface)", margin: 0 }}>
                                     {template.name}
                                   </h4>
                                   <span className={`template-manager-template-type-badge ${template.type === 'student_profile' ? 'template-manager-template-type-badge.student-profile' : template.type === 'lesson_plan' ? 'template-manager-template-type-badge.lesson-plan' : 'template-manager-template-type-badge.uda'}`}>
                                     {getTypeLabel(template.type)}
                                   </span>
                                 </div>
-                                <div className="template-manager-template-actions">
+                                <div style={{ display: "flex", gap: "var(--md-sys-spacing-4)" }}>
                                   <M3Button
                                     onClick={() => setEditingTemplate(template)}
                                     variant="text"
@@ -225,12 +225,12 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                               </div>
 
                               {template.description && (
-                                <p className="template-manager-template-description">
+                                <p style={{ fontSize: "var(--md-sys-typescale-body-small)", color: "var(--md-sys-color-on-surface-variant)", marginBottom: "var(--md-sys-spacing-12)" }}>
                                   {template.description}
                                 </p>
                               )}
 
-                              <div className="template-manager-template-updated-date">
+                              <div style={{ fontSize: "0.75rem", color: "var(--md-sys-color-outline-variant)", marginBottom: "var(--md-sys-spacing-12)" }}>
                                 Aggiornato: {new Date(template.updatedAt).toLocaleDateString('it-IT')}
                               </div>
 
@@ -268,19 +268,19 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
   return (
     <InfoCard 
       variant="elevated" 
-      className="p-0 overflow-hidden border-[var(--md-sys-color-outline)]/50" style={{ height: "100%", display: "flex", flexDirection: "column" }}
+      style={{ border: "1px solid var(--md-sys-color-outline)" }} style={{ height: "100%", display: "flex", flexDirection: "column" }}
       aria-label="Anteprima del documento"
       role="region"
     >
-      <div className="bg-[var(--md-sys-color-surface-container-low)] border-[var(--md-sys-color-outline)]/30 shrink-0" style={{ padding: "var(--md-sys-spacing-8)", borderBottom: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)" }} style={{ padding: "var(--md-sys-spacing-8)", borderBottom: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <span className="text-[10px]" style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.5", marginLeft: "0.5rem" }}>Simulazione Documento</span>
         <div style={{ display: "flex", gap: "var(--md-sys-spacing-4)" }}>
-          <div className="bg-error/30" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
-          <div className="bg-warning/30" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
-          <div className="bg-success/30" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
+          <div style={{ backgroundColor: "var(--md-sys-color-error)" }} style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
+          <div style={{ backgroundColor: "var(--md-sys-color-warning)" }} style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
+          <div style={{ backgroundColor: "var(--md-sys-color-success)" }} style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
         </div>
       </div>
-      <div className="text-black shadow-inner" style={{ padding: "var(--md-sys-spacing-6)", backgroundColor: "white", overflowY: "auto", flex: "1" }}>
+      <div style={{ color: "black", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)" }} style={{ padding: "var(--md-sys-spacing-6)", backgroundColor: "white", overflowY: "auto", flex: "1" }}>
         <style>
           {template.content?.customCss || ''}
         </style>
@@ -295,20 +295,20 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
           }} 
         />
         
-        <div className="my-6 py-8 border-2 border-dashed border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-medium)] text-[var(--md-sys-color-outline)] bg-[var(--md-sys-color-surface-container-low)]/50" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-          <span className="material-symbols-outlined text-3xl" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>description</span>
+        <div style={{ margin: "var(--md-sys-spacing-12) 0", padding: "var(--md-sys-spacing-16)", border: "2px dashed var(--md-sys-color-outline-variant)", borderRadius: "var(--md-sys-shape-corner-medium)", color: "var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface-container-low)" }} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <span className="material-symbols-outlined" style={{ fontSize: "1.875rem" }} style={{ marginBottom: "var(--md-sys-spacing-8)" }}>description</span>
           <p style={{ fontSize: "0.75rem", fontWeight: "500" }}>Contenuto del Documento</p>
           <p className="text-[9px]" style={{ marginTop: "var(--md-sys-spacing-4)", marginBottom: "var(--md-sys-spacing-8)" }}>(Simulazione corpo del documento)</p>
           
-          <div className="px-8" style={{ width: "100%", gap: "var(--md-sys-spacing-3)" }}>
+          <div style={{ paddingLeft: "var(--md-sys-spacing-16)", paddingRight: "var(--md-sys-spacing-16)" }} style={{ width: "100%", gap: "var(--md-sys-spacing-3)" }}>
             {template.type === 'student_profile' && (
               <>
-                <div className="bg-[var(--md-sys-color-outline-variant)] w-3/4" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
-                <div className="bg-[var(--md-sys-color-outline-variant)] w-1/2" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
+                <div style={{ backgroundColor: "var(--md-sys-color-outline-variant)", width: "75%" }} style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
+                <div style={{ backgroundColor: "var(--md-sys-color-outline-variant)", width: "50%" }} style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--md-sys-spacing-8)", marginTop: "var(--md-sys-spacing-4)" }}>
-                  <div className="bg-[var(--md-sys-color-surface-container-high)] border-[var(--md-sys-color-outline-variant)]" style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
-                  <div className="bg-[var(--md-sys-color-surface-container-high)] border-[var(--md-sys-color-outline-variant)]" style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
-                  <div className="bg-[var(--md-sys-color-surface-container-high)] border-[var(--md-sys-color-outline-variant)]" style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
+                  <div style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }} style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
+                  <div style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }} style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
+                  <div style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }} style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
                 </div>
               </>
             )}
@@ -324,8 +324,8 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
             )}
             {template.type === 'uda' && (
               <>
-                <div className="border-[var(--md-sys-color-outline-variant)] overflow-hidden" style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem" }}>
-                  <div className="bg-[var(--md-sys-color-surface-container-high)] border-[var(--md-sys-color-outline-variant)]" style={{ height: "1.5rem", borderBottom: "1px solid var(--md-sys-color-outline)" }}></div>
+                <div style={{ overflow: "hidden" }} style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem" }}>
+                  <div style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }} style={{ height: "1.5rem", borderBottom: "1px solid var(--md-sys-color-outline)" }}></div>
                   <div style={{ padding: "var(--md-sys-spacing-8)", gap: "var(--md-sys-spacing-2)" }}>
                     <div className="bg-[var(--md-sys-color-outline-variant)]" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
                     <div className="bg-[var(--md-sys-color-outline-variant)] w-5/6" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
@@ -439,10 +439,10 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
   ];
 
   return (
-    <div className="template-manager-editor-container">
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-16)" }}>
       {/* Header Editor */}
-      <div className="template-manager-editor-header">
-        <div className="template-manager-editor-tabs">
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--md-sys-color-outline-variant)", paddingBottom: "var(--md-sys-spacing-12)", marginBottom: "var(--md-sys-spacing-16)" }}>
+        <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}>
           <M3Button 
             onClick={() => setActiveTab('config')} 
             variant={activeTab === 'config' ? 'filled' : 'text'}
@@ -466,7 +466,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
           </M3Button>
         </div>
         
-        <div className="template-manager-editor-actions">
+        <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}>
           <M3Button onClick={onCancel} variant="text" className="template-manager-editor-cancel-button">
             Annulla
           </M3Button>
@@ -477,9 +477,9 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
       </div>
 
       {activeTab === 'config' && (
-        <div className="template-manager-config-tab">
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-16)", paddingRight: "var(--md-sys-spacing-16)" }}>
           {/* Informazioni base */}
-          <div className="template-manager-config-form-grid">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--md-sys-spacing-16)", marginBottom: "var(--md-sys-spacing-16)" }}>
             <TextField
               id="template-name"
               label="Nome Template *"
@@ -517,11 +517,11 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
 
           {/* AI Generation Tool */}
           <InfoCard variant="tonal" className="template-manager-ai-generation-card">
-            <div className="template-manager-ai-generation-header">
-              <span className="template-manager-ai-generation-icon">auto_awesome</span>
-              <h4 className="template-manager-ai-generation-title">Genera con AI</h4>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-12)" }}>
+              <span style={{ fontSize: "1.5rem" }}>auto_awesome</span>
+              <h4 style={{ margin: 0, fontSize: "var(--md-sys-typescale-title-small)" }}>Genera con AI</h4>
             </div>
-            <div className="template-manager-ai-generation-form">
+            <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-12)" }}>
               <TextField
                 id="ai-prompt"
                 label="Prompt AI"
@@ -541,79 +541,79 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                 {isGenerating ? '...' : 'Genera'}
               </M3Button>
             </div>
-            <p className="template-manager-ai-generation-help">
+            <p style={{ fontSize: "0.75rem", color: "var(--md-sys-color-outline-variant)", margin: 0 }}>
               L'AI creer� automaticamente l'intestazione, il pi� di pagina e le configurazioni ottimali.
             </p>
           </InfoCard>
 
           {/* Configurazioni specifiche */}
-          <div className="template-manager-config-options-grid">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "var(--md-sys-spacing-16)" }}>
             <InfoCard variant="elevated" className="template-manager-config-card">
-              <h4 className="template-manager-config-card-title">Opzioni Visibilità</h4>
-              <div className="template-manager-config-options">
+              <h4 style={{ margin: 0, marginBottom: "var(--md-sys-spacing-12)", fontSize: "var(--md-sys-typescale-title-small)" }}>Opzioni Visibilità</h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
                 {editedTemplate.type === 'student_profile' && (
                   <>
-                    <label className="template-manager-config-option-label">
+                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeEvaluations ?? true}
                         onChange={(e) => updateConfig('includeEvaluations', e.target.checked)}
-                        className="template-manager-config-option-checkbox"
+                        style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span className="template-manager-config-option-text">Includi valutazioni</span>
+                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi valutazioni</span>
                     </label>
-                    <label className="template-manager-config-option-label">
+                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeCompetencyEvaluations ?? true}
                         onChange={(e) => updateConfig('includeCompetencyEvaluations', e.target.checked)}
-                        className="template-manager-config-option-checkbox"
+                        style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span className="template-manager-config-option-text">Includi competenze</span>
+                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi competenze</span>
                     </label>
                   </>
                 )}
                 {editedTemplate.type === 'lesson_plan' && (
                   <>
-                    <label className="template-manager-config-option-label">
+                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeObjectives ?? true}
                         onChange={(e) => updateConfig('includeObjectives', e.target.checked)}
-                        className="template-manager-config-option-checkbox"
+                        style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span className="template-manager-config-option-text">Includi obiettivi</span>
+                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi obiettivi</span>
                     </label>
-                    <label className="template-manager-config-option-label">
+                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeMaterials ?? true}
                         onChange={(e) => updateConfig('includeMaterials', e.target.checked)}
-                        className="template-manager-config-option-checkbox"
+                        style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span className="template-manager-config-option-text">Includi materiali</span>
+                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi materiali</span>
                     </label>
                   </>
                 )}
                 {editedTemplate.type === 'uda' && (
                   <>
-                    <label className="template-manager-config-option-label">
+                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includePhases ?? true}
                         onChange={(e) => updateConfig('includePhases', e.target.checked)}
-                        className="template-manager-config-option-checkbox"
+                        style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span className="template-manager-config-option-text">Includi fasi</span>
+                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi fasi</span>
                     </label>
-                    <label className="template-manager-config-option-label">
+                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeEvaluation ?? true}
                         onChange={(e) => updateConfig('includeEvaluation', e.target.checked)}
-                        className="template-manager-config-option-checkbox"
+                        style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span className="template-manager-config-option-text">Includi valutazione</span>
+                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi valutazione</span>
                     </label>
                   </>
                 )}
@@ -621,10 +621,10 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
             </InfoCard>
 
             <InfoCard variant="elevated" className="template-manager-config-card">
-              <h4 className="template-manager-config-card-title">Sezioni Personalizzate</h4>
-              <div className="template-manager-custom-sections">
+              <h4 style={{ margin: 0, marginBottom: "var(--md-sys-spacing-12)", fontSize: "var(--md-sys-typescale-title-small)" }}>Sezioni Personalizzate</h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
                 {(editedTemplate.config.customSections || []).map((section, idx) => (
-                  <div key={idx} className="template-manager-custom-section-item">
+                  <div key={idx} style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                     <input
                       type="text"
                       value={section}
@@ -633,14 +633,14 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         newSections[idx] = e.target.value;
                         updateConfig('customSections', newSections);
                       }}
-                      className="template-manager-custom-section-input"
+                      style={{ flex: 1, padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-surface)" }}
                     />
                     <button 
                       onClick={() => {
                         const newSections = (editedTemplate.config.customSections || []).filter((_, i) => i !== idx);
                         updateConfig('customSections', newSections);
                       }}
-                      className="template-manager-custom-section-delete-button"
+                      style={{ padding: 0, backgroundColor: "transparent", border: "none", cursor: "pointer", color: "var(--md-sys-color-error)" }}
                       aria-label={`Elimina sezione ${section}`}
                     >
                       <span className="template-manager-custom-section-delete-icon">delete</span>
@@ -661,52 +661,52 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
       )}
 
       {activeTab === 'content' && (
-        <div className="template-manager-content-tab">
-          <div className="template-manager-content-layout">
+        <div style={{ display: "flex", paddingRight: "var(--md-sys-spacing-16)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--md-sys-spacing-16)", width: "100%" }}>
             {/* Editor Side */}
-            <div className="template-manager-content-editor">
-              <div className="template-manager-content-editor-header">
-                <span className="template-manager-content-editor-icon">edit_note</span>
-                <h4 className="template-manager-content-editor-title">Editor HTML/CSS</h4>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-12)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                <span style={{ fontSize: "1.5rem" }}>edit_note</span>
+                <h4 style={{ margin: 0, fontSize: "var(--md-sys-typescale-title-small)" }}>Editor HTML/CSS</h4>
               </div>
               
-              <div className="template-manager-content-field">
-                <label htmlFor="html-header" className="template-manager-content-field-label">
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+                <label htmlFor="html-header" style={{ fontSize: "var(--md-sys-typescale-label-medium)", fontWeight: "500", color: "var(--md-sys-color-on-surface)" }}>
                   Intestazione (HTML)
                 </label>
                 <textarea
                   id="html-header"
                   value={editedTemplate.content?.header || ''}
                   onChange={(e) => updateContent('header', e.target.value)}
-                  className="template-manager-content-textarea"
+                  style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-surface-container-low)", fontFamily: "monospace", fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", resize: "vertical" }}
                   rows={8}
                   placeholder="<h1>Titolo</h1>..."
                 />
               </div>
               
-              <div className="template-manager-content-field">
-                <label htmlFor="html-footer" className="template-manager-content-field-label">
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+                <label htmlFor="html-footer" style={{ fontSize: "var(--md-sys-typescale-label-medium)", fontWeight: "500", color: "var(--md-sys-color-on-surface)" }}>
                   Piè di pagina (HTML)
                 </label>
                 <textarea
                   id="html-footer"
                   value={editedTemplate.content?.footer || ''}
                   onChange={(e) => updateContent('footer', e.target.value)}
-                  className="template-manager-content-textarea"
+                  style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-surface-container-low)", fontFamily: "monospace", fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", resize: "vertical" }}
                   rows={4}
                   placeholder="<p>Pagina {{page}}</p>..."
                 />
               </div>
               
-              <div className="template-manager-content-field">
-                <label htmlFor="custom-css" className="template-manager-content-field-label">
+              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+                <label htmlFor="custom-css" style={{ fontSize: "var(--md-sys-typescale-label-medium)", fontWeight: "500", color: "var(--md-sys-color-on-surface)" }}>
                   CSS Personalizzato
                 </label>
                 <textarea
                   id="custom-css"
                   value={editedTemplate.content?.customCss || ''}
                   onChange={(e) => updateContent('customCss', e.target.value)}
-                  className="template-manager-content-textarea"
+                  style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-surface-container-low)", fontFamily: "monospace", fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", resize: "vertical" }}
                   rows={4}
                   placeholder=".header { color: red; }..."
                 />
@@ -714,32 +714,32 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
             </div>
 
             {/* Preview & Variables Side */}
-            <div className="template-manager-content-preview">
-              <div className="template-manager-content-preview-header">
-                <div className="template-manager-content-preview-title-container">
-                  <span className="template-manager-content-preview-icon">visibility</span>
-                  <h4 className="template-manager-content-preview-title">Anteprima Real-time</h4>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-12)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                  <span style={{ fontSize: "1.5rem" }}>visibility</span>
+                  <h4 style={{ margin: 0, fontSize: "var(--md-sys-typescale-title-small)" }}>Anteprima Real-time</h4>
                 </div>
-                <div className="template-manager-content-preview-status">
-                  <span className="template-manager-content-preview-status-dot"></span>
+                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)", fontSize: "0.75rem", color: "var(--md-sys-color-outline-variant)" }}>
+                  <span style={{ width: "0.5rem", height: "0.5rem", borderRadius: "50%", backgroundColor: "var(--md-sys-color-tertiary)" }}></span>
                   Live
                 </div>
               </div>
               
-              <div className="template-manager-content-preview-container">
+              <div style={{ maxHeight: "600px", overflow: "auto", borderRadius: "var(--md-sys-shape-corner-medium)", border: "1px solid var(--md-sys-color-outline-variant)" }}>
                 <TemplatePreview template={editedTemplate} />
               </div>
 
               <InfoCard variant="tonal" className="template-manager-variables-card">
-                <h4 className="template-manager-variables-header">
-                  <span className="template-manager-variables-icon">variable_insert</span>
+                <h4 style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", margin: 0, marginBottom: "var(--md-sys-spacing-12)", fontSize: "var(--md-sys-typescale-title-small)" }}>
+                  <span style={{ fontSize: "1.25rem" }}>variable_insert</span>
                   Variabili (Clicca per copiare)
                 </h4>
-                <div className="template-manager-variables-list">
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "var(--md-sys-spacing-8)" }}>
                   {availableVariables.map(v => (
                     <button 
                       key={v.name} 
-                      className="template-manager-variable-button"
+                      style={{ padding: "var(--md-sys-spacing-8)", backgroundColor: "var(--md-sys-color-surface-container)", border: "1px solid var(--md-sys-color-outline-variant)", borderRadius: "var(--md-sys-shape-corner-small)", cursor: "pointer", fontSize: "0.75rem", fontFamily: "monospace", color: "var(--md-sys-color-on-surface-variant)", transition: "all 0.2s ease-in-out" }}
                       onClick={() => {
                         navigator.clipboard.writeText(v.name);
                         showToast(`Copiato: ${v.name}`, 'info');
@@ -758,7 +758,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
       )}
 
       {activeTab === 'preview' && (
-        <div className="template-manager-preview-tab">
+        <div style={{ display: "flex", justifyContent: "center", paddingRight: "var(--md-sys-spacing-16)" }}>
           <TemplatePreview template={editedTemplate} />
         </div>
       )}
