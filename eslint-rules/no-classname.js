@@ -23,6 +23,11 @@ export default {
     return {
       JSXAttribute(node) {
         if (node.name.name === 'className') {
+          // Allow material-symbols-outlined class for Material Design icons
+          const classValue = node.value?.value || '';
+          if (classValue.includes('material-symbols-outlined')) {
+            return;
+          }
           context.report({
             node,
             message: 'className not allowed in UI components. Use inline style with MD3 tokens instead.'
