@@ -181,7 +181,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 <div className="gantt-grid" style={{ gridTemplateColumns: `repeat(${months.length}, 1fr)`, minWidth: `${minWidth}px` }}>
                     {months.map((m, i) => (
                         <div key={i} className="gantt-month-col">
-                            <span className="gantt-month-label">{m.label} <span className="text-xs opacity-70 font-normal">{m.year}</span></span>
+                            <span className="gantt-month-label">{m.label} <span style={{ fontSize: "0.75rem", opacity: "0.7", fontWeight: "normal" }}>{m.year}</span></span>
                         </div>
                     ))}
                 </div>

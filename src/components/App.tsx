@@ -36,19 +36,19 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
     const actionLabel = 'actionLabel' in suggestion ? suggestion.actionLabel : 'Apri';
     return (
         <div
-            className="fixed top-0 left-0 right-0 aura-glass py-4 px-4 flex items-center justify-center gap-6 cursor-pointer border-b border-white/10 shadow-[var(--md-sys-elevation-level2)] animate-in slide-in-from-top duration-500"
+            className="fixed top-0 left-0 right-0 aura-glass border-white/10 shadow-[var(--md-sys-elevation-level2)] animate-in slide-in-from-top duration-500" style={{ paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--md-sys-spacing-6)", cursor: "pointer", borderBottom: "1px solid var(--md-sys-color-outline)" }}
             style={{ zIndex: Z_INDEX.notification.banner }}
             onClick={onAction}
             role="button"
             aria-label={actionLabel || 'Apri suggerimento'}
         >
-            <span className="text-xl" aria-hidden="true">??</span>
-            <span className="font-bold flex-1 text-sm md:text-base truncate text-on-primary-container">
+            <span style={{ fontSize: "1.25rem" }} aria-hidden="true">??</span>
+            <span className="md:text-base text-on-primary-container" style={{ fontWeight: "bold", flex: "1", fontSize: "0.875rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {message || 'Hai un suggerimento!'}
             </span>
-            <button className="m3-button-filled !py-1 !px-4 !rounded-full text-xs md:text-sm flex items-center gap-4">
+            <button className="m3-button-filled !py-1 !px-4 !rounded-full md:text-sm" style={{ fontSize: "0.75rem", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
                 {actionLabel}
-                <span className="material-symbols-outlined text-sm">north_east</span>
+                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>north_east</span>
             </button>
         </div>
     );
@@ -209,12 +209,12 @@ export const App: React.FC = () => {
         // Show loading screen during restore
         if (modals.isRestoring) {
             return (
-                <div className="flex items-center justify-center h-screen bg-[var(--md-sys-color-surface-container-low)]">
-                    <div className="text-center space-y-4">
-                        <div className="w-16 h-16 mx-auto rounded-[var(--md-sys-shape-corner-extra-large)] aura-glass flex items-center justify-center animate-pulse">
-                            <span className="material-symbols-outlined text-4xl text-primary">sync</span>
+                <div className="bg-[var(--md-sys-color-surface-container-low)]" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}>
+                    <div style={{ textAlign: "center", gap: "var(--md-sys-spacing-4)" }}>
+                        <div className="rounded-[var(--md-sys-shape-corner-extra-large)] aura-glass animate-pulse" style={{ width: "4rem", height: "4rem", marginLeft: "auto", marginRight: "auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <span className="material-symbols-outlined text-4xl" style={{ color: "var(--md-sys-color-primary)" }}>sync</span>
                         </div>
-                        <p className="m3-label-large text-[var(--md-sys-color-on-surface)] tracking-widest uppercase">Caricamento...</p>
+                        <p className="m3-label-large text-[var(--md-sys-color-on-surface)]" style={{ letterSpacing: "0.1em", textTransform: "uppercase" }}>Caricamento...</p>
                     </div>
                 </div>
             );
@@ -224,12 +224,12 @@ export const App: React.FC = () => {
         const restoreAssist = useRestoreAssist(appState, actions, modals);
         if (restoreAssist.show) {
             return (
-                <div className="flex items-center justify-center h-screen bg-[var(--md-sys-color-surface-container-low)]">
-                    <div className="text-center space-y-4 max-w-xs px-6">
-                        <div className="w-16 h-16 mx-auto rounded-[var(--md-sys-shape-corner-extra-large)] aura-glass flex items-center justify-center">
-                            <span className="material-symbols-outlined text-4xl text-primary">build</span>
+                <div className="bg-[var(--md-sys-color-surface-container-low)]" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}>
+                    <div className="max-w-xs px-6" style={{ textAlign: "center", gap: "var(--md-sys-spacing-4)" }}>
+                        <div className="rounded-[var(--md-sys-shape-corner-extra-large)] aura-glass" style={{ width: "4rem", height: "4rem", marginLeft: "auto", marginRight: "auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <span className="material-symbols-outlined text-4xl" style={{ color: "var(--md-sys-color-primary)" }}>build</span>
                         </div>
-                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold">Assistenza ripristino</h2>
+                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]" style={{ fontWeight: "bold" }}>Assistenza ripristino</h2>
                         <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Stiamo preparando il tuo ambiente di lavoro.</p>
                     </div>
                 </div>

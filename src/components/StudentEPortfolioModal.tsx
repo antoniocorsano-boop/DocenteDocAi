@@ -41,10 +41,10 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
 
     return (
         <M3Dialog isOpen={isOpen} onClose={onClose} title={`E-Portfolio: ${student.nome} ${student.cognome}`} maxWidth="md">
-            <M3DialogContent className="space-y-8 pt-4 px-4 md:px-6">
+            <M3DialogContent className="pt-4 md:px-6" style={{ gap: "var(--md-sys-spacing-8)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>
                 {/* Status Section */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-                    <div className="flex items-center justify-between">
+                <div className="md:grid-cols-2 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]/20" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-6)", padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div>
                             <h4 className="m3-title-medium">Capolavoro</h4>
                             <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Caricato nell&apos;E-Portfolio</p>
@@ -53,10 +53,10 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                             type="checkbox"
                             checked={state.hasCapolavoro}
                             onChange={(e) => onUpdateState({ ...state, hasCapolavoro: e.target.checked })}
-                            className="w-5 h-5 accent-primary"
+                            className="accent-primary" style={{ width: "1.25rem", height: "1.25rem" }}
                         />
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div>
                             <h4 className="m3-title-medium">Autovalutazione</h4>
                             <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Riflessione critica completata</p>
@@ -65,7 +65,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                             type="checkbox"
                             checked={state.hasAutovalutazione}
                             onChange={(e) => onUpdateState({ ...state, hasAutovalutazione: e.target.checked })}
-                            className="w-5 h-5 accent-primary"
+                            className="accent-primary" style={{ width: "1.25rem", height: "1.25rem" }}
                         />
                     </div>
                 </div>
@@ -74,18 +74,18 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                 <div style={{
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
-                    <h4 className="m3-title-large font-black">Aggiungi Documento/Riflessione</h4>
-                    <div className="flex flex-col sm:flex-row gap-8">
-                        <div className="flex-1">
+                    <h4 className="m3-title-large" style={{ fontWeight: "900" }}>Aggiungi Documento/Riflessione</h4>
+                    <div className="sm:flex-row" style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+                        <div style={{ flex: "1" }}>
                             <TextField
                                 label="Titolo"
                                 value={newEntry.title}
                                 onChange={(e) => setNewEntry({ ...newEntry, title: e.target.value })}
                             />
                         </div>
-                        <div className="flex gap-8 items-end">
+                        <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)", alignItems: "flex-end" }}>
                             <select 
-                                className="flex-grow bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-large)] px-4 py-3 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] border-none focus:ring-2 focus:ring-primary min-w-0"
+                                className="bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-large)] py-3 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] focus:ring-2 focus:ring-primary" style={{ flexGrow: "1", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", border: "none", minWidth: "0" }}
                                 value={newEntry.category}
                                 onChange={(e) => setNewEntry({ ...newEntry, category: e.target.value as EPortfolioEntry['category'] })}
                             >
@@ -103,23 +103,23 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                 <div style={{
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
-                    <h4 className="m3-title-large font-black">Documenti Caricati</h4>
-                    <div className="space-y-2">
+                    <h4 className="m3-title-large" style={{ fontWeight: "900" }}>Documenti Caricati</h4>
+                    <div style={{ gap: "var(--md-sys-spacing-2)" }}>
                         {entries.length === 0 ? (
-                            <p className="text-center py-8 text-[var(--md-sys-color-on-surface)]-variant italic">Nessun documento caricato</p>
+                            <p className="py-8 text-[var(--md-sys-color-on-surface)]-variant italic" style={{ textAlign: "center" }}>Nessun documento caricato</p>
                         ) : (
                             entries.map(entry => (
-                                <div key={entry.id} className="flex items-center justify-between p-8 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/10">
+                                <div key={entry.id} className="bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/10" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
                                     <div>
-                                        <div className="flex items-center gap-8">
-                                            <span className="material-symbols-outlined text-primary text-sm">
+                                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                                            <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)", fontSize: "0.875rem" }}>
                                                 {entry.category === 'capolavoro' ? 'auto_awesome' : 'description'}
                                             </span>
-                                            <span className="font-bold">{entry.title}</span>
+                                            <span style={{ fontWeight: "bold" }}>{entry.title}</span>
                                         </div>
                                         <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{entry.date}</p>
                                     </div>
-                                    <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-[10px] font-black uppercase tracking-wider">
+                                    <span className="px-3 py-1 bg-secondary/10 text-[10px]" style={{ color: "var(--md-sys-color-secondary)", borderRadius: "9999px", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                                         {entry.category}
                                     </span>
                                 </div>

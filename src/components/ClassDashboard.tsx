@@ -42,7 +42,7 @@ const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: Stud
             className="class-dashboard-student-item group"
         >
             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
-            <div className="flex-grow min-w-0">
+            <div style={{ flexGrow: "1", minWidth: "0" }}>
                 <p className="class-dashboard-student-name">{student.cognome} {student.nome}</p>
                 <div className="class-dashboard-trend-container">
                     <span className={`material-symbols-outlined class-dashboard-trend-icon ${trendClass}`}>{trendIcon}</span>
@@ -94,7 +94,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
             <SectionHeader 
                 title={`Cruscotto Classe ${selectedClass}`}
                 subtitle="Gestione didattica, valutazioni e monitoraggio in tempo reale"
-                className="py-6 md:py-12 text-center"
+                className="py-6 md:py-12" style={{ textAlign: "center" }}
             />
 
             <div className="class-dashboard-main-grid">
@@ -110,7 +110,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         <div className="class-dashboard-hero-icon">
                                             <span className="material-symbols-outlined class-dashboard-icon-large">school</span>
                                         </div>
-                                        <div className="flex-grow min-w-0">
+                                        <div style={{ flexGrow: "1", minWidth: "0" }}>
                                             <p className="class-dashboard-hero-label">Prossima Lezione • {todaysLesson.slot.ora}</p>
                                             <h2 className="class-dashboard-hero-title">{todaysLesson.lesson.materia}</h2>
                                             <p className="class-dashboard-hero-description">{todaysLesson.lesson.contenuto}</p>
@@ -128,16 +128,16 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                             </M3Card>
                         ) : (
                             <M3Card className="class-dashboard-no-lesson-card">
-                                <div className="flex items-center gap-6 mb-6">
-                                    <div className="w-16 h-16 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant flex items-center justify-center shrink-0">
+                                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", marginBottom: "var(--md-sys-spacing-6)" }}>
+                                    <div className="rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant shrink-0" style={{ width: "4rem", height: "4rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                         <span className="material-symbols-outlined class-dashboard-icon-large">event_busy</span>
                                     </div>
                                     <div>
-                                        <h2 className="text-xl font-bold text-[var(--md-sys-color-on-surface)]">Nessuna lezione programmata</h2>
+                                        <h2 className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "1.25rem", fontWeight: "bold" }}>Nessuna lezione programmata</h2>
                                         <p className="text-[var(--md-sys-color-on-surface)]-variant">Puoi avviare una lezione libera o un'attività improvvisata.</p>
                                     </div>
                                 </div>
-                                <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="secondary" className="w-full">
+                                <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="secondary" style={{ width: "100%" }}>
                                     <span className="material-symbols-outlined class-dashboard-icon-margin">add_circle</span>
                                     Avvia Lezione Improvvisata
                                 </M3Button>
@@ -152,8 +152,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 className="class-dashboard-inbox"
                                 onClick={() => onNavigate('teacher-inbox')}
                             >
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-8">
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                                         <div className="class-dashboard-inbox-icon">
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -163,8 +163,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             </span>
                                         </div>
                                         <div>
-                                            <h3 className="font-bold text-on-tertiary-container">Inbox Compiti</h3>
-                                            <p className="text-sm text-on-tertiary-container/70">{inboxCount} elaborati consegnati da valutare.</p>
+                                            <h3 className="text-on-tertiary-container" style={{ fontWeight: "bold" }}>Inbox Compiti</h3>
+                                            <p className="text-on-tertiary-container/70" style={{ fontSize: "0.875rem" }}>{inboxCount} elaborati consegnati da valutare.</p>
                                         </div>
                                     </div>
                                     <div className="class-dashboard-inbox-arrow">
@@ -182,7 +182,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section>
                             <div className="class-dashboard-section-header">
-                                <span className="material-symbols-outlined text-primary">auto_stories</span>
+                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>auto_stories</span>
                                 <h3 className="class-dashboard-label-small">Registro & Didattica</h3>
                             </div>
                             <div className="class-dashboard-tools-grid">
@@ -190,7 +190,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('register', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-8">
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                                         <div className="class-dashboard-tool-icon-primary">
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -206,7 +206,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('didattica-inclusiva', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-8">
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                                         <div className="class-dashboard-tool-icon-tertiary">
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -224,7 +224,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
                         <section>
                             <div className="class-dashboard-section-header">
-                                <span className="material-symbols-outlined text-secondary">grading</span>
+                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-secondary)" }}>grading</span>
                                 <h3 className="class-dashboard-label-small">Valutazione & Competenze</h3>
                             </div>
                             <div className="class-dashboard-tools-grid">
@@ -232,7 +232,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('evaluations', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-8">
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                                         <div className="class-dashboard-tool-icon-secondary">
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -248,7 +248,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('class-competency-dashboard', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-8">
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                                         <div className="class-dashboard-tool-icon-secondary">
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -274,7 +274,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('improvement-guide', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-8">
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                                         <div className="class-dashboard-tool-icon-tertiary">
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -290,7 +290,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('consiglio-di-classe', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-8">
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                                         <div className="class-dashboard-tool-icon-outline">
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -306,7 +306,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     className="class-dashboard-tool-card"
                                     onClick={() => onNavigate('studenti', selectedClass)}
                                 >
-                                    <div className="flex items-center gap-8">
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                                         <div className="class-dashboard-tool-icon-outline">
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -347,7 +347,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>person_off</span>
-                                        <p className="text-sm">Nessuno studente in elenco.</p>
+                                        <p style={{ fontSize: "0.875rem" }}>Nessuno studente in elenco.</p>
                                     </div>
                                 )}
                             </div>

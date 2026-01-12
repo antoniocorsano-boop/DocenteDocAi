@@ -740,19 +740,19 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </label>
                   <label>
                     <div>
-                      <span className="font-bold text-sm text-[var(--md-sys-color-on-surface)]">Analytics Abilitati</span>
-                      <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">
+                      <span className="text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "bold", fontSize: "0.875rem" }}>Analytics Abilitati</span>
+                      <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem" }}>
                         Consenti raccolta dati anonimi di utilizzo
                       </p>
                     </div>
-                    <div className="relative inline-flex items-center cursor-pointer">
+                    <div className="relative" style={{ display: "inline-flex", alignItems: "center", cursor: "pointer" }}>
                       <input
                         type="checkbox"
                         checked={analyticsSettings.enabled}
                         onChange={(e) => handleToggleAnalytics(e.target.checked)}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-outline/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                      <div className="w-11 bg-outline/30 peer-focus:outline-none peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary" style={{ height: "1.5rem", borderRadius: "9999px" }}></div>
                     </div>
                   </label>
 

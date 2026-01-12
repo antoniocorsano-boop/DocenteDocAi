@@ -32,19 +32,19 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
     return (
         <div className={`level-card ${cardClass}`}>
             <div className="level-card-icon">
-                <span className="material-symbols-outlined text-2xl">
+                <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>
                     {cardClass === 'level-avanzato' ? 'workspace_premium' : 
                      cardClass === 'level-intermedio' ? 'star' :
                      cardClass === 'level-base' ? 'verified' :
                      cardClass === 'level-iniziale' ? 'support' : 'label'}
                 </span>
             </div>
-            <div className="flex-grow">
-                <div className="flex justify-between items-baseline mb-4">
-                    <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold">{nome}</h3>
-                    <span className="m3-label-medium bg-surface/50 px-4 py-0.5 rounded">Valore: {voto}</span>
+            <div style={{ flexGrow: "1" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "var(--md-sys-spacing-4)" }}>
+                    <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]" style={{ fontWeight: "bold" }}>{nome}</h3>
+                    <span className="m3-label-medium bg-surface/50 py-0.5" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "0.375rem" }}>Valore: {voto}</span>
                 </div>
-                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] opacity-90">{descrizione}</p>
+                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ opacity: "0.9" }}>{descrizione}</p>
             </div>
         </div>
     );
@@ -53,7 +53,7 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
 const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze }) => {
     
     return (
-        <div className="space-y-6 p-8 pb-20">
+        <div className="pb-20" style={{ gap: "var(--md-sys-spacing-6)", padding: "var(--md-sys-spacing-8)" }}>
             <div className="page-header-compact">
                 <div className="page-header-title-group">
                     <h1 className="m3-headline-medium">Descrittori Competenze</h1>
@@ -65,9 +65,9 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
 
             {competenze.map(competenza => (
                 <div key={competenza.id} className="card">
-                    <div className="mb-8 border-b border-[var(--md-sys-color-outline-variant)] pb-2">
-                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-primary">{competenza.nome}</h2>
-                        <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant bg-[var(--md-sys-color-surface-container-high)] px-4 py-1 rounded">
+                    <div className="border-[var(--md-sys-color-outline-variant)] pb-2" style={{ marginBottom: "var(--md-sys-spacing-8)", borderBottom: "1px solid var(--md-sys-color-outline)" }}>
+                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]" style={{ color: "var(--md-sys-color-primary)" }}>{competenza.nome}</h2>
+                        <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant bg-[var(--md-sys-color-surface-container-high)] py-1" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "0.375rem" }}>
                             {competenza.framework || 'Framework Standard'}
                         </span>
                     </div>

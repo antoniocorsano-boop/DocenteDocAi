@@ -198,31 +198,31 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                         </div>
                         {/* Class Selection */}
                         <div className="section-container">
-                            <h3 className="m3-title-medium mb-8">2. Seleziona Classi</h3>
+                            <h3 className="m3-title-medium" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>2. Seleziona Classi</h3>
                             {/* Centralized Selection Container */}
-                            <div className="selection-container max-h-[200px] border-none p-0 overflow-y-auto custom-scrollbar">
+                            <div className="selection-container max-h-[200px] p-0 custom-scrollbar" style={{ border: "none", overflowY: "auto" }}>
                                 {userClasses.map(c => (
                                     <div key={c} className="chip-checkbox">
                                         <input type="checkbox" id={`class-select-${c}`} checked={selectedClasses.includes(c)} onChange={() => handleClassSelection(c)} />
-                                        <label htmlFor={`class-select-${c}`} className="chip w-full justify-start">{selectedClasses.includes(c) && <span className="material-symbols-outlined text-lg">check</span>}{c}</label>
+                                        <label htmlFor={`class-select-${c}`} className="chip" style={{ width: "100%", justifyContent: "flex-start" }}>{selectedClasses.includes(c) && <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>check</span>}{c}</label>
                                     </div>
                                 ))}
                             </div>
                         </div>
                         {/* KB Selection */}
                         <div className="section-container">
-                            <div className="flex justify-between items-center mb-8">
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--md-sys-spacing-8)" }}>
                                 <h3 className="m3-title-medium">3. Contesto KB</h3>
-                                <span className="text-xs text-[var(--md-sys-color-on-surface)]-variant">{selectedKbIds.length} selezionati</span>
+                                <span className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem" }}>{selectedKbIds.length} selezionati</span>
                             </div>
-                            <div className="selection-container max-h-[200px] border-none p-0 overflow-y-auto custom-scrollbar">
+                            <div className="selection-container max-h-[200px] p-0 custom-scrollbar" style={{ border: "none", overflowY: "auto" }}>
                                 {knowledgeBase.map(kb => (
                                     <div key={kb.id} className="chip-checkbox">
                                         <input type="checkbox" id={`kb-select-${kb.id}`} checked={selectedKbIds.includes(kb.id)} onChange={() => handleKbSelection(kb.id)} />
-                                        <label htmlFor={`kb-select-${kb.id}`} className="chip w-full justify-start" title={kb.fileName}>
-                                            {selectedKbIds.includes(kb.id) && <span className="material-symbols-outlined text-lg">check</span>}
-                                            <span className="material-symbols-outlined text-primary mr-1 text-base">{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
-                                            <span className="truncate">{kb.fileName}</span>
+                                        <label htmlFor={`kb-select-${kb.id}`} className="chip" style={{ width: "100%", justifyContent: "flex-start" }} title={kb.fileName}>
+                                            {selectedKbIds.includes(kb.id) && <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>check</span>}
+                                            <span className="material-symbols-outlined mr-1" style={{ color: "var(--md-sys-color-primary)", fontSize: "1rem" }}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
+                                            <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                         </label>
                                     </div>
                                 ))}
@@ -230,31 +230,31 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                             </div>
                         </div>
                     </div>
-                    <div className="mt-4">
-                        <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0} className="button button-filled w-full">
-                            <span className="material-symbols-outlined mr-2">auto_awesome</span>
+                    <div style={{ marginTop: "var(--md-sys-spacing-4)" }}>
+                        <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0} className="button button-filled" style={{ width: "100%" }}>
+                            <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>auto_awesome</span>
                             Genera Sequenze di Lezioni
                         </button>
-                        {error && <p className="text-error text-sm mt-4 text-center">{error}</p>}
+                        {error && <p style={{ color: "var(--md-sys-color-error)", fontSize: "0.875rem", marginTop: "var(--md-sys-spacing-4)", textAlign: "center" }}>{error}</p>}
                     </div>
                 </div>
             </details>
 
             {/* Lessons Archive */}
             <div className="card">
-                <div className="flex flex-wrap justify-between items-center gap-8 mb-8">
+                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-8)" }}>
                     <h2 className="m3-title-large">Archivio Lezioni ({lessons.length})</h2>
 
                     {/* Filtri */}
-                    <div className="flex flex-wrap gap-8">
-                        <div className="flex items-center gap-8">
-                            <select value={filterClass} onChange={e => setFilterClass(e.target.value)} className="form-select py-1 pr-8 text-sm !h-10">
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--md-sys-spacing-8)" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                            <select value={filterClass} onChange={e => setFilterClass(e.target.value)} className="form-select py-1 pr-8 !h-10" style={{ fontSize: "0.875rem" }}>
                                 <option value="">Tutte le classi</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </select>
                         </div>
-                        <div className="flex items-center gap-8">
-                            <select value={filterUda} onChange={e => setFilterUda(e.target.value)} className="form-select py-1 pr-8 text-sm !h-10">
+                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                            <select value={filterUda} onChange={e => setFilterUda(e.target.value)} className="form-select py-1 pr-8 !h-10" style={{ fontSize: "0.875rem" }}>
                                 <option value="">Tutte le UDA</option>
                                 {filteredUdas.map(u => <option key={u.id} value={u.title}>{u.title}</option>)}
                             </select>
@@ -269,7 +269,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                     </div>
                 </div>
 
-                <div className="space-y-3">
+                <div style={{ gap: "var(--md-sys-spacing-3)" }}>
                     {groupedLessonsByClass.length > 0 ? (
                         groupedLessonsByClass.map(([classKey, udaGroups]) => (
                             <details key={classKey} className="m3-expansion-panel" open>
@@ -281,20 +281,20 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                 </summary>
                                 <div className="m3-expansion-content !p-8">
                                     {Object.entries(udaGroups).map(([udaKey, lessonItems]) => (
-                                        <details key={udaKey} className="m3-expansion-panel border-none shadow-none mb-8" open={udaKey !== 'Lezioni Varie'}>
+                                        <details key={udaKey} className="m3-expansion-panel shadow-none" style={{ border: "none", marginBottom: "var(--md-sys-spacing-8)" }} open={udaKey !== 'Lezioni Varie'}>
                                             <summary className="m3-expansion-summary !bg-transparent !px-4 !py-4">
-                                                <span className="m3-label-large text-primary">{udaKey} ({lessonItems.length})</span>
-                                                <span className="material-symbols-outlined text-sm">expand_more</span>
+                                                <span className="m3-label-large" style={{ color: "var(--md-sys-color-primary)" }}>{udaKey} ({lessonItems.length})</span>
+                                                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>expand_more</span>
                                             </summary>
-                                            <div className="pl-2 space-y-2 border-l-2 border-[var(--md-sys-color-outline-variant)] ml-4 pb-2">
+                                            <div className="pl-2 border-l-2 border-[var(--md-sys-color-outline-variant)] ml-4 pb-2" style={{ gap: "var(--md-sys-spacing-2)" }}>
                                                 {lessonItems.map(lesson => (
                                                     <div key={lesson.id} className="m3-list-item-card !p-6 !bg-[var(--md-sys-color-surface-container-low)]est">
                                                         <div onClick={() => onViewLesson(lesson)} className="list-item-card-content">
-                                                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-medium">{lesson.contenuto}</p>
+                                                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ fontWeight: "500" }}>{lesson.contenuto}</p>
                                                             <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</p>
                                                         </div>
-                                                        <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)} className="button button-tonal !h-8 !px-3 !text-xs flex-shrink-0">
-                                                            <span className="material-symbols-outlined mr-1 text-sm">door_open</span>
+                                                        <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)} className="button button-tonal !h-8 !px-3 !text-xs" style={{ flexShrink: "0" }}>
+                                                            <span className="material-symbols-outlined mr-1" style={{ fontSize: "0.875rem" }}>door_open</span>
                                                             Avvia
                                                         </button>
                                                     </div>

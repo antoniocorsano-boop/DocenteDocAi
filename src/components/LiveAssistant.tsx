@@ -54,7 +54,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
     return (
       <div className="live-assistant-system-message">
         <div className="live-assistant-system-bubble">
-          <span className="material-symbols-outlined text-sm">check_circle</span>
+          <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
       </div>
@@ -64,7 +64,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
   return (
     <div className={`live-assistant-chat-bubble-full ${isUser ? 'live-assistant-chat-bubble-justify-end' : 'live-assistant-chat-bubble-justify-start'} live-assistant-chat-bubble-margin-bottom`}>
       <div className={`live-assistant-chat-bubble ${isUser ? 'live-assistant-chat-bubble-user' : 'live-assistant-chat-bubble-ai'}`}>
-        <p className="whitespace-pre-wrap">{entry.text}</p>
+        <p style={{ whiteSpace: "pre-wrap" }}>{entry.text}</p>
         {entry.sources && (
           <div className="live-assistant-sources">
             <p className="live-assistant-sources-title">FONTI:</p>

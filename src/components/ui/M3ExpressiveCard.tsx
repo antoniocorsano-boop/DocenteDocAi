@@ -60,29 +60,29 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
         >
             {/* Enhanced decorative background with gradient */}
             <div
-                className="absolute -top-16 -right-16 w-40 h-40 opacity-20 blur-3xl rounded-full pointer-events-none"
+                className="absolute -top-16 -right-16 w-40 h-40 blur-3xl pointer-events-none" style={{ opacity: "0.2", borderRadius: "9999px" }}
                 style={{ background: `radial-gradient(circle, ${palette.accent}20 0%, transparent 70%)` }}
             ></div>
 
             {/* Subtle accent bar */}
             <div
-                className="absolute top-0 left-0 right-0 h-1 rounded-t-xl opacity-60"
+                className="absolute top-0 left-0 right-0 rounded-t-xl" style={{ height: "0.25rem", opacity: "0.6" }}
                 style={{ backgroundColor: palette.accent }}
             ></div>
 
-            <div className="flex items-start justify-between mb-6 relative z-10">
-                <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-gradient-to-br from-white/25 to-white/10 backdrop-blur-md flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] border border-white/20 flex-shrink-0">
-                    <span className="material-symbols-outlined m3-icon-lg opacity-90">{icon}</span>
+            <div className="relative z-10" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "var(--md-sys-spacing-6)" }}>
+                <div className="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-gradient-to-br from-white/25 to-white/10 backdrop-blur-md shadow-[var(--md-sys-elevation-level2)] border-white/20" style={{ display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--md-sys-color-outline)", flexShrink: "0" }}>
+                    <span className="material-symbols-outlined m3-icon-lg" style={{ opacity: "0.9" }}>{icon}</span>
                 </div>
                 {isClickable && (
-                    <span className="material-symbols-outlined opacity-50 m3-icon-md transition-opacity group-hover:opacity-70">arrow_forward</span>
+                    <span className="material-symbols-outlined m3-icon-md group-hover:opacity-70" style={{ opacity: "0.5", transition: "opacity 300ms" }}>arrow_forward</span>
                 )}
             </div>
 
-            <div className="flex-grow relative z-10 space-y-3">
-                <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold tracking-tight leading-tight">{title}</h3>
-                <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] opacity-80 leading-relaxed font-medium line-clamp-3">{description}</p>
-                {children && <div className="mt-4 pt-3 border-t border-white/10">{children}</div>}
+            <div className="relative z-10" style={{ flexGrow: "1", gap: "var(--md-sys-spacing-3)" }}>
+                <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]" style={{ fontWeight: "bold", letterSpacing: "-0.005em", lineHeight: "1.25" }}>{title}</h3>
+                <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] line-clamp-3" style={{ opacity: "0.8", lineHeight: "1.625", fontWeight: "500" }}>{description}</p>
+                {children && <div className="pt-3 border-white/10" style={{ marginTop: "var(--md-sys-spacing-4)", borderTop: "1px solid var(--md-sys-color-outline)" }}>{children}</div>}
             </div>
         </M3SurfaceCard>
     );

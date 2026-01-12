@@ -104,12 +104,12 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
   paddingBottom: 'var(--md-sys-spacing-4)'
 }}>
         {!isAuthenticated ? (
-          <div className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-              <span className="material-symbols-outlined text-4xl text-primary">cloud_off</span>
+          <div className="py-12" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+            <div className="bg-primary/10" style={{ width: "5rem", height: "5rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "var(--md-sys-spacing-6)" }}>
+              <span className="material-symbols-outlined text-4xl" style={{ color: "var(--md-sys-color-primary)" }}>cloud_off</span>
             </div>
-            <h3 className="text-xl font-bold mb-8">Connessione Google Richiesta</h3>
-            <p className="text-[var(--md-sys-color-on-surface)]-variant mb-8 max-w-xs">
+            <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-8)" }}>Connessione Google Richiesta</h3>
+            <p className="text-[var(--md-sys-color-on-surface)]-variant max-w-xs" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
               Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
             </p>
             <M3Button variant="filled" onClick={onConnect} className="px-8">
@@ -118,18 +118,18 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
           </div>
         ) : (
           <>
-            {loading && <div className="text-center py-8">Caricamento file da NotebookLM...</div>}
-            {error && <div className="text-error py-4">{error}</div>}
+            {loading && <div className="py-8" style={{ textAlign: "center" }}>Caricamento file da NotebookLM...</div>}
+            {error && <div style={{ color: "var(--md-sys-color-error)", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)" }}>{error}</div>}
 
             {step === 'select' && !loading && !error && (
               <>
-                <p className="mb-8 text-[var(--md-sys-color-on-surface)]-variant">Seleziona i materiali da importare nella Knowledge Base.</p>
-                <div className="max-h-64 overflow-y-auto border rounded mb-8">
-                  {files.length === 0 && <div className="p-8 text-center text-[var(--md-sys-color-on-surface)]-variant">Nessun file trovato.</div>}
+                <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>Seleziona i materiali da importare nella Knowledge Base.</p>
+                <div className="max-h-64" style={{ overflowY: "auto", border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem", marginBottom: "var(--md-sys-spacing-8)" }}>
+                  {files.length === 0 && <div className="text-[var(--md-sys-color-on-surface)]-variant" style={{ padding: "var(--md-sys-spacing-8)", textAlign: "center" }}>Nessun file trovato.</div>}
                   {files.map(f => (
-                    <label key={f.id} className="flex items-center gap-6 px-4 py-4 border-b last:border-b-0 cursor-pointer hover:bg-[var(--md-sys-color-surface-container-low)]">
+                    <label key={f.id} className="last:border-b-0 hover:bg-[var(--md-sys-color-surface-container-low)]" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)", borderBottom: "1px solid var(--md-sys-color-outline)", cursor: "pointer" }}>
                       <input type="checkbox" checked={selected.has(f.id)} onChange={() => handleSelect(f.id)} />
-                      <span className="flex-1 font-medium">{f.name}</span>
+                      <span style={{ flex: "1", fontWeight: "500" }}>{f.name}</span>
                       <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant">{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
                     </label>
                   ))}
@@ -141,17 +141,17 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
         {step === 'catalog' && (
           <>
-            <p className="mb-8 text-[var(--md-sys-color-on-surface)]-variant">Catalogazione materiali importati:</p>
-            <div className="space-y-4 max-h-64 overflow-y-auto">
+            <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>Catalogazione materiali importati:</p>
+            <div className="max-h-64" style={{ gap: "var(--md-sys-spacing-4)", overflowY: "auto" }}>
               {imported.map(entry => (
-                <div key={entry.id} className="p-6 border rounded bg-[var(--md-sys-color-surface-container-low)]">
-                  <div className="font-bold mb-4">{entry.fileName}</div>
-                  <div className="flex gap-8 mb-4">
+                <div key={entry.id} className="bg-[var(--md-sys-color-surface-container-low)]" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem" }}>
+                  <div style={{ fontWeight: "bold", marginBottom: "var(--md-sys-spacing-4)" }}>{entry.fileName}</div>
+                  <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-4)" }}>
                     <input className="input" placeholder="Materia (opzionale)" value={catalogData[entry.id]?.materia || ''} onChange={e => handleCatalogChange(entry.id, 'materia', e.target.value)} />
                     <input className="input" placeholder="Classe (opzionale)" value={catalogData[entry.id]?.classe || ''} onChange={e => handleCatalogChange(entry.id, 'classe', e.target.value)} />
                     <input className="input" placeholder="Categoria/Tag (opzionale)" value={catalogData[entry.id]?.category || ''} onChange={e => handleCatalogChange(entry.id, 'category', e.target.value)} />
                   </div>
-                  <textarea className="input w-full" placeholder="Descrizione/Note" value={catalogData[entry.id]?.content !== undefined ? catalogData[entry.id]?.content : entry.content} onChange={e => handleCatalogChange(entry.id, 'content', e.target.value)} />
+                  <textarea className="input" style={{ width: "100%" }} placeholder="Descrizione/Note" value={catalogData[entry.id]?.content !== undefined ? catalogData[entry.id]?.content : entry.content} onChange={e => handleCatalogChange(entry.id, 'content', e.target.value)} />
                 </div>
               ))}
             </div>
@@ -159,9 +159,9 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
         )}
 
         {step === 'done' && (
-          <div className="py-8 text-center">
-            <span className="material-symbols-outlined m3-display-small text-success mb-8">check_circle</span>
-            <div className="font-bold mb-8">Importazione completata!</div>
+          <div className="py-8" style={{ textAlign: "center" }}>
+            <span className="material-symbols-outlined m3-display-small" style={{ color: "var(--md-sys-color-success)", marginBottom: "var(--md-sys-spacing-8)" }}>check_circle</span>
+            <div style={{ fontWeight: "bold", marginBottom: "var(--md-sys-spacing-8)" }}>Importazione completata!</div>
           </div>
         )}
       </M3DialogContent>

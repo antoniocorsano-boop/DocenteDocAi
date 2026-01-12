@@ -19,8 +19,8 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
     return (
         <M3Dialog
             title={
-                <div className="flex items-center gap-6">
-                    <span className="material-symbols-outlined text-primary">image</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}>
+                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>image</span>
                     <span>AI Image Lab</span>
                 </div>
             }
@@ -28,7 +28,7 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
             maxWidth="sm"
             level={1}
         >
-            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="flex flex-col h-full">
+            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
                 <M3DialogContent className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-12 space-y-12">
                     <TextArea
                         id="image-generator-prompt"
@@ -40,20 +40,20 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                         autoFocus
                         className="bg-[var(--md-sys-color-surface-container-high)]/50"
                     />
-                    <p className="text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-60 px-8">
+                    <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant px-8" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>
                         L'AI genererà un'immagine basata sulla tua descrizione. Sii specifico per risultati migliori.
                     </p>
                 </M3DialogContent>
 
-                <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-t border-[var(--md-sys-color-outline-variant)]/10 px-12 pb-12 pt-0 gap-12">
-                    <M3Button onClick={onClose} variant="text" className="font-black text-xs uppercase tracking-widest">Annulla</M3Button>
+                <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-[var(--md-sys-color-outline-variant)]/10 px-12 pb-12 gap-12" style={{ borderTop: "1px solid var(--md-sys-color-outline)", paddingTop: "0" }}>
+                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
                     <M3Button 
                         onClick={handleSubmit} 
                         variant="filled" 
                         disabled={!prompt.trim()}
-                        className="font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)]"
+                        className="shadow-[var(--md-sys-elevation-level2)]" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}
                     >
-                        <span className="material-symbols-outlined mr-2 text-sm">auto_awesome</span>
+                        <span className="material-symbols-outlined" style={{ marginRight: "0.5rem", fontSize: "0.875rem" }}>auto_awesome</span>
                         Genera Immagine
                     </M3Button>
                 </M3DialogActions>

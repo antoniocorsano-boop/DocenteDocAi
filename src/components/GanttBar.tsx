@@ -41,7 +41,7 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
             } as React.CSSProperties}
             title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''})`}
         >
-            <div className="gantt-bar-inner truncate">{uda.title}</div>
+            <div className="gantt-bar-inner" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{uda.title}</div>
         </div>
     );
 };

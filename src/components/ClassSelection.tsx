@@ -51,7 +51,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
              {/* Header Section */}
             <div className="page-header-compact">
                 <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium font-black text-[var(--md-sys-color-on-surface)]">Le Mie Classi</h1>
+                    <h1 className="m3-headline-medium text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900" }}>Le Mie Classi</h1>
                     <p className="page-subtitle text-[var(--md-sys-color-on-surface)]-variant">Gestione studenti e analisi.</p>
                 </div>
             </div>
@@ -59,7 +59,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
                 <section className="animate-in fade-in slide-in-from-top-4">
-                    <h2 className="section-header-expressive text-sm !mb-8 text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider">
+                    <h2 className="section-header-expressive !mb-8 text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         In Arrivo (Tutte le classi)
                     </h2>
                     <div className="global-agenda-grid">
@@ -68,7 +68,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                 <div>
                                     <span className="agenda-event-date">{new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}</span>
                                     <h4 className="agenda-event-title">{test.materia}</h4>
-                                    <p className="agenda-event-subtitle truncate max-w-[120px] md:max-w-[150px]">{test.argomento || test.tipo}</p>
+                                    <p className="agenda-event-subtitle max-w-[120px] md:max-w-[150px]" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{test.argomento || test.tipo}</p>
                                 </div>
                                 <div className="agenda-event-class">{test.className}</div>
                             </div>
@@ -111,10 +111,10 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         })}
                     </div>
                 ) : (
-                    <div className="text-center p-12 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] border border-dashed border-[var(--md-sys-color-outline-variant)]">
-                        <span className="material-symbols-outlined text-6xl text-[var(--md-sys-color-on-surface)]-variant/50 mb-8">domain_disabled</span>
+                    <div className="p-12 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] border-dashed border-[var(--md-sys-color-outline-variant)]" style={{ textAlign: "center", border: "1px solid var(--md-sys-color-outline)" }}>
+                        <span className="material-symbols-outlined text-6xl text-[var(--md-sys-color-on-surface)]-variant/50" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>domain_disabled</span>
                         <p className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-[var(--md-sys-color-on-surface)]-variant">Nessuna classe definita</p>
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mt-4 mb-6">
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ marginTop: "var(--md-sys-spacing-4)", marginBottom: "var(--md-sys-spacing-6)" }}>
                             Vai nelle impostazioni per configurare le tue classi e iniziare.
                         </p>
                         <M3Button onClick={() => onNavigate('settings')} variant="filled">
@@ -163,7 +163,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         onClick={() => onNavigate('didattica-inclusiva')} 
                         className="expressive-tool-card variant-surface"
                     >
-                        <span className="material-symbols-outlined tool-icon text-tertiary">accessibility_new</span>
+                        <span className="material-symbols-outlined tool-icon" style={{ color: "var(--md-sys-color-tertiary)" }}>accessibility_new</span>
                         <span className="tool-title">Didattica Inclusiva</span>
                         <span className="tool-subtitle">Gestione PEI/PDP globale</span>
                     </button>
@@ -235,11 +235,11 @@ const PrintCenterModal: React.FC<{
             onClose={onClose}
             maxWidth="md"
         >
-            <M3DialogContent className="space-y-6">
+            <M3DialogContent style={{ gap: "var(--md-sys-spacing-6)" }}>
                     <p className="text-[var(--md-sys-color-on-surface)]-variant">Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-[var(--md-sys-color-on-surface)]-variant ml-1">Periodo</label>
+                    <div style={{ gap: "var(--md-sys-spacing-2)" }}>
+                        <label className="text-[var(--md-sys-color-on-surface)]-variant ml-1" style={{ fontSize: "0.875rem", fontWeight: "500" }}>Periodo</label>
                         <TabGroup
                             tabs={[
                                 { id: 'primo-quadrimestre', label: '1Q' },
@@ -250,9 +250,9 @@ const PrintCenterModal: React.FC<{
                         />
                     </div>
 
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-[var(--md-sys-color-on-surface)]-variant ml-1">Classi</label>
-                        <div className="flex flex-wrap gap-8">
+                    <div style={{ gap: "var(--md-sys-spacing-2)" }}>
+                        <label className="text-[var(--md-sys-color-on-surface)]-variant ml-1" style={{ fontSize: "0.875rem", fontWeight: "500" }}>Classi</label>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--md-sys-spacing-8)" }}>
                             {userClasses.map(c => (
                                 <div 
                                     key={c} 
@@ -263,7 +263,7 @@ const PrintCenterModal: React.FC<{
                                             : 'bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
                                     }`}
                                 >
-                                    {selectedClasses.includes(c) && <span className="material-symbols-outlined text-lg">check</span>}
+                                    {selectedClasses.includes(c) && <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>check</span>}
                                     Classe {c}
                                 </div>
                             ))}

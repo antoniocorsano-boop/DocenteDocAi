@@ -63,8 +63,8 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
     return (
         <M3Dialog
             title={
-                <div className="flex items-center gap-6">
-                    <span className="material-symbols-outlined text-tertiary">lightbulb</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}>
+                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-tertiary)" }}>lightbulb</span>
                     <span>AI Lesson Lab</span>
                 </div>
             }
@@ -97,23 +97,23 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 />
 
                 <div className="space-y-12">
-                    <div className="flex items-center justify-between px-8">
-                        <label className="flex items-center gap-8 cursor-pointer select-none">
+                    <div className="px-8" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <label className="select-none" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
                             <div className="switch"><input type="checkbox" checked={useKb} onChange={e => setUseKb(e.target.checked)} /><span className="slider"></span></div>
-                            <span className="text-[11px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Usa Context Knowledge Base</span>
+                            <span className="text-[11px] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Usa Context Knowledge Base</span>
                         </label>
-                        <span className="text-[10px] font-black uppercase text-primary tracking-widest">{selectedKbIds.length} file</span>
+                        <span className="text-[10px]" style={{ fontWeight: "900", textTransform: "uppercase", color: "var(--md-sys-color-primary)", letterSpacing: "0.1em" }}>{selectedKbIds.length} file</span>
                     </div>
                     
                     {useKb && knowledgeBase.length > 0 && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 p-12 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/10 max-h-48 overflow-y-auto">
+                        <div className="sm:grid-cols-2 gap-12 p-12 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-medium)] border-[var(--md-sys-color-outline-variant)]/10 max-h-48" style={{ display: "grid", gridTemplateColumns: "1fr", border: "1px solid var(--md-sys-color-outline)", overflowY: "auto" }}>
                             {knowledgeBase.map(k => (
                                 <label key={k.id} className={`flex items-center gap-8 p-12 rounded-[var(--md-sys-shape-corner-large)] border transition-all cursor-pointer ${selectedKbIds.includes(k.id) ? 'bg-primary/10 border-primary/30' : 'bg-[var(--md-sys-color-surface-container-high)]/30 border-[var(--md-sys-color-outline-variant)]/10'}`}>
-                                    <input type="checkbox" checked={selectedKbIds.includes(k.id)} onChange={() => handleKbToggle(k.id)} className="hidden" />
+                                    <input type="checkbox" checked={selectedKbIds.includes(k.id)} onChange={() => handleKbToggle(k.id)} style={{ display: "none" }} />
                                     <span className={`material-symbols-outlined text-sm ${selectedKbIds.includes(k.id) ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>
                                         {selectedKbIds.includes(k.id) ? 'check_box' : 'check_box_outline_blank'}
                                     </span>
-                                    <span className="text-[10px] font-black uppercase tracking-widest truncate">{k.fileName}</span>
+                                    <span className="text-[10px]" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.fileName}</span>
                                 </label>
                             ))}
                         </div>
@@ -121,26 +121,26 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 </div>
 
                 {error && (
-                    <div className="p-12 bg-error/10 border border-error/20 rounded-[var(--md-sys-shape-corner-large)] flex items-center gap-8 text-error">
+                    <div className="p-12 bg-error/10 border-error/20 rounded-[var(--md-sys-shape-corner-large)]" style={{ border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", color: "var(--md-sys-color-error)" }}>
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>error</span>
-                        <p className="text-xs font-black uppercase tracking-widest">{error}</p>
+                        <p style={{ fontSize: "0.75rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>{error}</p>
                     </div>
                 )}
             </M3DialogContent>
 
-            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-t border-[var(--md-sys-color-outline-variant)]/10 px-12 pb-12 pt-0 gap-12">
-                <M3Button onClick={onClose} variant="text" className="font-black text-xs uppercase tracking-widest">Annulla</M3Button>
+            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-[var(--md-sys-color-outline-variant)]/10 px-12 pb-12 gap-12" style={{ borderTop: "1px solid var(--md-sys-color-outline)", paddingTop: "0" }}>
+                <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
                 <M3Button 
                     onClick={handleGenerate} 
                     variant="filled" 
                     disabled={isLoading || !ideaText.trim()}
-                    className="font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)] !px-10"
+                    className="shadow-[var(--md-sys-elevation-level2)] !px-10" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}
                 >
                     {isLoading ? <AiThinkingGem size={20} /> : (
-                        <div className="flex items-center gap-8">
-                            <span className="material-symbols-outlined text-sm">auto_awesome</span>
+                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                            <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>auto_awesome</span>
                             <span>Genera Piano</span>
                         </div>
                     )}

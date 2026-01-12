@@ -22,7 +22,7 @@ const UniversalModalDemo: React.FC = () => {
           Questo è un esempio di contenuto per il nuovo modale accessibile e responsive.<br />
           Premi <b>ESC</b> o clicca fuori dal modale per chiudere.
         </p>
-        <div className="flex justify-end gap-3 mt-8">
+        <div className="mt-8" style={{ display: "flex", justifyContent: "flex-end", gap: "var(--md-sys-spacing-3)" }}>
           <M3Button
             onClick={() => setOpen(false)}
             variant="tonal"

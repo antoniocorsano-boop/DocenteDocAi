@@ -78,18 +78,18 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
     };
 
     return (
-        <div className="page-layout pb-24 max-w-6xl mx-auto w-full px-4 md:px-0">
+        <div className="page-layout pb-24 max-w-6xl md:px-0" style={{ marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>
             
             {/* Header */}
-            <div className="py-12 text-center">
-                <h1 className="text-4xl font-black text-primary mb-8">Progettazione</h1>
-                <p className="text-[var(--md-sys-color-on-surface)]-variant max-w-2xl mx-auto font-medium">
+            <div className="py-12" style={{ textAlign: "center" }}>
+                <h1 className="text-4xl" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", marginBottom: "var(--md-sys-spacing-8)" }}>Progettazione</h1>
+                <p className="text-[var(--md-sys-color-on-surface)]-variant max-w-2xl" style={{ marginLeft: "auto", marginRight: "auto", fontWeight: "500" }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>
             
             {/* Tab Navigation */}
-            <div className="mb-8">
+            <div style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id: string) => setActiveTab(id as 'dashboard' | 'frameworks')}
@@ -113,7 +113,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             console.log('Audit: Opened Annual Planning Wizard');
                             setIsPlanningWizardOpen(true);
                         }}
-                        className="mb-8"
+                        style={{ marginBottom: "var(--md-sys-spacing-8)" }}
                     />
 
                     {/* 2. TIMELINE (GANTT 2.0 DYNAMIC) */}
@@ -129,7 +129,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                     />
 
                     {/* 3. BENTO GRID */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-8">
+                    <div className="md:grid-cols-4 mt-8" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--md-sys-spacing-8)" }}>
                         
                         <M3ExpressiveCard
                             icon="assignment"

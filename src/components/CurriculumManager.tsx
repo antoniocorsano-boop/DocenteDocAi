@@ -168,7 +168,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 variant="tonal"
                                 className="curriculum-manager-add-objective-button"
                             >
-                                <span className="material-symbols-outlined m3-body-small mr-2">add</span> Aggiungi Obiettivo
+                                <span className="material-symbols-outlined m3-body-small" style={{ marginRight: "0.5rem" }}>add</span> Aggiungi Obiettivo
                             </M3Button>
                         </div>
                     </InfoCard>
@@ -181,7 +181,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     variant="outlined"
                     className="curriculum-manager-add-nucleus-button"
                 >
-                    <span className="material-symbols-outlined mr-2">add_circle</span> Nuovo Nucleo Fondante
+                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add_circle</span> Nuovo Nucleo Fondante
                 </M3Button>
             </div>
         );
@@ -224,7 +224,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     variant="text"
                                     className={`curriculum-manager-curriculum-delete-button ${selectedCurriculumId === curr.id ? 'curriculum-manager-curriculum-delete-button.selected' : ''}`}
                                 >
-                                    <span className="material-symbols-outlined text-sm">delete</span>
+                                    <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>delete</span>
                                 </M3Button>
                             </div>
                         ))}
@@ -252,7 +252,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                      />
                                     {activeTab === 'editor' && (
                                         <M3Button onClick={() => setIsImporting(true)} variant="tonal" className="!px-6 font-extrabold shadow-sm">
-                                            <span className="material-symbols-outlined mr-2">auto_awesome</span> AI Import
+                                            <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>auto_awesome</span> AI Import
                                         </M3Button>
                                     )}
                                 </div>
@@ -281,7 +281,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             label="O incolla il testo del programma" 
                             value={importText} 
                             onChange={e => setImportText(e.target.value)} 
-                            className="flex-grow" 
+                            style={{ flexGrow: "1" }} 
                             rows={12} 
                             containerClassName="flex-grow" 
                         />

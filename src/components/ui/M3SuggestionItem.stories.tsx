@@ -54,9 +54,9 @@ export const Default: Story = {
 export const WithIconAndAction: Story = {
   args: {
     children: (
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-[var(--md-sys-color-primary)] rounded-full flex items-center justify-center">
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-3)" }}>
+          <div className="bg-[var(--md-sys-color-primary)]" style={{ width: "2rem", height: "2rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--md-sys-color-on-primary)">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
@@ -65,7 +65,7 @@ export const WithIconAndAction: Story = {
             Consider using visual aids for better engagement
           </M3Typography>
         </div>
-        <button className="px-3 py-1 text-[var(--md-sys-color-primary)] border border-[var(--md-sys-color-primary)] rounded-full text-sm hover:bg-[var(--md-sys-color-primary)] hover:text-[var(--md-sys-color-on-primary)] transition-colors">
+        <button className="px-3 py-1 text-[var(--md-sys-color-primary)] border-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)] hover:text-[var(--md-sys-color-on-primary)]" style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: "9999px", fontSize: "0.875rem", transition: "color 300ms" }}>
           Apply
         </button>
       </div>
@@ -88,15 +88,15 @@ export const SuggestionList: Story = {
     ];
 
     return (
-      <div className="space-y-3 max-w-md">
+      <div className="max-w-md" style={{ gap: "var(--md-sys-spacing-3)" }}>
         {suggestions.map((suggestion, index) => (
           <M3SuggestionItem
             key={index}
             onClick={() => {}}
           >
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-[var(--md-sys-color-secondary)] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-[var(--md-sys-color-on-secondary)] text-xs font-medium">
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-3)" }}>
+              <div className="bg-[var(--md-sys-color-secondary)] mt-0.5" style={{ width: "1.5rem", height: "1.5rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
+                <span className="text-[var(--md-sys-color-on-secondary)]" style={{ fontSize: "0.75rem", fontWeight: "500" }}>
                   {index + 1}
                 </span>
               </div>
@@ -117,8 +117,8 @@ export const SuggestionList: Story = {
 export const ReadOnly: Story = {
   args: {
     children: (
-      <div className="flex items-center gap-3">
-        <div className="w-8 h-8 bg-[var(--md-sys-color-outline)] rounded-full flex items-center justify-center">
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-3)" }}>
+        <div className="bg-[var(--md-sys-color-outline)]" style={{ width: "2rem", height: "2rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--md-sys-color-surface)">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
           </svg>

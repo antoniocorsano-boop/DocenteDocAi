@@ -67,7 +67,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
     const lessonDetails = nextLesson?.obiettivi || nextLesson?.contenuto || 'Utilizza l’integrazione AI per costruire contenuti e obiettivi in pochi tap.';
     try {
     return (
-        <div className="flex flex-col min-h-screen m3-pb-16 m3-px-8 gap-12 bg-[var(--md-sys-color-surface)] overflow-x-hidden overflow-y-auto">
+        <div className="m3-pb-16 m3-px-8 gap-12 bg-[var(--md-sys-color-surface)]" style={{ display: "flex", flexDirection: "column", minHeight: "100vh", overflowX: "hidden", overflowY: "auto" }}>
             {/* HERO SECTION: Logo, headline, claim, CTA */}
             <section className="home-hero-section">
                 <span className="material-symbols-outlined home-hero-icon">
@@ -77,17 +77,17 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                 <div className="home-hero-subtitle">
                     L’assistente didattico che ti aiuta a gestire, progettare e vivere la scuola con calma autorevole. Tutto in un’unica piattaforma, sempre con te.
                 </div>
-                <M3Button variant="primary" className="m3-px-10 m3-py-4 mt-4" onClick={() => onNavigate('aula' as View)}>
+                <M3Button variant="primary" className="m3-px-10 m3-py-4" style={{ marginTop: "var(--md-sys-spacing-4)" }} onClick={() => onNavigate('aula' as View)}>
                     Inizia ora
                 </M3Button>
             </section>
             {/* Azioni rapide (abilita se serve) */}
             {/*
             <section>
-                <M3Typography variant="label-small" className="uppercase tracking-widest text-on-surface-variant font-black opacity-50 m3-mb-4">
+                <M3Typography variant="label-small" className="text-on-surface-variant m3-mb-4" style={{ textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "900", opacity: "0.5" }}>
                     Azioni rapide
                 </M3Typography>
-                <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
+                <div style={{ display: "grid", gap: "var(--md-sys-spacing-4)" }} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
                     {QUICK_ACTIONS.map((action) => (
                         <ActionTile
                             key={action.label}

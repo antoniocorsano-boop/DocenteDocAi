@@ -37,7 +37,7 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
 
                 {/* Checkmark Overlay */}
                 <div className="theme-check-icon" style={{ color: themeColors.primary }}>
-                     <span className="material-symbols-outlined text-2xl font-bold">check_circle</span>
+                     <span className="material-symbols-outlined" style={{ fontSize: "1.5rem", fontWeight: "bold" }}>check_circle</span>
                 </div>
             </div>
 

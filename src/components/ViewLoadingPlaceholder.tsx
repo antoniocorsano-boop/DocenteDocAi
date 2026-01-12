@@ -32,10 +32,10 @@ export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({
  */
 export const MinimalViewLoading: React.FC = () => {
   return (
-    <div className="flex items-center justify-center min-h-[40vh]">
-      <div className="space-y-4 text-center">
-        <div className="w-12 h-12 mx-auto rounded-full aura-glass flex items-center justify-center animate-pulse">
-          <span className="material-symbols-outlined text-2xl text-primary">hourglass_bottom</span>
+    <div className="min-h-[40vh]" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ gap: "var(--md-sys-spacing-4)", textAlign: "center" }}>
+        <div className="aura-glass animate-pulse" style={{ width: "3rem", height: "3rem", marginLeft: "auto", marginRight: "auto", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span className="material-symbols-outlined" style={{ fontSize: "1.5rem", color: "var(--md-sys-color-primary)" }}>hourglass_bottom</span>
         </div>
         <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Caricamento...</p>
       </div>
@@ -48,9 +48,9 @@ export const MinimalViewLoading: React.FC = () => {
  */
 export const SkeletonListLoading: React.FC = () => {
   return (
-    <div className="space-y-4 p-4">
+    <div style={{ gap: "var(--md-sys-spacing-4)", padding: "var(--md-sys-spacing-4)" }}>
       {[1, 2, 3].map(i => (
-        <div key={i} className="h-16 rounded-[var(--md-sys-shape-corner-small)] aura-glass animate-pulse" />
+        <div key={i} className="rounded-[var(--md-sys-shape-corner-small)] aura-glass animate-pulse" style={{ height: "4rem" }} />
       ))}
     </div>
   );

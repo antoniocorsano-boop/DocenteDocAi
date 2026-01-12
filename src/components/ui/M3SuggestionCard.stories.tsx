@@ -47,17 +47,17 @@ export const Active: Story = {
     variant: 'active',
     children: (
       <div>
-        <M3Typography variant="title-medium" as="h3" className="mb-2">
+        <M3Typography variant="title-medium" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
           AI Suggestion
         </M3Typography>
-        <M3Typography variant="body-medium" as="p" className="mb-3">
+        <M3Typography variant="body-medium" as="p" style={{ marginBottom: "var(--md-sys-spacing-3)" }}>
           Consider adding more interactive elements to engage your students during the lesson.
         </M3Typography>
-        <div className="flex gap-2">
-          <button className="px-4 py-2 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] rounded-full text-sm">
+        <div style={{ display: "flex", gap: "var(--md-sys-spacing-2)" }}>
+          <button className="py-2 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)]" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "9999px", fontSize: "0.875rem" }}>
             Apply
           </button>
-          <button className="px-4 py-2 border border-[var(--md-sys-color-outline)] text-[var(--md-sys-color-on-surface)] rounded-full text-sm">
+          <button className="py-2 border-[var(--md-sys-color-outline)] text-[var(--md-sys-color-on-surface)]" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "9999px", fontSize: "0.875rem" }}>
             Dismiss
           </button>
         </div>
@@ -73,15 +73,15 @@ export const Empty: Story = {
   args: {
     variant: 'empty',
     children: (
-      <div className="text-center py-4">
-        <div className="mb-3">
+      <div style={{ textAlign: "center", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)" }}>
+        <div style={{ marginBottom: "var(--md-sys-spacing-3)" }}>
           <svg
             width="48"
             height="48"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="text-[var(--md-sys-color-outline)] mx-auto"
+            className="text-[var(--md-sys-color-outline)]" style={{ marginLeft: "auto", marginRight: "auto" }}
           >
             <path
               d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
@@ -89,7 +89,7 @@ export const Empty: Story = {
             />
           </svg>
         </div>
-        <M3Typography variant="title-medium" as="h3" className="mb-2">
+        <M3Typography variant="title-medium" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
           No suggestions available
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -108,14 +108,14 @@ export const CodeSuggestion: Story = {
     variant: 'active',
     children: (
       <div>
-        <M3Typography variant="title-medium" as="h3" className="mb-2">
+        <M3Typography variant="title-medium" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
           Code Optimization
         </M3Typography>
-        <M3Typography variant="body-medium" as="p" className="mb-3">
+        <M3Typography variant="body-medium" as="p" style={{ marginBottom: "var(--md-sys-spacing-3)" }}>
           Consider using early returns to improve code readability:
         </M3Typography>
-        <div className="bg-[var(--md-sys-color-surface-container-high)] p-3 rounded-lg mb-3">
-          <code className="text-sm text-[var(--md-sys-color-on-surface)]">
+        <div className="bg-[var(--md-sys-color-surface-container-high)]" style={{ padding: "var(--md-sys-spacing-3)", borderRadius: "0.5rem", marginBottom: "var(--md-sys-spacing-3)" }}>
+          <code className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "0.875rem" }}>
             {`// Instead of:
 if (condition) {
   // do something
@@ -126,7 +126,7 @@ if (!condition) return;
 // do something`}
           </code>
         </div>
-        <button className="px-4 py-2 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] rounded-full text-sm">
+        <button className="py-2 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)]" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "9999px", fontSize: "0.875rem" }}>
           Apply Suggestion
         </button>
       </div>

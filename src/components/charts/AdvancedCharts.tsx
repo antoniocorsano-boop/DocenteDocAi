@@ -12,7 +12,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     if (data.length === 0) {
-        return <div className="flex items-center justify-center h-full text-[var(--md-sys-color-on-surface)]-variant opacity-50">Nessun dato disponibile.</div>;
+        return <div className="text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", opacity: "0.5" }}>Nessun dato disponibile.</div>;
     }
 
     const padding = 30;
@@ -48,8 +48,8 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
     }
 
     return (
-        <div className="relative w-full" style={{ height }}>
-            <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full overflow-visible">
+        <div className="relative" style={{ width: "100%" }} style={{ height }}>
+            <svg viewBox={`0 0 ${width} ${height}`} className="overflow-visible" style={{ width: "100%", height: "100%" }}>
                 {/* Grids */}
                 <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="var(--md-sys-color-outline-variant)" strokeWidth="1" />
                 <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke="var(--md-sys-color-outline-variant)" strokeWidth="1" />
@@ -86,7 +86,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
                         strokeWidth="2"
                         onMouseEnter={() => setHoveredIndex(i)}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        className="cursor-pointer transition-all duration-200"
+                        className="duration-200" style={{ cursor: "pointer", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
                     />
                 ))}
 
@@ -103,15 +103,15 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
             {/* Tooltip */}
             {hoveredIndex !== null && (
                 <div 
-                    className="absolute bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)] p-8 rounded shadow-[var(--md-sys-elevation-level2)] text-xs pointer-events-none transform -translate-x-1/2 -translate-y-full border border-[var(--md-sys-color-outline-variant)] z-10"
+                    className="absolute bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)] shadow-[var(--md-sys-elevation-level2)] pointer-events-none transform -translate-x-1/2 -translate-y-full border-[var(--md-sys-color-outline-variant)] z-10" style={{ padding: "var(--md-sys-spacing-8)", borderRadius: "0.375rem", fontSize: "0.75rem", border: "1px solid var(--md-sys-color-outline)" }}
                     style={{ 
                         left: `${(getX(hoveredIndex) / width) * 100}%`, 
                         top: `${(getY(data[hoveredIndex].value) / height) * 100}%`,
                         marginTop: '-10px'
                     }}
                 >
-                    <div className="font-bold">{data[hoveredIndex].value}</div>
-                    <div className="opacity-80">{data[hoveredIndex].label}</div>
+                    <div style={{ fontWeight: "bold" }}>{data[hoveredIndex].value}</div>
+                    <div style={{ opacity: "0.8" }}>{data[hoveredIndex].label}</div>
                 </div>
             )}
         </div>
@@ -127,7 +127,7 @@ interface RadarChartProps {
 
 export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 }) => {
     if (data.length === 0) {
-        return <div className="flex items-center justify-center h-[300px] text-[var(--md-sys-color-on-surface)]-variant opacity-50">Dati competenze non disponibili.</div>;
+        return <div className="h-[300px] text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "flex", alignItems: "center", justifyContent: "center", opacity: "0.5" }}>Dati competenze non disponibili.</div>;
     }
 
     const center = size / 2;
@@ -154,7 +154,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
     }).join(' ');
 
     return (
-        <div className="flex justify-center items-center">
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="overflow-visible">
                 {/* Background Grid */}
                 {levels.map(level => (
@@ -201,7 +201,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                                 dominantBaseline="middle"
                                 fontSize="10"
                                 fill="var(--md-sys-color-on-surface)"
-                                className="font-medium"
+                                style={{ fontWeight: "500" }}
                             >
                                 {d.axis}
                             </text>

@@ -261,12 +261,12 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
 
             {/* Context Selection Card */}
             <div className="card card-accent-primary">
-                <h2 className="m3-title-large mb-8 flex items-center gap-8">
-                    <span className="material-symbols-outlined text-primary">folder_open</span>
+                <h2 className="m3-title-large" style={{ marginBottom: "var(--md-sys-spacing-8)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>folder_open</span>
                     1. Seleziona Contesto (Knowledge Base)
                 </h2>
-                <div className="flex flex-wrap gap-8 items-end mb-8">
-                    <div className="flex-grow min-w-[250px]">
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--md-sys-spacing-8)", alignItems: "flex-end", marginBottom: "var(--md-sys-spacing-8)" }}>
+                    <div className="min-w-[250px]" style={{ flexGrow: "1" }}>
                         <SelectField 
                             label="Filtra per Set di Documenti"
                             value={selectedCorpusId} 
@@ -277,9 +277,9 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                             ]}
                         />
                     </div>
-                     <div className="flex items-center gap-8 pb-2">
+                     <div className="pb-2" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                         <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">attachment</span>
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant font-bold">
+                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "bold" }}>
                             {selectedFileIds.length} file selezionati
                         </p>
                     </div>
@@ -291,21 +291,21 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         <div key={entry.id} className="chip-checkbox">
                             <input type="checkbox" id={`studio-file-${entry.id}`} checked={selectedFileIds.includes(entry.id)} onChange={() => handleFileToggle(entry.id)} />
                             <label htmlFor={`studio-file-${entry.id}`} className="chip">
-                                {selectedFileIds.includes(entry.id) && <span className="material-symbols-outlined text-lg">check</span>}
-                                <span className="material-symbols-outlined text-primary mr-1 text-base">{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
-                                <span className="truncate">{entry.fileName}</span>
+                                {selectedFileIds.includes(entry.id) && <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>check</span>}
+                                <span className="material-symbols-outlined mr-1" style={{ color: "var(--md-sys-color-primary)", fontSize: "1rem" }}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
+                                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{entry.fileName}</span>
                             </label>
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant italic p-8">Nessun file disponibile in questo set.</p>
+                        <p className="text-[var(--md-sys-color-on-surface)]-variant italic" style={{ fontSize: "0.875rem", padding: "var(--md-sys-spacing-8)" }}>Nessun file disponibile in questo set.</p>
                     )}
                 </div>
             </div>
 
             {/* Loading State */}
             {isLoading && (
-                <div className="card flex flex-col items-center justify-center p-12">
+                <div className="card p-12" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                     <AiThinkingGem size="large" text={loadingTaskName || "L'AI sta lavorando..."} />
                 </div>
             )}
@@ -314,25 +314,25 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             {!isLoading && (
                 <div className="studio-grid">
                     {/* Generation Card */}
-                    <div className="card h-full card-top-accent-tertiary">
-                        <div className="mb-8">
-                            <h2 className="m3-title-large flex items-center gap-8">
-                                <span className="material-symbols-outlined text-tertiary">design_services</span>
+                    <div className="card card-top-accent-tertiary" style={{ height: "100%" }}>
+                        <div style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
+                            <h2 className="m3-title-large" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-tertiary)" }}>design_services</span>
                                 Generazione & Creatività
                             </h2>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant mt-4">Crea nuovi contenuti didattici.</p>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ marginTop: "var(--md-sys-spacing-4)" }}>Crea nuovi contenuti didattici.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'generation'))}
                     </div>
 
                     {/* Analysis Card */}
-                    <div className="card h-full card-top-accent-secondary">
-                        <div className="mb-8">
-                            <h2 className="m3-title-large flex items-center gap-8">
-                                <span className="material-symbols-outlined text-secondary">analytics</span>
+                    <div className="card card-top-accent-secondary" style={{ height: "100%" }}>
+                        <div style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
+                            <h2 className="m3-title-large" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-secondary)" }}>analytics</span>
                                 Analisi & Sintesi
                             </h2>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant mt-4">Rielabora e comprendi i documenti.</p>
+                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ marginTop: "var(--md-sys-spacing-4)" }}>Rielabora e comprendi i documenti.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'analysis'))}
                     </div>

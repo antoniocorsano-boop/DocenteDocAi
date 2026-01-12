@@ -133,7 +133,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                             <AiThinkingGem size="small" inline text="Generando..." />
                                         ) : (
                                             <>
-                                                <span className="material-symbols-outlined mr-1 text-sm">auto_awesome</span>
+                                                <span className="material-symbols-outlined mr-1" style={{ fontSize: "0.875rem" }}>auto_awesome</span>
                                                 AI
                                             </>
                                         )}
@@ -153,13 +153,13 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
 
                         {/* Obiettivi per Materia */}
                         <InfoCard variant="elevated" className="piano-inclusione-editor-materie-section">
-                            <div className="flex items-center gap-8 mb-8">
-                                <span className="material-symbols-outlined text-primary">subject</span>
-                                <h3 className="text-sm font-bold text-primary uppercase tracking-wider">
+                            <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-8)" }}>
+                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>subject</span>
+                                <h3 style={{ fontSize: "0.875rem", fontWeight: "bold", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                                     Obiettivi per Materia (PEI/PDP)
                                 </h3>
                             </div>
-                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mb-8">
+                            <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem", marginBottom: "var(--md-sys-spacing-8)" }}>
                                 Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
                             </p>
                             
@@ -182,7 +182,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                                 {loadingSection === `obj-${materia}` ? (
                                                     <AiThinkingGem size="small" inline />
                                                 ) : (
-                                                    <span className="material-symbols-outlined text-sm text-primary/70 hover:text-primary">auto_awesome</span>
+                                                    <span className="material-symbols-outlined text-primary/70 hover:text-primary" style={{ fontSize: "0.875rem" }}>auto_awesome</span>
                                                 )}
                                             </M3Button>
                                         </div>
@@ -211,7 +211,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                             variant="outlined"
                             className="mr-auto !text-error !border-error/30 hover:!bg-error/5"
                         >
-                            <span className="material-symbols-outlined mr-2">delete</span>
+                            <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>delete</span>
                             Elimina
                         </M3Button>
                     )}

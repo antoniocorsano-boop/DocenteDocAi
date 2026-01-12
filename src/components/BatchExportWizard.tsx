@@ -271,28 +271,28 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
       <M3DialogContent>
           {/* Progress Bar durante generazione */}
           {progress && (
-            <div className="bg-[var(--md-sys-color-surface-container)] p-8 rounded-[var(--md-sys-shape-corner-medium)]">
-              <div className="flex items-center justify-between mb-8">
-                <span className="m3-body-small font-medium">Generazione in corso...</span>
+            <div className="bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-medium)]" style={{ padding: "var(--md-sys-spacing-8)" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--md-sys-spacing-8)" }}>
+                <span className="m3-body-small" style={{ fontWeight: "500" }}>Generazione in corso...</span>
                 <span className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{progress.current}/{progress.total}</span>
               </div>
-              <div className="w-full bg-[var(--md-sys-color-surface-container-high)] rounded-full h-2 mb-8">
+              <div className="bg-[var(--md-sys-color-surface-container-high)]" style={{ width: "100%", borderRadius: "9999px", height: "0.5rem", marginBottom: "var(--md-sys-spacing-8)" }}>
                 <div
-                  className="bg-primary h-2 rounded-full transition-all duration-300"
+                  className="duration-300" style={{ backgroundColor: "var(--md-sys-color-primary)", height: "0.5rem", borderRadius: "9999px", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
                   style={{ width: `${(progress.current / progress.total) * 100}%` }}
                 ></div>
               </div>
-              <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant truncate">{progress.currentDoc}</p>
+              <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
             </div>
           )}
 
           {/* Controlli selezione */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-8">
-              <span className="m3-body-small font-medium">
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+              <span className="m3-body-small" style={{ fontWeight: "500" }}>
                 Selezionati: {selectedDocuments.length} di {availableDocuments.length}
               </span>
-              <div className="flex gap-8">
+              <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}>
                 <M3Button onClick={selectAll} variant="text" className="m3-label-small" disabled={isGenerating}>
                   Seleziona Tutto
                 </M3Button>
@@ -316,13 +316,13 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           </div>
 
           {/* Lista documenti raggruppati */}
-          <div className="space-y-4 max-h-96 overflow-y-auto">
+          <div className="max-h-96" style={{ gap: "var(--md-sys-spacing-4)", overflowY: "auto" }}>
             {Object.entries(groupedDocuments).map(([groupName, docs]) => (
               <div key={groupName}>
-                <h3 className="m3-body-small font-bold text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider mb-8">
+                <h3 className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "var(--md-sys-spacing-8)" }}>
                   {groupName} ({docs.length})
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
                   {docs.map(doc => {
                     const isSelected = selectedDocuments.some(d => d.id === doc.id);
                     return (
@@ -335,7 +335,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                         }`}
                         onClick={() => !isGenerating && toggleDocumentSelection(doc.id)}
                       >
-                        <div className="flex items-start gap-6">
+                        <div style={{ display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-6)" }}>
                           <input
                             type="checkbox"
                             checked={isSelected}
@@ -344,9 +344,9 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                             className="mt-0.5"
                             aria-label={`Seleziona ${doc.title}`}
                           />
-                          <div className="flex-1 min-w-0">
-                            <p className="font-medium m3-body-small truncate">{doc.title}</p>
-                            <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant truncate">{doc.subtitle}</p>
+                          <div style={{ flex: "1", minWidth: "0" }}>
+                            <p className="m3-body-small" style={{ fontWeight: "500", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</p>
+                            <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
                             <span className={`inline-block px-4 py-0.5 m3-label-small rounded-full mt-4 ${
                               doc.format === 'pdf' ? 'bg-error-container text-on-error-container' : 'bg-primary-container text-on-primary-container'
                             }`}>

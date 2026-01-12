@@ -56,8 +56,8 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                         <p className="homework-submission-file-meta">{submission.file?.mimeType}</p>
                     </div>
                 </div>
-                <M3Button onClick={handleDownload} variant="tonal" className="!h-12 !px-6 text-sm font-black shadow-sm">
-                    <span className="material-symbols-outlined mr-2">download</span> 
+                <M3Button onClick={handleDownload} variant="tonal" className="!h-12 !px-6 shadow-sm" style={{ fontSize: "0.875rem", fontWeight: "900" }}>
+                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>download</span> 
                     Scarica
                 </M3Button>
             </div>
@@ -89,7 +89,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                         variant="filled"
                         className="homework-submission-submit-btn"
                     >
-                        <span className="material-symbols-outlined mr-2">task_alt</span>
+                        <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>task_alt</span>
                         Registra Valutazione & Archivia
                     </M3Button>
                 </div>

@@ -54,10 +54,10 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
             onClose={onClose}
             maxWidth="2xl"
         >
-            <M3DialogContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]">
-                        <h3 className="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-8">Media Voti per Classe</h3>
+            <M3DialogContent style={{ gap: "var(--md-sys-spacing-6)" }}>
+                <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-6)" }}>
+                    <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                        <h3 className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "1.125rem", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-8)" }}>Media Voti per Classe</h3>
                         <div style={{
   display: 'flex',
   justifyContent: 'center'
@@ -65,33 +65,33 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                             {classPerformanceData.length > 0 ? (
                                 <BarChart data={classPerformanceData} color="var(--sys-tertiary)" />
                             ) : (
-                                <p className="text-[var(--md-sys-color-on-surface)]-variant p-8">Dati insufficienti per generare il grafico.</p>
+                                <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ padding: "var(--md-sys-spacing-8)" }}>Dati insufficienti per generare il grafico.</p>
                             )}
                         </div>
-                        <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mt-4 text-center">
+                        <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem", marginTop: "var(--md-sys-spacing-4)", textAlign: "center" }}>
                             Confronto della media aritmetica dei voti di tutti gli studenti per ogni classe.
                         </p>
                     </div>
 
-                    <div className="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)] flex flex-col items-center">
-                        <h3 className="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-8">Situazione Globale</h3>
+                    <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                        <h3 className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "1.125rem", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-8)" }}>Situazione Globale</h3>
                         <DonutChart data={globalStats} />
-                        <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant mt-4 text-center">
+                        <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem", marginTop: "var(--md-sys-spacing-4)", textAlign: "center" }}>
                             Proporzione di studenti con media sufficiente vs insufficiente su tutte le classi.
                         </p>
                     </div>
                 </div>
                 
-                <div className="bg-[var(--md-sys-color-surface-container-low)] p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]">
-                     <h3 className="text-lg font-bold text-[var(--md-sys-color-on-surface)] mb-8">Dettaglio Numerico</h3>
-                     <div className="overflow-x-auto">
-                         <table className="w-full text-left border-collapse">
+                <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                     <h3 className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "1.125rem", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-8)" }}>Dettaglio Numerico</h3>
+                     <div style={{ overflowX: "auto" }}>
+                         <table className="border-collapse" style={{ width: "100%", textAlign: "left" }}>
                              <thead>
-                                 <tr className="border-b border-[var(--md-sys-color-outline-variant)]">
-                                     <th className="py-3 px-4 text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant">Classe</th>
-                                     <th className="py-3 px-4 text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant">Studenti</th>
-                                     <th className="py-3 px-4 text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant">Media Classe</th>
-                                     <th className="py-3 px-4 text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant">Verifiche Svolte</th>
+                                 <tr className="border-[var(--md-sys-color-outline-variant)]" style={{ borderBottom: "1px solid var(--md-sys-color-outline)" }}>
+                                     <th className="py-3 text-[var(--md-sys-color-on-surface)]-variant" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", fontSize: "0.875rem", fontWeight: "bold" }}>Classe</th>
+                                     <th className="py-3 text-[var(--md-sys-color-on-surface)]-variant" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", fontSize: "0.875rem", fontWeight: "bold" }}>Studenti</th>
+                                     <th className="py-3 text-[var(--md-sys-color-on-surface)]-variant" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", fontSize: "0.875rem", fontWeight: "bold" }}>Media Classe</th>
+                                     <th className="py-3 text-[var(--md-sys-color-on-surface)]-variant" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", fontSize: "0.875rem", fontWeight: "bold" }}>Verifiche Svolte</th>
                                  </tr>
                              </thead>
                              <tbody>
@@ -100,11 +100,11 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                                      const avg = classPerformanceData.find(d => d.label === c)?.value || '-';
                                      const evalsCount = evaluations.filter(e => students.find(s => s.id === e.studenteId)?.classe === c).length;
                                      return (
-                                         <tr key={c} className="border-b border-[var(--md-sys-color-outline-variant)]/50 hover:bg-[var(--md-sys-color-surface-container-high)] transition-colors">
-                                             <td className="py-3 px-4 font-bold text-[var(--md-sys-color-on-surface)]">{c}</td>
-                                             <td className="py-3 px-4 text-[var(--md-sys-color-on-surface)]-variant">{sCount}</td>
-                                             <td className="py-3 px-4 text-[var(--md-sys-color-on-surface)]-variant">{avg}</td>
-                                             <td className="py-3 px-4 text-[var(--md-sys-color-on-surface)]-variant">{evalsCount}</td>
+                                         <tr key={c} className="border-[var(--md-sys-color-outline-variant)]/50 hover:bg-[var(--md-sys-color-surface-container-high)]" style={{ borderBottom: "1px solid var(--md-sys-color-outline)", transition: "color 300ms" }}>
+                                             <td className="py-3 text-[var(--md-sys-color-on-surface)]" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", fontWeight: "bold" }}>{c}</td>
+                                             <td className="py-3 text-[var(--md-sys-color-on-surface)]-variant" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>{sCount}</td>
+                                             <td className="py-3 text-[var(--md-sys-color-on-surface)]-variant" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>{avg}</td>
+                                             <td className="py-3 text-[var(--md-sys-color-on-surface)]-variant" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>{evalsCount}</td>
                                          </tr>
                                      )
                                  })}

@@ -120,9 +120,9 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
             level={2}
         >
             <M3DialogContent className="p-0 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
-                <div className="grid grid-cols-1 md:grid-cols-2 h-[500px]">
+                <div className="md:grid-cols-2 h-[500px]" style={{ display: "grid", gridTemplateColumns: "1fr" }}>
                     {/* Left: Source */}
-                    <div className="p-6 border-r border-[var(--md-sys-color-outline-variant)]/30 flex flex-col gap-6 overflow-hidden">
+                    <div className="border-[var(--md-sys-color-outline-variant)]/30 overflow-hidden" style={{ padding: "var(--md-sys-spacing-6)", borderRight: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
                         <TabGroup
                             tabs={tabs}
                             activeTab={activeTab}
@@ -131,14 +131,14 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         />
 
                         {activeTab === 'kb' && (
-                            <div className="flex-grow flex flex-col gap-8 overflow-hidden">
+                            <div className="overflow-hidden" style={{ flexGrow: "1", display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
                                 <TextField 
                                     label="Cerca nella KB..." 
                                     value={searchTerm} 
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     fullWidth
                                 />
-                                <div className="flex-grow overflow-y-auto custom-scrollbar space-y-2 pr-2">
+                                <div className="custom-scrollbar pr-2" style={{ flexGrow: "1", overflowY: "auto", gap: "var(--md-sys-spacing-2)" }}>
                                     {filteredKb.map(entry => {
                                         const isSelected = materials.some(m => m.type === 'kb' && m.kbId === entry.id);
                                         return (
@@ -156,12 +156,12 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
 }}>
                                                     {isSelected ? 'check_circle' : 'description'}
                                                 </span>
-                                                <span className="truncate text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] flex-1">{entry.fileName}</span>
+                                                <span className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: "1" }}>{entry.fileName}</span>
                                             </div>
                                         )
                                     })}
                                     {filteredKb.length === 0 && (
-                                        <div className="text-center py-10 opacity-50">Nessun documento trovato.</div>
+                                        <div className="py-10" style={{ textAlign: "center", opacity: "0.5" }}>Nessun documento trovato.</div>
                                     )}
                                 </div>
                             </div>
@@ -177,11 +177,11 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 } ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[var(--md-sys-color-surface-container)]'}`}
                             >
                                 <input {...getInputProps()} />
-                                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-8">
-                                    <span className="material-symbols-outlined text-3xl text-primary">upload_file</span>
+                                <div className="bg-primary/10" style={{ width: "4rem", height: "4rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "var(--md-sys-spacing-8)" }}>
+                                    <span className="material-symbols-outlined text-3xl" style={{ color: "var(--md-sys-color-primary)" }}>upload_file</span>
                                 </div>
                                 <p className="m3-title-medium">Trascina qui i file</p>
-                                <p className="m3-body-small opacity-70 mt-4">oppure clicca per sfogliare</p>
+                                <p className="m3-body-small" style={{ opacity: "0.7", marginTop: "var(--md-sys-spacing-4)" }}>oppure clicca per sfogliare</p>
                             </div>
                         )}
 
@@ -201,8 +201,8 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                     onChange={e => setLinkLabel(e.target.value)} 
                                     fullWidth 
                                 />
-                                <M3Button onClick={handleAddLink} variant="filled" className="w-full !h-14">
-                                    <span className="material-symbols-outlined mr-2">add</span>
+                                <M3Button onClick={handleAddLink} variant="filled" className="!h-14" style={{ width: "100%" }}>
+                                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add</span>
                                     Aggiungi Link
                                 </M3Button>
                             </div>
@@ -210,24 +210,24 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                     </div>
 
                     {/* Right: Selected */}
-                    <div className="p-6 flex flex-col gap-8 overflow-hidden bg-[var(--md-sys-color-surface-container-low)]est/50">
-                        <div className="flex items-center justify-between">
+                    <div className="overflow-hidden bg-[var(--md-sys-color-surface-container-low)]est/50" style={{ padding: "var(--md-sys-spacing-6)", display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <h3 className="m3-title-medium">Selezionati</h3>
-                            <span className="px-3 py-1 rounded-full bg-primary text-on-primary text-xs font-bold">
+                            <span className="px-3 py-1" style={{ borderRadius: "9999px", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "0.75rem", fontWeight: "bold" }}>
                                 {materials.length}
                             </span>
                         </div>
-                        <div className="flex-grow overflow-y-auto custom-scrollbar space-y-2 pr-2">
+                        <div className="custom-scrollbar pr-2" style={{ flexGrow: "1", overflowY: "auto", gap: "var(--md-sys-spacing-2)" }}>
                             {materials.map(material => (
-                                <div key={material.id} className="flex items-center justify-between p-6 rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container)] border border-[var(--md-sys-color-outline-variant)]/30 group">
-                                    <div className="flex items-center gap-6 truncate">
-                                        <span className="material-symbols-outlined text-primary">{getMaterialIcon(material)}</span>
-                                        <span className="truncate text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">{getMaterialLabel(material)}</span>
+                                <div key={material.id} className="rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container)] border-[var(--md-sys-color-outline-variant)]/30 group" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                                        <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>{getMaterialIcon(material)}</span>
+                                        <span className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{getMaterialLabel(material)}</span>
                                     </div>
                                     <M3Button 
                                         onClick={() => handleRemoveMaterial(material.id)} 
                                         variant="text" 
-                                        className="text-error !p-8 !min-w-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        className="!p-8 !min-w-0 group-hover:opacity-100" style={{ color: "var(--md-sys-color-error)", opacity: "0", transition: "opacity 300ms" }}
                                     >
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -236,8 +236,8 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 </div>
                             ))}
                             {materials.length === 0 && (
-                                <div className="flex flex-col items-center justify-center h-full opacity-30">
-                                    <span className="material-symbols-outlined text-6xl mb-8">inventory_2</span>
+                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", opacity: "0.3" }}>
+                                    <span className="material-symbols-outlined text-6xl" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>inventory_2</span>
                                     <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">Nessun materiale selezionato</p>
                                 </div>
                             )}
@@ -245,7 +245,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]est border-t border-[var(--md-sys-color-outline-variant)]/30">
+            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]est border-[var(--md-sys-color-outline-variant)]/30" style={{ borderTop: "1px solid var(--md-sys-color-outline)" }}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button onClick={() => onSave(materials)} variant="filled">Salva</M3Button>
             </M3DialogActions>

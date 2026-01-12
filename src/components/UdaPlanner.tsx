@@ -222,7 +222,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                             <div className={`uda-picker-checkbox ${isSelected ? 'uda-picker-checkbox-selected' : ''}`}>
                                                 {isSelected && <span className="material-symbols-outlined uda-picker-check-icon">check</span>}
                                             </div>
-                                            <div className="min-w-0">
+                                            <div style={{ minWidth: "0" }}>
                                                 <p className="uda-picker-code">{comp.codice}</p>
                                                 <p className="uda-picker-name">{comp.nome}</p>
                                             </div>
@@ -232,7 +232,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             </div>
                         </M3DialogContent>
                         <M3DialogActions className="uda-picker-actions">
-                            <M3Button onClick={handlePickerClose} variant="primary" className="w-full">Conferma Selezione</M3Button>
+                            <M3Button onClick={handlePickerClose} variant="primary" style={{ width: "100%" }}>Conferma Selezione</M3Button>
                         </M3DialogActions>
                     </M3Dialog>
                 )}
@@ -326,10 +326,10 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                         competenze={competenze}
                     />
                 ) : (
-                    <div className="px-4 md:px-0">
+                    <div className="md:px-0" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>
                         <div className="uda-planner-table-container">
                             {udas.length > 0 ? (
-                                <div className="overflow-x-auto no-scrollbar">
+                                <div className="no-scrollbar" style={{ overflowX: "auto" }}>
                                     <table className="uda-planner-table">
                                         <thead className="uda-planner-table-header">
                                             <tr>

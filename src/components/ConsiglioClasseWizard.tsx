@@ -59,7 +59,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
 
     const renderStep1 = () => (
         <>
-            <M3DialogContent className="space-y-6">
+            <M3DialogContent style={{ gap: "var(--md-sys-spacing-6)" }}>
                 <InfoCard 
                     title="Seleziona il contesto" 
                     description="Scegli la classe e il periodo di riferimento per il quale desideri generare il report." 
@@ -77,8 +77,8 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     {props.userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                 </SelectField>
 
-                 <div className="space-y-2">
-                    <label className="m3-label-small text-primary font-black uppercase tracking-[0.2em] px-4">Periodo di Valutazione</label>
+                 <div style={{ gap: "var(--md-sys-spacing-2)" }}>
+                    <label className="m3-label-small tracking-[0.2em]" style={{ color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>Periodo di Valutazione</label>
                     <TabGroup
                         tabs={[
                             { id: 'primo-quadrimestre', label: 'Primo Quadrimestre (1Q)' },
@@ -87,7 +87,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                         activeTab={periodo}
                         onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
                         variant="primary"
-                        className="w-full"
+                        style={{ width: "100%" }}
                     />
                 </div>
             </M3DialogContent>
@@ -109,18 +109,18 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
 
     const renderStep2 = () => (
         <>
-            <M3DialogContent className="space-y-6">
-                <div className="p-5 bg-primary-container/20 rounded-[var(--md-sys-shape-corner-extra-large)] border border-primary/20 flex items-center justify-between">
+            <M3DialogContent style={{ gap: "var(--md-sys-spacing-6)" }}>
+                <div className="bg-primary-container/20 rounded-[var(--md-sys-shape-corner-extra-large)] border-primary/20" style={{ padding: "var(--md-sys-spacing-5)", border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <div>
-                        <p className="text-[9px] font-black uppercase tracking-widest text-primary">Context Active</p>
-                        <h3 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
+                        <p className="text-[9px]" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)" }}>Context Active</p>
+                        <h3 className="m3-title-large text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
                     </div>
-                    <M3Button variant="tonal" onClick={() => setStep(1)} className="!h-10 !px-4 text-xs font-bold uppercase">Cambia</M3Button>
+                    <M3Button variant="tonal" onClick={() => setStep(1)} className="!h-10 !px-4" style={{ fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase" }}>Cambia</M3Button>
                 </div>
 
-                <div className="action-list space-y-3">
-                    <button onClick={handleGeneratePdf} className="op-tile op-tile-variant-primary !bg-surface shadow-[var(--md-sys-elevation-level1)] group rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)] transition-all w-full text-left">
-                        <div className="op-tile-icon-container"><span className="material-symbols-outlined group-hover:scale-110 transition-transform">picture_as_pdf</span></div>
+                <div className="action-list" style={{ gap: "var(--md-sys-spacing-3)" }}>
+                    <button onClick={handleGeneratePdf} className="op-tile op-tile-variant-primary !bg-surface shadow-[var(--md-sys-elevation-level1)] group rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)]" style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", width: "100%", textAlign: "left" }}>
+                        <div className="op-tile-icon-container"><span className="material-symbols-outlined group-hover:scale-110" style={{ transition: "transform 300ms" }}>picture_as_pdf</span></div>
                         <div className="op-tile-content">
                             <p className="op-tile-title">Tabellone Dati (PDF)</p>
                             <p className="op-tile-subtitle">Medie, trend e rilevazioni competenze.</p>
@@ -128,7 +128,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     </button>
                 </div>
                 
-                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant italic text-center px-4">
+                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant italic" style={{ textAlign: "center", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>
                     Il report verrà generato e aperto in una nuova scheda del browser.
                 </p>
             </M3DialogContent>
@@ -145,9 +145,9 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                  title=""
                  maxWidth="sm"
              >
-                <M3DialogContent className="flex flex-col items-center justify-center text-center py-8">
-                    <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-primary mb-6"></div>
-                    <p className="m3-title-medium font-black text-primary animate-pulse">{loadingMessage}</p>
+                <M3DialogContent className="py-8" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+                    <div className="animate-spin" style={{ borderRadius: "9999px", height: "4rem", width: "4rem", borderBottom: "4px solid var(--md-sys-color-outline)", borderColor: "var(--md-sys-color-primary)", marginBottom: "var(--md-sys-spacing-6)" }}></div>
+                    <p className="m3-title-medium animate-pulse" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)" }}>{loadingMessage}</p>
                 </M3DialogContent>
             </M3Dialog>
         )

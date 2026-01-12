@@ -29,7 +29,7 @@ const LiveAssistantModal: React.FC<LiveAssistantModalProps> = ({
             onClose={onClose}
             maxWidth="2xl"
         >
-            <M3DialogContent className="h-[85vh] flex flex-col overflow-hidden bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
+            <M3DialogContent className="h-[85vh] overflow-hidden bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm" style={{ display: "flex", flexDirection: "column" }}>
                 <LiveAssistant 
                     lessonContext={lessonContext} 
                     isModalMode={true} 

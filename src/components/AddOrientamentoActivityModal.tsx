@@ -39,14 +39,14 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
 
     return (
         <M3Dialog isOpen={isOpen} onClose={onClose} title="Nuova Attività di Orientamento">
-            <M3DialogContent className="space-y-8 pt-8 px-8 md:px-16">
+            <M3DialogContent className="pt-8 px-8 md:px-16" style={{ gap: "var(--md-sys-spacing-8)" }}>
                 <TextField
                     label="Titolo Attività"
                     value={activity.title}
                     onChange={(e) => setActivity({ ...activity, title: e.target.value })}
                 />
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
+                <div className="sm:grid-cols-2 gap-16" style={{ display: "grid", gridTemplateColumns: "1fr" }}>
                     <SelectField
                         label="Tipo"
                         value={activity.type}
@@ -83,7 +83,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
                     <label className="m3-label-medium text-[var(--md-sys-color-on-surface)]-variant">Classi Coinvolte</label>
-                    <div className="flex flex-wrap gap-12">
+                    <div className="gap-12" style={{ display: "flex", flexWrap: "wrap" }}>
                         {userClasses.map(cls => (
                             <button
                                 key={cls}

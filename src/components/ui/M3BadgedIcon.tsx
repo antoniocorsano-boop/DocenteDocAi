@@ -21,7 +21,7 @@ const M3BadgedIcon: React.FC<M3BadgedIconProps> = ({
         lg: { container: 'text-4xl', badge: 'text-base px-2.5 py-1' }
     };
     return (
-        <div className="relative inline-flex items-center justify-center">
+        <div className="relative" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
             <span className={`material-symbols-outlined ${sizeMap[size].container} ${color}`}>
                 {icon}
             </span>

@@ -103,7 +103,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                 >
                                     {active && <span className="competency-manager-competency-checkbox-icon">check</span>}
                                 </div>
-                                <div className="flex-grow min-w-0">
+                                <div style={{ flexGrow: "1", minWidth: "0" }}>
                                     <span className="competency-manager-competency-code">{comp.codice}</span>
                                     <h3 className="competency-manager-competency-name">{comp.nome}</h3>
                                     <p className="competency-manager-competency-framework">{comp.framework}</p>
@@ -115,7 +115,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                 <div className="competency-manager-competency-levels-grid">
                                     {comp.livelli.map(lvl => (
                                         <div key={lvl.id} className="competency-manager-competency-level-card">
-                                            <strong>{lvl.nome}:</strong> <span className="opacity-80">{lvl.descrizione}</span>
+                                            <strong>{lvl.nome}:</strong> <span style={{ opacity: "0.8" }}>{lvl.descrizione}</span>
                                         </div>
                                     ))}
                                 </div>

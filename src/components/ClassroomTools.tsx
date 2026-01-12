@@ -69,7 +69,7 @@ const TimerWidget: React.FC = () => {
                     onClick={handleStartPause} 
                     className={`classroom-tools-timer-start-pause-button button ${isActive ? 'button-outlined' : 'button-filled'}`}
                 >
-                    <span className="material-symbols-outlined mr-2">{isActive ? 'pause' : 'play_arrow'}</span>
+                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>{isActive ? 'pause' : 'play_arrow'}</span>
                     {isActive ? 'Pausa' : 'Avvia'}
                 </button>
             </div>

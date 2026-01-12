@@ -39,7 +39,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent className="space-y-8 px-8 pt-8 pb-0">
+            <M3DialogContent className="px-8 pt-8 pb-0" style={{ gap: "var(--md-sys-spacing-8)" }}>
                 <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">
                     Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarrà automaticamente date, orari e dettagli per creare l'evento nel calendario.
                 </p>
@@ -52,26 +52,26 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                         id="event-text"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                        className="form-textarea w-full"
+                        className="form-textarea" style={{ width: "100%" }}
                         rows={10}
                         placeholder="Es. 'Si comunica che il consiglio della classe 3A è convocato per il giorno 15/10/2024 alle ore 15:30...'"
                         disabled={isLoading}
                         autoFocus
                     />
                 </div>
-                {error && <p className="text-error text-center m3-body-small mt-4">{error}</p>}
+                {error && <p className="m3-body-small" style={{ color: "var(--md-sys-color-error)", textAlign: "center", marginTop: "var(--md-sys-spacing-4)" }}>{error}</p>}
             </M3DialogContent>
-            <M3DialogActions className="gap-12 px-8 pb-8 pt-0">
+            <M3DialogActions className="gap-12 px-8 pb-8" style={{ paddingTop: "0" }}>
                 <M3Button variant="text" onClick={onClose} type="button" disabled={isLoading}>Annulla</M3Button>
                 <M3Button variant="filled" onClick={handleParse} type="button" disabled={isLoading || !text.trim()}>
                     {isLoading ? (
                         <>
-                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-on-primary mr-2"></div>
+                            <div className="animate-spin border-b-2 border-on-primary" style={{ borderRadius: "9999px", height: "1.25rem", width: "1.25rem", marginRight: "0.5rem" }}></div>
                             Analisi in corso...
                         </>
                     ) : (
                         <>
-                            <span className="material-symbols-outlined mr-2">auto_awesome</span>
+                            <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>auto_awesome</span>
                             Analizza Testo
                         </>
                     )}

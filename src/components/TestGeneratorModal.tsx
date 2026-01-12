@@ -96,7 +96,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                         <label className={`test-generator-modal-question-type-chip ${questionTypes.includes('multiple_choice') ? 'selected' : ''}`}>
                             <input
                                 type="checkbox"
-                                className="hidden"
+                                style={{ display: "none" }}
                                 checked={questionTypes.includes('multiple_choice')}
                                 onChange={() => toggleQuestionType('multiple_choice')}
                             />
@@ -107,7 +107,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                         <label className={`test-generator-modal-question-type-chip ${questionTypes.includes('true_false') ? 'selected' : ''}`}>
                             <input
                                 type="checkbox"
-                                className="hidden"
+                                style={{ display: "none" }}
                                 checked={questionTypes.includes('true_false')}
                                 onChange={() => toggleQuestionType('true_false')}
                             />

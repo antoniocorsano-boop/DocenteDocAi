@@ -55,7 +55,7 @@ export const WithIconAndAction: Story = {
   args: {
     children: (
       <div>
-        <div className="mb-4">
+        <div style={{ marginBottom: "var(--md-sys-spacing-4)" }}>
           <svg
             width="64"
             height="64"
@@ -70,13 +70,13 @@ export const WithIconAndAction: Story = {
             />
           </svg>
         </div>
-        <M3Typography variant="headline-small" as="h3" className="mb-2">
+        <M3Typography variant="headline-small" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
           No documents yet
         </M3Typography>
-        <M3Typography variant="body-medium" as="p" className="mb-4">
+        <M3Typography variant="body-medium" as="p" style={{ marginBottom: "var(--md-sys-spacing-4)" }}>
           Start by creating your first document to get organized.
         </M3Typography>
-        <button className="px-4 py-2 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] rounded-full">
+        <button className="py-2 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)]" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "9999px" }}>
           Create Document
         </button>
       </div>

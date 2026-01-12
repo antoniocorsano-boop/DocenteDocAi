@@ -60,21 +60,21 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                             if (id === 'text' || id === 'json') setActiveTab(id);
                         }}
                         variant="primary"
-                        className="w-full"
+                        style={{ width: "100%" }}
                     />
                 </div>
 
                 <div className="space-y-12">
-                    <div className="flex flex-wrap gap-12 p-12 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)] shadow-inner">
-                        <label className="chip cursor-pointer has-checkbox select-none flex items-center">
+                    <div className="gap-12 p-12 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)] shadow-inner" style={{ display: "flex", flexWrap: "wrap", border: "1px solid var(--md-sys-color-outline)" }}>
+                        <label className="chip has-checkbox select-none" style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
                             <input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)} className="mr-4 accent-primary" /> 
                             Assenti
                         </label>
-                        <label className="chip cursor-pointer has-checkbox select-none flex items-center">
+                        <label className="chip has-checkbox select-none" style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
                             <input type="checkbox" checked={includeGrades} onChange={e => setIncludeGrades(e.target.checked)} className="mr-4 accent-primary" /> 
                             Voti
                         </label>
-                        <label className="chip cursor-pointer has-checkbox select-none flex items-center">
+                        <label className="chip has-checkbox select-none" style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
                             <input type="checkbox" checked={includeHomework} onChange={e => setIncludeHomework(e.target.checked)} className="mr-4 accent-primary" /> 
                             Compiti
                         </label>
@@ -89,10 +89,10 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                     />
                 </div>
             </M3DialogContent>
-            <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
+            <M3DialogActions className="gap-12 px-12 pb-12" style={{ paddingTop: "0" }}>
                 <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                 <M3Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-16">
-                    <span className="material-symbols-outlined mr-2">content_copy</span> COPIA
+                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>content_copy</span> COPIA
                 </M3Button>
             </M3DialogActions>
         </M3Dialog>

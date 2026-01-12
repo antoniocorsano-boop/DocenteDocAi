@@ -55,24 +55,24 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
             mode="fullscreen"
         >
             <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full overflow-y-visible pb-8">
+                <div className="md:grid-cols-2 overflow-y-visible pb-8" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-6)", height: "100%" }}>
                     {/* Left Column: Performance */}
-                    <div className="space-y-6">
-                        <div data-testid="m3-card" className="bg-[var(--md-sys-color-surface-container-low)]est/50 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm">
-                            <h2 className="m3-title-large mb-8 flex items-center gap-8">
-                                <span className="material-symbols-outlined text-primary">monitoring</span>
+                    <div style={{ gap: "var(--md-sys-spacing-6)" }}>
+                        <div data-testid="m3-card" className="bg-[var(--md-sys-color-surface-container-low)]est/50 rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]/30 shadow-sm" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                            <h2 className="m3-title-large" style={{ marginBottom: "var(--md-sys-spacing-8)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>monitoring</span>
                                 Andamento Didattico
                             </h2>
-                            <div className="flex items-center gap-6 mb-6">
-                                <div className="bg-[var(--md-sys-color-surface-container-high)] p-8 rounded-[var(--md-sys-shape-corner-large)] flex-1 border border-[var(--md-sys-color-outline-variant)]">
-                                    <span className="block text-sm text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider font-bold">Media Generale</span>
+                            <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", marginBottom: "var(--md-sys-spacing-6)" }}>
+                                <div className="bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-8)", flex: "1", border: "1px solid var(--md-sys-color-outline)" }}>
+                                    <span className="text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "block", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: "bold" }}>Media Generale</span>
                                     <span className={`text-4xl font-bold ${parseFloat(performance.grade || '0') < 6 ? 'text-error' : 'text-primary'}`}>
                                         {performance.grade || '-'}
                                     </span>
                                 </div>
-                                <div className="bg-[var(--md-sys-color-surface-container-high)] p-8 rounded-[var(--md-sys-shape-corner-large)] flex-1 border border-[var(--md-sys-color-outline-variant)]">
-                                    <span className="block text-sm text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-wider font-bold">Trend</span>
-                                    <div className="flex items-center justify-start gap-4 mt-4">
+                                <div className="bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-8)", flex: "1", border: "1px solid var(--md-sys-color-outline)" }}>
+                                    <span className="text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "block", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: "bold" }}>Trend</span>
+                                    <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "var(--md-sys-spacing-4)", marginTop: "var(--md-sys-spacing-4)" }}>
                                         <span className={`material-symbols-outlined text-4xl ${performance.trend === 'up' ? 'text-tertiary' : performance.trend === 'down' ? 'text-error' : 'text-outline/50'}`}>
                                             {performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat'}
                                         </span>
@@ -80,23 +80,23 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                                 </div>
                             </div>
 
-                            <h3 className="m3-title-medium mb-8 font-bold">Media per Materia</h3>
+                            <h3 className="m3-title-medium" style={{ marginBottom: "var(--md-sys-spacing-8)", fontWeight: "bold" }}>Media per Materia</h3>
                             <div className="md:h-64 h-48">
                                 <BarChart data={subjectAverages} color="var(--md-sys-color-primary)" horizontal />
                             </div>
                         </div>
 
-                        <div data-testid="m3-card" className="bg-[var(--md-sys-color-surface-container-low)]est/50 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm">
-                            <h2 className="m3-title-large mb-8 flex items-center gap-8">
-                                <span className="material-symbols-outlined text-secondary">history</span>
+                        <div data-testid="m3-card" className="bg-[var(--md-sys-color-surface-container-low)]est/50 rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]/30 shadow-sm" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                            <h2 className="m3-title-large" style={{ marginBottom: "var(--md-sys-spacing-8)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-secondary)" }}>history</span>
                                 Ultime Valutazioni
                             </h2>
-                            <div className="space-y-2">
+                            <div style={{ gap: "var(--md-sys-spacing-2)" }}>
                                 {evaluations.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()).slice(0, 5).map(ev => (
-                                    <div key={ev.id} className="flex justify-between items-center p-6 bg-[var(--md-sys-color-surface-container-low)]est rounded-[var(--md-sys-shape-corner-medium)] border border-[var(--md-sys-color-outline-variant)]/50 hover:bg-[var(--md-sys-color-surface-container-low)] transition-colors">
+                                    <div key={ev.id} className="bg-[var(--md-sys-color-surface-container-low)]est rounded-[var(--md-sys-shape-corner-medium)] border-[var(--md-sys-color-outline-variant)]/50 hover:bg-[var(--md-sys-color-surface-container-low)]" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", transition: "color 300ms" }}>
                                         <div>
-                                            <p className="font-bold text-[var(--md-sys-color-on-surface)]">{ev.materia}</p>
-                                            <p className="text-xs text-[var(--md-sys-color-on-surface)]-variant">{new Date(ev.data).toLocaleDateString()}</p>
+                                            <p className="text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "bold" }}>{ev.materia}</p>
+                                            <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem" }}>{new Date(ev.data).toLocaleDateString()}</p>
                                         </div>
                                         <span className={`text-lg font-bold ${parseFloat(ev.voto) < 6 ? 'text-error' : 'text-primary'}`}>
                                             {ev.voto}
@@ -108,22 +108,22 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                     </div>
 
                     {/* Right Column: Competencies & Notes */}
-                    <div className="space-y-6">
-                        <div data-testid="m3-card" className="bg-[var(--md-sys-color-surface-container-low)]est/50 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm">
-                            <h2 className="m3-title-large mb-8 flex items-center gap-8">
-                                <span className="material-symbols-outlined text-tertiary">verified</span>
+                    <div style={{ gap: "var(--md-sys-spacing-6)" }}>
+                        <div data-testid="m3-card" className="bg-[var(--md-sys-color-surface-container-low)]est/50 rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]/30 shadow-sm" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                            <h2 className="m3-title-large" style={{ marginBottom: "var(--md-sys-spacing-8)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-tertiary)" }}>verified</span>
                                 Competenze Trasversali
                             </h2>
-                            <div className="space-y-3">
+                            <div style={{ gap: "var(--md-sys-spacing-3)" }}>
                                 {recentCompetencies.length > 0 ? (
                                     recentCompetencies.map((comp: ValutazioneCompetenza, idx) => (
-                                        <div key={idx} className="p-8 bg-tertiary-container/10 rounded-[var(--md-sys-shape-corner-large)] border border-tertiary/20">
-                                            <div className="flex justify-between items-start mb-4">
-                                                <h4 className="font-bold text-[var(--md-sys-color-on-surface)]">{comp.name}</h4>
-                                                <span className="badge-chip bg-tertiary text-on-tertiary border-none">{comp.level}</span>
+                                        <div key={idx} className="bg-tertiary-container/10 rounded-[var(--md-sys-shape-corner-large)] border-tertiary/20" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
+                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "var(--md-sys-spacing-4)" }}>
+                                                <h4 className="text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "bold" }}>{comp.name}</h4>
+                                                <span className="badge-chip text-on-tertiary" style={{ backgroundColor: "var(--md-sys-color-tertiary)", border: "none" }}>{comp.level}</span>
                                             </div>
-                                            <p className="text-sm text-[var(--md-sys-color-on-surface)]-variant italic">{comp.desc}</p>
-                                            <p className="text-[10px] mt-4 text-[var(--md-sys-color-on-surface)]-variant/60 uppercase tracking-widest">Rilevato il {new Date(comp.date).toLocaleDateString()}</p>
+                                            <p className="text-[var(--md-sys-color-on-surface)]-variant italic" style={{ fontSize: "0.875rem" }}>{comp.desc}</p>
+                                            <p className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant/60" style={{ marginTop: "var(--md-sys-spacing-4)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Rilevato il {new Date(comp.date).toLocaleDateString()}</p>
                                         </div>
                                     ))
                                 ) : (
@@ -135,23 +135,23 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                             </div>
                         </div>
 
-                        <div data-testid="m3-card" className="bg-[var(--md-sys-color-surface-container-low)]est/50 p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm">
-                            <h2 className="m3-title-large mb-8 flex items-center gap-8">
-                                <span className="material-symbols-outlined text-primary">info</span>
+                        <div data-testid="m3-card" className="bg-[var(--md-sys-color-surface-container-low)]est/50 rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]/30 shadow-sm" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                            <h2 className="m3-title-large" style={{ marginBottom: "var(--md-sys-spacing-8)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>info</span>
                                 Informazioni Studente
                             </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="p-6 bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-medium)]">
-                                    <span className="text-xs text-[var(--md-sys-color-on-surface)]-variant uppercase font-bold">Classe</span>
-                                    <p className="text-lg font-bold">{student.classe}</p>
+                            <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
+                                <div className="bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-medium)]" style={{ padding: "var(--md-sys-spacing-6)" }}>
+                                    <span className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem", textTransform: "uppercase", fontWeight: "bold" }}>Classe</span>
+                                    <p style={{ fontSize: "1.125rem", fontWeight: "bold" }}>{student.classe}</p>
                                 </div>
-                                <div className="p-6 bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-medium)]">
-                                    <span className="text-xs text-[var(--md-sys-color-on-surface)]-variant uppercase font-bold">Bisogni</span>
-                                    <div className="flex gap-4 mt-4">
-                                        {student.hasBES && <span className="w-3 h-3 rounded-full bg-warning" title="BES"></span>}
-                                        {student.hasDSA && <span className="w-3 h-3 rounded-full bg-error" title="DSA"></span>}
-                                        {student.has104 && <span className="w-3 h-3 rounded-full bg-primary" title="L.104"></span>}
-                                        {!student.hasBES && !student.hasDSA && !student.has104 && <span className="text-sm">-</span>}
+                                <div className="bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-medium)]" style={{ padding: "var(--md-sys-spacing-6)" }}>
+                                    <span className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem", textTransform: "uppercase", fontWeight: "bold" }}>Bisogni</span>
+                                    <div style={{ display: "flex", gap: "var(--md-sys-spacing-4)", marginTop: "var(--md-sys-spacing-4)" }}>
+                                        {student.hasBES && <span className="bg-warning" style={{ width: "0.75rem", height: "0.75rem", borderRadius: "9999px" }} title="BES"></span>}
+                                        {student.hasDSA && <span className="bg-error" style={{ width: "0.75rem", height: "0.75rem", borderRadius: "9999px" }} title="DSA"></span>}
+                                        {student.has104 && <span style={{ width: "0.75rem", height: "0.75rem", borderRadius: "9999px", backgroundColor: "var(--md-sys-color-primary)" }} title="L.104"></span>}
+                                        {!student.hasBES && !student.hasDSA && !student.has104 && <span style={{ fontSize: "0.875rem" }}>-</span>}
                                     </div>
                                 </div>
                             </div>

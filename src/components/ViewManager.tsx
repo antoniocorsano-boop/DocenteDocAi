@@ -376,9 +376,9 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     // 404 Fallback
                     return (
                         <AuraView>
-                            <div className="p-12 text-center opacity-50">
+                            <div className="p-12" style={{ textAlign: "center", opacity: "0.5" }}>
                                 <h2 className="m3-headline-medium">Vista "{view}" non trovata</h2>
-                                <button onClick={() => actions.handleNavigate('home')} className="m3-button-filled mt-4">
+                                <button onClick={() => actions.handleNavigate('home')} className="m3-button-filled" style={{ marginTop: "var(--md-sys-spacing-4)" }}>
                                     Torna alla Home
                                 </button>
                             </div>

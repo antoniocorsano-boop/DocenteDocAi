@@ -72,9 +72,9 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
             maxWidth="2xl"
             mode="fullscreen"
         >
-            <form onSubmit={handleSubmit} className="flex flex-col h-full">
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
                 <M3DialogContent className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl">
-                    <div className="p-6 space-y-8">
+                    <div style={{ padding: "var(--md-sys-spacing-6)", gap: "var(--md-sys-spacing-8)" }}>
                         <div className="mb-10">
                             <TextField 
                                 label="Titolo della Rubrica"
@@ -86,13 +86,13 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                             />
                         </div>
                         
-                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                        <div className="lg:grid-cols-4" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
                             {/* Sezione Selezione */}
-                            <div className="lg:col-span-1 space-y-4">
+                            <div className="lg:col-span-1" style={{ gap: "var(--md-sys-spacing-4)" }}>
                                 <SectionHeader title="Criteri di Competenza" icon="checklist" variant="primary" />
-                                 <div className="selection-container large !bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-md border border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-extra-large)] p-8">
+                                 <div className="selection-container large !bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-md border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-extra-large)]" style={{ border: "1px solid var(--md-sys-color-outline)", padding: "var(--md-sys-spacing-8)" }}>
                                     {allCompetenze.map(comp => (
-                                         <div key={comp.id} className="chip-checkbox w-full mb-4">
+                                         <div key={comp.id} className="chip-checkbox" style={{ width: "100%", marginBottom: "var(--md-sys-spacing-4)" }}>
                                             <input
                                                 type="checkbox"
                                                 id={`comp-check-${comp.id}`}
@@ -100,8 +100,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                 onChange={() => handleCompetenzaToggle(comp)}
                                             />
                                             <label htmlFor={`comp-check-${comp.id}`} className={`chip w-full justify-start !h-12 !rounded-[var(--md-sys-shape-corner-large)] ${rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'chip-selected' : ''}`}>
-                                                {rubrica.criteri.some(c => c.competenzaId === comp.id) && <span className="material-symbols-outlined text-lg">check</span>}
-                                                <span className="truncate font-bold text-xs">{comp.nome}</span>
+                                                {rubrica.criteri.some(c => c.competenzaId === comp.id) && <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>check</span>}
+                                                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "bold", fontSize: "0.75rem" }}>{comp.nome}</span>
                                             </label>
                                         </div>
                                     ))}
@@ -109,23 +109,23 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                             </div>
 
                             {/* Sezione Descrittori */}
-                            <div className="lg:col-span-3 space-y-6">
+                            <div className="lg:col-span-3" style={{ gap: "var(--md-sys-spacing-6)" }}>
                                  <SectionHeader title="Definizione Descrittori" icon="edit_note" variant="secondary" />
                                  {rubrica.criteri.length > 0 ? rubrica.criteri.map(criterio => {
                                     const competenza = allCompetenze.find(c => c.id === criterio.competenzaId);
                                     if (!competenza) return null;
                                     return (
-                                        <InfoCard key={competenza.id} variant="elevated" className="p-6 space-y-6 bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-md border border-[var(--md-sys-color-outline-variant)]/20">
-                                            <div className="flex items-center gap-6 mb-8">
-                                                <div className="w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] bg-secondary/10 text-secondary flex items-center justify-center font-black text-sm">{competenza.codice.charAt(0)}</div>
-                                                <h4 className="m3-title-large font-black text-[var(--md-sys-color-on-surface)]">{competenza.nome}</h4>
+                                        <InfoCard key={competenza.id} variant="elevated" className="bg-[var(--md-sys-color-surface-container-low)]/50 backdrop-blur-md border-[var(--md-sys-color-outline-variant)]/20" style={{ padding: "var(--md-sys-spacing-6)", gap: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                                            <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", marginBottom: "var(--md-sys-spacing-8)" }}>
+                                                <div className="rounded-[var(--md-sys-shape-corner-large)] bg-secondary/10" style={{ width: "2.5rem", height: "2.5rem", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "0.875rem" }}>{competenza.codice.charAt(0)}</div>
+                                                <h4 className="m3-title-large text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900" }}>{competenza.nome}</h4>
                                             </div>
                                             
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                            <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
                                                 {competenza.livelli.map(level => {
                                                     const indicatore = criterio.indicatori.find(ind => ind.livelloId === level.id);
                                                     return (
-                                                        <div key={level.id} className="space-y-2">
+                                                        <div key={level.id} style={{ gap: "var(--md-sys-spacing-2)" }}>
                                                             <TextArea 
                                                                 label={`Livello: ${level.nome}`} 
                                                                 value={indicatore?.descrizione || ''} 
@@ -148,8 +148,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                     </div>
                 </M3DialogContent>
                 <M3DialogActions>
-                    <M3Button onClick={onClose} variant="text" className="font-black text-xs uppercase tracking-widest">Annulla</M3Button>
-                    <M3Button onClick={handleSubmit} variant="filled" className="shadow-[var(--md-sys-elevation-level2)] font-black text-xs uppercase tracking-widest">Salva Rubrica</M3Button>
+                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
+                    <M3Button onClick={handleSubmit} variant="filled" className="shadow-[var(--md-sys-elevation-level2)]" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Salva Rubrica</M3Button>
                 </M3DialogActions>
             </form>
         </M3Dialog>

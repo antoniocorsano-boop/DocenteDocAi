@@ -58,8 +58,8 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
         >
             <M3DialogContent className="px-12 pt-12 pb-0">
                 {!safeHtml ? (
-                     <div className="flex justify-center items-center h-64">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                     <div className="h-64" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <div className="animate-spin border-b-2" style={{ borderRadius: "9999px", height: "3rem", width: "3rem", borderColor: "var(--md-sys-color-primary)" }}></div>
                     </div>
                 ) : (
                     <div
@@ -68,21 +68,21 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
                     />
                 )}
             </M3DialogContent>
-            <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
+            <M3DialogActions className="gap-12 px-12 pb-12" style={{ paddingTop: "0" }}>
                  {onSaveToKb && (
                     <M3Button onClick={handleSave} variant="outlined" className="mr-auto">
-                        <span className="material-symbols-outlined mr-2">save</span>
+                        <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>save</span>
                         Salva in KB
                     </M3Button>
                 )}
                 <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                 <M3Button onClick={handleCopyToClipboard} variant="tonal">
-                     <span className="material-symbols-outlined mr-2">{copyStatus === 'copied' ? 'check' : 'content_copy'}</span>
+                     <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>{copyStatus === 'copied' ? 'check' : 'content_copy'}</span>
                     {copyStatus === 'copied' ? 'Copiato!' : 'Copia Testo'}
                 </M3Button>
                 {onOpenCreateLesson && (
                     <M3Button onClick={handleCreateLesson} variant="filled">
-                         <span className="material-symbols-outlined mr-2">add_task</span>
+                         <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add_task</span>
                         Crea Lezione
                     </M3Button>
                 )}

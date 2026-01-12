@@ -155,14 +155,14 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     }
 
     return (
-        <div className="page-layout max-w-full mx-auto w-full px-4 pb-24">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-8">
+        <div className="page-layout pb-24" style={{ maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>
+            <div className="md:flex-row md:items-center" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-8)" }}>
                 <SectionHeader 
                     title="Knowledge Base" 
                     subtitle="Archivio fonti, documenti e deliverable generati dall'AI."
                     icon="database"
                 />
-                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" className="shadow-[var(--md-sys-elevation-level2)] px-6 py-6 rounded-[var(--md-sys-shape-corner-large)] flex items-center gap-8">
+                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" className="shadow-[var(--md-sys-elevation-level2)] px-6 py-6 rounded-[var(--md-sys-shape-corner-large)]" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>add_circle</span>
@@ -175,7 +175,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 description="Puoi caricare qui le analisi o i progetti prodotti con NotebookLM. L'app li userà come base di conoscenza prioritaria per generare le tue lezioni e UDA."
                 icon="bolt"
                 variant="primary"
-                className="mb-8 bg-primary-container/20 border-primary/20"
+                className="bg-primary-container/20 border-primary/20" style={{ marginBottom: "var(--md-sys-spacing-8)" }}
             />
 
             <main className="min-h-[500px]">

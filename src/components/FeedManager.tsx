@@ -105,7 +105,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         disabled={true} 
                         className="feed-manager-add-source-button"
                     >
-                        <span className="material-symbols-outlined mr-2">add_link</span>
+                        <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add_link</span>
                         Aggiungi
                     </M3Button>
                 </div>

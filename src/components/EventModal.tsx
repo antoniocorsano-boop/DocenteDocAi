@@ -64,8 +64,8 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
   marginTop: 'var(--md-sys-spacing-8)'
 }}>
                     <div>
-                        <label className="text-[11px] text-primary font-black uppercase tracking-[0.25em] px-4 mb-8 block">Tipo Evento</label>
-                        <div className="flex gap-6 overflow-x-auto pb-2 custom-scrollbar">
+                        <label className="text-[11px] tracking-[0.25em]" style={{ color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", marginBottom: "var(--md-sys-spacing-8)", display: "block" }}>Tipo Evento</label>
+                        <div className="pb-2 custom-scrollbar" style={{ display: "flex", gap: "var(--md-sys-spacing-6)", overflowX: "auto" }}>
                             {eventTypes.map(t => (
                                 <M3ChoiceCard
                                     key={t.value}
@@ -89,7 +89,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                         autoFocus
                     />
 
-                    <div className="grid grid-cols-2 gap-8">
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--md-sys-spacing-8)" }}>
                         <TextField 
                             id="event-data-input"
                             name="event-data"
@@ -122,7 +122,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             </M3DialogContent>
             <M3DialogActions>
                 {event.id && (
-                    <M3Button onClick={() => onDelete(event.id!)} variant="text" className="!text-error mr-auto font-black">
+                    <M3Button onClick={() => onDelete(event.id!)} variant="text" className="!text-error mr-auto" style={{ fontWeight: "900" }}>
                         Elimina
                     </M3Button>
                 )}

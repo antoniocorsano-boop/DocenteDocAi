@@ -22,16 +22,16 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({ title, subtitle, icon
 
     return (
         <section className={`bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)] overflow-hidden mb-6 shadow-[var(--md-sys-elevation-level1)] ${className}`}>
-            <div className="flex items-center gap-8 p-5 border-b border-[var(--md-sys-color-outline-variant)]/50 bg-surface/50 backdrop-blur-sm">
+            <div className="border-[var(--md-sys-color-outline-variant)]/50 bg-surface/50 backdrop-blur-sm" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", padding: "var(--md-sys-spacing-5)", borderBottom: "1px solid var(--md-sys-color-outline)" }}>
                 <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center flex-shrink-0 ${iconClass}`}>
-                    <span className="material-symbols-outlined text-2xl">{icon}</span>
+                    <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>{icon}</span>
                 </div>
-                <div className="flex-grow min-w-0">
+                <div style={{ flexGrow: "1", minWidth: "0" }}>
                     <h3 className={`m3-title-medium font-bold truncate ${textClass}`}>{title}</h3>
-                    {subtitle && <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant opacity-80 truncate">{subtitle}</p>}
+                    {subtitle && <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ opacity: "0.8", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{subtitle}</p>}
                 </div>
             </div>
-            <div className="p-5 animate-in fade-in slide-in-from-top-1 duration-300">
+            <div className="animate-in fade-in slide-in-from-top-1 duration-300" style={{ padding: "var(--md-sys-spacing-5)" }}>
                 {children}
             </div>
         </section>

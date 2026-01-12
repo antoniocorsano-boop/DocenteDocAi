@@ -36,11 +36,11 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: (
-      <div className="flex items-center gap-4">
-        <div className="w-10 h-10 bg-[var(--md-sys-color-primary)] rounded-full flex items-center justify-center">
-          <span className="text-[var(--md-sys-color-on-primary)] font-medium">A</span>
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
+        <div className="bg-[var(--md-sys-color-primary)]" style={{ width: "2.5rem", height: "2.5rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span className="text-[var(--md-sys-color-on-primary)]" style={{ fontWeight: "500" }}>A</span>
         </div>
-        <div className="flex-1">
+        <div style={{ flex: "1" }}>
           <M3Typography variant="body-large" as="p" className="mb-1">
             Activity completed
           </M3Typography>
@@ -64,13 +64,13 @@ export const Default: Story = {
 export const DocumentActivity: Story = {
   args: {
     children: (
-      <div className="flex items-center gap-4">
-        <div className="w-10 h-10 bg-[var(--md-sys-color-secondary)] rounded-full flex items-center justify-center">
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
+        <div className="bg-[var(--md-sys-color-secondary)]" style={{ width: "2.5rem", height: "2.5rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--md-sys-color-on-secondary)">
             <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM16 18H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
           </svg>
         </div>
-        <div className="flex-1">
+        <div style={{ flex: "1" }}>
           <M3Typography variant="body-large" as="p" className="mb-1">
             Document created: "Lesson Plan.pdf"
           </M3Typography>
@@ -92,22 +92,22 @@ export const DocumentActivity: Story = {
 export const UserActivity: Story = {
   args: {
     children: (
-      <div className="flex items-center gap-4">
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
         <img
           src="https://via.placeholder.com/40x40/6750a4/ffffff?text=U"
           alt="User avatar"
-          className="w-10 h-10 rounded-full"
+          style={{ width: "2.5rem", height: "2.5rem", borderRadius: "9999px" }}
         />
-        <div className="flex-1">
+        <div style={{ flex: "1" }}>
           <M3Typography variant="body-large" as="p" className="mb-1">
-            <span className="font-medium">John Doe</span> joined the classroom
+            <span style={{ fontWeight: "500" }}>John Doe</span> joined the classroom
           </M3Typography>
           <M3Typography variant="body-small" as="p" className="text-[var(--md-sys-color-outline)]">
             5 minutes ago
           </M3Typography>
         </div>
-        <div className="flex gap-2">
-          <button className="px-3 py-1 text-[var(--md-sys-color-primary)] border border-[var(--md-sys-color-primary)] rounded-full text-sm">
+        <div style={{ display: "flex", gap: "var(--md-sys-spacing-2)" }}>
+          <button className="px-3 py-1 text-[var(--md-sys-color-primary)] border-[var(--md-sys-color-primary)]" style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: "9999px", fontSize: "0.875rem" }}>
             View Profile
           </button>
         </div>

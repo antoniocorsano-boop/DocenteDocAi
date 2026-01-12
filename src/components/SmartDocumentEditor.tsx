@@ -300,13 +300,13 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                     {isDirty && <span className="smart-document-editor-dirty-indicator">• Modificato</span>}
                 </div>
                 
-                <div className="smart-document-editor-format-toolbar hidden md:flex">
+                <div className="smart-document-editor-format-toolbar md:flex" style={{ display: "none" }}>
                     <button onClick={() => execCmd('bold')} className="smart-document-editor-format-button icon-button" title="Grassetto" aria-label="Applica grassetto"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_bold</span></button>
                     <button onClick={() => execCmd('italic')} className="smart-document-editor-format-button icon-button" title="Corsivo" aria-label="Applica corsivo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_italic</span></button>
                     <button onClick={() => execCmd('formatBlock', 'h2')} className="smart-document-editor-format-button icon-button" title="Titolo" aria-label="Applica stile titolo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">title</span></button>
                     <div className="smart-document-editor-format-separator"></div>
                     <button onClick={() => execCmd('insertUnorderedList')} className="smart-document-editor-format-button icon-button" title="Elenco" aria-label="Inserisci elenco puntato"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_list_bulleted</span></button>
-                    <button onClick={handleAiTable} className="smart-document-editor-format-button icon-button text-primary" title="Tabella AI" aria-label="Genera tabella con AI"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">table_chart</span></button>
+                    <button onClick={handleAiTable} className="smart-document-editor-format-button icon-button" style={{ color: "var(--md-sys-color-primary)" }} title="Tabella AI" aria-label="Genera tabella con AI"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">table_chart</span></button>
                 </div>
 
                 <div className="smart-document-editor-toolbar-right">

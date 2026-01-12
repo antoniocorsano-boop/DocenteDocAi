@@ -46,16 +46,16 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent className="flex flex-col items-center justify-center w-full py-8 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
-                <div className="text-center mb-8">
-                    <div className="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mx-auto mb-8 shadow-[var(--md-sys-elevation-level1)]">
+            <M3DialogContent className="py-8 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%" }}>
+                <div style={{ textAlign: "center", marginBottom: "var(--md-sys-spacing-8)" }}>
+                    <div className="text-on-primary-container shadow-[var(--md-sys-elevation-level1)]" style={{ width: "4rem", height: "4rem", backgroundColor: "var(--md-sys-color-primary-container)", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: "var(--md-sys-spacing-8)" }}>
                         <span className="material-symbols-outlined text-3xl">lock</span>
                     </div>
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mt-4">Inserisci il PIN docente per uscire</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ marginTop: "var(--md-sys-spacing-4)" }}>Inserisci il PIN docente per uscire</p>
                 </div>
 
                 {/* PIN Display */}
-                <div className="flex justify-center gap-8 mb-8">
+                <div style={{ display: "flex", justifyContent: "center", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-8)" }}>
                     {[0, 1, 2, 3].map((i) => (
                         <div 
                             key={i}
@@ -69,12 +69,12 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                 </div>
 
                 {error && (
-                    <p className="text-error text-center text-sm font-bold mb-8 animate-pulse">PIN Errato</p>
+                    <p className="animate-pulse" style={{ color: "var(--md-sys-color-error)", textAlign: "center", fontSize: "0.875rem", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-8)" }}>PIN Errato</p>
                 )}
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />
 
-                <M3Button onClick={onCancel} variant="text" className="w-full mt-8">
+                <M3Button onClick={onCancel} variant="text" className="mt-8" style={{ width: "100%" }}>
                     Annulla
                 </M3Button>
             </M3DialogContent>

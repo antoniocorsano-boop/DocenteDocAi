@@ -65,7 +65,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
         >
             <form onSubmit={handleSubmit} className="space-y-12">
                 <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant mb-8">{student.cognome} {student.nome} - {competenza.nome}</p>
+                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>{student.cognome} {student.nome} - {competenza.nome}</p>
 
                     <div>
                         <label className="form-label">Livello Raggiunto</label>
@@ -74,7 +74,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
 }}>
                             {competenza.livelli.map(level => (
                                 <div key={level.id} className={`p-12 rounded-[var(--md-sys-shape-corner-large)] border-2 ${selectedLevelId === level.id ? 'border-primary bg-primary-container' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container)]'}`}>
-                                    <label className="flex items-start cursor-pointer">
+                                    <label style={{ display: "flex", alignItems: "flex-start", cursor: "pointer" }}>
                                         <input 
                                             type="radio" 
                                             name="level" 
@@ -84,8 +84,8 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                             className="mr-8 mt-8"
                                             required
                                         />
-                                        <div className="flex-grow">
-                                            <div className="flex justify-between items-baseline">
+                                        <div style={{ flexGrow: "1" }}>
+                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                                                 <span className="m3-title-medium">{level.nome}</span>
                                                 <span className="m3-label-large text-[var(--md-sys-color-on-surface)]-variant">Voto: {level.voto}</span>
                                             </div>
@@ -99,16 +99,16 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
 
                     <div>
                         <label htmlFor="materia" className="form-label">Materia di Riferimento</label>
-                        <select id="materia" value={selectedMateria} onChange={e => setSelectedMateria(e.target.value)} className="form-select w-full" required>
+                        <select id="materia" value={selectedMateria} onChange={e => setSelectedMateria(e.target.value)} className="form-select" style={{ width: "100%" }} required>
                             <option value="">Seleziona...</option>
                             {(settings.disciplines || []).map(d => <option key={d} value={d}>{d}</option>)}
                         </select>
                     </div>
 
                     <div>
-                        <div className="flex justify-between items-center mb-12">
+                        <div className="mb-12" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <label htmlFor="note" className="form-label !mb-0">Note (Opzionale)</label>
-                            <div className="flex items-center gap-12">
+                            <div className="gap-12" style={{ display: "flex", alignItems: "center" }}>
                                 {!selectedLevelId && !isGeneratingNote && (
                                     <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant">(Seleziona un livello)</span>
                                 )}
@@ -117,7 +117,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                     onClick={handleGenerateNote}
                                     disabled={isGeneratingNote || !selectedLevelId}
                                     variant="text"
-                                    className="!py-2 !px-8 !h-auto flex items-center gap-8"
+                                    className="!py-2 !px-8 !h-auto" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}
                                     title="Genera nota con AI"
                                 >
                                     {isGeneratingNote ? (
@@ -129,11 +129,11 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                 </M3Button>
                             </div>
                         </div>
-                        <textarea id="note" value={nota} onChange={e => setNota(e.target.value)} className="form-textarea w-full" rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..."></textarea>
+                        <textarea id="note" value={nota} onChange={e => setNota(e.target.value)} className="form-textarea" style={{ width: "100%" }} rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..."></textarea>
                     </div>
                 </M3DialogContent>
 
-                <M3DialogActions className="gap-12 px-12 pb-12 pt-0">
+                <M3DialogActions className="gap-12 px-12 pb-12" style={{ paddingTop: "0" }}>
                     <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                     <M3Button type="submit" variant="filled">Salva Valutazione</M3Button>
                 </M3DialogActions>

@@ -454,7 +454,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                         onTabChange={(id) => setActivePhase(id as DocPhase)}
                     />
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-4">
+                    <div className="sm:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)", marginTop: "var(--md-sys-spacing-4)" }}>
                         {activeTemplates.map(template => (
                             <ActionTile 
                                 key={template.id}
@@ -472,7 +472,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
                     <SectionHeader title="Documenti Recenti" icon="history" />
-                    <div className="space-y-3">
+                    <div style={{ gap: "var(--md-sys-spacing-3)" }}>
                         {recentDocs.length > 0 ? recentDocs.map(doc => (
                             <InfoCard 
                                 key={doc.id}
@@ -481,15 +481,15 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                                 variant="surface"
                                 onClick={() => setViewingDoc(doc)}
                             >
-                                <div className="flex items-center justify-between mt-4">
-                                    <span className="text-xs opacity-70">Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}</span>
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "var(--md-sys-spacing-4)" }}>
+                                    <span style={{ fontSize: "0.75rem", opacity: "0.7" }}>Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}</span>
                                     <M3Button variant="text" size="small" onClick={(e) => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</M3Button>
                                 </div>
                             </InfoCard>
                         )) : (
-                            <div className="p-8 text-center border-2 border-dashed border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-extra-large)] opacity-50">
-                                <span className="material-symbols-rounded text-4xl mb-8">drafts</span>
-                                <p className="text-sm">Nessun documento generato di recente.</p>
+                            <div className="border-2 border-dashed border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-extra-large)]" style={{ padding: "var(--md-sys-spacing-8)", textAlign: "center", opacity: "0.5" }}>
+                                <span className="material-symbols-rounded text-4xl" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>drafts</span>
+                                <p style={{ fontSize: "0.875rem" }}>Nessun documento generato di recente.</p>
                             </div>
                         )}
                     </div>

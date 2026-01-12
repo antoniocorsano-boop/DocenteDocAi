@@ -176,7 +176,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
   return createPortal(
     <div
       key={id}
-      className="fixed inset-0 flex items-center justify-center p-8"
+      className="fixed inset-0" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "var(--md-sys-spacing-8)" }}
       style={{ zIndex: modalZIndex }}
       data-modal-id={id}
       data-modal-level={level}
@@ -189,7 +189,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
       />
 
       {/* Modal Content */}
-      <div className="relative z-10 w-full max-w-lg max-h-[90vh] rounded-[var(--md-sys-shape-corner-extra-large)]">
+      <div className="relative z-10 max-w-lg max-h-[90vh] rounded-[var(--md-sys-shape-corner-extra-large)]" style={{ width: "100%" }}>
         {children}
       </div>
     </div>,

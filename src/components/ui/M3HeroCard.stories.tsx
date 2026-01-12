@@ -36,11 +36,11 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: (
-      <div className="p-8 text-center">
-        <M3Typography variant="display-large" as="h1" className="mb-4">
+      <div style={{ padding: "var(--md-sys-spacing-8)", textAlign: "center" }}>
+        <M3Typography variant="display-large" as="h1" style={{ marginBottom: "var(--md-sys-spacing-4)" }}>
           Welcome to DocenteDoc AI
         </M3Typography>
-        <M3Typography variant="headline-medium" as="h2" className="mb-6">
+        <M3Typography variant="headline-medium" as="h2" style={{ marginBottom: "var(--md-sys-spacing-6)" }}>
           Transform your teaching with AI-powered tools
         </M3Typography>
         <M3Typography variant="body-large" as="p">
@@ -58,18 +58,18 @@ export const WithBackground: Story = {
   args: {
     className: 'bg-gradient-to-br from-primary/20 to-secondary/20 min-h-[400px] flex items-center',
     children: (
-      <div className="container mx-auto px-8 text-center text-white">
-        <M3Typography variant="display-medium" as="h1" className="mb-4">
+      <div className="container px-8 text-white" style={{ marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
+        <M3Typography variant="display-medium" as="h1" style={{ marginBottom: "var(--md-sys-spacing-4)" }}>
           Innovative Teaching Solutions
         </M3Typography>
-        <M3Typography variant="headline-small" as="h2" className="mb-6 opacity-90">
+        <M3Typography variant="headline-small" as="h2" style={{ marginBottom: "var(--md-sys-spacing-6)", opacity: "0.9" }}>
           Empower your classroom with cutting-edge technology
         </M3Typography>
-        <div className="flex gap-4 justify-center">
-          <button className="px-6 py-3 bg-white text-primary rounded-full font-medium">
+        <div style={{ display: "flex", gap: "var(--md-sys-spacing-4)", justifyContent: "center" }}>
+          <button className="px-6 py-3" style={{ backgroundColor: "white", color: "var(--md-sys-color-primary)", borderRadius: "9999px", fontWeight: "500" }}>
             Get Started
           </button>
-          <button className="px-6 py-3 border border-white text-white rounded-full font-medium">
+          <button className="px-6 py-3 border-white text-white" style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: "9999px", fontWeight: "500" }}>
             Learn More
           </button>
         </div>
@@ -85,8 +85,8 @@ export const Compact: Story = {
   args: {
     className: 'bg-surface-container p-6',
     children: (
-      <div className="text-center">
-        <M3Typography variant="headline-large" as="h2" className="mb-2">
+      <div style={{ textAlign: "center" }}>
+        <M3Typography variant="headline-large" as="h2" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
           Quick Start
         </M3Typography>
         <M3Typography variant="body-medium" as="p">

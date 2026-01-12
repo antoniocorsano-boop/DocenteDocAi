@@ -45,8 +45,8 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
             onClose={onClose}
             maxWidth="md"
         >
-            <form onSubmit={handleSubmit} className="flex flex-col h-full">
-                <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm p-6 space-y-6">
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+                <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm" style={{ padding: "var(--md-sys-spacing-6)", gap: "var(--md-sys-spacing-6)" }}>
                     <SectionHeader 
                         title="Avvio Sessione"
                         subtitle={`Classe ${classe} • Configura i dettagli della lezione`}
@@ -78,7 +78,7 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
                     </div>
                 </M3DialogContent>
 
-                <M3DialogActions className="bg-[var(--md-sys-color-surface-container-high)]/80 backdrop-blur-md p-6 border-t border-[var(--md-sys-color-outline-variant)]/30">
+                <M3DialogActions className="bg-[var(--md-sys-color-surface-container-high)]/80 backdrop-blur-md border-[var(--md-sys-color-outline-variant)]/30" style={{ padding: "var(--md-sys-spacing-6)", borderTop: "1px solid var(--md-sys-color-outline)" }}>
                     <M3Button type="button" onClick={onClose} variant="text">
                         Annulla
                     </M3Button>
@@ -87,7 +87,7 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
                         variant="filled"
                         disabled={!materia || !contenuto.trim()}
                     >
-                        <span className="material-symbols-outlined mr-2">door_open</span>
+                        <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>door_open</span>
                         Avvia Aula
                     </M3Button>
                 </M3DialogActions>

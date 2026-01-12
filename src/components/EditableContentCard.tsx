@@ -31,7 +31,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
         const lines = content.split('\n').filter(line => line.trim() !== '');
         if (lines.length > 1 || content.startsWith('• ') || content.startsWith('- ')) {
             return (
-                <ul className="list-disc pl-5 space-y-1">
+                <ul className="list-disc" style={{ paddingLeft: "var(--md-sys-spacing-5)", gap: "var(--md-sys-spacing-1)" }}>
                     {lines.map((item, index) => <li key={index}>{item.replace(/^[•-]\s*/, '').trim()}</li>)}
                 </ul>
             );
@@ -41,13 +41,13 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
 
     return (
         <div
-            className="m3-card surface-container-high elevation-1 rounded-m p-8 transition-shadow duration-300 focus-within:elevation-2"
+            className="m3-card surface-container-high elevation-1 rounded-m transition-shadow duration-300 focus-within:elevation-2" style={{ padding: "var(--md-sys-spacing-8)" }}
             tabIndex={0}
             aria-label={title}
             style={{ outline: 'none' }}
         >
-            <div className="flex justify-between items-start">
-                <h3 className="m3-title-medium flex items-center gap-8 text-[var(--md-sys-color-on-surface)]">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <h3 className="m3-title-medium text-[var(--md-sys-color-on-surface)]" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
                     {icon && <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant" aria-hidden="true">{icon}</span>}
                     {title}
                 </h3>
@@ -66,19 +66,19 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
                 )}
             </div>
 
-            <div className="mt-4">
+            <div style={{ marginTop: "var(--md-sys-spacing-4)" }}>
                 {isEditing ? (
-                    <div className="space-y-2">
+                    <div style={{ gap: "var(--md-sys-spacing-2)" }}>
                         <textarea
                             value={currentContent}
                             onChange={(e) => setCurrentContent(e.target.value)}
-                            className="form-textarea w-full m3-interactive"
+                            className="form-textarea m3-interactive" style={{ width: "100%" }}
                             rows={Math.max(5, currentContent.split('\n').length)}
                             autoFocus
                             aria-label="Modifica contenuto"
                             style={{ borderRadius: 'var(--shape-s)', background: 'var(--md-sys-color-surface-container)', color: 'var(--md-sys-color-on-surface)' }}
                         />
-                        <div className="flex justify-end gap-8">
+                        <div style={{ display: "flex", justifyContent: "flex-end", gap: "var(--md-sys-spacing-8)" }}>
                             <button onClick={handleCancel} className="button button-text m3-interactive" aria-label="Annulla modifica">Annulla</button>
                             <button onClick={handleSave} className="button button-filled m3-interactive" aria-label="Salva contenuto">Salva</button>
                         </div>

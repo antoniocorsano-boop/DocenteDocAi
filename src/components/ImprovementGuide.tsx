@@ -301,14 +301,14 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
             {/* Charts */}
             <div className="improvement-guide-charts-grid-wide">
-                <InfoCard title="Distribuzione Voti" icon="bar_chart" className="h-full">
+                <InfoCard title="Distribuzione Voti" icon="bar_chart" style={{ height: "100%" }}>
                     <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
                         <BarChart data={gradeDistributionData} color="var(--md-sys-color-secondary)" />
                     </div>
                 </InfoCard>
                 {objectiveAchievementData && (
-                    <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" className="h-full">
-                        <div className="flex justify-center p-8">
+                    <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" style={{ height: "100%" }}>
+                        <div style={{ display: "flex", justifyContent: "center", padding: "var(--md-sys-spacing-8)" }}>
                             <DonutChart data={objectiveAchievementData} />
                         </div>
                     </InfoCard>
@@ -316,12 +316,12 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             </div>
 
             <InfoCard title="Livelli di Competenza" icon="school">
-                <div className="space-y-10 p-8">
+                <div className="space-y-10" style={{ padding: "var(--md-sys-spacing-8)" }}>
                     {competencyLevelData.map(compData => (
                         <div key={compData.name} style={{
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
-                            <h3 className="text-sm font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-70">{compData.name}</h3>
+                            <h3 className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7" }}>{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
                                 color="var(--sys-tertiary)"

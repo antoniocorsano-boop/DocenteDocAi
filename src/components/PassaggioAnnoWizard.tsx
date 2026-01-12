@@ -179,7 +179,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
         >
             <M3DialogContent className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl">
                     {step === "intro" && (
-                        <div className="space-y-8 max-w-2xl mx-auto py-4">
+                        <div className="max-w-2xl" style={{ gap: "var(--md-sys-spacing-8)", marginLeft: "auto", marginRight: "auto", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)" }}>
                             <InfoCard 
                                 title={`Chiusura Anno ${settings.annoScolasticoCorrente}`}
                                 description="Procedura guidata per archiviare i dati, calcolare lo storico e preparare le classi per il nuovo anno."
@@ -188,8 +188,8 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 className="bg-primary-container/20 border-primary/20"
                             />
                             
-                            <div className="p-8 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20">
-                                <h3 className="m3-title-large font-black mb-6 text-[var(--md-sys-color-on-surface)]">Checklist Automatica</h3>
+                            <div className="bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/20" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
+                                <h3 className="m3-title-large text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900", marginBottom: "var(--md-sys-spacing-6)" }}>Checklist Automatica</h3>
                                 <ul style={{
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
@@ -199,9 +199,9 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                         { icon: "delete_sweep", text: "Reset registro voti, lezioni e assenze giornaliere." },
                                         { icon: "trending_up", text: "Promozione classi (es. 1A → 2A) con gestione bocciature." }
                                     ].map((item, i) => (
-                                        <li key={i} className="flex items-center gap-8 text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant">
-                                            <span className="material-symbols-outlined text-primary text-2xl">{item.icon}</span>
-                                            <span className="font-medium">{item.text}</span>
+                                        <li key={i} className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                                            <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)", fontSize: "1.5rem" }}>{item.icon}</span>
+                                            <span style={{ fontWeight: "500" }}>{item.text}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -210,25 +210,25 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     )}
 
                     {step === "decisions" && (
-                        <div className="space-y-6 py-4">
-                            <div className="flex justify-between items-center mb-8">
-                                <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-black text-[var(--md-sys-color-on-surface)]">Esiti Scrutinio</h3>
-                                <div className="flex gap-6">
-                                    <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/20">{stats.promote} Promossi</span>
-                                    <span className="px-4 py-1.5 rounded-full bg-error/10 text-error text-[10px] font-black uppercase tracking-widest border border-error/20">{stats.retain} Bocciati</span>
-                                    <span className="px-4 py-1.5 rounded-full bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant text-[10px] font-black uppercase tracking-widest border border-[var(--md-sys-color-outline-variant)]/20">{stats.archive} Archiviati</span>
+                        <div style={{ gap: "var(--md-sys-spacing-6)", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--md-sys-spacing-8)" }}>
+                                <h3 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900" }}>Esiti Scrutinio</h3>
+                                <div style={{ display: "flex", gap: "var(--md-sys-spacing-6)" }}>
+                                    <span className="py-1.5 bg-primary/10 text-[10px] border-primary/20" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "9999px", color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid var(--md-sys-color-outline)" }}>{stats.promote} Promossi</span>
+                                    <span className="py-1.5 bg-error/10 text-[10px] border-error/20" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "9999px", color: "var(--md-sys-color-error)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid var(--md-sys-color-outline)" }}>{stats.retain} Bocciati</span>
+                                    <span className="py-1.5 bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant text-[10px] border-[var(--md-sys-color-outline-variant)]/20" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "9999px", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid var(--md-sys-color-outline)" }}>{stats.archive} Archiviati</span>
                                 </div>
                             </div>
                             
-                            <div className="bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border border-[var(--md-sys-color-outline-variant)]/20 overflow-hidden">
-                                <table className="w-full border-collapse">
+                            <div className="bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/20 overflow-hidden" style={{ border: "1px solid var(--md-sys-color-outline)" }}>
+                                <table className="border-collapse" style={{ width: "100%" }}>
                                     <thead>
                                         <tr className="bg-[var(--md-sys-color-surface-container-high)]/50">
-                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Studente</th>
-                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Classe</th>
-                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Media</th>
-                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant w-56">Esito</th>
-                                            <th className="text-left p-8 text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant">Futuro</th>
+                                            <th className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ textAlign: "left", padding: "var(--md-sys-spacing-8)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Studente</th>
+                                            <th className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ textAlign: "left", padding: "var(--md-sys-spacing-8)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Classe</th>
+                                            <th className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ textAlign: "left", padding: "var(--md-sys-spacing-8)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Media</th>
+                                            <th className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant w-56" style={{ textAlign: "left", padding: "var(--md-sys-spacing-8)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Esito</th>
+                                            <th className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ textAlign: "left", padding: "var(--md-sys-spacing-8)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Futuro</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-outline-variant/10">
@@ -238,9 +238,9 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                             const isInsufficient = grade && parseFloat(grade) < 6;
 
                                             return (
-                                                <tr key={s.id} className="hover:bg-[var(--md-sys-color-surface-container-high)]/30 transition-colors">
-                                                    <td className="p-8 font-black text-[var(--md-sys-color-on-surface)]">{s.cognome} {s.nome}</td>
-                                                    <td className="p-8 text-[var(--md-sys-color-on-surface)]-variant font-medium">{s.classe}</td>
+                                                <tr key={s.id} className="hover:bg-[var(--md-sys-color-surface-container-high)]/30" style={{ transition: "color 300ms" }}>
+                                                    <td className="text-[var(--md-sys-color-on-surface)]" style={{ padding: "var(--md-sys-spacing-8)", fontWeight: "900" }}>{s.cognome} {s.nome}</td>
+                                                    <td className="text-[var(--md-sys-color-on-surface)]-variant" style={{ padding: "var(--md-sys-spacing-8)", fontWeight: "500" }}>{s.classe}</td>
                                                     <td className={`p-8 font-black ${isInsufficient ? "text-error" : "text-primary"}`}>{grade || "-"}</td>
                                                     <td style={{ padding: 'var(--md-sys-spacing-6)' }}>
                                                         <select 
@@ -258,7 +258,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                             <option value="archive">Diplomato</option>
                                                         </select>
                                                     </td>
-                                                    <td className="p-8 text-[10px] font-black uppercase tracking-widest text-[var(--md-sys-color-on-surface)]-variant opacity-60">{outcome?.nextClass}</td>
+                                                    <td className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant" style={{ padding: "var(--md-sys-spacing-8)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>{outcome?.nextClass}</td>
                                                 </tr>
                                             );
                                         })}
@@ -269,30 +269,30 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     )}
 
                     {step === "confirm" && (
-                        <div className="text-center py-12 max-w-lg mx-auto">
-                            <div className="w-24 h-24 bg-error/10 text-error rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center mx-auto mb-8 shadow-[var(--md-sys-elevation-level2)]">
+                        <div className="py-12 max-w-lg" style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
+                            <div className="bg-error/10 rounded-[var(--md-sys-shape-corner-large)] shadow-[var(--md-sys-elevation-level2)]" style={{ width: "6rem", height: "6rem", color: "var(--md-sys-color-error)", display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: "var(--md-sys-spacing-8)" }}>
                                 <span className="material-symbols-outlined text-5xl">warning</span>
                             </div>
-                            <h3 className="m3-headline-medium font-black text-[var(--md-sys-color-on-surface)] mb-8">Confermi l'operazione?</h3>
-                            <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant mb-10 leading-relaxed">
+                            <h3 className="m3-headline-medium text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900", marginBottom: "var(--md-sys-spacing-8)" }}>Confermi l'operazione?</h3>
+                            <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] text-[var(--md-sys-color-on-surface)]-variant mb-10" style={{ lineHeight: "1.625" }}>
                                 L'anno scolastico verr� impostato a <strong style={{
   color: 'var(--md-sys-color-primary)'
 }}>{nextYear}</strong>.
                                 <br/><br/>
-                                ?? I dati giornalieri verranno <strong className="text-error">resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
+                                ?? I dati giornalieri verranno <strong style={{ color: "var(--md-sys-color-error)" }}>resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
                             </p>
                             
-                            <div className="p-6 bg-[var(--md-sys-color-surface-container-low)]/50 border border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-large)] text-left">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-8">Riepilogo Azioni:</p>
-                                <ul className="space-y-3">
+                            <div className="bg-[var(--md-sys-color-surface-container-low)]/50 border-[var(--md-sys-color-outline-variant)]/20 rounded-[var(--md-sys-shape-corner-large)]" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", textAlign: "left" }}>
+                                <p className="text-[10px]" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: "var(--md-sys-spacing-8)" }}>Riepilogo Azioni:</p>
+                                <ul style={{ gap: "var(--md-sys-spacing-3)" }}>
                                     {[
                                         "Reset Valutazioni e Competenze",
                                         "Reset Registro di Classe e Diario",
                                         "Reset Piani di Inclusione",
                                         "Promozione studenti secondo schema"
                                     ].map((text, i) => (
-                                        <li key={i} className="flex items-center gap-6 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        <li key={i} className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}>
+                                            <span className="w-1.5 h-1.5" style={{ borderRadius: "9999px", backgroundColor: "var(--md-sys-color-primary)" }}></span>
                                             {text}
                                         </li>
                                     ))}
@@ -302,23 +302,23 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     )}
             </M3DialogContent>
 
-            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-t border-[var(--md-sys-color-outline-variant)]/10 p-6">
+            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-[var(--md-sys-color-outline-variant)]/10" style={{ borderTop: "1px solid var(--md-sys-color-outline)", padding: "var(--md-sys-spacing-6)" }}>
                     {step === "intro" && (
                         <>
-                            <M3Button onClick={onClose} variant="text" className="font-black text-xs uppercase tracking-widest">Annulla</M3Button>
-                            <M3Button onClick={() => setStep("decisions")} variant="filled" className="font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)]">Inizia Scrutinio</M3Button>
+                            <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
+                            <M3Button onClick={() => setStep("decisions")} variant="filled" className="shadow-[var(--md-sys-elevation-level2)]" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Scrutinio</M3Button>
                         </>
                     )}
                     {step === "decisions" && (
                         <>
-                            <M3Button onClick={() => setStep("intro")} variant="text" className="font-black text-xs uppercase tracking-widest">Indietro</M3Button>
-                            <M3Button onClick={() => setStep("confirm")} variant="filled" className="font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)]">Conferma Esiti</M3Button>
+                            <M3Button onClick={() => setStep("intro")} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Indietro</M3Button>
+                            <M3Button onClick={() => setStep("confirm")} variant="filled" className="shadow-[var(--md-sys-elevation-level2)]" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Conferma Esiti</M3Button>
                         </>
                     )}
                     {step === "confirm" && (
                         <>
-                            <M3Button onClick={() => setStep("decisions")} variant="text" className="font-black text-xs uppercase tracking-widest" disabled={isProcessing}>Indietro</M3Button>
-                            <M3Button onClick={handleConfirm} variant="filled" className="bg-error text-on-error font-black text-xs uppercase tracking-widest shadow-[var(--md-sys-elevation-level2)]" disabled={isProcessing}>
+                            <M3Button onClick={() => setStep("decisions")} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>Indietro</M3Button>
+                            <M3Button onClick={handleConfirm} variant="filled" className="bg-error text-on-error shadow-[var(--md-sys-elevation-level2)]" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>
                                 {isProcessing ? "Elaborazione..." : "Esegui Passaggio Anno"}
                             </M3Button>
                         </>

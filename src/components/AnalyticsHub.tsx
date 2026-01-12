@@ -159,9 +159,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             </InfoCard>
 
             {/* Responsive Card: Chart & AI */}
-            <InfoCard variant="elevated" className="p-6 md:p-8 min-h-[300px] md:min-h-[450px] flex flex-col bg-[var(--md-sys-color-surface-container-low)]est">
-                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-8 mb-8">
-                    <h2 className="text-sm font-bold text-[var(--md-sys-color-on-surface)]-variant uppercase tracking-widest">
+            <InfoCard variant="elevated" className="md:p-8 min-h-[300px] md:min-h-[450px] bg-[var(--md-sys-color-surface-container-low)]est" style={{ padding: "var(--md-sys-spacing-6)", display: "flex", flexDirection: "column" }}>
+                <div className="md:flex-row md:justify-between md:items-center" style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-8)" }}>
+                    <h2 className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                         {chartType === 'trend' && 'Andamento Temporale'}
                         {chartType === 'radar' && 'Radar Competenze'}
                         {chartType === 'dist' && 'Distribuzione Voti'}
@@ -171,30 +171,30 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         disabled={isAiLoading} 
                         variant="tonal"
                     >
-                        {isAiLoading ? <AiThinkingGem size="small" inline /> : <span className="material-symbols-outlined mr-2">auto_awesome</span>}
+                        {isAiLoading ? <AiThinkingGem size="small" inline /> : <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>auto_awesome</span>}
                         ANALISI AI
                     </M3Button>
                 </div>
 
-                <div className="flex-grow flex items-center justify-center w-full">
+                <div style={{ flexGrow: "1", display: "flex", alignItems: "center", justifyContent: "center", width: "100%" }}>
                     {chartType === 'trend' && <LineChart data={trendData} color="var(--md-sys-color-primary)" />}
                     {chartType === 'radar' && <RadarChart data={radarData} color="var(--sys-tertiary)" />}
-                    {chartType === 'dist' && <div className="w-full max-w-2xl"><BarChart data={distData} color="var(--md-sys-color-secondary)" /></div>}
+                    {chartType === 'dist' && <div className="max-w-2xl" style={{ width: "100%" }}><BarChart data={distData} color="var(--md-sys-color-secondary)" /></div>}
                 </div>
 
                 {(isAiLoading || aiInsight) && (
-                    <div className="mt-8 p-6 bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-inner w-full max-w-2xl mx-auto">
+                    <div className="mt-8 bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]/30 shadow-inner max-w-2xl" style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)", width: "100%", marginLeft: "auto", marginRight: "auto" }}>
                         {isAiLoading ? (
                             <AiThinkingGem size="small" text="Elaborazione Insight..." inline />
                         ) : (
                             <div style={{
   marginTop: 'var(--md-sys-spacing-4)'
 }}>
-                                <div className="flex gap-8">
-                                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                        <span className="material-symbols-outlined text-primary">lightbulb</span>
+                                <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}>
+                                    <div className="bg-primary/10" style={{ width: "2.5rem", height: "2.5rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
+                                        <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>lightbulb</span>
                                     </div>
-                                    <p className="text-[var(--md-sys-color-on-surface)] font-medium leading-relaxed">{aiInsight}</p>
+                                    <p className="text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "500", lineHeight: "1.625" }}>{aiInsight}</p>
                                 </div>
                                 <div className="pl-14">
                                     <AiMemoryChip label={`Insight AI • Dati Classe ${selectedClass}`} />

@@ -30,10 +30,10 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
       maxWidth="md"
       level={2}
     >
-      <M3DialogContent className="space-y-6 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
-        <div className="flex flex-col gap-6">
+      <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm" style={{ gap: "var(--md-sys-spacing-6)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
           <div>
-            <p className="m3-label-large mb-6 opacity-70 uppercase tracking-widest">Tipologia Attività</p>
+            <p className="m3-label-large" style={{ marginBottom: "var(--md-sys-spacing-6)", opacity: "0.7", textTransform: "uppercase", letterSpacing: "0.1em" }}>Tipologia Attività</p>
             <TabGroup
               tabs={tabs}
               activeTab={tipo}
@@ -42,7 +42,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
             <SelectField
               label="Classe"
               value={classe}
