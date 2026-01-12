@@ -106,8 +106,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             }}
         >
             <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}} style={{
+                fontFamily: 'Material Symbols Outlined',
                 fontSize: '28px'
             }}>{icon}</span>
         </div>

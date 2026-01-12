@@ -146,9 +146,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                         {tab.icon && (
                             <span
                                 style={{
-  fontFamily: 'Material Symbols Outlined'
-}}
-                                style={{
+                                    fontFamily: 'Material Symbols Outlined',
                                     fontSize: 'var(--md-sys-typescale-label-small-font-size)'
                                 }}
                                 aria-hidden="true"

@@ -72,9 +72,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                             }}>
                                 <span
                                     style={{
-  fontFamily: 'Material Symbols Outlined'
-}}
-                                    style={{
+                                        fontFamily: 'Material Symbols Outlined',
                                         fontSize: '24px',
                                         color: colors.onSurfaceVariant
                                     }}

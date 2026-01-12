@@ -36,11 +36,8 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             aria-label={`Contesto AI: ${label}`}
         >
             <span
-                // eslint-disable-next-line design-system/no-classname
                 style={{
-  fontFamily: 'Material Symbols Outlined'
-}}
-                style={{
+                    fontFamily: 'Material Symbols Outlined',
                     fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                     color: 'var(--md-sys-color-tertiary)',
                     fontWeight: 'bold',

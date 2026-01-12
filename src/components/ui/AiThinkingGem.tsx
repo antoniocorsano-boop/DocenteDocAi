@@ -84,11 +84,8 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                     }}
                 >
                     <span
-                        // eslint-disable-next-line design-system/no-classname
                         style={{
-  fontFamily: 'Material Symbols Outlined'
-}}
-                        style={{
+                            fontFamily: 'Material Symbols Outlined',
                             fontSize: dim.icon,
                             color: 'var(--md-sys-color-primary)',
                             fontWeight: 300

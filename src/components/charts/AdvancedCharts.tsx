@@ -48,7 +48,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
     }
 
     return (
-        <div className="relative" style={{ width: "100%" }} style={{ height }}>
+        <div className="relative" style={{ width: "100%", height }}>
             <svg viewBox={`0 0 ${width} ${height}`} className="overflow-visible" style={{ width: "100%", height: "100%" }}>
                 {/* Grids */}
                 <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="var(--md-sys-color-outline-variant)" strokeWidth="1" />

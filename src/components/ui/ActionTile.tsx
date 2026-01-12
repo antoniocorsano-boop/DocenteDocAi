@@ -127,11 +127,10 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 }}
             >
                 <span
-                    // eslint-disable-next-line design-system/no-classname
                     style={{
-  fontFamily: 'Material Symbols Outlined'
-}}
-                    style={{ fontSize: '28px' }}
+                        fontFamily: 'Material Symbols Outlined',
+                        fontSize: '28px'
+                    }}
                 >
                     {icon}
                 </span>
@@ -192,11 +191,8 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 }}
             >
                 <span
-                    // eslint-disable-next-line design-system/no-classname
                     style={{
-  fontFamily: 'Material Symbols Outlined'
-}}
-                    style={{
+                        fontFamily: 'Material Symbols Outlined',
                         fontSize: '20px',
                         transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1)'
                     }}

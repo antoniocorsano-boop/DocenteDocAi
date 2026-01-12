@@ -60,14 +60,12 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
         >
             {/* Enhanced decorative background with gradient */}
             <div
-                className="absolute -top-16 -right-16 w-40 h-40 blur-3xl pointer-events-none" style={{ opacity: "0.2", borderRadius: "9999px" }}
-                style={{ background: `radial-gradient(circle, ${palette.accent}20 0%, transparent 70%)` }}
+                className="absolute -top-16 -right-16 w-40 h-40 blur-3xl pointer-events-none" style={{ opacity: "0.2", borderRadius: "9999px", background: `radial-gradient(circle, ${palette.accent}20 0%, transparent 70%)` }}
             ></div>
 
             {/* Subtle accent bar */}
             <div
-                className="absolute top-0 left-0 right-0 rounded-t-xl" style={{ height: "0.25rem", opacity: "0.6" }}
-                style={{ backgroundColor: palette.accent }}
+                className="absolute top-0 left-0 right-0 rounded-t-xl" style={{ height: "0.25rem", opacity: "0.6", backgroundColor: palette.accent }}
             ></div>
 
             <div className="relative z-10" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "var(--md-sys-spacing-6)" }}>
