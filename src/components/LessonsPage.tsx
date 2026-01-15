@@ -1,17 +1,10 @@
-// LEGACY - MD3 Non-compliant
-
-/**
- * LessonsPage.tsx
- * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
- */
-
 import React, { useState, useMemo, useEffect } from 'react';
 import { Lezione, LessonsPageProps, CurriculumSubject, TimetableSettings } from '../types';
 import { generateLessonSequenceForClass } from '../services/aiService';
 // import LessonView from './LessonView';
 import IdeaGeneratorModal from './IdeaGeneratorModal';
 import { CreateLessonFromAiModal } from './CreateLessonFromAiModal';
-import { useTheme } from '../theme/theme';
+import { M3Typography } from './ui';
 
 // Extend Interface locally if not updated in types.ts yet
 interface LessonsPageExtendedProps extends LessonsPageProps {
@@ -20,7 +13,6 @@ interface LessonsPageExtendedProps extends LessonsPageProps {
 }
 
 const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowledgeBase, userClasses, onViewLesson, onAddLessons, onStartClassroom, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula = [], settings }) => {
-  const { layers } = useTheme();
     const [error, setError] = useState('');
     const [selectedUdaIds, setSelectedUdaIds] = useState<string[]>([]);
     const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
@@ -146,8 +138,8 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
             <div >
             <div >
                 <div >
-                    <h1 >Progetta Lezioni</h1>
-                    <p >Genera e orchestra sequenze di lezioni partendo da UDA e classi.</p>
+                    <M3Typography variant="headline-large">Progetta Lezioni</M3Typography>
+                    <M3Typography variant="body-large">Genera e orchestra sequenze di lezioni partendo da UDA e classi.</M3Typography>
                 </div>
             </div>
 
@@ -163,10 +155,10 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
 }}>lightbulb</span>
                     </div>
                     <div>
-                        <h2 >Hai un'idea per una lezione?</h2>
-                        <p >
+                        <M3Typography variant="headline-medium">Hai un'idea per una lezione?</M3Typography>
+                        <M3Typography variant="body-medium">
                             Tocca qui per trasformarla subito in un piano strutturato con l'AI. Dettala o scrivila.
-                        </p>
+                        </M3Typography>
                     </div>
                 </div>
             </div>
@@ -182,13 +174,13 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                     <span >expand_more</span>
                 </summary>
                 <div >
-                    <p >
+                    <M3Typography variant="body-medium">
                         Seleziona le Unità di Apprendimento (UDA) e le classi. L'AI genererà una sequenza di lezioni strutturata per ogni classe, basandosi sui documenti KB selezionati.
-                    </p>
+                    </M3Typography>
                     <div >
                         {/* UDA Selection */}
                         <div >
-                            <h3 >1. Seleziona UDA</h3>
+                            <M3Typography variant="title-large">1. Seleziona UDA</M3Typography>
                             {/* Centralized Selection Container */}
                             <div >
                                 {udas.length > 0 ? udas.map(uda => (
@@ -196,14 +188,14 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                         <input type="checkbox" id={`uda-select-${uda.id}`} checked={selectedUdaIds.includes(uda.id)} onChange={() => handleUdaSelection(uda.id)} />
                                         <label htmlFor={`uda-select-${uda.id}`} >{selectedUdaIds.includes(uda.id) && <span >check</span>}{uda.title}</label>
                                     </div>
-                                )) : <p >Nessuna UDA trovata. Creane una nel Planner.</p>}
+                                )) : <M3Typography variant="body-medium">Nessuna UDA trovata. Creane una nel Planner.</M3Typography>}
                             </div>
                         </div>
                         {/* Class Selection */}
                         <div >
-                            <h3  style={{marginBottom: layers.ref.spacing['8']}}>2. Seleziona Classi</h3>
+                            <M3Typography variant="title-large" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>2. Seleziona Classi</M3Typography>
                             {/* Centralized Selection Container */}
-                            <div style={{ padding: layers.ref.spacing['4'] }} style={{ border: "none", overflowY: "auto" }}>
+                            <div style={{ padding: 'var(--md-sys-spacing-4)', border: "none", overflowY: "auto" }}>
                                 {userClasses.map(c => (
                                     <div key={c} >
                                         <input type="checkbox" id={`class-select-${c}`} checked={selectedClasses.includes(c)} onChange={() => handleClassSelection(c)} />
@@ -214,49 +206,49 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                         </div>
                         {/* KB Selection */}
                         <div >
-                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: layers.ref.spacing['8']}}>
-                                <h3 >3. Contesto KB</h3>
-                                <span style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.75rem" }}>{selectedKbIds.length} selezionati</span>
+                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                                <M3Typography variant="title-large">3. Contesto KB</M3Typography>
+                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "0.75rem" }}>{selectedKbIds.length} selezionati</span>
                             </div>
-                            <div style={{ padding: layers.ref.spacing['4'] }} style={{ border: "none", overflowY: "auto" }}>
+                            <div style={{ padding: 'var(--md-sys-spacing-4)', border: "none", overflowY: "auto" }}>
                                 {knowledgeBase.map(kb => (
                                     <div key={kb.id} >
                                         <input type="checkbox" id={`kb-select-${kb.id}`} checked={selectedKbIds.includes(kb.id)} onChange={() => handleKbSelection(kb.id)} />
                                         <label htmlFor={`kb-select-${kb.id}`}  style={{ width: "100%", justifyContent: "flex-start" }} title={kb.fileName}>
                                             {selectedKbIds.includes(kb.id) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
-                                            <span  style={{color: "layers.sys.color.primary", fontSize: layers.ref.spacing['4']}}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
+                                            <span  style={{color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-spacing-4)'}}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
                                             <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                         </label>
                                     </div>
                                 ))}
-                                {knowledgeBase.length === 0 && <p style={{ color:  layers.sys.color.onSurfaceVariant }}>KB vuota.</p>}
+                                {knowledgeBase.length === 0 && <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>KB vuota.</M3Typography>}
                             </div>
                         </div>
                     </div>
-                    <div style={{marginTop: layers.ref.spacing['4']}}>
+                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0}  style={{ width: "100%" }}>
                             <span  style={{ marginRight: "0.5rem" }}>auto_awesome</span>
                             Genera Sequenze di Lezioni
                         </button>
-                        {error && <p style={{color: "layers.sys.color.error", fontSize: "0.875rem", marginTop: layers.ref.spacing['4'], textAlign: "center"}}>{error}</p>}
+                        {error && <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-error)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>{error}</M3Typography>}
                     </div>
                 </div>
             </details>
 
             {/* Lessons Archive */}
             <div >
-                <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['8']}}>
-                    <h2 >Archivio Lezioni ({lessons.length})</h2>
+                <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                    <M3Typography variant="headline-medium">Archivio Lezioni ({lessons.length})</M3Typography>
 
                     {/* Filtri */}
-                    <div style={{display: "flex", flexWrap: "wrap", gap: layers.ref.spacing['8']}}>
-                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                    <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
+                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <select value={filterClass} onChange={e => setFilterClass(e.target.value)}  style={{ fontSize: "0.875rem" }}>
                                 <option value="">Tutte le classi</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </select>
                         </div>
-                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <select value={filterUda} onChange={e => setFilterUda(e.target.value)}  style={{ fontSize: "0.875rem" }}>
                                 <option value="">Tutte le UDA</option>
                                 {filteredUdas.map(u => <option key={u.id} value={u.title}>{u.title}</option>)}
@@ -272,11 +264,11 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                     </div>
                 </div>
 
-                <div style={{gap: layers.ref.spacing['3']}}>
+                <div style={{gap: 'var(--md-sys-spacing-3)'}}>
                     {groupedLessonsByClass.length > 0 ? (
                         groupedLessonsByClass.map(([classKey, udaGroups]) => (
                             <details key={classKey}  open>
-                                <summary style={{ backgroundColor:  layers.sys.color.surfaceContainerHighest/30 }}>
+                                <summary style={{ backgroundColor: 'var(--md-sys-color-surface-container-highest)'}}>
                                     <span >Classe {classKey}</span>
                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -284,17 +276,17 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                 </summary>
                                 <div >
                                     {Object.entries(udaGroups).map(([udaKey, lessonItems]) => (
-                                        <details key={udaKey}  style={{border: "none", marginBottom: layers.ref.spacing['8']}} open={udaKey !== 'Lezioni Varie'}>
+                                        <details key={udaKey}  style={{border: "none", marginBottom: 'var(--md-sys-spacing-8)'}} open={udaKey !== 'Lezioni Varie'}>
                                             <summary >
-                                                <span  style={{color: "layers.sys.color.primary"}}>{udaKey} ({lessonItems.length})</span>
+                                                <span  style={{color: 'var(--md-sys-color-primary)'}}>{udaKey} ({lessonItems.length})</span>
                                                 <span  style={{ fontSize: "0.875rem" }}>expand_more</span>
                                             </summary>
-                                            <div  style={{gap: layers.ref.spacing['2']}}>
+                                            <div  style={{gap: 'var(--md-sys-spacing-2)'}}>
                                                 {lessonItems.map(lesson => (
                                                     <div key={lesson.id} >
                                                         <div onClick={() => onViewLesson(lesson)} >
-                                                            <p style={{ color: layers.sys.color.onSurfaceVariant }} style={{ fontWeight: "500" }}>{lesson.contenuto}</p>
-                                                            <p style={{ color:  layers.sys.color.onSurfaceVariant }}>{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</p>
+                                                            <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>{lesson.contenuto}</M3Typography>
+                                                            <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</M3Typography>
                                                         </div>
                                                         <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)}  style={{ flexShrink: "0" }}>
                                                             <span  style={{ fontSize: "0.875rem" }}>door_open</span>
@@ -311,8 +303,8 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                     ) : (
                         <div >
                             <span >history_edu</span>
-                            <p >Nessuna lezione trovata</p>
-                            <p>Modifica i filtri o crea una nuova lezione.</p>
+                            <M3Typography variant="body-large">Nessuna lezione trovata</M3Typography>
+                            <M3Typography variant="body-medium">Modifica i filtri o crea una nuova lezione.</M3Typography>
                         </div>
                     )}
                 </div>
