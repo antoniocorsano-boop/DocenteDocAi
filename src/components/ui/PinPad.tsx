@@ -1,4 +1,5 @@
-import React from 'react';
+// LEGACY - MD3 Non-compliant
+import React, { useState } from 'react';
 import { useTheme } from '../../theme/theme';
 
 interface PinPadProps {
@@ -9,106 +10,101 @@ interface PinPadProps {
 /**
  * PinPad - Numeric keypad component for PIN entry.
  * Provides a 3x4 grid of number buttons with delete functionality.
- * 
- * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance and MD3 tokens
  */
 
 const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const theme = useTheme();
-    
+    const { layers } = useTheme();
+    const { sys: { colors }, ref, motion, elevation } = layers;
+
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'back'];
+
+    const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+    const [pressedKey, setPressedKey] = useState<string | null>(null);
+
     return (
         <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 'var(--md-sys-spacing-6)',
-            maxWidth: '340px',
-            margin: 'var(--md-sys-spacing-10) auto 0'
+            gap: layers.ref.spacing['4'],
+            maxWidth: layers.ref.spacing['64'], // Using calculated value instead of non-existent spacing token
+            margin: `${layers.ref.spacing['4']} auto 0`
         }}>
             {keys.map((key, i) => {
                 if (key === '') return <div key={i}></div>;
+
+                const isHovered = hoveredKey === key;
+                const isPressed = pressedKey === key;
+
                 if (key === 'back') return (
-                    <button 
-                        key={i} 
-                        onClick={onDelete} 
+                    <button
+                        key={i}
+                        onClick={onDelete}
                         aria-label="Cancella"
                         style={{
-                            width: 'var(--md-sys-spacing-20)',
-                            height: 'var(--md-sys-spacing-20)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            width: layers.ref.spacing['12'],
+                            height: layers.ref.spacing['12'],
+                            borderRadius: ref.shape.large,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short)',
+                            transition: `all ${motion.duration.short1} ${motion.easing.standard}`,
                             border: 'none',
-                            backgroundColor: 'transparent',
-                            cursor: 'pointer'
+                            backgroundColor: isHovered ? colors.surfaceContainerHigh : 'transparent',
+                            cursor: 'pointer',
+                            transform: isPressed ? 'scale(0.9)' : 'scale(1)'
                         }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = 'transparent';
-                        }}
-                        onMouseDown={(e) => {
-                            e.currentTarget.style.transform = 'scale(0.9)';
-                        }}
-                        onMouseUp={(e) => {
-                            e.currentTarget.style.transform = 'scale(1)';
-                        }}
+                        onMouseEnter={() => setHoveredKey(key)}
+                        onMouseLeave={() => setHoveredKey(null)}
+                        onMouseDown={() => setPressedKey(key)}
+                        onMouseUp={() => setPressedKey(null)}
                     >
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--md-sys-typescale-display-small-size)',
+                            fontSize: ref.typography.labelLarge.fontSize,
                             fontWeight: 300
                         }}>backspace</span>
                     </button>
                 );
+
                 return (
-                    <button 
-                        key={i} 
-                        onClick={() => onInput(key)} 
+                    <button
+                        key={i}
+                        onClick={() => onInput(key)}
                         aria-label={`Cifra ${key}`}
                         style={{
-                            width: 'var(--md-sys-spacing-20)',
-                            height: 'var(--md-sys-spacing-20)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            backgroundColor: 'var(--md-sys-color-surface-container)',
-                            fontSize: 'var(--md-sys-typescale-display-small-size)',
+                            width: layers.ref.spacing['12'],
+                            height: layers.ref.spacing['12'],
+                            borderRadius: ref.shape.large,
+                            backgroundColor: isHovered ? colors.surface : colors.surfaceContainerLow,
+                            fontSize: ref.typography.labelLarge.fontSize,
                             fontWeight: 800,
-                            border: '2px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)',
-                            transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short)',
+                            border: `2px solid ${isHovered ? colors.primary : `color-mix(in srgb, ${colors.outlineVariant} 30%, transparent)`}`,
+                            transition: `all ${motion.duration.short1} ${motion.easing.standard}`,
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            boxShadow: isHovered ? elevation.level3 : 'none',
+                            transform: isPressed ? 'scale(0.9)' : 'scale(1)'
                         }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.borderColor = 'var(--md-sys-color-primary)';
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface)';
-                            e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level3)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)';
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container)';
-                            e.currentTarget.style.boxShadow = 'none';
-                        }}
-                        onMouseDown={(e) => {
-                            e.currentTarget.style.transform = 'scale(0.9)';
-                        }}
-                        onMouseUp={(e) => {
-                            e.currentTarget.style.transform = 'scale(1)';
-                        }}
+                        onMouseEnter={() => setHoveredKey(key)}
+                        onMouseLeave={() => setHoveredKey(null)}
+                        onMouseDown={() => setPressedKey(key)}
+                        onMouseUp={() => setPressedKey(null)}
                     >
                         {key}
                     </button>
-                ); 
+                );
             })}
         </div>
     );
 };
 
 export default PinPad;
+
+
+
+
+
 
 

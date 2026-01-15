@@ -1,3 +1,7 @@
+// @legacy
+// @md3-noncompliant
+// @do-not-extend
+
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { tokenLayers, TokenLayers, SysLayer, RefLayer, CompLayer, MotionLayer, ElevationLayer } from './tokens';
 
@@ -32,7 +36,7 @@ interface M3ThemeProviderProps {
 }
 
 export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) => {
-  const [overrides, setOverrides] = useState<PresetOverrides>({});
+const [overrides, setOverrides] = useState<PresetOverrides>({});
 
   // Load overrides from localStorage on mount
   useEffect(() => {
@@ -44,12 +48,12 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) =>
         console.warn('Failed to parse theme overrides from localStorage');
       }
     }
-  }, []);
+}, []);
 
   // Save overrides to localStorage
   useEffect(() => {
     localStorage.setItem('m3-theme-overrides', JSON.stringify(overrides));
-  }, [overrides]);
+}, [overrides]);
 
   // Function to update overrides safely using token layers
   const updateOverrides = (newOverrides: PresetOverrides) => {
@@ -118,7 +122,7 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) =>
         const keysA = Object.keys(a);
         const keysB = Object.keys(b);
         if (keysA.length !== keysB.length) return false;
-        return keysA.every(key => isEqual(a[key], b[key]));
+          return keysA.every(key => isEqual(a[key], b[key]));
       }
       return a === b;
     };

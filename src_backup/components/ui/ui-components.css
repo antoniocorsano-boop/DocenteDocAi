@@ -1,0 +1,142 @@
+/*
+  UI Components CSS
+  All styles migrated from inline style objects in UI components and stories for CSP compliance.
+  Add, refactor, and extend as needed for MD3 design system.
+*/
+
+/* Example classes for flex layouts, spacing, colors, etc. */
+.flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-row {
+  flex-direction: row;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.align-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.gap-2 {
+  gap: var(--md-sys-spacing-2);
+}
+.gap-3 {
+  gap: var(--md-sys-spacing-3);
+}
+.gap-4 {
+  gap: var(--md-sys-spacing-4);
+}
+.gap-12 {
+  gap: var(--spacing-12);
+}
+.gap-16 {
+  gap: var(--spacing-16);
+}
+.p-12 {
+  padding: var(--spacing-12);
+}
+.p-16 {
+  padding: var(--spacing-16);
+}
+.px-12 {
+  padding-left: var(--spacing-12);
+  padding-right: var(--spacing-12);
+}
+.py-12 {
+  padding-top: var(--spacing-12);
+  padding-bottom: var(--spacing-12);
+}
+.px-16 {
+  padding-left: var(--spacing-16);
+  padding-right: var(--spacing-16);
+}
+.py-16 {
+  padding-top: var(--spacing-16);
+  padding-bottom: var(--spacing-16);
+}
+.mt-12 {
+  margin-top: var(--spacing-12);
+}
+.mb-12 {
+  margin-bottom: var(--spacing-12);
+}
+.mt-16 {
+  margin-top: var(--spacing-16);
+}
+.mb-16 {
+  margin-bottom: var(--spacing-16);
+}
+.max-w-25rem {
+  max-width: 25rem;
+}
+.max-w-31-25rem {
+  max-width: 31.25rem;
+}
+.max-w-300px {
+  max-width: 300px;
+}
+.bg-surface {
+  background-color: var(--md-sys-color-surface);
+}
+.bg-surface-container-high {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+.bg-surface-container-low {
+  background-color: var(--md-sys-color-surface-container-low);
+}
+.rounded {
+  border-radius: var(--md-corner-medium);
+}
+.rounded-small {
+  border-radius: var(--md-corner-small);
+}
+.shadow-elevation1 {
+  box-shadow: var(--md-sys-elevation1);
+}
+.font-body-medium {
+  font-size: var(--md-sys-typescale-body-medium-size);
+}
+.font-body-small {
+  font-size: var(--md-sys-typescale-body-small-size);
+}
+.font-weight-medium {
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+}
+.opacity-60 {
+  opacity: 0.6;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.border-outline-variant {
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+.transition-all {
+  transition: all var(--motion-duration-medium2) var(--motion-easing-standard);
+}
+.transition-bg {
+  transition: background-color var(--motion-duration-short3) var(--motion-easing-standard);
+}
+.transition-transform {
+  transition: transform var(--motion-duration-short3) var(--motion-easing-standard);
+}
+.transition-transform-emphasized {
+  transition: transform var(--motion-duration-medium2) var(--motion-easing-emphasized);
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.flex-1 {
+  flex: 1;
+}
+
+

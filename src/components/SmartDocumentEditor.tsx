@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { AiSettings } from '../types';
 import { refineTextWithAi, generateDocumentTable } from '../services/aiService';
@@ -5,6 +6,7 @@ import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { sanitizeHTML } from '../utils/securityUtils';
 import { saveAs } from '../utils/documentUtils';
 import { AiThinkingGem } from './ui';
+import { useTheme } from '../theme/theme';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation, and animations
 
@@ -17,6 +19,7 @@ interface SmartDocumentEditorProps {
 }
 
 const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialContent, documentTitle, onClose, aiSettings, onSaveToKb }) => {
+  const { layers } = useTheme();
     const editorRef = useRef<HTMLDivElement>(null);
     const [isAiThinking, setIsAiThinking] = useState(false);
     const [aiMenuPosition, setAiMenuPosition] = useState<{top: number, left: number} | null>(null);
@@ -271,7 +274,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
 
     const handlePrint = useCallback(() => {
         if (!editorRef.current) return;
-        const printWindow = window.open('', '', 'height=600,width=800');
+        const printWindow = window.open(', ', 'height=600,width=800');
         if (printWindow) {
             printWindow.document.write('<html><head><title>' + editorTitle + '</title>');
             printWindow.document.write('<style>@import url(\'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap\'); body{font-family:\'Roboto\',sans-serif; padding: 20px;} table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ccc;padding:var(--md-sys-spacing-2);} h1,h2,h3{color:var(--md-sys-color-primary);}</style>'); // MD3 fix
@@ -284,56 +287,56 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
     }, [editorRef, editorTitle]);
 
     return (
-        <div className="smart-document-editor-overlay">
+        <div >
             {/* TOOLBAR */}
-            <div className="smart-document-editor-toolbar">
-                <div className="smart-document-editor-toolbar-left">
-                    <button onClick={handleCloseSafe} className="icon-button" aria-label="Chiudi editor"><span style={{
+            <div >
+                <div >
+                    <button onClick={handleCloseSafe}  aria-label="Chiudi editor"><span style={{
   fontFamily: 'Material Symbols Outlined'
 }} aria-hidden="true">arrow_back</span></button>
                     <input 
                         type="text" 
                         value={editorTitle} 
                         onChange={(e) => { setEditorTitle(e.target.value); setIsDirty(true); }} 
-                        className="smart-document-editor-title-input"
+                        
                     />
-                    {isDirty && <span className="smart-document-editor-dirty-indicator">• Modificato</span>}
+                    {isDirty && <span >• Modificato</span>}
                 </div>
                 
-                <div className="smart-document-editor-format-toolbar md:flex" style={{ display: "none" }}>
-                    <button onClick={() => execCmd('bold')} className="smart-document-editor-format-button icon-button" title="Grassetto" aria-label="Applica grassetto"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_bold</span></button>
-                    <button onClick={() => execCmd('italic')} className="smart-document-editor-format-button icon-button" title="Corsivo" aria-label="Applica corsivo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_italic</span></button>
-                    <button onClick={() => execCmd('formatBlock', 'h2')} className="smart-document-editor-format-button icon-button" title="Titolo" aria-label="Applica stile titolo"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">title</span></button>
-                    <div className="smart-document-editor-format-separator"></div>
-                    <button onClick={() => execCmd('insertUnorderedList')} className="smart-document-editor-format-button icon-button" title="Elenco" aria-label="Inserisci elenco puntato"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">format_list_bulleted</span></button>
-                    <button onClick={handleAiTable} className="smart-document-editor-format-button icon-button" style={{ color: "var(--md-sys-color-primary)" }} title="Tabella AI" aria-label="Genera tabella con AI"><span className="material-symbols-outlined m3-label-large" aria-hidden="true">table_chart</span></button>
+                <div  style={{ display: "none" }}>
+                    <button onClick={() => execCmd('bold')}  title="Grassetto" aria-label="Applica grassetto"><span  aria-hidden="true">format_bold</span></button>
+                    <button onClick={() => execCmd('italic')}  title="Corsivo" aria-label="Applica corsivo"><span  aria-hidden="true">format_italic</span></button>
+                    <button onClick={() => execCmd('formatBlock', 'h2')}  title="Titolo" aria-label="Applica stile titolo"><span  aria-hidden="true">title</span></button>
+                    <div ></div>
+                    <button onClick={() => execCmd('insertUnorderedList')}  title="Elenco" aria-label="Inserisci elenco puntato"><span  aria-hidden="true">format_list_bulleted</span></button>
+                    <button onClick={handleAiTable}  style={{color: "layers.sys.color.primary"}} title="Tabella AI" aria-label="Genera tabella con AI"><span  aria-hidden="true">table_chart</span></button>
                 </div>
 
-                <div className="smart-document-editor-toolbar-right">
-                    <button onClick={handleCopyForGoogleDocs} className="smart-document-editor-action-button button button-tonal" title="Copia per Google Docs">
-                        <span className="material-symbols-outlined smart-document-editor-action-icon">content_copy</span> Docs
+                <div >
+                    <button onClick={handleCopyForGoogleDocs}  title="Copia per Google Docs">
+                        <span >content_copy</span> Docs
                     </button>
-                    <button onClick={handleDownload} className="smart-document-editor-action-button button button-outlined">
-                        <span className="material-symbols-outlined smart-document-editor-action-icon">download</span> DOCX
+                    <button onClick={handleDownload} >
+                        <span >download</span> DOCX
                     </button>
-                    <button onClick={handlePrint} className="smart-document-editor-print-button icon-button" title="Stampa / PDF" aria-label="Stampa o salva come PDF">
-                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" aria-hidden="true">print</span>
+                    <button onClick={handlePrint}  title="Stampa / PDF" aria-label="Stampa o salva come PDF">
+                        <span style={{ color: layers.sys.color.onSurfaceVariant }} aria-hidden="true">print</span>
                     </button>
                     {onSaveToKb && (
-                        <button onClick={handleSave} className="smart-document-editor-action-button button button-filled">
-                            <span className="material-symbols-outlined smart-document-editor-action-icon">save</span> Salva
+                        <button onClick={handleSave} >
+                            <span >save</span> Salva
                         </button>
                     )}
                 </div>
             </div>
 
             {/* EDITOR AREA */}
-            <div className="smart-document-editor-editor-area">
+            <div >
                 <div 
                     ref={editorRef}
                     contentEditable
                     onInput={handleInput}
-                    className="smart-document-editor-editor"
+                    
                     style={{ fontFamily: "'Times New Roman', serif", fontSize: '12pt', lineHeight: '1.5' }}
                 >
                 </div>
@@ -342,25 +345,25 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             {/* AI FLOATING MENU */}
             {aiMenuPosition && (
                 <div 
-                    className="smart-document-editor-ai-menu"
+                    
                     style={{ top: aiMenuPosition.top, left: aiMenuPosition.left }}
                 >
-                    <div className="smart-document-editor-ai-menu-header">
+                    <div >
                         <AiThinkingGem size="small" />
-                        <span className="smart-document-editor-ai-menu-title">AI Assistant</span>
+                        <span >AI Assistant</span>
                     </div>
                     {isAiThinking ? (
-                        <div className="smart-document-editor-ai-thinking">Elaborazione...</div>
+                        <div >Elaborazione...</div>
                     ) : (
                         <>
-                            <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} className="smart-document-editor-ai-option">
-                                <span className="material-symbols-outlined m3-body-small">history_edu</span> Rendi Formale
+                            <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} >
+                                <span >history_edu</span> Rendi Formale
                             </button>
-                            <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} className="smart-document-editor-ai-option">
-                                <span className="material-symbols-outlined m3-body-small">unfold_more</span> Espandi
+                            <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} >
+                                <span >unfold_more</span> Espandi
                             </button>
-                            <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} className="smart-document-editor-ai-option">
-                                <span className="material-symbols-outlined m3-body-small">format_list_bulleted</span> Sintetizza
+                            <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} >
+                                <span >format_list_bulleted</span> Sintetizza
                             </button>
                         </>
                     )}
@@ -371,5 +374,10 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
 };
 
 export default SmartDocumentEditor;
+
+
+
+
+
 
 

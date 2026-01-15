@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3Dialog from './M3Dialog';
@@ -5,7 +6,7 @@ import M3Dialog from './M3Dialog';
 const meta = {
   title: 'M3/Dialog',
   component: M3Dialog,
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     title: {
       control: 'text',
@@ -21,7 +22,7 @@ const meta = {
     },
     mode: {
       control: 'select',
-      options: ['modal', 'fullscreen'],
+      options: ['modal', 'fullscreen],
       description: 'Dialog display mode',
     },
     backdropClickable: {
@@ -30,7 +31,7 @@ const meta = {
     },
     maxWidth: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl', '2xl'],
+      options: ['sm', 'md', 'lg', 'xl', '2xl],
       description: 'Maximum width constraint',
     },
     level: {
@@ -64,7 +65,7 @@ export const Default: Story = {
               backgroundColor: 'var(--md-sys-color-primary)',
               color: 'var(--md-sys-color-on-primary)',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: layers.ref.spacing['4'],
               cursor: 'pointer',
             }}
           >
@@ -105,7 +106,7 @@ export const WithHeadline: Story = {
               backgroundColor: 'var(--md-sys-color-primary)',
               color: 'var(--md-sys-color-on-primary)',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: layers.ref.spacing['4'],
               cursor: 'pointer',
             }}
           >
@@ -136,10 +137,10 @@ export const WithButtons: Story = {
         <button
           style={{
             padding: '0.5rem 1.5rem',
-            backgroundColor: 'var(--md-sys-color-surface-container)',
-            color: 'var(--md-sys-color-on-surface)',
+            backgroundColor: 'var(--md-sys-color-surfaceContainer)',
+            color: 'var(--md-sys-color-onSurface)',
             border: '1px solid var(--sys-outline)',
-            borderRadius: '6px',
+            borderRadius: layers.ref.spacing['4'],
             cursor: 'pointer',
           }}
         >
@@ -151,7 +152,7 @@ export const WithButtons: Story = {
             backgroundColor: 'var(--sys-error)',
             color: 'var(--sys-on-error)',
             border: 'none',
-            borderRadius: '6px',
+            borderRadius: layers.ref.spacing['4'],
             cursor: 'pointer',
           }}
         >
@@ -173,7 +174,7 @@ export const WithButtons: Story = {
               backgroundColor: 'var(--sys-error)',
               color: 'var(--sys-on-error)',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: layers.ref.spacing['4'],
               cursor: 'pointer',
             }}
           >
@@ -219,7 +220,7 @@ export const Fullscreen: Story = {
               backgroundColor: 'var(--md-sys-color-primary)',
               color: 'var(--md-sys-color-on-primary)',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: layers.ref.spacing['4'],
               cursor: 'pointer',
             }}
           >
@@ -246,7 +247,7 @@ export const RichContent: Story = {
     title: 'Settings',
     headline: 'Customize your experience',
     children: (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4'] }}>
         <div>
           <label style={{ display: 'block', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: '0.25rem' }}>
             Theme
@@ -279,7 +280,7 @@ export const RichContent: Story = {
           backgroundColor: 'var(--md-sys-color-primary)',
           color: 'var(--md-sys-color-on-primary)',
           border: 'none',
-          borderRadius: '6px',
+          borderRadius: layers.ref.spacing['4'],
           cursor: 'pointer',
         }}
       >
@@ -300,7 +301,7 @@ export const RichContent: Story = {
               backgroundColor: 'var(--md-sys-color-primary)',
               color: 'var(--md-sys-color-on-primary)',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: layers.ref.spacing['4'],
               cursor: 'pointer',
             }}
           >
@@ -341,7 +342,7 @@ export const SmallDialog: Story = {
               backgroundColor: 'var(--md-sys-color-primary)',
               color: 'var(--md-sys-color-on-primary)',
               border: 'none',
-              borderRadius: '6px',
+              borderRadius: layers.ref.spacing['4'],
               cursor: 'pointer',
             }}
           >
@@ -359,5 +360,10 @@ export const SmallDialog: Story = {
     );
   },
 };
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useRef, useMemo } from 'react';
 import { LiveServerMessage, Modality, Type } from '@google/genai';
 import { LiveAssistantProps, TranscriptEntry, View } from '../types.ts';
@@ -52,9 +53,9 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
 
   if (isSystem) {
     return (
-      <div className="live-assistant-system-message">
-        <div className="live-assistant-system-bubble">
-          <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>check_circle</span>
+      <div >
+        <div >
+          <span  style={{ fontSize: "0.875rem" }}>check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
       </div>
@@ -66,11 +67,11 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
       <div className={`live-assistant-chat-bubble ${isUser ? 'live-assistant-chat-bubble-user' : 'live-assistant-chat-bubble-ai'}`}>
         <p style={{ whiteSpace: "pre-wrap" }}>{entry.text}</p>
         {entry.sources && (
-          <div className="live-assistant-sources">
-            <p className="live-assistant-sources-title">FONTI:</p>
-            <div className="live-assistant-sources-list">
+          <div >
+            <p >FONTI:</p>
+            <div >
               {entry.sources.map((s, i) => (
-                <a key={i} href={s.uri} target="_blank" rel="noreferrer" className="live-assistant-source-link">
+                <a key={i} href={s.uri} target="_blank" rel="noreferrer" >
                   {s.title}
                 </a>
               ))}
@@ -251,23 +252,23 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
   };
 
   return (
-    <div className="live-assistant-container">
-      <div className="live-assistant-chat-area">
+    <div >
+      <div >
         {transcripts.map((t, i) => <ChatBubble key={i} entry={t} />)}
         {transcripts.length === 0 && (
-          <div className="live-assistant-empty-state">
-            <span className="material-symbols-outlined live-assistant-empty-icon">graphic_eq</span>
-            <p className="live-assistant-empty-text">L'assistente è pronto ad ascoltarti.</p>
+          <div >
+            <span >graphic_eq</span>
+            <p >L'assistente è pronto ad ascoltarti.</p>
           </div>
         )}
       </div>
-      <div className="live-assistant-controls">
-        <p className="live-assistant-status">{status}</p>
+      <div >
+        <p >{status}</p>
         <button
           onClick={isConnected ? stopSession : startSession}
           className={`live-assistant-mic-button ${isConnected ? 'live-assistant-mic-button-connected' : 'live-assistant-mic-button-disconnected'}`}
         >
-          <span className="material-symbols-outlined live-assistant-mic-icon">{isConnected ? 'mic_off' : 'mic'}</span>
+          <span >{isConnected ? 'mic_off' : 'mic'}</span>
         </button>
       </div>
     </div>
@@ -275,5 +276,10 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
 };
 
 export default LiveAssistant;
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import { useTheme, ThemeOverrides } from '../../theme/theme';
 import { M3Button } from '../M3Button';
@@ -54,7 +55,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       color: colors.onSurface,
       borderRadius: spacing['1'],
       boxShadow: `0 4px 6px ${colors.shadow}`,
-      maxWidth: '600px',
+      maxWidth: layers.ref.spacing['4'],
       margin: '0 auto'
     }}>
       <h2 style={{ ...typography.heading1, marginBottom: spacing['4'] }}>Theme Settings</h2>
@@ -82,7 +83,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 type="color"
                 value={tempOverrides.colors?.[key as keyof typeof colors] || value}
                 onChange={(e) => handleColorChange(key as keyof typeof colors, e.target.value)}
-                style={{ width: '100%', height: '32px', border: `1px solid ${colors.outline}`, borderRadius: spacing['1'] }}
+                style={{ width: '100%', height: layers.ref.spacing['4'], border: `1px solid ${colors.outline}`, borderRadius: spacing['1'] }}
               />
             </div>
           ))}
@@ -160,3 +161,8 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
     </div>
   );
 };
+
+
+
+
+

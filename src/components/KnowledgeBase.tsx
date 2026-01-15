@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 /**
  * KnowledgeBase.tsx
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
@@ -9,11 +10,12 @@ import AddSourceModal from './AddSourceModal';
 import DocumentViewerModal from './DocumentViewerModal'; 
 import ImageViewerModal from './ImageViewerModal';
 import { KB_CATEGORIES } from '../constants';
-import { 
-    InfoCard, 
-    CategoryCard, 
-    SectionHeader, 
-    M3Button 
+import { useTheme } from '../theme/theme';
+import {
+    InfoCard,
+    CategoryCard,
+    SectionHeader,
+    M3Button
 } from './ui';
 
 interface KnowledgeBaseProps {
@@ -28,8 +30,9 @@ interface KnowledgeBaseProps {
 }
 
 const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowledgeBase, corpora, setCorpora, showToast }) => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [currentView, setCurrentView] = useState<{ type: 'root' | 'category' | 'corpus', id: string }>({ type: 'root', id: '' });
+  const { layers } = useTheme();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentView, setCurrentView] = useState<{ type: 'root' | 'category' | 'corpus', id: string }>({ type: 'root', id: '' });
     const [isAddSourceModalOpen, setIsAddSourceModalOpen] = useState(false);
     const [previewingEntry, setPreviewingEntry] = useState<KnowledgeBaseEntry | null>(null);
     const [viewingImage, setViewingImage] = useState<KnowledgeBaseEntry | null>(null);
@@ -75,7 +78,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     };
 
     const renderFolderDashboard = () => (
-        <div className="knowledge-base-folder-grid">
+        <div >
              {KB_CATEGORIES.map(cat => (
                  <CategoryCard 
                     key={cat.id} 
@@ -94,59 +97,59 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     const renderFileList = () => {
         const categoryInfo = currentView.type === 'category' ? KB_CATEGORIES.find(c => c.id === currentView.id) : null;
         return (
-            <div className="knowledge-base-file-list">
-                <header className="knowledge-base-file-header">
-                    <div className="knowledge-base-file-header-content">
-                        <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" className="knowledge-base-back-button">
+            <div >
+                <header >
+                    <div >
+                        <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" >
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>arrow_back</span>
                         </M3Button>
-                        <h2 className="knowledge-base-file-title">{categoryInfo?.label || 'File'}</h2>
+                        <h2 >{categoryInfo?.label || 'File'}</h2>
                     </div>
-                    <div className="knowledge-base-search-container">
-                        <span className="knowledge-base-search-icon">search</span>
+                    <div >
+                        <span >search</span>
                         <input 
                             type="text" 
                             placeholder="Cerca in questa cartella..." 
-                            className="knowledge-base-search-input" 
+                             
                             value={searchTerm} 
                             onChange={(e) => setSearchTerm(e.target.value)} 
                         />
                     </div>
                 </header>
 
-                <div className="knowledge-base-file-grid">
+                <div >
                     {filteredFiles.map(entry => (
                         <div 
                             key={entry.id} 
-                            className="knowledge-base-file-card"
+                            
                             onClick={() => handleFileClick(entry)}
                         >
-                            <div className="knowledge-base-file-icon">
-                                <span className="material-symbols-outlined knowledge-base-file-icon-symbol">
+                            <div >
+                                <span >
                                     {entry.category === 'ai_deliverable' ? 'auto_awesome' : (entry.fileContent?.mimeType === 'application/pdf' ? 'picture_as_pdf' : 'description')}
                                 </span>
                             </div>
-                            <div className="knowledge-base-file-info">
-                                <p className="knowledge-base-file-name">{entry.fileName}</p>
-                                <p className="knowledge-base-file-type">
+                            <div >
+                                <p >{entry.fileName}</p>
+                                <p >
                                     {entry.isGenerated ? 'Generato con AI' : 'Documento locale'}
                                 </p>
                             </div>
                             <M3Button 
                                 onClick={(e) => { e.stopPropagation(); handleDeleteFile(entry.id); }} 
                                 variant="text" 
-                                className="knowledge-base-file-delete"
+                                
                             >
-                                <span className="material-symbols-outlined knowledge-base-file-delete-icon">delete</span>
+                                <span >delete</span>
                             </M3Button>
                         </div>
                     ))}
                     {filteredFiles.length === 0 && (
-                        <div className="knowledge-base-empty">
-                            <span className="material-symbols-outlined knowledge-base-empty-icon">search_off</span>
-                            <p className="knowledge-base-empty-text">Nessun file trovato in questa cartella.</p>
+                        <div >
+                            <span >search_off</span>
+                            <p >Nessun file trovato in questa cartella.</p>
                         </div>
                     )}
                 </div>
@@ -155,14 +158,14 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     }
 
     return (
-        <div className="page-layout pb-24" style={{ maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>
-            <div className="md:flex-row md:items-center" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-8)" }}>
+        <div  style={{maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
+            <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['8']}}>
                 <SectionHeader 
                     title="Knowledge Base" 
                     subtitle="Archivio fonti, documenti e deliverable generati dall'AI."
                     icon="database"
                 />
-                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" className="shadow-[var(--md-sys-elevation-level2)] px-6 py-6 rounded-[var(--md-sys-shape-corner-large)]" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" style={{ borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>add_circle</span>
@@ -175,10 +178,10 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 description="Puoi caricare qui le analisi o i progetti prodotti con NotebookLM. L'app li userà come base di conoscenza prioritaria per generare le tue lezioni e UDA."
                 icon="bolt"
                 variant="primary"
-                className="bg-primary-container/20 border-primary/20" style={{ marginBottom: "var(--md-sys-spacing-8)" }}
+                style={{ backgroundColor: sys.colors.primaryContainer/20 }} style={{marginBottom: layers.ref.spacing['8']}}
             />
 
-            <main className="min-h-[500px]">
+            <main >
                 {currentView.type === 'root' ? renderFolderDashboard() : renderFileList()}
             </main>
 
@@ -211,5 +214,10 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
 };
 
 export default KnowledgeBase;
+
+
+
+
+
 
 

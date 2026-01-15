@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive: LoadingModal - Loading indicator modal with M3 tokens
 import React from 'react';
 import { M3Dialog, M3DialogContent } from './ui';
@@ -15,17 +16,22 @@ const LoadingModal: React.FC<LoadingModalProps> = ({ message }) => {
       hideCloseButton
       hideBackdrop={true}
     >
-      <M3DialogContent className="loading-modal-content">
-        <div className="loading-modal-spinner-container">
-          <div className="loading-modal-spinner-ring-outer"></div>
-          <div className="loading-modal-spinner-ring-inner"></div>
+      <M3DialogContent >
+        <div >
+          <div ></div>
+          <div ></div>
         </div>
-        <p className="m3-title-medium loading-modal-message">{message}</p>
+        <p >{message}</p>
       </M3DialogContent>
     </M3Dialog>
   );
 };
 
 export default LoadingModal;
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import * as React from 'react';
 import { messages } from '../messages';
@@ -27,51 +28,51 @@ const RestoreAssistModal: React.FC<RestoreAssistModalProps> = ({
       maxWidth="md"
       level={1}
     >
-      <M3DialogContent className="restore-assist-modal-content">
-        <div className="restore-assist-modal-warning">
-          <span className="material-symbols-outlined restore-assist-modal-warning-icon">warning</span>
-          <p className="restore-assist-modal-warning-text">
+      <M3DialogContent >
+        <div >
+          <span >warning</span>
+          <p >
             {messages.restore.description}
           </p>
         </div>
 
         {error && (
-          <div className="restore-assist-modal-error">
+          <div >
             {error}
           </div>
         )}
 
-        <div className="restore-assist-modal-options">
-          <M3Button onClick={onLoadDemo} variant="filled" className="restore-assist-modal-option-button">
-            <div className="restore-assist-modal-option-content">
-              <span className="material-symbols-outlined restore-assist-modal-option-icon">auto_awesome</span>
-              <span className="restore-assist-modal-option-text">{messages.restore.demo}</span>
+        <div >
+          <M3Button onClick={onLoadDemo} variant="filled" >
+            <div >
+              <span >auto_awesome</span>
+              <span >{messages.restore.demo}</span>
             </div>
           </M3Button>
 
-          <M3Button onClick={onRestoreFile} variant="outlined" className="restore-assist-modal-option-button">
-            <div className="restore-assist-modal-option-content">
-              <span className="material-symbols-outlined restore-assist-modal-option-icon">upload</span>
-              <span className="restore-assist-modal-option-text">{messages.restore.file}</span>
+          <M3Button onClick={onRestoreFile} variant="outlined" >
+            <div >
+              <span >upload</span>
+              <span >{messages.restore.file}</span>
             </div>
           </M3Button>
 
-          <M3Button onClick={onConnectDrive} variant="tonal" className="restore-assist-modal-option-button restore-assist-modal-drive-option">
-            <div className="restore-assist-modal-drive-content">
-              <span className="material-symbols-outlined restore-assist-modal-option-icon">cloud_sync</span>
-              <span className="restore-assist-modal-drive-text">{messages.restore.drive}</span>
+          <M3Button onClick={onConnectDrive} variant="tonal" >
+            <div >
+              <span >cloud_sync</span>
+              <span >{messages.restore.drive}</span>
             </div>
           </M3Button>
         </div>
 
-        <div className="restore-assist-modal-privacy">
-          <p className="restore-assist-modal-privacy-text">
+        <div >
+          <p >
             {messages.restore.privacy}
           </p>
         </div>
       </M3DialogContent>
       <M3DialogActions>
-        <M3Button onClick={onClose} variant="text" className="restore-assist-modal-cancel-button">
+        <M3Button onClick={onClose} variant="text" >
           {messages.restore.cancel}
         </M3Button>
       </M3DialogActions>
@@ -82,5 +83,10 @@ const RestoreAssistModal: React.FC<RestoreAssistModalProps> = ({
 export default RestoreAssistModal;
 
 export default RestoreAssistModal;
+
+
+
+
+
 
 

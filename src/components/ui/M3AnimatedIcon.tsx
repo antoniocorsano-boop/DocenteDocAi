@@ -1,37 +1,54 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
+import { useTheme } from '../../theme/theme';
 
 interface M3AnimatedIconProps {
     icon: string;
-    animation?: 'spin' | 'pulse' | 'bounce' | 'fade';
-    color?: string;
+    color?: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'onSurface';
     size?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
 const M3AnimatedIcon: React.FC<M3AnimatedIconProps> = ({ 
     icon, 
-    animation = 'spin', 
-    color = 'text-primary', 
+    color = 'onSurface', 
     size = 'md' 
 }) => {
+    const { layers } = useTheme();
+    const { sys, ref } = layers;
+
     const sizeMap = {
-        sm: 'text-lg',
-        md: 'text-2xl',
-        lg: 'text-4xl',
-        xl: 'text-6xl'
+        sm: ref.typography.bodySmall.fontSize,
+        md: ref.typography.bodyLarge.fontSize,
+        lg: ref.typography.headlineSmall.fontSize,
+        xl: ref.typography.headlineMedium.fontSize
     };
-    const animationMap = {
-        spin: 'animate-spin',
-        pulse: 'animate-pulse',
-        bounce: 'animate-bounce',
-        fade: 'animate-fade'
+
+    const colorMap = {
+        primary: sys.color.primary,
+        secondary: sys.color.secondary,
+        tertiary: sys.color.tertiary,
+        surface: sys.color.surface,
+        onSurface: sys.color.onSurface
     };
+
     return (
-        <span className={`material-symbols-outlined ${sizeMap[size]} ${color} ${animationMap[animation]}`}>
+        <span style={{
+            fontFamily: 'Material Symbols Outlined',
+            fontSize: sizeMap[size],
+            color: colorMap[color],
+            userSelect: 'none',
+            fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
+        }}>
             {icon}
         </span>
     );
 };
 
 export default M3AnimatedIcon;
+
+
+
+
+
 
 

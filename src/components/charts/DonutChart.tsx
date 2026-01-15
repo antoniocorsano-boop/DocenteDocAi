@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState } from 'react';
 
@@ -24,7 +25,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
     : { value: total, label: 'Totale' };
 
   return (
-    <div style={{ position: 'relative', width: '200px', height: '200px' }}>
+    <div style={{ position: 'relative', width: layers.ref.spacing['4'], height: layers.ref.spacing['4'] }}>
       <svg width="200" height="200" viewBox="0 0 200 200">
         <g transform="rotate(-90 100 100)">
           {data.map((item, index) => {
@@ -40,7 +41,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
             return (
               <circle
                 key={index}
-                className="donut-chart-segment"
+                
                 cx="100"
                 cy="100"
                 r={radius}
@@ -55,10 +56,10 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
             );
           })}
         </g>
-         <text x="100" y="95" textAnchor="middle" className="donut-chart-center-text" fill="var(--md-sys-color-on-surface)" fontWeight="bold" fontSize="24">
+         <text x="100" y="95" textAnchor="middle"  fill="var(--md-sys-color-onSurface)" fontWeight="bold" fontSize="24">
             {summary.value}
         </text>
-        <text x="100" y="115" textAnchor="middle" className="donut-chart-center-label" fill="var(--md-sys-color-on-surface-variant)" fontSize="12">
+        <text x="100" y="115" textAnchor="middle"  fill="var(--md-sys-color-onSurface-variant)" fontSize="12">
             {summary.label}
         </text>
       </svg>
@@ -67,5 +68,10 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
 };
 
 export default DonutChart;
+
+
+
+
+
 
 

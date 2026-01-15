@@ -1,7 +1,11 @@
-import React from 'react';
+// LEGACY - MD3 Non-compliant
+// @legacy
+// @md3-noncompliant
+// @do-not-extend
+
+import React, { useState } from 'react';
 import M3Typography from './M3Typography';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../theme/theme';
 
 interface Tab {
     id: string;
@@ -29,30 +33,17 @@ const TabGroup: React.FC<TabGroupProps> = ({
     activeTab,
     onTabChange,
     variant = 'primary',
-    className = '',
     isIconOnly = false
 }) => {
-    const getVariantColors = () => {
-        switch (variant) {
-            case 'secondary':
-                return {
-                    activeBg: 'var(--md-sys-color-secondary)',
-                    activeText: 'var(--md-sys-color-on-secondary)'
-                };
-            case 'tertiary':
-                return {
-                    activeBg: 'var(--md-sys-color-tertiary)',
-                    activeText: 'var(--md-sys-color-on-tertiary)'
-                };
-            default:
-                return {
-                    activeBg: 'var(--md-sys-color-primary)',
-                    activeText: 'var(--md-sys-color-on-primary)'
-                };
-        }
-    };
-
-    const variantColors = getVariantColors();
+    const { layers } = useTheme();
+    const {
+        sys: { color: { primary, onPrimary, secondary, onSecondary, tertiary, onTertiary, surfaceContainerLow, surfaceContainerHigh, onSurfaceVariant, error, onError, outlineVariant } },
+        ref: { spacing, shape: { corner: { full } }, typescale: { labelSmall } },
+        motion: { duration: { short4 }, easing: { standard } },
+        elevation: { level1 }
+    } = layers;
+    const [hoveredTabs, setHoveredTabs] = useState<Record<string, boolean>>({});
+    const [focusedTabs, setFocusedTabs] = useState<Record<string, boolean>>({});
 
     const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
         let newIndex = -1;
@@ -79,17 +70,17 @@ const TabGroup: React.FC<TabGroupProps> = ({
         <div
             role="tablist"
             aria-label="Sezioni di navigazione"
-            style={{
-                display: 'flex',
-                backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                padding: 'var(--md-sys-spacing-1)',
-                borderRadius: 'var(--md-sys-shape-corner-full)',
-                border: '1px solid var(--md-sys-color-outline-variant)',
-                gap: 'var(--md-sys-spacing-1)'
-            }}
+            style={{display: 'flex',
+                backgroundColor: surfaceContainerLow,
+                padding: spacing['1'],
+                borderRadius: full,
+                border: `1px solid ${outlineVariant}`,
+                gap: spacing['1']}}
         >
             {tabs.map((tab, index) => {
                 const isActive = activeTab === tab.id;
+                const isHovered = hoveredTabs[tab.id] || false;
+                const isFocused = focusedTabs[tab.id] || false;
                 return (
                     <button
                         key={tab.id}
@@ -103,52 +94,36 @@ const TabGroup: React.FC<TabGroupProps> = ({
                         tabIndex={isActive ? 0 : -1}
                         style={{
                             position: 'relative',
-                            padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            padding: `${spacing['2']} ${spacing['4']}`,
+                            borderRadius: full,
                             border: 'none',
                             backgroundColor: isActive
                                 ? variantColors.activeBg
-                                : 'transparent',
+                                : (isHovered && !isActive ? surfaceContainerHigh : 'transparent'),
                             color: isActive
                                 ? variantColors.activeText
-                                : 'var(--md-sys-color-on-surface-variant)',
-                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-                            fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
+                                : onSurfaceVariant,
+                            fontSize: labelSmall.fontSize,
+                            fontWeight: labelSmall.fontWeight,
                             textTransform: 'uppercase',
                             letterSpacing: '0.5px',
                             cursor: 'pointer',
-                            transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',
-                            boxShadow: isActive ? 'var(--md-sys-elevation-level1)' : 'none',
+                            transition: `all ${short4} ${standard}`,
+                            boxShadow: isActive ? level1 : 'none',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            outline: 'none'
-                        }}
-                        onMouseEnter={(e) => {
-                            if (!isActive) {
-                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                            }
-                        }}
-                        onMouseLeave={(e) => {
-                            if (!isActive) {
-                                e.currentTarget.style.backgroundColor = 'transparent';
-                            }
-                        }}
-                        onFocus={(e) => {
-                            e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-                            e.currentTarget.style.outlineOffset = '2px';
-                        }}
-                        onBlur={(e) => {
-                            e.currentTarget.style.outline = 'none';
-                            e.currentTarget.style.outlineOffset = '0';
-                        }}
+                            gap: spacing['2'],
+                            outline: isFocused ? `2px solid ${primary}` : 'none',
+                            outlineOffset: isFocused ? layers.ref.spacing['2'] : '0'}}
+                        onMouseEnter={() => setHoveredTabs(prev => ({ ...prev, [tab.id]: true }))}
+                        onMouseLeave={() => setHoveredTabs(prev => ({ ...prev, [tab.id]: false }))}
+                        onFocus={() => setFocusedTabs(prev => ({ ...prev, [tab.id]: true }))}
+                        onBlur={() => setFocusedTabs(prev => ({ ...prev, [tab.id]: false }))}
                     >
                         {tab.icon && (
                             <span
-                                style={{
-                                    fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--md-sys-typescale-label-small-font-size)'
-                                }}
+                                style={{fontFamily: 'Material Symbols Outlined',
+                                    fontSize: labelSmall.fontSize}}
                                 aria-hidden="true"
                             >
                                 {tab.icon}
@@ -171,14 +146,14 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    minWidth: 'var(--md-sys-spacing-4)',
-                                    height: 'var(--md-sys-spacing-4)',
-                                    padding: '0 var(--md-sys-spacing-1)',
-                                    borderRadius: 'var(--md-sys-shape-corner-full)',
-                                    backgroundColor: 'var(--md-sys-color-error)',
-                                    color: 'var(--md-sys-color-on-error)',
-                                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-                                    fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
+                                    minWidth: spacing['4'],
+                                    height: spacing['4'],
+                                    padding: `0 ${spacing['1']}`,
+                                    borderRadius: full,
+                                    backgroundColor: error,
+                                    color: onError,
+                                    fontSize: labelSmall.fontSize,
+                                    fontWeight: labelSmall.fontWeight,
                                     lineHeight: 1
                                 }}
                                 aria-label={`${tab.badge} elementi`}
@@ -194,9 +169,9 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                     left: '50%',
                                     transform: 'translateX(-50%)',
                                     width: '60%',
-                                    height: '3px',
+                                    height: layers.ref.spacing['2'],
                                     backgroundColor: variantColors.activeBg,
-                                    borderRadius: '2px'
+                                    borderRadius: layers.ref.spacing['2']
                                 }}
                                 aria-hidden="true"
                             />
@@ -209,5 +184,10 @@ const TabGroup: React.FC<TabGroupProps> = ({
 };
 
 export default TabGroup;
+
+
+
+
+
 
 

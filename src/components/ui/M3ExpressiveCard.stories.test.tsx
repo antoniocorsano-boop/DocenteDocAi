@@ -1,10 +1,12 @@
+import { renderWithM3Theme } from '../test-utils';
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { render } from '@testing-library/react';
 import M3ExpressiveCard from './M3ExpressiveCard';
 
 describe('M3ExpressiveCard Story Snapshots', () => {
   it('renders default story correctly', () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3ExpressiveCard
         icon="test-icon"
         title="Test Title"
@@ -14,3 +16,8 @@ describe('M3ExpressiveCard Story Snapshots', () => {
     expect(container).toMatchSnapshot();
   });
 });
+
+
+
+
+

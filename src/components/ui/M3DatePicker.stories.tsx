@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3DatePicker from './M3DatePicker';
@@ -5,7 +6,7 @@ import M3DatePicker from './M3DatePicker';
 const meta = {
   title: 'M3/DatePicker',
   component: M3DatePicker,
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     label: {
       control: 'text',
@@ -106,7 +107,7 @@ export const Full: Story = {
  */
 export const FormExample: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '300px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: layers.ref.spacing['4'] }}>
       <M3DatePicker
         label="Start Date"
         helperText="Project starts on this date"
@@ -128,7 +129,7 @@ export const FormExample: Story = {
  */
 export const States: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4'] }}>
       <div>
         <h3 style={{ margin: '0 0 1rem 0', fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.6 }}>DEFAULT</h3>
         <M3DatePicker label="Normal" />
@@ -157,5 +158,10 @@ export const States: Story = {
     </div>
   ),
 };
+
+
+
+
+
 
 

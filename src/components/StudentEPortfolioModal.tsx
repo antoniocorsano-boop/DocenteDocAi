@@ -1,6 +1,8 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import { Studente, StudentOrientamentoState, EPortfolioEntry } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface StudentEPortfolioModalProps {
     isOpen: boolean;
@@ -21,6 +23,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
     onUpdateState,
     onAddEntry
 }) => {
+  const { layers } = useTheme();
     const [newEntry, setNewEntry] = useState<Partial<EPortfolioEntry>>({
         title: '',
         description: '',
@@ -36,46 +39,44 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
             id: `ep-entry-${Date.now()}`,
             studentId: student.id
         } as EPortfolioEntry);
-        setNewEntry({ title: '', description: '', date: new Date().toISOString().split('T')[0], category: 'capolavoro', tags: [] });
+        setNewEntry({ title: ', description: ', date: new Date().toISOString().split('T')[0], category: 'capolavoro', tags: [] });
     };
 
     return (
         <M3Dialog isOpen={isOpen} onClose={onClose} title={`E-Portfolio: ${student.nome} ${student.cognome}`} maxWidth="md">
-            <M3DialogContent className="pt-4 md:px-6" style={{ gap: "var(--md-sys-spacing-8)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>
+            <M3DialogContent  style={{gap: layers.ref.spacing['8'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
                 {/* Status Section */}
-                <div className="md:grid-cols-2 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]/20" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-6)", padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+                <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large }} style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6'], padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline"}}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div>
-                            <h4 className="m3-title-medium">Capolavoro</h4>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Caricato nell&apos;E-Portfolio</p>
+                            <h4 >Capolavoro</h4>
+                            <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Caricato nell&apos;E-Portfolio</p>
                         </div>
                         <input 
                             type="checkbox"
                             checked={state.hasCapolavoro}
                             onChange={(e) => onUpdateState({ ...state, hasCapolavoro: e.target.checked })}
-                            className="accent-primary" style={{ width: "1.25rem", height: "1.25rem" }}
+                             style={{ width: "1.25rem", height: "1.25rem" }}
                         />
                     </div>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div>
-                            <h4 className="m3-title-medium">Autovalutazione</h4>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Riflessione critica completata</p>
+                            <h4 >Autovalutazione</h4>
+                            <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Riflessione critica completata</p>
                         </div>
                         <input 
                             type="checkbox"
                             checked={state.hasAutovalutazione}
                             onChange={(e) => onUpdateState({ ...state, hasAutovalutazione: e.target.checked })}
-                            className="accent-primary" style={{ width: "1.25rem", height: "1.25rem" }}
+                             style={{ width: "1.25rem", height: "1.25rem" }}
                         />
                     </div>
                 </div>
 
                 {/* Add Entry Section */}
-                <div style={{
-  marginTop: 'var(--md-sys-spacing-4)'
-}}>
-                    <h4 className="m3-title-large" style={{ fontWeight: "900" }}>Aggiungi Documento/Riflessione</h4>
-                    <div className="sm:flex-row" style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+                <div style={{marginTop: layers.ref.spacing['4']}}>
+                    <h4  style={{ fontWeight: "900" }}>Aggiungi Documento/Riflessione</h4>
+                    <div  style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['8']}}>
                         <div style={{ flex: "1" }}>
                             <TextField
                                 label="Titolo"
@@ -83,9 +84,9 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                                 onChange={(e) => setNewEntry({ ...newEntry, title: e.target.value })}
                             />
                         </div>
-                        <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)", alignItems: "flex-end" }}>
+                        <div style={{display: "flex", gap: layers.ref.spacing['8'], alignItems: "flex-end"}}>
                             <select 
-                                className="bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-large)] py-3 text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] focus:ring-2 focus:ring-primary" style={{ flexGrow: "1", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", border: "none", minWidth: "0" }}
+                                style={{ backgroundColor: layers.sys.color.surfaceContainerHigh, borderRadius: layers.ref.shape.corner.large, color: layers.sys.color.onSurfaceVariant, flexGrow: "1", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], border: "none", minWidth: "0" }}
                                 value={newEntry.category}
                                 onChange={(e) => setNewEntry({ ...newEntry, category: e.target.value as EPortfolioEntry['category'] })}
                             >
@@ -100,26 +101,24 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                 </div>
 
                 {/* Entries List */}
-                <div style={{
-  marginTop: 'var(--md-sys-spacing-4)'
-}}>
-                    <h4 className="m3-title-large" style={{ fontWeight: "900" }}>Documenti Caricati</h4>
-                    <div style={{ gap: "var(--md-sys-spacing-2)" }}>
+                <div style={{marginTop: layers.ref.spacing['4']}}>
+                    <h4  style={{ fontWeight: "900" }}>Documenti Caricati</h4>
+                    <div style={{gap: layers.ref.spacing['2']}}>
                         {entries.length === 0 ? (
-                            <p className="py-8 text-[var(--md-sys-color-on-surface)]-variant italic" style={{ textAlign: "center" }}>Nessun documento caricato</p>
+                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ textAlign: "center" }}>Nessun documento caricato</p>
                         ) : (
                             entries.map(entry => (
-                                <div key={entry.id} className="bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/10" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
+                                <div key={entry.id} style={{ backgroundColor:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", justifyContent: "space-between", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
                                     <div>
-                                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                            <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)", fontSize: "0.875rem" }}>
+                                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                            <span  style={{color: "layers.sys.color.primary", fontSize: "0.875rem"}}>
                                                 {entry.category === 'capolavoro' ? 'auto_awesome' : 'description'}
                                             </span>
                                             <span style={{ fontWeight: "bold" }}>{entry.title}</span>
                                         </div>
-                                        <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{entry.date}</p>
+                                        <p style={{ color:  layers.sys.color.onSurfaceVariant }}>{entry.date}</p>
                                     </div>
-                                    <span className="px-3 py-1 bg-secondary/10 text-[10px]" style={{ color: "var(--md-sys-color-secondary)", borderRadius: "9999px", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                                    <span style={{ backgroundColor: layers.sys.color.secondaryContainer, color: layers.sys.color.onSecondaryContainer, borderRadius: layers.ref.spacing['4'], fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                                         {entry.category}
                                     </span>
                                 </div>
@@ -136,6 +135,11 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
 };
 
 export default StudentEPortfolioModal;
+
+
+
+
+
 
 
 

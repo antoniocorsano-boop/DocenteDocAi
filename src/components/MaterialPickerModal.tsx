@@ -1,9 +1,11 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState, useMemo, useCallback } from 'react';
 import { KnowledgeBaseEntry, MaterialeDidattico } from '../types';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { blobToBase64Parts } from '../utils/documentUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, TabGroup } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface MaterialPickerModalProps {
     knowledgeBase: KnowledgeBaseEntry[];
@@ -13,13 +15,14 @@ interface MaterialPickerModalProps {
 }
 
 const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase, currentMaterials, onClose, onSave }) => {
+  const { layers } = useTheme();
     const [activeTab, setActiveTab] = useState<'kb' | 'file' | 'link'>('kb');
     const [materials, setMaterials] = useState<MaterialeDidattico[]>(currentMaterials);
 
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(');
     const [isUploading, setIsUploading] = useState(false);
-    const [linkLabel, setLinkLabel] = useState('');
-    const [linkUrl, setLinkUrl] = useState('');
+    const [linkLabel, setLinkLabel] = useState(');
+    const [linkUrl, setLinkUrl] = useState(');
 
     const filteredKb = useMemo(() => {
         return knowledgeBase.filter(entry =>
@@ -78,8 +81,8 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
             url: correctedUrl,
         };
         setMaterials(prev => [...prev, newLink]);
-        setLinkLabel('');
-        setLinkUrl('');
+        setLinkLabel(');
+        setLinkUrl(');
     };
 
     const handleRemoveMaterial = (id: string) => {
@@ -119,10 +122,10 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
             maxWidth="4xl"
             level={2}
         >
-            <M3DialogContent className="p-0 bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
-                <div className="md:grid-cols-2 h-[500px]" style={{ display: "grid", gridTemplateColumns: "1fr" }}>
+            <M3DialogContent style={{ padding: layers.ref.spacing['4'], backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }}>
+                <div  style={{ display: "grid", gridTemplateColumns: "1fr" }}>
                     {/* Left: Source */}
-                    <div className="border-[var(--md-sys-color-outline-variant)]/30 overflow-hidden" style={{ padding: "var(--md-sys-spacing-6)", borderRight: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
+                    <div  style={{padding: layers.ref.spacing['6'], borderRight: "1px solid layers.sys.color.outline", display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
                         <TabGroup
                             tabs={tabs}
                             activeTab={activeTab}
@@ -131,14 +134,14 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         />
 
                         {activeTab === 'kb' && (
-                            <div className="overflow-hidden" style={{ flexGrow: "1", display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+                            <div  style={{flexGrow: "1", display: "flex", flexDirection: "column", gap: layers.ref.spacing['8']}}>
                                 <TextField 
                                     label="Cerca nella KB..." 
                                     value={searchTerm} 
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     fullWidth
                                 />
-                                <div className="custom-scrollbar pr-2" style={{ flexGrow: "1", overflowY: "auto", gap: "var(--md-sys-spacing-2)" }}>
+                                <div  style={{flexGrow: "1", overflowY: "auto", gap: layers.ref.spacing['2']}}>
                                     {filteredKb.map(entry => {
                                         const isSelected = materials.some(m => m.type === 'kb' && m.kbId === entry.id);
                                         return (
@@ -148,7 +151,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                                 className={`flex items-center gap-6 p-6 rounded-[var(--md-sys-shape-corner-large)] cursor-pointer transition-all border ${
                                                     isSelected 
                                                         ? 'bg-primary/10 border-primary text-primary' 
-                                                        : 'bg-[var(--md-sys-color-surface-container-low)] border-[var(--md-sys-color-outline-variant)]/30 hover:bg-[var(--md-sys-color-surface-container)]'
+                                                        : 'bg-[var(--md-sys-color-surfaceContainerLow)] border-[var(--md-sys-color-outline-variant)]/30 hover:bg-[var(--md-sys-color-surfaceContainer)]'
                                                 }`}
                                             >
                                                 <span style={{
@@ -156,12 +159,12 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
 }}>
                                                     {isSelected ? 'check_circle' : 'description'}
                                                 </span>
-                                                <span className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: "1" }}>{entry.fileName}</span>
+                                                <span style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)] }} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: "1" }}>{entry.fileName}</span>
                                             </div>
                                         )
                                     })}
                                     {filteredKb.length === 0 && (
-                                        <div className="py-10" style={{ textAlign: "center", opacity: "0.5" }}>Nessun documento trovato.</div>
+                                        <div  style={{ textAlign: "center", opacity: "0.5" }}>Nessun documento trovato.</div>
                                     )}
                                 </div>
                             </div>
@@ -173,22 +176,20 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 className={`flex-grow flex flex-col items-center justify-center border-2 border-dashed rounded-[var(--md-sys-shape-corner-extra-large)] transition-all ${
                                     isDragActive 
                                         ? 'border-primary bg-primary/5' 
-                                        : 'border-[var(--md-sys-color-outline-variant)]/50 bg-[var(--md-sys-color-surface-container-low)]'
-                                } ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[var(--md-sys-color-surface-container)]'}`}
+                                        : 'border-[var(--md-sys-color-outline-variant)]/50 bg-[var(--md-sys-color-surfaceContainerLow)]'
+                                } ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[var(--md-sys-color-surfaceContainer)]'}`}
                             >
                                 <input {...getInputProps()} />
-                                <div className="bg-primary/10" style={{ width: "4rem", height: "4rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "var(--md-sys-spacing-8)" }}>
-                                    <span className="material-symbols-outlined text-3xl" style={{ color: "var(--md-sys-color-primary)" }}>upload_file</span>
+                                <div style={{ backgroundColor: sys.colors.primary/10 }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", marginBottom: layers.ref.spacing['8']}}>
+                                    <span style={{ color: sys.colors.3xl }} style={{color: "layers.sys.color.primary"}}>upload_file</span>
                                 </div>
-                                <p className="m3-title-medium">Trascina qui i file</p>
-                                <p className="m3-body-small" style={{ opacity: "0.7", marginTop: "var(--md-sys-spacing-4)" }}>oppure clicca per sfogliare</p>
+                                <p >Trascina qui i file</p>
+                                <p  style={{opacity: "0.7", marginTop: layers.ref.spacing['4']}}>oppure clicca per sfogliare</p>
                             </div>
                         )}
 
                         {activeTab === 'link' && (
-                            <div style={{
-  marginTop: 'var(--md-sys-spacing-4)'
-}}>
+                            <div style={{marginTop: layers.ref.spacing['4']}}>
                                 <TextField 
                                     label="URL (es. https://...)" 
                                     value={linkUrl} 
@@ -201,8 +202,8 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                     onChange={e => setLinkLabel(e.target.value)} 
                                     fullWidth 
                                 />
-                                <M3Button onClick={handleAddLink} variant="filled" className="!h-14" style={{ width: "100%" }}>
-                                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add</span>
+                                <M3Button onClick={handleAddLink} variant="filled"  style={{ width: "100%" }}>
+                                    <span  style={{ marginRight: "0.5rem" }}>add</span>
                                     Aggiungi Link
                                 </M3Button>
                             </div>
@@ -210,24 +211,24 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                     </div>
 
                     {/* Right: Selected */}
-                    <div className="overflow-hidden bg-[var(--md-sys-color-surface-container-low)]est/50" style={{ padding: "var(--md-sys-spacing-6)", display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+                    <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLowest/50 }} style={{padding: layers.ref.spacing['6'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['8']}}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                            <h3 className="m3-title-medium">Selezionati</h3>
-                            <span className="px-3 py-1" style={{ borderRadius: "9999px", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "0.75rem", fontWeight: "bold" }}>
+                            <h3 >Selezionati</h3>
+                            <span  style={{borderRadius: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.primary", color: "layers.sys.color.on-primary", fontSize: "0.75rem", fontWeight: "bold"}}>
                                 {materials.length}
                             </span>
                         </div>
-                        <div className="custom-scrollbar pr-2" style={{ flexGrow: "1", overflowY: "auto", gap: "var(--md-sys-spacing-2)" }}>
+                        <div  style={{flexGrow: "1", overflowY: "auto", gap: layers.ref.spacing['2']}}>
                             {materials.map(material => (
-                                <div key={material.id} className="rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container)] border-[var(--md-sys-color-outline-variant)]/30 group" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
-                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                                        <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>{getMaterialIcon(material)}</span>
-                                        <span className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{getMaterialLabel(material)}</span>
+                                <div key={material.id} style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.onPrimary }} style={{display: "flex", alignItems: "center", justifyContent: "space-between", padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline"}}>
+                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
+                                        <span  style={{color: "layers.sys.color.primary"}}>{getMaterialIcon(material)}</span>
+                                        <span style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)] }} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{getMaterialLabel(material)}</span>
                                     </div>
                                     <M3Button 
                                         onClick={() => handleRemoveMaterial(material.id)} 
                                         variant="text" 
-                                        className="!p-8 !min-w-0 group-hover:opacity-100" style={{ color: "var(--md-sys-color-error)", opacity: "0", transition: "opacity 300ms" }}
+                                         style={{color: "layers.sys.color.error", opacity: "0", transition: "opacity 300ms"}}
                                     >
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -237,15 +238,15 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                             ))}
                             {materials.length === 0 && (
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", opacity: "0.3" }}>
-                                    <span className="material-symbols-outlined text-6xl" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>inventory_2</span>
-                                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">Nessun materiale selezionato</p>
+                                    <span style={{ color: sys.colors.6xl }} style={{marginBottom: layers.ref.spacing['8']}}>inventory_2</span>
+                                    <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)] }}>Nessun materiale selezionato</p>
                                 </div>
                             )}
                         </div>
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]est border-[var(--md-sys-color-outline-variant)]/30" style={{ borderTop: "1px solid var(--md-sys-color-outline)" }}>
+            <M3DialogActions style={{ backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{borderTop: "1px solid layers.sys.color.outline"}}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button onClick={() => onSave(materials)} variant="filled">Salva</M3Button>
             </M3DialogActions>
@@ -256,5 +257,10 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
 export default MaterialPickerModal;
 
 export default MaterialPickerModal;
+
+
+
+
+
 
 

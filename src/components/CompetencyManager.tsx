@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations. ✅ COMPLETED
 // ...existing code...
@@ -57,33 +58,33 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
     });
 
     return (
-        <div className="competency-manager-main-container">
+        <div >
             {/* Intro Card */}
-            <div className="competency-manager-intro-card">
-                <h2 className="competency-manager-intro-title">Gestione Framework e Competenze</h2>
-                <p className="competency-manager-intro-description">
+            <div >
+                <h2 >Gestione Framework e Competenze</h2>
+                <p >
                     Seleziona le competenze che vuoi monitorare nel tuo registro. Puoi attivare interi framework come <strong>DigCompEdu 2.2</strong> (con focus IA) o le Competenze Chiave Europee.
                 </p>
             </div>
 
             {/* Filtri Framework: scroll orizzontale su mobile, sidebar su desktop */}
-            <div className="competency-manager-framework-filters-container">
-                <div className="competency-manager-framework-filters-inner">
+            <div >
+                <div >
                     {frameworks.map(fw => (
                         <button 
                             key={fw}
                             onClick={() => setActiveFramework(fw)}
                             className={`competency-manager-framework-filter-button ${activeFramework === fw ? 'competency-manager-framework-filter-button.active' : 'competency-manager-framework-filter-button.inactive'}`}
                         >
-                            <span className="competency-manager-framework-filter-text">{fw}</span>
-                            {fw === 'DigCompEdu 2.2' && <span className="competency-manager-framework-filter-icon">smart_toy</span>}
+                            <span >{fw}</span>
+                            {fw === 'DigCompEdu 2.2' && <span >smart_toy</span>}
                         </button>
                     ))}
                 </div>
             </div>
 
             {/* Lista Competenze */}
-            <div className="competency-manager-competency-list-container">
+            <div >
                 {filteredCatalog.map(comp => {
                     const active = isCompetencyActive(comp.id);
                     return (
@@ -91,7 +92,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                             key={comp.id} 
                             className={`competency-manager-competency-expansion-panel ${active ? 'competency-manager-competency-expansion-panel.active' : 'competency-manager-competency-expansion-panel.inactive'}`}
                         >
-                            <summary className="m3-expansion-summary !px-4 !py-3 !justify-start !gap-8">
+                            <summary >
                                 <div 
                                     onClick={(e) => { 
                                         e.preventDefault(); // Prevent details toggle
@@ -101,20 +102,20 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                     className={`competency-manager-competency-checkbox ${active ? 'competency-manager-competency-checkbox.active' : 'competency-manager-competency-checkbox.inactive'}`}
                                     title={active ? `Disattiva ${comp.nome}` : `Attiva ${comp.nome}`}
                                 >
-                                    {active && <span className="competency-manager-competency-checkbox-icon">check</span>}
+                                    {active && <span >check</span>}
                                 </div>
                                 <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                    <span className="competency-manager-competency-code">{comp.codice}</span>
-                                    <h3 className="competency-manager-competency-name">{comp.nome}</h3>
-                                    <p className="competency-manager-competency-framework">{comp.framework}</p>
+                                    <span >{comp.codice}</span>
+                                    <h3 >{comp.nome}</h3>
+                                    <p >{comp.framework}</p>
                                 </div>
-                                <span className="competency-manager-competency-expand-icon">expand_more</span>
+                                <span >expand_more</span>
                             </summary>
-                            <div className="competency-manager-competency-content">
-                                <p className="competency-manager-competency-levels-title">DESCRITTORI LIVELLI:</p>
-                                <div className="competency-manager-competency-levels-grid">
+                            <div >
+                                <p >DESCRITTORI LIVELLI:</p>
+                                <div >
                                     {comp.livelli.map(lvl => (
-                                        <div key={lvl.id} className="competency-manager-competency-level-card">
+                                        <div key={lvl.id} >
                                             <strong>{lvl.nome}:</strong> <span style={{ opacity: "0.8" }}>{lvl.descrizione}</span>
                                         </div>
                                     ))}
@@ -129,5 +130,10 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
 };
 
 export default CompetencyManager;
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations. ✅ COMPLETED
 // ...existing code...
 import React, { useState } from 'react';
@@ -96,17 +97,17 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
     const renderEditor = () => {
         if (!selectedCurriculum) return null;
         return (
-            <div className="curriculum-manager-editor-area">
+            <div >
                 {selectedCurriculum.nuclei.length === 0 && (
                     <EmptyState title="Programma Vuoto" description="Inizia importando un documento o aggiungendo i nuclei fondanti." icon="library_books" />
                 )}
                 {selectedCurriculum.nuclei.map((nucleo, nIdx) => (
                     <InfoCard 
                         key={nucleo.id} 
-                        className="curriculum-manager-nucleus-card"
+                        
                     >
-                        <div className="curriculum-manager-nucleus-header">
-                            <div className="curriculum-manager-nucleus-title-area">
+                        <div >
+                            <div >
                                 <TextField 
                                     label="Titolo Nucleo Fondante" 
                                     value={nucleo.title} 
@@ -124,7 +125,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     handleUpdate({...selectedCurriculum, nuclei: newNuclei});
                                 }} 
                                 variant="text"
-                                className="curriculum-manager-nucleus-delete-button" 
+                                 
                                 title="Elimina Nucleo"
                             >
                                 <span style={{
@@ -132,12 +133,12 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
 }}>delete</span>
                             </M3Button>
                         </div>
-                        <div className="curriculum-manager-objectives-container">
+                        <div >
                             {nucleo.objectives.map((obj, oIdx) => (
-                                <div key={obj.id} className="curriculum-manager-objective-item">
+                                <div key={obj.id} >
                                     <span className={`curriculum-manager-objective-dot ${obj.type === 'skill' ? 'skill' : 'knowledge'}`}></span>
                                     <input 
-                                        className="curriculum-manager-objective-input"
+                                        
                                         value={obj.text}
                                         onChange={(e) => {
                                             const newNuclei = [...selectedCurriculum.nuclei];
@@ -153,9 +154,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                             handleUpdate({...selectedCurriculum, nuclei: newNuclei});
                                         }} 
                                         variant="text"
-                                        className="curriculum-manager-objective-delete-button"
+                                        
                                     >
-                                        <span className="material-symbols-outlined m3-label-small">close</span>
+                                        <span >close</span>
                                     </M3Button>
                                 </div>
                             ))}
@@ -166,9 +167,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     handleUpdate({...selectedCurriculum, nuclei: newNuclei});
                                 }} 
                                 variant="tonal"
-                                className="curriculum-manager-add-objective-button"
+                                
                             >
-                                <span className="material-symbols-outlined m3-body-small" style={{ marginRight: "0.5rem" }}>add</span> Aggiungi Obiettivo
+                                <span  style={{ marginRight: "0.5rem" }}>add</span> Aggiungi Obiettivo
                             </M3Button>
                         </div>
                     </InfoCard>
@@ -179,66 +180,66 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         handleUpdate({...selectedCurriculum, nuclei: [...selectedCurriculum.nuclei, newNucleus]});
                     }} 
                     variant="outlined"
-                    className="curriculum-manager-add-nucleus-button"
+                    
                 >
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add_circle</span> Nuovo Nucleo Fondante
+                    <span  style={{ marginRight: "0.5rem" }}>add_circle</span> Nuovo Nucleo Fondante
                 </M3Button>
             </div>
         );
     };
 
     return (
-        <div className="page-layout curriculum-manager-page-layout curriculum-manager-page-layout.responsive">
-            <div className="curriculum-manager-main-container curriculum-manager-main-container.responsive">
-                <div className="curriculum-manager-sidebar">
-                    <div className="curriculum-manager-sidebar-header">
-                        <M3Button onClick={() => onNavigate('home')} variant="text" className="curriculum-manager-sidebar-back-button">
+        <div >
+            <div >
+                <div >
+                    <div >
+                        <M3Button onClick={() => onNavigate('home')} variant="text" >
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>arrow_back</span>
                         </M3Button>
-                        <h1 className="curriculum-manager-sidebar-title">Curricoli</h1>
+                        <h1 >Curricoli</h1>
                     </div>
-                    <div className="curriculum-manager-creation-form">
+                    <div >
                         <SelectField label="Materia" value={newSubject} onChange={e => setNewSubject(e.target.value)}>
                             {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                         </SelectField>
                         <TextField label="Grado / Livello" value={newGradeLevel} onChange={e => setNewGradeLevel(e.target.value)} placeholder="Es. Classi Prime" />
-                        <M3Button onClick={handleCreate} variant="filled" className="curriculum-manager-create-button">
+                        <M3Button onClick={handleCreate} variant="filled" >
                             Crea Curricolo
                         </M3Button>
                     </div>
-                    <div className="curriculum-manager-curriculum-list">
+                    <div >
                         {curricula.map(curr => (
                             <div 
                                 key={curr.id} 
                                 onClick={() => setSelectedCurriculumId(curr.id)} 
                                 className={`curriculum-manager-curriculum-item ${selectedCurriculumId === curr.id ? 'curriculum-manager-curriculum-item.selected' : ''}`}
                             >
-                                <div className="curriculum-manager-curriculum-content">
-                                    <p className="curriculum-manager-curriculum-subject">{curr.subject}</p>
-                                    <p className="curriculum-manager-curriculum-grade">{curr.gradeLevel}</p>
+                                <div >
+                                    <p >{curr.subject}</p>
+                                    <p >{curr.gradeLevel}</p>
                                 </div>
                                 <M3Button 
                                     onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }} 
                                     variant="text"
                                     className={`curriculum-manager-curriculum-delete-button ${selectedCurriculumId === curr.id ? 'curriculum-manager-curriculum-delete-button.selected' : ''}`}
                                 >
-                                    <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>delete</span>
+                                    <span  style={{ fontSize: "0.875rem" }}>delete</span>
                                 </M3Button>
                             </div>
                         ))}
                     </div>
                 </div>
-                <div className="curriculum-manager-content-area">
+                <div >
                     {selectedCurriculum ? (
                         <>
-                            <div className="curriculum-manager-content-header">
+                            <div >
                                 <div>
-                                    <h2 className="curriculum-manager-content-title">{selectedCurriculum.subject}</h2>
-                                    <p className="curriculum-manager-content-subtitle">{selectedCurriculum.gradeLevel}</p>
+                                    <h2 >{selectedCurriculum.subject}</h2>
+                                    <p >{selectedCurriculum.gradeLevel}</p>
                                 </div>
-                                <div className="curriculum-manager-tab-container">
+                                <div >
                                      <TabGroup
                                          activeTab={activeTab}
                                          onTabChange={(id: string) => {
@@ -251,13 +252,13 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                          ]}
                                      />
                                     {activeTab === 'editor' && (
-                                        <M3Button onClick={() => setIsImporting(true)} variant="tonal" className="!px-6 font-extrabold shadow-sm">
-                                            <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>auto_awesome</span> AI Import
+                                        <M3Button onClick={() => setIsImporting(true)} variant="tonal" >
+                                            <span  style={{ marginRight: "0.5rem" }}>auto_awesome</span> AI Import
                                         </M3Button>
                                     )}
                                 </div>
                             </div>
-                            {activeTab === 'editor' ? renderEditor() : <div className="curriculum-manager-coverage-placeholder"><EmptyState title="Analisi Copertura" description="La funzione di copertura basata sulle lezioni svolte è in arrivo." icon="analytics" /></div>}
+                            {activeTab === 'editor' ? renderEditor() : <div ><EmptyState title="Analisi Copertura" description="La funzione di copertura basata sulle lezioni svolte è in arrivo." icon="analytics" /></div>}
                         </>
                     ) : (
                         <EmptyState title="Seleziona un Curricolo" description="Scegli un programma dalla lista laterale per iniziare la progettazione per obiettivi." icon="menu_book" />
@@ -270,12 +271,12 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     title="Import AI Curricolo"
                     maxWidth="2xl"
                 >
-                    <M3DialogContent className="curriculum-manager-import-dialog-content">
-                        <div {...getRootProps()} className="curriculum-manager-import-dropzone">
+                    <M3DialogContent >
+                        <div {...getRootProps()} >
                             <input {...getInputProps()} />
-                            <span className="curriculum-manager-import-upload-icon">upload_file</span>
-                            <p className="curriculum-manager-import-upload-title">Carica PDF Programmazione</p>
-                            <p className="curriculum-manager-import-upload-subtitle">o trascina il file qui</p>
+                            <span >upload_file</span>
+                            <p >Carica PDF Programmazione</p>
+                            <p >o trascina il file qui</p>
                         </div>
                         <TextArea 
                             label="O incolla il testo del programma" 
@@ -286,12 +287,12 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             containerClassName="flex-grow" 
                         />
                     </M3DialogContent>
-                    <M3DialogActions className="curriculum-manager-import-dialog-actions">
+                    <M3DialogActions >
                         <M3Button onClick={() => setIsImporting(false)} variant="text">Annulla</M3Button>
                         <M3Button 
                             onClick={handleImportAI} 
                             variant="filled" 
-                            className="curriculum-manager-import-generate-button" 
+                             
                             disabled={isProcessingAI || !importText}
                         >
                             {isProcessingAI ? <AiThinkingGem size="small" inline /> : 'Genera Struttura'}
@@ -304,5 +305,10 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
 };
 
 export default CurriculumManager;
+
+
+
+
+
 
 

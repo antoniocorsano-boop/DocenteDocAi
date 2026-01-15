@@ -70,11 +70,11 @@ if (typeof window !== 'undefined') {
     try {
       if (isExtensionSource(ev.filename)) {
         // Ignore noisy extension-injected errors
-        console.debug('[main] ignored extension error', ev.message, ev.filename);
+          console.debug('[main] ignored extension error', ev.message, ev.filename);
         ev.preventDefault?.();
         return;
       }
-      console.error('[main] window.error', ev.message, ev.filename, ev.lineno, ev.colno, ev.error?.stack || '');
+          console.error('[main] window.error', ev.message, ev.filename, ev.lineno, ev.colno, ev.error?.stack || '');
     } catch (err) {
       // swallow to avoid cascading failures
       console.error('[main] error handler failed', err);
@@ -111,8 +111,8 @@ if (typeof window !== 'undefined') {
 
     // Allow listing for scripts and service worker registration.
     // Use VITE_ALLOWED_HOSTS env var as comma-separated list, fallback to known hosts.
-    const envHosts = (importMetaTyped && importMetaTyped.env && importMetaTyped.env.VITE_ALLOWED_HOSTS) || '';
-    const allowedHosts = envHosts ? envHosts.split(',').map((s: string) => s.trim()).filter(Boolean) : ['docentedoc.app', 'your-production-domain.example'];
+      const envHosts = (importMetaTyped && importMetaTyped.env && importMetaTyped.env.VITE_ALLOWED_HOSTS) || '';
+      const allowedHosts = envHosts ? envHosts.split(',').map((s: string) => s.trim()).filter(Boolean) : ['docentedoc.app', 'your-production-domain.example'];
     const host = window.location.hostname;
 
     const shouldLoadGsi = (isProd && allowedHosts.includes(host)) || (isDev && enableGsiDev && !!gsiClientId);

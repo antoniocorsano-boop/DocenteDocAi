@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 /**
  * ViewLoadingPlaceholder - Loading UI for Lazy-Loaded Views
  * 
@@ -7,6 +8,7 @@
 
 import React from 'react';
 import { AiThinkingGem } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface ViewLoadingPlaceholderProps {
   message?: string;
@@ -18,8 +20,9 @@ interface ViewLoadingPlaceholderProps {
  */
 export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({ 
   message = 'Caricamento vista...', 
-  className = '' 
+   
 }) => {
+  const { layers } = useTheme();
   return (
     <div className={`flex flex-col items-center justify-center min-h-[60vh] gap-6 ${className}`}>
       <AiThinkingGem size="large" text={message} />
@@ -32,12 +35,12 @@ export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({
  */
 export const MinimalViewLoading: React.FC = () => {
   return (
-    <div className="min-h-[40vh]" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{ gap: "var(--md-sys-spacing-4)", textAlign: "center" }}>
-        <div className="aura-glass animate-pulse" style={{ width: "3rem", height: "3rem", marginLeft: "auto", marginRight: "auto", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <span className="material-symbols-outlined" style={{ fontSize: "1.5rem", color: "var(--md-sys-color-primary)" }}>hourglass_bottom</span>
+    <div  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{gap: layers.ref.spacing['4'], textAlign: "center"}}>
+        <div  style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], marginLeft: "auto", marginRight: "auto", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span  style={{fontSize: "1.5rem", color: "layers.sys.color.primary"}}>hourglass_bottom</span>
         </div>
-        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Caricamento...</p>
+        <p style={{ color: layers.sys.color.onSurfaceVariant }}>Caricamento...</p>
       </div>
     </div>
   );
@@ -48,9 +51,9 @@ export const MinimalViewLoading: React.FC = () => {
  */
 export const SkeletonListLoading: React.FC = () => {
   return (
-    <div style={{ gap: "var(--md-sys-spacing-4)", padding: "var(--md-sys-spacing-4)" }}>
+    <div style={{gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4']}}>
       {[1, 2, 3].map(i => (
-        <div key={i} className="rounded-[var(--md-sys-shape-corner-small)] aura-glass animate-pulse" style={{ height: "4rem" }} />
+        <div key={i} style={{ borderRadius: layers.ref.shape.corner.large }} style={{ height: layers.ref.spacing['12'] }} />
       ))}
     </div>
   );
@@ -77,5 +80,10 @@ export function useViewPreload(viewName: string): void {
 }
 
 export default ViewLoadingPlaceholder;
+
+
+
+
+
 
 

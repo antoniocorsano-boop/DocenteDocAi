@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import AiMemoryChip from './AiMemoryChip';
@@ -13,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     label: {
       control: 'text',
@@ -60,7 +61,7 @@ export const Multiple: Story = {
     label: 'Course Context',
   },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'] }}>
       <AiMemoryChip label="Course Context" />
       <AiMemoryChip label="Student Profile" />
       <AiMemoryChip label="Lesson History" />
@@ -88,9 +89,9 @@ export const InContext: Story = {
     label: 'Student Level',
   },
   render: () => (
-    <div style={{ padding: '2rem', background: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-spacing-2)' }}>
-      <h3 style={{ marginBottom: '1rem' }}>AI Response Generated With Context:</h3>
-      <div style={{ marginBottom: '1rem' }}>
+    <div style={{ padding: layers.ref.spacing['4'], background: 'var(--md-sys-color-surfaceContainer)', borderRadius: 'var(--md-sys-spacing-2)' }}>
+      <h3 style={{ marginBottom: layers.ref.spacing['4'] }}>AI Response Generated With Context:</h3>
+      <div style={{ marginBottom: layers.ref.spacing['4'] }}>
         <p>
           Here&apos;s a personalized lesson summary based on your previous progress and
           current learning objectives...
@@ -146,14 +147,14 @@ export const Interactive: Story = {
   render: () => (
     <div
       style={{
-        padding: '2rem',
+        padding: layers.ref.spacing['4'],
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem',
+        gap: layers.ref.spacing['4'],
         cursor: 'help',
       }}
     >
-      <p style={{ fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)' }}>
+      <p style={{ fontSize: '0.9rem', color: 'var(--md-sys-color-onSurface-variant)' }}>
         Hover over the chips to see what context the AI system is using:
       </p>
       <AiMemoryChip label="Student Learning Profile" />
@@ -171,5 +172,10 @@ export const Interactive: Story = {
     },
   },
 };
+
+
+
+
+
 
 

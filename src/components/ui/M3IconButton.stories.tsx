@@ -1,10 +1,11 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import M3IconButton from './M3IconButton';
 
 const meta: Meta<typeof M3IconButton> = {
   component: M3IconButton,
   title: 'UI/Buttons/M3IconButton',
-  tags: ['autodocs'],
+  tags: ['autodocs],
   parameters: {
     layout: 'centered',
     docs: {
@@ -181,5 +182,10 @@ export const AccessibilityBestPractices: Story = {
     },
   },
 };
+
+
+
+
+
 
 

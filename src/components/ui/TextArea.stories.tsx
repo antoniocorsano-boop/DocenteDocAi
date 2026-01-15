@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import TextArea from './TextArea';
 
@@ -12,7 +13,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     label: {
       control: 'text',
@@ -204,5 +205,10 @@ export const NotesTaking: Story = {
     rows: 12,
   },
 };
+
+
+
+
+
 
 

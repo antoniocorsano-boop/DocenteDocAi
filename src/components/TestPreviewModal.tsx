@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState } from 'react';
 import type { jsPDF as JsPDFType } from 'jspdf';
@@ -5,6 +6,7 @@ import { GeneratedQuiz } from '../types';
 import { generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { M3Dialog, M3Button } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface TestPreviewModalProps {
     quiz: GeneratedQuiz;
@@ -12,6 +14,7 @@ interface TestPreviewModalProps {
 }
 
 const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) => {
+  const { layers } = useTheme();
     const [showAnswers, setShowAnswers] = useState(false);
 
     const handleExportDocx = async () => {
@@ -108,10 +111,10 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             title="Anteprima Verifica"
             headline="Visualizza e stampa la verifica generata"
             buttons={
-                <div className="md:flex-row" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                    <div className="mr-auto" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}>
-                        <label className="hover:bg-[var(--md-sys-color-surface-container-high)]/50 rounded-[var(--md-sys-shape-corner-large)] group" style={{ display: "flex", alignItems: "center", cursor: "pointer", gap: "var(--md-sys-spacing-6)", padding: "var(--md-sys-spacing-8)", transition: "color 300ms" }}>
-                            <div className={`w-12 h-7 rounded-full relative transition-all duration-300 ${showAnswers ? 'bg-primary' : 'bg-[var(--md-sys-color-surface-container-high)]est border border-[var(--md-sys-color-outline-variant)]'}`}>
+                <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                    <div  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
+                        <label style={{ borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", cursor: "pointer", gap: layers.ref.spacing['6'], padding: layers.ref.spacing['8'], transition: "color 300ms"}}>
+                            <div className={`w-12 h-7 rounded-full relative transition-all duration-300 ${showAnswers ? 'bg-primary' : 'bg-[var(--md-sys-color-surfaceContainerHigh)]est border border-[var(--md-sys-color-outline-variant)]'}`}>
                                 <div className={`absolute top-1 w-5 h-5 rounded-full bg-surface shadow-[var(--md-sys-elevation-level2)] transition-all duration-300 ${showAnswers ? 'left-6' : 'left-1'}`}></div>
                             </div>
                             <input
@@ -120,10 +123,10 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 onChange={e => setShowAnswers(e.target.checked)}
                                 style={{ display: "none" }}
                             />
-                            <span className="m3-label-large group-hover:opacity-100" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7", transition: "opacity 300ms" }}>Soluzioni Docente</span>
+                            <span  style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7", transition: "opacity 300ms" }}>Soluzioni Docente</span>
                         </label>
                     </div>
-                    <div style={{ display: "flex", gap: "var(--md-sys-spacing-6)" }}>
+                    <div style={{display: "flex", gap: layers.ref.spacing['6']}}>
                         <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                         <M3Button 
                             onClick={handleExportDocx} 
@@ -144,67 +147,67 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             }
             fullscreen={true}
         >
-            <div className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl md:p-12 custom-scrollbar relative animate-in fade-in duration-500" style={{ padding: "var(--md-sys-spacing-8)", overflowY: "auto", height: "100%" }}>
+            <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/30 }} style={{padding: layers.ref.spacing['8'], overflowY: "auto", height: "100%"}}>
                 {/* Aura Ornaments */}
-                <div className="absolute top-0 left-0 overflow-hidden pointer-events-none" style={{ width: "100%", height: "100%" }}>
-                    <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] animate-pulse" style={{ borderRadius: "9999px" }} />
-                    <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] animate-pulse" style={{ borderRadius: "9999px" }} style={{ animationDelay: '2s' }} />
+                <div  style={{ width: "100%", height: "100%" }}>
+                    <div style={{ backgroundColor: sys.colors.primary/5 }} style={{ borderRadius: layers.ref.spacing['4'] }} />
+                    <div style={{ backgroundColor: sys.colors.secondary/5 }} style={{ borderRadius: layers.ref.spacing['4'], animationDelay: '2s' }} />
                 </div>
 
-                <div className="document-preview-paper max-w-4xl shadow-[var(--md-sys-elevation-level4)] md:p-16 min-h-[100vh] relative z-10 border-[var(--md-sys-color-outline-variant)]/10 rounded-s" style={{ marginLeft: "auto", marginRight: "auto", backgroundColor: "white", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
+                <div style={{ borderRadius: layers.ref.shape.corner.large }} style={{marginLeft: "auto", marginRight: "auto", backgroundColor: "white", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
                     {/* Watermark for preview */}
-                    <div className="absolute inset-0 pointer-events-none opacity-[0.03] select-none overflow-hidden" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <span className="text-[120px] rotate-[-45deg]" style={{ fontWeight: "900", whiteSpace: "nowrap" }}>DOCENTEDOC AI</span>
+                    <div  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <span style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "900", whiteSpace: "nowrap" }}>DOCENTEDOC AI</span>
                     </div>
 
-                    <div className="border-b-2 border-black pb-8 mb-10 relative" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <h1 className="text-4xl font-serif tracking-tighter" style={{ fontWeight: "900", marginBottom: "var(--md-sys-spacing-6)", textAlign: "center", textTransform: "uppercase", lineHeight: "1" }}>{quiz.title}</h1>
-                        <div className="font-serif italic" style={{ display: "flex", justifyContent: "space-between", width: "100%", fontSize: "1.125rem" }}>
-                            <span>Argomento: <span className="not-italic" style={{ fontWeight: "bold" }}>{quiz.topic}</span></span>
+                    <div  style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                        <h1 style={{ color: layers.sys.color.onPrimary, fontWeight: "900", marginBottom: layers.ref.spacing['6'], textAlign: "center", textTransform: "uppercase", lineHeight: "1" }}>{quiz.title}</h1>
+                        <div  style={{ display: "flex", justifyContent: "space-between", width: "100%", fontSize: "1.125rem" }}>
+                            <span>Argomento: <span  style={{ fontWeight: "bold" }}>{quiz.topic}</span></span>
                             <span>Data: ______________</span>
                         </div>
-                        <div className="font-serif italic" style={{ width: "100%", fontSize: "1.125rem", marginTop: "var(--md-sys-spacing-4)", textAlign: "left" }}>
+                        <div  style={{width: "100%", fontSize: "1.125rem", marginTop: layers.ref.spacing['4'], textAlign: "left"}}>
                             <span>Nome e Cognome: __________________________________________________</span>
                         </div>
                     </div>
 
-                    <div className="space-y-10 font-serif text-[var(--md-sys-color-on-surface)]">
+                    <div style={{ color:  layers.sys.color.onPrimary }}>
                         {quiz.questions.map((q, i) => (
-                            <div key={i} className="break-inside-avoid relative group">
-                                <p style={{ fontWeight: "bold", fontSize: "1.25rem", marginBottom: "var(--md-sys-spacing-8)", display: "flex", gap: "var(--md-sys-spacing-6)" }}>
-                                    <span className="text-[var(--md-sys-color-on-surface)]-variant" style={{ opacity: "0.4" }}>{i + 1}.</span> 
+                            <div key={i} >
+                                <p style={{fontWeight: "bold", fontSize: "1.25rem", marginBottom: layers.ref.spacing['8'], display: "flex", gap: layers.ref.spacing['6']}}>
+                                    <span style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ opacity: "0.4" }}>{i + 1}.</span> 
                                     <span style={{ flex: "1" }}>{q.text}</span>
                                 </p>
                                 {q.type === 'multiple_choice' && (
-                                    <ul className="pl-8" style={{ gap: "var(--md-sys-spacing-3)" }}>
+                                    <ul  style={{gap: layers.ref.spacing['3']}}>
                                         {q.options?.map((opt, j) => (
-                                            <li key={j} style={{ display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-8)" }}>
-                                                <div className="border-2 border-black mt-0.5" style={{ width: "1.5rem", height: "1.5rem", borderRadius: "0.125rem", flexShrink: "0" }}></div>
+                                            <li key={j} style={{display: "flex", alignItems: "flex-start", gap: layers.ref.spacing['8']}}>
+                                                <div  style={{ width: "1.5rem", height: "1.5rem", borderRadius: "0.125rem", flexShrink: "0" }}></div>
                                                 <span style={{ fontSize: "1.125rem", lineHeight: "1.375" }}>{opt}</span>
                                             </li>
                                         ))}
                                     </ul>
                                 )}
                                 {q.type === 'true_false' && (
-                                    <div className="gap-12 pl-8" style={{ display: "flex", marginTop: "var(--md-sys-spacing-4)", fontWeight: "500", fontSize: "1.125rem" }}>
-                                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}><div className="border-2 border-black" style={{ width: "1.5rem", height: "1.5rem", borderRadius: "0.125rem" }}></div> Vero</div>
-                                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}><div className="border-2 border-black" style={{ width: "1.5rem", height: "1.5rem", borderRadius: "0.125rem" }}></div> Falso</div>
+                                    <div  style={{display: "flex", marginTop: layers.ref.spacing['4'], fontWeight: "500", fontSize: "1.125rem"}}>
+                                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}><div  style={{ width: "1.5rem", height: "1.5rem", borderRadius: "0.125rem" }}></div> Vero</div>
+                                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}><div  style={{ width: "1.5rem", height: "1.5rem", borderRadius: "0.125rem" }}></div> Falso</div>
                                     </div>
                                 )}
                                 {q.type === 'open_ended' && (
-                                    <div className="pl-4" style={{ gap: "var(--md-sys-spacing-6)", marginTop: "var(--md-sys-spacing-6)", opacity: "0.3" }}>
-                                        <div className="border-b-2 border-black border-dotted" style={{ height: "2.5rem", width: "100%" }}></div>
-                                        <div className="border-b-2 border-black border-dotted" style={{ height: "2.5rem", width: "100%" }}></div>
-                                        <div className="border-b-2 border-black border-dotted" style={{ height: "2.5rem", width: "100%" }}></div>
-                                        <div className="border-b-2 border-black border-dotted" style={{ height: "2.5rem", width: "100%" }}></div>
+                                    <div  style={{gap: layers.ref.spacing['6'], marginTop: layers.ref.spacing['6'], opacity: "0.3"}}>
+                                        <div  style={{ height: "2.5rem", width: "100%" }}></div>
+                                        <div  style={{ height: "2.5rem", width: "100%" }}></div>
+                                        <div  style={{ height: "2.5rem", width: "100%" }}></div>
+                                        <div  style={{ height: "2.5rem", width: "100%" }}></div>
                                     </div>
                                 )}
 
                                 {showAnswers && (
-                                    <div className="bg-secondary-container/50 backdrop-blur-sm text-on-secondary-container rounded-[var(--md-sys-shape-corner-large)] font-sans border-l-8 animate-in zoom-in-95 duration-300 shadow-[var(--md-sys-elevation-level2)]" style={{ marginTop: "var(--md-sys-spacing-6)", padding: "var(--md-sys-spacing-5)", fontSize: "1rem", borderColor: "var(--md-sys-color-secondary)", display: "flex", gap: "var(--md-sys-spacing-8)", alignItems: "flex-start" }}>
-                                        <span className="material-symbols-outlined" style={{ fontSize: "1.5rem", color: "var(--md-sys-color-secondary)" }}>verified</span>
+                                    <div style={{ backgroundColor: sys.colors.secondary-container/50, color: sys.colors.on-secondary-container, borderRadius: layers.ref.shape.corner.large }} style={{marginTop: layers.ref.spacing['6'], padding: layers.ref.spacing['5'], fontSize: layers.ref.spacing['4'], borderColor: "layers.sys.color.secondary", display: "flex", gap: layers.ref.spacing['8'], alignItems: "flex-start"}}>
+                                        <span  style={{fontSize: "1.5rem", color: "layers.sys.color.secondary"}}>verified</span>
                                         <div>
-                                            <strong className="tracking-[0.2em]" style={{ display: "block", fontSize: "0.75rem", textTransform: "uppercase", fontWeight: "900", opacity: "0.6", marginBottom: "var(--md-sys-spacing-4)" }}>Soluzione Docente</strong>
+                                            <strong  style={{display: "block", fontSize: "0.75rem", textTransform: "uppercase", fontWeight: "900", opacity: "0.6", marginBottom: layers.ref.spacing['4']}}>Soluzione Docente</strong>
                                             <span style={{ fontWeight: "500" }}>{q.correctAnswer}</span>
                                         </div>
                                     </div>
@@ -213,7 +216,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                         ))}
                     </div>
 
-                    <div className="mt-20 pt-8 border-black/10 font-serif italic" style={{ borderTop: "1px solid var(--md-sys-color-outline)", textAlign: "center", fontSize: "0.875rem", opacity: "0.4" }}>
+                    <div  style={{borderTop: "1px solid layers.sys.color.outline", textAlign: "center", fontSize: "0.875rem", opacity: "0.4"}}>
                         Generato con DocenteDoc AI - Il tuo assistente didattico intelligente
                     </div>
                 </div>
@@ -223,5 +226,10 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
 };
 
 export default TestPreviewModal;
+
+
+
+
+
 
 

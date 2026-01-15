@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3Chip, { M3ChipProps } from './M3Chip';
@@ -5,7 +6,7 @@ import M3Chip, { M3ChipProps } from './M3Chip';
 const meta: Meta<typeof M3Chip> = {
   component: M3Chip,
   title: 'UI/Layout/M3Chip',
-  tags: ['autodocs'],
+  tags: ['autodocs],
   parameters: {
     layout: 'centered',
     docs: {
@@ -21,7 +22,7 @@ const meta: Meta<typeof M3Chip> = {
     },
     variant: {
       control: 'select',
-      options: ['filled', 'outlined', 'elevated'],
+      options: ['filled', 'outlined', 'elevated],
       description: 'Chip style variant',
     },
     disabled: {
@@ -99,8 +100,8 @@ export const Disabled: Story = {
  */
 export const Group: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: '25rem' }}>
-      {['Mathematics', 'Italian', 'English', 'History'].map((label, i) => (
+    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: layers.ref.spacing['4'] }}>
+      {['Mathematics', 'Italian', 'English', 'History].map((label, i) => (
         <M3Chip key={i} label={label} variant={i % 2 === 0 ? 'filled' : 'outlined'} />
       ))}
     </div>
@@ -112,7 +113,7 @@ export const Group: Story = {
  */
 export const DeletableGroup: Story = {
   render: () => {
-    const [chips, setChips] = useState(['Math', 'Science', 'Literature', 'History']);
+    const [chips, setChips] = useState(['Math', 'Science', 'Literature', 'History]);
 
     return (
       <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap' }}>
@@ -135,7 +136,7 @@ export const DeletableGroup: Story = {
 export const Tags: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: '31.25rem' }}>
-      {['Important', 'Draft', 'Review', 'Completed', 'Urgent'].map((tag, i) => (
+      {['Important', 'Draft', 'Review', 'Completed', 'Urgent].map((tag, i) => (
         <M3Chip key={i} label={tag} variant="elevated" />
       ))}
     </div>
@@ -147,9 +148,9 @@ export const Tags: Story = {
  */
 export const Filters: Story = {
   render: () => {
-    const [selected, setSelected] = useState<string[]>(['Math']);
+    const [selected, setSelected] = useState<string[]>(['Math]);
 
-    const filters = ['Math', 'Science', 'History', 'Geography', 'Languages'];
+    const filters = ['Math', 'Science', 'History', 'Geography', 'Languages];
 
     const toggleFilter = (filter: string) => {
       setSelected((prev) =>
@@ -170,10 +171,10 @@ export const Filters: Story = {
                 padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
                 backgroundColor: selected.includes(filter)
                   ? 'var(--md-sys-color-primary)'
-                  : 'var(--md-sys-color-surface-container-low)',
+                  : 'var(--md-sys-color-surfaceContainerLow)',
                 color: selected.includes(filter)
                   ? 'var(--md-sys-color-on-primary)'
-                  : 'var(--md-sys-color-on-surface)',
+                  : 'var(--md-sys-color-onSurface)',
                 border: 'none',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 cursor: 'pointer',
@@ -185,7 +186,7 @@ export const Filters: Story = {
             </button>
           ))}
         </div>
-        <p style={{ fontSize: '0.9rem', color: 'var(--md-sys-color-on-surface-variant)' }}>
+        <p style={{ fontSize: '0.9rem', color: 'var(--md-sys-color-onSurface-variant)' }}>
           Selected: {selected.join(', ')}
         </p>
       </div>
@@ -198,10 +199,10 @@ export const Filters: Story = {
  */
 export const ContextTags: Story = {
   render: () => {
-    const [contexts, setContexts] = useState(['Class 1A', 'Mathematics', 'Chapter 3']);
+    const [contexts, setContexts] = useState(['Class 1A', 'Mathematics', 'Chapter 3]);
 
     return (
-      <div style={{ maxWidth: '500px' }}>
+      <div style={{ maxWidth: layers.ref.spacing['4'] }}>
         <h4 style={{ margin: '0 0 var(--md-sys-spacing-4) 0' }}>Document Context Tags</h4>
         <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap' }}>
           {contexts.map((ctx, i) => (
@@ -223,18 +224,18 @@ export const ContextTags: Story = {
  */
 export const InputChips: Story = {
   render: () => {
-    const [input, setInput] = useState('');
-    const [chips, setChips] = useState<string[]>(['User1', 'User2']);
+    const [input, setInput] = useState(');
+    const [chips, setChips] = useState<string[]>(['User1', 'User2]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && input.trim()) {
         setChips([...chips, input]);
-        setInput('');
+        setInput(');
       }
     };
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', maxWidth: '25rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', maxWidth: layers.ref.spacing['4'] }}>
         <div>
           <label style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>
             Add Recipients (type and press Enter)
@@ -341,5 +342,10 @@ export const Accessibility: Story = {
     },
   },
 };
+
+
+
+
+
 
 

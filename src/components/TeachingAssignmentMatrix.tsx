@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 // M3Expressive: TeachingAssignmentMatrix - Teaching assignment configuration matrix with M3 tokens
 import React, { useEffect, useMemo, useState } from 'react';
@@ -45,16 +46,16 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
 
     if (assignments.length === 0) {
         return (
-            <div className="teaching-assignment-matrix-empty-state">
-                <div className="teaching-assignment-matrix-empty-icon-container">
-                    <span className="material-symbols-outlined teaching-assignment-matrix-empty-icon">bolt</span>
+            <div >
+                <div >
+                    <span >bolt</span>
                 </div>
-                <h3 className="teaching-assignment-matrix-empty-title">Configura la Cattedra</h3>
-                <p className="teaching-assignment-matrix-empty-text">
+                <h3 >Configura la Cattedra</h3>
+                <p >
                     Usa lo strumento di <strong>Configurazione Rapida</strong> sopra per associare le tue materie alle classi in un colpo solo.
                 </p>
-                <div className="teaching-assignment-matrix-empty-hint">
-                    <div className="teaching-assignment-matrix-empty-hint-content">
+                <div >
+                    <div >
                         Scorri verso l'alto ↑
                     </div>
                 </div>
@@ -63,18 +64,18 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
     }
 
     return (
-        <div className="teaching-assignment-matrix-container">
+        <div >
             {/* DESKTOP VIEW: MD3 Table */}
-            <div className="teaching-assignment-matrix-desktop-table">
-                <div className="teaching-assignment-matrix-table-scroll">
-                    <table className="teaching-assignment-matrix-table">
+            <div >
+                <div >
+                    <table >
                         <thead>
                             <tr>
-                                <th className="teaching-assignment-matrix-table-header">
+                                <th >
                                     Cattedra
                                 </th>
                                 {subjects.map(subj => (
-                                    <th key={subj} className="teaching-assignment-matrix-table-header-cell">
+                                    <th key={subj} >
                                         {subj}
                                     </th>
                                 ))}
@@ -82,22 +83,22 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                         </thead>
                         <tbody>
                             {classes.map(cls => (
-                                <tr key={cls} className="teaching-assignment-matrix-table-body-row">
-                                    <td className="teaching-assignment-matrix-table-body-cell">
+                                <tr key={cls} >
+                                    <td >
                                         {cls}
                                     </td>
                                     {subjects.map(subj => {
                                         const isActive = assignments.some(a => a.classId === cls && a.subjectId === subj);
                                         
                                         return (
-                                            <td key={`${cls}-${subj}`} className="teaching-assignment-matrix-table-data-cell">
+                                            <td key={`${cls}-${subj}`} >
                                                 <button 
                                                     onClick={() => toggleAssignment(cls, subj)}
-                                                    className={`teaching-assignment-matrix-toggle-button ${isActive ? 'active' : ''}`}
+                                                    className={`teaching-assignment-matrix-toggle-button ${isActive ? 'active' : '}`}
                                                     title={isActive ? `Rimuovi ${subj} da ${cls}` : `Assegna ${subj} a ${cls}`}
                                                     aria-label={`${subj} in ${cls}: ${isActive ? 'Assegnato' : 'Non assegnato'}`}
                                                 >
-                                                    <span className={`material-symbols-outlined teaching-assignment-matrix-toggle-icon ${isActive ? 'active' : ''}`}>
+                                                    <span className={`material-symbols-outlined teaching-assignment-matrix-toggle-icon ${isActive ? 'active' : '}`}>
                                                         {isActive ? 'check_circle' : 'add_circle'}
                                                     </span>
                                                 </button>
@@ -117,48 +118,48 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                 const [openClass, setOpenClass] = useState<string | null>(classes[0] || null);
 
                 useEffect(() => {
-                    if (!classes.includes(openClass || '')) {
+                    if (!classes.includes(openClass || ')) {
                         setOpenClass(classes[0] || null);
                     }
                 }, [classes, openClass]);
 
                 return (
-                    <div className="teaching-assignment-matrix-mobile-view">
+                    <div >
                         {classes.map(cls => {
                             const isActiveClass = openClass === cls || !useAccordion;
                             const toggleAccordion = () => setOpenClass(prev => (prev === cls ? null : cls));
 
                             return (
-                                <div key={cls} className="teaching-assignment-matrix-mobile-card">
+                                <div key={cls} >
                                     <button
                                         type="button"
                                         onClick={toggleAccordion}
-                                        className="teaching-assignment-matrix-mobile-header"
+                                        
                                         aria-expanded={isActiveClass}
                                     >
-                                        <span className="teaching-assignment-matrix-mobile-header-content">
-                                            <span className="teaching-assignment-matrix-mobile-class-badge">
+                                        <span >
+                                            <span >
                                                 {cls}
                                             </span>
-                                            <span className="teaching-assignment-matrix-mobile-class-label">Classe {cls}</span>
+                                            <span >Classe {cls}</span>
                                         </span>
-                                        <span className="teaching-assignment-matrix-mobile-expand-icon" aria-hidden="true">
+                                        <span  aria-hidden="true">
                                             {isActiveClass ? 'expand_less' : 'expand_more'}
                                         </span>
                                     </button>
                                     {isActiveClass && (
-                                        <div className="teaching-assignment-matrix-mobile-content">
-                                            <div className="teaching-assignment-matrix-mobile-chips">
+                                        <div >
+                                            <div >
                                                 {subjects.map(subj => {
                                                     const isActive = assignments.some(a => a.classId === cls && a.subjectId === subj);
                                                     return (
                                                         <button
                                                             key={subj}
                                                             onClick={() => toggleAssignment(cls, subj)}
-                                                            className={`teaching-assignment-matrix-mobile-chip ${isActive ? 'active' : ''}`}
+                                                            className={`teaching-assignment-matrix-mobile-chip ${isActive ? 'active' : '}`}
                                                         >
-                                                            {isActive && <span className="teaching-assignment-matrix-mobile-chip-check">check</span>}
-                                                            <span className="teaching-assignment-matrix-mobile-chip-label">{subj}</span>
+                                                            {isActive && <span >check</span>}
+                                                            <span >{subj}</span>
                                                         </button>
                                                     );
                                                 })}
@@ -173,14 +174,19 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
             })()}
 
             {/* INFO SECTION */}
-            <div className="teaching-assignment-matrix-info-section">
-                <p className="teaching-assignment-matrix-info-text">
-                    <span className="teaching-assignment-matrix-info-icon">info</span>
+            <div >
+                <p >
+                    <span >info</span>
                     Tocca le materie per assegnarle alle classi.
                 </p>
             </div>
         </div>
     );
 };
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3RatingBar from './M3RatingBar';
@@ -5,7 +6,7 @@ import M3RatingBar from './M3RatingBar';
 const meta = {
   title: 'M3/RatingBar',
   component: M3RatingBar,
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     max: {
       control: { type: 'number', min: 1, max: 10, step: 1 },
@@ -84,7 +85,7 @@ export const Interactive: Story = {
             args.onChange?.(newRating);
           }}
         />
-        <p style={{ marginTop: '1rem', fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+        <p style={{ marginTop: layers.ref.spacing['4'], fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--md-sys-color-onSurface-variant)' }}>
           Current rating: <strong>{rating}</strong> / {args.max}
         </p>
       </div>
@@ -135,5 +136,10 @@ export const ThreeStarRating: Story = {
     onChange: (rating) => console.log(`Quick rating: ${rating}/3`),
   },
 };
+
+
+
+
+
 
 

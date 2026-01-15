@@ -1,8 +1,10 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { chatWithAi } from '../services/aiService';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField } from './ui';
 import { AiSettings, ChatMessage } from '../types';
+import { useTheme } from '../theme/theme';
 
 interface AssistantModalProps {
   open: boolean;
@@ -20,6 +22,7 @@ const SUGGESTED_PROMPTS = [
 ];
 
 const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = 'chat', aiSettings, context }) => {
+  const { layers } = useTheme();
   const [input, setInput] = useState('');
   // NotebookLM state
   const [nbFiles, setNbFiles] = useState<NotebookLMFile[]>([]);
@@ -40,7 +43,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           mode
         });
         localStorage.setItem('assistant_open_debug', JSON.stringify(logs.slice(-30)));
-        console.warn('[DEBUG][AssistantModal] Modal aperta (render)', logs.at(-1));
+        console.warn('[DEBUG] [AssistantModal] Modal aperta (render)', logs.at(-1));
       }
       console.warn('[DEBUG] AssistantModal opened', { mode, width: window.innerWidth, height: window.innerHeight, stack: new Error().stack });
     }
@@ -125,7 +128,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
     recognition.onresult = (event: any) => {
       let final = '';
       for (let i = 0; i < event.results.length; ++i) {
-        final += event.results[i][0].transcript;
+          final += event.results[i][0].transcript;
       }
       setTranscript(final);
     };
@@ -211,13 +214,37 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   if (!open) return null;
 
   const headerContent = (
-    <div className="md:px-6 md:py-6 border-[var(--md-sys-color-outline-variant)]/10 shrink-0 bg-gradient-to-r from-transparent via-surface-container-highest/10 to-transparent" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)", borderBottom: "1px solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <div style={{ 
+      backgroundColor: layers.sys.color.surface,
+      paddingLeft: layers.ref.spacing['4'], 
+      paddingRight: layers.ref.spacing['4'], 
+      paddingTop: layers.ref.spacing['4'], 
+      paddingBottom: layers.ref.spacing['4'], 
+      borderBottom: `1px solid ${layers.sys.color.outline}`, 
+      display: "flex", 
+      justifyContent: "space-between", 
+      alignItems: "center"
+    }}>
       <div style={{ flexGrow: "1", minWidth: "0" }}>
-        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Assistente DocenteDoc AI</h2>
+        <h2 style={{ 
+          color: layers.sys.color.onSurface,
+          fontWeight: "900", 
+          letterSpacing: "-0.005em" 
+        }}>
+          Assistente DocenteDoc AI
+        </h2>
       </div>
       <button
         onClick={onClose}
-        className="hover:bg-[var(--md-sys-color-surface-container-high)]est ml-4 assistant-exit-btn" style={{ width: "2.5rem", height: "2.5rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", transition: "color 300ms" }}
+         style={{ 
+           width: "2.5rem", 
+           height: "2.5rem", 
+           borderRadius: layers.ref.shape.corner.full, 
+           display: "flex", 
+           alignItems: "center", 
+           justifyContent: "center", 
+           transition: "color 300ms" 
+         }}
         data-focus-priority="-1"
         aria-label="Chiudi assistente"
       >
@@ -239,12 +266,17 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       wrapperClassName="assistant-modal-overlay"
       wrapperTestId="assistant-modal-overlay"
     >
-      <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
+      <M3DialogContent >
         {mode === 'chat' && (
           <>
-            <div className="assistant-messages h-64 custom-scrollbar" style={{ gap: "var(--md-sys-spacing-4)", overflowY: "auto" }}>
+            <div  style={{gap: layers.ref.spacing['4'], overflowY: "auto"}}>
               {messages.length === 0 && (
-                <div className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] py-8" style={{ textAlign: "center", color: "var(--md-sys-color-primary)" }}>Come posso aiutarti?</div>
+                <div style={{ 
+                  textAlign: "center", 
+                  color: layers.sys.color.primary 
+                }}>
+                  Come posso aiutarti?
+                </div>
               )}
               {messages.map((msg, i) => (
                 <div
@@ -252,19 +284,19 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   className={`m3-body-small p-8 rounded-[var(--md-sys-shape-corner-large)] ${
                     msg.role === 'user'
                       ? 'bg-primary text-on-primary ml-12'
-                      : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)] mr-12'
+                      : 'bg-surface-container-high text-on-surface mr-12'
                   }`}
                 >
                   {msg.text}
                 </div>
               ))}
-              {loading && <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant italic animate-pulse">Sto pensando…</div>}
+              {loading && <div style={{ color:  layers.sys.color.onSurfaceVariant }}>Sto pensando…</div>}
             </div>
-            <div className="assistant-prompts gap-12" style={{ display: "flex", flexWrap: "wrap" }}>
+            <div  style={{ display: "flex", flexWrap: "wrap" }}>
               {SUGGESTED_PROMPTS.map((p) => (
                 <button
                   key={p}
-                  className="m3-button-tonal !px-4 !py-2 !h-auto !m3-label-small !rounded-full"
+                  
                   onClick={() => handlePrompt(p)}
                 >
                   {p}
@@ -275,20 +307,18 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         )}
 
         {mode === 'docs' && (
-          <div style={{
-  marginTop: 'var(--md-sys-spacing-8)'
-}}>
+          <div style={{marginTop: layers.ref.spacing['8']}}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <div className="gap-12" style={{ display: "flex", alignItems: "center" }}>
-                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-secondary)" }}>import_contacts</span>
-                <h3 className="m3-title-medium">NotebookLM</h3>
+              <div  style={{ display: "flex", alignItems: "center" }}>
+                <span  style={{color: "layers.sys.color.secondary"}}>import_contacts</span>
+                <h3 >NotebookLM</h3>
               </div>
-              <div className="gap-12" style={{ display: "flex" }}>
+              <div  style={{ display: "flex" }}>
                 <M3Button
                   variant="text"
                   onClick={handleNbSync}
                   disabled={nbLoading}
-                  className="!p-12"
+                  
                 >
                   <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -306,7 +336,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   variant="text"
                   onClick={() => nbFileInput.current?.click()}
                   disabled={nbLoading}
-                  className="!p-12"
+                  
                 >
                   <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -314,18 +344,18 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                 </M3Button>
               </div>
             </div>
-            {nbError && <div className="m3-body-small p-12 rounded-[var(--md-sys-shape-corner-medium)]" style={{ color: "var(--md-sys-color-error)", backgroundColor: "var(--md-sys-color-error-container)" }}>{nbError}</div>}
-            {nbLoading && <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant animate-pulse">Caricamento…</div>}
-            <div className="max-h-48 custom-scrollbar" style={{ gap: "var(--md-sys-spacing-4)", overflowY: "auto" }}>
+            {nbError && <div style={{ padding: layers.ref.spacing['4'], borderRadius: layers.ref.shape.corner.large, color: layers.sys.color.error, backgroundColor: layers.sys.color.errorContainer }}>{nbError}</div>}
+            {nbLoading && <div style={{ color:  layers.sys.color.onSurfaceVariant }}>Caricamento…</div>}
+            <div  style={{gap: layers.ref.spacing['4'], overflowY: "auto"}}>
               {nbFiles.map(file => (
-                <div key={file.id} className="bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/30" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
+                <div key={file.id} style={{ backgroundColor: layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large, display: "flex", alignItems: "center", justifyContent: "space-between", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline" }}>
                   <div style={{ flex: "1", minWidth: "0" }}>
-                    <p className="m3-body-small" style={{ fontWeight: "500", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{file.name}</p>
-                    <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant m3-label-small">{new Date(file.lastModified).toLocaleDateString()}</p>
+                    <p  style={{ fontWeight: "500", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{file.name}</p>
+                    <p style={{ color:  layers.sys.color.onSurfaceVariant }}>{new Date(file.lastModified).toLocaleDateString()}</p>
                   </div>
                   <M3Button
                     variant="text"
-                    className="!p-12" style={{ color: "var(--md-sys-color-error)" }}
+                     style={{color: "layers.sys.color.error"}}
                     onClick={() => handleNbDelete(file.id)}
                   >
                     <span style={{
@@ -340,8 +370,8 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       </M3DialogContent>
 
       {/* Input Footer */}
-      <M3DialogActions className="!flex-col px-12 pb-12 bg-[var(--md-sys-color-surface-container-low)]est border-[var(--md-sys-color-outline-variant)]/10" style={{ gap: "var(--md-sys-spacing-8)", paddingTop: "0", borderTop: "1px solid var(--md-sys-color-outline)" }}>
-        <div className="gap-12" style={{ display: "flex", alignItems: "flex-end", width: "100%" }}>
+      <M3DialogActions style={{ backgroundColor: layers.sys.color.surfaceContainerLowest, gap: layers.ref.spacing['8'], paddingTop: "0", borderTop: "1px solid layers.sys.color.outline" }}>
+        <div  style={{ display: "flex", alignItems: "flex-end", width: "100%" }}>
           <div style={{ flex: "1" }}>
             <TextField
               label={isRecording ? "In ascolto..." : "Scrivi una domanda…"}
@@ -369,19 +399,24 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             variant="filled"
             onClick={handleSend}
             disabled={loading || !input.trim()}
-            className="!h-16 !w-16 !p-0 !min-w-0 !rounded-[var(--md-sys-shape-corner-large)]" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+             style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
           >
             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>send</span>
           </M3Button>
         </div>
-        {voiceError && <p className="m3-body-small" style={{ color: "var(--md-sys-color-error)", width: "100%", textAlign: "center" }}>{voiceError}</p>}
+        {voiceError && <p  style={{color: "layers.sys.color.error", width: "100%", textAlign: "center"}}>{voiceError}</p>}
       </M3DialogActions>
     </M3Dialog>
   );
 }
 
 export default AssistantModal;
+
+
+
+
+
 
 

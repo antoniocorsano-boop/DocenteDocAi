@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
@@ -53,7 +54,7 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
         if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
             isDraggingRef.current = true;
             // Disable transition during drag for instant response
-            if (buttonRef.current) buttonRef.current.style.transition = 'none';
+            if (buttonRef.current) buttonRef.current// removed runtime mutation
         }
 
         if (isDraggingRef.current) {
@@ -78,7 +79,7 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
         window.removeEventListener('pointerup', handlePointerUp);
         
         // Re-enable transition (if any defined in CSS for other props)
-        if (buttonRef.current) buttonRef.current.style.transition = '';
+        if (buttonRef.current) buttonRef.current// removed runtime mutation
         
         dragStartRef.current = null;
         initialPosRef.current = null;
@@ -107,7 +108,7 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
     return (
         <button
             ref={buttonRef}
-            className="live-assistant-fab"
+            
             data-assistant="true"
             style={style}
             onPointerDown={handlePointerDown}
@@ -121,5 +122,10 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
         </button>
     );
 };
+
+
+
+
+
 
 

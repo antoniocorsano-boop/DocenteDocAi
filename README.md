@@ -1,3 +1,11 @@
+> ⚠️ DEPRECATED — MD3 GOVERNANCE VIOLATION
+>
+> This document contains examples and patterns that are NO LONGER ALLOWED
+> under the current MD3 Expressive governance model.
+>
+> Do NOT use this file as a reference.
+> It is kept temporarily for historical context only.
+
 # DocenteDoc AI
 
 > **Assistente AI intelligente per docenti italiani** - Local-First Architecture con Google Gemini

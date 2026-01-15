@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -8,21 +9,19 @@ interface ImageSkeletonProps {
 /**
  * ImageSkeleton - Loading skeleton for image content.
  * Shows animated placeholder with icon and text during image generation.
- * 
- * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance and className removal
  */
 
-const ImageSkeleton: React.FC<ImageSkeletonProps> = ({ 
+const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
     aspectRatio = '16/9'
 }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const theme = useTheme();
-    
+  const { layers } = useTheme();
+  const { sys, ref } = layers;
+
     return (
     <div
         style={{
-            backgroundColor: 'var(--md-sys-color-surface-container-high)',
-            borderRadius: 'var(--md-sys-shape-corner-small)',
+            backgroundColor: layers.sys.color.surfaceContainerHigh,
+            borderRadius: layers.ref.shape.corner.small,
             animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             display: 'flex',
             alignItems: 'center',
@@ -34,15 +33,15 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: 'var(--md-sys-spacing-8)',
-            color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 50%, transparent)'
+            gap: layers.ref.spacing['4'],
+            color: `color-mix(in srgb, ${layers.sys.color.onSurfaceVariant} 50%, transparent)`
         }}>
             <span style={{
                 fontFamily: 'Material Symbols Outlined',
-                fontSize: 'var(--md-sys-typescale-display-small-size)'
+                fontSize: ref.typography.displaySmall.fontSize
             }}>image</span>
             <span style={{
-                fontSize: 'var(--md-sys-typescale-body-small-size)',
+                fontSize: ref.typography.bodySmall.fontSize,
                 fontWeight: 500
             }}>Generazione immagine...</span>
         </div>
@@ -51,5 +50,10 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
 };
 
 export default ImageSkeleton;
+
+
+
+
+
 
 

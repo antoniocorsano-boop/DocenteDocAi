@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 import React, { useState } from 'react';
@@ -5,6 +6,7 @@ import { HomeworkSubmission, Studente, Lezione } from '../types';
 import { Avatar } from './ui';
 
 import HomeworkSubmissionCard from './HomeworkSubmission'; 
+import { useTheme } from '../theme/theme';
 
 interface TeacherInboxProps {
     submissions: HomeworkSubmission[];
@@ -15,6 +17,7 @@ interface TeacherInboxProps {
 }
 
 const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, lessons, onGradeSubmission, onClose }) => {
+  const { layers } = useTheme();
     const [selectedSubmission, setSelectedSubmission] = useState<HomeworkSubmission | null>(null);
 
     const pendingSubmissions = submissions.filter(s => s.status === 'pending');
@@ -49,22 +52,22 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
     };
 
     return (
-        <div className="page-layout teacher-inbox-page-layout teacher-inbox-page-layout.responsive">
-            <div className="teacher-inbox-main-container teacher-inbox-main-container.responsive">
+        <div >
+            <div >
                 
                 {/* Sidebar List */}
-                <div className="teacher-inbox-sidebar">
-                    <div className="teacher-inbox-header">
-                        <h2 className="m3-title-medium teacher-inbox-title">
-                            <span className="material-symbols-outlined teacher-inbox-title-icon">inbox</span> Inbox Compiti
+                <div >
+                    <div >
+                        <h2 >
+                            <span >inbox</span> Inbox Compiti
                         </h2>
-                        <button onClick={onClose} className="icon-button teacher-inbox-close-button" aria-label="Chiudi inbox"><span style={{
+                        <button onClick={onClose}  aria-label="Chiudi inbox"><span style={{
   fontFamily: 'Material Symbols Outlined'
 }} aria-hidden="true">close</span></button>
                     </div>
 
-                    <div className="teacher-inbox-content">
-                        <p className="teacher-inbox-section-header">Da Correggere ({pendingSubmissions.length})</p>
+                    <div >
+                        <p >Da Correggere ({pendingSubmissions.length})</p>
                         {pendingSubmissions.map(sub => {
                             const studentInfo = getStudentDisplay(sub.studentId);
                             const lessonInfo = getLessonDisplay(sub.lessonId);
@@ -75,34 +78,34 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     key={sub.id}
                                     onClick={() => setSelectedSubmission(sub)}
                                     className={`teacher-inbox-submission-item ${isSelected ? 'teacher-inbox-submission-item.selected' : ''}`}
-                                    style={{ borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)' }}
+                                    style={{borderRadius: 'layers.ref.shape.corner.small', transition: 'var(--md-easing-standard)'}}
                                 >
                                     <Avatar name={`${studentInfo.name} ${studentInfo.surname}`} size="sm" />
-                                    <div className="teacher-inbox-submission-content">
-                                        <p className="teacher-inbox-student-name">{studentInfo.full}</p>
-                                        <p className="teacher-inbox-lesson-info">{lessonInfo.materia} - {lessonInfo.contenuto}</p>
-                                        <span className="teacher-inbox-date">{new Date(sub.date).toLocaleDateString()}</span>
+                                    <div >
+                                        <p >{studentInfo.full}</p>
+                                        <p >{lessonInfo.materia} - {lessonInfo.contenuto}</p>
+                                        <span >{new Date(sub.date).toLocaleDateString()}</span>
                                     </div>
                                 </div>
                             );
                         })}
                         
                         {pendingSubmissions.length === 0 && (
-                            <div className="teacher-inbox-empty-state">
+                            <div >
                                 Nessun compito in attesa.
                             </div>
                         )}
                         
                         {gradedSubmissions.length > 0 && (
                             <>
-                                <p className="teacher-inbox-graded-header">Già Corretti</p>
+                                <p >Già Corretti</p>
                                 {gradedSubmissions.slice(0, 5).map(sub => {
                                     const studentInfo = getStudentDisplay(sub.studentId);
                                     const lessonInfo = getLessonDisplay(sub.lessonId);
                                     return (
-                                        <div key={sub.id} className="teacher-inbox-graded-item" style={{ borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)' }}>
-                                            <span className="material-symbols-outlined teacher-inbox-graded-icon">check_circle</span>
-                                            <span className="teacher-inbox-graded-text">{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
+                                        <div key={sub.id}  style={{borderRadius: 'layers.ref.shape.corner.small', transition: 'var(--md-easing-standard)'}}>
+                                            <span >check_circle</span>
+                                            <span >{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
                                         </div>
                                     )
                                 })}
@@ -112,10 +115,10 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                 </div>
 
                 {/* Main Grading Area */}
-                <div className="teacher-inbox-main-area">
+                <div >
                     {selectedSubmission ? (
-                        <div className="teacher-inbox-grading-area">
-                            <div className="max-w-2xl" style={{ marginLeft: "auto", marginRight: "auto" }}>
+                        <div >
+                            <div  style={{ marginLeft: "auto", marginRight: "auto" }}>
                                 <HomeworkSubmissionCard
                                     submission={selectedSubmission}
                                     student={getStudentDisplay(selectedSubmission.studentId).obj!}
@@ -125,9 +128,9 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                             </div>
                         </div>
                     ) : (
-                        <div className="teacher-inbox-empty-selection">
-                            <span className="material-symbols-outlined teacher-inbox-empty-icon">rate_review</span>
-                            <p className="teacher-inbox-empty-text">Seleziona un compito da correggere</p>
+                        <div >
+                            <span >rate_review</span>
+                            <p >Seleziona un compito da correggere</p>
                         </div>
                     )}
                 </div>
@@ -139,5 +142,10 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
 export default TeacherInbox;
 
 // M3Expressive refactor COMPLETED: TeacherInbox.tsx - Replaced all hardcoded Tailwind classes with dedicated teacher-inbox-* CSS classes using M3 tokens for sidebar layout, submission items, graded items, and empty states.
+
+
+
+
+
 
 

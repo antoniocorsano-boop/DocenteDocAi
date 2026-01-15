@@ -1,4 +1,10 @@
+// LEGACY - MD3 Non-compliant
+// @legacy
+// @md3-noncompliant
+// @do-not-extend
+
 import React from 'react';
+import { useTheme } from '../../theme/theme';
 import { useTheme } from '../../theme/theme';
 
 interface ThinkingIndicatorProps {
@@ -10,6 +16,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
   message = "Pensando...",
   size = 'medium'
 }) => {
+  const { layers } = useTheme();
   const { spacing, typography } = useTheme();
 
   const sizeStyles = {
@@ -32,85 +39,71 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
 
   return (
     <div
-      style={{
-        display: 'flex',
+      style={{display: 'flex',
         alignItems: 'center',
         gap: spacing[3],
         padding: spacing[4],
-        borderRadius: 'var(--md-sys-shape-corner-medium)',
-        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+        borderRadius: 'layers.ref.shape.corner.medium',
+        backgroundColor: ' layers.sys.color.surfaceContainerLow',
         opacity: 0.5,
-        border: '1px solid var(--md-sys-color-outline-variant)',
-        borderOpacity: 0.3
-      }}
+        border: '1px solid  layers.sys.color.onPrimary',
+        borderOpacity: 0.3}}
     >
       {/* Animated dots */}
       <div style={{ display: 'flex', gap: spacing[1] }}>
         <div
-          style={{
-            width: '8px',
-            height: '8px',
-            backgroundColor: 'var(--md-sys-color-primary)',
+          style={{width: layers.ref.spacing['2'],
+            height: layers.ref.spacing['2'],
+            backgroundColor: 'layers.sys.color.primary',
             borderRadius: '50%',
             animation: 'pulse 2s ease-in-out infinite',
-            animationDelay: '0ms'
-          }}
+            animationDelay: '0ms'}}
         />
         <div
-          style={{
-            width: '8px',
-            height: '8px',
-            backgroundColor: 'var(--md-sys-color-primary)',
+          style={{width: layers.ref.spacing['2'],
+            height: layers.ref.spacing['2'],
+            backgroundColor: 'layers.sys.color.primary',
             borderRadius: '50%',
             animation: 'pulse 2s ease-in-out infinite',
-            animationDelay: '150ms'
-          }}
+            animationDelay: '150ms'}}
         />
         <div
-          style={{
-            width: '8px',
-            height: '8px',
-            backgroundColor: 'var(--md-sys-color-primary)',
+          style={{width: layers.ref.spacing['2'],
+            height: layers.ref.spacing['2'],
+            backgroundColor: 'layers.sys.color.primary',
             borderRadius: '50%',
             animation: 'pulse 2s ease-in-out infinite',
-            animationDelay: '300ms'
-          }}
+            animationDelay: '300ms'}}
         />
       </div>
 
       {/* Message */}
       <span
-        style={{
-          ...sizeStyles[size],
-          color: 'var(--md-sys-color-on-surface-variant)',
-          fontFamily: 'var(--md-sys-typescale-body-large-font-family)'
-        }}
+        style={{...sizeStyles[size],
+          color: ' layers.sys.color.onSurfaceVariant',
+          fontFamily: 'var(--md-sys-typescale-body-large-font-family)'}}
       >
         {message}
       </span>
 
       {/* Optional AI icon */}
       <div
-        style={{
-          width: '24px',
-          height: '24px',
+        style={{width: layers.ref.spacing['8'],
+          height: layers.ref.spacing['8'],
           borderRadius: '50%',
-          backgroundColor: 'var(--md-sys-color-primary)',
+          backgroundColor: 'layers.sys.color.primary',
           opacity: 0.1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          marginLeft: 'auto'
-        }}
+          marginLeft: 'auto'}}
       >
         <span
-          style={{
-            fontFamily: 'Material Symbols Outlined',
+          style={{fontFamily: 'Material Symbols Outlined',
             fontSize: typography.caption.fontSize,
-            color: 'var(--md-sys-color-primary)',
+            color: 'layers.sys.color.primary',
             fontWeight: typography.caption.fontWeight,
-            lineHeight: typography.caption.lineHeight
-          }}
+            lineHeight: typography.caption.lineHeight}}
         >
           smart_toy
         </span>
@@ -120,4 +113,9 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
 };
 
 export default ThinkingIndicator;
+
+
+
+
+
 

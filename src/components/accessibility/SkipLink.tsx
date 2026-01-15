@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 /**
  * SkipLink Component
  * 
@@ -52,7 +53,7 @@ export const SkipLink: React.FC = () => {
   return (
     <a
       href="#main-content"
-      className="skip-link"
+      
       onClick={handleSkipClick}
       aria-label="Skip to main content"
     >
@@ -62,5 +63,10 @@ export const SkipLink: React.FC = () => {
 };
 
 export default SkipLink;
+
+
+
+
+
 
 

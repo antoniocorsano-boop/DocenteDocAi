@@ -1,4 +1,5 @@
-import React from 'react';
+// LEGACY - MD3 Non-compliant
+import React, { useState } from 'react';
 import { useTheme } from '../../theme/theme';
 
 interface AiMemoryChipProps {
@@ -6,31 +7,28 @@ interface AiMemoryChipProps {
 }
 
 const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const theme = useTheme();
+    const [hovered, setHovered] = useState(false);
+    const { layers } = useTheme();
+    const { sys, ref, motion } = layers;
 
     return (
         <div
             style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 'var(--md-sys-spacing-2)',
-                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                minHeight: 'var(--md-sys-spacing-8)',
-                opacity: 0.6,
-                transition: 'opacity 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                gap: layers.ref.spacing['4'],
+                padding: `${layers.ref.spacing['2']} ${layers.ref.spacing['2']}`,
+                minHeight: layers.ref.spacing['8'],
+                opacity: hovered ? 1 : 0.6,
+                transition: `opacity ${motion.duration.short2} ${motion.easing.standard}`,
                 userSelect: 'none',
                 cursor: 'help',
-                backgroundColor: 'var(--md-sys-color-tertiary-container)',
-                borderRadius: 'var(--md-sys-shape-corner-full)',
-                border: '1px solid var(--md-sys-color-tertiary)'
+                backgroundColor: sys.color.tertiaryContainer,
+                borderRadius: ref.shape.corner.full,
+                border: `1px solid ${sys.color.tertiary}`
             }}
-            onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = '1';
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = '0.6';
-            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
             title="Contesto utilizzato dall'AI"
             role="note"
             aria-label={`Contesto AI: ${label}`}
@@ -38,8 +36,8 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             <span
                 style={{
                     fontFamily: 'Material Symbols Outlined',
-                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                    color: 'var(--md-sys-color-tertiary)',
+                    fontSize: ref.typography.caption.fontSize,
+                    color: sys.color.tertiary,
                     fontWeight: 'bold',
                     animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
                 }}
@@ -48,9 +46,9 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             </span>
             <span
                 style={{
-                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                    fontSize: ref.typography.caption.fontSize,
                     fontWeight: '800',
-                    color: 'var(--md-sys-color-tertiary)',
+                    color: sys.color.tertiary,
                     textTransform: 'uppercase',
                     letterSpacing: '0.15em'
                 }}
@@ -62,5 +60,10 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
 };
 
 export default AiMemoryChip;
+
+
+
+
+
 
 

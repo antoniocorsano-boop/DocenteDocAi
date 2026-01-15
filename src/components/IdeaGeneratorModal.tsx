@@ -1,8 +1,10 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useEffect } from 'react';
 import { AiSettings, KnowledgeBaseEntry } from '../types';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 import { generateLessonFromIdea } from '../services/aiService';
 import { SelectField, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button, AiThinkingGem } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface IdeaGeneratorModalProps {
     onClose: () => void;
@@ -13,6 +15,7 @@ interface IdeaGeneratorModalProps {
 }
 
 const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGenerate, aiSettings, userClasses, knowledgeBase }) => {
+  const { layers } = useTheme();
     const [ideaText, setIdeaText] = useState('');
     const [targetClass, setTargetClass] = useState<string>(userClasses[0] || '');
     const [useKb, setUseKb] = useState(true);
@@ -63,8 +66,8 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
     return (
         <M3Dialog
             title={
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}>
-                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-tertiary)" }}>lightbulb</span>
+                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
+                    <span  style={{color: "layers.sys.color.tertiary"}}>lightbulb</span>
                     <span>AI Lesson Lab</span>
                 </div>
             }
@@ -72,18 +75,18 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
             maxWidth="xl"
             level={1}
         >
-            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl p-12 space-y-12">
+            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/30, padding: layers.ref.spacing['4'] }}>
                 <SelectField 
                     label="Classe Destinazione" 
                     value={targetClass} 
                     onChange={e => setTargetClass(e.target.value)}
-                    className="bg-[var(--md-sys-color-surface-container-high)]/50"
+                    style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/50 }}
                 >
                     <option value="" disabled>Seleziona...</option>
                     {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                 </SelectField>
 
-                <div className="relative">
+                <div >
                     <VoiceNoteRecorder onTranscription={handleTranscription} compact />
                 </div>
                 <TextArea 
@@ -93,27 +96,27 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     rows={6} 
                     placeholder="Es. 'Lezione attiva su Dante usando i social media'..." 
                     autoFocus
-                    className="bg-[var(--md-sys-color-surface-container-high)]/50"
+                    style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/50 }}
                 />
 
-                <div className="space-y-12">
-                    <div className="px-8" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <label className="select-none" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
-                            <div className="switch"><input type="checkbox" checked={useKb} onChange={e => setUseKb(e.target.checked)} /><span className="slider"></span></div>
-                            <span className="text-[11px] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Usa Context Knowledge Base</span>
+                <div >
+                    <div  style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <label  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], cursor: "pointer"}}>
+                            <div ><input type="checkbox" checked={useKb} onChange={e => setUseKb(e.target.checked)} /><span ></span></div>
+                            <span style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Usa Context Knowledge Base</span>
                         </label>
-                        <span className="text-[10px]" style={{ fontWeight: "900", textTransform: "uppercase", color: "var(--md-sys-color-primary)", letterSpacing: "0.1em" }}>{selectedKbIds.length} file</span>
+                        <span style={{ color: layers.sys.color.primary, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>{selectedKbIds.length} file</span>
                     </div>
                     
                     {useKb && knowledgeBase.length > 0 && (
-                        <div className="sm:grid-cols-2 gap-12 p-12 bg-[var(--md-sys-color-surface-container-low)]/50 rounded-[var(--md-sys-shape-corner-medium)] border-[var(--md-sys-color-outline-variant)]/10 max-h-48" style={{ display: "grid", gridTemplateColumns: "1fr", border: "1px solid var(--md-sys-color-outline)", overflowY: "auto" }}>
+                        <div style={{ padding: layers.ref.spacing['4'], backgroundColor:  layers.sys.color.surfaceContainerLow/50, borderRadius: layers.ref.shape.corner.large }} style={{display: "grid", gridTemplateColumns: "1fr", border: "1px solid layers.sys.color.outline", overflowY: "auto"}}>
                             {knowledgeBase.map(k => (
-                                <label key={k.id} className={`flex items-center gap-8 p-12 rounded-[var(--md-sys-shape-corner-large)] border transition-all cursor-pointer ${selectedKbIds.includes(k.id) ? 'bg-primary/10 border-primary/30' : 'bg-[var(--md-sys-color-surface-container-high)]/30 border-[var(--md-sys-color-outline-variant)]/10'}`}>
+                                <label key={k.id} className={`flex items-center gap-8 p-12 rounded-[var(--md-sys-shape-corner-large)] border transition-all cursor-pointer ${selectedKbIds.includes(k.id) ? 'bg-primary/10 border-primary/30' : 'bg-[var(--md-sys-color-surfaceContainerHigh)]/30 border-[var(--md-sys-color-outline-variant)]/10'}`}>
                                     <input type="checkbox" checked={selectedKbIds.includes(k.id)} onChange={() => handleKbToggle(k.id)} style={{ display: "none" }} />
-                                    <span className={`material-symbols-outlined text-sm ${selectedKbIds.includes(k.id) ? 'text-primary' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>
+                                    <span className={`material-symbols-outlined text-sm ${selectedKbIds.includes(k.id) ? 'text-primary' : 'text-[var(--md-sys-color-onSurface)]-variant'}`}>
                                         {selectedKbIds.includes(k.id) ? 'check_box' : 'check_box_outline_blank'}
                                     </span>
-                                    <span className="text-[10px]" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.fileName}</span>
+                                    <span style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.fileName}</span>
                                 </label>
                             ))}
                         </div>
@@ -121,7 +124,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 </div>
 
                 {error && (
-                    <div className="p-12 bg-error/10 border-error/20 rounded-[var(--md-sys-shape-corner-large)]" style={{ border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", color: "var(--md-sys-color-error)" }}>
+                    <div style={{ padding: layers.ref.spacing['4'], backgroundColor: sys.colors.error/10, borderRadius: layers.ref.shape.corner.large }} style={{border: "1px solid layers.sys.color.outline", display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], color: "layers.sys.color.error"}}>
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>error</span>
@@ -130,17 +133,17 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 )}
             </M3DialogContent>
 
-            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]/30 backdrop-blur-xl border-[var(--md-sys-color-outline-variant)]/10 px-12 pb-12 gap-12" style={{ borderTop: "1px solid var(--md-sys-color-outline)", paddingTop: "0" }}>
+            <M3DialogActions style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/30 }} style={{borderTop: "1px solid layers.sys.color.outline", paddingTop: "0"}}>
                 <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
                 <M3Button 
                     onClick={handleGenerate} 
                     variant="filled" 
                     disabled={isLoading || !ideaText.trim()}
-                    className="shadow-[var(--md-sys-elevation-level2)] !px-10" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}
+                     style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}
                 >
                     {isLoading ? <AiThinkingGem size={20} /> : (
-                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                            <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>auto_awesome</span>
+                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                            <span  style={{ fontSize: "0.875rem" }}>auto_awesome</span>
                             <span>Genera Piano</span>
                         </div>
                     )}
@@ -151,5 +154,10 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
 };
 
 export default IdeaGeneratorModal;
+
+
+
+
+
 
 

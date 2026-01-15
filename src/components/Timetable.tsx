@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useMemo } from 'react';
 import { useTheme } from '../theme/theme';
 import { Lezione, Slot, TimetableSettings } from '../types';
@@ -5,6 +6,7 @@ import TimetableCell from './TimetableCell';
 import { DAYS_OF_WEEK } from '../constants';
 import Guidance from './Guidance';
 import { TabGroup, M3IconButton, M3Button, M3Typography } from './ui';
+import { useTheme } from '../theme/theme';
 
 // MD3 Pure: Migrated to inline styles using MD3 tokens for colors, spacing, typography, and motion
 // All timetable-* classes removed in favor of token-based styling
@@ -31,6 +33,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
   const [currentDayIndex, setCurrentDayIndex] = useState(Math.min(todayIndex, 5));
 
   const handleCellClick = (day: string, time: string) => {
+  const { layers } = useTheme();
     const slotKey = `${day}-${time}`;
     const slot = slots[slotKey];
     const lesson = slot?.lezioneId ? lessons[slot.lezioneId] : undefined;
@@ -55,109 +58,87 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
   }, [viewMode, currentDayIndex]);
 
     return (
-        <div style={{
-            position: 'relative',
+        <div style={{position: 'relative',
             minHeight: '100vh',
-            backgroundColor: 'var(--md-sys-color-surface)',
-            padding: 'var(--md-sys-spacing-6)',
-            overflow: 'hidden'
-        }}>
+            backgroundColor: 'layers.sys.color.surface',
+            padding: layers.ref.spacing['6'],
+            overflow: 'hidden'}}>
             {/* Aura Ornaments - MD3 decorative elements */}
-            <div style={{
-                position: 'absolute',
-                top: 'var(--md-sys-spacing-4)',
-                right: 'var(--md-sys-spacing-4)',
-                width: '120px',
-                height: '120px',
-                backgroundColor: 'var(--md-sys-color-primary-container)',
-                borderRadius: 'var(--md-sys-shape-corner-full)',
+            <div style={{position: 'absolute',
+                top: layers.ref.spacing['4'],
+                right: layers.ref.spacing['4'],
+                width: layers.ref.spacing['8'],
+                height: layers.ref.spacing['8'],
+                backgroundColor: 'layers.sys.color.primaryContainer',
+                borderRadius: 'layers.ref.shape.corner.full',
                 opacity: 0.1,
                 filter: 'blur(40px)',
-                zIndex: 0
-            }} />
-            <div style={{
-                position: 'absolute',
-                bottom: 'var(--md-sys-spacing-8)',
-                left: 'var(--md-sys-spacing-8)',
-                width: '80px',
-                height: '80px',
-                backgroundColor: 'var(--md-sys-color-secondary-container)',
-                borderRadius: 'var(--md-sys-shape-corner-full)',
+                zIndex: 0}} />
+            <div style={{position: 'absolute',
+                bottom: layers.ref.spacing['8'],
+                left: layers.ref.spacing['8'],
+                width: layers.ref.spacing['8'],
+                height: layers.ref.spacing['8'],
+                backgroundColor: 'layers.sys.color.secondary-container',
+                borderRadius: 'layers.ref.shape.corner.full',
                 opacity: 0.08,
                 filter: 'blur(30px)',
-                zIndex: 0
-            }} />
+                zIndex: 0}} />
 
-            <div style={{
-                position: 'relative',
+            <div style={{position: 'relative',
                 zIndex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-6)',
-                maxWidth: '1200px',
-                margin: '0 auto'
-            }}>
+                gap: layers.ref.spacing['6'],
+                maxWidth: layers.ref.spacing['80'],
+                margin: '0 auto'}}>
                 {/* HEADER: MD3 Command Island */}
-                <div style={{
-                    display: 'flex',
+                <div style={{display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: 'var(--md-sys-spacing-6)',
-                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    padding: layers.ref.spacing['6'],
+                    backgroundColor: 'layers.sys.color.surfaceContainerLow',
+                    borderRadius: 'layers.ref.shape.corner.extra-large',
+                    border: '1px solid layers.sys.color.outline-variant',
                     backdropFilter: 'blur(20px)',
-                    boxShadow: 'var(--md-sys-elevation-level2)',
+                    boxShadow: 'layers.sys.elevation.level2',
                     flexWrap: 'wrap',
-                    gap: 'var(--md-sys-spacing-4)'
-                }}>
-                    <div style={{
-                        display: 'flex',
+                    gap: layers.ref.spacing['4']}}>
+                    <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-4)',
+                        gap: layers.ref.spacing['4'],
                         minWidth: 0,
-                        flex: 1
-                    }}>
-                        <div style={{
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            backgroundColor: 'var(--md-sys-color-primary-container)',
+                        flex: 1}}>
+                        <div style={{width: layers.ref.spacing['8'],
+                            height: layers.ref.spacing['8'],
+                            borderRadius: 'layers.ref.shape.corner.large',
+                            backgroundColor: 'layers.sys.color.primaryContainer',
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'
-                        }}>
-                            <span style={{
-                                fontFamily: 'Material Symbols Outlined',
-                                fontSize: '24px',
-                                color: 'var(--md-sys-color-on-primary-container)'
-                            }}>calendar_view_week</span>
+                            justifyContent: 'center'}}>
+                            <span style={{fontFamily: 'Material Symbols Outlined',
+                                fontSize: layers.ref.spacing['6'],
+                                color: 'layers.sys.color.on-primaryContainer'}}>calendar_view_week</span>
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
-                            <M3Typography variant="headline-small" style={{
-                                color: 'var(--md-sys-color-on-surface)',
+                            <M3Typography variant="headline-small" style={{color: 'layers.sys.color.onSurface',
                                 fontWeight: 900,
-                                margin: 0
-                            }}>Il Mio Orario</M3Typography>
-                            <M3Typography variant="body-small" style={{
-                                color: 'var(--md-sys-color-on-surface-variant)',
+                                margin: 0}}>Il Mio Orario</M3Typography>
+                            <M3Typography variant="body-small" style={{color: 'layers.sys.color.onSurface-variant',
                                 margin: 0,
-                                opacity: 0.8
-                            }}>Planning Settimanale</M3Typography>
+                                opacity: 0.8}}>Planning Settimanale</M3Typography>
                         </div>
                     </div>
                     
                     {/* FLOATING COMMAND ISLAND */}
-                    <div style={{
-                        display: 'flex',
+                    <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-4)',
-                        backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                        padding: 'var(--md-sys-spacing-2)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: '1px solid var(--md-sys-color-outline-variant)',
-                        backdropFilter: 'blur(16px)'
-                    }}>
+                        gap: layers.ref.spacing['4'],
+                        backgroundColor: 'layers.sys.color.surfaceContainerHigh',
+                        padding: layers.ref.spacing['2'],
+                        borderRadius: 'layers.ref.shape.corner.large',
+                        border: '1px solid layers.sys.color.outline-variant',
+                        backdropFilter: 'blur(16px)'}}>
                         <TabGroup 
                             tabs={[
                                 {id:'week', label:'Settimana', icon:'view_week'}, 
@@ -169,26 +150,22 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                         />
                         
                         {viewMode === 'day' && (
-                            <div style={{
-                                display: 'flex',
+                            <div style={{display: 'flex',
                                 alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-2)',
-                                padding: '0 var(--md-sys-spacing-3)',
-                                margin: '0 var(--md-sys-spacing-2)',
-                                borderLeft: '1px solid var(--md-sys-color-outline-variant)',
-                                borderRight: '1px solid var(--md-sys-color-outline-variant)'
-                            }}>
+                                gap: layers.ref.spacing['2'],
+                                padding: `0 ${layers.ref.spacing['3']}`,
+                                margin: `0 ${layers.ref.spacing['2']}`,
+                                borderLeft: '1px solid layers.sys.color.outline-variant',
+                                borderRight: '1px solid layers.sys.color.outline-variant'}}>
                                 <M3IconButton 
                                     icon="chevron_left" 
                                     onClick={() => handleDayNav(-1)} 
                                     ariaLabel="Giorno precedente"
                                 />
-                                <M3Typography variant="label-large" style={{
-                                    color: 'var(--md-sys-color-on-surface)',
+                                <M3Typography variant="label-large" style={{color: 'layers.sys.color.onSurface',
                                     fontWeight: 600,
-                                    minWidth: '80px',
-                                    textAlign: 'center'
-                                }}>
+                                    minWidth: layers.ref.spacing['16'],
+                                    textAlign: 'center'}}>
                                     {visibleDays[0]}
                                 </M3Typography>
                                 <M3IconButton 
@@ -211,98 +188,82 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     </div>
                 </div>
 
-                <div style={{
-                    marginBottom: 'var(--md-sys-spacing-4)'
-                }}>
+                <div style={{marginBottom: layers.ref.spacing['4']}}>
                     <Guidance id="timetable-pro-tips-aura" icon="auto_awesome" title="Consiglio Rapido" isGloballyEnabled={showGuidanceTips}>
                         <p>Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.</p>
                     </Guidance>
                 </div>
                 
                 {/* MATRIX CONTAINER */}
-                <div style={{
-                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                    border: '1px solid var(--md-sys-color-outline-variant)',
-                    padding: 'var(--md-sys-spacing-6)',
+                <div style={{backgroundColor: 'layers.sys.color.surfaceContainerLow',
+                    borderRadius: 'layers.ref.shape.corner.extra-large',
+                    border: '1px solid layers.sys.color.outline-variant',
+                    padding: layers.ref.spacing['6'],
                     backdropFilter: 'blur(20px)',
-                    boxShadow: 'var(--md-sys-elevation-level1)',
-                    overflow: 'auto'
-                }}>
+                    boxShadow: 'layers.sys.elevation.level1',
+                    overflow: 'auto'}}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
-                        minWidth: '320px'
+                        minWidth: layers.ref.spacing['16']
                     }}>
                         <div style={{
                             display: 'grid',
                             gridTemplateColumns: viewMode === 'day' ? '120px 1fr' : `120px repeat(${visibleDays.length}, 1fr)`,
                             gap: 'var(--md-sys-spacing-1)',
-                            backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                            backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--md-sys-spacing-4)',
                             border: '1px solid var(--md-sys-color-outline-variant)',
                             minWidth: '100%'
                         }}>
-                            <div style={{
-                                padding: 'var(--md-sys-spacing-3)',
-                                backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            <div style={{padding: layers.ref.spacing['3'],
+                                backgroundColor: 'layers.sys.color.surfaceContainerHighest',
+                                borderRadius: 'layers.ref.shape.corner.medium',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                border: '1px solid var(--md-sys-color-outline-variant)'
-                            }}>
-                                <M3Typography variant="label-large" style={{
-                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                border: '1px solid layers.sys.color.outline-variant'}}>
+                                <M3Typography variant="label-large" style={{color: 'layers.sys.color.onSurface-variant',
                                     fontWeight: 600,
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.1em'
-                                }}>ORA</M3Typography>
+                                    letterSpacing: '0.1em'}}>ORA</M3Typography>
                             </div>
                             {visibleDays.map((day, idx) => (
                                 <div 
                                     key={day} 
-                                    style={{
-                                        padding: 'var(--md-sys-spacing-3)',
+                                    style={{padding: layers.ref.spacing['3'],
                                         backgroundColor: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
-                                            ? 'var(--md-sys-color-primary-container)' 
-                                            : 'var(--md-sys-color-surface-container-highest)',
-                                        borderRadius: idx === visibleDays.length - 1 ? 'var(--md-sys-shape-corner-medium)' : 'var(--md-sys-shape-corner-medium) 0 0 var(--md-sys-shape-corner-medium)',
+                                            ? 'layers.sys.color.primaryContainer' 
+                                            : 'layers.sys.color.surfaceContainerHighest',
+                                        borderRadius: idx === visibleDays.length - 1 ? 'layers.ref.shape.corner.medium' : 'layers.ref.shape.corner.medium 0 0 layers.ref.shape.corner.medium',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        border: '1px solid var(--md-sys-color-outline-variant)',
-                                        borderLeft: idx === 0 ? '1px solid var(--md-sys-color-outline-variant)' : 'none'
-                                    }}
+                                        border: '1px solid layers.sys.color.outline-variant',
+                                        borderLeft: idx === 0 ? '1px solid layers.sys.color.outline-variant' : 'none'}}
                                 >
-                                    <M3Typography variant="label-large" style={{
-                                        color: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
-                                            ? 'var(--md-sys-color-on-primary-container)' 
-                                            : 'var(--md-sys-color-on-surface-variant)',
+                                    <M3Typography variant="label-large" style={{color: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
+                                            ? 'layers.sys.color.on-primaryContainer' 
+                                            : 'layers.sys.color.onSurface-variant',
                                         fontWeight: 600,
                                         textTransform: 'uppercase',
-                                        letterSpacing: '0.1em'
-                                    }}>{day.substring(0, 3)}</M3Typography>
+                                        letterSpacing: '0.1em'}}>{day.substring(0, 3)}</M3Typography>
                                 </div>
                             ))}
 
                             {settings.timeSlots.map((time, timeIdx) => (
                                 <React.Fragment key={time}>
-                                    <div style={{
-                                        padding: 'var(--md-sys-spacing-3)',
-                                        backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                        borderRadius: timeIdx === settings.timeSlots.length - 1 ? '0 var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium)' : 'var(--md-sys-shape-corner-medium)',
+                                    <div style={{padding: layers.ref.spacing['3'],
+                                        backgroundColor: 'layers.sys.color.surfaceContainerHighest',
+                                        borderRadius: timeIdx === settings.timeSlots.length - 1 ? '0 layers.ref.shape.corner.medium layers.ref.shape.corner.medium layers.ref.shape.corner.medium' : 'layers.ref.shape.corner.medium',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        border: '1px solid var(--md-sys-color-outline-variant)',
-                                        borderTop: 'none'
-                                    }}>
-                                        <M3Typography variant="body-medium" style={{
-                                            color: 'var(--md-sys-color-on-surface-variant)',
-                                            fontWeight: 500
-                                        }}>{time}</M3Typography>
+                                        border: '1px solid layers.sys.color.outline-variant',
+                                        borderTop: 'none'}}>
+                                        <M3Typography variant="body-medium" style={{color: 'layers.sys.color.onSurface-variant',
+                                            fontWeight: 500}}>{time}</M3Typography>
                                     </div>
                                     {visibleDays.map((day, dayIdx) => {
                                         const slotKey = `${day}-${time}`;
@@ -311,18 +272,16 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                         return (
                                             <div 
                                                 key={slotKey} 
-                                                style={{
-                                                    borderRadius: timeIdx === settings.timeSlots.length - 1 && dayIdx === visibleDays.length - 1 
-                                                        ? '0 var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0' 
-                                                        : 'var(--md-sys-shape-corner-medium)',
-                                                    border: '1px solid var(--md-sys-color-outline-variant)',
+                                                style={{borderRadius: timeIdx === settings.timeSlots.length - 1 && dayIdx === visibleDays.length - 1 
+                                                        ? '0 layers.ref.shape.corner.medium layers.ref.shape.corner.medium 0' 
+                                                        : 'layers.ref.shape.corner.medium',
+                                                    border: '1px solid layers.sys.color.outline-variant',
                                                     borderTop: 'none',
-                                                    borderLeft: dayIdx === 0 ? '1px solid var(--md-sys-color-outline-variant)' : 'none',
+                                                    borderLeft: dayIdx === 0 ? '1px solid layers.sys.color.outline-variant' : 'none',
                                                     overflow: 'hidden',
                                                     cursor: 'pointer',
-                                                    transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                                                    backgroundColor: 'var(--md-sys-color-surface)'
-                                                }}
+                                                    transition: `all ${layers.motion.duration.short} ${layers.motion.easing.standard}`,
+                                                    backgroundColor: 'layers.sys.color.surface'}}
                                                 onClick={() => handleCellClick(day, time)}
                                             >
                                                 <TimetableCell 
@@ -344,5 +303,10 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
 });
 
 export default Timetable;
+
+
+
+
+
 
 

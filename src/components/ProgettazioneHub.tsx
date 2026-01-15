@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 /**
  * ProgettazioneHub.tsx
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
@@ -14,6 +15,7 @@ import CompetencyManager from './CompetencyManager';
 import { TabGroup, M3ExpressiveCard } from './ui';
 import TimelineView from './TimelineView';
 import UdaDetailModal from './UdaDetailModal';
+import { useTheme } from '../theme/theme';
 
 interface ProgettazioneHubExtendedProps extends ProgettazioneHubProps {
     udas: Uda[]; // Ensure `udas` is defined
@@ -50,6 +52,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
     driveSyncState,
     onConnectDrive
 }) => {
+  const { layers } = useTheme();
     const [isPlanningWizardOpen, setIsPlanningWizardOpen] = useState(false);
     const [isSmartImportOpen, setIsSmartImportOpen] = useState(false);
     const [isNotebookLMImportOpen, setIsNotebookLMImportOpen] = useState(false);
@@ -78,18 +81,18 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
     };
 
     return (
-        <div className="page-layout pb-24 max-w-6xl md:px-0" style={{ marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>
+        <div  style={{marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
             
             {/* Header */}
-            <div className="py-12" style={{ textAlign: "center" }}>
-                <h1 className="text-4xl" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", marginBottom: "var(--md-sys-spacing-8)" }}>Progettazione</h1>
-                <p className="text-[var(--md-sys-color-on-surface)]-variant max-w-2xl" style={{ marginLeft: "auto", marginRight: "auto", fontWeight: "500" }}>
+            <div  style={{ textAlign: "center" }}>
+                <h1 style={{fontWeight: "900", color: "layers.sys.color.primary", marginBottom: layers.ref.spacing['8']}}>Progettazione</h1>
+                <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ marginLeft: "auto", marginRight: "auto", fontWeight: "500" }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>
             
             {/* Tab Navigation */}
-            <div style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
+            <div style={{marginBottom: layers.ref.spacing['8']}}>
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id: string) => setActiveTab(id as 'dashboard' | 'frameworks')}
@@ -108,12 +111,12 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                         icon="calendar_month"
                         title="Wizard Annuale"
                         description="Pianifica l'intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell'AI."
-                        color="var(--md-sys-color-primary-container)"
+                        color="var(--md-sys-color-primaryContainer)"
                         onClick={() => {
                             console.log('Audit: Opened Annual Planning Wizard');
                             setIsPlanningWizardOpen(true);
                         }}
-                        style={{ marginBottom: "var(--md-sys-spacing-8)" }}
+                        style={{marginBottom: layers.ref.spacing['8']}}
                     />
 
                     {/* 2. TIMELINE (GANTT 2.0 DYNAMIC) */}
@@ -129,7 +132,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                     />
 
                     {/* 3. BENTO GRID */}
-                    <div className="md:grid-cols-4 mt-8" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--md-sys-spacing-8)" }}>
+                    <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: layers.ref.spacing['8']}}>
                         
                         <M3ExpressiveCard
                             icon="assignment"
@@ -140,7 +143,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                                 console.log('Audit: Navigated to UDA Planner');
                                 onNavigate('uda');
                             }}
-                            className="col-span-2 md:col-span-2"
+                            
                         />
 
                         <M3ExpressiveCard
@@ -152,19 +155,19 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                                 console.log('Audit: Navigated to Studio AI');
                                 onNavigate('studio');
                             }}
-                            className="col-span-2 md:col-span-1"
+                            
                         />
 
                         <M3ExpressiveCard
                             icon="transform"
                             title="Importa & Ristruttura"
                             description="Converti vecchi file in documenti standard."
-                            color="var(--md-sys-color-surface-container)"
+                            color="var(--md-sys-color-surfaceContainer)"
                             onClick={() => {
                                 console.log('Audit: Opened Smart Import Modal');
                                 setIsSmartImportOpen(true);
                             }}
-                            className="col-span-1 border-primary/50 border-dashed"
+                            
                         />
 
 
@@ -173,72 +176,72 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="cloud_download"
                             title="Importa da NotebookLM"
                             description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
-                            color="var(--md-sys-color-surface-container)"
+                            color="var(--md-sys-color-surfaceContainer)"
                             onClick={() => {
                                 console.log('Audit: Opened NotebookLM Import Modal');
                                 setIsNotebookLMImportOpen(true);
                             }}
-                            className="col-span-1 border-primary/50 border-dashed"
+                            
                         />
 
                         <M3ExpressiveCard
                             icon="folder_open"
                             title="Knowledge Base"
                             description="Archivio documenti."
-                            color="var(--md-sys-color-surface-container)"
+                            color="var(--md-sys-color-surfaceContainer)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Knowledge Base');
                                 onNavigate('knowledge-base');
                             }}
-                            className="col-span-1"
+                            
                         />
 
                         <M3ExpressiveCard
                             icon="description"
                             title="Template"
                             description="Gestisci i modelli per UDA e verifiche."
-                            color="var(--md-sys-color-surface-container)"
+                            color="var(--md-sys-color-surfaceContainer)"
                             onClick={() => {
                                 console.log('Audit: Opened Template Manager');
                                 setIsTemplateManagerOpen(true);
                             }}
-                            className="col-span-1"
+                            
                         />
 
                         <M3ExpressiveCard
                             icon="history_edu"
                             title="Lezioni"
                             description="Piani di lezione."
-                            color="var(--md-sys-color-surface-container)"
+                            color="var(--md-sys-color-surfaceContainer)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Lessons');
                                 onNavigate('lessons');
                             }}
-                            className="col-span-1"
+                            
                         />
 
                         <M3ExpressiveCard
                             icon="schema"
                             title="Rubriche"
                             description="Griglie valutazione."
-                            color="var(--md-sys-color-surface-container)"
+                            color="var(--md-sys-color-surfaceContainer)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Rubriche');
                                 onNavigate('rubriche');
                             }}
-                            className="col-span-1"
+                            
                         />
 
                         <M3ExpressiveCard
                             icon="print"
                             title="Report"
                             description="Stampe & PDF."
-                            color="var(--md-sys-color-surface-container)"
+                            color="var(--md-sys-color-surfaceContainer)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Reportistica');
                                 onNavigate('reportistica');
                             }}
-                            className="col-span-1"
+                            
                         />
 
                     </div>
@@ -333,6 +336,11 @@ udas.forEach((uda) => {
 });
 
 export default ProgettazioneHub;
+
+
+
+
+
 
 
 

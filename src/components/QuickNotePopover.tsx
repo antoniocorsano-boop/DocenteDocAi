@@ -1,8 +1,10 @@
+// LEGACY - MD3 Non-compliant
 
 // M3Expressive: QuickNotePopover - Quick note input popover with voice recording
 import React, { useState } from 'react';
 import { M3Popover, TextField, M3Button } from './ui';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
+import { useTheme } from '../theme/theme';
 
 interface QuickNotePopoverProps {
     anchorEl: HTMLElement | null;
@@ -12,6 +14,8 @@ interface QuickNotePopoverProps {
 }
 
 const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialValue, onSave, onClose }) => {
+  const { layers } = useTheme();
+  const { layers } = useTheme();
     const [note, setNote] = useState(initialValue);
 
     const handleSave = () => {
@@ -32,20 +36,20 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
             maxWidth={300}
         >
             {/* Header */}
-            <div className="quick-note-popover-header">
-                <h3 className="quick-note-popover-title">
+            <div >
+                <h3 >
                     Nota Rapida
                 </h3>
-                <div className="quick-note-popover-actions">
+                <div >
                     <VoiceNoteRecorder onTranscription={handleTranscription} compact={true} />
                     <button
                         onClick={onClose}
-                        className="m3-interactive-close"
+                        
                         aria-label="Chiudi nota"
                     >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-}} style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
+}} style={{fontSize: 'var(--md-sys-typescale-body-medium-size)'}}>
                             close
                         </span>
                     </button>
@@ -53,7 +57,7 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
             </div>
 
             {/* Content */}
-            <div className="quick-note-popover-content">
+            <div >
                 <TextField
                     multiline
                     rows={4}
@@ -69,7 +73,7 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
                     variant="filled"
                     fullWidth
                     onClick={handleSave}
-                    className="quick-note-popover-save-button"
+                    
                 >
                     Salva Nota
                 </M3Button>
@@ -79,6 +83,11 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
 };
 
 export default QuickNotePopover;
+
+
+
+
+
 
 
 

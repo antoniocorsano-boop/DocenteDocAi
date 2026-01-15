@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 // ...existing code...
@@ -9,6 +10,7 @@ import ErrorBoundary from './ErrorBoundary';
 import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
 import { AppState, AppActions, View, Lezione, RegisterEntry, Studente, Competenza, Uda, Report } from '../types';
 import type { Modals } from '../types';
+import { useTheme } from '../theme/theme';
 
 interface ViewManagerProps {
     view: View;
@@ -23,6 +25,7 @@ interface ViewManagerProps {
  * Implementa AuraView per transizioni fluide e layout Material 3 Hardened.
  */
 const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, actions, modals }) => {
+  const { layers } = useTheme();
 
     // Destructure appState (now directly contains states from Zustand stores)
     const {
@@ -107,7 +110,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         return viewContext ? (
                             <AuraView>
                                 <ClassDashboard
-                                    selectedClass={typeof viewContext === 'string' ? viewContext : ''}
+                                    selectedClass={typeof viewContext === 'string' ? viewContext : null}
                                     onNavigate={handleNavigate}
                                     onViewStudentProfile={setStudentProfileContext}
                                     onStartImpromptuSession={(classe) => {
@@ -160,7 +163,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         const currentDraftEntry = draftKey !== undefined ? draftRegister[draftKey] : undefined;
                         
                         if (!currentDraftEntry) {
-                            return <div className="view-manager-error-message">Errore: Dati lezione in bozza non trovati.</div>;
+                            return <div >Errore: Dati lezione in bozza non trovati.</div>;
                         }
 
                         return (
@@ -204,12 +207,12 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         const currentStudent = students.find(s => s.id === studentId);
                         if (!currentStudent) {
                             return (
-                                <div className="view-manager-error-container">
-                                    <h2 className="view-manager-error-title">Errore Accesso Studente</h2>
-                                    <p className="view-manager-error-description">
+                                <div >
+                                    <h2 >Errore Accesso Studente</h2>
+                                    <p >
                                         Impossibile trovare il profilo studente selezionato.
                                     </p>
-                                    <button onClick={() => handleNavigate('student-dashboard')} className="view-manager-error-button">
+                                    <button onClick={() => handleNavigate('student-dashboard')} >
                                         Torna al Login
                                     </button>
                                 </div>
@@ -376,9 +379,9 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     // 404 Fallback
                     return (
                         <AuraView>
-                            <div className="p-12" style={{ textAlign: "center", opacity: "0.5" }}>
-                                <h2 className="m3-headline-medium">Vista "{view}" non trovata</h2>
-                                <button onClick={() => actions.handleNavigate('home')} className="m3-button-filled" style={{ marginTop: "var(--md-sys-spacing-4)" }}>
+                            <div style={{ padding: layers.ref.spacing['4'], textAlign: "center", opacity: "0.5" }}>
+                                <h2 >Vista "{view}" non trovata</h2>
+                                <button onClick={() => actions.handleNavigate('home')}  style={{marginTop: layers.ref.spacing['4']}}>
                                     Torna alla Home
                                 </button>
                             </div>
@@ -411,5 +414,10 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
 }
 
 export default ViewManager;
+
+
+
+
+
 
 

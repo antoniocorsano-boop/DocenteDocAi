@@ -1,6 +1,8 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { View } from '../types';
 import { M3Typography } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface MenuProps {
   currentView: View;
@@ -45,34 +47,33 @@ const mainMenuItems: MenuItemDef[] = [
 ];
 
 const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
+  const { layers } = useTheme();
 
   const isViewActive = (item: MenuItemDef) => {
     const parentMap: Partial<Record<View, View[]>> = {
-      'progettazione-hub': ['knowledge-base', 'studio', 'lessons', 'uda', 'rubriche', 'reportistica', 'didattica-inclusiva', 'curriculum-manager'],
-      'aula': ['evaluations', 'register', 'studenti', 'improvement-guide', 'consiglio-di-classe', 'class-competency-dashboard', 'analytics', 'teacher-inbox'],
+      'progettazione-hub': ['knowledge-base', 'studio', 'lessons', 'uda', 'rubriche', 'reportistica', 'didattica-inclusiva', 'curriculum-manager],
+      'aula': ['evaluations', 'register', 'studenti', 'improvement-guide', 'consiglio-di-classe', 'class-competency-dashboard', 'analytics', 'teacher-inbox],
     };
     return currentView === item.id || (parentMap[item.id]?.includes(currentView));
   }
 
   return (
     <nav
-      style={{
-        display: 'flex',
+      style={{display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
         width: '100%',
-        minHeight: 'var(--md-sys-spacing-16)', // 64px minimum touch target
-        backgroundColor: 'var(--md-sys-color-surface-container-lowest)',
-        boxShadow: 'var(--md-sys-elevation-level1)',
-        borderTop: '1px solid var(--md-sys-color-outline-variant)',
+        minHeight: layers.ref.spacing['16'], // 64px minimum touch target
+        backgroundColor: 'layers.sys.color.surfaceContainerLowest',
+        boxShadow: 'layers.sys.elevation.level1',
+        borderTop: '1px solid layers.sys.color.outline-variant',
         zIndex: 100,
         position: 'fixed',
         bottom: 0,
         left: 0,
         right: 0,
-        padding: 'var(--md-sys-spacing-1) 0' // 4px top/bottom padding
-      }}
+        padding: 'layers.ref.spacing['1'] 0' // 4px top/bottom padding}}
       aria-label="Navigazione principale"
       role="navigation"
     >
@@ -82,13 +83,12 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
           <button
             key={item.id}
             onClick={() => onNavigate(item.id, null)}
-            style={{
-              backgroundColor: active ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-lowest)',
-              color: active ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
-              borderRadius: 'var(--md-sys-shape-corner-medium)',
+            style={{backgroundColor: active ? 'layers.sys.color.primaryContainer' : 'layers.sys.color.surfaceContainerLowest',
+              color: active ? 'layers.sys.color.on-primaryContainer' : 'layers.sys.color.onSurface-variant',
+              borderRadius: 'layers.ref.shape.corner.medium',
               outline: 'none',
-              padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', // 4px 8px
-              minWidth: 'var(--md-sys-spacing-14)', // 56px minimum touch target
+              padding: layers.ref.spacing['1'] layers.ref.spacing['2'], // 4px 8px
+              minWidth: layers.ref.spacing['14'], // 56px minimum touch target
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -96,53 +96,48 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
               boxShadow: 'none',
               cursor: 'pointer',
               border: 'none',
-              transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-              position: 'relative'
-            }}
+              transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`,
+              position: 'relative'}}
             onMouseEnter={(e) => {
               if (!active) {
-                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                e.currentTarget// removed runtime mutation
               }
             }}
             onMouseLeave={(e) => {
               if (!active) {
-                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-lowest)';
+                e.currentTarget// removed runtime mutation
               }
             }}
             onFocus={(e) => {
-              e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-              e.currentTarget.style.outlineOffset = '2px';
+              e.currentTarget// removed runtime mutation
+              e.currentTarget// removed runtime mutation
             }}
             onBlur={(e) => {
-              e.currentTarget.style.outline = 'none';
-              e.currentTarget.style.outlineOffset = '0';
+              e.currentTarget// removed runtime mutation
+              e.currentTarget// removed runtime mutation
             }}
             aria-label={item.label}
             tabIndex={0}
             type="button"
           >
             <div
-              style={{
-                marginBottom: 'var(--md-sys-spacing-1)', // 2px spacing
-                backgroundColor: active ? 'var(--md-sys-color-primary-container)' : 'transparent',
-                borderRadius: 'var(--md-sys-shape-corner-full)',
-                padding: 'var(--md-sys-spacing-2)', // 6px padding for icon container
+              style={{marginBottom: layers.ref.spacing['1'], // 2px spacing
+                backgroundColor: active ? 'layers.sys.color.primaryContainer' : 'transparent',
+                borderRadius: 'layers.ref.shape.corner.full',
+                padding: layers.ref.spacing['2'], // 6px padding for icon container
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-              }}
+                transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
             >
               <span
                 style={{
   fontFamily: 'Material Symbols Outlined'
 }}
-                style={{
-                  fontSize: 'var(--md-sys-spacing-7)', // 28px
-                  color: active ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
+                style={{fontSize: layers.ref.spacing['7'], // 28px
+                  color: active ? 'layers.sys.color.on-primaryContainer' : 'layers.sys.color.onSurface-variant',
                   pointerEvents: 'none',
-                  transition: 'color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                }}
+                  transition: `color ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
                 aria-hidden="true"
               >
                 {active ? item.activeIcon : item.icon}
@@ -150,14 +145,12 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
             </div>
             <M3Typography
               variant="label-small"
-              style={{
-                fontWeight: '900', // font-black equivalent
+              style={{fontWeight: '900', // font-black equivalent
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
-                marginTop: 'var(--md-sys-spacing-1)', // 2px
-                color: active ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
-                transition: 'color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-              }}
+                marginTop: layers.ref.spacing['1'], // 2px
+                color: active ? 'layers.sys.color.on-primaryContainer' : 'layers.sys.color.onSurface-variant',
+                transition: `color ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
             >
               {item.label}
             </M3Typography>
@@ -169,5 +162,10 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
 };
 
 export default Menu;
+
+
+
+
+
 
 

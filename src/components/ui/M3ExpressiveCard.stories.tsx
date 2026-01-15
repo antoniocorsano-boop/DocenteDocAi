@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3ExpressiveCard from './M3ExpressiveCard';
@@ -5,7 +6,7 @@ import M3ExpressiveCard from './M3ExpressiveCard';
 const meta = {
   title: 'M3/ExpressiveCard',
   component: M3ExpressiveCard,
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     icon: {
       control: 'text',
@@ -21,7 +22,7 @@ const meta = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant'],
+      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant],
       description: 'Color variant',
     },
     onClick: {
@@ -133,7 +134,7 @@ export const WithChildren: Story = {
     description: 'Learn more about this component',
     color: 'primary',
     children: (
-      <div style={{ marginTop: '1rem', fontSize: 'var(--md-sys-spacing-3)', opacity: 0.8 }}>
+      <div style={{ marginTop: layers.ref.spacing['4'], fontSize: 'var(--md-sys-spacing-3)', opacity: 0.8 }}>
         <p>Additional content can be added via children prop</p>
         <p>This allows for more complex card layouts</p>
       </div>
@@ -161,7 +162,7 @@ export const ColorGrid: Story = {
     ];
 
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: layers.ref.spacing['4'] }}>
         {colors.map((color) => (
           <M3ExpressiveCard
             key={color}
@@ -175,5 +176,10 @@ export const ColorGrid: Story = {
     );
   },
 };
+
+
+
+
+
 
 

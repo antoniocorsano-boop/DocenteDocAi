@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 // ...existing code...
@@ -7,7 +8,9 @@ import { EventoCalendario, AiSettings } from '../types';
 import EventModal from './EventModal';
 import AiEventParserModal from './AiEventParserModal';
 import EventActionPopover from './EventActionPopover';
+import { useTheme } from '../theme/M3ThemeProvider';
 import { 
+
     M3Button, 
     TabGroup 
 } from './ui';
@@ -24,6 +27,7 @@ const DAYS_SHORT = ['LUN', 'MAR', 'MER', 'GIO', 'VEN', 'SAB', 'DOM'];
 const MONTHS_LONG = ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'];
 
 const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) => {
+  const { layers } = useTheme();
     const [currentDate, setCurrentDate] = useState(new Date());
     const [viewMode, setViewMode] = useState<CalendarView>('month');
     const [editingEvent, setEditingEvent] = useState<Partial<EventoCalendario> | null>(null);
@@ -168,25 +172,30 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             : `${MONTHS_LONG[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
         return (
-            <header className="calendar-header">
-                <div className="calendar-header-left">
-                    <div className="calendar-nav-group bg-[var(--md-sys-color-surface-container-low)]/50 border-[var(--md-sys-color-outline-variant)]/20" style={{ padding: "var(--md-sys-spacing-1)", borderRadius: "9999px", border: "1px solid var(--md-sys-color-outline)" }}>
-                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" className="!min-w-0 !p-8">
+            <header >
+                <div >
+                    <div style={{
+                        backgroundColor: layers.sys.color.surface,
+                        padding: layers.ref.spacing['6'],
+                        borderRadius: layers.ref.shape.corner.full,
+                        border: `1px solid ${layers.sys.color.outline}`
+                    }}>
+                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" >
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }} aria-hidden="true">chevron_left</span>
                         </M3Button>
-                        <M3Button variant="tonal" onClick={() => handleNavigate('today')} className="!px-4 !py-1 !h-auto" title="Torna a oggi">Oggi</M3Button>
-                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Mese successivo" aria-label="Vai al mese successivo" className="!min-w-0 !p-8">
+                        <M3Button variant="tonal" onClick={() => handleNavigate('today')}  title="Torna a oggi">Oggi</M3Button>
+                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Mese successivo" aria-label="Vai al mese successivo" >
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }} aria-hidden="true">chevron_right</span>
                         </M3Button>
                     </div>
-                    <h2 className="calendar-title">{title}</h2>
+                    <h2 >{title}</h2>
                 </div>
 
-                <div className="calendar-header-right" style={{ gap: "var(--md-sys-spacing-8)" }}>
+                <div  style={{gap: layers.ref.spacing['8']}}>
                     <TabGroup
                         tabs={[
                             { id: 'month', label: 'Mese' },
@@ -199,9 +208,9 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                         variant="primary"
                     />
 
-                    <div className="calendar-actions">
-                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" className="!min-w-0 !p-8">
-                            <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }} aria-hidden="true">auto_awesome</span>
+                    <div >
+                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" >
+                            <span  style={{color: "layers.sys.color.primary"}} aria-hidden="true">auto_awesome</span>
                         </M3Button>
                         <M3Button variant="filled" onClick={() => setEditingEvent({})} title="Crea nuovo evento">
                             <span style={{
@@ -216,13 +225,13 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     };
 
     const renderMonthView = () => (
-        <div className="calendar-month" role="grid" aria-label="Calendario mensile" ref={calendarGridRef} onKeyDown={handleCalendarKeyDown}>
-            <div className="calendar-weekdays" role="row">
+        <div  role="grid" aria-label="Calendario mensile" ref={calendarGridRef} onKeyDown={handleCalendarKeyDown}>
+            <div  role="row">
                 {DAYS_SHORT.map(d => (
-                    <div key={d} className="calendar-weekday" role="columnheader" aria-label={d}>{d}</div>
+                    <div key={d}  role="columnheader" aria-label={d}>{d}</div>
                 ))}
             </div>
-            <div className="calendar-days" role="rowgroup">
+            <div  role="rowgroup">
                 {monthDates.map((date, i) => {
                     const isCurrentMonth = date.getMonth() === currentDate.getMonth();
                     const isToday = date.toDateString() === new Date().toDateString();
@@ -249,10 +258,10 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 }
                             }}
                         >
-                            <span className="calendar-day-number">
+                            <span >
                                 {date.getDate()}
                             </span>
-                            <div className="calendar-day-events">
+                            <div >
                                 {dayEvents.slice(0, 3).map((ev, idx) => (
                                     <div 
                                         key={ev.id || idx} 
@@ -266,7 +275,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                     </div>
                                 ))}
                                 {dayEvents.length > 3 && (
-                                    <div className="calendar-more">+{dayEvents.length - 3} altri</div>
+                                    <div >+{dayEvents.length - 3} altri</div>
                                 )}
                             </div>
                         </div>
@@ -277,13 +286,13 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     );
 
     const renderWeekView = () => (
-        <div className="calendar-week">
-            <div className="calendar-week-header">
+        <div >
+            <div >
                 {weekDates.map((date, i) => {
                     const isToday = date.toDateString() === new Date().toDateString();
                     return (
                         <div key={i} className={`calendar-week-day-header ${isToday ? 'today' : ''}`}>
-                            <div className="calendar-week-day-name">
+                            <div >
                                 {DAYS_SHORT[i]}
                             </div>
                             <div className={`calendar-week-day-number ${isToday ? 'today' : ''}`}>
@@ -293,13 +302,13 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                     );
                 })}
             </div>
-            <div className="calendar-week-body" ref={scrollContainerRef}>
+            <div  ref={scrollContainerRef}>
                 {Array.from({ length: 24 }, (_, hour) => (
-                    <div key={hour} className="calendar-week-hour">
-                        <div className="calendar-week-hour-label">
+                    <div key={hour} >
+                        <div >
                             {hour.toString().padStart(2, '0')}:00
                         </div>
-                        <div className="calendar-week-hour-slots">
+                        <div >
                             {weekDates.map((date, dayIndex) => {
                                 const dayEvents = eventi.filter(e => {
                                     const eventDate = new Date(e.data);
@@ -309,15 +318,15 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 });
                                 
                                 return (
-                                    <div key={dayIndex} className="calendar-week-slot">
+                                    <div key={dayIndex} >
                                         {dayEvents.map((ev, idx) => (
                                             <div 
                                                 key={ev.id || idx} 
                                                 className={`calendar-week-event calendar-event-${ev.tipo || 'default'}`}
                                                 onClick={() => setEditingEvent(ev)}
                                             >
-                                                <div className="calendar-week-event-title">{ev.titolo}</div>
-                                                <div className="calendar-week-event-time">{ev.oraInizio} - {ev.oraFine || 'N/A'}</div>
+                                                <div >{ev.titolo}</div>
+                                                <div >{ev.oraInizio} - {ev.oraFine || 'N/A'}</div>
                                             </div>
                                         ))}
                                     </div>
@@ -331,34 +340,54 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     );
 
     const renderDayView = () => (
-        <div className="calendar-day">
-            <div className="calendar-day-header" style={{ padding: "var(--md-sys-spacing-8)" }}>
-                <h3 className="m3-title-large" style={{ color: "var(--md-sys-color-primary)" }}>
+        <div >
+            <div  style={{padding: layers.ref.spacing['8']}}>
+                <h3  style={{color: layers.sys.color.primary}}>
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                 </h3>
             </div>
-            <div className="calendar-day-body" ref={scrollContainerRef}>
+            <div  ref={scrollContainerRef}>
                 {dayEvents.length === 0 ? (
-                    <div className="p-12" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "0.6" }}>
-                        <span className="material-symbols-outlined text-6xl" style={{ marginBottom: "var(--md-sys-spacing-8)" }} aria-hidden="true">event_busy</span>
-                        <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]">Nessun evento per questo giorno</p>
-                        <M3Button variant="text" onClick={() => setEditingEvent({})} style={{ marginTop: "var(--md-sys-spacing-4)" }}>Aggiungi Evento</M3Button>
+                    <div style={{ 
+                        padding: layers.ref.spacing['12'], 
+                        display: "flex", 
+                        flexDirection: "column", 
+                        alignItems: "center", 
+                        justifyContent: "center", 
+                        textAlign: "center", 
+                        opacity: "0.6" 
+                    }}>
+                        <span 
+                            style={{ 
+                                color: layers.sys.color.onSurfaceVariant,
+                                marginBottom: layers.ref.spacing['8']
+                            }} 
+                            aria-hidden="true"
+                        >
+                            event_busy
+                        </span>
+                        <p style={{ color: layers.sys.color.onSurface }}>
+                            Nessun evento per questo giorno
+                        </p>
+                        <M3Button variant="text" onClick={() => setEditingEvent({})} style={{marginTop: layers.ref.spacing['4']}}>
+                            Aggiungi Evento
+                        </M3Button>
                     </div>
                 ) : (
-                    <div className="calendar-day-events" style={{ padding: "var(--md-sys-spacing-8)", gap: "var(--md-sys-spacing-4)" }}>
+                    <div  style={{padding: layers.ref.spacing['8'], gap: layers.ref.spacing['4']}}>
                         {dayEvents.map(ev => (
                             <div 
                                 key={ev.id} 
                                 className={`calendar-day-event agenda-event-${ev.tipo || 'default'} hover:scale-[1.01] transition-transform cursor-pointer`}
                                 onClick={() => setEditingEvent(ev)}
                             >
-                                <div className="calendar-day-event-time" style={{ fontWeight: "bold" }}>
+                                <div  style={{ fontWeight: "bold" }}>
                                     {ev.oraInizio || 'Tutto il giorno'}
                                 </div>
-                                <div className="calendar-day-event-content">
-                                    <div className="calendar-day-event-title" style={{ fontWeight: "bold" }}>{ev.titolo}</div>
-                                    {ev.descrizione && <div className="calendar-day-event-desc" style={{ opacity: "0.8" }}>{ev.descrizione}</div>}
-                                    {ev.location && <div className="calendar-day-event-location" style={{ marginTop: "var(--md-sys-spacing-4)" }}>📍 {ev.location}</div>}
+                                <div >
+                                    <div  style={{ fontWeight: "bold" }}>{ev.titolo}</div>
+                                    {ev.descrizione && <div  style={{ opacity: "0.8" }}>{ev.descrizione}</div>}
+                                    {ev.location && <div  style={{marginTop: layers.ref.spacing['4']}}>📍 {ev.location}</div>}
                                 </div>
                             </div>
                         ))}
@@ -369,32 +398,32 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     );
 
     const renderAgendaView = () => (
-        <div className="calendar-agenda" style={{ padding: "var(--md-sys-spacing-8)" }}>
+        <div  style={{padding: layers.ref.spacing['8']}}>
             {Object.keys(agendaGroups).length === 0 ? (
-                <div className="p-12" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "0.6" }}>
-                    <span className="material-symbols-outlined text-6xl" style={{ marginBottom: "var(--md-sys-spacing-8)" }} aria-hidden="true">event_busy</span>
-                    <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]">Nessun evento questo mese</p>
+                <div style={{ padding: layers.ref.spacing['8'], display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "0.6" }}>
+                    <span style={{ color: "layers.sys.color.onSurfaceVariant", marginBottom: layers.ref.spacing['8'] }} aria-hidden="true">event_busy</span>
+                    <p style={{ color: "layers.sys.color.onSurfaceVariant" }}>Nessun evento questo mese</p>
                 </div>
             ) : (
-                <div style={{ gap: "var(--md-sys-spacing-6)" }}>
+                <div style={{gap: layers.ref.spacing['6']}}>
                     {Object.entries(agendaGroups).map(([date, evts]) => (
-                        <div key={date} className="agenda-group bg-[var(--md-sys-color-surface-container-high)]/20 rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)]/20" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-                            <div className="agenda-date m3-title-medium border-[var(--md-sys-color-outline-variant)]/30 pb-2" style={{ color: "var(--md-sys-color-primary)", marginBottom: "var(--md-sys-spacing-6)", borderBottom: "1px solid var(--md-sys-color-outline)" }}>
+                        <div key={date} style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/20, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+                            <div  style={{color: "layers.sys.color.primary", marginBottom: layers.ref.spacing['6'], borderBottom: "1px solid layers.sys.color.outline"}}>
                                 {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
                             </div>
-                            <div className="agenda-events" style={{ gap: "var(--md-sys-spacing-3)" }}>
+                            <div  style={{gap: layers.ref.spacing['3']}}>
                                 {evts.map(ev => (
                                     <div 
                                         key={ev.id} 
-                                        className={`agenda-event agenda-event-${ev.tipo || 'default'} hover:bg-[var(--md-sys-color-surface-container-high)]/40 transition-colors cursor-pointer`}
+                                        className={`agenda-event agenda-event-${ev.tipo || 'default'} hover:bg-[var(--md-sys-color-surfaceContainerHigh)]/40 transition-colors cursor-pointer`}
                                         onClick={() => setEditingEvent(ev)}
                                     >
-                                        <div className="agenda-event-time" style={{ fontWeight: "bold" }}>
+                                        <div  style={{ fontWeight: "bold" }}>
                                             {ev.oraInizio || 'Tutto il giorno'}
                                         </div>
-                                        <div className="agenda-event-content">
-                                            <div className="agenda-event-title" style={{ fontWeight: "bold" }}>{ev.titolo}</div>
-                                            {ev.descrizione && <div className="agenda-event-desc" style={{ opacity: "0.8" }}>{ev.descrizione}</div>}
+                                        <div >
+                                            <div  style={{ fontWeight: "bold" }}>{ev.titolo}</div>
+                                            {ev.descrizione && <div  style={{ opacity: "0.8" }}>{ev.descrizione}</div>}
                                         </div>
                                     </div>
                                 ))}
@@ -408,13 +437,13 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
 
     return (
         <div 
-            className="calendar-container"
+            
             ref={calendarGridRef}
             onKeyDown={handleCalendarKeyDown}
         >
             {renderHeader()}
             
-            <div className="calendar-body">
+            <div >
                 {viewMode === 'month' && renderMonthView()}
                 {viewMode === 'week' && renderWeekView()}
                 {viewMode === 'day' && renderDayView()}
@@ -471,5 +500,10 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
 };
 
 export default Calendar;
+
+
+
+
+
 
 

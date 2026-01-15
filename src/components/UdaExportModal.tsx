@@ -1,9 +1,11 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState } from 'react';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
 import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface UdaExportModalProps {
     uda: Uda;
@@ -15,6 +17,7 @@ interface UdaExportModalProps {
 }
 
 export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze, settings, onClose, onSaveReport, aiSettings }) => {
+  const { layers } = useTheme();
     const [docType, setDocType] = useState<'docente' | 'studente'>('docente');
     const [isExporting, setIsExporting] = useState(false);
     const [markdownReport, setMarkdownReport] = useState<string | null>(null);
@@ -128,10 +131,10 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm">
-                <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)" }}>
-                    <div className="bg-primary-container/10 rounded-[var(--md-sys-shape-corner-large)] border-primary/20" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]">
+            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }}>
+                <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4']}}>
+                    <div style={{ backgroundColor: sys.colors.primaryContainer/10, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+                        <p style={{ color: layers.sys.color.onPrimary }}>
                             Stai esportando: <strong>{uda.title}</strong>
                         </p>
                     </div>
@@ -147,61 +150,61 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         fullWidth
                     />
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-6)" }}>
+                    <div style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6']}}>
                         <button 
                             onClick={handlePdfExport}
                             disabled={isExporting}
-                            className="rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-low)]est hover:bg-primary-container/20 border-[var(--md-sys-color-outline-variant)]/30 group disabled:opacity-50" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", padding: "var(--md-sys-spacing-8)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid var(--md-sys-color-outline)" }}
+                            style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['8'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid layers.sys.color.outline"}}
                         >
-                            <div className="rounded-[var(--md-sys-shape-corner-large)] text-on-primary-container group-hover:scale-110 shadow-sm" style={{ width: "3rem", height: "3rem", backgroundColor: "var(--md-sys-color-primary-container)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
-                                <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>picture_as_pdf</span>
+                            <div style={{ borderRadius: layers.ref.shape.corner.large, color: sys.colors.on-primaryContainer }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.primaryContainer", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
+                                <span  style={{ fontSize: "1.5rem" }}>picture_as_pdf</span>
                             </div>
                             <div>
-                                <p className="m3-label-large" style={{ fontWeight: "bold", fontSize: "1.125rem" }}>Esporta in PDF</p>
-                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Ideale per stampa e archiviazione</p>
+                                <p  style={{ fontWeight: "bold", fontSize: "1.125rem" }}>Esporta in PDF</p>
+                                <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Ideale per stampa e archiviazione</p>
                             </div>
                         </button>
 
                         <button 
                             onClick={handleDocxExport}
                             disabled={isExporting}
-                            className="rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-low)]est hover:bg-secondary-container/20 border-[var(--md-sys-color-outline-variant)]/30 group disabled:opacity-50" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", padding: "var(--md-sys-spacing-8)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid var(--md-sys-color-outline)" }}
+                            style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['8'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid layers.sys.color.outline"}}
                         >
-                            <div className="rounded-[var(--md-sys-shape-corner-large)] text-on-secondary-container group-hover:scale-110 shadow-sm" style={{ width: "3rem", height: "3rem", backgroundColor: "var(--md-sys-color-secondary-container)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
-                                <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>description</span>
+                            <div style={{ borderRadius: layers.ref.shape.corner.large, color: sys.colors.on-secondary-container }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.secondary-container", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
+                                <span  style={{ fontSize: "1.5rem" }}>description</span>
                             </div>
                             <div>
-                                <p className="m3-label-large" style={{ fontWeight: "bold", fontSize: "1.125rem" }}>Esporta in Word</p>
-                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Per modifiche manuali successive</p>
+                                <p  style={{ fontWeight: "bold", fontSize: "1.125rem" }}>Esporta in Word</p>
+                                <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Per modifiche manuali successive</p>
                             </div>
                         </button>
 
                         <button 
                             onClick={handleAiReport}
                             disabled={isExporting}
-                            className="rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-low)]est hover:bg-tertiary-container/20 border-[var(--md-sys-color-outline-variant)]/30 group disabled:opacity-50" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", padding: "var(--md-sys-spacing-8)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid var(--md-sys-color-outline)" }}
+                            style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['8'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid layers.sys.color.outline"}}
                         >
-                            <div className="rounded-[var(--md-sys-shape-corner-large)] text-on-tertiary-container group-hover:scale-110 shadow-sm" style={{ width: "3rem", height: "3rem", backgroundColor: "var(--md-sys-color-tertiary-container)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
-                                <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>auto_awesome</span>
+                            <div style={{ borderRadius: layers.ref.shape.corner.large, color: sys.colors.on-tertiary-container }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.tertiary-container", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
+                                <span  style={{ fontSize: "1.5rem" }}>auto_awesome</span>
                             </div>
                             <div>
-                                <p className="m3-label-large" style={{ fontWeight: "bold", fontSize: "1.125rem" }}>Report con AI</p>
-                                <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Genera analisi e suggerimenti didattici</p>
+                                <p  style={{ fontWeight: "bold", fontSize: "1.125rem" }}>Report con AI</p>
+                                <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Genera analisi e suggerimenti didattici</p>
                             </div>
                         </button>
                     </div>
 
                     {isExporting && (
-                        <div className="bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-large)] animate-pulse" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--md-sys-spacing-6)", padding: "var(--md-sys-spacing-8)" }}>
-                            <span className="material-symbols-outlined animate-spin">sync</span>
-                            <span className="m3-label-large">Generazione in corso...</span>
+                        <div style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh, borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", justifyContent: "center", gap: layers.ref.spacing['6'], padding: layers.ref.spacing['8']}}>
+                            <span >sync</span>
+                            <span >Generazione in corso...</span>
                         </div>
                     )}
 
                     {markdownReport && (
-                        <div className="bg-[var(--md-sys-color-surface-container-low)]est rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]/30" style={{ marginTop: "var(--md-sys-spacing-4)", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-                            <h4 className="m3-label-large" style={{ marginBottom: "var(--md-sys-spacing-8)", color: "var(--md-sys-color-tertiary)" }}>Report AI Generato</h4>
-                            <div className="prose prose-sm max-h-60" style={{ overflowY: "auto" }}>
+                        <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLowest, borderRadius: layers.ref.shape.corner.large }} style={{marginTop: layers.ref.spacing['4'], padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+                            <h4  style={{marginBottom: layers.ref.spacing['8'], color: "layers.sys.color.tertiary"}}>Report AI Generato</h4>
+                            <div  style={{ overflowY: "auto" }}>
                                 {markdownReport}
                             </div>
                         </div>
@@ -216,5 +219,10 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
 };
 
 export default UdaExportModal;
+
+
+
+
+
 
 

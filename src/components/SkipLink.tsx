@@ -1,4 +1,6 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
+import { useTheme } from '../theme/theme';
 import { useTheme } from '../theme/theme';
 
 /**
@@ -35,6 +37,8 @@ const SkipLink: React.FC<SkipLinkProps> = ({
   href = '#main-content',
   label = 'Skip to main content',
 }) => {
+  const { layers } = useTheme();
+  const { layers } = useTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const theme = useTheme();
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -54,19 +58,17 @@ const SkipLink: React.FC<SkipLinkProps> = ({
       href={href}
       onClick={handleClick}
       aria-label={label}
-      style={{
-        position: 'absolute',
+      style={{position: 'absolute',
         top: '-40px',
         left: 0,
-        background: 'var(--md-sys-color-primary)',
-        color: 'var(--md-sys-color-on-primary)',
-        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+        background: 'layers.sys.color.primary',
+        color: 'layers.sys.color.on-primary',
+        padding: layers.ref.spacing['2'] layers.ref.spacing['4'],
         textDecoration: 'none',
         zIndex: 100,
         borderRadius: '0 0 var(--md-corner-small) 0',
         fontSize: 'var(--md-sys-typescale-body-medium-size)',
-        fontWeight: 600,
-      }}
+        fontWeight: 600,}}
       onKeyDown={(e: React.KeyboardEvent<HTMLAnchorElement>) => {
         if (e.key === 'Enter' || e.key === ' ') {
           handleClick(e as unknown as React.MouseEvent<HTMLAnchorElement>);
@@ -79,5 +81,10 @@ const SkipLink: React.FC<SkipLinkProps> = ({
 };
 
 export default SkipLink;
+
+
+
+
+
 
 

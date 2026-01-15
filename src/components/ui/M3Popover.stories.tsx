@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3Popover from './M3Popover';
@@ -6,7 +7,7 @@ import M3Button from './M3Button';
 const meta: Meta<typeof M3Popover> = {
   component: M3Popover,
   title: 'UI/Popovers/M3Popover',
-  tags: ['autodocs'],
+  tags: ['autodocs],
   parameters: {
     layout: 'centered',
     docs: {
@@ -42,11 +43,11 @@ export const Basic: Story = {
           onClose={() => setAnchorEl(null)}
           title="Popover Title"
         >
-          <div style={{ padding: 'var(--md-sys-spacing-4)', minWidth: '200px' }}>
-            <p style={{ margin: `0 0 var(--md-sys-spacing-3) 0`, color: 'var(--md-sys-color-on-surface)' }}>
+          <div style={{ padding: 'var(--md-sys-spacing-4)', minWidth: layers.ref.spacing['4'] }}>
+            <p style={{ margin: `0 0 var(--md-sys-spacing-3) 0`, color: 'var(--md-sys-color-onSurface)' }}>
               This is a basic popover with some content.
             </p>
-            <p style={{ margin: '0', color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-small-size)' }}>
+            <p style={{ margin: '0', color: 'var(--md-sys-color-onSurface-variant)', fontSize: 'var(--md-sys-typescale-body-small-size)' }}>
               Click outside to close.
             </p>
           </div>
@@ -92,15 +93,15 @@ export const WithActions: Story = {
                 background: 'transparent',
                 cursor: 'pointer',
                 textAlign: 'left',
-                color: 'var(--md-sys-color-on-surface)',
+                color: 'var(--md-sys-color-onSurface)',
                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
                 transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
+                e.currentTarget// removed runtime mutation
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent';
+                e.currentTarget// removed runtime mutation
               }}
             >
               📝 Modifica
@@ -121,10 +122,10 @@ export const WithActions: Story = {
                 transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
+                e.currentTarget// removed runtime mutation
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent';
+                e.currentTarget// removed runtime mutation
               }}
             >
               🗑️ Elimina
@@ -159,8 +160,8 @@ export const PositionedTop: Story = {
           anchorVertical="top"
           title="Positioned Above"
         >
-          <div style={{ padding: 'var(--md-sys-spacing-4)', minWidth: '200px' }}>
-            <p style={{ margin: '0', color: 'var(--md-sys-color-on-surface)' }}>
+          <div style={{ padding: 'var(--md-sys-spacing-4)', minWidth: layers.ref.spacing['4'] }}>
+            <p style={{ margin: '0', color: 'var(--md-sys-color-onSurface)' }}>
               This popover appears above the trigger button.
             </p>
           </div>
@@ -209,16 +210,16 @@ export const ScrollableContent: Story = {
                   background: 'transparent',
                   cursor: 'pointer',
                   textAlign: 'left',
-                  color: 'var(--md-sys-color-on-surface)',
+                  color: 'var(--md-sys-color-onSurface)',
                   fontSize: 'var(--md-sys-typescale-body-medium-size)',
                   transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
                   borderBottom: '1px solid var(--md-sys-color-outline-variant)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
+                  e.currentTarget// removed runtime mutation
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget// removed runtime mutation
                 }}
               >
                 {item}
@@ -255,7 +256,7 @@ export const NoBackdrop: Story = {
           minWidth={180}
         >
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {['Copy', 'Paste', 'Delete'].map((action) => (
+            {['Copy', 'Paste', 'Delete].map((action) => (
               <button
                 key={action}
                 onClick={() => {
@@ -268,15 +269,15 @@ export const NoBackdrop: Story = {
                   background: 'transparent',
                   cursor: 'pointer',
                   textAlign: 'left',
-                  color: 'var(--md-sys-color-on-surface)',
+                  color: 'var(--md-sys-color-onSurface)',
                   fontSize: 'var(--md-sys-typescale-body-medium-size)',
                   transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
+                  e.currentTarget// removed runtime mutation
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget// removed runtime mutation
                 }}
               >
                 {action}
@@ -288,5 +289,10 @@ export const NoBackdrop: Story = {
     );
   },
 };
+
+
+
+
+
 
 

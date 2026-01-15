@@ -1,3 +1,5 @@
+import { renderWithM3Theme } from '../test-utils';
+// LEGACY - MD3 Non-compliant
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, within, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -129,7 +131,7 @@ describe('Home Component', () => {
 
   describe('Rendering', () => {
     it('should render the greeting header with teacher name', () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -141,7 +143,7 @@ describe('Home Component', () => {
     });
 
     it('should render metric cards with correct data', () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -156,7 +158,7 @@ describe('Home Component', () => {
     });
 
     it('should render hero card with next lesson', () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -170,7 +172,7 @@ describe('Home Component', () => {
     });
 
     it('should render hero card buttons', () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -183,7 +185,7 @@ describe('Home Component', () => {
     });
 
     it('should render recent activities section', () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -196,7 +198,7 @@ describe('Home Component', () => {
     });
 
     it('should render "Nessun suggerimento" when no active suggestion', () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -210,7 +212,7 @@ describe('Home Component', () => {
 
   describe('User Interactions', () => {
     it('should navigate to correct view on quick action click', async () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -227,7 +229,7 @@ describe('Home Component', () => {
     });
 
     it('should navigate to aula with classe param on hero card button click', async () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -244,7 +246,7 @@ describe('Home Component', () => {
     });
 
     it('should navigate to lessons view on Organizza contenuti click', async () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -279,7 +281,7 @@ describe('Home Component', () => {
         })
       );
 
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -309,7 +311,7 @@ describe('Home Component', () => {
         })
       );
 
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -342,7 +344,7 @@ describe('Home Component', () => {
         })
       );
 
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -386,7 +388,7 @@ describe('Home Component', () => {
         })
       );
 
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -432,7 +434,7 @@ describe('Home Component', () => {
         })
       );
 
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -464,7 +466,7 @@ describe('Home Component', () => {
         })
       );
 
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -483,7 +485,7 @@ describe('Home Component', () => {
 
   describe('MD3 Token Compliance', () => {
     it('should use MD3 spacing tokens in grid layout', () => {
-      const { container } = render(
+      const { container } = renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -496,7 +498,7 @@ describe('Home Component', () => {
     });
 
     it('should use MD3 color tokens in elements', () => {
-      const { container } = render(
+      const { container } = renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -509,7 +511,7 @@ describe('Home Component', () => {
     });
 
     it('should use MD3 corner radius tokens', () => {
-      const { container } = render(
+      const { container } = renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -523,7 +525,7 @@ describe('Home Component', () => {
     });
 
     it('should render M3Button components', () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -546,12 +548,12 @@ describe('Home Component', () => {
         selector({
           settings: {
             nomeInsegnante: 'Professore',
-            cognomeInsegnante: '',
+            cognomeInsegnante: ',
           },
         })
       );
 
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -569,7 +571,7 @@ describe('Home Component', () => {
         })
       );
 
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -587,7 +589,7 @@ describe('Home Component', () => {
         })
       );
 
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -602,7 +604,7 @@ describe('Home Component', () => {
 
   describe('Accessibility', () => {
     it('should have proper aria-labels on buttons', () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -615,7 +617,7 @@ describe('Home Component', () => {
     });
 
     it('should have semantic heading structure', () => {
-      render(
+      renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -628,7 +630,7 @@ describe('Home Component', () => {
     });
 
     it('should have proper text contrast with MD3 tokens', () => {
-      const { container } = render(
+      const { container } = renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
           dismissSuggestion={mockDismissSuggestion}
@@ -642,5 +644,10 @@ describe('Home Component', () => {
     });
   });
 });
+
+
+
+
+
 
 

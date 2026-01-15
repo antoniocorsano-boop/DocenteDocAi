@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 // ...existing code...
@@ -162,37 +163,37 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
     };
 
     return (
-        <div className="gantt-container">
-            <div className="gantt-header">
-                <h2 className="timeline-view-header-title">
+        <div >
+            <div >
+                <h2 >
                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>calendar_view_week</span>
                     Timeline Didattica
                 </h2>
-                <div className="timeline-view-header-legend">
-                    <span className="timeline-view-legend-item"><span className="timeline-view-legend-dot"></span> UDA</span>
-                    <span className="timeline-view-legend-item"><span className="material-symbols-outlined timeline-view-legend-flag">flag</span> Scadenza</span>
+                <div >
+                    <span ><span ></span> UDA</span>
+                    <span ><span >flag</span> Scadenza</span>
                 </div>
             </div>
 
-            <div className="gantt-body" ref={scrollContainerRef}>
+            <div  ref={scrollContainerRef}>
                 {/* 1. Background Grid (Dynamic) */}
-                <div className="gantt-grid" style={{ gridTemplateColumns: `repeat(${months.length}, 1fr)`, minWidth: `${minWidth}px` }}>
+                <div  style={{ gridTemplateColumns: `repeat(${months.length}, 1fr)`, minWidth: `${minWidth}px` }}>
                     {months.map((m, i) => (
-                        <div key={i} className="gantt-month-col">
-                            <span className="gantt-month-label">{m.label} <span style={{ fontSize: "0.75rem", opacity: "0.7", fontWeight: "normal" }}>{m.year}</span></span>
+                        <div key={i} >
+                            <span >{m.label} <span style={{ fontSize: "0.75rem", opacity: "0.7", fontWeight: "normal" }}>{m.year}</span></span>
                         </div>
                     ))}
                 </div>
 
                 {/* Empty State Overlay */}
                 {isEmpty && (
-                    <div className="timeline-view-empty-overlay">
-                        <div className="timeline-view-empty-content">
-                            <span className="material-symbols-outlined timeline-view-empty-icon">edit_calendar</span>
-                            <p className="timeline-view-empty-title">Nessuna pianificazione.</p>
-                            <p className="timeline-view-empty-subtitle">Usa il Wizard Annuale o crea un&apos;UDA.</p>
+                    <div >
+                        <div >
+                            <span >edit_calendar</span>
+                            <p >Nessuna pianificazione.</p>
+                            <p >Usa il Wizard Annuale o crea un&apos;UDA.</p>
                         </div>
                     </div>
                 )}
@@ -201,33 +202,33 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, minWidth: `${minWidth}px`, zIndex: 15, pointerEvents: 'none' }}>
                     {todayPosition >= 0 && todayPosition <= 100 && (
                         <div
-                            className="gantt-today-indicator"
+                            
                             style={{ left: `${todayPosition}%` }}
                         >
-                            <div className="gantt-today-label">OGGI</div>
+                            <div >OGGI</div>
                         </div>
                     )}
                 </div>
 
                 {/* 3. Content Layers */}
-                <div className="gantt-tracks-layer" style={{ minWidth: `${minWidth}px` }}>
+                <div  style={{ minWidth: `${minWidth}px` }}>
                     {/* Top Row: Events */}
-                    <div className="gantt-events-row">
+                    <div >
                         {events.filter(e => e.tipo === 'scadenza' || e.tipo === 'consiglio').map(evt => {
                             const pos = getPositionPercentage(evt.data);
                             if (pos < 0 || pos > 100) return null;
                             return (
                                 <div
                                     key={evt.id}
-                                    className="gantt-event-marker group"
+                                    
                                     style={{ left: `${pos}%` }}
                                     title={`${evt.titolo} (${new Date(evt.data).toLocaleDateString()})`}
                                     aria-label={`Evento: ${evt.titolo} il ${new Date(evt.data).toLocaleDateString()}`}
                                 >
-                                    <span className="material-symbols-outlined gantt-event-icon">
+                                    <span >
                                         {evt.tipo === 'scadenza' ? 'flag' : 'gavel'}
                                     </span>
-                                    <div className="gantt-event-line"></div>
+                                    <div ></div>
                                 </div>
                             );
                         })}
@@ -235,9 +236,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Swimlanes for UDAs */}
                     {timelineData.map((lane, laneIndex) => (
-                        <div key={laneIndex} className="gantt-lane">
+                        <div key={laneIndex} >
                             {lane.map(uda => (
-                                <Tooltip key={uda.id} label={`${uda.title}\n${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''}`} position="top">
+                                <Tooltip key={uda.id} label={`${uda.title}\n${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : '} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : '}`} position="top">
                                     <GanttBar key={uda.id} uda={uda} onClick={() => handleUdaClick(uda)} />
                                 </Tooltip>
                             ))}
@@ -246,9 +247,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Snackbar preview / undo */}
                     {showSnackbar && lastMove && (
-                        <div className="timeline-view-snackbar">
-                            <div className="timeline-view-snackbar-content">
-                                <div className="timeline-view-snackbar-text">UDA spostata. <button className="timeline-view-snackbar-undo" onClick={() => {
+                        <div >
+                            <div >
+                                <div >UDA spostata. <button  onClick={() => {
                                     const original = udas.find(u => u.id === lastMove.udaId);
                                     if (original) {
                                         onSaveUda({ ...original, startDate: lastMove.prevStart, endDate: lastMove.prevEnd });
@@ -256,7 +257,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                                         setLastMove(null);
                                     }
                                 }}>Annulla</button></div>
-                                <button onClick={() => setShowSnackbar(false)} aria-label="Chiudi" className="icon-button"><span style={{
+                                <button onClick={() => setShowSnackbar(false)} aria-label="Chiudi" ><span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>close</span></button>
                             </div>
@@ -265,8 +266,8 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Drag Preview Bubble */}
                     {previewMessage && (
-                        <div className="timeline-view-drag-preview">
-                            <div className="timeline-view-drag-preview-content"> {previewMessage}</div>
+                        <div >
+                            <div > {previewMessage}</div>
                         </div>
                     )}
 
@@ -277,3 +278,8 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 };
 
 export default TimelineView;
+
+
+
+
+

@@ -1,6 +1,8 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { useTheme } from '../theme/theme';
 import { M3Typography } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface TooltipProps {
   label: string;
@@ -33,6 +35,7 @@ interface TooltipProps {
  * - Maintained all functionality and accessibility features
  */
 const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) => {
+  const { layers } = useTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const theme = useTheme();
   const [visible, setVisible] = React.useState(false);
@@ -57,7 +60,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
       position: 'absolute',
       zIndex: 3000,
       backgroundColor: 'var(--md-sys-color-inverse-surface)',
-      color: 'var(--md-sys-color-inverse-on-surface)',
+      color: 'var(--md-sys-color-inverse-onSurface)',
       padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', // 0.38em 1em approx
       borderRadius: 'var(--md-sys-shape-corner-small)', // 8px
       boxShadow: 'var(--md-sys-elevation-level1)',
@@ -149,11 +152,9 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
           >
             <M3Typography
               variant="body-small"
-              style={{
-                fontWeight: '500',
+              style={{fontWeight: '500',
                 color: 'inherit',
-                lineHeight: 'var(--md-sys-typescale-body-small-line-height)'
-              }}
+                lineHeight: 'var(--md-sys-typescale-body-small-line-height)'}}
             >
               {label}
             </M3Typography>
@@ -165,5 +166,10 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
 };
 
 export default Tooltip;
+
+
+
+
+
 
 

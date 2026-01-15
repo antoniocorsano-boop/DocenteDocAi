@@ -1,6 +1,6 @@
-import React from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../hooks/useTheme';
+// LEGACY - MD3 Non-compliant
+import React, { useState } from 'react';
+import { useTheme } from '../../theme/theme';
 
 interface M3CardProps {
   children: React.ReactNode;
@@ -23,41 +23,45 @@ const M3Card: React.FC<M3CardProps> = ({
   style,
   ariaLabel
 }) => {
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
   const isClickable = Boolean(onClick);
+  const { layers } = useTheme();
+  const { sys, ref, elevation, motion } = layers;
 
-  // Padding styles using MD3 spacing tokens
+  // Padding styles using ref.spacing tokens
   const getPaddingStyles = (): string => {
     switch (padding) {
       case 'none':
         return '0';
       case 'small':
-        return 'var(--md-sys-spacing-3)'; // 12px
+        return layers.ref.spacing['4'];
       case 'large':
-        return 'var(--md-sys-spacing-6)'; // 24px
+        return layers.ref.spacing['8'];
       default: // medium
-        return 'var(--md-sys-spacing-4)'; // 16px
+        return layers.ref.spacing['6'];
     }
   };
 
-  // Variant styles using MD3 design tokens
+  // Variant styles using sys and elevation tokens
   const getVariantStyles = (): React.CSSProperties => {
     switch (variant) {
       case 'outlined':
         return {
-          backgroundColor: 'var(--md-sys-color-surface)',
+          backgroundColor: sys.color.surface,
           boxShadow: 'none',
-          border: '1px solid var(--md-sys-color-outline-variant)'
+          border: `1px solid ${sys.color.outlineVariant}`
         };
       case 'filled':
         return {
-          backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+          backgroundColor: sys.color.surfaceContainerLow,
           boxShadow: 'none',
           border: 'none'
         };
       default: // elevated
         return {
-          backgroundColor: 'var(--md-sys-color-surface-container-low)',
-          boxShadow: 'var(--md-sys-elevation-level1)',
+          backgroundColor: sys.color.surfaceContainerLow,
+          boxShadow: isClickable && hovered ? elevation.level2 : elevation.level1,
           border: 'none'
         };
     }
@@ -66,10 +70,11 @@ const M3Card: React.FC<M3CardProps> = ({
   // Base styles
   const baseStyle: React.CSSProperties = {
     padding: getPaddingStyles(),
-    borderRadius: 'var(--md-sys-shape-corner-large)',
-    transition: isClickable ? 'box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)' : undefined,
+    borderRadius: ref.shape.corner.large,
+    transition: isClickable ? `box-shadow ${motion.duration.short2} ${motion.easing.standard}` : undefined,
     cursor: isClickable ? 'pointer' : undefined,
-    outline: 'none',
+    outline: focused && isClickable ? `2px solid ${sys.color.primary}` : 'none',
+    outlineOffset: focused ? layers.ref.spacing['2'] : '0',
     ...getVariantStyles(),
     ...style
   };
@@ -88,29 +93,15 @@ const M3Card: React.FC<M3CardProps> = ({
       aria-label={ariaLabel}
       style={baseStyle}
       onMouseEnter={(e) => {
-        if (isClickable && variant === 'elevated') {
-          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level2)';
-        }
+        setHovered(true);
         onMouseEnter?.(e);
       }}
       onMouseLeave={(e) => {
-        if (isClickable && variant === 'elevated') {
-          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level1)';
-        }
+        setHovered(false);
         onMouseLeave?.(e);
       }}
-      onFocus={(e) => {
-        if (isClickable) {
-          e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-          e.currentTarget.style.outlineOffset = '2px';
-        }
-      }}
-      onBlur={(e) => {
-        if (isClickable) {
-          e.currentTarget.style.outline = 'none';
-          e.currentTarget.style.outlineOffset = '0';
-        }
-      }}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
     >
       {children}
     </div>
@@ -118,5 +109,10 @@ const M3Card: React.FC<M3CardProps> = ({
 };
 
 export default M3Card;
+
+
+
+
+
 
 

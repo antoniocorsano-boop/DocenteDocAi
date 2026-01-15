@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -18,131 +19,53 @@ const M3Typography: React.FC<M3TypographyProps> = ({
   children,
   style = {}
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
-  // Typography styles using complete MD3 design tokens
-  const typographyStyles = {
-    'display-large': {
-      fontFamily: 'var(--md-sys-typescale-display-large-font-family)',
-      fontSize: 'var(--md-sys-typescale-display-large-font-size)',
-      fontWeight: 'var(--md-sys-typescale-display-large-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-display-large-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-display-large-letter-spacing)'
-    },
-    'display-medium': {
-      fontFamily: 'var(--md-sys-typescale-display-medium-font-family)',
-      fontSize: 'var(--md-sys-typescale-display-medium-font-size)',
-      fontWeight: 'var(--md-sys-typescale-display-medium-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-display-medium-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-display-medium-letter-spacing)'
-    },
-    'display-small': {
-      fontFamily: 'var(--md-sys-typescale-display-small-font-family)',
-      fontSize: 'var(--md-sys-typescale-display-small-font-size)',
-      fontWeight: 'var(--md-sys-typescale-display-small-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-display-small-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-display-small-letter-spacing)'
-    },
-    'headline-large': {
-      fontFamily: 'var(--md-sys-typescale-headline-large-font-family)',
-      fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
-      fontWeight: 'var(--md-sys-typescale-headline-large-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-headline-large-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-headline-large-letter-spacing)'
-    },
-    'headline-medium': {
-      fontFamily: 'var(--md-sys-typescale-headline-medium-font-family)',
-      fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
-      fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-headline-medium-letter-spacing)'
-    },
-    'headline-small': {
-      fontFamily: 'var(--md-sys-typescale-headline-small-font-family)',
-      fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
-      fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-headline-small-letter-spacing)'
-    },
-    'title-large': {
-      fontFamily: 'var(--md-sys-typescale-title-large-font-family)',
-      fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-      fontWeight: 'var(--md-sys-typescale-title-large-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-title-large-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-title-large-letter-spacing)'
-    },
-    'title-medium': {
-      fontFamily: 'var(--md-sys-typescale-title-medium-font-family)',
-      fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-      fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-title-medium-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-title-medium-letter-spacing)'
-    },
-    'title-small': {
-      fontFamily: 'var(--md-sys-typescale-title-small-font-family)',
-      fontSize: 'var(--md-sys-typescale-title-small-font-size)',
-      fontWeight: 'var(--md-sys-typescale-title-small-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-title-small-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-title-small-letter-spacing)'
-    },
-    'body-large': {
-      fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)'
-    },
-    'body-medium': {
-      fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
-      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-body-medium-letter-spacing)'
-    },
-    'body-small': {
-      fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-      fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-      fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-body-small-letter-spacing)'
-    },
-    'label-large': {
-      fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
-      fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-      fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)'
-    },
-    'label-medium': {
-      fontFamily: 'var(--md-sys-typescale-label-medium-font-family)',
-      fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-      fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-label-medium-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-label-medium-letter-spacing)'
-    },
-    'label-small': {
-      fontFamily: 'var(--md-sys-typescale-label-small-font-family)',
-      fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-      fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
-      lineHeight: 'var(--md-sys-typescale-label-small-line-height)',
-      letterSpacing: 'var(--md-sys-typescale-label-small-letter-spacing)'
-    }
+  const { layers } = useTheme();
+  const { ref, sys } = layers;
+
+  // Map MD3 variants to ref.typography keys
+  const typographyMap: Record<string, keyof typeof ref.typography> = {
+    'display-large': 'h1',
+    'display-medium': 'h2',
+    'display-small': 'h3',
+    'headline-large': 'h4',
+    'headline-medium': 'h5',
+    'headline-small': 'h6',
+    'title-large': 'subtitle1',
+    'title-medium': 'subtitle2',
+    'title-small': 'overline',
+    'body-large': 'body1',
+    'body-medium': 'body2',
+    'body-small': 'caption',
+    'label-large': 'button',
+    'label-medium': 'button',
+    'label-small': 'caption'
   };
 
-  const variantStyle = typographyStyles[variant];
+  const typographyKey = typographyMap[variant] || 'body1';
+  const token = ref.typography[typographyKey];
+
+  // Typography styles using ref.typography tokens
+  const typographyStyles = {
+    fontFamily: 'inherit', // Use inherited font family
+    fontSize: token.fontSize,
+    fontWeight: token.fontWeight,
+    lineHeight: token.lineHeight,
+    letterSpacing: token.letterSpacing,
+    color: sys.color.onSurface, // Default color from sys layer
+    ...style
+  };
 
   return (
-    <Component
-      style={{
-        color: 'var(--md-sys-color-on-surface)',
-        ...variantStyle,
-        ...style
-      }}
-    >
+    <Component style={typographyStyles}>
       {children}
     </Component>
   );
 };
 
 export default M3Typography;
+
+
+
+
+
 

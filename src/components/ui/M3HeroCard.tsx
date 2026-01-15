@@ -1,3 +1,8 @@
+// LEGACY - MD3 Non-compliant
+// @legacy
+// @md3-noncompliant
+// @do-not-extend
+
 import React from 'react';
 
 interface M3HeroCardProps {
@@ -11,7 +16,7 @@ interface M3HeroCardProps {
  */
 const M3HeroCard: React.FC<M3HeroCardProps> = ({
   children,
-  className = ''
+  
 }) => (
   <div className={`hero-card ${className}`}>
     {children}
@@ -19,4 +24,9 @@ const M3HeroCard: React.FC<M3HeroCardProps> = ({
 );
 
 export default M3HeroCard;
+
+
+
+
+
 

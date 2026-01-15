@@ -1,6 +1,8 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useMemo } from 'react';
 import { Lezione, RegisterEntry, Studente, Valutazione } from '../types';
 import { TabGroup, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface CopyForRegisterModalProps {
     lesson: Lezione;
@@ -11,6 +13,7 @@ interface CopyForRegisterModalProps {
 }
 
 const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, entry, students, todaysEvaluations, onClose }) => {
+  const { layers } = useTheme();
     const [activeTab, setActiveTab] = useState<'text' | 'json'>('text');
     const [includeAbsents, setIncludeAbsents] = useState(true);
     const [includeGrades, setIncludeGrades] = useState(true);
@@ -51,8 +54,8 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             maxWidth="md"
             level={1}
         >
-            <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
-                <div className="px-12 py-8 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] mb-12">
+            <M3DialogContent >
+                <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large }}>
                     <TabGroup 
                         tabs={[{ id: 'text', label: 'Manuale', icon: 'content_paste' }, { id: 'json', label: 'Bridge AI', icon: 'extension' }]}
                         activeTab={activeTab}
@@ -64,18 +67,18 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                     />
                 </div>
 
-                <div className="space-y-12">
-                    <div className="gap-12 p-12 bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-large)] border-[var(--md-sys-color-outline-variant)] shadow-inner" style={{ display: "flex", flexWrap: "wrap", border: "1px solid var(--md-sys-color-outline)" }}>
-                        <label className="chip has-checkbox select-none" style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                            <input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)} className="mr-4 accent-primary" /> 
+                <div >
+                    <div style={{ padding: layers.ref.spacing['4'], backgroundColor:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", flexWrap: "wrap", border: "1px solid layers.sys.color.outline"}}>
+                        <label  style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+                            <input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)}  /> 
                             Assenti
                         </label>
-                        <label className="chip has-checkbox select-none" style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                            <input type="checkbox" checked={includeGrades} onChange={e => setIncludeGrades(e.target.checked)} className="mr-4 accent-primary" /> 
+                        <label  style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+                            <input type="checkbox" checked={includeGrades} onChange={e => setIncludeGrades(e.target.checked)}  /> 
                             Voti
                         </label>
-                        <label className="chip has-checkbox select-none" style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                            <input type="checkbox" checked={includeHomework} onChange={e => setIncludeHomework(e.target.checked)} className="mr-4 accent-primary" /> 
+                        <label  style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+                            <input type="checkbox" checked={includeHomework} onChange={e => setIncludeHomework(e.target.checked)}  /> 
                             Compiti
                         </label>
                     </div>
@@ -85,14 +88,14 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                         value={activeTab === 'text' ? generatedText : generatedJson} 
                         readOnly 
                         rows={10}
-                        containerClassName="!bg-[var(--md-sys-color-surface-container-high)]est shadow-inner font-mono text-xs"
+                        containerClassName="!bg-[var(--md-sys-color-surfaceContainerHigh)]est shadow-inner font-mono text-xs"
                     />
                 </div>
             </M3DialogContent>
-            <M3DialogActions className="gap-12 px-12 pb-12" style={{ paddingTop: "0" }}>
+            <M3DialogActions  style={{ paddingTop: "0" }}>
                 <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-                <M3Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-16">
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>content_copy</span> COPIA
+                <M3Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="filled" >
+                    <span  style={{ marginRight: "0.5rem" }}>content_copy</span> COPIA
                 </M3Button>
             </M3DialogActions>
         </M3Dialog>
@@ -100,5 +103,10 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
 };
 
 export default CopyForRegisterModal;
+
+
+
+
+
 
 

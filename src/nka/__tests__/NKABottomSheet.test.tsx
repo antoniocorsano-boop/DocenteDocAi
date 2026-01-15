@@ -1,3 +1,4 @@
+import { renderWithM3Theme } from '../test-utils';
 import { render, screen, fireEvent } from '@testing-library/react';
 import NKABottomSheet from '../NKABottomSheet';
 import { NKANode } from '../types';
@@ -7,11 +8,11 @@ describe('NKABottomSheet', () => {
   const nodes: NKANode[] = [
     { id: '1', label: 'Nodo 1', color: '80', elevation: 1, depth: 0.5, shape: "circle", actions: [] },
     { id: '2', label: 'Nodo 2', color: '90', elevation: 2, depth: 0.7, shape: "pill", actions: [] },
-  ];
+  '];
 
   it('renders when open and calls onNodeSelect', () => {
     const onNodeSelect = vi.fn();
-    render(
+    renderWithM3Theme(
       <NKABottomSheet open={true} nodes={nodes} onClose={() => {}} onNodeSelect={onNodeSelect} />
     );
     expect(screen.getAllByText('Nodo 1').length).toBeGreaterThan(0);
@@ -24,7 +25,7 @@ describe('NKABottomSheet', () => {
   });
 
   it('does not render when open is false', () => {
-    render(
+    renderWithM3Theme(
       <NKABottomSheet open={false} nodes={nodes} onClose={() => {}} onNodeSelect={() => {}} />
     );
     expect(screen.queryByText('Nodo 1')).toBeNull();

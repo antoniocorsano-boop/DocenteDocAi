@@ -1,6 +1,8 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import M3Typography from './M3Typography';
 import M3Button from './M3Button';
+import { useTheme } from '../../theme/theme';
 
 /**
  * MD3 Component Template
@@ -63,6 +65,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
   onAction,
   'data-testid': dataTestId
 }) => {
+  const { layers } = useTheme();
   // Color mapping based on variant - using MD3 color roles
   const getVariantColors = () => {
     switch (variant) {
@@ -80,8 +83,8 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
         };
       default: // primary
         return {
-          background: 'var(--md-sys-color-primary-container)',
-          onBackground: 'var(--md-sys-color-on-primary-container)',
+          background: 'var(--md-sys-color-primaryContainer)',
+          onBackground: 'var(--md-sys-color-on-primaryContainer)',
           accent: 'var(--md-sys-color-primary)'
         };
     }
@@ -94,51 +97,41 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
       data-testid={dataTestId}
       role="region"
       aria-label={`${title} component`}
-      style={{
-        // Layout using flexbox with MD3 spacing tokens
+      style={{// Layout using flexbox with MD3 spacing tokens
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--md-sys-spacing-3)', // Medium gap between elements
-
-        // Surface styling with MD3 tokens
+        gap: layers.ref.spacing['3'],
         backgroundColor: colors.background,
-        borderRadius: 'var(--md-sys-shape-corner-large)', // Large corner radius
-        padding: 'var(--md-sys-spacing-4)', // Generous padding
-
-        // Elevation for depth perception
-        boxShadow: 'var(--md-sys-elevation-level1)',
-
-        // Smooth transitions using MD3 motion tokens
-        transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
+        borderRadius: 'layers.ref.shape.corner.large',
+        padding: layers.ref.spacing['4'],
+        boxShadow: 'layers.sys.elevation.level1',
+        transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`
       }}
     >
       {/* Header section with icon and title */}
       <div
-        style={{
-          display: 'flex',
+        style={{display: 'flex',
           alignItems: 'center',
-          gap: 'var(--md-sys-spacing-3)' // Gap between icon and text
+          gap: layers.ref.spacing['3']
         }}
       >
         {/* Optional leading icon */}
         {leadingIcon && (
           <div
-            style={{
-              display: 'flex',
+            style={{display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: 'var(--md-sys-spacing-6)', // 24px icon container
-              height: 'var(--md-sys-spacing-6)',
-              borderRadius: 'var(--md-sys-shape-corner-full)', // Fully rounded
+              width: layers.ref.spacing['6'],
+              height: layers.ref.spacing['6'],
+              borderRadius: 'layers.ref.shape.corner.full',
               backgroundColor: colors.accent,
               color: colors.onBackground
             }}
             aria-hidden="true"
           >
             <span
-              style={{
-                fontFamily: 'Material Symbols Outlined',
-                fontSize: 'var(--md-sys-spacing-4)' // 16px icon size
+              style={{fontFamily: 'Material Symbols Outlined',
+                fontSize: layers.ref.spacing['4']
               }}
             >
               {leadingIcon}
@@ -149,8 +142,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
         {/* Title using M3Typography with label-large variant */}
         <M3Typography
           variant="label-large"
-          style={{
-            color: colors.onBackground,
+          style={{color: colors.onBackground,
             fontWeight: 'var(--md-sys-typescale-label-large-font-weight)'
           }}
         >
@@ -161,16 +153,14 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
       {/* Optional description section */}
       {description && (
         <div
-          style={{
-            marginTop: 'var(--md-sys-spacing-2)' // Small top margin
-          }}
+          style={{marginTop: layers.ref.spacing['2']}}
         >
           {/* Description using M3Typography with body-medium variant */}
           <M3Typography
             variant="body-medium"
             style={{
               color: colors.onBackground,
-              opacity: 0.87 // Standard MD3 text opacity for secondary text
+              opacity: 0.87
             }}
           >
             {description}
@@ -181,10 +171,9 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
       {/* Optional action section */}
       {actionLabel && onAction && (
         <div
-          style={{
-            marginTop: 'var(--md-sys-spacing-4)', // Larger top margin for actions
+          style={{marginTop: layers.ref.spacing['4'], // Larger top margin for actions
             display: 'flex',
-            justifyContent: 'flex-end' // Right-align actions
+            justifyContent: 'flex-end'
           }}
         >
           {/* Action button using M3Button component */}
@@ -193,7 +182,6 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
             variant="filled"
             size="small"
             style={{
-              // Custom styling using MD3 tokens if needed
               backgroundColor: colors.accent,
               color: colors.onBackground
             }}
@@ -262,3 +250,8 @@ EXAMPLE MIGRATION (TextField):
 - Implement floating label animation
 - Add ARIA attributes for form accessibility
 */
+
+
+
+
+

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 /**
  * PlanningViews.tsx
  * Raggruppa viste relative a pianificazione didattica
@@ -160,5 +161,10 @@ export const PlanningViewsRenderer: React.FC<{
             return null;
     }
 };
+
+
+
+
+
 
 

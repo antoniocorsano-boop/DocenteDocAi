@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useRef, useEffect } from 'react';
 import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
 import Logo from './Logo';
@@ -16,6 +17,7 @@ import {
 } from './ui';
 
 import type { ActionsPopoverProps } from '../types';
+import { useTheme } from '../theme/theme';
 
 /**
  * MD3-compliant Header component
@@ -43,6 +45,7 @@ import type { ActionsPopoverProps } from '../types';
  * - Added proper focus management and keyboard navigation
  */
 const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
+  const { layers } = useTheme();
     const { onClose, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp, user, onShareClick, unreadCount, onOpenNotifications, installPrompt, onInstallApp, onNavigate } = props;
     const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -108,9 +111,9 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     };
                 default:
                     return {
-                        background: 'var(--md-sys-color-primary-container)',
-                        onBackground: 'var(--md-sys-color-on-primary-container)',
-                        iconBg: 'var(--md-sys-color-primary-container)',
+                        background: 'var(--md-sys-color-primaryContainer)',
+                        onBackground: 'var(--md-sys-color-on-primaryContainer)',
+                        iconBg: 'var(--md-sys-color-primaryContainer)',
                         iconColor: 'var(--md-sys-color-primary)'
                     };
             }
@@ -121,54 +124,49 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
         return (
             <button
                 onClick={onClick}
-                style={{
-                    width: '100%',
+                style={{width: '100%',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-3)',
-                    padding: 'var(--md-sys-spacing-4)',
-                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                    gap: `var(--md-sys-spacing-3)`,
+                    padding: `var(--md-sys-spacing-4)`,
+                    borderRadius: `var(--md-sys-shape-corner-medium)`,
                     backgroundColor: 'transparent',
                     border: 'none',
-                    color: 'var(--md-sys-color-on-surface)',
+                    color: 'var(--md-sys-color-onSurface)',
                     textAlign: 'left',
                     cursor: 'pointer',
-                    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
+                    transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`
                 }}
                 onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                    e.currentTarget// removed runtime mutation
                 }}
                 onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget// removed runtime mutation
                 }}
                 onFocus={(e) => {
-                    e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-                    e.currentTarget.style.outlineOffset = '2px';
+                    e.currentTarget// removed runtime mutation
+                    e.currentTarget// removed runtime mutation
                 }}
                 onBlur={(e) => {
-                    e.currentTarget.style.outline = 'none';
-                    e.currentTarget.style.outlineOffset = '0';
+                    e.currentTarget// removed runtime mutation
+                    e.currentTarget// removed runtime mutation
                 }}
                 aria-label={label}
             >
                 <div
-                    style={{
-                        width: 'var(--md-sys-spacing-6)',
-                        height: 'var(--md-sys-spacing-6)',
-                        borderRadius: 'var(--md-sys-shape-corner-small)',
+                    style={{width: layers.ref.spacing['6'],
+                        height: layers.ref.spacing['6'],
+                        borderRadius: layers.ref.shape.small,
                         backgroundColor: colors.iconBg,
                         color: colors.iconColor,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        flexShrink: 0
-                    }}
+                        flexShrink: 0}}
                 >
                     <span
-                        style={{
-                            fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--md-sys-spacing-4)'
-                        }}
+                        style={{fontFamily: 'Material Symbols Outlined',
+                            fontSize: `var(--md-sys-spacing-4)`}}
                     >
                         {icon}
                     </span>
@@ -184,33 +182,29 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 </M3Typography>
                 {badge !== undefined && (
                     <span
-                        style={{
-                            backgroundColor: 'var(--md-sys-color-error)',
+                        style={{backgroundColor: 'var(--md-sys-color-error)',
                             color: 'var(--md-sys-color-on-error)',
                             fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                             fontWeight: '700',
-                            padding: '0 var(--md-sys-spacing-2)',
-                            paddingTop: 'var(--md-sys-spacing-1)',
-                            paddingBottom: 'var(--md-sys-spacing-1)',
-                            borderRadius: 'var(--md-sys-shape-corner-full)',
-                            lineHeight: 1
-                        }}
+                            padding: `0 var(--md-sys-spacing-2)`,
+                            paddingTop: `var(--md-sys-spacing-1)`,
+                            paddingBottom: `var(--md-sys-spacing-1)`,
+                            borderRadius: `var(--md-sys-shape-corner-full)`,
+                            lineHeight: 1}}
                     >
                         {badge}
                     </span>
                 )}
                 <span
-                    style={{
-                        fontFamily: 'Material Symbols Outlined',
-                        color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 30%, transparent)',
-                        fontSize: 'var(--md-sys-spacing-3)',
-                        transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                    }}
+                    style={{fontFamily: 'Material Symbols Outlined',
+                        color: 'color-mix(in srgb, layers.sys.color.onSurface-variant 30%, transparent)',
+                        fontSize: layers.ref.spacing['3'],
+                        transition: `transform ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
                     onMouseEnter={(e) => {
-                        (e.target as HTMLElement).style.transform = 'translateX(var(--md-sys-spacing-1))';
+                        (e.target as HTMLElement)// removed runtime mutation
                     }}
                     onMouseLeave={(e) => {
-                        (e.target as HTMLElement).style.transform = 'translateX(0)';
+                        (e.target as HTMLElement)// removed runtime mutation
                     }}
                 >
                     chevron_right
@@ -222,22 +216,20 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
     return (
         <div
             ref={popoverRef}
-            style={{
-                position: 'fixed',
-                top: 'var(--md-sys-spacing-12)',
-                right: 'var(--md-sys-spacing-4)',
-                backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                borderRadius: 'var(--md-sys-shape-corner-large)',
+            style={{position: 'fixed',
+                top: `var(--md-sys-spacing-12)`,
+                right: `var(--md-sys-spacing-4)`,
+                backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
+                borderRadius: `var(--md-sys-shape-corner-large)`,
                 boxShadow: 'var(--md-sys-elevation-level3)',
                 border: '1px solid var(--md-sys-color-outline-variant)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-3)',
-                padding: 'var(--md-sys-spacing-6)',
-                width: 'var(--md-sys-spacing-20)', // 320px
-                maxWidth: 'calc(100vw - var(--md-sys-spacing-4))',
-                zIndex: 1000
-            }}
+                gap: `var(--md-sys-spacing-3)`,
+                padding: `var(--md-sys-spacing-6)`,
+                width: `var(--md-sys-spacing-20)`,
+                maxWidth: `calc(100vw - var(--md-sys-spacing-4))`,
+                zIndex: 1000}}
             role="dialog"
             aria-modal="true"
             onKeyDown={(e) => {
@@ -257,26 +249,22 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
             }}
         >
             <div
-                style={{
-                    display: 'flex',
+                style={{display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    padding: 'var(--md-sys-spacing-4)',
-                    marginBottom: 'var(--md-sys-spacing-4)',
-                    borderBottom: '1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 10%, transparent)'
-                }}
+                    padding: layers.ref.spacing['4'],
+                    marginBottom: layers.ref.spacing['4'],
+                    borderBottom: '1px solid color-mix(in srgb, layers.sys.color.outline-variant 10%, transparent)'}}
             >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                    <div style={{
-                        width: 'var(--md-sys-spacing-6)',
-                        height: 'var(--md-sys-spacing-6)',
-                        borderRadius: 'var(--md-sys-shape-corner-full)',
-                        border: '2px solid var(--md-sys-color-primary)',
+                <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['3']}}>
+                    <div style={{width: layers.ref.spacing['6'],
+                        height: layers.ref.spacing['6'],
+                        borderRadius: layers.ref.shape.large,
+                        border: '2px solid layers.sys.color.primary',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        overflow: 'hidden'
-                    }}>
+                        overflow: 'hidden'}}>
                         <Avatar
                             name={props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante
                                 ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}`
@@ -288,14 +276,12 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <M3Typography
                             variant="label-medium"
-                            style={{
-                                fontWeight: '700',
-                                color: 'var(--md-sys-color-primary)',
-                                maxWidth: '180px',
+                            style={{fontWeight: '700',
+                                color: layers.sys.color.primary,
+                                maxWidth: layers.ref.spacing['12'],
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap'
-                            }}
+                                whiteSpace: 'nowrap'}}
                         >
                             {props.settings?.cognomeInsegnante && props.settings?.nomeInsegnante
                                 ? `${props.settings.cognomeInsegnante} ${props.settings.nomeInsegnante}`
@@ -303,12 +289,10 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                         </M3Typography>
                         <M3Typography
                             variant="label-small"
-                            style={{
-                                color: 'var(--md-sys-color-on-surface-variant)',
+                            style={{color: 'layers.sys.color.onSurface-variant',
                                 fontWeight: '500',
                                 textTransform: 'uppercase',
-                                letterSpacing: '0.05em'
-                            }}
+                                letterSpacing: '0.05em'}}
                         >
                             {props.settings?.nomeIstituto || 'Docente'}
                         </M3Typography>
@@ -316,40 +300,36 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 </div>
                 <button
                     onClick={onClose}
-                    style={{
-                        width: 'var(--md-sys-spacing-5)',
-                        height: 'var(--md-sys-spacing-5)',
-                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                    style={{width: layers.ref.spacing['5'],
+                        height: layers.ref.spacing['5'],
+                        borderRadius: layers.ref.shape.large,
                         backgroundColor: 'transparent',
                         border: 'none',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                    }}
+                        color: 'layers.sys.color.onSurface-variant',
+                        transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                        e.currentTarget// removed runtime mutation
                     }}
                     onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
+                        e.currentTarget// removed runtime mutation
                     }}
                     aria-label="Chiudi menu"
                 >
                     <span
-                        style={{
-                            fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--md-sys-spacing-4)'
-                        }}
+                        style={{fontFamily: 'Material Symbols Outlined',
+                            fontSize: layers.ref.spacing['4']}}
                     >
                         close
                     </span>
                 </button>
             </div>
 
-            <div style={{ paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
+            <div style={{paddingLeft: layers.ref.spacing['2'], paddingRight: layers.ref.spacing['2']}}>
+                <div style={{display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['1']}}>
                     <MenuItem
                         icon="notifications"
                         label="Notifiche"
@@ -372,23 +352,19 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     )}
 
                     <div
-                        style={{
-                            height: '1px',
-                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-outline-variant) 10%, transparent)',
-                            margin: 'var(--md-sys-spacing-2) var(--md-sys-spacing-1)'
-                        }}
+                        style={{height: layers.ref.spacing['1'],
+                            backgroundColor: 'color-mix(in srgb, layers.sys.color.outline-variant 10%, transparent)',
+                            margin: `${layers.ref.spacing['2']} ${layers.ref.spacing['1']}`}}
                     />
 
-                    <div style={{ padding: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-3)' }}>
+                    <div style={{padding: layers.ref.spacing['2'], paddingLeft: layers.ref.spacing['3']}}>
                         <M3Typography
                             variant="label-small"
-                            style={{
-                                fontSize: '10px',
+                            style={{fontSize: layers.ref.spacing['4'],
                                 fontWeight: '700',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
-                                color: 'color-mix(in srgb, var(--md-sys-color-primary) 60%, transparent)'
-                            }}
+                                color: 'color-mix(in srgb, layers.sys.color.primary 60%, transparent)'}}
                         >
                             Strumenti AI
                         </M3Typography>
@@ -409,11 +385,9 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     />
 
                     <div
-                        style={{
-                            height: '1px',
-                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-outline-variant) 10%, transparent)',
-                            margin: 'var(--md-sys-spacing-2) var(--md-sys-spacing-1)'
-                        }}
+                        style={{height: layers.ref.spacing['1'],
+                            backgroundColor: 'color-mix(in srgb, layers.sys.color.outline-variant 10%, transparent)',
+                            margin: `${layers.ref.spacing['2']} ${layers.ref.spacing['1']}`}}
                     />
 
                     <MenuItem
@@ -434,6 +408,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
 };
 
 export const Header: React.FC<HeaderProps> = (props) => {
+    const { layers } = useTheme();
     const { showBackButton, user, settings, notifiche, setNotifiche, onOpenCircularAnalysis, onNavigate, isAiProcessing, installPrompt, onInstallApp, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp } = props;
 
     // Get display name from settings (teacher name/surname) or fallback to user
@@ -460,59 +435,54 @@ export const Header: React.FC<HeaderProps> = (props) => {
         <>
             <header
                 role="banner"
-                style={{
-                    position: 'sticky',
+                style={{position: 'sticky',
                     top: 0,
                     zIndex: 50,
-                    backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                    borderBottom: '1px solid var(--md-sys-color-outline-variant)',
-                    boxShadow: 'var(--md-sys-elevation-level1)',
-                    padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                    backgroundColor: layers.sys.color.surfaceContainerHigh,
+                    borderBottom: `1px solid ${layers.sys.color.outlineVariant}`,
+                    boxShadow: layers.elevation.level1,
+                    padding: `${layers.ref.spacing['3']} ${layers.ref.spacing['4']}`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    minHeight: 'var(--md-sys-spacing-12)' // 48px minimum touch target
+                    minHeight: layers.ref.spacing['12'] // 48px minimum touch target
                 }}
             >
                 {/* Left section: Back button and Aura */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['3']}}>
                     {showBackButton && (
                         <button
                             aria-label="Indietro"
                             onClick={props.onBack}
-                            style={{
-                                width: 'var(--md-sys-spacing-6)',
-                                height: 'var(--md-sys-spacing-6)',
-                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                            style={{width: layers.ref.spacing['6'],
+                                height: layers.ref.spacing['6'],
+                                borderRadius: layers.ref.shape.large,
                                 backgroundColor: 'transparent',
                                 border: 'none',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 cursor: 'pointer',
-                                color: 'var(--md-sys-color-on-surface-variant)',
-                                transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                            }}
+                                color: 'layers.sys.color.onSurface-variant',
+                                transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                                e.currentTarget// removed runtime mutation
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.backgroundColor = 'transparent';
+                                e.currentTarget// removed runtime mutation
                             }}
                             onFocus={(e) => {
-                                e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-                                e.currentTarget.style.outlineOffset = '2px';
+                                e.currentTarget// removed runtime mutation
+                                e.currentTarget// removed runtime mutation
                             }}
                             onBlur={(e) => {
-                                e.currentTarget.style.outline = 'none';
-                                e.currentTarget.style.outlineOffset = '0';
+                                e.currentTarget// removed runtime mutation
+                                e.currentTarget// removed runtime mutation
                             }}
                         >
                             <span
-                                style={{
-                                    fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--md-sys-spacing-4)'
-                                }}
+                                style={{fontFamily: 'Material Symbols Outlined',
+                                    fontSize: layers.ref.spacing['4']}}
                             >
                                 arrow_back
                             </span>
@@ -526,12 +496,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 </div>
 
                 {/* Center section: Logo and AI indicator */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', flex: 1, justifyContent: 'center' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
-                        <div style={{
-                            cursor: 'pointer',
-                            transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                        }}>
+                <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['3'], flex: 1, justifyContent: 'center'}}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['2']}}>
+                        <div style={{cursor: 'pointer',
+                            transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}>
                             <Logo
                                 isAiThinking={isAiProcessing}
                                 onHomeNavigate={() => !showBackButton && onNavigate('home')}
@@ -542,25 +510,21 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 </div>
 
                 {/* Right section: Status, Settings, Avatar/Menu */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['3']}}>
                     {!isOnline && (
                         <div
                             title="Modalità Offline"
-                            style={{
-                                display: 'flex',
+                            style={{display: 'flex',
                                 alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-1)',
-                                padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
-                                borderRadius: 'var(--md-sys-shape-corner-full)',
-                                backgroundColor: 'var(--md-sys-color-error-container)',
-                                color: 'var(--md-sys-color-on-error-container)'
-                            }}
+                                gap: layers.ref.spacing['1'],
+                                padding: `${layers.ref.spacing['1']} ${layers.ref.spacing['2']}`,
+                                borderRadius: layers.ref.shape.large,
+                                backgroundColor: layers.sys.color.errorContainer,
+                                color: layers.sys.color.onErrorContainer}}
                         >
                             <span
-                                style={{
-                                    fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--md-sys-spacing-3)'
-                                }}
+                                style={{fontFamily: 'Material Symbols Outlined',
+                                    fontSize: layers.ref.spacing['3']}}
                             >
                                 cloud_off
                             </span>
@@ -572,39 +536,35 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     <button
                         aria-label="Impostazioni"
                         onClick={() => onNavigate('settings')}
-                        style={{
-                            width: 'var(--md-sys-spacing-6)',
-                            height: 'var(--md-sys-spacing-6)',
-                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                        style={{width: layers.ref.spacing['6'],
+                            height: layers.ref.spacing['6'],
+                            borderRadius: layers.ref.shape.large,
                             backgroundColor: 'transparent',
                             border: 'none',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: 'pointer',
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                        }}
+                            color: 'layers.sys.color.onSurface-variant',
+                            transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                            e.currentTarget// removed runtime mutation
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget// removed runtime mutation
                         }}
                         onFocus={(e) => {
-                            e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-                            e.currentTarget.style.outlineOffset = '2px';
+                            e.currentTarget// removed runtime mutation
+                            e.currentTarget// removed runtime mutation
                         }}
                         onBlur={(e) => {
-                            e.currentTarget.style.outline = 'none';
-                            e.currentTarget.style.outlineOffset = '0';
+                            e.currentTarget// removed runtime mutation
+                            e.currentTarget// removed runtime mutation
                         }}
                     >
                         <span
-                            style={{
-                                fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--md-sys-spacing-4)'
-                            }}
+                            style={{fontFamily: 'Material Symbols Outlined',
+                                fontSize: layers.ref.spacing['4']}}
                         >
                             settings
                         </span>
@@ -621,10 +581,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         <button
                             onClick={() => setIsActionsOpen(p => !p)}
                             aria-label="Menu"
-                            style={{
-                                width: 'var(--md-sys-spacing-6)',
-                                height: 'var(--md-sys-spacing-6)',
-                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                            style={{width: layers.ref.spacing['6'],
+                                height: layers.ref.spacing['6'],
+                                borderRadius: layers.ref.shape.large,
                                 backgroundColor: 'transparent',
                                 border: 'none',
                                 display: 'flex',
@@ -632,32 +591,29 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                 justifyContent: 'center',
                                 cursor: 'pointer',
                                 position: 'relative',
-                                transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                            }}
+                                transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                                e.currentTarget// removed runtime mutation
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.backgroundColor = 'transparent';
+                                e.currentTarget// removed runtime mutation
                             }}
                             onFocus={(e) => {
-                                e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-                                e.currentTarget.style.outlineOffset = '2px';
+                                e.currentTarget// removed runtime mutation
+                                e.currentTarget// removed runtime mutation
                             }}
                             onBlur={(e) => {
-                                e.currentTarget.style.outline = 'none';
-                                e.currentTarget.style.outlineOffset = '0';
+                                e.currentTarget// removed runtime mutation
+                                e.currentTarget// removed runtime mutation
                             }}
                         >
-                            <div style={{
-                                width: 'var(--md-sys-spacing-6)',
-                                height: 'var(--md-sys-spacing-6)',
-                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                            <div style={{width: layers.ref.spacing['6'],
+                                height: layers.ref.spacing['6'],
+                                borderRadius: layers.ref.shape.large,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                overflow: 'hidden'
-                            }}>
+                                overflow: 'hidden'}}>
                                 <Avatar
                                     name={`${teacherSurname || ''} ${teacherName || 'Docente'}`.trim()}
                                     src={user?.photoURL}
@@ -666,28 +622,24 @@ export const Header: React.FC<HeaderProps> = (props) => {
                             </div>
                             {unreadCount > 0 && (
                                 <span
-                                    style={{
-                                        position: 'absolute',
+                                    style={{position: 'absolute',
                                         top: '-2px',
                                         right: '-2px',
-                                        width: 'var(--md-sys-spacing-3)',
-                                        height: 'var(--md-sys-spacing-3)',
-                                        borderRadius: 'var(--md-sys-shape-corner-full)',
-                                        backgroundColor: 'var(--md-sys-color-error)',
-                                        border: '2px solid var(--md-sys-color-surface-container-high)',
+                                        width: layers.ref.spacing['3'],
+                                        height: layers.ref.spacing['3'],
+                                        borderRadius: layers.ref.shape.large,
+                                        backgroundColor: layers.sys.color.error,
+                                        border: '2px solid layers.sys.color.surfaceContainerHigh',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}
+                                        justifyContent: 'center'}}
                                     aria-label={`${unreadCount} notifiche non lette`}
                                 >
                                     <span
-                                        style={{
-                                            fontSize: '8px',
+                                        style={{fontSize: layers.ref.spacing['3'],
                                             fontWeight: '700',
-                                            color: 'var(--md-sys-color-on-error)',
-                                            lineHeight: 1
-                                        }}
+                                            color: 'layers.sys.color.on-error',
+                                            lineHeight: 1}}
                                     >
                                         {unreadCount > 99 ? '99+' : unreadCount}
                                     </span>
@@ -702,15 +654,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
             {isActionsOpen && (
                 <>
                     <div
-                        style={{
-                            position: 'fixed',
+                        style={{position: 'fixed',
                             top: 0,
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-scrim) 50%, transparent)',
-                            zIndex: 999
-                        }}
+                            backgroundColor: 'color-mix(in srgb, layers.sys.color.scrim 50%, transparent)',
+                            zIndex: 999}}
                         onClick={() => setIsActionsOpen(false)}
                     />
                     <ActionsPopover
@@ -731,15 +681,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
             {isNotificationsOpen && (
                 <>
                     <div
-                        style={{
-                            position: 'fixed',
+                        style={{position: 'fixed',
                             top: 0,
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-scrim) 50%, transparent)',
-                            zIndex: 999
-                        }}
+                            backgroundColor: 'color-mix(in srgb, layers.sys.color.scrim 50%, transparent)',
+                            zIndex: 999}}
                         onClick={() => setIsNotificationsOpen(false)}
                     />
                     <NotificationsPopover
@@ -760,19 +708,19 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 title="Condividi Link"
             >
                 <M3DialogContent>
-                    <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{textAlign: 'center', padding: layers.ref.spacing['4']}}>
                         <div
                             style={{
-                                width: 'var(--md-sys-spacing-12)',
-                                height: 'var(--md-sys-spacing-12)',
-                                borderRadius: 'var(--md-sys-shape-corner-full)',
-                                backgroundColor: 'var(--md-sys-color-primary-container)',
-                                color: 'var(--md-sys-color-on-primary-container)',
+                                width: layers.ref.spacing['12'],
+                                height: layers.ref.spacing['12'],
+                                borderRadius: layers.ref.shape.large,
+                                backgroundColor: layers.sys.color.primaryContainer,
+                                color: layers.sys.color.onPrimaryContainer,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                margin: '0 auto var(--md-sys-spacing-4)',
-                                fontSize: 'var(--md-sys-spacing-7)' // 3xl equivalent
+                                margin: `0 auto ${layers.ref.spacing['4']}`,
+                                fontSize: '1.875rem' // 3xl equivalent
                             }}
                         >
                             <span
@@ -785,24 +733,20 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         </div>
                         <M3Typography
                             variant="body-medium"
-                            style={{
-                                marginBottom: 'var(--md-sys-spacing-4)',
-                                color: 'var(--md-sys-color-on-surface-variant)'
-                            }}
+                            style={{marginBottom: layers.ref.spacing['4'],
+                                color: 'layers.sys.color.onSurface-variant'}}
                         >
                             Scansiona o copia il link per accedere alla tua app didattica da altri dispositivi.
                         </M3Typography>
-                        <div style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
+                        <div style={{marginBottom: layers.ref.spacing['4']}}>
                             <InfoCard variant="tonal">
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)' }}>
+                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: layers.ref.spacing['3']}}>
                                     <code
-                                        style={{
-                                            fontFamily: 'monospace',
-                                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                                            color: 'var(--md-sys-color-on-surface)',
+                                        style={{fontFamily: 'monospace',
+                                            fontSize: layers.ref.typography.caption.fontSize,
+                                            color: layers.sys.color.onSurface,
                                             flex: 1,
-                                            wordBreak: 'break-all'
-                                        }}
+                                            wordBreak: 'break-all'}}
                                     >
                                         {window.location.href}
                                     </code>
@@ -812,16 +756,12 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                         }}
                                         variant="tonal"
                                         size="small"
-                                        style={{
-                                            borderRadius: 'var(--md-sys-shape-corner-full)',
-                                            flexShrink: 0
-                                        }}
+                                        style={{borderRadius: layers.ref.shape.large,
+                                            flexShrink: 0}}
                                     >
                                         <span
-                                        style={{
-                                            fontFamily: 'Material Symbols Outlined',
-                                            fontSize: 'var(--md-sys-spacing-4)'
-                                        }}
+                                        style={{fontFamily: 'Material Symbols Outlined',
+                                            fontSize: layers.ref.spacing['4']}}
                                     >
                                         content_copy
                                     </span>
@@ -840,5 +780,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
         </>
     );
 };
+
+
+
+
+
 
 

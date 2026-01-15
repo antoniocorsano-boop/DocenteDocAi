@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { Uda } from '../types';
 
@@ -31,7 +32,7 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
                     handleClick();
                 }
             }}
-            className="gantt-bar gantt-bar-positioned gantt-bar-colored"
+            
             style={{
                 '--gantt-bar-left': `${uda.startPos}%`,
                 '--gantt-bar-width': `${uda.width}%`,
@@ -39,13 +40,18 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
                 '--gantt-bar-border': uda.borderColor,
                 '--gantt-bar-text': uda.textColor,
             } as React.CSSProperties}
-            title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''})`}
+            title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : '} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : '})`}
         >
-            <div className="gantt-bar-inner" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{uda.title}</div>
+            <div  style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{uda.title}</div>
         </div>
     );
 };
 
 export default GanttBar;
+
+
+
+
+
 
 

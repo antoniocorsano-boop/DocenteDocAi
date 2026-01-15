@@ -1,3 +1,5 @@
+import { renderWithM3Theme } from '../test-utils';
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
@@ -13,13 +15,13 @@ describe('EditableContentCard', () => {
   };
 
   it('renders title and content', () => {
-    render(<EditableContentCard {...defaultProps} />);
+    renderWithM3Theme(<EditableContentCard {...defaultProps} />);
     expect(screen.getByText('Titolo')).toBeInTheDocument();
     expect(screen.getByText('Contenuto iniziale')).toBeInTheDocument();
   });
 
   it('shows edit button and enters edit mode', () => {
-    render(<EditableContentCard {...defaultProps} />);
+    renderWithM3Theme(<EditableContentCard {...defaultProps} />);
     const editBtn = screen.getByLabelText('Modifica contenuto');
     fireEvent.click(editBtn);
     expect(screen.getByLabelText('Modifica contenuto')).toBeInTheDocument();
@@ -28,7 +30,7 @@ describe('EditableContentCard', () => {
 
   it('saves edited content', () => {
     const onSave = vi.fn();
-    render(<EditableContentCard {...defaultProps} onSave={onSave} />);
+    renderWithM3Theme(<EditableContentCard {...defaultProps} onSave={onSave} />);
     fireEvent.click(screen.getByLabelText('Modifica contenuto'));
     const textarea = screen.getByRole('textbox');
     fireEvent.change(textarea, { target: { value: 'Nuovo contenuto' } });
@@ -37,7 +39,7 @@ describe('EditableContentCard', () => {
   });
 
   it('cancels edit and restores content', () => {
-    render(<EditableContentCard {...defaultProps} />);
+    renderWithM3Theme(<EditableContentCard {...defaultProps} />);
     fireEvent.click(screen.getByLabelText('Modifica contenuto'));
     const textarea = screen.getByRole('textbox');
     fireEvent.change(textarea, { target: { value: 'Modifica annullata' } });
@@ -45,5 +47,10 @@ describe('EditableContentCard', () => {
     expect(screen.getByText('Contenuto iniziale')).toBeInTheDocument();
   });
 });
+
+
+
+
+
 
 

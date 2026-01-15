@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import React from 'react';
 import { useTheme } from '../theme/theme';
@@ -27,21 +28,21 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
                 cursor: 'pointer'
             }}
         >
-            <div className="m3-theme-preview">
+            <div >
                 {/* Background (Primary) */}
-                <div className="theme-preview-bg" style={{ backgroundColor: colors.primary }}></div>
+                <div  style={{ backgroundColor: colors.primary }}></div>
 
                 {/* Shapes */}
-                <div className="theme-preview-circle" style={{ backgroundColor: colors.secondary }}></div>
-                <div className="theme-preview-bar" style={{ backgroundColor: colors.tertiary }}></div>
+                <div  style={{ backgroundColor: colors.secondary }}></div>
+                <div  style={{ backgroundColor: colors.tertiary }}></div>
 
                 {/* Checkmark Overlay */}
-                <div className="theme-check-icon" style={{ color: themeColors.primary }}>
-                     <span className="material-symbols-outlined" style={{ fontSize: "1.5rem", fontWeight: "bold" }}>check_circle</span>
+                <div  style={{ color: themeColors.primary }}>
+                     <span  style={{ fontSize: "1.5rem", fontWeight: "bold" }}>check_circle</span>
                 </div>
             </div>
 
-            <div className="m3-theme-label" style={{
+            <div  style={{
                 color: themeColors.onSurface,
                 fontSize: '0.875rem',
                 fontWeight: 500,
@@ -54,5 +55,10 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
 };
 
 export default ThemeBubble;
+
+
+
+
+
 
 

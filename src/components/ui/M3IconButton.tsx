@@ -1,6 +1,6 @@
-import React from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../hooks/useTheme';
+// LEGACY - MD3 Non-compliant
+import React, { useState } from 'react';
+import { useTheme } from '../../theme/theme';
 
 interface M3IconButtonProps {
   icon: string;
@@ -23,26 +23,30 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
   variant = 'standard',
   size = 'medium'
 }) => {
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const { layers } = useTheme();
+  const { sys, ref, motion } = layers;
   // Size styles using MD3 spacing tokens
   const getSizeStyles = (): React.CSSProperties => {
     switch (size) {
       case 'small':
         return {
-          width: 'var(--md-sys-spacing-8)', // 32px
-          height: 'var(--md-sys-spacing-8)', // 32px
-          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
+          width: layers.ref.spacing['8'],
+          height: layers.ref.spacing['8'],
+          fontSize: ref.typography.labelLarge.fontSize
         };
       case 'large':
         return {
-          width: 'var(--md-sys-spacing-12)', // 48px
-          height: 'var(--md-sys-spacing-12)', // 48px
-          fontSize: 'var(--md-sys-typescale-headline-small-font-size)'
+          width: layers.ref.spacing['12'],
+          height: layers.ref.spacing['12'],
+          fontSize: ref.typography.headlineSmall.fontSize
         };
       default: // medium
         return {
-          width: 'var(--md-sys-spacing-10)', // 40px
-          height: 'var(--md-sys-spacing-10)', // 40px
-          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
+          width: layers.ref.spacing['10'],
+          height: layers.ref.spacing['10'],
+          fontSize: ref.typography.labelLarge.fontSize
         };
     }
   };
@@ -52,24 +56,24 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     switch (variant) {
       case 'filled':
         return {
-          backgroundColor: 'var(--md-sys-color-primary-container)',
-          color: 'var(--md-sys-color-on-primary-container)'
+          backgroundColor: sys.color.primaryContainer,
+          color: sys.color.onPrimaryContainer
         };
       case 'tonal':
         return {
-          backgroundColor: 'var(--md-sys-color-secondary-container)',
-          color: 'var(--md-sys-color-on-secondary-container)'
+          backgroundColor: sys.color.secondaryContainer,
+          color: sys.color.onSecondaryContainer
         };
       case 'outlined':
         return {
-          backgroundColor: 'transparent',
-          color: 'var(--md-sys-color-on-surface)',
-          border: '1px solid var(--md-sys-color-outline)'
+          backgroundColor: hovered ? sys.color.surfaceVariant : 'transparent',
+          color: sys.color.onSurface,
+          border: `1px solid ${sys.color.outline}`
         };
       default: // standard
         return {
-          backgroundColor: 'transparent',
-          color: 'var(--md-sys-color-on-surface-variant)'
+          backgroundColor: hovered ? sys.color.surfaceVariant : 'transparent',
+          color: sys.color.onSurfaceVariant
         };
     }
   };
@@ -79,17 +83,18 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 'var(--md-sys-shape-corner-full)',
-    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-    outline: 'none',
+    borderRadius: ref.shape.corner.full,
+    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
+    outline: focused ? `2px solid ${sys.color.primary}` : 'none',
+    outlineOffset: focused ? layers.ref.spacing['2'] : '0',
     border: 'none',
     cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 0.38 : 1,
+    opacity: disabled ? 0.38 : (hovered && (variant === 'filled' || variant === 'tonal') ? 0.8 : 1),
     pointerEvents: disabled ? 'none' : 'auto',
-    fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
-    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-    letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
+    fontFamily: ref.typography.labelLarge.fontFamily,
+    fontWeight: ref.typography.labelLarge.fontWeight,
+    lineHeight: ref.typography.labelLarge.lineHeight,
+    letterSpacing: ref.typography.labelLarge.letterSpacing,
     ...getSizeStyles(),
     ...getVariantStyles()
   };
@@ -109,44 +114,10 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
       aria-label={ariaLabel}
       title={title || ariaLabel}
       style={baseStyle}
-      onMouseEnter={(e) => {
-        if (!disabled) {
-          switch (variant) {
-            case 'standard':
-              e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-variant)';
-              break;
-            case 'filled':
-              e.currentTarget.style.backgroundColor = 'var(--md-sys-color-primary-container)';
-              e.currentTarget.style.opacity = '0.8';
-              break;
-            case 'tonal':
-              e.currentTarget.style.backgroundColor = 'var(--md-sys-color-secondary-container)';
-              e.currentTarget.style.opacity = '0.8';
-              break;
-            case 'outlined':
-              e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-variant)';
-              break;
-          }
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!disabled) {
-          // Reset to original styles
-          Object.assign(e.currentTarget.style, baseStyle);
-        }
-      }}
-      onFocus={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-          e.currentTarget.style.outlineOffset = '2px';
-        }
-      }}
-      onBlur={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.outline = 'none';
-          e.currentTarget.style.outlineOffset = '0';
-        }
-      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
     >
       <span
         style={iconStyle}
@@ -159,5 +130,10 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
 };
 
 export default M3IconButton;
+
+
+
+
+
 
 

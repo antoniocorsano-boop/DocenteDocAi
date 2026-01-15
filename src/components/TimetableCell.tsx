@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { Lezione, Slot } from '../types';
 import { generateHueFromString } from '../utils/colorUtils';
@@ -48,8 +49,8 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
                     }
                 }}
             >
-                <span className="timetable-cell-ripple" aria-hidden="true" />
-                <div className="timetable-cell-add-icon">
+                <span  aria-hidden="true" />
+                <div >
                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>add_circle</span>
@@ -64,7 +65,7 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
             style={customStyle}
             onClick={onClick}
             role="button"
-            aria-label={`Slot ${slot.giorno} ${slot.ora}${classe ? `, classe ${classe}` : ''}${materia ? `, materia ${materia}` : ''}`}
+            aria-label={`Slot ${slot.giorno} ${slot.ora}${classe ? `, classe ${classe}` : '}${materia ? `, materia ${materia}` : '}`}
             tabIndex={0}
             onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -73,32 +74,37 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
                 }
             }}
         >
-            <span className="timetable-cell-ripple" aria-hidden="true" />
+            <span  aria-hidden="true" />
             {/* Status Badges (Top) */}
-            <div className="timetable-cell-status-badges">
-                <div className="timetable-cell-status-indicators">
-                    {isDone && <div className="timetable-cell-done-indicator" title="Svolta"></div>}
-                    {hasAi && <span className="timetable-cell-ai-indicator material-symbols-outlined">auto_awesome</span>}
+            <div >
+                <div >
+                    {isDone && <div  title="Svolta"></div>}
+                    {hasAi && <span >auto_awesome</span>}
                 </div>
-                {typeIcon && <span className="timetable-cell-type-icon material-symbols-outlined">{typeIcon}</span>}
+                {typeIcon && <span >{typeIcon}</span>}
             </div>
 
             {/* Labels */}
-            <div className="timetable-cell-labels">
-                <span className="timetable-cell-class-label">
+            <div >
+                <span >
                     {isDisposition ? 'DISP.' : (isRicevimento ? 'RICEV.' : classe)}
                 </span>
-                <span className="timetable-cell-subject-label">
+                <span >
                     {isDisposition ? 'Sostituzione' : (isRicevimento ? 'Genitori' : materia)}
                 </span>
             </div>
 
             {/* Hover Sparkle */}
-            <div className="timetable-cell-sparkle"></div>
+            <div ></div>
         </div>
     );
 };
 
 export default TimetableCell;
+
+
+
+
+
 
 

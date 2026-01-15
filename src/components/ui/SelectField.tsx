@@ -1,7 +1,9 @@
+// LEGACY - MD3 Non-compliant
 import React, { SelectHTMLAttributes } from 'react';
 import M3Typography from './M3Typography';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../theme/theme';
 
 interface SelectFieldProps extends SelectHTMLAttributes<HTMLSelectElement> {
     label: string;
@@ -23,51 +25,45 @@ const SelectField: React.FC<SelectFieldProps> = ({
     children,
     ...props
 }) => {
+    const { layers } = useTheme();
     const describedBy = error && errorMessage ? `${props.id}-error` : undefined;
 
     return (
         <div
-            style={{
-                display: 'flex',
+            style={{display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-2)',
+                gap: layers.ref.spacing['2'],
                 width: fullWidth ? '100%' : 'auto',
-                marginBottom: 'var(--md-sys-spacing-4)'
-            }}
+                marginBottom: layers.ref.spacing['4']}}
         >
             <M3Typography
                 variant="label-large"
                 as="label"
                 htmlFor={props.id}
-                style={{
-                    color: 'var(--md-sys-color-on-surface-variant)'
-                }}
+                style={{color: ' layers.sys.color.onSurfaceVariant'}}
             >
                 {label}
             </M3Typography>
             <div
-                style={{
-                    position: 'relative',
+                style={{position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
-                    backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                    border: '1px solid var(--md-sys-color-outline)',
-                    borderRadius: 'var(--md-sys-shape-corner-large)',
-                    padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                    backgroundColor: layers.sys.color.surfaceContainerHighest,
+                    border: `1px solid ${layers.sys.color.outline}`,
+                    borderRadius: layers.ref.shape.corner.large,
+                    padding: `${layers.ref.spacing['3']} ${layers.ref.spacing['4']}`,
                     transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
                     boxShadow: error
-                        ? '0 0 0 2px color-mix(in srgb, var(--md-sys-color-error) 12%, transparent)'
+                        ? `0 0 0 2px color-mix(in srgb, ${layers.sys.color.error} 12%, transparent)`
                         : 'none',
-                    borderColor: error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'
-                }}
+                    borderColor: error ? layers.sys.color.error : layers.sys.color.outline}}
             >
                 <select
                     {...props}
-                    style={{
-                        flex: 1,
+                    style={{flex: 1,
                         border: 'none',
                         backgroundColor: 'transparent',
-                        color: 'var(--md-sys-color-on-surface)',
+                        color: ' layers.sys.color.onPrimary',
                         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                         fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
@@ -75,8 +71,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                         letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                         outline: 'none',
                         appearance: 'none',
-                        cursor: 'pointer'
-                    }}
+                        cursor: 'pointer'}}
                     aria-label={label}
                     aria-invalid={error ? 'true' : undefined}
                     aria-describedby={describedBy}
@@ -84,32 +79,28 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     {children}
                 </select>
                 <span
-                    style={{
-                        fontFamily: 'Material Symbols Outlined',
+                    style={{fontFamily: 'Material Symbols Outlined',
                         position: 'absolute',
-                        right: 'var(--md-sys-spacing-2)',
+                        right: layers.ref.spacing['2'],
                         top: '50%',
                         transform: 'translateY(-50%)',
                         pointerEvents: 'none',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        fontSize: 'var(--md-sys-spacing-4)',
-                        transition: 'color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)'
-                    }}
+                        color: ' layers.sys.color.onSurfaceVariant',
+                        fontSize: layers.ref.spacing['4'],
+                        transition: 'color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)'}}
                     aria-hidden="true"
                 >
                     expand_more
                 </span>
                 {error && (
                     <span
-                        style={{
-                            fontFamily: 'Material Symbols Outlined',
+                        style={{fontFamily: 'Material Symbols Outlined',
                             position: 'absolute',
-                            left: 'var(--md-sys-spacing-2)',
+                            left: layers.ref.spacing['2'],
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-spacing-4)'
-                        }}
+                            color: 'layers.sys.color.error',
+                            fontSize: layers.ref.spacing['4']}}
                         aria-hidden="true"
                     >
                         error
@@ -119,28 +110,22 @@ const SelectField: React.FC<SelectFieldProps> = ({
             {error && errorMessage && (
                 <div
                     id={describedBy}
-                    style={{
-                        display: 'flex',
+                    style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-1)',
-                        marginTop: 'var(--md-sys-spacing-1)'
-                    }}
+                        gap: layers.ref.spacing['1'],
+                        marginTop: layers.ref.spacing['1']}}
                 >
                     <span
-                        style={{
-                            fontFamily: 'Material Symbols Outlined',
-                            color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-typescale-body-small-font-size)'
-                        }}
+                        style={{fontFamily: 'Material Symbols Outlined',
+                            color: 'layers.sys.color.error',
+                            fontSize: 'var(--md-sys-typescale-body-small-font-size)'}}
                         aria-hidden="true"
                     >
                         error
                     </span>
                     <M3Typography
                         variant="body-small"
-                        style={{
-                            color: 'var(--md-sys-color-error)'
-                        }}
+                        style={{color: 'layers.sys.color.error'}}
                     >
                         {errorMessage}
                     </M3Typography>
@@ -151,5 +136,10 @@ const SelectField: React.FC<SelectFieldProps> = ({
 };
 
 export default SelectField;
+
+
+
+
+
 
 

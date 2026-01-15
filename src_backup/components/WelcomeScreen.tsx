@@ -1,0 +1,219 @@
+// LEGACY - MD3 Non-compliant
+import React, { useState } from 'react';
+import Logo from './Logo';
+import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
+import { ActionTile, InfoCard, TextField, SelectField, M3Button, M3IconButton } from './ui';
+import { useTheme } from '../theme/theme';
+
+interface WelcomeScreenProps {
+  onSetupComplete: (data: { name: string; schoolType?: string; firstClass?: string; isGuided: boolean }) => void;
+}
+
+const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
+  const { layers } = useTheme();
+  const [mode, setMode] = useState<'selection' | 'wizard' | 'quick'>('selection');
+  
+  // Wizard State
+  const [step, setStep] = useState(1);
+  const [name, setName] = useState('');
+  const [schoolType, setSchoolType] = useState(Object.keys(SCHOOL_TYPES_DISCIPLINES)[0]);
+  const [className, setClassName] = useState('');
+
+  const handleWizardSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSetupComplete({ 
+        name, 
+        schoolType, 
+        firstClass: className, 
+        isGuided: true 
+    });
+  };
+
+  const handleQuickSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      if (name.trim()) {
+          onSetupComplete({ 
+              name, 
+              isGuided: false 
+          });
+      }
+  };
+
+  const renderSelection = () => (
+      <div style={{width: "100%", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.colors.outline", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
+          <div style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.colors.outline"}}>
+            <Logo />
+          </div>
+          <h1 style={{fontWeight: "900", letterSpacing: "-0.005em", marginBottom: layers.ref.spacing['8']}}>Benvenuto, Docente</h1>
+          <p style={{ fontWeight: "900", textTransform: "uppercase" }}>
+              Configuriamo il tuo spazio di lavoro
+          </p>
+
+          <div style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6'], width: "100%"}}>
+              <ActionTile 
+                title="Wizard Guidato"
+                subtitle="Passo dopo passo"
+                icon="auto_fix_high"
+                variant="primary"
+                onClick={() => setMode('wizard')}
+ style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+              />
+              <ActionTile 
+                title="Accesso Rapido"
+                subtitle="Configurazione manuale"
+                icon="bolt"
+                variant="surface"
+                onClick={() => setMode('quick')}
+ style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+              />
+          </div>
+          
+          <InfoCard 
+            title="I tuoi dati sono al sicuro"
+            description="Tutto ciò che inserisci rimane salvato localmente sul tuo dispositivo. Nessun dato personale viene inviato ai nostri server."
+            icon="security"
+            variant="surface"
+
+          />
+      </div>
+  );
+
+  const renderWizard = () => (
+    <form onSubmit={handleWizardSubmit} style={{width: "100%", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.colors.outline"}}>
+        <div style={{ width: "100%" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} />
+                <span style={{fontWeight: "900", color: "layers.sys.colors.primary", textTransform: "uppercase"}}>Passo {step} di 3</span>
+                <div style={{ width: ref.spacing[48] }}></div>
+            </div>
+            
+            {step === 1 && (
+                <div>
+                    <TextField 
+                        id="wizard-name"
+                        label="Come ti chiami?"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Es. Prof. Rossi"
+                        autoFocus
+
+                    />
+                </div>
+            )}
+
+            {step === 2 && (
+                <div>
+                    <SelectField 
+                        id="wizard-school-type"
+                        label="Tipo di Scuola"
+                        value={schoolType}
+                        onChange={(e) => setSchoolType(e.target.value)}
+
+                    >
+                        {Object.keys(SCHOOL_TYPES_DISCIPLINES).map(t => (
+                            <option key={t} value={t}>{t}</option>
+                        ))}
+                    </SelectField>
+                    <p style={{fontWeight: "900", marginTop: layers.ref.spacing['4'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], textTransform: "uppercase", letterSpacing: "0.1em"}}>Servirà per suggerire le materie corrette.</p>
+                </div>
+            )}
+
+            {step === 3 && (
+                <div>
+                    <TextField 
+                        id="wizard-class-name"
+                        label="La tua classe principale"
+                        value={className}
+                        onChange={(e) => setClassName(e.target.value.toUpperCase())}
+                        placeholder="Es. 3A"
+                        autoFocus
+                        containerClassName="uppercase"
+
+                    />
+                </div>
+            )}
+        </div>
+
+        <div style={{ width: "100%" }}>
+            {step < 3 ? (
+                <M3Button 
+                    type="button" 
+                    variant="filled"
+ style={{ width: "100%", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase" }}
+                    onClick={() => setStep(s => s + 1)} 
+                    disabled={(step === 1 && !name) || (step === 3 && !className)}
+                    aria-label="Continua"
+                >
+                    Continua
+                    <span  style={{ fontWeight: "900", fontSize: "1.25rem", marginLeft: "0.75rem" }}>arrow_forward</span>
+                </M3Button>
+            ) : (
+                <M3Button 
+                    type="submit" 
+                    variant="filled"
+ style={{ width: "100%", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase" }}
+                    disabled={!className}
+                    aria-label="Inizia Ora"
+                >
+                    Inizia Ora
+                    <span  style={{ fontWeight: "900", fontSize: "1.25rem", marginLeft: "0.75rem" }}>check</span>
+                </M3Button>
+            )}
+        </div>
+    </form>
+  );
+
+  const renderQuick = () => (
+      <form onSubmit={handleQuickSubmit} style={{width: "100%", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.colors.outline", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
+            <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => setMode('selection')} />
+          
+          <div style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.colors.outline"}}>
+            <Logo />
+          </div>
+          
+          <h1 style={{fontWeight: "900", letterSpacing: "-0.005em", marginBottom: layers.ref.spacing['8']}}>Accesso Rapido</h1>
+          <p style={{ fontWeight: "900", textTransform: "uppercase" }}>Configurazione manuale</p>
+          
+          <div style={{ width: "100%" }}>
+            <TextField 
+                id="quick-name"
+                label="Nome Docente"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Es. Prof. Rossi"
+                required
+                autoFocus
+
+            />
+          </div>
+
+            <M3Button 
+                type="submit" 
+                variant="filled" 
+ style={{ width: "100%", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase" }} 
+                aria-label="Entra nella Dashboard"
+            >
+                Entra nella Dashboard
+                <span  style={{ fontWeight: "900", fontSize: "1.25rem", marginLeft: "0.75rem" }}>login</span>
+            </M3Button>
+      </form>
+  );
+
+  return (
+    <div style={{display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "layers.sys.colors.surface", position: "fixed", top: 0, right: 0, bottom: 0, left: 0, overflow: "hidden"}}>
+        {/* Aura Ornaments */}
+        <div style={{borderRadius: ref.spacing[9999], position: "absolute", top: "-10%", left: "-10%", width: "40%", height: "40%", background: "layers.sys.colors.primary", opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite"}}></div>
+        <div style={{borderRadius: ref.spacing[9999], position: "absolute", bottom: "-10%", right: "-10%", width: "40%", height: "40%", background: "layers.sys.colors.secondary", opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite 1s"}}></div>
+        <div style={{borderRadius: ref.spacing[9999], position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "60%", height: "60%", background: "layers.sys.colors.tertiary", opacity: 0.05, filter: "blur(150px)"}}></div>
+
+        {mode === 'selection' && renderSelection()}
+        {mode === 'wizard' && renderWizard()}
+        {mode === 'quick' && renderQuick()}
+    </div>
+  );
+};
+
+export default WelcomeScreen;
+
+
+

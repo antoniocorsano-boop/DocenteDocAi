@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState } from 'react';
 import { QuestionType } from '../types';
@@ -53,7 +54,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
             title="Generatore Verifiche"
             headline="Crea una verifica personalizzata con AI"
         >
-            <M3DialogContent className="test-generator-modal-content">
+            <M3DialogContent >
                 <TextField
                     id="test-topic-input"
                     label="Argomento Specifico"
@@ -62,21 +63,21 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                     placeholder="Es. Rivoluzione Francese"
                 />
 
-                <div className="test-generator-modal-form-section">
-                    <label className="test-generator-modal-difficulty-label">Difficoltà</label>
+                <div >
+                    <label >Difficoltà</label>
                     <TabGroup
                         tabs={[{ id: 'easy', label: 'Base' }, { id: 'medium', label: 'Intermedio' }, { id: 'hard', label: 'Avanzato' }]}
                         activeTab={difficulty}
                         onTabChange={(id) => setDifficulty(id as 'easy' | 'medium' | 'hard')}
                         variant="primary"
-                        className="test-generator-modal-difficulty-tabs"
+                        
                     />
                 </div>
 
-                <div className="test-generator-modal-question-count-section">
-                    <div className="test-generator-modal-question-count-header">
-                        <label htmlFor="test-qcount-slider" className="test-generator-modal-question-count-label">Numero Quesiti</label>
-                        <span className="test-generator-modal-question-count-value">{questionCount}</span>
+                <div >
+                    <div >
+                        <label htmlFor="test-qcount-slider" >Numero Quesiti</label>
+                        <span >{questionCount}</span>
                     </div>
                     <input
                         id="test-qcount-slider"
@@ -86,13 +87,13 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                         max="20"
                         value={questionCount}
                         onChange={e => setQuestionCount(parseInt(e.target.value))}
-                        className="test-generator-modal-question-count-input"
+                        
                     />
                 </div>
 
-                <div className="test-generator-modal-question-types-section">
-                    <label className="test-generator-modal-question-types-label">Tipi di Domande</label>
-                    <div className="test-generator-modal-question-types-grid">
+                <div >
+                    <label >Tipi di Domande</label>
+                    <div >
                         <label className={`test-generator-modal-question-type-chip ${questionTypes.includes('multiple_choice') ? 'selected' : ''}`}>
                             <input
                                 type="checkbox"
@@ -100,8 +101,8 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                                 checked={questionTypes.includes('multiple_choice')}
                                 onChange={() => toggleQuestionType('multiple_choice')}
                             />
-                            {questionTypes.includes('multiple_choice') && <span className="test-generator-modal-question-type-icon material-symbols-outlined">check</span>}
-                            <span className="test-generator-modal-question-type-label">Scelta Multipla</span>
+                            {questionTypes.includes('multiple_choice') && <span >check</span>}
+                            <span >Scelta Multipla</span>
                         </label>
 
                         <label className={`test-generator-modal-question-type-chip ${questionTypes.includes('true_false') ? 'selected' : ''}`}>
@@ -111,13 +112,13 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                                 checked={questionTypes.includes('true_false')}
                                 onChange={() => toggleQuestionType('true_false')}
                             />
-                            {questionTypes.includes('true_false') && <span className="test-generator-modal-question-type-icon material-symbols-outlined">check</span>}
-                            <span className="test-generator-modal-question-type-label">Vero/Falso</span>
+                            {questionTypes.includes('true_false') && <span >check</span>}
+                            <span >Vero/Falso</span>
                         </label>
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions className="test-generator-modal-actions">
+            <M3DialogActions >
                 <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
                 <M3Button 
                     variant="filled" 
@@ -134,5 +135,10 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
 };
 
 export default TestGeneratorModal;
+
+
+
+
+
 
 

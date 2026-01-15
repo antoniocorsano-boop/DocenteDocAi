@@ -1,3 +1,4 @@
+import { renderWithM3Theme } from '../test-utils';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -12,12 +13,12 @@ const mockUdas = [
     startDate: '2025-09-01',
     endDate: '2025-09-10',
     classe: '1A',
-    introduction: '',
+    introduction: ',
     phases: [],
-    finalProduct: '',
-    evaluation: ''
+    finalProduct: ',
+    evaluation: '
   }
-];
+'];
 
 const mockEvents: any[] = [];
 
@@ -39,18 +40,23 @@ const defaultProps: any = {
 
 describe('ProgettazioneHub Gantt integration', () => {
   it('renders UDA bar with correct title', () => {
-    render(<ProgettazioneHub {...defaultProps} />);
+    renderWithM3Theme(<ProgettazioneHub {...defaultProps} />);
     expect(screen.getByText('Unità 1')).toBeInTheDocument();
   });
 
   it('click on UDA bar opens UDA detail modal', async () => {
     const onSave = vi.fn();
-    render(<ProgettazioneHub {...defaultProps} onSaveUda={onSave} />);
+    renderWithM3Theme(<ProgettazioneHub {...defaultProps} onSaveUda={onSave} />);
     const bar = await screen.findByText('Unità 1');
     fireEvent.click(bar);
     const modalHeading = await screen.findByRole('heading', { name: /Unità 1/i });
     expect(modalHeading).toBeInTheDocument();
   });
 });
+
+
+
+
+
 
 

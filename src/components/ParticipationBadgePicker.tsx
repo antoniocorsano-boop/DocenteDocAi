@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 /* M3Expressive - ParticipationBadgePicker Component */
 
@@ -7,7 +8,7 @@ import { PARTICIPATION_BADGES } from '../constants';
 
 interface ParticipationBadgePickerProps {
     anchorEl: HTMLElement | null;
-    onSelect: (badgeId: ParticipationBadge['id']) => void;
+    onSelect: (badgeId: ParticipationBadge['id]) => void;
     onClose: () => void;
 }
 
@@ -34,19 +35,19 @@ const ParticipationBadgePicker: React.FC<ParticipationBadgePickerProps> = ({ anc
     }
 
     return (
-        <div ref={popoverRef} className="participation-badge-picker-container m3-popup-menu" style={style}>
-            <p className="participation-badge-picker-title">Assegna Badge</p>
-            <div className="participation-badge-picker-grid">
+        <div ref={popoverRef}  style={style}>
+            <p >Assegna Badge</p>
+            <div >
                 {PARTICIPATION_BADGES.map(badge => (
                     <button 
                         key={badge.id}
-                        className="participation-badge-picker-button"
+                        
                         onClick={() => onSelect(badge.id)}
                     >
-                        <span className="participation-badge-picker-icon material-symbols-outlined" style={{ color: badge.color }}>
+                        <span  style={{ color: badge.color }}>
                             {badge.icon}
                         </span>
-                        <span className="participation-badge-picker-label">{badge.label}</span>
+                        <span >{badge.label}</span>
                     </button>
                 ))}
             </div>
@@ -55,5 +56,10 @@ const ParticipationBadgePicker: React.FC<ParticipationBadgePickerProps> = ({ anc
 };
 
 export default ParticipationBadgePicker;
+
+
+
+
+
 
 

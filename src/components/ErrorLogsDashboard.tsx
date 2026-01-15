@@ -1,14 +1,17 @@
+// LEGACY - MD3 Non-compliant
 import React, { useEffect, useState } from 'react';
 import { errorLogger, ErrorLog } from '../services/errorLogger';
+import { useTheme } from '../theme/theme';
 
 interface ErrorLogsDashboardProps {
   onClose?: () => void;
 }
 
 const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
+  const { layers } = useTheme();
   const [logs, setLogs] = useState<ErrorLog[]>([]);
-  const [filterType, setFilterType] = useState<ErrorLog['type'] | 'all'>('all');
-  const [filterSeverity, setFilterSeverity] = useState<ErrorLog['severity'] | 'all'>('all');
+  const [filterType, setFilterType] = useState<ErrorLog['type] | 'all'>('all');
+  const [filterSeverity, setFilterSeverity] = useState<ErrorLog['severity] | 'all'>('all');
   const [stats, setStats] = useState(errorLogger.getErrorStats());
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
     }
   };
 
-  const getSeverityColor = (severity: ErrorLog['severity']) => {
+  const getSeverityColor = (severity: ErrorLog['severity]) => {
     switch (severity) {
       case 'error':
         return 'text-error bg-error/10';
@@ -53,8 +56,8 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
     }
   };
 
-  const getTypeIcon = (type: ErrorLog['type']) => {
-    const icons: Record<ErrorLog['type'], string> = {
+  const getTypeIcon = (type: ErrorLog['type]) => {
+    const icons: Record<ErrorLog['type], string> = {
       navigation: 'directions',
       ai: 'psychology',
       analytics: 'analytics',
@@ -66,60 +69,60 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="max-w-6xl" style={{ padding: "var(--md-sys-spacing-6)", marginLeft: "auto", marginRight: "auto" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--md-sys-spacing-6)" }}>
-        <h1 className="m3-headline-medium">Error Logs Dashboard</h1>
+    <div  style={{padding: layers.ref.spacing['6'], marginLeft: "auto", marginRight: "auto"}}>
+      <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: layers.ref.spacing['6']}}>
+        <h1 >Error Logs Dashboard</h1>
         {onClose && (
-          <button onClick={onClose} className="material-symbols-outlined text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]" style={{ cursor: "pointer" }}>
+          <button onClick={onClose} style={{ color: sys.colors.[var(--md-sys-typescale-headline-small)] }} style={{ cursor: "pointer" }}>
             close
           </button>
         )}
       </div>
 
       {/* Stats Cards */}
-      <div className="md:grid-cols-4" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-6)" }}>
-        <div className="rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-          <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Total Errors</div>
-          <div className="m3-headline-medium" style={{ fontWeight: "bold", color: "var(--md-sys-color-primary)" }}>{stats.total}</div>
+      <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['6']}}>
+        <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.onPrimary }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+          <div style={{ color:  layers.sys.color.onSurfaceVariant }}>Total Errors</div>
+          <div  style={{fontWeight: "bold", color: "layers.sys.color.primary"}}>{stats.total}</div>
         </div>
-        <div className="rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-          <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Errors</div>
-          <div className="m3-headline-medium" style={{ fontWeight: "bold", color: "var(--md-sys-color-error)" }}>{stats.bySeverity['error'] || 0}</div>
+        <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.onPrimary }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+          <div style={{ color:  layers.sys.color.onSurfaceVariant }}>Errors</div>
+          <div  style={{fontWeight: "bold", color: "layers.sys.color.error"}}>{stats.bySeverity['error] || 0}</div>
         </div>
-        <div className="rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-          <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Warnings</div>
-          <div className="m3-headline-medium" style={{ fontWeight: "bold", color: "var(--md-sys-color-warning)" }}>{stats.bySeverity['warning'] || 0}</div>
+        <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.onPrimary }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+          <div style={{ color:  layers.sys.color.onSurfaceVariant }}>Warnings</div>
+          <div  style={{fontWeight: "bold", color: "layers.sys.color.warning"}}>{stats.bySeverity['warning] || 0}</div>
         </div>
-        <div className="rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container)] border-[var(--md-sys-color-outline-variant)]" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-          <div className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Infos</div>
-          <div className="m3-headline-medium" style={{ fontWeight: "bold", color: "var(--md-sys-color-primary)" }}>{stats.bySeverity['info'] || 0}</div>
+        <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.onPrimary }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+          <div style={{ color:  layers.sys.color.onSurfaceVariant }}>Infos</div>
+          <div  style={{fontWeight: "bold", color: "layers.sys.color.primary"}}>{stats.bySeverity['info] || 0}</div>
         </div>
       </div>
 
       {/* Type Breakdown */}
-      <div style={{ marginBottom: "var(--md-sys-spacing-6)" }}>
-        <h2 className="m3-title-medium" style={{ marginBottom: "var(--md-sys-spacing-6)" }}>By Type</h2>
-        <div className="md:grid-cols-3" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-6)" }}>
+      <div style={{marginBottom: layers.ref.spacing['6']}}>
+        <h2  style={{marginBottom: layers.ref.spacing['6']}}>By Type</h2>
+        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6']}}>
           {Object.entries(stats.byType).map(([type, count]) => (
-            <div key={type} className="rounded-[var(--md-sys-shape-corner-small)] bg-[var(--md-sys-color-surface-container-low)]" style={{ padding: "var(--md-sys-spacing-6)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                <span className="material-symbols-outlined m3-label-large">{getTypeIcon(type as ErrorLog['type'])}</span>
+            <div key={type} style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLow }} style={{padding: layers.ref.spacing['6']}}>
+              <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                <span >{getTypeIcon(type as ErrorLog['type])}</span>
                 <span style={{ textTransform: "capitalize" }}>{type}</span>
               </div>
-              <div className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]" style={{ fontWeight: "bold", color: "var(--md-sys-color-primary)", marginTop: "var(--md-sys-spacing-4)" }}>{count}</div>
+              <div style={{ color: sys.colors.[var(--md-sys-typescale-headline-small)] }} style={{fontWeight: "bold", color: "layers.sys.color.primary", marginTop: layers.ref.spacing['4']}}>{count}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Controls */}
-      <div style={{ display: "flex", gap: "var(--md-sys-spacing-6)", marginBottom: "var(--md-sys-spacing-6)", flexWrap: "wrap" }}>
-        <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}>
-          <label className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Tipo:</label>
+      <div style={{display: "flex", gap: layers.ref.spacing['6'], marginBottom: layers.ref.spacing['6'], flexWrap: "wrap"}}>
+        <div style={{display: "flex", gap: layers.ref.spacing['8']}}>
+          <label style={{ color:  layers.sys.color.onSurfaceVariant }}>Tipo:</label>
           <select
             value={filterType}
-            onChange={(e) => setFilterType((e.target as HTMLSelectElement).value as ErrorLog['type'] | 'all')}
-            className="px-3 py-1 border-[var(--md-sys-color-outline-variant)]" style={{ borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)" }}
+            onChange={(e) => setFilterType((e.target as HTMLSelectElement).value as ErrorLog['type] | 'all')}
+             style={{borderRadius: "0.375rem", border: "1px solid layers.sys.color.outline", backgroundColor: "layers.sys.color.surface"}}
           >
             <option value="all">Tutti</option>
             <option value="navigation">Navigation</option>
@@ -131,12 +134,12 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           </select>
         </div>
 
-        <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}>
-          <label className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Severity:</label>
+        <div style={{display: "flex", gap: layers.ref.spacing['8']}}>
+          <label style={{ color:  layers.sys.color.onSurfaceVariant }}>Severity:</label>
           <select
             value={filterSeverity}
-            onChange={(e) => setFilterSeverity((e.target as HTMLSelectElement).value as ErrorLog['severity'] | 'all')}
-            className="px-3 py-1 border-[var(--md-sys-color-outline-variant)]" style={{ borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)" }}
+            onChange={(e) => setFilterSeverity((e.target as HTMLSelectElement).value as ErrorLog['severity] | 'all')}
+             style={{borderRadius: "0.375rem", border: "1px solid layers.sys.color.outline", backgroundColor: "layers.sys.color.surface"}}
           >
             <option value="all">Tutti</option>
             <option value="error">Error</option>
@@ -147,62 +150,62 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
         <button
           onClick={handleExport}
-          className="py-1 m3-label-large" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "0.375rem", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontWeight: "500", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}
+           style={{paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: "0.375rem", backgroundColor: "layers.sys.color.primary", color: "layers.sys.color.on-primary", fontWeight: "500", display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}
         >
-          <span className="material-symbols-outlined m3-label-large">download</span>
+          <span >download</span>
           Export JSON
         </button>
 
         <button
           onClick={handleClearLogs}
-          className="py-1 bg-error text-on-error m3-label-large" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "0.375rem", fontWeight: "500", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}
+          style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error }} style={{paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: "0.375rem", fontWeight: "500", display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}
         >
-          <span className="material-symbols-outlined m3-label-large">delete</span>
+          <span >delete</span>
           Clear All
         </button>
       </div>
 
       {/* Logs Table */}
-      <div className="rounded-[var(--md-sys-shape-corner-medium)] border-[var(--md-sys-color-outline-variant)] overflow-hidden" style={{ border: "1px solid var(--md-sys-color-outline)" }}>
+      <div style={{ borderRadius: layers.ref.shape.corner.large }} style={{border: "1px solid layers.sys.color.outline"}}>
         <div style={{ overflowX: "auto" }}>
-          <table className="m3-body-small" style={{ width: "100%" }}>
-            <thead className="bg-[var(--md-sys-color-surface-container-high)]">
+          <table  style={{ width: "100%" }}>
+            <thead style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh }}>
               <tr>
-                <th className="font-semibold" style={{ textAlign: "left", padding: "var(--md-sys-spacing-6)" }}>Time</th>
-                <th className="font-semibold" style={{ textAlign: "left", padding: "var(--md-sys-spacing-6)" }}>Type</th>
-                <th className="font-semibold" style={{ textAlign: "left", padding: "var(--md-sys-spacing-6)" }}>Severity</th>
-                <th className="font-semibold" style={{ textAlign: "left", padding: "var(--md-sys-spacing-6)" }}>Message</th>
-                <th className="font-semibold" style={{ textAlign: "left", padding: "var(--md-sys-spacing-6)" }}>Context</th>
+                <th  style={{textAlign: "left", padding: layers.ref.spacing['6']}}>Time</th>
+                <th  style={{textAlign: "left", padding: layers.ref.spacing['6']}}>Type</th>
+                <th  style={{textAlign: "left", padding: layers.ref.spacing['6']}}>Severity</th>
+                <th  style={{textAlign: "left", padding: layers.ref.spacing['6']}}>Message</th>
+                <th  style={{textAlign: "left", padding: layers.ref.spacing['6']}}>Context</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-outline-variant">
+            <tbody >
               {filteredLogs.length > 0 ? (
                 filteredLogs.map((log) => (
-                  <tr key={log.id} className="hover:bg-[var(--md-sys-color-surface-container-low)]" style={{ transition: "color 300ms" }}>
-                    <td className="m3-label-small" style={{ padding: "var(--md-sys-spacing-6)", whiteSpace: "nowrap" }}>
+                  <tr key={log.id}  style={{ transition: "color 300ms" }}>
+                    <td  style={{padding: layers.ref.spacing['6'], whiteSpace: "nowrap"}}>
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </td>
-                    <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
-                      <span className="py-1 bg-primary/10 m3-label-small" style={{ display: "inline-flex", alignItems: "center", gap: "var(--md-sys-spacing-4)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "0.375rem", color: "var(--md-sys-color-primary)", fontWeight: "500" }}>
-                        <span className="material-symbols-outlined m3-label-small">
+                    <td style={{padding: layers.ref.spacing['5']}}>
+                      <span style={{ backgroundColor: sys.colors.primary/10 }} style={{display: "inline-flex", alignItems: "center", gap: layers.ref.spacing['4'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: "0.375rem", color: "layers.sys.color.primary", fontWeight: "500"}}>
+                        <span >
                           {getTypeIcon(log.type)}
                         </span>
                         {log.type}
                       </span>
                     </td>
-                    <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
+                    <td style={{padding: layers.ref.spacing['5']}}>
                       <span className={`inline-flex items-center gap-4 px-4 py-1 rounded m3-label-small font-medium capitalize ${getSeverityColor(log.severity)}`}>
                         {log.severity}
                       </span>
                     </td>
-                    <td className="max-w-xs overflow-hidden text-ellipsis" style={{ padding: "var(--md-sys-spacing-6)" }}>
+                    <td style={{ color: sys.colors.ellipsis }} style={{padding: layers.ref.spacing['6']}}>
                       <span title={log.message}>{log.message}</span>
                     </td>
-                    <td style={{ padding: 'var(--md-sys-spacing-5)' }}>
+                    <td style={{padding: layers.ref.spacing['5']}}>
                       {log.context && (
-                        <details className="m3-label-small">
-                          <summary className="hover:underline" style={{ cursor: "pointer", color: "var(--md-sys-color-primary)" }}>View</summary>
-                          <pre className="bg-[var(--md-sys-color-surface-container-low)] m3-label-small max-h-24" style={{ marginTop: "var(--md-sys-spacing-4)", padding: "var(--md-sys-spacing-8)", borderRadius: "0.375rem", overflow: "auto" }}>
+                        <details >
+                          <summary  style={{cursor: "pointer", color: "layers.sys.color.primary"}}>View</summary>
+                          <pre style={{ backgroundColor:  layers.sys.color.surfaceContainerLow }} style={{marginTop: layers.ref.spacing['4'], padding: layers.ref.spacing['8'], borderRadius: "0.375rem", overflow: "auto"}}>
                             {JSON.stringify(log.context, null, 2)}
                           </pre>
                         </details>
@@ -212,7 +215,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="text-[var(--md-sys-color-on-surface)]-variant" style={{ padding: "var(--md-sys-spacing-6)", textAlign: "center" }}>
+                  <td colSpan={5} style={{ color:  layers.sys.color.onSurfaceVariant }} style={{padding: layers.ref.spacing['6'], textAlign: "center"}}>
                     Nessun log trovato
                   </td>
                 </tr>
@@ -224,9 +227,9 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
       {/* Most Recent Error */}
       {stats.mostRecent && (
-        <div className="rounded-[var(--md-sys-shape-corner-medium)] bg-error/10 border-error/20" style={{ marginTop: "var(--md-sys-spacing-6)", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-          <div className="m3-body-small font-semibold" style={{ color: "var(--md-sys-color-error)", marginBottom: "var(--md-sys-spacing-8)" }}>Most Recent Error</div>
-          <div className="m3-body-small">
+        <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor: sys.colors.error/10 }} style={{marginTop: layers.ref.spacing['6'], padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+          <div  style={{color: "layers.sys.color.error", marginBottom: layers.ref.spacing['8']}}>Most Recent Error</div>
+          <div >
             <div>
               <strong>Time:</strong> {new Date(stats.mostRecent.timestamp).toLocaleString()}
             </div>
@@ -237,9 +240,9 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
               <strong>Message:</strong> {stats.mostRecent.message}
             </div>
             {stats.mostRecent.stack && (
-              <details style={{ marginTop: "var(--md-sys-spacing-4)" }}>
-                <summary className="hover:underline" style={{ cursor: "pointer", color: "var(--md-sys-color-primary)" }}>Stack Trace</summary>
-                <pre className="bg-[var(--md-sys-color-surface-container-low)] m3-label-small max-h-32" style={{ marginTop: "var(--md-sys-spacing-4)", padding: "var(--md-sys-spacing-8)", borderRadius: "0.375rem", overflow: "auto" }}>
+              <details style={{marginTop: layers.ref.spacing['4']}}>
+                <summary  style={{cursor: "pointer", color: "layers.sys.color.primary"}}>Stack Trace</summary>
+                <pre style={{ backgroundColor:  layers.sys.color.surfaceContainerLow }} style={{marginTop: layers.ref.spacing['4'], padding: layers.ref.spacing['8'], borderRadius: "0.375rem", overflow: "auto"}}>
                   {stats.mostRecent.stack}
                 </pre>
               </details>
@@ -252,6 +255,11 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 };
 
 export default ErrorLogsDashboard;
+
+
+
+
+
 
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { ReactNode } from 'react';
 
 interface Props {
@@ -10,29 +11,30 @@ interface Props {
  */
 const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> = ({ error, resetErrorBoundary }) => {
   const handleHardReset = () => {
+  const { layers } = useTheme();
     if (window.confirm("Questo cancellerà la cache locale per ripristinare l'app. I dati salvati su Drive sono al sicuro. Continuare?")) {
       localStorage.clear();
       window.location.reload();
     }
   };
   return (
-    <div className="bg-[var(--md-sys-color-surface-container-low)]" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "var(--md-sys-spacing-6)" }}>
-      <div className="max-w-md rounded-[var(--md-sys-shape-corner-extra-large)] shadow-[var(--md-sys-elevation-level4)] border-[var(--md-sys-color-outline-variant)]/20 aura-glass" style={{ width: "100%", backgroundColor: "var(--md-sys-color-surface)", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", textAlign: "center" }}>
-        <div className="text-on-error-container" style={{ width: "4rem", height: "4rem", backgroundColor: "var(--md-sys-color-error-container)", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: "var(--md-sys-spacing-6)" }}>
-          <span className="material-symbols-outlined text-4xl">dizzy</span>
+    <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow }} style={{minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: layers.ref.spacing['6']}}>
+      <div style={{ borderRadius: layers.ref.shape.corner.large }} style={{width: "100%", backgroundColor: "layers.sys.color.surface", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline", textAlign: "center"}}>
+        <div style={{ color: sys.colors.on-error-container }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.error-container", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: layers.ref.spacing['6']}}>
+          <span style={{ color: sys.colors.4xl }}>dizzy</span>
         </div>
-        <h1 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900", marginBottom: "var(--md-sys-spacing-2)" }}>Qualcosa è andato storto</h1>
-        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ marginBottom: "var(--md-sys-spacing-6)" }}>
+        <h1 style={{ color: sys.colors.[var(--md-sys-typescale-headline-small)], color:  layers.sys.color.onPrimary }} style={{fontWeight: "900", marginBottom: layers.ref.spacing['2']}}>Qualcosa è andato storto</h1>
+        <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color:  layers.sys.color.onSurfaceVariant }} style={{marginBottom: layers.ref.spacing['6']}}>
           Si è verificato un errore imprevisto nell'interfaccia. Non preoccuparti, i tuoi dati sono al sicuro nel database locale.
         </p>
-        <div className="bg-[var(--md-sys-color-surface-container-high)] rounded-[var(--md-sys-shape-corner-medium)] overflow-hidden" style={{ padding: "var(--md-sys-spacing-4)", textAlign: "left", marginBottom: "var(--md-sys-spacing-6)" }}>
-          <p className="m3-label-small font-mono break-all m-0" style={{ color: "var(--md-sys-color-error)" }}>{error.toString()}</p>
+        <div style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['4'], textAlign: "left", marginBottom: layers.ref.spacing['6']}}>
+          <p style={{ margin: layers.ref.spacing['4'] }} style={{color: "layers.sys.color.error"}}>{error.toString()}</p>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-3)" }}>
-          <button onClick={resetErrorBoundary} className="button button-filled" style={{ width: "100%", justifyContent: "center" }}>
-            <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>refresh</span> Ricarica App
+        <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['3']}}>
+          <button onClick={resetErrorBoundary}  style={{ width: "100%", justifyContent: "center" }}>
+            <span  style={{ marginRight: "0.5rem" }}>refresh</span> Ricarica App
           </button>
-          <button onClick={handleHardReset} className="button button-text-error" style={{ width: "100%", justifyContent: "center" }}>
+          <button onClick={handleHardReset}  style={{ width: "100%", justifyContent: "center" }}>
             Reset Totale (Emergenza)
           </button>
         </div>
@@ -43,6 +45,7 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
 
 // Modern ErrorBoundary using react-error-boundary (recommended for functional React)
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
+import { useTheme } from '../theme/theme';
 
 const ErrorBoundary: React.FC<Props> = ({ children }) => {
   return (
@@ -53,5 +56,10 @@ const ErrorBoundary: React.FC<Props> = ({ children }) => {
 };
 
 export default ErrorBoundary;
+
+
+
+
+
 
 

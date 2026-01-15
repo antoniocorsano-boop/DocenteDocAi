@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3SurfaceCard from './M3SurfaceCard';
@@ -6,7 +7,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3SurfaceCard> = {
   component: M3SurfaceCard,
   title: 'UI/Cards/M3SurfaceCard',
-  tags: ['autodocs'],
+  tags: ['autodocs],
   parameters: {
     layout: 'centered',
     docs: {
@@ -18,7 +19,7 @@ const meta: Meta<typeof M3SurfaceCard> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['low', 'high'],
+      options: ['low', 'high],
       description: 'Surface elevation variant',
       table: {
         type: { summary: 'low | high' },
@@ -27,7 +28,7 @@ const meta: Meta<typeof M3SurfaceCard> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant'],
+      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant],
       description: 'Color palette for the card',
       table: {
         type: { summary: 'primary | secondary | tertiary | surface | surfaceVariant' },
@@ -200,3 +201,8 @@ export const Expressive: Story = {
     ),
   },
 };
+
+
+
+
+

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { DndContext, useDraggable, useDroppable, DragEndEvent } from '@dnd-kit/core';
 
@@ -66,7 +67,7 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
       aria-label={`Sposta UDA ${title}`}
       aria-grabbed={keyboardDrag || isDragging}
       aria-pressed={keyboardDrag}
-      className={`gantt-bar ${isDragging ? 'gantt-bar-dragging' : ''} ${keyboardDrag ? 'gantt-bar-keyboard-dragging' : ''}`}
+      className={`gantt-bar ${isDragging ? 'gantt-bar-dragging' : '} ${keyboardDrag ? 'gantt-bar-keyboard-dragging' : '}`}
       onKeyDown={handleKeyDown}
       style={{
         '--gantt-bar-transform': visualTransform,
@@ -87,7 +88,7 @@ const GanttColumn: React.FC<GanttColumnProps> = ({ col, children }) => {
   return (
     <div
       ref={setNodeRef}
-      className={`gantt-col ${isOver ? 'gantt-col-over' : ''}`}
+      className={`gantt-col ${isOver ? 'gantt-col-over' : '}`}
     >
       {children}
     </div>
@@ -107,12 +108,12 @@ export const DemoGantt: React.FC = () => {
     ],
   });
 
-  const [liveMessage, setLiveMessage] = React.useState('');
+  const [liveMessage, setLiveMessage] = React.useState(');
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && String(over.id).startsWith('col-')) {
-      const newCol = parseInt(String(over.id).replace('col-', ''));
+      const newCol = parseInt(String(over.id).replace('col-', '));
       setState((prev) => ({
         bars: prev.bars.map((b) =>
           b.id === active.id ? { ...b, col: newCol } : b
@@ -133,8 +134,8 @@ export const DemoGantt: React.FC = () => {
     <DndContext onDragEnd={handleDragEnd}>
       <div>
         {/* ARIA live region for screen reader announcements */}
-        <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">{liveMessage}</div>
-        <div className="demo-gantt-container">
+        <div role="status" aria-live="polite" aria-atomic="true" >{liveMessage}</div>
+        <div >
           {[...Array(NUM_COLS)].map((_, col) => (
             <GanttColumn key={col} col={col}>
               {state.bars.filter((b) => b.col === col).map((b) => (
@@ -149,5 +150,10 @@ export const DemoGantt: React.FC = () => {
 };
 
 export default DemoGantt;
+
+
+
+
+
 
 

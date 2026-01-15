@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 /* M3Expressive - RubricheManager Component */
 
@@ -23,14 +24,14 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
     };
 
     return (
-        <div className="rubriche-manager-page-layout">
-            <div className="rubriche-manager-header">
-            <div className="rubriche-manager-title-section">
-                <div className="rubriche-manager-title">Rubriche di Valutazione</div>
-                <p className="rubriche-manager-subtitle">Crea e gestisci le griglie di competenza.</p>
+        <div >
+            <div >
+            <div >
+                <div >Rubriche di Valutazione</div>
+                <p >Crea e gestisci le griglie di competenza.</p>
             </div>
-                <M3Button onClick={() => setEditingRubric('new')} variant="filled" className="rubriche-manager-create-button">
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add</span>
+                <M3Button onClick={() => setEditingRubric('new')} variant="filled" >
+                    <span  style={{ marginRight: "0.5rem" }}>add</span>
                     Crea Nuova
                 </M3Button>
             </div>
@@ -40,13 +41,13 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 description="Crea rubriche di valutazione riutilizzabili basate sulle tue competenze. Usale durante le interrogazioni o le prove pratiche per una valutazione oggettiva."
                 icon="schema"
                 variant="secondary"
-                className="rubriche-manager-info-card"
+                
             />
 
-            <div className="rubriche-manager-content">
-                <div className="rubriche-manager-templates-section">
+            <div >
+                <div >
                 {rubriche.length > 0 ? (
-                    <div className="rubriche-manager-grid">
+                    <div >
                         {rubriche.map(rubrica => (
                             <ActionTile 
                                 key={rubrica.id}
@@ -55,7 +56,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                                 icon="assignment"
                                 variant="surface"
                                 onClick={() => setEditingRubric(rubrica)}
-                                className="rubriche-manager-rubric-card"
+                                
                             />
                         ))}
                     </div>
@@ -69,7 +70,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 </div>
             </div>
             
-            <div className="rubriche-manager-references-section">
+            <div >
                 <SectionHeader title="Riferimenti" icon="menu_book" variant="tertiary" />
                 <ActionTile 
                     title="Descrittori Livelli"
@@ -77,7 +78,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                     icon="visibility"
                     variant="tertiary"
                     onClick={() => onNavigate('competency-levels')}
-                    className="rubriche-manager-reference-card"
+                    
                 />
             </div>
 
@@ -94,5 +95,10 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
 }
 
 export default RubricheManager;
+
+
+
+
+
 
 

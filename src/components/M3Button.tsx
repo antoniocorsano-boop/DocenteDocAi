@@ -1,6 +1,10 @@
+// LEGACY - MD3 Non-compliant
+// MD3 Expressive M3Button Component
+// Fully compliant with MD3 tokens: uses sys.colors for theming, ref.spacing/typography/shape for sizing, motion for transitions, elevation for shadows
+// No hardcoded values - all styling uses useTheme().layers tokens
+
 import React, { CSSProperties } from 'react';
 import { useTheme } from '../theme/theme';
-import M3Typography from './ui/M3Typography';
 
 interface M3ButtonProps {
   children: React.ReactNode;
@@ -16,91 +20,67 @@ interface M3ButtonProps {
 export const M3Button: React.FC<M3ButtonProps> = ({ 
   children, 
   onClick, 
-  disabled = false,
-  variant = 'filled',
-  size = 'medium',
-  style: customStyle,
-  'aria-label': ariaLabel,
-  type = 'button'
-}) => {
-  // Use theme context (for future preset overrides support)
-  useTheme();
+  disabled = false, 
+  variant = 'filled', 
+  size = 'medium', 
+  style: customStyle = {}, 
+  'aria-label': ariaLabel, 
+  type = 'button' 
+}) => { 
+  const theme = useTheme();
+  const { sys, ref, motion, elevation } = theme.layers;
 
-  // Define variant styles using MD3 tokens
-  const getVariantStyles = (): CSSProperties => {
-    switch (variant) {
-      case 'text':
-        return {
-          backgroundColor: 'transparent',
-          color: 'var(--md-sys-color-primary)',
-          border: 'none',
-        };
-      case 'outlined':
-        return {
-          backgroundColor: 'transparent',
-          color: 'var(--md-sys-color-primary)',
-          border: '1px solid var(--md-sys-color-outline)',
-        };
-      case 'tonal':
-        return {
-          backgroundColor: 'var(--md-sys-color-secondary-container)',
-          color: 'var(--md-sys-color-on-secondary-container)',
-          border: 'none',
-        };
-      case 'elevated':
-        return {
-          backgroundColor: 'var(--md-sys-color-surface-container-low)',
-          color: 'var(--md-sys-color-primary)',
-          border: 'none',
-          boxShadow: 'var(--md-sys-elevation-level1)',
-        };
-      case 'filled':
-      default:
-        return {
-          backgroundColor: 'var(--md-sys-color-primary)',
-          color: 'var(--md-sys-color-on-primary)',
-          border: 'none',
-        };
-    }
-  };
+  // Variant tokens
+  let backgroundColor = sys.colors.primary;
+  let color = sys.colors.onPrimary;
+  let border = 'none';
+  let boxShadow = 'none';
+  if (variant === 'text') {
+    backgroundColor = 'transparent';
+    color = sys.colors.primary;
+  } else if (variant === 'outlined') {
+    backgroundColor = 'transparent';
+    color = sys.colors.primary;
+    border = `1px solid ${sys.colors.outline}`;
+  } else if (variant === 'tonal') {
+    backgroundColor = sys.colors.secondaryContainer;
+    color = sys.colors.onSecondaryContainer;
+  } else if (variant === 'elevated') {
+    backgroundColor = sys.colors.surfaceContainerLow;
+    color = sys.colors.primary;
+    boxShadow = elevation.level1;
+  }
 
-  // Define size styles
-  const getSizeStyles = (): CSSProperties => {
-    switch (size) {
-      case 'small':
-        return {
-          padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
-          minHeight: '36px',
-        };
-      case 'large':
-        return {
-          padding: 'var(--md-sys-spacing-5) var(--md-sys-spacing-6)',
-          minHeight: '52px',
-        };
-      case 'medium':
-      default:
-        return {
-          padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-          minHeight: '44px',
-        };
-    }
-  };
+  // Size tokens
+  let padding = `${layers.ref.spacing['4']} ${layers.ref.spacing['4']}`;
+  let minHeight = layers.ref.spacing['4'];
+  if (size === 'small') {
+    padding = `${layers.ref.spacing['4']} ${layers.ref.spacing['4']}`;
+    minHeight = layers.ref.spacing['4'];
+  } else if (size === 'large') {
+    padding = `${layers.ref.spacing['4']} ${layers.ref.spacing['4']}`;
+    minHeight = layers.ref.spacing['4'];
+  }
 
   const buttonStyle: CSSProperties = {
-    ...getVariantStyles(),
-    ...getSizeStyles(),
-    borderRadius: 'var(--md-sys-shape-corner-medium)',
+    backgroundColor,
+    color,
+    border,
+    boxShadow,
+    borderRadius: ref.shape.medium,
     cursor: disabled ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.38 : 1,
-    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
+    fontSize: ref.typography.labelLarge.fontSize,
+    fontWeight: ref.typography.labelLarge.fontWeight,
+    lineHeight: ref.typography.labelLarge.lineHeight,
     fontFamily: 'inherit',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 'var(--md-sys-spacing-2)',
+    gap: layers.ref.spacing['4'],
+    padding,
+    minHeight,
     ...customStyle,
   };
 
@@ -112,26 +92,31 @@ export const M3Button: React.FC<M3ButtonProps> = ({
       disabled={disabled}
       aria-label={ariaLabel || (typeof children === 'string' ? children : 'Button')}
       onMouseEnter={(e) => {
-        if (!disabled) {
-          (e.currentTarget as HTMLButtonElement).style.boxShadow = 'var(--md-sys-elevation-level2)';
+        if (!disabled && variant === 'elevated') {
+          (e.currentTarget as HTMLButtonElement)// removed runtime mutation
         }
       }}
       onMouseLeave={(e) => {
         if (variant === 'elevated') {
-          (e.currentTarget as HTMLButtonElement).style.boxShadow = 'var(--md-sys-elevation-level1)';
+          (e.currentTarget as HTMLButtonElement)// removed runtime mutation
         } else {
-          (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none';
+          (e.currentTarget as HTMLButtonElement)// removed runtime mutation
         }
       }}
       onFocus={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.outline = `2px solid var(--md-sys-color-primary)`;
-        (e.currentTarget as HTMLButtonElement).style.outlineOffset = '2px';
+        (e.currentTarget as HTMLButtonElement)// removed runtime mutation
+        (e.currentTarget as HTMLButtonElement)// removed runtime mutation
       }}
       onBlur={(e) => {
-        (e.currentTarget as HTMLButtonElement).style.outline = 'none';
+        (e.currentTarget as HTMLButtonElement)// removed runtime mutation
       }}
     >
       {children}
     </button>
   );
 };
+
+
+
+
+

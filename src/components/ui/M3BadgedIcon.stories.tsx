@@ -1,10 +1,11 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import M3BadgedIcon from './M3BadgedIcon';
 
 const meta: Meta<typeof M3BadgedIcon> = {
   component: M3BadgedIcon,
   title: 'UI/Icons/M3BadgedIcon',
-  tags: ['autodocs'],
+  tags: ['autodocs],
   parameters: {
     layout: 'centered',
     docs: {
@@ -34,7 +35,7 @@ const meta: Meta<typeof M3BadgedIcon> = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'md', 'lg],
       description: 'Icon size',
       table: {
         type: { summary: 'sm | md | lg' },
@@ -45,7 +46,7 @@ const meta: Meta<typeof M3BadgedIcon> = {
       control: 'text',
       description: 'Tailwind CSS color class for icon',
       table: {
-        defaultValue: { summary: 'text-[var(--md-sys-color-on-surface)]' },
+        defaultValue: { summary: 'text-[var(--md-sys-color-onSurface)]' },
       },
     },
   },
@@ -62,7 +63,7 @@ export const WithNumericBadge: Story = {
     icon: 'notifications',
     badge: 5,
     size: 'md',
-    color: 'text-[var(--md-sys-color-on-surface)]',
+    color: 'text-[var(--md-sys-color-onSurface)]',
   },
 };
 
@@ -125,3 +126,8 @@ export const WarningBadge: Story = {
     color: 'text-[var(--md-sys-color-error)]',
   },
 };
+
+
+
+
+

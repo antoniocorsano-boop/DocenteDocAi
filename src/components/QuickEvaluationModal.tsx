@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 // M3Expressive: QuickEvaluationModal - Quick student evaluation modal with M3 tokens
 import React, { useState } from 'react';
@@ -76,10 +77,10 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     const selectedCompetenza = settings.competenze.find(c => c.id === selectedCompetenzaId);
 
     const renderVotoTab = () => (
-        <div className="quick-evaluation-modal-content">
+        <div >
             <div>
-                <label className="quick-evaluation-modal-label">Tipo Prova</label>
-                <div className="quick-evaluation-modal-test-type-grid">
+                <label >Tipo Prova</label>
+                <div >
                     {EVALUATION_TYPES.map(t => (
                         <M3ChoiceCard
                             key={t}
@@ -87,13 +88,13 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                             label={t}
                             onClick={() => setTipo(t)}
                             selected={tipo === t}
-                            className="quick-evaluation-modal-choice-card"
+                            
                         />
                     ))}
                 </div>
             </div>
             
-            <div className="quick-evaluation-modal-form-grid">
+            <div >
                 <SelectField
                     id="voto"
                     label="Voto / Giudizio"
@@ -124,7 +125,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     );
     
     const renderCompetenzaTab = () => (
-        <div className="quick-evaluation-modal-content">
+        <div >
             <SelectField
                 id="competenza"
                 label="Competenza"
@@ -136,11 +137,11 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
 
             {selectedCompetenza && (
                 <div>
-                    <label className="quick-evaluation-modal-label">Livello Raggiunto</label>
-                    <div className="quick-evaluation-modal-competency-levels">
+                    <label >Livello Raggiunto</label>
+                    <div >
                         {selectedCompetenza.livelli.map(level => (
                             <label key={level.id} className={`quick-evaluation-modal-level-option ${selectedLevelId === level.id ? 'selected' : ''}`}>
-                                <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)} className="quick-evaluation-modal-level-radio" required />
+                                <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)}  required />
                                 <span className={`quick-evaluation-modal-level-text ${selectedLevelId === level.id ? 'selected' : ''}`}>{level.descrizione}</span>
                             </label>
                         ))}
@@ -165,10 +166,10 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             maxWidth="md"
             level={1}
         >
-            <M3DialogContent className="quick-evaluation-modal-dialog-content">
-                <div className="quick-evaluation-modal-header">
-                    <h3 className="quick-evaluation-modal-student-name">{student.cognome} {student.nome}</h3>
-                    <p className="quick-evaluation-modal-lesson-info">{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
+            <M3DialogContent >
+                <div >
+                    <h3 >{student.cognome} {student.nome}</h3>
+                    <p >{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
                 </div>
 
                 <TabGroup
@@ -178,7 +179,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                     ]}
                     activeTab={activeTab}
                     onTabChange={(id) => setActiveTab(id as 'voto' | 'competenza')}
-                    className="quick-evaluation-modal-tab-group"
+                    
                 />
 
                 {activeTab === 'voto' ? renderVotoTab() : renderCompetenzaTab()}
@@ -188,7 +189,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                 <M3Button
                     onClick={activeTab === 'voto' ? handleSaveVoto : handleSaveCompetenza}
                     variant="filled"
-                    className="quick-evaluation-modal-save-button"
+                    
                 >
                     Registra {activeTab === 'voto' ? 'Voto' : 'Competenza'}
                 </M3Button>
@@ -198,5 +199,10 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
 };
 
 export default QuickEvaluationModal;
+
+
+
+
+
 
 

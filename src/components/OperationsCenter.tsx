@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 import React, { useState, useMemo } from 'react';
@@ -185,29 +186,29 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
     const renderProcessDetail = () => {
         if (!selectedProcess) return null;
         return (
-            <div className="operations-center-process-detail">
-                <div className="operations-center-process-header">
+            <div >
+                <div >
                     <div className={`operations-center-process-icon-large operations-center-process-icon-large.${selectedProcess.variant}`}>
-                        <span className="material-symbols-outlined operations-center-process-icon">{selectedProcess.icon}</span>
+                        <span >{selectedProcess.icon}</span>
                     </div>
-                    <h2 className="m3-headline-medium operations-center-process-title">{selectedProcess.title}</h2>
-                    <p className="operations-center-process-description">{selectedProcess.description}</p>
+                    <h2 >{selectedProcess.title}</h2>
+                    <p >{selectedProcess.description}</p>
                 </div>
-                <div className="operations-center-process-content custom-scrollbar">
-                    <h3 className="operations-center-process-section-title">Fasi del Processo</h3>
-                    <div className="operations-center-process-timeline">
+                <div >
+                    <h3 >Fasi del Processo</h3>
+                    <div >
                         {selectedProcess.steps.map((step, idx) => (
-                            <div key={idx} className="operations-center-process-timeline-item">
-                                <div className="operations-center-process-timeline-dot"></div>
-                                <h4 className="operations-center-process-step-title">{step.title}</h4>
-                                <p className="operations-center-process-step-description">{step.desc}</p>
+                            <div key={idx} >
+                                <div ></div>
+                                <h4 >{step.title}</h4>
+                                <p >{step.desc}</p>
                             </div>
                         ))}
                     </div>
                 </div>
-                <div className="operations-center-process-buttons">
-                    <M3Button onClick={() => setSelectedProcess(null)} variant="text" className="operations-center-process-back-button">Indietro</M3Button>
-                    <M3Button onClick={() => handleProcessStart()} variant="filled" className="operations-center-process-start-button">AVVIA ORA</M3Button>
+                <div >
+                    <M3Button onClick={() => setSelectedProcess(null)} variant="text" >Indietro</M3Button>
+                    <M3Button onClick={() => handleProcessStart()} variant="filled" >AVVIA ORA</M3Button>
                 </div>
             </div>
         );
@@ -221,28 +222,28 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
             level={1}
             hideBackdrop={true}
         >
-            <M3DialogContent className="operations-center-dialog-content operations-center-dialog-content.responsive">
+            <M3DialogContent >
                     {selectedProcess ? renderProcessDetail() : (
-                        <div className="operations-center-main-grid">
+                        <div >
                             {suggestedProcess && (
-                                <div className="operations-center-suggestion-card operations-center-suggestion-card.responsive">
-                                    <div className="operations-center-suggestion-icon">
-                                        <span className="material-symbols-outlined operations-center-suggestion-icon-symbol">lightbulb</span>
+                                <div >
+                                    <div >
+                                        <span >lightbulb</span>
                                     </div>
-                                    <div className="operations-center-suggestion-content operations-center-suggestion-content.responsive">
-                                        <h3 className="operations-center-suggestion-title">Suggerimento AI</h3>
-                                        <p className="operations-center-suggestion-description">{suggestedProcess.description}</p>
+                                    <div >
+                                        <h3 >Suggerimento AI</h3>
+                                        <p >{suggestedProcess.description}</p>
                                     </div>
-                                    <M3Button onClick={() => setSelectedProcess(suggestedProcess)} variant="filled" className="operations-center-suggestion-button">
-                                        AVVIA <span className="material-symbols-outlined operations-center-suggestion-button-icon">arrow_forward</span>
+                                    <M3Button onClick={() => setSelectedProcess(suggestedProcess)} variant="filled" >
+                                        AVVIA <span >arrow_forward</span>
                                     </M3Button>
                                 </div>
                             )}
 
-                            <div className="operations-center-sections">
+                            <div >
                                 <div>
                                     <SectionHeader title="Processi Comuni" icon="play_circle" />
-                                    <div className="expressive-grid operations-center-grid">
+                                    <div >
                                         {PROCESS_DEFINITIONS.filter(p => p.category === 'daily').map(p => (
                                             <ActionTile 
                                                 key={p.id}
@@ -251,7 +252,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                                                 icon={p.icon}
                                                 variant={p.variant}
                                                 onClick={() => setSelectedProcess(p)}
-                                                className="operations-center-action-tile"
+                                                
                                             />
                                         ))}
                                     </div>
@@ -259,7 +260,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 
                                 <div>
                                     <SectionHeader title="Pianificazione e Sviluppo" icon="design_services" />
-                                    <div className="expressive-grid operations-center-grid">
+                                    <div >
                                         {PROCESS_DEFINITIONS.filter(p => p.category === 'planning').map(p => (
                                             <ActionTile 
                                                 key={p.id}
@@ -268,7 +269,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                                                 icon={p.icon}
                                                 variant={p.variant}
                                                 onClick={() => setSelectedProcess(p)}
-                                                className="operations-center-action-tile"
+                                                
                                             />
                                         ))}
                                     </div>
@@ -276,7 +277,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 
                                 <div>
                                     <SectionHeader title="Manutenzione del Sistema" icon="build" />
-                                    <div className="expressive-grid operations-center-grid">
+                                    <div >
                                         {PROCESS_DEFINITIONS.filter(p => p.category === 'system').map(p => (
                                             <ActionTile 
                                                 key={p.id}
@@ -285,7 +286,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                                                 icon={p.icon}
                                                 variant={p.variant}
                                                 onClick={() => setSelectedProcess(p)}
-                                                className="operations-center-action-tile"
+                                                
                                             />
                                         ))}
                                     </div>
@@ -300,5 +301,10 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 export default OperationsCenter;
 
 // M3Expressive refactor COMPLETED: OperationsCenter.tsx - Replaced all hardcoded Tailwind classes with dedicated operations-center-* CSS classes using M3 tokens for layout, process details, timeline, suggestion cards, and action tiles.
+
+
+
+
+
 
 

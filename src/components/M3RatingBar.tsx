@@ -1,4 +1,6 @@
+// LEGACY - MD3 Non-compliant
 import React, { useMemo } from 'react';
+import { useTheme } from '../theme/theme';
 
 export type M3RatingBarProps = {
   max?: number;
@@ -23,6 +25,8 @@ export default function M3RatingBar({
   const clampedValue = useMemo(() => clampValue(value, max), [value, max]);
 
   const handleSelect = (index: number) => {
+  const { layers } = useTheme();
+  const { layers } = useTheme();
     if (disabled || readonly) return;
     const next = index + 1;
     onChange?.(next);
@@ -45,15 +49,13 @@ export default function M3RatingBar({
             onClick={() => handleSelect(index)}
             disabled={disabled || readonly}
             aria-pressed={filled}
-            style={{
-              border: 'none',
+            style={{border: 'none',
               background: 'transparent',
               cursor: disabled || readonly ? 'default' : 'pointer',
-              color: filled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
+              color: filled ? 'layers.sys.color.primary' : 'layers.sys.color.outline-variant',
               fontSize: 'var(--md-sys-typescale-headline-small)',
               lineHeight: 1,
-              padding: 0,
-            }}
+              padding: 0,}}
           >
             ★
           </button>
@@ -62,5 +64,10 @@ export default function M3RatingBar({
     </div>
   );
 }
+
+
+
+
+
 
 

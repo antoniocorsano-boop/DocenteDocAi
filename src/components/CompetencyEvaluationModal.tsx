@@ -1,7 +1,9 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import { Studente, Competenza, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
 import { generateCompetencyNote } from '../services/aiService';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface CompetencyEvaluationModalProps {
     student: Studente;
@@ -13,9 +15,10 @@ interface CompetencyEvaluationModalProps {
 }
 
 const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ student, competenza, settings, aiSettings, onClose, onSave }) => {
-    const [selectedMateria, setSelectedMateria] = useState<string>((settings.disciplines && settings.disciplines[0]) || '');
-    const [selectedLevelId, setSelectedLevelId] = useState<string>('');
-    const [nota, setNota] = useState<string>('');
+  const { layers } = useTheme();
+    const [selectedMateria, setSelectedMateria] = useState<string>((settings.disciplines && settings.disciplines[0]) || ');
+    const [selectedLevelId, setSelectedLevelId] = useState<string>(');
+    const [nota, setNota] = useState<string>(');
     const [isGeneratingNote, setIsGeneratingNote] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -63,17 +66,15 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
             maxWidth="md"
             level={1}
         >
-            <form onSubmit={handleSubmit} className="space-y-12">
-                <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>{student.cognome} {student.nome} - {competenza.nome}</p>
+            <form onSubmit={handleSubmit} >
+                <M3DialogContent >
+                    <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color:  layers.sys.color.onSurfaceVariant }} style={{marginBottom: layers.ref.spacing['8']}}>{student.cognome} {student.nome} - {competenza.nome}</p>
 
                     <div>
-                        <label className="form-label">Livello Raggiunto</label>
-                        <div style={{
-  marginTop: 'var(--md-sys-spacing-8)'
-}}>
+                        <label >Livello Raggiunto</label>
+                        <div style={{marginTop: layers.ref.spacing['8']}}>
                             {competenza.livelli.map(level => (
-                                <div key={level.id} className={`p-12 rounded-[var(--md-sys-shape-corner-large)] border-2 ${selectedLevelId === level.id ? 'border-primary bg-primary-container' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surface-container)]'}`}>
+                                <div key={level.id} className={`p-12 rounded-[var(--md-sys-shape-corner-large)] border-2 ${selectedLevelId === level.id ? 'border-primary bg-primaryContainer' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surfaceContainer)]'}`}>
                                     <label style={{ display: "flex", alignItems: "flex-start", cursor: "pointer" }}>
                                         <input 
                                             type="radio" 
@@ -81,15 +82,15 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                             value={level.id}
                                             checked={selectedLevelId === level.id}
                                             onChange={(e) => setSelectedLevelId(e.target.value)}
-                                            className="mr-8 mt-8"
+                                            
                                             required
                                         />
                                         <div style={{ flexGrow: "1" }}>
                                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                                                <span className="m3-title-medium">{level.nome}</span>
-                                                <span className="m3-label-large text-[var(--md-sys-color-on-surface)]-variant">Voto: {level.voto}</span>
+                                                <span >{level.nome}</span>
+                                                <span style={{ color:  layers.sys.color.onSurfaceVariant }}>Voto: {level.voto}</span>
                                             </div>
-                                            <p className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mt-8 ${selectedLevelId === level.id ? 'text-on-primary-container' : 'text-[var(--md-sys-color-on-surface)]-variant'}`}>{level.descrizione}</p>
+                                            <p className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mt-8 ${selectedLevelId === level.id ? 'text-on-primaryContainer' : 'text-[var(--md-sys-color-onSurface)]-variant'}`}>{level.descrizione}</p>
                                         </div>
                                     </label>
                                 </div>
@@ -98,42 +99,42 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                     </div>
 
                     <div>
-                        <label htmlFor="materia" className="form-label">Materia di Riferimento</label>
-                        <select id="materia" value={selectedMateria} onChange={e => setSelectedMateria(e.target.value)} className="form-select" style={{ width: "100%" }} required>
+                        <label htmlFor="materia" >Materia di Riferimento</label>
+                        <select id="materia" value={selectedMateria} onChange={e => setSelectedMateria(e.target.value)}  style={{ width: "100%" }} required>
                             <option value="">Seleziona...</option>
                             {(settings.disciplines || []).map(d => <option key={d} value={d}>{d}</option>)}
                         </select>
                     </div>
 
                     <div>
-                        <div className="mb-12" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <label htmlFor="note" className="form-label !mb-0">Note (Opzionale)</label>
-                            <div className="gap-12" style={{ display: "flex", alignItems: "center" }}>
+                        <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <label htmlFor="note" >Note (Opzionale)</label>
+                            <div  style={{ display: "flex", alignItems: "center" }}>
                                 {!selectedLevelId && !isGeneratingNote && (
-                                    <span className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant">(Seleziona un livello)</span>
+                                    <span style={{ color:  layers.sys.color.onSurfaceVariant }}>(Seleziona un livello)</span>
                                 )}
                                 <M3Button
                                     type="button"
                                     onClick={handleGenerateNote}
                                     disabled={isGeneratingNote || !selectedLevelId}
                                     variant="text"
-                                    className="!py-2 !px-8 !h-auto" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}
+                                     style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}
                                     title="Genera nota con AI"
                                 >
                                     {isGeneratingNote ? (
-                                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] animate-spin">sync</span>
+                                        <span style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)] }}>sync</span>
                                     ) : (
-                                        <span className="material-symbols-outlined text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]">auto_awesome</span>
+                                        <span style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)] }}>auto_awesome</span>
                                     )}
-                                    <span className="m3-label-medium">{isGeneratingNote ? 'Generando...' : 'Suggerisci nota'}</span>
+                                    <span >{isGeneratingNote ? 'Generando...' : 'Suggerisci nota'}</span>
                                 </M3Button>
                             </div>
                         </div>
-                        <textarea id="note" value={nota} onChange={e => setNota(e.target.value)} className="form-textarea" style={{ width: "100%" }} rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..."></textarea>
+                        <textarea id="note" value={nota} onChange={e => setNota(e.target.value)}  style={{ width: "100%" }} rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..."></textarea>
                     </div>
                 </M3DialogContent>
 
-                <M3DialogActions className="gap-12 px-12 pb-12" style={{ paddingTop: "0" }}>
+                <M3DialogActions  style={{ paddingTop: "0" }}>
                     <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                     <M3Button type="submit" variant="filled">Salva Valutazione</M3Button>
                 </M3DialogActions>
@@ -143,5 +144,10 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
 };
 
 export default CompetencyEvaluationModal;
+
+
+
+
+
 
 

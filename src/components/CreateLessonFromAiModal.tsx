@@ -1,9 +1,11 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useEffect, useMemo } from 'react';
 import { Lezione, AiSettings, Studente, PianoInclusione, Slot, CurriculumSubject } from '../types';
 import { generateInclusivityAdaptations } from '../services/aiService';
 import { DAYS_OF_WEEK } from '../constants';
 import { parseClassString } from '../utils/schoolUtils'; 
 import { TextField, SelectField, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button, AiThinkingGem } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };
@@ -20,13 +22,14 @@ interface CreateLessonFromAiModalProps {
 }
 
 const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ content, onClose, onSave, userClasses, disciplines, students, pianiInclusione, aiSettings, slots, onSchedule, curricula }) => {
+  const { layers } = useTheme();
     const [argomento, setArgomento] = useState('');
     const [obiettivi, setObiettivi] = useState('');
     const [classe, setClasse] = useState(userClasses[0] || '');
     const [materia, setMateria] = useState(disciplines[0] || '');
     const [adattamenti, setAdattamenti] = useState('');
     const [isAdaptationsLoading, setIsAdaptationsLoading] = useState(false);
-    const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
+const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
     
     // Objective Picker State
     const [isObjectivePickerOpen, setIsObjectivePickerOpen] = useState(false);
@@ -100,7 +103,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
 
     const handleAddObjective = (text: string) => {
         setObiettivi(prev => {
-            const prefix = prev.trim() ? '\n' : '';
+            const prefix = prev.trim() ? '\n' : '; ';
             return `${prev}${prefix}- ${text}`;
         });
     };
@@ -181,7 +184,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                 level={1}
             >
                 <form id="create-lesson-ai-form" onSubmit={handleSubmit} style={{ width: "100%" }}>
-                    <M3DialogContent className="space-y-12 px-12 pt-12 pb-0">
+                    <M3DialogContent >
                         <TextField 
                             label="Argomento" 
                             value={argomento} 
@@ -189,7 +192,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                             required 
                         />
                         
-                        <div className="gap-12" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+                        <div  style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
                             <SelectField label="Classe" value={classe} onChange={e => setClasse(e.target.value)} required>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </SelectField>
@@ -199,17 +202,17 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                         </div>
 
                         <div>
-                            <div className="mb-12" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <label className="m3-label-small font-extrabold tracking-[0.2em] px-8 !mb-0" style={{ color: "var(--md-sys-color-primary)", textTransform: "uppercase" }}>Obiettivi</label>
+                            <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <label  style={{color: "layers.sys.color.primary", textTransform: "uppercase"}}>Obiettivi</label>
                                 {matchingCurriculum && (
                                     <M3Button 
                                         type="button" 
                                         onClick={() => setIsObjectivePickerOpen(true)}
                                         variant="tonal"
-                                        className="!h-10 !px-6 !text-xs font-extrabold" style={{ textTransform: "uppercase", letterSpacing: "0.1em", borderRadius: "9999px" }}
+                                         style={{ textTransform: "uppercase", letterSpacing: "0.1em", borderRadius: layers.ref.shape.corner.medium }}
                                         title="Seleziona dal curricolo"
                                     >
-                                        <span className="material-symbols-outlined mr-1" style={{ fontSize: "0.875rem" }}>library_add</span>
+                                        <span  style={{ fontSize: "0.875rem" }}>library_add</span>
                                         Curricolo
                                     </M3Button>
                                 )}
@@ -220,29 +223,29 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                 onChange={e => setObiettivi(e.target.value)}
                                 rows={5}
                                 placeholder="Elenco obiettivi didattici per la lezione..."
-                                containerClassName="shadow-inner !bg-[var(--md-sys-color-surface-container-low)]est"
+                                containerClassName="shadow-inner !bg-[var(--md-sys-color-surfaceContainerLow)]est"
                             />
                             {matchingCurriculum && !obiettivi && (
-                                <p className="px-8" style={{ fontSize: "0.75rem", color: "var(--md-sys-color-primary)", marginTop: "var(--md-sys-spacing-4)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", fontWeight: "bold", cursor: "pointer" }} onClick={() => setIsObjectivePickerOpen(true)}>
-                                    <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>info</span> 
+                                <p  style={{fontSize: "0.75rem", color: "layers.sys.color.primary", marginTop: layers.ref.spacing['4'], display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
+                                    <span  style={{ fontSize: "0.875rem" }}>info</span> 
                                     Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
                                 </p>
                             )}
                         </div>
                         
                         {slots && availableSlots.length > 0 && (
-                            <div className="bg-secondary-container/10 p-12 rounded-4xl border-secondary/20" style={{ border: "1px solid var(--md-sys-color-outline)", gap: "var(--md-sys-spacing-6)" }}>
-                                <label className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant tracking-[0.2em] px-8" style={{ fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
-                                <div className="gap-12" style={{ display: "flex", flexWrap: "wrap" }}>
+                            <div style={{ backgroundColor: sys.colors.secondary-container/10, padding: layers.ref.spacing['12'], borderRadius: layers.ref.shape.corner.medium }} style={{border: "1px solid layers.sys.color.outline", gap: layers.ref.spacing['6']}}>
+                                <label style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
+                                <div  style={{ display: "flex", flexWrap: "wrap" }}>
                                     {availableSlots.map(([key, slot]) => (
                                         <button
                                             key={key}
                                             type="button"
                                             onClick={() => setSelectedSlotKey(prev => prev === key ? '' : key)}
-                                            className={`chip !h-12 !px-8 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-[var(--md-sys-color-surface-container-high)]'}`}
+                                            className={`chip !h-12 !px-8 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-[var(--md-sys-color-surfaceContainerHigh)]'}`}
                                         >
-                                            {selectedSlotKey === key && <span className="material-symbols-outlined" style={{ fontSize: "1rem" }}>check</span>}
-                                            <span className="font-extrabold" style={{ fontSize: "0.75rem" }}>{slot.giorno} {slot.ora}</span>
+                                            {selectedSlotKey === key && <span  style={{ fontSize: "1.25rem" }}>check</span>}
+                                            <span  style={{ fontSize: "0.75rem" }}>{slot.giorno} {slot.ora}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -250,20 +253,20 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                         )}
 
                         <div>
-                            <div className="mb-12" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <label className="m3-label-small tracking-[0.2em] px-8 !mb-0" style={{ color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase" }}>Adattamenti per l'Inclusività</label>
+                            <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <label  style={{color: "layers.sys.color.primary", fontWeight: "900", textTransform: "uppercase"}}>Adattamenti per l'Inclusività</label>
                                 <M3Button 
                                     type="button" 
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
                                     variant="text"
-                                    className="!h-auto !py-2 !px-8 rounded-[var(--md-sys-shape-corner-small)] hover:shadow-[var(--md-sys-elevation-level1)]" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", fontWeight: "900", textTransform: "uppercase", fontSize: "0.75rem", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+                                    style={{ borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], fontWeight: "900", textTransform: "uppercase", fontSize: "0.75rem", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"}}
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
                                         <AiThinkingGem size="small" inline text="Suggerisco..." />
                                     ) : (
-                                        <span className="material-symbols-outlined mr-1" style={{ fontSize: "1rem" }}>auto_awesome</span>
+                                        <span  style={{ fontSize: "1.25rem" }}>auto_awesome</span>
                                     )}
                                     {isAdaptationsLoading ? '' : 'Suggerisci con AI'}
                                 </M3Button>
@@ -274,15 +277,15 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                                 onChange={(e) => setAdattamenti(e.target.value)} 
                                 rows={4}
                                 placeholder="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
-                                containerClassName="shadow-inner !bg-[var(--md-sys-color-surface-container-low)]est"
+                                containerClassName="shadow-inner !bg-[var(--md-sys-color-surfaceContainerLow)]est"
                             ></TextArea>
                         </div>
                     </M3DialogContent>
 
-                    <M3DialogActions className="gap-12 px-12 pb-12" style={{ paddingTop: "0" }}>
+                    <M3DialogActions  style={{ paddingTop: "0" }}>
                         <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
-                        <M3Button type="submit" variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-16">
-                            <span className="material-symbols-outlined" style={{ marginRight: "0.5rem", fontWeight: "900" }}>{selectedSlotKey ? 'event_available' : 'archive'}</span>
+                        <M3Button type="submit" variant="filled" >
+                            <span  style={{ marginRight: "0.5rem", fontWeight: "900" }}>{selectedSlotKey ? 'event_available' : 'archive'}</span>
                             {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
                         </M3Button>
                     </M3DialogActions>
@@ -297,26 +300,24 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                     maxWidth="2xl"
                     level={2}
                 >
-                    <M3DialogContent style={{
-  marginTop: 'var(--md-sys-spacing-8)'
-}}>
-                        <p className="m3-label-tiny font-extrabold tracking-[0.3em]" style={{ color: "var(--md-sys-color-primary)", textTransform: "uppercase" }}>{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
+                    <M3DialogContent style={{marginTop: layers.ref.spacing['8']}}>
+                        <p  style={{color: "layers.sys.color.primary", textTransform: "uppercase"}}>{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
                         {matchingCurriculum.nuclei.map(nucleo => (
-                            <details key={nucleo.id} className="m3-expansion-panel shadow-[var(--md-sys-elevation-level1)] !rounded-4xl" open>
-                                <summary className="m3-expansion-summary !bg-[var(--md-sys-color-surface-container-high)]">
-                                    <span className="m3-title-medium text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900" }}>{nucleo.title}</span>
-                                    <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem" }}>expand_more</span>
+                            <details key={nucleo.id}  open>
+                                <summary >
+                                    <span style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900" }}>{nucleo.title}</span>
+                                    <span style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.875rem" }}>expand_more</span>
                                 </summary>
-                                <div style={{ padding: "var(--md-sys-spacing-8)", gap: "var(--md-sys-spacing-3)", backgroundColor: "var(--md-sys-color-surface)" }}>
+                                <div style={{padding: layers.ref.spacing['8'], gap: layers.ref.spacing['3'], backgroundColor: "layers.sys.color.surface"}}>
                                     {nucleo.objectives.map(obj => (
                                         <button 
                                             key={obj.id}
                                             type="button"
                                             onClick={() => handleAddObjective(obj.text)}
-                                            className="rounded-[var(--md-sys-shape-corner-medium)] hover:bg-[var(--md-sys-color-surface-container-low)] group" style={{ width: "100%", textAlign: "left", padding: "var(--md-sys-spacing-6)", transition: "color 300ms", display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-6)" }}
+                                            style={{ borderRadius: layers.ref.shape.corner.large }} style={{width: "100%", textAlign: "left", padding: layers.ref.spacing['6'], transition: "color 300ms", display: "flex", alignItems: "flex-start", gap: layers.ref.spacing['6']}}
                                         >
-                                            <span className="material-symbols-outlined mt-0.5 group-hover:scale-110" style={{ color: "var(--md-sys-color-primary)", fontSize: "1rem", transition: "transform 300ms" }}>add_circle</span>
-                                            <span className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "0.875rem", fontWeight: "500" }}>{obj.text}</span>
+                                            <span  style={{color: "layers.sys.color.primary", fontSize: "1.25rem", transition: "transform 300ms"}}>add_circle</span>
+                                            <span style={{ color:  layers.sys.color.onPrimary }} style={{ fontSize: "0.875rem", fontWeight: "500" }}>{obj.text}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -325,7 +326,7 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
                     </M3DialogContent>
 
                     <M3DialogActions>
-                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled" className="shadow-[var(--md-sys-elevation-level2)]" style={{ width: "100%", fontWeight: "900" }}>CONFERMA SELEZIONE</M3Button>
+                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled"  style={{ width: "100%", fontWeight: "900" }}>CONFERMA SELEZIONE</M3Button>
                     </M3DialogActions>
                 </M3Dialog>
             )}
@@ -334,5 +335,10 @@ const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ conte
 };
 
 export { CreateLessonFromAiModal };
+
+
+
+
+
 
 

@@ -1,3 +1,7 @@
+# ⚠️ OBSOLETE – MD3 NON-COMPLIANT – DO NOT USE
+
+<!-- This documentation contains examples of forbidden MD3 patterns and is disabled for compliance reasons.
+
 # DocenteDoc AI – Copilot Instructions (MD3 Enforced)
 
 **VINCOLANTE – Material Design 3 è OBBLIGATORIO**
@@ -78,5 +82,7 @@ Material Design 3 (MD3) NON è una convenzione – è un **requisito tecnico vin
 - Violazioni richiedono rollback immediato
 - Reviewers devono bloccare PR non conformi
 
-**RICORDA**: MD3 non è opzionale. È il fondamento tecnico del progetto.</content>
+**RICORDA**: MD3 non è opzionale. È il fondamento tecnico del progetto.
+
+--></content>
 <parameter name="filePath">c:\Users\anton\DocenteDocAI-Flowise\docentedoc-ai\.github\copilot-instructions.md

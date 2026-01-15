@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 /**
  * LessonView.tsx
@@ -39,7 +40,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         if (enrichment) {
             onUpdateLesson({
                 ...lesson,
-                nota: (lesson.nota ? lesson.nota + '\n\n' : '') + '--- AI ENRICHMENT ---\n' + enrichment
+                nota: (lesson.nota ? lesson.nota + '\n\n' : ') + '--- AI ENRICHMENT ---\n' + enrichment
             });
         }
     } catch (error) {
@@ -81,17 +82,17 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   
   const handleExportDocx = async () => {
       const safeContent = sanitizeHTML(lesson.contenuto);
-      const safeObjectives = sanitizeHTML(lesson.obiettivi || '');
-      const safeContext = sanitizeHTML(lesson.contesto || '');
-      const safeHomework = sanitizeHTML(lesson.compiti || '');
-      const safeAdaptations = sanitizeHTML(lesson.adattamenti || '');
+      const safeObjectives = sanitizeHTML(lesson.obiettivi || ');
+      const safeContext = sanitizeHTML(lesson.contesto || ');
+      const safeHomework = sanitizeHTML(lesson.compiti || ');
+      const safeAdaptations = sanitizeHTML(lesson.adattamenti || ');
 
       let html = `<h1>Lezione: ${safeContent}</h1>`;
       html += `<p><strong>Classe:</strong> ${lesson.classe} | <strong>Materia:</strong> ${lesson.materia}</p>`;
       if (lesson.unitaDiApprendimento) html += `<p><strong>UDA:</strong> ${lesson.unitaDiApprendimento}</p>`;
       
       html += `<h2>Obiettivi</h2><p>${safeObjectives || 'Nessun obiettivo specificato.'}</p>`;
-      html += `<h2>Contenuti e Attività</h2><p>${safeContext || ''}</p>`;
+      html += `<h2>Contenuti e Attività</h2><p>${safeContext || '}</p>`;
       html += `<h2>Compiti</h2><p>${safeHomework || 'Nessun compito assegnato.'}</p>`;
       
       if (lesson.adattamenti) {
@@ -132,7 +133,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   const handleAddMaterials = (newMaterials: MaterialeDidattico[]) => {
       const updatedLesson = {
           ...lesson,
-          materialiDidattici: [...(lesson.materialiDidattici || []), ...newMaterials]
+          materialiDidattici: [...(lesson.materialiDidattici || []), ...newMaterials']
       };
       onUpdateLesson(updatedLesson);
       setIsMaterialPickerOpen(false);
@@ -158,7 +159,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
               title: lesson.contenuto,
               subject: lesson.materia,
               className: lesson.classe,
-              description: `${lesson.obiettivi || ''} ${lesson.contesto || ''}`
+              description: `${lesson.obiettivi || '} ${lesson.contesto || '}`
           });
           setAnalysisResult(result);
       } catch (error: unknown) {
@@ -180,7 +181,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   };
 
   const hue = generateHueFromString(lesson.materia || 'default');
-  const typeIcon = LESSON_TYPE_ICONS[lesson.tipoLezione || 'Teoria'] || 'school';
+  const typeIcon = LESSON_TYPE_ICONS[lesson.tipoLezione || 'Teoria] || 'school';
 
   return (
     <>
@@ -192,13 +193,13 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
       `}</style>
       <M3Dialog
         title={
-            <div className="lesson-view-title">
-                <div className="lesson-view-icon">
-                    <span className="material-symbols-outlined lesson-view-icon-symbol">{typeIcon}</span>
+            <div >
+                <div >
+                    <span >{typeIcon}</span>
                 </div>
-                <div className="lesson-view-title-text">
-                    <h2 className="lesson-view-title-main">Piano Lezione</h2>
-                    <p className="lesson-view-title-id">{lesson.id.split('-').slice(0,2).join('-')}</p>
+                <div >
+                    <h2 >Piano Lezione</h2>
+                    <p >{lesson.id.split('-').slice(0,2).join('-')}</p>
                 </div>
             </div>
         }
@@ -206,62 +207,62 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         mode="fullscreen"
         level={1}
       >
-        <M3DialogContent className="lesson-view-content">
-            <div className="lesson-view-container">
+        <M3DialogContent >
+            <div >
                 {/* HERO SECTION */}
-                <div className="lesson-view-hero">
+                <div >
                     {lesson.unitaDiApprendimento && (
-                        <div className="lesson-view-uda">
-                            <span className="lesson-view-uda-badge">UDA</span>
-                            <span className="lesson-view-uda-title">{lesson.unitaDiApprendimento}</span>
+                        <div >
+                            <span >UDA</span>
+                            <span >{lesson.unitaDiApprendimento}</span>
                         </div>
                     )}
-                    <h1 className="lesson-view-main-title">
+                    <h1 >
                         {lesson.contenuto}
                     </h1>
                     
-                    <div className="lesson-view-meta">
-                        <div className="lesson-view-meta-item">
-                            <span className="material-symbols-outlined lesson-view-meta-icon">school</span>
-                            <span className="lesson-view-meta-label">{lesson.classe}</span>
+                    <div >
+                        <div >
+                            <span >school</span>
+                            <span >{lesson.classe}</span>
                         </div>
-                        <div className="lesson-view-meta-item">
-                            <span className="material-symbols-outlined lesson-view-meta-icon">menu_book</span>
-                            <span className="lesson-view-meta-label">{lesson.materia}</span>
+                        <div >
+                            <span >menu_book</span>
+                            <span >{lesson.materia}</span>
                         </div>
-                        <div className="lesson-view-meta-item">
-                            <span className="material-symbols-outlined lesson-view-meta-icon">category</span>
-                            <span className="lesson-view-meta-label">{lesson.tipoLezione || 'Teoria'}</span>
+                        <div >
+                            <span >category</span>
+                            <span >{lesson.tipoLezione || 'Teoria'}</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="lesson-view-main-grid">
+                <div >
                     {/* LEFT COLUMN */}
-                    <div className="lesson-view-main-column">
+                    <div >
                         {/* AI Assistant */}
                         {aiSettings && (
-                            <div className="lesson-view-ai-assistant">
-                                <div className="lesson-view-ai-content">
-                                    <div className="lesson-view-ai-icon">
-                                        <span className="material-symbols-outlined lesson-view-ai-icon-symbol">psychology</span>
+                            <div >
+                                <div >
+                                    <div >
+                                        <span >psychology</span>
                                     </div>
                                     <div>
-                                        <p className="lesson-view-ai-title">Assistente Pedagogico</p>
-                                        <p className="lesson-view-ai-subtitle">Analizza inclusività e coinvolgimento</p>
+                                        <p >Assistente Pedagogico</p>
+                                        <p >Analizza inclusività e coinvolgimento</p>
                                     </div>
                                 </div>
-                                <div className="lesson-view-ai-actions">
+                                <div >
                                     <M3Button 
                                         onClick={handleEnrichLesson} 
                                         disabled={isEnriching} 
                                         variant="tonal"
-                                        className="lesson-view-ai-enrich-button"
+                                        
                                         title="Arricchisci con curiosità e spunti AI"
                                     >
                                         {isEnriching ? <AiThinkingGem size="small" inline text="" /> : (
-                                            <div className="lesson-view-ai-enrich-content">
-                                                <span className="material-symbols-outlined lesson-view-ai-enrich-icon">auto_awesome</span>
+                                            <div >
+                                                <span >auto_awesome</span>
                                                 Arricchisci
                                             </div>
                                         )}
@@ -270,7 +271,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                         onClick={handleAnalyzePedagogy} 
                                         disabled={isAnalyzing} 
                                         variant="filled"
-                                        className="lesson-view-ai-analyze-button"
+                                        
                                     >
                                         {isAnalyzing ? <AiThinkingGem size="small" inline text="" /> : 'Analizza'}
                                     </M3Button>
@@ -279,40 +280,40 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         )}
 
                         {/* Objectives */}
-                        <section className="lesson-view-objectives-section">
+                        <section >
                             <SectionHeader title="Obiettivi Didattici" icon="flag" />
-                            <div className="lesson-view-objectives-content">
+                            <div >
                                 {lesson.obiettivi ? (
-                                    <div className="lesson-view-objectives-list">
-                                        <ul className="lesson-view-objectives-ul">
+                                    <div >
+                                        <ul >
                                             {lesson.obiettivi.split('\n').filter(line => line.trim()).map((line, idx) => (
-                                                <li key={idx} className="lesson-view-objectives-li">{line.replace(/^- /, '')}</li>
+                                                <li key={idx} >{line.replace(/^- /, ')}</li>
                                             ))}
                                         </ul>
                                     </div>
                                 ) : (
-                                    <p className="lesson-view-objectives-empty">Nessun obiettivo specificato.</p>
+                                    <p >Nessun obiettivo specificato.</p>
                                 )}
                             </div>
                         </section>
 
                         {/* Content */}
-                        <section className="lesson-view-content-section">
+                        <section >
                             <SectionHeader title="Svolgimento e Contenuti" icon="article" />
-                            <div className="lesson-view-content-details">
+                            <div >
                                 {lesson.contesto ? (
-                                    <p className="lesson-view-content-text">{lesson.contesto}</p>
+                                    <p >{lesson.contesto}</p>
                                 ) : (
-                                    <p className="lesson-view-content-empty">Nessun dettaglio sullo svolgimento.</p>
+                                    <p >Nessun dettaglio sullo svolgimento.</p>
                                 )}
                             </div>
                         </section>
 
                         {/* Notes */}
                         {lesson.nota && (
-                            <section className="lesson-view-notes-section">
+                            <section >
                                 <SectionHeader title="Note Docente" icon="sticky_note_2" />
-                                <div className="lesson-view-notes-content">
+                                <div >
                                     {lesson.nota}
                                 </div>
                             </section>
@@ -320,49 +321,49 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                     </div>
 
                     {/* RIGHT COLUMN */}
-                    <div className="lesson-view-sidebar">
+                    <div >
                         {/* Materials */}
-                        <div className="lesson-view-materials-card">
-                            <div className="lesson-view-materials-header">
-                                <h3 className="lesson-view-materials-title">
-                                    <span className="material-symbols-outlined lesson-view-materials-icon">attachment</span>
+                        <div >
+                            <div >
+                                <h3 >
+                                    <span >attachment</span>
                                     Materiali
                                 </h3>
-                                <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="tonal" className="lesson-view-materials-add-button">
+                                <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="tonal" >
                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>add</span>
                                 </M3Button>
                             </div>
                             
-                            <div className="lesson-view-materials-list">
+                            <div >
                                 {(lesson.materialiDidattici?.length || 0) > 0 ? (
                                     lesson.materialiDidattici!.map(material => (
-                                        <div key={material.id} className="lesson-view-material-item">
-                                            <div className="lesson-view-material-icon">
-                                                <span className="material-symbols-outlined lesson-view-material-icon-symbol">{getMaterialIcon(material)}</span>
+                                        <div key={material.id} >
+                                            <div >
+                                                <span >{getMaterialIcon(material)}</span>
                                             </div>
-                                            <div className="lesson-view-material-info">
+                                            <div >
                                                 {material.type === 'link' ? (
-                                                    <a href={material.url} target="_blank" rel="noopener noreferrer" className="lesson-view-material-link">{material.label}</a>
+                                                    <a href={material.url} target="_blank" rel="noopener noreferrer" >{material.label}</a>
                                                 ) : (
                                                     <span 
                                                         onClick={() => material.type === 'kb' && handlePreviewKbMaterial(material)} 
-                                                        className="lesson-view-material-name"
+                                                        
                                                     >
                                                         {material.type === 'kb' ? material.fileName : material.file?.name}
                                                     </span>
                                                 )}
                                             </div>
-                                            <div className="lesson-view-material-actions">
+                                            <div >
                                                 {material.type === 'file' && (
-                                                    <M3Button onClick={() => handleDownloadMaterial(material)} variant="text" className="lesson-view-material-download" title="Scarica">
+                                                    <M3Button onClick={() => handleDownloadMaterial(material)} variant="text"  title="Scarica">
                                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>download</span>
                                                     </M3Button>
                                                 )}
-                                                <M3Button onClick={() => handleRemoveMaterial(material.id)} variant="text" className="lesson-view-material-remove" title="Rimuovi">
+                                                <M3Button onClick={() => handleRemoveMaterial(material.id)} variant="text"  title="Rimuovi">
                                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>close</span>
@@ -371,9 +372,9 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                         </div>
                                     ))
                                 ) : (
-                                    <div className="lesson-view-materials-empty">
-                                        <span className="material-symbols-outlined lesson-view-materials-empty-icon">folder_off</span>
-                                        <p className="lesson-view-materials-empty-text">Nessun materiale</p>
+                                    <div >
+                                        <span >folder_off</span>
+                                        <p >Nessun materiale</p>
                                     </div>
                                 )}
                             </div>
@@ -385,24 +386,24 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                             icon="diversity_3" 
                             variant={lesson.adattamenti ? 'tertiary' : 'surface'}
                         >
-                            <p className="lesson-view-inclusion-text">
+                            <p >
                                 {lesson.adattamenti || 'Nessun adattamento specifico registrato.'}
                             </p>
                         </InfoCard>
 
                         {/* Homework */}
-                        <div className="lesson-view-homework-card">
-                            <h3 className="lesson-view-homework-title">
-                                <span className="material-symbols-outlined lesson-view-homework-icon">assignment</span>
+                        <div >
+                            <h3 >
+                                <span >assignment</span>
                                 Compiti per Casa
                             </h3>
-                            <p className="lesson-view-homework-text">
+                            <p >
                                 {lesson.compiti || 'Nessun compito assegnato.'}
                             </p>
                             
                             {settings && lesson.compiti && (
-                                <M3Button onClick={handleExportHomework} disabled={isExporting} variant="outlined" className="lesson-view-homework-export">
-                                    <span className="material-symbols-outlined lesson-view-homework-export-icon">print</span> PDF Compiti
+                                <M3Button onClick={handleExportHomework} disabled={isExporting} variant="outlined" >
+                                    <span >print</span> PDF Compiti
                                 </M3Button>
                             )}
                         </div>
@@ -410,27 +411,27 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                 </div>
             </div>
         </M3DialogContent>
-        <M3DialogActions className="lesson-view-actions">
-            <div className="lesson-view-actions-container">
-                <span className="lesson-view-last-modified">
+        <M3DialogActions >
+            <div >
+                <span >
                     Ultima modifica: {new Date().toLocaleDateString()}
                 </span>
-                <div className="lesson-view-actions-buttons">
-                    <div className="lesson-view-export-buttons">
-                        <M3Button onClick={handleExportDocx} disabled={isExporting} variant="tonal" className="lesson-view-export-docx" title="Esporta Word">
+                <div >
+                    <div >
+                        <M3Button onClick={handleExportDocx} disabled={isExporting} variant="tonal"  title="Esporta Word">
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>description</span>
                         </M3Button>
-                        <M3Button onClick={handleExport} disabled={isExporting} variant="tonal" className="lesson-view-export-pdf" title="Esporta PDF">
+                        <M3Button onClick={handleExport} disabled={isExporting} variant="tonal"  title="Esporta PDF">
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>picture_as_pdf</span>
                         </M3Button>
                     </div>
-                    <M3Button onClick={onClose} variant="text" className="lesson-view-close-button">Chiudi</M3Button>
-                    <M3Button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} variant="filled" className="lesson-view-start-button">
-                        <span className="material-symbols-outlined lesson-view-start-icon">door_open</span>
+                    <M3Button onClick={onClose} variant="text" >Chiudi</M3Button>
+                    <M3Button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} variant="filled" >
+                        <span >door_open</span>
                         Avvia Lezione
                     </M3Button>
                 </div>
@@ -446,10 +447,10 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
               maxWidth="2xl"
               level={2}
           >
-              <M3DialogContent className="lesson-view-preview-content">
-                <h3 className="lesson-view-preview-title">{previewingMaterial.fileName}</h3>
-                <div className="lesson-view-preview-text-container">
-                    <pre className="lesson-view-preview-text">{sanitizeHTML(previewingMaterial.content)}</pre>
+              <M3DialogContent >
+                <h3 >{previewingMaterial.fileName}</h3>
+                <div >
+                    <pre >{sanitizeHTML(previewingMaterial.content)}</pre>
                 </div>
               </M3DialogContent>
               <M3DialogActions>
@@ -472,7 +473,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
             result={analysisResult} 
             onClose={() => setAnalysisResult(null)} 
             title={lesson.contenuto}
-            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || ''}`}
+            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || '}`}
           />
       )}
     </>
@@ -480,5 +481,10 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
 };
 
 export default LessonView;
+
+
+
+
+
 
 

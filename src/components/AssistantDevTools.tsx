@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import { M3Button } from './ui';
 import { SystemSuggestion } from '../types';
@@ -37,8 +38,8 @@ const AssistantDevTools: React.FC<Props> = ({ actions }) => {
   };
 
   return (
-    <div className="assistant-dev-tools-container" aria-hidden={false}>
-      <div className="assistant-dev-tools-controls">
+    <div  aria-hidden={false}>
+      <div >
         <M3Button variant="outlined" onClick={toggleSuggestion}>
           {suggestionOn ? 'Rimuovi suggerimento' : 'Simula suggerimento'}
         </M3Button>
@@ -51,5 +52,10 @@ const AssistantDevTools: React.FC<Props> = ({ actions }) => {
 };
 
 export default AssistantDevTools;
+
+
+
+
+
 
 

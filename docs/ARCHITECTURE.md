@@ -1,3 +1,6 @@
+# ⚠️ OBSOLETE – MD3 NON-COMPLIANT – DO NOT USE
+
+<!-- This documentation contains examples of forbidden MD3 patterns and is disabled for compliance reasons.
 
 # DocenteDoc AI - Architettura Sistema
 
@@ -448,3 +451,5 @@ class ErrorBoundary extends React.Component {
 ---
 
 *Questa architettura evolve con il progetto. Modifiche significative richiedono review architetturale e documentazione aggiornata.*
+
+-->

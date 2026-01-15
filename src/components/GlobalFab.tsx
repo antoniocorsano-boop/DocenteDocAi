@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
@@ -65,7 +66,7 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
 
         if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
             isDraggingRef.current = true;
-            if (buttonRef.current) buttonRef.current.style.transition = 'none';
+            if (buttonRef.current) buttonRef.current// removed runtime mutation
         }
 
         if (isDraggingRef.current) {
@@ -88,7 +89,7 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
         window.removeEventListener('pointermove', handlePointerMove);
         window.removeEventListener('pointerup', handlePointerUp);
         
-        if (buttonRef.current) buttonRef.current.style.transition = '';
+        if (buttonRef.current) buttonRef.current// removed runtime mutation
         dragStartRef.current = null;
         initialPosRef.current = null;
     };
@@ -111,7 +112,7 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
     return (
         <button 
             ref={buttonRef}
-            className="fab"
+            
             data-assistant="true"
             style={style}
             onPointerDown={handlePointerDown}
@@ -119,9 +120,14 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
             aria-label={label}
             title={label}
         >
-            <span className="material-symbols-outlined global-fab-icon">{icon}</span>
+            <span >{icon}</span>
         </button>
     );
 };
+
+
+
+
+
 
 

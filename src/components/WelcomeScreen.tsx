@@ -1,20 +1,23 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import Logo from './Logo';
 import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
 import { ActionTile, InfoCard, TextField, SelectField, M3Button, M3IconButton } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface WelcomeScreenProps {
   onSetupComplete: (data: { name: string; schoolType?: string; firstClass?: string; isGuided: boolean }) => void;
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
+  const { layers } = useTheme();
   const [mode, setMode] = useState<'selection' | 'wizard' | 'quick'>('selection');
   
   // Wizard State
   const [step, setStep] = useState(1);
-  const [name, setName] = useState('');
+  const [name, setName] = useState(');
   const [schoolType, setSchoolType] = useState(Object.keys(SCHOOL_TYPES_DISCIPLINES)[0]);
-  const [className, setClassName] = useState('');
+  const [className, setClassName] = useState(');
 
   const handleWizardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,16 +40,16 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   };
 
   const renderSelection = () => (
-      <div style={{ width: "100%", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-          <div style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+      <div style={{width: "100%", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
+          <div style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline"}}>
             <Logo />
           </div>
-          <h1 style={{ fontWeight: "900", letterSpacing: "-0.005em", marginBottom: "var(--md-sys-spacing-8)" }}>Benvenuto, Docente</h1>
+          <h1 style={{fontWeight: "900", letterSpacing: "-0.005em", marginBottom: layers.ref.spacing['8']}}>Benvenuto, Docente</h1>
           <p style={{ fontWeight: "900", textTransform: "uppercase" }}>
               Configuriamo il tuo spazio di lavoro
           </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-6)", width: "100%" }}>
+          <div style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6'], width: "100%"}}>
               <ActionTile 
                 title="Wizard Guidato"
                 subtitle="Passo dopo passo"
@@ -76,12 +79,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   );
 
   const renderWizard = () => (
-    <form onSubmit={handleWizardSubmit} style={{ width: "100%", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
+    <form onSubmit={handleWizardSubmit} style={{width: "100%", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
         <div style={{ width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} />
-                <span style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase" }}>Passo {step} di 3</span>
-                <div style={{ width: "3rem" }}></div>
+                <span style={{fontWeight: "900", color: "layers.sys.color.primary", textTransform: "uppercase"}}>Passo {step} di 3</span>
+                <div style={{ width: layers.ref.spacing['4'] }}></div>
             </div>
             
             {step === 1 && (
@@ -111,7 +114,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                             <option key={t} value={t}>{t}</option>
                         ))}
                     </SelectField>
-                    <p style={{ fontWeight: "900", marginTop: "var(--md-sys-spacing-4)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Servirà per suggerire le materie corrette.</p>
+                    <p style={{fontWeight: "900", marginTop: layers.ref.spacing['4'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], textTransform: "uppercase", letterSpacing: "0.1em"}}>Servirà per suggerire le materie corrette.</p>
                 </div>
             )}
 
@@ -142,7 +145,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                     aria-label="Continua"
                 >
                     Continua
-                    <span className="material-symbols-outlined" style={{ fontWeight: "900", fontSize: "1.25rem", marginLeft: "0.75rem" }}>arrow_forward</span>
+                    <span  style={{ fontWeight: "900", fontSize: "1.25rem", marginLeft: "0.75rem" }}>arrow_forward</span>
                 </M3Button>
             ) : (
                 <M3Button 
@@ -153,7 +156,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                     aria-label="Inizia Ora"
                 >
                     Inizia Ora
-                    <span className="material-symbols-outlined" style={{ fontWeight: "900", fontSize: "1.25rem", marginLeft: "0.75rem" }}>check</span>
+                    <span  style={{ fontWeight: "900", fontSize: "1.25rem", marginLeft: "0.75rem" }}>check</span>
                 </M3Button>
             )}
         </div>
@@ -161,14 +164,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   );
 
   const renderQuick = () => (
-      <form onSubmit={handleQuickSubmit} style={{ width: "100%", padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+      <form onSubmit={handleQuickSubmit} style={{width: "100%", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
             <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => setMode('selection')} />
           
-          <div style={{ padding: "var(--md-sys-spacing-6)", border: "1px solid var(--md-sys-color-outline)" }}>
+          <div style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline"}}>
             <Logo />
           </div>
           
-          <h1 style={{ fontWeight: "900", letterSpacing: "-0.005em", marginBottom: "var(--md-sys-spacing-8)" }}>Accesso Rapido</h1>
+          <h1 style={{fontWeight: "900", letterSpacing: "-0.005em", marginBottom: layers.ref.spacing['8']}}>Accesso Rapido</h1>
           <p style={{ fontWeight: "900", textTransform: "uppercase" }}>Configurazione manuale</p>
           
           <div style={{ width: "100%" }}>
@@ -191,17 +194,17 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 aria-label="Entra nella Dashboard"
             >
                 Entra nella Dashboard
-                <span className="material-symbols-outlined" style={{ fontWeight: "900", fontSize: "1.25rem", marginLeft: "0.75rem" }}>login</span>
+                <span  style={{ fontWeight: "900", fontSize: "1.25rem", marginLeft: "0.75rem" }}>login</span>
             </M3Button>
       </form>
   );
 
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "var(--md-sys-color-surface)", position: "fixed", top: 0, right: 0, bottom: 0, left: 0, overflow: "hidden" }}>
+    <div style={{display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "layers.sys.color.surface", position: "fixed", top: 0, right: 0, bottom: 0, left: 0, overflow: "hidden"}}>
         {/* Aura Ornaments */}
-        <div style={{ borderRadius: "9999px", position: "absolute", top: "-10%", left: "-10%", width: "40%", height: "40%", background: "var(--md-sys-color-primary)", opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite" }}></div>
-        <div style={{ borderRadius: "9999px", position: "absolute", bottom: "-10%", right: "-10%", width: "40%", height: "40%", background: "var(--md-sys-color-secondary)", opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite 1s" }}></div>
-        <div style={{ borderRadius: "9999px", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "60%", height: "60%", background: "var(--md-sys-color-tertiary)", opacity: 0.05, filter: "blur(150px)" }}></div>
+        <div style={{borderRadius: layers.ref.spacing['4'], position: "absolute", top: "-10%", left: "-10%", width: "40%", height: "40%", background: "layers.sys.color.primary", opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite"}}></div>
+        <div style={{borderRadius: layers.ref.spacing['4'], position: "absolute", bottom: "-10%", right: "-10%", width: "40%", height: "40%", background: "layers.sys.color.secondary", opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite 1s"}}></div>
+        <div style={{borderRadius: layers.ref.spacing['4'], position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "60%", height: "60%", background: "layers.sys.color.tertiary", opacity: 0.05, filter: "blur(150px)"}}></div>
 
         {mode === 'selection' && renderSelection()}
         {mode === 'wizard' && renderWizard()}
@@ -211,5 +214,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
 };
 
 export default WelcomeScreen;
+
+
+
+
+
 
 

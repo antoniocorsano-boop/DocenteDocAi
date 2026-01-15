@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import React from 'react';
 import { UserProfile } from '../types';
@@ -10,15 +11,15 @@ interface ProfileSelectionScreenProps {
 
 const ProfileSelectionScreen: React.FC<ProfileSelectionScreenProps> = ({ profiles, onSelectProfile }) => {
   return (
-    <div className="profile-selection-screen">
-      <div className="profile-selection-card">
-        <h1 className="m3-headline-medium">Scegli il tuo profilo</h1>
-        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Seleziona un profilo per continuare.</p>
-        <div className="profile-list">
+    <div >
+      <div >
+        <h1 >Scegli il tuo profilo</h1>
+        <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color:  layers.sys.color.onSurfaceVariant }}>Seleziona un profilo per continuare.</p>
+        <div >
           {profiles.map(profile => (
-            <button key={profile.id} className="profile-item" onClick={() => onSelectProfile(profile)}>
+            <button key={profile.id}  onClick={() => onSelectProfile(profile)}>
               <Avatar name={profile.displayName} src={profile.photoURL} size="lg" />
-              <span className="m3-title-medium">{profile.displayName}</span>
+              <span >{profile.displayName}</span>
             </button>
           ))}
         </div>
@@ -28,5 +29,10 @@ const ProfileSelectionScreen: React.FC<ProfileSelectionScreenProps> = ({ profile
 };
 
 export default ProfileSelectionScreen;
+
+
+
+
+
 
 

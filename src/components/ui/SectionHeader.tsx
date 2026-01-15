@@ -1,14 +1,13 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { useTheme } from '../../theme/theme';
 import M3Typography from './M3Typography';
 
 /**
  * SectionHeader Component
- * 
+ *
  * Displays a section header with optional icon, title, and subtitle.
  * Uses MD3 design tokens for consistent styling.
- * 
- * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance and className removal
  */
 
 interface SectionHeaderProps {
@@ -22,19 +21,19 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     subtitle,
     icon
 }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const theme = useTheme();
-    
+  const { layers } = useTheme();
+  const { sys, ref } = layers;
+
     return (
     <div
         style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--md-sys-spacing-4)',
-            marginBottom: 'var(--md-sys-spacing-6)',
-            marginTop: 'var(--md-sys-spacing-6)',
-            paddingLeft: 'var(--md-sys-spacing-4)',
-            paddingRight: 'var(--md-sys-spacing-4)'
+            gap: layers.ref.spacing['4'],
+            marginBottom: layers.ref.spacing['4'],
+            marginTop: layers.ref.spacing['4'],
+            paddingLeft: layers.ref.spacing['4'],
+            paddingRight: layers.ref.spacing['4']
         }}
     >
         {icon && (
@@ -43,17 +42,17 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    width: 'var(--md-sys-spacing-6)',
-                    height: 'var(--md-sys-spacing-6)',
-                    borderRadius: 'var(--md-sys-shape-corner-medium)',
-                    backgroundColor: 'var(--md-sys-color-primary-container)',
-                    color: 'var(--md-sys-color-on-primary-container)'
+                    width: layers.ref.spacing['8'],
+                    height: layers.ref.spacing['8'],
+                    borderRadius: ref.shape.corner.medium,
+                    backgroundColor: sys.color.primaryContainer,
+                    color: sys.color.onPrimaryContainer
                 }}
             >
                 <span
                     style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--md-sys-spacing-4)'
+                        fontSize: layers.ref.spacing['6']
                     }}
                 >
                     {icon}
@@ -66,7 +65,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 style={{
                     textTransform: 'uppercase',
                     letterSpacing: '0.5em',
-                    color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 40%, transparent)'
+                    color: `color-mix(in srgb, ${sys.color.onSurfaceVariant} 40%, transparent)`
                 }}
             >
                 {title}
@@ -75,8 +74,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 <M3Typography
                     variant="body-small"
                     style={{
-                        marginTop: 'var(--md-sys-spacing-4)',
-                        color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 60%, transparent)'
+                        marginTop: layers.ref.spacing['2'],
+                        color: `color-mix(in srgb, ${sys.color.onSurfaceVariant} 60%, transparent)`
                     }}
                 >
                     {subtitle}
@@ -88,5 +87,10 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 };
 
 export default SectionHeader;
+
+
+
+
+
 
 

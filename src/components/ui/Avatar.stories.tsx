@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Avatar from './Avatar';
@@ -13,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     name: {
       control: 'text',
@@ -25,7 +26,7 @@ const meta = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl'],
+      options: ['sm', 'md', 'lg', 'xl],
       description: 'Avatar size',
     },
   },
@@ -97,7 +98,7 @@ export const MultipleAvatars: Story = {
     size: 'md',
   },
   render: () => (
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: layers.ref.spacing['4'], alignItems: 'center' }}>
       <Avatar name="Alice Johnson" size="sm" />
       <Avatar name="Bob Smith" size="md" />
       <Avatar name="Carol Williams" size="lg" />
@@ -181,7 +182,7 @@ export const TeamGroup: Story = {
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '1.5rem',
-        padding: '2rem',
+        padding: layers.ref.spacing['4'],
       }}
     >
       <Avatar name="Alice Johnson" size="md" />
@@ -222,5 +223,10 @@ export const TwoCharInitials: Story = {
     },
   },
 };
+
+
+
+
+
 
 

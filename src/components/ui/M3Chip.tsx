@@ -1,6 +1,6 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../theme/theme';
 
 export type M3ChipProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
@@ -9,9 +9,11 @@ export type M3ChipProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   onDelete?: () => void;
 };
 
-function M3Chip({ label, variant = 'filled', disabled, onDelete, className, ...buttonProps }: M3ChipProps): React.ReactElement {
+function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps }: M3ChipProps): React.ReactElement {
   const [isHovered, setIsHovered] = React.useState(false);
   const [isFocused, setIsFocused] = React.useState(false);
+  const { layers } = useTheme();
+  const { sys, ref, motion, elevation } = layers;
 
   // Variant styles using MD3 design tokens
   const getVariantStyles = (): React.CSSProperties => {
@@ -19,29 +21,26 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, className, ...b
 
     switch (variant) {
       case 'outlined':
-        baseStyles.backgroundColor = 'var(--md-sys-color-surface)';
-        baseStyles.color = 'var(--md-sys-color-on-surface-variant)';
-        baseStyles.border = '2px solid var(--md-sys-color-outline)';
+        baseStyles.backgroundColor = sys.color.surface;
+        baseStyles.color = sys.color.onSurfaceVariant;
+        baseStyles.border = `2px solid ${sys.color.outline}`;
         if (isHovered || isFocused) {
-          baseStyles.borderColor = 'var(--md-sys-color-on-surface-variant)';
+          baseStyles.borderColor = sys.color.onSurfaceVariant;
         }
         break;
       case 'elevated':
-        baseStyles.backgroundColor = 'var(--md-sys-color-surface)';
-        baseStyles.color = 'var(--md-sys-color-on-surface-variant)';
-        baseStyles.border = '1px solid var(--md-sys-color-surface-variant)';
-        baseStyles.boxShadow = 'var(--md-sys-elevation-level1)';
+        baseStyles.backgroundColor = sys.color.surface;
+        baseStyles.color = sys.color.onSurfaceVariant;
+        baseStyles.border = `1px solid ${sys.color.surfaceVariant}`;
+        baseStyles.boxShadow = elevation.level1;
         if (isHovered || isFocused) {
-          baseStyles.boxShadow = 'var(--md-sys-elevation-level2)';
+          baseStyles.boxShadow = elevation.level2;
         }
         break;
       default: // filled
-        baseStyles.backgroundColor = 'var(--md-sys-color-secondary-container)';
-        baseStyles.color = 'var(--md-sys-color-on-secondary-container)';
-        baseStyles.border = '1px solid var(--md-sys-color-secondary-container)';
-        if (isHovered || isFocused) {
-          baseStyles.backgroundColor = 'var(--md-sys-color-secondary-container-hover)';
-        }
+        baseStyles.backgroundColor = sys.color.secondaryContainer;
+        baseStyles.color = sys.color.onSecondaryContainer;
+        baseStyles.border = `1px solid ${sys.color.secondaryContainer}`;
         break;
     }
 
@@ -52,24 +51,24 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, className, ...b
   const containerStyle: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 'var(--md-sys-spacing-2)',
-    borderRadius: 'var(--md-sys-shape-corner-small)',
-    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)',
-    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-    opacity: disabled ? 0.38 : 1,
+    gap: layers.ref.spacing['4'],
+    borderRadius: ref.shape.corner.small,
+    padding: `${layers.ref.spacing['4']} ${layers.ref.spacing['4']}`,
+    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
+    opacity: disabled ? 0.38 : (variant === 'filled' && (isHovered || isFocused) ? 0.8 : 1),
     cursor: disabled ? 'not-allowed' : 'default',
     pointerEvents: disabled ? 'none' : 'auto'
   };
 
   // Button styles
   const buttonStyle: React.CSSProperties = {
-    fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
-    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-    letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
-    borderRadius: 'var(--md-sys-shape-corner-small)',
-    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+    fontFamily: ref.typography.labelLarge.fontFamily,
+    fontSize: ref.typography.labelLarge.fontSize,
+    fontWeight: ref.typography.labelLarge.fontWeight,
+    lineHeight: ref.typography.labelLarge.lineHeight,
+    letterSpacing: ref.typography.labelLarge.letterSpacing,
+    borderRadius: ref.shape.corner.small,
+    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
     outline: 'none',
     border: 'none',
     backgroundColor: 'transparent',
@@ -79,14 +78,14 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, className, ...b
 
   // Delete button styles
   const deleteButtonStyle: React.CSSProperties = {
-    width: 'var(--md-sys-spacing-4)',
-    height: 'var(--md-sys-spacing-4)',
+    width: layers.ref.spacing['4'],
+    height: layers.ref.spacing['4'],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 'var(--md-sys-shape-corner-full)',
-    color: 'var(--md-sys-color-on-surface-variant)',
-    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+    borderRadius: ref.shape.corner.full,
+    color: sys.color.onSurfaceVariant,
+    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
     outline: 'none',
     border: 'none',
     backgroundColor: 'transparent',
@@ -97,7 +96,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, className, ...b
   // Icon styles
   const iconStyle: React.CSSProperties = {
     fontFamily: 'Material Symbols Outlined',
-    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+    fontSize: ref.typography.bodySmall.fontSize,
     fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
     userSelect: 'none'
   };
@@ -139,5 +138,10 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, className, ...b
 }
 
 export default M3Chip;
+
+
+
+
+
 
 

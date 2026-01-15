@@ -1,6 +1,8 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useMemo } from 'react';
 import { Slot, Lezione, TimetableSettings, AiSettings, Uda, KnowledgeBaseEntry, PianoInclusione, Studente } from '../types';
 import { M3ChoiceCard, InfoCard, SectionHeader, M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField, TextArea } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface EditSlotModalProps {
     slot: Slot;
@@ -27,7 +29,8 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
     slot,
     lesson,
     onClose,
-    onDelete = () => {},
+    onDelete = () => {
+  const { layers } = useTheme();},
     onSaveLesson,
     timetableSettings,
     userClasses,
@@ -56,7 +59,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                 materia: currentSlot.materia,
                 contenuto: currentLesson.contenuto || 'Lezione',
                 svolta: false,
-                tipoLezione: (currentLesson.tipoLezione as Lezione['tipoLezione']) || 'Teoria',
+                tipoLezione: currentLesson.tipoLezione || 'Teoria',
                 ...currentLesson,
             };
             onSaveLesson(newLesson, slotKey);
@@ -68,7 +71,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                 contenuto: 'Sostituzione / Disposizione',
                 svolta: true,
                 tipoLezione: 'Disposizione',
-                nota: currentLesson.nota || '',
+                  nota: currentLesson.nota || '',
             };
             onSaveLesson(newLesson, slotKey);
         } else {
@@ -93,29 +96,25 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent style={{
-  marginTop: 'var(--md-sys-spacing-8)'
-}}>
-                <div style={{
-  paddingLeft: 'var(--md-sys-spacing-4)',
-  paddingRight: 'var(--md-sys-spacing-4)'
-}}>
-                    <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-extrabold tracking-[0.2em]" style={{ color: "var(--md-sys-color-primary)", textTransform: "uppercase" }}>{slot.giorno} • {slot.ora}</p>
+            <M3DialogContent style={{marginTop: layers.ref.spacing['8']}}>
+                <div style={{paddingLeft: layers.ref.spacing['4'],
+  paddingRight: layers.ref.spacing['4']}}>
+                    <p style={{color: "layers.sys.color.primary", textTransform: "uppercase"}}>{slot.giorno} • {slot.ora}</p>
                 </div>
 
                 <section>
                     <SectionHeader title="Tipologia Attività" icon="category" />
-                    <div className="pb-2 no-scrollbar" style={{ display: "flex", gap: "var(--md-sys-spacing-6)", overflowX: "auto", marginTop: "var(--md-sys-spacing-4)" }}>
+                    <div  style={{display: "flex", gap: layers.ref.spacing['6'], overflowX: "auto", marginTop: layers.ref.spacing['4']}}>
                         <M3ChoiceCard icon="school" label="Lezione" selected={activityType === 'standard'} onClick={() => setActivityType('standard')} />
                         <M3ChoiceCard icon="pending_actions" label="Disp." selected={activityType === 'disposizione'} onClick={() => setActivityType('disposizione')} />
                         <M3ChoiceCard icon="diversity_3" label="Ricev." selected={activityType === 'ricevimento'} onClick={() => setActivityType('ricevimento')} />
                     </div>
                 </section>
 
-                <div className="bg-[var(--md-sys-color-surface-container-low)]est md:p-6 rounded-[var(--md-sys-shape-corner-extra-large)] md:rounded-4xl border-[var(--md-sys-color-outline-variant)]/30 shadow-inner" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
+                <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLowest, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
                     {activityType === 'standard' && (
-                        <div className="animate-in slide-in-from-bottom-4" style={{ gap: "var(--md-sys-spacing-6)" }}>
-                            <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
+                        <div  style={{gap: layers.ref.spacing['6']}}>
+                            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
                                 <SelectField
                                     id="slot-class-select"
                                     label="Classe"
@@ -146,7 +145,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                             <TextField
                                 id="slot-argomento-input"
                                 label="Argomento (Opzionale)"
-                                value={currentLesson.contenuto || ''}
+                                  value={currentLesson.contenuto || ''}
                                 onChange={e => setCurrentLesson({ ...currentLesson, contenuto: e.target.value })}
                                 placeholder="Cosa spiegherai?"
                             />
@@ -163,7 +162,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                     )}
 
                     {activityType === 'disposizione' && (
-                        <div className="animate-in slide-in-from-bottom-4" style={{ gap: "var(--md-sys-spacing-4)" }}>
+                        <div  style={{gap: layers.ref.spacing['4']}}>
                             <InfoCard title="Ora di Disposizione" description="Registra la tua presenza per sostituzioni o attività di plesso." icon="pending_actions" variant="secondary" />
                             <TextArea
                                 id="slot-disp-nota"
@@ -177,7 +176,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                     )}
 
                     {activityType === 'ricevimento' && (
-                        <div className="animate-in slide-in-from-bottom-4" style={{ gap: "var(--md-sys-spacing-4)" }}>
+                        <div  style={{gap: layers.ref.spacing['4']}}>
                             <InfoCard title="Colloquio Genitori" description="Spazio dedicato al ricevimento delle famiglie." icon="diversity_3" variant="tertiary" />
                             <TextArea
                                 id="slot-ricev-nota"
@@ -193,17 +192,22 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
             </M3DialogContent>
             <M3DialogActions>
                 {lesson && (
-                    <M3Button onClick={() => { if (window.confirm('Eliminare?')) { onDelete(slotKey); onClose(); } }} variant="text" className="!text-error mr-auto">
+                    <M3Button onClick={() => { if (window.confirm('Eliminare?')) { onDelete(slotKey); onClose(); } }} variant="text" >
                         Rimuovi
                     </M3Button>
                 )}
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button onClick={handleSave} variant="filled" className="shadow-[var(--md-sys-elevation-level3)] !px-10">Conferma</M3Button>
+                <M3Button onClick={handleSave} variant="filled" >Conferma</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );
 };
 
 export default EditSlotModal;
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState, useMemo } from 'react';
 import { View, Valutazione } from '../types';
@@ -7,6 +8,7 @@ import { saveAs } from '../utils/documentUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SectionHeader, TabGroup, M3ExpressiveCard } from './ui';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
+import { useTheme } from '../theme/theme';
 
 interface ClassSelectionProps {
     onSelectClass: (className: string) => void;
@@ -14,6 +16,7 @@ interface ClassSelectionProps {
 }
 
 const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNavigate }) => {
+  const { layers } = useTheme();
     const students = useStudentStore(state => state.students);
     const evaluations = useStudentStore(state => state.evaluations);
     const competencyEvaluations = useStudentStore(state => state.competencyEvals);
@@ -47,30 +50,30 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
     }, [evaluations, students]);
 
     return (
-        <div className="page-layout pb-24">
+        <div >
              {/* Header Section */}
-            <div className="page-header-compact">
-                <div className="page-header-title-group">
-                    <h1 className="m3-headline-medium text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900" }}>Le Mie Classi</h1>
-                    <p className="page-subtitle text-[var(--md-sys-color-on-surface)]-variant">Gestione studenti e analisi.</p>
+            <div >
+                <div >
+                    <h1 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900" }}>Le Mie Classi</h1>
+                    <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Gestione studenti e analisi.</p>
                 </div>
             </div>
 
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
-                <section className="animate-in fade-in slide-in-from-top-4">
-                    <h2 className="section-header-expressive !mb-8 text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                <section >
+                    <h2 style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         In Arrivo (Tutte le classi)
                     </h2>
-                    <div className="global-agenda-grid">
+                    <div >
                         {upcomingTests.map((test, idx) => (
-                            <div key={idx} className="agenda-event-card">
+                            <div key={idx} >
                                 <div>
-                                    <span className="agenda-event-date">{new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}</span>
-                                    <h4 className="agenda-event-title">{test.materia}</h4>
-                                    <p className="agenda-event-subtitle max-w-[120px] md:max-w-[150px]" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{test.argomento || test.tipo}</p>
+                                    <span >{new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}</span>
+                                    <h4 >{test.materia}</h4>
+                                    <p  style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{test.argomento || test.tipo}</p>
                                 </div>
-                                <div className="agenda-event-class">{test.className}</div>
+                                <div >{test.className}</div>
                             </div>
                         ))}
                     </div>
@@ -85,7 +88,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                 />
                 
                 {userClasses.length > 0 ? (
-                    <div className="expressive-grid">
+                    <div >
                         {userClasses.map((className) => {
                             const classStudents = students.filter(s => s.classe === className);
                             const studentCount = classStudents.length;
@@ -111,10 +114,10 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         })}
                     </div>
                 ) : (
-                    <div className="p-12 bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-large)] border-dashed border-[var(--md-sys-color-outline-variant)]" style={{ textAlign: "center", border: "1px solid var(--md-sys-color-outline)" }}>
-                        <span className="material-symbols-outlined text-6xl text-[var(--md-sys-color-on-surface)]-variant/50" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>domain_disabled</span>
-                        <p className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] text-[var(--md-sys-color-on-surface)]-variant">Nessuna classe definita</p>
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ marginTop: "var(--md-sys-spacing-4)", marginBottom: "var(--md-sys-spacing-6)" }}>
+                    <div style={{ padding: layers.ref.spacing['8'], backgroundColor: 'layers.sys.color.surfaceContainerLow', borderRadius: layers.ref.shape.corner.large, textAlign: "center", border: "1px solid layers.sys.color.outline" }}>
+                        <span style={{ color: 'layers.sys.color.onSurfaceVariant', opacity: 0.5, marginBottom: layers.ref.spacing['8'] }}>domain_disabled</span>
+                        <p style={{ color: 'layers.sys.color.onSurfaceVariant' }}>Nessuna classe definita</p>
+                        <p style={{ color: 'layers.sys.color.onSurfaceVariant', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['6'] }}>
                             Vai nelle impostazioni per configurare le tue classi e iniziare.
                         </p>
                         <M3Button onClick={() => onNavigate('settings')} variant="filled">
@@ -131,41 +134,41 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                     icon="settings_applications"
                 />
                 
-                <div className="expressive-grid">
+                <div >
                     <button 
                         onClick={() => onNavigate('studenti')} 
-                        className="expressive-tool-card variant-secondary"
+                        
                     >
-                        <span className="material-symbols-outlined tool-icon">group_add</span>
-                        <span className="tool-title">Importazione Massiva</span>
-                        <span className="tool-subtitle">Carica studenti da CSV</span>
+                        <span >group_add</span>
+                        <span >Importazione Massiva</span>
+                        <span >Carica studenti da CSV</span>
                     </button>
 
                     <button 
                         onClick={() => setIsPrintCenterOpen(true)} 
-                        className="expressive-tool-card variant-primary"
+                        
                     >
-                        <span className="material-symbols-outlined tool-icon">print</span>
-                        <span className="tool-title">Centro Stampe</span>
-                        <span className="tool-subtitle">Report PDF multi-classe</span>
+                        <span >print</span>
+                        <span >Centro Stampe</span>
+                        <span >Report PDF multi-classe</span>
                     </button>
 
                     <button 
                         onClick={() => onNavigate('analytics')} 
-                        className="expressive-tool-card variant-tertiary"
+                        
                     >
-                        <span className="material-symbols-outlined tool-icon">analytics</span>
-                        <span className="tool-title">Analytics Hub</span>
-                        <span className="tool-subtitle">Dashboard dati avanzata</span>
+                        <span >analytics</span>
+                        <span >Analytics Hub</span>
+                        <span >Dashboard dati avanzata</span>
                     </button>
 
                     <button 
                         onClick={() => onNavigate('didattica-inclusiva')} 
-                        className="expressive-tool-card variant-surface"
+                        
                     >
-                        <span className="material-symbols-outlined tool-icon" style={{ color: "var(--md-sys-color-tertiary)" }}>accessibility_new</span>
-                        <span className="tool-title">Didattica Inclusiva</span>
-                        <span className="tool-subtitle">Gestione PEI/PDP globale</span>
+                        <span  style={{color: "layers.sys.color.tertiary"}}>accessibility_new</span>
+                        <span >Didattica Inclusiva</span>
+                        <span >Gestione PEI/PDP globale</span>
                     </button>
                 </div>
             </section>
@@ -235,11 +238,11 @@ const PrintCenterModal: React.FC<{
             onClose={onClose}
             maxWidth="md"
         >
-            <M3DialogContent style={{ gap: "var(--md-sys-spacing-6)" }}>
-                    <p className="text-[var(--md-sys-color-on-surface)]-variant">Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
+            <M3DialogContent style={{gap: layers.ref.spacing['6']}}>
+                    <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
-                    <div style={{ gap: "var(--md-sys-spacing-2)" }}>
-                        <label className="text-[var(--md-sys-color-on-surface)]-variant ml-1" style={{ fontSize: "0.875rem", fontWeight: "500" }}>Periodo</label>
+                    <div style={{gap: layers.ref.spacing['2']}}>
+                        <label style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.875rem", fontWeight: "500" }}>Periodo</label>
                         <TabGroup
                             tabs={[
                                 { id: 'primo-quadrimestre', label: '1Q' },
@@ -250,9 +253,9 @@ const PrintCenterModal: React.FC<{
                         />
                     </div>
 
-                    <div style={{ gap: "var(--md-sys-spacing-2)" }}>
-                        <label className="text-[var(--md-sys-color-on-surface)]-variant ml-1" style={{ fontSize: "0.875rem", fontWeight: "500" }}>Classi</label>
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--md-sys-spacing-8)" }}>
+                    <div style={{gap: layers.ref.spacing['2']}}>
+                        <label style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.875rem", fontWeight: "500" }}>Classi</label>
+                        <div style={{display: "flex", flexWrap: "wrap", gap: layers.ref.spacing['8']}}>
                             {userClasses.map(c => (
                                 <div 
                                     key={c} 
@@ -260,10 +263,10 @@ const PrintCenterModal: React.FC<{
                                     className={`px-4 py-4 rounded-full border cursor-pointer transition-all flex items-center gap-8 ${
                                         selectedClasses.includes(c) 
                                             ? 'bg-primary text-on-primary border-primary' 
-                                            : 'bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)]-variant border-[var(--md-sys-color-outline-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                                            : 'bg-[var(--md-sys-color-surfaceContainerLow)] text-[var(--md-sys-color-onSurface)]-variant border-[var(--md-sys-color-outline-variant)] hover:bg-[var(--md-sys-color-surfaceContainerHigh)]'
                                     }`}
                                 >
-                                    {selectedClasses.includes(c) && <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>check</span>}
+                                    {selectedClasses.includes(c) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
                                     Classe {c}
                                 </div>
                             ))}
@@ -281,5 +284,10 @@ const PrintCenterModal: React.FC<{
 }
 
 export default React.memo(ClassSelection);
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState } from 'react';
 import { Report } from '../types';
@@ -32,36 +33,36 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
     };
 
     return (
-        <div className="archivio-report-container">
-            <div className="archivio-report-header">
-                <div className="archivio-report-title-group">
-                    <h1 className="archivio-report-title">Archivio Report</h1>
-                    <p className="archivio-report-subtitle">Consulta, esporta e salva i report generati con l'AI.</p>
+        <div >
+            <div >
+                <div >
+                    <h1 >Archivio Report</h1>
+                    <p >Consulta, esporta e salva i report generati con l'AI.</p>
                 </div>
             </div>
-            <div className="archivio-report-card">
-                <div className="archivio-report-card-content">
-                    <div className="archivio-report-search-container">
-                        <span className="material-symbols-outlined archivio-report-search-icon" aria-hidden="true">search</span>
+            <div >
+                <div >
+                    <div >
+                        <span  aria-hidden="true">search</span>
                         <input 
                             type="text"
                             placeholder="Cerca report per nome o contesto..."
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
-                            className="archivio-report-search-input"
+                            
                             aria-label="Cerca report per nome o contesto"
                         />
                     </div>
                 </div>
-                 <div className="archivio-report-table-container">
-                    <table className="archivio-report-table">
+                 <div >
+                    <table >
                         <thead>
                             <tr>
                                 <th>Nome Report</th>
                                 <th>Data Creazione</th>
                                 <th>Contesto</th>
                                 <th>Modello Usato</th>
-                                <th className="archivio-report-table-actions">Azioni</th>
+                                <th >Azioni</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,7 +76,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                             {report.modelloUsato.nome}
                                         </span>
                                     </td>
-                                    <td className="archivio-report-table-actions">
+                                    <td >
                                             <M3IconButton onClick={() => onSaveReportToKb(report)} title="Salva in Knowledge Base" ariaLabel="Salva report in Knowledge Base" icon="inventory_2" />
                                             <M3IconButton onClick={() => handleDownload(report)} title="Scarica" ariaLabel="Scarica report" icon="download" />
                                             <M3IconButton onClick={() => onDeleteReport(report.id)} title="Elimina" ariaLabel="Elimina report" icon="delete" />
@@ -85,13 +86,18 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                         </tbody>
                     </table>
                 </div>
-                {filteredReports.length === 0 && <p className="archivio-report-empty">{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
+                {filteredReports.length === 0 && <p >{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
             </div>
         </div>
     );
 }
 
 export default ArchivioReport;
+
+
+
+
+
 
 
 

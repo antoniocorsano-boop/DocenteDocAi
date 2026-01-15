@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useCallback, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { useUIStore } from '../stores/useUIStore';
@@ -59,9 +60,9 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, className, o
   return (
     <>
       {chaosStage === 'chaos' && document.body && ReactDOM.createPortal(
-        <div className="chaos-gem-overlay">
-          <div className="chaos-splinter-gem"></div>
-          <div className="chaos-flash"></div>
+        <div >
+          <div ></div>
+          <div ></div>
         </div>,
         document.body
       )}
@@ -73,29 +74,29 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, className, o
       )}
 
       <div 
-        className={`app-logo-container stage-${chaosStage} ${isAiThinking ? 'thinking' : ''} ${className ? className : ''}`.trim()} 
+        className={`app-logo-container stage-${chaosStage} ${isAiThinking ? 'thinking' : '} ${className ? className : '}`.trim()} 
         onClick={handleLogoClick}
       >
-        <svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible">
+        <svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" >
           {/* Simbolo D Geometrica */}
-          <g transform="translate(2, 2)" className="logo-d-group">
-            <path d="M12 4 H 24 C 36 4, 42 12, 42 20 C 42 28, 36 36, 24 36 H 12 V 4 Z" className="logo-d-ring" />
-            <path d="M14 8 H 22 C 28 8, 31 12, 31 20 C 31 28, 28 32, 22 32 H 14 V 8 Z" className="logo-d-body" />
-            <rect x="4" y="6" width="7" height="28" rx="2" className="logo-d-stem" />
+          <g transform="translate(2, 2)" >
+            <path d="M12 4 H 24 C 36 4, 42 12, 42 20 C 42 28, 36 36, 24 36 H 12 V 4 Z"  />
+            <path d="M14 8 H 22 C 28 8, 31 12, 31 20 C 31 28, 28 32, 22 32 H 14 V 8 Z"  />
+            <rect x="4" y="6" width="7" height="28" rx="2"  />
             
             {/* Gemma AI - Questa è quella che "vola" via o appare alla fine */}
-            <g transform="translate(38, 4)" className="logo-gem-container">
-                <path d="M0 -5 L1.5 -1.5 L5 0 L1.5 1.5 L0 5 L-1.5 1.5 L-5 0 L-1.5 -1.5 Z" className="logo-sparkle" />
+            <g transform="translate(38, 4)" >
+                <path d="M0 -5 L1.5 -1.5 L5 0 L1.5 1.5 L0 5 L-1.5 1.5 L-5 0 L-1.5 -1.5 Z"  />
             </g>
           </g>
           
           {/* Brand Text */}
-          <text x="54" y="32" className="logo-main-text" fill="currentColor">
+          <text x="54" y="32"  fill="currentColor">
             DocenteDoc
           </text>
           
           {/* Badge AI */}
-          <text x="188" y="18" className="logo-ai-text" fill="currentColor">AI</text>
+          <text x="188" y="18"  fill="currentColor">AI</text>
         </svg>
       </div>
     </>
@@ -104,5 +105,10 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, className, o
 
 export { LogoComponent as Logo };
 export default LogoComponent;
+
+
+
+
+
 
 

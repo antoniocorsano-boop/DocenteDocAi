@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 import React, { useState, useMemo } from 'react';
@@ -7,6 +8,7 @@ import { useUIStore } from '../stores/useUIStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, SectionHeader, TextField, SelectField, TextArea } from './ui';
 import { generateTemplateWithAi } from '../services/aiService';
+import { useTheme } from '../theme/theme';
 
 interface TemplateManagerProps {
   onClose: () => void;
@@ -14,6 +16,7 @@ interface TemplateManagerProps {
 }
 
 const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTemplate }) => {
+  const { layers } = useTheme();
   const [editingTemplate, setEditingTemplate] = useState<DocumentTemplate | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -58,7 +61,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
       id: `template-${Date.now()}`,
       name: 'Nuovo Template',
       type: 'student_profile',
-      description: '',
+      description: 'Template per profilo studente',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       config: {
@@ -120,7 +123,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
       maxWidth="2xl"
     >
       <M3DialogContent style={{ padding: 0 }}>
-        <div style={{ display: "flex", flexDirection: "column", padding: "var(--md-sys-spacing-16)" }}>
+        <div style={{display: "flex", flexDirection: "column", padding: layers.ref.spacing['16']}}>
             {editingTemplate ? (
               <TemplateEditor
                 template={editingTemplate}
@@ -133,38 +136,38 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
             ) : (
               <>
                 {/* Barra di ricerca e controlli */}
-                <div style={{ display: "flex", gap: "var(--md-sys-spacing-12)", marginBottom: "var(--md-sys-spacing-16)" }}>
+                <div style={{display: "flex", gap: layers.ref.spacing['12'], marginBottom: layers.ref.spacing['16']}}>
                   <div style={{ flex: 1 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", backgroundColor: "var(--md-sys-color-surface-container)", borderRadius: "var(--md-sys-shape-corner-full)", padding: "var(--md-sys-spacing-8) var(--md-sys-spacing-12)" }}>
-                      <span style={{ color: "var(--md-sys-color-on-surface-variant)", fontSize: "1.5rem" }}>search</span>
+                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], backgroundColor: "layers.sys.color.surfaceContainer", borderRadius: "layers.ref.shape.corner.full", padding: `${layers.ref.spacing['8']} ${layers.ref.spacing['12']}`}}>
+                      <span style={{color: "layers.sys.color.onSurface-variant", fontSize: "1.5rem"}}>search</span>
                       <input
                         type="text"
                         placeholder="Cerca template..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        style={{ border: "none", backgroundColor: "transparent", width: "100%", color: "var(--md-sys-color-on-surface)", fontSize: "1rem", outline: "none" }}
+                        style={{border: "none", backgroundColor: "transparent", width: "100%", color: "layers.sys.color.onSurface", fontSize: layers.ref.spacing['4'], outline: "none"}}
                       />
                     </div>
                   </div>
                   <M3Button
                     onClick={handleCreateTemplate}
                     variant="filled"
-                    style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}
+                    style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}
                   >
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add</span>
+                    <span  style={{ marginRight: "0.5rem" }}>add</span>
                     Nuovo Template
                   </M3Button>
                 </div>
 
                 {/* Lista template raggruppati */}
-                <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-16)" }}>
+                <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['16']}}>
                   {Object.keys(groupedTemplates).length === 0 ? (
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "var(--md-sys-spacing-32)", gap: "var(--md-sys-spacing-16)" }}>
-                      <span style={{ fontSize: "3rem", color: "var(--md-sys-color-outline-variant)" }}>description</span>
-                      <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium)", fontWeight: "500", color: "var(--md-sys-color-on-surface)" }}>
+                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: layers.ref.spacing['32'], gap: layers.ref.spacing['16']}}>
+                      <span style={{fontSize: layers.ref.spacing['4'], color: "layers.sys.color.outline-variant"}}>description</span>
+                      <h3 style={{fontSize: "var(--md-sys-typescale-title-medium)", fontWeight: "500", color: "layers.sys.color.onSurface"}}>
                         {searchTerm ? 'Nessun template trovato' : 'Nessun template creato'}
                       </h3>
-                      <p style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface-variant)" }}>
+                      <p style={{fontSize: "var(--md-sys-typescale-body-medium)", color: "layers.sys.color.onSurface-variant"}}>
                         {searchTerm
                           ? 'Prova a modificare i termini di ricerca'
                           : 'Crea il tuo primo template per personalizzare i documenti'
@@ -174,7 +177,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                         <M3Button
                           onClick={handleCreateTemplate}
                           variant="filled"
-                          className="template-manager-empty-state-button"
+                          
                         >
                           Crea il primo template
                         </M3Button>
@@ -186,51 +189,51 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                         <SectionHeader 
                           title={groupName} 
                           subtitle={`${groupTemplates.length} template disponibili`}
-                          style={{ marginBottom: "var(--md-sys-spacing-8)" }}
+                          style={{marginBottom: layers.ref.spacing['8']}}
                         />
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "var(--md-sys-spacing-12)" }}>
+                        <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: layers.ref.spacing['12']}}>
                           {groupTemplates.map(template => (
                             <InfoCard
                               key={template.id}
                               variant="elevated"
                               style={{ cursor: "pointer", transition: "all 0.2s ease-in-out" }}
                             >
-                              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "var(--md-sys-spacing-12)" }}>
-                                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
-                                  <h4 style={{ fontSize: "var(--md-sys-typescale-title-small)", fontWeight: "500", color: "var(--md-sys-color-on-surface)", margin: 0 }}>
+                              <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: layers.ref.spacing['12']}}>
+                                <div style={{flex: 1, display: "flex", flexDirection: "column", gap: layers.ref.spacing['8']}}>
+                                  <h4 style={{fontSize: "var(--md-sys-typescale-title-small)", fontWeight: "500", color: "layers.sys.color.onSurface", margin: 0}}>
                                     {template.name}
                                   </h4>
                                   <span className={`template-manager-template-type-badge ${template.type === 'student_profile' ? 'template-manager-template-type-badge.student-profile' : template.type === 'lesson_plan' ? 'template-manager-template-type-badge.lesson-plan' : 'template-manager-template-type-badge.uda'}`}>
                                     {getTypeLabel(template.type)}
                                   </span>
                                 </div>
-                                <div style={{ display: "flex", gap: "var(--md-sys-spacing-4)" }}>
+                                <div style={{display: "flex", gap: layers.ref.spacing['4']}}>
                                   <M3Button
                                     onClick={() => setEditingTemplate(template)}
                                     variant="text"
-                                    className="template-manager-template-edit-button"
+                                    
                                     title={`Modifica template ${template.name}`}
                                   >
-                                    <span className="template-manager-template-edit-icon">edit</span>
+                                    <span >edit</span>
                                   </M3Button>
                                   <M3Button
                                     onClick={() => handleDeleteTemplate(template.id, template.name)}
                                     variant="text"
-                                    className="template-manager-template-delete-button"
+                                    
                                     title={`Elimina template ${template.name}`}
                                   >
-                                    <span className="template-manager-template-delete-icon">delete</span>
+                                    <span >delete</span>
                                   </M3Button>
                                 </div>
                               </div>
 
                               {template.description && (
-                                <p style={{ fontSize: "var(--md-sys-typescale-body-small)", color: "var(--md-sys-color-on-surface-variant)", marginBottom: "var(--md-sys-spacing-12)" }}>
+                                <p style={{fontSize: "var(--md-sys-typescale-body-small)", color: "layers.sys.color.onSurface-variant", marginBottom: layers.ref.spacing['12']}}>
                                   {template.description}
                                 </p>
                               )}
 
-                              <div style={{ fontSize: "0.75rem", color: "var(--md-sys-color-outline-variant)", marginBottom: "var(--md-sys-spacing-12)" }}>
+                              <div style={{fontSize: "0.75rem", color: "layers.sys.color.outline-variant", marginBottom: layers.ref.spacing['12']}}>
                                 Aggiornato: {new Date(template.updatedAt).toLocaleDateString('it-IT')}
                               </div>
 
@@ -238,7 +241,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                 <M3Button
                                   onClick={() => handleApplyTemplate(template)}
                                   variant="tonal"
-                                  className="template-manager-template-apply-button"
+                                  
                                 >
                                   Applica Template
                                 </M3Button>
@@ -268,19 +271,19 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
   return (
     <InfoCard 
       variant="elevated" 
-      style={{ border: "1px solid var(--md-sys-color-outline)" }} style={{ height: "100%", display: "flex", flexDirection: "column" }}
+      style={{border: "1px solid layers.sys.color.outline", height: "100%", display: "flex", flexDirection: "column" }}
       aria-label="Anteprima del documento"
       role="region"
     >
-      <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)" }} style={{ padding: "var(--md-sys-spacing-8)", borderBottom: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span className="text-[10px]" style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.5", marginLeft: "0.5rem" }}>Simulazione Documento</span>
-        <div style={{ display: "flex", gap: "var(--md-sys-spacing-4)" }}>
-          <div style={{ backgroundColor: "var(--md-sys-color-error)" }} style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
-          <div style={{ backgroundColor: "var(--md-sys-color-warning)" }} style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
-          <div style={{ backgroundColor: "var(--md-sys-color-success)" }} style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px" }}></div>
+      <div style={{backgroundColor: "layers.sys.color.surfaceContainerLow", padding: layers.ref.spacing['8'], borderBottom: "1px solid layers.sys.color.outline", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+        <span style={{ color: "layers.sys.color.onSurfaceVariant", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.5", marginLeft: "0.5rem" }}>Simulazione Documento</span>
+        <div style={{display: "flex", gap: layers.ref.spacing['4']}}>
+          <div style={{backgroundColor: "layers.sys.color.error", width: "0.5rem", height: "0.5rem", borderRadius: layers.ref.spacing['4'] }}></div>
+          <div style={{backgroundColor: "layers.sys.color.warning", width: "0.5rem", height: "0.5rem", borderRadius: layers.ref.spacing['4'] }}></div>
+          <div style={{backgroundColor: "layers.sys.color.success", width: "0.5rem", height: "0.5rem", borderRadius: layers.ref.spacing['4'] }}></div>
         </div>
       </div>
-      <div style={{ color: "black", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)" }} style={{ padding: "var(--md-sys-spacing-6)", backgroundColor: "white", overflowY: "auto", flex: "1" }}>
+      <div style={{ color: "black", boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)", padding: layers.ref.spacing['6'], backgroundColor: "white", overflowY: "auto", flex: "1"}}>
         <style>
           {template.content?.customCss || ''}
         </style>
@@ -295,40 +298,40 @@ const TemplatePreview: React.FC<{ template: DocumentTemplate }> = ({ template })
           }} 
         />
         
-        <div style={{ margin: "var(--md-sys-spacing-12) 0", padding: "var(--md-sys-spacing-16)", border: "2px dashed var(--md-sys-color-outline-variant)", borderRadius: "var(--md-sys-shape-corner-medium)", color: "var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface-container-low)" }} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-          <span className="material-symbols-outlined" style={{ fontSize: "1.875rem" }} style={{ marginBottom: "var(--md-sys-spacing-8)" }}>description</span>
+        <div style={{margin: `${layers.ref.spacing['12']} 0`, padding: layers.ref.spacing['16'], border: `2px dashed ${layers.sys.color.outlineVariant}`, borderRadius: layers.ref.shape.corner.medium, color: layers.sys.color.outline, backgroundColor: layers.sys.color.surfaceContainerLow, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <span  style={{ fontSize: "1.875rem", marginBottom: layers.ref.spacing['8']}}>description</span>
           <p style={{ fontSize: "0.75rem", fontWeight: "500" }}>Contenuto del Documento</p>
-          <p className="text-[9px]" style={{ marginTop: "var(--md-sys-spacing-4)", marginBottom: "var(--md-sys-spacing-8)" }}>(Simulazione corpo del documento)</p>
+          <p style={{ color: layers.sys.color.onSurfaceVariant }} style={{marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['8']}}>(Simulazione corpo del documento)</p>
           
-          <div style={{ paddingLeft: "var(--md-sys-spacing-16)", paddingRight: "var(--md-sys-spacing-16)" }} style={{ width: "100%", gap: "var(--md-sys-spacing-3)" }}>
+          <div style={{paddingLeft: layers.ref.spacing['16'], paddingRight: layers.ref.spacing['16'], width: "100%", gap: layers.ref.spacing['3']}}>
             {template.type === 'student_profile' && (
               <>
-                <div style={{ backgroundColor: "var(--md-sys-color-outline-variant)", width: "75%" }} style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
-                <div style={{ backgroundColor: "var(--md-sys-color-outline-variant)", width: "50%" }} style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--md-sys-spacing-8)", marginTop: "var(--md-sys-spacing-4)" }}>
-                  <div style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }} style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
-                  <div style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }} style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
-                  <div style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }} style={{ height: "3rem", borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}></div>
+                <div style={{backgroundColor: "layers.sys.color.outline-variant", width: "75%", height: "0.5rem", borderRadius: "0.375rem" }}></div>
+                <div style={{backgroundColor: "layers.sys.color.outline-variant", width: "50%", height: "0.5rem", borderRadius: "0.375rem" }}></div>
+                <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: layers.ref.spacing['8'], marginTop: layers.ref.spacing['4']}}>
+                  <div style={{backgroundColor: "layers.sys.color.surfaceContainerHigh", height: layers.ref.spacing['4'], borderRadius: "0.375rem", border: "1px solid layers.sys.color.outline"}}></div>
+                  <div style={{backgroundColor: "layers.sys.color.surfaceContainerHigh", height: layers.ref.spacing['4'], borderRadius: "0.375rem", border: "1px solid layers.sys.color.outline"}}></div>
+                  <div style={{backgroundColor: "layers.sys.color.surfaceContainerHigh", height: layers.ref.spacing['4'], borderRadius: "0.375rem", border: "1px solid layers.sys.color.outline"}}></div>
                 </div>
               </>
             )}
             {template.type === 'lesson_plan' && (
               <>
-                <div className="bg-[var(--md-sys-color-outline-variant)] w-1/4" style={{ height: "1rem", borderRadius: "0.375rem", marginBottom: "var(--md-sys-spacing-8)" }}></div>
-                <div style={{ gap: "var(--md-sys-spacing-2)" }}>
-                  <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}><div className="bg-[var(--md-sys-color-outline)]" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px", marginTop: "var(--md-sys-spacing-4)" }}></div><div className="bg-[var(--md-sys-color-outline-variant)]" style={{ height: "0.5rem", borderRadius: "0.375rem", flex: "1" }}></div></div>
-                  <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}><div className="bg-[var(--md-sys-color-outline)]" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px", marginTop: "var(--md-sys-spacing-4)" }}></div><div className="bg-[var(--md-sys-color-outline-variant)]" style={{ height: "0.5rem", borderRadius: "0.375rem", flex: "1" }}></div></div>
-                  <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}><div className="bg-[var(--md-sys-color-outline)]" style={{ width: "0.5rem", height: "0.5rem", borderRadius: "9999px", marginTop: "var(--md-sys-spacing-4)" }}></div><div className="bg-[var(--md-sys-color-outline-variant)]" style={{ height: "0.5rem", borderRadius: "0.375rem", flex: "1" }}></div></div>
+                <div style={{ backgroundColor:  layers.sys.color.onPrimary }} style={{height: layers.ref.spacing['4'], borderRadius: "0.375rem", marginBottom: layers.ref.spacing['8']}}></div>
+                <div style={{gap: layers.ref.spacing['2']}}>
+                  <div style={{display: "flex", gap: layers.ref.spacing['8']}}><div style={{ backgroundColor: layers.sys.color.outline }} style={{width: "0.5rem", height: "0.5rem", borderRadius: layers.ref.spacing['4'], marginTop: layers.ref.spacing['4']}}></div><div style={{ backgroundColor:  layers.sys.color.onPrimary }} style={{ height: "0.5rem", borderRadius: "0.375rem", flex: "1" }}></div></div>
+                  <div style={{display: "flex", gap: layers.ref.spacing['8']}}><div style={{ backgroundColor: layers.sys.color.outline }} style={{width: "0.5rem", height: "0.5rem", borderRadius: layers.ref.spacing['4'], marginTop: layers.ref.spacing['4']}}></div><div style={{ backgroundColor:  layers.sys.color.onPrimary }} style={{ height: "0.5rem", borderRadius: "0.375rem", flex: "1" }}></div></div>
+                  <div style={{display: "flex", gap: layers.ref.spacing['8']}}><div style={{ backgroundColor: layers.sys.color.outline }} style={{width: "0.5rem", height: "0.5rem", borderRadius: layers.ref.spacing['4'], marginTop: layers.ref.spacing['4']}}></div><div style={{ backgroundColor:  layers.sys.color.onPrimary }} style={{ height: "0.5rem", borderRadius: "0.375rem", flex: "1" }}></div></div>
                 </div>
               </>
             )}
             {template.type === 'uda' && (
               <>
-                <div style={{ overflow: "hidden" }} style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem" }}>
-                  <div style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }} style={{ height: "1.5rem", borderBottom: "1px solid var(--md-sys-color-outline)" }}></div>
-                  <div style={{ padding: "var(--md-sys-spacing-8)", gap: "var(--md-sys-spacing-2)" }}>
-                    <div className="bg-[var(--md-sys-color-outline-variant)]" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
-                    <div className="bg-[var(--md-sys-color-outline-variant)] w-5/6" style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
+                <div style={{ overflow: "hidden", border: "1px solid layers.sys.color.outline", borderRadius: "0.375rem"}}>
+                  <div style={{backgroundColor: "layers.sys.color.surfaceContainerHigh", height: "1.5rem", borderBottom: "1px solid layers.sys.color.outline"}}></div>
+                  <div style={{padding: layers.ref.spacing['8'], gap: layers.ref.spacing['2']}}>
+                    <div style={{ backgroundColor:  layers.sys.color.onPrimary }} style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
+                    <div style={{ backgroundColor:  layers.sys.color.onPrimary }} style={{ height: "0.5rem", borderRadius: "0.375rem" }}></div>
                   </div>
                 </div>
               </>
@@ -439,47 +442,47 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
   ];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-16)" }}>
+    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['16']}}>
       {/* Header Editor */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--md-sys-color-outline-variant)", paddingBottom: "var(--md-sys-spacing-12)", marginBottom: "var(--md-sys-spacing-16)" }}>
-        <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}>
+      <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid layers.sys.color.outline-variant", paddingBottom: layers.ref.spacing['12'], marginBottom: layers.ref.spacing['16']}}>
+        <div style={{display: "flex", gap: layers.ref.spacing['8']}}>
           <M3Button 
             onClick={() => setActiveTab('config')} 
             variant={activeTab === 'config' ? 'filled' : 'text'}
-            className="template-manager-editor-tab-button"
+            
           >
             Configurazione
           </M3Button>
           <M3Button 
             onClick={() => setActiveTab('content')} 
             variant={activeTab === 'content' ? 'filled' : 'text'}
-            className="template-manager-editor-tab-button"
+            
           >
             Contenuto HTML
           </M3Button>
           <M3Button 
             onClick={() => setActiveTab('preview')} 
             variant={activeTab === 'preview' ? 'filled' : 'text'}
-            className="template-manager-editor-tab-button"
+            
           >
             Anteprima
           </M3Button>
         </div>
         
-        <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}>
-          <M3Button onClick={onCancel} variant="text" className="template-manager-editor-cancel-button">
+        <div style={{display: "flex", gap: layers.ref.spacing['8']}}>
+          <M3Button onClick={onCancel} variant="text" >
             Annulla
           </M3Button>
-          <M3Button onClick={handleSave} variant="filled" className="template-manager-editor-save-button">
+          <M3Button onClick={handleSave} variant="filled" >
             Salva
           </M3Button>
         </div>
       </div>
 
       {activeTab === 'config' && (
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-16)", paddingRight: "var(--md-sys-spacing-16)" }}>
+        <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['16'], paddingRight: layers.ref.spacing['16']}}>
           {/* Informazioni base */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--md-sys-spacing-16)", marginBottom: "var(--md-sys-spacing-16)" }}>
+          <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: layers.ref.spacing['16'], marginBottom: layers.ref.spacing['16']}}>
             <TextField
               id="template-name"
               label="Nome Template *"
@@ -516,12 +519,12 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
           />
 
           {/* AI Generation Tool */}
-          <InfoCard variant="tonal" className="template-manager-ai-generation-card">
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-12)" }}>
+          <InfoCard variant="tonal" >
+            <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['12']}}>
               <span style={{ fontSize: "1.5rem" }}>auto_awesome</span>
-              <h4 style={{ margin: 0, fontSize: "var(--md-sys-typescale-title-small)" }}>Genera con AI</h4>
+              <h4 style={{margin: 0, fontSize: "var(--md-sys-typescale-title-small)"}}>Genera con AI</h4>
             </div>
-            <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-12)" }}>
+            <div style={{display: "flex", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['12']}}>
               <TextField
                 id="ai-prompt"
                 label="Prompt AI"
@@ -535,96 +538,96 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                 onClick={handleGenerateWithAi} 
                 disabled={isGenerating || !aiPrompt.trim()}
                 variant="filled"
-                className="template-manager-ai-generation-button"
+                
                 aria-label={isGenerating ? 'Generazione in corso...' : 'Genera template con AI'}
               >
                 {isGenerating ? '...' : 'Genera'}
               </M3Button>
             </div>
-            <p style={{ fontSize: "0.75rem", color: "var(--md-sys-color-outline-variant)", margin: 0 }}>
+            <p style={{fontSize: "0.75rem", color: "layers.sys.color.outline-variant", margin: 0}}>
               L'AI creer� automaticamente l'intestazione, il pi� di pagina e le configurazioni ottimali.
             </p>
           </InfoCard>
 
           {/* Configurazioni specifiche */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "var(--md-sys-spacing-16)" }}>
-            <InfoCard variant="elevated" className="template-manager-config-card">
-              <h4 style={{ margin: 0, marginBottom: "var(--md-sys-spacing-12)", fontSize: "var(--md-sys-typescale-title-small)" }}>Opzioni Visibilità</h4>
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+          <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: layers.ref.spacing['16']}}>
+            <InfoCard variant="elevated" >
+              <h4 style={{margin: 0, marginBottom: layers.ref.spacing['12'], fontSize: "var(--md-sys-typescale-title-small)"}}>Opzioni Visibilità</h4>
+              <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['8']}}>
                 {editedTemplate.type === 'student_profile' && (
                   <>
-                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
+                    <label style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], cursor: "pointer"}}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeEvaluations ?? true}
                         onChange={(e) => updateConfig('includeEvaluations', e.target.checked)}
                         style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi valutazioni</span>
+                      <span style={{fontSize: "var(--md-sys-typescale-body-medium)", color: "layers.sys.color.onSurface"}}>Includi valutazioni</span>
                     </label>
-                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
+                    <label style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], cursor: "pointer"}}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeCompetencyEvaluations ?? true}
                         onChange={(e) => updateConfig('includeCompetencyEvaluations', e.target.checked)}
                         style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi competenze</span>
+                      <span style={{fontSize: "var(--md-sys-typescale-body-medium)", color: "layers.sys.color.onSurface"}}>Includi competenze</span>
                     </label>
                   </>
                 )}
                 {editedTemplate.type === 'lesson_plan' && (
                   <>
-                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
+                    <label style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], cursor: "pointer"}}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeObjectives ?? true}
                         onChange={(e) => updateConfig('includeObjectives', e.target.checked)}
                         style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi obiettivi</span>
+                      <span style={{fontSize: "var(--md-sys-typescale-body-medium)", color: "layers.sys.color.onSurface"}}>Includi obiettivi</span>
                     </label>
-                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
+                    <label style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], cursor: "pointer"}}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeMaterials ?? true}
                         onChange={(e) => updateConfig('includeMaterials', e.target.checked)}
                         style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi materiali</span>
+                      <span style={{fontSize: "var(--md-sys-typescale-body-medium)", color: "layers.sys.color.onSurface"}}>Includi materiali</span>
                     </label>
                   </>
                 )}
                 {editedTemplate.type === 'uda' && (
                   <>
-                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
+                    <label style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], cursor: "pointer"}}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includePhases ?? true}
                         onChange={(e) => updateConfig('includePhases', e.target.checked)}
                         style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi fasi</span>
+                      <span style={{fontSize: "var(--md-sys-typescale-body-medium)", color: "layers.sys.color.onSurface"}}>Includi fasi</span>
                     </label>
-                    <label style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", cursor: "pointer" }}>
+                    <label style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], cursor: "pointer"}}>
                       <input
                         type="checkbox"
                         checked={editedTemplate.config.includeEvaluation ?? true}
                         onChange={(e) => updateConfig('includeEvaluation', e.target.checked)}
                         style={{ width: "1.25rem", height: "1.25rem", cursor: "pointer" }}
                       />
-                      <span style={{ fontSize: "var(--md-sys-typescale-body-medium)", color: "var(--md-sys-color-on-surface)" }}>Includi valutazione</span>
+                      <span style={{fontSize: "var(--md-sys-typescale-body-medium)", color: "layers.sys.color.onSurface"}}>Includi valutazione</span>
                     </label>
                   </>
                 )}
               </div>
             </InfoCard>
 
-            <InfoCard variant="elevated" className="template-manager-config-card">
-              <h4 style={{ margin: 0, marginBottom: "var(--md-sys-spacing-12)", fontSize: "var(--md-sys-typescale-title-small)" }}>Sezioni Personalizzate</h4>
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
+            <InfoCard variant="elevated" >
+              <h4 style={{margin: 0, marginBottom: layers.ref.spacing['12'], fontSize: "var(--md-sys-typescale-title-small)"}}>Sezioni Personalizzate</h4>
+              <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['8']}}>
                 {(editedTemplate.config.customSections || []).map((section, idx) => (
-                  <div key={idx} style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                  <div key={idx} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
                     <input
                       type="text"
                       value={section}
@@ -633,24 +636,24 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
                         newSections[idx] = e.target.value;
                         updateConfig('customSections', newSections);
                       }}
-                      style={{ flex: 1, padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-surface)" }}
+                      style={{flex: 1, padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline", borderRadius: "layers.ref.shape.corner.small", backgroundColor: "layers.sys.color.surface"}}
                     />
                     <button 
                       onClick={() => {
                         const newSections = (editedTemplate.config.customSections || []).filter((_, i) => i !== idx);
                         updateConfig('customSections', newSections);
                       }}
-                      style={{ padding: 0, backgroundColor: "transparent", border: "none", cursor: "pointer", color: "var(--md-sys-color-error)" }}
+                      style={{padding: 0, backgroundColor: "transparent", border: "none", cursor: "pointer", color: "layers.sys.color.error"}}
                       aria-label={`Elimina sezione ${section}`}
                     >
-                      <span className="template-manager-custom-section-delete-icon">delete</span>
+                      <span >delete</span>
                     </button>
                   </div>
                 ))}
                 <M3Button 
                   onClick={() => updateConfig('customSections', [...(editedTemplate.config.customSections || []), 'Nuova Sezione'])}
                   variant="text"
-                  className="template-manager-add-section-button"
+                  
                 >
                   + Aggiungi Sezione
                 </M3Button>
@@ -661,52 +664,52 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
       )}
 
       {activeTab === 'content' && (
-        <div style={{ display: "flex", paddingRight: "var(--md-sys-spacing-16)" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--md-sys-spacing-16)", width: "100%" }}>
+        <div style={{display: "flex", paddingRight: layers.ref.spacing['16']}}>
+          <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: layers.ref.spacing['16'], width: "100%"}}>
             {/* Editor Side */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-12)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+            <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['12']}}>
+              <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
                 <span style={{ fontSize: "1.5rem" }}>edit_note</span>
-                <h4 style={{ margin: 0, fontSize: "var(--md-sys-typescale-title-small)" }}>Editor HTML/CSS</h4>
+                <h4 style={{margin: 0, fontSize: "var(--md-sys-typescale-title-small)"}}>Editor HTML/CSS</h4>
               </div>
               
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
-                <label htmlFor="html-header" style={{ fontSize: "var(--md-sys-typescale-label-medium)", fontWeight: "500", color: "var(--md-sys-color-on-surface)" }}>
+              <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['8']}}>
+                <label htmlFor="html-header" style={{fontSize: "var(--md-sys-typescale-label-medium)", fontWeight: "500", color: "layers.sys.color.onSurface"}}>
                   Intestazione (HTML)
                 </label>
                 <textarea
                   id="html-header"
                   value={editedTemplate.content?.header || ''}
                   onChange={(e) => updateContent('header', e.target.value)}
-                  style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-surface-container-low)", fontFamily: "monospace", fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", resize: "vertical" }}
+                  style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline", borderRadius: "layers.ref.shape.corner.small", backgroundColor: "layers.sys.color.surfaceContainerLow", fontFamily: "monospace", fontSize: "0.875rem", color: "layers.sys.color.onSurface", resize: "vertical"}}
                   rows={8}
                   placeholder="<h1>Titolo</h1>..."
                 />
               </div>
               
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
-                <label htmlFor="html-footer" style={{ fontSize: "var(--md-sys-typescale-label-medium)", fontWeight: "500", color: "var(--md-sys-color-on-surface)" }}>
+              <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['8']}}>
+                <label htmlFor="html-footer" style={{fontSize: "var(--md-sys-typescale-label-medium)", fontWeight: "500", color: "layers.sys.color.onSurface"}}>
                   Piè di pagina (HTML)
                 </label>
                 <textarea
                   id="html-footer"
                   value={editedTemplate.content?.footer || ''}
                   onChange={(e) => updateContent('footer', e.target.value)}
-                  style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-surface-container-low)", fontFamily: "monospace", fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", resize: "vertical" }}
+                  style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline", borderRadius: "layers.ref.shape.corner.small", backgroundColor: "layers.sys.color.surfaceContainerLow", fontFamily: "monospace", fontSize: "0.875rem", color: "layers.sys.color.onSurface", resize: "vertical"}}
                   rows={4}
                   placeholder="<p>Pagina {{page}}</p>..."
                 />
               </div>
               
-              <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)" }}>
-                <label htmlFor="custom-css" style={{ fontSize: "var(--md-sys-typescale-label-medium)", fontWeight: "500", color: "var(--md-sys-color-on-surface)" }}>
+              <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['8']}}>
+                <label htmlFor="custom-css" style={{fontSize: "var(--md-sys-typescale-label-medium)", fontWeight: "500", color: "layers.sys.color.onSurface"}}>
                   CSS Personalizzato
                 </label>
                 <textarea
                   id="custom-css"
                   value={editedTemplate.content?.customCss || ''}
                   onChange={(e) => updateContent('customCss', e.target.value)}
-                  style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-surface-container-low)", fontFamily: "monospace", fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", resize: "vertical" }}
+                  style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline", borderRadius: "layers.ref.shape.corner.small", backgroundColor: "layers.sys.color.surfaceContainerLow", fontFamily: "monospace", fontSize: "0.875rem", color: "layers.sys.color.onSurface", resize: "vertical"}}
                   rows={4}
                   placeholder=".header { color: red; }..."
                 />
@@ -714,32 +717,32 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
             </div>
 
             {/* Preview & Variables Side */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-12)" }}>
+            <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['12']}}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
+                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
                   <span style={{ fontSize: "1.5rem" }}>visibility</span>
-                  <h4 style={{ margin: 0, fontSize: "var(--md-sys-typescale-title-small)" }}>Anteprima Real-time</h4>
+                  <h4 style={{margin: 0, fontSize: "var(--md-sys-typescale-title-small)"}}>Anteprima Real-time</h4>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)", fontSize: "0.75rem", color: "var(--md-sys-color-outline-variant)" }}>
-                  <span style={{ width: "0.5rem", height: "0.5rem", borderRadius: "50%", backgroundColor: "var(--md-sys-color-tertiary)" }}></span>
+                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['4'], fontSize: "0.75rem", color: "layers.sys.color.outline-variant"}}>
+                  <span style={{width: "0.5rem", height: "0.5rem", borderRadius: "50%", backgroundColor: "layers.sys.color.tertiary"}}></span>
                   Live
                 </div>
               </div>
               
-              <div style={{ maxHeight: "600px", overflow: "auto", borderRadius: "var(--md-sys-shape-corner-medium)", border: "1px solid var(--md-sys-color-outline-variant)" }}>
+              <div style={{maxHeight: layers.ref.spacing['4'], overflow: "auto", borderRadius: "layers.ref.shape.corner.medium", border: "1px solid layers.sys.color.outline-variant"}}>
                 <TemplatePreview template={editedTemplate} />
               </div>
 
-              <InfoCard variant="tonal" className="template-manager-variables-card">
-                <h4 style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", margin: 0, marginBottom: "var(--md-sys-spacing-12)", fontSize: "var(--md-sys-typescale-title-small)" }}>
+              <InfoCard variant="tonal" >
+                <h4 style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], margin: 0, marginBottom: layers.ref.spacing['12'], fontSize: "var(--md-sys-typescale-title-small)"}}>
                   <span style={{ fontSize: "1.25rem" }}>variable_insert</span>
                   Variabili (Clicca per copiare)
                 </h4>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "var(--md-sys-spacing-8)" }}>
+                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: layers.ref.spacing['8']}}>
                   {availableVariables.map(v => (
                     <button 
                       key={v.name} 
-                      style={{ padding: "var(--md-sys-spacing-8)", backgroundColor: "var(--md-sys-color-surface-container)", border: "1px solid var(--md-sys-color-outline-variant)", borderRadius: "var(--md-sys-shape-corner-small)", cursor: "pointer", fontSize: "0.75rem", fontFamily: "monospace", color: "var(--md-sys-color-on-surface-variant)", transition: "all 0.2s ease-in-out" }}
+                      style={{padding: layers.ref.spacing['8'], backgroundColor: "layers.sys.color.surfaceContainer", border: "1px solid layers.sys.color.outline-variant", borderRadius: "layers.ref.shape.corner.small", cursor: "pointer", fontSize: "0.75rem", fontFamily: "monospace", color: "layers.sys.color.onSurface-variant", transition: "all 0.2s ease-in-out"}}
                       onClick={() => {
                         navigator.clipboard.writeText(v.name);
                         showToast(`Copiato: ${v.name}`, 'info');
@@ -758,7 +761,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
       )}
 
       {activeTab === 'preview' && (
-        <div style={{ display: "flex", justifyContent: "center", paddingRight: "var(--md-sys-spacing-16)" }}>
+        <div style={{display: "flex", justifyContent: "center", paddingRight: layers.ref.spacing['16']}}>
           <TemplatePreview template={editedTemplate} />
         </div>
       )}
@@ -767,6 +770,11 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ template, onSave, onCan
 };
 
 export default TemplateManager;
+
+
+
+
+
 
 
 

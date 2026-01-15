@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 /**
  * EvaluationViews.tsx
  * Raggruppa viste relative a valutazioni, competenze e registro
@@ -78,7 +79,7 @@ export const EvaluationViewsRenderer: React.FC<{
         case 'class-competency-dashboard':
             return (
                 <ClassCompetencyDashboard
-                    selectedClass={props.selectedClass || ''}
+                    selectedClass={props.selectedClass || '}
                     students={props.students}
                     competencyEvaluations={props.competencyEvals}
                     settings={props.settings}
@@ -95,5 +96,10 @@ export const EvaluationViewsRenderer: React.FC<{
             return null;
     }
 };
+
+
+
+
+
 
 

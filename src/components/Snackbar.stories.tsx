@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Snackbar from './Snackbar';
@@ -13,14 +14,14 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   decorators: [
     (Story) => (
-      <div style={{ minHeight: '200px', position: 'relative' }}>
+      <div style={{ minHeight: layers.ref.spacing['4'], position: 'relative' }}>
         <Story />
       </div>
     ),
-  ],
+  '],
 } satisfies Meta<typeof Snackbar>;
 
 export default meta;
@@ -62,5 +63,10 @@ export const Info: Story = {
     },
   },
 };
+
+
+
+
+
 
 

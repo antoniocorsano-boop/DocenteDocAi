@@ -1,3 +1,4 @@
+import { renderWithM3Theme } from '../test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -17,7 +18,7 @@ describe('NKANodeCard', () => {
   };
 
   it('renders node info and actions', () => {
-    render(<NKANodeCard node={node} onSelect={() => {}} />);
+    renderWithM3Theme(<NKANodeCard node={node} onSelect={() => {}} />);
     expect(screen.getByText('AI per educatori')).toBeInTheDocument();
     expect(screen.getByText('Profondità 85%')).toBeInTheDocument();
     expect(screen.getByText('crea_lezione')).toBeInTheDocument();
@@ -26,9 +27,9 @@ describe('NKANodeCard', () => {
 
   it('calls onSelect when clicked', () => {
     const onSelect = vi.fn();
-    render(<NKANodeCard node={node} onSelect={onSelect} />);
+    renderWithM3Theme(<NKANodeCard node={node} onSelect={onSelect} />);
     // The first button-like element is the card itself
-    const [cardButton] = screen.getAllByRole('button');
+    const [cardButton'] = screen.getAllByRole('button');
     fireEvent.click(cardButton);
     expect(onSelect).toHaveBeenCalled();
   });

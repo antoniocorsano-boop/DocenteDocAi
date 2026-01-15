@@ -1,3 +1,5 @@
+import { renderWithM3Theme } from '../test-utils';
+// LEGACY - MD3 Non-compliant
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { Header } from './Header';
@@ -5,7 +7,7 @@ import { Header } from './Header';
 const baseProps = {
   showBackButton: true,
   onBack: vi.fn(),
-  user: { id: 'test-id', displayName: 'Mario Rossi', photoURL: '', email: 'test@example.com' },
+  user: { id: 'test-id', displayName: 'Mario Rossi', photoURL: ', email: 'test@example.com' },
   settings: {
     timeSlots: [],
     defaultView: 'home',
@@ -21,7 +23,7 @@ const baseProps = {
     email: 'test@example.com',
     nomeIstituto: 'Liceo Docente',
     cittaIstituto: 'Roma',
-    anniScolastici: ['2025-2026'],
+    anniScolastici: ['2025-2026],
     annoScolasticoCorrente: '2025-2026',
     activityStartDate: '2025-09-01',
     activityEndDate: '2026-06-30',
@@ -52,7 +54,7 @@ const baseProps = {
 
 describe('Header M3 Expressive', () => {
   it('renders logo and teacher name', () => {
-    render(<Header {...baseProps} />);
+    renderWithM3Theme(<Header {...baseProps} />);
     // Cerca il testo SVG separatamente
     expect(screen.getByText('DocenteDoc')).toBeInTheDocument();
     expect(screen.getByText('AI')).toBeInTheDocument();
@@ -61,7 +63,7 @@ describe('Header M3 Expressive', () => {
   });
 
   it('shows back button and handles click', () => {
-    render(<Header {...baseProps} />);
+    renderWithM3Theme(<Header {...baseProps} />);
     const backBtn = screen.getByLabelText('Indietro');
     expect(backBtn).toBeInTheDocument();
     fireEvent.click(backBtn);
@@ -69,29 +71,34 @@ describe('Header M3 Expressive', () => {
   });
 
   it('shows home button when showBackButton is false', () => {
-    render(<Header {...baseProps} showBackButton={false} />);
+    renderWithM3Theme(<Header {...baseProps} showBackButton={false} />);
     // The logo is clickable for home navigation when showBackButton is false
     const logo = screen.getByText('DocenteDoc');
     expect(logo).toBeInTheDocument();
   });
 
   it('shows menu and avatar', () => {
-    render(<Header {...baseProps} />);
+    renderWithM3Theme(<Header {...baseProps} />);
     expect(screen.getByLabelText('Menu')).toBeInTheDocument();
     expect(screen.getByText('RM')).toBeInTheDocument();
   });
 
   it('applies M3 tokens and accessibility', () => {
-    render(<Header {...baseProps} />);
+    renderWithM3Theme(<Header {...baseProps} />);
     const header = screen.getByRole('banner');
     // Check that header has proper MD3 styling (position: sticky, background color, etc.)
     expect(header).toHaveAttribute('role', 'banner');
     expect(header).toHaveStyle({
       position: 'sticky',
-      backgroundColor: 'var(--md-sys-color-surface-container-high)',
+      backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
       display: 'flex'
     });
   });
 });
+
+
+
+
+
 
 

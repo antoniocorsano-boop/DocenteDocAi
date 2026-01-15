@@ -1,5 +1,7 @@
+// LEGACY - MD3 Non-compliant
 
-import React, { useState } from 'react';
+import React from 'react';
+import { useTheme } from '../../theme/theme';
 
 // --- LINE CHART ---
 interface LineChartProps {
@@ -9,10 +11,10 @@ interface LineChartProps {
 }
 
 export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 }) => {
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { layers } = useTheme();
 
     if (data.length === 0) {
-        return <div className="text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", opacity: "0.5" }}>Nessun dato disponibile.</div>;
+        return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", opacity: "0.5", color: layers.sys.color.onSurfaceVariant }}>Nessun dato disponibile.</div>;
     }
 
     const padding = 30;
@@ -48,11 +50,11 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
     }
 
     return (
-        <div className="relative" style={{ width: "100%", height }}>
-            <svg viewBox={`0 0 ${width} ${height}`} className="overflow-visible" style={{ width: "100%", height: "100%" }}>
+        <div  style={{ width: "100%", height }}>
+            <svg viewBox={`0 0 ${width} ${height}`}  style={{ width: "100%", height: "100%" }}>
                 {/* Grids */}
-                <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="var(--md-sys-color-outline-variant)" strokeWidth="1" />
-                <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke="var(--md-sys-color-outline-variant)" strokeWidth="1" />
+                <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke={layers.sys.color.outlineVariant} strokeWidth="1" />
+                <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke={layers.sys.color.outlineVariant} strokeWidth="1" />
                 
                 {/* Area Fill (Only if > 1 point) */}
                 {data.length > 1 && <path d={areaPathD} fill={color} fillOpacity="0.1" />}
@@ -80,40 +82,22 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
                         key={i}
                         cx={getX(i)}
                         cy={getY(point.value)}
-                        r={hoveredIndex === i ? 6 : 4}
+                        r="4"
                         fill={color}
-                        stroke="var(--md-sys-color-surface)"
+                        stroke={layers.sys.color.surface}
                         strokeWidth="2"
-                        onMouseEnter={() => setHoveredIndex(i)}
-                        onMouseLeave={() => setHoveredIndex(null)}
-                        className="duration-200" style={{ cursor: "pointer", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
                     />
                 ))}
 
                 {/* Labels (X Axis) */}
                 {data.map((point, i) => (
                     (data.length < 8 || i === 0 || i === data.length - 1 || i % Math.ceil(data.length / 5) === 0) && (
-                        <text key={i} x={getX(i)} y={height - 5} fontSize="10" textAnchor="middle" fill="var(--md-sys-color-on-surface-variant)">
+                        <text key={i} x={getX(i)} y={height - 5} fontSize="10" textAnchor="middle" fill={layers.sys.color.onSurfaceVariant}>
                             {point.label}
                         </text>
                     )
                 ))}
             </svg>
-
-            {/* Tooltip */}
-            {hoveredIndex !== null && (
-                <div 
-                    className="absolute bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)] shadow-[var(--md-sys-elevation-level2)] pointer-events-none transform -translate-x-1/2 -translate-y-full border-[var(--md-sys-color-outline-variant)] z-10" style={{ padding: "var(--md-sys-spacing-8)", borderRadius: "0.375rem", fontSize: "0.75rem", border: "1px solid var(--md-sys-color-outline)" }}
-                    style={{ 
-                        left: `${(getX(hoveredIndex) / width) * 100}%`, 
-                        top: `${(getY(data[hoveredIndex].value) / height) * 100}%`,
-                        marginTop: '-10px'
-                    }}
-                >
-                    <div style={{ fontWeight: "bold" }}>{data[hoveredIndex].value}</div>
-                    <div style={{ opacity: "0.8" }}>{data[hoveredIndex].label}</div>
-                </div>
-            )}
         </div>
     );
 };
@@ -126,8 +110,10 @@ interface RadarChartProps {
 }
 
 export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 }) => {
+    const { layers } = useTheme();
+
     if (data.length === 0) {
-        return <div className="h-[300px] text-[var(--md-sys-color-on-surface)]-variant" style={{ display: "flex", alignItems: "center", justifyContent: "center", opacity: "0.5" }}>Dati competenze non disponibili.</div>;
+        return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: layers.ref.spacing['4'], opacity: "0.5", color: layers.sys.color.onSurfaceVariant }}>Dati competenze non disponibili.</div>;
     }
 
     const center = size / 2;
@@ -155,7 +141,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
 
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="overflow-visible">
+            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} >
                 {/* Background Grid */}
                 {levels.map(level => (
                     <polygon
@@ -165,7 +151,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                             return `${x},${y}`;
                         }).join(' ')}
                         fill="none"
-                        stroke="var(--md-sys-color-outline-variant)"
+                        stroke={layers.sys.color.outlineVariant}
                         strokeWidth="1"
                         strokeDasharray="4 4"
                     />
@@ -174,7 +160,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                 {/* Axis Lines */}
                 {data.map((_, i) => {
                     const { x, y } = getCoordinates(maxValue, i);
-                    return <line key={i} x1={center} y1={center} x2={x} y2={y} stroke="var(--md-sys-color-outline-variant)" strokeWidth="1" />;
+                    return <line key={i} x1={center} y1={center} x2={x} y2={y} stroke={layers.sys.color.outlineVariant} strokeWidth="1" />;
                 })}
 
                 {/* Data Polygon */}
@@ -200,7 +186,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                                 textAnchor="middle"
                                 dominantBaseline="middle"
                                 fontSize="10"
-                                fill="var(--md-sys-color-on-surface)"
+                                fill={layers.sys.color.onSurface}
                                 style={{ fontWeight: "500" }}
                             >
                                 {d.axis}
@@ -212,5 +198,10 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
         </div>
     );
 };
+
+
+
+
+
 
 

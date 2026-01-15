@@ -1,4 +1,5 @@
-import React from 'react';
+// LEGACY - MD3 Non-compliant
+import React, { useState } from 'react';
 import { useTheme } from '../../theme/theme';
 
 interface ManualSectionProps {
@@ -14,26 +15,22 @@ const ManualSection: React.FC<ManualSectionProps> = ({
     children,
     defaultOpen = false
 }) => {
-    const { spacing, motion } = useTheme();
-    const [isOpen, setIsOpen] = React.useState(defaultOpen);
-    const expandIconRef = React.useRef<HTMLDivElement>(null);
-
-    React.useEffect(() => {
-        if (expandIconRef.current) {
-            expandIconRef.current.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
-        }
-    }, [isOpen]);
+    const [isOpen, setIsOpen] = useState(defaultOpen);
+    const [summaryHovered, setSummaryHovered] = useState(false);
+    const [iconHovered, setIconHovered] = useState(false);
+    const { layers } = useTheme();
+    const { sys, ref, motion, elevation } = layers;
 
     return (
         <details
             style={{
                 border: 'none',
-                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                backgroundColor: sys.color.surfaceContainerLow,
                 opacity: 0.5,
                 backdropFilter: 'blur(4px)',
                 WebkitBackdropFilter: 'blur(4px)',
-                borderRadius: 'var(--md-sys-shape-corner-large)',
-                marginBottom: spacing[6],
+                borderRadius: ref.shape.corner.large,
+                marginBottom: layers.ref.spacing['4'],
                 overflow: 'hidden',
                 transition: `all ${motion.duration.medium2} ${motion.easing.standard}`
             }}
@@ -42,8 +39,9 @@ const ManualSection: React.FC<ManualSectionProps> = ({
         >
             <summary
                 style={{
-                    padding: `${spacing[5]} ${spacing[6]}`,
-                    backgroundColor: 'transparent',
+                    padding: `${layers.ref.spacing['4']} ${layers.ref.spacing['4']}`,
+                    backgroundColor: summaryHovered ? sys.color.surfaceContainerHigh : 'transparent',
+                    opacity: summaryHovered ? 0.8 : undefined,
                     cursor: 'pointer',
                     listStyle: 'none',
                     display: 'flex',
@@ -51,37 +49,29 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                     alignItems: 'center',
                     transition: `background-color ${motion.duration.short3} ${motion.easing.standard}`
                 }}
-                onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                    e.currentTarget.style.opacity = '0.8';
-                }}
-                onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                }}
+                onMouseEnter={() => setSummaryHovered(true)}
+                onMouseLeave={() => setSummaryHovered(false)}
             >
-                <div style={{ display: 'flex', alignItems: 'center', gap: spacing[5] }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: layers.ref.spacing['4'] }}>
                     <div
                         style={{
-                            padding: spacing[6],
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                            boxShadow: 'var(--md-sys-elevation-shadow-1)',
+                            padding: layers.ref.spacing['6'],
+                            borderRadius: ref.shape.corner.large,
+                            backgroundColor: sys.color.surfaceContainerHigh,
+                            boxShadow: elevation.level1,
+                            transform: iconHovered ? 'scale(1.1)' : 'scale(1)',
                             transition: `transform ${motion.duration.short3} ${motion.easing.standard}`
                         }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.transform = 'scale(1.1)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.transform = 'scale(1)';
-                        }}
+                        onMouseEnter={() => setIconHovered(true)}
+                        onMouseLeave={() => setIconHovered(false)}
                     >
                         <span
                             style={{
                                 fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
-                                fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)',
-                                lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
-                                color: 'var(--md-sys-color-on-surface-variant)'
+                                fontSize: ref.typography.headlineSmall.fontSize,
+                                fontWeight: ref.typography.headlineSmall.fontWeight,
+                                lineHeight: ref.typography.headlineSmall.lineHeight,
+                                color: sys.color.onSurfaceVariant
                             }}
                         >
                             {icon}
@@ -89,10 +79,10 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                     </div>
                     <h3
                         style={{
-                            fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
+                            fontSize: ref.typography.headlineMedium.fontSize,
                             fontWeight: '900',
-                            lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
-                            letterSpacing: 'var(--md-sys-typescale-headline-medium-tracking)',
+                            lineHeight: ref.typography.headlineMedium.lineHeight,
+                            letterSpacing: ref.typography.headlineMedium.letterSpacing,
                             margin: 0
                         }}
                     >
@@ -100,26 +90,23 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                     </h3>
                 </div>
                 <div
-                    ref={expandIconRef}
                     style={{
-                        width: '40px',
-                        height: '40px',
+                        width: layers.ref.spacing['8'],
+                        height: layers.ref.spacing['8'],
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: 'var(--md-sys-color-outline-variant)',
+                        backgroundColor: sys.color.outlineVariant,
                         opacity: 0.2,
                         transition: `transform ${motion.duration.medium2} ${motion.easing.emphasized}`,
-                        transform: 'rotate(0deg)'
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
                     }}
                 >
                     <span
-                        style={{
-                            fontFamily: 'Material Symbols Outlined',
+                        style={{fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            color: 'var(--md-sys-color-on-surface)'
-                        }}
+                            color: ' layers.sys.color.onPrimary'}}
                     >
                         expand_more
                     </span>
@@ -140,5 +127,10 @@ const ManualSection: React.FC<ManualSectionProps> = ({
 };
 
 export default ManualSection;
+
+
+
+
+
 
 

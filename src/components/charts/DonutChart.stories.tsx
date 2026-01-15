@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import DonutChart from './DonutChart';
 
@@ -12,7 +13,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     data: {
       description: 'Array of chart segments with labels, values, and colors',
@@ -115,7 +116,7 @@ export const CourseCompletion: Story = {
   args: {
     data: [
       { label: 'Completed', value: 75, color: 'var(--md-sys-color-primary)' },
-      { label: 'Remaining', value: 25, color: 'var(--md-sys-color-surface-container-high)' },
+      { label: 'Remaining', value: 25, color: 'var(--md-sys-color-surfaceContainerHigh)' },
     ],
   },
 };
@@ -163,5 +164,10 @@ export const CustomColors: Story = {
     ],
   },
 };
+
+
+
+
+
 
 

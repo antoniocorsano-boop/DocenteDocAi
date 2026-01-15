@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState } from 'react';
 
@@ -41,7 +42,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
         return (
           <g key={d.label}>
             <rect
-              className="bar-chart-bar"
+              
               x={i * (barWidth + barMargin)}
               y={chartHeight - barHeight}
               width={barWidth}
@@ -56,8 +57,8 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
               y={chartHeight - 5}
               textAnchor="middle"
               fontSize="12"
-              fill="var(--md-sys-color-on-surface-variant)"
-              className="chart-text"
+              fill="var(--md-sys-color-onSurface-variant)"
+              
             >
               {d.label}
             </text>
@@ -82,13 +83,13 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
                             y={yPos + rowHeight / 2}
                             dominantBaseline="middle"
                             fontSize="12"
-                            fill="var(--md-sys-color-on-surface-variant)"
-                            className="chart-text"
+                            fill="var(--md-sys-color-onSurface-variant)"
+                            
                         >
                             {d.label}
                         </text>
                         <rect
-                            className="bar-chart-bar"
+                            
                             x={80}
                             y={yPos + (rowHeight - barHeight) / 2}
                             width={barLength}
@@ -103,9 +104,9 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
                              y={yPos + rowHeight / 2}
                              dominantBaseline="middle"
                              fontSize="12"
-                             fill="var(--md-sys-color-on-surface)"
+                             fill="var(--md-sys-color-onSurface)"
                              fontWeight="bold"
-                             className="chart-text"
+                             
                         >
                             {d.value}
                         </text>
@@ -121,7 +122,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
       {horizontal ? renderHorizontal() : renderVertical()}
       {tooltip && (
         <div
-          className="chart-tooltip"
+          
           style={{
             left: `${tooltip.x}px`,
             top: `${tooltip.y}px`,
@@ -137,5 +138,10 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
 };
 
 export default BarChart;
+
+
+
+
+
 
 

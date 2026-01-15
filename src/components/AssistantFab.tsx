@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 // ...existing code...
@@ -133,12 +134,12 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
   return (
     <>
       <div
-        className="assistant-fab-root"
+        
         ref={fabRef}
         style={{ touchAction: 'none' }}
       >
         <button
-          className="mui-fab-expressive assistant-fab"
+          
           aria-label="Assistente AI"
           onClick={handleFabClick}
         >
@@ -150,15 +151,15 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           <>
             {isCompactLayout && (
               <>
-                <div className="assistant-fab-sheet-scrim" role="presentation" onClick={() => setMenuOpen(false)} />
-                <div className="assistant-fab-sheet" role="dialog" aria-modal="true" aria-label="Azioni assistente">
-                  <div className="assistant-fab-sheet-header">
+                <div  role="presentation" onClick={() => setMenuOpen(false)} />
+                <div  role="dialog" aria-modal="true" aria-label="Azioni assistente">
+                  <div >
                     <div>
-                      <p className="assistant-fab-sheet-title">Assistente AI</p>
-                      <p className="assistant-fab-sheet-subtitle">Azioni rapide</p>
+                      <p >Assistente AI</p>
+                      <p >Azioni rapide</p>
                     </div>
                     <button
-                      className="assistant-fab-sheet-close"
+                      
                       aria-label="Chiudi menu assistente"
                       onClick={() => setMenuOpen(false)}
                     >
@@ -167,18 +168,18 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
 }}>close</span>
                     </button>
                   </div>
-                  <div className="assistant-fab-sheet-actions">
+                  <div >
                     {ACTIONS.map((action) => (
                       <button
                         key={action.key}
-                        className="assistant-fab-sheet-action"
+                        
                         onClick={() => handleAction(action)}
                         aria-label={action.label}
                       >
-                        <span className="material-symbols-outlined assistant-fab-action-icon">{action.icon}</span>
-                        <div className="assistant-fab-action-text">
-                          <p className="assistant-fab-action-label">{action.label}</p>
-                          <p className="assistant-fab-action-description">{action.description}</p>
+                        <span >{action.icon}</span>
+                        <div >
+                          <p >{action.label}</p>
+                          <p >{action.description}</p>
                         </div>
                       </button>
                     ))}
@@ -187,12 +188,12 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
               </>
             )}
             {!isCompactLayout && (
-              <div className="assistant-fab-menu">
+              <div >
                 {/* Close menu / quick close modal button */}
                 <button
                   aria-label="Chiudi menu"
                   title="Chiudi menu"
-                  className="assistant-fab-menu-close"
+                  
                   onClick={() => setMenuOpen(false)}
                 >
                   <span style={{
@@ -207,7 +208,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                   return (
                     <button
                       key={a.key}
-                      className="mui-fab-expressive assistant-fab-secondary"
+                      
                       style={{
                         ...posStyle,
                         zIndex: Z_INDEX.assistant.fab + 1 - i,
@@ -218,7 +219,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>{a.icon}</span>
-                      <span className="assistant-fab-menu-label">{a.label}</span>
+                      <span >{a.label}</span>
                     </button>
                   );
                 })}
@@ -251,7 +252,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           transition: box-shadow 0.2s, background 0.2s;
         }
         .mui-fab-expressive.assistant-fab:hover {
-          background: var(--md-sys-color-primary-container);
+          background: var(--md-sys-color-primaryContainer);
           box-shadow: var(--elevation-2);
         }
         .assistant-fab-menu {
@@ -283,7 +284,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           position: absolute;
           right: 0;
           background: var(--md-sys-color-surface);
-          color: var(--md-sys-color-on-surface);
+          color: var(--md-sys-color-onSurface);
           border: none;
           border-radius: var(--shape-m);
           box-shadow: var(--elevation-2);
@@ -358,7 +359,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           border: none;
           border-radius: var(--shape-m);
           padding: 0.95rem 1.1rem;
-          background: var(--md-sys-color-surface-container-high);
+          background: var(--md-sys-color-surfaceContainerHigh);
           display: flex;
           align-items: center;
           gap: 0.75rem;
@@ -387,5 +388,10 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
 }
 
 export default AssistantFab;
+
+
+
+
+
 
 

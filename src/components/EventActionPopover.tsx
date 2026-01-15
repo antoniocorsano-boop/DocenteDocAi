@@ -1,8 +1,10 @@
+// LEGACY - MD3 Non-compliant
 
 // M3Expressive: EventActionPopover - Event action management popover with M3 tokens
 import React from 'react';
 import { M3Popover } from './ui';
 import { EventoCalendario } from '../types';
+import { useTheme } from '../theme/theme';
 
 interface EventActionPopoverProps {
     event: EventoCalendario;
@@ -13,6 +15,7 @@ interface EventActionPopoverProps {
 }
 
 const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl, onClose, onEdit, onDelete }) => {
+  const { layers } = useTheme();
     const handleEdit = () => {
         onEdit(event);
         onClose();
@@ -45,20 +48,21 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
         >
             {/* Event Description */}
             {event.descrizione && (
-                <div className="event-action-popover-description">
+                <div >
                     {event.descrizione}
                 </div>
             )}
 
             {/* Action Buttons */}
-            <div className="event-action-popover-actions">
+            <div >
                 <button
                     onClick={handleEdit}
-                    className="m3-interactive-button"
+                    
                 >
                     <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}} style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
+  fontFamily: 'Material Symbols Outlined',
+  fontSize: 'var(--md-sys-typescale-body-medium-size)'
+}}>
                         edit
                     </span>
                     <span>Modifica</span>
@@ -66,11 +70,12 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
 
                 <button
                     onClick={handleDelete}
-                    className="m3-interactive-button m3-interactive-error"
+                    
                 >
                     <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}} style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
+  fontFamily: 'Material Symbols Outlined',
+  fontSize: 'var(--md-sys-typescale-body-medium-size)'
+}}>
                         delete
                     </span>
                     <span>Elimina</span>
@@ -81,6 +86,11 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
 };
 
 export default EventActionPopover;
+
+
+
+
+
 
 
 

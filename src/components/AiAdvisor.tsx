@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState } from 'react';
 import { AiSettings, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
@@ -63,50 +64,50 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
     };
 
     return (
-        <div className="ai-advisor-card">
-            <h2 className="ai-advisor-header">
-                <span className="material-symbols-outlined ai-advisor-icon">psychology</span>
+        <div >
+            <h2 >
+                <span >psychology</span>
                 Consulente Didattico AI
             </h2>
-            <p className="ai-advisor-description">
+            <p >
                 Seleziona uno studente (o l'intera classe) e un obiettivo. L'AI analizzerà i dati e proporrà attività personalizzate.
             </p>
 
-            <div className="ai-advisor-form">
-                <div className="ai-advisor-form-group">
-                    <label htmlFor="student-select-advisor" className="ai-advisor-label">Studente / Gruppo</label>
-                    <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} className="ai-advisor-select">
+            <div >
+                <div >
+                    <label htmlFor="student-select-advisor" >Studente / Gruppo</label>
+                    <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} >
                         <option value="all">Tutta la classe</option>
                         {students.map(s => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
                     </select>
                 </div>
-                <div className="ai-advisor-form-group">
-                    <label className="ai-advisor-label">Tipo di Intervento</label>
-                    <div className="ai-advisor-segmented-group">
+                <div >
+                    <label >Tipo di Intervento</label>
+                    <div >
                         <button type="button" onClick={() => setRequestType('recupero')} className={`ai-advisor-segmented-button ${requestType === 'recupero' ? 'active' : ''}`}>Recupero</button>
                         <button type="button" onClick={() => setRequestType('potenziamento')} className={`ai-advisor-segmented-button ${requestType === 'potenziamento' ? 'active' : ''}`}>Potenziamento</button>
                     </div>
                 </div>
-                 <div className="ai-advisor-form-span-full">
-                    <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} className="ai-advisor-generate-button">
+                 <div >
+                    <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} >
                         {advisorStatus ? <AiThinkingGem size="small" inline text="" /> : 'Genera Consiglio'}
                     </button>
                 </div>
             </div>
 
             {advisorStatus && (
-                 <div className="ai-advisor-status">
+                 <div >
                     <AiThinkingGem size="medium" text={advisorStatus} />
                 </div>
             )}
-            {error && <p className="ai-advisor-error">{error}</p>}
+            {error && <p >{error}</p>}
             {advice && (
-                <div className="ai-advisor-advice-section">
-                    <h3 className="ai-advisor-advice-title">Suggerimenti dell'AI:</h3>
+                <div >
+                    <h3 >Suggerimenti dell'AI:</h3>
                     {advice.map((item, index) => (
-                        <div key={index} className="ai-advisor-advice-item">
-                            <h4 className="ai-advisor-advice-item-title">{item.titolo}</h4>
-                            <p className="ai-advisor-advice-item-description">{item.descrizione}</p>
+                        <div key={index} >
+                            <h4 >{item.titolo}</h4>
+                            <p >{item.descrizione}</p>
                         </div>
                     ))}
                 </div>
@@ -116,5 +117,10 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
 };
 
 export default AiAdvisor;
+
+
+
+
+
 
 

@@ -1,9 +1,11 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 // ...existing code...
 import AssistantModal from './AssistantModal';
 import '../font-setup';
 import * as React from 'react';
+import { useTheme } from '../theme/theme';
 import '../design-system/typography.css';
 import '../design-system/spacing.css';
 import '../design-system/breakpoints.css';
@@ -31,24 +33,44 @@ import ErrorBoundary from './ErrorBoundary';
 type SuggestionBannerProps = { suggestion: AiSuggestion | SystemSuggestion; onAction: () => void };
 // Banner Suggestion Assistant
 const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onAction }) => {
+  const { layers } = useTheme();
     // Support both AiSuggestion and SystemSuggestion
     const message = 'message' in suggestion ? suggestion.message : suggestion.description;
     const actionLabel = 'actionLabel' in suggestion ? suggestion.actionLabel : 'Apri';
     return (
         <div
-            className="fixed top-0 left-0 right-0 aura-glass border-white/10 shadow-[var(--md-sys-elevation-level2)] animate-in slide-in-from-top duration-500" style={{ paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", display: "flex", alignItems: "center", justifyContent: "center", gap: "var(--md-sys-spacing-6)", cursor: "pointer", borderBottom: "1px solid var(--md-sys-color-outline)" }}
-            style={{ zIndex: Z_INDEX.notification.banner }}
+             style={{
+               paddingTop: layers.ref.spacing['4'],
+               paddingBottom: layers.ref.spacing['4'],
+               paddingLeft: layers.ref.spacing['4'],
+               paddingRight: layers.ref.spacing['4'],
+               display: "flex",
+               alignItems: "center",
+               justifyContent: "center",
+               gap: layers.ref.spacing['4'], 
+               cursor: "pointer", 
+               borderBottom: "1px solid " + layers.sys.color.outline, 
+               zIndex: Z_INDEX.notification.banner
+             }}
             onClick={onAction}
             role="button"
             aria-label={actionLabel || 'Apri suggerimento'}
         >
             <span style={{ fontSize: "1.25rem" }} aria-hidden="true">??</span>
-            <span className="md:text-base text-on-primary-container" style={{ fontWeight: "bold", flex: "1", fontSize: "0.875rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <span style={{ 
+                color: layers.sys.color.onPrimaryContainer,
+                fontWeight: "bold", 
+                flex: "1", 
+                fontSize: "0.875rem", 
+                overflow: "hidden", 
+                textOverflow: "ellipsis", 
+                whiteSpace: "nowrap" 
+            }}>
                 {message || 'Hai un suggerimento!'}
             </span>
-            <button className="m3-button-filled !py-1 !px-4 !rounded-full md:text-sm" style={{ fontSize: "0.75rem", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
+              <button  style={{fontSize: "0.75rem", display: "flex", alignItems: "center", gap: layers.ref.spacing['4']}}>
                 {actionLabel}
-                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>north_east</span>
+                <span  style={{ fontSize: "0.875rem" }}>north_east</span>
             </button>
         </div>
     );
@@ -63,16 +85,18 @@ import VideoAnalysisModal from './VideoAnalysisModal';
 import CircolareAnalysisModal from './CircolareAnalysisModal';
 import LoadingModal from './LoadingModal';
 import { NKABottomSheet, useNKAStore } from '../nka';
+import { useTheme } from '../theme/theme';
 
 /**
  * App.tsx - Il core del Presentation Layer.
  * Gestisce l'App Shell e la sincronizzazione del tema.
  */
 export const App: React.FC = () => {
+    const { layers } = useTheme();
     const { chaosStage } = useUIStore();
     const { pushModal, popModal } = useModal();
     // Stato assistant mode centralizzato (opzionale: puoi usare Zustand o context se vuoi cambiare modalit� da altri punti)
-    const [assistantMode] = React.useState<'chat' | 'docs' | 'tools' | 'backup'>('chat');
+      const [assistantMode] = React.useState<'chat' | 'docs' | 'tools' | 'backup'>('chat');
     // AssistantModal montato una sola volta a livello root, usa solo modals proxy
     try {
         const result = useAppEngine();
@@ -90,33 +114,33 @@ export const App: React.FC = () => {
             if (modals.isLoadingModalOpen) {
                 pushModal({
                     id: 'loading-modal',
-                    component: <LoadingModal message={modals.loadingModalMessage ?? ''} />
+                    component: <LoadingModal message={modals.loadingModalMessage ?? 'Caricamento...'} />
                 });
             } else {
                 popModal('loading-modal');
             }
-        }, [modals.isLoadingModalOpen, modals.loadingModalMessage, pushModal, popModal]);
+}, [modals.isLoadingModalOpen, modals.loadingModalMessage, pushModal, popModal]);
 
         // Runtime instrumentation for automated tests and diagnostics
         React.useEffect(() => {
             try {
                 window.__app_instrumentation = window.__app_instrumentation || {};
                 window.__app_instrumentation.user = user ? { id: user.id, displayName: (user as { id: string; displayName?: string }).displayName } : undefined;
-                console.info('[instrument] user', window.__app_instrumentation.user);
+                  console.info('[instrument] user', window.__app_instrumentation.user);
             } catch {
                 /* ignore */
             }
-        }, [user]);
+}, [user]);
 
         React.useEffect(() => {
             try {
                 window.__app_instrumentation = window.__app_instrumentation || {};
                 window.__app_instrumentation.isRestoring = !!modals?.isRestoring;
-                console.info('[instrument] isRestoring', !!modals?.isRestoring);
+                  console.info('[instrument] isRestoring', !!modals?.isRestoring);
             } catch {
                 /* ignore */
             }
-        }, [modals?.isRestoring]);
+}, [modals?.isRestoring]);
 
         React.useEffect(() => {
             const check = () => {
@@ -127,7 +151,7 @@ export const App: React.FC = () => {
                     } catch { /* ignore error */ }
                     window.__app_instrumentation = window.__app_instrumentation || {};
                     window.__app_instrumentation.appShellMounted = true;
-                    console.info('[instrument] app-shell-mounted');
+                      console.info('[instrument] app-shell-mounted');
                     return true;
                 }
                 return false;
@@ -136,14 +160,14 @@ export const App: React.FC = () => {
             const obs = new MutationObserver(() => { if (check()) obs.disconnect(); });
             obs.observe(document.body, { childList: true, subtree: true });
             return () => obs.disconnect();
-        }, [user, modals?.isRestoring]);
+}, [user, modals?.isRestoring]);
 
         // Sincronizzazione immediata del tema (prevent flickering)
         React.useLayoutEffect(() => {
             if (themeState) {
                 ThemeService.applyThemeState(themeState);
             }
-        }, [themeState]);
+}, [themeState]);
 
         // Dev-only: unregister service workers to avoid stale service-worker intercept causing fetch failures
         React.useEffect(() => {
@@ -161,22 +185,22 @@ export const App: React.FC = () => {
                                 // closes the Playwright page and interrupts the test flow.
                                 const isTest = window.__TEST_MODE === true;
                                 if (unregistered && !isTest) {
-                                    console.info('[dev] Service workers unregistered � reloading');
+                                      console.info('[dev] Service workers unregistered — reloading');
                                     // Hard reload to clear caches affected by the SW
                                     setTimeout(() => window.location.reload(), 50);
                                 } else if (unregistered && isTest) {
-                                    console.info('[dev] Service workers unregistered � skipping reload in test mode');
+                                      console.info('[dev] Service workers unregistered — skipping reload in test mode');
                                 }
                             } catch {
                                 // swallow
                             }
                         })
-                        .catch(err => console.warn('[dev] SW unregister failed', err));
+                          .catch(err => console.warn('[dev] SW unregister failed', err));
                 }
             } catch {
                 // ignore in environments where import.meta may be absent
             }
-        }, []);
+}, []);
 
         // Keep FAB in sync with assistant state (notification & listening)
         React.useEffect(() => {
@@ -203,18 +227,44 @@ export const App: React.FC = () => {
             return () => {
                 window.removeEventListener('assistant:recording', onRecording as EventListener);
             };
-        }, [activeSuggestion]);
+}, [activeSuggestion]);
 
 
         // Show loading screen during restore
         if (modals.isRestoring) {
             return (
-                <div className="bg-[var(--md-sys-color-surface-container-low)]" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}>
-                    <div style={{ textAlign: "center", gap: "var(--md-sys-spacing-4)" }}>
-                        <div className="rounded-[var(--md-sys-shape-corner-extra-large)] aura-glass animate-pulse" style={{ width: "4rem", height: "4rem", marginLeft: "auto", marginRight: "auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <span className="material-symbols-outlined text-4xl" style={{ color: "var(--md-sys-color-primary)" }}>sync</span>
+                <div style={{ 
+                    backgroundColor: layers.sys.color.surfaceContainerLow,
+                    display: "flex", 
+                    alignItems: "center", 
+                    justifyContent: "center", 
+                    height: "100vh" 
+                }}>
+                    <div style={{
+                        textAlign: "center", 
+                        gap: layers.ref.spacing['4']
+                    }}>
+                        <div style={{ 
+                            borderRadius: layers.ref.shape.corner.large,
+                            width: layers.ref.spacing['16'], 
+                            height: layers.ref.spacing['16'], 
+                            marginLeft: "auto", 
+                            marginRight: "auto", 
+                            display: "flex", 
+                            alignItems: "center", 
+                            justifyContent: "center" 
+                        }}>
+                            <span style={{ color: layers.sys.color.primary }}>
+                                sync
+                            </span>
                         </div>
-                        <p className="m3-label-large text-[var(--md-sys-color-on-surface)]" style={{ letterSpacing: "0.1em", textTransform: "uppercase" }}>Caricamento...</p>
+                        <p style={{ 
+                            color: layers.sys.color.onSurface,
+                            letterSpacing: "0.1em", 
+                            textTransform: "uppercase" 
+                        }}>
+                            Caricamento...
+                        </p>
                     </div>
                 </div>
             );
@@ -224,13 +274,40 @@ export const App: React.FC = () => {
         const restoreAssist = useRestoreAssist(appState, actions, modals);
         if (restoreAssist.show) {
             return (
-                <div className="bg-[var(--md-sys-color-surface-container-low)]" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}>
-                    <div className="max-w-xs px-6" style={{ textAlign: "center", gap: "var(--md-sys-spacing-4)" }}>
-                        <div className="rounded-[var(--md-sys-shape-corner-extra-large)] aura-glass" style={{ width: "4rem", height: "4rem", marginLeft: "auto", marginRight: "auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <span className="material-symbols-outlined text-4xl" style={{ color: "var(--md-sys-color-primary)" }}>build</span>
+                <div style={{ 
+                    backgroundColor: layers.sys.color.surfaceContainerLow,
+                    display: "flex", 
+                    alignItems: "center", 
+                    justifyContent: "center", 
+                    height: "100vh" 
+                }}>
+                    <div style={{
+                        textAlign: "center", 
+                        gap: layers.ref.spacing['4']
+                    }}>
+                        <div style={{ 
+                            borderRadius: layers.ref.shape.corner.large,
+                            width: layers.ref.spacing['16'], 
+                            height: layers.ref.spacing['16'], 
+                            marginLeft: "auto", 
+                            marginRight: "auto", 
+                            display: "flex", 
+                            alignItems: "center", 
+                            justifyContent: "center" 
+                        }}>
+                            <span style={{ color: layers.sys.color.primary }}>
+                                build
+                            </span>
                         </div>
-                        <h2 className="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)]" style={{ fontWeight: "bold" }}>Assistenza ripristino</h2>
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant">Stiamo preparando il tuo ambiente di lavoro.</p>
+                        <h2 style={{ 
+                            color: layers.sys.color.onSurface,
+                            fontWeight: "bold" 
+                        }}>
+                            Assistenza ripristino
+                        </h2>
+                        <p style={{ color: layers.sys.color.onSurfaceVariant }}>
+                            Stiamo preparando il tuo ambiente di lavoro.
+                        </p>
                     </div>
                 </div>
             );
@@ -402,7 +479,7 @@ export const App: React.FC = () => {
                     hasSuggestion={!!activeSuggestion}
                 />
 
-                <div className="app-shell-body">
+                <div >
                     {/* M3 Expressive Navigation Rail - vertical left navigation */}
                     <NavigationRail
                         items={[
@@ -418,8 +495,8 @@ export const App: React.FC = () => {
                     />
 
                     {/* Main Scrollable Content */}
-                    <main className="app-shell-main-content custom-scrollbar">
-                        <div className="app-shell-content-container">
+                    <main >
+                        <div >
                             {/* Banner Suggestion Assistant (solo se suggestion richiede modale) */}
                             {activeSuggestion && activeSuggestion.action?.type === 'modal' && typeof activeSuggestion.action?.payload === 'string' && activeSuggestion.action.payload === 'isLiveAssistantModalOpen' && !modals.isLiveAssistantModalOpen && (
                               <SuggestionBanner
@@ -443,7 +520,7 @@ export const App: React.FC = () => {
                 {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
                 {/* Super AI Assistant FAB: floating, multi-action, modal */}
                 <div 
-                    className="app-shell-fab-container"
+                    
                     style={{ zIndex: Z_INDEX.assistant.fab }}
                 >
                     <AssistantFab />
@@ -465,12 +542,17 @@ export const App: React.FC = () => {
         );
     } catch (err) {
         // Fallback visibile: errore di caricamento o runtime
-        return <div style={{ color: 'red', padding: 'var(--md-sys-spacing-8)', fontFamily: 'monospace', background: 'var(--md-sys-color-surface-variant)', fontSize: '1.2rem', whiteSpace: 'pre-wrap' }}>
+        return <div style={{color: 'red', padding: layers.ref.spacing['8'], fontFamily: 'monospace', background: layers.sys.color.surfaceVariant, fontSize: '1.2rem', whiteSpace: 'pre-wrap'}}>
             <b>ERRORE FATALE:</b> {String(err)}
             <br />
             <span>Controlla la console per dettagli tecnici.</span>
         </div>;
     }
 };
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 /**
  * LessonsPage.tsx
@@ -10,6 +11,7 @@ import { generateLessonSequenceForClass } from '../services/aiService';
 // import LessonView from './LessonView';
 import IdeaGeneratorModal from './IdeaGeneratorModal';
 import { CreateLessonFromAiModal } from './CreateLessonFromAiModal';
+import { useTheme } from '../theme/theme';
 
 // Extend Interface locally if not updated in types.ts yet
 interface LessonsPageExtendedProps extends LessonsPageProps {
@@ -18,6 +20,7 @@ interface LessonsPageExtendedProps extends LessonsPageProps {
 }
 
 const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowledgeBase, userClasses, onViewLesson, onAddLessons, onStartClassroom, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula = [], settings }) => {
+  const { layers } = useTheme();
     const [error, setError] = useState('');
     const [selectedUdaIds, setSelectedUdaIds] = useState<string[]>([]);
     const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
@@ -100,7 +103,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
         }
     };
 
-    const groupedLessonsByClass: [string, Record<string, Lezione[]>][] = useMemo(() => {
+    const groupedLessonsByClass: Array<[string, Record<string, Lezione[]>]> = useMemo(() => {
         const groups: Record<string, Record<string, Lezione[]>> = {};
 
         lessons.filter(lesson => {
@@ -130,7 +133,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
         return Object.keys(groups)
             .sort((a, b) => a.localeCompare(b))
             .map((classKey) => [classKey, groups[classKey]]);
-    }, [lessons, filterClass, filterUda]);
+        }, [lessons, filterClass, filterUda]);
 
     const filteredUdas = useMemo(() => {
         if (!filterClass) return udas;
@@ -139,29 +142,29 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
 
 
     return (
-        <div className="lessons-page-container">
-            <div className="lessons-page-content">
-            <div className="lessons-page-header">
-                <div className="lessons-page-title-group">
-                    <h1 className="lessons-page-title">Progetta Lezioni</h1>
-                    <p className="lessons-page-subtitle">Genera e orchestra sequenze di lezioni partendo da UDA e classi.</p>
+        <div >
+            <div >
+            <div >
+                <div >
+                    <h1 >Progetta Lezioni</h1>
+                    <p >Genera e orchestra sequenze di lezioni partendo da UDA e classi.</p>
                 </div>
             </div>
 
             {/* Expressive Idea Card */}
             <div
-                className="lessons-page-idea-card"
+                
                 onClick={() => setIsIdeaModalOpen(true)}
             >
-                <div className="lessons-page-idea-header">
-                    <div className="lessons-page-idea-icon">
+                <div >
+                    <div >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>lightbulb</span>
                     </div>
                     <div>
-                        <h2 className="lessons-page-idea-title">Hai un'idea per una lezione?</h2>
-                        <p className="lessons-page-idea-description">
+                        <h2 >Hai un'idea per una lezione?</h2>
+                        <p >
                             Tocca qui per trasformarla subito in un piano strutturato con l'AI. Dettala o scrivila.
                         </p>
                     </div>
@@ -170,97 +173,97 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
 
 
             {/* Lesson Sequence Generator */}
-            <details className="lessons-page-expansion-panel">
-                <summary className="lessons-page-expansion-summary">
-                    <div className="lessons-page-expansion-header">
-                        <span className="material-symbols-outlined lessons-page-expansion-icon">auto_awesome</span>
-                        <span className="lessons-page-expansion-title">Generatore Sequenze Lezioni</span>
+            <details >
+                <summary >
+                    <div >
+                        <span >auto_awesome</span>
+                        <span >Generatore Sequenze Lezioni</span>
                     </div>
-                    <span className="material-symbols-outlined lessons-page-expansion-arrow">expand_more</span>
+                    <span >expand_more</span>
                 </summary>
-                <div className="lessons-page-expansion-content">
-                    <p className="lessons-page-expansion-description">
+                <div >
+                    <p >
                         Seleziona le Unità di Apprendimento (UDA) e le classi. L'AI genererà una sequenza di lezioni strutturata per ogni classe, basandosi sui documenti KB selezionati.
                     </p>
-                    <div className="lessons-page-selection-grid">
+                    <div >
                         {/* UDA Selection */}
-                        <div className="lessons-page-selection-section">
-                            <h3 className="lessons-page-selection-title">1. Seleziona UDA</h3>
+                        <div >
+                            <h3 >1. Seleziona UDA</h3>
                             {/* Centralized Selection Container */}
-                            <div className="lessons-page-selection-container">
+                            <div >
                                 {udas.length > 0 ? udas.map(uda => (
-                                    <div key={uda.id} className="lessons-page-chip-checkbox">
+                                    <div key={uda.id} >
                                         <input type="checkbox" id={`uda-select-${uda.id}`} checked={selectedUdaIds.includes(uda.id)} onChange={() => handleUdaSelection(uda.id)} />
-                                        <label htmlFor={`uda-select-${uda.id}`} className="lessons-page-chip">{selectedUdaIds.includes(uda.id) && <span className="material-symbols-outlined lessons-page-chip-check">check</span>}{uda.title}</label>
+                                        <label htmlFor={`uda-select-${uda.id}`} >{selectedUdaIds.includes(uda.id) && <span >check</span>}{uda.title}</label>
                                     </div>
-                                )) : <p className="lessons-page-no-data">Nessuna UDA trovata. Creane una nel Planner.</p>}
+                                )) : <p >Nessuna UDA trovata. Creane una nel Planner.</p>}
                             </div>
                         </div>
                         {/* Class Selection */}
-                        <div className="section-container">
-                            <h3 className="m3-title-medium" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>2. Seleziona Classi</h3>
+                        <div >
+                            <h3  style={{marginBottom: layers.ref.spacing['8']}}>2. Seleziona Classi</h3>
                             {/* Centralized Selection Container */}
-                            <div className="selection-container max-h-[200px] p-0 custom-scrollbar" style={{ border: "none", overflowY: "auto" }}>
+                            <div style={{ padding: layers.ref.spacing['4'] }} style={{ border: "none", overflowY: "auto" }}>
                                 {userClasses.map(c => (
-                                    <div key={c} className="chip-checkbox">
+                                    <div key={c} >
                                         <input type="checkbox" id={`class-select-${c}`} checked={selectedClasses.includes(c)} onChange={() => handleClassSelection(c)} />
-                                        <label htmlFor={`class-select-${c}`} className="chip" style={{ width: "100%", justifyContent: "flex-start" }}>{selectedClasses.includes(c) && <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>check</span>}{c}</label>
+                                        <label htmlFor={`class-select-${c}`}  style={{ width: "100%", justifyContent: "flex-start" }}>{selectedClasses.includes(c) && <span  style={{ fontSize: "1.125rem" }}>check</span>}{c}</label>
                                     </div>
                                 ))}
                             </div>
                         </div>
                         {/* KB Selection */}
-                        <div className="section-container">
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--md-sys-spacing-8)" }}>
-                                <h3 className="m3-title-medium">3. Contesto KB</h3>
-                                <span className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem" }}>{selectedKbIds.length} selezionati</span>
+                        <div >
+                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: layers.ref.spacing['8']}}>
+                                <h3 >3. Contesto KB</h3>
+                                <span style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.75rem" }}>{selectedKbIds.length} selezionati</span>
                             </div>
-                            <div className="selection-container max-h-[200px] p-0 custom-scrollbar" style={{ border: "none", overflowY: "auto" }}>
+                            <div style={{ padding: layers.ref.spacing['4'] }} style={{ border: "none", overflowY: "auto" }}>
                                 {knowledgeBase.map(kb => (
-                                    <div key={kb.id} className="chip-checkbox">
+                                    <div key={kb.id} >
                                         <input type="checkbox" id={`kb-select-${kb.id}`} checked={selectedKbIds.includes(kb.id)} onChange={() => handleKbSelection(kb.id)} />
-                                        <label htmlFor={`kb-select-${kb.id}`} className="chip" style={{ width: "100%", justifyContent: "flex-start" }} title={kb.fileName}>
-                                            {selectedKbIds.includes(kb.id) && <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>check</span>}
-                                            <span className="material-symbols-outlined mr-1" style={{ color: "var(--md-sys-color-primary)", fontSize: "1rem" }}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
+                                        <label htmlFor={`kb-select-${kb.id}`}  style={{ width: "100%", justifyContent: "flex-start" }} title={kb.fileName}>
+                                            {selectedKbIds.includes(kb.id) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
+                                            <span  style={{color: "layers.sys.color.primary", fontSize: layers.ref.spacing['4']}}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
                                             <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                         </label>
                                     </div>
                                 ))}
-                                {knowledgeBase.length === 0 && <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant italic">KB vuota.</p>}
+                                {knowledgeBase.length === 0 && <p style={{ color:  layers.sys.color.onSurfaceVariant }}>KB vuota.</p>}
                             </div>
                         </div>
                     </div>
-                    <div style={{ marginTop: "var(--md-sys-spacing-4)" }}>
-                        <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0} className="button button-filled" style={{ width: "100%" }}>
-                            <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>auto_awesome</span>
+                    <div style={{marginTop: layers.ref.spacing['4']}}>
+                        <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0}  style={{ width: "100%" }}>
+                            <span  style={{ marginRight: "0.5rem" }}>auto_awesome</span>
                             Genera Sequenze di Lezioni
                         </button>
-                        {error && <p style={{ color: "var(--md-sys-color-error)", fontSize: "0.875rem", marginTop: "var(--md-sys-spacing-4)", textAlign: "center" }}>{error}</p>}
+                        {error && <p style={{color: "layers.sys.color.error", fontSize: "0.875rem", marginTop: layers.ref.spacing['4'], textAlign: "center"}}>{error}</p>}
                     </div>
                 </div>
             </details>
 
             {/* Lessons Archive */}
-            <div className="card">
-                <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "var(--md-sys-spacing-8)", marginBottom: "var(--md-sys-spacing-8)" }}>
-                    <h2 className="m3-title-large">Archivio Lezioni ({lessons.length})</h2>
+            <div >
+                <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['8']}}>
+                    <h2 >Archivio Lezioni ({lessons.length})</h2>
 
                     {/* Filtri */}
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--md-sys-spacing-8)" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                            <select value={filterClass} onChange={e => setFilterClass(e.target.value)} className="form-select py-1 pr-8 !h-10" style={{ fontSize: "0.875rem" }}>
+                    <div style={{display: "flex", flexWrap: "wrap", gap: layers.ref.spacing['8']}}>
+                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                            <select value={filterClass} onChange={e => setFilterClass(e.target.value)}  style={{ fontSize: "0.875rem" }}>
                                 <option value="">Tutte le classi</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </select>
                         </div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                            <select value={filterUda} onChange={e => setFilterUda(e.target.value)} className="form-select py-1 pr-8 !h-10" style={{ fontSize: "0.875rem" }}>
+                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                            <select value={filterUda} onChange={e => setFilterUda(e.target.value)}  style={{ fontSize: "0.875rem" }}>
                                 <option value="">Tutte le UDA</option>
                                 {filteredUdas.map(u => <option key={u.id} value={u.title}>{u.title}</option>)}
                             </select>
                         </div>
                         {(filterClass || filterUda) && (
-                            <button onClick={() => { setFilterClass(''); setFilterUda(''); }} className="button button-text !py-1 !px-4" title="Rimuovi filtri">
+                            <button onClick={() => { setFilterClass('); setFilterUda('); }}  title="Rimuovi filtri">
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>filter_alt_off</span>
@@ -269,32 +272,32 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                     </div>
                 </div>
 
-                <div style={{ gap: "var(--md-sys-spacing-3)" }}>
+                <div style={{gap: layers.ref.spacing['3']}}>
                     {groupedLessonsByClass.length > 0 ? (
                         groupedLessonsByClass.map(([classKey, udaGroups]) => (
-                            <details key={classKey} className="m3-expansion-panel" open>
-                                <summary className="m3-expansion-summary bg-[var(--md-sys-color-surface-container-high)]est/30">
-                                    <span className="m3-title-medium">Classe {classKey}</span>
+                            <details key={classKey}  open>
+                                <summary style={{ backgroundColor:  layers.sys.color.surfaceContainerHighest/30 }}>
+                                    <span >Classe {classKey}</span>
                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>expand_more</span>
                                 </summary>
-                                <div className="m3-expansion-content !p-8">
+                                <div >
                                     {Object.entries(udaGroups).map(([udaKey, lessonItems]) => (
-                                        <details key={udaKey} className="m3-expansion-panel shadow-none" style={{ border: "none", marginBottom: "var(--md-sys-spacing-8)" }} open={udaKey !== 'Lezioni Varie'}>
-                                            <summary className="m3-expansion-summary !bg-transparent !px-4 !py-4">
-                                                <span className="m3-label-large" style={{ color: "var(--md-sys-color-primary)" }}>{udaKey} ({lessonItems.length})</span>
-                                                <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>expand_more</span>
+                                        <details key={udaKey}  style={{border: "none", marginBottom: layers.ref.spacing['8']}} open={udaKey !== 'Lezioni Varie'}>
+                                            <summary >
+                                                <span  style={{color: "layers.sys.color.primary"}}>{udaKey} ({lessonItems.length})</span>
+                                                <span  style={{ fontSize: "0.875rem" }}>expand_more</span>
                                             </summary>
-                                            <div className="pl-2 border-l-2 border-[var(--md-sys-color-outline-variant)] ml-4 pb-2" style={{ gap: "var(--md-sys-spacing-2)" }}>
+                                            <div  style={{gap: layers.ref.spacing['2']}}>
                                                 {lessonItems.map(lesson => (
-                                                    <div key={lesson.id} className="m3-list-item-card !p-6 !bg-[var(--md-sys-color-surface-container-low)]est">
-                                                        <div onClick={() => onViewLesson(lesson)} className="list-item-card-content">
-                                                            <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)]" style={{ fontWeight: "500" }}>{lesson.contenuto}</p>
-                                                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</p>
+                                                    <div key={lesson.id} >
+                                                        <div onClick={() => onViewLesson(lesson)} >
+                                                            <p style={{ color: layers.sys.color.onSurfaceVariant }} style={{ fontWeight: "500" }}>{lesson.contenuto}</p>
+                                                            <p style={{ color:  layers.sys.color.onSurfaceVariant }}>{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</p>
                                                         </div>
-                                                        <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)} className="button button-tonal !h-8 !px-3 !text-xs" style={{ flexShrink: "0" }}>
-                                                            <span className="material-symbols-outlined mr-1" style={{ fontSize: "0.875rem" }}>door_open</span>
+                                                        <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)}  style={{ flexShrink: "0" }}>
+                                                            <span  style={{ fontSize: "0.875rem" }}>door_open</span>
                                                             Avvia
                                                         </button>
                                                     </div>
@@ -306,9 +309,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                             </details>
                         ))
                     ) : (
-                        <div className="empty-state-box">
-                            <span className="material-symbols-outlined empty-state-icon">history_edu</span>
-                            <p className="m3-title-medium">Nessuna lezione trovata</p>
+                        <div >
+                            <span >history_edu</span>
+                            <p >Nessuna lezione trovata</p>
                             <p>Modifica i filtri o crea una nuova lezione.</p>
                         </div>
                     )}
@@ -359,5 +362,10 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
 };
 
 export default LessonsPage;
+
+
+
+
+
 
 

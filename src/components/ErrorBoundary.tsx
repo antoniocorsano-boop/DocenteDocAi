@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 // ...existing code...
@@ -54,35 +55,35 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 		}, 3000);
 
 		return () => clearTimeout(timer);
-	}, [showToast]);
+}, [showToast]);
 
 	return (
-		<div className="error-boundary-container">
-			<div className="error-boundary-card">
-				<div className="error-boundary-icon-container">
-					<span className="material-symbols-outlined error-boundary-icon">error</span>
+		<div >
+			<div >
+				<div >
+					<span >error</span>
 				</div>
 
-				<h2 className="error-boundary-title">
+				<h2 >
 					Oops! Qualcosa è andato storto
 				</h2>
 
-				<p className="error-boundary-description">
+				<p >
 					Si è verificato un errore imprevisto nell'applicazione.
 					La pagina verrà ricaricata automaticamente tra pochi secondi.
 				</p>
 
-				<div className="error-boundary-loading">
-					<span className="material-symbols-outlined error-boundary-loading-icon">refresh</span>
+				<div >
+					<span >refresh</span>
 					<span>Ricaricamento in corso...</span>
 				</div>
 
 				{process.env.NODE_ENV === 'development' && error && (
-					<details className="error-boundary-details">
-						<summary className="error-boundary-details-summary">
+					<details >
+						<summary >
 							Dettagli errore (solo in sviluppo)
 						</summary>
-						<pre className="error-boundary-details-pre">
+						<pre >
 							{error.stack}
 						</pre>
 					</details>
@@ -94,6 +95,11 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 
 export { ErrorBoundary };
 export default ErrorBoundary;
+
+
+
+
+
 
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -9,14 +10,12 @@ interface AvatarProps {
 
 /**
  * Avatar - User avatar component with initials fallback.
- * 
- * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance and className removal
  */
 
 const Avatar: React.FC<AvatarProps> = ({ name, src, size = 'md' }) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const theme = useTheme();
-    
+  const { layers } = useTheme();
+  const { sys, ref } = layers;
+
     const initials = name
         .split(' ')
         .map(n => n[0])
@@ -25,20 +24,20 @@ const Avatar: React.FC<AvatarProps> = ({ name, src, size = 'md' }) => {
         .substring(0, 2);
 
     const sizeStyles = {
-        sm: { width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', fontSize: 'var(--md-sys-typescale-body-small-size)' },
-        md: { width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', fontSize: 'var(--md-sys-typescale-body-small-size)' },
-        lg: { width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', fontSize: 'var(--md-sys-typescale-body-large-size)' },
-        xl: { width: 'var(--md-sys-spacing-24)', height: 'var(--md-sys-spacing-24)', fontSize: 'var(--md-sys-typescale-display-small-size)' }
+        sm: { width: layers.ref.spacing['8'], height: layers.ref.spacing['8'], fontSize: ref.typography.bodySmall.fontSize },
+        md: { width: layers.ref.spacing['10'], height: layers.ref.spacing['10'], fontSize: ref.typography.bodySmall.fontSize },
+        lg: { width: layers.ref.spacing['12'], height: layers.ref.spacing['12'], fontSize: ref.typography.bodyLarge.fontSize },
+        xl: { width: layers.ref.spacing['16'], height: layers.ref.spacing['16'], fontSize: ref.typography.displaySmall.fontSize }
     };
 
     return (
     <div style={{
         position: 'relative',
         flexShrink: 0,
-        borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+        borderRadius: ref.shape.corner.extraLarge,
         overflow: 'hidden',
-        backgroundColor: 'var(--md-sys-color-primary-container)',
-        color: 'var(--md-sys-color-on-primary-container)',
+        backgroundColor: sys.color.primaryContainer,
+        color: sys.color.onPrimaryContainer,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -55,5 +54,10 @@ const Avatar: React.FC<AvatarProps> = ({ name, src, size = 'md' }) => {
 };
 
 export default Avatar;
+
+
+
+
+
 
 

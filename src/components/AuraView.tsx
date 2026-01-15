@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 import React from 'react';
@@ -22,5 +23,10 @@ const AuraView: React.FC<AuraViewProps> = ({ children, fullWidth = false }) => {
 export default AuraView;
 
 // M3Expressive refactor COMPLETED: AuraView.tsx - Replaced hardcoded Tailwind classes with dedicated aura-view-wrapper CSS classes using M3 tokens for spacing and responsive layout.
+
+
+
+
+
 
 

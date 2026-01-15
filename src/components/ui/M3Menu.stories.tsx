@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3Menu, { M3MenuItemConfig } from './M3Menu';
@@ -6,7 +7,7 @@ import M3Button from './M3Button';
 const meta: Meta<typeof M3Menu> = {
   component: M3Menu,
   title: 'UI/Menus/M3Menu',
-  tags: ['autodocs'],
+  tags: ['autodocs],
   parameters: {
     layout: 'centered',
     docs: {
@@ -344,5 +345,10 @@ export const WithLongList: Story = {
     );
   },
 };
+
+
+
+
+
 
 

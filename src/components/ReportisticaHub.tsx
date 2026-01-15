@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 /**
  * ReportisticaHub.tsx
@@ -18,6 +19,7 @@ import { getDocumentTemplate } from '../utils/templateUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, ActionTile, SectionHeader, InfoCard, TabGroup, SelectField } from './ui';
 import { useUIStore } from '../stores/useUIStore';
 import BatchExportWizard from './BatchExportWizard';
+import { useTheme } from '../theme/theme';
 
 // --- TYPE DEFINITIONS FOR REGISTRY ---
 type DocPhase = 'avvio' | 'itinere' | 'valutazione' | 'chiusura';
@@ -54,6 +56,7 @@ interface ReportisticaHubProps {
 }
 
 const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
+  const { layers } = useTheme();
     const [wizard, setWizard] = useState<'uda' | 'student' | 'lesson' | 'planning' | 'syllabus' | null>(null);
     const [isCouncilWizardOpen, setIsCouncilWizardOpen] = useState(false);
     const [activePhase, setActivePhase] = useState<DocPhase>('avvio');
@@ -338,7 +341,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 maxWidth="lg"
                 level={1}
             >
-                <M3DialogContent className="reportistica-hub-dialog-content">
+                <M3DialogContent >
                         {wizard === 'uda' && (
                             <SelectField 
                                 label="Seleziona Progetto (UDA)"
@@ -414,14 +417,14 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
     };
 
     return (
-        <div className="reportistica-hub-main-layout">
+        <div >
             {/* --- HEADER --- */}
-            <div className="reportistica-hub-header">
+            <div >
                 <div>
-                    <h1 className="reportistica-hub-title">Reportistica & Documenti</h1>
-                    <p className="reportistica-hub-subtitle">Genera documentazione didattica, verbali e reportistica avanzata.</p>
+                    <h1 >Reportistica & Documenti</h1>
+                    <p >Genera documentazione didattica, verbali e reportistica avanzata.</p>
                 </div>
-                <div className="reportistica-hub-actions">
+                <div >
                     <M3Button 
                         variant="tonal" 
                         startIcon={<span style={{
@@ -435,8 +438,8 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             </div>
 
             {/* --- QUICK ACTIONS / RECENT --- */}
-            <div className="reportistica-hub-grid">
-                <div className="reportistica-hub-main-column">
+            <div >
+                <div >
                     <SectionHeader 
                         title="Documentazione Didattica" 
                         subtitle="Seleziona la fase dell'anno scolastico"
@@ -454,7 +457,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                         onTabChange={(id) => setActivePhase(id as DocPhase)}
                     />
 
-                    <div className="sm:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)", marginTop: "var(--md-sys-spacing-4)" }}>
+                    <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8'], marginTop: layers.ref.spacing['4']}}>
                         {activeTemplates.map(template => (
                             <ActionTile 
                                 key={template.id}
@@ -468,11 +471,9 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     </div>
                 </div>
 
-                <div style={{
-  marginTop: 'var(--md-sys-spacing-4)'
-}}>
+                <div style={{marginTop: layers.ref.spacing['4']}}>
                     <SectionHeader title="Documenti Recenti" icon="history" />
-                    <div style={{ gap: "var(--md-sys-spacing-3)" }}>
+                    <div style={{gap: layers.ref.spacing['3']}}>
                         {recentDocs.length > 0 ? recentDocs.map(doc => (
                             <InfoCard 
                                 key={doc.id}
@@ -481,14 +482,14 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                                 variant="surface"
                                 onClick={() => setViewingDoc(doc)}
                             >
-                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "var(--md-sys-spacing-4)" }}>
+                                <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: layers.ref.spacing['4']}}>
                                     <span style={{ fontSize: "0.75rem", opacity: "0.7" }}>Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}</span>
                                     <M3Button variant="text" size="small" onClick={(e) => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</M3Button>
                                 </div>
                             </InfoCard>
                         )) : (
-                            <div className="border-2 border-dashed border-[var(--md-sys-color-outline-variant)] rounded-[var(--md-sys-shape-corner-extra-large)]" style={{ padding: "var(--md-sys-spacing-8)", textAlign: "center", opacity: "0.5" }}>
-                                <span className="material-symbols-rounded text-4xl" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>drafts</span>
+                            <div style={{ borderRadius: layers.ref.shape.corner.large, padding: layers.ref.spacing['8'], textAlign: "center", opacity: "0.5" }}>
+                                <span style={{color: "layers.sys.color.onSurfaceVariant", marginBottom: layers.ref.spacing['8']}}>drafts</span>
                                 <p style={{ fontSize: "0.875rem" }}>Nessun documento generato di recente.</p>
                             </div>
                         )}
@@ -497,9 +498,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             </div>
 
             {/* --- ARCHIVE --- */}
-            <div style={{
-  marginTop: 'var(--md-sys-spacing-4)'
-}}>
+            <div style={{marginTop: layers.ref.spacing['4']}}>
                 <SectionHeader title="Archivio Report" icon="inventory_2" />
                 <ArchivioReport 
                     reportistica={props.reportistica} 
@@ -615,5 +614,10 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
 };
 
 export default ReportisticaHub;
+
+
+
+
+
 
 

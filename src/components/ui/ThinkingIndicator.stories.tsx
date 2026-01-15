@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import ThinkingIndicator from './ThinkingIndicator';
 
@@ -12,14 +13,14 @@ const meta: Meta<typeof ThinkingIndicator> = {
       }
     }
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     message: {
       control: 'text',
       description: 'The message to display during thinking state'
     },
     size: {
-      control: { type: 'select', options: ['small', 'medium', 'large'] },
+      control: { type: 'select', options: ['small', 'medium', 'large] },
       description: 'Size variant of the indicator'
     }
   }
@@ -55,4 +56,9 @@ export const CustomMessage: Story = {
     size: 'medium'
   }
 };
+
+
+
+
+
 

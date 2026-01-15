@@ -1,3 +1,5 @@
+import { renderWithM3Theme } from '../test-utils';
+// LEGACY - MD3 Non-compliant
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
@@ -6,6 +8,7 @@ import { useSettingsStore } from '../stores/useSettingsStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useStudentStore } from '../stores/useStudentStore';
+import { useTheme } from '../theme/theme';
 
 // Mocks per gli stores
 vi.mock('../stores/useSettingsStore');
@@ -16,19 +19,19 @@ vi.mock('../stores/useStudentStore');
 // Mock UI components (coerenti con i unit tests)
 vi.mock('./ui', () => ({
   ActionTile: ({ title, subtitle, onClick }: any) => (
-    <button onClick={onClick} aria-label={`${title} - ${subtitle}`} style={{ padding: 'var(--md-sys-spacing-4)' }}>
+    <button onClick={onClick} aria-label={`${title} - ${subtitle}`} style={{padding: layers.ref.spacing['4']}}>
       {title}
     </button>
   ),
   M3ExpressiveCard: ({ title, description, children }: any) => (
-    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+    <div style={{backgroundColor: 'layers.sys.color.surfaceContainerHigh', borderRadius: 'layers.ref.shape.corner.large'}}>
       <div>{title}</div>
       <div>{description}</div>
       {children}
     </div>
   ),
   M3Button: ({ children, onClick, variant, 'aria-label': ariaLabel, ...props }: any) => (
-    <button onClick={onClick} data-variant={variant} aria-label={ariaLabel} {...props} style={{ color: 'var(--md-sys-color-primary)' }}>
+    <button onClick={onClick} data-variant={variant} aria-label={ariaLabel} {...props} style={{color: 'layers.sys.color.primary'}}>
       {children}
     </button>
   ),
@@ -37,7 +40,7 @@ vi.mock('./ui', () => ({
     return React.createElement(Component, { 'data-testid': 'm3-typography', style: { ...style, fontSize: 'var(--md-sys-typescale-body-large-font-size)' } }, children);
   },
   M3HeroCard: ({ children, onClick }: any) => (
-    <div data-testid="m3-hero-card" onClick={onClick} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+    <div data-testid="m3-hero-card" onClick={onClick} style={{borderRadius: 'layers.ref.shape.corner.large'}}>
       {children}
     </div>
   ),
@@ -66,6 +69,7 @@ vi.mock('./ui', () => ({
 
 // Default mock data
 const defaultMockStores = {
+  const { layers } = useTheme();
   settingsStore: { settings: { nomeInsegnante: 'Mario', cognomeInsegnante: 'Russo' } },
   systemStore: { activeSuggestion: null, dismissedSuggestions: new Set<string>(), suggestions: [] as any[] },
   academicStore: {
@@ -100,14 +104,14 @@ describe('Home Component - Integration (lean)', () => {
   });
 
   it('renders greeting, quick actions, and hero card', () => {
-    render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
+    renderWithM3Theme(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
     expect(screen.getByText('DocenteDoc AI')).toBeInTheDocument();
     expect(screen.getByText('Appello (Inizia giornata)')).toBeInTheDocument();
     expect(screen.getByText('Vai alla classe')).toBeInTheDocument();
   });
 
   it('navigates via quick actions and hero buttons', async () => {
-    render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
+    renderWithM3Theme(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
 
     fireEvent.click(screen.getByText('Vai alla classe'));
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('aula', { classe: '3A' }));
@@ -123,7 +127,7 @@ describe('Home Component - Integration (lean)', () => {
       },
     } as any);
 
-    render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
+    renderWithM3Theme(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
 
     expect(screen.getByText('Organizza una verifica')).toBeInTheDocument();
 
@@ -137,11 +141,16 @@ describe('Home Component - Integration (lean)', () => {
   });
 
   it('has MD3 token styles present (spacing, color, corner)', () => {
-    const { container } = render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
+    const { container } = renderWithM3Theme(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
     // Check for M3 inline styles that apply tokens
     const elementsWithMD3Styles = container.querySelectorAll('[style*="--md-sys-"]');
     expect(elementsWithMD3Styles.length).toBeGreaterThan(0);
   });
 });
+
+
+
+
+
 
 

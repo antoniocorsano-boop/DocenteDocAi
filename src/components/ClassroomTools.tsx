@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 /* M3Expressive - ClassroomTools Component */
 
@@ -40,25 +41,25 @@ const TimerWidget: React.FC = () => {
     };
 
     return (
-        <div className="classroom-tools-timer-widget">
+        <div >
             {/* Background Decor */}
-            <div className="classroom-tools-timer-background-decor material-symbols-outlined">
+            <div >
                  timer
             </div>
             
-            <div className="classroom-tools-timer-header">
-                <span className="classroom-tools-timer-icon material-symbols-outlined">timer</span>
-                <span className="classroom-tools-timer-title">Cronometro</span>
+            <div >
+                <span >timer</span>
+                <span >Cronometro</span>
             </div>
             
-            <div className="classroom-tools-timer-display">
+            <div >
                 {formatTime(time)}
             </div>
             
-            <div className="classroom-tools-timer-controls">
+            <div >
                 <button 
                     onClick={handleReset} 
-                    className="classroom-tools-timer-reset-button button button-tonal" 
+                     
                     title="Reset"
                 >
                     <span style={{
@@ -69,7 +70,7 @@ const TimerWidget: React.FC = () => {
                     onClick={handleStartPause} 
                     className={`classroom-tools-timer-start-pause-button button ${isActive ? 'button-outlined' : 'button-filled'}`}
                 >
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>{isActive ? 'pause' : 'play_arrow'}</span>
+                    <span  style={{ marginRight: "0.5rem" }}>{isActive ? 'pause' : 'play_arrow'}</span>
                     {isActive ? 'Pausa' : 'Avvia'}
                 </button>
             </div>
@@ -99,27 +100,27 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
     };
     
     return (
-        <div className="classroom-tools-random-student-widget">
+        <div >
              {/* Background Decor */}
-            <div className="classroom-tools-random-student-background-decor material-symbols-outlined">
+            <div >
                  casino
             </div>
 
-            <div className="classroom-tools-random-student-header">
-                <span className="classroom-tools-random-student-icon material-symbols-outlined">casino</span>
-                <span className="classroom-tools-random-student-title">Estrazione</span>
+            <div >
+                <span >casino</span>
+                <span >Estrazione</span>
             </div>
 
-            <div className="classroom-tools-random-student-content">
+            <div >
                 {selectedStudent ? (
                     <div className={`classroom-tools-random-student-info ${isSelecting ? 'selecting' : ''}`}>
-                         <span className="classroom-tools-random-student-name">{selectedStudent.cognome}</span>
-                         <span className="classroom-tools-random-student-first-name">{selectedStudent.nome}</span>
+                         <span >{selectedStudent.cognome}</span>
+                         <span >{selectedStudent.nome}</span>
                     </div>
                 ) : (
-                     <div className="classroom-tools-random-student-empty-state">
-                        <span className="classroom-tools-random-student-empty-state-icon material-symbols-outlined">groups</span>
-                        <span className="classroom-tools-random-student-empty-state-text">Pronto ad estrarre</span>
+                     <div >
+                        <span >groups</span>
+                        <span >Pronto ad estrarre</span>
                      </div>
                 )}
             </div>
@@ -127,7 +128,7 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
             <button 
                 onClick={handleSelect} 
                 disabled={isSelecting || presentStudents.length === 0} 
-                className="classroom-tools-random-student-button button button-filled"
+                
             >
                 {isSelecting ? 'Estrazione...' : 'Estrai Studente'}
             </button>
@@ -140,16 +141,21 @@ const ClassroomTools: React.FC<ClassroomToolsProps> = ({ students, studentAttend
     const presentStudents = students.filter(s => studentAttendance[s.id] === 'presente');
     
     return (
-        <div className="classroom-tools-grid">
+        <div >
             <TimerWidget />
             <RandomStudentWidget presentStudents={presentStudents} />
             
             {/* Placeholder for future tools to fill grid if needed */}
-            {/* <div className="md:col-span-2"> ... </div> */}
+            {/* <div > ... </div> */}
         </div>
     );
 };
 
 export default ClassroomTools;
+
+
+
+
+
 
 

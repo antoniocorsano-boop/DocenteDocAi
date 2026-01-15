@@ -1,8 +1,8 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { View } from '../types';
 import { M3Typography } from './ui';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../hooks/useTheme';
+import { useTheme } from '../theme/theme';
 
 /**
  * NavigationRail - MD3 Pure Navigation Component
@@ -48,8 +48,6 @@ export interface NavigationRailProps {
   activeView: View;
   /** Navigation callback */
   onNavigate: (view: View, context?: unknown) => void;
-  /** Optional className for custom styling */
-  className?: string;
 }
 
 /**
@@ -75,8 +73,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
   items,
   activeView,
   onNavigate,
-  className = '',
 }) => {
+  const { layers } = useTheme();
   // Check if we're on mobile (< 600px) - simplified responsive logic
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -187,7 +185,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             borderRadius: 'var(--md-sys-shape-corner-medium)', // 12px
 
             // State colors - default
-            color: 'var(--md-sys-color-on-surface-variant)',
+            color: 'var(--md-sys-color-onSurface-variant)',
 
             // Transition
             transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
@@ -197,8 +195,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
 
             // Active state
             ...(isActive && {
-              backgroundColor: 'var(--md-sys-color-primary-container)',
-              color: 'var(--md-sys-color-on-primary-container)',
+              backgroundColor: 'var(--md-sys-color-primaryContainer)',
+              color: 'var(--md-sys-color-on-primaryContainer)',
               boxShadow: 'var(--md-sys-elevation-level1)',
             })
           };
@@ -210,47 +208,43 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               style={itemStyle}
               onMouseEnter={(e) => {
                 if (!isActive) {
-                  e.currentTarget.style.backgroundColor = 'color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent)';
+                  e.currentTarget// removed runtime mutation
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isActive) {
-                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget// removed runtime mutation
                 }
               }}
               onFocus={(e) => {
-                e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-                e.currentTarget.style.outlineOffset = '2px';
+                e.currentTarget// removed runtime mutation
+                e.currentTarget// removed runtime mutation
               }}
               onBlur={(e) => {
-                e.currentTarget.style.outline = 'none';
-                e.currentTarget.style.outlineOffset = '0';
+                e.currentTarget// removed runtime mutation
+                e.currentTarget// removed runtime mutation
               }}
               aria-label={item.label}
               aria-current={isActive ? 'page' : undefined}
             >
               {/* Icon Container */}
               <div
-                style={{
-                  position: 'relative',
+                style={{position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 'var(--md-sys-spacing-8)', // 32px
-                  height: 'var(--md-sys-spacing-8)', // 32px
-                  borderRadius: 'var(--md-sys-shape-corner-full)', // 50%
-                  transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                }}
+                  width: layers.ref.spacing['8'], // 32px
+                  height: layers.ref.spacing['8'], // 32px
+                  borderRadius: 'layers.ref.shape.corner.full', // 50%
+                  transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
               >
                 <span
-                  style={{
-                    fontFamily: 'Material Symbols Outlined',
-                    fontSize: 'var(--md-sys-spacing-6)', // 24px
+                  style={{fontFamily: 'Material Symbols Outlined',
+                    fontSize: layers.ref.spacing['6'], // 24px
                     lineHeight: 1,
                     color: 'inherit',
                     fontVariationSettings: isActive ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
-                    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                  }}
+                    transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
                   aria-hidden="true"
                 >
                   {isActive ? item.activeIcon : item.icon}
@@ -261,21 +255,20 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   <span
                     style={{
                       position: 'absolute',
-                      top: 'calc(-1 * var(--md-sys-spacing-1))', // -4px
-                      right: 'calc(-1 * var(--md-sys-spacing-1))', // -4px
-                      minWidth: 'var(--md-sys-spacing-4)', // 16px
-                      height: 'var(--md-sys-spacing-4)', // 16px
-                      padding: '0 var(--md-sys-spacing-1)', // 0 4px
-                      backgroundColor: 'var(--md-sys-color-error)',
-                      color: 'var(--md-sys-color-on-error)',
-                      borderRadius: 'var(--md-sys-shape-corner-small)', // 8px
-                      fontSize: '10px',
+                      top: `calc(-1 * ${layers.ref.spacing['1']})`, // -4px
+                      right: `calc(-1 * ${layers.ref.spacing['1']})`, // -4px
+                      minWidth: layers.ref.spacing['4'], // 16px
+                      height: layers.ref.spacing['4'], // 16px
+                      padding: `0 ${layers.ref.spacing['1']}` , // 0 4px
+                      backgroundColor: layers.sys.color.error,
+                      color: layers.sys.color.onError,
+                      borderRadius: layers.ref.shape.small, // 8px
+                      fontSize: layers.ref.spacing['4'],
                       fontWeight: '700',
-                      lineHeight: 'var(--md-sys-spacing-4)', // 16px
+                      lineHeight: layers.ref.spacing['4'], // 16px
                       textAlign: 'center',
                       zIndex: 1,
-                      animation: 'badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)'
-                    }}
+                      animation: 'badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)'}}
                     aria-label={`${item.badge} notifiche`}
                   >
                     {item.badge > 99 ? '99+' : item.badge}
@@ -286,8 +279,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               {/* Label */}
               <M3Typography
                 variant="label-medium"
-                style={{
-                  fontSize: 'var(--md-sys-spacing-3)', // 12px
+                style={{fontSize: layers.ref.spacing['3'], // 12px
                   fontWeight: '500',
                   letterSpacing: '0.5px',
                   textAlign: 'center',
@@ -295,9 +287,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  maxWidth: 'var(--md-sys-spacing-14)', // 56px
-                  transition: 'color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
-                }}
+                  maxWidth: layers.ref.spacing['12'], // 48px
+                  transition: `color ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
               >
                 {item.label}
               </M3Typography>
@@ -311,5 +302,10 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
 };
 
 export default NavigationRail;
+
+
+
+
+
 
 

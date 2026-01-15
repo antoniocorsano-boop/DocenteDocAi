@@ -1,4 +1,5 @@
-import React from 'react';
+// LEGACY - MD3 Non-compliant
+import React, { useState } from 'react';
 import { useTheme } from '../../theme/theme';
 
 interface M3SurfaceCardProps {
@@ -32,21 +33,23 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   tabIndex,
   'aria-label': ariaLabel,
 }) => {
-  const { motion } = useTheme();
+  const [hovered, setHovered] = useState(false);
+  const { layers } = useTheme();
+  const { sys, ref, motion } = layers;
 
   const colorTokens: Record<string, { bg: string; fg: string }> = {
-    primary: { bg: 'var(--md-sys-color-primary-container)', fg: 'var(--md-sys-color-on-primary-container)' },
-    secondary: { bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--md-sys-color-on-secondary-container)' },
-    tertiary: { bg: 'var(--md-sys-color-tertiary-container)', fg: 'var(--md-sys-color-on-tertiary-container)' },
-    surface: { bg: 'var(--md-sys-color-surface-container-high)', fg: 'var(--md-sys-color-on-surface)' },
-    surfaceVariant: { bg: 'var(--md-sys-color-surface-container-low)', fg: 'var(--md-sys-color-on-surface-variant)' }
+    primary: { bg: sys.color.primaryContainer, fg: sys.color.onPrimaryContainer },
+    secondary: { bg: sys.color.secondaryContainer, fg: sys.color.onSecondaryContainer },
+    tertiary: { bg: sys.color.tertiaryContainer, fg: sys.color.onTertiaryContainer },
+    surface: { bg: sys.color.surfaceContainerHigh, fg: sys.color.onSurface },
+    surfaceVariant: { bg: sys.color.surfaceContainerLow, fg: sys.color.onSurfaceVariant }
   };
 
   const palette = colorTokens[color];
 
   const baseStyle = {
-    border: glass ? '1px solid var(--md-sys-color-outline-variant)' : '1px solid var(--md-sys-color-outline-variant)',
-    borderRadius: 'var(--md-sys-shape-corner-large)',
+    border: `1px solid ${sys.color.outlineVariant}`,
+    borderRadius: ref.shape.corner.large,
     position: expressive ? 'relative' : undefined,
     overflow: expressive ? 'hidden' : undefined,
     backdropFilter: glass ? 'blur(16px)' : undefined,
@@ -59,11 +62,13 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
 
   const interactiveStyle = interactive ? {
     transition: `background-color ${motion.duration.short2} ${motion.easing.standard}`,
-    cursor: onClick ? 'pointer' : undefined
+    cursor: onClick ? 'pointer' : undefined,
+    backgroundColor: hovered ? sys.color.surfaceContainerLow : (glass ? sys.color.surface : palette.bg),
+    opacity: glass && hovered ? 0.1 : undefined
   } : {};
 
   const glassStyle = glass ? {
-    backgroundColor: 'var(--md-sys-color-surface)',
+    backgroundColor: sys.color.surface,
     opacity: 0.1,
   } : {};
 
@@ -78,17 +83,8 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   return (
     <div
       style={combinedStyle}
-      onMouseEnter={(e) => {
-        if (interactive) {
-          e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)';
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (interactive) {
-          e.currentTarget.style.backgroundColor = glass ? 'var(--md-sys-color-surface)' : palette.bg;
-          if (glass) e.currentTarget.style.opacity = '0.1';
-        }
-      }}
+      onMouseEnter={() => interactive && setHovered(true)}
+      onMouseLeave={() => interactive && setHovered(false)}
       onClick={onClick}
       onKeyDown={onKeyDown}
       role={role}
@@ -101,4 +97,9 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
 };
 
 export default M3SurfaceCard;
+
+
+
+
+
 

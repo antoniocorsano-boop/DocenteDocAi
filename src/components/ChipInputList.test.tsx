@@ -1,12 +1,14 @@
+import { renderWithM3Theme } from '../test-utils';
+// LEGACY - MD3 Non-compliant
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import ChipInputList from './ChipInputList';
 
 describe('ChipInputList', () => {
   it('renders label and icon', () => {
-    render(
+    renderWithM3Theme(
       <ChipInputList
-        items={['A', 'B']}
+        items={['A', 'B]}
         onAdd={() => {}}
         onRemove={() => {}}
         placeholder="Aggiungi"
@@ -23,7 +25,7 @@ describe('ChipInputList', () => {
 
   it('calls onAdd when adding item', () => {
     const onAdd = vi.fn();
-    render(
+    renderWithM3Theme(
       <ChipInputList
         items={[]}
         onAdd={onAdd}
@@ -41,9 +43,9 @@ describe('ChipInputList', () => {
 
   it('calls onRemove when clicking delete', () => {
     const onRemove = vi.fn();
-    render(
+    renderWithM3Theme(
       <ChipInputList
-        items={['X']}
+        items={['X]}
         onAdd={() => {}}
         onRemove={onRemove}
         placeholder="Aggiungi"
@@ -55,5 +57,10 @@ describe('ChipInputList', () => {
     expect(onRemove).toHaveBeenCalledWith(0);
   });
 });
+
+
+
+
+
 
 

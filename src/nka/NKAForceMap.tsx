@@ -95,7 +95,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
   return (
     <svg ref={svgRef} width={width} height={height} className="nka-force-map" aria-label="Mappa neurale">
       {loading && (
-        <text x={width/2} y={height/2} textAnchor="middle" fontSize="1.1rem" fill="var(--md-sys-color-on-surface-variant)">
+        <text x={width/2} y={height/2} textAnchor="middle" fontSize="1.1rem" fill="var(--md-sys-color-onSurface-variant)">
           Calcolo disposizione AI…
         </text>
       )}
@@ -123,7 +123,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
             strokeWidth={node.elevation}
             className={`nka-shape-${node.shape}`}
           />
-          <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="1rem" fill="var(--md-sys-color-on-primary-container)">
+          <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="1rem" fill="var(--md-sys-color-on-primaryContainer)">
             {node.label}
           </text>
         </g>

@@ -1,6 +1,8 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState } from 'react';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface ResetConfirmModalProps {
     onClose: () => void;
@@ -8,6 +10,7 @@ interface ResetConfirmModalProps {
 }
 
 const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfirm }) => {
+  const { layers } = useTheme();
     const [confirmText, setConfirmText] = useState('');
     const isValid = confirmText === 'CANCELLA';
 
@@ -18,14 +21,14 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm" style={{ gap: "var(--md-sys-spacing-6)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", color: "var(--md-sys-color-error)", marginBottom: "var(--md-sys-spacing-8)" }}>
-                    <span className="material-symbols-outlined text-3xl">warning</span>
+            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }} style={{gap: layers.ref.spacing['6']}}>
+                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], color: "layers.sys.color.error", marginBottom: layers.ref.spacing['8']}}>
+                    <span style={{ color: layers.sys.color.error }}>warning</span>
                     <span style={{ fontWeight: "bold" }}>Azione Irreversibile</span>
                 </div>
-                <p className="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]" style={{ lineHeight: "1.625" }}>
+                <p style={{ color: layers.sys.color.onPrimary }} style={{ lineHeight: "1.625" }}>
                     Stai per cancellare <strong>TUTTI</strong> i dati locali (studenti, voti, lezioni). 
-                    Questa azione è <strong style={{ color: "var(--md-sys-color-error)" }}>irreversibile</strong> se non hai un backup su Drive.
+                    Questa azione è <strong style={{color: "layers.sys.color.error"}}>irreversibile</strong> se non hai un backup su Drive.
                 </p>
                 
                 <TextField 
@@ -38,13 +41,13 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
                 />
             </M3DialogContent>
 
-            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-low)]est border-[var(--md-sys-color-outline-variant)]/30" style={{ borderTop: "1px solid var(--md-sys-color-outline)" }}>
+            <M3DialogActions style={{ backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{borderTop: "1px solid layers.sys.color.outline"}}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button 
                     onClick={onConfirm} 
                     disabled={!isValid}
                     variant="filled"
-                    className="!bg-error !text-on-error"
+                    
                 >
                     Reset Totale
                 </M3Button>
@@ -54,5 +57,10 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
 };
 
 export default ResetConfirmModal;
+
+
+
+
+
 
 

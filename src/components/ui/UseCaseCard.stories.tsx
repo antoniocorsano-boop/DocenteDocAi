@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import UseCaseCard from './UseCaseCard';
@@ -13,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     scenario: {
       control: 'text',
@@ -126,7 +127,7 @@ export const Multiple: Story = {
     tip: 'Spaced review helps with long-term retention',
   },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', padding: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'] }}>
       <UseCaseCard
         scenario="Quick daily review activity"
         steps={[
@@ -218,5 +219,10 @@ export const QuickStart: Story = {
     tip: 'AI-generated content is a starting point - always review and personalize for your students',
   },
 };
+
+
+
+
+
 
 

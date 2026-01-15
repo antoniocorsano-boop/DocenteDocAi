@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 
@@ -51,25 +52,25 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
         }
       }}
     >
-      <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="student-manager-item-avatar" />
-      <div className="student-manager-item-content">
-          <h3 className="student-manager-item-name">{student.cognome} {student.nome}</h3>
-          <div className="student-manager-item-badges">
-              <span className="student-manager-class-badge">Classe {student.classe}</span>
+      <Avatar name={`${student.nome} ${student.cognome}`} size="lg"  />
+      <div >
+          <h3 >{student.cognome} {student.nome}</h3>
+          <div >
+              <span >Classe {student.classe}</span>
               {student.isArchived && (
-                  <span className="student-manager-archive-badge">
+                  <span >
                       {student.archiveYear ? `Archiviato ${student.archiveYear}` : 'ARCHIVIATO'}
                   </span>
               )}
           </div>
       </div>
 
-      <div className="student-manager-item-actions">
+      <div >
           {student.isArchived ? (
               <M3Button 
                   onClick={() => onRestore(student)} 
                   variant="icon" 
-                  className="student-manager-action-button student-manager-action-button.restore" 
+                   
                   title="Ripristina Studente come attivo"
                   aria-label={`Ripristina ${student.cognome} ${student.nome} come studente attivo`}
               >
@@ -82,7 +83,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   <M3Button 
                       onClick={() => onTransfer(student)} 
                       variant="icon" 
-                      className="student-manager-action-button student-manager-action-button.transfer" 
+                       
                       title="Cambia classe o trasferisci studente"
                       aria-label={`Cambia classe per ${student.cognome} ${student.nome}`}
                   >
@@ -93,7 +94,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   <M3Button 
                       onClick={() => onEdit(student)} 
                       variant="icon" 
-                      className="student-manager-action-button student-manager-action-button.edit" 
+                       
                       title="Modifica dati studente"
                       aria-label={`Modifica dati per ${student.cognome} ${student.nome}`}
                   >
@@ -106,7 +107,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
           <M3Button 
               onClick={() => { if (confirm(`Eliminare definitivamente ${student.cognome} ${student.nome}?`)) onDelete(student.id); }} 
               variant="icon" 
-              className="student-manager-action-button student-manager-action-button.delete" 
+               
               title="Elimina studente definitivamente"
               aria-label={`Elimina ${student.cognome} ${student.nome} dal sistema`}
           >
@@ -192,27 +193,27 @@ const StudentManager: React.FC<StudentManagerProps> = ({
     };
 
     return (
-        <div className="page-layout student-manager-page-layout">
+        <div >
             <SectionHeader
                 title="Gestione Studenti"
                 subtitle="Archivia, importa e aggiorna anagrafica e stato classe."
                 actions={
-                    <div className="student-manager-actions">
-                        <M3Button onClick={() => setIsImportModalOpen(true)} variant="tonal" className="student-manager-import-button">
-                            <span className="material-symbols-outlined student-manager-import-icon">upload_file</span>
+                    <div >
+                        <M3Button onClick={() => setIsImportModalOpen(true)} variant="tonal" >
+                            <span >upload_file</span>
                             Importa
                         </M3Button>
-                        <M3Button onClick={() => setEditingStudent('new')} variant="filled" className="student-manager-add-button">
-                            <span className="material-symbols-outlined student-manager-add-icon">add</span>
+                        <M3Button onClick={() => setEditingStudent('new')} variant="filled" >
+                            <span >add</span>
                             Nuovo
                         </M3Button>
                     </div>
                 }
             />
 
-            <div className="student-manager-container">
-                <div className="student-manager-filters">
-                    <div className="student-manager-search-field">
+            <div >
+                <div >
+                    <div >
                         <TextField
                             id="student-search"
                             label="Cerca studente per nome..."
@@ -223,7 +224,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                             aria-label="Ricerca studenti per nome o cognome"
                         />
                     </div>
-                    <div className="student-manager-class-filter">
+                    <div >
                         <SelectField
                             id="class-filter"
                             label="Seleziona classe"
@@ -244,12 +245,12 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                         aria-label={showArchived ? 'Nascondi archivio studenti' : 'Mostra archivio studenti'}
                         aria-pressed={showArchived}
                     >
-                        <span className="material-symbols-outlined student-manager-archive-icon" aria-hidden="true">{showArchived ? 'archive' : 'unarchive'}</span>
+                        <span  aria-hidden="true">{showArchived ? 'archive' : 'unarchive'}</span>
                         {showArchived ? 'Archivio ON' : 'Archivio OFF'}
                     </M3Button>
                 </div>
 
-                <div className="student-manager-list" 
+                <div  
                      ref={listContainerRef}
                      onKeyDown={handleListKeyDown}
                      role="listbox"
@@ -309,5 +310,10 @@ const StudentManager: React.FC<StudentManagerProps> = ({
 export default StudentManager;
 
 // M3Expressive refactor COMPLETED: StudentManager.tsx - Replaced all hardcoded Tailwind classes with dedicated student-manager-* CSS classes using M3 tokens for student cards, badges, actions, filters, and layout.
+
+
+
+
+
 
 

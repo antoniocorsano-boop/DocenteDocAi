@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 /**
  * SettingsViews.tsx
  * Raggruppa viste relative a configurazione e gestione
@@ -159,7 +160,7 @@ export const SettingsViewsRenderer: React.FC<{
                     onSelectBackupFolder={props.onSelectBackupFolder}
                     onCreateAppFolder={async () => {
                         props.onCreateAppFolder();
-                        return { id: '', name: '' };
+                        return { id: ', name: ' };
                     }}
                     onClose={() => {}}
                     onOpenBackupInfo={props.onOpenBackupInfo}
@@ -204,5 +205,10 @@ export const SettingsViewsRenderer: React.FC<{
             return null;
     }
 };
+
+
+
+
+
 
 

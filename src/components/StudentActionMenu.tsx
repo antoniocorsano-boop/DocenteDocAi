@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 /* M3Expressive - StudentActionMenu Component */
 
@@ -6,6 +7,7 @@ import { useTheme } from '../theme/theme';
 import { Studente, Valutazione, ParticipationEntry } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { Avatar, M3Popover, M3Typography, M3Button } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface StudentActionMenuProps {
     student: Studente;
@@ -50,6 +52,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
     onAddEvaluation,
     onViewProfile,
 }) => {
+  const { layers } = useTheme();
+  const { layers } = useTheme();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const theme = useTheme();
     const { grade, trend } = useMemo(
@@ -62,7 +66,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
         [participation]
     );
 
-    const trendColor = trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)';
+    const trendColor = trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-onSurface-variant)';
     const trendIcon = trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'trending_flat';
 
     return (
@@ -75,19 +79,15 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
         >
             {/* Header with student info */}
             <div
-                style={{
-                    backgroundColor: 'var(--md-sys-color-primary-container)',
-                    color: 'var(--md-sys-color-on-primary-container)',
-                    padding: 'var(--md-sys-spacing-4)'
-                }}
+                style={{backgroundColor: 'layers.sys.color.primaryContainer',
+                    color: 'layers.sys.color.on-primaryContainer',
+                    padding: layers.ref.spacing['4']}}
             >
                 <div
-                    style={{
-                        display: 'flex',
+                    style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-3)',
-                        marginBottom: 'var(--md-sys-spacing-4)'
-                    }}
+                        gap: layers.ref.spacing['3'],
+                        marginBottom: layers.ref.spacing['4']}}
                 >
                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                     <div
@@ -98,24 +98,20 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     >
                         <M3Typography
                             variant="body-medium"
-                            style={{
-                                margin: 0,
-                                color: 'var(--md-sys-color-on-primary-container)',
+                            style={{margin: 0,
+                                color: 'layers.sys.color.on-primaryContainer',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
-                                fontWeight: '500'
-                            }}
+                                fontWeight: '500'}}
                         >
                             {student.cognome} {student.nome}
                         </M3Typography>
                         <M3Typography
                             variant="body-small"
-                            style={{
-                                margin: 0,
-                                color: 'color-mix(in srgb, var(--md-sys-color-on-primary-container) 80%, transparent)',
-                                fontWeight: '400'
-                            }}
+                            style={{margin: 0,
+                                color: 'color-mix(in srgb, layers.sys.color.on-primaryContainer 80%, transparent)',
+                                fontWeight: '400'}}
                         >
                             Classe {student.classe}
                         </M3Typography>
@@ -138,13 +134,11 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     >
                         <M3Typography
                             variant="label-small"
-                            style={{
-                                margin: '0 0 var(--md-sys-spacing-1) 0',
-                                color: 'color-mix(in srgb, var(--md-sys-color-on-primary-container) 70%, transparent)',
+                            style={{margin: '0 0 layers.ref.spacing['1'] 0',
+                                color: 'color-mix(in srgb, layers.sys.color.on-primaryContainer 70%, transparent)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.5px',
-                                fontWeight: '500'
-                            }}
+                                fontWeight: '500'}}
                         >
                             Media
                         </M3Typography>
@@ -159,12 +153,10 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         </M3Typography>
                     </div>
                     <div
-                        style={{
-                            width: '1px',
-                            height: 'var(--md-sys-spacing-8)',
+                        style={{width: layers.ref.spacing['4'],
+                            height: layers.ref.spacing['8'],
                             backgroundColor: 'currentColor',
-                            opacity: 0.3
-                        }}
+                            opacity: 0.3}}
                     />
                     {/* Trend */}
                     <div
@@ -175,35 +167,29 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     >
                         <M3Typography
                             variant="label-small"
-                            style={{
-                                margin: '0 0 var(--md-sys-spacing-1) 0',
-                                color: 'color-mix(in srgb, var(--md-sys-color-on-primary-container) 70%, transparent)',
+                            style={{margin: '0 0 layers.ref.spacing['1'] 0',
+                                color: 'color-mix(in srgb, layers.sys.color.on-primaryContainer 70%, transparent)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.5px',
-                                fontWeight: '500'
-                            }}
+                                fontWeight: '500'}}
                         >
                             Trend
                         </M3Typography>
                         <span
-                            style={{
-                                fontFamily: 'Material Symbols Outlined',
+                            style={{fontFamily: 'Material Symbols Outlined',
                                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 color: trendColor,
                                 display: 'block',
-                                lineHeight: 1
-                            }}
+                                lineHeight: 1}}
                         >
                             {trendIcon}
                         </span>
                     </div>
                     <div
-                        style={{
-                            width: '1px',
-                            height: 'var(--md-sys-spacing-8)',
+                        style={{width: layers.ref.spacing['4'],
+                            height: layers.ref.spacing['8'],
                             backgroundColor: 'currentColor',
-                            opacity: 0.3
-                        }}
+                            opacity: 0.3}}
                     />
                     {/* Badge/Participation */}
                     <div
@@ -214,13 +200,11 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     >
                         <M3Typography
                             variant="label-small"
-                            style={{
-                                margin: '0 0 var(--md-sys-spacing-1) 0',
-                                color: 'color-mix(in srgb, var(--md-sys-color-on-primary-container) 70%, transparent)',
+                            style={{margin: '0 0 layers.ref.spacing['1'] 0',
+                                color: 'color-mix(in srgb, layers.sys.color.on-primaryContainer 70%, transparent)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.5px',
-                                fontWeight: '500'
-                            }}
+                                fontWeight: '500'}}
                         >
                             Badge
                         </M3Typography>
@@ -238,19 +222,15 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
             </div>
             {/* Actions */}
             <div
-                style={{
-                    padding: 'var(--md-sys-spacing-2)'
-                }}
+                style={{padding: layers.ref.spacing['2']}}
             >
                 <M3Typography
                     variant="body-small"
-                    style={{
-                        margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+                    style={{margin: layers.ref.spacing['3'] layers.ref.spacing['4'] layers.ref.spacing['2'] layers.ref.spacing['4'],
                         textTransform: 'uppercase',
-                        color: 'var(--md-sys-color-on-surface-variant)',
+                        color: 'layers.sys.color.onSurface-variant',
                         letterSpacing: '0.5px',
-                        fontWeight: '500'
-                    }}
+                        fontWeight: '500'}}
                 >
                     Azioni Rapide
                 </M3Typography>
@@ -261,19 +241,15 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                     variant="text"
                     size="md"
-                    style={{
-                        width: '100%',
+                    style={{width: '100%',
                         justifyContent: 'flex-start',
-                        marginBottom: 'var(--md-sys-spacing-2)',
-                        gap: 'var(--md-sys-spacing-3)'
-                    }}
+                        marginBottom: layers.ref.spacing['2'],
+                        gap: layers.ref.spacing['3']}}
                 >
                     <span
-                        style={{
-                            fontFamily: 'Material Symbols Outlined',
+                        style={{fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                            color: 'var(--md-sys-color-primary)'
-                        }}
+                            color: 'layers.sys.color.primary'}}
                     >
                         add_circle
                     </span>
@@ -286,18 +262,14 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                     variant="text"
                     size="md"
-                    style={{
-                        width: '100%',
+                    style={{width: '100%',
                         justifyContent: 'flex-start',
-                        gap: 'var(--md-sys-spacing-3)'
-                    }}
+                        gap: layers.ref.spacing['3']}}
                 >
                     <span
-                        style={{
-                            fontFamily: 'Material Symbols Outlined',
+                        style={{fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                            color: 'var(--md-sys-color-secondary)'
-                        }}
+                            color: 'layers.sys.color.secondary'}}
                     >
                         person_search
                     </span>
@@ -309,5 +281,10 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
 };
 
 export default StudentActionMenu;
+
+
+
+
+
 
 

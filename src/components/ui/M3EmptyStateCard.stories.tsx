@@ -1,3 +1,8 @@
+// LEGACY - MD3 Non-compliant
+// @legacy
+// @md3-noncompliant
+// @do-not-extend
+
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3EmptyStateCard from './M3EmptyStateCard';
@@ -6,7 +11,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3EmptyStateCard> = {
   component: M3EmptyStateCard,
   title: 'UI/Cards/M3EmptyStateCard',
-  tags: ['autodocs'],
+  tags: ['autodocs],
   parameters: {
     layout: 'centered',
     docs: {
@@ -62,7 +67,7 @@ export const WithIconAndAction: Story = {
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="text-[var(--md-sys-color-outline)]"
+            style={{ color: layers.sys.color.outline }}
           >
             <path
               d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 9H14V4H19V9Z"
@@ -76,7 +81,7 @@ export const WithIconAndAction: Story = {
         <M3Typography variant="body-medium" as="p" style={{ marginBottom: "var(--md-sys-spacing-4)" }}>
           Start by creating your first document to get organized.
         </M3Typography>
-        <button className="py-2 bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)]" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: "9999px" }}>
+        <button style={{ backgroundColor: layers.sys.color.primary, color:  layers.sys.color.onPrimary }} style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: layers.ref.spacing['4'] }}>
           Create Document
         </button>
       </div>
@@ -99,3 +104,8 @@ export const Compact: Story = {
     ),
   },
 };
+
+
+
+
+

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // ...vite-env.d.ts should not be imported directly...
 /**
@@ -14,6 +15,7 @@ import TestGeneratorModal from './TestGeneratorModal';
 import TestPreviewModal from './TestPreviewModal';
 import Guidance from './Guidance';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField, AiThinkingGem } from './ui';
+import { useTheme } from '../theme/theme';
 
 
 type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation' | 'document' | 'image' | 'quiz';
@@ -44,10 +46,11 @@ const studioActions: StudioAction[] = [
 
 
 export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowledgeBase, aiSettings, onOpenCreateLesson, showToast, showGuidanceTips, onAiProcessing }) => {
-    const [selectedCorpusId, setSelectedCorpusId] = useState<string>('');
-    const [selectedFileIds, setSelectedFileIds] = useState<string[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [loadingTaskName, setLoadingTaskName] = useState('');
+    const { layers } = useTheme();
+        const [selectedCorpusId, setSelectedCorpusId] = useState<string>('');
+        const [selectedFileIds, setSelectedFileIds] = useState<string[]>([]);
+        const [isLoading, setIsLoading] = useState(false);
+        const [loadingTaskName, setLoadingTaskName] = useState('');
     
     // States for modal dialogs
     const [isDocumentGeneratorOpen, setIsDocumentGeneratorOpen] = useState(false);
@@ -179,7 +182,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
     };
 
     const renderActionGrid = (actions: StudioAction[]) => (
-        <div className="studio-action-grid">
+        <div >
             {actions.map((action) => (
                 <button
                     key={action.id}
@@ -193,16 +196,16 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     disabled={isLoading || (action.requiresContent && selectedFileIds.length === 0) || (action.id === 'image' && hasApiKey === false)}
                     title={(action.id === 'image' && hasApiKey === false) ? "API Key richiesta per la generazione di immagini." : (action.requiresContent && selectedFileIds.length === 0 ? "Seleziona almeno un documento per abilitare questa azione" : action.description)}
                 >
-                    <div className="studio-action-header">
-                        <span className="studio-action-icon">{action.icon}</span>
+                    <div >
+                        <span >{action.icon}</span>
                         {action.requiresContent && (
-                            <span className="studio-action-badge">
+                            <span >
                                 Input KB
                             </span>
                         )}
                     </div>
-                    <span className="studio-action-title">{action.title}</span>
-                    <span className="studio-action-description">{action.description}</span>
+                    <span >{action.title}</span>
+                    <span >{action.description}</span>
                 </button>
             ))}
         </div>
@@ -219,11 +222,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
     };
 
     return (
-        <div className="studio-main-layout">
-            <div className="studio-header">
-                <div className="studio-title-group">
-                    <h1 className="studio-title">Studio AI</h1>
-                    <p className="studio-subtitle">Laboratorio per trasformare e generare contenuti con il tuo contesto.</p>
+        <div >
+            <div >
+                <div >
+                    <h1 >Studio AI</h1>
+                    <p >Laboratorio per trasformare e generare contenuti con il tuo contesto.</p>
                 </div>
             </div>
             
@@ -241,12 +244,12 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     maxWidth="sm"
                     level={2}
                 >
-                    <M3DialogContent className="studio-dialog-content">
-                        <p className="studio-dialog-text">
+                    <M3DialogContent >
+                        <p >
                             Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
                         </p>
-                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" className="studio-link">
-                            <span className="material-symbols-outlined studio-link-icon">info</span>
+                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" >
+                            <span >info</span>
                             Scopri di più sul billing
                         </a>
                     </M3DialogContent>
@@ -260,13 +263,13 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             )}
 
             {/* Context Selection Card */}
-            <div className="card card-accent-primary">
-                <h2 className="m3-title-large" style={{ marginBottom: "var(--md-sys-spacing-8)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>folder_open</span>
+            <div >
+                <h2  style={{marginBottom: layers.ref.spacing['8'], display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                    <span  style={{color: "layers.sys.color.primary"}}>folder_open</span>
                     1. Seleziona Contesto (Knowledge Base)
                 </h2>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--md-sys-spacing-8)", alignItems: "flex-end", marginBottom: "var(--md-sys-spacing-8)" }}>
-                    <div className="min-w-[250px]" style={{ flexGrow: "1" }}>
+                <div style={{display: "flex", flexWrap: "wrap", gap: layers.ref.spacing['8'], alignItems: "flex-end", marginBottom: layers.ref.spacing['8']}}>
+                    <div  style={{ flexGrow: "1" }}>
                         <SelectField 
                             label="Filtra per Set di Documenti"
                             value={selectedCorpusId} 
@@ -277,62 +280,62 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                             ]}
                         />
                     </div>
-                     <div className="pb-2" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                        <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">attachment</span>
-                        <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "bold" }}>
+                     <div  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                        <span style={{ color:  layers.sys.color.onSurfaceVariant }}>attachment</span>
+                        <p style={{ color:  layers.sys.color.onSurfaceVariant, fontWeight: "bold" }}>
                             {selectedFileIds.length} file selezionati
                         </p>
                     </div>
                 </div>
 
                 {/* Centralized Selection Container */}
-                <div className="selection-container selection-scroll-container small row-layout">
+                <div >
                     {availableFiles.map(entry => (
-                        <div key={entry.id} className="chip-checkbox">
+                        <div key={entry.id} >
                             <input type="checkbox" id={`studio-file-${entry.id}`} checked={selectedFileIds.includes(entry.id)} onChange={() => handleFileToggle(entry.id)} />
-                            <label htmlFor={`studio-file-${entry.id}`} className="chip">
-                                {selectedFileIds.includes(entry.id) && <span className="material-symbols-outlined" style={{ fontSize: "1.125rem" }}>check</span>}
-                                <span className="material-symbols-outlined mr-1" style={{ color: "var(--md-sys-color-primary)", fontSize: "1rem" }}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
+                            <label htmlFor={`studio-file-${entry.id}`} >
+                                {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
+                                <span  style={{color: "layers.sys.color.primary", fontSize: layers.ref.spacing['4']}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{entry.fileName}</span>
                             </label>
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p className="text-[var(--md-sys-color-on-surface)]-variant italic" style={{ fontSize: "0.875rem", padding: "var(--md-sys-spacing-8)" }}>Nessun file disponibile in questo set.</p>
+                        <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontSize: "0.875rem", padding: layers.ref.spacing['8']}}>Nessun file disponibile in questo set.</p>
                     )}
                 </div>
             </div>
 
             {/* Loading State */}
             {isLoading && (
-                <div className="card p-12" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ padding: layers.ref.spacing['4'] }} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                     <AiThinkingGem size="large" text={loadingTaskName || "L'AI sta lavorando..."} />
                 </div>
             )}
 
             {/* Actions Cards - Visible only when not loading */}
             {!isLoading && (
-                <div className="studio-grid">
+                <div >
                     {/* Generation Card */}
-                    <div className="card card-top-accent-tertiary" style={{ height: "100%" }}>
-                        <div style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
-                            <h2 className="m3-title-large" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-tertiary)" }}>design_services</span>
+                    <div  style={{ height: "100%" }}>
+                        <div style={{marginBottom: layers.ref.spacing['8']}}>
+                            <h2  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                <span  style={{color: "layers.sys.color.tertiary"}}>design_services</span>
                                 Generazione & Creatività
                             </h2>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ marginTop: "var(--md-sys-spacing-4)" }}>Crea nuovi contenuti didattici.</p>
+                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{marginTop: layers.ref.spacing['4']}}>Crea nuovi contenuti didattici.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'generation'))}
                     </div>
 
                     {/* Analysis Card */}
-                    <div className="card card-top-accent-secondary" style={{ height: "100%" }}>
-                        <div style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
-                            <h2 className="m3-title-large" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-secondary)" }}>analytics</span>
+                    <div  style={{ height: "100%" }}>
+                        <div style={{marginBottom: layers.ref.spacing['8']}}>
+                            <h2  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                <span  style={{color: "layers.sys.color.secondary"}}>analytics</span>
                                 Analisi & Sintesi
                             </h2>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ marginTop: "var(--md-sys-spacing-4)" }}>Rielabora e comprendi i documenti.</p>
+                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{marginTop: layers.ref.spacing['4']}}>Rielabora e comprendi i documenti.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'analysis'))}
                     </div>
@@ -357,7 +360,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             {isTestGeneratorOpen && (
                 <TestGeneratorModal
                     onClose={() => setIsTestGeneratorOpen(false)}
-                    onGenerate={(config) => runTask('quiz', '', config)}
+                    onGenerate={(config) => runTask('quiz', config)}
                 />
             )}
 
@@ -372,5 +375,10 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
 };
 
 export default Studio;
+
+
+
+
+
 
 

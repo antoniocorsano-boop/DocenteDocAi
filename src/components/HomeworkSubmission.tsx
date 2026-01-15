@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types';
 import { TextField, SelectField, M3Button, Avatar } from './ui';
@@ -35,36 +36,36 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
     };
 
     return (
-        <div className="homework-submission-card">
-            <div className="homework-submission-header">
-                <Avatar name={`${student.nome} ${student.cognome}`} size="lg" className="shadow-[var(--md-sys-elevation-level2)] ring-4 ring-primary/10" />
-                <div className="homework-submission-student-info">
-                    <h3 className="homework-submission-student-name">{student.cognome} {student.nome}</h3>
-                    <p className="homework-submission-student-meta">
+        <div >
+            <div >
+                <Avatar name={`${student.nome} ${student.cognome}`} size="lg"  />
+                <div >
+                    <h3 >{student.cognome} {student.nome}</h3>
+                    <p >
                         {lesson.materia} • {lesson.contenuto}
                     </p>
                 </div>
             </div>
 
-            <div className="homework-submission-file-section">
-                <div className="homework-submission-file-info">
-                    <div className="homework-submission-file-icon">
-                        <span className="material-symbols-outlined text-3xl">description</span>
+            <div >
+                <div >
+                    <div >
+                        <span style={{ color: layers.sys.color.onSurfaceVariant }}>description</span>
                     </div>
                     <div>
-                        <p className="homework-submission-file-details">{submission.file?.name || 'Allegato Elaborato'}</p>
-                        <p className="homework-submission-file-meta">{submission.file?.mimeType}</p>
+                        <p >{submission.file?.name || 'Allegato Elaborato'}</p>
+                        <p >{submission.file?.mimeType}</p>
                     </div>
                 </div>
-                <M3Button onClick={handleDownload} variant="tonal" className="!h-12 !px-6 shadow-sm" style={{ fontSize: "0.875rem", fontWeight: "900" }}>
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>download</span> 
+                <M3Button onClick={handleDownload} variant="tonal"  style={{ fontSize: "0.875rem", fontWeight: "900" }}>
+                    <span  style={{ marginRight: "0.5rem" }}>download</span> 
                     Scarica
                 </M3Button>
             </div>
 
             {submission.status === 'pending' && onGrade && (
-                <div className="homework-submission-grading-form">
-                    <div className="homework-submission-grading-grid">
+                <div >
+                    <div >
                         <SelectField
                             label="Voto Finale"
                             value={grade}
@@ -87,23 +88,23 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                         onClick={handleGradeSubmit} 
                         disabled={!grade} 
                         variant="filled"
-                        className="homework-submission-submit-btn"
+                        
                     >
-                        <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>task_alt</span>
+                        <span  style={{ marginRight: "0.5rem" }}>task_alt</span>
                         Registra Valutazione & Archivia
                     </M3Button>
                 </div>
             )}
 
             {submission.status === 'graded' && (
-                <div className="homework-submission-graded-status">
-                    <div className="homework-submission-graded-icon">
-                        <span className="material-symbols-outlined text-3xl">check</span>
+                <div >
+                    <div >
+                        <span style={{ color: layers.sys.color.primary }}>check</span>
                     </div>
                     <div>
-                        <p className="homework-submission-graded-meta">Valutato con successo</p>
-                        <p className="homework-submission-graded-result">Esito: {submission.teacherFeedback}</p>
-                        {feedback && <p className="homework-submission-feedback">"{feedback}"</p>}
+                        <p >Valutato con successo</p>
+                        <p >Esito: {submission.teacherFeedback}</p>
+                        {feedback && <p >"{feedback}"</p>}
                     </div>
                 </div>
             )}
@@ -112,5 +113,10 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
 };
 
 export default HomeworkSubmissionCard;
+
+
+
+
+
 
 

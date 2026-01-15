@@ -1,3 +1,8 @@
+// LEGACY - MD3 Non-compliant
+// @legacy
+// @md3-noncompliant
+// @do-not-extend
+
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3SuggestionItem from './M3SuggestionItem';
@@ -6,7 +11,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3SuggestionItem> = {
   component: M3SuggestionItem,
   title: 'UI/List Items/M3SuggestionItem',
-  tags: ['autodocs'],
+  tags: ['autodocs],
   parameters: {
     layout: 'centered',
     docs: {
@@ -56,7 +61,7 @@ export const WithIconAndAction: Story = {
     children: (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-3)" }}>
-          <div className="bg-[var(--md-sys-color-primary)]" style={{ width: "2rem", height: "2rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ backgroundColor: layers.sys.color.primary }} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--md-sys-color-on-primary)">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
@@ -65,7 +70,7 @@ export const WithIconAndAction: Story = {
             Consider using visual aids for better engagement
           </M3Typography>
         </div>
-        <button className="px-3 py-1 text-[var(--md-sys-color-primary)] border-[var(--md-sys-color-primary)] hover:bg-[var(--md-sys-color-primary)] hover:text-[var(--md-sys-color-on-primary)]" style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: "9999px", fontSize: "0.875rem", transition: "color 300ms" }}>
+        <button style={{ color: layers.sys.color.primary }} style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "0.875rem", transition: "color 300ms" }}>
           Apply
         </button>
       </div>
@@ -88,15 +93,15 @@ export const SuggestionList: Story = {
     ];
 
     return (
-      <div className="max-w-md" style={{ gap: "var(--md-sys-spacing-3)" }}>
+      <div  style={{ gap: "var(--md-sys-spacing-3)" }}>
         {suggestions.map((suggestion, index) => (
           <M3SuggestionItem
             key={index}
             onClick={() => {}}
           >
             <div style={{ display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-3)" }}>
-              <div className="bg-[var(--md-sys-color-secondary)] mt-0.5" style={{ width: "1.5rem", height: "1.5rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
-                <span className="text-[var(--md-sys-color-on-secondary)]" style={{ fontSize: "0.75rem", fontWeight: "500" }}>
+              <div style={{ backgroundColor: layers.sys.color.secondary }} style={{ width: "1.5rem", height: "1.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
+                <span style={{ color:  layers.sys.color.onPrimary }} style={{ fontSize: "0.75rem", fontWeight: "500" }}>
                   {index + 1}
                 </span>
               </div>
@@ -118,15 +123,20 @@ export const ReadOnly: Story = {
   args: {
     children: (
       <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-3)" }}>
-        <div className="bg-[var(--md-sys-color-outline)]" style={{ width: "2rem", height: "2rem", borderRadius: "9999px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ backgroundColor: layers.sys.color.outline }} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--md-sys-color-surface)">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
           </svg>
         </div>
-        <M3Typography variant="body-medium" as="p" className="text-[var(--md-sys-color-outline)]">
+        <M3Typography variant="body-medium" as="p" style={{ color: layers.sys.color.outline }}>
           This suggestion has already been applied
         </M3Typography>
       </div>
     ),
   },
 };
+
+
+
+
+

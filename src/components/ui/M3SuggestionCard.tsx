@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -9,28 +10,26 @@ interface M3SuggestionCardProps {
 /**
  * M3SuggestionCard - Base component for AI suggestion containers.
  * Supports active (with accent border) and empty variants.
- * 
- * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance and className removal
  */
 const M3SuggestionCard: React.FC<M3SuggestionCardProps> = ({
   children,
   variant = 'active'
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
+  const { layers } = useTheme();
+  const { sys, ref } = layers;
 
-  const baseStyles = {
-    backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-variant) 80%, transparent)',
-    padding: 'var(--md-sys-spacing-5)',
-    borderRadius: 'var(--md-sys-shape-corner-extra-large)'
+  const baseStyles: React.CSSProperties = {
+    backgroundColor: `color-mix(in srgb, ${sys.color.surfaceVariant} 80%, transparent)`,
+    padding: layers.ref.spacing['6'],
+    borderRadius: ref.shape.corner.extraLarge
   };
 
-  const variantStyles = variant === 'active'
+  const variantStyles: React.CSSProperties = variant === 'active'
     ? {
-        borderLeft: '4px solid var(--md-sys-color-primary)'
+        borderLeft: `4px solid ${sys.color.primary}`
       }
     : {
-        border: '1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)'
+        border: `1px solid color-mix(in srgb, ${sys.color.outlineVariant} 30%, transparent)`
       };
 
   return (
@@ -41,4 +40,9 @@ const M3SuggestionCard: React.FC<M3SuggestionCardProps> = ({
 };
 
 export default M3SuggestionCard;
+
+
+
+
+
 

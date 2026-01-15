@@ -1,6 +1,9 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { saveAs } from '../utils/documentUtils';
+import { useTheme } from '../theme/theme';
 import { 
+
     M3Dialog, 
     M3DialogContent, 
     M3DialogActions, 
@@ -16,6 +19,7 @@ interface ImageViewerModalProps {
 }
 
 const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, mimeType, onClose, onSaveToKb }) => {
+  const { layers } = useTheme();
 
     const dataUrl = `data:${mimeType};base64,${imageData}`;
 
@@ -37,26 +41,26 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
             onClose={onClose}
             maxWidth="lg"
         >
-            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm" style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "var(--md-sys-spacing-6)" }}>
-                <div className="relative group">
+            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }} style={{display: "flex", justifyContent: "center", alignItems: "center", padding: layers.ref.spacing['6']}}>
+                <div >
                     <img 
                         src={dataUrl} 
                         alt={prompt} 
-                        className="max-h-[70vh] object-contain rounded-[var(--md-sys-shape-corner-large)] shadow-[var(--md-sys-elevation-level4)] border-white/10" style={{ maxWidth: "100%", border: "1px solid var(--md-sys-color-outline)" }} 
+                        style={{ borderRadius: layers.ref.shape.corner.large }} style={{maxWidth: "100%", border: "1px solid layers.sys.color.outline"}} 
                     />
-                    <div className="absolute bottom-4 left-4 right-4 bg-black/40 backdrop-blur-md rounded-[var(--md-sys-shape-corner-medium)] group-hover:opacity-100" style={{ padding: "var(--md-sys-spacing-8)", opacity: "0", transition: "opacity 300ms" }}>
-                        <p className="text-white line-clamp-2 italic" style={{ fontSize: "0.75rem", fontWeight: "500" }}>"{prompt}"</p>
+                    <div style={{ backgroundColor: sys.colors.black/40, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], opacity: "0", transition: "opacity 300ms"}}>
+                        <p style={{ color: sys.colors.white }} style={{ fontSize: "0.75rem", fontWeight: "500" }}>"{prompt}"</p>
                     </div>
                 </div>
             </M3DialogContent>
 
-            <M3DialogActions className="bg-[var(--md-sys-color-surface-container-high)]/80 backdrop-blur-md border-[var(--md-sys-color-outline-variant)]/30" style={{ padding: "var(--md-sys-spacing-6)", borderTop: "1px solid var(--md-sys-color-outline)" }}>
+            <M3DialogActions style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/80 }} style={{padding: layers.ref.spacing['6'], borderTop: "1px solid layers.sys.color.outline"}}>
                 <M3Button 
                     onClick={handleSave} 
                     variant="outlined" 
-                    className="mr-auto"
+                    
                 >
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>save</span>
+                    <span  style={{ marginRight: "0.5rem" }}>save</span>
                     Salva in Knowledge Base
                 </M3Button>
                 <M3Button 
@@ -69,7 +73,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                     onClick={handleDownload} 
                     variant="filled"
                 >
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>download</span>
+                    <span  style={{ marginRight: "0.5rem" }}>download</span>
                     Scarica
                 </M3Button>
             </M3DialogActions>
@@ -78,5 +82,10 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
 };
 
 export default ImageViewerModal;
+
+
+
+
+
 
 

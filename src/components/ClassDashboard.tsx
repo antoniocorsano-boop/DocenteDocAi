@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 /**
  * ClassDashboard.tsx
@@ -16,6 +17,7 @@ import {
 } from './ui';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
+import { useTheme } from '../theme/theme';
 
 interface ClassDashboardProps {
     selectedClass: string;
@@ -39,19 +41,19 @@ const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: Stud
     return (
         <button 
             onClick={() => onClick(student)}
-            className="class-dashboard-student-item group"
+            
         >
             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
             <div style={{ flexGrow: "1", minWidth: "0" }}>
-                <p className="class-dashboard-student-name">{student.cognome} {student.nome}</p>
-                <div className="class-dashboard-trend-container">
+                <p >{student.cognome} {student.nome}</p>
+                <div >
                     <span className={`material-symbols-outlined class-dashboard-trend-icon ${trendClass}`}>{trendIcon}</span>
                     <span className={`class-dashboard-trend-label ${trendClass}`}>
                         {trend === 'up' ? 'In crescita' : trend === 'down' ? 'In calo' : 'Stabile'}
                     </span>
                 </div>
             </div>
-            <span className="material-symbols-outlined class-dashboard-chevron">chevron_right</span>
+            <span >chevron_right</span>
         </button>
     );
 });
@@ -63,6 +65,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     onStartPlannedLesson,
     onViewStudentProfile,
 }) => {
+  const { layers } = useTheme();
     const students = useStudentStore(state => state.students);
     const evaluations = useStudentStore(state => state.evaluations);
     const slots = useAcademicStore(state => state.slots);
@@ -90,55 +93,55 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     }, [submissions, filteredStudents]);
 
     return (
-        <div className="class-dashboard-layout">
+        <div >
             <SectionHeader 
                 title={`Cruscotto Classe ${selectedClass}`}
                 subtitle="Gestione didattica, valutazioni e monitoraggio in tempo reale"
-                className="py-6 md:py-12" style={{ textAlign: "center" }}
+                 style={{ textAlign: "center" }}
             />
 
-            <div className="class-dashboard-main-grid">
+            <div >
                 {/* Main Column */}
-                <div className="class-dashboard-main-column">
+                <div >
 
                     {/* Hero Section: Lesson or Action */}
                     <section>
                         {todaysLesson ? (
-                            <M3Card className="class-dashboard-hero-card">
-                                <div className="class-dashboard-hero-padding">
-                                    <div className="class-dashboard-hero-content">
-                                        <div className="class-dashboard-hero-icon">
-                                            <span className="material-symbols-outlined class-dashboard-icon-large">school</span>
+                            <M3Card >
+                                <div >
+                                    <div >
+                                        <div >
+                                            <span >school</span>
                                         </div>
                                         <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                            <p className="class-dashboard-hero-label">Prossima Lezione • {todaysLesson.slot.ora}</p>
-                                            <h2 className="class-dashboard-hero-title">{todaysLesson.lesson.materia}</h2>
-                                            <p className="class-dashboard-hero-description">{todaysLesson.lesson.contenuto}</p>
+                                            <p >Prossima Lezione • {todaysLesson.slot.ora}</p>
+                                            <h2 >{todaysLesson.lesson.materia}</h2>
+                                            <p >{todaysLesson.lesson.contenuto}</p>
                                         </div>
                                     </div>
                                     <M3Button
                                         onClick={() => onStartPlannedLesson(todaysLesson.lesson.classe, todaysLesson.lesson.materia, `${todaysLesson.slot.giorno}-${todaysLesson.slot.ora}`, todaysLesson.lesson)}
                                         variant="primary"
-                                        className="class-dashboard-button-full"
+                                        
                                     >
-                                        <span className="material-symbols-outlined class-dashboard-icon-margin">door_open</span>
+                                        <span >door_open</span>
                                         Avvia Aula Digitale
                                     </M3Button>
                                 </div>
                             </M3Card>
                         ) : (
-                            <M3Card className="class-dashboard-no-lesson-card">
-                                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)", marginBottom: "var(--md-sys-spacing-6)" }}>
-                                    <div className="rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant shrink-0" style={{ width: "4rem", height: "4rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                        <span className="material-symbols-outlined class-dashboard-icon-large">event_busy</span>
+                            <M3Card >
+                                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], marginBottom: layers.ref.spacing['6']}}>
+                                    <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerHighest, color:  layers.sys.color.onSurfaceVariant }} style={{ width: layers.ref.spacing['8'], height: layers.ref.spacing['8'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                        <span >event_busy</span>
                                     </div>
                                     <div>
-                                        <h2 className="text-[var(--md-sys-color-on-surface)]" style={{ fontSize: "1.25rem", fontWeight: "bold" }}>Nessuna lezione programmata</h2>
-                                        <p className="text-[var(--md-sys-color-on-surface)]-variant">Puoi avviare una lezione libera o un'attività improvvisata.</p>
+                                        <h2 style={{ color:  layers.sys.color.onPrimary }} style={{ fontSize: "1.25rem", fontWeight: "bold" }}>Nessuna lezione programmata</h2>
+                                        <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Puoi avviare una lezione libera o un'attività improvvisata.</p>
                                     </div>
                                 </div>
                                 <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="secondary" style={{ width: "100%" }}>
-                                    <span className="material-symbols-outlined class-dashboard-icon-margin">add_circle</span>
+                                    <span >add_circle</span>
                                     Avvia Lezione Improvvisata
                                 </M3Button>
                             </M3Card>
@@ -147,27 +150,27 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 
                     {/* INBOX WIDGET */}
                     {inboxCount > 0 && (
-                        <section className="animate-in fade-in slide-in-from-top-2">
+                        <section >
                             <M3Card 
-                                className="class-dashboard-inbox"
+                                
                                 onClick={() => onNavigate('teacher-inbox')}
                             >
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                        <div className="class-dashboard-inbox-icon">
+                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                        <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>mail</span>
-                                            <span className="class-dashboard-inbox-badge">
+                                            <span >
                                                 {inboxCount}
                                             </span>
                                         </div>
                                         <div>
-                                            <h3 className="text-on-tertiary-container" style={{ fontWeight: "bold" }}>Inbox Compiti</h3>
-                                            <p className="text-on-tertiary-container/70" style={{ fontSize: "0.875rem" }}>{inboxCount} elaborati consegnati da valutare.</p>
+                                            <h3 style={{ color: sys.colors.on-tertiary-container }} style={{ fontWeight: "bold" }}>Inbox Compiti</h3>
+                                            <p style={{ color: sys.colors.on-tertiary-container/70 }} style={{ fontSize: "0.875rem" }}>{inboxCount} elaborati consegnati da valutare.</p>
                                         </div>
                                     </div>
-                                    <div className="class-dashboard-inbox-arrow">
+                                    <div >
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>arrow_forward</span>
@@ -178,43 +181,43 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                     )}
 
                     {/* TOOLS GRID */}
-                    <div className="space-y-10">
+                    <div >
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section>
-                            <div className="class-dashboard-section-header">
-                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>auto_stories</span>
-                                <h3 className="class-dashboard-label-small">Registro & Didattica</h3>
+                            <div >
+                                <span  style={{color: "layers.sys.color.primary"}}>auto_stories</span>
+                                <h3 >Registro & Didattica</h3>
                             </div>
-                            <div className="class-dashboard-tools-grid">
+                            <div >
                                 <M3Card 
-                                    className="class-dashboard-tool-card"
+                                    
                                     onClick={() => onNavigate('register', selectedClass)}
                                 >
-                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                        <div className="class-dashboard-tool-icon-primary">
+                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                        <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>book</span>
                                         </div>
                                         <div>
-                                            <h4 className="class-dashboard-card-title">Diario di Bordo</h4>
-                                            <p className="class-dashboard-card-desc">Lezioni, assenze, note</p>
+                                            <h4 >Diario di Bordo</h4>
+                                            <p >Lezioni, assenze, note</p>
                                         </div>
                                     </div>
                                 </M3Card>
                                 <M3Card 
-                                    className="class-dashboard-tool-card"
+                                    
                                     onClick={() => onNavigate('didattica-inclusiva', selectedClass)}
                                 >
-                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                        <div className="class-dashboard-tool-icon-tertiary">
+                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                        <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>accessibility_new</span>
                                         </div>
                                         <div>
-                                            <h4 className="class-dashboard-card-title">Inclusione</h4>
-                                            <p className="class-dashboard-card-desc">PDP, PEI e strategie</p>
+                                            <h4 >Inclusione</h4>
+                                            <p >PDP, PEI e strategie</p>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -223,40 +226,40 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 
                         {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
                         <section>
-                            <div className="class-dashboard-section-header">
-                                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-secondary)" }}>grading</span>
-                                <h3 className="class-dashboard-label-small">Valutazione & Competenze</h3>
+                            <div >
+                                <span  style={{color: "layers.sys.color.secondary"}}>grading</span>
+                                <h3 >Valutazione & Competenze</h3>
                             </div>
-                            <div className="class-dashboard-tools-grid">
+                            <div >
                                 <M3Card 
-                                    className="class-dashboard-tool-card"
+                                    
                                     onClick={() => onNavigate('evaluations', selectedClass)}
                                 >
-                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                        <div className="class-dashboard-tool-icon-secondary">
+                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                        <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>ballot</span>
                                         </div>
                                         <div>
-                                            <h4 className="class-dashboard-card-title">Voti</h4>
-                                            <p className="class-dashboard-card-desc">Registro valutazioni</p>
+                                            <h4 >Voti</h4>
+                                            <p >Registro valutazioni</p>
                                         </div>
                                     </div>
                                 </M3Card>
                                 <M3Card 
-                                    className="class-dashboard-tool-card"
+                                    
                                     onClick={() => onNavigate('class-competency-dashboard', selectedClass)}
                                 >
-                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                        <div className="class-dashboard-tool-icon-secondary">
+                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                        <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>psychology</span>
                                         </div>
                                         <div>
-                                            <h4 className="class-dashboard-card-title">Competenze</h4>
-                                            <p className="class-dashboard-card-desc">Livelli e matrici</p>
+                                            <h4 >Competenze</h4>
+                                            <p >Livelli e matrici</p>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -265,56 +268,56 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 
                         {/* 3. SEZIONE ANALISI & REPORT */}
                         <section>
-                            <div className="class-dashboard-section-header">
-                                <span className="material-symbols-outlined text-[var(--md-sys-color-on-surface)]-variant">analytics</span>
-                                <h3 className="class-dashboard-label-small">Analisi & Report</h3>
+                            <div >
+                                <span style={{ color:  layers.sys.color.onSurfaceVariant }}>analytics</span>
+                                <h3 >Analisi & Report</h3>
                             </div>
-                            <div className="class-dashboard-tools-grid">
+                            <div >
                                 <M3Card 
-                                    className="class-dashboard-tool-card"
+                                    
                                     onClick={() => onNavigate('improvement-guide', selectedClass)}
                                 >
-                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                        <div className="class-dashboard-tool-icon-tertiary">
+                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                        <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>query_stats</span>
                                         </div>
                                         <div>
-                                            <h4 className="class-dashboard-card-title">Analisi AI</h4>
-                                            <p className="class-dashboard-card-desc">Report pedagogico</p>
+                                            <h4 >Analisi AI</h4>
+                                            <p >Report pedagogico</p>
                                         </div>
                                     </div>
                                 </M3Card>
                                 <M3Card 
-                                    className="class-dashboard-tool-card"
+                                    
                                     onClick={() => onNavigate('consiglio-di-classe', selectedClass)}
                                 >
-                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                        <div className="class-dashboard-tool-icon-outline">
+                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                        <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>gavel</span>
                                         </div>
                                         <div>
-                                            <h4 className="class-dashboard-card-title">Consiglio</h4>
-                                            <p className="class-dashboard-card-desc">Scrutini e tabelloni</p>
+                                            <h4 >Consiglio</h4>
+                                            <p >Scrutini e tabelloni</p>
                                         </div>
                                     </div>
                                 </M3Card>
                                 <M3Card 
-                                    className="class-dashboard-tool-card"
+                                    
                                     onClick={() => onNavigate('studenti', selectedClass)}
                                 >
-                                    <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                                        <div className="class-dashboard-tool-icon-outline">
+                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                        <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>groups</span>
                                         </div>
                                         <div>
-                                            <h4 className="class-dashboard-card-title">Anagrafica</h4>
-                                            <p className="class-dashboard-card-desc">Elenco studenti</p>
+                                            <h4 >Anagrafica</h4>
+                                            <p >Elenco studenti</p>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -324,17 +327,17 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                 </div>
 
                 {/* Side Column: Students List */}
-                <div className="class-dashboard-side-column">
-                    <M3Card variant="elevated" className="class-dashboard-student-card">
-                        <div className="class-dashboard-student-card-content">
-                            <div className="class-dashboard-student-header">
-                                <h2 className="class-dashboard-title-medium">Studenti</h2>
-                                <span className="class-dashboard-student-count">
+                <div >
+                    <M3Card variant="elevated" >
+                        <div >
+                            <div >
+                                <h2 >Studenti</h2>
+                                <span >
                                     {filteredStudents.length}
                                 </span>
                             </div>
 
-                            <div className="class-dashboard-student-list">
+                            <div >
                                 {filteredStudents.length > 0 ? filteredStudents.map(student => (
                                     <StudentDashboardItem
                                         key={student.id}
@@ -343,7 +346,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         onClick={onViewStudentProfile}
                                     />
                                 )) : (
-                                    <div className="class-dashboard-empty-state">
+                                    <div >
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>person_off</span>
@@ -360,6 +363,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 };
 
 export default React.memo(ClassDashboard);
+
+
+
+
+
 
 
 

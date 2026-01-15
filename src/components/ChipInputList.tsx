@@ -1,5 +1,7 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState, useRef } from 'react';
+import { useTheme } from '../theme/theme';
 
 interface ChipInputListProps {
     items: string[];
@@ -12,6 +14,7 @@ interface ChipInputListProps {
 }
 
 const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, placeholder, icon, label, variant = 'default' }) => {
+  const { layers } = useTheme();
     const [newItem, setNewItem] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,48 +42,48 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
     };
 
     return (
-        <div style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
-             <div className="px-1" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--md-sys-spacing-8)" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-6)" }}>
-                    <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primary-container text-primary'}`}>
-                        <span className="material-symbols-outlined" style={{ fontSize: "1.25rem" }}>{icon}</span>
+        <div style={{marginBottom: layers.ref.spacing['8']}}>
+             <div  style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: layers.ref.spacing['8']}}>
+                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
+                    <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primaryContainer text-primary'}`}>
+                        <span  style={{ fontSize: "1.25rem" }}>{icon}</span>
                     </div>
                     <div>
-                        <label className="m3-label-large text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", display: "block" }}>
+                        <label style={{ color: layers.sys.color.onPrimary, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", display: "block" }}>
                             {label}
                         </label>
-                        <span className="text-[10px] text-[var(--md-sys-color-on-surface)]-variant tracking-tighter" style={{ fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
+                        <span style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
                             {items.length} {items.length === 1 ? 'elemento' : 'elementi'} salvati
                         </span>
                     </div>
                 </div>
              </div>
              
-             <div className="bg-[var(--md-sys-color-surface-container-low)] rounded-[var(--md-sys-shape-corner-extra-large)] border-[var(--md-sys-color-outline-variant)]/50 shadow-inner-sm" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-                <div className="m3-chip-grid" style={{ marginBottom: "var(--md-sys-spacing-8)" }}>
+             <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+                <div  style={{marginBottom: layers.ref.spacing['8']}}>
                     {items.map((item, index) => (
                         <div key={index} className={`m3-expressive-chip variant-${variant} animate-in zoom-in-95 duration-200`}>
                             <span>{item}</span>
                             <button 
                                 type="button"
                                 onClick={(e) => { e.stopPropagation(); onRemove(index); }} 
-                                className="m3-chip-delete"
+                                
                                 aria-label={`Rimuovi ${item}`}
                                 tabIndex={-1}
                             >
-                                <span className="material-symbols-outlined m3-icon-xs">close</span>
+                                <span >close</span>
                             </button>
                         </div>
                     ))}
                     
                     {items.length === 0 && (
-                        <p className="text-[var(--md-sys-color-on-surface)]-variant italic" style={{ fontSize: "0.75rem", opacity: "0.4", paddingTop: "var(--md-sys-spacing-4)", paddingBottom: "var(--md-sys-spacing-4)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>Nessun elemento aggiunto...</p>
+                        <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontSize: "0.75rem", opacity: "0.4", paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>Nessun elemento aggiunto...</p>
                     )}
                 </div>
                 
                 {/* Integrated Input Area */}
-                <div className="m3-new-chip-input-container group" onClick={() => inputRef.current?.focus()}>
-                    <span className="material-symbols-outlined group-focus-within:text-primary group-focus-within:opacity-100" style={{ fontSize: "0.875rem", opacity: "0.4", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} aria-hidden="true">add_circle</span>
+                <div  onClick={() => inputRef.current?.focus()}>
+                    <span  style={{ fontSize: "0.875rem", opacity: "0.4", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} aria-hidden="true">add_circle</span>
                     <input 
                         ref={inputRef}
                         type="text" 
@@ -88,20 +91,20 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         onChange={e => setNewItem(e.target.value)}
                         aria-label={`Aggiungi nuovo ${label.toLowerCase()}`}
                         onKeyDown={handleKeyDown}
-                        className="m3-new-chip-input" style={{ flex: "1" }}
+                         style={{ flex: "1" }}
                         placeholder={placeholder}
                         enterKeyHint="done"
                     />
                     <button 
                         type="button"
                         onClick={(e) => { e.stopPropagation(); handleAdd(); }}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${newItem.trim() ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level1)] scale-110' : 'bg-[var(--md-sys-color-surface-container-high)]est text-[var(--md-sys-color-on-surface)]-variant opacity-30'}`}
+                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${newItem.trim() ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level1)] scale-110' : 'bg-[var(--md-sys-color-surfaceContainerHigh)]est text-[var(--md-sys-color-onSurface)]-variant opacity-30'}`}
                         disabled={!newItem.trim()}
                     >
-                        <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>arrow_forward</span>
+                        <span  style={{ fontSize: "0.875rem" }}>arrow_forward</span>
                     </button>
                 </div>
-                <p className="text-[9px] text-[var(--md-sys-color-on-surface)]-variant" style={{ opacity: "0.4", marginTop: "var(--md-sys-spacing-3)", paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "bold" }}>
+                <p style={{ color: layers.sys.color.onSurfaceVariant, opacity: "0.4", marginTop: layers.ref.spacing['3'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "bold" }}>
                     Premi Invio o usa la virgola per aggiungere più elementi
                 </p>
             </div>
@@ -110,5 +113,10 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
 };
 
 export default ChipInputList;
+
+
+
+
+
 
 

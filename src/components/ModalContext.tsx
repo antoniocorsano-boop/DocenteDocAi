@@ -1,6 +1,8 @@
+// LEGACY - MD3 Non-compliant
 import React, { createContext, useContext, useCallback, useState, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { getModalZIndex } from '../design-system/zIndex';
+import { useTheme } from '../theme/theme';
 
 /**
  * ModalContext - Centralized Modal Management System with React Portals
@@ -40,6 +42,7 @@ export const useModal = (): ModalContextType => {
  * Wraps the app and manages all modals through Context + Portals
  */
 export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const { layers } = useTheme();
   const [stack, setStack] = useState<ModalInstance[]>([]);
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
@@ -58,13 +61,13 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (!container) {
       container = document.createElement('div');
       container.id = 'modal-root';
-      container.style.position = 'fixed';
-      container.style.top = '0';
-      container.style.left = '0';
-      container.style.width = '100%';
-      container.style.height = '100%';
-      container.style.pointerEvents = 'auto';
-      container.style.zIndex = getModalZIndex(0).toString();
+      container// removed runtime mutation
+      container// removed runtime mutation
+      container// removed runtime mutation
+      container// removed runtime mutation
+      container// removed runtime mutation
+      container// removed runtime mutation
+      container// removed runtime mutation
       document.body.appendChild(container);
     }
     setPortalContainer(container);
@@ -176,20 +179,20 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
   return createPortal(
     <div
       key={id}
-      className="fixed inset-0" style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "var(--md-sys-spacing-8)" }}
+       style={{display: "flex", alignItems: "center", justifyContent: "center", padding: layers.ref.spacing['8']}}
       style={{ zIndex: modalZIndex }}
       data-modal-id={id}
       data-modal-level={level}
     >
       {/* Backdrop with M3 blur effect */}
       <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-300"
+        style={{ backgroundColor: sys.colors.black/40 }}
         style={{ zIndex: backdropZIndex }}
         aria-hidden="true"
       />
 
       {/* Modal Content */}
-      <div className="relative z-10 max-w-lg max-h-[90vh] rounded-[var(--md-sys-shape-corner-extra-large)]" style={{ width: "100%" }}>
+      <div style={{ borderRadius: layers.ref.shape.corner.large }} style={{ width: "100%" }}>
         {children}
       </div>
     </div>,
@@ -219,5 +222,10 @@ export const useModalController = (modalId: string): { openModal: (component: Re
 
   return { openModal, closeModal, isOpen };
 };
+
+
+
+
+
 
 

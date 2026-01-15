@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, Uda, TimetableSettings, AiSettings, Valutazione, ValutazioneCompetenza, DocumentTemplate } from '../types';
 import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob } from '../utils/documentUtils';
@@ -7,6 +8,7 @@ import { useUIStore } from '../stores/useUIStore';
 import TemplateManager from './TemplateManager';
 import JSZip from 'jszip';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { useTheme } from '../theme/theme';
 
 // Type guards migliorati
 const isStudent = (data: unknown): data is Studente => {
@@ -66,6 +68,7 @@ interface BatchExportWizardProps {
 }
 
 const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
+  const { layers } = useTheme();
   const [selectedDocuments, setSelectedDocuments] = useState<BatchDocument[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState<{ current: number; total: number; currentDoc: string } | null>(null);
@@ -271,32 +274,31 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
       <M3DialogContent>
           {/* Progress Bar durante generazione */}
           {progress && (
-            <div className="bg-[var(--md-sys-color-surface-container)] rounded-[var(--md-sys-shape-corner-medium)]" style={{ padding: "var(--md-sys-spacing-8)" }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "var(--md-sys-spacing-8)" }}>
-                <span className="m3-body-small" style={{ fontWeight: "500" }}>Generazione in corso...</span>
-                <span className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">{progress.current}/{progress.total}</span>
+            <div style={{ backgroundColor:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8']}}>
+              <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: layers.ref.spacing['8']}}>
+                <span  style={{ fontWeight: "500" }}>Generazione in corso...</span>
+                <span style={{ color:  layers.sys.color.onSurfaceVariant }}>{progress.current}/{progress.total}</span>
               </div>
-              <div className="bg-[var(--md-sys-color-surface-container-high)]" style={{ width: "100%", borderRadius: "9999px", height: "0.5rem", marginBottom: "var(--md-sys-spacing-8)" }}>
+              <div style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh }} style={{width: "100%", borderRadius: layers.ref.spacing['4'], height: "0.5rem", marginBottom: layers.ref.spacing['8']}}>
                 <div
-                  className="duration-300" style={{ backgroundColor: "var(--md-sys-color-primary)", height: "0.5rem", borderRadius: "9999px", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
-                  style={{ width: `${(progress.current / progress.total) * 100}%` }}
+                   style={{backgroundColor: "layers.sys.color.primary", height: "0.5rem", borderRadius: layers.ref.spacing['4'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", width: `${(progress.current / progress.total) * 100}%` }}
                 ></div>
               </div>
-              <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
+              <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
             </div>
           )}
 
           {/* Controlli selezione */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-              <span className="m3-body-small" style={{ fontWeight: "500" }}>
+            <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+              <span  style={{ fontWeight: "500" }}>
                 Selezionati: {selectedDocuments.length} di {availableDocuments.length}
               </span>
-              <div style={{ display: "flex", gap: "var(--md-sys-spacing-8)" }}>
-                <M3Button onClick={selectAll} variant="text" className="m3-label-small" disabled={isGenerating}>
+              <div style={{display: "flex", gap: layers.ref.spacing['8']}}>
+                <M3Button onClick={selectAll} variant="text"  disabled={isGenerating}>
                   Seleziona Tutto
                 </M3Button>
-                <M3Button onClick={selectNone} variant="text" className="m3-label-small" disabled={isGenerating}>
+                <M3Button onClick={selectNone} variant="text"  disabled={isGenerating}>
                   Deseleziona Tutto
                 </M3Button>
                 <M3Button
@@ -305,10 +307,10 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                     trackAnalyticsEvent('feature_usage', 'template_manager');
                   }}
                   variant="outlined"
-                  className="m3-label-small"
+                  
                   disabled={isGenerating}
                 >
-                  <span className="material-symbols-outlined mr-1 m3-body-small">description</span>
+                  <span >description</span>
                   Template
                 </M3Button>
               </div>
@@ -316,13 +318,13 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           </div>
 
           {/* Lista documenti raggruppati */}
-          <div className="max-h-96" style={{ gap: "var(--md-sys-spacing-4)", overflowY: "auto" }}>
+          <div  style={{gap: layers.ref.spacing['4'], overflowY: "auto"}}>
             {Object.entries(groupedDocuments).map(([groupName, docs]) => (
               <div key={groupName}>
-                <h3 className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant" style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "var(--md-sys-spacing-8)" }}>
+                <h3 style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: layers.ref.spacing['8']}}>
                   {groupName} ({docs.length})
                 </h3>
-                <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
+                <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
                   {docs.map(doc => {
                     const isSelected = selectedDocuments.some(d => d.id === doc.id);
                     return (
@@ -330,25 +332,25 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                         key={doc.id}
                         className={`p-6 border rounded-[var(--md-sys-shape-corner-small)] cursor-pointer transition-all ${
                           isSelected
-                            ? 'border-primary bg-primary-container/20'
+                            ? 'border-primary bg-primaryContainer/20'
                             : 'border-[var(--md-sys-color-outline-variant)] hover:border-primary/50'
                         }`}
                         onClick={() => !isGenerating && toggleDocumentSelection(doc.id)}
                       >
-                        <div style={{ display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-6)" }}>
+                        <div style={{display: "flex", alignItems: "flex-start", gap: layers.ref.spacing['6']}}>
                           <input
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => toggleDocumentSelection(doc.id)}
                             disabled={isGenerating}
-                            className="mt-0.5"
+                            
                             aria-label={`Seleziona ${doc.title}`}
                           />
                           <div style={{ flex: "1", minWidth: "0" }}>
-                            <p className="m3-body-small" style={{ fontWeight: "500", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</p>
-                            <p className="m3-label-small text-[var(--md-sys-color-on-surface)]-variant" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
+                            <p  style={{ fontWeight: "500", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</p>
+                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
                             <span className={`inline-block px-4 py-0.5 m3-label-small rounded-full mt-4 ${
-                              doc.format === 'pdf' ? 'bg-error-container text-on-error-container' : 'bg-primary-container text-on-primary-container'
+                              doc.format === 'pdf' ? 'bg-error-container text-on-error-container' : 'bg-primaryContainer text-on-primaryContainer'
                             }`}>
                               {doc.format.toUpperCase()}
                             </span>
@@ -388,5 +390,10 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
 };
 
 export default BatchExportWizard;
+
+
+
+
+
 
 

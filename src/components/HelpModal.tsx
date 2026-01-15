@@ -1,47 +1,50 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive: HelpModal - Comprehensive help and documentation modal with M3 tokens
 import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
 import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, InfoCard } from './ui';
+import { useTheme } from '../theme/theme';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa';
 
 // --- HELPERS ---
 const ManualSection: React.FC<{ title: string; icon: string; colorClass: string; defaultOpen?: boolean; children: React.ReactNode }> = ({ title, icon, colorClass, defaultOpen = false, children }) => {
+  const { layers } = useTheme();
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
-        <div className="help-modal-manual-section">
+        <div >
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="help-modal-manual-section-button"
+                
             >
-                <div className="help-modal-manual-section-header">
+                <div >
                     <span className={`material-symbols-outlined help-modal-manual-section-icon ${colorClass}`}>{icon}</span>
-                    <span className="help-modal-manual-section-title">{title}</span>
+                    <span >{title}</span>
                 </div>
                 <span className={`material-symbols-outlined help-modal-manual-section-expand-icon ${isOpen ? 'expanded' : ''}`}>expand_more</span>
             </button>
-            {isOpen && <div className="help-modal-manual-section-content">{children}</div>}
+            {isOpen && <div >{children}</div>}
         </div>
     );
 };
 
 const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }> = ({ scenario, steps, tip }) => (
-    <div className="help-modal-use-case-card">
-        <p className="help-modal-scenario">{scenario}</p>
-        <ol className="help-modal-steps">
+    <div >
+        <p >{scenario}</p>
+        <ol >
             {steps.map((step, i) => (
-                <li key={i} className="help-modal-step">
-                    <span className="help-modal-step-number">{i+1}</span>
+                <li key={i} >
+                    <span >{i+1}</span>
                     <span dangerouslySetInnerHTML={{ __html: step }}></span>
                 </li>
             ))}
         </ol>
         {tip && (
-            <div className="help-modal-tip">
-                <span className="material-symbols-outlined help-modal-tip-icon">lightbulb</span>
-                <p className="help-modal-tip-text">{tip}</p>
+            <div >
+                <span >lightbulb</span>
+                <p >{tip}</p>
             </div>
         )}
     </div>
@@ -191,41 +194,41 @@ const vocalAssistantGuideData = {
 };
 
 const SetupGuide = () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
-        <h2 style={{ fontSize: "var(--md-sys-typescale-headline-small-size)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Guida alla Configurazione Iniziale</h2>
-        <p style={{ fontSize: "var(--md-sys-typescale-body-medium-size)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: "var(--md-sys-color-on-surface)" }}>Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</p>
+    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+        <h2 style={{fontSize: "var(--md-sys-typescale-headline-small-size)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Guida alla Configurazione Iniziale</h2>
+        <p style={{fontSize: "var(--md-sys-typescale-body-medium-size)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: layers.sys.color.onSurface}}>Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</p>
 
-        <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)" }}>
-            <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-6)" }}>1. Impostazioni Generali</h3>
-            <p style={{ fontSize: "0.875rem", marginBottom: "var(--md-sys-spacing-6)" }}>Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
-            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
+        <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large}}>
+            <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['6']}}>1. Impostazioni Generali</h3>
+            <p style={{fontSize: "0.875rem", marginBottom: layers.ref.spacing['6']}}>Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
+            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
                 <li>Inserisci il tuo Nome e l'Istituto.</li>
                 <li><strong>Importante:</strong> Nella sezione "Generale", imposta le date di <strong>Inizio</strong> e <strong>Fine Attività Didattica</strong>. Queste date sono fondamentali per visualizzare correttamente la Timeline dei progetti.</li>
             </ul>
         </div>
 
-        <div style={{ backgroundColor: "rgba(var(--md-sys-color-surface-container-low-rgb), 0.5)", padding: "var(--md-sys-spacing-5)", borderRadius: "var(--md-sys-shape-corner-large)", border: "1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.2)" }}>
-            <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-6)" }}>2. Configurazione Classi e Materie</h3>
-            <p style={{ fontSize: "0.875rem", marginBottom: "var(--md-sys-spacing-6)" }}>Sempre in Impostazioni:</p>
-            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
+        <div style={{backgroundColor: "rgba(layers.sys.color.surfaceContainerLow-rgb, 0.5)", padding: layers.ref.spacing['5'], borderRadius: layers.ref.shape.corner.large, border: "1px solid rgba(layers.sys.color.outline-variant-rgb, 0.2)"}}>
+            <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['6']}}>2. Configurazione Classi e Materie</h3>
+            <p style={{fontSize: "0.875rem", marginBottom: layers.ref.spacing['6']}}>Sempre in Impostazioni:</p>
+            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
                 <li>Sezione <strong>Orario & Materie</strong>: Aggiungi le materie che insegni.</li>
                 <li>Sezione <strong>Classi</strong>: Seleziona le combinazioni Anno/Sezione (es. 1A, 3B) che avrai quest'anno.</li>
             </ul>
         </div>
 
-        <div style={{ backgroundColor: "rgba(var(--md-sys-color-surface-container-low-rgb), 0.5)", padding: "var(--md-sys-spacing-5)", borderRadius: "var(--md-sys-shape-corner-large)", border: "1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.2)" }}>
-            <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-6)" }}>3. Inserimento Studenti</h3>
-            <p style={{ fontSize: "0.875rem", marginBottom: "var(--md-sys-spacing-6)" }}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
-            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
+        <div style={{backgroundColor: "rgba(layers.sys.color.surfaceContainerLow-rgb, 0.5)", padding: layers.ref.spacing['5'], borderRadius: layers.ref.shape.corner.large, border: "1px solid rgba(layers.sys.color.outline-variant-rgb, 0.2)"}}>
+            <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['6']}}>3. Inserimento Studenti</h3>
+            <p style={{fontSize: "0.875rem", marginBottom: layers.ref.spacing['6']}}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
+            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
                 <li>Puoi aggiungere gli studenti manualmente uno ad uno.</li>
                 <li>Oppure usa l'importazione CSV per caricare l'elenco completo da un file Excel/CSV.</li>
             </ul>
         </div>
 
-        <div style={{ backgroundColor: "rgba(var(--md-sys-color-surface-container-low-rgb), 0.5)", padding: "var(--md-sys-spacing-5)", borderRadius: "var(--md-sys-shape-corner-large)", border: "1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.2)" }}>
-            <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-6)" }}>4. Costruzione Orario</h3>
-            <p style={{ fontSize: "0.875rem", marginBottom: "var(--md-sys-spacing-6)" }}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
-            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
+        <div style={{backgroundColor: "rgba(layers.sys.color.surfaceContainerLow-rgb, 0.5)", padding: layers.ref.spacing['5'], borderRadius: layers.ref.shape.corner.large, border: "1px solid rgba(layers.sys.color.outline-variant-rgb, 0.2)"}}>
+            <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['6']}}>4. Costruzione Orario</h3>
+            <p style={{fontSize: "0.875rem", marginBottom: layers.ref.spacing['6']}}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
+            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
                 <li>Tocca una cella vuota della griglia.</li>
                 <li>Assegna Classe e Materia per creare il tuo orario settimanale stabile.</li>
             </ul>
@@ -240,14 +243,14 @@ const DigitalTeacherManual = () => {
     };
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-8)", borderBottom: "1px solid var(--md-sys-color-outline-variant)", paddingBottom: "var(--md-sys-spacing-6)", justifyContent: "space-between", alignItems: "flex-start" }} className="md:flex-row md:items-center">
+        <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+            <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['8'], borderBottom: "1px solid layers.sys.color.outline-variant", paddingBottom: layers.ref.spacing['6'], justifyContent: "space-between", alignItems: "flex-start"}} >
                 <div>
-                    <h2 style={{ fontSize: "var(--md-sys-typescale-headline-small-size)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Manuale Integrale e Normativa</h2>
-                    <p style={{ fontSize: "var(--md-sys-typescale-body-medium-size)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: "var(--md-sys-color-on-surface)" }}>Versione 4.1.0 - M3 Expressive Edition</p>
+                    <h2 style={{fontSize: "var(--md-sys-typescale-headline-small-size)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Manuale Integrale e Normativa</h2>
+                    <p style={{fontSize: "var(--md-sys-typescale-body-medium-size)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: layers.sys.color.onSurface}}>Versione 4.1.0 - M3 Expressive Edition</p>
                 </div>
                 <M3Button onClick={downloadManual} variant="outlined" style={{ fontWeight: "900", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>download</span>
+                    <span  style={{ marginRight: "0.5rem" }}>download</span>
                     Scarica .MD
                 </M3Button>
             </div>
@@ -257,17 +260,17 @@ const DigitalTeacherManual = () => {
                 description="Questa sezione raccoglie le informazioni operative, le specifiche di sicurezza (GDPR) e la visione strategica. Clicca sulle sezioni per espandere."
                 icon="info"
                 variant="primary"
-                className="bg-primary-container/10 border-primary/20"
+                style={{ backgroundColor: sys.colors.primaryContainer/10 }}
             />
 
             <ManualSection title="1. Normativa, Sicurezza e Privacy" icon="security" colorClass="text-tertiary" defaultOpen>
-                <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-4)", backgroundColor: "var(--md-sys-color-surface-container-low)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-4)" }}>
-                     <h4 className="m3-title-small" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em" }}>GDPR & Sovranità del Dato</h4>
+                <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['4'], backgroundColor: layers.sys.color.surfaceContainerLow}}>
+                     <h4  style={{fontWeight: "900", color: layers.sys.color.primary, textTransform: "uppercase", letterSpacing: "0.1em"}}>GDPR & Sovranità del Dato</h4>
                      <p style={{ fontSize: "0.875rem", lineHeight: "1.625" }}>L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</p>
                      
-                     <h4 className="m3-title-small" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Norme Scolastiche</h4>
+                     <h4  style={{fontWeight: "900", color: layers.sys.color.primary, textTransform: "uppercase", letterSpacing: "0.1em"}}>Norme Scolastiche</h4>
                      <p style={{ fontSize: "0.875rem", lineHeight: "1.625" }}>Il sistema supporta nativamente:</p>
-                     <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-1)" }}>
+                     <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['1']}}>
                          <li><strong>L. 170/2010 & Dir. BES:</strong> Modulo Inclusione dedicato.</li>
                          <li><strong>DPR 122/2009:</strong> Valutazione formativa e sommativa.</li>
                          <li><strong>O.M. 172/2020:</strong> Valutazione descrittiva primaria (livelli di competenza).</li>
@@ -276,7 +279,7 @@ const DigitalTeacherManual = () => {
             </ManualSection>
 
             <ManualSection title="2. Manuale Operativo" icon="school" colorClass="text-primary">
-                <h4 className="m3-title-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Configurazione & Strategia</h4>
+                <h4  style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Configurazione & Strategia</h4>
                 <UseCaseCard 
                     scenario="Voglio che l'app conosca il mio metodo."
                     steps={[
@@ -286,7 +289,7 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4 className="m3-title-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>In Aula</h4>
+                <h4  style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>In Aula</h4>
                 <UseCaseCard 
                     scenario="Devo segnare una nota disciplinare mentre spiego."
                     steps={[
@@ -296,7 +299,7 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4 className="m3-title-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Valutazione</h4>
+                <h4  style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Valutazione</h4>
                  <UseCaseCard 
                     scenario="Voglio dare un voto completo."
                     steps={[
@@ -309,14 +312,14 @@ const DigitalTeacherManual = () => {
             </ManualSection>
 
             <ManualSection title="3. Visione Strategica per Stakeholders" icon="campaign" colorClass="text-secondary">
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "var(--md-sys-spacing-8)" }}>
-                    <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)" }}>
-                        <h4 style={{ fontWeight: "900", alignItems: "center", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}><span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>admin_panel_settings</span> Per il Dirigente</h4>
-                        <p style={{ fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625" }}>Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
+                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: layers.ref.spacing['8']}}>
+                    <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large}}>
+                        <h4 style={{ fontWeight: "900", alignItems: "center", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}><span  style={{color: layers.sys.color.primary}}>admin_panel_settings</span> Per il Dirigente</h4>
+                        <p style={{fontSize: "0.875rem", color: layers.sys.color.onSurface, lineHeight: "1.625"}}>Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
                     </div>
-                    <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)" }}>
-                        <h4 style={{ fontWeight: "900", alignItems: "center", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}><span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-secondary)" }}>engineering</span> Per l'Animatore Digitale</h4>
-                        <p style={{ fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625" }}>Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
+                    <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large}}>
+                        <h4 style={{ fontWeight: "900", alignItems: "center", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}><span  style={{color: layers.sys.color.secondary}}>engineering</span> Per l'Animatore Digitale</h4>
+                        <p style={{fontSize: "0.875rem", color: layers.sys.color.onSurface, lineHeight: "1.625"}}>Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
                     </div>
                 </div>
             </ManualSection>
@@ -326,25 +329,25 @@ const DigitalTeacherManual = () => {
 };
 
 const VocalAssistantGuideContent = () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
-        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900", alignItems: "center" }}>
-            <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>mic</span>
+    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+        <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900", alignItems: "center"}}>
+            <span  style={{color: layers.sys.color.primary}}>mic</span>
             Il tuo Copilota Didattico
         </h2>
-        <p style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625" }}>
+        <p style={{fontFamily: "var(--md-sys-typescale-body-medium-font)", color: layers.sys.color.onSurface, lineHeight: "1.625"}}>
             L'Assistente Live non è solo una chat: è collegato al registro, ai tuoi documenti e ora anche a <strong>Google Search</strong>. Premi il microfono e prova questi comandi:
         </p>
         
-        <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
+        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
             {vocalAssistantGuideData.sections.map((section, idx) => (
-                <div key={idx} style={{ backgroundColor: "rgba(var(--md-sys-color-surface-container-low-rgb), 0.5)", padding: "var(--md-sys-spacing-5)", borderRadius: "var(--md-sys-shape-corner-large)", border: "1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.1)" }}>
-                    <h3 style={{ fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: "var(--md-sys-spacing-8)", display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)" }}>
-                        <span className="material-symbols-outlined" style={{ fontSize: "0.875rem" }}>record_voice_over</span>
+                <div key={idx} style={{backgroundColor: "rgba(layers.sys.color.surfaceContainerLow-rgb, 0.5)", padding: layers.ref.spacing['5'], borderRadius: layers.ref.shape.corner.large, border: "1px solid rgba(layers.sys.color.outline-variant-rgb, 0.1)"}}>
+                    <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['8'], display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                        <span  style={{ fontSize: "0.875rem" }}>record_voice_over</span>
                         {section.title}
                     </h3>
-                    <ul style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-3)" }}>
+                    <ul style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['3']}}>
                         {section.commands.map((cmd, cIdx) => (
-                            <li key={cIdx} style={{ fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", backgroundColor: "var(--md-sys-color-surface-container-high)", borderRadius: "var(--md-sys-shape-corner-medium)" }}>"{cmd}"</li>
+                            <li key={cIdx} style={{fontSize: "0.875rem", color: layers.sys.color.onSurface, backgroundColor: layers.sys.color.surfaceContainerHigh, borderRadius: layers.ref.shape.corner.medium}}>"{cmd}"</li>
                         ))}
                     </ul>
                 </div>
@@ -356,29 +359,29 @@ const VocalAssistantGuideContent = () => (
             description="Puoi chiedere all'AI di cercare informazioni aggiornate su Google (es. normative recenti). Nota di Sicurezza: Per motivi di privacy, l'AI non userà mai la ricerca web se la tua domanda contiene nomi di studenti."
             icon="search"
             variant="secondary"
-            className="bg-secondary-container/10 border-secondary/20"
+            style={{ backgroundColor: sys.colors.secondary-container/10 }}
         />
     </div>
 );
 
 const UserGuide = () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
-        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Guida Rapida al Flusso di Lavoro</h2>
-        <div className="md:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)", marginTop: "var(--md-sys-spacing-6)" }}>
-            <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", borderLeft: "4px solid" }}>
-                <h3 className="m3-title-medium" style={{ fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem" }}>1. Centro Operativo</h3>
+    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+        <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Guida Rapida al Flusso di Lavoro</h2>
+        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8'], marginTop: layers.ref.spacing['6']}}>
+            <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, borderLeft: "4px solid"}}>
+                <h3  style={{fontWeight: "900", color: layers.sys.color.primary, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem"}}>1. Centro Operativo</h3>
                 <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</p>
             </div>
-            <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", borderLeft: "4px solid" }}>
-                <h3 className="m3-title-medium" style={{ fontWeight: "900", color: "var(--md-sys-color-secondary)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem" }}>2. Progettazione Intelligente</h3>
+            <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, borderLeft: "4px solid"}}>
+                <h3  style={{fontWeight: "900", color: layers.sys.color.secondary, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem"}}>2. Progettazione Intelligente</h3>
                 <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</p>
             </div>
-            <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", borderLeft: "4px solid" }}>
-                <h3 className="m3-title-medium" style={{ fontWeight: "900", color: "var(--md-sys-color-tertiary)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem" }}>3. In Aula (Continuità)</h3>
+            <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, borderLeft: "4px solid"}}>
+                <h3  style={{fontWeight: "900", color: layers.sys.color.tertiary, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem"}}>3. In Aula (Continuità)</h3>
                 <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</p>
             </div>
-            <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", borderLeft: "4px solid" }}>
-                <h3 className="m3-title-medium" style={{ fontWeight: "900", color: "var(--md-sys-color-error)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem" }}>4. Analisi & Report</h3>
+            <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, borderLeft: "4px solid"}}>
+                <h3  style={{fontWeight: "900", color: layers.sys.color.error, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem"}}>4. Analisi & Report</h3>
                 <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</p>
             </div>
         </div>
@@ -386,15 +389,13 @@ const UserGuide = () => (
 );
 
 const TechnicalSpecs = () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
-        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>{specsContentData.title}</h2>
-        <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-extra-large)" }}>
-            <ul style={{
-  marginTop: 'var(--md-sys-spacing-4)'
-}}>
+    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+        <h2 style={{color: layers.sys.color.onSurface, fontFamily: layers.ref.typography.headlineSmall.fontFamily, fontWeight: "900"}}>{specsContentData.title}</h2>
+        <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.extraLarge}}>
+            <ul style={{marginTop: layers.ref.spacing['4']}}>
                 {specsContentData.specs.map((spec, index) => (
                     <li key={index} style={{ alignItems: "flex-start" }}>
-                        <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>check_circle</span>
+                        <span  style={{color: layers.sys.color.primary}}>check_circle</span>
                         <span style={{ fontSize: "0.875rem", lineHeight: "1.625" }} dangerouslySetInnerHTML={{ __html: spec }}></span>
                     </li>
                 ))}
@@ -404,23 +405,23 @@ const TechnicalSpecs = () => (
 );
 
 const NormativaContent: React.FC = () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
-        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Privacy e Cloud</h2>
-        <p style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625" }}>OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
+    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+        <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Privacy e Cloud</h2>
+        <p style={{fontFamily: "var(--md-sys-typescale-body-medium-font)", color: layers.sys.color.onSurface, lineHeight: "1.625"}}>OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
         
-        <div style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-extra-large)" }}>
-            <h3 className="m3-title-medium" style={{ fontWeight: "bold", color: "var(--md-sys-color-primary)" }}>I Tuoi Dati, Il Tuo Cloud</h3>
-            <ul style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-3)" }}>
+        <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.extra-large}}>
+            <h3  style={{fontWeight: "bold", color: layers.sys.color.primary}}>I Tuoi Dati, Il Tuo Cloud</h3>
+            <ul style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['3']}}>
                 <li style={{ fontSize: "0.875rem" }}>
-                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)", fontSize: "0.875rem", marginTop: "0.125rem" }}>shield</span>
+                    <span  style={{color: layers.sys.color.primary, fontSize: "0.875rem", marginTop: "0.125rem"}}>shield</span>
                     Non esiste un server centrale di OrarioDoc che legge i tuoi dati.
                 </li>
                 <li style={{ fontSize: "0.875rem" }}>
-                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)", fontSize: "0.875rem", marginTop: "0.125rem" }}>devices</span>
+                    <span  style={{color: layers.sys.color.primary, fontSize: "0.875rem", marginTop: "0.125rem"}}>devices</span>
                     Tutto viene salvato nel tuo dispositivo (IndexedDB).
                 </li>
                 <li style={{ fontSize: "0.875rem" }}>
-                    <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)", fontSize: "0.875rem", marginTop: "0.125rem" }}>cloud_done</span>
+                    <span  style={{color: layers.sys.color.primary, fontSize: "0.875rem", marginTop: "0.125rem"}}>cloud_done</span>
                     Il backup avviene sul <strong>TUO Google Drive</strong> personale. L'app ha accesso solo alla propria cartella di backup.
                 </li>
             </ul>
@@ -431,22 +432,22 @@ const NormativaContent: React.FC = () => (
             description="Quando usi l'AI (es. 'Analizza questa classe'), l'app invia solo i dati anonimizzati strettamente necessari per quella richiesta a Google Gemini. Nessun dato viene trattenuto per l'addestramento dei modelli."
             icon="psychology"
             variant="primary"
-            className="bg-primary-container/10 border-primary/20"
+            style={{ backgroundColor: sys.colors.primaryContainer/10 }}
         />
     </div>
 );
 
 const FaqContent = () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
-        <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Domande Frequenti (FAQ)</h2>
-        <div style={{ marginTop: "var(--md-sys-spacing-6)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-3)" }}>
+    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+        <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Domande Frequenti (FAQ)</h2>
+        <div style={{marginTop: layers.ref.spacing['6'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['3']}}>
             {faqContentData.map((faq, i) => (
-                <details key={i} className="faq-item group hover:bg-[var(--md-sys-color-surface-container-high)]/50" style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)", overflow: "hidden" }}>
-                    <summary className="m3-title-medium group-open:bg-primary/5" style={{ cursor: "pointer", listStyle: "none", justifyContent: "space-between", alignItems: "center", fontWeight: "bold" }}>
+                <details key={i}  style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, overflow: "hidden" }}>
+                    <summary  style={{ cursor: "pointer", listStyle: "none", justifyContent: "space-between", alignItems: "center", fontWeight: "bold" }}>
                         <span dangerouslySetInnerHTML={{ __html: faq.q }}></span>
-                        <span className="material-symbols-outlined duration-300 group-open:rotate-180" style={{ transition: "transform 300ms" }}>expand_more</span>
+                        <span  style={{ transition: "transform 300ms" }}>expand_more</span>
                     </summary>
-                    <div style={{ paddingTop: "0" }} style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.8", lineHeight: "1.625", fontSize: "0.875rem" }} dangerouslySetInnerHTML={{ __html: faq.a }}></div>
+                    <div style={{ paddingTop: "0", fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.8", lineHeight: "1.625", fontSize: "0.875rem"}} dangerouslySetInnerHTML={{ __html: faq.a }}></div>
                 </details>
             ))}
         </div>
@@ -455,36 +456,36 @@ const FaqContent = () => (
 
 const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
     const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_releases" }) => (
-        <div className="group hover:bg-[var(--md-sys-color-surface-container-high)]/50" style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} style={{ backgroundColor: "var(--md-sys-color-surface-container-low)", borderRadius: "var(--md-sys-shape-corner-large)" }}>
+        <div  style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large}}>
             <div style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div style={{ alignItems: "center", flex: "1", minWidth: "0" }}>
-                    <div className="group-hover:scale-110" style={{ transition: "transform 300ms" }} style={{ width: "2.5rem", height: "2.5rem", borderRadius: "var(--md-sys-shape-corner-medium)", color: "var(--md-sys-color-primary)", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
+                    <div  style={{ transition: "transform 300ms", width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.shape.corner.medium, color: layers.sys.color.primary, alignItems: "center", justifyContent: "center", flexShrink: "0"}}>
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>{icon}</span>
                     </div>
-                    <h4 className="m3-title-medium" style={{ fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{title}</h4>
+                    <h4  style={{ fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{title}</h4>
                 </div>
-                <span style={{ color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", flexShrink: "0" }}>v4.1.0</span>
+                <span style={{color: layers.sys.color.primary, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", flexShrink: "0"}}>v4.1.0</span>
             </div>
-            <p style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.7", lineHeight: "1.625", fontSize: "0.875rem", display: "-webkit-box", WebkitLineClamp: "2", WebkitBoxOrient: "vertical", overflow: "hidden" }}>{children}</p>
+            <p style={{fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.7", lineHeight: "1.625", fontSize: "0.875rem", display: "-webkit-box", WebkitLineClamp: "2", WebkitBoxOrient: "vertical", overflow: "hidden"}}>{children}</p>
             {actionView && actionView !== 'home' && (
                 <M3Button
                     onClick={() => { onClose(); onNavigate(actionView); }}
                     variant="tonal"
                     style={{ width: "100%", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}
                 >
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem", fontSize: "0.875rem" }}>arrow_forward</span>
+                    <span  style={{ marginRight: "0.5rem", fontSize: "0.875rem" }}>arrow_forward</span>
                     Vai alla funzione
                 </M3Button>
             )}
         </div>
     );
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
-            <h2 style={{ color: "var(--md-sys-typescale-headline-small)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900" }}>Novità della versione 4.1.0</h2>
+        <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+            <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Novità della versione 4.1.0</h2>
             
-            <div className="lg:grid-cols-2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "var(--md-sys-spacing-8)" }}>
+            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
                 <ImprovementCard title="Design M3 Expressive" actionView="settings" icon="palette">
                     Interfaccia completamente rinnovata con il nuovo design system Material 3 Expressive: layout adattivi, motion system e colori dinamici.
                 </ImprovementCard>
@@ -510,20 +511,20 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 </ImprovementCard>
             </div>
 
-            <div className="rounded-4xl bg-primary-container/20 text-on-primary-container border-primary/20 shadow-[var(--md-sys-elevation-level3)] mt-8" style={{ padding: "var(--md-sys-spacing-8)", border: "1px solid var(--md-sys-color-outline)" }}>
-                <div className="md:flex-row" style={{ alignItems: "center" }}>
-                    <div className="shadow-[var(--md-sys-elevation-level2)]" style={{ width: "5rem", height: "5rem", borderRadius: "var(--md-sys-shape-corner-extra-large)", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
-                        <span className="material-symbols-outlined text-4xl">picture_as_pdf</span>
+            <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor: layers.sys.color.primaryContainer, color: layers.sys.color.onPrimaryContainer, padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline" }}>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <div style={{ width: layers.ref.spacing['12'], height: layers.ref.spacing['12'], borderRadius: layers.ref.shape.corner.extraLarge, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <span style={{ color: layers.sys.color.primary }}>picture_as_pdf</span>
                     </div>
-                    <div className="md:text-left" style={{ flexGrow: "1", textAlign: "center" }}>
-                        <h3 className="m3-title-large" style={{ fontWeight: "900" }}>Manuale Completo PDF</h3>
-                        <p style={{ color: "var(--md-sys-typescale-body-medium)", fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.7" }}>
+                    <div style={{ flexGrow: 1, textAlign: "center" }}>
+                        <h3 style={{ fontWeight: "900" }}>Manuale Completo PDF</h3>
+                        <p style={{ fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.7" }}>
                             Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
                         </p>
                     </div>
                 </div>
-                 <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" className="!h-16 shadow-[var(--md-sys-elevation-level2)]" style={{ width: "100%", fontWeight: "900", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>{isGenerating ? 'pending' : 'download'}</span>
+                 <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled"  style={{ width: "100%", fontWeight: "900", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                    <span  style={{ marginRight: "0.5rem" }}>{isGenerating ? 'pending' : 'download'}</span>
                     {isGenerating ? 'Generazione...' : 'Scarica Manuale & Guida PDF'}
                 </M3Button>
         </div>
@@ -610,20 +611,18 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
       level={2}
       hideBackdrop={true}
     >
-      <M3DialogContent className="backdrop-blur-xl" style={{ backgroundColor: "var(--md-sys-color-surface-container-high)" }}>
-        <div style={{
-  marginTop: 'var(--md-sys-spacing-8)'
-}}>
-          <div className="shadow-inner" style={{ borderRadius: "var(--md-sys-shape-corner-extra-large)", fontSize: "0.875rem" }}>
+      <M3DialogContent  style={{backgroundColor: layers.sys.color.surfaceContainerHigh}}>
+        <div style={{marginTop: layers.ref.spacing['8']}}>
+          <div  style={{borderRadius: layers.ref.shape.corner.extra-large, fontSize: "0.875rem"}}>
             <div style={{ alignItems: "center" }}>
-                <span className="material-symbols-outlined" style={{ color: "var(--md-sys-color-primary)" }}>campaign</span>
-                <b style={{ color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Novità Dicembre 2025</b>
+                <span  style={{color: layers.sys.color.primary}}>campaign</span>
+                <b style={{color: layers.sys.color.primary, textTransform: "uppercase", letterSpacing: "0.1em"}}>Novità Dicembre 2025</b>
             </div>
-            <ul style={{ paddingLeft: "var(--md-sys-spacing-5)" }} style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-2)" }}>
+            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
               <li>Tutti i pulsanti ora seguono Material Design 3 (filled, tonal, outlined, icon, segmented)</li>
               <li>Migliorata accessibilità, responsive e coerenza visiva</li>
               <li>Focus visibile, aria-label obbligatorio, test aggiornati</li>
-              <li>Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener" className="hover:underline" style={{ color: "var(--md-sys-color-primary)", fontWeight: "bold" }}>guida M3 aggiornata</a> per dettagli e best practice</li>
+              <li>Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener"  style={{color: layers.sys.color.primary, fontWeight: "bold"}}>guida M3 aggiornata</a> per dettagli e best practice</li>
             </ul>
           </div>
 
@@ -635,7 +634,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
             style={{ width: "100%" }}
           />
 
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div >
             {renderContent()}
           </div>
         </div>
@@ -649,5 +648,10 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
 };
 
 export default HelpModal;
+
+
+
+
+
 
 

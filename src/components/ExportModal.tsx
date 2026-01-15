@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive: ExportModal - Class report export configuration with M3 tokens
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, Competenza } from '../types';
@@ -312,10 +313,10 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent className="export-modal-content">
-                <section className="export-modal-section">
+            <M3DialogContent >
+                <section >
                     <SectionHeader title="1. Intestazione Documento" icon="edit" colorClass="text-primary" />
-                    <div className="export-modal-grid">
+                    <div >
                         <TextField
                             id="schoolYear"
                             name="schoolYear"
@@ -336,7 +337,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                     </div>
                 </section>
 
-                <section className="export-modal-section">
+                <section >
                     <SectionHeader title="2. Discipline da Includere" icon="filter_list" colorClass="text-secondary" />
                     <TabGroup
                         tabs={[
@@ -345,16 +346,16 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                         ]}
                         activeTab={subjectScope}
                         onTabChange={(id) => setSubjectScope(id as 'teacher' | 'all')}
-                        className="export-modal-tab-group"
+                        
                     />
-                    <p className="export-modal-description">
+                    <p >
                         {subjectScope === 'teacher'
                             ? "Il report includerà solo le tue discipline configurate in Impostazioni. La media generale (Σ) sarà calcolata solo su queste materie."
                             : "Il report includerà tutte le discipline che hanno almeno una valutazione per questa classe. La media generale (Σ) sarà calcolata su tutte le materie."}
                     </p>
                 </section>
 
-                <section className="export-modal-section">
+                <section >
                     <SectionHeader title="3. Formato di Esportazione" icon="output" colorClass="text-tertiary" />
                     <TabGroup
                         tabs={[
@@ -363,9 +364,9 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                         ]}
                         activeTab={exportOptions.format}
                         onTabChange={(id) => handleOptionChange('format', id)}
-                        className="export-modal-tab-group"
+                        
                     />
-                    <p className="export-modal-description">
+                    <p >
                         {exportOptions.format === 'pdf'
                             ? 'Genera un report grafico di una pagina, ideale per la stampa e la condivisione.'
                             : 'Genera un file CSV con i dati riepilogativi, utile per analisi in fogli di calcolo.'}
@@ -374,8 +375,8 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
             </M3DialogContent>
             <M3DialogActions>
                 <M3Button type="button" onClick={onClose} variant="text" disabled={isExporting}>Annulla</M3Button>
-                <M3Button type="button" onClick={handleExport} variant="filled" className="export-modal-export-button" disabled={isExporting}>
-                    <span className="material-symbols-outlined export-modal-icon">{isExporting ? 'sync' : 'download'}</span>
+                <M3Button type="button" onClick={handleExport} variant="filled"  disabled={isExporting}>
+                    <span >{isExporting ? 'sync' : 'download'}</span>
                     {isExporting ? 'Esportazione...' : `Esporta ${exportOptions.format.toUpperCase()}`}
                 </M3Button>
             </M3DialogActions>
@@ -384,5 +385,10 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
 };
 
 export default React.memo(ExportModal);
+
+
+
+
+
 
 

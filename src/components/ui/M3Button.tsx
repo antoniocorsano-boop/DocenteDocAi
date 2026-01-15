@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { ButtonHTMLAttributes } from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -24,7 +25,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
 }) => {
   // Use theme layers correctly
   const { layers } = useTheme();
-  const { sys, ref, motion, elevation } = layers;
+  const { sys: { colors }, ref, motion, elevation } = layers;
 
   // Base style
   const baseStyle: React.CSSProperties = {
@@ -40,7 +41,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
     border: 'none',
     textDecoration: 'none',
     width: fullWidth ? '100%' : 'auto',
-    gap: ref.spacing[2]
+    gap: layers.ref.spacing['4']
   };
 
   // Variant styles
@@ -48,36 +49,36 @@ const M3Button: React.FC<M3ButtonProps> = ({
     switch (variant) {
       case 'filled':
         return {
-          backgroundColor: sys.colors.primary,
-          color: sys.colors.onPrimary,
+          backgroundColor: colors.primary,
+          color: colors.onPrimary,
           boxShadow: elevation.level1
         };
       case 'outlined':
         return {
           backgroundColor: 'transparent',
-          color: sys.colors.primary,
-          border: `1px solid ${sys.colors.outline}`
+          color: colors.primary,
+          border: `1px solid ${colors.outline}`
         };
       case 'text':
         return {
           backgroundColor: 'transparent',
-          color: sys.colors.primary
+          color: colors.primary
         };
       case 'tonal':
         return {
-          backgroundColor: sys.colors.secondaryContainer,
-          color: sys.colors.onSecondaryContainer
+          backgroundColor: colors.secondaryContainer,
+          color: colors.onSecondaryContainer
         };
       case 'elevated':
         return {
-          backgroundColor: sys.colors.surfaceContainerLow,
-          color: sys.colors.primary,
+          backgroundColor: colors.surfaceContainerLow,
+          color: colors.primary,
           boxShadow: elevation.level2
         };
       default:
         return {
-          backgroundColor: sys.colors.primary,
-          color: sys.colors.onPrimary
+          backgroundColor: colors.primary,
+          color: colors.onPrimary
         };
     }
   };
@@ -87,8 +88,8 @@ const M3Button: React.FC<M3ButtonProps> = ({
     switch (size) {
       case 'small':
         return {
-          height: ref.spacing[9],
-          padding: `0 ${ref.spacing[4]}`,
+          height: layers.ref.spacing['10'],
+          padding: `0 ${layers.ref.spacing['4']}`,
           borderRadius: ref.shape.small,
           fontSize: ref.typography.labelMedium.fontSize,
           fontWeight: ref.typography.labelMedium.fontWeight,
@@ -97,8 +98,8 @@ const M3Button: React.FC<M3ButtonProps> = ({
         };
       case 'large':
         return {
-          height: ref.spacing[12],
-          padding: `0 ${ref.spacing[6]}`,
+          height: layers.ref.spacing['12'],
+          padding: `0 ${layers.ref.spacing['6']}`,
           borderRadius: ref.shape.large,
           fontSize: ref.typography.labelLarge.fontSize,
           fontWeight: ref.typography.labelLarge.fontWeight,
@@ -108,8 +109,8 @@ const M3Button: React.FC<M3ButtonProps> = ({
       default:
         // medium
         return {
-          height: ref.spacing[10],
-          padding: `0 ${ref.spacing[6]}`,
+          height: layers.ref.spacing['10'],
+          padding: `0 ${layers.ref.spacing['4']}`,
           borderRadius: ref.shape.medium,
           fontSize: ref.typography.labelLarge.fontSize,
           fontWeight: ref.typography.labelLarge.fontWeight,
@@ -133,35 +134,56 @@ const M3Button: React.FC<M3ButtonProps> = ({
       onClick={onClick}
       title={title}
       style={combinedStyle}
-      onMouseEnter={(e) => {
-        if (!disabled && variant === 'filled') {
-          e.currentTarget.style.backgroundColor = sys.colors.primaryHover;
-          e.currentTarget.style.boxShadow = elevation.level1;
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!disabled) {
-          Object.assign(e.currentTarget.style, combinedStyle);
-        }
-      }}
-      onFocus={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.outline = `2px solid ${sys.colors.primary}`;
-          e.currentTarget.style.outlineOffset = '2px';
-        }
-      }}
-      onBlur={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.outline = 'none';
-          e.currentTarget.style.outlineOffset = '0';
-        }
-      }}
+      aria-label={title || (typeof children === 'string' ? children : undefined)}
     >
-      {startIcon && <span style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>{startIcon}</span>}
-      {children && <span style={{ flex: '1 1 auto', textAlign: 'center' }}>{children}</span>}
-      {endIcon && <span style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>{endIcon}</span>}
+      {startIcon && (
+        <span
+          style={{
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            minWidth: layers.ref.spacing['6'],
+            minHeight: layers.ref.spacing['6']
+          }}
+        >
+          {startIcon}
+        </span>
+      )}
+      {children && (
+        <span
+          style={{
+            flex: '1 1 auto',
+            textAlign: 'center',
+            fontSize: ref.typography.labelLarge.fontSize,
+            fontWeight: ref.typography.labelLarge.fontWeight,
+            lineHeight: ref.typography.labelLarge.lineHeight,
+            letterSpacing: ref.typography.labelLarge.letterSpacing,
+            color: combinedStyle.color
+          }}
+        >
+          {children}
+        </span>
+      )}
+      {endIcon && (
+        <span
+          style={{
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            minWidth: layers.ref.spacing['4'],
+            minHeight: layers.ref.spacing['4']
+          }}
+        >
+          {endIcon}
+        </span>
+      )}
     </button>
   );
 };
 
 export default M3Button;
+
+
+
+
+

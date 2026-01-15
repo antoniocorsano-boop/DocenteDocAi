@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3ChoiceCard from './M3ChoiceCard';
@@ -5,7 +6,7 @@ import M3ChoiceCard from './M3ChoiceCard';
 const meta = {
   title: 'M3/ChoiceCard',
   component: M3ChoiceCard,
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     icon: {
       control: 'text',
@@ -137,7 +138,7 @@ export const Group: Story = {
     ];
 
     return (
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: layers.ref.spacing['4'], flexWrap: 'wrap' }}>
         {choices.map((choice) => (
           <M3ChoiceCard
             key={choice.id}
@@ -151,5 +152,10 @@ export const Group: Story = {
     );
   },
 };
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive: ImprovementGuide - Class analysis and improvement report with M3 tokens
 import React, { useState, useEffect, useMemo } from 'react';
 import { AiSettings, Lezione, RegisterEntry, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
@@ -10,6 +11,7 @@ import AiAdvisor from './AiAdvisor';
 import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { AiMemoryChip, M3Button, InfoCard, SectionHeader, AiThinkingGem } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface ImprovementGuideProps {
     selectedClass: string;
@@ -39,6 +41,7 @@ const ImprovementGuide: React.FC<ImprovementGuideProps> = ({
     settings,
     aiSettings,
 }) => {
+  const { layers } = useTheme();
     const [loadingStatus, setLoadingStatus] = useState<string | null>("Inizializzazione...");
     const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
     const [error, setError] = useState('');
@@ -177,7 +180,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
         return [
             { label: 'Raggiunti', value: checkedObjectives, color: 'var(--md-sys-color-primary)' },
-            { label: 'Non Verificati', value: totalObjectives - checkedObjectives, color: 'var(--md-sys-color-surface-container-highest)' }
+            { label: 'Non Verificati', value: totalObjectives - checkedObjectives, color: 'var(--md-sys-color-surfaceContainerHighest)' }
         ];
     }, [register, lessons, selectedClass]);
 
@@ -216,7 +219,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
     if (loadingStatus) {
         return (
-            <div className="improvement-guide-loading">
+            <div >
                 <AiThinkingGem size="large" text={loadingStatus} />
             </div>
         );
@@ -224,45 +227,45 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
     if (error) {
         return (
-            <div className="improvement-guide-error">
-                <span className="material-symbols-outlined improvement-guide-error-icon">error</span>
-                <p className="improvement-guide-error-text">{error}</p>
+            <div >
+                <span >error</span>
+                <p >{error}</p>
             </div>
         );
     }
 
     return (
-        <div className="improvement-guide-content">
-            <div className="improvement-guide-header">
-                <div className="improvement-guide-header-info">
-                    <h1 className="improvement-guide-title">Analisi Classe {selectedClass}</h1>
-                    <p className="improvement-guide-subtitle">Report generato per il consiglio di classe.</p>
+        <div >
+            <div >
+                <div >
+                    <h1 >Analisi Classe {selectedClass}</h1>
+                    <p >Report generato per il consiglio di classe.</p>
                 </div>
-                <div className="improvement-guide-actions">
-                    <M3Button onClick={handleExportDocx} variant="outlined" className="improvement-guide-button">
-                        <span className="material-symbols-outlined improvement-guide-button-icon">description</span>
+                <div >
+                    <M3Button onClick={handleExportDocx} variant="outlined" >
+                        <span >description</span>
                         Esporta Word
                     </M3Button>
-                    <M3Button onClick={() => window.print()} variant="tonal" className="improvement-guide-button">
-                        <span className="material-symbols-outlined improvement-guide-button-icon">print</span>
+                    <M3Button onClick={() => window.print()} variant="tonal" >
+                        <span >print</span>
                         Stampa
                     </M3Button>
                 </div>
             </div>
 
             {/* AI Summary */}
-            <div className="improvement-guide-analysis-section">
-                <div className="improvement-guide-section-header">
+            <div >
+                <div >
                     <SectionHeader 
                         title="Sintesi dell'AI" 
                         icon="auto_awesome" 
-                        className="!mb-0"
+                        
                     />
                     {analysis && <AiMemoryChip label={`Dati Registro ${selectedClass} • ${settings.schoolType}`} />}
                 </div>
 
                 {analysis && (
-                    <div className="improvement-guide-charts-grid">
+                    <div >
                         <EditableContentCard
                             title="Sintesi Generale"
                             icon="summarize"
@@ -300,15 +303,15 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             />
 
             {/* Charts */}
-            <div className="improvement-guide-charts-grid-wide">
+            <div >
                 <InfoCard title="Distribuzione Voti" icon="bar_chart" style={{ height: "100%" }}>
-                    <div style={{ padding: 'var(--md-sys-spacing-6)' }}>
+                    <div style={{padding: layers.ref.spacing['6']}}>
                         <BarChart data={gradeDistributionData} color="var(--md-sys-color-secondary)" />
                     </div>
                 </InfoCard>
                 {objectiveAchievementData && (
                     <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" style={{ height: "100%" }}>
-                        <div style={{ display: "flex", justifyContent: "center", padding: "var(--md-sys-spacing-8)" }}>
+                        <div style={{display: "flex", justifyContent: "center", padding: layers.ref.spacing['8']}}>
                             <DonutChart data={objectiveAchievementData} />
                         </div>
                     </InfoCard>
@@ -316,12 +319,10 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             </div>
 
             <InfoCard title="Livelli di Competenza" icon="school">
-                <div className="space-y-10" style={{ padding: "var(--md-sys-spacing-8)" }}>
+                <div  style={{padding: layers.ref.spacing['8']}}>
                     {competencyLevelData.map(compData => (
-                        <div key={compData.name} style={{
-  marginTop: 'var(--md-sys-spacing-4)'
-}}>
-                            <h3 className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.875rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7" }}>{compData.name}</h3>
+                        <div key={compData.name} style={{marginTop: layers.ref.spacing['4']}}>
+                            <h3 style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.875rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7" }}>{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
                                 color="var(--sys-tertiary)"
@@ -337,6 +338,11 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 };
 
 export default ImprovementGuide;
+
+
+
+
+
 
 
 

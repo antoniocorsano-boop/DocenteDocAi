@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 
 /* M3Expressive - FeedManager Component */
@@ -15,7 +16,7 @@ interface FeedManagerProps {
 }
 
 const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToast }) => {
-    const [pageUrl, setPageUrl] = useState('');
+    const [pageUrl, setPageUrl] = useState(');
     
     const handleAddSource = async () => {
         if (!pageUrl.trim()) return;
@@ -41,7 +42,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                 title: title || 'Fonte Sconosciuta',
             };
             setSources(prev => [...prev.filter(s => s.pageUrl !== correctedUrl), newSource]);
-            setPageUrl('');
+            setPageUrl(');
             showToast(`Fonte "${title}" aggiunta con successo!`, 'success');
         } catch (error: unknown) {
             console.error("Error adding feed source:", error);
@@ -68,7 +69,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
     };
 
     return (
-        <div className="feed-manager-page-layout">
+        <div >
             <SectionHeader 
                 title="Fonti Esterne & Feed" 
                 subtitle="Gestione delle fonti RSS e sincronizzazione delle circolari."
@@ -80,15 +81,15 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                 description="Per garantire la tua privacy e la sicurezza dei dati, la sincronizzazione automatica con fonti RSS esterne è stata disabilitata. L'app non può accedere a contenuti esterni senza un server proxy, che potrebbe compromettere i tuoi dati."
                 icon="security"
                 variant="error"
-                className="feed-manager-info-card"
+                
             />
 
-            <div className="feed-manager-add-source-section">
-                <h2 className="feed-manager-add-source-title">Aggiungi una Nuova Fonte</h2>
-                <p className="feed-manager-add-source-description">
+            <div >
+                <h2 >Aggiungi una Nuova Fonte</h2>
+                <p >
                     Puoi incollare l'URL della pagina delle circolari del tuo istituto. L'app *tenterebbe* di cercare un feed RSS.
                 </p>
-                <div className="feed-manager-add-source-form">
+                <div >
                     <TextField
                         type="url"
                         value={pageUrl}
@@ -103,36 +104,36 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         onClick={handleAddSource} 
                         variant="filled" 
                         disabled={true} 
-                        className="feed-manager-add-source-button"
+                        
                     >
-                        <span className="material-symbols-outlined" style={{ marginRight: "0.5rem" }}>add_link</span>
+                        <span  style={{ marginRight: "0.5rem" }}>add_link</span>
                         Aggiungi
                     </M3Button>
                 </div>
             </div>
             
-            <div className="feed-manager-sources-section">
-                <h2 className="feed-manager-sources-title">Fonti Monitorate</h2>
-                 <div className="feed-manager-sources-list">
+            <div >
+                <h2 >Fonti Monitorate</h2>
+                 <div >
                     {sources.length > 0 ? sources.map(source => (
-                        <div key={source.id} className="feed-manager-source-card">
-                            <div className="feed-manager-source-header">
-                                <div className="feed-manager-source-info">
-                                    <div className="feed-manager-source-icon-container">
+                        <div key={source.id} >
+                            <div >
+                                <div >
+                                    <div >
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>rss_feed</span>
                                     </div>
-                                    <div className="feed-manager-source-details">
-                                        <p className="feed-manager-source-title">{source.title}</p>
-                                        <a href={source.pageUrl} target="_blank" rel="noopener noreferrer" className="feed-manager-source-url">{source.pageUrl}</a>
+                                    <div >
+                                        <p >{source.title}</p>
+                                        <a href={source.pageUrl} target="_blank" rel="noopener noreferrer" >{source.pageUrl}</a>
                                     </div>
                                 </div>
-                                <div className="feed-manager-source-actions">
+                                <div >
                                     <M3Button 
                                         onClick={() => handleDeleteSource(source.id)} 
                                         variant="text" 
-                                        className="feed-manager-source-delete-button"
+                                        
                                     >
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -142,24 +143,24 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                         onClick={() => handleCheckForUpdates(source)} 
                                         disabled={true} 
                                         variant="tonal"
-                                        className="feed-manager-source-update-button"
+                                        
                                     >
                                         Aggiorna
                                     </M3Button>
                                 </div>
                             </div>
                             
-                            <div className="feed-manager-source-footer">
-                                <p className="feed-manager-source-footer-text">
+                            <div >
+                                <p >
                                     La funzionalità di aggiornamento feed è disabilitata per motivi di privacy. Analizza manualmente incollando il testo.
                                 </p>
                             </div>
                         </div>
                     )) : (
-                        <div className="feed-manager-empty-state">
-                            <span className="feed-manager-empty-state-icon material-symbols-outlined">rss_feed</span>
-                            <p className="feed-manager-empty-state-title">Nessuna fonte monitorata</p>
-                            <p className="feed-manager-empty-state-description">Aggiungi il sito della tua scuola per ricevere notifiche sulle circolari.</p>
+                        <div >
+                            <span >rss_feed</span>
+                            <p >Nessuna fonte monitorata</p>
+                            <p >Aggiungi il sito della tua scuola per ricevere notifiche sulle circolari.</p>
                         </div>
                     )}
                 </div>
@@ -169,5 +170,10 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
 };
 
 export default FeedManager;
+
+
+
+
+
 
 

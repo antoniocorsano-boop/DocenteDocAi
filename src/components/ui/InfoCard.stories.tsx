@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import InfoCard from './InfoCard';
 
@@ -12,7 +13,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     title: {
       control: 'text',
@@ -28,7 +29,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'error', 'surface', 'elevated', 'tonal'],
+      options: ['primary', 'secondary', 'tertiary', 'error', 'surface', 'elevated', 'tonal],
       description: 'Card color variant',
     },
   },
@@ -129,7 +130,7 @@ export const WithChildren: Story = {
     icon: 'auto_awesome',
     variant: 'primary',
     children: (
-      <ul style={{ marginTop: '1rem', paddingLeft: '1.5rem' }}>
+      <ul style={{ marginTop: layers.ref.spacing['4'], paddingLeft: '1.5rem' }}>
         <li>Interactive lessons</li>
         <li>Real-time feedback</li>
         <li>Adaptive learning paths</li>
@@ -161,7 +162,7 @@ export const WithAction: Story = {
           background: 'var(--md-sys-color-primary)',
           color: 'white',
           border: 'none',
-          borderRadius: '20px',
+          borderRadius: layers.ref.spacing['4'],
           cursor: 'pointer',
           fontWeight: 'bold',
         }}
@@ -177,7 +178,7 @@ export const Dismissible: Story = {
     const [visible, setVisible] = React.useState(true);
 
     if (!visible) {
-      return <div style={{ padding: '2rem' }}>Card dismissed. (You can refresh to see it again)</div>;
+      return <div style={{ padding: layers.ref.spacing['4'] }}>Card dismissed. (You can refresh to see it again)</div>;
     }
 
     return (
@@ -194,7 +195,7 @@ export const Dismissible: Story = {
 
 export const Multiple: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: '2rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: layers.ref.spacing['4'] }}>
       <InfoCard
         title="Welcome Back"
         description="You have 3 new assignments to review"
@@ -227,7 +228,7 @@ export const Dashboard: Story = {
         display: 'grid',
         gridTemplateColumns: 'repeat(2, 1fr)',
         gap: '1.5rem',
-        padding: '2rem',
+        padding: layers.ref.spacing['4'],
       }}
     >
       <InfoCard
@@ -278,5 +279,10 @@ export const Accessibility: Story = {
 
 // Import React for the Dismissible story
 import React from 'react';
+
+
+
+
+
 
 

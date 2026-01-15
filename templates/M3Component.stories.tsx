@@ -1,3 +1,7 @@
+// @legacy
+// @md3-noncompliant
+// @do-not-extend
+
 /**
  * [ComponentName] Stories - MD3 Design System
  *

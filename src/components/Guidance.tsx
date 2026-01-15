@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
@@ -42,17 +43,17 @@ const Guidance: React.FC<GuidanceProps> = ({ id, icon, title, children, isGlobal
   }
 
   return (
-    <div className="guidance-card">
-      <div className="guidance-icon">
+    <div >
+      <div >
         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>{icon}</span>
       </div>
-      <div className="guidance-content">
-        <h3 className="m3-title-medium">{title}</h3>
-        <div className="guidance-content-text">{children}</div>
+      <div >
+        <h3 >{title}</h3>
+        <div >{children}</div>
       </div>
-      <button onClick={dismiss} className="icon-button" aria-label="Chiudi suggerimento">
+      <button onClick={dismiss}  aria-label="Chiudi suggerimento">
         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>close</span>
@@ -62,5 +63,10 @@ const Guidance: React.FC<GuidanceProps> = ({ id, icon, title, children, isGlobal
 };
 
 export default Guidance;
+
+
+
+
+
 
 

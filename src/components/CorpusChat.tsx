@@ -1,9 +1,11 @@
+// LEGACY - MD3 Non-compliant
 
 
 import React, { useState, useEffect, useRef } from 'react';
 import { AiSettings, Corpus, ChatMessage, KnowledgeBaseEntry } from '../types';
 import { generateAnswerFromCorpus } from '../services/aiService';
 import { M3IconButton, M3Typography } from './ui';
+import { useTheme } from '../theme/theme';
 
 // MD3 Pure: Migrated to inline styles using MD3 tokens for chat interface, message bubbles, and input controls
 // All corpus-chat-* classes removed in favor of token-based styling
@@ -19,8 +21,9 @@ interface CorpusChatProps {
 }
 
 const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, knowledgeBase, setCorpora }) => {
+  const { layers } = useTheme();
     const [messages, setMessages] = useState<ChatMessage[]>(corpus.chatHistory || []);
-    const [chatInput, setChatInput] = useState(''); // FIX: Define chatInput
+    const [chatInput, setChatInput] = useState('); // FIX: Define chatInput
     const [isLoading, setIsLoading] = useState(false); // FIX: Consistent naming with isLoading
     
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -52,7 +55,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
         const userMessage: ChatMessage = { role: 'user', text };
         const updatedHistory = [...messages, userMessage]; // FIX: Define updatedHistory
         setMessages(updatedHistory);
-        setChatInput('');
+        setChatInput(');
         setIsLoading(true);
 
         try {
@@ -82,343 +85,253 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
     }
 
     return (
-        <div style={{
-            display: 'flex',
+        <div style={{display: 'flex',
             flexDirection: 'column',
             height: '100vh',
-            backgroundColor: 'var(--md-sys-color-surface)',
-            maxWidth: '800px',
-            margin: '0 auto'
-        }}>
-            <div style={{
-                display: 'flex',
+            backgroundColor: layers.sys.color.surface,
+            margin: '0 auto'}}>
+            <div style={{display: 'flex',
                 alignItems: 'center',
-                padding: 'var(--md-sys-spacing-4)',
-                backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
-                gap: 'var(--md-sys-spacing-3)'
-            }}>
+                padding: layers.ref.spacing['4'],
+                backgroundColor: layers.sys.color.surfaceContainerLow,
+                borderBottom: `1px solid ${layers.sys.color.outlineVariant}`,
+                gap: layers.ref.spacing['3']}}>
                 <M3IconButton 
                     icon="arrow_back" 
                     onClick={onClose} 
                     ariaLabel="Torna alla lista"
                 />
-                <div style={{
-                    display: 'flex',
+                <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-3)',
+                    gap: layers.ref.spacing['3'],
                     minWidth: 0,
-                    flex: 1
-                }}>
-                    <div style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        backgroundColor: 'var(--md-sys-color-primary-container)',
+                    flex: 1}}>
+                    <div style={{borderRadius: layers.ref.shape.corner.large,
+                        backgroundColor: layers.sys.color.primaryContainer,
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
-                    }}>
+                        justifyContent: 'center'}}>
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-}} style={{
-                            fontSize: '20px',
-                            color: 'var(--md-sys-color-on-primary-container)'
-                        }}>chat</span>
+}} style={{color: layers.sys.color.onPrimaryContainer}}>chat</span>
                     </div>
-                    <M3Typography variant="title-large" style={{
-                        color: 'var(--md-sys-color-on-surface)',
-                        fontWeight: 600,
+                    <M3Typography variant="title-large" style={{color: layers.sys.color.onSurface,
                         minWidth: 0,
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap'
-                    }}>Chat con "{corpus.displayName}"</M3Typography>
+                        whiteSpace: 'nowrap'}}>Chat con "{corpus.displayName}"</M3Typography>
                 </div>
             </div>
             
-            <div style={{
-                flex: 1,
+            <div style={{flex: 1,
                 overflowY: 'auto',
-                padding: 'var(--md-sys-spacing-4)',
+                padding: layers.ref.spacing['4'],
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-3)'
-            }}>
+                gap: layers.ref.spacing['3']}}>
                 {messages.map((msg, index) => (
-                    <div key={index} style={{
-                        display: 'flex',
+                    <div key={index} style={{display: 'flex',
                         justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start',
-                        marginBottom: 'var(--md-sys-spacing-2)'
-                    }}>
-                        <div style={{
-                            maxWidth: '70%',
-                            padding: 'var(--md-sys-spacing-3)',
+                        marginBottom: layers.ref.spacing['2']}}>
+                        <div style={{maxWidth: '70%',
+                            padding: layers.ref.spacing['3'],
                             borderRadius: msg.role === 'user' 
-                                ? 'var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-large)'
-                                : 'var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small)',
+                                ? `${layers.ref.shape.corner.large} ${layers.ref.shape.corner.large} ${layers.ref.shape.corner.small} ${layers.ref.shape.corner.large}`
+                                : `${layers.ref.shape.corner.large} ${layers.ref.shape.corner.large} ${layers.ref.shape.corner.large} ${layers.ref.shape.corner.small}`,
                             backgroundColor: msg.role === 'user' 
-                                ? 'var(--md-sys-color-primary-container)' 
-                                : 'var(--md-sys-color-surface-container-high)',
-                            border: `1px solid var(--md-sys-color-outline-variant)`
-                        }}>
-                            <M3Typography variant="body-large" style={{
-                                color: msg.role === 'user' 
-                                    ? 'var(--md-sys-color-on-primary-container)' 
-                                    : 'var(--md-sys-color-on-surface)',
-                                margin: 0,
-                                lineHeight: 1.4
-                            }}>{msg.text}</M3Typography>
+                                ? layers.sys.color.primaryContainer 
+                                : layers.sys.color.surfaceContainerHigh,
+                            border: `1px solid ${layers.sys.color.outlineVariant}`}}>
+                            <M3Typography variant="body-large" style={{color: msg.role === 'user' 
+                                    ? layers.sys.color.onPrimaryContainer 
+                                    : layers.sys.color.onSurface,
+                                margin: 0}}>{msg.text}</M3Typography>
                         </div>
                     </div>
                 ))}
                 {isLoading && (
-                     <div style={{
-                        display: 'flex',
+                     <div style={{display: 'flex',
                         justifyContent: 'flex-start',
-                        marginBottom: 'var(--md-sys-spacing-2)'
-                    }}>
-                        <div style={{
-                            maxWidth: '70%',
-                            padding: 'var(--md-sys-spacing-3)',
-                            borderRadius: 'var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small)',
-                            backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                            border: `1px solid var(--md-sys-color-outline-variant)`,
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)'
-                        }}>
-                            <div style={{
-                                width: '16px',
-                                height: '16px',
-                                border: '2px solid var(--md-sys-color-outline)',
-                                borderTop: '2px solid var(--md-sys-color-primary)',
-                                borderRadius: '50%',
-                                animation: 'spin 1s linear infinite'
-                            }} />
-                            <M3Typography variant="body-medium" style={{
-                                color: 'var(--md-sys-color-on-surface-variant)',
-                                margin: 0
-                            }}>Sto pensando...</M3Typography>
+                        marginBottom: layers.ref.spacing['2']}}>
+                        <div style={{maxWidth: '70%',
+                            padding: layers.ref.spacing['3'],
+                            borderRadius: `${layers.ref.shape.corner.large} ${layers.ref.shape.corner.large} ${layers.ref.shape.corner.large} ${layers.ref.shape.corner.small}`,
+                            backgroundColor: layers.sys.color.surfaceContainerHigh,
+                            border: `1px solid ${layers.sys.color.outlineVariant}`}}>
+                            <div style={{display: 'flex',
+                                alignItems: 'center',
+                                gap: layers.ref.spacing['2']}}>
+                                <div style={{borderRadius: '50%'}} />
+                                <M3Typography variant="body-medium" style={{color: layers.sys.color.onSurfaceVariant,
+                                    margin: 0}}>Sto pensando...</M3Typography>
+                            </div>
                         </div>
                     </div>
                 )}
                  {messages.length === 0 && !isLoading && (
-                    <div style={{
-                        display: 'flex',
+                    <div style={{display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
                         flex: 1,
-                        padding: 'var(--md-sys-spacing-8)',
+                        padding: layers.ref.spacing['8'],
                         textAlign: 'center',
-                        gap: 'var(--md-sys-spacing-4)'
-                    }}>
-                        <div style={{
-                            width: '64px',
-                            height: '64px',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            backgroundColor: 'var(--md-sys-color-secondary-container)',
+                        gap: layers.ref.spacing['4']}}>
+                        <div style={{borderRadius: layers.ref.shape.corner.large,
+                            backgroundColor: layers.sys.color.secondaryContainer,
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'
-                        }}>
+                            justifyContent: 'center'}}>
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
-}} style={{
-                                fontSize: '32px',
-                                color: 'var(--md-sys-color-on-secondary-container)'
-                            }}>quiz</span>
+}} style={{color: layers.sys.color.onSecondaryContainer}}>quiz</span>
                         </div>
-                        <M3Typography variant="body-large" style={{
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            margin: 0,
-                            maxWidth: '300px'
-                        }}>Poni una domanda ai documenti in questo set.</M3Typography>
+                        <M3Typography variant="body-large" style={{color: layers.sys.color.onSurfaceVariant,
+                            margin: 0}}>Poni una domanda ai documenti in questo set.</M3Typography>
                     </div>
                 )}
                 <div ref={messagesEndRef} />
             </div>
 
-            <div style={{
-                padding: 'var(--md-sys-spacing-4)',
-                borderTop: '1px solid var(--md-sys-color-outline-variant)',
-                backgroundColor: 'var(--md-sys-color-surface-container-low)'
-            }}>
-                <div style={{
-                    display: 'flex',
-                    gap: 'var(--md-sys-spacing-2)',
-                    flexWrap: 'wrap'
-                }}>
+            <div style={{padding: layers.ref.spacing['4'],
+                borderTop: `1px solid ${layers.sys.color.outlineVariant}`,
+                backgroundColor: layers.sys.color.surfaceContainerLow}}>
+                <div style={{display: 'flex',
+                    gap: layers.ref.spacing['2'],
+                    flexWrap: 'wrap'}}>
                     <button 
                         onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} 
-                        style={{
-                            display: 'flex',
+                        style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-3)',
-                            backgroundColor: 'var(--md-sys-color-secondary-container)',
-                            border: '1px solid var(--md-sys-color-outline-variant)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            gap: layers.ref.spacing['2'],
+                            padding: layers.ref.spacing['3'],
+                            backgroundColor: layers.sys.color.secondaryContainer,
+                            border: `1px solid ${layers.sys.color.outlineVariant}`,
+                            borderRadius: layers.ref.shape.corner.large,
                             cursor: 'pointer',
-                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                            textDecoration: 'none'
-                        }}
+                            transition: `all ${layers.motion.duration.short} ${layers.motion.easing.standard}`,
+                            textDecoration: 'none'}}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-secondary-container-hover)';
-                            e.currentTarget.style.transform = 'scale(1.02)';
+                            e.currentTarget// removed runtime mutation
+                            e.currentTarget// removed runtime mutation
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-secondary-container)';
-                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget// removed runtime mutation
+                            e.currentTarget// removed runtime mutation
                         }}
                     >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-}} style={{
-                            fontSize: '18px',
-                            color: 'var(--md-sys-color-on-secondary-container)'
-                        }}>summarize</span>
-                        <M3Typography variant="label-large" style={{
-                            color: 'var(--md-sys-color-on-secondary-container)',
-                            fontWeight: 500,
-                            margin: 0
-                        }}>Riassumi</M3Typography>
+}} style={{color: layers.sys.color.onSecondaryContainer}}>summarize</span>
+                        <M3Typography variant="label-large" style={{color: layers.sys.color.onSecondaryContainer,
+                            margin: 0}}>Riassumi</M3Typography>
                     </button>
                     <button 
                         onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} 
-                        style={{
-                            display: 'flex',
+                        style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-3)',
-                            backgroundColor: 'var(--md-sys-color-tertiary-container)',
-                            border: '1px solid var(--md-sys-color-outline-variant)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            gap: layers.ref.spacing['2'],
+                            padding: layers.ref.spacing['3'],
+                            backgroundColor: layers.sys.color.tertiaryContainer,
+                            border: `1px solid ${layers.sys.color.outlineVariant}`,
+                            borderRadius: layers.ref.shape.corner.large,
                             cursor: 'pointer',
-                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                            textDecoration: 'none'
-                        }}
+                            transition: `all ${layers.motion.duration.short} ${layers.motion.easing.standard}`,
+                            textDecoration: 'none'}}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-tertiary-container-hover)';
-                            e.currentTarget.style.transform = 'scale(1.02)';
+                            e.currentTarget// removed runtime mutation
+                            e.currentTarget// removed runtime mutation
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-tertiary-container)';
-                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget// removed runtime mutation
+                            e.currentTarget// removed runtime mutation
                         }}
                     >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-}} style={{
-                            fontSize: '18px',
-                            color: 'var(--md-sys-color-on-tertiary-container)'
-                        }}>quiz</span>
-                        <M3Typography variant="label-large" style={{
-                            color: 'var(--md-sys-color-on-tertiary-container)',
-                            fontWeight: 500,
-                            margin: 0
-                        }}>Crea Quiz</M3Typography>
+}} style={{color: layers.sys.color.onTertiaryContainer}}>quiz</span>
+                        <M3Typography variant="label-large" style={{color: layers.sys.color.onTertiaryContainer,
+                            margin: 0}}>Crea Quiz</M3Typography>
                     </button>
                     <button 
                         onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} 
-                        style={{
-                            display: 'flex',
+                        style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-3)',
-                            backgroundColor: 'var(--md-sys-color-primary-container)',
-                            border: '1px solid var(--md-sys-color-outline-variant)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            gap: layers.ref.spacing['2'],
+                            padding: layers.ref.spacing['3'],
+                            backgroundColor: layers.sys.color.primaryContainer,
+                            border: `1px solid ${layers.sys.color.outlineVariant}`,
+                            borderRadius: layers.ref.shape.corner.large,
                             cursor: 'pointer',
-                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                            textDecoration: 'none'
-                        }}
+                            transition: `all ${layers.motion.duration.short} ${layers.motion.easing.standard}`,
+                            textDecoration: 'none'}}
                         onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-primary-container-hover)';
-                            e.currentTarget.style.transform = 'scale(1.02)';
+                            e.currentTarget// removed runtime mutation
+                            e.currentTarget// removed runtime mutation
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-primary-container)';
-                            e.currentTarget.style.transform = 'scale(1)';
+                            e.currentTarget// removed runtime mutation
+                            e.currentTarget// removed runtime mutation
                         }}
                     >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-}} style={{
-                            fontSize: '18px',
-                            color: 'var(--md-sys-color-on-primary-container)'
-                        }}>key</span>
-                        <M3Typography variant="label-large" style={{
-                            color: 'var(--md-sys-color-on-primary-container)',
-                            fontWeight: 500,
-                            margin: 0
-                        }}>Concetti Chiave</M3Typography>
+}} style={{color: layers.sys.color.onPrimaryContainer}}>key</span>
+                        <M3Typography variant="label-large" style={{color: layers.sys.color.onPrimaryContainer,
+                            margin: 0}}>Concetti Chiave</M3Typography>
                     </button>
                 </div>
             </div>
 
             <form 
                 onSubmit={(e) => { e.preventDefault(); handleSendMessage(chatInput); }}
-                style={{
-                    display: 'flex',
-                    padding: 'var(--md-sys-spacing-4)',
-                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderTop: '1px solid var(--md-sys-color-outline-variant)',
-                    gap: 'var(--md-sys-spacing-2)'
-                }}
+                style={{display: 'flex',
+                    padding: layers.ref.spacing['4'],
+                    backgroundColor: layers.sys.color.surfaceContainerLow,
+                    borderTop: `1px solid ${layers.sys.color.outlineVariant}`,
+                    gap: layers.ref.spacing['2']}}
             >
                 <input
                     type="text"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     placeholder="Fai una domanda..."
-                    style={{
-                        flex: 1,
-                        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: '1px solid var(--md-sys-color-outline)',
-                        backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                        color: 'var(--md-sys-color-on-surface)',
-                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                        lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                    style={{flex: 1,
+                        padding: `${layers.ref.spacing['3']} ${layers.ref.spacing['4']}`,
+                        borderRadius: layers.ref.shape.corner.large,
+                        border: `1px solid ${layers.sys.color.outline}`,
+                        backgroundColor: layers.sys.color.surfaceContainerHigh,
+                        color: layers.sys.color.onSurface,
                         outline: 'none',
-                        transition: 'border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
-                    }}
+                        transition: `border-color ${layers.motion.duration.short} ${layers.motion.easing.standard}`}}
                     onFocus={(e) => {
-                        e.target.style.borderColor = 'var(--md-sys-color-primary)';
+                        e.target// removed runtime mutation
                     }}
                     onBlur={(e) => {
-                        e.target.style.borderColor = 'var(--md-sys-color-outline)';
+                        e.target// removed runtime mutation
                     }}
                     disabled={isLoading}
                 />
                 <button 
                     type="submit" 
                     disabled={isLoading || !chatInput.trim()}
-                    style={{
-                        width: '48px',
-                        height: '48px',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                    style={{borderRadius: layers.ref.shape.corner.large,
                         border: 'none',
                         backgroundColor: (isLoading || !chatInput.trim()) 
-                            ? 'var(--md-sys-color-surface-container-high)' 
-                            : 'var(--md-sys-color-primary)',
+                            ? layers.sys.color.surfaceContainerHigh 
+                            : layers.sys.color.primary,
                         color: (isLoading || !chatInput.trim()) 
-                            ? 'var(--md-sys-color-on-surface-variant)' 
-                            : 'var(--md-sys-color-on-primary)',
+                            ? layers.sys.color.onSurfaceVariant 
+                            : layers.sys.color.onPrimary,
                         cursor: (isLoading || !chatInput.trim()) ? 'not-allowed' : 'pointer',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
-                    }}
+                        transition: `all ${layers.motion.duration.short} ${layers.motion.easing.standard}`}}
                 >
                     <span style={{
   fontFamily: 'Material Symbols Outlined'
-}} style={{
-                        fontSize: '20px'
-                    }}>send</span>
+}}>send</span>
                 </button>
             </form>
         </div>
@@ -426,5 +339,10 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
 };
 
 export default CorpusChat;
+
+
+
+
+
 
 

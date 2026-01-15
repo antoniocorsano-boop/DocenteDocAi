@@ -1,4 +1,10 @@
+// LEGACY - MD3 Non-compliant
+// @legacy
+// @md3-noncompliant
+// @do-not-extend
+
 import React from 'react';
+import { useTheme } from '../../theme/theme';
 import { useTheme } from '../../theme/theme';
 
 interface TableSkeletonProps {
@@ -10,6 +16,7 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
     rows = 3,
     columns = 3
 }) => {
+  const { layers } = useTheme();
     const { spacing } = useTheme();
 
     return (
@@ -20,8 +27,8 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
                     <div
                         key={i}
                         style={{
-                            height: '24px',
-                            backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                            height: layers.ref.spacing['12'],
+                            backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
                             borderRadius: 'var(--md-sys-shape-corner-small)',
                             animation: 'pulse 2s ease-in-out infinite',
                             flex: 1,
@@ -38,8 +45,8 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
                         <div
                             key={colIndex}
                             style={{
-                                height: '16px',
-                                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                height: layers.ref.spacing['12'],
+                                backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
                                 borderRadius: 'var(--md-sys-shape-corner-small)',
                                 animation: 'pulse 2s ease-in-out infinite',
                                 flex: 1,
@@ -55,5 +62,10 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
 };
 
 export default TableSkeleton;
+
+
+
+
+
 
 

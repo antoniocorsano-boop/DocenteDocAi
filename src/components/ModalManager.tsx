@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // ...existing code...
 // ...existing code...
@@ -25,7 +26,7 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
     const { students, settings, draftRegister, slots, lessons, pianiInclusione, knowledgeBase, aiSettings } = appState;
     const { onScheduleLesson, setLessons, setSlots, handleStartClassroom } = actions;
 
-    const activeSlot = modals.activeSlotKey ? slots[modals.activeSlotKey] : null;
+      const activeSlot = modals.activeSlotKey ? slots[modals.activeSlotKey] : null;
     const activeLesson = modals.lessonViewContext;
 
     // Check if there is an active draft for this slot
@@ -49,7 +50,7 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
 
             {modals.createLessonContext?.isOpen && modals.createLessonContext?.lezione && (
                 <CreateLessonFromAiModal
-                    content={{ title: '', htmlContent: '', ...(modals.createLessonContext.lezione as object) }}
+                    content={{ title: ', htmlContent: ', ...(modals.createLessonContext.lezione as object) }}
                     onClose={() => modals.setCreateLessonContext?.({ isOpen: false, slotKey: null, lezione: null })}
                     onSave={(lessonData: Lezione) => {
                         const newLesson = {
@@ -93,7 +94,7 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
             {modals.editingSlotKey ? (() => {
                 const slotKey = modals.editingSlotKey as string;
                 if (!slotKey) return null;
-                const slot = slots[slotKey] || { giorno: slotKey.split('-')[0] || '', ora: slotKey.split('-')[1] || '' };
+                const slot = slots[slotKey] || { giorno: slotKey.split('-')[0] || ', ora: slotKey.split('-')[1] || ' };
                 const lesson = slot && slot.lezioneId ? lessons[slot.lezioneId] : undefined;
                 return (
                     <EditSlotModal
@@ -130,7 +131,7 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
                             const id = lessonData.id || `les-${Date.now()}`;
                             const newLesson = { ...lessonData, id };
                             setLessons((prev: Record<string, Lezione>) => ({ ...prev, [id]: newLesson }));
-                            setSlots((prev: Record<string, Slot>) => ({ ...prev, [key]: { ...(prev[key] || {}), lezioneId: id, classe: newLesson.classe ?? '', materia: newLesson.materia ?? '' } }));
+                            setSlots((prev: Record<string, Slot>) => ({ ...prev, [key]: { ...(prev[key] || {}), lezioneId: id, classe: newLesson.classe ?? ', materia: newLesson.materia ?? ' } }));
                             modals.setEditingSlotKey?.(null);
                         }}
                         onStartClassroom={(classe: string, materia: string, key: string, lessonObj: Lezione | undefined) => {
@@ -150,5 +151,10 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
         </>
     );
 };
+
+
+
+
+
 
 

@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 /**
  * AnalyticsDashboard
  *
@@ -29,13 +30,21 @@ import React, { useState, useMemo } from 'react';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SelectField, M3Typography } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface AnalyticsDashboardProps {
   onClose: () => void;
 }
 
 const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
+  const { layers } = useTheme();
+  const {
+    sys: { color: { surfaceContainerLow, outline, tertiary, secondary, primary, onSurface, onSurfaceVariant, surface, onTertiaryContainer, error } },
+    ref: { spacing, shape: { corner: { medium, extraLarge } }, typescale: { headlineSmall, bodyMedium, bodySmall, labelSmall } }
+  } = layers;
   const [activeTab, setActiveTab] = useState<'overview' | 'details' | 'settings'>('overview');
+  const [hoveredElements, setHoveredElements] = useState<Record<string, boolean>>({});
+  const [focusedElements, setFocusedElements] = useState<Record<string, boolean>>({});
 
   const { analyticsMetrics, analyticsEvents, analyticsSettings, actions } = useSystemStore(state => ({
     analyticsMetrics: state.analyticsMetrics,
@@ -117,51 +126,39 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
       maxWidth="2xl"
       level={1}
     >
-      <M3DialogContent style={{
-        display: 'flex',
+      <M3DialogContent style={{display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--md-sys-spacing-6)',
+        gap: layers.ref.spacing['6'],
         overflowY: 'auto',
-        maxHeight: '80vh'
-      }}>
+        maxHeight: '80vh'}}>
           {/* GDPR Notice */}
-          <div style={{
-            backgroundColor: 'var(--md-sys-color-tertiary-container)',
+          <div style={{backgroundColor: 'layers.sys.color.tertiary-container',
             opacity: 0.8,
-            border: '1px solid var(--md-sys-color-outline)',
-            padding: 'var(--md-sys-spacing-8)',
-            backdropFilter: 'blur(var(--md-sys-spacing-2))',
-            borderRadius: 'var(--md-sys-shape-corner-extra-large)'
-          }}>
-            <div style={{
-              display: 'flex',
+            border: '1px solid layers.sys.color.outline',
+            padding: layers.ref.spacing['8'],
+            backdropFilter: 'blur(layers.ref.spacing['2'])',
+            borderRadius: 'layers.ref.shape.corner.extra-large'}}>
+            <div style={{display: 'flex',
               alignItems: 'flex-start',
-              gap: 'var(--md-sys-spacing-6)'
-            }}>
-              <span style={{
-                fontFamily: 'Material Symbols Outlined',
-                color: 'var(--md-sys-color-on-tertiary-container)',
-                marginTop: '2px'
-              }}>privacy_tip</span>
+              gap: layers.ref.spacing['6']}}>
+              <span style={{fontFamily: 'Material Symbols Outlined',
+                color: 'layers.sys.color.on-tertiary-container',
+                marginTop: layers.ref.spacing['4']}}>privacy_tip</span>
               <div>
                 <M3Typography
                   variant="label-small"
-                  style={{
-                    color: 'var(--md-sys-color-on-tertiary-container)',
+                  style={{color: 'layers.sys.color.on-tertiary-container',
                     fontWeight: '900',
                     textTransform: 'uppercase',
                     letterSpacing: '0.2em',
-                    marginBottom: 'var(--md-sys-spacing-4)',
-                    display: 'block'
-                  }}
+                    marginBottom: layers.ref.spacing['4'],
+                    display: 'block'}}
                 >
                   📋 Informativa Privacy
                 </M3Typography>
-                <p style={{
-                  fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                  color: 'var(--md-sys-color-on-tertiary-container)',
-                  lineHeight: 'var(--md-sys-typescale-body-small-line-height)'
-                }}>
+                <p style={{fontSize: bodySmall.fontSize,
+                  color: onTertiaryContainer,
+                  lineHeight: bodySmall.lineHeight}}>
                   Questi dati sono memorizzati localmente sul tuo dispositivo e non vengono mai trasmessi a server esterni.
                   Puoi disabilitare la raccolta dati in qualsiasi momento dalle impostazioni.
                 </p>
@@ -182,48 +179,34 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
           {/* Tab Content */}
           {activeTab === 'overview' && (
-            <div style={{
-              display: 'flex',
+            <div style={{display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--md-sys-spacing-6)',
-              animation: 'fade-in 0.3s ease-out'
-            }}>
+              gap: layers.ref.spacing['6'],
+              animation: 'fade-in 0.3s ease-out'}}>
               {/* Metriche Principali */}
-              <div style={{
-                display: 'grid',
+              <div style={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: 'var(--md-sys-spacing-8)'
-              }}>
-                <div style={{
-                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                gap: layers.ref.spacing['8']}}>
+                <div style={{backgroundColor: surfaceContainerLow,
                   opacity: 0.5,
-                  padding: 'var(--md-sys-spacing-8)',
-                  border: '1px solid var(--md-sys-color-outline)',
-                  borderRadius: 'var(--md-sys-shape-corner-medium)'
-                }}>
-                  <div style={{
-                    display: 'flex',
+                  padding: spacing['8],
+                  border: `1px solid ${outline}`,
+                  borderRadius: medium}}>
+                  <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-6)'
-                  }}>
-                    <span style={{
-                      fontFamily: 'Material Symbols Outlined',
-                      color: 'var(--md-sys-color-tertiary)'
-                    }}>description</span>
+                    gap: spacing['6]}}>
+                    <span style={{fontFamily: 'Material Symbols Outlined',
+                      color: tertiary}}>description</span>
                     <div>
-                      <p style={{
-                        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                      <p style={{fontSize: headlineSmall.fontSize,
                         fontWeight: '900',
-                        color: 'var(--md-sys-color-on-surface)'
-                      }}>{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</p>
+                        color: onSurface}}>{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</p>
                       <M3Typography
                         variant="label-small"
-                        style={{
-                          fontWeight: '700',
+                        style={{fontWeight: '700',
                           textTransform: 'uppercase',
                           letterSpacing: '0.1em',
-                          color: 'var(--md-sys-color-on-surface-variant)'
-                        }}
+                          color: onSurfaceVariant}}
                       >
                         Documenti
                       </M3Typography>
@@ -231,36 +214,26 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </div>
                 </div>
 
-                <div style={{
-                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <div style={{backgroundColor: surfaceContainerLow,
                   opacity: 0.5,
-                  padding: 'var(--md-sys-spacing-8)',
-                  border: '1px solid var(--md-sys-color-outline)',
-                  borderRadius: 'var(--md-sys-shape-corner-medium)'
-                }}>
-                  <div style={{
-                    display: 'flex',
+                  padding: spacing['8],
+                  border: `1px solid ${outline}`,
+                  borderRadius: medium}}>
+                  <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-6)'
-                  }}>
-                    <span style={{
-                      fontFamily: 'Material Symbols Outlined',
-                      color: 'var(--md-sys-color-secondary)'
-                    }}>smart_toy</span>
+                    gap: spacing['6]}}>
+                    <span style={{fontFamily: 'Material Symbols Outlined',
+                      color: secondary}}>smart_toy</span>
                     <div>
-                      <p style={{
-                        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                      <p style={{fontSize: headlineSmall.fontSize,
                         fontWeight: '900',
-                        color: 'var(--md-sys-color-on-surface)'
-                      }}>{formatNumber(analyticsMetrics.aiInteractionsCount)}</p>
+                        color: onSurface}}>{formatNumber(analyticsMetrics.aiInteractionsCount)}</p>
                       <M3Typography
                         variant="label-small"
-                        style={{
-                          fontWeight: '700',
+                        style={{fontWeight: '700',
                           textTransform: 'uppercase',
                           letterSpacing: '0.1em',
-                          color: 'var(--md-sys-color-on-surface-variant)'
-                        }}
+                          color: onSurfaceVariant}}
                       >
                         Interazioni AI
                       </M3Typography>
@@ -268,36 +241,26 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </div>
                 </div>
 
-                <div style={{
-                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <div style={{backgroundColor: surfaceContainerLow,
                   opacity: 0.5,
-                  padding: 'var(--md-sys-spacing-8)',
-                  border: '1px solid var(--md-sys-color-outline)',
-                  borderRadius: 'var(--md-sys-shape-corner-medium)'
-                }}>
-                  <div style={{
-                    display: 'flex',
+                  padding: spacing['8],
+                  border: `1px solid ${outline}`,
+                  borderRadius: medium}}>
+                  <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-6)'
-                  }}>
-                    <span style={{
-                      fontFamily: 'Material Symbols Outlined',
-                      color: 'var(--md-sys-color-primary)'
-                    }}>file_copy</span>
+                    gap: spacing['6]}}>
+                    <span style={{fontFamily: 'Material Symbols Outlined',
+                      color: primary}}>file_copy</span>
                     <div>
-                      <p style={{
-                        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                      <p style={{fontSize: headlineSmall.fontSize,
                         fontWeight: '900',
-                        color: 'var(--md-sys-color-on-surface)'
-                      }}>{formatNumber(analyticsMetrics.templatesCreated)}</p>
+                        color: onSurface}}>{formatNumber(analyticsMetrics.templatesCreated)}</p>
                       <M3Typography
                         variant="label-small"
-                        style={{
-                          fontWeight: '700',
+                        style={{fontWeight: '700',
                           textTransform: 'uppercase',
                           letterSpacing: '0.1em',
-                          color: 'var(--md-sys-color-on-surface-variant)'
-                        }}
+                          color: onSurfaceVariant}}
                       >
                         Template
                       </M3Typography>
@@ -305,36 +268,26 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </div>
                 </div>
 
-                <div style={{
-                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <div style={{backgroundColor: surfaceContainerLow,
                   opacity: 0.5,
-                  padding: 'var(--md-sys-spacing-8)',
-                  border: '1px solid var(--md-sys-color-outline)',
-                  borderRadius: 'var(--md-sys-shape-corner-medium)'
-                }}>
-                  <div style={{
-                    display: 'flex',
+                  padding: spacing['8],
+                  border: `1px solid ${outline}`,
+                  borderRadius: medium}}>
+                  <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-6)'
-                  }}>
-                    <span style={{
-                      fontFamily: 'Material Symbols Outlined',
-                      color: 'var(--md-sys-color-tertiary)'
-                    }}>batch_prediction</span>
+                    gap: spacing['6]}}>
+                    <span style={{fontFamily: 'Material Symbols Outlined',
+                      color: tertiary}}>batch_prediction</span>
                     <div>
-                      <p style={{
-                        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                      <p style={{fontSize: headlineSmall.fontSize,
                         fontWeight: '900',
-                        color: 'var(--md-sys-color-on-surface)'
-                      }}>{formatNumber(analyticsMetrics.exportBatchesCount)}</p>
+                        color: onSurface}}>{formatNumber(analyticsMetrics.exportBatchesCount)}</p>
                       <M3Typography
                         variant="label-small"
-                        style={{
-                          fontWeight: '700',
+                        style={{fontWeight: '700',
                           textTransform: 'uppercase',
                           letterSpacing: '0.1em',
-                          color: 'var(--md-sys-color-on-surface-variant)'
-                        }}
+                          color: onSurfaceVariant}}
                       >
                         Export
                       </M3Typography>
@@ -344,67 +297,51 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               </div>
 
               {/* Attività Recente */}
-              <div style={{
-                display: 'grid',
+              <div style={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: 'var(--md-sys-spacing-6)'
-              }}>
-                <div style={{
-                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                gap: layers.ref.spacing['6']}}>
+                <div style={{backgroundColor: 'layers.sys.color.surfaceContainerLow',
                   opacity: 0.5,
-                  padding: 'var(--md-sys-spacing-5)',
-                  border: '1px solid var(--md-sys-color-outline)',
-                  borderRadius: 'var(--md-sys-shape-corner-extra-large)'
-                }}>
+                  padding: layers.ref.spacing['5'],
+                  border: '1px solid layers.sys.color.outline',
+                  borderRadius: 'layers.ref.shape.corner.extra-large'}}>
                   <M3Typography
                     variant="label-small"
-                    style={{
-                      fontWeight: '900',
+                    style={{fontWeight: '900',
                       textTransform: 'uppercase',
                       letterSpacing: '0.2em',
-                      color: 'var(--md-sys-color-primary)',
-                      marginBottom: 'var(--md-sys-spacing-8)',
-                      display: 'block'
-                    }}
+                      color: 'layers.sys.color.primary',
+                      marginBottom: layers.ref.spacing['8'],
+                      display: 'block'}}
                   >
                     Attività 7 Giorni
                   </M3Typography>
-                  <div style={{
-                    display: 'flex',
+                  <div style={{display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-3)'
-                  }}>
+                    gap: layers.ref.spacing['3']}}>
                     <div style={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center'
                     }}>
-                      <span style={{
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                      <span style={{fontSize: bodyMedium.fontSize,
                         fontWeight: '500',
-                        color: 'var(--md-sys-color-on-surface-variant)'
-                      }}>Eventi Totali</span>
-                      <span style={{
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        color: onSurfaceVariant}}>Eventi Totali</span>
+                      <span style={{fontSize: bodyMedium.fontSize,
                         fontWeight: '900',
-                        color: 'var(--md-sys-color-on-surface)'
-                      }}>{stats.weeklyActivity}</span>
+                        color: onSurface}}>{stats.weeklyActivity}</span>
                     </div>
                     <div style={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center'
                     }}>
-                      <span style={{
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                      <span style={{fontSize: bodyMedium.fontSize,
                         fontWeight: '500',
-                        color: 'var(--md-sys-color-on-surface-variant)'
-                      }}>Documenti Generati</span>
-                      <span style={{
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        color: onSurfaceVariant}}>Documenti Generati</span>
+                      <span style={{fontSize: bodyMedium.fontSize,
                         fontWeight: '900',
-                        color: 'var(--md-sys-color-on-surface)'
-                      }}>
+                        color: onSurface}}>
                         {analyticsEvents.filter(e => e.eventType === 'document_generated' &&
                           new Date(e.timestamp) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length}
                       </span>
@@ -412,59 +349,47 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </div>
                 </div>
 
-                <div style={{
-                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <div style={{backgroundColor: 'layers.sys.color.surfaceContainerLow',
                   opacity: 0.5,
-                  padding: 'var(--md-sys-spacing-5)',
-                  border: '1px solid var(--md-sys-color-outline)',
-                  borderRadius: 'var(--md-sys-shape-corner-extra-large)'
-                }}>
+                  padding: layers.ref.spacing['5'],
+                  border: '1px solid layers.sys.color.outline',
+                  borderRadius: 'layers.ref.shape.corner.extra-large'}}>
                   <M3Typography
                     variant="label-small"
-                    style={{
-                      fontWeight: '900',
+                    style={{fontWeight: '900',
                       textTransform: 'uppercase',
                       letterSpacing: '0.2em',
-                      color: 'var(--md-sys-color-primary)',
-                      marginBottom: 'var(--md-sys-spacing-8)',
-                      display: 'block'
-                    }}
+                      color: 'layers.sys.color.primary',
+                      marginBottom: layers.ref.spacing['8'],
+                      display: 'block'}}
                   >
                     Funzionalità Top
                   </M3Typography>
-                  <div style={{
-                    display: 'flex',
+                  <div style={{display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-2)'
-                  }}>
+                    gap: layers.ref.spacing['2']}}>
                     {stats.topFeatures.length > 0 ? stats.topFeatures.map(([feature, count]) => (
                       <div key={feature} style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center'
                       }}>
-                        <span style={{
-                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        <span style={{fontSize: bodyMedium.fontSize,
                           fontWeight: '500',
-                          color: 'var(--md-sys-color-on-surface-variant)',
+                          color: onSurfaceVariant,
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
-                          marginRight: 'var(--md-sys-spacing-2)',
-                          flex: 1
-                        }}>{feature}</span>
-                        <span style={{
-                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                          marginRight: spacing['2],
+                          flex: 1}}>{feature}</span>
+                        <span style={{fontSize: bodyMedium.fontSize,
                           fontWeight: '900',
-                          color: 'var(--md-sys-color-on-surface)'
-                        }}>{count}</span>
+                          color: onSurface}}>{count}</span>
                       </div>
                     )) : (
-                      <p style={{
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        fontStyle: 'italic'
-                      }}>Nessuna attività registrata</p>
+                      <p style={{fontSize: bodyMedium.fontSize,
+                        color: onSurfaceVariant,
+                        fontStyle: 'italic'}}>Nessuna attività registrata</p>
                     )}
                   </div>
                 </div>
@@ -472,52 +397,40 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
               {/* Tipi Documento */}
               {stats.documentTypes.length > 0 && (
-                <div style={{
-                  backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <div style={{backgroundColor: 'layers.sys.color.surfaceContainerLow',
                   opacity: 0.5,
-                  padding: 'var(--md-sys-spacing-5)',
-                  border: '1px solid var(--md-sys-color-outline)',
-                  borderRadius: 'var(--md-sys-shape-corner-extra-large)'
-                }}>
+                  padding: layers.ref.spacing['5'],
+                  border: '1px solid layers.sys.color.outline',
+                  borderRadius: 'layers.ref.shape.corner.extra-large'}}>
                   <M3Typography
                     variant="label-small"
-                    style={{
-                      fontWeight: '900',
+                    style={{fontWeight: '900',
                       textTransform: 'uppercase',
                       letterSpacing: '0.2em',
-                      color: 'var(--md-sys-color-primary)',
-                      marginBottom: 'var(--md-sys-spacing-8)',
-                      display: 'block'
-                    }}
+                      color: 'layers.sys.color.primary',
+                      marginBottom: layers.ref.spacing['8'],
+                      display: 'block'}}
                   >
                     Documenti per Tipo
                   </M3Typography>
-                  <div style={{
-                    display: 'grid',
+                  <div style={{display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                    gap: 'var(--md-sys-spacing-6)'
-                  }}>
+                    gap: layers.ref.spacing['6']}}>
                     {stats.documentTypes.map(([type, count]) => (
-                      <div key={type} style={{
-                        display: 'flex',
+                      <div key={type} style={{display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        padding: 'var(--md-sys-spacing-8)',
-                        backgroundColor: 'var(--md-sys-color-surface)',
+                        padding: layers.ref.spacing['8'],
+                        backgroundColor: 'layers.sys.color.surface',
                         opacity: 0.5,
-                        borderRadius: 'var(--md-sys-shape-corner-medium)'
-                      }}>
-                        <span style={{
-                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        borderRadius: 'layers.ref.shape.corner.medium'}}>
+                        <span style={{fontSize: bodyMedium.fontSize,
                           fontWeight: '500',
-                          color: 'var(--md-sys-color-on-surface-variant)',
-                          textTransform: 'capitalize'
-                        }}>{type.replace('_', ' ')}</span>
-                        <span style={{
-                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                          color: onSurfaceVariant,
+                          textTransform: 'capitalize'}}>{type.replace('_', ' ')}</span>
+                        <span style={{fontSize: bodyMedium.fontSize,
                           fontWeight: '900',
-                          color: 'var(--md-sys-color-primary)'
-                        }}>{count}</span>
+                          color: primary}}>{count}</span>
                       </div>
                     ))}
                   </div>
@@ -527,106 +440,83 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           )}
 
           {activeTab === 'details' && (
-            <div style={{
-              display: 'flex',
+            <div style={{display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--md-sys-spacing-4)',
-              animation: 'fade-in 0.3s ease-out'
-            }}>
+              gap: layers.ref.spacing['4'],
+              animation: 'fade-in 0.3s ease-out'}}>
               <M3Typography
                 variant="label-small"
-                style={{
-                  fontWeight: '900',
+                style={{fontWeight: '900',
                   textTransform: 'uppercase',
                   letterSpacing: '0.2em',
-                  color: 'var(--md-sys-color-primary)',
-                  paddingLeft: 'var(--md-sys-spacing-4)',
-                  display: 'block'
-                }}
+                  color: 'layers.sys.color.primary',
+                  paddingLeft: layers.ref.spacing['4'],
+                  display: 'block'}}
               >
                 Eventi Recenti
               </M3Typography>
-              <div style={{
-                maxHeight: '24rem',
+              <div style={{maxHeight: layers.ref.spacing['4'],
                 overflowY: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-2)',
-                paddingRight: 'var(--md-sys-spacing-2)',
+                gap: layers.ref.spacing['2'],
+                paddingRight: layers.ref.spacing['2'],
                 scrollbarWidth: 'thin',
-                scrollbarColor: 'var(--md-sys-color-outline) transparent'
-              }}>
-                {analyticsEvents.slice(-20).reverse().map(event => (
-                  <div key={event.id} style={{
-                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    opacity: 0.5,
-                    padding: 'var(--md-sys-spacing-6)',
-                    border: '1px solid var(--md-sys-color-outline)',
-                    borderRadius: 'var(--md-sys-shape-corner-large)',
-                    transition: 'border-color 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--md-sys-color-primary)';
-                    e.currentTarget.style.opacity = '0.7';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--md-sys-color-outline)';
-                    e.currentTarget.style.opacity = '0.5';
-                  }}>
+                scrollbarColor: 'layers.sys.color.outline transparent'}}>
+                {analyticsEvents.slice(-20).reverse().map(event => {
+                  const eventKey = `event-${event.id}`;
+                  const isHovered = hoveredElements[eventKey] || false;
+                  return (
+                  <div key={event.id} style={{backgroundColor: surfaceContainerLow,
+                    opacity: isHovered ? 0.7 : 0.5,
+                    padding: spacing['6],
+                    border: `1px solid ${isHovered ? primary : outline}`,
+                    borderRadius: extraLarge,
+                    transition: 'border-color 0.2s ease'}}
+                  onMouseEnter={() => setHoveredElements(prev => ({ ...prev, [eventKey]: true }))}
+                  onMouseLeave={() => setHoveredElements(prev => ({ ...prev, [eventKey]: false }))}>
                     <div style={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'flex-start'
                     }}>
                       <div>
-                        <p style={{
-                          fontWeight: '700',
-                          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                          color: 'var(--md-sys-color-on-surface)'
-                        }}>{event.featureName}</p>
+                        <p style={{fontWeight: '700',
+                          fontSize: bodyMedium.fontSize,
+                          color: onSurface}}>{event.featureName}</p>
                         <M3Typography
                           variant="label-small"
-                          style={{
-                            fontWeight: '700',
+                          style={{fontWeight: '700',
                             textTransform: 'uppercase',
                             letterSpacing: '0.1em',
-                            color: 'var(--md-sys-color-on-surface-variant)'
-                          }}
+                            color: onSurfaceVariant}}
                         >
                           {event.eventType.replace('_', ' ')}
                         </M3Typography>
                       </div>
-                      <span style={{
-                        fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                      <span style={{fontSize: labelSmall.fontSize,
                         fontWeight: '500',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                        padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)',
-                        borderRadius: '9999px'
-                      }}>
+                        color: 'layers.sys.color.onSurface-variant',
+                        backgroundColor: 'layers.sys.color.surfaceContainerHigh',
+                        padding: layers.ref.spacing['1'] layers.ref.spacing['4'],
+                        borderRadius: layers.ref.spacing['4']}}>
                         {formatDate(event.timestamp)}
                       </span>
                     </div>
                   </div>
                 ))}
                 {analyticsEvents.length === 0 && (
-                  <div style={{
-                    textAlign: 'center',
-                    paddingTop: 'var(--md-sys-spacing-12)',
-                    paddingBottom: 'var(--md-sys-spacing-12)'
-                  }}>
-                    <span style={{
-                      fontFamily: 'Material Symbols Outlined',
-                      fontSize: '4rem',
-                      color: 'var(--md-sys-color-on-surface-variant)',
+                  <div style={{textAlign: 'center',
+                    paddingTop: layers.ref.spacing['12'],
+                    paddingBottom: layers.ref.spacing['12']}}>
+                    <span style={{fontFamily: 'Material Symbols Outlined',
+                      fontSize: layers.ref.spacing['4'],
+                      color: 'layers.sys.color.onSurface-variant',
                       opacity: 0.3,
-                      marginBottom: 'var(--md-sys-spacing-8)',
-                      display: 'block'
-                    }}>history</span>
-                    <p style={{
-                      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                      color: 'var(--md-sys-color-on-surface-variant)'
-                    }}>Nessun evento registrato</p>
+                      marginBottom: layers.ref.spacing['8'],
+                      display: 'block'}}>history</span>
+                    <p style={{fontSize: bodyMedium.fontSize,
+                      color: onSurfaceVariant}}>Nessun evento registrato</p>
                   </div>
                 )}
               </div>
@@ -634,64 +524,44 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           )}
 
           {activeTab === 'settings' && (
-            <div style={{
-              display: 'flex',
+            <div style={{display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--md-sys-spacing-6)',
-              animation: 'fade-in 0.3s ease-out'
-            }}>
-              <div style={{
-                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+              gap: layers.ref.spacing['6'],
+              animation: 'fade-in 0.3s ease-out'}}>
+              <div style={{backgroundColor: 'layers.sys.color.surfaceContainerLow',
                 opacity: 0.5,
-                padding: 'var(--md-sys-spacing-5)',
-                border: '1px solid var(--md-sys-color-outline)',
-                borderRadius: 'var(--md-sys-shape-corner-extra-large)'
-              }}>
+                padding: layers.ref.spacing['5'],
+                border: '1px solid layers.sys.color.outline',
+                borderRadius: 'layers.ref.shape.corner.extra-large'}}>
                 <M3Typography
                   variant="label-small"
-                  style={{
-                    fontWeight: '900',
+                  style={{fontWeight: '900',
                     textTransform: 'uppercase',
                     letterSpacing: '0.2em',
-                    color: 'var(--md-sys-color-primary)',
-                    marginBottom: 'var(--md-sys-spacing-8)',
-                    display: 'block'
-                  }}
+                    color: 'layers.sys.color.primary',
+                    marginBottom: layers.ref.spacing['8'],
+                    display: 'block'}}
                 >
                   Raccolta Dati
                 </M3Typography>
-                <div style={{
-                  display: 'flex',
+                <div style={{display: 'flex',
                   flexDirection: 'column',
-                  gap: 'var(--md-sys-spacing-4)'
-                }}>
-                  <label style={{
-                    display: 'flex',
+                  gap: layers.ref.spacing['4']}}>
+                  <label style={{display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: 'var(--md-sys-spacing-6)',
-                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    padding: layers.ref.spacing['6'],
+                    borderRadius: 'layers.ref.shape.corner.large',
                     cursor: 'pointer',
-                    transition: 'background-color 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                    e.currentTarget.style.opacity = '0.5';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.opacity = '1';
-                  }}>
+                    transition: 'background-color 0.2s ease'}}
+                  onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': true }))}
+                  onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': false }))}>
                     <div>
-                      <span style={{
-                        fontWeight: '700',
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                        color: 'var(--md-sys-color-on-surface)'
-                      }}>Analytics Abilitati</span>
-                      <p style={{
-                        fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                        color: 'var(--md-sys-color-on-surface-variant)'
-                      }}>
+                      <span style={{fontWeight: '700',
+                        fontSize: bodyMedium.fontSize,
+                        color: onSurface}}>Analytics Abilitati</span>
+                      <p style={{fontSize: bodySmall.fontSize,
+                        color: onSurfaceVariant}}>
                         Consenti raccolta dati anonimi di utilizzo
                       </p>
                     </div>
@@ -707,8 +577,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         onChange={(e) => handleToggleAnalytics(e.target.checked)}
                         style={{
                           position: 'absolute',
-                          width: '1px',
-                          height: '1px',
+                          width: layers.ref.spacing['4'],
+                          height: layers.ref.spacing['4'],
                           padding: '0',
                           margin: '-1px',
                           overflow: 'hidden',
@@ -717,74 +587,70 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           border: '0'
                         }}
                       />
-                      <div style={{
-                        width: '44px',
-                        height: 'var(--md-sys-spacing-6)',
-                        backgroundColor: analyticsSettings.enabled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                        borderRadius: 'var(--md-sys-spacing-3)',
+                      <div style={{width: layers.ref.spacing['4'],
+                        height: layers.ref.spacing['6'],
+                        backgroundColor: analyticsSettings.enabled ? 'layers.sys.color.primary' : 'layers.sys.color.outline',
+                        borderRadius: layers.ref.spacing['3'],
                         position: 'relative',
-                        transition: 'background-color 0.2s ease'
-                      }}>
-                        <div style={{
-                          position: 'absolute',
-                          top: '2px',
-                          left: analyticsSettings.enabled ? '22px' : '2px',
-                          width: '20px',
-                          height: '20px',
-                          backgroundColor: 'var(--md-sys-color-on-primary)',
+                        transition: 'background-color 0.2s ease'}}>
+                        <div style={{position: 'absolute',
+                          top: layers.ref.spacing['4'],
+                          left: analyticsSettings.enabled ? layers.ref.spacing['4'] : layers.ref.spacing['4'],
+                          width: layers.ref.spacing['4'],
+                          height: layers.ref.spacing['4'],
+                          backgroundColor: 'layers.sys.color.on-primary',
                           borderRadius: '50%',
-                          transition: 'left 0.2s ease'
-                        }}></div>
+                          transition: 'left 0.2s ease'}}></div>
                       </div>
                     </div>
                   </label>
                   <label>
                     <div>
-                      <span className="text-[var(--md-sys-color-on-surface)]" style={{ fontWeight: "bold", fontSize: "0.875rem" }}>Analytics Abilitati</span>
-                      <p className="text-[var(--md-sys-color-on-surface)]-variant" style={{ fontSize: "0.75rem" }}>
+                      <span style={{fontWeight: 'bold', fontSize: '0.875rem', color: onSurface}}>Analytics Abilitati</span>
+                      <p style={{fontSize: '0.75rem', color: onSurfaceVariant}}>
                         Consenti raccolta dati anonimi di utilizzo
                       </p>
                     </div>
-                    <div className="relative" style={{ display: "inline-flex", alignItems: "center", cursor: "pointer" }}>
+                    <div style={{position: 'relative', display: 'inline-flex', alignItems: 'center', cursor: 'pointer'}}>
                       <input
                         type="checkbox"
                         checked={analyticsSettings.enabled}
                         onChange={(e) => handleToggleAnalytics(e.target.checked)}
-                        className="sr-only peer"
+                        style={{
+                          position: 'absolute',
+                          width: layers.ref.spacing['4'],
+                          height: layers.ref.spacing['4'],
+                          padding: '0',
+                          margin: '-1px',
+                          overflow: 'hidden',
+                          clip: 'rect(0, 0, 0, 0)',
+                          whiteSpace: 'nowrap',
+                          border: '0'
+                        }}
                       />
-                      <div className="w-11 bg-outline/30 peer-focus:outline-none peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary" style={{ height: "1.5rem", borderRadius: "9999px" }}></div>
+                      <div style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: analyticsSettings.enabled ? primary : outline, borderRadius: layers.ref.spacing['4'], position: 'relative', transition: 'background-color 0.2s ease'}}>
+                        <div style={{position: 'absolute', top: layers.ref.spacing['4'], left: analyticsSettings.enabled ? layers.ref.spacing['4'] : layers.ref.spacing['4'], width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: 'white', borderRadius: '50%', transition: 'left 0.2s ease'}}></div>
+                      </div>
                     </div>
                   </label>
 
                   {analyticsSettings.enabled && (
                     <>
-                      <label style={{
-                        display: 'flex',
+                      <label style={{display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: 'var(--md-sys-spacing-6)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: layers.ref.spacing['6'],
+                        borderRadius: 'layers.ref.shape.corner.large',
                         cursor: 'pointer',
-                        transition: 'background-color 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                        e.currentTarget.style.opacity = '0.5';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                        e.currentTarget.style.opacity = '1';
-                      }}>
+                        transition: 'background-color 0.2s ease'}}
+                      onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': true }))}
+                      onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': false }))}>
                         <div>
-                          <span style={{
-                            fontWeight: '700',
-                            fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                            color: 'var(--md-sys-color-on-surface)'
-                          }}>Utilizzo Funzionalità</span>
-                          <p style={{
-                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                            color: 'var(--md-sys-color-on-surface-variant)'
-                          }}>
+                          <span style={{fontWeight: '700',
+                            fontSize: bodyMedium.fontSize,
+                            color: onSurface}}>Utilizzo Funzionalità</span>
+                          <p style={{fontSize: bodySmall.fontSize,
+                            color: onSurfaceVariant}}>
                             Traccia quali funzionalità vengono utilizzate
                           </p>
                         </div>
@@ -803,8 +669,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             })}
                             style={{
                               position: 'absolute',
-                              width: '1px',
-                              height: '1px',
+                              width: layers.ref.spacing['4'],
+                              height: layers.ref.spacing['4'],
                               padding: '0',
                               margin: '-1px',
                               overflow: 'hidden',
@@ -813,55 +679,39 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               border: '0'
                             }}
                           />
-                          <div style={{
-                            width: '44px',
-                            height: 'var(--md-sys-spacing-6)',
-                            backgroundColor: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                            borderRadius: 'var(--md-sys-spacing-3)',
+                          <div style={{width: layers.ref.spacing['4'],
+                            height: layers.ref.spacing['6'],
+                            backgroundColor: analyticsSettings.collectFeatureUsage ? 'layers.sys.color.primary' : 'layers.sys.color.outline',
+                            borderRadius: layers.ref.spacing['3'],
                             position: 'relative',
-                            transition: 'background-color 0.2s ease'
-                          }}>
-                            <div style={{
-                              position: 'absolute',
-                              top: '2px',
-                              left: analyticsSettings.collectFeatureUsage ? '22px' : '2px',
-                              width: '20px',
-                              height: '20px',
-                              backgroundColor: 'var(--md-sys-color-on-primary)',
+                            transition: 'background-color 0.2s ease'}}>
+                            <div style={{position: 'absolute',
+                              top: layers.ref.spacing['4'],
+                              left: analyticsSettings.collectFeatureUsage ? layers.ref.spacing['4'] : layers.ref.spacing['4'],
+                              width: layers.ref.spacing['4'],
+                              height: layers.ref.spacing['4'],
+                              backgroundColor: 'layers.sys.color.on-primary',
                               borderRadius: '50%',
-                              transition: 'left 0.2s ease'
-                            }}></div>
+                              transition: 'left 0.2s ease'}}></div>
                           </div>
                         </div>
                       </label>
 
-                      <label style={{
-                        display: 'flex',
+                      <label style={{display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: 'var(--md-sys-spacing-6)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: layers.ref.spacing['6'],
+                        borderRadius: 'layers.ref.shape.corner.large',
                         cursor: 'pointer',
-                        transition: 'background-color 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                        e.currentTarget.style.opacity = '0.5';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                        e.currentTarget.style.opacity = '1';
-                      }}>
+                        transition: 'background-color 0.2s ease'}}
+                      onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': true }))}
+                      onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': false }))}>
                         <div>
-                          <span style={{
-                            fontWeight: '700',
-                            fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                            color: 'var(--md-sys-color-on-surface)'
-                          }}>Metriche Documenti</span>
-                          <p style={{
-                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                            color: 'var(--md-sys-color-on-surface-variant)'
-                          }}>
+                          <span style={{fontWeight: '700',
+                            fontSize: bodyMedium.fontSize,
+                            color: onSurface}}>Metriche Documenti</span>
+                          <p style={{fontSize: bodySmall.fontSize,
+                            color: onSurfaceVariant}}>
                             Traccia generazione e tipi di documenti
                           </p>
                         </div>
@@ -880,8 +730,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             })}
                             style={{
                               position: 'absolute',
-                              width: '1px',
-                              height: '1px',
+                              width: layers.ref.spacing['4'],
+                              height: layers.ref.spacing['4'],
                               padding: '0',
                               margin: '-1px',
                               overflow: 'hidden',
@@ -890,24 +740,20 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               border: '0'
                             }}
                           />
-                          <div style={{
-                            width: '44px',
-                            height: 'var(--md-sys-spacing-6)',
-                            backgroundColor: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                            borderRadius: 'var(--md-sys-spacing-3)',
+                          <div style={{width: layers.ref.spacing['4'],
+                            height: layers.ref.spacing['6'],
+                            backgroundColor: analyticsSettings.collectDocumentMetrics ? 'layers.sys.color.primary' : 'layers.sys.color.outline',
+                            borderRadius: layers.ref.spacing['3'],
                             position: 'relative',
-                            transition: 'background-color 0.2s ease'
-                          }}>
-                            <div style={{
-                              position: 'absolute',
-                              top: '2px',
-                              left: analyticsSettings.collectDocumentMetrics ? '22px' : '2px',
-                              width: '20px',
-                              height: '20px',
-                              backgroundColor: 'var(--md-sys-color-on-primary)',
+                            transition: 'background-color 0.2s ease'}}>
+                            <div style={{position: 'absolute',
+                              top: layers.ref.spacing['4'],
+                              left: analyticsSettings.collectDocumentMetrics ? layers.ref.spacing['4'] : layers.ref.spacing['4'],
+                              width: layers.ref.spacing['4'],
+                              height: layers.ref.spacing['4'],
+                              backgroundColor: 'layers.sys.color.on-primary',
                               borderRadius: '50%',
-                              transition: 'left 0.2s ease'
-                            }}></div>
+                              transition: 'left 0.2s ease'}}></div>
                           </div>
                         </div>
                       </label>
@@ -916,31 +762,25 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 </div>
               </div>
 
-              <div style={{
-                backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                padding: 'var(--md-sys-spacing-5)',
-                border: '1px solid var(--md-sys-color-outline)',
-                opacity: 0.5
-              }}>
+              <div style={{backgroundColor: 'layers.sys.color.surfaceContainerLow',
+                borderRadius: 'layers.ref.shape.corner.extra-large',
+                padding: layers.ref.spacing['5'],
+                border: '1px solid layers.sys.color.outline',
+                opacity: 0.5}}>
                 <M3Typography
                   variant="label-small"
-                  style={{
-                    fontWeight: '900',
+                  style={{fontWeight: '900',
                     textTransform: 'uppercase',
                     letterSpacing: '0.2em',
-                    color: 'var(--md-sys-color-primary)',
-                    marginBottom: 'var(--md-sys-spacing-8)',
-                    display: 'block'
-                  }}
+                    color: 'layers.sys.color.primary',
+                    marginBottom: layers.ref.spacing['8'],
+                    display: 'block'}}
                 >
                   Gestione Dati
                 </M3Typography>
-                <div style={{
-                  display: 'flex',
+                <div style={{display: 'flex',
                   flexDirection: 'column',
-                  gap: 'var(--md-sys-spacing-6)'
-                }}>
+                  gap: layers.ref.spacing['6']}}>
                   <SelectField
                     label="Conservazione Dati"
                     value={analyticsSettings.retentionDays}
@@ -955,33 +795,27 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     <option value={365}>1 anno</option>
                   </SelectField>
 
-                  <div style={{
-                    display: 'flex',
+                  <div style={{display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    paddingTop: 'var(--md-sys-spacing-4)',
-                    borderTop: '1px solid var(--md-sys-color-outline)',
-                    opacity: 0.1
-                  }}>
+                    paddingTop: layers.ref.spacing['4'],
+                    borderTop: '1px solid layers.sys.color.outline',
+                    opacity: 0.1}}>
                     <div>
                       <M3Typography
                         variant="label-small"
-                        style={{
-                          fontWeight: '900',
+                        style={{fontWeight: '900',
                           textTransform: 'uppercase',
                           letterSpacing: '0.1em',
-                          color: 'var(--md-sys-color-on-surface-variant)',
-                          marginBottom: 'var(--md-sys-spacing-4)',
-                          display: 'block'
-                        }}
+                          color: 'layers.sys.color.onSurface-variant',
+                          marginBottom: layers.ref.spacing['4'],
+                          display: 'block'}}
                       >
                         Ultimo Reset
                       </M3Typography>
-                      <p style={{
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                      <p style={{fontSize: bodyMedium.fontSize,
                         fontWeight: '700',
-                        color: 'var(--md-sys-color-on-surface)'
-                      }}>
+                        color: onSurface}}>
                         {analyticsSettings.lastReset
                           ? formatDate(analyticsSettings.lastReset)
                           : 'Mai'
@@ -991,20 +825,13 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     <M3Button
                       onClick={handleResetAnalytics}
                       variant="outlined"
-                      style={{
-                        color: 'var(--md-sys-color-error)',
-                        borderColor: 'var(--md-sys-color-error)',
-                        opacity: 0.3,
-                        borderRadius: '9999px'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--md-sys-color-error)';
-                        e.currentTarget.style.opacity = '0.1';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                        e.currentTarget.style.opacity = '0.3';
-                      }}
+                      style={{color: error,
+                        borderColor: error,
+                        opacity: hoveredElements['reset-button] ? 0.1 : 0.3,
+                        backgroundColor: hoveredElements['reset-button] ? error : 'transparent',
+                        borderRadius: layers.ref.spacing['4']}}
+                      onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'reset-button': true }))}
+                      onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'reset-button': false }))}
                     >
                       Reset Dati
                     </M3Button>
@@ -1024,5 +851,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 };
 
 export default AnalyticsDashboard;
+
+
+
+
+
 
 

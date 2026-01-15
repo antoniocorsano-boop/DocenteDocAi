@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import ActionTile from './ActionTile';
@@ -13,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     title: {
       control: 'text',
@@ -152,7 +153,7 @@ export const Multiple: Story = {
     onClick: () => console.log('Create Lesson'),
   },
   render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', padding: '2rem' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'] }}>
       <ActionTile
         title="Create Lesson"
         subtitle="New Material"
@@ -201,7 +202,7 @@ export const Dashboard: Story = {
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '1.5rem',
-        padding: '2rem',
+        padding: layers.ref.spacing['4'],
       }}
     >
       <ActionTile
@@ -261,7 +262,7 @@ export const IconVariations: Story = {
     onClick: () => {},
   },
   render: () => (
-    <div style={{ display: 'flex', gap: '1rem', padding: '2rem', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'], flexWrap: 'wrap' }}>
       <ActionTile title="Add" icon="add" onClick={() => {}} />
       <ActionTile title="Edit" icon="edit" onClick={() => {}} />
       <ActionTile title="Delete" icon="delete" onClick={() => {}} />
@@ -298,5 +299,10 @@ export const Accessibility: Story = {
     },
   },
 };
+
+
+
+
+
 
 

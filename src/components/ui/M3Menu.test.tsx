@@ -1,3 +1,5 @@
+import { renderWithM3Theme } from '../test-utils';
+// LEGACY - MD3 Non-compliant
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -24,7 +26,7 @@ describe('M3Menu', () => {
   });
 
   it('renders nothing when closed', () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={false}
         anchorEl={anchorEl}
@@ -37,7 +39,7 @@ describe('M3Menu', () => {
   });
 
   it('renders menu items when open', () => {
-    render(
+    renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -52,7 +54,7 @@ describe('M3Menu', () => {
   });
 
   it('renders menu title when provided', () => {
-    render(
+    renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -71,7 +73,7 @@ describe('M3Menu', () => {
       { key: 'delete', label: 'Delete', icon: '🗑️', onClick: vi.fn() },
     ];
     
-    render(
+    renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -91,7 +93,7 @@ describe('M3Menu', () => {
       { key: 'item3', label: 'Item 3', onClick: vi.fn() },
     ];
     
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -110,7 +112,7 @@ describe('M3Menu', () => {
       { key: 'item2', label: 'Item 2', onClick: vi.fn(), disabled: true },
     ];
     
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -130,7 +132,7 @@ describe('M3Menu', () => {
       { key: 'item1', label: 'Click Me', onClick },
     ];
     
-    render(
+    renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -155,7 +157,7 @@ describe('M3Menu', () => {
       { key: 'item1', label: 'Disabled Item', onClick, disabled: true },
     ];
     
-    render(
+    renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -173,7 +175,7 @@ describe('M3Menu', () => {
   });
 
   it('navigates items with arrow keys', async () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -212,7 +214,7 @@ describe('M3Menu', () => {
       { key: 'item3', label: 'Item 3', onClick: vi.fn() },
     ];
     
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -243,7 +245,7 @@ describe('M3Menu', () => {
       { key: 'item1', label: 'Item 1', onClick },
     ];
     
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -266,7 +268,7 @@ describe('M3Menu', () => {
   });
 
   it('highlights item on mouse enter', async () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -280,7 +282,7 @@ describe('M3Menu', () => {
     
     await waitFor(() => {
       // Button should have focus-like styling
-      expect((secondButton as HTMLElement).style.backgroundColor).toBe('var(--md-sys-color-surface-container-high)');
+      expect((secondButton as HTMLElement).style.backgroundColor).toBe('var(--md-sys-color-surfaceContainerHigh)');
     });
   });
 
@@ -289,7 +291,7 @@ describe('M3Menu', () => {
       { key: 'delete', label: 'Delete', onClick: vi.fn(), variant: 'error' },
     ];
     
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -303,7 +305,7 @@ describe('M3Menu', () => {
   });
 
   it('applies custom minWidth', () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -314,11 +316,11 @@ describe('M3Menu', () => {
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.minWidth).toBe('300px');
+    expect(popover.style.minWidth).toBe(layers.ref.spacing['4']);
   });
 
   it('applies custom maxWidth', () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -329,17 +331,17 @@ describe('M3Menu', () => {
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.maxWidth).toBe('250px');
+    expect(popover.style.maxWidth).toBe(layers.ref.spacing['4']);
   });
 
   it('applies custom className', () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
         onClose={vi.fn()}
         items={defaultItems}
-        className="custom-menu"
+        
       />
     );
     
@@ -348,7 +350,7 @@ describe('M3Menu', () => {
   });
 
   it('applies custom zIndex', () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -363,7 +365,7 @@ describe('M3Menu', () => {
   });
 
   it('handles empty items list', () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -378,7 +380,7 @@ describe('M3Menu', () => {
   });
 
   it('has proper accessibility structure', () => {
-    const { container } = render(
+    const { container } = renderWithM3Theme(
       <M3Menu
         open={true}
         anchorEl={anchorEl}
@@ -394,5 +396,10 @@ describe('M3Menu', () => {
     expect(items).toHaveLength(3);
   });
 });
+
+
+
+
+
 
 

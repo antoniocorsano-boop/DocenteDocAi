@@ -1,7 +1,11 @@
+// @legacy
+// @md3-noncompliant
+// @do-not-extend
+
 /**
  * Material Design 3 Expressive - Modal Management System
  * Architettura degli Overlay - Soluzione "Modal Hell"
- * 
+ *
  * Features:
  * - Centralized modal stacking with React Portals
  * - Dynamic Z-index calculation (supports 3+ levels)
@@ -38,7 +42,7 @@ interface ModalInstance {
  */
 interface ModalContextType {
   // Stack management
-  stack: ModalInstance[];
+stack: ModalInstance[];
   
   // Modal operations
   pushModal: (options: PushModalOptions) => void;
@@ -127,8 +131,8 @@ interface ModalProviderProps {
  * ```
  */
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
-  const [stack, setStack] = useState<ModalInstance[]>([]);
-  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+const [stack, setStack] = useState<ModalInstance[]>([]);
+    const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   // Initialize portal container ONLY when needed
   useEffect(() => {
@@ -165,7 +169,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
         document.body.removeChild(container);
       }
     };
-  }, [stack.length, portalContainer]);
+}, [stack.length, portalContainer]);
 
   // Push modal to stack
   const pushModal = useCallback(
@@ -230,9 +234,8 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 
   // Get top modal
   const getTopModal = useCallback((): ModalInstance | undefined => {
-    return stack[stack.length - 1];
-  }, [stack]);
-
+      return stack[stack.length - 1];
+    }, [stack]);
   const value: ModalContextType = {
     stack,
     pushModal,

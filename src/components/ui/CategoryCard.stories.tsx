@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import CategoryCard from './CategoryCard';
@@ -13,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     label: {
       control: 'text',
@@ -162,7 +163,7 @@ export const Interactive: Story = {
           display: 'grid',
           gridTemplateColumns: 'repeat(2, 1fr)',
           gap: '1.5rem',
-          padding: '2rem',
+          padding: layers.ref.spacing['4'],
         }}
       >
         {categories.map((cat) => (
@@ -217,8 +218,8 @@ export const AllCategories: Story = {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '1rem',
-          padding: '2rem',
+          gap: layers.ref.spacing['4'],
+          padding: layers.ref.spacing['4'],
         }}
       >
         {categories.map((cat) => (
@@ -261,7 +262,7 @@ export const Grid: Story = {
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gap: '1.5rem',
-        padding: '2rem',
+        padding: layers.ref.spacing['4'],
       }}
     >
       <CategoryCard
@@ -309,8 +310,8 @@ export const CompactSelection: Story = {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(6, 1fr)',
-        gap: '1rem',
-        padding: '2rem',
+        gap: layers.ref.spacing['4'],
+        padding: layers.ref.spacing['4'],
       }}
     >
       {Array.from({ length: 12 }, (_, i) => (
@@ -367,7 +368,7 @@ export const CustomColors: Story = {
   render: () => {
     const [selected, setSelected] = useState<string>('1');
 
-    const colors = ['var(--md-sys-color-primary)', 'var(--md-sys-color-secondary)', 'var(--sys-tertiary)', 'var(--sys-error)', 'var(--md-sys-color-surface-variant)', 'var(--sys-outline)'];
+    const colors = ['var(--md-sys-color-primary)', 'var(--md-sys-color-secondary)', 'var(--sys-tertiary)', 'var(--sys-error)', 'var(--md-sys-color-surface-variant)', 'var(--sys-outline)];
 
     return (
       <div
@@ -375,7 +376,7 @@ export const CustomColors: Story = {
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '1.5rem',
-          padding: '2rem',
+          padding: layers.ref.spacing['4'],
         }}
       >
         {colors.map((color, i) => (
@@ -401,5 +402,10 @@ export const CustomColors: Story = {
     },
   },
 };
+
+
+
+
+
 
 

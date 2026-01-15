@@ -1,6 +1,8 @@
+// LEGACY - MD3 Non-compliant
 
 import React, { useState } from 'react';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { useTheme } from '../theme/theme';
 
 interface ShareModalProps {
     title: string;
@@ -9,6 +11,7 @@ interface ShareModalProps {
 }
 
 const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
+  const { layers } = useTheme();
     const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
 
     const handleSimpleShare = async () => {
@@ -55,27 +58,27 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent className="bg-[var(--md-sys-color-surface-container-high)]/30 backdrop-blur-sm" style={{ gap: "var(--md-sys-spacing-4)" }}>
-                <p className="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant" style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)" }}>Scegli come condividere il contenuto</p>
+            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }} style={{gap: layers.ref.spacing['4']}}>
+                <p style={{ color: layers.sys.color.onSurfaceVariant, paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'] }}>Scegli come condividere il contenuto</p>
                 
-                <div style={{ display: "flex", flexDirection: "column", gap: "var(--md-sys-spacing-6)" }}>
-                    <button onClick={handleSimpleShare} className="rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-low)]est hover:bg-secondary-container/30 group border-[var(--md-sys-color-outline-variant)]/30" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", padding: "var(--md-sys-spacing-8)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid var(--md-sys-color-outline)" }}>
-                        <div className="rounded-[var(--md-sys-shape-corner-large)] text-on-secondary-container group-hover:scale-110 shadow-sm" style={{ width: "3rem", height: "3rem", backgroundColor: "var(--md-sys-color-secondary-container)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
-                            <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>share</span>
+                <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+                    <button onClick={handleSimpleShare} style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['8'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid layers.sys.color.outline"}}>
+                        <div style={{ borderRadius: layers.ref.shape.corner.large, color: sys.colors.on-secondary-container }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.secondary-container", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
+                            <span  style={{ fontSize: "1.5rem" }}>share</span>
                         </div>
                         <div>
-                            <p className="m3-label-large" style={{ fontSize: "1.125rem", fontWeight: "bold" }}>Condividi via...</p>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">WhatsApp, Email, Drive</p>
+                            <p  style={{ fontSize: "1.125rem", fontWeight: "bold" }}>Condividi via...</p>
+                            <p style={{ color:  layers.sys.color.onSurfaceVariant }}>WhatsApp, Email, Drive</p>
                         </div>
                     </button>
 
-                    <button onClick={handleCopyFormatted} className="rounded-[var(--md-sys-shape-corner-extra-large)] bg-[var(--md-sys-color-surface-container-low)]est hover:bg-tertiary-container/30 group border-[var(--md-sys-color-outline-variant)]/30" style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-8)", padding: "var(--md-sys-spacing-8)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid var(--md-sys-color-outline)" }}>
-                        <div className="rounded-[var(--md-sys-shape-corner-large)] text-on-tertiary-container group-hover:scale-110 shadow-sm" style={{ width: "3rem", height: "3rem", backgroundColor: "var(--md-sys-color-tertiary-container)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
-                            <span className="material-symbols-outlined" style={{ fontSize: "1.5rem" }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
+                    <button onClick={handleCopyFormatted} style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['8'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid layers.sys.color.outline"}}>
+                        <div style={{ borderRadius: layers.ref.shape.corner.large, color: sys.colors.on-tertiary-container }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.tertiary-container", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
+                            <span  style={{ fontSize: "1.5rem" }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
                         </div>
                         <div>
-                            <p className="m3-label-large" style={{ fontSize: "1.125rem", fontWeight: "bold" }}>{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</p>
-                            <p className="m3-body-small text-[var(--md-sys-color-on-surface)]-variant">Per registro elettronico o Padlet</p>
+                            <p  style={{ fontSize: "1.125rem", fontWeight: "bold" }}>{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</p>
+                            <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Per registro elettronico o Padlet</p>
                         </div>
                     </button>
                 </div>
@@ -88,5 +91,10 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
 };
 
 export default ShareModal;
+
+
+
+
+
 
 

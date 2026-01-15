@@ -1,7 +1,9 @@
+// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import { OrientamentoActivity } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField, TextArea } from './ui';
 import { UI_TEXT } from '../constants/ui-text';
+import { useTheme } from '../theme/theme';
 
 interface AddOrientamentoActivityModalProps {
     isOpen: boolean;
@@ -16,6 +18,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
     onSave,
     userClasses
 }) => {
+  const { layers } = useTheme();
     const [activity, setActivity] = useState<Partial<OrientamentoActivity>>({
         title: '',
         type: 'didattica',
@@ -39,14 +42,14 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
 
     return (
         <M3Dialog isOpen={isOpen} onClose={onClose} title="Nuova Attività di Orientamento">
-            <M3DialogContent className="pt-8 px-8 md:px-16" style={{ gap: "var(--md-sys-spacing-8)" }}>
+            <M3DialogContent  style={{gap: layers.ref.spacing['8']}}>
                 <TextField
                     label="Titolo Attività"
                     value={activity.title}
                     onChange={(e) => setActivity({ ...activity, title: e.target.value })}
                 />
                 
-                <div className="sm:grid-cols-2 gap-16" style={{ display: "grid", gridTemplateColumns: "1fr" }}>
+                <div  style={{ display: "grid", gridTemplateColumns: "1fr" }}>
                     <SelectField
                         label="Tipo"
                         value={activity.type}
@@ -79,11 +82,9 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                     rows={3}
                 />
 
-                <div style={{
-  marginTop: 'var(--md-sys-spacing-4)'
-}}>
-                    <label className="m3-label-medium text-[var(--md-sys-color-on-surface)]-variant">Classi Coinvolte</label>
-                    <div className="gap-12" style={{ display: "flex", flexWrap: "wrap" }}>
+                <div style={{marginTop: layers.ref.spacing['4']}}>
+                    <label style={{ color:  layers.sys.color.onSurfaceVariant }}>Classi Coinvolte</label>
+                    <div  style={{ display: "flex", flexWrap: "wrap" }}>
                         {userClasses.map(cls => (
                             <button
                                 key={cls}
@@ -98,7 +99,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                 className={`px-8 py-4 rounded-full text-xs font-bold transition-all ${
                                     activity.classes?.includes(cls)
                                         ? 'bg-primary text-on-primary'
-                                        : 'bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)]-variant'
+                                        : 'bg-[var(--md-sys-color-surfaceContainerHigh)] text-[var(--md-sys-color-onSurface)]-variant'
                                 }`}
                             >
                                 {cls}
@@ -116,6 +117,11 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
 };
 
 export default AddOrientamentoActivityModal;
+
+
+
+
+
 
 
 

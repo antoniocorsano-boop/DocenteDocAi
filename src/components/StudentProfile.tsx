@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState, useMemo } from 'react';
@@ -153,72 +154,72 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     };
 
     const renderOverview = () => (
-        <div className="student-profile-overview">
-            <div className="student-profile-stats-grid">
+        <div >
+            <div >
                 <InfoCard 
                     title="Media Voti"
                     description={performance.grade || '-'}
                     icon="analytics"
                     variant="primary"
-                    className="student-profile-stat-card-primary"
+                    
                 />
                 <InfoCard 
                     title="Andamento"
                     description={performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
                     icon={trendIcon}
                     variant="surface"
-                    className="student-profile-stat-card-surface"
+                    
                 />
                 <InfoCard 
                     title="Assenze"
                     description={`${attendanceStats.absences} ore`}
                     icon="event_busy"
                     variant="secondary"
-                    className="student-profile-stat-card-secondary"
+                    
                 />
                 <InfoCard 
                     title="Ritardi"
                     description={`${attendanceStats.lates} ingressi`}
                     icon="schedule"
                     variant="tertiary"
-                    className="student-profile-stat-card-tertiary"
+                    
                 />
             </div>
 
             {onOpenInclusionPlanEditor && (
                 <div 
-                    className="student-profile-inclusion-card"
+                    
                     onClick={() => onOpenInclusionPlanEditor(student)}
                 >
-                    <div className="student-profile-inclusion-content">
-                        <div className="student-profile-inclusion-icon">
-                            <span className="material-symbols-outlined student-profile-inclusion-icon-symbol">accessibility_new</span>
+                    <div >
+                        <div >
+                            <span >accessibility_new</span>
                         </div>
                         <div>
-                            <h3 className="student-profile-inclusion-title">Piano di Inclusione (BES/DSA)</h3>
-                            <p className="student-profile-inclusion-subtitle">Gestisci misure compensative e dispensative.</p>
+                            <h3 >Piano di Inclusione (BES/DSA)</h3>
+                            <p >Gestisci misure compensative e dispensative.</p>
                         </div>
                     </div>
-                    <span className="material-symbols-outlined student-profile-inclusion-arrow">arrow_forward</span>
+                    <span >arrow_forward</span>
                 </div>
             )}
 
             {/* AI Judgment Suggestion Section */}
-            <div className="student-profile-ai-section">
-                <div className="student-profile-ai-header">
-                    <div className="student-profile-ai-content">
-                        <div className="student-profile-ai-icon">
-                            <span className="material-symbols-outlined student-profile-ai-icon-symbol">psychology</span>
+            <div >
+                <div >
+                    <div >
+                        <div >
+                            <span >psychology</span>
                         </div>
                         <div>
-                            <h3 className="student-profile-ai-title">Consulente AI: Giudizio</h3>
-                            <p className="student-profile-ai-subtitle">Genera una bozza di giudizio basata sui dati.</p>
+                            <h3 >Consulente AI: Giudizio</h3>
+                            <p >Genera una bozza di giudizio basata sui dati.</p>
                         </div>
                     </div>
                     <M3Button 
                         onClick={handleGenerateAiJudgment} 
                         variant="filled" 
-                        className="student-profile-ai-generate-button"
+                        
                         disabled={isLoadingAi}
                     >
                         {isLoadingAi ? '⏳' : 'Genera Bozza'}
@@ -226,24 +227,24 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 </div>
 
                 {aiJudgment && (
-                    <div className="student-profile-ai-judgment">
-                        <div className="student-profile-ai-judgment-header">
-                            <span className="material-symbols-outlined student-profile-ai-judgment-icon">auto_awesome</span>
-                            <span className="student-profile-ai-judgment-label">Suggerimento AI</span>
+                    <div >
+                        <div >
+                            <span >auto_awesome</span>
+                            <span >Suggerimento AI</span>
                         </div>
-                        <p className="student-profile-ai-judgment-text">
+                        <p >
                             "{aiJudgment}"
                         </p>
-                        <div className="student-profile-ai-judgment-actions">
+                        <div >
                             <M3Button 
                                 onClick={() => {
                                     navigator.clipboard.writeText(aiJudgment);
                                     alert("Giudizio copiato negli appunti!");
                                 }} 
                                 variant="text" 
-                                className="student-profile-ai-copy-button"
+                                
                             >
-                                <span className="material-symbols-outlined student-profile-ai-copy-icon">content_copy</span>
+                                <span >content_copy</span>
                                 Copia Testo
                             </M3Button>
                         </div>
@@ -252,17 +253,17 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             </div>
 
             {isTerminalYear && (
-                <div className="student-profile-certification-card">
-                    <div className="student-profile-certification-content">
-                        <div className="student-profile-certification-icon">
-                            <span className="material-symbols-outlined student-profile-certification-icon-symbol">workspace_premium</span>
+                <div >
+                    <div >
+                        <div >
+                            <span >workspace_premium</span>
                         </div>
                         <div>
-                            <h3 className="student-profile-certification-title">Certificazione Competenze</h3>
-                            <p className="student-profile-certification-subtitle">Fine ciclo studi</p>
+                            <h3 >Certificazione Competenze</h3>
+                            <p >Fine ciclo studi</p>
                         </div>
                     </div>
-                    <M3Button onClick={handleGenerateCertification} variant="tonal" className="student-profile-certification-button" disabled={isExporting}>
+                    <M3Button onClick={handleGenerateCertification} variant="tonal"  disabled={isExporting}>
                         Genera PDF
                     </M3Button>
                 </div>
@@ -271,28 +272,28 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     );
 
     const renderGrades = () => (
-        <div className="student-profile-grades">
+        <div >
             {Object.entries(groupedEvaluations).length > 0 ? (
                 Object.entries(groupedEvaluations).map(([materia, evals]: [string, Valutazione[]]) => (
-                    <div key={materia} className="student-profile-grade-subject">
-                        <div className="student-profile-grade-subject-header">
-                            <div className="student-profile-grade-subject-info">
-                                <div className="student-profile-grade-subject-icon">
+                    <div key={materia} >
+                        <div >
+                            <div >
+                                <div >
                                     {materia.substring(0, 2).toUpperCase()}
                                 </div>
                                 <div>
-                                    <h3 className="student-profile-grade-subject-title">{materia}</h3>
-                                    <p className="student-profile-grade-subject-count">{evals.length} prove registrate</p>
+                                    <h3 >{materia}</h3>
+                                    <p >{evals.length} prove registrate</p>
                                 </div>
                             </div>
-                            <div className="student-profile-grade-subject-average">
-                                <span className="student-profile-grade-subject-average-label">Media:</span>
-                                <span className="student-profile-grade-subject-average-value">
+                            <div >
+                                <span >Media:</span>
+                                <span >
                                     {(evals.reduce((a, b) => a + (parseFloat(b.voto) || 0), 0) / evals.length).toFixed(1)}
                                 </span>
                             </div>
                         </div>
-                        <div className="student-profile-grade-subject-list">
+                        <div >
                             {evals.map(ev => (
                                 <M3ListItem
                                     key={ev.id}
@@ -304,16 +305,16 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     headline={ev.argomento || 'Verifica'}
                                     supportingText={`${ev.tipo} ${ev.note ? `• ${ev.note}` : ''}`}
                                     trailingElement={
-                                        <div className="student-profile-grade-actions">
-                                            <span className="student-profile-grade-date">{new Date(ev.data).toLocaleDateString()}</span>
-                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" className="student-profile-grade-delete">
+                                        <div >
+                                            <span >{new Date(ev.data).toLocaleDateString()}</span>
+                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" >
                                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>delete</span>
                                             </M3Button>
                                         </div>
                                     }
-                                    className="student-profile-grade-item"
+                                    
                                 />
                             ))}
                         </div>
@@ -324,9 +325,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     );
 
     const renderCompetencies = () => (
-        <div className="student-profile-competencies">
+        <div >
             {Object.entries(groupedCompetencyEvals).length > 0 ? (
-                <div className="student-profile-competencies-grid">
+                <div >
                     {Object.values(groupedCompetencyEvals).map(({ competenza, evals }) => {
                         const latest = evals.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
                         const level = competenza.livelli.find(l => l.id === latest.livelloId);
@@ -341,27 +342,27 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                         }
 
                         return (
-                            <div key={competenza.id} className="student-profile-competency-card">
-                                <div className="student-profile-competency-header">
+                            <div key={competenza.id} >
+                                <div >
                                     <div>
-                                        <p className="student-profile-competency-code">{competenza.codice}</p>
-                                        <h3 className="student-profile-competency-title">{competenza.nome}</h3>
+                                        <p >{competenza.codice}</p>
+                                        <h3 >{competenza.nome}</h3>
                                     </div>
                                     <div className={`student-profile-competency-level ${levelColor}`}>
                                         {level?.nome}
                                     </div>
                                 </div>
-                                <div className="student-profile-competency-details">
-                                    <div className="student-profile-competency-date">
-                                        <span className="material-symbols-outlined student-profile-competency-date-icon">event</span>
-                                        <span className="student-profile-competency-date-text">{new Date(latest.data).toLocaleDateString()}</span>
+                                <div >
+                                    <div >
+                                        <span >event</span>
+                                        <span >{new Date(latest.data).toLocaleDateString()}</span>
                                     </div>
-                                    <p className="student-profile-competency-description">{level?.descrizione}</p>
+                                    <p >{level?.descrizione}</p>
                                 </div>
                                 {latest.nota && (
-                                    <div className="student-profile-competency-note">
-                                        <span className="material-symbols-outlined student-profile-competency-note-icon">chat_bubble</span>
-                                        <p className="student-profile-competency-note-text">&ldquo;{latest.nota}&rdquo;</p>
+                                    <div >
+                                        <span >chat_bubble</span>
+                                        <p >&ldquo;{latest.nota}&rdquo;</p>
                                     </div>
                                 )}
                             </div>
@@ -373,24 +374,24 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     );
 
     const renderNotes = () => (
-        <div className="student-profile-notes">
+        <div >
             {studentReceptions.length > 0 ? (
-                <div className="student-profile-notes-list">
+                <div >
                     {(studentReceptions || []).map(lesson => (
-                        <div key={lesson.id} className="student-profile-note-card">
-                            <div className="student-profile-note-accent"></div>
-                            <div className="student-profile-note-header">
-                                <div className="student-profile-note-type">
-                                    <span className="material-symbols-outlined student-profile-note-type-icon">meeting_room</span>
-                                    <span className="student-profile-note-type-badge">Ricevimento</span>
+                        <div key={lesson.id} >
+                            <div ></div>
+                            <div >
+                                <div >
+                                    <span >meeting_room</span>
+                                    <span >Ricevimento</span>
                                 </div>
-                                <span className="student-profile-note-date">{new Date(lesson.data).toLocaleDateString()}</span>
+                                <span >{new Date(lesson.data).toLocaleDateString()}</span>
                             </div>
-                            <p className="student-profile-note-content">{lesson.contenuto}</p>
+                            <p >{lesson.contenuto}</p>
                             {lesson.obiettivi && (
-                                <div className="student-profile-note-objectives">
-                                    <p className="student-profile-note-objectives-label">Esito / Obiettivi</p>
-                                    <p className="student-profile-note-objectives-text">{lesson.obiettivi}</p>
+                                <div >
+                                    <p >Esito / Obiettivi</p>
+                                    <p >{lesson.obiettivi}</p>
                                 </div>
                             )}
                         </div>
@@ -408,37 +409,37 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     ];
 
     return (
-        <div className="student-profile-layout">
-            <div className="student-profile-header">
-                <div className="student-profile-header-info">
-                    <M3Button onClick={onBack} variant="icon" className="student-profile-back-button">
+        <div >
+            <div >
+                <div >
+                    <M3Button onClick={onBack} variant="icon" >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>arrow_back</span>
                     </M3Button>
-                    <div className="student-profile-header-details">
+                    <div >
                         <Avatar 
                             name={`${student.nome} ${student.cognome}`} 
                             size="xl" 
-                            className="student-profile-avatar"
+                            
                         />
                         <div>
-                            <h1 className="student-profile-name">{student.cognome} {student.nome}</h1>
-                            <div className="student-profile-badges">
-                                <span className="student-profile-class-badge">Classe {student.classe}</span>
-                                {student.hasBES && <span className="student-profile-bes-badge">BES</span>}
-                                {student.hasDSA && <span className="student-profile-dsa-badge">DSA</span>}
+                            <h1 >{student.cognome} {student.nome}</h1>
+                            <div >
+                                <span >Classe {student.classe}</span>
+                                {student.hasBES && <span >BES</span>}
+                                {student.hasDSA && <span >DSA</span>}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="student-profile-header-actions">
-                    <M3Button onClick={() => setIsInterviewModeOpen(true)} variant="tonal" className="student-profile-interview-button">
-                        <span className="material-symbols-outlined student-profile-interview-icon">record_voice_over</span>
+                <div >
+                    <M3Button onClick={() => setIsInterviewModeOpen(true)} variant="tonal" >
+                        <span >record_voice_over</span>
                         Colloquio
                     </M3Button>
-                    <M3Button onClick={handleExportPdf} variant="filled" className="student-profile-export-button" disabled={isExporting}>
-                        <span className="material-symbols-outlined student-profile-export-icon">download</span>
+                    <M3Button onClick={handleExportPdf} variant="filled"  disabled={isExporting}>
+                        <span >download</span>
                         Esporta PDF
                     </M3Button>
                 </div>
@@ -449,10 +450,10 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 activeTab={activeTab} 
                 onTabChange={(id) => setActiveTab(id as ProfileTab)}
                 variant="primary"
-                className="student-profile-tabs"
+                
             />
 
-            <div className="student-profile-content">
+            <div >
                 {activeTab === 'overview' && renderOverview()}
                 {activeTab === 'grades' && renderGrades()}
                 {activeTab === 'competencies' && renderCompetencies()}
@@ -474,5 +475,10 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
 };
 
 export default StudentProfile;
+
+
+
+
+
 
 

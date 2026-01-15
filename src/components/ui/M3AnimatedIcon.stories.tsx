@@ -1,10 +1,11 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import M3AnimatedIcon from './M3AnimatedIcon';
 
 const meta: Meta<typeof M3AnimatedIcon> = {
   component: M3AnimatedIcon,
   title: 'UI/Icons/M3AnimatedIcon',
-  tags: ['autodocs'],
+  tags: ['autodocs],
   parameters: {
     layout: 'centered',
     docs: {
@@ -23,7 +24,7 @@ const meta: Meta<typeof M3AnimatedIcon> = {
     },
     animation: {
       control: 'select',
-      options: ['spin', 'pulse', 'bounce', 'fade'],
+      options: ['spin', 'pulse', 'bounce', 'fade],
       description: 'Animation type',
       table: {
         type: { summary: 'spin | pulse | bounce | fade' },
@@ -39,7 +40,7 @@ const meta: Meta<typeof M3AnimatedIcon> = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl'],
+      options: ['sm', 'md', 'lg', 'xl],
       description: 'Icon size',
       table: {
         type: { summary: 'sm | md | lg | xl' },
@@ -123,3 +124,8 @@ export const ProcessingIndicator: Story = {
     size: 'md',
   },
 };
+
+
+
+
+

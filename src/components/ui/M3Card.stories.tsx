@@ -1,3 +1,4 @@
+// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3Card from './M3Card';
@@ -5,7 +6,7 @@ import M3Card from './M3Card';
 const meta = {
   title: 'M3/Card',
   component: M3Card,
-  tags: ['autodocs'],
+  tags: ['autodocs],
   argTypes: {
     children: {
       control: 'text',
@@ -65,9 +66,14 @@ export const Clickable: Story = {
  */
 export const WithCustomClass: Story = {
   args: {
-    className: 'bg-primary-container text-on-primary-container',
+    className: 'bg-primaryContainer text-on-primaryContainer',
     children: 'Card with custom background and text color',
   },
 };
+
+
+
+
+
 
 

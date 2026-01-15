@@ -1,4 +1,5 @@
-import React from 'react';
+// LEGACY - MD3 Non-compliant
+import React, { useState } from 'react';
 import { useTheme } from '../../theme/theme';
 
 interface M3SuggestionItemProps {
@@ -14,31 +15,25 @@ const M3SuggestionItem: React.FC<M3SuggestionItemProps> = ({
   children,
   onClick
 }) => {
-  const { spacing } = useTheme();
+  const { layers } = useTheme();
+  const {
+    sys: { color: { surfaceVariant, primary, outlineVariant } },
+    ref: { spacing, shape: { corner: { large } } },
+    motion: { duration: { short }, easing: { standard } }
+  } = layers;
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      style={{
-        backgroundColor: 'var(--md-sys-color-surface-variant)',
-        opacity: 0.8,
+      style={{backgroundColor: surfaceVariant,
+        opacity: isHovered && onClick ? 0.9 : 0.8,
         padding: spacing[4],
-        borderRadius: 'var(--md-sys-shape-corner-large)',
-        border: `1px solid var(--md-sys-color-outline-variant)`,
-        transition: 'border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-        cursor: onClick ? 'pointer' : 'default'
-      }}
-      onMouseEnter={(e) => {
-        if (onClick) {
-          e.currentTarget.style.borderColor = 'var(--md-sys-color-primary)';
-          e.currentTarget.style.opacity = '0.9';
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (onClick) {
-          e.currentTarget.style.borderColor = 'var(--md-sys-color-outline-variant)';
-          e.currentTarget.style.opacity = '0.8';
-        }
-      }}
+        borderRadius: large,
+        border: `1px solid ${isHovered && onClick ? primary : outlineVariant}`,
+        transition: `border-color ${short} ${standard}`,
+        cursor: onClick ? 'pointer' : 'default'}}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
       {children}
@@ -47,4 +42,9 @@ const M3SuggestionItem: React.FC<M3SuggestionItemProps> = ({
 };
 
 export default M3SuggestionItem;
+
+
+
+
+
 

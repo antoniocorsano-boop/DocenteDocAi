@@ -1,6 +1,6 @@
-import React from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../hooks/useTheme';
+// LEGACY - MD3 Non-compliant
+import React, { useState } from 'react';
+import { useTheme } from '../../theme/theme';
 
 interface M3ListItemProps {
     headline: React.ReactNode;
@@ -21,6 +21,10 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
     onClick, 
     children 
 }) => {
+    const [hovered, setHovered] = useState(false);
+    const [focused, setFocused] = useState(false);
+    const { layers } = useTheme();
+    const { sys, ref, motion } = layers;
     const isClickable = Boolean(onClick);
     
     return (
@@ -37,47 +41,36 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
             style={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: 'var(--md-sys-spacing-4)',
-                padding: 'var(--md-sys-spacing-4)',
-                borderRadius: 'var(--md-sys-shape-corner-medium)',
-                transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-                minHeight: 'var(--md-sys-spacing-14)',
+                gap: layers.ref.spacing['4'],
+                padding: layers.ref.spacing['4'],
+                borderRadius: ref.shape.corner.medium,
+                transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
+                minHeight: layers.ref.spacing['12'],
                 cursor: isClickable ? 'pointer' : 'default',
-                backgroundColor: 'transparent',
-                outline: 'none',
+                backgroundColor: (hovered || focused) && isClickable ? sys.color.surfaceContainerHigh : 'transparent',
+                outline: focused && isClickable ? `2px solid ${sys.color.primary}` : 'none',
+                outlineOffset: focused ? layers.ref.spacing['2'] : '0',
                 border: 'none',
                 textAlign: 'left',
                 width: '100%'
             }}
-            onMouseEnter={(e) => {
-                if (isClickable) {
-                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                }
+            onMouseEnter={() => {
+                if (isClickable) setHovered(true);
             }}
-            onMouseLeave={(e) => {
-                if (isClickable) {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                }
+            onMouseLeave={() => {
+                if (isClickable) setHovered(false);
             }}
-            onFocus={(e) => {
-                if (isClickable) {
-                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                    e.currentTarget.style.outline = `2px solid var(--md-sys-color-primary)`;
-                    e.currentTarget.style.outlineOffset = '2px';
-                }
+            onFocus={() => {
+                if (isClickable) setFocused(true);
             }}
-            onBlur={(e) => {
-                if (isClickable) {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.outline = 'none';
-                    e.currentTarget.style.outlineOffset = '0';
-                }
+            onBlur={() => {
+                if (isClickable) setFocused(false);
             }}
         >
-            {leadingElement && <div style={{ flexShrink: 0, marginTop: 'var(--md-sys-spacing-1)' }}>{leadingElement}</div>}
-            <div style={{ flexGrow: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
+            {leadingElement && <div style={{flexShrink: 0, marginTop: layers.ref.spacing['1']}}>{leadingElement}</div>}
+            <div style={{flexGrow: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['1']}}>
                 <div style={{
-                    color: 'var(--md-sys-color-on-surface)',
+                    color: 'var(--md-sys-color-onSurface)',
                     fontWeight: 'bold',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
@@ -101,23 +94,26 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
                     {headline}
                 </div>
                 {supportingText && (
-                    <div style={{
-                        fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                    <div style={{fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                         fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
                         lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        opacity: 0.8
-                    }}>
+                        color: ' layers.sys.color.onSurfaceVariant',
+                        opacity: 0.8}}>
                         {supportingText}
                     </div>
                 )}
                 {children}
             </div>
-            {trailingElement && <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)', alignSelf: 'center' }}>{trailingElement}</div>}
+            {trailingElement && <div style={{flexShrink: 0, display: 'flex', alignItems: 'center', gap: layers.ref.spacing['8'], alignSelf: 'center'}}>{trailingElement}</div>}
         </div>
     );
 };
 
 export default M3ListItem;
+
+
+
+
+
 
 
