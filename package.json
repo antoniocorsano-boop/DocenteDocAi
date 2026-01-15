@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "docentedoc-ai",
   "version": "1.0.0",
   "description": "DocenteDoc AI - An intelligent teaching assistant for Italian educators.",
