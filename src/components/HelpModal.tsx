@@ -4,47 +4,108 @@ import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
 import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, InfoCard } from './ui';
-import { useTheme } from '../theme/theme';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, InfoCard, M3Typography } from './ui';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa';
 
 // --- HELPERS ---
-const ManualSection: React.FC<{ title: string; icon: string; colorClass: string; defaultOpen?: boolean; children: React.ReactNode }> = ({ title, icon, colorClass, defaultOpen = false, children }) => {
-  const { layers } = useTheme();
+const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boolean; children: React.ReactNode }> = ({ title, icon, defaultOpen = false, children }) => {
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
-        <div >
+        <div style={{
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            padding: 'var(--md-sys-spacing-4)'
+        }}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: 'var(--md-sys-spacing-3)',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer'
+                }}
             >
-                <div >
-                    <span className={`material-symbols-outlined help-modal-manual-section-icon ${colorClass}`}>{icon}</span>
-                    <span >{title}</span>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-3)'
+                }}>
+                    <span style={{
+                        fontFamily: 'Material Symbols Outlined',
+                        fontSize: 'var(--md-sys-typescale-title-medium-size)',
+                        color: 'var(--md-sys-color-primary)'
+                    }}>{icon}</span>
+                    <M3Typography variant="title-medium" style={{ fontWeight: 'bold' }}>{title}</M3Typography>
                 </div>
-                <span className={`material-symbols-outlined help-modal-manual-section-expand-icon ${isOpen ? 'expanded' : ''}`}>expand_more</span>
+                <span style={{
+                    fontFamily: 'Material Symbols Outlined',
+                    fontSize: 'var(--md-sys-typescale-title-medium-size)',
+                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.3s ease'
+                }}>expand_more</span>
             </button>
-            {isOpen && <div >{children}</div>}
+            {isOpen && <div style={{
+                padding: 'var(--md-sys-spacing-4)',
+                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                borderRadius: 'var(--md-sys-shape-corner-medium)'
+            }}>{children}</div>}
         </div>
     );
 };
 
 const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }> = ({ scenario, steps, tip }) => (
-    <div >
-        <p >{scenario}</p>
-        <ol >
+    <div style={{
+        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        padding: 'var(--md-sys-spacing-4)'
+    }}>
+        <M3Typography variant="body-large" style={{ fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-3)' }}>{scenario}</M3Typography>
+        <ol style={{
+            paddingLeft: 'var(--md-sys-spacing-5)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--md-sys-spacing-2)'
+        }}>
             {steps.map((step, i) => (
-                <li key={i} >
-                    <span >{i+1}</span>
-                    <span dangerouslySetInnerHTML={{ __html: step }}></span>
+                <li key={i} style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 'var(--md-sys-spacing-2)'
+                }}>
+                    <span style={{
+                        fontFamily: 'Material Symbols Outlined',
+                        fontSize: 'var(--md-sys-typescale-body-small-size)',
+                        color: 'var(--md-sys-color-primary)',
+                        flexShrink: 0
+                    }}>check_circle</span>
+                    <span dangerouslySetInnerHTML={{ __html: step }} style={{
+                        fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                        lineHeight: 'var(--md-sys-typescale-body-medium-line-height)'
+                    }}></span>
                 </li>
             ))}
         </ol>
         {tip && (
-            <div >
-                <span >lightbulb</span>
-                <p >{tip}</p>
+            <div style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 'var(--md-sys-spacing-2)',
+                marginTop: 'var(--md-sys-spacing-3)',
+                backgroundColor: 'var(--md-sys-color-secondary-container)',
+                padding: 'var(--md-sys-spacing-3)',
+                borderRadius: 'var(--md-sys-shape-corner-medium)'
+            }}>
+                <span style={{
+                    fontFamily: 'Material Symbols Outlined',
+                    fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                    color: 'var(--md-sys-color-secondary)'
+                }}>lightbulb</span>
+                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-secondary-container)' }}>{tip}</M3Typography>
             </div>
         )}
     </div>
@@ -194,42 +255,96 @@ const vocalAssistantGuideData = {
 };
 
 const SetupGuide = () => (
-    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
-        <h2 style={{fontSize: "var(--md-sys-typescale-headline-small-size)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Guida alla Configurazione Iniziale</h2>
-        <p style={{fontSize: "var(--md-sys-typescale-body-medium-size)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: layers.sys.color.onSurface}}>Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</p>
-
-        <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large}}>
-            <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['6']}}>1. Impostazioni Generali</h3>
-            <p style={{fontSize: "0.875rem", marginBottom: layers.ref.spacing['6']}}>Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</p>
-            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
+    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+        <M3Typography variant="headline-small" style={{ fontWeight: "900" }}>Guida alla Configurazione Iniziale</M3Typography>
+        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</M3Typography>
+        
+        <div style={{
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            padding: 'var(--md-sys-spacing-4)'
+        }}>
+            <M3Typography variant="title-medium" style={{
+                color: 'var(--md-sys-color-primary)',
+                fontWeight: "bold",
+                marginBottom: 'var(--md-sys-spacing-4)'
+            }}>1. Impostazioni Generali</M3Typography>
+            <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</M3Typography>
+            <ul style={{
+                paddingLeft: 'var(--md-sys-spacing-5)',
+                display: "flex",
+                flexDirection: "column",
+                gap: 'var(--md-sys-spacing-2)'
+            }}>
                 <li>Inserisci il tuo Nome e l'Istituto.</li>
                 <li><strong>Importante:</strong> Nella sezione "Generale", imposta le date di <strong>Inizio</strong> e <strong>Fine Attività Didattica</strong>. Queste date sono fondamentali per visualizzare correttamente la Timeline dei progetti.</li>
             </ul>
         </div>
 
-        <div style={{backgroundColor: "rgba(layers.sys.color.surfaceContainerLow-rgb, 0.5)", padding: layers.ref.spacing['5'], borderRadius: layers.ref.shape.corner.large, border: "1px solid rgba(layers.sys.color.outline-variant-rgb, 0.2)"}}>
-            <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['6']}}>2. Configurazione Classi e Materie</h3>
-            <p style={{fontSize: "0.875rem", marginBottom: layers.ref.spacing['6']}}>Sempre in Impostazioni:</p>
-            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
+        <div style={{
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            padding: 'var(--md-sys-spacing-4)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            border: "1px solid var(--md-sys-color-outline-variant)"
+        }}>
+            <M3Typography variant="title-medium" style={{
+                color: 'var(--md-sys-color-primary)',
+                fontWeight: "bold",
+                marginBottom: 'var(--md-sys-spacing-4)'
+            }}>2. Configurazione Classi e Materie</M3Typography>
+            <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>Sempre in Impostazioni:</M3Typography>
+            <ul style={{
+                paddingLeft: 'var(--md-sys-spacing-5)',
+                display: "flex",
+                flexDirection: "column",
+                gap: 'var(--md-sys-spacing-2)'
+            }}>
                 <li>Sezione <strong>Orario & Materie</strong>: Aggiungi le materie che insegni.</li>
                 <li>Sezione <strong>Classi</strong>: Seleziona le combinazioni Anno/Sezione (es. 1A, 3B) che avrai quest'anno.</li>
             </ul>
         </div>
 
-        <div style={{backgroundColor: "rgba(layers.sys.color.surfaceContainerLow-rgb, 0.5)", padding: layers.ref.spacing['5'], borderRadius: layers.ref.shape.corner.large, border: "1px solid rgba(layers.sys.color.outline-variant-rgb, 0.2)"}}>
-            <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['6']}}>3. Inserimento Studenti</h3>
-            <p style={{fontSize: "0.875rem", marginBottom: layers.ref.spacing['6']}}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</p>
-            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
+        <div style={{
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            padding: 'var(--md-sys-spacing-4)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            border: "1px solid var(--md-sys-color-outline-variant)"
+        }}>
+            <M3Typography variant="title-medium" style={{
+                color: 'var(--md-sys-color-primary)',
+                fontWeight: "bold",
+                marginBottom: 'var(--md-sys-spacing-4)'
+            }}>3. Inserimento Studenti</M3Typography>
+            <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</M3Typography>
+            <ul style={{
+                paddingLeft: 'var(--md-sys-spacing-5)',
+                display: "flex",
+                flexDirection: "column",
+                gap: 'var(--md-sys-spacing-2)'
+            }}>
                 <li>Puoi aggiungere gli studenti manualmente uno ad uno.</li>
                 <li>Oppure usa l'importazione CSV per caricare l'elenco completo da un file Excel/CSV.</li>
             </ul>
         </div>
 
-        <div style={{backgroundColor: "rgba(layers.sys.color.surfaceContainerLow-rgb, 0.5)", padding: layers.ref.spacing['5'], borderRadius: layers.ref.shape.corner.large, border: "1px solid rgba(layers.sys.color.outline-variant-rgb, 0.2)"}}>
-            <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['6']}}>4. Costruzione Orario</h3>
-            <p style={{fontSize: "0.875rem", marginBottom: layers.ref.spacing['6']}}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</p>
-            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
-                <li>Tocca una cella vuota della griglia.</li>
+        <div style={{
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            padding: 'var(--md-sys-spacing-4)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            border: "1px solid var(--md-sys-color-outline-variant)"
+        }}>
+            <M3Typography variant="title-medium" style={{
+                color: 'var(--md-sys-color-primary)',
+                fontWeight: "bold",
+                marginBottom: 'var(--md-sys-spacing-4)'
+            }}>4. Costruzione Orario</M3Typography>
+            <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</M3Typography>
+            <ul style={{
+                paddingLeft: 'var(--md-sys-spacing-5)',
+                display: "flex",
+                flexDirection: "column",
+                gap: 'var(--md-sys-spacing-2)'
+            }}>
                 <li>Assegna Classe e Materia per creare il tuo orario settimanale stabile.</li>
             </ul>
         </div>
@@ -243,34 +358,72 @@ const DigitalTeacherManual = () => {
     };
 
     return (
-        <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
-            <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['8'], borderBottom: "1px solid layers.sys.color.outline-variant", paddingBottom: layers.ref.spacing['6'], justifyContent: "space-between", alignItems: "flex-start"}} >
+        <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 'var(--md-sys-spacing-8)',
+                borderBottom: "1px solid var(--md-sys-color-outline-variant)",
+                paddingBottom: 'var(--md-sys-spacing-6)',
+                justifyContent: "space-between",
+                alignItems: "flex-start"
+            }} >
                 <div>
-                    <h2 style={{fontSize: "var(--md-sys-typescale-headline-small-size)", fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Manuale Integrale e Normativa</h2>
-                    <p style={{fontSize: "var(--md-sys-typescale-body-medium-size)", fontFamily: "var(--md-sys-typescale-body-medium-font)", color: layers.sys.color.onSurface}}>Versione 4.1.0 - M3 Expressive Edition</p>
+                    <M3Typography variant="headline-small" style={{ fontWeight: "900" }}>Manuale Integrale e Normativa</M3Typography>
+                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>Versione 4.1.0 - M3 Expressive Edition</M3Typography>
                 </div>
-                <M3Button onClick={downloadManual} variant="outlined" style={{ fontWeight: "900", fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                    <span  style={{ marginRight: "0.5rem" }}>download</span>
+                <M3Button onClick={downloadManual} variant="outlined" style={{
+                    fontWeight: "900",
+                    fontSize: 'var(--md-sys-typescale-label-large-size)',
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase"
+                }}>
+                    <span style={{ marginRight: "0.5rem" }}>download</span>
                     Scarica .MD
                 </M3Button>
             </div>
 
-            <InfoCard 
-                title="Documentazione Completa"
-                description="Questa sezione raccoglie le informazioni operative, le specifiche di sicurezza (GDPR) e la visione strategica. Clicca sulle sezioni per espandere."
-                icon="info"
-                variant="primary"
-                style={{ backgroundColor: sys.colors.primaryContainer/10 }}
-            />
+            <div style={{ backgroundColor: 'var(--md-sys-color-primary-container)' }}>
+                <InfoCard 
+                    title="Documentazione Completa"
+                    description="Questa sezione raccoglie le informazioni operative, le specifiche di sicurezza (GDPR) e la visione strategica. Clicca sulle sezioni per espandere."
+                    icon="info"
+                    variant="primary"
+                />
+            </div>
 
-            <ManualSection title="1. Normativa, Sicurezza e Privacy" icon="security" colorClass="text-tertiary" defaultOpen>
-                <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['4'], backgroundColor: layers.sys.color.surfaceContainerLow}}>
-                     <h4  style={{fontWeight: "900", color: layers.sys.color.primary, textTransform: "uppercase", letterSpacing: "0.1em"}}>GDPR & Sovranità del Dato</h4>
-                     <p style={{ fontSize: "0.875rem", lineHeight: "1.625" }}>L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</p>
+            <ManualSection title="1. Normativa, Sicurezza e Privacy" icon="security" defaultOpen>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 'var(--md-sys-spacing-4)',
+                    backgroundColor: 'var(--md-sys-color-surface-container-low)'
+                }}>
+                     <M3Typography variant="title-medium" style={{
+                         fontWeight: "900",
+                         color: 'var(--md-sys-color-primary)',
+                         textTransform: "uppercase",
+                         letterSpacing: "0.1em"
+                     }}>GDPR & Sovranità del Dato</M3Typography>
+                     <M3Typography variant="body-medium" style={{
+                         lineHeight: "1.625"
+                     }}>L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</M3Typography>
                      
-                     <h4  style={{fontWeight: "900", color: layers.sys.color.primary, textTransform: "uppercase", letterSpacing: "0.1em"}}>Norme Scolastiche</h4>
-                     <p style={{ fontSize: "0.875rem", lineHeight: "1.625" }}>Il sistema supporta nativamente:</p>
-                     <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['1']}}>
+                     <M3Typography variant="title-medium" style={{
+                         fontWeight: "900",
+                         color: 'var(--md-sys-color-primary)',
+                         textTransform: "uppercase",
+                         letterSpacing: "0.1em"
+                     }}>Norme Scolastiche</M3Typography>
+                     <M3Typography variant="body-medium" style={{
+                         lineHeight: "1.625"
+                     }}>Il sistema supporta nativamente:</M3Typography>
+                     <ul style={{
+                         paddingLeft: 'var(--md-sys-spacing-5)',
+                         display: "flex",
+                         flexDirection: "column",
+                         gap: 'var(--md-sys-spacing-1)'
+                     }}>
                          <li><strong>L. 170/2010 & Dir. BES:</strong> Modulo Inclusione dedicato.</li>
                          <li><strong>DPR 122/2009:</strong> Valutazione formativa e sommativa.</li>
                          <li><strong>O.M. 172/2020:</strong> Valutazione descrittiva primaria (livelli di competenza).</li>
@@ -278,8 +431,12 @@ const DigitalTeacherManual = () => {
                 </div>
             </ManualSection>
 
-            <ManualSection title="2. Manuale Operativo" icon="school" colorClass="text-primary">
-                <h4  style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Configurazione & Strategia</h4>
+            <ManualSection title="2. Manuale Operativo" icon="school">
+                <M3Typography variant="title-medium" style={{
+                    fontWeight: "900",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em"
+                }}>Configurazione & Strategia</M3Typography>
                 <UseCaseCard 
                     scenario="Voglio che l'app conosca il mio metodo."
                     steps={[
@@ -289,7 +446,11 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4  style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>In Aula</h4>
+                <M3Typography variant="title-medium" style={{
+                    fontWeight: "900",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em"
+                }}>In Aula</M3Typography>
                 <UseCaseCard 
                     scenario="Devo segnare una nota disciplinare mentre spiego."
                     steps={[
@@ -299,7 +460,11 @@ const DigitalTeacherManual = () => {
                     ]}
                 />
                 
-                <h4  style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Valutazione</h4>
+                <M3Typography variant="title-medium" style={{
+                    fontWeight: "900",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em"
+                }}>Valutazione</M3Typography>
                  <UseCaseCard 
                     scenario="Voglio dare un voto completo."
                     steps={[
@@ -311,15 +476,61 @@ const DigitalTeacherManual = () => {
                 />
             </ManualSection>
 
-            <ManualSection title="3. Visione Strategica per Stakeholders" icon="campaign" colorClass="text-secondary">
-                <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: layers.ref.spacing['8']}}>
-                    <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large}}>
-                        <h4 style={{ fontWeight: "900", alignItems: "center", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}><span  style={{color: layers.sys.color.primary}}>admin_panel_settings</span> Per il Dirigente</h4>
-                        <p style={{fontSize: "0.875rem", color: layers.sys.color.onSurface, lineHeight: "1.625"}}>Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</p>
+            <ManualSection title="3. Visione Strategica per Stakeholders" icon="campaign">
+                <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                    gap: 'var(--md-sys-spacing-8)'
+                }}>
+                    <div style={{
+                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: 'var(--md-sys-spacing-4)'
+                    }}>
+                        <M3Typography variant="title-small" style={{
+                            fontWeight: "900",
+                            fontSize: 'var(--md-sys-typescale-label-large-size)',
+                            textTransform: "uppercase",
+                            letterSpacing: "0.1em",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 'var(--md-sys-spacing-2)'
+                        }}>
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
+                                color: 'var(--md-sys-color-primary)'
+                            }}>admin_panel_settings</span>
+                            Per il Dirigente
+                        </M3Typography>
+                        <M3Typography variant="body-medium" style={{
+                            color: 'var(--md-sys-color-on-surface)',
+                            lineHeight: "1.625"
+                        }}>Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</M3Typography>
                     </div>
-                    <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large}}>
-                        <h4 style={{ fontWeight: "900", alignItems: "center", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}><span  style={{color: layers.sys.color.secondary}}>engineering</span> Per l'Animatore Digitale</h4>
-                        <p style={{fontSize: "0.875rem", color: layers.sys.color.onSurface, lineHeight: "1.625"}}>Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</p>
+                    <div style={{
+                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: 'var(--md-sys-spacing-4)'
+                    }}>
+                        <M3Typography variant="title-small" style={{
+                            fontWeight: "900",
+                            fontSize: 'var(--md-sys-typescale-label-large-size)',
+                            textTransform: "uppercase",
+                            letterSpacing: "0.1em",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 'var(--md-sys-spacing-2)'
+                        }}>
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
+                                color: 'var(--md-sys-color-secondary)'
+                            }}>engineering</span>
+                            Per l'Animatore Digitale
+                        </M3Typography>
+                        <M3Typography variant="body-medium" style={{
+                            color: 'var(--md-sys-color-on-surface)',
+                            lineHeight: "1.625"
+                        }}>Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</M3Typography>
                     </div>
                 </div>
             </ManualSection>
@@ -329,74 +540,191 @@ const DigitalTeacherManual = () => {
 };
 
 const VocalAssistantGuideContent = () => (
-    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
-        <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900", alignItems: "center"}}>
-            <span  style={{color: layers.sys.color.primary}}>mic</span>
+    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+        <M3Typography variant="headline-small" style={{
+            fontWeight: "900",
+            display: "flex",
+            alignItems: "center",
+            gap: 'var(--md-sys-spacing-2)'
+        }}>
+            <span style={{
+                fontFamily: 'Material Symbols Outlined',
+                color: 'var(--md-sys-color-primary)'
+            }}>mic</span>
             Il tuo Copilota Didattico
-        </h2>
-        <p style={{fontFamily: "var(--md-sys-typescale-body-medium-font)", color: layers.sys.color.onSurface, lineHeight: "1.625"}}>
+        </M3Typography>
+        <M3Typography variant="body-medium" style={{
+            color: 'var(--md-sys-color-on-surface)',
+            lineHeight: "1.625"
+        }}>
             L'Assistente Live non è solo una chat: è collegato al registro, ai tuoi documenti e ora anche a <strong>Google Search</strong>. Premi il microfono e prova questi comandi:
-        </p>
+        </M3Typography>
         
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+        <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gap: 'var(--md-sys-spacing-8)'
+        }}>
             {vocalAssistantGuideData.sections.map((section, idx) => (
-                <div key={idx} style={{backgroundColor: "rgba(layers.sys.color.surfaceContainerLow-rgb, 0.5)", padding: layers.ref.spacing['5'], borderRadius: layers.ref.shape.corner.large, border: "1px solid rgba(layers.sys.color.outline-variant-rgb, 0.1)"}}>
-                    <h3 style={{fontSize: "var(--md-sys-typescale-title-medium-size)", fontFamily: "var(--md-sys-typescale-title-medium-font)", color: layers.sys.color.primary, fontWeight: "bold", marginBottom: layers.ref.spacing['8'], display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                        <span  style={{ fontSize: "0.875rem" }}>record_voice_over</span>
+                <div key={idx} style={{
+                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                    padding: 'var(--md-sys-spacing-5)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    border: "1px solid var(--md-sys-color-outline-variant)"
+                }}>
+                    <M3Typography variant="title-medium" style={{
+                        color: 'var(--md-sys-color-primary)',
+                        fontWeight: "bold",
+                        marginBottom: 'var(--md-sys-spacing-6)',
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 'var(--md-sys-spacing-4)'
+                    }}>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            fontSize: 'var(--md-sys-typescale-body-large-size)'
+                        }}>record_voice_over</span>
                         {section.title}
-                    </h3>
-                    <ul style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['3']}}>
+                    </M3Typography>
+                    <ul style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 'var(--md-sys-spacing-3)'
+                    }}>
                         {section.commands.map((cmd, cIdx) => (
-                            <li key={cIdx} style={{fontSize: "0.875rem", color: layers.sys.color.onSurface, backgroundColor: layers.sys.color.surfaceContainerHigh, borderRadius: layers.ref.shape.corner.medium}}>"{cmd}"</li>
+                            <li key={cIdx} style={{
+                                fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                color: 'var(--md-sys-color-on-surface)',
+                                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                padding: 'var(--md-sys-spacing-2)',
+                                fontFamily: 'var(--md-sys-typescale-body-medium-font)'
+                            }}>"{cmd}"</li>
                         ))}
                     </ul>
                 </div>
             ))}
         </div>
         
-        <InfoCard 
-            title="Novità: Ricerca Web Sicura"
-            description="Puoi chiedere all'AI di cercare informazioni aggiornate su Google (es. normative recenti). Nota di Sicurezza: Per motivi di privacy, l'AI non userà mai la ricerca web se la tua domanda contiene nomi di studenti."
-            icon="search"
-            variant="secondary"
-            style={{ backgroundColor: sys.colors.secondary-container/10 }}
-        />
+        <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)' }}>
+            <InfoCard 
+                title="Novità: Ricerca Web Sicura"
+                description="Puoi chiedere all'AI di cercare informazioni aggiornate su Google (es. normative recenti). Nota di Sicurezza: Per motivi di privacy, l'AI non userà mai la ricerca web se la tua domanda contiene nomi di studenti."
+                icon="search"
+                variant="secondary"
+            />
+        </div>
     </div>
 );
 
 const UserGuide = () => (
-    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
-        <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Guida Rapida al Flusso di Lavoro</h2>
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8'], marginTop: layers.ref.spacing['6']}}>
-            <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, borderLeft: "4px solid"}}>
-                <h3  style={{fontWeight: "900", color: layers.sys.color.primary, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem"}}>1. Centro Operativo</h3>
-                <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</p>
+    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+        <M3Typography variant="headline-small" style={{ fontWeight: "900" }}>Guida Rapida al Flusso di Lavoro</M3Typography>
+        <div style={{
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gap: 'var(--md-sys-spacing-8)',
+            marginTop: 'var(--md-sys-spacing-6)'
+        }}>
+            <div style={{
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                borderLeft: "4px solid var(--md-sys-color-primary)",
+                padding: 'var(--md-sys-spacing-4)'
+            }}>
+                <M3Typography variant="label-large" style={{
+                    fontWeight: "900",
+                    color: 'var(--md-sys-color-primary)',
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em"
+                }}>1. Centro Operativo</M3Typography>
+                <M3Typography variant="body-medium" style={{
+                    lineHeight: "1.625",
+                    opacity: "0.8"
+                }}>Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</M3Typography>
             </div>
-            <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, borderLeft: "4px solid"}}>
-                <h3  style={{fontWeight: "900", color: layers.sys.color.secondary, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem"}}>2. Progettazione Intelligente</h3>
-                <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</p>
+            <div style={{
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                borderLeft: "4px solid var(--md-sys-color-secondary)",
+                padding: 'var(--md-sys-spacing-4)'
+            }}>
+                <M3Typography variant="label-large" style={{
+                    fontWeight: "900",
+                    color: 'var(--md-sys-color-secondary)',
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em"
+                }}>2. Progettazione Intelligente</M3Typography>
+                <M3Typography variant="body-medium" style={{
+                    lineHeight: "1.625",
+                    opacity: "0.8"
+                }}>Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</M3Typography>
             </div>
-            <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, borderLeft: "4px solid"}}>
-                <h3  style={{fontWeight: "900", color: layers.sys.color.tertiary, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem"}}>3. In Aula (Continuità)</h3>
-                <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</p>
+            <div style={{
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                borderLeft: "4px solid var(--md-sys-color-tertiary)",
+                padding: 'var(--md-sys-spacing-4)'
+            }}>
+                <M3Typography variant="label-large" style={{
+                    fontWeight: "900",
+                    color: 'var(--md-sys-color-tertiary)',
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em"
+                }}>3. In Aula (Continuità)</M3Typography>
+                <M3Typography variant="body-medium" style={{
+                    lineHeight: "1.625",
+                    opacity: "0.8"
+                }}>Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</M3Typography>
             </div>
-            <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, borderLeft: "4px solid"}}>
-                <h3  style={{fontWeight: "900", color: layers.sys.color.error, textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "0.75rem"}}>4. Analisi & Report</h3>
-                <p style={{ fontSize: "0.875rem", lineHeight: "1.625", opacity: "0.8" }}>Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</p>
+            <div style={{
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                borderLeft: "4px solid var(--md-sys-color-error)",
+                padding: 'var(--md-sys-spacing-4)'
+            }}>
+                <M3Typography variant="label-large" style={{
+                    fontWeight: "900",
+                    color: 'var(--md-sys-color-error)',
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em"
+                }}>4. Analisi & Report</M3Typography>
+                <M3Typography variant="body-medium" style={{
+                    lineHeight: "1.625",
+                    opacity: "0.8"
+                }}>Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</M3Typography>
             </div>
         </div>
     </div>
 );
 
 const TechnicalSpecs = () => (
-    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
-        <h2 style={{color: layers.sys.color.onSurface, fontFamily: layers.ref.typography.headlineSmall.fontFamily, fontWeight: "900"}}>{specsContentData.title}</h2>
-        <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.extraLarge}}>
-            <ul style={{marginTop: layers.ref.spacing['4']}}>
+    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+        <M3Typography variant="headline-small" style={{
+            color: 'var(--md-sys-color-on-surface)',
+            fontWeight: "900"
+        }}>{specsContentData.title}</M3Typography>
+        <div style={{
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+            padding: 'var(--md-sys-spacing-4)'
+        }}>
+            <ul style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                 {specsContentData.specs.map((spec, index) => (
-                    <li key={index} style={{ alignItems: "flex-start" }}>
-                        <span  style={{color: layers.sys.color.primary}}>check_circle</span>
-                        <span style={{ fontSize: "0.875rem", lineHeight: "1.625" }} dangerouslySetInnerHTML={{ __html: spec }}></span>
+                    <li key={index} style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 'var(--md-sys-spacing-2)'
+                    }}>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            color: 'var(--md-sys-color-primary)',
+                            flexShrink: 0
+                        }}>check_circle</span>
+                        <span style={{
+                            fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                            lineHeight: "1.625"
+                        }} dangerouslySetInnerHTML={{ __html: spec }}></span>
                     </li>
                 ))}
             </ul>
@@ -405,49 +733,126 @@ const TechnicalSpecs = () => (
 );
 
 const NormativaContent: React.FC = () => (
-    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
-        <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Privacy e Cloud</h2>
-        <p style={{fontFamily: "var(--md-sys-typescale-body-medium-font)", color: layers.sys.color.onSurface, lineHeight: "1.625"}}>OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</p>
+    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+        <M3Typography variant="headline-small" style={{ fontWeight: "900" }}>Privacy e Cloud</M3Typography>
+        <M3Typography variant="body-medium" style={{
+            color: 'var(--md-sys-color-on-surface)',
+            lineHeight: "1.625"
+        }}>OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</M3Typography>
         
-        <div style={{backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.extra-large}}>
-            <h3  style={{fontWeight: "bold", color: layers.sys.color.primary}}>I Tuoi Dati, Il Tuo Cloud</h3>
-            <ul style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['3']}}>
-                <li style={{ fontSize: "0.875rem" }}>
-                    <span  style={{color: layers.sys.color.primary, fontSize: "0.875rem", marginTop: "0.125rem"}}>shield</span>
+        <div style={{
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+            padding: 'var(--md-sys-spacing-4)'
+        }}>
+            <M3Typography variant="title-medium" style={{
+                fontWeight: "bold",
+                color: 'var(--md-sys-color-primary)'
+            }}>I Tuoi Dati, Il Tuo Cloud</M3Typography>
+            <ul style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 'var(--md-sys-spacing-3)'
+            }}>
+                <li style={{
+                    fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 'var(--md-sys-spacing-2)'
+                }}>
+                    <span style={{
+                        fontFamily: 'Material Symbols Outlined',
+                        color: 'var(--md-sys-color-primary)',
+                        fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                        marginTop: "0.125rem",
+                        flexShrink: 0
+                    }}>shield</span>
                     Non esiste un server centrale di OrarioDoc che legge i tuoi dati.
                 </li>
-                <li style={{ fontSize: "0.875rem" }}>
-                    <span  style={{color: layers.sys.color.primary, fontSize: "0.875rem", marginTop: "0.125rem"}}>devices</span>
+                <li style={{
+                    fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 'var(--md-sys-spacing-2)'
+                }}>
+                    <span style={{
+                        fontFamily: 'Material Symbols Outlined',
+                        color: 'var(--md-sys-color-primary)',
+                        fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                        marginTop: "0.125rem",
+                        flexShrink: 0
+                    }}>devices</span>
                     Tutto viene salvato nel tuo dispositivo (IndexedDB).
                 </li>
-                <li style={{ fontSize: "0.875rem" }}>
-                    <span  style={{color: layers.sys.color.primary, fontSize: "0.875rem", marginTop: "0.125rem"}}>cloud_done</span>
+                <li style={{
+                    fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 'var(--md-sys-spacing-2)'
+                }}>
+                    <span style={{
+                        fontFamily: 'Material Symbols Outlined',
+                        color: 'var(--md-sys-color-primary)',
+                        fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                        marginTop: "0.125rem",
+                        flexShrink: 0
+                    }}>cloud_done</span>
                     Il backup avviene sul <strong>TUO Google Drive</strong> personale. L'app ha accesso solo alla propria cartella di backup.
                 </li>
             </ul>
         </div>
 
-        <InfoCard 
-            title="Interazione AI"
-            description="Quando usi l'AI (es. 'Analizza questa classe'), l'app invia solo i dati anonimizzati strettamente necessari per quella richiesta a Google Gemini. Nessun dato viene trattenuto per l'addestramento dei modelli."
-            icon="psychology"
-            variant="primary"
-            style={{ backgroundColor: sys.colors.primaryContainer/10 }}
-        />
+        <div style={{ backgroundColor: 'var(--md-sys-color-primary-container)' }}>
+            <InfoCard 
+                title="Interazione AI"
+                description="Quando usi l'AI (es. 'Analizza questa classe'), l'app invia solo i dati anonimizzati strettamente necessari per quella richiesta a Google Gemini. Nessun dato viene trattenuto per l'addestramento dei modelli."
+                icon="psychology"
+                variant="primary"
+            />
+        </div>
     </div>
 );
 
 const FaqContent = () => (
-    <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
-        <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Domande Frequenti (FAQ)</h2>
-        <div style={{marginTop: layers.ref.spacing['6'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['3']}}>
+    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+        <M3Typography variant="headline-small" style={{ fontWeight: "900" }}>Domande Frequenti (FAQ)</M3Typography>
+        <div style={{
+            marginTop: 'var(--md-sys-spacing-6)',
+            display: "flex",
+            flexDirection: "column",
+            gap: 'var(--md-sys-spacing-3)'
+        }}>
             {faqContentData.map((faq, i) => (
-                <details key={i}  style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, overflow: "hidden" }}>
-                    <summary  style={{ cursor: "pointer", listStyle: "none", justifyContent: "space-between", alignItems: "center", fontWeight: "bold" }}>
+                <details key={i} style={{
+                    transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    overflow: "hidden"
+                }}>
+                    <summary style={{
+                        cursor: "pointer",
+                        listStyle: "none",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: 'var(--md-sys-spacing-3)',
+                        fontWeight: "bold"
+                    }}>
                         <span dangerouslySetInnerHTML={{ __html: faq.q }}></span>
-                        <span  style={{ transition: "transform 300ms" }}>expand_more</span>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            transition: "transform 300ms",
+                            fontSize: 'var(--md-sys-typescale-title-medium-size)'
+                        }}>expand_more</span>
                     </summary>
-                    <div style={{ paddingTop: "0", fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.8", lineHeight: "1.625", fontSize: "0.875rem"}} dangerouslySetInnerHTML={{ __html: faq.a }}></div>
+                    <div style={{
+                        paddingTop: "0",
+                        padding: 'var(--md-sys-spacing-3)',
+                        fontFamily: 'var(--md-sys-typescale-body-medium-font)',
+                        opacity: "0.8",
+                        lineHeight: "1.625",
+                        fontSize: 'var(--md-sys-typescale-body-medium-size)'
+                    }} dangerouslySetInnerHTML={{ __html: faq.a }}></div>
                 </details>
             ))}
         </div>
@@ -456,36 +861,95 @@ const FaqContent = () => (
 
 const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
     const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_releases" }) => (
-        <div  style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large}}>
-            <div style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
-                <div style={{ alignItems: "center", flex: "1", minWidth: "0" }}>
-                    <div  style={{ transition: "transform 300ms", width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.shape.corner.medium, color: layers.sys.color.primary, alignItems: "center", justifyContent: "center", flexShrink: "0"}}>
+        <div style={{
+            transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            padding: 'var(--md-sys-spacing-4)'
+        }}>
+            <div style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start"
+            }}>
+                <div style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flex: "1",
+                    minWidth: "0"
+                }}>
+                    <div style={{
+                        transition: "transform 300ms",
+                        width: "2.5rem",
+                        height: "2.5rem",
+                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                        color: 'var(--md-sys-color-primary)',
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: "0",
+                        backgroundColor: 'var(--md-sys-color-primary-container)'
+                    }}>
                         <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>{icon}</span>
+                            fontFamily: 'Material Symbols Outlined'
+                        }}>{icon}</span>
                     </div>
-                    <h4  style={{ fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{title}</h4>
+                    <M3Typography variant="title-medium" style={{
+                        fontWeight: "bold",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        marginLeft: 'var(--md-sys-spacing-3)'
+                    }}>{title}</M3Typography>
                 </div>
-                <span style={{color: layers.sys.color.primary, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", flexShrink: "0"}}>v4.1.0</span>
+                <span style={{
+                    color: 'var(--md-sys-color-primary)',
+                    fontWeight: "900",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    flexShrink: "0",
+                    fontSize: 'var(--md-sys-typescale-label-large-size)'
+                }}>v4.1.0</span>
             </div>
-            <p style={{fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.7", lineHeight: "1.625", fontSize: "0.875rem", display: "-webkit-box", WebkitLineClamp: "2", WebkitBoxOrient: "vertical", overflow: "hidden"}}>{children}</p>
+            <M3Typography variant="body-medium" style={{
+                opacity: "0.7",
+                lineHeight: "1.625",
+                display: "-webkit-box",
+                WebkitLineClamp: "2",
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                marginTop: 'var(--md-sys-spacing-2)'
+            }}>{children}</M3Typography>
             {actionView && actionView !== 'home' && (
                 <M3Button
                     onClick={() => { onClose(); onNavigate(actionView); }}
                     variant="tonal"
-                    style={{ width: "100%", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}
+                    style={{
+                        width: "100%",
+                        fontWeight: "900",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.1em",
+                        marginTop: 'var(--md-sys-spacing-3)'
+                    }}
                 >
-                    <span  style={{ marginRight: "0.5rem", fontSize: "0.875rem" }}>arrow_forward</span>
+                    <span style={{
+                        marginRight: "0.5rem",
+                        fontSize: 'var(--md-sys-typescale-body-small-size)'
+                    }}>arrow_forward</span>
                     Vai alla funzione
                 </M3Button>
             )}
         </div>
     );
     return (
-        <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
-            <h2 style={{fontFamily: "var(--md-sys-typescale-headline-small-font)", fontWeight: "900"}}>Novità della versione 4.1.0</h2>
+        <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+            <M3Typography variant="headline-small" style={{ fontWeight: "900" }}>Novità della versione 4.1.0</M3Typography>
             
-            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+            <div style={{
+                display: "grid",
+                gridTemplateColumns: "1fr",
+                gap: 'var(--md-sys-spacing-6)'
+            }}>
                 <ImprovementCard title="Design M3 Expressive" actionView="settings" icon="palette">
                     Interfaccia completamente rinnovata con il nuovo design system Material 3 Expressive: layout adattivi, motion system e colori dinamici.
                 </ImprovementCard>
@@ -511,20 +975,55 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 </ImprovementCard>
             </div>
 
-            <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor: layers.sys.color.primaryContainer, color: layers.sys.color.onPrimaryContainer, padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline" }}>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    <div style={{ width: layers.ref.spacing['12'], height: layers.ref.spacing['12'], borderRadius: layers.ref.shape.corner.extraLarge, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <span style={{ color: layers.sys.color.primary }}>picture_as_pdf</span>
+            <div style={{
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                backgroundColor: 'var(--md-sys-color-primary-container)',
+                color: 'var(--md-sys-color-on-primary-container)',
+                padding: 'var(--md-sys-spacing-6)',
+                border: "1px solid var(--md-sys-color-outline)"
+            }}>
+                <div style={{
+                    display: "flex",
+                    alignItems: "center"
+                }}>
+                    <div style={{
+                        width: 'var(--md-sys-spacing-12)',
+                        height: 'var(--md-sys-spacing-12)',
+                        borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                        backgroundColor: 'var(--md-sys-color-primary)'
+                    }}>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            color: 'var(--md-sys-color-on-primary)'
+                        }}>picture_as_pdf</span>
                     </div>
-                    <div style={{ flexGrow: 1, textAlign: "center" }}>
-                        <h3 style={{ fontWeight: "900" }}>Manuale Completo PDF</h3>
-                        <p style={{ fontFamily: "var(--md-sys-typescale-body-medium-font)", opacity: "0.7" }}>
+                    <div style={{
+                        flexGrow: 1,
+                        textAlign: "center"
+                    }}>
+                        <M3Typography variant="title-large" style={{ fontWeight: "900" }}>Manuale Completo PDF</M3Typography>
+                        <M3Typography variant="body-medium" style={{
+                            opacity: "0.7"
+                        }}>
                             Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
-                        </p>
+                        </M3Typography>
                     </div>
                 </div>
-                 <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled"  style={{ width: "100%", fontWeight: "900", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                    <span  style={{ marginRight: "0.5rem" }}>{isGenerating ? 'pending' : 'download'}</span>
+                 <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" style={{
+                     width: "100%",
+                     fontWeight: "900",
+                     fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                     textTransform: "uppercase",
+                     letterSpacing: "0.1em",
+                     marginTop: 'var(--md-sys-spacing-4)'
+                 }}>
+                    <span style={{
+                        marginRight: "0.5rem"
+                    }}>{isGenerating ? 'pending' : 'download'}</span>
                     {isGenerating ? 'Generazione...' : 'Scarica Manuale & Guida PDF'}
                 </M3Button>
         </div>
@@ -611,37 +1110,74 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
       level={2}
       hideBackdrop={true}
     >
-      <M3DialogContent  style={{backgroundColor: layers.sys.color.surfaceContainerHigh}}>
-        <div style={{marginTop: layers.ref.spacing['8']}}>
-          <div  style={{borderRadius: layers.ref.shape.corner.extra-large, fontSize: "0.875rem"}}>
-            <div style={{ alignItems: "center" }}>
-                <span  style={{color: layers.sys.color.primary}}>campaign</span>
-                <b style={{color: layers.sys.color.primary, textTransform: "uppercase", letterSpacing: "0.1em"}}>Novità Dicembre 2025</b>
+      <M3DialogContent style={{
+        backgroundColor: 'var(--md-sys-color-surface-container-high)'
+      }}>
+        <div style={{marginTop: 'var(--md-sys-spacing-6)'}}>
+          <div style={{
+            borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+            fontSize: 'var(--md-sys-typescale-body-medium-size)',
+            padding: 'var(--md-sys-spacing-4)',
+            backgroundColor: 'var(--md-sys-color-surface-container-low)'
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 'var(--md-sys-spacing-2)'
+            }}>
+                <span style={{
+                  fontFamily: 'Material Symbols Outlined',
+                  color: 'var(--md-sys-color-primary)'
+                }}>campaign</span>
+                <b style={{
+                  color: 'var(--md-sys-color-primary)',
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em"
+                }}>Novità Dicembre 2025</b>
             </div>
-            <ul style={{paddingLeft: layers.ref.spacing['5'], display: "flex", flexDirection: "column", gap: layers.ref.spacing['2']}}>
+            <ul style={{
+              paddingLeft: 'var(--md-sys-spacing-5)',
+              display: "flex",
+              flexDirection: "column",
+              gap: 'var(--md-sys-spacing-2)'
+            }}>
               <li>Tutti i pulsanti ora seguono Material Design 3 (filled, tonal, outlined, icon, segmented)</li>
               <li>Migliorata accessibilità, responsive e coerenza visiva</li>
               <li>Focus visibile, aria-label obbligatorio, test aggiornati</li>
-              <li>Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener"  style={{color: layers.sys.color.primary, fontWeight: "bold"}}>guida M3 aggiornata</a> per dettagli e best practice</li>
+              <li>Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener" style={{
+                color: 'var(--md-sys-color-primary)',
+                fontWeight: "bold"
+              }}>guida M3 aggiornata</a> per dettagli e best practice</li>
             </ul>
           </div>
 
-          <TabGroup
-            tabs={tabs}
-            activeTab={activeTab}
-            onTabChange={(id) => setActiveTab(id as HelpTab)}
-            variant="primary"
-            style={{ width: "100%" }}
-          />
+          <div style={{ width: "100%" }}>
+            <TabGroup
+              tabs={tabs}
+              activeTab={activeTab}
+              onTabChange={(id) => setActiveTab(id as HelpTab)}
+              variant="primary"
+            />
+          </div>
 
-          <div >
+          <div style={{
+            padding: 'var(--md-sys-spacing-4)',
+            backgroundColor: 'var(--md-sys-color-surface)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            marginTop: 'var(--md-sys-spacing-4)'
+          }}>
             {renderContent()}
           </div>
         </div>
       </M3DialogContent>
 
       <M3DialogActions>
-        <M3Button onClick={onClose} variant="text" disabled={isGenerating} style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Chiudi</M3Button>
+        <M3Button onClick={onClose} variant="text" disabled={isGenerating} style={{
+          fontWeight: "900",
+          fontSize: 'var(--md-sys-typescale-label-large-size)',
+          textTransform: "uppercase",
+          letterSpacing: "0.1em"
+        }}>Chiudi</M3Button>
       </M3DialogActions>
     </M3Dialog>
   );
