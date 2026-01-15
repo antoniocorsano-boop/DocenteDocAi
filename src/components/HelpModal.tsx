@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 // M3Expressive: HelpModal - Comprehensive help and documentation modal with M3 tokens
 import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
