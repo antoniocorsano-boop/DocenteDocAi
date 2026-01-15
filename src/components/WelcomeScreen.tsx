@@ -1,23 +1,20 @@
-// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import Logo from './Logo';
 import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
-import { ActionTile, InfoCard, TextField, SelectField, M3Button, M3IconButton } from './ui';
-import { useTheme } from '../theme/theme';
+import { ActionTile, InfoCard, TextField, SelectField, M3Button, M3IconButton, M3Typography } from './ui';
 
 interface WelcomeScreenProps {
   onSetupComplete: (data: { name: string; schoolType?: string; firstClass?: string; isGuided: boolean }) => void;
 }
 
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
-  const { layers } = useTheme();
   const [mode, setMode] = useState<'selection' | 'wizard' | 'quick'>('selection');
   
   // Wizard State
   const [step, setStep] = useState(1);
-  const [name, setName] = useState(');
+  const [name, setName] = useState('');
   const [schoolType, setSchoolType] = useState(Object.keys(SCHOOL_TYPES_DISCIPLINES)[0]);
-  const [className, setClassName] = useState(');
+  const [className, setClassName] = useState('');
 
   const handleWizardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,23 +37,23 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   };
 
   const renderSelection = () => (
-      <div style={{width: "100%", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
-          <div style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline"}}>
+      <div style={{width: "100%", padding: 'var(--md-sys-spacing-8)', border: '1px solid var(--md-sys-color-outline)', display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
+          <div style={{padding: 'var(--md-sys-spacing-6)', border: '1px solid var(--md-sys-color-outline)'}}>
             <Logo />
           </div>
-          <h1 style={{fontWeight: "900", letterSpacing: "-0.005em", marginBottom: layers.ref.spacing['8']}}>Benvenuto, Docente</h1>
-          <p style={{ fontWeight: "900", textTransform: "uppercase" }}>
+          <M3Typography variant="headline-large" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>Benvenuto, Docente</M3Typography>
+          <M3Typography variant="body-large" style={{textTransform: "uppercase"}}>
               Configuriamo il tuo spazio di lavoro
-          </p>
+          </M3Typography>
 
-          <div style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6'], width: "100%"}}>
+          <div style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)', width: "100%"}}>
               <ActionTile 
                 title="Wizard Guidato"
                 subtitle="Passo dopo passo"
                 icon="auto_fix_high"
                 variant="primary"
                 onClick={() => setMode('wizard')}
- style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+ style={{ transition: 'all 300ms var(--md-sys-motion-easing-emphasized)' }}
               />
               <ActionTile 
                 title="Accesso Rapido"
@@ -64,7 +61,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="bolt"
                 variant="surface"
                 onClick={() => setMode('quick')}
- style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+ style={{ transition: 'all 300ms var(--md-sys-motion-easing-emphasized)' }}
               />
           </div>
           
@@ -79,12 +76,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   );
 
   const renderWizard = () => (
-    <form onSubmit={handleWizardSubmit} style={{width: "100%", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
+    <form onSubmit={handleWizardSubmit} style={{width: "100%", padding: 'var(--md-sys-spacing-8)', border: '1px solid var(--md-sys-color-outline)'}}>
         <div style={{ width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} />
-                <span style={{fontWeight: "900", color: "layers.sys.color.primary", textTransform: "uppercase"}}>Passo {step} di 3</span>
-                <div style={{ width: layers.ref.spacing['4'] }}></div>
+                <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-primary)', textTransform: 'uppercase'}}>Passo {step} di 3</M3Typography>
+                <div style={{ width: 'var(--md-sys-spacing-4)' }}></div>
             </div>
             
             {step === 1 && (
@@ -114,7 +111,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                             <option key={t} value={t}>{t}</option>
                         ))}
                     </SelectField>
-                    <p style={{fontWeight: "900", marginTop: layers.ref.spacing['4'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], textTransform: "uppercase", letterSpacing: "0.1em"}}>Servirà per suggerire le materie corrette.</p>
+                    <M3Typography variant="body-small" style={{marginTop: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: 'uppercase', letterSpacing: '0.1em'}}>Servirà per suggerire le materie corrette.</M3Typography>
                 </div>
             )}
 
@@ -127,7 +124,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         onChange={(e) => setClassName(e.target.value.toUpperCase())}
                         placeholder="Es. 3A"
                         autoFocus
-                        containerClassName="uppercase"
 
                     />
                 </div>
@@ -139,7 +135,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 <M3Button 
                     type="button" 
                     variant="filled"
- style={{ width: "100%", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase" }}
+ style={{ width: "100%", textTransform: "uppercase" }}
                     onClick={() => setStep(s => s + 1)} 
                     disabled={(step === 1 && !name) || (step === 3 && !className)}
                     aria-label="Continua"
@@ -151,7 +147,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 <M3Button 
                     type="submit" 
                     variant="filled"
- style={{ width: "100%", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase" }}
+ style={{ width: "100%", textTransform: "uppercase" }}
                     disabled={!className}
                     aria-label="Inizia Ora"
                 >
@@ -164,15 +160,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   );
 
   const renderQuick = () => (
-      <form onSubmit={handleQuickSubmit} style={{width: "100%", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
+      <form onSubmit={handleQuickSubmit} style={{width: "100%", padding: 'var(--md-sys-spacing-8)', border: '1px solid var(--md-sys-color-outline)', display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center"}}>
             <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => setMode('selection')} />
           
-          <div style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline"}}>
+          <div style={{padding: 'var(--md-sys-spacing-6)', border: '1px solid var(--md-sys-color-outline)'}}>
             <Logo />
           </div>
           
-          <h1 style={{fontWeight: "900", letterSpacing: "-0.005em", marginBottom: layers.ref.spacing['8']}}>Accesso Rapido</h1>
-          <p style={{ fontWeight: "900", textTransform: "uppercase" }}>Configurazione manuale</p>
+          <M3Typography variant="headline-large" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>Accesso Rapido</M3Typography>
+          <M3Typography variant="body-large" style={{textTransform: "uppercase"}}>Configurazione manuale</M3Typography>
           
           <div style={{ width: "100%" }}>
             <TextField 
@@ -190,7 +186,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             <M3Button 
                 type="submit" 
                 variant="filled" 
- style={{ width: "100%", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase" }} 
+ style={{ width: "100%", textTransform: "uppercase" }} 
                 aria-label="Entra nella Dashboard"
             >
                 Entra nella Dashboard
@@ -200,11 +196,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   );
 
   return (
-    <div style={{display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "layers.sys.color.surface", position: "fixed", top: 0, right: 0, bottom: 0, left: 0, overflow: "hidden"}}>
+    <div style={{display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: 'var(--md-sys-color-surface)', position: "fixed", top: 0, right: 0, bottom: 0, left: 0, overflow: "hidden"}}>
         {/* Aura Ornaments */}
-        <div style={{borderRadius: layers.ref.spacing['4'], position: "absolute", top: "-10%", left: "-10%", width: "40%", height: "40%", background: "layers.sys.color.primary", opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite"}}></div>
-        <div style={{borderRadius: layers.ref.spacing['4'], position: "absolute", bottom: "-10%", right: "-10%", width: "40%", height: "40%", background: "layers.sys.color.secondary", opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite 1s"}}></div>
-        <div style={{borderRadius: layers.ref.spacing['4'], position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "60%", height: "60%", background: "layers.sys.color.tertiary", opacity: 0.05, filter: "blur(150px)"}}></div>
+        <div style={{borderRadius: 'var(--md-sys-spacing-4)', position: "absolute", top: "-10%", left: "-10%", width: "40%", height: "40%", background: 'var(--md-sys-color-primary)', opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite"}}></div>
+        <div style={{borderRadius: 'var(--md-sys-spacing-4)', position: "absolute", bottom: "-10%", right: "-10%", width: "40%", height: "40%", background: 'var(--md-sys-color-secondary)', opacity: 0.1, filter: "blur(120px)", animation: "pulse 2s infinite 1s"}}></div>
+        <div style={{borderRadius: 'var(--md-sys-spacing-4)', position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "60%", height: "60%", background: 'var(--md-sys-color-tertiary)', opacity: 0.05, filter: "blur(150px)"}}></div>
 
         {mode === 'selection' && renderSelection()}
         {mode === 'wizard' && renderWizard()}
