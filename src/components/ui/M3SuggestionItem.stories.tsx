@@ -11,7 +11,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3SuggestionItem> = {
   component: M3SuggestionItem,
   title: 'UI/List Items/M3SuggestionItem',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -135,6 +135,8 @@ export const ReadOnly: Story = {
     ),
   },
 };
+
+
 
 
 

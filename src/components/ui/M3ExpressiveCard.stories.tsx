@@ -6,7 +6,7 @@ import M3ExpressiveCard from './M3ExpressiveCard';
 const meta = {
   title: 'M3/ExpressiveCard',
   component: M3ExpressiveCard,
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     icon: {
       control: 'text',
@@ -176,6 +176,8 @@ export const ColorGrid: Story = {
     );
   },
 };
+
+
 
 
 

@@ -11,7 +11,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3EmptyStateCard> = {
   component: M3EmptyStateCard,
   title: 'UI/Cards/M3EmptyStateCard',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -104,6 +104,8 @@ export const Compact: Story = {
     ),
   },
 };
+
+
 
 
 

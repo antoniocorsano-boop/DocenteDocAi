@@ -5,7 +5,7 @@ import M3AnimatedIcon from './M3AnimatedIcon';
 const meta: Meta<typeof M3AnimatedIcon> = {
   component: M3AnimatedIcon,
   title: 'UI/Icons/M3AnimatedIcon',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -124,6 +124,8 @@ export const ProcessingIndicator: Story = {
     size: 'md',
   },
 };
+
+
 
 
 

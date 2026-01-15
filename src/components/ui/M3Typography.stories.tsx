@@ -5,7 +5,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3Typography> = {
   component: M3Typography,
   title: 'UI/Typography/M3Typography',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -187,6 +187,8 @@ export const LabelSmall: Story = {
     as: 'span',
   },
 };
+
+
 
 
 

@@ -1,11 +1,6 @@
-// LEGACY - MD3 Non-compliant
-// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
-// ...existing code...
 import AssistantModal from './AssistantModal';
 import '../font-setup';
 import * as React from 'react';
-import { useTheme } from '../theme/theme';
 import '../design-system/typography.css';
 import '../design-system/spacing.css';
 import '../design-system/breakpoints.css';
@@ -33,23 +28,22 @@ import ErrorBoundary from './ErrorBoundary';
 type SuggestionBannerProps = { suggestion: AiSuggestion | SystemSuggestion; onAction: () => void };
 // Banner Suggestion Assistant
 const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onAction }) => {
-  const { layers } = useTheme();
     // Support both AiSuggestion and SystemSuggestion
     const message = 'message' in suggestion ? suggestion.message : suggestion.description;
     const actionLabel = 'actionLabel' in suggestion ? suggestion.actionLabel : 'Apri';
     return (
         <div
              style={{
-               paddingTop: layers.ref.spacing['4'],
-               paddingBottom: layers.ref.spacing['4'],
-               paddingLeft: layers.ref.spacing['4'],
-               paddingRight: layers.ref.spacing['4'],
+               paddingTop: 'var(--md-sys-spacing-4)',
+               paddingBottom: 'var(--md-sys-spacing-4)',
+               paddingLeft: 'var(--md-sys-spacing-4)',
+               paddingRight: 'var(--md-sys-spacing-4)',
                display: "flex",
                alignItems: "center",
                justifyContent: "center",
-               gap: layers.ref.spacing['4'], 
+               gap: 'var(--md-sys-spacing-4)', 
                cursor: "pointer", 
-               borderBottom: "1px solid " + layers.sys.color.outline, 
+               borderBottom: "1px solid var(--md-sys-color-outline)", 
                zIndex: Z_INDEX.notification.banner
              }}
             onClick={onAction}
@@ -58,7 +52,7 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
         >
             <span style={{ fontSize: "1.25rem" }} aria-hidden="true">??</span>
             <span style={{ 
-                color: layers.sys.color.onPrimaryContainer,
+                color: 'var(--md-sys-color-on-primary-container)',
                 fontWeight: "bold", 
                 flex: "1", 
                 fontSize: "0.875rem", 
@@ -68,7 +62,7 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
             }}>
                 {message || 'Hai un suggerimento!'}
             </span>
-              <button  style={{fontSize: "0.75rem", display: "flex", alignItems: "center", gap: layers.ref.spacing['4']}}>
+              <button  style={{fontSize: "0.75rem", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
                 {actionLabel}
                 <span  style={{ fontSize: "0.875rem" }}>north_east</span>
             </button>
@@ -92,7 +86,6 @@ import { useTheme } from '../theme/theme';
  * Gestisce l'App Shell e la sincronizzazione del tema.
  */
 export const App: React.FC = () => {
-    const { layers } = useTheme();
     const { chaosStage } = useUIStore();
     const { pushModal, popModal } = useModal();
     // Stato assistant mode centralizzato (opzionale: puoi usare Zustand o context se vuoi cambiare modalit� da altri punti)
@@ -234,7 +227,7 @@ export const App: React.FC = () => {
         if (modals.isRestoring) {
             return (
                 <div style={{ 
-                    backgroundColor: layers.sys.color.surfaceContainerLow,
+                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     display: "flex", 
                     alignItems: "center", 
                     justifyContent: "center", 
@@ -242,24 +235,24 @@ export const App: React.FC = () => {
                 }}>
                     <div style={{
                         textAlign: "center", 
-                        gap: layers.ref.spacing['4']
+                        gap: 'var(--md-sys-spacing-4)'
                     }}>
                         <div style={{ 
-                            borderRadius: layers.ref.shape.corner.large,
-                            width: layers.ref.spacing['16'], 
-                            height: layers.ref.spacing['16'], 
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            width: 'var(--md-sys-spacing-16)', 
+                            height: 'var(--md-sys-spacing-16)', 
                             marginLeft: "auto", 
                             marginRight: "auto", 
                             display: "flex", 
                             alignItems: "center", 
                             justifyContent: "center" 
                         }}>
-                            <span style={{ color: layers.sys.color.primary }}>
+                            <span style={{ color: 'var(--md-sys-color-primary)' }}>
                                 sync
                             </span>
                         </div>
                         <p style={{ 
-                            color: layers.sys.color.onSurface,
+                            color: 'var(--md-sys-color-on-surface)',
                             letterSpacing: "0.1em", 
                             textTransform: "uppercase" 
                         }}>
@@ -275,7 +268,7 @@ export const App: React.FC = () => {
         if (restoreAssist.show) {
             return (
                 <div style={{ 
-                    backgroundColor: layers.sys.color.surfaceContainerLow,
+                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     display: "flex", 
                     alignItems: "center", 
                     justifyContent: "center", 
@@ -283,29 +276,29 @@ export const App: React.FC = () => {
                 }}>
                     <div style={{
                         textAlign: "center", 
-                        gap: layers.ref.spacing['4']
+                        gap: 'var(--md-sys-spacing-4)'
                     }}>
                         <div style={{ 
-                            borderRadius: layers.ref.shape.corner.large,
-                            width: layers.ref.spacing['16'], 
-                            height: layers.ref.spacing['16'], 
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            width: 'var(--md-sys-spacing-16)', 
+                            height: 'var(--md-sys-spacing-16)', 
                             marginLeft: "auto", 
                             marginRight: "auto", 
                             display: "flex", 
                             alignItems: "center", 
                             justifyContent: "center" 
                         }}>
-                            <span style={{ color: layers.sys.color.primary }}>
+                            <span style={{ color: 'var(--md-sys-color-primary)' }}>
                                 build
                             </span>
                         </div>
                         <h2 style={{ 
-                            color: layers.sys.color.onSurface,
+                            color: 'var(--md-sys-color-on-surface)',
                             fontWeight: "bold" 
                         }}>
                             Assistenza ripristino
                         </h2>
-                        <p style={{ color: layers.sys.color.onSurfaceVariant }}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                             Stiamo preparando il tuo ambiente di lavoro.
                         </p>
                     </div>
@@ -323,7 +316,7 @@ export const App: React.FC = () => {
         return (
             <ErrorBoundary>
                 <SkipLink />
-                <div className={`app-shell-container ${chaosStage === 'chaos' ? 'stage-chaos' : ''}`}>
+                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: chaosStage === 'chaos' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-surface)' }}>
                 {/* Fixed Header */}
                 <Header
                     title="DocenteDoc AI"
@@ -542,7 +535,7 @@ export const App: React.FC = () => {
         );
     } catch (err) {
         // Fallback visibile: errore di caricamento o runtime
-        return <div style={{color: 'red', padding: layers.ref.spacing['8'], fontFamily: 'monospace', background: layers.sys.color.surfaceVariant, fontSize: '1.2rem', whiteSpace: 'pre-wrap'}}>
+        return <div style={{color: 'red', padding: 'var(--md-sys-spacing-8)', fontFamily: 'monospace', background: 'var(--md-sys-color-surface-variant)', fontSize: '1.2rem', whiteSpace: 'pre-wrap'}}>
             <b>ERRORE FATALE:</b> {String(err)}
             <br />
             <span>Controlla la console per dettagli tecnici.</span>

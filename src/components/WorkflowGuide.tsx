@@ -59,7 +59,7 @@ const workflows: Workflow[] = [
         startView: 'aula',
         themeColor: 'error'
     }
-'];
+];
 
 interface WorkflowGuideProps {
     onNavigate: (view: View, context?: unknown) => void;

@@ -11,7 +11,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3HeroCard> = {
   component: M3HeroCard,
   title: 'UI/Cards/M3HeroCard',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -101,6 +101,8 @@ export const Compact: Story = {
     ),
   },
 };
+
+
 
 
 

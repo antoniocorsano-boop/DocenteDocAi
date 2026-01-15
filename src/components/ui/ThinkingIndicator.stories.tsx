@@ -13,7 +13,7 @@ const meta: Meta<typeof ThinkingIndicator> = {
       }
     }
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     message: {
       control: 'text',
@@ -56,6 +56,8 @@ export const CustomMessage: Story = {
     size: 'medium'
   }
 };
+
+
 
 
 

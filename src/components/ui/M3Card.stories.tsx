@@ -6,7 +6,7 @@ import M3Card from './M3Card';
 const meta = {
   title: 'M3/Card',
   component: M3Card,
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     children: {
       control: 'text',
@@ -70,6 +70,8 @@ export const WithCustomClass: Story = {
     children: 'Card with custom background and text color',
   },
 };
+
+
 
 
 

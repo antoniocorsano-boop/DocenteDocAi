@@ -6,7 +6,7 @@ import M3Dialog from './M3Dialog';
 const meta = {
   title: 'M3/Dialog',
   component: M3Dialog,
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     title: {
       control: 'text',
@@ -360,6 +360,8 @@ export const SmallDialog: Story = {
     );
   },
 };
+
+
 
 
 

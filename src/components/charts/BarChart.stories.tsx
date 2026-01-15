@@ -13,7 +13,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     data: {
       description: 'Array of chart data with labels and values',
@@ -199,6 +199,8 @@ export const UniformValues: Story = {
     horizontal: false,
   },
 };
+
+
 
 
 

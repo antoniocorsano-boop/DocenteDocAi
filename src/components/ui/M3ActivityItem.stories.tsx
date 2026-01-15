@@ -11,7 +11,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3ActivityItem> = {
   component: M3ActivityItem,
   title: 'UI/List Items/M3ActivityItem',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -120,6 +120,8 @@ export const UserActivity: Story = {
     ),
   },
 };
+
+
 
 
 

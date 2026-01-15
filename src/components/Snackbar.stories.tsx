@@ -14,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   decorators: [
     (Story) => (
       <div style={{ minHeight: layers.ref.spacing['4'], position: 'relative' }}>
@@ -63,6 +63,8 @@ export const Info: Story = {
     },
   },
 };
+
+
 
 
 

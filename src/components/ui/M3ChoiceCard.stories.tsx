@@ -6,7 +6,7 @@ import M3ChoiceCard from './M3ChoiceCard';
 const meta = {
   title: 'M3/ChoiceCard',
   component: M3ChoiceCard,
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     icon: {
       control: 'text',
@@ -152,6 +152,8 @@ export const Group: Story = {
     );
   },
 };
+
+
 
 
 

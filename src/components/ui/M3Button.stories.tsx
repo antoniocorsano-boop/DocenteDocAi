@@ -5,7 +5,7 @@ import M3Button from './M3Button';
 const meta: Meta<typeof M3Button> = {
   component: M3Button,
   title: 'UI/Buttons/M3Button',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -172,6 +172,8 @@ export const FullWidth: Story = {
     layout: 'padded',
   },
 };
+
+
 
 
 

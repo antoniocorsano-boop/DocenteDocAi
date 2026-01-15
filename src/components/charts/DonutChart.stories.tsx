@@ -13,7 +13,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     data: {
       description: 'Array of chart segments with labels, values, and colors',
@@ -164,6 +164,8 @@ export const CustomColors: Story = {
     ],
   },
 };
+
+
 
 
 

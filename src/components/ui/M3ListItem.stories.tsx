@@ -6,7 +6,7 @@ import M3ListItem from './M3ListItem';
 const meta = {
   title: 'M3/ListItem',
   component: M3ListItem,
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     headline: {
       control: 'text',
@@ -156,6 +156,8 @@ export const Full: Story = {
     onClick: () => console.log('Clicked!'),
   },
 };
+
+
 
 
 

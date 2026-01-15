@@ -11,7 +11,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3SuggestionCard> = {
   component: M3SuggestionCard,
   title: 'UI/Cards/M3SuggestionCard',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -138,6 +138,8 @@ if (!condition) return;
     ),
   },
 };
+
+
 
 
 

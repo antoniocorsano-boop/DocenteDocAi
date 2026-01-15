@@ -6,7 +6,7 @@ import M3RatingBar from './M3RatingBar';
 const meta = {
   title: 'M3/RatingBar',
   component: M3RatingBar,
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     max: {
       control: { type: 'number', min: 1, max: 10, step: 1 },
@@ -136,6 +136,8 @@ export const ThreeStarRating: Story = {
     onChange: (rating) => console.log(`Quick rating: ${rating}/3`),
   },
 };
+
+
 
 
 

@@ -14,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     name: {
       control: 'text',
@@ -223,6 +223,8 @@ export const TwoCharInitials: Story = {
     },
   },
 };
+
+
 
 
 

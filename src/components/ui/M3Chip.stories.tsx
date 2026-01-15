@@ -6,7 +6,7 @@ import M3Chip, { M3ChipProps } from './M3Chip';
 const meta: Meta<typeof M3Chip> = {
   component: M3Chip,
   title: 'UI/Layout/M3Chip',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -342,6 +342,8 @@ export const Accessibility: Story = {
     },
   },
 };
+
+
 
 
 

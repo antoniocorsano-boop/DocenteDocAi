@@ -6,7 +6,7 @@ import M3BottomAppBar from './M3BottomAppBar';
 const meta: Meta<typeof M3BottomAppBar> = {
   component: M3BottomAppBar,
   title: 'UI/Layout/M3BottomAppBar',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -294,6 +294,8 @@ export const Accessibility: Story = {
     },
   },
 };
+
+
 
 
 

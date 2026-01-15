@@ -7,7 +7,7 @@ import M3Button from './M3Button';
 const meta: Meta<typeof M3Menu> = {
   component: M3Menu,
   title: 'UI/Menus/M3Menu',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -345,6 +345,8 @@ export const WithLongList: Story = {
     );
   },
 };
+
+
 
 
 
