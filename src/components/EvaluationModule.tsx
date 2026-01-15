@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, EvaluationModuleProps, Prova } from '../types';
 import AddProvaModal from './AddProvaModal';
@@ -6,12 +5,7 @@ import StudentProfile from './StudentProfile';
 import ExportModal from './ExportModal';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import UnifiedEvaluationModal from './UnifiedEvaluationModal';
-import { useTheme } from '../theme/theme';
-import { 
-
-    EmptyState, 
-    Avatar 
-} from './ui';
+import { M3Typography, EmptyState, Avatar } from './ui';
 
 type PendingProva = Omit<Valutazione, 'id' | 'studenteId' | 'voto'>;
 type ViewTab = 'grid' | 'summary' | 'risk';
@@ -22,7 +16,6 @@ const getProvaId = (prova: { data: string, argomento?: string, tipo: Valutazione
 };
 
 const getTestTypeIcon = (tipo: string) => {
-  const { layers } = useTheme();
     switch (tipo) {
         case 'Scritto': return 'edit_note';
         case 'Orale': return 'record_voice_over';
@@ -32,19 +25,19 @@ const getTestTypeIcon = (tipo: string) => {
     }
 };
 
-const EvaluationModule: React.FC<EvaluationModuleProps> = ({ 
-    students, 
-    evaluations, 
-    setEvaluations, 
-    competencyEvaluations, 
-    setCompetencyEvaluations, 
-    userClasses, 
-    settings, 
-    aiSettings, 
-    initialClass, 
-    initialStudentId, 
-    onClearInitialStudent, 
-    onOpenInclusionPlanEditor 
+const EvaluationModule: React.FC<EvaluationModuleProps> = ({
+    students,
+    evaluations,
+    setEvaluations,
+    competencyEvaluations,
+    setCompetencyEvaluations,
+    userClasses,
+    settings,
+    aiSettings,
+    initialClass,
+    initialStudentId,
+    onClearInitialStudent,
+    onOpenInclusionPlanEditor
 }) => {
     const [selectedClass, setSelectedClass] = useState<string>(initialClass || userClasses[0] || '1A');
     const [activeTab, setActiveTab] = useState<ViewTab>('grid');
@@ -160,7 +153,6 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
         }
     };
 
-
     if (viewingStudent) {
         return <StudentProfile
             student={viewingStudent}
@@ -175,59 +167,153 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     }
 
     const renderEvaluationGrid = () => (
-        <div 
-             style={{border: "1px solid layers.sys.color.outline", borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
+        <div
+            style={{
+                border: '1px solid var(--md-sys-color-outline)',
+                borderRadius: 'var(--md-sys-shape-corner-medium)'
+            }}
         >
-            <table >
+            <table>
                 <thead>
-                    <tr style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50 }}>
-                        <th style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/80 }} style={{borderBottom: "1px solid layers.sys.color.outline", borderRight: "1px solid layers.sys.color.outline"}}>
-                            <div  style={{paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "layers.sys.color.primary"}}>Studente</div>
+                    <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+                        <th
+                            style={{
+                                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                borderBottom: '1px solid var(--md-sys-color-outline)',
+                                borderRight: '1px solid var(--md-sys-color-outline)',
+                                padding: 'var(--md-sys-spacing-4)'
+                            }}
+                        >
+                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)' }}>Studente</M3Typography>
                         </th>
-                        <th  style={{textAlign: "center", width: layers.ref.spacing['16'], borderBottom: "1px solid layers.sys.color.outline", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "layers.sys.color.primary"}}>Media</th>
-                        <th  style={{textAlign: "center", width: layers.ref.spacing['16'], borderBottom: "1px solid layers.sys.color.outline", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "layers.sys.color.primary"}}>Trend</th>
+                        <th
+                            style={{
+                                textAlign: 'center',
+                                width: 'var(--md-sys-spacing-16)',
+                                borderBottom: '1px solid var(--md-sys-color-outline)',
+                                padding: 'var(--md-sys-spacing-4)'
+                            }}
+                        >
+                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)' }}>Media</M3Typography>
+                        </th>
+                        <th
+                            style={{
+                                textAlign: 'center',
+                                width: 'var(--md-sys-spacing-16)',
+                                borderBottom: '1px solid var(--md-sys-color-outline)',
+                                padding: 'var(--md-sys-spacing-4)'
+                            }}
+                        >
+                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)' }}>Trend</M3Typography>
+                        </th>
                         {prove.map(p => (
-                            <th key={p.id}  style={{textAlign: "center", borderBottom: "1px solid layers.sys.color.outline", padding: layers.ref.spacing['6']}}>
-                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%" }}>
-                                    <div style={{ backgroundColor: sys.colors.primary/10 }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], border: "1px solid layers.sys.color.outline"}}>
-                                        <span  style={{color: "layers.sys.color.primary"}}>{getTestTypeIcon(p.tipo)}</span>
-                                        <span  style={{fontWeight: "900", color: "layers.sys.color.primary"}}>{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</span>
+                            <th
+                                key={p.id}
+                                style={{
+                                    textAlign: 'center',
+                                    borderBottom: '1px solid var(--md-sys-color-outline)',
+                                    padding: 'var(--md-sys-spacing-6)'
+                                }}
+                            >
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                    <div
+                                        style={{
+                                            backgroundColor: 'var(--md-sys-color-primary-container)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 'var(--md-sys-spacing-2)',
+                                            marginBottom: 'var(--md-sys-spacing-1)',
+                                            borderRadius: 'var(--md-sys-shape-corner-small)',
+                                            border: '1px solid var(--md-sys-color-outline)',
+                                            padding: 'var(--md-sys-spacing-1)'
+                                        }}
+                                    >
+                                        <span style={{ color: 'var(--md-sys-color-on-primary-container)', fontSize: '1.125rem' }}>{getTestTypeIcon(p.tipo)}</span>
+                                        <M3Typography variant="label-small" style={{ fontWeight: '900', color: 'var(--md-sys-color-on-primary-container)' }}>{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</M3Typography>
                                     </div>
-                                    <span style={{ color:  layers.sys.color.onPrimary }} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "-0.005em" }} title={p.titolo}>{p.titolo}</span>
+                                    <M3Typography
+                                        variant="body-small"
+                                        style={{
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            whiteSpace: 'nowrap',
+                                            fontWeight: 'bold',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '-0.005em',
+                                            color: 'var(--md-sys-color-on-surface)'
+                                        }}
+                                        title={p.titolo}
+                                    >
+                                        {p.titolo}
+                                    </M3Typography>
                                 </div>
                             </th>
                         ))}
-                        {prove.length === 0 && <th style={{ color:  layers.sys.color.onSurfaceVariant }} style={{textAlign: "center", fontWeight: "normal", borderBottom: "1px solid layers.sys.color.outline"}}>Nessuna prova</th>}
+                        {prove.length === 0 && (
+                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: 'center', fontWeight: 'normal', borderBottom: '1px solid var(--md-sys-color-outline)', padding: 'var(--md-sys-spacing-4)' }}>
+                                <M3Typography variant="body-medium">Nessuna prova</M3Typography>
+                            </th>
+                        )}
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
                     {filteredStudents.map(student => {
                         const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
-                        const trendClass = performance.trend === 'up' ? 'text-tertiary' : performance.trend === 'down' ? 'text-error' : 'text-[var(--md-sys-color-onSurface)]-variant';
                         const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
 
                         return (
-                            <tr key={student.id}  style={{ transition: "color 300ms" }}>
-                                <td style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/90 }} style={{borderRight: "1px solid layers.sys.color.outline"}}>
+                            <tr key={student.id} style={{ transition: 'color 300ms' }}>
+                                <td
+                                    style={{
+                                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                        borderRight: '1px solid var(--md-sys-color-outline)',
+                                        padding: 'var(--md-sys-spacing-4)'
+                                    }}
+                                >
                                     <div
-                                         style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], cursor: "pointer"}}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 'var(--md-sys-spacing-3)',
+                                            cursor: 'pointer'
+                                        }}
                                         onClick={() => setViewingStudent(student)}
                                     >
-                                        <Avatar name={`${student.nome} ${student.cognome}`} size="sm"  style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} />
-                                        <div style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "bold", fontSize: "0.875rem", transition: "color 300ms" }}>
+                                        <Avatar name={`${student.nome} ${student.cognome}`} size="sm" style={{ transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)' }} />
+                                        <M3Typography variant="body-medium" style={{ fontWeight: 'bold', fontSize: '0.875rem', transition: 'color 300ms', color: 'var(--md-sys-color-on-surface)' }}>
                                             {student.cognome} {student.nome}
-                                        </div>
+                                        </M3Typography>
                                     </div>
                                 </td>
-                                <td style={{ textAlign: "center", fontWeight: "900", fontSize: layers.ref.spacing['4'] }}>
+                                <td style={{ textAlign: 'center', fontWeight: '900', fontSize: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)' }}>
                                     {performance.grade ? (
-                                        <div className={`inline-flex items-center justify-center w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] ${parseFloat(performance.grade) < 6 ? 'bg-error/10 text-error' : 'bg-primary/10 text-primary'}`}>
+                                        <div
+                                            style={{
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                width: '2.5rem',
+                                                height: '2.5rem',
+                                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                backgroundColor: parseFloat(performance.grade) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
+                                                color: parseFloat(performance.grade) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)'
+                                            }}
+                                        >
                                             {performance.grade}
                                         </div>
                                     ) : '-'}
                                 </td>
-                                <td style={{ textAlign: "center" }}>
-                                    {performance.trend && <span className={`material-symbols-outlined ${trendClass} text-xl`}>{trendIcon}</span>}
+                                <td style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)' }}>
+                                    {performance.trend && (
+                                        <span
+                                            style={{
+                                                fontSize: '1.5rem',
+                                                color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)'
+                                            }}
+                                        >
+                                            {trendIcon}
+                                        </span>
+                                    )}
                                 </td>
                                 {prove.map(p => {
                                     const hasCompetencies = competencyEvaluations.some(ce => ce.studenteId === student.id && ce.provaId === p.id);
@@ -238,32 +324,75 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     return (
                                         <td
                                             key={p.id}
-                                             style={{textAlign: "center", cursor: "pointer", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", padding: layers.ref.spacing['8']}}
+                                            style={{
+                                                textAlign: 'center',
+                                                cursor: 'pointer',
+                                                transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                                padding: 'var(--md-sys-spacing-2)'
+                                            }}
                                             onClick={() => setEditingUnified({ student, prova: p })}
                                         >
                                             {voteValue ? (
-                                                <div className={`grade-badge-m3 ${isNegative ? 'bg-error text-on-error' : 'bg-secondary text-on-secondary'} w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center mx-auto font-black text-sm shadow-sm group-hover:scale-110 transition-transform`}>
+                                                <div
+                                                    style={{
+                                                        width: '2.5rem',
+                                                        height: '2.5rem',
+                                                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        margin: '0 auto',
+                                                        fontWeight: 'bold',
+                                                        fontSize: '0.875rem',
+                                                        backgroundColor: isNegative ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-secondary-container)',
+                                                        color: isNegative ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-secondary-container)',
+                                                        boxShadow: 'var(--md-sys-elevation-level1)'
+                                                    }}
+                                                >
                                                     {voteValue}
                                                 </div>
                                             ) : (
-                                                <div style={{ borderRadius: layers.ref.shape.corner.large }} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto" }}>
-                                                    <span style={{ color:  layers.sys.color.onSurfaceVariant/20 }} style={{ fontSize: "0.875rem" }}>add</span>
+                                                <div
+                                                    style={{
+                                                        width: 'var(--md-sys-spacing-4)',
+                                                        height: 'var(--md-sys-spacing-4)',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        margin: '0 auto',
+                                                        borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                        backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                                                        border: '1px solid var(--md-sys-color-outline-variant)'
+                                                    }}
+                                                >
+                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.875rem' }}>add</span>
                                                 </div>
                                             )}
                                             {hasCompetencies && (
-                                                <span  style={{width: "0.5rem", height: "0.5rem", backgroundColor: "layers.sys.color.tertiary", borderRadius: layers.ref.spacing['4']}} title="Competenze valutate"></span>
+                                                <div
+                                                    style={{
+                                                        width: '0.5rem',
+                                                        height: '0.5rem',
+                                                        backgroundColor: 'var(--md-sys-color-tertiary)',
+                                                        borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                        margin: 'var(--md-sys-spacing-1) auto 0'
+                                                    }}
+                                                    title="Competenze valutate"
+                                                />
                                             )}
                                         </td>
-                                    )
+                                    );
                                 })}
-                                {prove.length === 0 && <td style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ textAlign: "center" }}>-</td>}
+                                {prove.length === 0 && <td style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: 'center', padding: 'var(--md-sys-spacing-4)' }}>-</td>}
                             </tr>
-                        )
+                        );
                     })}
                     {filteredStudents.length === 0 && (
-                        <tr><td colSpan={prove.length + 3} style={{padding: layers.ref.spacing['8'], textAlign: "center"}}>
-                            <EmptyState title="Nessuno studente" description="Questa classe non ha studenti." icon="group_off" />
-                        </td></tr>
+                        <tr>
+                            <td colSpan={prove.length + 3} style={{ padding: 'var(--md-sys-spacing-2)', textAlign: 'center' }}>
+                                <EmptyState title="Nessuno studente" description="Questa classe non ha studenti." icon="group_off" />
+                            </td>
+                        </tr>
                     )}
                 </tbody>
             </table>
@@ -271,45 +400,74 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     );
 
     const renderSummaryView = () => (
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6']}}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-3)' }}>
             {filteredStudents.map(student => {
                 const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
-                const trendClass = performance.trend === 'up' ? 'text-tertiary' : performance.trend === 'down' ? 'text-error' : 'text-[var(--md-sys-color-onSurface)]-variant';
                 const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
                 const avg = parseFloat(performance.grade || '0');
                 const isInsufficient = avg > 0 && avg < 6;
 
                 return (
-                    <div 
-                        key={student.id} 
-                         style={{padding: layers.ref.spacing['6'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", cursor: "pointer"}}
+                    <div
+                        key={student.id}
+                        style={{
+                            padding: 'var(--md-sys-spacing-3)',
+                            transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                            cursor: 'pointer',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}
                         onClick={() => setViewingStudent(student)}
                     >
-                        <div style={{ backgroundColor: sys.colors.primary/5 }} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], transition: "transform 300ms" }}></div>
-                        
-                        <div  style={{ display: "flex", alignItems: "center" }}>
-                            <Avatar name={`${student.nome} ${student.cognome}`} size="lg"  />
-                            <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                <h3 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: "1.125rem", letterSpacing: "-0.005em" }}>{student.cognome} {student.nome}</h3>
-                                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginTop: layers.ref.spacing['4']}}>
-                                    <div className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest ${isInsufficient ? 'bg-error/10 text-error border border-error/20' : 'bg-primary/10 text-primary border border-primary/20'}`}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
+                            <div style={{ flexGrow: '1', minWidth: '0' }}>
+                                <M3Typography variant="headline-small" style={{ fontWeight: '900', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', letterSpacing: '-0.005em', color: 'var(--md-sys-color-on-surface)' }}>
+                                    {student.cognome} {student.nome}
+                                </M3Typography>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-1)' }}>
+                                    <div
+                                        style={{
+                                            padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
+                                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                                            fontSize: '0.75rem',
+                                            fontWeight: '900',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '0.1em',
+                                            backgroundColor: isInsufficient ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
+                                            color: isInsufficient ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)',
+                                            border: `1px solid ${isInsufficient ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'}`
+                                        }}
+                                    >
                                         Media: {performance.grade || 'N/D'}
                                     </div>
                                     {performance.trend && (
-                                        <div className={`flex items-center gap-2.5 text-[10px] font-black uppercase tracking-widest ${trendClass}`}>
-                                            <span  style={{ fontSize: "0.875rem" }}>{trendIcon}</span>
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 'var(--md-sys-spacing-1)',
+                                                fontSize: '0.625rem',
+                                                fontWeight: '900',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '0.1em',
+                                                color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)'
+                                            }}
+                                        >
+                                            <span style={{ fontSize: '0.875rem' }}>{trendIcon}</span>
                                             {performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
                                         </div>
                                     )}
                                 </div>
                             </div>
-                            <span style={{ color:  layers.sys.color.onSurfaceVariant/40 }} style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}>chevron_right</span>
+                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)', transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)', fontSize: '1.5rem' }}>chevron_right</span>
                         </div>
                     </div>
                 );
             })}
             {filteredStudents.length === 0 && (
-                <div >
+                <div>
                     <EmptyState title="Nessuno studente" description="Aggiungi studenti alla classe." icon="group_off" />
                 </div>
             )}
@@ -317,128 +475,299 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     );
 
     const renderRiskView = () => (
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-2)' }}>
             {atRiskStudents.length > 0 ? atRiskStudents.map(student => {
                 const { grade } = calculatePerformance(student.id, 'Complessivo', evaluations);
                 return (
                     <div
                         key={student.id}
-                         style={{ borderLeft: "4px solid" }}
+                        style={{
+                            borderLeft: '4px solid var(--md-sys-color-error)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            backgroundColor: 'var(--md-sys-color-surface-container-low)'
+                        }}
                     >
-                        <div  style={{padding: layers.ref.spacing['8'], opacity: "0.1", transition: "opacity 300ms"}}>
-                            <span style={{ color: "layers.sys.color.error" }}>warning</span>
+                        <div style={{ padding: 'var(--md-sys-spacing-2)', opacity: '0.1', transition: 'opacity 300ms' }}>
+                            <span style={{ color: 'var(--md-sys-color-error)', fontSize: '1.5rem' }}>warning</span>
                         </div>
 
-                        <div  style={{padding: layers.ref.spacing['6']}}>
-                            <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: layers.ref.spacing['6']}}>
-                                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                                    <Avatar name={`${student.nome} ${student.cognome}`} size="lg"  />
+                        <div style={{ padding: 'var(--md-sys-spacing-3)' }}>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 'var(--md-sys-spacing-3)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                                    <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
                                     <div>
-                                        <h3 style={{ color:  layers.sys.color.onPrimary, fontWeight: "900", fontSize: "1.125rem", letterSpacing: "-0.005em" }}>{student.cognome} {student.nome}</h3>
-                                        <p style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "900", textTransform: "uppercase", opacity: "0.6" }}>Classe {student.classe}</p>
+                                        <M3Typography variant="headline-small" style={{ fontWeight: '900', letterSpacing: '-0.005em', color: 'var(--md-sys-color-on-surface)' }}>
+                                            {student.cognome} {student.nome}
+                                        </M3Typography>
+                                        <M3Typography variant="body-small" style={{ fontWeight: '900', textTransform: 'uppercase', opacity: '0.6', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                            Classe {student.classe}
+                                        </M3Typography>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div style={{ backgroundColor: sys.colors.error/10, borderRadius: layers.ref.shape.corner.large }} style={{color: "layers.sys.color.error", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], fontSize: "0.75rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid layers.sys.color.outline", marginBottom: layers.ref.spacing['6'], display: "inline-block"}}>
+
+                            <div
+                                style={{
+                                    backgroundColor: 'var(--md-sys-color-error-container)',
+                                    color: 'var(--md-sys-color-on-error-container)',
+                                    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
+                                    fontSize: '0.75rem',
+                                    fontWeight: '900',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.1em',
+                                    borderRadius: 'var(--md-sys-shape-corner-small)',
+                                    border: '1px solid var(--md-sys-color-outline)',
+                                    marginBottom: 'var(--md-sys-spacing-3)',
+                                    display: 'inline-block'
+                                }}
+                            >
                                 Media insufficiente: {grade}
                             </div>
 
-                            <p style={{ color: layers.sys.color.onSurfaceVariant, marginBottom: layers.ref.spacing['8'], fontWeight: "500", lineHeight: "1.625" }}>
+                            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-2)', fontWeight: '500', lineHeight: '1.625' }}>
                                 Situazione critica rilevata. È consigliata l&apos;attivazione di misure di recupero personalizzate.
-                            </p>
+                            </M3Typography>
 
-                            <div style={{display: "flex", gap: layers.ref.spacing['6']}}>
+                            <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); onOpenInclusionPlanEditor(student); }}
-                                    style={{ backgroundColor: sys.colors.error, color: sys.colors.white, borderRadius: layers.ref.shape.corner.large, flexGrow: "1", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+                                    style={{
+                                        backgroundColor: 'var(--md-sys-color-error)',
+                                        color: 'var(--md-sys-color-on-error)',
+                                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                                        flexGrow: '1',
+                                        fontWeight: '900',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.1em',
+                                        transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                        border: 'none'
+                                    }}
                                 >
                                     Piano Inclusione
                                 </button>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); setViewingStudent(student); }}
-                                    style={{ backgroundColor:  layers.sys.color.surfaceContainerHighest/50, color:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+                                    style={{
+                                        backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                                        color: 'var(--md-sys-color-on-surface)',
+                                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                                        fontWeight: '900',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.1em',
+                                        transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                        border: 'none'
+                                    }}
                                 >
                                     Analizza
                                 </button>
                             </div>
                         </div>
                     </div>
-                )
+                );
             }) : (
-                <div >
-                    <div style={{ padding: layers.ref.spacing['4'], textAlign: "center" }}>
-                        <span style={{color: "layers.sys.color.tertiary", marginBottom: layers.ref.spacing['8'], opacity: "0.4"}}>verified_user</span>
-                        <h3 style={{ color: layers.sys.color.onPrimary, fontWeight: "900" }}>Nessuna criticit�</h3>
-                        <p style={{ color: layers.sys.color.onSurfaceVariant, marginTop: layers.ref.spacing['4'] }}>Tutti gli studenti mantengono una media sufficiente.</p>
-                    </div>
+                <div style={{ padding: 'var(--md-sys-spacing-4)', textAlign: 'center' }}>
+                    <span style={{ color: 'var(--md-sys-color-tertiary)', marginBottom: 'var(--md-sys-spacing-2)', opacity: '0.4', fontSize: '3rem' }}>verified_user</span>
+                    <M3Typography variant="headline-small" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: '900' }}>Nessuna criticità</M3Typography>
+                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>
+                        Tutti gli studenti mantengono una media sufficiente.
+                    </M3Typography>
                 </div>
             )}
         </div>
     );
 
     return (
-        <div  style={{ maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%" }}>
-            <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", gap: layers.ref.spacing['8']}}>
+        <div style={{ maxWidth: '100%', margin: '0 auto', width: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-2)' }}>
                 <div>
-                    <h1 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Registro Valutazioni</h1>
-                    <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontWeight: "500", marginTop: layers.ref.spacing['4'], opacity: "0.7"}}>Gestione voti, competenze e monitoraggio performance</p>
+                    <M3Typography variant="headline-large" style={{ fontWeight: '900', letterSpacing: '-0.005em', color: 'var(--md-sys-color-on-surface)' }}>
+                        Registro Valutazioni
+                    </M3Typography>
+                    <M3Typography variant="body-large" style={{ fontWeight: '500', marginTop: 'var(--md-sys-spacing-1)', opacity: '0.7', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                        Gestione voti, competenze e monitoraggio performance
+                    </M3Typography>
                 </div>
 
-                <div style={{ borderRadius: ref.shape[2] }} style={{display: "flex", flexWrap: "wrap", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['6']}}>
-                    <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50, borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], border: "1px solid layers.sys.color.outline"}}>
-                        <span  style={{color: "layers.sys.color.primary", fontSize: "1.25rem"}}>class</span>
-                        <select 
-                            id="class-select" 
-                            value={selectedClass} 
-                            onChange={e => setSelectedClass(e.target.value)} 
-                            style={{ color:  layers.sys.color.onPrimary }} style={{ backgroundColor: "transparent", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em", border: "none", cursor: "pointer" }}
+                <div
+                    style={{
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                        gap: 'var(--md-sys-spacing-2)',
+                        padding: 'var(--md-sys-spacing-3)',
+                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                        border: '1px solid var(--md-sys-color-outline)'
+                    }}
+                >
+                    <div
+                        style={{
+                            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
+                            border: '1px solid var(--md-sys-color-outline)'
+                        }}
+                    >
+                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: '1.25rem' }}>class</span>
+                        <select
+                            id="class-select"
+                            value={selectedClass}
+                            onChange={e => setSelectedClass(e.target.value)}
+                            style={{
+                                color: 'var(--md-sys-color-on-surface)',
+                                backgroundColor: 'transparent',
+                                fontWeight: '900',
+                                fontSize: '0.75rem',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                border: 'none',
+                                cursor: 'pointer'
+                            }}
                         >
-                            {userClasses.map(c => <option key={c} value={c} style={{ color:  layers.sys.color.onPrimary }} style={{backgroundColor: "layers.sys.color.surface"}}>{c}</option>)}
+                            {userClasses.map(c => (
+                                <option
+                                    key={c}
+                                    value={c}
+                                    style={{
+                                        color: 'var(--md-sys-color-on-surface)',
+                                        backgroundColor: 'var(--md-sys-color-surface)'
+                                    }}
+                                >
+                                    {c}
+                                </option>
+                            ))}
                         </select>
                     </div>
-                    
-                    <div style={{display: "flex", gap: layers.ref.spacing['6']}}>
-                        <button onClick={() => setIsAddProvaModalOpen(true)} style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor: "layers.sys.color.primary", color: "layers.sys.color.on-primary", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                            <span  style={{ fontSize: "1.125rem" }}>add</span>
+
+                    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
+                        <button
+                            onClick={() => setIsAddProvaModalOpen(true)}
+                            style={{
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                backgroundColor: 'var(--md-sys-color-primary)',
+                                color: 'var(--md-sys-color-on-primary)',
+                                fontWeight: '900',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-2)',
+                                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                border: 'none'
+                            }}
+                        >
+                            <span style={{ fontSize: '1.125rem' }}>add</span>
                             Nuova Prova
                         </button>
-                        <button onClick={() => setIsExportModalOpen(true)} style={{ backgroundColor: layers.sys.color.surfaceContainerHighest, color: layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                            <span  style={{ fontSize: "1.125rem" }}>download</span>
+                        <button
+                            onClick={() => setIsExportModalOpen(true)}
+                            style={{
+                                backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                                color: 'var(--md-sys-color-on-surface)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                fontWeight: '900',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'var(--md-sys-spacing-2)',
+                                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                border: 'none'
+                            }}
+                        >
+                            <span style={{ fontSize: '1.125rem' }}>download</span>
                             Esporta
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div style={{ borderRadius: ref.shape[25] }} style={{border: "1px solid layers.sys.color.outline"}}>
-                <div style={{ backgroundColor: sys.colors.surface/30 }} style={{padding: layers.ref.spacing['8'], borderBottom: "1px solid layers.sys.color.outline"}}>
-                    <div  style={{display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "space-between", gap: layers.ref.spacing['6']}}>
+            <div
+                style={{
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    border: '1px solid var(--md-sys-color-outline)',
+                    backgroundColor: 'var(--md-sys-color-surface)'
+                }}
+            >
+                <div
+                    style={{
+                        padding: 'var(--md-sys-spacing-2)',
+                        borderBottom: '1px solid var(--md-sys-color-outline)',
+                        backgroundColor: 'var(--md-sys-color-surface-container-low)'
+                    }}
+                >
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)' }}>
                         <div>
-                            <h2 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Valutazione Unificata</h2>
-                            <p style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6", marginTop: layers.ref.spacing['4']}}>Griglia voti e competenze trasversali</p>
+                            <M3Typography variant="headline-medium" style={{ fontWeight: '900', letterSpacing: '-0.005em', color: 'var(--md-sys-color-on-surface)' }}>
+                                Valutazione Unificata
+                            </M3Typography>
+                            <M3Typography variant="body-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: '0.6', marginTop: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                Griglia voti e competenze trasversali
+                            </M3Typography>
                         </div>
-                        <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50, padding: layers.ref.spacing['4'], borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", border: "1px solid layers.sys.color.outline"}}>
+                        <div
+                            style={{
+                                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                padding: 'var(--md-sys-spacing-1)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                display: 'flex',
+                                border: '1px solid var(--md-sys-color-outline)'
+                            }}
+                        >
                             {[
                                 { id: 'grid', label: 'Griglia', icon: 'grid_on' },
                                 { id: 'summary', label: 'Riepilogo', icon: 'analytics' },
-                                { id: 'risk', label: 'Criticit�', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
+                                { id: 'risk', label: 'Criticità', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
                             ].map(tab => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as ViewTab)}
-                                    className={`flex items-center gap-8 px-6 py-4.5 rounded-[var(--md-sys-shape-corner-medium)] font-black text-[10px] uppercase tracking-widest transition-all relative ${
-                                        activeTab === tab.id 
-                                        ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level2)] shadow-primary/20' 
-                                        : 'text-[var(--md-sys-color-onSurface)]-variant hover:bg-[var(--md-sys-color-surfaceContainerHigh)]'
-                                    }`}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 'var(--md-sys-spacing-2)',
+                                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                        fontWeight: '900',
+                                        fontSize: '0.625rem',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.1em',
+                                        transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                        backgroundColor: activeTab === tab.id ? 'var(--md-sys-color-primary)' : 'transparent',
+                                        color: activeTab === tab.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                                        border: 'none',
+                                        position: 'relative'
+                                    }}
                                 >
-                                    <span  style={{ fontSize: "1.125rem" }}>{tab.icon}</span>
+                                    <span style={{ fontSize: '1.125rem' }}>{tab.icon}</span>
                                     {tab.label}
                                     {tab.badge && (
-                                        <span style={{ backgroundColor: sys.colors.error, color: sys.colors.white, width: "1.25rem", height: "1.25rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                        <div
+                                            style={{
+                                                backgroundColor: 'var(--md-sys-color-error)',
+                                                color: 'var(--md-sys-color-on-error)',
+                                                width: '1.25rem',
+                                                height: '1.25rem',
+                                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                fontSize: '0.75rem',
+                                                fontWeight: 'bold',
+                                                position: 'absolute',
+                                                top: '-0.5rem',
+                                                right: '-0.5rem'
+                                            }}
+                                        >
                                             {tab.badge}
-                                        </span>
+                                        </div>
                                     )}
                                 </button>
                             ))}
@@ -446,7 +775,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     </div>
                 </div>
 
-                <div style={{padding: layers.ref.spacing['6']}}>
+                <div style={{ padding: 'var(--md-sys-spacing-3)' }}>
                     {activeTab === 'grid' && renderEvaluationGrid()}
                     {activeTab === 'summary' && renderSummaryView()}
                     {activeTab === 'risk' && renderRiskView()}
