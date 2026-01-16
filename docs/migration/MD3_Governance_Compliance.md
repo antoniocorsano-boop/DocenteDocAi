@@ -6,10 +6,10 @@ This document defines the **single source of truth** for Material Design 3 (MD3)
 
 Its purpose is to:
 
-* Eliminate ambiguity
-* Prevent architectural drift
-* Align humans, tooling, and AI assistants (Copilot) under the same rules
-* Guarantee long-term MD3 pervasiveness
+- Eliminate ambiguity
+- Prevent architectural drift
+- Align humans, tooling, and AI assistants (Copilot) under the same rules
+- Guarantee long-term MD3 pervasiveness
 
 Any behavior not explicitly allowed in this document is **forbidden by default**.
 
@@ -21,11 +21,11 @@ Any behavior not explicitly allowed in this document is **forbidden by default**
 
 There must be **no alternative authorities** such as:
 
-* Runtime JavaScript decisions
-* Local component logic deciding appearance
-* CSS utilities
-* Inline hardcoded values
-* Documentation examples contradicting the system
+- Runtime JavaScript decisions
+- Local component logic deciding appearance
+- CSS utilities
+- Inline hardcoded values
+- Documentation examples contradicting the system
 
 If a visual behavior is not representable via tokens, **it must not exist**.
 
@@ -37,14 +37,14 @@ If a visual behavior is not representable via tokens, **it must not exist**.
 
 The system exposes exactly the following token layers:
 
-* **sys** — System colors (foundational, semantic)
-* **ref** — Reference scales
+- **sys** — System colors (foundational, semantic)
+- **ref** — Reference scales
+  - spacing
+  - typography
+  - shape
 
-  * spacing
-  * typography
-  * shape
-* **motion** — Duration and easing
-* **elevation** — Shadow levels
+- **motion** — Duration and easing
+- **elevation** — Shadow levels
 
 No additional layers may be invented.
 
@@ -52,17 +52,17 @@ No additional layers may be invented.
 
 | Layer     | Responsibility             | Mutable by Presets | Consumable by Components |
 | --------- | -------------------------- | ------------------ | ------------------------ |
-| sys       | Semantic color roles       | ✅                  | ✅                        |
-| ref       | Spacing, typography, shape | ✅                  | ✅                        |
-| motion    | Motion timing & easing     | ❌                  | ✅                        |
-| elevation | Depth & hierarchy          | ❌                  | ✅                        |
+| sys       | Semantic color roles       | ✅                 | ✅                       |
+| ref       | Spacing, typography, shape | ✅                 | ✅                       |
+| motion    | Motion timing & easing     | ❌                 | ✅                       |
+| elevation | Depth & hierarchy          | ❌                 | ✅                       |
 
 ### 2.3 CSS Variables
 
 CSS variables are:
 
-* **Allowed ONLY** inside token definitions
-* **Forbidden** in components, presets, or runtime logic
+- **Allowed ONLY** inside token definitions
+- **Forbidden** in components, presets, or runtime logic
 
 ---
 
@@ -107,9 +107,9 @@ const { sys, ref, motion, elevation } = layers;
 
 ### 4.1 What Components MAY Do
 
-* Read tokens from `useTheme().layers`
-* Select between predefined tokens (variant mapping)
-* Apply tokens via **static inline styles**
+- Read tokens from `useTheme().layers`
+- Select between predefined tokens (variant mapping)
+- Apply tokens via **static inline styles**
 
 ### 4.2 What Components MUST NOT Do
 
@@ -129,9 +129,9 @@ const { sys, ref, motion, elevation } = layers;
 
 The following are **explicitly forbidden**:
 
-* Runtime style mutation
-* Imperative interaction handling
-* JavaScript-driven hover/focus/active visuals
+- Runtime style mutation
+- Imperative interaction handling
+- JavaScript-driven hover/focus/active visuals
 
 Examples of violations:
 
@@ -144,9 +144,9 @@ onFocus={() => element.style.outline = ... }
 
 All interaction states MUST be:
 
-* Pre-expressed via tokens
-* Declarative
-* Static
+- Pre-expressed via tokens
+- Declarative
+- Static
 
 If an interaction cannot be expressed declaratively, it must be removed.
 
@@ -160,18 +160,18 @@ Presets are **behavioral modifiers**, NOT color palettes.
 
 They exist to modulate:
 
-* Emotional tone
-* Visual rhythm
-* Hierarchy
+- Emotional tone
+- Visual rhythm
+- Hierarchy
 
 ### 6.2 Allowed Overrides
 
 Presets MAY override:
 
-* `sys.colors`
-* `ref.spacing`
-* `ref.typography`
-* `ref.shape`
+- `sys.colors`
+- `ref.spacing`
+- `ref.typography`
+- `ref.shape`
 
 ### 6.3 Forbidden Overrides
 
@@ -197,9 +197,9 @@ If documentation contradicts the system, it is considered a **blocking defect**.
 
 Documentation MUST NOT:
 
-* Show runtime style mutation
-* Show imperative interaction examples
-* Show deprecated patterns
+- Show runtime style mutation
+- Show imperative interaction examples
+- Show deprecated patterns
 
 All legacy examples MUST be clearly marked:
 
@@ -213,14 +213,14 @@ All legacy examples MUST be clearly marked:
 
 ### 8.1 Tooling
 
-* TypeScript enforces structure
-* CI enforces violations
-* Lint enforces surface rules
+- TypeScript enforces structure
+- CI enforces violations
+- Lint enforces surface rules
 
 ### 8.2 Known Gaps
 
-* TypeScript cannot enforce semantic MD3 rules
-* Governance relies on human and AI discipline
+- TypeScript cannot enforce semantic MD3 rules
+- Governance relies on human and AI discipline
 
 This document fills that gap.
 
@@ -232,22 +232,22 @@ This document fills that gap.
 
 Cause:
 
-* Accessing non-existent tokens
+- Accessing non-existent tokens
 
 Resolution:
 
-* Align component with token definitions
-* Extend tokens ONLY if MD3 allows it
+- Align component with token definitions
+- Extend tokens ONLY if MD3 allows it
 
 ### 9.2 "Object literal may only specify known properties"
 
 Cause:
 
-* Invalid preset overrides
+- Invalid preset overrides
 
 Resolution:
 
-* Restrict overrides to known token layers
+- Restrict overrides to known token layers
 
 ---
 
@@ -255,11 +255,11 @@ Resolution:
 
 A system is considered **MD3 Expressive Compliant** ONLY if:
 
-* MD3 is the sole visual authority
-* All components are token-mediated
-* No imperative styling exists
-* Documentation is aligned
-* Presets are behavioral, not cosmetic
+- MD3 is the sole visual authority
+- All components are token-mediated
+- No imperative styling exists
+- Documentation is aligned
+- Presets are behavioral, not cosmetic
 
 Partial compliance is considered **non-compliance**.
 
@@ -269,10 +269,10 @@ Partial compliance is considered **non-compliance**.
 
 > If there is a conflict between:
 >
-> * code
-> * documentation
-> * tooling
-> * AI suggestions
+> - code
+> - documentation
+> - tooling
+> - AI suggestions
 
 **This document wins.**
 

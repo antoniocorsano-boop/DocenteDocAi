@@ -9,19 +9,23 @@ No other visual authority is permitted. All visual decisions must originate from
 ## Absolute Prohibitions
 
 ### ❌ className (Tailwind or CSS) = FORBIDDEN
+
 - No `className` attributes in components
 - No Tailwind utility classes
 - No CSS class-based styling
 
 ### ❌ hardcoded px/rem/hex = FORBIDDEN
+
 - No hardcoded `px`, `rem`, `%`, `hex`, `rgba` values
 - No numeric literals for spacing, sizing, colors
 
 ### ❌ onMouseEnter/onFocus/onBlur for visual effects = FORBIDDEN
+
 - No imperative interaction handling for visual changes
 - No runtime style mutation via event handlers
 
 ### ❌ runtime mutation of style = FORBIDDEN
+
 - No direct DOM manipulation for visual properties
 - No JavaScript-driven style changes
 
@@ -48,11 +52,11 @@ No other visual authority is permitted. All visual decisions must originate from
 
 There must be **no alternative authorities** such as:
 
-* Runtime JavaScript decisions
-* Local component logic deciding appearance
-* CSS utilities
-* Inline hardcoded values
-* Documentation examples contradicting the system
+- Runtime JavaScript decisions
+- Local component logic deciding appearance
+- CSS utilities
+- Inline hardcoded values
+- Documentation examples contradicting the system
 
 If a visual behavior is not representable via tokens, **it must not exist**.
 
