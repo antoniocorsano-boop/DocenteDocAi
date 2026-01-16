@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import React, { useState, useRef, useEffect } from 'react';
 import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
 import Logo from './Logo';
@@ -17,35 +16,8 @@ import {
 } from './ui';
 
 import type { ActionsPopoverProps } from '../types';
-import { useTheme } from '../theme/theme';
 
-/**
- * MD3-compliant Header component
- * ✅ MIGRATED TO MD3 PURE - Complete migration from legacy CSS classes to pure MD3 tokens and M3Typography
- *
- * Features:
- * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
- * - M3Typography for all text elements
- * - Responsive layout with token-based spacing
- * - Accessibility: ARIA roles, keyboard navigation, focus management, touch targets ≥44px
- * - Complex popover menus (ActionsPopover, NotificationsPopover)
- * - Avatar integration with notification badges
- * - AI processing indicator
- * - Online/offline status display
- * - Share dialog with clipboard integration
- *
- * API Compatibility: ✅ MAINTAINED - All existing props preserved
- * Breaking Changes: None - Full backward compatibility
- *
- * Migration Details:
- * - Removed all legacy CSS classes (header-*, m3-popup-menu, etc.)
- * - Converted to inline styles using MD3 tokens only
- * - Replaced hardcoded values with token references
- * - Maintained all functionality and accessibility features
- * - Added proper focus management and keyboard navigation
- */
 const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
-  const { layers } = useTheme();
     const { onClose, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp, user, onShareClick, unreadCount, onOpenNotifications, installPrompt, onInstallApp, onNavigate } = props;
     const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -132,31 +104,25 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     borderRadius: `var(--md-sys-shape-corner-medium)`,
                     backgroundColor: 'transparent',
                     border: 'none',
-                    color: 'var(--md-sys-color-onSurface)',
+                    color: 'var(--md-sys-color-on-surface)',
                     textAlign: 'left',
                     cursor: 'pointer',
-                    transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`
+                    transition: `all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)`
                 }}
-                onMouseEnter={(e) => {
-                    e.currentTarget// removed runtime mutation
+                onMouseEnter={() => {
                 }}
-                onMouseLeave={(e) => {
-                    e.currentTarget// removed runtime mutation
+                onMouseLeave={() => {
                 }}
-                onFocus={(e) => {
-                    e.currentTarget// removed runtime mutation
-                    e.currentTarget// removed runtime mutation
+                onFocus={() => {
                 }}
-                onBlur={(e) => {
-                    e.currentTarget// removed runtime mutation
-                    e.currentTarget// removed runtime mutation
+                onBlur={() => {
                 }}
                 aria-label={label}
             >
                 <div
-                    style={{width: layers.ref.spacing['6'],
-                        height: layers.ref.spacing['6'],
-                        borderRadius: layers.ref.shape.small,
+                    style={{width: 'var(--md-sys-spacing-6)',
+                        height: 'var(--md-sys-spacing-6)',
+                        borderRadius: 'var(--md-sys-shape-corner-small)',
                         backgroundColor: colors.iconBg,
                         color: colors.iconColor,
                         display: 'flex',
@@ -197,14 +163,12 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 )}
                 <span
                     style={{fontFamily: 'Material Symbols Outlined',
-                        color: 'color-mix(in srgb, layers.sys.color.onSurface-variant 30%, transparent)',
-                        fontSize: layers.ref.spacing['3'],
-                        transition: `transform ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
-                    onMouseEnter={(e) => {
-                        (e.target as HTMLElement)// removed runtime mutation
+                        color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 30%, transparent)',
+                        fontSize: 'var(--md-sys-spacing-3)',
+                        transition: `transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1)`}}
+                    onMouseEnter={() => {
                     }}
-                    onMouseLeave={(e) => {
-                        (e.target as HTMLElement)// removed runtime mutation
+                    onMouseLeave={() => {
                     }}
                 >
                     chevron_right
@@ -252,15 +216,15 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 style={{display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    padding: layers.ref.spacing['4'],
-                    marginBottom: layers.ref.spacing['4'],
-                    borderBottom: '1px solid color-mix(in srgb, layers.sys.color.outline-variant 10%, transparent)'}}
+                    padding: 'var(--md-sys-spacing-4)',
+                    marginBottom: 'var(--md-sys-spacing-4)',
+                    borderBottom: '1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 10%, transparent)'}}
             >
-                <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['3']}}>
-                    <div style={{width: layers.ref.spacing['6'],
-                        height: layers.ref.spacing['6'],
-                        borderRadius: layers.ref.shape.large,
-                        border: '2px solid layers.sys.color.primary',
+                <div style={{display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)'}}>
+                    <div style={{width: 'var(--md-sys-spacing-6)',
+                        height: 'var(--md-sys-spacing-6)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        border: '2px solid var(--md-sys-color-primary)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -277,8 +241,8 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                         <M3Typography
                             variant="label-medium"
                             style={{fontWeight: '700',
-                                color: layers.sys.color.primary,
-                                maxWidth: layers.ref.spacing['12'],
+                                color: 'var(--md-sys-color-primary)',
+                                maxWidth: 'var(--md-sys-spacing-12)',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap'}}
@@ -289,7 +253,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                         </M3Typography>
                         <M3Typography
                             variant="label-small"
-                            style={{color: 'layers.sys.color.onSurface-variant',
+                            style={{color: 'var(--md-sys-color-on-surface-variant)',
                                 fontWeight: '500',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.05em'}}
@@ -300,36 +264,34 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                 </div>
                 <button
                     onClick={onClose}
-                    style={{width: layers.ref.spacing['5'],
-                        height: layers.ref.spacing['5'],
-                        borderRadius: layers.ref.shape.large,
+                    style={{width: 'var(--md-sys-spacing-5)',
+                        height: 'var(--md-sys-spacing-5)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
                         backgroundColor: 'transparent',
                         border: 'none',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        color: 'layers.sys.color.onSurface-variant',
-                        transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
-                    onMouseEnter={(e) => {
-                        e.currentTarget// removed runtime mutation
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                        transition: `all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)`}}
+                    onMouseEnter={() => {
                     }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget// removed runtime mutation
+                    onMouseLeave={() => {
                     }}
                     aria-label="Chiudi menu"
                 >
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
-                            fontSize: layers.ref.spacing['4']}}
+                            fontSize: 'var(--md-sys-spacing-4)'}}
                     >
                         close
                     </span>
                 </button>
             </div>
 
-            <div style={{paddingLeft: layers.ref.spacing['2'], paddingRight: layers.ref.spacing['2']}}>
-                <div style={{display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['1']}}>
+            <div style={{paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)'}}>
+                <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)'}}>
                     <MenuItem
                         icon="notifications"
                         label="Notifiche"
@@ -352,19 +314,19 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     )}
 
                     <div
-                        style={{height: layers.ref.spacing['1'],
-                            backgroundColor: 'color-mix(in srgb, layers.sys.color.outline-variant 10%, transparent)',
-                            margin: `${layers.ref.spacing['2']} ${layers.ref.spacing['1']}`}}
+                        style={{height: 'var(--md-sys-spacing-1)',
+                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-outline-variant) 10%, transparent)',
+                            margin: `var(--md-sys-spacing-2) var(--md-sys-spacing-1)`}}
                     />
 
-                    <div style={{padding: layers.ref.spacing['2'], paddingLeft: layers.ref.spacing['3']}}>
+                    <div style={{padding: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-3)'}}>
                         <M3Typography
                             variant="label-small"
-                            style={{fontSize: layers.ref.spacing['4'],
+                            style={{fontSize: 'var(--md-sys-spacing-4)',
                                 fontWeight: '700',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
-                                color: 'color-mix(in srgb, layers.sys.color.primary 60%, transparent)'}}
+                                color: 'color-mix(in srgb, var(--md-sys-color-primary) 60%, transparent)'}}
                         >
                             Strumenti AI
                         </M3Typography>
@@ -385,9 +347,9 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     />
 
                     <div
-                        style={{height: layers.ref.spacing['1'],
-                            backgroundColor: 'color-mix(in srgb, layers.sys.color.outline-variant 10%, transparent)',
-                            margin: `${layers.ref.spacing['2']} ${layers.ref.spacing['1']}`}}
+                        style={{height: 'var(--md-sys-spacing-1)',
+                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-outline-variant) 10%, transparent)',
+                            margin: `var(--md-sys-spacing-2) var(--md-sys-spacing-1)`}}
                     />
 
                     <MenuItem
@@ -408,7 +370,6 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
 };
 
 export const Header: React.FC<HeaderProps> = (props) => {
-    const { layers } = useTheme();
     const { showBackButton, user, settings, notifiche, setNotifiche, onOpenCircularAnalysis, onNavigate, isAiProcessing, installPrompt, onInstallApp, onOpenImageAnalysis, onOpenVideoAnalysis, onOpenHelp } = props;
 
     // Get display name from settings (teacher name/surname) or fallback to user
@@ -438,51 +399,45 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 style={{position: 'sticky',
                     top: 0,
                     zIndex: 50,
-                    backgroundColor: layers.sys.color.surfaceContainerHigh,
-                    borderBottom: `1px solid ${layers.sys.color.outlineVariant}`,
-                    boxShadow: layers.elevation.level1,
-                    padding: `${layers.ref.spacing['3']} ${layers.ref.spacing['4']}`,
+                    backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                    borderBottom: `1px solid var(--md-sys-color-outline-variant)`,
+                    boxShadow: 'var(--md-sys-elevation-level1)',
+                    padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    minHeight: layers.ref.spacing['12'] // 48px minimum touch target
+                    minHeight: 'var(--md-sys-spacing-12)' // 48px minimum touch target
                 }}
             >
                 {/* Left section: Back button and Aura */}
-                <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['3']}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)'}}>
                     {showBackButton && (
                         <button
                             aria-label="Indietro"
                             onClick={props.onBack}
-                            style={{width: layers.ref.spacing['6'],
-                                height: layers.ref.spacing['6'],
-                                borderRadius: layers.ref.shape.large,
+                            style={{width: 'var(--md-sys-spacing-6)',
+                                height: 'var(--md-sys-spacing-6)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
                                 backgroundColor: 'transparent',
                                 border: 'none',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 cursor: 'pointer',
-                                color: 'layers.sys.color.onSurface-variant',
-                                transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
-                            onMouseEnter={(e) => {
-                                e.currentTarget// removed runtime mutation
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                transition: `all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)`}}
+                            onMouseEnter={() => {
                             }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget// removed runtime mutation
+                            onMouseLeave={() => {
                             }}
-                            onFocus={(e) => {
-                                e.currentTarget// removed runtime mutation
-                                e.currentTarget// removed runtime mutation
+                            onFocus={() => {
                             }}
-                            onBlur={(e) => {
-                                e.currentTarget// removed runtime mutation
-                                e.currentTarget// removed runtime mutation
+                            onBlur={() => {
                             }}
                         >
                             <span
                                 style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: layers.ref.spacing['4']}}
+                                    fontSize: 'var(--md-sys-spacing-4)'}}
                             >
                                 arrow_back
                             </span>
@@ -496,10 +451,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 </div>
 
                 {/* Center section: Logo and AI indicator */}
-                <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['3'], flex: 1, justifyContent: 'center'}}>
-                    <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['2']}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', flex: 1, justifyContent: 'center'}}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)'}}>
                         <div style={{cursor: 'pointer',
-                            transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}>
+                            transition: `all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)`}}>
                             <Logo
                                 isAiThinking={isAiProcessing}
                                 onHomeNavigate={() => !showBackButton && onNavigate('home')}
@@ -510,21 +465,21 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 </div>
 
                 {/* Right section: Status, Settings, Avatar/Menu */}
-                <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['3']}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)'}}>
                     {!isOnline && (
                         <div
                             title="Modalità Offline"
                             style={{display: 'flex',
                                 alignItems: 'center',
-                                gap: layers.ref.spacing['1'],
-                                padding: `${layers.ref.spacing['1']} ${layers.ref.spacing['2']}`,
-                                borderRadius: layers.ref.shape.large,
-                                backgroundColor: layers.sys.color.errorContainer,
-                                color: layers.sys.color.onErrorContainer}}
+                                gap: 'var(--md-sys-spacing-1)',
+                                padding: `var(--md-sys-spacing-1) var(--md-sys-spacing-2)`,
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                backgroundColor: 'var(--md-sys-color-error-container)',
+                                color: 'var(--md-sys-color-on-error-container)'}}
                         >
                             <span
                                 style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: layers.ref.spacing['3']}}
+                                    fontSize: 'var(--md-sys-spacing-3)'}}
                             >
                                 cloud_off
                             </span>
@@ -536,35 +491,29 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     <button
                         aria-label="Impostazioni"
                         onClick={() => onNavigate('settings')}
-                        style={{width: layers.ref.spacing['6'],
-                            height: layers.ref.spacing['6'],
-                            borderRadius: layers.ref.shape.large,
+                        style={{width: 'var(--md-sys-spacing-6)',
+                            height: 'var(--md-sys-spacing-6)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
                             backgroundColor: 'transparent',
                             border: 'none',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: 'pointer',
-                            color: 'layers.sys.color.onSurface-variant',
-                            transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
-                        onMouseEnter={(e) => {
-                            e.currentTarget// removed runtime mutation
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            transition: `all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)`}}
+                        onMouseEnter={() => {
                         }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget// removed runtime mutation
+                        onMouseLeave={() => {
                         }}
-                        onFocus={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                        onFocus={() => {
                         }}
-                        onBlur={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                        onBlur={() => {
                         }}
                     >
                         <span
                             style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: layers.ref.spacing['4']}}
+                                fontSize: 'var(--md-sys-spacing-4)'}}
                         >
                             settings
                         </span>
@@ -581,9 +530,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         <button
                             onClick={() => setIsActionsOpen(p => !p)}
                             aria-label="Menu"
-                            style={{width: layers.ref.spacing['6'],
-                                height: layers.ref.spacing['6'],
-                                borderRadius: layers.ref.shape.large,
+                            style={{width: 'var(--md-sys-spacing-6)',
+                                height: 'var(--md-sys-spacing-6)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
                                 backgroundColor: 'transparent',
                                 border: 'none',
                                 display: 'flex',
@@ -591,25 +540,19 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                 justifyContent: 'center',
                                 cursor: 'pointer',
                                 position: 'relative',
-                                transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
-                            onMouseEnter={(e) => {
-                                e.currentTarget// removed runtime mutation
+                                transition: `all 200ms cubic-bezier(0.4, 0.0, 0.2, 1)`}}
+                            onMouseEnter={() => {
                             }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget// removed runtime mutation
+                            onMouseLeave={() => {
                             }}
-                            onFocus={(e) => {
-                                e.currentTarget// removed runtime mutation
-                                e.currentTarget// removed runtime mutation
+                            onFocus={() => {
                             }}
-                            onBlur={(e) => {
-                                e.currentTarget// removed runtime mutation
-                                e.currentTarget// removed runtime mutation
+                            onBlur={() => {
                             }}
                         >
-                            <div style={{width: layers.ref.spacing['6'],
-                                height: layers.ref.spacing['6'],
-                                borderRadius: layers.ref.shape.large,
+                            <div style={{width: 'var(--md-sys-spacing-6)',
+                                height: 'var(--md-sys-spacing-6)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -625,20 +568,20 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                     style={{position: 'absolute',
                                         top: '-2px',
                                         right: '-2px',
-                                        width: layers.ref.spacing['3'],
-                                        height: layers.ref.spacing['3'],
-                                        borderRadius: layers.ref.shape.large,
-                                        backgroundColor: layers.sys.color.error,
-                                        border: '2px solid layers.sys.color.surfaceContainerHigh',
+                                        width: 'var(--md-sys-spacing-3)',
+                                        height: 'var(--md-sys-spacing-3)',
+                                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                                        backgroundColor: 'var(--md-sys-color-error)',
+                                        border: '2px solid var(--md-sys-color-surface-container-high)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center'}}
                                     aria-label={`${unreadCount} notifiche non lette`}
                                 >
                                     <span
-                                        style={{fontSize: layers.ref.spacing['3'],
+                                        style={{fontSize: 'var(--md-sys-spacing-3)',
                                             fontWeight: '700',
-                                            color: 'layers.sys.color.on-error',
+                                            color: 'var(--md-sys-color-on-error)',
                                             lineHeight: 1}}
                                     >
                                         {unreadCount > 99 ? '99+' : unreadCount}
@@ -659,7 +602,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            backgroundColor: 'color-mix(in srgb, layers.sys.color.scrim 50%, transparent)',
+                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-scrim) 50%, transparent)',
                             zIndex: 999}}
                         onClick={() => setIsActionsOpen(false)}
                     />
@@ -686,7 +629,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            backgroundColor: 'color-mix(in srgb, layers.sys.color.scrim 50%, transparent)',
+                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-scrim) 50%, transparent)',
                             zIndex: 999}}
                         onClick={() => setIsNotificationsOpen(false)}
                     />
@@ -708,18 +651,18 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 title="Condividi Link"
             >
                 <M3DialogContent>
-                    <div style={{textAlign: 'center', padding: layers.ref.spacing['4']}}>
+                    <div style={{textAlign: 'center', padding: 'var(--md-sys-spacing-4)'}}>
                         <div
                             style={{
-                                width: layers.ref.spacing['12'],
-                                height: layers.ref.spacing['12'],
-                                borderRadius: layers.ref.shape.large,
-                                backgroundColor: layers.sys.color.primaryContainer,
-                                color: layers.sys.color.onPrimaryContainer,
+                                width: 'var(--md-sys-spacing-12)',
+                                height: 'var(--md-sys-spacing-12)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                backgroundColor: 'var(--md-sys-color-primary-container)',
+                                color: 'var(--md-sys-color-on-primary-container)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                margin: `0 auto ${layers.ref.spacing['4']}`,
+                                margin: `0 auto var(--md-sys-spacing-4)`,
                                 fontSize: '1.875rem' // 3xl equivalent
                             }}
                         >
@@ -733,18 +676,18 @@ export const Header: React.FC<HeaderProps> = (props) => {
                         </div>
                         <M3Typography
                             variant="body-medium"
-                            style={{marginBottom: layers.ref.spacing['4'],
-                                color: 'layers.sys.color.onSurface-variant'}}
+                            style={{marginBottom: 'var(--md-sys-spacing-4)',
+                                color: 'var(--md-sys-color-on-surface-variant)'}}
                         >
                             Scansiona o copia il link per accedere alla tua app didattica da altri dispositivi.
                         </M3Typography>
-                        <div style={{marginBottom: layers.ref.spacing['4']}}>
+                        <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
                             <InfoCard variant="tonal">
-                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: layers.ref.spacing['3']}}>
+                                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)'}}>
                                     <code
                                         style={{fontFamily: 'monospace',
-                                            fontSize: layers.ref.typography.caption.fontSize,
-                                            color: layers.sys.color.onSurface,
+                                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                                            color: 'var(--md-sys-color-on-surface)',
                                             flex: 1,
                                             wordBreak: 'break-all'}}
                                     >
@@ -756,12 +699,12 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                         }}
                                         variant="tonal"
                                         size="small"
-                                        style={{borderRadius: layers.ref.shape.large,
+                                        style={{borderRadius: 'var(--md-sys-shape-corner-large)',
                                             flexShrink: 0}}
                                     >
                                         <span
                                         style={{fontFamily: 'Material Symbols Outlined',
-                                            fontSize: layers.ref.spacing['4']}}
+                                            fontSize: 'var(--md-sys-spacing-4)'}}
                                     >
                                         content_copy
                                     </span>
