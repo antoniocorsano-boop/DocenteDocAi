@@ -31,6 +31,7 @@ npm run build
 ## 📚 Documentazione
 
 ### 🏗️ **Documentazione Operativa**
+
 - **[Guida Sviluppo](docs/DEVELOPMENT.md)** - Setup, workflow, best practices
 - **[Architettura](docs/ARCHITECTURE.md)** - Design system, componenti, struttura
 - **[Deployment](docs/DEPLOYMENT.md)** - CI/CD, ambienti, rilascio
@@ -38,13 +39,19 @@ npm run build
 - **[Material Design 3](docs/MD3_GUIDE.md)** - Guida completa MD3 implementation
 
 ### 🛠️ **Guide Specializzate**
+
 - **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Risoluzione problemi comuni
 - **[Contributing](CONTRIBUTING.md)** - Come contribuire al progetto
 - **[Roadmap](docs/ROADMAP.md)** - Pianificazione futura
 
 ### 📖 **Archivio Storico**
+
 - **[Documentazione 2025](docs/archive/2025/)** - Fasi di sviluppo completate
 - **[Report Completamento](docs/archive/2025/completion-reports/)** - Report tecnici archiviati
+- **[📊 Archivio Reports](reports/)** - Report importanti e analisi progetto
+  - **[Changelog Progetto](reports/CHANGELOG.md)** - Storia completa accomplishments
+  - **[Migration Reports](reports/migration/)** - Report migrazione MD3
+  - **[Analysis Reports](reports/analysis/)** - Analisi tecniche e pattern
 
 ## 🎨 Design System
 
@@ -119,6 +126,7 @@ VITE_GSI_CLIENT_ID=your-dev-client-id.apps.googleusercontent.com
 Then restart the dev server. The app will load GSI scripts and use `VITE_GSI_CLIENT_ID` as the client id when `VITE_ENABLE_GSI_DEV` is true.
 
 ### Running the GSI E2E test
+
 You can run the new E2E test that verifies GSI loads in development. Provide a valid `VITE_GSI_CLIENT_ID` and enable the toggle when running the test.
 
 POSIX/macOS/Linux:
@@ -134,6 +142,7 @@ $env:VITE_ENABLE_GSI_DEV = 'true'; $env:VITE_GSI_CLIENT_ID = 'your-dev-client-id
 ```
 
 The project also includes convenient npm scripts:
+
 - `npm run e2e:gsi` (POSIX) and `npm run e2e:gsi:win` (Windows) which use a placeholder client id — replace it with your real dev client id in `.env` or the script before running.
 
 ### View names & Linting ✅
@@ -146,24 +155,28 @@ The project also includes convenient npm scripts:
 
 MIT
 
-
 ## Deploy su Vercel (owner: antonio.corsano@gmail.com)
 
 ### 1. Deploy automatico (raccomandato)
+
 - Effettua il push su main/master: Vercel esegue il deploy automatico.
 
 ### 2. Deploy manuale via dashboard
+
 - Vai su: https://vercel.com/dashboard → docentedoc-ai
 - Tab Deployments → Click sull’ultima build → “Redeploy”
 
 ### 3. Deploy da terminale (owner/account associato)
+
 ```bash
 npx vercel --prod --yes
 ```
+
 - Se richiesto, effettua login con Google (antonio.corsano@gmail.com).
 - Se compare errore di permessi, assicurati che il progetto sia associato al tuo account/team e che tu sia owner.
 
 ### Checklist post-deploy
+
 - [ ] Hard refresh (Ctrl+Shift+R)
 - [ ] F12 Console: No errors
 - [ ] No "document is undefined"
@@ -172,6 +185,7 @@ npx vercel --prod --yes
 - [ ] Navigazione e feature OK
 
 ### Troubleshooting
+
 - Se vedi errori di permessi: controlla che il progetto sia nel team/account giusto su Vercel.
 - Se vedi errori “document is undefined”: assicurati che la build sia aggiornata (polyfill attivo).
 - Consulta i log su Vercel Dashboard → Deployments → Logs.
@@ -210,9 +224,11 @@ The scripts use `npx netlify` under the hood and will build the app if `dist/` i
 ## Resolving React `useState` Undefined Error
 
 ### Issue
+
 The application encountered a `useState` undefined error due to incorrect chunk loading order. React was not properly initialized before other chunks were executed.
 
 ### Resolution Steps
+
 1. **Verify React Version Compatibility**:
    - Ensure React and React DOM versions are compatible.
    - Confirmed React `18.2.0` and React DOM `18.2.0` in `package.json`.
@@ -238,5 +254,5 @@ The application encountered a `useState` undefined error due to incorrect chunk 
    - Confirmed the fix on the production URL.
 
 ### Outcome
-The `useState` undefined error was successfully resolved, and the application is now functioning correctly in both local and production environments.
 
+The `useState` undefined error was successfully resolved, and the application is now functioning correctly in both local and production environments.
