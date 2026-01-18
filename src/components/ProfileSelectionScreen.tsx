@@ -14,7 +14,7 @@ const ProfileSelectionScreen: React.FC<ProfileSelectionScreenProps> = ({ profile
     <div >
       <div >
         <h1 >Scegli il tuo profilo</h1>
-        <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color:  layers.sys.color.onSurfaceVariant }}>Seleziona un profilo per continuare.</p>
+        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona un profilo per continuare.</p>
         <div >
           {profiles.map(profile => (
             <button key={profile.id}  onClick={() => onSelectProfile(profile)}>

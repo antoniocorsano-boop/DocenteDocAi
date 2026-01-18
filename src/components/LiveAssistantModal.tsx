@@ -30,7 +30,11 @@ const LiveAssistantModal: React.FC<LiveAssistantModalProps> = ({
             onClose={onClose}
             maxWidth="2xl"
         >
-            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }} style={{ display: "flex", flexDirection: "column" }}>
+            <M3DialogContent style={{
+                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                display: "flex",
+                flexDirection: "column"
+            }}>
                 <LiveAssistant 
                     lessonContext={lessonContext} 
                     isModalMode={true} 

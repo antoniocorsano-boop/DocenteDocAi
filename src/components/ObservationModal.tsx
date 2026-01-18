@@ -1,8 +1,7 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React, { useState } from 'react';
 import { Studente, ObservationEntry } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
-import { useTheme } from '../theme/theme';
 
 interface ObservationModalProps {
     student: Studente;
@@ -12,21 +11,57 @@ interface ObservationModalProps {
 }
 
 const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialData, onClose, onSave }) => {
-  const { layers } = useTheme();
     const [autonomy, setAutonomy] = useState(initialData?.autonomy || 0);
     const [collaboration, setCollaboration] = useState(initialData?.collaboration || 0);
     const [responsibility, setResponsibility] = useState(initialData?.responsibility || 0);
     const [note, setNote] = useState(initialData?.note || '');
 
     const RatingStars = ({ label, value, onChange }: { label: string, value: number, onChange: (v: number) => void }) => (
-        <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['5'], border: "1px solid layers.sys.color.outline"}}>
-            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: layers.ref.spacing['8'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
-                <span style={{color: "layers.sys.color.primary", fontWeight: "900", textTransform: "uppercase"}}>{label}</span>
-                <span style={{fontSize: "1.125rem", fontWeight: "900", color: "layers.sys.color.primary"}}>{value}/4</span>
+        <div style={{
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            padding: 'var(--md-sys-spacing-5)',
+            border: '1px solid var(--md-sys-color-outline)'
+        }}>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: 'var(--md-sys-spacing-8)',
+                paddingLeft: 'var(--md-sys-spacing-4)',
+                paddingRight: 'var(--md-sys-spacing-4)'
+            }}>
+                <span style={{
+                    color: 'var(--md-sys-color-primary)',
+                    fontWeight: '900',
+                    textTransform: 'uppercase'
+                }}>{label}</span>
+                <span style={{
+                    fontSize: '1.125rem',
+                    fontWeight: '900',
+                    color: 'var(--md-sys-color-primary)'
+                }}>{value}/4</span>
             </div>
-            <div style={{display: "flex", justifyContent: "space-between", gap: layers.ref.spacing['8']}}>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: 'var(--md-sys-spacing-8)'
+            }}>
                 {[1, 2, 3, 4].map((i) => (
-                    <button key={i} type="button" onClick={() => onChange(i)} className={`flex-1 h-14 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center transition-all ${i <= value ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level1)] scale-105' : 'bg-surface border border-[var(--md-sys-color-outline-variant)] text-[var(--md-sys-color-onSurface)]-variant'}`}>
+                    <button key={i} type="button" onClick={() => onChange(i)} style={{
+                        flex: 1,
+                        height: '3.5rem',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.2s ease',
+                        backgroundColor: i <= value ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-low)',
+                        color: i <= value ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                        border: i <= value ? 'none' : '1px solid var(--md-sys-color-outline-variant)',
+                        boxShadow: i <= value ? 'var(--md-sys-elevation-level1)' : 'none',
+                        transform: i <= value ? 'scale(1.05)' : 'scale(1)'
+                    }}>
                         <span  style={{ fontSize: "1.5rem" }}>{i <= value ? 'star' : 'star_outline'}</span>
                     </button>
                 ))}
@@ -46,11 +81,19 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
             maxWidth="md"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }}>
-                <div style={{marginBottom: layers.ref.spacing['6'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
-                    <h3 style={{ color:  layers.sys.color.onPrimary }} style={{ fontSize: "1.25rem", fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                <div style={{
+                    marginBottom: 'var(--md-sys-spacing-6)',
+                    paddingLeft: 'var(--md-sys-spacing-4)',
+                    paddingRight: 'var(--md-sys-spacing-4)'
+                }}>
+                    <h3 style={{
+                        color: 'var(--md-sys-color-on-primary)',
+                        fontSize: '1.25rem',
+                        fontWeight: 'bold'
+                    }}>{student.cognome} {student.nome}</h3>
                 </div>
-                <div style={{gap: layers.ref.spacing['6']}}>
+                <div style={{ gap: 'var(--md-sys-spacing-6)' }}>
                     <RatingStars label="Autonomia" value={autonomy} onChange={setAutonomy} />
                     <RatingStars label="Collaborazione" value={collaboration} onChange={setCollaboration} />
                     <RatingStars label="Responsabilità" value={responsibility} onChange={setResponsibility} />
