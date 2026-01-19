@@ -1,7 +1,7 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant M3Dialog Component
 /**
  * M3Dialog - Material Design 3 Expressive Dialog Component
- * 
+ *
  * Componente di dialogo completo con:
  * - Supporto per React Portals via ModalContext
  * - M3 Expressive styling (Aura palette)
@@ -12,7 +12,6 @@
  */
 
 import React, { useCallback, useState } from 'react';
-import { useTheme } from '../../theme/theme';
 import { getModalZIndex } from '../../design-system/zIndex';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 
@@ -95,28 +94,41 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   hideCloseButton = false,
   wrapperTestId,
 }) => {
-  const { layers } = useTheme();
-  const {
-    sys: {
-      colors: {
-        scrim,
-        surfaceContainerHigh,
-        onSurface,
-        onSurfaceVariant,
-        outlineVariant
-      }
-    },
-    ref: {
-      spacing,
-      shape: { large },
-      typography: {
-        heading1,
-        body1,
-        labelLarge
-      }
-    },
-    elevation: { level3 }
-  } = layers;
+  // MD3 Token mapping - no useTheme() dependency
+  // Color tokens
+  const scrim = 'var(--md-sys-color-scrim)';
+  const surfaceContainerHigh = 'var(--md-sys-color-surface-container-high)';
+  const onSurface = 'var(--md-sys-color-on-surface)';
+  const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
+  const outlineVariant = 'var(--md-sys-color-outline-variant)';
+  const primary = 'var(--md-sys-color-primary)';
+  const error = 'var(--md-sys-color-error)';
+  const onPrimary = 'var(--md-sys-color-on-primary)';
+
+  // Elevation token
+  const level3 = 'var(--md-sys-elevation-level-3)';
+
+  // Shape token
+  const large = 'var(--md-sys-shape-corner-large)';
+
+  // Typography tokens
+  const heading1 = {
+    fontSize: 'var(--md-sys-typescale-headline-large-font)',
+    fontWeight: 'var(--md-sys-typescale-headline-large-weight)',
+    lineHeight: 'var(--md-sys-typescale-headline-large-line-height)',
+    letterSpacing: 'var(--md-sys-typescale-headline-large-tracking)'
+  };
+  const body1 = {
+    fontSize: 'var(--md-sys-typescale-body-large-font)',
+    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+    lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
+  };
+  const labelLarge = {
+    fontSize: 'var(--md-sys-typescale-label-large-font)',
+    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+    lineHeight: 'var(--md-sys-typescale-label-large-line-height)'
+  };
+
   const zIndex = Number(style.zIndex) || getModalZIndex(level);
   const [closeButtonHovered, setCloseButtonHovered] = useState(false);
 
@@ -191,7 +203,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
             ? {
                 height: '100%',
                 maxHeight: '90vh',
-                maxWidth: layers.ref.spacing['80'] // Using calculated value instead of non-existent spacing token
+                maxWidth: 'var(--md-sys-spacing-80)' // Using MD3 spacing token
               }
             : {
                 maxWidth: maxWidthMap[maxWidth],
@@ -220,7 +232,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
-              padding: spacing['6'],
+              padding: 'var(--md-sys-spacing-6)',
               borderBottom: `1px solid ${outlineVariant}`
             }}
           >
@@ -247,7 +259,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                     lineHeight: body1.lineHeight,
                     color: onSurfaceVariant,
                     opacity: 0.8,
-                    margin: `${spacing['4']} 0 0 0`,
+                    margin: `var(--md-sys-spacing-4) 0 0 0`,
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
@@ -267,7 +279,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: spacing['2'],
+                  padding: 'var(--md-sys-spacing-2)',
                   borderRadius: large,
                   backgroundColor: closeButtonHovered ? surfaceContainerHigh : 'transparent',
                   border: 'none',
@@ -293,7 +305,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         {/* Content Section */}
         <div
           style={{flex: 1,
-            padding: spacing['6'],
+            padding: 'var(--md-sys-spacing-6)',
             overflowY: 'auto'}}
         >
           {children}
@@ -302,11 +314,11 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         {/* Footer Section */}
         {(buttons || footerContent) && (
           <div
-            style={{padding: spacing['6'],
+            style={{padding: 'var(--md-sys-spacing-6)',
               borderTop: `1px solid ${outlineVariant}`,
               display: 'flex',
               justifyContent: 'flex-end',
-              gap: spacing['3']}}
+              gap: 'var(--md-sys-spacing-3)'}}
           >
             {footerContent || buttons}
           </div>
@@ -323,12 +335,11 @@ export const M3DialogContent: React.FC<{ children: React.ReactNode; style?: Reac
   children,
   style = {},
 }) => {
-  const { layers } = useTheme();
-  const { ref: { spacing } } = layers;
+  // MD3 Token mapping - no useTheme() dependency
   return (
     <div
       style={{flex: 1,
-        padding: spacing['6'],
+        padding: 'var(--md-sys-spacing-6)',
         overflowY: 'auto',
         ...style}}
     >
@@ -344,15 +355,15 @@ export const M3DialogActions: React.FC<{ children: React.ReactNode; style?: Reac
   children,
   style = {},
 }) => {
-  const { layers } = useTheme();
-  const { ref: { spacing }, sys: { colors: { outlineVariant } } } = layers;
+  // MD3 Token mapping - no useTheme() dependency
+  const outlineVariant = 'var(--md-sys-color-outline-variant)';
   return (
     <div
-      style={{padding: spacing['6'],
+      style={{padding: 'var(--md-sys-spacing-6)',
         borderTop: `1px solid ${outlineVariant}`,
         display: 'flex',
         justifyContent: 'flex-end',
-        gap: spacing['3'],
+        gap: 'var(--md-sys-spacing-3)',
         ...style}}
     >
       {children}
@@ -380,11 +391,23 @@ export const M3ConfirmDialog: React.FC<{
   cancelText = 'Annulla',
   danger = false,
 }) => {
-  const { layers } = useTheme();
-  const {
-    ref: { spacing, shape: { large }, typography: { labelLarge } },
-    sys: { colors: { primary, error, onPrimary } }
-  } = layers;
+  // MD3 Token mapping - no useTheme() dependency
+  const primary = 'var(--md-sys-color-primary)';
+  const error = 'var(--md-sys-color-error)';
+  const onPrimary = 'var(--md-sys-color-on-primary)';
+  const onSurface = 'var(--md-sys-color-on-surface)';
+  const large = 'var(--md-sys-shape-corner-large)';
+  const labelLarge = {
+    fontSize: 'var(--md-sys-typescale-label-large-font)',
+    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+    lineHeight: 'var(--md-sys-typescale-label-large-line-height)'
+  };
+  const body1 = {
+    fontSize: 'var(--md-sys-typescale-body-large-font)',
+    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+    lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
+  };
+
   return (
     <M3Dialog
       title={title}
@@ -395,7 +418,7 @@ export const M3ConfirmDialog: React.FC<{
           <button
             onClick={onCancel}
             style={{
-              padding: `${spacing['3']} ${spacing['4']}`,
+              padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
               border: 'none',
               backgroundColor: 'transparent',
               color: primary,
@@ -409,7 +432,7 @@ export const M3ConfirmDialog: React.FC<{
           </button>
           <button
             onClick={onConfirm}
-            style={{padding: `${spacing['3']} ${spacing['4']}`,
+            style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
               border: 'none',
               backgroundColor: danger ? error : primary,
               color: onPrimary,
@@ -429,7 +452,7 @@ export const M3ConfirmDialog: React.FC<{
           fontWeight: body1.fontWeight,
           lineHeight: body1.lineHeight,
           color: onSurface,
-          padding: `${spacing['4']} 0`,
+          padding: `var(--md-sys-spacing-4) 0`,
           margin: 0}}
       >
         {message}

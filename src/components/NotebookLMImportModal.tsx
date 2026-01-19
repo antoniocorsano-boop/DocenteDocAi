@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchNotebookFiles, NotebookLMFile } from '../services/notebooklmService';
 import { KnowledgeBaseEntry } from '../types';
-import { useTheme } from '../theme/theme';
 import { 
 
     M3Dialog, 
@@ -26,7 +25,6 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
   isAuthenticated = false,
   onConnect
 }) => {
-  const { layers } = useTheme();
   const [files, setFiles] = useState<NotebookLMFile[]>([]);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(false);
@@ -103,15 +101,15 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
       onClose={onClose}
       maxWidth="xl"
     >
-      <M3DialogContent style={{paddingTop: layers.ref.spacing['4'],
-  paddingBottom: layers.ref.spacing['4']}}>
+      <M3DialogContent style={{paddingTop: 'var(--md-sys-spacing-4)',
+  paddingBottom: 'var(--md-sys-spacing-4)'}}>
         {!isAuthenticated ? (
           <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-            <div style={{ backgroundColor: sys.colors.primary/10 }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", marginBottom: layers.ref.spacing['6']}}>
-              <span style={{ color: layers.sys.color.primary }}>cloud_off</span>
+            <div style={{ backgroundColor: sys.colors.primary/10 , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
+              <span style={{ color: 'var(--md-sys-color-primary)' }}>cloud_off</span>
             </div>
-            <h3 style={{fontSize: "1.25rem", fontWeight: "bold", marginBottom: layers.ref.spacing['8']}}>Connessione Google Richiesta</h3>
-            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{marginBottom: layers.ref.spacing['8']}}>
+            <h3 style={{fontSize: "1.25rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</h3>
+            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>
               Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
             </p>
             <M3Button variant="filled" onClick={onConnect} >
@@ -121,18 +119,18 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
         ) : (
           <>
             {loading && <div  style={{ textAlign: "center" }}>Caricamento file da NotebookLM...</div>}
-            {error && <div style={{color: "layers.sys.color.error", paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4']}}>{error}</div>}
+            {error && <div style={{color: "var(--md-sys-color-error)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>{error}</div>}
 
             {step === 'select' && !loading && !error && (
               <>
-                <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{marginBottom: layers.ref.spacing['8']}}>Seleziona i materiali da importare nella Knowledge Base.</p>
-                <div  style={{overflowY: "auto", border: "1px solid layers.sys.color.outline", borderRadius: "0.375rem", marginBottom: layers.ref.spacing['8']}}>
-                  {files.length === 0 && <div style={{ color:  layers.sys.color.onSurfaceVariant }} style={{padding: layers.ref.spacing['8'], textAlign: "center"}}>Nessun file trovato.</div>}
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Seleziona i materiali da importare nella Knowledge Base.</p>
+                <div  style={{overflowY: "auto", border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                  {files.length === 0 && <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>Nessun file trovato.</div>}
                   {files.map(f => (
-                    <label key={f.id}  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], borderBottom: "1px solid layers.sys.color.outline", cursor: "pointer"}}>
+                    <label key={f.id}  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderBottom: "1px solid var(--md-sys-color-outline)", cursor: "pointer"}}>
                       <input type="checkbox" checked={selected.has(f.id)} onChange={() => handleSelect(f.id)} />
                       <span style={{ flex: "1", fontWeight: "500" }}>{f.name}</span>
-                      <span style={{ color:  layers.sys.color.onSurfaceVariant }}>{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
+                      <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
                     </label>
                   ))}
                 </div>
@@ -143,12 +141,12 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
         {step === 'catalog' && (
           <>
-            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{marginBottom: layers.ref.spacing['8']}}>Catalogazione materiali importati:</p>
-            <div  style={{gap: layers.ref.spacing['4'], overflowY: "auto"}}>
+            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Catalogazione materiali importati:</p>
+            <div  style={{gap: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
               {imported.map(entry => (
-                <div key={entry.id} style={{ backgroundColor:  layers.sys.color.surfaceContainerLow }} style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline", borderRadius: "0.375rem"}}>
-                  <div style={{fontWeight: "bold", marginBottom: layers.ref.spacing['4']}}>{entry.fileName}</div>
-                  <div style={{display: "flex", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['4']}}>
+                <div key={entry.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem"}}>
+                  <div style={{fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>{entry.fileName}</div>
+                  <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)'}}>
                     <input  placeholder="Materia (opzionale)" value={catalogData[entry.id]?.materia || ''} onChange={e => handleCatalogChange(entry.id, 'materia', e.target.value)} />
                     <input  placeholder="Classe (opzionale)" value={catalogData[entry.id]?.classe || ''} onChange={e => handleCatalogChange(entry.id, 'classe', e.target.value)} />
                     <input  placeholder="Categoria/Tag (opzionale)" value={catalogData[entry.id]?.category || ''} onChange={e => handleCatalogChange(entry.id, 'category', e.target.value)} />
@@ -162,14 +160,14 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
         {step === 'done' && (
           <div  style={{ textAlign: "center" }}>
-            <span  style={{color: "layers.sys.color.success", marginBottom: layers.ref.spacing['8']}}>check_circle</span>
-            <div style={{fontWeight: "bold", marginBottom: layers.ref.spacing['8']}}>Importazione completata!</div>
+            <span  style={{color: "var(--md-sys-color-success)", marginBottom: 'var(--md-sys-spacing-8)'}}>check_circle</span>
+            <div style={{fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Importazione completata!</div>
           </div>
         )}
       </M3DialogContent>
 
       {step !== 'done' && (
-        <M3DialogActions style={{gap: layers.ref.spacing['6']}}>
+        <M3DialogActions style={{gap: 'var(--md-sys-spacing-6)'}}>
           {step === 'select' && (
             <>
               <M3Button variant="text" onClick={onClose}>Annulla</M3Button>

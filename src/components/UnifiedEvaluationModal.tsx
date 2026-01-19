@@ -4,8 +4,6 @@ import React, { useState, useMemo } from 'react';
 import type { Studente, Prova, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
 import { RATING_OPTIONS } from '../constants';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField, InfoCard } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface UnifiedEvaluationModalProps {
     student: Studente;
     prova: Prova;
@@ -20,8 +18,7 @@ interface UnifiedEvaluationModalProps {
 }
 
 const getTestTypeIcon = (tipo: string) => {
-  const { layers } = useTheme();
-    switch (tipo) {
+  switch (tipo) {
         case 'Scritto': return 'edit_note';
         case 'Orale': return 'record_voice_over';
         case 'Pratico': return 'build';
@@ -71,18 +68,18 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/30 }}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 }}>
                 {/* Aura Ornaments */}
-                <div style={{ backgroundColor: sys.colors.primary/5 }} style={{ borderRadius: layers.ref.spacing['4'] }} />
-                <div style={{ backgroundColor: sys.colors.secondary/5 }} style={{ borderRadius: layers.ref.spacing['4'] }} />
+                <div style={{ backgroundColor: sys.colors.primary/5 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
+                <div style={{ backgroundColor: sys.colors.secondary/5 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
 
-                <div  style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4']}}>
-                    <div style={{ backgroundColor: layers.sys.color.surfaceContainerLowest, borderRadius: layers.ref.shape.corner.large, padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline", display: "flex", alignItems: "center" }}>
-                        <div style={{ borderRadius: layers.ref.shape.corner.large, color: layers.sys.color.onPrimaryContainer, width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.primaryContainer", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <span style={{ color: layers.sys.color.onPrimaryContainer }}>{getTestTypeIcon(prova.tipo)}</span>
+                <div  style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center" }}>
+                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <span style={{ color: 'var(--md-sys-color-on-primary)' }}>{getTestTypeIcon(prova.tipo)}</span>
                         </div>
                         <div style={{ flexGrow: "1" }}>
-                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: layers.ref.spacing['8'], opacity: "0.6"}}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.6"}}>
                                 {student.cognome} {student.nome} • {prova.materia}
                             </p>
                             <SelectField
@@ -99,21 +96,21 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                     </div>
 
                     <div >
-                        <div  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
-                            <div style={{ backgroundColor: sys.colors.primary/10 }} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                <span  style={{color: "layers.sys.color.primary", fontSize: "1.125rem"}}>verified</span>
+                        <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+                            <div style={{ backgroundColor: sys.colors.primary/10 ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: "1.125rem"}}>verified</span>
                             </div>
                             <h3  style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Competenze Valutate</h3>
                         </div>
 
                         {relevantCompetencies.length > 0 ? (
-                            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8'], overflowY: "auto"}}>
+                            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)', overflowY: "auto"}}>
                                 {relevantCompetencies.map((competenza, idx) => (
                                     <div 
                                         key={competenza.id} 
-                                        style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLowest/30 }} style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", animationDelay: `${idx * 100}ms` }}
+                                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", animationDelay: `${idx * 100}ms` }}
                                     >
-                                        <h4  style={{textTransform: "uppercase", color: "layers.sys.color.primary", marginBottom: layers.ref.spacing['8'], fontWeight: "900", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                                        <h4  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', fontWeight: "900", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                                             {competenza.nome}
                                             {selectedLevels[competenza.id] && (
                                                 <button
@@ -123,19 +120,19 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                         const { [competenza.id]: _removed, ...rest } = prev;
                                                         return rest;
                                                     })}
-                                                    style={{ color: layers.sys.color.error, backgroundColor: layers.sys.color.errorContainer, borderRadius: layers.ref.spacing['4'], fontWeight: "900", transition: "color 300ms" }}
+                                                    style={{ color: 'var(--md-sys-color-error)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-spacing-4)', fontWeight: "900", transition: "color 300ms" }}
                                                 >
                                                     RIMUOVI
                                                 </button>
                                             )}
                                         </h4>
-                                        <div style={{gap: layers.ref.spacing['3']}}>
+                                        <div style={{gap: 'var(--md-sys-spacing-3)'}}>
                                             {competenza.livelli.map(level => {
                                                 const isSelected = selectedLevels[competenza.id] === level.id;
                                                 return (
                                                     <label
                                                         key={level.id}
-                                                        className={`flex items-start cursor-pointer p-8 rounded-[var(--md-sys-shape-corner-large)] transition-all border-2 ${isSelected ? 'bg-primaryContainer/80 text-on-primaryContainer border-primary/30 shadow-[var(--md-sys-elevation-level1)] scale-[1.02]' : 'bg-[var(--md-sys-color-surfaceContainerLow)]est/50 border-transparent hover:border-[var(--md-sys-color-outline-variant)]/30 hover:bg-[var(--md-sys-color-surfaceContainerHigh)]/50'}`}
+                                                        style={{padding: 'var(--md-sys-spacing-8)'}}
                                                     >
                                                         <input
                                                             type="radio"
@@ -145,12 +142,12 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                             onChange={() => handleLevelChange(competenza.id, level.id)}
                                                             
                                                         />
-                                                        <div className={`w-5 h-5 rounded-full border-2 mt-4 mr-4 flex items-center justify-center flex-shrink-0 transition-all ${isSelected ? 'border-primary bg-primary' : 'border-[var(--md-sys-color-outline-variant)] group-hover:border-primary/50'}`}>
-                                                            {isSelected && <div style={{ backgroundColor: sys.colors.on-primary }} style={{ width: "0.5rem", height: "0.5rem", borderRadius: layers.ref.spacing['4'] }} />}
+                                                        <div style={{borderRadius: 'var(--md-sys-shape-corner-full)'}}>
+                                                            {isSelected && <div style={{ backgroundColor: sys.colors.on-primary ,  width: "0.5rem", height: "0.5rem", borderRadius: 'var(--md-sys-spacing-4)' }} />}
                                                         </div>
                                                         <div>
                                                             <span className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-black block ${isSelected ? 'text-on-primaryContainer' : 'text-[var(--md-sys-color-onSurface)]'}`}>{level.nome}</span>
-                                                            <p className={`m3-body-small text-xs mt-4 leading-relaxed ${isSelected ? 'text-on-primaryContainer opacity-80' : 'text-[var(--md-sys-color-onSurface)]-variant opacity-70'}`}>{level.descrizione}</p>
+                                                            <p style={{fontSize: 'var(--md-sys-typescale-body-small-font-size)', fontWeight: 'var(--md-sys-typescale-body-small-font-weight)'}}>{level.descrizione}</p>
                                                         </div>
                                                     </label>
                                                 );
@@ -168,7 +165,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50 }} style={{borderTop: "1px solid layers.sys.color.outline"}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , borderTop: "1px solid var(--md-sys-color-outline)"}}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button onClick={handleSubmit} variant="primary" icon="save">Salva Valutazione</M3Button>
             </M3DialogActions>

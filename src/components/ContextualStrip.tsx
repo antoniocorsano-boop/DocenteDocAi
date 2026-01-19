@@ -1,8 +1,6 @@
 // LEGACY - MD3 Non-compliant
 
 import React, { useEffect, useState } from 'react';
-import { useTheme } from '../theme/theme';
-
 interface ContextualStripProps {
     message: string;
     actionLabel: string;
@@ -12,8 +10,7 @@ interface ContextualStripProps {
 }
 
 const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel, onAction, onDismiss, visible }) => {
-  const { layers } = useTheme();
-    const [render, setRender] = useState(visible);
+  const [render, setRender] = useState(visible);
 
     useEffect(() => {
         if (visible) setRender(true);
@@ -25,15 +22,15 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
     return (
         <div className={`contextual-strip ${visible ? 'visible' : 'hidden-strip'}`}>
             {/* Icon & Message Group */}
-            <div  style={{display: "flex", alignItems: "flex-start", gap: layers.ref.spacing['6'], flexGrow: "1", minWidth: "0"}}>
-                <div style={{ backgroundColor: sys.colors.on-tertiary-container/20 }} style={{ width: "1.5rem", height: "1.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
+            <div  style={{display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)', flexGrow: "1", minWidth: "0"}}>
+                <div style={{ backgroundColor: sys.colors.on-tertiary-container/20 ,  width: "1.5rem", height: "1.5rem", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
                     <span >auto_awesome</span>
                 </div>
                 <p >{message}</p>
             </div>
 
             {/* Actions Group */}
-            <div  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['4'], flexShrink: "0"}}>
+            <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', flexShrink: "0"}}>
                 <button onClick={onAction} >
                     {actionLabel}
                 </button>

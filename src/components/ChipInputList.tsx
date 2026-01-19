@@ -1,8 +1,6 @@
 // LEGACY - MD3 Non-compliant
 
 import React, { useState, useRef } from 'react';
-import { useTheme } from '../theme/theme';
-
 interface ChipInputListProps {
     items: string[];
     onAdd: (item: string) => void;
@@ -14,8 +12,7 @@ interface ChipInputListProps {
 }
 
 const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, placeholder, icon, label, variant = 'default' }) => {
-  const { layers } = useTheme();
-    const [newItem, setNewItem] = useState('');
+  const [newItem, setNewItem] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleAdd = () => {
@@ -42,25 +39,25 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
     };
 
     return (
-        <div style={{marginBottom: layers.ref.spacing['8']}}>
-             <div  style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: layers.ref.spacing['8']}}>
-                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
-                    <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primaryContainer text-primary'}`}>
+        <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
+             <div  style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                    <div style={`w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject'  ? {backgroundColor: 'var(--md-sys-color-tertiary-container)', color: 'var(--md-sys-color-tertiary)'} : {color: 'var(--md-sys-color-primary)'}}`}>
                         <span  style={{ fontSize: "1.25rem" }}>{icon}</span>
                     </div>
                     <div>
-                        <label style={{ color: layers.sys.color.onPrimary, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", display: "block" }}>
+                        <label style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", display: "block" }}>
                             {label}
                         </label>
-                        <span style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
                             {items.length} {items.length === 1 ? 'elemento' : 'elementi'} salvati
                         </span>
                     </div>
                 </div>
              </div>
              
-             <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
-                <div  style={{marginBottom: layers.ref.spacing['8']}}>
+             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+                <div  style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                     {items.map((item, index) => (
                         <div key={index} className={`m3-expressive-chip variant-${variant} animate-in zoom-in-95 duration-200`}>
                             <span>{item}</span>
@@ -77,7 +74,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     ))}
                     
                     {items.length === 0 && (
-                        <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontSize: "0.75rem", opacity: "0.4", paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>Nessun elemento aggiunto...</p>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "0.75rem", opacity: "0.4", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
                     )}
                 </div>
                 
@@ -98,13 +95,13 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     <button 
                         type="button"
                         onClick={(e) => { e.stopPropagation(); handleAdd(); }}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${newItem.trim() ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level1)] scale-110' : 'bg-[var(--md-sys-color-surfaceContainerHigh)]est text-[var(--md-sys-color-onSurface)]-variant opacity-30'}`}
+                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', color: 'var(--md-sys-color-on-primary)'}}
                         disabled={!newItem.trim()}
                     >
                         <span  style={{ fontSize: "0.875rem" }}>arrow_forward</span>
                     </button>
                 </div>
-                <p style={{ color: layers.sys.color.onSurfaceVariant, opacity: "0.4", marginTop: layers.ref.spacing['3'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "bold" }}>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "bold" }}>
                     Premi Invio o usa la virgola per aggiungere più elementi
                 </p>
             </div>

@@ -11,9 +11,6 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';
 import { generateCouncilTablePdf, generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { useTheme } from '../theme/theme';
-
-
 interface ConsiglioClasseProps {
   selectedClass: string;
   students: Studente[];
@@ -28,8 +25,7 @@ interface ConsiglioClasseProps {
 }
 
 const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
-  const { layers } = useTheme();
-    const { selectedClass, students, evaluations, giudizi, onSaveGiudizio, settings, aiSettings, annoScolasticoCorrente, onViewStudentProfile, competencyEvaluations } = props;
+  const { selectedClass, students, evaluations, giudizi, onSaveGiudizio, settings, aiSettings, annoScolasticoCorrente, onViewStudentProfile, competencyEvaluations } = props;
     
     const [periodo, setPeriodo] = useState<PeriodoValutazione>('primo-quadrimestre');
     const [localGiudizi, setLocalGiudizi] = useState<Record<string, GiudizioPeriodico>>({});
@@ -158,7 +154,6 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             // viewPdfInNewTab(blob); // Rimosso import inutilizzato, lasciare gestione download a saveAs o altro
             saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.pdf`);
         } catch(e) {
-            const errorMsg = e instanceof Error ? e.message : 'Errore sconosciuto';
             console.error(errorMsg);
             alert("Si è verificato un errore durante l'esportazione del PDF.");
         } finally {
@@ -174,7 +169,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             // const performance = student ? calculatePerformance(student.id, 'Complessivo', evaluations.filter(e => e.studenteId === student.id)) : { grade: null, trend: null };
             
             let html = `
-            <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); table { width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif; } th, td { border: 1px solid #000; padding: var(--md-sys-spacing-2); text-align: left; vertical-align: top; } th { background-color: var(--md-sys-color-primary); font-weight: bold; } /* MD3 fix */ h1 { font-family: 'Roboto', sans-serif; color: var(--md-sys-color-primary); } /* MD3 fix */ p { font-family: 'Roboto', sans-serif; }</style>
+            <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); table { width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif; } th, td { border: 1px solid #000; padding: 'var(--md-sys-spacing-2)'; text-align: left; vertical-align: top; } th { background-color: 'var(--md-sys-color-primary)'; font-weight: bold; } /* MD3 fix */ h1 { font-family: 'Roboto', sans-serif; color: 'var(--md-sys-color-primary)'; } /* MD3 fix */ p { font-family: 'Roboto', sans-serif; }</style>
             `;
             
             html += `<h1>Tabellone Scrutinio: ${selectedClass}</h1>`;
@@ -194,10 +189,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             </tr></thead><tbody>`;
 
             students.forEach(student => {
-                const studentEvals = evaluations.filter(e => e.studenteId === student.id);
                 const studentPerformance = calculatePerformance(student.id, 'Complessivo', studentEvals); // FIX: Use studentPerformance here
                 // FIX: Ensure string conversion in template literal key
-                const key = `${String(student.id)}-${String(periodo)}-${String(annoScolasticoCorrente)}`;
                 const g = localGiudizi[key];
                 
                 if (!g) return;
@@ -218,12 +211,10 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
 
             html += `</tbody></table>`;
 
-            const blob = await generateHtmlDocxBlob(html, `Scrutinio ${selectedClass}`);
             // FIX: Ensure string conversion in template literal for periodo
             saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.docx`);
 
         } catch (e) {
-            const errorMsg = e instanceof Error ? e.message : 'Errore sconosciuto';
             console.error("Error exporting DOCX:", errorMsg);
             alert("Errore durante la generazione del file Word.");
         } finally {
@@ -261,36 +252,33 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                 </thead>
                 <tbody>
                     {students.map(student => {
-                        const studentEvals = evaluations.filter(e => e.studenteId === student.id);
                         const performance = calculatePerformance(student.id, 'Complessivo', studentEvals);
-                        const trendClass = performance.trend === 'up' ? 'trend-up' : performance.trend === 'down' ? 'trend-down' : 'trend-stable';
                         const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
                         // FIX: Ensure string conversion in template literal key
-                        const key = `${String(student.id)}-${String(periodo)}-${String(annoScolasticoCorrente)}`;
                         const giudizioStudente = localGiudizi[key];
 
                         if (!giudizioStudente) return null;
 
                         // FIX: Ensure string conversion in cell key
-                        const getCellClassName = (field: string) => changedCells.has(`${key}-${String(field)}`) ? 'cell-changed' : '';
+                        const getCellStyle = (field: string): React.CSSProperties => changedCells.has(`${key}-${String(field)}`) ? { backgroundColor: 'var(--sys-tertiary-container)', transition: 'background-color 1s' } : {};
 
                         return (
                             <tr key={student.id}>
                                 <td >
-                                    <M3Button variant="text" onClick={() => onViewStudentProfile(student)} style={{ borderRadius: layers.ref.shape.corner.large }} style={{ fontWeight: "500" }} type="button">
+                                    <M3Button variant="text" onClick={() => onViewStudentProfile(student)} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  fontWeight: "500" }} type="button">
                                         {student.cognome} {student.nome}
                                     </M3Button>
                                 </td>
                                 {expandedColumns.rendimento && <>
                                     <td style={{ color: sys.colors.center }}>{performance.grade || 'N/D'}</td>
                                     <td style={{ color: sys.colors.center }}>
-                                        {performance.trend && <span title={performance.trend || ''} className={`material-symbols-outlined ${trendClass}`}>{trendIcon}</span>}
+                                        {performance.trend && <span title={performance.trend || ''} className="material-symbols-outlined" style={{ color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>{trendIcon}</span>}
                                     </td>
                                 </>}
                                 {expandedColumns.valutazione && <>
-                                    <td className={getCellClassName('votoDisciplina')}><input type="text"  value={giudizioStudente.votoDisciplina} onChange={e => handleLocalChange(student.id, 'votoDisciplina', e.target.value)} /></td>
-                                    <td className={getCellClassName('educazioneCivica')}><input type="text"  value={giudizioStudente.educazioneCivica} onChange={e => handleLocalChange(student.id, 'educazioneCivica', e.target.value)} /></td>
-                                    <td className={getCellClassName('comportamento')}>
+                                    <td style={getCellStyle('votoDisciplina')}><input type="text"  value={giudizioStudente.votoDisciplina} onChange={e => handleLocalChange(student.id, 'votoDisciplina', e.target.value)} /></td>
+                                    <td style={getCellStyle('educazioneCivica')}><input type="text"  value={giudizioStudente.educazioneCivica} onChange={e => handleLocalChange(student.id, 'educazioneCivica', e.target.value)} /></td>
+                                    <td style={getCellStyle('comportamento')}>
                                         <select  value={giudizioStudente.comportamento} onChange={e => handleLocalChange(student.id, 'comportamento', e.target.value)}>
                                             <option value="">-</option>
                                             {[10,9,8,7,6,5].map(v => <option key={v} value={v.toString()}>{v}</option>)}
@@ -298,17 +286,17 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </td>
                                 </>}
                                 {expandedColumns.giudizio &&
-                                <td className={`min-w-[200px] md:min-w-[300px] ${getCellClassName('giudizio')}`}>
+                                <td style={{ minWidth: '200px', ...getCellStyle('giudizio') }}>
                                     <div >
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ flexGrow: "1" }} rows={2} placeholder="Giudizio sintetico..."></textarea>
-                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: layers.ref.shape.corner.large }} title="Suggerisci con AI" type="button">
-                                            <span style={{ color: "layers.sys.color.onSurfaceVariant" }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
+                                            <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
                                 </td>}
                                 {showFinalGrades && expandedColumns.valutazione && <>
-                                    <td className={getCellClassName('votoAmmissione')}><input type="text"  value={giudizioStudente.votoAmmissione} onChange={e => handleLocalChange(student.id, 'votoAmmissione', e.target.value)} /></td>
-                                    <td className={getCellClassName('votoUscita')}><input type="text"  value={giudizioStudente.votoUscita} onChange={e => handleLocalChange(student.id, 'votoUscita', e.target.value)} /></td>
+                                    <td style={getCellStyle('votoAmmissione')}><input type="text"  value={giudizioStudente.votoAmmissione} onChange={e => handleLocalChange(student.id, 'votoAmmissione', e.target.value)} /></td>
+                                    <td style={getCellStyle('votoUscita')}><input type="text"  value={giudizioStudente.votoUscita} onChange={e => handleLocalChange(student.id, 'votoUscita', e.target.value)} /></td>
                                 </>}
                             </tr>
                         );
@@ -319,40 +307,39 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     );
 
     const renderMobileList = () => (
-        <div  style={{gap: layers.ref.spacing['3']}}>
+        <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
             {students.map(student => {
-                 const studentEvals = evaluations.filter(e => e.studenteId === student.id);
-                 const performance = calculatePerformance(student.id, 'Complessivo', studentEvals);
-                 const trendClass = performance.trend === 'up' ? 'trend-up' : performance.trend === 'down' ? 'trend-down' : 'trend-stable';
-                 const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
                  const isExpanded = expandedStudentId === student.id;
                  // FIX: Ensure string conversion in template literal key
-                 const key = `${String(student.id)}-${String(periodo)}-${String(annoScolasticoCorrente)}`;
-                 const giudizioStudente = localGiudizi[key];
 
                  if (!giudizioStudente) return null;
 
                 return (
                     <div key={student.id} >
                         <div  onClick={() => setExpandedStudentId(prev => prev === student.id ? null : student.id)}>
-                             <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 {hasStudentChanged(student.id) && <span  title="Dati modificati in questa sessione"></span>}
                                 <div>
                                     <h3  style={{ cursor: "pointer" }} onClick={(e) => { e.stopPropagation(); onViewStudentProfile(student); }}>{student.cognome} {student.nome}</h3>
-                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginTop: layers.ref.spacing['4']}}>
+                                    <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                         <span >Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
-                                            <span className={`flex items-center gap-4 m3-label-large ${trendClass}`}>
-                                                <span style={{ color: "layers.sys.color.onSurfaceVariant" }}>{trendIcon}</span>
+                                            <span style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
+                                                <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{trendIcon}</span>
                                             </span>
                                         )}
                                     </div>
                                 </div>
                             </div>
-                            <span className={`material-symbols-outlined expand-icon ${isExpanded ? 'expanded' : ''}`}>expand_more</span>
+                            <span className="material-symbols-outlined" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>expand_more</span>
                         </div>
-                        <div className={`consiglio-student-card-content ${isExpanded ? 'expanded' : ''}`}>
-                             <div style={{gap: layers.ref.spacing['4'], padding: layers.ref.spacing['8']}}>
+                        <div style={{
+                            display: isExpanded ? 'block' : 'none',
+                            borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                            backgroundColor: 'var(--md-sys-color-surface)',
+                            animation: isExpanded ? 'slideDown 0.2s ease-out' : 'none'
+                        }}>
+                             <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                 <div>
                                     <label htmlFor={`votoDisciplina-${student.id}`} >Voto Disciplina</label>
                                     <input id={`votoDisciplina-${student.id}`} type="text"  value={giudizioStudente.votoDisciplina} onChange={e => handleLocalChange(student.id, 'votoDisciplina', e.target.value)} />
@@ -371,10 +358,10 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: layers.ref.spacing['4']}}>
+                                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                         <label htmlFor={`giudizio-${student.id}`} >Note/Giudizio</label>
-                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: layers.ref.shape.corner.large }} title="Suggerisci con AI" type="button">
-                                            <span style={{ color: layers.sys.color.primary }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
+                                            <span style={{ color: 'var(--md-sys-color-primary)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
                                     <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ width: "100%" }} rows={4} placeholder="Giudizio sintetico..."></textarea>
@@ -403,7 +390,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     );
     
     return (
-        <div  style={{maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
+        <div  style={{maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             <SectionHeader 
                 title="Consiglio di Classe"
                 subtitle={`Scrutinio e Valutazione Periodica • Classe ${selectedClass}`}
@@ -411,8 +398,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             />
 
             {/* Controls */}
-            <InfoCard variant="tonal" style={{padding: layers.ref.spacing['6'], marginBottom: layers.ref.spacing['8']}}>
-                <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", gap: layers.ref.spacing['6']}}>
+            <InfoCard variant="tonal" style={{padding: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                     <TabGroup 
                         activeTab={periodo}
                         onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
@@ -423,7 +410,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         ]}
                     />
 
-                    <div style={{display: "flex", gap: layers.ref.spacing['8']}}>
+                    <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                         <M3Button 
                             onClick={handleExportPdf} 
                             disabled={isExporting}
@@ -453,17 +440,17 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             </InfoCard>
 
             {narrativeReport && (
-                <InfoCard variant="elevated" style={{ backgroundColor: sys.colors.primaryContainer/5 }} style={{padding: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['8']}}>
-                    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: layers.ref.spacing['6']}}>
-                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
-                            <div style={{ backgroundColor: sys.colors.primary/10 }} style={{width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", color: "layers.sys.color.primary"}}>
+                <InfoCard variant="elevated" style={{ backgroundColor: sys.colors.primaryContainer/5 , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-6)'}}>
+                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                            <div style={{ backgroundColor: sys.colors.primary/10 , width: "2.5rem", height: "2.5rem", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>description</span>
                             </div>
-                            <h3 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900" }}>Report Narrativo Suggerito</h3>
+                            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Report Narrativo Suggerito</h3>
                         </div>
-                        <div style={{display: "flex", gap: layers.ref.spacing['8']}}>
+                        <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                             <M3Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</M3Button>
                             <M3Button variant="tonal" onClick={() => {
                                 navigator.clipboard.writeText(narrativeReport);
@@ -474,15 +461,15 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             </M3Button>
                         </div>
                     </div>
-                    <div style={{ color:  layers.sys.color.onPrimary, backgroundColor:  layers.sys.color.surfaceContainerLowest/50, borderRadius: layers.ref.shape.corner.large }} style={{lineHeight: "1.625", whiteSpace: "pre-wrap", padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline"}}>
+                    <div style={{ color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', lineHeight: "1.625", whiteSpace: "pre-wrap", padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)" }}>
                         {narrativeReport}
                     </div>
                 </InfoCard>
             )}
 
-            <InfoCard variant="elevated" style={{ backgroundColor:  layers.sys.color.surfaceContainerLowest }}>
-                 <div  style={{padding: layers.ref.spacing['8'], display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: layers.ref.spacing['8'], borderBottom: "1px solid layers.sys.color.outline"}}>
-                    <div style={{display: "flex", flexWrap: "wrap", gap: layers.ref.spacing['8']}}>
+            <InfoCard variant="elevated" style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+                 <div  style={{padding: 'var(--md-sys-spacing-8)', display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', borderBottom: "1px solid var(--md-sys-color-outline)"}}>
+                    <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                         {Object.keys(expandedColumns).map(key => (
                             <M3Button
                                 key={key}

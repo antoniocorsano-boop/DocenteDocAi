@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block M Migration (3 violations eliminated)
 import React, { useState, useRef, useMemo } from 'react';
 import { LiveServerMessage, Modality, Type } from '@google/genai';
 import { LiveAssistantProps, TranscriptEntry, View } from '../types.ts';
@@ -63,8 +63,25 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
   }
 
   return (
-    <div className={`live-assistant-chat-bubble-full ${isUser ? 'live-assistant-chat-bubble-justify-end' : 'live-assistant-chat-bubble-justify-start'} live-assistant-chat-bubble-margin-bottom`}>
-      <div className={`live-assistant-chat-bubble ${isUser ? 'live-assistant-chat-bubble-user' : 'live-assistant-chat-bubble-ai'}`}>
+    <div style={{
+      width: '100%',
+      justifyContent: isUser ? 'flex-end' : 'flex-start',
+      marginBottom: 'var(--md-sys-spacing-6)'
+    }}>
+      <div style={{
+        maxWidth: '85%',
+        padding: 'var(--md-sys-spacing-4)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        fontSize: 'var(--md-sys-typescale-body-small-size)',
+        lineHeight: 1.5,
+        boxShadow: 'var(--md-sys-elevation-level1)',
+        backgroundColor: isUser ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
+        color: isUser ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+        borderBottomRightRadius: isUser ? 'var(--md-sys-shape-corner-small)' : 'var(--md-sys-shape-corner-large)',
+        borderBottomLeftRadius: isUser ? 'var(--md-sys-shape-corner-large)' : 'var(--md-sys-shape-corner-small)',
+        marginLeft: isUser ? 'auto' : '0',
+        border: isUser ? 'none' : '1px solid var(--md-sys-color-outline-variant)'
+      }}>
         <p style={{ whiteSpace: "pre-wrap" }}>{entry.text}</p>
         {entry.sources && (
           <div >
@@ -266,7 +283,30 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
         <p >{status}</p>
         <button
           onClick={isConnected ? stopSession : startSession}
-          className={`live-assistant-mic-button ${isConnected ? 'live-assistant-mic-button-connected' : 'live-assistant-mic-button-disconnected'}`}
+          style={{
+            width: '80px',
+            height: '80px',
+            borderRadius: 'var(--md-sys-shape-corner-small)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: 'var(--md-sys-elevation-level2)',
+            transition: 'all var(--motion-duration-short) var(--motion-easing-standard)',
+            cursor: 'pointer',
+            backgroundColor: isConnected ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)',
+            color: isConnected ? 'var(--md-sys-color-on-error)' : 'var(--md-sys-color-on-primary)',
+            animation: isConnected ? 'pulse 2s infinite' : 'none'
+          }}
+          onMouseEnter={(e) => {
+            if (!isConnected) {
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!isConnected) {
+              e.currentTarget.style.transform = 'scale(1)';
+            }
+          }}
         >
           <span >{isConnected ? 'mic_off' : 'mic'}</span>
         </button>

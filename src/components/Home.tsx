@@ -35,8 +35,6 @@ import { M3ExpressiveCard, M3Button, M3HeroCard, M3SuggestionCard, M3SuggestionI
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useStudentStore } from '../stores/useStudentStore';
-import { useTheme } from '../theme/theme';
-
 interface HomeProps {
     onNavigate: (view: View, params?: NavigationParams) => void;
     dismissSuggestion: (id: string) => void;
@@ -47,8 +45,7 @@ interface HomeProps {
 
 
 const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
-  const { layers } = useTheme();
-    // ...existing code...
+  // ...existing code...
     const activeSuggestion = useSystemStore(state => state.activeSuggestion);
     const dismissedSuggestions = useSystemStore(state => state.dismissedSuggestions);
     const suggestions = useSystemStore(state => state.suggestions) || [];
@@ -70,7 +67,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
     const lessonDetails = nextLesson?.obiettivi || nextLesson?.contenuto || 'Utilizza l’integrazione AI per costruire contenuti e obiettivi in pochi tap.';
     try {
     return (
-        <div style={{ backgroundColor: layers.sys.color.surface }} style={{ display: "flex", flexDirection: "column", minHeight: "100vh", overflowX: "hidden", overflowY: "auto" }}>
+        <div style={{ backgroundColor: 'var(--md-sys-color-surface)' ,  display: "flex", flexDirection: "column", minHeight: "100vh", overflowX: "hidden", overflowY: "auto" }}>
             {/* HERO SECTION: Logo, headline, claim, CTA */}
             <section >
                 <span >
@@ -80,17 +77,17 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                 <div >
                     L’assistente didattico che ti aiuta a gestire, progettare e vivere la scuola con calma autorevole. Tutto in un’unica piattaforma, sempre con te.
                 </div>
-                <M3Button variant="primary"  style={{marginTop: layers.ref.spacing['4']}} onClick={() => onNavigate('aula' as View)}>
+                <M3Button variant="primary"  style={{marginTop: 'var(--md-sys-spacing-4)'}} onClick={() => onNavigate('aula' as View)}>
                     Inizia ora
                 </M3Button>
             </section>
             {/* Azioni rapide (abilita se serve) */}
             {/*
             <section>
-                <M3Typography variant="label-small" style={{ color: sys.colors.onSurface-variant }} style={{ textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "900", opacity: "0.5" }}>
+                <M3Typography variant="label-small" style={{ color: sys.colors.onSurface-variant ,  textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "900", opacity: "0.5" }}>
                     Azioni rapide
                 </M3Typography>
-                <div style={{display: "grid", gap: layers.ref.spacing['4']}} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
+                <div style={{display: "grid", gap: 'var(--md-sys-spacing-4)',  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
                     {QUICK_ACTIONS.map((action) => (
                         <ActionTile
                             key={action.label}
@@ -124,18 +121,18 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                 <div >
                     <M3Card  onClick={() => onNavigate('studenti' as View)}>
                         <span >groups</span>
-                        <div style={{ color:  layers.sys.color.onPrimary }}>Studenti</div>
-                        <div style={{ color:  layers.sys.color.onSurfaceVariant }}>{metrics.studenti} iscritti</div>
+                        <div style={{ color: 'var(--md-sys-color-on-primary)' }}>Studenti</div>
+                        <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{metrics.studenti} iscritti</div>
                     </M3Card>
                     <M3Card  onClick={() => onNavigate('evaluations' as View)}>
                         <span >assignment</span>
-                        <div style={{ color:  layers.sys.color.onPrimary }}>Verifiche oggi</div>
-                        <div style={{ color:  layers.sys.color.onSurfaceVariant }}>{metrics.verificheOggi} programmate</div>
+                        <div style={{ color: 'var(--md-sys-color-on-primary)' }}>Verifiche oggi</div>
+                        <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{metrics.verificheOggi} programmate</div>
                     </M3Card>
                     <M3Card  onClick={() => onNavigate('studenti' as View)}>
                         <span >check_circle</span>
-                        <div style={{ color:  layers.sys.color.onPrimary }}>Presenze</div>
-                        <div style={{ color:  layers.sys.color.onSurfaceVariant }}>{metrics.presenze} media</div>
+                        <div style={{ color: 'var(--md-sys-color-on-primary)' }}>Presenze</div>
+                        <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{metrics.presenze} media</div>
                     </M3Card>
                 </div>
             </section>
@@ -151,15 +148,15 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                                 >
                                     Prossima Lezione
                                 </M3Typography>
-                                <div style={{width: layers.ref.spacing['12'],
-                                    height: layers.ref.spacing['12'],
+                                <div style={{width: 'var(--md-sys-spacing-12)',
+                                    height: 'var(--md-sys-spacing-12)',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center'}}>
                                     <span style={{
   fontFamily: 'Material Symbols Outlined',
   fontSize: 'var(--md-sys-typescale-display-small-font-size)',
-  color: 'layers.sys.color.primary'
+  color: 'var(--md-sys-color-primary)'
 }}>school</span>
                                 </div>
                             </div>
@@ -167,18 +164,18 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                                 variant="headline-small"
                                 as="h2"
                                 style={{fontWeight: '900',
-                                    color: 'layers.sys.color.onSurface',
+                                    color: 'var(--md-sys-color-on-surface)',
                                     letterSpacing: 'var(--md-sys-typescale-headline-small-tracking)',
                                     lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
-                                    marginBottom: layers.ref.spacing['8']}}
+                                    marginBottom: 'var(--md-sys-spacing-8)'}}
                             >
                                 {nextLesson!.materia}
                             </M3Typography>
                             <M3Typography
                                 variant="title-medium"
-                                style={{color: 'layers.sys.color.primary',
+                                style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: '700',
-                                    marginBottom: layers.ref.spacing['6']}}
+                                    marginBottom: 'var(--md-sys-spacing-6)'}}
                             >
                                 {lessonTagline}
                             </M3Typography>
@@ -226,14 +223,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                                         style={{fontWeight: '900',
                                             textTransform: 'uppercase',
                                             letterSpacing: '0.1em',
-                                            color: 'layers.sys.color.onSurface'}}
+                                            color: 'var(--md-sys-color-on-surface)'}}
                                     >
                                         {a.title}
                                     </M3Typography>
                                     <M3Typography
                                         variant="label-small"
-                                        style={{color: 'layers.sys.color.onSurface-variant',
-                                            marginTop: layers.ref.spacing['1'],
+                                        style={{color: 'var(--md-sys-color-on-surface)',
+                                            marginTop: 'var(--md-sys-spacing-1)',
                                             fontWeight: '500'}}
                                     >
                                         {a.meta}
@@ -241,7 +238,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                                 </div>
                                 <M3Typography
                                     variant="label-small"
-                                    style={{color: 'layers.sys.color.onSurface-variant',
+                                    style={{color: 'var(--md-sys-color-on-surface)',
                                         opacity: 0.4,
                                         fontWeight: '900'}}
                                 >
@@ -327,14 +324,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                         <span style={{
   fontFamily: 'Material Symbols Outlined',
   fontSize: 'var(--md-sys-typescale-display-large-font-size)',
-  color: 'layers.sys.color.primary',
+  color: 'var(--md-sys-color-primary)',
   opacity: 0.3,
-  marginBottom: layers.ref.spacing['5']
+  marginBottom: 'var(--md-sys-spacing-5)'
 }}>auto_awesome</span>
                         <M3Typography
                             variant="label-large"
                             style={{fontWeight: '900',
-                                color: 'layers.sys.color.onSurface-variant',
+                                color: 'var(--md-sys-color-on-surface)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
                                 opacity: 0.4}}
@@ -343,10 +340,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                         </M3Typography>
                         <p style={{fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                             fontWeight: '500',
-                            color: 'layers.sys.color.onSurface-variant',
-                            marginTop: layers.ref.spacing['3'],
-                            paddingLeft: layers.ref.spacing['4'],
-                            paddingRight: layers.ref.spacing['4']}}>
+                            color: 'var(--md-sys-color-on-surface)',
+                            marginTop: 'var(--md-sys-spacing-3)',
+                            paddingLeft: 'var(--md-sys-spacing-4)',
+                            paddingRight: 'var(--md-sys-spacing-4)'}}>
                             L'assistente sta analizzando i tuoi dati per fornirti consigli personalizzati.
                         </p>
                     </M3EmptyStateCard>
@@ -393,9 +390,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
                                             
                                             onClick={() => {
                                                 if (suggestion.action?.type === 'navigate' && suggestion.action.payload) {
-                                                    const payload = typeof suggestion.action.payload === 'string'
-                                                        ? suggestion.action.payload
-                                                        : (suggestion.action.payload as unknown as { view: string }).view || 'home';
+                                                    const payload = suggestion.action.payload;
                                                     onNavigate(payload as View);
                                                 }
                                             }}

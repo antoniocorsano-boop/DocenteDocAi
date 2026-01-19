@@ -639,7 +639,7 @@ describe('Home Component', () => {
       );
 
       // Verify that text elements use proper color tokens
-      const textElements = container.querySelectorAll('[style*="color: var(--md-sys-color"]');
+      const textElements = container.querySelectorAll('[style*="color: 'var(--md-sys-color"]')';
       expect(textElements.length).toBeGreaterThan(0);
     });
   });

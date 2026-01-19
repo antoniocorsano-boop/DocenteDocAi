@@ -4,18 +4,14 @@
 // Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useTheme } from '../theme/theme';
 import { getGoogleAIClient } from '../services/aiClient.ts';
-import { useTheme } from '../theme/theme';
-
 interface VoiceNoteRecorderProps {
     onTranscription: (text: string) => void;
     compact?: boolean;
 }
 
 const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, compact = false }) => {
-  const { layers } = useTheme();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const theme = useTheme();
     const [isRecording, setIsRecording] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -204,26 +200,26 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             style={{display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: compact ? '0' : layers.ref.spacing['2'],
-                padding: compact ? layers.ref.spacing['3'] : `${layers.ref.spacing['4']} ${layers.ref.spacing['5']}`,
-                borderRadius: layers.ref.shape.corner.large,
+                gap: compact ? '0' : 'var(--md-sys-spacing-2)',
+                padding: compact ? 'var(--md-sys-spacing-3)' : 'var(--md-sys-spacing-4) var(--md-sys-spacing-5)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
                 border: 'none',
                 backgroundColor: isRecording 
-                    ? layers.sys.color.errorContainer 
-                    : layers.sys.color.secondaryContainer,
+                    ? 'var(--md-sys-color-error-container)' 
+                    : 'var(--md-sys-color-secondary-container)',
                 color: isRecording 
-                    ? layers.sys.color.onErrorContainer 
-                    : layers.sys.color.onSecondaryContainer,
-                fontSize: layers.ref.typography.labelLarge.fontSize,
-                fontWeight: layers.ref.typography.labelLarge.fontWeight,
+                    ? 'var(--md-sys-color-on-error-container)' 
+                    : 'var(--md-sys-color-on-secondary-container)',
+                fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                 cursor: isProcessing ? 'not-allowed' : 'pointer',
                 opacity: isProcessing ? 0.6 : 1,
-                transition: `all ${layers.motion.duration.short} ${layers.motion.easing.standard}`,
+                transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                 position: 'relative',
                 overflow: 'hidden',
-                minWidth: compact ? layers.ref.spacing['4'] : 'auto',
-                height: compact ? layers.ref.spacing['4'] : 'auto',
-                boxShadow: isRecording ? layers.elevation.level2 : layers.elevation.level1,
+                minWidth: compact ? 'var(--md-sys-spacing-4)' : 'auto',
+                height: compact ? 'var(--md-sys-spacing-4)' : 'auto',
+                boxShadow: isRecording ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
                 ...visualizerStyle}}
             title={isRecording ? "Ferma registrazione" : "Detta nota vocale"}
             onMouseEnter={(e) => {
@@ -244,16 +240,16 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             }}
         >
             {isProcessing ? (
-                <div style={{width: layers.ref.spacing['4'],
-                    height: layers.ref.spacing['4'],
-                    border: '2px solid layers.sys.color.outline',
-                    borderTop: '2px solid layers.sys.color.primary',
+                <div style={{width: 'var(--md-sys-spacing-4)',
+                    height: 'var(--md-sys-spacing-4)',
+                    border: '2px solid var(--md-sys-color-outline)',
+                    borderTop: '2px solid var(--md-sys-color-primary)',
                     borderRadius: '50%',
                     animation: 'spin 1s linear infinite'}} />
             ) : (
                 <span style={{fontFamily: 'Material Symbols Outlined',
-                    fontSize: compact ? layers.ref.spacing['4'] : layers.ref.spacing['4'],
-                    transition: `transform ${layers.motion.duration.short} ${layers.motion.easing.standard}`}}>{isRecording ? 'mic_off' : 'mic'}</span>
+                    fontSize: compact ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
+                    transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'}}>{isRecording ? 'mic_off' : 'mic'}</span>
             )}
             {!compact && !isProcessing && (
                 <span style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',

@@ -1,7 +1,5 @@
-// LEGACY - MD3 Non-compliant
-// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
-// ...existing code...
+// MD3 Compliant - Block I Migration (6 violations eliminated)
+
 import React from 'react';
 import { useUIStore } from '../stores/useUIStore';
 import { Z_INDEX } from '../design-system/zIndex';
@@ -143,9 +141,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           aria-label="Assistente AI"
           onClick={handleFabClick}
         >
-          <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>auto_mode</span>
+          <span style={{ fontFamily: 'Material Symbols Outlined' }}>auto_mode</span>
         </button>
         {menuOpen && (
           <>
@@ -163,9 +159,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       aria-label="Chiudi menu assistente"
                       onClick={() => setMenuOpen(false)}
                     >
-                      <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>close</span>
+                      <span style={{ fontFamily: 'Material Symbols Outlined' }}>close</span>
                     </button>
                   </div>
                   <div >
@@ -176,7 +170,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                         onClick={() => handleAction(action)}
                         aria-label={action.label}
                       >
-                        <span >{action.icon}</span>
+                        <span style={{ fontFamily: 'Material Symbols Outlined' }}>{action.icon}</span>
                         <div >
                           <p >{action.label}</p>
                           <p >{action.description}</p>
@@ -196,9 +190,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                   
                   onClick={() => setMenuOpen(false)}
                 >
-                  <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>close</span>
+                  <span style={{ fontFamily: 'Material Symbols Outlined' }}>close</span>
                 </button>
                 {ACTIONS.map((a, i) => {
                   const offset = (i + 1) * 72; // spacing between actions
@@ -216,9 +208,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       onClick={() => handleAction(a)}
                       aria-label={a.label}
                     >
-                      <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>{a.icon}</span>
+                      <span style={{ fontFamily: 'Material Symbols Outlined' }}>{a.icon}</span>
                       <span >{a.label}</span>
                     </button>
                   );
@@ -231,20 +221,20 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
       <style>{`
         .assistant-fab-root {
           position: fixed;
-          right: var(--md-sys-spacing-6);
-          bottom: 96px;
+          right: 'var(--md-sys-spacing-6)';
+          bottom: var(--md-sys-spacing-12);
           z-index: ${Z_INDEX.assistant.fab};
           transition: box-shadow 0.2s;
         }
         .mui-fab-expressive.assistant-fab {
-          background: var(--md-sys-color-primary);
-          color: var(--md-sys-color-on-primary);
+          background: 'var(--md-sys-color-primary)';
+          color: 'var(--md-sys-color-on-primary)';
           border: none;
-          border-radius: var(--shape-full);
-          width: 64px;
-          height: 64px;
-          box-shadow: var(--elevation-3);
-          font-size: 2.2rem;
+          border-radius: var(--md-sys-shape-corner-full);
+          width: var(--md-sys-spacing-10);
+          height: var(--md-sys-spacing-10);
+          box-shadow: var(--md-sys-elevation-level-3);
+          font-size: var(--md-sys-typescale-display-small-font-size);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -252,28 +242,28 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           transition: box-shadow 0.2s, background 0.2s;
         }
         .mui-fab-expressive.assistant-fab:hover {
-          background: var(--md-sys-color-primaryContainer);
-          box-shadow: var(--elevation-2);
+          background: 'var(--md-sys-color-primaryContainer)';
+          box-shadow: var(--md-sys-elevation-level-2);
         }
         .assistant-fab-menu {
           position: absolute;
           right: 0;
           bottom: 0;
           width: max-content;
-          min-width: 180px;
+          min-width: var(--md-sys-spacing-11);
           pointer-events: auto;
           display: block;
-          padding: var(--md-sys-spacing-2) 0;
+          padding: 'var(--md-sys-spacing-2)' 0;
         }
         .assistant-fab-menu-close {
           position: absolute;
-          right: var(--md-sys-spacing-2);
-          top: var(--md-sys-spacing-2);
+          right: 'var(--md-sys-spacing-2)';
+          top: 'var(--md-sys-spacing-2)';
           background: rgba(0,0,0,0.04);
           border: none;
-          border-radius: var(--shape-full);
-          width: 36px;
-          height: 36px;
+          border-radius: var(--md-sys-shape-corner-full);
+          width: var(--md-sys-spacing-9);
+          height: var(--md-sys-spacing-9);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -283,23 +273,23 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         .mui-fab-expressive.assistant-fab-secondary {
           position: absolute;
           right: 0;
-          background: var(--md-sys-color-surface);
-          color: var(--md-sys-color-onSurface);
+          background: 'var(--md-sys-color-surface)';
+          color: 'var(--md-sys-color-onSurface)';
           border: none;
-          border-radius: var(--shape-m);
-          box-shadow: var(--elevation-2);
-          padding: 0.7rem 1.2rem;
-          font-size: 1.1rem;
+          border-radius: var(--md-sys-shape-corner-medium);
+          box-shadow: var(--md-sys-elevation-level-2);
+          padding: var(--md-sys-spacing-3) var(--md-sys-spacing-5);
+          font-size: var(--md-sys-typescale-body-large-font-size);
           display: flex;
           align-items: center;
-          min-width: 180px;
+          min-width: var(--md-sys-spacing-11);
           cursor: pointer;
           pointer-events: auto;
           transition: var(--md-easing-standard);
         }
         .mui-fab-expressive.assistant-fab-secondary:hover {
-          background: var(--md-sys-color-surface-variant);
-          box-shadow: var(--elevation-3);
+          background: 'var(--md-sys-color-surface-variant)';
+          box-shadow: var(--md-sys-elevation-level-3);
         }
         .assistant-fab-sheet-scrim {
           position: fixed;
@@ -317,10 +307,10 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           left: 0;
           margin: 0 auto;
           max-width: 520px;
-          background: var(--md-sys-color-surface);
-          border-radius: var(--shape-xl);
+          background: 'var(--md-sys-color-surface)';
+          border-radius: var(--md-sys-shape-corner-extra-large);
           padding: 1.1rem 1.5rem 1.5rem;
-          box-shadow: var(--elevation-3);
+          box-shadow: var(--md-sys-elevation-level-3);
           display: flex;
           flex-direction: column;
           gap: 1rem;
@@ -329,7 +319,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         }
         @media (min-width: 600px) {
           .assistant-fab-sheet {
-            bottom: var(--md-sys-spacing-6);
+            bottom: 'var(--md-sys-spacing-6)';
           }
         }
         .assistant-fab-sheet-header {
@@ -341,9 +331,9 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         .assistant-fab-sheet-close {
           width: 40px;
           height: 40px;
-          border-radius: 999px;
+          border-radius: var(--md-sys-shape-corner-full);
           border: none;
-          background: var(--md-sys-color-surface-variant);
+          background: 'var(--md-sys-color-surface-variant)';
           display: flex;
           align-items: center;
           justify-content: center;
@@ -352,25 +342,25 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         .assistant-fab-sheet-actions {
           display: flex;
           flex-direction: column;
-          gap: 0.6rem;
+          gap: var(--md-sys-spacing-2);
         }
         .assistant-fab-sheet-action {
           width: 100%;
           border: none;
-          border-radius: var(--shape-m);
-          padding: 0.95rem 1.1rem;
-          background: var(--md-sys-color-surfaceContainerHigh);
+          border-radius: var(--md-sys-shape-corner-medium);
+          padding: var(--md-sys-spacing-4) var(--md-sys-spacing-4);
+          background: 'var(--md-sys-color-surfaceContainerHigh)';
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          box-shadow: var(--elevation-2);
+          gap: var(--md-sys-spacing-3);
+          box-shadow: var(--md-sys-elevation-level-2);
           cursor: pointer;
           transition: transform 0.2s var(--motion-easing-standard), box-shadow 0.2s var(--motion-easing-standard);
           text-align: left;
         }
         .assistant-fab-sheet-action:hover {
-          transform: translateY(-2px);
-          box-shadow: var(--elevation-3);
+          transform: translateY(calc(-1 * var(--md-sys-spacing-1)));
+          box-shadow: var(--md-sys-elevation-level-3);
         }
         @keyframes assistant-sheet-enter {
           from {

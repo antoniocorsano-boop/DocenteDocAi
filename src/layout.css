@@ -50,7 +50,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding-top: var(--header-height); /* Space for fixed header */
-    padding-bottom: calc(var(--bottom-nav-height, 64px) + var(--spacing-8, var(--md-sys-spacing-8)));
+    padding-bottom: calc(var(--bottom-nav-height, 64px) + var(--md-sys-spacing-8));
     padding-left: var(--content-padding);
     padding-right: var(--content-padding);
     scroll-behavior: smooth;
@@ -62,7 +62,7 @@
     .main-content {
         /* Add left margin to compensate for vertical NavigationRail */
         margin-left: var(--nav-rail-width, 80px);
-        padding-bottom: var(--spacing-8, var(--md-sys-spacing-8));
+        padding-bottom: var(--md-sys-spacing-8);
     }
 }
 

@@ -49,7 +49,7 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
                     >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-}} style={{fontSize: 'var(--md-sys-typescale-body-medium-size)'}}>
+, fontSize: 'var(--md-sys-typescale-body-medium-size)'}}>
                             close
                         </span>
                     </button>

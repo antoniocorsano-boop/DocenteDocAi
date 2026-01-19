@@ -8,8 +8,6 @@
 
 import React from 'react';
 import { AiThinkingGem } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface ViewLoadingPlaceholderProps {
   message?: string;
   className?: string;
@@ -22,7 +20,6 @@ export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({
   message = 'Caricamento vista...', 
    
 }) => {
-  const { layers } = useTheme();
   return (
     <div className={`flex flex-col items-center justify-center min-h-[60vh] gap-6 ${className}`}>
       <AiThinkingGem size="large" text={message} />
@@ -36,11 +33,11 @@ export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({
 export const MinimalViewLoading: React.FC = () => {
   return (
     <div  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{gap: layers.ref.spacing['4'], textAlign: "center"}}>
-        <div  style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], marginLeft: "auto", marginRight: "auto", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <span  style={{fontSize: "1.5rem", color: "layers.sys.color.primary"}}>hourglass_bottom</span>
+      <div style={{gap: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
+        <div  style={{ width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', marginLeft: "auto", marginRight: "auto", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span  style={{fontSize: "1.5rem", color: "var(--md-sys-color-primary)"}}>hourglass_bottom</span>
         </div>
-        <p style={{ color: layers.sys.color.onSurfaceVariant }}>Caricamento...</p>
+        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricamento...</p>
       </div>
     </div>
   );
@@ -51,9 +48,9 @@ export const MinimalViewLoading: React.FC = () => {
  */
 export const SkeletonListLoading: React.FC = () => {
   return (
-    <div style={{gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4']}}>
+    <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)'}}>
       {[1, 2, 3].map(i => (
-        <div key={i} style={{ borderRadius: layers.ref.shape.corner.large }} style={{ height: layers.ref.spacing['12'] }} />
+        <div key={i} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  height: 'var(--md-sys-spacing-12)' }} />
       ))}
     </div>
   );

@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { Studente, Competenza, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
 import { generateCompetencyNote } from '../services/aiService';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface CompetencyEvaluationModalProps {
     student: Studente;
     competenza: Competenza;
@@ -15,8 +13,7 @@ interface CompetencyEvaluationModalProps {
 }
 
 const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ student, competenza, settings, aiSettings, onClose, onSave }) => {
-  const { layers } = useTheme();
-    const [selectedMateria, setSelectedMateria] = useState<string>((settings.disciplines && settings.disciplines[0]) || ');
+  const [selectedMateria, setSelectedMateria] = useState<string>((settings.disciplines && settings.disciplines[0]) || ');
     const [selectedLevelId, setSelectedLevelId] = useState<string>(');
     const [nota, setNota] = useState<string>(');
     const [isGeneratingNote, setIsGeneratingNote] = useState(false);
@@ -68,11 +65,11 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
         >
             <form onSubmit={handleSubmit} >
                 <M3DialogContent >
-                    <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color:  layers.sys.color.onSurfaceVariant }} style={{marginBottom: layers.ref.spacing['8']}}>{student.cognome} {student.nome} - {competenza.nome}</p>
+                    <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>{student.cognome} {student.nome} - {competenza.nome}</p>
 
                     <div>
                         <label >Livello Raggiunto</label>
-                        <div style={{marginTop: layers.ref.spacing['8']}}>
+                        <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                             {competenza.livelli.map(level => (
                                 <div key={level.id} className={`p-12 rounded-[var(--md-sys-shape-corner-large)] border-2 ${selectedLevelId === level.id ? 'border-primary bg-primaryContainer' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surfaceContainer)]'}`}>
                                     <label style={{ display: "flex", alignItems: "flex-start", cursor: "pointer" }}>
@@ -88,7 +85,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                         <div style={{ flexGrow: "1" }}>
                                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                                                 <span >{level.nome}</span>
-                                                <span style={{ color:  layers.sys.color.onSurfaceVariant }}>Voto: {level.voto}</span>
+                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Voto: {level.voto}</span>
                                             </div>
                                             <p className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mt-8 ${selectedLevelId === level.id ? 'text-on-primaryContainer' : 'text-[var(--md-sys-color-onSurface)]-variant'}`}>{level.descrizione}</p>
                                         </div>
@@ -111,14 +108,14 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                             <label htmlFor="note" >Note (Opzionale)</label>
                             <div  style={{ display: "flex", alignItems: "center" }}>
                                 {!selectedLevelId && !isGeneratingNote && (
-                                    <span style={{ color:  layers.sys.color.onSurfaceVariant }}>(Seleziona un livello)</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>(Seleziona un livello)</span>
                                 )}
                                 <M3Button
                                     type="button"
                                     onClick={handleGenerateNote}
                                     disabled={isGeneratingNote || !selectedLevelId}
                                     variant="text"
-                                     style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}
+                                     style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
                                     title="Genera nota con AI"
                                 >
                                     {isGeneratingNote ? (

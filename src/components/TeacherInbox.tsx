@@ -6,8 +6,6 @@ import { HomeworkSubmission, Studente, Lezione } from '../types';
 import { Avatar } from './ui';
 
 import HomeworkSubmissionCard from './HomeworkSubmission'; 
-import { useTheme } from '../theme/theme';
-
 interface TeacherInboxProps {
     submissions: HomeworkSubmission[];
     students: Studente[];
@@ -17,8 +15,7 @@ interface TeacherInboxProps {
 }
 
 const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, lessons, onGradeSubmission, onClose }) => {
-  const { layers } = useTheme();
-    const [selectedSubmission, setSelectedSubmission] = useState<HomeworkSubmission | null>(null);
+  const [selectedSubmission, setSelectedSubmission] = useState<HomeworkSubmission | null>(null);
 
     const pendingSubmissions = submissions.filter(s => s.status === 'pending');
     const gradedSubmissions = submissions.filter(s => s.status === 'graded');
@@ -78,7 +75,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     key={sub.id}
                                     onClick={() => setSelectedSubmission(sub)}
                                     className={`teacher-inbox-submission-item ${isSelected ? 'teacher-inbox-submission-item.selected' : ''}`}
-                                    style={{borderRadius: 'layers.ref.shape.corner.small', transition: 'var(--md-easing-standard)'}}
+                                    style={{borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)'}}
                                 >
                                     <Avatar name={`${studentInfo.name} ${studentInfo.surname}`} size="sm" />
                                     <div >
@@ -100,10 +97,8 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                             <>
                                 <p >Già Corretti</p>
                                 {gradedSubmissions.slice(0, 5).map(sub => {
-                                    const studentInfo = getStudentDisplay(sub.studentId);
-                                    const lessonInfo = getLessonDisplay(sub.lessonId);
                                     return (
-                                        <div key={sub.id}  style={{borderRadius: 'layers.ref.shape.corner.small', transition: 'var(--md-easing-standard)'}}>
+                                        <div key={sub.id}  style={{borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)'}}>
                                             <span >check_circle</span>
                                             <span >{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
                                         </div>

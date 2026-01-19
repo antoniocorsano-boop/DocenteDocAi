@@ -1,11 +1,7 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block G Migration (5 violations eliminated)
 import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../hooks/useTheme';
 import { Studente } from '../types';
 import { TextField, SelectField, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface AddStudentModalProps {
     studentToEdit?: Studente;
     userClasses: string[];
@@ -14,8 +10,7 @@ interface AddStudentModalProps {
 }
 
 const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userClasses, onClose, onSave }) => {
-  const { layers } = useTheme();
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
         cognome: '',
         nome: '',
         classe: userClasses[0] || ''
@@ -51,10 +46,10 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
             level={1}
         >
             <M3DialogContent>
-                <form id="add-student-form" onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['6']}}>
+                <form id="add-student-form" onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{display: 'grid',
                         gridTemplateColumns: '1fr',
-                        gap: layers.ref.spacing['8']}}>
+                        gap: 'var(--md-sys-spacing-8)'}}>
                         <TextField
                             id="student-cognome-input"
                             name="cognome"

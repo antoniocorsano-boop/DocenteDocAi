@@ -2,8 +2,6 @@
 import React from 'react';
 import { View } from '../types';
 import { M3Typography } from './ui';
-import { useTheme } from '../theme/theme';
-
 /**
  * NavigationRail - MD3 Pure Navigation Component
  * ✅ MIGRATED TO MD3 PURE - Complete migration from legacy CSS classes to pure MD3 tokens and M3Typography
@@ -74,7 +72,6 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
   activeView,
   onNavigate,
 }) => {
-  const { layers } = useTheme();
   // Check if we're on mobile (< 600px) - simplified responsive logic
   const [isMobile, setIsMobile] = React.useState(false);
 
@@ -233,18 +230,18 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: layers.ref.spacing['8'], // 32px
-                  height: layers.ref.spacing['8'], // 32px
-                  borderRadius: 'layers.ref.shape.corner.full', // 50%
-                  transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
+                  width: 'var(--md-sys-spacing-8)', // 32px
+                  height: 'var(--md-sys-spacing-8)', // 32px
+                  borderRadius: 'var(--md-sys-shape-corner-full)', // 50%
+                  transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
                 <span
                   style={{fontFamily: 'Material Symbols Outlined',
-                    fontSize: layers.ref.spacing['6'], // 24px
+                    fontSize: 'var(--md-sys-spacing-6)', // 24px
                     lineHeight: 1,
                     color: 'inherit',
                     fontVariationSettings: isActive ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
-                    transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
+                    transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
                   aria-hidden="true"
                 >
                   {isActive ? item.activeIcon : item.icon}
@@ -255,17 +252,17 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   <span
                     style={{
                       position: 'absolute',
-                      top: `calc(-1 * ${layers.ref.spacing['1']})`, // -4px
-                      right: `calc(-1 * ${layers.ref.spacing['1']})`, // -4px
-                      minWidth: layers.ref.spacing['4'], // 16px
-                      height: layers.ref.spacing['4'], // 16px
-                      padding: `0 ${layers.ref.spacing['1']}` , // 0 4px
-                      backgroundColor: layers.sys.color.error,
-                      color: layers.sys.color.onError,
-                      borderRadius: layers.ref.shape.small, // 8px
-                      fontSize: layers.ref.spacing['4'],
+                      top: `calc(-1 * var(--md-sys-spacing-1))`, // -4px
+                      right: `calc(-1 * var(--md-sys-spacing-1))`, // -4px
+                      minWidth: 'var(--md-sys-spacing-4)', // 16px
+                      height: 'var(--md-sys-spacing-4)', // 16px
+                      padding: `0 var(--md-sys-spacing-1)` , // 0 4px
+                      backgroundColor: 'var(--md-sys-color-error)',
+                      color: 'var(--md-sys-color-on-error)',
+                      borderRadius: 'var(--md-sys-shape-corner-small)', // 8px
+                      fontSize: 'var(--md-sys-spacing-4)',
                       fontWeight: '700',
-                      lineHeight: layers.ref.spacing['4'], // 16px
+                      lineHeight: 'var(--md-sys-spacing-4)', // 16px
                       textAlign: 'center',
                       zIndex: 1,
                       animation: 'badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)'}}
@@ -279,7 +276,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               {/* Label */}
               <M3Typography
                 variant="label-medium"
-                style={{fontSize: layers.ref.spacing['3'], // 12px
+                style={{fontSize: 'var(--md-sys-spacing-3)', // 12px
                   fontWeight: '500',
                   letterSpacing: '0.5px',
                   textAlign: 'center',
@@ -287,8 +284,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  maxWidth: layers.ref.spacing['12'], // 48px
-                  transition: `color ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
+                  maxWidth: 'var(--md-sys-spacing-12)', // 48px
+                  transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
                 {item.label}
               </M3Typography>

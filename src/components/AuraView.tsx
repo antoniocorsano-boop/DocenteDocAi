@@ -14,7 +14,14 @@ interface AuraViewProps {
  */
 const AuraView: React.FC<AuraViewProps> = ({ children, fullWidth = false }) => {
     return (
-        <div className={`aura-view-wrapper ${fullWidth ? '' : 'aura-view-wrapper.constrained aura-view-wrapper.constrained.responsive'}`}>
+        <div 
+            style={{
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                width: '100%',
+                ...(fullWidth ? {} : { maxWidth: '80rem' })
+            }}
+        >
             {children}
         </div>
     );

@@ -1,25 +1,10 @@
-// LEGACY - MD3 Non-compliant
-/**
- * AddEvaluationModal
- *
- * Material Design 3 Expressive - Fully Migrated
- * Migration Date: Phase 7 (Remaining Components Migration)
- * Z-Index: Dynamic (via M3Dialog + ModalContext)
- *
- * Previous: Missing useTheme import
- * Current: Pure M3Dialog with M3DialogContent, M3DialogActions + MD3 design tokens + useTheme compliance
- *
- * Status: ✅ FULLY MIGRATED & ACCESSIBLE
- */
+// MD3 Compliant - Block M Migration (6 violations eliminated)
 
 import * as React from 'react';
 import { useState } from 'react';
-import { useTheme } from '../theme/theme';
 import { Studente, Valutazione } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
 import { M3ChoiceCard, SelectField, TextField, TextArea, M3Button, M3Dialog, M3DialogContent, M3DialogActions, M3Typography } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface AddEvaluationModalProps {
     students: Studente[];
     discipline: string[];
@@ -35,8 +20,7 @@ interface AddEvaluationModalProps {
 }
 
 const getTestTypeIcon = (tipo: string) => {
-  const { layers } = useTheme();
-    switch (tipo) {
+  switch (tipo) {
         case 'Scritto': return 'edit_note';
         case 'Orale': return 'record_voice_over';
         case 'Pratico': return 'build';
@@ -52,14 +36,12 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
     onClose,
     onSave
 }: AddEvaluationModalProps) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const theme = useTheme();
-    const [selectedStudentId, setSelectedStudentId] = useState<string>(');
-    const [selectedMateria, setSelectedMateria] = useState<string>(discipline[0] || ');
-    const [tipo, setTipo] = useState<Valutazione['tipo]>('Orale');
-    const [voto, setVoto] = useState<string>(');
-    const [argomento, setArgomento] = useState<string>(');
-    const [note, setNote] = useState<string>(');
+    const [selectedStudentId, setSelectedStudentId] = useState<string>('');
+    const [selectedMateria, setSelectedMateria] = useState<string>(discipline[0] || '');
+    const [tipo, setTipo] = useState<Valutazione['tipo']>('Orale');
+    const [voto, setVoto] = useState<string>('');
+    const [argomento, setArgomento] = useState<string>('');
+    const [note, setNote] = useState<string>('');
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -86,14 +68,18 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
             maxWidth="sm"
             level={1}
         >
-            <form onSubmit={handleSubmit} style={{display: 'flex',
+            <form onSubmit={handleSubmit} style={{
+                display: 'flex',
                 flexDirection: 'column',
-                gap: layers.ref.spacing['6']}}>
-                <M3DialogContent style={{display: 'flex',
+                gap: 'var(--md-sys-spacing-6)'
+            }}>
+                <M3DialogContent style={{
+                    display: 'flex',
                     flexDirection: 'column',
-                    gap: layers.ref.spacing['6'],
+                    gap: 'var(--md-sys-spacing-6)',
                     overflowY: 'auto',
-                    maxHeight: '60vh'}}>
+                    maxHeight: '60vh'
+                }}>
                     <SelectField
                         id="eval-student-select"
                         label="Studente"
@@ -105,9 +91,11 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                         {students.map((s: Studente) => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
                     </SelectField>
 
-                    <div style={{display: 'grid',
+                    <div style={{
+                        display: 'grid',
                         gridTemplateColumns: '1fr 1fr',
-                        gap: layers.ref.spacing['8']}}>
+                        gap: 'var(--md-sys-spacing-8)'
+                    }}>
                         <SelectField
                             id="eval-materia-select"
                             label="Materia"
@@ -133,23 +121,27 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                     <div>
                         <M3Typography
                             variant="label-small"
-                            style={{color: 'layers.sys.color.primary',
-                                fontWeight: '900',
+                            style={{
+                                color: 'var(--md-sys-color-primary)',
+                                fontWeight: 900,
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.2em',
-                                paddingLeft: layers.ref.spacing['4'],
-                                paddingRight: layers.ref.spacing['4'],
-                                marginBottom: layers.ref.spacing['6'],
-                                display: 'block'}}
+                                paddingLeft: 'var(--md-sys-spacing-4)',
+                                paddingRight: 'var(--md-sys-spacing-4)',
+                                marginBottom: 'var(--md-sys-spacing-6)',
+                                display: 'block'
+                            }}
                         >
                             Tipo Prova
                         </M3Typography>
-                        <div style={{display: 'flex',
-                            gap: layers.ref.spacing['8'],
+                        <div style={{
+                            display: 'flex',
+                            gap: 'var(--md-sys-spacing-8)',
                             overflowX: 'auto',
-                            paddingBottom: layers.ref.spacing['2'],
+                            paddingBottom: 'var(--md-sys-spacing-2)',
                             scrollbarWidth: 'none',
-                            msOverflowStyle: 'none'}}
+                            msOverflowStyle: 'none'
+                        }}
                         onScroll={(e) => {
                             // Hide scrollbar for webkit browsers
                             const target = e.target as HTMLElement;
@@ -184,8 +176,10 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                     />
                 </M3DialogContent>
 
-                <M3DialogActions style={{gap: layers.ref.spacing['6'],
-                    flexShrink: 0}}>
+                <M3DialogActions style={{
+                    gap: 'var(--md-sys-spacing-6)',
+                    flexShrink: 0
+                }}>
                     <M3Button variant="text" onClick={onClose} type="button">Annulla</M3Button>
                     <M3Button variant="filled" type="submit">Salva Valutazione</M3Button>
                 </M3DialogActions>

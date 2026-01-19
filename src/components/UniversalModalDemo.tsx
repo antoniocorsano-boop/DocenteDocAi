@@ -2,14 +2,11 @@
 import React, { useState } from 'react';
 import UniversalModal from './UniversalModal';
 import { M3Button } from './ui';
-import { useTheme } from '../theme/theme';
-
 const UniversalModalDemo: React.FC = () => {
-  const { layers } = useTheme();
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{padding: layers.ref.spacing['6']}}>
+    <div style={{padding: 'var(--md-sys-spacing-6)'}}>
       <M3Button
         variant="filled"
         onClick={() => setOpen(true)}
@@ -21,11 +18,11 @@ const UniversalModalDemo: React.FC = () => {
         title="Esempio di Modale Universale"
         onClose={() => setOpen(false)}
       >
-        <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color:  layers.sys.color.onPrimary }}>
+        <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color: 'var(--md-sys-color-on-primary)' }}>
           Questo è un esempio di contenuto per il nuovo modale accessibile e responsive.<br />
           Premi <b>ESC</b> o clicca fuori dal modale per chiudere.
         </p>
-        <div  style={{display: "flex", justifyContent: "flex-end", gap: layers.ref.spacing['3']}}>
+        <div  style={{display: "flex", justifyContent: "flex-end", gap: 'var(--md-sys-spacing-3)'}}>
           <M3Button
             onClick={() => setOpen(false)}
             variant="tonal"

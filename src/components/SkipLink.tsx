@@ -1,8 +1,5 @@
 // LEGACY - MD3 Non-compliant
 import React from 'react';
-import { useTheme } from '../theme/theme';
-import { useTheme } from '../theme/theme';
-
 /**
  * SkipLink Component
  * 
@@ -37,8 +34,6 @@ const SkipLink: React.FC<SkipLinkProps> = ({
   href = '#main-content',
   label = 'Skip to main content',
 }) => {
-  const { layers } = useTheme();
-  const { layers } = useTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const theme = useTheme();
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -61,9 +56,9 @@ const SkipLink: React.FC<SkipLinkProps> = ({
       style={{position: 'absolute',
         top: '-40px',
         left: 0,
-        background: 'layers.sys.color.primary',
-        color: 'layers.sys.color.on-primary',
-        padding: layers.ref.spacing['2'] layers.ref.spacing['4'],
+        background: 'var(--md-sys-color-primary)',
+        color: 'var(--md-sys-color-on)',
+        padding: 'var(--md-sys-spacing-2)' var(--md-sys-spacing-4),
         textDecoration: 'none',
         zIndex: 100,
         borderRadius: '0 0 var(--md-corner-small) 0',

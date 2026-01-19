@@ -15,8 +15,6 @@ import CompetencyManager from './CompetencyManager';
 import { TabGroup, M3ExpressiveCard } from './ui';
 import TimelineView from './TimelineView';
 import UdaDetailModal from './UdaDetailModal';
-import { useTheme } from '../theme/theme';
-
 interface ProgettazioneHubExtendedProps extends ProgettazioneHubProps {
     udas: Uda[]; // Ensure `udas` is defined
     settings: TimetableSettings;
@@ -52,8 +50,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
     driveSyncState,
     onConnectDrive
 }) => {
-  const { layers } = useTheme();
-    const [isPlanningWizardOpen, setIsPlanningWizardOpen] = useState(false);
+  const [isPlanningWizardOpen, setIsPlanningWizardOpen] = useState(false);
     const [isSmartImportOpen, setIsSmartImportOpen] = useState(false);
     const [isNotebookLMImportOpen, setIsNotebookLMImportOpen] = useState(false);
     const [isTemplateManagerOpen, setIsTemplateManagerOpen] = useState(false);
@@ -81,18 +78,18 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
     };
 
     return (
-        <div  style={{marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
+        <div  style={{marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             
             {/* Header */}
             <div  style={{ textAlign: "center" }}>
-                <h1 style={{fontWeight: "900", color: "layers.sys.color.primary", marginBottom: layers.ref.spacing['8']}}>Progettazione</h1>
-                <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ marginLeft: "auto", marginRight: "auto", fontWeight: "500" }}>
+                <h1 style={{fontWeight: "900", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>Progettazione</h1>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  marginLeft: "auto", marginRight: "auto", fontWeight: "500" }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>
             
             {/* Tab Navigation */}
-            <div style={{marginBottom: layers.ref.spacing['8']}}>
+            <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id: string) => setActiveTab(id as 'dashboard' | 'frameworks')}
@@ -116,7 +113,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             console.log('Audit: Opened Annual Planning Wizard');
                             setIsPlanningWizardOpen(true);
                         }}
-                        style={{marginBottom: layers.ref.spacing['8']}}
+                        style={{marginBottom: 'var(--md-sys-spacing-8)'}}
                     />
 
                     {/* 2. TIMELINE (GANTT 2.0 DYNAMIC) */}
@@ -132,7 +129,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                     />
 
                     {/* 3. BENTO GRID */}
-                    <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: layers.ref.spacing['8']}}>
+                    <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: 'var(--md-sys-spacing-8)'}}>
                         
                         <M3ExpressiveCard
                             icon="assignment"

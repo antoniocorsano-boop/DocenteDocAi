@@ -72,7 +72,19 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                     <td>{new Date(report.dataCreazione).toLocaleDateString('it-IT')}</td>
                                     <td>{report.contesto.titolo}</td>
                                     <td>
-                                        <span className={`archivio-report-chip ${report.modelloUsato.tipo === 'pdf' ? 'archivio-report-chip-pdf' : 'archivio-report-chip-other'}`}>
+                                        <span 
+                                            style={{
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
+                                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                fontSize: '0.75rem', // caption equivalent
+                                                fontWeight: 500,
+                                                border: 'none',
+                                                backgroundColor: report.modelloUsato.tipo === 'pdf' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
+                                                color: report.modelloUsato.tipo === 'pdf' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)'
+                                            }}
+                                        >
                                             {report.modelloUsato.nome}
                                         </span>
                                     </td>

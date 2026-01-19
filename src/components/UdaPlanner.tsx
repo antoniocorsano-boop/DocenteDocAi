@@ -9,8 +9,6 @@ import { Uda, Competenza, UdaPlannerProps } from '../types';
 import { UdaExportModal } from './UdaExportModal';
 import Guidance from './Guidance';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, TextArea, EmptyState } from './ui';
-import { useTheme } from '../theme/theme';
-
 const createNewUda = (): Uda => ({
     id: `uda-${Date.now()}`,
     title: '',
@@ -39,8 +37,7 @@ interface UdaEditorProps {
 }
 
 const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, onClose, competenze }) => {
-  const { layers } = useTheme();
-    const [currentUda, setCurrentUda] = useState<Uda>(udaProp === 'new' ? createNewUda() : { ...udaProp });
+  const [currentUda, setCurrentUda] = useState<Uda>(udaProp === 'new' ? createNewUda() : { ...udaProp });
     const [isCompetencyPickerOpen, setIsCompetencyPickerOpen] = useState(false);
 
     const handleFieldChange = (field: keyof Uda, value: unknown) => setCurrentUda(prev => ({ ...prev, [field]: value }));
@@ -329,7 +326,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                         competenze={competenze}
                     />
                 ) : (
-                    <div  style={{paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
+                    <div  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                         <div >
                             {udas.length > 0 ? (
                                 <div  style={{ overflowX: "auto" }}>

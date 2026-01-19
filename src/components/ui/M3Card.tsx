@@ -1,6 +1,8 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant M3Card Component
+// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
+// No useTheme() dependency - all styling uses direct MD3 CSS variables
+
 import React, { useState } from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface M3CardProps {
   children: React.ReactNode;
@@ -26,42 +28,58 @@ const M3Card: React.FC<M3CardProps> = ({
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const isClickable = Boolean(onClick);
-  const { layers } = useTheme();
-  const { sys, ref, elevation, motion } = layers;
 
-  // Padding styles using ref.spacing tokens
+  // MD3 Token mapping - no useTheme() dependency
+  // Color tokens
+  const surface = 'var(--md-sys-color-surface)';
+  const outlineVariant = 'var(--md-sys-color-outline-variant)';
+  const surfaceContainerLow = 'var(--md-sys-color-surface-container-low)';
+  const primary = 'var(--md-sys-color-primary)';
+
+  // Shape token
+  const large = 'var(--md-sys-shape-corner-large)';
+
+  // Elevation tokens
+  const level1 = 'var(--md-sys-elevation-level-1)';
+  const level2 = 'var(--md-sys-elevation-level-2)';
+
+  // Motion tokens
+  const short2 = 'var(--md-sys-motion-duration-short-2)';
+  const standard = 'var(--md-sys-motion-easing-standard)';
+
+  // Padding styles using MD3 spacing tokens
   const getPaddingStyles = (): string => {
     switch (padding) {
       case 'none':
         return '0';
       case 'small':
-        return layers.ref.spacing['4'];
+        return 'var(--md-sys-spacing-4)';
       case 'large':
-        return layers.ref.spacing['8'];
+        return 'var(--md-sys-spacing-8)';
       default: // medium
-        return layers.ref.spacing['6'];
+        return 'var(--md-sys-spacing-6)';
     }
   };
 
-  // Variant styles using sys and elevation tokens
+  // Variant styles using MD3 tokens
   const getVariantStyles = (): React.CSSProperties => {
     switch (variant) {
       case 'outlined':
         return {
-          backgroundColor: sys.color.surface,
+          backgroundColor: surface,
           boxShadow: 'none',
-          border: `1px solid ${sys.color.outlineVariant}`
+          border: `1px solid ${outlineVariant}`
         };
       case 'filled':
         return {
-          backgroundColor: sys.color.surfaceContainerLow,
+          backgroundColor: surfaceContainerLow,
           boxShadow: 'none',
           border: 'none'
         };
       default: // elevated
         return {
-          backgroundColor: sys.color.surfaceContainerLow,
-          boxShadow: isClickable && hovered ? elevation.level2 : elevation.level1,
+          backgroundColor: surfaceContainerLow,
+          boxShadow: isClickable && hovered ? level2 : level1,
           border: 'none'
         };
     }
@@ -70,11 +88,11 @@ const M3Card: React.FC<M3CardProps> = ({
   // Base styles
   const baseStyle: React.CSSProperties = {
     padding: getPaddingStyles(),
-    borderRadius: ref.shape.corner.large,
-    transition: isClickable ? `box-shadow ${motion.duration.short2} ${motion.easing.standard}` : undefined,
+    borderRadius: large,
+    transition: isClickable ? `box-shadow ${short2} ${standard}` : undefined,
     cursor: isClickable ? 'pointer' : undefined,
-    outline: focused && isClickable ? `2px solid ${sys.color.primary}` : 'none',
-    outlineOffset: focused ? layers.ref.spacing['2'] : '0',
+    outline: focused && isClickable ? `2px solid ${primary}` : 'none',
+    outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
     ...getVariantStyles(),
     ...style
   };

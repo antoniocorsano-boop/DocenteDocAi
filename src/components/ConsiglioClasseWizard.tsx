@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, TimetableSettings, AiSettings, Report, ValutazioneCompetenza, PeriodoValutazione } from '../types';
 import { generateCouncilDataPdf, viewPdfInNewTab } from '../utils/documentUtils';
-import { useTheme } from '../theme/theme';
 import { 
 
     M3Dialog, 
@@ -27,8 +26,7 @@ interface ConsiglioClasseWizardProps {
 }
 
 const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
-  const { layers } = useTheme();
-    const [step, setStep] = useState<1 | 2>(1);
+  const [step, setStep] = useState<1 | 2>(1);
     const [selectedClass, setSelectedClass] = useState<string>(props.userClasses[0] || '');
     const [periodo, setPeriodo] = useState<PeriodoValutazione>('primo-quadrimestre');
     const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +61,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
 
     const renderStep1 = () => (
         <>
-            <M3DialogContent style={{gap: layers.ref.spacing['6']}}>
+            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                 <InfoCard 
                     title="Seleziona il contesto" 
                     description="Scegli la classe e il periodo di riferimento per il quale desideri generare il report." 
@@ -81,8 +79,8 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     {props.userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                 </SelectField>
 
-                 <div style={{gap: layers.ref.spacing['2']}}>
-                    <label  style={{color: "layers.sys.color.primary", fontWeight: "900", textTransform: "uppercase", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>Periodo di Valutazione</label>
+                 <div style={{gap: 'var(--md-sys-spacing-2)'}}>
+                    <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Periodo di Valutazione</label>
                     <TabGroup
                         tabs={[
                             { id: 'primo-quadrimestre', label: 'Primo Quadrimestre (1Q)' },
@@ -113,17 +111,17 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
 
     const renderStep2 = () => (
         <>
-            <M3DialogContent style={{gap: layers.ref.spacing['6']}}>
-                <div style={{ backgroundColor: sys.colors.primaryContainer/20, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['5'], border: "1px solid layers.sys.color.outline", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+                <div style={{ backgroundColor: sys.colors.primaryContainer/20, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-5)', border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                     <div>
-                        <p style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "layers.sys.color.primary"}}>Context Active</p>
-                        <h3 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
+                        <p style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)"}}>Context Active</p>
+                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
                     </div>
                     <M3Button variant="tonal" onClick={() => setStep(1)}  style={{ fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase" }}>Cambia</M3Button>
                 </div>
 
-                <div  style={{gap: layers.ref.spacing['3']}}>
-                    <button onClick={handleGeneratePdf} style={{ borderRadius: layers.ref.shape.corner.large }} style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", width: "100%", textAlign: "left" }}>
+                <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
+                    <button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", width: "100%", textAlign: "left" }}>
                         <div ><span  style={{ transition: "transform 300ms" }}>picture_as_pdf</span></div>
                         <div >
                             <p >Tabellone Dati (PDF)</p>
@@ -132,7 +130,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     </button>
                 </div>
                 
-                <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{textAlign: "center", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , textAlign: "center", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                     Il report verrà generato e aperto in una nuova scheda del browser.
                 </p>
             </M3DialogContent>
@@ -150,8 +148,8 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                  maxWidth="sm"
              >
                 <M3DialogContent  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-                    <div  style={{borderRadius: layers.ref.spacing['4'], height: layers.ref.spacing['4'], width: layers.ref.spacing['4'], borderBottom: "4px solid layers.sys.color.outline", borderColor: "layers.sys.color.primary", marginBottom: layers.ref.spacing['6']}}></div>
-                    <p  style={{fontWeight: "900", color: "layers.sys.color.primary"}}>{loadingMessage}</p>
+                    <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: "4px solid var(--md-sys-color-outline)", borderColor: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-6)'}}></div>
+                    <p  style={{fontWeight: "900", color: "var(--md-sys-color-primary)"}}>{loadingMessage}</p>
                 </M3DialogContent>
             </M3Dialog>
         )

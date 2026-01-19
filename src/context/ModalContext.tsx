@@ -328,19 +328,30 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
   return (
     <div
       key={`modal-portal-${id}`}
-      className="modal-portal-container"
-      style={{ zIndex: modalZIndex }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 'var(--md-sys-spacing-4)',
+        pointerEvents: 'auto',
+        zIndex: modalZIndex
+      }}
       data-modal-id={id}
       data-modal-level={level}
     >
       {/* Backdrop - M3 Expressive with blur */}
       <div
-        className={`modal-portal-backdrop modal-portal-backdrop.${backdropOpacity} ${
-          backdropClickable ? 'modal-portal-backdrop.clickable' : ''
-        }`}
-        // Ensure backdrop sits below modal content within the same stacking context
-        // The wrapper sets z-index to modalZIndex; children should use relative layering
-        style={{ zIndex: 1 }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backdropFilter: 'blur(4px)',
+          animation: 'modal-fade-in 0.3s ease-out',
+          zIndex: 1,
+          backgroundColor: `rgba(0, 0, 0, ${backdropOpacity === 'light' ? '0.2' : backdropOpacity === 'medium' ? '0.4' : '0.6'})`,
+          cursor: backdropClickable ? 'pointer' : 'default'
+        }}
         onClick={backdropClickable ? onBackdropClick : undefined}
         aria-hidden="true"
         role="presentation"
@@ -348,7 +359,16 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
 
       {/* Modal Content Wrapper */}
       <div
-        className="modal-portal-content-wrapper"
+        style={{
+          position: 'relative',
+          zIndex: 10,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          animation: 'modal-zoom-in 0.3s ease-out'
+        }}
         role="dialog"
         aria-modal="true"
         data-modal-portal-content

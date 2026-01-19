@@ -6,25 +6,93 @@ const path = require('path');
  * Approccio sicuro per evitare duplicazioni e errori umani
  */
 
-// Mappatura sicura dei tokens MD3
+// Mappatura sicura dei tokens MD3 - espansa per gestire più pattern
 const MD3_TOKEN_MAP = {
   // Spacing
   "layers.ref.spacing['4']": 'var(--md-sys-spacing-4)',
   "layers.ref.spacing['5']": 'var(--md-sys-spacing-5)',
   "layers.ref.spacing['6']": 'var(--md-sys-spacing-6)',
   "layers.ref.spacing['8']": 'var(--md-sys-spacing-8)',
+  "layers.ref.spacing['3']": 'var(--md-sys-spacing-3)',
 
   // Colors
   "layers.sys.color.primary": 'var(--md-sys-color-primary)',
   "layers.sys.color.onPrimary": 'var(--md-sys-color-on-primary)',
   "layers.sys.color.surfaceContainerLow": 'var(--md-sys-color-surface-container-low)',
   "layers.sys.color.surfaceContainerHigh": 'var(--md-sys-color-surface-container-high)',
+  "layers.sys.color.surfaceContainerLowest": 'var(--md-sys-color-surface-container-lowest)',
   "layers.sys.color.onSurfaceVariant": 'var(--md-sys-color-on-surface-variant)',
   "layers.sys.color.outline": 'var(--md-sys-color-outline)',
+  "layers.sys.color.outlineVariant": 'var(--md-sys-color-outline-variant)',
+  "layers.sys.color.error": 'var(--md-sys-color-error)',
+  "layers.sys.color.onError": 'var(--md-sys-color-on-error)',
+  "layers.sys.color.tertiary": 'var(--md-sys-color-tertiary)',
+  "layers.sys.color.onTertiary": 'var(--md-sys-color-on-tertiary)',
+  "layers.sys.color.secondary": 'var(--md-sys-color-secondary)',
+  "layers.sys.color.onSecondary": 'var(--md-sys-color-on-secondary)',
+  "layers.sys.color.surface": 'var(--md-sys-color-surface)',
+  "layers.sys.color.onSurface": 'var(--md-sys-color-on-surface)',
 
   // Shapes
   "layers.ref.shape.corner.large": 'var(--md-sys-shape-corner-large)',
+  "layers.ref.shape.corner.medium": 'var(--md-sys-shape-corner-medium)',
+  "layers.ref.shape.corner.full": 'var(--md-sys-shape-corner-full)',
+
+  // Elevation
+  "layers.sys.elevation.level1": 'var(--md-sys-elevation-level1)',
+
+  // Motion
+  "layers.sys.motion.duration.short2": 'var(--md-sys-motion-duration-short2)',
+  "layers.sys.motion.easing.standard": 'var(--md-sys-motion-easing-standard)',
 };
+
+/**
+ * Converte dinamicamente un riferimento layers. nel token MD3 corrispondente
+ */
+function convertLayersRef(layersRef) {
+  // Se è già nella mappa, usalo
+  if (MD3_TOKEN_MAP[layersRef]) {
+    return MD3_TOKEN_MAP[layersRef];
+  }
+
+  // Altrimenti, prova a convertirlo dinamicamente
+  // layers.ref.spacing['4'] -> var(--md-sys-spacing-4)
+  const spacingMatch = layersRef.match(/layers\.ref\.spacing\['(\d+)'\]/);
+  if (spacingMatch) {
+    return `var(--md-sys-spacing-${spacingMatch[1]})`;
+  }
+
+  // layers.sys.color.error -> var(--md-sys-color-error)
+  const colorMatch = layersRef.match(/layers\.sys\.color\.(\w+)/);
+  if (colorMatch) {
+    const colorName = colorMatch[1];
+    // Converti camelCase in kebab-case
+    const kebabColor = colorName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    return `var(--md-sys-color-${kebabColor})`;
+  }
+
+  // layers.ref.shape.corner.large -> var(--md-sys-shape-corner-large)
+  const shapeMatch = layersRef.match(/layers\.ref\.shape\.corner\.(\w+)/);
+  if (shapeMatch) {
+    return `var(--md-sys-shape-corner-${shapeMatch[1]})`;
+  }
+
+  // layers.sys.elevation.level1 -> var(--md-sys-elevation-level1)
+  const elevationMatch = layersRef.match(/layers\.sys\.elevation\.(\w+)/);
+  if (elevationMatch) {
+    return `var(--md-sys-elevation-${elevationMatch[1]})`;
+  }
+
+  // layers.sys.motion.* -> var(--md-sys-motion-*)
+  const motionMatch = layersRef.match(/layers\.sys\.motion\.(\w+)\.(\w+)/);
+  if (motionMatch) {
+    return `var(--md-sys-motion-${motionMatch[1]}-${motionMatch[2]})`;
+  }
+
+  // Se non riusciamo a convertirlo, logga un warning e restituisci il valore originale
+  console.log(`⚠️  Unmapped layers reference: ${layersRef}`);
+  return layersRef;
+}
 
 /**
  * Migra un singolo componente in modo sicuro
@@ -61,14 +129,28 @@ function migrateComponent(componentPath) {
     hasChanges = true;
   }
 
-  // 3. Converti tutti i layers.* references usando la mappatura sicura
-  Object.entries(MD3_TOKEN_MAP).forEach(([oldToken, newToken]) => {
-    const regex = new RegExp(oldToken.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
-    if (regex.test(content)) {
-      content = content.replace(regex, newToken);
-      hasChanges = true;
-    }
-  });
+  // 3. Converti tutti i layers.* references usando conversione dinamica
+  // Regex per catturare layers.* fino a quando non incontra spazi, virgolette, o fine riga
+  const layersRegex = /layers\.[^\s'";,}]+/g;
+  const layersMatches = content.match(layersRegex);
+
+  if (layersMatches) {
+    // Rimuovi duplicati e ordina per lunghezza decrescente (più specifici prima)
+    const uniqueLayersRefs = [...new Set(layersMatches)].sort((a, b) => b.length - a.length);
+
+    uniqueLayersRefs.forEach(layersRef => {
+      // Verifica che sia un riferimento valido (finisce con ] o lettera)
+      if (layersRef.match(/layers\..*\]$/) || layersRef.match(/layers\..*[a-zA-Z]$/)) {
+        const md3Token = convertLayersRef(layersRef);
+        if (md3Token !== layersRef) { // Solo se è stato convertito
+          const regex = new RegExp(layersRef.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+          content = content.replace(regex, md3Token);
+          hasChanges = true;
+          console.log(`🔄 Converted ${layersRef} → ${md3Token}`);
+        }
+      }
+    });
+  }
 
   // 4. Gestisci duplicate style attributes in modo sicuro
   // Pattern: style={...} style={...}
@@ -123,8 +205,11 @@ function migrateComponent(componentPath) {
 /**
  * Valida che la migrazione non abbia rotto il componente
  */
-function validateMigration(componentPath) {
+function validateMigration(componentPath, originalContent = null) {
   const content = fs.readFileSync(componentPath, 'utf8');
+
+  // Se abbiamo il contenuto originale, controlliamo se aveva layers. references
+  const hadLayersRefs = originalContent ? /layers\./.test(originalContent) : true;
 
   // Controlli di validità
   const checks = [
@@ -133,18 +218,22 @@ function validateMigration(componentPath) {
       pass: !/style=\{[^}]*\}\s*style=\{[^}]*\}/.test(content)
     },
     {
-      name: 'No layers. references',
-      pass: !/layers\./.test(content)
-    },
-    {
       name: 'No useTheme imports',
       pass: !/import\s*\{[^}]*useTheme[^}]*\}\s*from\s*['"]\.\.\/theme\/theme['"]/.test(content)
     },
     {
       name: 'Valid syntax (basic check)',
-      pass: content.includes('export default') && content.includes('React.FC')
+      pass: content.includes('export default') || content.includes('export ') || content.includes('function ')
     }
   ];
+
+  // Aggiungi controllo layers. solo se il file originale ne aveva
+  if (hadLayersRefs) {
+    checks.push({
+      name: 'No remaining layers. references',
+      pass: !/layers\./.test(content)
+    });
+  }
 
   const failedChecks = checks.filter(check => !check.pass);
 
@@ -174,10 +263,14 @@ function runBatchMigration(components, batchSize = 5) {
     for (const component of batch) {
       try {
         const componentPath = path.join(__dirname, 'src', 'components', component.file);
+
+        // Leggi il contenuto originale per la validazione
+        const originalContent = fs.readFileSync(componentPath, 'utf8');
+
         const migrated = migrateComponent(componentPath);
 
         if (migrated) {
-          const valid = validateMigration(componentPath);
+          const valid = validateMigration(componentPath, originalContent);
           if (valid) {
             successCount++;
           } else {

@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { PianoInclusione, PianoInclusioneEditorProps } from '../types';
 import { getPIPSuggestion } from '../services/aiService';
-import { useTheme } from '../theme/theme';
 import { 
 
     M3Dialog, 
@@ -29,8 +28,7 @@ const createEmptyPiano = (studentId: string): PianoInclusione => ({
 });
 
 const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, existingPiano, onClose, onSave, onDeletePiano, aiSettings, evaluations, competencyEvaluations, settings, showToast }) => {
-  const { layers } = useTheme();
-    const [piano, setPiano] = useState<PianoInclusione>(existingPiano || createEmptyPiano(student.id));
+  const [piano, setPiano] = useState<PianoInclusione>(existingPiano || createEmptyPiano(student.id));
     const [loadingSection, setLoadingSection] = useState<string | null>(null);
 
     const handleChange = (field: SectionKey, value: string) => {
@@ -157,13 +155,13 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
 
                         {/* Obiettivi per Materia */}
                         <InfoCard variant="elevated" >
-                            <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['8']}}>
-                                <span  style={{color: "layers.sys.color.primary"}}>subject</span>
-                                <h3 style={{fontSize: "0.875rem", fontWeight: "bold", color: "layers.sys.color.primary", textTransform: "uppercase", letterSpacing: "0.05em"}}>
+                            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                                <span  style={{color: "var(--md-sys-color-primary)"}}>subject</span>
+                                <h3 style={{fontSize: "0.875rem", fontWeight: "bold", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
                                     Obiettivi per Materia (PEI/PDP)
                                 </h3>
                             </div>
-                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontSize: "0.75rem", marginBottom: layers.ref.spacing['8']}}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "0.75rem", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
                             </p>
                             
@@ -172,7 +170,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     <div key={materia} >
                                         <div >
                                             <label >
-                                                <span style={{ color: "layers.sys.color.primary" }}>book</span>
+                                                <span style={{ color: "var(--md-sys-color-primary)" }}>book</span>
                                                 {materia}
                                             </label>
                                             <M3Button
@@ -186,7 +184,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                                 {loadingSection === `obj-${materia}` ? (
                                                     <AiThinkingGem size="small" inline />
                                                 ) : (
-                                                    <span style={{ color: sys.colors.primary/70 }} style={{ fontSize: "0.875rem" }}>auto_awesome</span>
+                                                    <span style={{ color: sys.colors.primary/70 ,  fontSize: "0.875rem" }}>auto_awesome</span>
                                                 )}
                                             </M3Button>
                                         </div>

@@ -3,17 +3,40 @@
 
 npx lint-staged
 
-# MD3 Compliance Pre-commit Hook - Temporarily disabled during migration
-# echo "🔍 Running MD3 Compliance Audit..."
+# MD3 Compliance Pre-commit Hook - Active Enforcement
+echo "🔍 Running MD3 Compliance Audit..."
 
-# Run audit on staged component files
-# node md3-audit.js check ./src/components 70
+# Get staged TSX/TS files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(tsx?|jsx?)$' | grep '^src/' || true)
 
-# if [ $? -ne 0 ]; then
-#     echo "❌ MD3 Compliance check failed!"
-#     echo "Please fix the MD3 compliance issues before committing."
-#     echo "Run 'node md3-audit.js audit ./src/components' for detailed report."
-#     exit 1
-# fi
+if [ -n "$STAGED_FILES" ]; then
+    echo "📁 Checking staged components: $STAGED_FILES"
 
-# echo "✅ MD3 Compliance check passed!"
+    # Create temporary file list for scanner (relative paths, UTF-8)
+    node -e "const fs = require('fs'); fs.writeFileSync('/tmp/md3-staged-files.txt', '$STAGED_FILES'.split(' ').join('\n'), 'utf8');"
+
+    # Run strict MD3 compliance scan on staged files only
+    node md3-compliance-scanner.cjs --files /tmp/md3-staged-files.txt --fail-on-violations
+
+    SCAN_EXIT_CODE=$?
+
+    # Clean up
+    rm -f /tmp/md3-staged-files.txt
+
+    if [ $SCAN_EXIT_CODE -ne 0 ]; then
+        echo "❌ MD3 Compliance check failed!"
+        echo "🚫 Commit blocked due to MD3 violations in staged files."
+        echo ""
+        echo "📋 To fix violations:"
+        echo "   1. Run 'npm run md3:scan' to see detailed violations"
+        echo "   2. Use 'npm run md3:migrate' to fix individual components"
+        echo "   3. Or run batch migrations: 'npm run md3:migrate:batch:simple'"
+        echo ""
+        echo "🔗 See MD3_MIGRATION_BATCH_TODO.md for migration guidelines"
+        exit 1
+    fi
+
+    echo "✅ MD3 Compliance check passed for staged files!"
+else
+    echo "ℹ️  No TSX/TS components staged - skipping MD3 compliance check"
+fi

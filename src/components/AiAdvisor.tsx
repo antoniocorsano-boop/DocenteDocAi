@@ -84,8 +84,34 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 <div >
                     <label >Tipo di Intervento</label>
                     <div >
-                        <button type="button" onClick={() => setRequestType('recupero')} className={`ai-advisor-segmented-button ${requestType === 'recupero' ? 'active' : ''}`}>Recupero</button>
-                        <button type="button" onClick={() => setRequestType('potenziamento')} className={`ai-advisor-segmented-button ${requestType === 'potenziamento' ? 'active' : ''}`}>Potenziamento</button>
+                        <button 
+                            type="button" 
+                            onClick={() => setRequestType('recupero')} 
+                            style={{
+                                flex: 1,
+                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                backgroundColor: requestType === 'recupero' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
+                                color: requestType === 'recupero' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                border: 'none',
+                                fontSize: '0.875rem', // body2 equivalent
+                                transition: 'all var(--motion-duration-short) var(--motion-easing-standard)',
+                                cursor: 'pointer'
+                            }}
+                        >Recupero</button>
+                        <button 
+                            type="button" 
+                            onClick={() => setRequestType('potenziamento')} 
+                            style={{
+                                flex: 1,
+                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                backgroundColor: requestType === 'potenziamento' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
+                                color: requestType === 'potenziamento' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                border: 'none',
+                                fontSize: '0.875rem', // body2 equivalent
+                                transition: 'all var(--motion-duration-short) var(--motion-easing-standard)',
+                                cursor: 'pointer'
+                            }}
+                        >Potenziamento</button>
                     </div>
                 </div>
                  <div >

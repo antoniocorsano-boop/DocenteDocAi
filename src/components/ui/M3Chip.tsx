@@ -1,6 +1,8 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant M3Chip Component
+// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
+// No useTheme() dependency - all styling uses direct MD3 CSS variables
+
 import React from 'react';
-import { useTheme } from '../../theme/theme';
 
 export type M3ChipProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
@@ -12,8 +14,39 @@ export type M3ChipProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps }: M3ChipProps): React.ReactElement {
   const [isHovered, setIsHovered] = React.useState(false);
   const [isFocused, setIsFocused] = React.useState(false);
-  const { layers } = useTheme();
-  const { sys, ref, motion, elevation } = layers;
+
+  // MD3 Token mapping - no useTheme() dependency
+  // Color tokens
+  const surface = 'var(--md-sys-color-surface)';
+  const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
+  const outline = 'var(--md-sys-color-outline)';
+  const surfaceVariant = 'var(--md-sys-color-surface-variant)';
+  const secondaryContainer = 'var(--md-sys-color-secondary-container)';
+  const onSecondaryContainer = 'var(--md-sys-color-on-secondary-container)';
+
+  // Shape tokens
+  const small = 'var(--md-sys-shape-corner-small)';
+  const full = 'var(--md-sys-shape-corner-full)';
+
+  // Elevation tokens
+  const level1 = 'var(--md-sys-elevation-level-1)';
+  const level2 = 'var(--md-sys-elevation-level-2)';
+
+  // Motion tokens
+  const short2 = 'var(--md-sys-motion-duration-short-2)';
+  const standard = 'var(--md-sys-motion-easing-standard)';
+
+  // Typography tokens
+  const labelLarge = {
+    fontFamily: 'var(--md-sys-typescale-label-large-font)',
+    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+    letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'
+  };
+  const bodySmall = {
+    fontSize: 'var(--md-sys-typescale-body-small-font-size)'
+  };
 
   // Variant styles using MD3 design tokens
   const getVariantStyles = (): React.CSSProperties => {
@@ -21,26 +54,26 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
     switch (variant) {
       case 'outlined':
-        baseStyles.backgroundColor = sys.color.surface;
-        baseStyles.color = sys.color.onSurfaceVariant;
-        baseStyles.border = `2px solid ${sys.color.outline}`;
+        baseStyles.backgroundColor = surface;
+        baseStyles.color = onSurfaceVariant;
+        baseStyles.border = `2px solid ${outline}`;
         if (isHovered || isFocused) {
-          baseStyles.borderColor = sys.color.onSurfaceVariant;
+          baseStyles.borderColor = onSurfaceVariant;
         }
         break;
       case 'elevated':
-        baseStyles.backgroundColor = sys.color.surface;
-        baseStyles.color = sys.color.onSurfaceVariant;
-        baseStyles.border = `1px solid ${sys.color.surfaceVariant}`;
-        baseStyles.boxShadow = elevation.level1;
+        baseStyles.backgroundColor = surface;
+        baseStyles.color = onSurfaceVariant;
+        baseStyles.border = `1px solid ${surfaceVariant}`;
+        baseStyles.boxShadow = level1;
         if (isHovered || isFocused) {
-          baseStyles.boxShadow = elevation.level2;
+          baseStyles.boxShadow = level2;
         }
         break;
       default: // filled
-        baseStyles.backgroundColor = sys.color.secondaryContainer;
-        baseStyles.color = sys.color.onSecondaryContainer;
-        baseStyles.border = `1px solid ${sys.color.secondaryContainer}`;
+        baseStyles.backgroundColor = secondaryContainer;
+        baseStyles.color = onSecondaryContainer;
+        baseStyles.border = `1px solid ${secondaryContainer}`;
         break;
     }
 
@@ -51,10 +84,10 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
   const containerStyle: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: layers.ref.spacing['4'],
-    borderRadius: ref.shape.corner.small,
-    padding: `${layers.ref.spacing['4']} ${layers.ref.spacing['4']}`,
-    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
+    gap: 'var(--md-sys-spacing-2)',
+    borderRadius: small,
+    padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-3)`,
+    transition: `all ${short2} ${standard}`,
     opacity: disabled ? 0.38 : (variant === 'filled' && (isHovered || isFocused) ? 0.8 : 1),
     cursor: disabled ? 'not-allowed' : 'default',
     pointerEvents: disabled ? 'none' : 'auto'
@@ -62,13 +95,13 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
   // Button styles
   const buttonStyle: React.CSSProperties = {
-    fontFamily: ref.typography.labelLarge.fontFamily,
-    fontSize: ref.typography.labelLarge.fontSize,
-    fontWeight: ref.typography.labelLarge.fontWeight,
-    lineHeight: ref.typography.labelLarge.lineHeight,
-    letterSpacing: ref.typography.labelLarge.letterSpacing,
-    borderRadius: ref.shape.corner.small,
-    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
+    fontFamily: labelLarge.fontFamily,
+    fontSize: labelLarge.fontSize,
+    fontWeight: labelLarge.fontWeight,
+    lineHeight: labelLarge.lineHeight,
+    letterSpacing: labelLarge.letterSpacing,
+    borderRadius: small,
+    transition: `all ${short2} ${standard}`,
     outline: 'none',
     border: 'none',
     backgroundColor: 'transparent',
@@ -78,14 +111,14 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
   // Delete button styles
   const deleteButtonStyle: React.CSSProperties = {
-    width: layers.ref.spacing['4'],
-    height: layers.ref.spacing['4'],
+    width: 'var(--md-sys-spacing-4)',
+    height: 'var(--md-sys-spacing-4)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: ref.shape.corner.full,
-    color: sys.color.onSurfaceVariant,
-    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
+    borderRadius: full,
+    color: onSurfaceVariant,
+    transition: `all ${short2} ${standard}`,
     outline: 'none',
     border: 'none',
     backgroundColor: 'transparent',
@@ -96,7 +129,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
   // Icon styles
   const iconStyle: React.CSSProperties = {
     fontFamily: 'Material Symbols Outlined',
-    fontSize: ref.typography.bodySmall.fontSize,
+    fontSize: bodySmall.fontSize,
     fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
     userSelect: 'none'
   };

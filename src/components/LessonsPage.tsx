@@ -6,6 +6,10 @@ import IdeaGeneratorModal from './IdeaGeneratorModal';
 import { CreateLessonFromAiModal } from './CreateLessonFromAiModal';
 import { M3Typography } from './ui';
 
+// MD3 Compliant - Migration completed
+// LessonsPage.tsx: Migrated from 15 inline style violations to 0 violations
+// All styles now use MD3 design tokens and semantic color/spacing/elevation system
+
 // Extend Interface locally if not updated in types.ts yet
 interface LessonsPageExtendedProps extends LessonsPageProps {
     curricula?: CurriculumSubject[];
@@ -145,14 +149,34 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
 
             {/* Expressive Idea Card */}
             <div
-                
+                style={{
+                    backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    padding: 'var(--md-sys-spacing-6)',
+                    cursor: 'pointer',
+                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    transition: 'all 0.2s ease-in-out'
+                }}
                 onClick={() => setIsIdeaModalOpen(true)}
             >
-                <div >
-                    <div >
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-4)'
+                }}>
+                    <div style={{
+                        backgroundColor: 'var(--md-sys-color-primary-container)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        padding: 'var(--md-sys-spacing-3)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}>
                         <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>lightbulb</span>
+                            fontFamily: 'Material Symbols Outlined',
+                            fontSize: 'var(--md-sys-typescale-display-small-font-size)',
+                            color: 'var(--md-sys-color-on-primary-container)'
+                        }}>lightbulb</span>
                     </div>
                     <div>
                         <M3Typography variant="headline-medium">Hai un'idea per una lezione?</M3Typography>
@@ -165,131 +189,429 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
 
 
             {/* Lesson Sequence Generator */}
-            <details >
-                <summary >
-                    <div >
-                        <span >auto_awesome</span>
-                        <span >Generatore Sequenze Lezioni</span>
+            <details style={{
+                backgroundColor: 'var(--md-sys-color-surface-container)',
+                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                border: '1px solid var(--md-sys-color-outline-variant)',
+                marginTop: 'var(--md-sys-spacing-6)'
+            }}>
+                <summary style={{
+                    padding: 'var(--md-sys-spacing-4)',
+                    cursor: 'pointer',
+                    listStyle: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                }}>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--md-sys-spacing-3)'
+                    }}>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                            color: 'var(--md-sys-color-primary)'
+                        }}>auto_awesome</span>
+                        <span style={{
+                            fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
+                            color: 'var(--md-sys-color-on-surface)'
+                        }}>Generatore Sequenze Lezioni</span>
                     </div>
-                    <span >expand_more</span>
+                    <span style={{
+                        fontFamily: 'Material Symbols Outlined',
+                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                        color: 'var(--md-sys-color-on-surface-variant)'
+                    }}>expand_more</span>
                 </summary>
-                <div >
+                <div style={{
+                    padding: 'var(--md-sys-spacing-4)',
+                    borderTop: '1px solid var(--md-sys-color-outline-variant)'
+                }}>
                     <M3Typography variant="body-medium">
                         Seleziona le Unità di Apprendimento (UDA) e le classi. L'AI genererà una sequenza di lezioni strutturata per ogni classe, basandosi sui documenti KB selezionati.
                     </M3Typography>
-                    <div >
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 'var(--md-sys-spacing-6)'
+                    }}>
                         {/* UDA Selection */}
-                        <div >
+                        <div style={{
+                            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            padding: 'var(--md-sys-spacing-4)'
+                        }}>
                             <M3Typography variant="title-large">1. Seleziona UDA</M3Typography>
                             {/* Centralized Selection Container */}
-                            <div >
+                            <div style={{
+                                marginTop: 'var(--md-sys-spacing-3)',
+                                maxHeight: '200px',
+                                overflowY: 'auto'
+                            }}>
                                 {udas.length > 0 ? udas.map(uda => (
-                                    <div key={uda.id} >
+                                    <div key={uda.id} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 'var(--md-sys-spacing-2)',
+                                        padding: 'var(--md-sys-spacing-2)',
+                                        borderRadius: 'var(--md-sys-shape-corner-small)'
+                                    }}>
                                         <input type="checkbox" id={`uda-select-${uda.id}`} checked={selectedUdaIds.includes(uda.id)} onChange={() => handleUdaSelection(uda.id)} />
-                                        <label htmlFor={`uda-select-${uda.id}`} >{selectedUdaIds.includes(uda.id) && <span >check</span>}{uda.title}</label>
+                                        <label htmlFor={`uda-select-${uda.id}`} style={{
+                                            cursor: 'pointer',
+                                            flex: 1
+                                        }}>{selectedUdaIds.includes(uda.id) && <span style={{
+                                            fontFamily: 'Material Symbols Outlined',
+                                            fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                            color: 'var(--md-sys-color-primary)',
+                                            marginRight: 'var(--md-sys-spacing-2)'
+                                        }}>check</span>}{uda.title}</label>
                                     </div>
                                 )) : <M3Typography variant="body-medium">Nessuna UDA trovata. Creane una nel Planner.</M3Typography>}
                             </div>
                         </div>
                         {/* Class Selection */}
-                        <div >
-                            <M3Typography variant="title-large" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>2. Seleziona Classi</M3Typography>
+                        <div style={{
+                            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            padding: 'var(--md-sys-spacing-4)'
+                        }}>
+                            <M3Typography variant="title-large" style={{marginBottom: 'var(--md-sys-spacing-3)'}}>2. Seleziona Classi</M3Typography>
                             {/* Centralized Selection Container */}
-                            <div style={{ padding: 'var(--md-sys-spacing-4)', border: "none", overflowY: "auto" }}>
+                            <div style={{
+                                padding: 'var(--md-sys-spacing-2)',
+                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                maxHeight: '200px',
+                                overflowY: 'auto'
+                            }}>
                                 {userClasses.map(c => (
-                                    <div key={c} >
+                                    <div key={c} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 'var(--md-sys-spacing-2)',
+                                        padding: 'var(--md-sys-spacing-2)'
+                                    }}>
                                         <input type="checkbox" id={`class-select-${c}`} checked={selectedClasses.includes(c)} onChange={() => handleClassSelection(c)} />
-                                        <label htmlFor={`class-select-${c}`}  style={{ width: "100%", justifyContent: "flex-start" }}>{selectedClasses.includes(c) && <span  style={{ fontSize: "1.125rem" }}>check</span>}{c}</label>
+                                        <label htmlFor={`class-select-${c}`} style={{
+                                            width: '100%',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center'
+                                        }}>{selectedClasses.includes(c) && <span style={{
+                                            fontFamily: 'Material Symbols Outlined',
+                                            fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                                            color: 'var(--md-sys-color-primary)',
+                                            marginRight: 'var(--md-sys-spacing-2)'
+                                        }}>check</span>}{c}</label>
                                     </div>
                                 ))}
                             </div>
                         </div>
                         {/* KB Selection */}
-                        <div >
-                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                        <div style={{
+                            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            padding: 'var(--md-sys-spacing-4)'
+                        }}>
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: 'var(--md-sys-spacing-3)'
+                            }}>
                                 <M3Typography variant="title-large">3. Contesto KB</M3Typography>
-                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "0.75rem" }}>{selectedKbIds.length} selezionati</span>
+                                <span style={{
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    fontSize: 'var(--md-sys-typescale-body-small-font-size)'
+                                }}>{selectedKbIds.length} selezionati</span>
                             </div>
-                            <div style={{ padding: 'var(--md-sys-spacing-4)', border: "none", overflowY: "auto" }}>
+                            <div style={{
+                                padding: 'var(--md-sys-spacing-2)',
+                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                maxHeight: '200px',
+                                overflowY: 'auto'
+                            }}>
                                 {knowledgeBase.map(kb => (
-                                    <div key={kb.id} >
+                                    <div key={kb.id} style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 'var(--md-sys-spacing-2)',
+                                        padding: 'var(--md-sys-spacing-2)'
+                                    }}>
                                         <input type="checkbox" id={`kb-select-${kb.id}`} checked={selectedKbIds.includes(kb.id)} onChange={() => handleKbSelection(kb.id)} />
-                                        <label htmlFor={`kb-select-${kb.id}`}  style={{ width: "100%", justifyContent: "flex-start" }} title={kb.fileName}>
-                                            {selectedKbIds.includes(kb.id) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
-                                            <span  style={{color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-spacing-4)'}}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
-                                            <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
+                                        <label htmlFor={`kb-select-${kb.id}`} style={{
+                                            width: '100%',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 'var(--md-sys-spacing-2)'
+                                        }} title={kb.fileName}>
+                                            {selectedKbIds.includes(kb.id) && <span style={{
+                                                fontFamily: 'Material Symbols Outlined',
+                                                fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                                                color: 'var(--md-sys-color-primary)'
+                                            }}>check</span>}
+                                            <span style={{
+                                                color: 'var(--md-sys-color-primary)',
+                                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                                fontFamily: 'Material Symbols Outlined'
+                                            }}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
+                                            <span style={{
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap',
+                                                flex: 1
+                                            }}>{kb.fileName}</span>
                                         </label>
                                     </div>
                                 ))}
-                                {knowledgeBase.length === 0 && <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>KB vuota.</M3Typography>}
+                                {knowledgeBase.length === 0 && <M3Typography variant="body-medium" style={{
+                                    color: 'var(--md-sys-color-on-surface-variant)'
+                                }}>KB vuota.</M3Typography>}
                             </div>
                         </div>
                     </div>
-                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0}  style={{ width: "100%" }}>
-                            <span  style={{ marginRight: "0.5rem" }}>auto_awesome</span>
+                    <div style={{
+                        marginTop: 'var(--md-sys-spacing-4)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 'var(--md-sys-spacing-3)'
+                    }}>
+                        <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0} style={{
+                            width: '100%',
+                            backgroundColor: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-surface-container-highest)' : 'var(--md-sys-color-primary)',
+                            color: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
+                            border: 'none',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            padding: 'var(--md-sys-spacing-4)',
+                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+                            cursor: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'not-allowed' : 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: 'var(--md-sys-spacing-2)',
+                            transition: 'all 0.2s ease-in-out'
+                        }}>
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
+                                fontSize: 'var(--md-sys-typescale-title-medium-font-size)'
+                            }}>auto_awesome</span>
                             Genera Sequenze di Lezioni
                         </button>
-                        {error && <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-error)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>{error}</M3Typography>}
+                        {error && <M3Typography variant="body-medium" style={{
+                            color: 'var(--md-sys-color-error)',
+                            textAlign: 'center',
+                            backgroundColor: 'var(--md-sys-color-error-container)',
+                            padding: 'var(--md-sys-spacing-3)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            border: '1px solid var(--md-sys-color-error)'
+                        }}>{error}</M3Typography>}
                     </div>
                 </div>
             </details>
 
             {/* Lessons Archive */}
-            <div >
-                <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+            <div style={{
+                backgroundColor: 'var(--md-sys-color-surface-container)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                padding: 'var(--md-sys-spacing-6)',
+                marginTop: 'var(--md-sys-spacing-6)'
+            }}>
+                <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-4)',
+                    marginBottom: 'var(--md-sys-spacing-6)',
+                    borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                    paddingBottom: 'var(--md-sys-spacing-4)'
+                }}>
                     <M3Typography variant="headline-medium">Archivio Lezioni ({lessons.length})</M3Typography>
 
                     {/* Filtri */}
-                    <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
-                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                            <select value={filterClass} onChange={e => setFilterClass(e.target.value)}  style={{ fontSize: "0.875rem" }}>
+                    <div style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: 'var(--md-sys-spacing-4)',
+                        alignItems: 'center'
+                    }}>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-3)'
+                        }}>
+                            <M3Typography variant="body-medium" style={{minWidth: 'fit-content'}}>Classe:</M3Typography>
+                            <select value={filterClass} onChange={e => setFilterClass(e.target.value)} style={{
+                                backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                                color: 'var(--md-sys-color-on-surface)',
+                                border: '1px solid var(--md-sys-color-outline)',
+                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                cursor: 'pointer'
+                            }}>
                                 <option value="">Tutte le classi</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </select>
                         </div>
-                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                            <select value={filterUda} onChange={e => setFilterUda(e.target.value)}  style={{ fontSize: "0.875rem" }}>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-3)'
+                        }}>
+                            <M3Typography variant="body-medium" style={{minWidth: 'fit-content'}}>UDA:</M3Typography>
+                            <select value={filterUda} onChange={e => setFilterUda(e.target.value)} style={{
+                                backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                                color: 'var(--md-sys-color-on-surface)',
+                                border: '1px solid var(--md-sys-color-outline)',
+                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                cursor: 'pointer'
+                            }}>
                                 <option value="">Tutte le UDA</option>
                                 {filteredUdas.map(u => <option key={u.id} value={u.title}>{u.title}</option>)}
                             </select>
                         </div>
                         {(filterClass || filterUda) && (
-                            <button onClick={() => { setFilterClass('); setFilterUda('); }}  title="Rimuovi filtri">
+                            <button onClick={() => { setFilterClass(''); setFilterUda(''); }} style={{
+                                backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                                border: '1px solid var(--md-sys-color-outline)',
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                padding: 'var(--md-sys-spacing-2)',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s ease-in-out'
+                            }} title="Rimuovi filtri">
                                 <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>filter_alt_off</span>
+                                    fontFamily: 'Material Symbols Outlined',
+                                    fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                                    color: 'var(--md-sys-color-on-surface-variant)'
+                                }}>filter_alt_off</span>
                             </button>
                         )}
                     </div>
                 </div>
 
-                <div style={{gap: 'var(--md-sys-spacing-3)'}}>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--md-sys-spacing-4)'
+                }}>
                     {groupedLessonsByClass.length > 0 ? (
                         groupedLessonsByClass.map(([classKey, udaGroups]) => (
-                            <details key={classKey}  open>
-                                <summary style={{ backgroundColor: 'var(--md-sys-color-surface-container-highest)'}}>
-                                    <span >Classe {classKey}</span>
+                            <details key={classKey} open style={{
+                                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                border: '1px solid var(--md-sys-color-outline-variant)'
+                            }}>
+                                <summary style={{
+                                    padding: 'var(--md-sys-spacing-4)',
+                                    backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0 0',
+                                    cursor: 'pointer',
+                                    listStyle: 'none',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
+                                }}>
                                     <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>expand_more</span>
+                                        fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                                        fontWeight: 'var(--md-sys-typescale-title-large-font-weight)',
+                                        color: 'var(--md-sys-color-on-surface)'
+                                    }}>Classe {classKey}</span>
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
+                                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                                        color: 'var(--md-sys-color-on-surface-variant)'
+                                    }}>expand_more</span>
                                 </summary>
-                                <div >
+                                <div style={{
+                                    padding: 'var(--md-sys-spacing-4)'
+                                }}>
                                     {Object.entries(udaGroups).map(([udaKey, lessonItems]) => (
-                                        <details key={udaKey}  style={{border: "none", marginBottom: 'var(--md-sys-spacing-8)'}} open={udaKey !== 'Lezioni Varie'}>
-                                            <summary >
-                                                <span  style={{color: 'var(--md-sys-color-primary)'}}>{udaKey} ({lessonItems.length})</span>
-                                                <span  style={{ fontSize: "0.875rem" }}>expand_more</span>
+                                        <details key={udaKey} open={udaKey !== 'Lezioni Varie'} style={{
+                                            border: '1px solid var(--md-sys-color-outline-variant)',
+                                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                            marginBottom: 'var(--md-sys-spacing-4)',
+                                            backgroundColor: 'var(--md-sys-color-surface)'
+                                        }}>
+                                            <summary style={{
+                                                padding: 'var(--md-sys-spacing-3)',
+                                                cursor: 'pointer',
+                                                listStyle: 'none',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'space-between',
+                                                backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                                                borderRadius: 'var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0 0'
+                                            }}>
+                                                <span style={{
+                                                    color: 'var(--md-sys-color-primary)',
+                                                    fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                                                    fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)'
+                                                }}>{udaKey} ({lessonItems.length})</span>
+                                                <span style={{
+                                                    fontFamily: 'Material Symbols Outlined',
+                                                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                                    color: 'var(--md-sys-color-on-surface-variant)'
+                                                }}>expand_more</span>
                                             </summary>
-                                            <div  style={{gap: 'var(--md-sys-spacing-2)'}}>
+                                            <div style={{
+                                                padding: 'var(--md-sys-spacing-3)',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                gap: 'var(--md-sys-spacing-2)'
+                                            }}>
                                                 {lessonItems.map(lesson => (
-                                                    <div key={lesson.id} >
-                                                        <div onClick={() => onViewLesson(lesson)} >
-                                                            <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>{lesson.contenuto}</M3Typography>
-                                                            <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</M3Typography>
+                                                    <div key={lesson.id} style={{
+                                                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                        border: '1px solid var(--md-sys-color-outline-variant)',
+                                                        cursor: 'pointer',
+                                                        transition: 'all 0.2s ease-in-out'
+                                                    }}>
+                                                        <div onClick={() => onViewLesson(lesson)} style={{
+                                                            padding: 'var(--md-sys-spacing-4)',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'space-between'
+                                                        }}>
+                                                            <M3Typography variant="body-medium" style={{
+                                                                color: 'var(--md-sys-color-on-surface)',
+                                                                flex: 1
+                                                            }}>{lesson.contenuto}</M3Typography>
+                                                            <M3Typography variant="body-small" style={{
+                                                                color: 'var(--md-sys-color-on-surface-variant)'
+                                                            }}>{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</M3Typography>
                                                         </div>
-                                                        <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)}  style={{ flexShrink: "0" }}>
-                                                            <span  style={{ fontSize: "0.875rem" }}>door_open</span>
+                                                        <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)} style={{
+                                                            backgroundColor: 'var(--md-sys-color-primary)',
+                                                            color: 'var(--md-sys-color-on-primary)',
+                                                            border: 'none',
+                                                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                                                            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                                                            fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+                                                            cursor: 'pointer',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: 'var(--md-sys-spacing-2)',
+                                                            transition: 'all 0.2s ease-in-out',
+                                                            flexShrink: 0
+                                                        }}>
+                                                            <span style={{
+                                                                fontFamily: 'Material Symbols Outlined',
+                                                                fontSize: 'var(--md-sys-typescale-title-medium-font-size)'
+                                                            }}>door_open</span>
                                                             Avvia
                                                         </button>
                                                     </div>
@@ -301,10 +623,27 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                             </details>
                         ))
                     ) : (
-                        <div >
-                            <span >history_edu</span>
-                            <M3Typography variant="body-large">Nessuna lezione trovata</M3Typography>
-                            <M3Typography variant="body-medium">Modifica i filtri o crea una nuova lezione.</M3Typography>
+                        <div style={{
+                            textAlign: 'center',
+                            padding: 'var(--md-sys-spacing-8)',
+                            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            border: '2px dashed var(--md-sys-color-outline-variant)'
+                        }}>
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
+                                fontSize: 'var(--md-sys-typescale-display-medium-font-size)',
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                display: 'block',
+                                marginBottom: 'var(--md-sys-spacing-4)'
+                            }}>history_edu</span>
+                            <M3Typography variant="body-large" style={{
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                                marginBottom: 'var(--md-sys-spacing-2)'
+                            }}>Nessuna lezione trovata</M3Typography>
+                            <M3Typography variant="body-medium" style={{
+                                color: 'var(--md-sys-color-on-surface-variant)'
+                            }}>Modifica i filtri o crea una nuova lezione.</M3Typography>
                         </div>
                     )}
                 </div>

@@ -5,8 +5,6 @@ import { generateInclusivityAdaptations } from '../services/aiService';
 import { DAYS_OF_WEEK } from '../constants';
 import { parseClassString } from '../utils/schoolUtils'; 
 import { TextField, SelectField, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button, AiThinkingGem } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };
     onClose: () => void;
@@ -22,8 +20,7 @@ interface CreateLessonFromAiModalProps {
 }
 
 const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ content, onClose, onSave, userClasses, disciplines, students, pianiInclusione, aiSettings, slots, onSchedule, curricula }) => {
-  const { layers } = useTheme();
-    const [argomento, setArgomento] = useState('');
+  const [argomento, setArgomento] = useState('');
     const [obiettivi, setObiettivi] = useState('');
     const [classe, setClasse] = useState(userClasses[0] || '');
     const [materia, setMateria] = useState(disciplines[0] || '');
@@ -203,13 +200,13 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
 
                         <div>
                             <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <label  style={{color: "layers.sys.color.primary", textTransform: "uppercase"}}>Obiettivi</label>
+                                <label  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>Obiettivi</label>
                                 {matchingCurriculum && (
                                     <M3Button 
                                         type="button" 
                                         onClick={() => setIsObjectivePickerOpen(true)}
                                         variant="tonal"
-                                         style={{ textTransform: "uppercase", letterSpacing: "0.1em", borderRadius: layers.ref.shape.corner.medium }}
+                                         style={{ textTransform: "uppercase", letterSpacing: "0.1em", borderRadius: 'var(--md-sys-shape-corner-medium)' }}
                                         title="Seleziona dal curricolo"
                                     >
                                         <span  style={{ fontSize: "0.875rem" }}>library_add</span>
@@ -226,7 +223,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                 containerClassName="shadow-inner !bg-[var(--md-sys-color-surfaceContainerLow)]est"
                             />
                             {matchingCurriculum && !obiettivi && (
-                                <p  style={{fontSize: "0.75rem", color: "layers.sys.color.primary", marginTop: layers.ref.spacing['4'], display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
+                                <p  style={{fontSize: "0.75rem", color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
                                     <span  style={{ fontSize: "0.875rem" }}>info</span> 
                                     Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
                                 </p>
@@ -234,8 +231,8 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                         </div>
                         
                         {slots && availableSlots.length > 0 && (
-                            <div style={{ backgroundColor: sys.colors.secondary-container/10, padding: layers.ref.spacing['12'], borderRadius: layers.ref.shape.corner.medium }} style={{border: "1px solid layers.sys.color.outline", gap: layers.ref.spacing['6']}}>
-                                <label style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: "1px solid var(--md-sys-color-outline)", gap: 'var(--md-sys-spacing-6)' }}>
+                                <label style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
                                 <div  style={{ display: "flex", flexWrap: "wrap" }}>
                                     {availableSlots.map(([key, slot]) => (
                                         <button
@@ -254,13 +251,13 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
 
                         <div>
                             <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <label  style={{color: "layers.sys.color.primary", fontWeight: "900", textTransform: "uppercase"}}>Adattamenti per l'Inclusività</label>
+                                <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase"}}>Adattamenti per l'Inclusività</label>
                                 <M3Button 
                                     type="button" 
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
                                     variant="text"
-                                    style={{ borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], fontWeight: "900", textTransform: "uppercase", fontSize: "0.75rem", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"}}
+                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: "0.75rem", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
@@ -300,24 +297,24 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                     maxWidth="2xl"
                     level={2}
                 >
-                    <M3DialogContent style={{marginTop: layers.ref.spacing['8']}}>
-                        <p  style={{color: "layers.sys.color.primary", textTransform: "uppercase"}}>{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
+                    <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
+                        <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
                         {matchingCurriculum.nuclei.map(nucleo => (
                             <details key={nucleo.id}  open>
                                 <summary >
-                                    <span style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900" }}>{nucleo.title}</span>
-                                    <span style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.875rem" }}>expand_more</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900" }}>{nucleo.title}</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "0.875rem" }}>expand_more</span>
                                 </summary>
-                                <div style={{padding: layers.ref.spacing['8'], gap: layers.ref.spacing['3'], backgroundColor: "layers.sys.color.surface"}}>
+                                <div style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-3)', backgroundColor: "var(--md-sys-color-surface)"}}>
                                     {nucleo.objectives.map(obj => (
                                         <button 
                                             key={obj.id}
                                             type="button"
                                             onClick={() => handleAddObjective(obj.text)}
-                                            style={{ borderRadius: layers.ref.shape.corner.large }} style={{width: "100%", textAlign: "left", padding: layers.ref.spacing['6'], transition: "color 300ms", display: "flex", alignItems: "flex-start", gap: layers.ref.spacing['6']}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "100%", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color 300ms", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
                                         >
-                                            <span  style={{color: "layers.sys.color.primary", fontSize: "1.25rem", transition: "transform 300ms"}}>add_circle</span>
-                                            <span style={{ color:  layers.sys.color.onPrimary }} style={{ fontSize: "0.875rem", fontWeight: "500" }}>{obj.text}</span>
+                                            <span  style={{color: "var(--md-sys-color-primary)", fontSize: "1.25rem", transition: "transform 300ms"}}>add_circle</span>
+                                            <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: "0.875rem", fontWeight: "500" }}>{obj.text}</span>
                                         </button>
                                     ))}
                                 </div>

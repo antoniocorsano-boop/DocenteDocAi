@@ -1,0 +1,5111 @@
+{
+  "compliance": 33.9,
+  "totalComponents": 392,
+  "compliantComponents": 133,
+  "violations": {
+    "className": 39,
+    "tailwind": 732,
+    "hardcoded": 1257,
+    "useTheme": 63,
+    "legacyStyles": 944
+  },
+  "components": [
+    {
+      "name": "SkipLink",
+      "path": "src\\components\\accessibility\\SkipLink.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "AddEvaluationModal",
+      "path": "src\\components\\AddEvaluationModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "AddOrientamentoActivityModal",
+      "path": "src\\components\\AddOrientamentoActivityModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 7,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "AddProvaModal",
+      "path": "src\\components\\AddProvaModal.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "AddSourceModal",
+      "path": "src\\components\\AddSourceModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 12,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 19
+    },
+    {
+      "name": "AddStudentModal",
+      "path": "src\\components\\AddStudentModal.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "AiAdvisor",
+      "path": "src\\components\\AiAdvisor.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "AiEventParserModal",
+      "path": "src\\components\\AiEventParserModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 4,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "AiTemplateGeneratorModal",
+      "path": "src\\components\\AiTemplateGeneratorModal.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "AnalyticsDashboard",
+      "path": "src\\components\\AnalyticsDashboard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 6,
+        "hardcoded": 18,
+        "useTheme": 0,
+        "legacyStyles": 7
+      },
+      "totalViolations": 31
+    },
+    {
+      "name": "AnalyticsHub",
+      "path": "src\\components\\AnalyticsHub.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 6
+      },
+      "totalViolations": 11
+    },
+    {
+      "name": "AnnualPlanningWizard",
+      "path": "src\\components\\AnnualPlanningWizard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 13,
+        "hardcoded": 9,
+        "useTheme": 0,
+        "legacyStyles": 17
+      },
+      "totalViolations": 39
+    },
+    {
+      "name": "App",
+      "path": "src\\components\\App.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 6,
+        "useTheme": 1,
+        "legacyStyles": 3
+      },
+      "totalViolations": 11
+    },
+    {
+      "name": "ArchivioReport",
+      "path": "src\\components\\ArchivioReport.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "AssistantDevTools",
+      "path": "src\\components\\AssistantDevTools.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "AssistantFab",
+      "path": "src\\components\\AssistantFab.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 17,
+        "hardcoded": 17,
+        "useTheme": 0,
+        "legacyStyles": 6
+      },
+      "totalViolations": 40
+    },
+    {
+      "name": "AssistantModal",
+      "path": "src\\components\\AssistantModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 14,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 17
+      },
+      "totalViolations": 36
+    },
+    {
+      "name": "AuraView",
+      "path": "src\\components\\AuraView.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "BackupInfoModal",
+      "path": "src\\components\\BackupInfoModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "BatchExportWizard",
+      "path": "src\\components\\BatchExportWizard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 15,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 22
+    },
+    {
+      "name": "Calendar",
+      "path": "src\\components\\Calendar.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 3,
+        "useTheme": 1,
+        "legacyStyles": 9
+      },
+      "totalViolations": 14
+    },
+    {
+      "name": "AdvancedCharts",
+      "path": "src\\components\\charts\\AdvancedCharts.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 6
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "BarChart.stories.test",
+      "path": "src\\components\\charts\\BarChart.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "BarChart.stories",
+      "path": "src\\components\\charts\\BarChart.stories.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "BarChart",
+      "path": "src\\components\\charts\\BarChart.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "DonutChart.stories.test",
+      "path": "src\\components\\charts\\DonutChart.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "DonutChart.stories",
+      "path": "src\\components\\charts\\DonutChart.stories.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "DonutChart",
+      "path": "src\\components\\charts\\DonutChart.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "ChipInputList.test",
+      "path": "src\\components\\ChipInputList.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 7,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "ChipInputList",
+      "path": "src\\components\\ChipInputList.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 10,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 19
+    },
+    {
+      "name": "CircolareAnalysisModal",
+      "path": "src\\components\\CircolareAnalysisModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 10,
+        "useTheme": 0,
+        "legacyStyles": 10
+      },
+      "totalViolations": 21
+    },
+    {
+      "name": "ClassAnalytics",
+      "path": "src\\components\\ClassAnalytics.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 14,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 17
+    },
+    {
+      "name": "ClassCompetencyDashboard",
+      "path": "src\\components\\ClassCompetencyDashboard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 7,
+        "hardcoded": 10,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 20
+    },
+    {
+      "name": "ClassDashboard",
+      "path": "src\\components\\ClassDashboard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 18
+      },
+      "totalViolations": 21
+    },
+    {
+      "name": "ClassHub",
+      "path": "src\\components\\ClassHub.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ClassPlanningWizard",
+      "path": "src\\components\\ClassPlanningWizard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 13,
+        "hardcoded": 12,
+        "useTheme": 0,
+        "legacyStyles": 18
+      },
+      "totalViolations": 43
+    },
+    {
+      "name": "ClassroomTools",
+      "path": "src\\components\\ClassroomTools.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "ClassroomView",
+      "path": "src\\components\\ClassroomView.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 14,
+        "useTheme": 0,
+        "legacyStyles": 9
+      },
+      "totalViolations": 26
+    },
+    {
+      "name": "ClassSelection",
+      "path": "src\\components\\ClassSelection.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 8,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 15
+    },
+    {
+      "name": "CloseLessonModal",
+      "path": "src\\components\\CloseLessonModal.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "CompetencyEvaluationModal",
+      "path": "src\\components\\CompetencyEvaluationModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 8,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 8
+      },
+      "totalViolations": 16
+    },
+    {
+      "name": "CompetencyLevelsView",
+      "path": "src\\components\\CompetencyLevelsView.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 4,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "CompetencyManager",
+      "path": "src\\components\\CompetencyManager.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "ConsiglioClasse",
+      "path": "src\\components\\ConsiglioClasse.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 13,
+        "useTheme": 0,
+        "legacyStyles": 14
+      },
+      "totalViolations": 30
+    },
+    {
+      "name": "ConsiglioClasseWizard",
+      "path": "src\\components\\ConsiglioClasseWizard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 8
+    },
+    {
+      "name": "ContextualStrip",
+      "path": "src\\components\\ContextualStrip.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "CopyForRegisterModal",
+      "path": "src\\components\\CopyForRegisterModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 6
+      },
+      "totalViolations": 10
+    },
+    {
+      "name": "CorpusChat",
+      "path": "src\\components\\CorpusChat.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 9,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 15
+    },
+    {
+      "name": "CreateLessonFromAiModal",
+      "path": "src\\components\\CreateLessonFromAiModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 8,
+        "hardcoded": 12,
+        "useTheme": 0,
+        "legacyStyles": 13
+      },
+      "totalViolations": 33
+    },
+    {
+      "name": "CurriculumManager",
+      "path": "src\\components\\CurriculumManager.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 4,
+        "useTheme": 0,
+        "legacyStyles": 7
+      },
+      "totalViolations": 13
+    },
+    {
+      "name": "DemoGantt",
+      "path": "src\\components\\DemoGantt.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "DidatticaInclusiva",
+      "path": "src\\components\\DidatticaInclusiva.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 12,
+        "hardcoded": 10,
+        "useTheme": 0,
+        "legacyStyles": 11
+      },
+      "totalViolations": 33
+    },
+    {
+      "name": "DocumentGeneratorModal",
+      "path": "src\\components\\DocumentGeneratorModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "DocumentViewerModal",
+      "path": "src\\components\\DocumentViewerModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 8
+    },
+    {
+      "name": "DraggableFab",
+      "path": "src\\components\\DraggableFab.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "EditableContentCard.test",
+      "path": "src\\components\\EditableContentCard.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 13,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 13
+    },
+    {
+      "name": "EditableContentCard",
+      "path": "src\\components\\EditableContentCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "EditSlotModal",
+      "path": "src\\components\\EditSlotModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "ErrorBoundary.functional",
+      "path": "src\\components\\ErrorBoundary.functional.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "ErrorBoundary",
+      "path": "src\\components\\ErrorBoundary.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ErrorLogsDashboard",
+      "path": "src\\components\\ErrorLogsDashboard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 9,
+        "hardcoded": 15,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 28
+    },
+    {
+      "name": "EvaluationModule",
+      "path": "src\\components\\EvaluationModule.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 48,
+        "useTheme": 0,
+        "legacyStyles": 10
+      },
+      "totalViolations": 62
+    },
+    {
+      "name": "EventActionPopover",
+      "path": "src\\components\\EventActionPopover.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "EventModal",
+      "path": "src\\components\\EventModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "ExportModal",
+      "path": "src\\components\\ExportModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "FeedManager",
+      "path": "src\\components\\FeedManager.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "FlowMode",
+      "path": "src\\components\\FlowMode.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 26,
+        "useTheme": 0,
+        "legacyStyles": 10
+      },
+      "totalViolations": 37
+    },
+    {
+      "name": "FunctionalAnalysis",
+      "path": "src\\components\\FunctionalAnalysis.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "GanttBar",
+      "path": "src\\components\\GanttBar.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "GlobalFab",
+      "path": "src\\components\\GlobalFab.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "Guidance",
+      "path": "src\\components\\Guidance.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "Header.test",
+      "path": "src\\components\\Header.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 9,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "Header",
+      "path": "src\\components\\Header.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 9,
+        "useTheme": 0,
+        "legacyStyles": 6
+      },
+      "totalViolations": 16
+    },
+    {
+      "name": "HelpModal",
+      "path": "src\\components\\HelpModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 11,
+        "tailwind": 19,
+        "hardcoded": 13,
+        "useTheme": 0,
+        "legacyStyles": 15
+      },
+      "totalViolations": 58
+    },
+    {
+      "name": "Home.integration.test",
+      "path": "src\\components\\Home.integration.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 8,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 8
+    },
+    {
+      "name": "Home.test",
+      "path": "src\\components\\Home.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 39,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 39
+    },
+    {
+      "name": "Home",
+      "path": "src\\components\\Home.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "HomeworkSubmission",
+      "path": "src\\components\\HomeworkSubmission.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "IdeaGeneratorModal",
+      "path": "src\\components\\IdeaGeneratorModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 7,
+        "hardcoded": 7,
+        "useTheme": 0,
+        "legacyStyles": 7
+      },
+      "totalViolations": 21
+    },
+    {
+      "name": "ImageAnalysisModal",
+      "path": "src\\components\\ImageAnalysisModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 12,
+        "hardcoded": 7,
+        "useTheme": 0,
+        "legacyStyles": 7
+      },
+      "totalViolations": 26
+    },
+    {
+      "name": "ImageGeneratorModal",
+      "path": "src\\components\\ImageGeneratorModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "ImageViewerModal",
+      "path": "src\\components\\ImageViewerModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 8
+    },
+    {
+      "name": "ImportStudentsModal",
+      "path": "src\\components\\ImportStudentsModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 13,
+        "hardcoded": 18,
+        "useTheme": 0,
+        "legacyStyles": 10
+      },
+      "totalViolations": 41
+    },
+    {
+      "name": "ImpromptuLessonModal",
+      "path": "src\\components\\ImpromptuLessonModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "ImprovementGuide",
+      "path": "src\\components\\ImprovementGuide.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 7,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 11
+    },
+    {
+      "name": "KnowledgeBase",
+      "path": "src\\components\\KnowledgeBase.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "LessonAnalysisModal",
+      "path": "src\\components\\LessonAnalysisModal.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "LessonsPage",
+      "path": "src\\components\\LessonsPage.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 8,
+        "useTheme": 0,
+        "legacyStyles": 15
+      },
+      "totalViolations": 25
+    },
+    {
+      "name": "LessonView",
+      "path": "src\\components\\LessonView.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "LiveAssistant",
+      "path": "src\\components\\LiveAssistant.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "LiveAssistantModal",
+      "path": "src\\components\\LiveAssistantModal.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "LoadingModal",
+      "path": "src\\components\\LoadingModal.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "LoginScreen",
+      "path": "src\\components\\LoginScreen.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "Logo",
+      "path": "src\\components\\Logo.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3Button",
+      "path": "src\\components\\M3Button.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 1
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "M3RatingBar",
+      "path": "src\\components\\M3RatingBar.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "MaterialPickerModal",
+      "path": "src\\components\\MaterialPickerModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 12,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 8
+      },
+      "totalViolations": 25
+    },
+    {
+      "name": "Menu",
+      "path": "src\\components\\Menu.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 10,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 12
+    },
+    {
+      "name": "ModalContext",
+      "path": "src\\components\\ModalContext.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "ModalManager",
+      "path": "src\\components\\ModalManager.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "NavigationRail",
+      "path": "src\\components\\NavigationRail.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 28,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 34
+    },
+    {
+      "name": "NotebookLMImportModal",
+      "path": "src\\components\\NotebookLMImportModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 6,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 12
+    },
+    {
+      "name": "NotificationsPopover",
+      "path": "src\\components\\NotificationsPopover.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 5,
+        "hardcoded": 4,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 10
+    },
+    {
+      "name": "ObservationModal",
+      "path": "src\\components\\ObservationModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 6,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "OperationsCenter",
+      "path": "src\\components\\OperationsCenter.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "OrarioSettingsModal",
+      "path": "src\\components\\OrarioSettingsModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "OrientamentoDashboard",
+      "path": "src\\components\\OrientamentoDashboard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 4,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "ParticipationBadgePicker",
+      "path": "src\\components\\ParticipationBadgePicker.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "PassaggioAnnoWizard",
+      "path": "src\\components\\PassaggioAnnoWizard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 14,
+        "hardcoded": 14,
+        "useTheme": 0,
+        "legacyStyles": 11
+      },
+      "totalViolations": 39
+    },
+    {
+      "name": "PianoInclusioneEditor",
+      "path": "src\\components\\PianoInclusioneEditor.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 8
+    },
+    {
+      "name": "PinPadModal",
+      "path": "src\\components\\PinPadModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 7,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "ProfileSelectionScreen",
+      "path": "src\\components\\ProfileSelectionScreen.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ProgettazioneHub",
+      "path": "src\\components\\ProgettazioneHub.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "QuickEvaluationModal",
+      "path": "src\\components\\QuickEvaluationModal.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "QuickNotePopover",
+      "path": "src\\components\\QuickNotePopover.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "RegisterImportDialog",
+      "path": "src\\components\\RegisterImportDialog.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 11,
+        "hardcoded": 25,
+        "useTheme": 0,
+        "legacyStyles": 10
+      },
+      "totalViolations": 46
+    },
+    {
+      "name": "RegisterView",
+      "path": "src\\components\\RegisterView.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ReportisticaHub",
+      "path": "src\\components\\ReportisticaHub.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "ResetConfirmModal",
+      "path": "src\\components\\ResetConfirmModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "RestoreAssistController",
+      "path": "src\\components\\RestoreAssistController.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "RestoreAssistModal",
+      "path": "src\\components\\RestoreAssistModal.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "RubricEditor",
+      "path": "src\\components\\RubricEditor.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 7,
+        "hardcoded": 9,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 21
+    },
+    {
+      "name": "RubricheManager",
+      "path": "src\\components\\RubricheManager.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "scan-legacy-components",
+      "path": "src\\components\\scan-legacy-components.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 5,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "EmotionalPresetsManager",
+      "path": "src\\components\\settings\\EmotionalPresetsManager.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 1,
+        "legacyStyles": 6
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "ThemeSettingsPanel",
+      "path": "src\\components\\settings\\ThemeSettingsPanel.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 10,
+        "useTheme": 1,
+        "legacyStyles": 25
+      },
+      "totalViolations": 37
+    },
+    {
+      "name": "Settings",
+      "path": "src\\components\\Settings.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 5,
+        "hardcoded": 41,
+        "useTheme": 0,
+        "legacyStyles": 15
+      },
+      "totalViolations": 61
+    },
+    {
+      "name": "SettingsSection",
+      "path": "src\\components\\SettingsSection.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 18,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 22
+    },
+    {
+      "name": "ShareModal",
+      "path": "src\\components\\ShareModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 6,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 10
+    },
+    {
+      "name": "SignInScreen",
+      "path": "src\\components\\SignInScreen.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 14,
+        "useTheme": 0,
+        "legacyStyles": 16
+      },
+      "totalViolations": 33
+    },
+    {
+      "name": "SkipLink",
+      "path": "src\\components\\SkipLink.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "SlotActionModal",
+      "path": "src\\components\\SlotActionModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 6,
+        "useTheme": 0,
+        "legacyStyles": 11
+      },
+      "totalViolations": 18
+    },
+    {
+      "name": "SmartDocumentEditor",
+      "path": "src\\components\\SmartDocumentEditor.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "SmartImportModal",
+      "path": "src\\components\\SmartImportModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 17,
+        "useTheme": 0,
+        "legacyStyles": 8
+      },
+      "totalViolations": 27
+    },
+    {
+      "name": "Snackbar.stories.test",
+      "path": "src\\components\\Snackbar.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "Snackbar.stories",
+      "path": "src\\components\\Snackbar.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "Snackbar",
+      "path": "src\\components\\Snackbar.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 10,
+        "useTheme": 1,
+        "legacyStyles": 2
+      },
+      "totalViolations": 15
+    },
+    {
+      "name": "StudentActionMenu",
+      "path": "src\\components\\StudentActionMenu.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 5,
+        "useTheme": 1,
+        "legacyStyles": 7
+      },
+      "totalViolations": 15
+    },
+    {
+      "name": "StudentClassroomView",
+      "path": "src\\components\\StudentClassroomView.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 17,
+        "useTheme": 0,
+        "legacyStyles": 13
+      },
+      "totalViolations": 32
+    },
+    {
+      "name": "StudentEPortfolioModal",
+      "path": "src\\components\\StudentEPortfolioModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 7,
+        "useTheme": 0,
+        "legacyStyles": 8
+      },
+      "totalViolations": 16
+    },
+    {
+      "name": "StudentInterviewModal",
+      "path": "src\\components\\StudentInterviewModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 14,
+        "hardcoded": 22,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 38
+    },
+    {
+      "name": "StudentLoginScreen",
+      "path": "src\\components\\StudentLoginScreen.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 18,
+        "useTheme": 0,
+        "legacyStyles": 7
+      },
+      "totalViolations": 26
+    },
+    {
+      "name": "StudentManager",
+      "path": "src\\components\\StudentManager.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "StudentProfile",
+      "path": "src\\components\\StudentProfile.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "StudentTransferModal",
+      "path": "src\\components\\StudentTransferModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "Studio",
+      "path": "src\\components\\Studio.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 8
+    },
+    {
+      "name": "SyncConflictModal",
+      "path": "src\\components\\SyncConflictModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 14,
+        "hardcoded": 7,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 26
+    },
+    {
+      "name": "TeacherInbox",
+      "path": "src\\components\\TeacherInbox.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "TeacherPresentationView",
+      "path": "src\\components\\TeacherPresentationView.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 6,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "TeachingAssignmentMatrix",
+      "path": "src\\components\\TeachingAssignmentMatrix.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "TemplateManager",
+      "path": "src\\components\\TemplateManager.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 4,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 12
+    },
+    {
+      "name": "TestGeneratorModal",
+      "path": "src\\components\\TestGeneratorModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "TestPreviewModal",
+      "path": "src\\components\\TestPreviewModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 6,
+        "hardcoded": 23,
+        "useTheme": 0,
+        "legacyStyles": 17
+      },
+      "totalViolations": 46
+    },
+    {
+      "name": "test_hook_clean",
+      "path": "src\\components\\test_hook_clean.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ThemeBubble",
+      "path": "src\\components\\ThemeBubble.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 4,
+        "useTheme": 1,
+        "legacyStyles": 7
+      },
+      "totalViolations": 12
+    },
+    {
+      "name": "TimelineView",
+      "path": "src\\components\\TimelineView.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 8
+      },
+      "totalViolations": 11
+    },
+    {
+      "name": "Timetable",
+      "path": "src\\components\\Timetable.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 19,
+        "useTheme": 1,
+        "legacyStyles": 3
+      },
+      "totalViolations": 25
+    },
+    {
+      "name": "TimetableCell",
+      "path": "src\\components\\TimetableCell.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "Tooltip",
+      "path": "src\\components\\Tooltip.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 1,
+        "legacyStyles": 2
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "UdaDetailModal",
+      "path": "src\\components\\UdaDetailModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 19,
+        "useTheme": 0,
+        "legacyStyles": 8
+      },
+      "totalViolations": 28
+    },
+    {
+      "name": "UdaExportModal",
+      "path": "src\\components\\UdaExportModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 11,
+        "useTheme": 0,
+        "legacyStyles": 7
+      },
+      "totalViolations": 19
+    },
+    {
+      "name": "UdaPlanner",
+      "path": "src\\components\\UdaPlanner.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 9
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "ActionTile.stories.test",
+      "path": "src\\components\\ui\\ActionTile.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ActionTile.stories",
+      "path": "src\\components\\ui\\ActionTile.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "ActionTile",
+      "path": "src\\components\\ui\\ActionTile.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 3,
+        "useTheme": 1,
+        "legacyStyles": 9
+      },
+      "totalViolations": 13
+    },
+    {
+      "name": "AiMemoryChip.stories.test",
+      "path": "src\\components\\ui\\AiMemoryChip.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "AiMemoryChip.stories",
+      "path": "src\\components\\ui\\AiMemoryChip.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 8
+    },
+    {
+      "name": "AiMemoryChip",
+      "path": "src\\components\\ui\\AiMemoryChip.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 3
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "AiThinkingGem",
+      "path": "src\\components\\ui\\AiThinkingGem.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 7
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "Avatar.stories.test",
+      "path": "src\\components\\ui\\Avatar.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "Avatar.stories",
+      "path": "src\\components\\ui\\Avatar.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "Avatar",
+      "path": "src\\components\\ui\\Avatar.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 2
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "CategoryCard.stories.test",
+      "path": "src\\components\\ui\\CategoryCard.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "CategoryCard.stories",
+      "path": "src\\components\\ui\\CategoryCard.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 10
+    },
+    {
+      "name": "CategoryCard",
+      "path": "src\\components\\ui\\CategoryCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 3,
+        "useTheme": 1,
+        "legacyStyles": 6
+      },
+      "totalViolations": 10
+    },
+    {
+      "name": "DocumentSkeleton",
+      "path": "src\\components\\ui\\DocumentSkeleton.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 3
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "EmptyState",
+      "path": "src\\components\\ui\\EmptyState.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 2,
+        "useTheme": 1,
+        "legacyStyles": 5
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "ImageSkeleton",
+      "path": "src\\components\\ui\\ImageSkeleton.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 4
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "index",
+      "path": "src\\components\\ui\\index.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "InfoCard.stories.test",
+      "path": "src\\components\\ui\\InfoCard.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "InfoCard.stories",
+      "path": "src\\components\\ui\\InfoCard.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 4
+      },
+      "totalViolations": 10
+    },
+    {
+      "name": "InfoCard",
+      "path": "src\\components\\ui\\InfoCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 9
+      },
+      "totalViolations": 12
+    },
+    {
+      "name": "M3ActivityItem.stories",
+      "path": "src\\components\\ui\\M3ActivityItem.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 8,
+        "useTheme": 0,
+        "legacyStyles": 13
+      },
+      "totalViolations": 21
+    },
+    {
+      "name": "M3ActivityItem",
+      "path": "src\\components\\ui\\M3ActivityItem.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 1
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "M3AnimatedIcon.stories",
+      "path": "src\\components\\ui\\M3AnimatedIcon.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "M3AnimatedIcon",
+      "path": "src\\components\\ui\\M3AnimatedIcon.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "M3BadgedIcon.stories",
+      "path": "src\\components\\ui\\M3BadgedIcon.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "M3BadgedIcon",
+      "path": "src\\components\\ui\\M3BadgedIcon.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 3
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "M3BottomAppBar.stories.test",
+      "path": "src\\components\\ui\\M3BottomAppBar.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3BottomAppBar.stories",
+      "path": "src\\components\\ui\\M3BottomAppBar.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 24,
+        "useTheme": 0,
+        "legacyStyles": 7
+      },
+      "totalViolations": 32
+    },
+    {
+      "name": "M3BottomAppBar",
+      "path": "src\\components\\ui\\M3BottomAppBar.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 1
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "M3Button.stories.test",
+      "path": "src\\components\\ui\\M3Button.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3Button.stories",
+      "path": "src\\components\\ui\\M3Button.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "M3Button",
+      "path": "src\\components\\ui\\M3Button.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 4
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "M3Card.stories.test",
+      "path": "src\\components\\ui\\M3Card.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3Card.stories",
+      "path": "src\\components\\ui\\M3Card.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "M3Card",
+      "path": "src\\components\\ui\\M3Card.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 1,
+        "legacyStyles": 1
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "M3Chip.stories.test",
+      "path": "src\\components\\ui\\M3Chip.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3Chip.stories",
+      "path": "src\\components\\ui\\M3Chip.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 4,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "M3Chip",
+      "path": "src\\components\\ui\\M3Chip.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 3,
+        "useTheme": 1,
+        "legacyStyles": 4
+      },
+      "totalViolations": 11
+    },
+    {
+      "name": "M3ChoiceCard.stories.test",
+      "path": "src\\components\\ui\\M3ChoiceCard.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3ChoiceCard.stories",
+      "path": "src\\components\\ui\\M3ChoiceCard.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "M3ChoiceCard",
+      "path": "src\\components\\ui\\M3ChoiceCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 4
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "M3ComponentTemplate",
+      "path": "src\\components\\ui\\M3ComponentTemplate.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 9
+      },
+      "totalViolations": 14
+    },
+    {
+      "name": "M3DatePicker.stories.test",
+      "path": "src\\components\\ui\\M3DatePicker.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3DatePicker.stories",
+      "path": "src\\components\\ui\\M3DatePicker.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "M3DatePicker",
+      "path": "src\\components\\ui\\M3DatePicker.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 3,
+        "useTheme": 1,
+        "legacyStyles": 4
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "M3Dialog.stories.test",
+      "path": "src\\components\\ui\\M3Dialog.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3Dialog.stories",
+      "path": "src\\components\\ui\\M3Dialog.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 12,
+        "hardcoded": 24,
+        "useTheme": 0,
+        "legacyStyles": 5
+      },
+      "totalViolations": 41
+    },
+    {
+      "name": "M3Dialog",
+      "path": "src\\components\\ui\\M3Dialog.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 16,
+        "hardcoded": 4,
+        "useTheme": 1,
+        "legacyStyles": 7
+      },
+      "totalViolations": 28
+    },
+    {
+      "name": "M3EmptyStateCard.stories",
+      "path": "src\\components\\ui\\M3EmptyStateCard.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "M3EmptyStateCard",
+      "path": "src\\components\\ui\\M3EmptyStateCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 1
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "M3ExpressiveCard.stories.test",
+      "path": "src\\components\\ui\\M3ExpressiveCard.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3ExpressiveCard.stories",
+      "path": "src\\components\\ui\\M3ExpressiveCard.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "M3ExpressiveCard",
+      "path": "src\\components\\ui\\M3ExpressiveCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 17,
+        "useTheme": 1,
+        "legacyStyles": 11
+      },
+      "totalViolations": 30
+    },
+    {
+      "name": "M3HeroCard.stories",
+      "path": "src\\components\\ui\\M3HeroCard.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 6,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 10
+    },
+    {
+      "name": "M3HeroCard",
+      "path": "src\\components\\ui\\M3HeroCard.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3IconButton.stories.test",
+      "path": "src\\components\\ui\\M3IconButton.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3IconButton.stories",
+      "path": "src\\components\\ui\\M3IconButton.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "M3IconButton",
+      "path": "src\\components\\ui\\M3IconButton.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 2,
+        "useTheme": 1,
+        "legacyStyles": 2
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "M3ListItem.stories.test",
+      "path": "src\\components\\ui\\M3ListItem.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3ListItem.stories",
+      "path": "src\\components\\ui\\M3ListItem.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "M3ListItem",
+      "path": "src\\components\\ui\\M3ListItem.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 4
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "M3Menu.stories.test",
+      "path": "src\\components\\ui\\M3Menu.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3Menu.stories",
+      "path": "src\\components\\ui\\M3Menu.stories.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3Menu.test",
+      "path": "src\\components\\ui\\M3Menu.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 9,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "M3Menu",
+      "path": "src\\components\\ui\\M3Menu.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 2
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "M3Popover.stories.test",
+      "path": "src\\components\\ui\\M3Popover.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3Popover.stories",
+      "path": "src\\components\\ui\\M3Popover.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "M3Popover.test",
+      "path": "src\\components\\ui\\M3Popover.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "M3Popover",
+      "path": "src\\components\\ui\\M3Popover.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 3,
+        "useTheme": 1,
+        "legacyStyles": 4
+      },
+      "totalViolations": 10
+    },
+    {
+      "name": "M3RatingBar.stories.test",
+      "path": "src\\components\\ui\\M3RatingBar.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3RatingBar.stories",
+      "path": "src\\components\\ui\\M3RatingBar.stories.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3RatingBar",
+      "path": "src\\components\\ui\\M3RatingBar.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3SuggestionCard.stories",
+      "path": "src\\components\\ui\\M3SuggestionCard.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 6,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 8
+    },
+    {
+      "name": "M3SuggestionCard",
+      "path": "src\\components\\ui\\M3SuggestionCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 1,
+        "legacyStyles": 1
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "M3SuggestionItem.stories",
+      "path": "src\\components\\ui\\M3SuggestionItem.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 6
+      },
+      "totalViolations": 12
+    },
+    {
+      "name": "M3SuggestionItem",
+      "path": "src\\components\\ui\\M3SuggestionItem.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 1
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "M3SurfaceCard.stories",
+      "path": "src\\components\\ui\\M3SurfaceCard.stories.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3SurfaceCard",
+      "path": "src\\components\\ui\\M3SurfaceCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 3,
+        "useTheme": 1,
+        "legacyStyles": 1
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "M3Typography.stories",
+      "path": "src\\components\\ui\\M3Typography.stories.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3Typography",
+      "path": "src\\components\\ui\\M3Typography.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "ManualSection",
+      "path": "src\\components\\ui\\ManualSection.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 1,
+        "legacyStyles": 8
+      },
+      "totalViolations": 11
+    },
+    {
+      "name": "PinPad",
+      "path": "src\\components\\ui\\PinPad.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 4
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "QuizSkeleton",
+      "path": "src\\components\\ui\\QuizSkeleton.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 4
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "SectionHeader",
+      "path": "src\\components\\ui\\SectionHeader.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 6
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "SelectField.stories.test",
+      "path": "src\\components\\ui\\SelectField.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "SelectField.stories",
+      "path": "src\\components\\ui\\SelectField.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 5,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "SelectField",
+      "path": "src\\components\\ui\\SelectField.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 2,
+        "useTheme": 1,
+        "legacyStyles": 7
+      },
+      "totalViolations": 13
+    },
+    {
+      "name": "TabGroup",
+      "path": "src\\components\\ui\\TabGroup.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 5,
+        "useTheme": 1,
+        "legacyStyles": 6
+      },
+      "totalViolations": 16
+    },
+    {
+      "name": "TableSkeleton",
+      "path": "src\\components\\ui\\TableSkeleton.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 3
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "TextArea.stories.test",
+      "path": "src\\components\\ui\\TextArea.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "TextArea.stories",
+      "path": "src\\components\\ui\\TextArea.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 6,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "TextArea",
+      "path": "src\\components\\ui\\TextArea.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 3
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "TextField.stories.test",
+      "path": "src\\components\\ui\\TextField.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "TextField.stories",
+      "path": "src\\components\\ui\\TextField.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 5,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "TextField",
+      "path": "src\\components\\ui\\TextField.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 3,
+        "useTheme": 1,
+        "legacyStyles": 8
+      },
+      "totalViolations": 15
+    },
+    {
+      "name": "ThinkingIndicator.stories.test",
+      "path": "src\\components\\ui\\ThinkingIndicator.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ThinkingIndicator.stories",
+      "path": "src\\components\\ui\\ThinkingIndicator.stories.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ThinkingIndicator",
+      "path": "src\\components\\ui\\ThinkingIndicator.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 7
+      },
+      "totalViolations": 12
+    },
+    {
+      "name": "UseCaseCard.stories.test",
+      "path": "src\\components\\ui\\UseCaseCard.stories.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "UseCaseCard.stories",
+      "path": "src\\components\\ui\\UseCaseCard.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "UseCaseCard",
+      "path": "src\\components\\ui\\UseCaseCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 7,
+        "useTheme": 1,
+        "legacyStyles": 13
+      },
+      "totalViolations": 22
+    },
+    {
+      "name": "UnifiedEvaluationModal",
+      "path": "src\\components\\UnifiedEvaluationModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 6,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 11
+    },
+    {
+      "name": "UniversalModal",
+      "path": "src\\components\\UniversalModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 1,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "UniversalModalDemo",
+      "path": "src\\components\\UniversalModalDemo.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "useRestoreAssist",
+      "path": "src\\components\\useRestoreAssist.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "VideoAnalysisModal",
+      "path": "src\\components\\VideoAnalysisModal.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 5,
+        "hardcoded": 8,
+        "useTheme": 0,
+        "legacyStyles": 13
+      },
+      "totalViolations": 26
+    },
+    {
+      "name": "ViewLoadingPlaceholder",
+      "path": "src\\components\\ViewLoadingPlaceholder.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 1,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "ViewManager",
+      "path": "src\\components\\ViewManager.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 9,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "lazyViewLoader",
+      "path": "src\\components\\viewRegistry\\lazyViewLoader.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "viewRegistry",
+      "path": "src\\components\\viewRegistry.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 6,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "AnalyticsViews",
+      "path": "src\\components\\views\\AnalyticsViews.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "EvaluationViews",
+      "path": "src\\components\\views\\EvaluationViews.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "PlanningViews",
+      "path": "src\\components\\views\\PlanningViews.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "SchedulingViews",
+      "path": "src\\components\\views\\SchedulingViews.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "SettingsViews",
+      "path": "src\\components\\views\\SettingsViews.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ViewRouters",
+      "path": "src\\components\\views\\ViewRouters.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "VirtualClassroomHub",
+      "path": "src\\components\\VirtualClassroomHub.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "VoiceNoteRecorder",
+      "path": "src\\components\\VoiceNoteRecorder.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "WelcomeScreen",
+      "path": "src\\components\\WelcomeScreen.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 14,
+        "useTheme": 0,
+        "legacyStyles": 12
+      },
+      "totalViolations": 26
+    },
+    {
+      "name": "WorkflowGuide",
+      "path": "src\\components\\WorkflowGuide.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 5,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 8
+    },
+    {
+      "name": "DemoGantt.test",
+      "path": "src\\components\\__tests__\\DemoGantt.test.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "testUtils",
+      "path": "src\\components\\__tests__\\testUtils.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "TimelineView.test",
+      "path": "src\\components\\__tests__\\TimelineView.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "defaultTemplates",
+      "path": "src\\constants\\defaultTemplates.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 7
+    },
+    {
+      "name": "ui-text",
+      "path": "src\\constants\\ui-text.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "constants",
+      "path": "src\\constants.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 34,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 35
+    },
+    {
+      "name": "ModalContext",
+      "path": "src\\context\\ModalContext.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 2,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 2
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "MODAL_USAGE_GUIDE",
+      "path": "src\\context\\MODAL_USAGE_GUIDE.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "html-template-colors",
+      "path": "src\\design-system\\html-template-colors.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 9,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 12
+    },
+    {
+      "name": "index",
+      "path": "src\\design-system\\index.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 24,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 24
+    },
+    {
+      "name": "pdf-colors",
+      "path": "src\\design-system\\pdf-colors.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 18,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 18
+    },
+    {
+      "name": "theme.test",
+      "path": "src\\design-system\\theme.test.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "utils",
+      "path": "src\\design-system\\utils.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 67,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 67
+    },
+    {
+      "name": "zIndex",
+      "path": "src\\design-system\\zIndex.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "file-saver.d",
+      "path": "src\\file-saver.d.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "font-setup",
+      "path": "src\\font-setup.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "global.d",
+      "path": "src\\global.d.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useAppEngine",
+      "path": "src\\hooks\\useAppEngine.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 5,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "useDebounce",
+      "path": "src\\hooks\\useDebounce.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useFileDrop",
+      "path": "src\\hooks\\useFileDrop.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useKeyboardNavigation",
+      "path": "src\\hooks\\useKeyboardNavigation.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useModalAccessibility",
+      "path": "src\\hooks\\useModalAccessibility.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useOnlineStatus",
+      "path": "src\\hooks\\useOnlineStatus.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "usePersistence",
+      "path": "src\\hooks\\usePersistence.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "useSettingsLogic",
+      "path": "src\\hooks\\useSettingsLogic.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "main",
+      "path": "src\\main.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "messages",
+      "path": "src\\messages.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "aiLayout",
+      "path": "src\\nka\\aiLayout.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "aiLayoutLLM",
+      "path": "src\\nka\\aiLayoutLLM.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "aiPromptTemplates",
+      "path": "src\\nka\\aiPromptTemplates.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "gameLogic",
+      "path": "src\\nka\\gameLogic.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "GameMode",
+      "path": "src\\nka\\GameMode.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 8,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "index",
+      "path": "src\\nka\\index.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "NKABottomSheet.stories",
+      "path": "src\\nka\\NKABottomSheet.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 6,
+        "useTheme": 0,
+        "legacyStyles": 1
+      },
+      "totalViolations": 9
+    },
+    {
+      "name": "NKABottomSheet",
+      "path": "src\\nka\\NKABottomSheet.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 6,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "NKAForceMap",
+      "path": "src\\nka\\NKAForceMap.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 1,
+        "tailwind": 0,
+        "hardcoded": 2,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "NKAHeaderAuraButton",
+      "path": "src\\nka\\NKAHeaderAuraButton.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 3,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "NKAHeaderIntegration",
+      "path": "src\\nka\\NKAHeaderIntegration.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "NKANodeCard",
+      "path": "src\\nka\\NKANodeCard.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 4,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "NKAProvider",
+      "path": "src\\nka\\NKAProvider.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "NKASettingsToggle",
+      "path": "src\\nka\\NKASettingsToggle.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 4,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "sound",
+      "path": "src\\nka\\sound.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "types",
+      "path": "src\\nka\\types.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useNKAStore",
+      "path": "src\\nka\\useNKAStore.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "wizardAI.llm",
+      "path": "src\\nka\\wizardAI.llm.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "wizardAI",
+      "path": "src\\nka\\wizardAI.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "wizardAIPromptTemplates",
+      "path": "src\\nka\\wizardAIPromptTemplates.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "NKABottomSheet.test",
+      "path": "src\\nka\\__tests__\\NKABottomSheet.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 5,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 5
+    },
+    {
+      "name": "NKAForceMap.layout.test",
+      "path": "src\\nka\\__tests__\\NKAForceMap.layout.test.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "NKAHeaderAuraButton.test",
+      "path": "src\\nka\\__tests__\\NKAHeaderAuraButton.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 6,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "NKANodeCard.test",
+      "path": "src\\nka\\__tests__\\NKANodeCard.test.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 6,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 6
+    },
+    {
+      "name": "useNKAStore.test",
+      "path": "src\\nka\\__tests__\\useNKAStore.test.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "polyfills",
+      "path": "src\\polyfills.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "pre-react-performance",
+      "path": "src\\pre-react-performance.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "reactGuard",
+      "path": "src\\reactGuard.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "aiClient",
+      "path": "src\\services\\aiClient.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "aiPrompts",
+      "path": "src\\services\\aiPrompts.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "aiService",
+      "path": "src\\services\\aiService.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "backupService",
+      "path": "src\\services\\backupService.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 2
+    },
+    {
+      "name": "demoData",
+      "path": "src\\services\\demoData.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "errorLogger",
+      "path": "src\\services\\errorLogger.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "gmailService",
+      "path": "src\\services\\gmailService.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "googleDriveService",
+      "path": "src\\services\\googleDriveService.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "importService",
+      "path": "src\\services\\importService.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 4,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 4
+    },
+    {
+      "name": "indexedDbService",
+      "path": "src\\services\\indexedDbService.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "notebooklmService",
+      "path": "src\\services\\notebooklmService.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "analysis",
+      "path": "src\\services\\prompts\\analysis.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "documents",
+      "path": "src\\services\\prompts\\documents.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "index",
+      "path": "src\\services\\prompts\\index.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "planning",
+      "path": "src\\services\\prompts\\planning.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "shared",
+      "path": "src\\services\\prompts\\shared.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "tools",
+      "path": "src\\services\\prompts\\tools.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "registerService",
+      "path": "src\\services\\registerService.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "ThemeService",
+      "path": "src\\services\\ThemeService.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "lazyStores",
+      "path": "src\\stores\\lazyStores.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useAcademicStore",
+      "path": "src\\stores\\useAcademicStore.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useSettingsStore",
+      "path": "src\\stores\\useSettingsStore.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useStudentStore",
+      "path": "src\\stores\\useStudentStore.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useSystemStore",
+      "path": "src\\stores\\useSystemStore.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "useUIStore",
+      "path": "src\\stores\\useUIStore.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "Colors.stories",
+      "path": "src\\stories\\DesignSystem\\Colors.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 8,
+        "useTheme": 0,
+        "legacyStyles": 3
+      },
+      "totalViolations": 14
+    },
+    {
+      "name": "Spacing.stories",
+      "path": "src\\stories\\DesignSystem\\Spacing.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 7,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 10
+    },
+    {
+      "name": "Typography.stories",
+      "path": "src\\stories\\DesignSystem\\Typography.stories.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 10,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 12
+    },
+    {
+      "name": "sw",
+      "path": "src\\sw.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "setup",
+      "path": "src\\test\\setup.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "test-utils",
+      "path": "src\\test-utils.tsx",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "M3ThemeProvider",
+      "path": "src\\theme\\M3ThemeProvider.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 2,
+        "hardcoded": 8,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 11
+    },
+    {
+      "name": "presets",
+      "path": "src\\theme\\presets.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "theme",
+      "path": "src\\theme\\theme.tsx",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 1,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "tokens",
+      "path": "src\\theme\\tokens.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 3,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "tracing",
+      "path": "src\\tracing.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "SyncConflictData",
+      "path": "src\\types\\SyncConflictData.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "types",
+      "path": "src\\types.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "aiSuggestionGenerator",
+      "path": "src\\utils\\aiSuggestionGenerator.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "analyticsUtils",
+      "path": "src\\utils\\analyticsUtils.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "cn",
+      "path": "src\\utils\\cn.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "colorUtils",
+      "path": "src\\utils\\colorUtils.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 24,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 24
+    },
+    {
+      "name": "compressionUtils",
+      "path": "src\\utils\\compressionUtils.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "csvUtils",
+      "path": "src\\utils\\csvUtils.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "dataValidator",
+      "path": "src\\utils\\dataValidator.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 1,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 1
+    },
+    {
+      "name": "docTemplateUtils",
+      "path": "src\\utils\\docTemplateUtils.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "documentUtils",
+      "path": "src\\utils\\documentUtils.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 27,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 30
+    },
+    {
+      "name": "evaluationUtils.test",
+      "path": "src\\utils\\evaluationUtils.test.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "evaluationUtils",
+      "path": "src\\utils\\evaluationUtils.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "schoolUtils",
+      "path": "src\\utils\\schoolUtils.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "securityUtils",
+      "path": "src\\utils\\securityUtils.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "suggestionUtils",
+      "path": "src\\utils\\suggestionUtils.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "templateUtils",
+      "path": "src\\utils\\templateUtils.ts",
+      "compliant": false,
+      "violations": {
+        "className": 0,
+        "tailwind": 3,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 3
+    },
+    {
+      "name": "themeUtils",
+      "path": "src\\utils\\themeUtils.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    },
+    {
+      "name": "vite-env.d",
+      "path": "src\\vite-env.d.ts",
+      "compliant": true,
+      "violations": {
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
+        "useTheme": 0,
+        "legacyStyles": 0
+      },
+      "totalViolations": 0
+    }
+  ],
+  "timestamp": "2026-01-18T19:37:43.854Z"
+}

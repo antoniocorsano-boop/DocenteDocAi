@@ -50,7 +50,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
             <div >
                 <div >
                     <div >
-                        <span style={{ color: layers.sys.color.onSurfaceVariant }}>description</span>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>description</span>
                     </div>
                     <div>
                         <p >{submission.file?.name || 'Allegato Elaborato'}</p>
@@ -99,7 +99,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
             {submission.status === 'graded' && (
                 <div >
                     <div >
-                        <span style={{ color: layers.sys.color.primary }}>check</span>
+                        <span style={{ color: 'var(--md-sys-color-primary)' }}>check</span>
                     </div>
                     <div>
                         <p >Valutato con successo</p>

@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import { sanitizeHTML } from '../utils/securityUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface DocumentViewerModalProps {
     title: string;
     htmlContent: string;
@@ -13,8 +11,7 @@ interface DocumentViewerModalProps {
 }
 
 const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlContent, onClose, onSaveToKb, onOpenCreateLesson }) => {
-  const { layers } = useTheme();
-    const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
 
     // Sanitize content before rendering to prevent XSS
     const safeHtml = sanitizeHTML(htmlContent);
@@ -34,9 +31,7 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
 
     const handleSave = () => {
         if (!onSaveToKb) return;
-        const tempDiv = document.createElement('div');
         tempDiv.innerHTML = safeHtml;
-        const textContent = tempDiv.textContent || tempDiv.innerText || '';
 
         onSaveToKb(true, {
             title: title,
@@ -62,7 +57,7 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
             <M3DialogContent >
                 {!safeHtml ? (
                      <div  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <div  style={{borderRadius: layers.ref.spacing['4'], height: layers.ref.spacing['4'], width: layers.ref.spacing['4'], borderColor: "layers.sys.color.primary"}}></div>
+                        <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderColor: "var(--md-sys-color-primary)"}}></div>
                     </div>
                 ) : (
                     <div

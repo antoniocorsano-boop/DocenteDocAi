@@ -1,24 +1,31 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant M3BottomAppBar Component
+// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, and elevation
+// No useTheme() dependency - all styling uses direct MD3 CSS variables
+
 import React from 'react';
-import { useTheme } from '../../theme/theme';
 
 export type M3BottomAppBarProps = React.HTMLAttributes<HTMLDivElement> & {
   elevated?: boolean;
 };
 
 function M3BottomAppBar({ children, elevated, style, ...props }: M3BottomAppBarProps): React.ReactElement {
-  const { layers } = useTheme();
-  const { sys, ref, elevation } = layers;
+  // MD3 Token mapping - no useTheme() dependency
+  // Color tokens
+  const surface = 'var(--md-sys-color-surface)';
+  const outlineVariant = 'var(--md-sys-color-outline-variant)';
+
+  // Elevation token
+  const level2 = 'var(--md-sys-elevation-level-2)';
 
   const baseStyle: React.CSSProperties = {
     width: '100%',
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
-    gap: layers.ref.spacing['4'],
-    padding: `${layers.ref.spacing['4']} ${layers.ref.spacing['4']}`,
-    backgroundColor: sys.color.surface,
-    borderTop: `1px solid ${sys.color.outlineVariant}`,
+    gap: 'var(--md-sys-spacing-2)',
+    padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-3)`,
+    backgroundColor: surface,
+    borderTop: `1px solid ${outlineVariant}`,
     boxSizing: 'border-box',
   };
 
@@ -26,7 +33,7 @@ function M3BottomAppBar({ children, elevated, style, ...props }: M3BottomAppBarP
     <div
       style={{
         ...baseStyle,
-        boxShadow: elevated ? elevation.level2 : 'none',
+        boxShadow: elevated ? level2 : 'none',
         ...style,
       }}
       {...props}

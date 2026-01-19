@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block G Migration (14 violations eliminated)
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3Dialog from './M3Dialog';
@@ -60,14 +60,7 @@ export const Default: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: 'var(--md-sys-color-primary)',
-              color: 'var(--md-sys-color-on-primary)',
-              border: 'none',
-              borderRadius: layers.ref.spacing['4'],
-              cursor: 'pointer',
-            }}
+           }
           >
             Open Dialog
           </button>
@@ -101,14 +94,7 @@ export const WithHeadline: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: 'var(--md-sys-color-primary)',
-              color: 'var(--md-sys-color-on-primary)',
-              border: 'none',
-              borderRadius: layers.ref.spacing['4'],
-              cursor: 'pointer',
-            }}
+           }
           >
             Open Dialog
           </button>
@@ -133,28 +119,14 @@ export const WithButtons: Story = {
     title: 'Confirm Action',
     children: 'Are you sure you want to proceed? This action cannot be undone.',
     buttons: (
-      <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end' }}>
+      <div}>
         <button
-          style={{
-            padding: '0.5rem 1.5rem',
-            backgroundColor: 'var(--md-sys-color-surfaceContainer)',
-            color: 'var(--md-sys-color-onSurface)',
-            border: '1px solid var(--sys-outline)',
-            borderRadius: layers.ref.spacing['4'],
-            cursor: 'pointer',
-          }}
+         }
         >
           Cancel
         </button>
         <button
-          style={{
-            padding: '0.5rem 1.5rem',
-            backgroundColor: 'var(--sys-error)',
-            color: 'var(--sys-on-error)',
-            border: 'none',
-            borderRadius: layers.ref.spacing['4'],
-            cursor: 'pointer',
-          }}
+         }
         >
           Confirm
         </button>
@@ -169,14 +141,7 @@ export const WithButtons: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: 'var(--sys-error)',
-              color: 'var(--sys-on-error)',
-              border: 'none',
-              borderRadius: layers.ref.spacing['4'],
-              cursor: 'pointer',
-            }}
+           }
           >
             Open Dialog
           </button>
@@ -215,14 +180,7 @@ export const Fullscreen: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: 'var(--md-sys-color-primary)',
-              color: 'var(--md-sys-color-on-primary)',
-              border: 'none',
-              borderRadius: layers.ref.spacing['4'],
-              cursor: 'pointer',
-            }}
+           }
           >
             Open Fullscreen
           </button>
@@ -247,18 +205,13 @@ export const RichContent: Story = {
     title: 'Settings',
     headline: 'Customize your experience',
     children: (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4'] }}>
+      <div}>
         <div>
-          <label style={{ display: 'block', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: '0.25rem' }}>
+          <label}>
             Theme
           </label>
           <select
-            style={{
-              width: '100%',
-              padding: '0.5rem',
-              borderRadius: 'var(--md-sys-spacing-1)',
-              border: '1px solid var(--sys-outline)',
-            }}
+           }
           >
             <option>Light</option>
             <option>Dark</option>
@@ -266,7 +219,7 @@ export const RichContent: Story = {
           </select>
         </div>
         <div>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <label}>
             <input type="checkbox" defaultChecked />
             Enable notifications
           </label>
@@ -275,14 +228,7 @@ export const RichContent: Story = {
     ),
     buttons: (
       <button
-        style={{
-          padding: '0.5rem 1.5rem',
-          backgroundColor: 'var(--md-sys-color-primary)',
-          color: 'var(--md-sys-color-on-primary)',
-          border: 'none',
-          borderRadius: layers.ref.spacing['4'],
-          cursor: 'pointer',
-        }}
+       }
       >
         Save Settings
       </button>
@@ -296,14 +242,7 @@ export const RichContent: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: 'var(--md-sys-color-primary)',
-              color: 'var(--md-sys-color-on-primary)',
-              border: 'none',
-              borderRadius: layers.ref.spacing['4'],
-              cursor: 'pointer',
-            }}
+           }
           >
             Open Settings
           </button>
@@ -337,14 +276,7 @@ export const SmallDialog: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-            style={{
-              padding: '0.5rem 1rem',
-              backgroundColor: 'var(--md-sys-color-primary)',
-              color: 'var(--md-sys-color-on-primary)',
-              border: 'none',
-              borderRadius: layers.ref.spacing['4'],
-              cursor: 'pointer',
-            }}
+           }
           >
             Open Small Dialog
           </button>
@@ -360,6 +292,7 @@ export const SmallDialog: Story = {
     );
   },
 };
+
 
 
 

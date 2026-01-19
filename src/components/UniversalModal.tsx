@@ -7,18 +7,14 @@
  */
 
 import React from 'react';
-import { useTheme } from '../theme/theme';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
 import type { UniversalModalProps } from '../types';
-import { useTheme } from '../theme/theme';
-
 const UniversalModal: React.FC<UniversalModalProps> = ({
   open,
   title,
   onClose,
   children,
 }) => {
-  const { layers } = useTheme();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const theme = useTheme();
   if (!open) return null;
@@ -30,7 +26,7 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
       maxWidth="sm"
       level={1}
     >
-      <M3DialogContent style={{backgroundColor: 'layers.sys.color.surfaceContainerHigh',
+      <M3DialogContent style={{backgroundColor: 'var(--md-sys-color-surface-container-high)',
         opacity: 0.3,
         backdropFilter: 'blur(4px)'}}>
         {children}

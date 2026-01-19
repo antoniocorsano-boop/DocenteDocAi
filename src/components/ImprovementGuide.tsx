@@ -11,8 +11,6 @@ import AiAdvisor from './AiAdvisor';
 import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { AiMemoryChip, M3Button, InfoCard, SectionHeader, AiThinkingGem } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface ImprovementGuideProps {
     selectedClass: string;
     students: Studente[];
@@ -41,8 +39,7 @@ const ImprovementGuide: React.FC<ImprovementGuideProps> = ({
     settings,
     aiSettings,
 }) => {
-  const { layers } = useTheme();
-    const [loadingStatus, setLoadingStatus] = useState<string | null>("Inizializzazione...");
+  const [loadingStatus, setLoadingStatus] = useState<string | null>("Inizializzazione...");
     const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
     const [error, setError] = useState('');
 
@@ -145,7 +142,6 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                     .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
 
                 if (latestEval) {
-                    const level = comp.livelli.find(l => l.id === latestEval.livelloId);
                     if (level) {
                         levelCounts[level.descrizione]++;
                     }
@@ -189,7 +185,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
         if (!analysis) return;
 
         let html = `
-        <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body { font-family: 'Roboto', sans-serif; line-height: 1.6; } h1 { color: var(--md-sys-color-primary); /* MD3 fix */ } h2 { color: var(--md-sys-color-primary); /* MD3 fix */ border-bottom: 1px solid var(--md-sys-color-outline-variant); /* MD3 fix */ padding-bottom: 5px; margin-top: 20px; } p { margin-bottom: 10px; } ul { margin-bottom: 10px; } strong { color: var(--md-sys-color-primary); /* MD3 fix */ } .header-info { background-color: var(--md-sys-color-surface); /* MD3 fix */ padding: var(--md-sys-spacing-3); border-radius: var(--md-corner-4); /* MD3 fix */ margin-bottom: 20px; }</style>
+        <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body { font-family: 'Roboto', sans-serif; line-height: 1.6; } h1 { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ } h2 { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ border-bottom: 1px solid var(--md-sys-color-outline-variant); /* MD3 fix */ padding-bottom: 5px; margin-top: 20px; } p { margin-bottom: 10px; } ul { margin-bottom: 10px; } strong { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ } .header-info { background-color: 'var(--md-sys-color-surface)'; /* MD3 fix */ padding: 'var(--md-sys-spacing-3)'; border-radius: var(--md-corner-4); /* MD3 fix */ margin-bottom: 20px; }</style>
         `;
 
         html += `<h1>Analisi Classe ${selectedClass}</h1>`;
@@ -305,13 +301,13 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             {/* Charts */}
             <div >
                 <InfoCard title="Distribuzione Voti" icon="bar_chart" style={{ height: "100%" }}>
-                    <div style={{padding: layers.ref.spacing['6']}}>
+                    <div style={{padding: 'var(--md-sys-spacing-6)'}}>
                         <BarChart data={gradeDistributionData} color="var(--md-sys-color-secondary)" />
                     </div>
                 </InfoCard>
                 {objectiveAchievementData && (
                     <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" style={{ height: "100%" }}>
-                        <div style={{display: "flex", justifyContent: "center", padding: layers.ref.spacing['8']}}>
+                        <div style={{display: "flex", justifyContent: "center", padding: 'var(--md-sys-spacing-8)'}}>
                             <DonutChart data={objectiveAchievementData} />
                         </div>
                     </InfoCard>
@@ -319,10 +315,10 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             </div>
 
             <InfoCard title="Livelli di Competenza" icon="school">
-                <div  style={{padding: layers.ref.spacing['8']}}>
+                <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
                     {competencyLevelData.map(compData => (
-                        <div key={compData.name} style={{marginTop: layers.ref.spacing['4']}}>
-                            <h3 style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.875rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7" }}>{compData.name}</h3>
+                        <div key={compData.name} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
+                            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.875rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7" }}>{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
                                 color="var(--sys-tertiary)"

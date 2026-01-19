@@ -10,7 +10,6 @@ import AddSourceModal from './AddSourceModal';
 import DocumentViewerModal from './DocumentViewerModal'; 
 import ImageViewerModal from './ImageViewerModal';
 import { KB_CATEGORIES } from '../constants';
-import { useTheme } from '../theme/theme';
 import {
     InfoCard,
     CategoryCard,
@@ -30,7 +29,6 @@ interface KnowledgeBaseProps {
 }
 
 const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowledgeBase, corpora, setCorpora, showToast }) => {
-  const { layers } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
   const [currentView, setCurrentView] = useState<{ type: 'root' | 'category' | 'corpus', id: string }>({ type: 'root', id: '' });
     const [isAddSourceModalOpen, setIsAddSourceModalOpen] = useState(false);
@@ -158,14 +156,14 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     }
 
     return (
-        <div  style={{maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
-            <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['8']}}>
+        <div  style={{maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+            <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <SectionHeader 
                     title="Knowledge Base" 
                     subtitle="Archivio fonti, documenti e deliverable generati dall'AI."
                     icon="database"
                 />
-                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" style={{ borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>add_circle</span>
@@ -178,7 +176,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 description="Puoi caricare qui le analisi o i progetti prodotti con NotebookLM. L'app li userà come base di conoscenza prioritaria per generare le tue lezioni e UDA."
                 icon="bolt"
                 variant="primary"
-                style={{ backgroundColor: sys.colors.primaryContainer/20 }} style={{marginBottom: layers.ref.spacing['8']}}
+                style={{ backgroundColor: sys.colors.primaryContainer/20 , marginBottom: 'var(--md-sys-spacing-8)'}}
             />
 
             <main >

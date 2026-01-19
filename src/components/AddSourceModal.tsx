@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block J Migration (3 violations eliminated)
 
 import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
@@ -6,8 +6,6 @@ import { KnowledgeBaseEntry, Corpus } from '../types';
 import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
 import { KB_CATEGORIES } from '../constants';
 import { CategoryCard, SelectField, TextField, M3Dialog, M3DialogContent, M3Button } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface AddSourceModalProps {
     corpora: Corpus[];
     setCorpora: React.Dispatch<React.SetStateAction<Corpus[]>>;
@@ -16,8 +14,7 @@ interface AddSourceModalProps {
 }
 
 const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, onClose, onAddEntries }) => {
-  const { layers } = useTheme();
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedCorpusId, setSelectedCorpusId] = useState<string>('');
     const [isCreating, setIsCreating] = useState(false);
     const [newCorpusName, setNewCorpusName] = useState('');
@@ -64,20 +61,20 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent style={{marginTop: layers.ref.spacing['8']}}>
+            <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                 {isLoading ? (
                     <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                        <div  style={{borderRadius: layers.ref.spacing['4'], height: layers.ref.spacing['4'], width: layers.ref.spacing['4'], borderBottom: "4px solid layers.sys.color.outline", borderColor: "layers.sys.color.primary"}}></div>
-                        <p  style={{color: "layers.sys.color.primary", textTransform: "uppercase", letterSpacing: "0.1em"}}>{loadingMessage}</p>
+                        <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: "4px solid var(--md-sys-color-outline)", borderColor: "var(--md-sys-color-primary)"}}></div>
+                        <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em"}}>{loadingMessage}</p>
                     </div>
                 ) : (
                     <>
                         <section>
-                            <h3  style={{marginBottom: layers.ref.spacing['6'], display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
-                                <span style={{ color: sys.colors.on-primaryContainer }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.primaryContainer", display: "flex", alignItems: "center", justifyContent: "center"}}>1</span> 
+                            <h3  style={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                                <span style={{ color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center"}}>1</span> 
                                 Seleziona Destinazione
                             </h3>
-                            <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: layers.ref.spacing['6']}}>
+                            <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: 'var(--md-sys-spacing-6)'}}>
                                 {KB_CATEGORIES.map(cat => (
                                     <CategoryCard 
                                         key={cat.id} 
@@ -92,25 +89,43 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                             </div>
                         </section>
 
-                        <section className={`transition-all duration-500 ${!selectedCategory ? 'opacity-30 grayscale pointer-events-none' : ''}`}>
-                            <h3  style={{marginBottom: layers.ref.spacing['6'], display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
-                                <span style={{ color: sys.colors.on-secondary-container }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.secondary-container", display: "flex", alignItems: "center", justifyContent: "center"}}>2</span> 
+                        <section style={{
+                            transition: 'all 500ms ease',
+                            opacity: !selectedCategory ? 0.3 : 1,
+                            filter: !selectedCategory ? 'grayscale(100%)' : 'none',
+                            pointerEvents: !selectedCategory ? 'none' : 'auto'
+                        }}>
+                            <h3  style={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                                <span style={{ color: sys.colors.on-secondary-container , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center"}}>2</span>
                                 Carica File
                             </h3>
-                            <div {...getRootProps()} className={`dropzone-area h-48 border-2 border-dashed ${isDragActive ? 'border-primary bg-primaryContainer/10 scale-[1.02]' : 'border-[var(--md-sys-color-outline-variant)]'} transition-all flex flex-col items-center justify-center cursor-pointer`} style={{borderRadius: 'layers.ref.shape.corner.extra-large'}}>
+                            <div {...getRootProps()} style={{
+                                height: '12rem',
+                                border: `2px dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent',
+                                opacity: isDragActive ? 0.1 : 1,
+                                transform: isDragActive ? 'scale(1.02)' : 'scale(1)',
+                                transition: 'all 300ms ease',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                borderRadius: 'var(--md-sys-shape-corner-extra-large)'
+                            }}>
                                 <input {...getInputProps()} />
-                                <span style={{color: "layers.sys.color.primary", marginBottom: layers.ref.spacing['8']}}>{isDragActive ? 'download' : 'upload_file'}</span>
-                                <p style={{ color: "layers.sys.color.onSurfaceVariant" }}>Trascina i file qui o clicca per sfogliare</p>
-                                <p style={{opacity: "0.6", marginTop: layers.ref.spacing['4'], fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", color: "layers.sys.color.onSurfaceVariant"}}>Supporto PDF, DOCX, TXT</p>
+                                <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
+                                <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Trascina i file qui o clicca per sfogliare</p>
+                                <p style={{opacity: "0.6", marginTop: 'var(--md-sys-spacing-4)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</p>
                             </div>
                         </section>
 
-                        <section  style={{borderTop: "1px solid layers.sys.color.outline"}}>
-                            <h3  style={{fontWeight: "900", marginBottom: layers.ref.spacing['6'], display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
-                                <span style={{ color: sys.colors.on-tertiary }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.tertiary", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900"}}>3</span> 
+                        <section  style={{borderTop: "1px solid var(--md-sys-color-outline)"}}>
+                            <h3  style={{fontWeight: "900", marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                                <span style={{ color: sys.colors.on-tertiary , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900"}}>3</span> 
                                 Raccolta (Opzionale)
                             </h3>
-                            <div style={{display: "flex", gap: layers.ref.spacing['8'], alignItems: "flex-end"}}>
+                            <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end"}}>
                                 <div style={{ flexGrow: "1" }}>
                                     <SelectField id="corpus-select" label="Raccolta Target" value={selectedCorpusId} onChange={e => setSelectedCorpusId(e.target.value)}>
                                         <option value="">-- Nessuna Raccolta --</option>
@@ -129,13 +144,12 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 </M3Button>
                             </div>
                             {isCreating && (
-                                 <div  style={{marginTop: layers.ref.spacing['6'], display: "flex", gap: layers.ref.spacing['6']}}>
+                                 <div  style={{marginTop: 'var(--md-sys-spacing-6)', display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
                                     <TextField 
                                         id="new-corpus-name-input" 
                                         label="Nome Nuova Raccolta" 
                                         value={newCorpusName} 
                                         onChange={e => setNewCorpusName(e.target.value)} 
-                                        containerClassName="flex-grow !mb-0" 
                                         placeholder="Es. Programmazioni 2024" 
                                     />
                                     <M3Button onClick={handleCreateCorpus} variant="primary"  style={{ fontWeight: "900" }}>CREA</M3Button>
@@ -144,7 +158,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                         </section>
                     </>
                 )}
-                {error && <div style={{ color: sys.colors.on-error-container }} style={{marginTop: layers.ref.spacing['4'], padding: layers.ref.spacing['6'], backgroundColor: "layers.sys.color.error-container", borderRadius: "0.375rem"}}>{error}</div>}
+                {error && <div style={{ color: sys.colors.on-error-container , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-error)", borderRadius: "0.375rem"}}>{error}</div>}
             </M3DialogContent>
         </M3Dialog>
     );

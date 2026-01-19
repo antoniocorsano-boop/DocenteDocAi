@@ -12,8 +12,6 @@ import { Studente, Uda, TimetableSettings, AiSettings, Report, EventoCalendario,
 import { generateClassPlanningDocument, generateSituazionePartenza, suggestAnnualPlan, generateMethodologyStrategies } from '../services/aiService';
 import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
 import { useUIStore } from '../stores/useUIStore';
-import { useTheme } from '../theme/theme';
-
 interface AnnualPlanningWizardProps {
     onClose: () => void;
     userClasses: string[];
@@ -34,8 +32,7 @@ type WizardStep = 'context' | 'situation' | 'methodology' | 'sequence' | 'previe
 const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     onClose, userClasses, settings, aiSettings, onSaveUda, onAddLessons, onSaveReport, onSaveEvent, knowledgeBase, students, pianiInclusione
 }) => {
-  const { layers } = useTheme();
-    const [step, setStep] = useState<WizardStep>('context');
+  const [step, setStep] = useState<WizardStep>('context');
     
     // UI Store for toast notifications
     const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
@@ -121,7 +118,6 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     const handleGenerateMethodology = async () => {
         setMethodologyStatus("Ricerca strategie didattiche...");
         try {
-            const text = await generateMethodologyStrategies(aiSettings, situationText || "Classe standard");
             setMethodology(text);
         } catch (e) {
             console.error("Errore generazione metodologia:", e);
@@ -345,42 +341,42 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {renderStepIndicator()}
 
                     {step === 'context' && (
-                        <div  style={{gap: layers.ref.spacing['6']}>
+                        <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
                             <div>
-                                <h3  style={{marginBottom: layers.ref.spacing['8']}>1. Definisci il Contesto</h3>
+                                <h3  style={{marginBottom: 'var(--md-sys-spacing-8)'}}>1. Definisci il Contesto</h3>
                                 <div >
                                     <div>
                                         <label htmlFor="wizard-select-class" >Classe Target</label>
-                                        <select id="wizard-select-class" name="wizard-select-class" value={selectedClass} onChange={e => setSelectedClass(e.target.value)}  style={{ width: "100%" } title="Seleziona la classe per la programmazione">
+                                        <select id="wizard-select-class" name="wizard-select-class" value={selectedClass} onChange={e => setSelectedClass(e.target.value)}  style={{ width: "100%" }} title="Seleziona la classe per la programmazione">
                                             {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                                         </select>
                                     </div>
                                     <div>
                                         <label htmlFor="wizard-select-subject" >Materia</label>
-                                        <select id="wizard-select-subject" name="wizard-select-subject" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}  style={{ width: "100%" } title="Seleziona la materia">
+                                        <select id="wizard-select-subject" name="wizard-select-subject" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}  style={{ width: "100%" }} title="Seleziona la materia">
                                             {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large , {padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}>
-                                <h4  style={{marginBottom: layers.ref.spacing['8'], display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}>
-                                    <span  style={{color: "layers.sys.color.secondary"}>folder_open</span>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+                                <h4  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                                    <span  style={{color: "var(--md-sys-color-secondary)"}}>folder_open</span>
                                     Documenti di Riferimento (KB)
                                 </h4>
-                                <div  style={{ maxHeight: layers.ref.spacing['4'] }>
+                                <div  style={{ maxHeight: 'var(--md-sys-spacing-4)' }}>
                                     {recommendedFiles.length > 0 ? recommendedFiles.map(kb => (
                                         <div key={kb.id} >
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
-                                            <label htmlFor={`kb-annual-${kb.id}`}  style={{ width: "100%", justifyContent: "flex-start" } title={kb.fileName}>
+                                            <label htmlFor={`kb-annual-${kb.id}`}  style={{ width: "100%", justifyContent: "flex-start" }} title={kb.fileName}>
                                                 {selectedKbFiles.includes(kb.id) && <span >check</span>}
-                                                <span style={{color: "layers.sys.color.primary", marginRight: "0.5rem"}>description</span>
-                                                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }>{kb.fileName}</span>
+                                                <span style={{color: "var(--md-sys-color-primary)", marginRight: "0.5rem"}}>description</span>
+                                                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                             </label>
                                         </div>
                                     )) : (
-                                        <p style={{ color:  layers.sys.color.onSurfaceVariant , {textAlign: "center", padding: layers.ref.spacing['8']}>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , textAlign: "center", padding: 'var(--md-sys-spacing-8)'}}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
                                     )}
                                 </div>
                             </div>
@@ -388,7 +384,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     )}
 
                     {step === 'situation' && (
-                        <div  style={{gap: layers.ref.spacing['6']}>
+                        <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
                             <h3 >2. Analisi della Classe</h3>
                             <div >
                                 {SITUATION_TAGS.map(tag => (
@@ -404,57 +400,57 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             </div>
                             <div>
                                 <label htmlFor="wizard-situation-notes" >Note Aggiuntive</label>
-                                <textarea id="wizard-situation-notes" name="wizard-situation-notes"  style={{ width: "100%" } rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
+                                <textarea id="wizard-situation-notes" name="wizard-situation-notes"  style={{ width: "100%" }} rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
                             </div>
                             <M3Button variant="tonal" fullWidth onClick={handleGenerateSituation} disabled={!!situationStatus} title="Usa l'AI per scrivere l'analisi">
                                 {situationStatus ? <AiThinkingGem size="small" inline text={situationStatus} /> : 'Genera Analisi con AI'}
                             </M3Button>
                             {situationText && (
-                                <div style={{gap: layers.ref.spacing['2']}>
+                                <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                                     <label htmlFor="wizard-situation-text" >Testo Analisi (Modificabile)</label>
-                                    <textarea id="wizard-situation-text" name="wizard-situation-text"  style={{ width: "100%" } rows={6} value={situationText} onChange={e => setSituationText(e.target.value)} />
+                                    <textarea id="wizard-situation-text" name="wizard-situation-text"  style={{ width: "100%" }} rows={6} value={situationText} onChange={e => setSituationText(e.target.value)} />
                                 </div>
                             )}
                         </div>
                     )}
 
                     {step === 'methodology' && (
-                        <div  style={{gap: layers.ref.spacing['6']}>
+                        <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
                             <h3 >3. Obiettivi e Metodologie</h3>
-                            <div style={{ backgroundColor: sys.colors.secondary-container/30, borderRadius: layers.ref.shape.corner.large , {padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}>
-                                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: layers.ref.spacing['8']}>
+                            <div style={{ backgroundColor: sys.colors.secondary-container/30, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+                                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                     <label htmlFor="wizard-methodology-text" >Strategie Didattiche</label>
-                                    <M3Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus}  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']} title="Suggerisci metodologie adatte al contesto">
-                                        {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span style={{ color: layers.sys.color.primary }>lightbulb</span> Suggerisci</>}
+                                    <M3Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus}  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}} title="Suggerisci metodologie adatte al contesto">
+                                        {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span style={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</span> Suggerisci</>}
                                     </M3Button>
                                 </div>
-                                <textarea id="wizard-methodology-text" name="wizard-methodology-text"  style={{ width: "100%" } rows={6} value={methodology} onChange={e => setMethodology(e.target.value)} />
+                                <textarea id="wizard-methodology-text" name="wizard-methodology-text"  style={{ width: "100%" }} rows={6} value={methodology} onChange={e => setMethodology(e.target.value)} />
                             </div>
                         </div>
                     )}
 
                     {step === 'sequence' && (
-                        <div  style={{gap: layers.ref.spacing['4']}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }>
-                                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}>
+                        <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                     <h3 >4. Piano Annuale UDA</h3>
                                     <button 
                                         onClick={() => setShowSequenceHelp(!showSequenceHelp)} 
-                                         style={{color: "layers.sys.color.secondary"} 
+                                         style={{color: "var(--md-sys-color-secondary)"}} 
                                         title="Info sulla sequenza"
                                         aria-label="Mostra informazioni sulla sequenza UDA"
                                     >
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-} aria-hidden="true">help</span>
+}} aria-hidden="true">help</span>
                                     </button>
                                 </div>
-                                <div style={{display: "flex", gap: layers.ref.spacing['8']}>
-                                    <div style={{ backgroundColor:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large , {display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}>
+                                <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
+                                    <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                         <label htmlFor="wizard-hours-per-week" >Ore/Sett:</label>
-                                        <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))}  style={{width: "2.5rem", backgroundColor: "transparent", textAlign: "center", fontWeight: "bold", borderBottom: "1px solid layers.sys.color.outline"} title="Ore settimanali di lezione" />
+                                        <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))}  style={{width: "2.5rem", backgroundColor: "transparent", textAlign: "center", fontWeight: "bold", borderBottom: "1px solid var(--md-sys-color-outline)"}} title="Ore settimanali di lezione" />
                                     </div>
-                                    <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']} title="Genera lista UDA dai documenti KB">
+                                    <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}} title="Genera lista UDA dai documenti KB">
                                         {planGenerationStatus ? <AiThinkingGem size="small" inline text={planGenerationStatus} /> : 'Genera da KB'}
                                     </M3Button>
                                 </div>
@@ -467,48 +463,48 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     variant="secondary"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
-                                    style={{marginBottom: layers.ref.spacing['8']}
+                                    style={{marginBottom: 'var(--md-sys-spacing-8)'}}
                                 />
                             )}
 
-                            <div style={{ backgroundColor:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large , {display: "flex", gap: layers.ref.spacing['8'], alignItems: "flex-end", marginBottom: layers.ref.spacing['8'], padding: layers.ref.spacing['6']}>
-                                <div style={{ flexGrow: "1" }>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-6)'}}>
+                                <div style={{ flexGrow: "1" }}>
                                     <label htmlFor="wizard-new-uda-title" >Titolo UDA</label>
-                                    <input id="wizard-new-uda-title" name="wizard-new-uda-title" type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)}  style={{ width: "100%" } onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
+                                    <input id="wizard-new-uda-title" name="wizard-new-uda-title" type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)}  style={{ width: "100%" }} onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
                                 </div>
-                                <div style={{ width: layers.ref.spacing['4'] }>
+                                <div style={{ width: 'var(--md-sys-spacing-4)' }}>
                                     <label htmlFor="wizard-new-uda-hours" >Ore</label>
-                                    <input id="wizard-new-uda-hours" name="wizard-new-uda-hours" type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))}  style={{ width: "100%" } />
+                                    <input id="wizard-new-uda-hours" name="wizard-new-uda-hours" type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))}  style={{ width: "100%" }} />
                                 </div>
-                                <M3Button variant="filled" onClick={addUdaToPlan} style={{marginBottom: layers.ref.spacing['4']} title="Aggiungi alla lista">Aggiungi</M3Button>
+                                <M3Button variant="filled" onClick={addUdaToPlan} style={{marginBottom: 'var(--md-sys-spacing-4)'}} title="Aggiungi alla lista">Aggiungi</M3Button>
                             </div>
-                            {planGenerationStatus ? <div style={{padding: layers.ref.spacing['8'], display: "flex", justifyContent: "center"}><AiThinkingGem size="medium" text={planGenerationStatus} /></div> : (
-                                <div  style={{gap: layers.ref.spacing['3'], overflowY: "auto"}>
+                            {planGenerationStatus ? <div style={{padding: 'var(--md-sys-spacing-8)', display: "flex", justifyContent: "center"}}><AiThinkingGem size="medium" text={planGenerationStatus} /></div> : (
+                                <div  style={{gap: 'var(--md-sys-spacing-3)', overflowY: "auto"}}>
                                     {plannedUdas.map((uda, idx) => (
-                                        <div key={uda.id} style={{ backgroundColor:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large , {display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline"}>
-                                            <span style={{ color:  layers.sys.color.onSurfaceVariant } title="Trascina per riordinare (futuro)">drag_indicator</span>
+                                        <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)"}}>
+                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }} title="Trascina per riordinare (futuro)">drag_indicator</span>
                                             
-                                            <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }>
-                                                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['4']}>
-                                                    <span style={{ fontWeight: "bold", backgroundColor: "layers.sys.color.primary", color: "layers.sys.color.on-primary", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'] }>
+                                            <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
+                                                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)'}}>
+                                                    <span style={{ fontWeight: "bold", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
                                                         UDA {idx + 1}
                                                     </span>
-                                                    <p style={{ color:  layers.sys.color.onPrimary , { fontWeight: "bold" }>
+                                                    <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{uda.title}</p>
                                                 </div>
-                                                <p style={{ color:  layers.sys.color.onSurfaceVariant , { overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "0.8" }>
+                                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "0.8" }}>{uda.topic || uda.title}</p>
                                             </div>
 
-                                            <div style={{ borderRadius: layers.ref.shape.corner.large , {display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], backgroundColor: "layers.sys.color.surface", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], border: "1px solid layers.sys.color.outline"}>
+                                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-surface)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "1px solid var(--md-sys-color-outline)"}}>
                                                 <input 
                                                     id={`wizard-uda-hours-${uda.id}`}
                                                     name={`wizard-uda-hours-${uda.id}`}
                                                     type="number" 
                                                     value={uda.hours} 
                                                     onChange={e => updateUdaHours(uda.id, parseInt(e.target.value))} 
-                                                    style={{ padding: layers.ref.spacing['4'] , { width: "2.5rem", textAlign: "center", backgroundColor: "transparent", fontWeight: "bold", border: "none" } 
+                                                    style={{ padding: 'var(--md-sys-spacing-4)' ,  width: "2.5rem", textAlign: "center", backgroundColor: "transparent", fontWeight: "bold", border: "none" }} 
                                                     title="Modifica ore stimate"
                                                 />
-                                                <span style={{ color:  layers.sys.color.onSurfaceVariant }>ore</span>
+                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>ore</span>
                                             </div>
 
                                             <M3Button variant="text" color="error" onClick={() => removeUdaFromPlan(idx)}  title="Rimuovi UDA">
@@ -517,7 +513,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
-                                        <p style={{ color:  layers.sys.color.onSurfaceVariant , {textAlign: "center", padding: layers.ref.spacing['8']}>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , textAlign: "center", padding: 'var(--md-sys-spacing-8)'}}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
                                     )}
                                 </div>
                             )}
@@ -525,19 +521,19 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     )}
 
                     {step === 'preview' && (
-                        <div  style={{gap: layers.ref.spacing['4']}>
+                        <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
                             <h3 >5. Anteprima Temporale</h3>
                             <div >
-                                <div><label htmlFor="wizard-term1-end" >Fine 1° Periodo</label><input id="wizard-term1-end" name="wizard-term1-end" type="date" value={term1End} onChange={e => setTerm1End(e.target.value)}  style={{ width: "100%" } /></div>
-                                <div><label htmlFor="wizard-term2-end" >Termine Lezioni</label><input id="wizard-term2-end" name="wizard-term2-end" type="date" value={term2End} onChange={e => setTerm2End(e.target.value)}  style={{ width: "100%" } /></div>
+                                <div><label htmlFor="wizard-term1-end" >Fine 1° Periodo</label><input id="wizard-term1-end" name="wizard-term1-end" type="date" value={term1End} onChange={e => setTerm1End(e.target.value)}  style={{ width: "100%" }} /></div>
+                                <div><label htmlFor="wizard-term2-end" >Termine Lezioni</label><input id="wizard-term2-end" name="wizard-term2-end" type="date" value={term2End} onChange={e => setTerm2End(e.target.value)}  style={{ width: "100%" }} /></div>
                             </div>
-                            <div  style={{gap: layers.ref.spacing['6'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], overflowY: "auto"}>
+                            <div  style={{gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
                                 {schedulePreview.map((item, idx) => (
-                                    <div key={idx}  style={{paddingLeft: layers.ref.spacing['6']}>
+                                    <div key={idx}  style={{paddingLeft: 'var(--md-sys-spacing-6)'}}>
                                         <div className={`absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-surface ${item.end > term2End ? 'bg-error' : 'bg-primary'}`}></div>
-                                        <p  style={{fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.025em", color: "layers.sys.color.primary"}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
-                                        <h4  style={{ fontWeight: "500" }>{item.uda.title}</h4>
-                                        <p style={{ color:  layers.sys.color.onSurfaceVariant }>{item.uda.hours} ore</p>
+                                        <p  style={{fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.025em", color: "var(--md-sys-color-primary)"}}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
+                                        <h4  style={{ fontWeight: "500" }}>{item.uda.title}</h4>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{item.uda.hours} ore</p>
                                     </div>
                                 ))}
                             </div>
@@ -545,10 +541,10 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     )}
 
                     {step === 'document' && (
-                        <div  style={{gap: layers.ref.spacing['6'], display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center"}>
-                            <div style={{ color: layers.sys.color.onSecondaryContainer, width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.secondary-container", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: layers.ref.spacing['8'] }><span style={{ color: layers.sys.color.onSecondaryContainer }>check_circle</span></div>
-                            <h3 style={{ color: layers.sys.color.onPrimary }>Pianificazione Completata!</h3>
-                            <M3Button variant="filled" onClick={handleGenerateDoc} disabled={!!processingStatus} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']} title="Scarica il documento finale">
+                        <div  style={{gap: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center"}}>
+                            <div style={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}><span style={{ color: 'var(--md-sys-color-on-secondary-container)' }}>check_circle</span></div>
+                            <h3 style={{ color: 'var(--md-sys-color-on-primary)' }}>Pianificazione Completata!</h3>
+                            <M3Button variant="filled" onClick={handleGenerateDoc} disabled={!!processingStatus} style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}} title="Scarica il documento finale">
                                 {processingStatus ? <AiThinkingGem size="small" inline text={processingStatus} /> : 'Genera Documento Programmazione'}
                             </M3Button>
                         </div>
@@ -559,12 +555,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step !== 'document' && (
                         <>
                             {step !== 'context' && <M3Button variant="text" onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} title="Torna indietro">Indietro</M3Button>}
-                            <div style={{ flexGrow: "1" }></div>
+                            <div style={{ flexGrow: "1" }}></div>
                             {step === 'context' && <M3Button variant="filled" onClick={() => setStep('situation')} title="Vai all'analisi">Avanti</M3Button>}
                             {step === 'situation' && <M3Button variant="filled" onClick={() => setStep('methodology')} title="Vai alla metodologia">Avanti</M3Button>}
                             {step === 'methodology' && <M3Button variant="filled" onClick={() => setStep('sequence')} title="Vai al piano">Avanti</M3Button>}
                             {step === 'sequence' && <M3Button variant="filled" onClick={() => { calculateSchedule(); setStep('preview'); }} disabled={plannedUdas.length === 0} title="Calcola date">Calcola</M3Button>}
-                            {step === 'preview' && <M3Button variant="filled" onClick={handleFinalize} disabled={!!processingStatus} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']} title="Salva tutto nel database">{processingStatus ? <AiThinkingGem size="small" inline /> : 'Conferma'}</M3Button>}
+                            {step === 'preview' && <M3Button variant="filled" onClick={handleFinalize} disabled={!!processingStatus} style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}} title="Salva tutto nel database">{processingStatus ? <AiThinkingGem size="small" inline /> : 'Conferma'}</M3Button>}
                         </>
                     )}
                     {step === 'document' && <M3Button variant="text" onClick={onClose} title="Chiudi wizard">Chiudi</M3Button>}

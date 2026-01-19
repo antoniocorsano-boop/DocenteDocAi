@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block M Migration (5 violations eliminated)
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations. ✅ COMPLETED
 // ...existing code...
 import React, { useState } from 'react';
@@ -136,7 +136,13 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         <div >
                             {nucleo.objectives.map((obj, oIdx) => (
                                 <div key={obj.id} >
-                                    <span className={`curriculum-manager-objective-dot ${obj.type === 'skill' ? 'skill' : 'knowledge'}`}></span>
+                                    <span style={{
+                                        width: '0.625rem',
+                                        height: '0.625rem',
+                                        borderRadius: '50%',
+                                        flexShrink: 0,
+                                        background: obj.type === 'skill' ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-secondary)'
+                                    }}></span>
                                     <input 
                                         
                                         value={obj.text}
@@ -211,19 +217,58 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     </div>
                     <div >
                         {curricula.map(curr => (
-                            <div 
-                                key={curr.id} 
-                                onClick={() => setSelectedCurriculumId(curr.id)} 
-                                className={`curriculum-manager-curriculum-item ${selectedCurriculumId === curr.id ? 'curriculum-manager-curriculum-item.selected' : ''}`}
+                            <div
+                                key={curr.id}
+                                onClick={() => setSelectedCurriculumId(curr.id)}
+                                style={{
+                                    padding: 'var(--md-sys-spacing-8)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s ease',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    background: selectedCurriculumId === curr.id ? 'var(--md-sys-color-primary)' : 'transparent',
+                                    color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'inherit',
+                                    boxShadow: selectedCurriculumId === curr.id ? 'var(--md-sys-elevation-level3)' : 'none',
+                                    transform: selectedCurriculumId === curr.id ? 'scale(1.02)' : 'scale(1)'
+                                }}
+                                onMouseEnter={(e) => {
+                                    if (selectedCurriculumId !== curr.id) {
+                                        e.currentTarget.style.background = 'rgba(var(--md-sys-color-surface-container-high-rgb), 0.5)';
+                                    }
+                                }}
+                                onMouseLeave={(e) => {
+                                    if (selectedCurriculumId !== curr.id) {
+                                        e.currentTarget.style.background = 'transparent';
+                                    }
+                                }}
                             >
                                 <div >
                                     <p >{curr.subject}</p>
                                     <p >{curr.gradeLevel}</p>
                                 </div>
-                                <M3Button 
-                                    onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }} 
+                                <M3Button
+                                    onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }}
                                     variant="text"
-                                    className={`curriculum-manager-curriculum-delete-button ${selectedCurriculumId === curr.id ? 'curriculum-manager-curriculum-delete-button.selected' : ''}`}
+                                    style={{
+                                        minWidth: 0,
+                                        padding: '0.25rem',
+                                        color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-error)',
+                                        opacity: selectedCurriculumId === curr.id ? 1 : 0
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (selectedCurriculumId === curr.id) {
+                                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                                        } else {
+                                            e.currentTarget.style.opacity = '1';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (selectedCurriculumId !== curr.id) {
+                                            e.currentTarget.style.opacity = '0';
+                                        }
+                                    }}
                                 >
                                     <span  style={{ fontSize: "0.875rem" }}>delete</span>
                                 </M3Button>

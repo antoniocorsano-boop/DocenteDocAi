@@ -283,23 +283,23 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--spacing-4, var(--md-sys-spacing-4));
-  padding-right: var(--spacing-4, var(--md-sys-spacing-4));
+  padding-left: var(--md-sys-spacing-4);
+  padding-right: var(--md-sys-spacing-4);
 }
 
 @media (min-width: 600px) {
   .responsive-container {
     max-width: 720px;
-    padding-left: var(--spacing-6, var(--md-sys-spacing-6));
-    padding-right: var(--spacing-6, var(--md-sys-spacing-6));
+    padding-left: var(--md-sys-spacing-6);
+    padding-right: var(--md-sys-spacing-6);
   }
 }
 
 @media (min-width: 840px) {
   .responsive-container {
     max-width: 960px;
-    padding-left: var(--spacing-8, var(--md-sys-spacing-8));
-    padding-right: var(--spacing-8, var(--md-sys-spacing-8));
+    padding-left: var(--md-sys-spacing-8);
+    padding-right: var(--md-sys-spacing-8);
   }
 }
 
@@ -323,18 +323,18 @@
 .stack-compact {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3, var(--md-sys-spacing-3));
+  gap: var(--md-sys-spacing-3);
 }
 
 @media (min-width: 600px) {
   .stack-compact {
-    gap: var(--spacing-4, var(--md-sys-spacing-4));
+    gap: var(--md-sys-spacing-4);
   }
 }
 
 @media (min-width: 1024px) {
   .stack-compact {
-    gap: var(--spacing-6, var(--md-sys-spacing-6));
+    gap: var(--md-sys-spacing-6);
   }
 }
 
@@ -342,18 +342,18 @@
 .inline-compact {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-2, var(--md-sys-spacing-2));
+  gap: var(--md-sys-spacing-2);
 }
 
 @media (min-width: 600px) {
   .inline-compact {
-    gap: var(--spacing-3, var(--md-sys-spacing-3));
+    gap: var(--md-sys-spacing-3);
   }
 }
 
 @media (min-width: 1024px) {
   .inline-compact {
-    gap: var(--spacing-4, var(--md-sys-spacing-4));
+    gap: var(--md-sys-spacing-4);
   }
 }
 
