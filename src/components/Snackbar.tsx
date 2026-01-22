@@ -157,19 +157,19 @@ const Snackbar: React.FC = () => {
           justifyContent: 'center',
           transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
           flexShrink: 0}}
-        onMouseEnter={(e) => {
-          e.currentTarget// removed runtime mutation
+        onMouseEnter={() => {
+          // removed runtime mutation
         }}
-        onMouseLeave={(e) => {
-          e.currentTarget// removed runtime mutation
+        onMouseLeave={() => {
+          // removed runtime mutation
         }}
-        onFocus={(e) => {
-          e.currentTarget// removed runtime mutation
-          e.currentTarget// removed runtime mutation
+        onFocus={() => {
+          // removed runtime mutation
+          // removed runtime mutation
         }}
-        onBlur={(e) => {
-          e.currentTarget// removed runtime mutation
-          e.currentTarget// removed runtime mutation
+        onBlur={() => {
+          // removed runtime mutation
+          // removed runtime mutation
         }}
         aria-label="Chiudi notifica"
       >

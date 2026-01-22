@@ -97,11 +97,11 @@ export const WithActions: Story = {
                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
                 transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget// removed runtime mutation
+              onMouseEnter={() => {
+                // removed runtime mutation
               }}
-              onMouseLeave={(e) => {
-                e.currentTarget// removed runtime mutation
+              onMouseLeave={() => {
+                // removed runtime mutation
               }}
             >
               📝 Modifica
@@ -121,11 +121,11 @@ export const WithActions: Story = {
                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
                 transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget// removed runtime mutation
+              onMouseEnter={() => {
+                // removed runtime mutation
               }}
-              onMouseLeave={(e) => {
-                e.currentTarget// removed runtime mutation
+              onMouseLeave={() => {
+                // removed runtime mutation
               }}
             >
               🗑️ Elimina
@@ -215,11 +215,11 @@ export const ScrollableContent: Story = {
                   transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
                   borderBottom: '1px solid var(--md-sys-color-outline-variant)',
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget// removed runtime mutation
+                onMouseEnter={() => {
+                  // removed runtime mutation
                 }}
-                onMouseLeave={(e) => {
-                  e.currentTarget// removed runtime mutation
+                onMouseLeave={() => {
+                  // removed runtime mutation
                 }}
               >
                 {item}
@@ -273,11 +273,11 @@ export const NoBackdrop: Story = {
                   fontSize: 'var(--md-sys-typescale-body-medium-size)',
                   transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget// removed runtime mutation
+                onMouseEnter={() => {
+                  // removed runtime mutation
                 }}
-                onMouseLeave={(e) => {
-                  e.currentTarget// removed runtime mutation
+                onMouseLeave={() => {
+                  // removed runtime mutation
                 }}
               >
                 {action}

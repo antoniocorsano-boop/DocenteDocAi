@@ -203,23 +203,23 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               key={item.id}
               onClick={() => onNavigate(item.id, null)}
               style={itemStyle}
-              onMouseEnter={(e) => {
+              onMouseEnter={() => {
                 if (!isActive) {
-                  e.currentTarget// removed runtime mutation
+                  // removed runtime mutation
                 }
               }}
-              onMouseLeave={(e) => {
+              onMouseLeave={() => {
                 if (!isActive) {
-                  e.currentTarget// removed runtime mutation
+                  // removed runtime mutation
                 }
               }}
-              onFocus={(e) => {
-                e.currentTarget// removed runtime mutation
-                e.currentTarget// removed runtime mutation
+              onFocus={() => {
+                // removed runtime mutation
+                // removed runtime mutation
               }}
-              onBlur={(e) => {
-                e.currentTarget// removed runtime mutation
-                e.currentTarget// removed runtime mutation
+              onBlur={() => {
+                // removed runtime mutation
+                // removed runtime mutation
               }}
               aria-label={item.label}
               aria-current={isActive ? 'page' : undefined}

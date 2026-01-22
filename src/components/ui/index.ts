@@ -37,5 +37,9 @@ export { default as M3SuggestionItem } from './M3SuggestionItem';
 export { default as M3ActivityItem } from './M3ActivityItem';
 export { default as M3EmptyStateCard } from './M3EmptyStateCard';
 export { default as M3Typography } from './M3Typography';
+export { default as M3Chip } from './M3Chip';
+export { default as M3ProgressBar } from './M3ProgressBar';
+export { default as M3ChipGroup } from './M3ChipGroup';
+export { default as M3ButtonGroup } from './M3ButtonGroup';
 
 

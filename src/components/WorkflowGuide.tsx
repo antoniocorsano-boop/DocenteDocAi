@@ -202,13 +202,13 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                         transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                         textDecoration: 'none'
                                     }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget// removed runtime mutation
-                                        e.currentTarget// removed runtime mutation
+                                    onMouseEnter={() => {
+                                        // removed runtime mutation
+                                        // removed runtime mutation
                                     }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget// removed runtime mutation
-                                        e.currentTarget// removed runtime mutation
+                                    onMouseLeave={() => {
+                                        // removed runtime mutation
+                                        // removed runtime mutation
                                     }}
                                 >
                                     Avvia Percorso <span style={{

@@ -222,17 +222,17 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             title={isRecording ? "Ferma registrazione" : "Detta nota vocale"}
             onMouseEnter={(e) => {
                 if (!isProcessing) {
-                    e.currentTarget// removed runtime mutation
-                    e.currentTarget.style.boxShadow = isRecording 
-                        ? 'var(--md-sys-elevation-level3)' 
+                    // removed runtime mutation
+                    e.currentTarget.style.boxShadow = isRecording
+                        ? 'var(--md-sys-elevation-level3)'
                         : 'var(--md-sys-elevation-level2)';
                 }
             }}
             onMouseLeave={(e) => {
                 if (!isProcessing) {
-                    e.currentTarget// removed runtime mutation
-                    e.currentTarget.style.boxShadow = isRecording 
-                        ? 'var(--md-sys-elevation-level2)' 
+                    // removed runtime mutation
+                    e.currentTarget.style.boxShadow = isRecording
+                        ? 'var(--md-sys-elevation-level2)'
                         : 'var(--md-sys-elevation-level1)';
                 }
             }}

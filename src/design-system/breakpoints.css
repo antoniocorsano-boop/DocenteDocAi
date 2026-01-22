@@ -90,7 +90,7 @@
 @media (min-width: 1024px) {
   :root {
     --content-max-width: 1200px;
-    --content-padding: 40px;
+    --content-padding: var(--md-sys-spacing-10);
     --grid-columns: 4;
   }
 }

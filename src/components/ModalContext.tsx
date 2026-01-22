@@ -58,13 +58,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (!container) {
       container = document.createElement('div');
       container.id = 'modal-root';
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
+      // removed runtime mutation
       document.body.appendChild(container);
     }
     setPortalContainer(container);

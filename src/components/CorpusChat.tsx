@@ -290,11 +290,11 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         color: 'var(--md-sys-color-on-surface)',
                         outline: 'none',
                         transition: `border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
-                    onFocus={(e) => {
-                        e.target// removed runtime mutation
+                    onFocus={() => {
+                        // removed runtime mutation
                     }}
-                    onBlur={(e) => {
-                        e.target// removed runtime mutation
+                    onBlur={() => {
+                        // removed runtime mutation
                     }}
                     disabled={isLoading}
                 />

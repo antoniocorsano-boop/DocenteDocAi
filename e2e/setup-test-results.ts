@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 
-async function globalSetup() {
+async function globalSetup(): Promise<void> {
   const resultsDir = path.resolve(process.cwd(), 'test-results');
   if (!fs.existsSync(resultsDir)) {
     fs.mkdirSync(resultsDir, { recursive: true });

@@ -42,7 +42,7 @@
 @media (max-width: 600px) {
   .nka-bottom-sheet, .nka-wizard-modal {
     border-radius: var(--md-sys-shape-corner-medium) var(--md-sys-spacing-4) 0 0;
-    padding: 10px var(--md-sys-spacing-1) var(--md-sys-spacing-6) var(--md-sys-spacing-1);
+    padding: var(--md-sys-spacing-3) var(--md-sys-spacing-1) var(--md-sys-spacing-6) var(--md-sys-spacing-1);
     min-height: 35vh;
     max-height: 95vh;
     width: 100vw;

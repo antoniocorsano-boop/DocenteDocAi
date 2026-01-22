@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { NKANode } from './types';
 import { getInitialGameState, unlockNode, GameState } from './gameLogic';
 import { playNkaSound } from './sound';
+import { M3ProgressBar, M3Chip, M3ChipGroup, M3Button, M3ButtonGroup } from '../components/ui';
 
 
 interface GameModeProps {
@@ -19,28 +20,52 @@ const GameMode: React.FC<GameModeProps> = ({ nodes = [] as readonly NKANode[] })
     });
   };
   return (
-    <div className="nka-game-mode">
-      <h3>Modalità Gioco: Progresso</h3>
-      <div className="nka-progress-bar" aria-valuenow={state.progress * 100} aria-valuemin={0} aria-valuemax={100} role="progressbar">
-        <div className="nka-progress-fill" style={{ width: `${state.progress * 100}%` }} />
-      </div>
-      <div className="nka-unlocked-nodes">
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--md-sys-spacing-4)',
+        padding: 'var(--md-sys-spacing-4)',
+        backgroundColor: 'var(--md-sys-color-surface)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        boxShadow: 'var(--md-sys-elevation-level-1)'
+      }}
+    >
+      <h3
+        style={{
+          fontFamily: 'var(--md-sys-typescale-headline-small-font)',
+          fontSize: 'var(--md-sys-typescale-headline-small-size)',
+          fontWeight: 'var(--md-sys-typescale-headline-small-weight)',
+          lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
+          letterSpacing: 'var(--md-sys-typescale-headline-small-tracking)',
+          color: 'var(--md-sys-color-on-surface)',
+          margin: 0
+        }}
+      >
+        Modalità Gioco: Progresso
+      </h3>
+      <M3ProgressBar
+        value={state.progress}
+        showValue={true}
+        label="Progresso sblocco neuroni"
+      />
+      <M3ChipGroup>
         {state.unlocked.map(id => (
-          <span key={id} className="nka-badge nka-unlocked">{id}</span>
+          <M3Chip key={id} label={id} variant="filled" />
         ))}
-      </div>
-      <div className="nka-game-actions">
+      </M3ChipGroup>
+      <M3ButtonGroup>
         {nodes.filter(n => !state.unlocked.includes(n.id)).map(n => (
-          <button key={n.id} onClick={() => handleUnlock(n.id)}>
+          <M3Button key={n.id} onClick={() => handleUnlock(n.id)} variant="filled">
             Sblocca {n.label}
-          </button>
+          </M3Button>
         ))}
-      </div>
-      <div className="nka-badges">
+      </M3ButtonGroup>
+      <M3ChipGroup>
         {state.badges.map(b => (
-          <span key={b} className="nka-badge nka-badge-special">{b}</span>
+          <M3Chip key={b} label={b} variant="elevated" />
         ))}
-      </div>
+      </M3ChipGroup>
     </div>
   );
 };

@@ -110,7 +110,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
             }}
             onBlur={() => {
               // removed runtime mutation
-              e.currentTarget// removed runtime mutation
+              // removed runtime mutation
             }}
             aria-label={item.label}
             tabIndex={0}
