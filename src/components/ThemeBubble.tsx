@@ -11,7 +11,7 @@ interface ThemeBubbleProps {
 }
 
 const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onClick }) => {
-    const { layers: { sys: { colors: themeColors }, ref: { spacing }, motion } } = useTheme();
+    const { layers: { sys: { colors: themeColors }, ref: { spacing } } } = useTheme();
 
     return (
         <button

@@ -1,7 +1,6 @@
 // MD3 Compliant - Updated for layered theme access
 
 import React, { useState, useMemo } from 'react';
-import { useTheme } from '../theme/theme';
 import { 
     Studente, 
     OrientamentoActivity, 
@@ -41,7 +40,6 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     onUpdateStudentState,
     showToast
 }) => {
-  const { layers: { sys, ref } } = useTheme();
   const [selectedClass, setSelectedClass] = useState<string>(userClasses[0] || '');
     const [activeTab, setActiveTab] = useState<'activities' | 'students'>('activities');
     const [isAddActivityModalOpen, setIsAddActivityModalOpen] = useState(false);

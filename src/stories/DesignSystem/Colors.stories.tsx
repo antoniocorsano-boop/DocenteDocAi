@@ -98,7 +98,7 @@ const ColorSwatch: React.FC<ColorSwatchProps> = ({ name, token, hex, border = fa
       }}
     />
     <strong style={{ fontSize: small ? 'var(--md-sys-spacing-3)' : layers.ref.spacing['4'] }}>{name}</strong>
-    <div style={{ fontSize: small ? layers.ref.spacing['4'] : 'var(--md-sys-spacing-3)', color: sys.colors.666, marginTop: 'var(--md-sys-spacing-1)' }}>
+    <div style={{ fontSize: small ? layers.ref.spacing['4'] : 'var(--md-sys-spacing-3)', color: '#666', marginTop: 'var(--md-sys-spacing-1)' }}>
       <code style={{ fontSize: layers.ref.spacing['4'] }}>{token}</code>
       <br />
       {hex}

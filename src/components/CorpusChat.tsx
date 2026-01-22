@@ -82,40 +82,41 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
     }
 
     return (
-        <div style={{display: 'flex'}}>
-            <M3IconButton 
-                icon="arrow_back" 
-                onClick={onClose} 
-                ariaLabel="Torna alla lista"
-            />
-                <div style={{display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-3)',
-                    minWidth: 0,
-                    flex: 1}}>
-                    <div style={{borderRadius: 'var(--md-sys-shape-corner-large)',
-                        backgroundColor: 'var(--md-sys-color-primary)',
-                        display: 'flex',
+        <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+            <div style={{display: 'flex'}}>
+                <M3IconButton 
+                    icon="arrow_back" 
+                    onClick={onClose} 
+                    ariaLabel="Torna alla lista"
+                />
+                    <div style={{display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'}}>
-                        <span style={{
+                        gap: 'var(--md-sys-spacing-3)',
+                        minWidth: 0,
+                        flex: 1}}>
+                        <div style={{borderRadius: 'var(--md-sys-shape-corner-large)',
+                            backgroundColor: 'var(--md-sys-color-primary)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'}}>
+                            <span style={{
   fontFamily: 'Material Symbols Outlined'
 , color: 'var(--md-sys-color-on-primary)'}}>chat</span>
+                        </div>
+                        <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
+                            minWidth: 0,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'}}>Chat con "{corpus.displayName}"</M3Typography>
                     </div>
-                    <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
-                        minWidth: 0,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap'}}>Chat con "{corpus.displayName}"</M3Typography>
                 </div>
-            </div>
-            
-            <div style={{flex: 1,
-                overflowY: 'auto',
-                padding: 'var(--md-sys-spacing-4)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-3)'}}>
+                
+                <div style={{flex: 1,
+                    overflowY: 'auto',
+                    padding: 'var(--md-sys-spacing-4)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--md-sys-spacing-3)'}}>
                 {messages.map((msg, index) => (
                     <div key={index} style={{display: 'flex',
                         justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start',
@@ -198,13 +199,13 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             cursor: 'pointer',
                             transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                             textDecoration: 'none'}}
-                        onMouseEnter={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                        onMouseEnter={() => {
+                            // removed runtime mutation
+                            // removed runtime mutation
                         }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                        onMouseLeave={() => {
+                            // removed runtime mutation
+                            // removed runtime mutation
                         }}
                     >
                         <span style={{
@@ -225,10 +226,10 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             cursor: 'pointer',
                             transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                             textDecoration: 'none'}}
-                        onMouseEnter={(e) => {
+                        onMouseEnter={() => {
                             // removed runtime mutation
                         }}
-                        onMouseLeave={(e) => {
+                        onMouseLeave={() => {
                             // removed runtime mutation
                         }}
                     >
@@ -250,19 +251,19 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             cursor: 'pointer',
                             transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                             textDecoration: 'none'}}
-                        onMouseEnter={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                        onMouseEnter={() => {
+                            // removed runtime mutation
+                            // removed runtime mutation
                         }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                        onMouseLeave={() => {
+                            // removed runtime mutation
+                            // removed runtime mutation
                         }}
                     >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-, color: 'var(--md-sys-color-on-primary)'Container}}>key</span>
-                        <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-primary)'Container,
+, color: 'var(--md-sys-color-on-primary-container)'}}>key</span>
+                        <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-primary-container)',
                             margin: 0}}>Concetti Chiave</M3Typography>
                     </button>
                 </div>
@@ -273,7 +274,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                 style={{display: 'flex',
                     padding: 'var(--md-sys-spacing-4)',
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderTop: `1px solid ${var(--md-sys-color-outline)Variant}`,
+                    borderTop: '1px solid var(--md-sys-color-outline-variant)',
                     gap: 'var(--md-sys-spacing-2)'}}
             >
                 <input
@@ -303,11 +304,11 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                     style={{borderRadius: 'var(--md-sys-shape-corner-large)',
                         border: 'none',
                         backgroundColor: (isLoading || !chatInput.trim()) 
-                            ? var(--md-sys-color-surface-container-high) 
-                            : var(--md-sys-color-primary),
+                            ? 'var(--md-sys-color-surface-container-high)' 
+                            : 'var(--md-sys-color-primary)',
                         color: (isLoading || !chatInput.trim()) 
-                            ? var(--md-sys-color-on-surface-variant) 
-                            : var(--md-sys-color-on-primary),
+                            ? 'var(--md-sys-color-on-surface-variant)' 
+                            : 'var(--md-sys-color-on-primary)',
                         cursor: (isLoading || !chatInput.trim()) ? 'not-allowed' : 'pointer',
                         display: 'flex',
                         alignItems: 'center',

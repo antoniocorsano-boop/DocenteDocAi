@@ -2,7 +2,7 @@
 // Block C Migration: Removed useTheme dependency (64 violations → 63)
 // Block F Migration: Converted legacy inline styles to MD3 design tokens
 // This component now demonstrates MD3 system colors, typography, spacing, and motion tokens
-import React, { useState } from 'react';
+import React from 'react';
 import { M3Button } from '../M3Button';
 
 interface ThemeSettingsPanelProps {
@@ -11,36 +11,6 @@ interface ThemeSettingsPanelProps {
 
 export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose }) => {
   // MD3 Migration: Removed useTheme dependency - using MD3 tokens directly
-  const [tempOverrides, setTempOverrides] = useState<any>({});
-
-  // MD3 Migration: Simplified handlers - theme overrides removed for MD3 compliance
-  const handleColorChange = (key: string, value: string) => {
-    setTempOverrides(prev => ({
-      ...prev,
-      colors: { ...prev.colors, [key]: value }
-    }));
-  };
-
-  const handleTypographyChange = (key: string, value: string) => {
-    setTempOverrides(prev => ({
-      ...prev,
-      typography: { ...prev.typography, [key]: value }
-    }));
-  };
-
-  const handleSpacingChange = (key: string, value: string) => {
-    setTempOverrides(prev => ({
-      ...prev,
-      spacing: { ...prev.spacing, [key]: value }
-    }));
-  };
-
-  const handleMotionChange = (key: string, value: string) => {
-    setTempOverrides(prev => ({
-      ...prev,
-      motion: { ...prev.motion, [key]: value }
-    }));
-  };
 
   const applyChanges = () => {
     // MD3 Migration: Theme overrides disabled - MD3 uses fixed design tokens

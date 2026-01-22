@@ -45,11 +45,6 @@ const MD3_TOKENS = {
   bodyLargeFontFamily: 'var(--md-sys-typescale-body-large-font-family)',
 } as const;
 
-const isValidColor = (color: string): color is 'primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant' => {
-  const validColors: ('primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant')[] = ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant'];
-  return validColors.includes(color as 'primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant');
-};
-
 interface M3ExpressiveCardProps {
     icon: string;
     title: string;

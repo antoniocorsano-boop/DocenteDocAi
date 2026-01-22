@@ -70,7 +70,7 @@
 }
 
 .material-symbols-outlined {
-  font-size: 28px;
+  font-size: var(--icon-size-medium);
   color: var(--md-sys-color-on-surface-variant, #757575);
   pointer-events: none;
 }
@@ -80,7 +80,7 @@
 }
 
 .m3-label-small {
-  font-size: 10px;
+  font-size: var(--md-sys-typescale-label-small-size);
   font-family: var(--font-variable);
   font-variation-settings: var(--font-variation-settings);
   letter-spacing: 0.12em;

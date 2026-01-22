@@ -11,7 +11,7 @@ interface LineChartProps {
 }
 
 export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 }) => {
-  const { layers: { sys: { color: themeColor }, ref: { spacing } } } = useTheme();
+  const { layers: { sys: { color: themeColor } } } = useTheme();
 
     if (data.length === 0) {
         return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", opacity: "0.5", color: themeColor.onSurfaceVariant }}>Nessun dato disponibile.</div>;

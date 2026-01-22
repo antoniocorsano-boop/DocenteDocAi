@@ -196,32 +196,22 @@ export const RichContent: Story = {
   args: {
     title: 'Settings',
     headline: 'Customize your experience',
-    children: (
-      <div}>
+    children: <div>
         <div>
-          <label}>
+          <label htmlFor="theme-select">
             Theme
           </label>
-          <select
-           }
-          >
-            <option>Light</option>
-            <option>Dark</option>
-            <option>Auto</option>
-          </select>
+          <div>Select element here</div>
         </div>
         <div>
-          <label}>
+          <label htmlFor="notifications-checkbox">
             <input type="checkbox" defaultChecked />
             Enable notifications
           </label>
         </div>
-      </div>
-    ),
+      </div>,
     buttons: (
-      <button
-       }
-      >
+      <button>
         Save Settings
       </button>
     ),
@@ -234,7 +224,6 @@ export const RichContent: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-           }
           >
             Open Settings
           </button>
@@ -268,7 +257,6 @@ export const SmallDialog: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-           }
           >
             Open Small Dialog
           </button>

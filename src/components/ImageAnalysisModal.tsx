@@ -2,7 +2,6 @@
 
 import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { AiSettings } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
 interface ImageAnalysisModalProps {
   onClose: () => void;
@@ -24,7 +23,7 @@ const fileToBase64 = (file: File): Promise<string> => {
   });
 };
 
-const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSettings }) => {
+const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
@@ -57,7 +56,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
     setIsLoading(true);
     setAnalysisResult('');
     try {
-        const imageDataUrl = await fileToBase64(imageFile);
+        await fileToBase64(imageFile);
         setAnalysisResult(result);
     } catch (error) {
         console.error("Error during image analysis:", error);

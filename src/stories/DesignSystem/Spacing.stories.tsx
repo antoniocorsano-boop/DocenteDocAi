@@ -108,7 +108,7 @@ const SpacingDocumentation = () => (
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Best Practices</h2>
-    <ol style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', color: sys.colors.333, paddingLeft: layers.ref.spacing['4'] }}>
+    <ol style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', color: '#333', paddingLeft: layers.ref.spacing['4'] }}>
       <li>Use multiples of var(--md-sys-spacing-1) or var(--md-sys-spacing-2) for consistency</li>
       <li>Maintain rhythm with the spacing scale</li>
       <li>Group related elements with smaller spacing (var(--md-sys-spacing-2) - var(--md-sys-spacing-3))</li>
@@ -140,7 +140,7 @@ const SpacingSwatch: React.FC<SpacingSwatchProps> = ({ value, description }) => 
       />
       <div>
         <strong style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>{value}</strong>
-        <p style={{ margin: 'var(--md-sys-spacing-1) 0 0 0', fontSize: 'var(--md-sys-spacing-3)', color: sys.colors.666 }}>
+        <p style={{ margin: 'var(--md-sys-spacing-1) 0 0 0', fontSize: 'var(--md-sys-spacing-3)', color: '#666' }}>
           {description}
         </p>
       </div>

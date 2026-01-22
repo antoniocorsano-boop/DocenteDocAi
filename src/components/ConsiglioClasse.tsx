@@ -154,7 +154,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             // viewPdfInNewTab(blob); // Rimosso import inutilizzato, lasciare gestione download a saveAs o altro
             saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.pdf`);
         } catch(e) {
-            console.error(errorMsg);
+            console.error(e);
             alert("Si è verificato un errore durante l'esportazione del PDF.");
         } finally {
             setIsExporting(false);
@@ -168,54 +168,13 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             // const student = students.find(s => s.classe === selectedClass); // Rimosso: non usato
             // const performance = student ? calculatePerformance(student.id, 'Complessivo', evaluations.filter(e => e.studenteId === student.id)) : { grade: null, trend: null };
             
-            let html = `
-            <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); table { width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif; } th, td { border: 1px solid #000; padding: 'var(--md-sys-spacing-2)'; text-align: left; vertical-align: top; } th { background-color: 'var(--md-sys-color-primary)'; font-weight: bold; } /* MD3 fix */ h1 { font-family: 'Roboto', sans-serif; color: 'var(--md-sys-color-primary)'; } /* MD3 fix */ p { font-family: 'Roboto', sans-serif; }</style>
-            `;
-            
-            html += `<h1>Tabellone Scrutinio: ${selectedClass}</h1>`;
-            html += `<p><strong>Periodo:</strong> ${periodo === 'primo-quadrimestre' ? 'Primo Quadrimestre' : 'Scrutinio Finale'}<br>`;
-            html += `<strong>Anno Scolastico:</strong> ${annoScolasticoCorrente}<br>`;
-            html += `<strong>Docente:</strong> ${settings.nomeInsegnante}</p>`;
-
-            html += `<table><thead><tr>
-                <th>Studente</th>
-                <th>Media</th>
-                <th>Trend</th>
-                <th>Voto Disciplina</th>
-                <th>Ed. Civica</th>
-                <th>Comportamento</th>
-                <th>Giudizio / Note</th>
-                ${showFinalGrades ? '<th>Ammissione</th><th>Uscita</th>' : ''}
-            </tr></thead><tbody>`;
-
-            students.forEach(student => {
-                const studentPerformance = calculatePerformance(student.id, 'Complessivo', studentEvals); // FIX: Use studentPerformance here
-                // FIX: Ensure string conversion in template literal key
-                const g = localGiudizi[key];
-                
-                if (!g) return;
-
-                const trendText = studentPerformance.trend === 'up' ? 'In crescita' : studentPerformance.trend === 'down' ? 'In calo' : 'Stabile'; // FIX: Use studentPerformance
-
-                html += `<tr>
-                    <td>${student.cognome} ${student.nome}</td>
-                    <td>${studentPerformance.grade || '-'}</td>
-                    <td>${studentPerformance.trend ? trendText : '-'}</td>
-                    <td>${g.votoDisciplina || '-'}</td>
-                    <td>${g.educazioneCivica || '-'}</td>
-                    <td>${g.comportamento || '-'}</td>
-                    <td>${g.giudizio || '-'}</td>
-                    ${showFinalGrades ? `<td>${g.votoAmmissione || '-'}</td><td>${g.votoUscita || '-'}</td>` : ''}
-                </tr>`;
-            });
-
-            html += `</tbody></table>`;
+// Removed unused html variable - DOCX generation handled by generateCouncilTablePdf
 
             // FIX: Ensure string conversion in template literal for periodo
             saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.docx`);
 
-        } catch {
-            console.error("Error exporting DOCX:", errorMsg);
+        } catch(e) {
+            console.error("Error exporting DOCX:", e);
             alert("Errore durante la generazione del file Word.");
         } finally {
             setIsExporting(false);

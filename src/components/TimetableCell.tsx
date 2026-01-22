@@ -11,7 +11,7 @@ interface TimetableCellProps {
     onClick?: () => void;
 }
 
-const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, onClick }) => {
+const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) => {
   const { classe, materia } = slot;
   
   const isDisposition = lesson?.tipoLezione === 'Disposizione' || materia === 'Disposizione';

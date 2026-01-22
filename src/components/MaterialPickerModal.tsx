@@ -166,6 +166,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         {activeTab === 'file' && (
                             <div 
                                 {...getRootProps()} 
+                                // eslint-disable-next-line design-system/no-classname
                                 className={`flex-grow flex flex-col items-center justify-center border-2 border-dashed rounded-[var(--md-sys-shape-corner-extra-large)] transition-all ${
                                     isDragActive 
                                         ? 'border-primary bg-primary/5' 
@@ -204,10 +205,10 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                     </div>
 
                     {/* Right: Selected */}
-                        <div style={{ backgroundColor: 'rgba(247,242,250,0.5)', padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <h3 >Selezionati</h3>
-                            <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", fontSize: "0.75rem", fontWeight: "bold"}}>
+                            <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "0.75rem", fontWeight: "bold"}}>
                                 {materials.length}
                             </span>
                         </div>
@@ -239,7 +240,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low) , borderTop: "1px solid var(--md-sys-color-outline)"}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: '1px solid var(--md-sys-color-outline)' }}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button onClick={() => onSave(materials)} variant="filled">Salva</M3Button>
             </M3DialogActions>

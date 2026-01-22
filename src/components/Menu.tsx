@@ -69,9 +69,9 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
         bottom: 0,
         left: 0,
         right: 0,
-        padding: 'var(--md-sys-spacing-1) 0', // 4px top/bottom padding
-        aria-label="Navigazione principale",
-        role="navigation"
+        padding: 'var(--md-sys-spacing-1) 0'}}
+      aria-label="Navigazione principale"
+      role="navigation"
     >
       {mainMenuItems.map(item => {
         const active = isViewActive(item);
@@ -94,22 +94,22 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
               border: 'none',
               transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
               position: 'relative'}}
-            onMouseEnter={(e) => {
+            onMouseEnter={() => {
               if (!active) {
-                e.currentTarget// removed runtime mutation
+                // removed runtime mutation
               }
             }}
-            onMouseLeave={(e) => {
+            onMouseLeave={() => {
               if (!active) {
-                e.currentTarget// removed runtime mutation
+                // removed runtime mutation
               }
             }}
-            onFocus={(e) => {
-              e.currentTarget// removed runtime mutation
-              e.currentTarget// removed runtime mutation
+            onFocus={() => {
+              // removed runtime mutation
+              // removed runtime mutation
             }}
-            onBlur={(e) => {
-              e.currentTarget// removed runtime mutation
+            onBlur={() => {
+              // removed runtime mutation
               e.currentTarget// removed runtime mutation
             }}
             aria-label={item.label}

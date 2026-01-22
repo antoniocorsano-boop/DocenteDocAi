@@ -158,7 +158,10 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       zIndex={zIndex}
       showBackdrop={false}
     >
-      <div role="menu" style={{ outline: 'none' }}>
+      <div role="menu"
+        // eslint-disable-next-line design-system/no-classname
+        className={`m3-menu ${className || ''}`.trim()}
+        style={{ outline: 'none' }}>
         {items.map((item, index) => (
           <React.Fragment key={item.key}>
             <button
@@ -168,6 +171,8 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               role="menuitem"
               onClick={handleItemClick.bind(null, index)}
               disabled={item.disabled}
+              // eslint-disable-next-line design-system/no-classname
+              className={item.variant === 'error' ? 'm3-menu-item--error' : undefined}
               style={{
                 opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : '1',
                 cursor: item.disabled ? 'not-allowed' : 'pointer',
@@ -203,7 +208,8 @@ export const M3Menu: React.FC<M3MenuProps> = ({
             {item.divider && (
               <div
                 role="separator"
-
+                // eslint-disable-next-line design-system/no-classname
+                className="m3-menu__divider"
                 style={{
                   height: 'var(--md-sys-spacing-1)',
                   backgroundColor: 'var(--md-sys-color-outline-variant)',

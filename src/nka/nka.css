@@ -73,10 +73,10 @@
   transition: box-shadow 0.2s;
 }
 .nka-shape-circle {
-  border-radius: 50%;
+  border-radius: var(--md-sys-shape-corner-full);
 }
 .nka-shape-pill {
-  border-radius: 999px;
+  border-radius: var(--md-sys-shape-corner-full);
 }
 .nka-node-label {
   font-weight: 600;

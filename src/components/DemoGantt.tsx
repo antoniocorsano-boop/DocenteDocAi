@@ -91,12 +91,13 @@ const GanttColumn: React.FC<GanttColumnProps> = ({ col, children }) => {
   return (
     <div
       ref={setNodeRef}
+      // eslint-disable-next-line design-system/no-classname
       className={`gantt-col ${isOver ? 'gantt-col-over' : ''}`}
       style={{
         backgroundColor: isOver ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         padding: 'var(--md-sys-spacing-2)',
-        minHeight: '200px'
+        minHeight: '200px',
       }}
     >
       {children}
