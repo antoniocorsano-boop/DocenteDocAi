@@ -57,7 +57,7 @@
 
 /* small variant */
 .chip-expressive--small {
-	padding: 0.125rem 0.4rem;
+	padding: var(--md-sys-spacing-0) var(--md-sys-spacing-2);
 	font-size: 0.75rem;
 }
 

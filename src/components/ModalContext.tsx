@@ -2,8 +2,6 @@
 import React, { createContext, useContext, useCallback, useState, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { getModalZIndex } from '../design-system/zIndex';
-import { useTheme } from '../theme/theme';
-
 /**
  * ModalContext - Centralized Modal Management System with React Portals
  * Solves "Modal Hell" by managing Z-index stacking and portal rendering
@@ -42,7 +40,6 @@ export const useModal = (): ModalContextType => {
  * Wraps the app and manages all modals through Context + Portals
  */
 export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const { layers } = useTheme();
   const [stack, setStack] = useState<ModalInstance[]>([]);
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
@@ -61,13 +58,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (!container) {
       container = document.createElement('div');
       container.id = 'modal-root';
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
-      container// removed runtime mutation
+      // removed runtime mutation
       document.body.appendChild(container);
     }
     setPortalContainer(container);
@@ -164,12 +155,9 @@ interface ModalPortalProps {
 const ModalPortal: React.FC<ModalPortalProps> = ({
   id,
   level,
-  backdropZIndex,
-  modalZIndex,
   children,
 }) => {
   // Find or create container
-  let container = document.getElementById('modal-root');
   if (!container) {
     container = document.createElement('div');
     container.id = 'modal-root';
@@ -179,20 +167,18 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
   return createPortal(
     <div
       key={id}
-       style={{display: "flex", alignItems: "center", justifyContent: "center", padding: layers.ref.spacing['8']}}
-      style={{ zIndex: modalZIndex }}
+       style={{display: "flex", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-8)'}}
       data-modal-id={id}
       data-modal-level={level}
     >
       {/* Backdrop with M3 blur effect */}
       <div
         style={{ backgroundColor: sys.colors.black/40 }}
-        style={{ zIndex: backdropZIndex }}
         aria-hidden="true"
       />
 
       {/* Modal Content */}
-      <div style={{ borderRadius: layers.ref.shape.corner.large }} style={{ width: "100%" }}>
+      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  width: "100%" }}>
         {children}
       </div>
     </div>,

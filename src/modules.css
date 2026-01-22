@@ -428,7 +428,7 @@
     align-self: flex-start;
     font-size: var(--typography-label-small-fontSize);
     background-color: var(--md-sys-color-surface-container-high);
-    padding: 2px 6px;
+    padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
     border-radius: var(--md-sys-shape-corner-small);
     font-weight: 600;
     color: var(--md-sys-color-on-surface);
@@ -602,7 +602,7 @@
 }
 
 .calendar-event {
-    padding: 2px var(--md-sys-spacing-2);
+    padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
     font-size: var(--md-sys-typescale-body-small-size);
     font-weight: 500;
     border-radius: var(--md-sys-shape-corner-extra-small);
@@ -640,7 +640,7 @@
 .calendar-more {
     font-size: var(--md-sys-typescale-label-small-size);
     color: var(--md-sys-color-on-surface-variant);
-    padding: 2px var(--md-sys-spacing-2);
+    padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
 }
 
 /* Agenda View */
@@ -825,7 +825,7 @@
 
 .calendar-week-slot {
     border-right: 1px solid var(--md-sys-color-outline-variant);
-    padding: 2px;
+    padding: var(--md-sys-spacing-1);
     position: relative;
     min-height: 60px;
 }
@@ -976,7 +976,7 @@
     
     .calendar-event {
         font-size: var(--md-sys-typescale-label-small-size);
-        padding: 1px var(--md-sys-spacing-1);
+        padding: var(--md-sys-spacing-0) var(--md-sys-spacing-1);
     }
     
     .calendar-body {
@@ -1070,7 +1070,7 @@
 
 .google-cal-event {
     border-radius: var(--md-sys-shape-corner-small);
-    padding: 2px 6px;
+    padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
     font-size: var(--md-sys-typescale-body-small-size);
     margin-bottom: 2px;
     cursor: pointer;
@@ -1096,7 +1096,7 @@
 @media (min-width: 600px) {
     .google-cal-event {
         border-radius: var(--md-sys-shape-corner-small);
-        padding: 2px var(--md-sys-spacing-2);
+        padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
         font-size: var(--typography-body-small-fontSize);
     }
 }
@@ -1574,7 +1574,7 @@
     background-color: var(--md-sys-color-surface-container-lowest);
     border: 1px solid var(--md-sys-color-outline-variant);
     border-radius: var(--md-sys-shape-corner-small);
-    font-size: 13px;
+    font-size: var(--md-sys-typescale-label-small-size);
     box-shadow: var(--md-sys-elevation-level0);
 }
 
@@ -1975,7 +1975,7 @@
 }
 
 .stat-value-large {
-    font-size: 28px;
+    font-size: var(--md-sys-typescale-headline-small-size);
     font-weight: 700;
     line-height: 1;
 }
@@ -2012,7 +2012,7 @@
 .guide-card-badge {
     font-size: var(--md-sys-typescale-label-small-size);
     font-weight: bold;
-    padding: 2px var(--md-sys-spacing-2);
+    padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
     border-radius: var(--md-sys-shape-corner-medium);
     background-color: var(--md-sys-color-primary);
     color: var(--md-sys-color-on-primary);
@@ -2695,7 +2695,7 @@
 }
 
 .live-assistant-empty-icon {
-    font-size: 96px;
+    font-size: var(--md-sys-typescale-display-large-size);
 }
 
 .live-assistant-empty-text {
@@ -2748,7 +2748,7 @@
 }
 
 .live-assistant-mic-icon {
-    font-size: 40px;
+    font-size: var(--md-sys-typescale-display-small-size);
 }
 
 .ai-advisor-card {
@@ -3021,7 +3021,7 @@
 }
 
 .corpus-chat-empty-icon {
-    font-size: 80px;
+    font-size: var(--md-sys-typescale-display-medium-size);
 }
 
 .corpus-chat-empty-text {
@@ -3143,7 +3143,7 @@
     transform: translateX(-50%);
     background: var(--md-sys-color-error);
     color: var(--md-sys-color-surface);
-    padding: 2px var(--md-sys-spacing-2);
+    padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
     border-radius: 999px;
     font-size: var(--md-sys-typescale-label-small-size);
     font-weight: 700;
@@ -3151,7 +3151,7 @@
 }
 
 .gantt-event-icon {
-    font-size: 18px;
+    font-size: var(--md-sys-typescale-label-medium-size);
     color: var(--sys-error);
     background-color: var(--md-sys-color-surface);
     border-radius: var(--md-sys-shape-corner-full);
@@ -3621,7 +3621,7 @@
 }
 
 .restore-assist-modal-warning-icon {
-    font-size: 3rem;
+    font-size: var(--md-sys-typescale-display-small-size);
 }
 
 .restore-assist-modal-warning-text {
@@ -3660,11 +3660,11 @@
 }
 
 .restore-assist-modal-option-icon {
-    font-size: 2rem;
+    font-size: var(--md-sys-typescale-headline-medium-size);
 }
 
 .restore-assist-modal-option-text {
-    font-size: 0.75rem;
+    font-size: var(--md-sys-typescale-label-small-size);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -3682,7 +3682,7 @@
 }
 
 .restore-assist-modal-drive-text {
-    font-size: 0.875rem;
+    font-size: var(--md-sys-typescale-label-medium-size);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.1em;

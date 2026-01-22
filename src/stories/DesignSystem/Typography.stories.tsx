@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 const TypographyDocumentation = () => (
   <div style={{ padding: 'var(--md-sys-spacing-6)', fontFamily: 'var(--font-family)' }}>
     <h1 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: 'var(--md-sys-spacing-4)' }}>Typography System</h1>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
       Material Design 3 typography scales with clear hierarchy for readability and visual consistency.
     </p>
 
@@ -23,34 +23,34 @@ const TypographyDocumentation = () => (
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Display Styles</h2>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', marginBottom: 'var(--md-sys-spacing-4)', color: '#666' }}>
       Large, impactful headings for hero sections and major content divisions.
     </p>
 
     <TypeSample
       text="Display Large"
-      fontSize=layers.ref.spacing['4']
+      fontSize="var(--md-sys-spacing-4)"
       fontWeight={400}
-      lineHeight=layers.ref.spacing['4']
+      lineHeight="1.25rem"
       letterSpacing="-0.25px"
     />
     <TypeSample
       text="Display Medium"
-      fontSize=layers.ref.spacing['4']
+      fontSize="1.5rem"
       fontWeight={400}
-      lineHeight=layers.ref.spacing['4']
-      letterSpacing=layers.ref.spacing['4']
+      lineHeight="1.25rem"
+      letterSpacing="-0.15px"
     />
     <TypeSample
       text="Display Small"
-      fontSize=layers.ref.spacing['4']
+      fontSize="1rem"
       fontWeight={400}
-      lineHeight=layers.ref.spacing['4']
-      letterSpacing=layers.ref.spacing['4']
+      lineHeight="1.25rem"
+      letterSpacing="-0.25px"
     />
 
-    <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Headline Styles</h2>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors.666 }}>
+    <h2 style={{ fontSize: '1rem', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: '1rem', marginBottom: '1rem' }}>Headline Styles</h2>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: '1.25rem', marginBottom: 'var(--md-sys-spacing-4)', color: '#666' }}>
       Prominent headings for content sections.
     </p>
 
@@ -58,16 +58,16 @@ const TypographyDocumentation = () => (
       text="Headline Large"
       fontSize="var(--md-sys-spacing-8)"
       fontWeight={400}
-      lineHeight=layers.ref.spacing['4']
-      letterSpacing=layers.ref.spacing['4']
+      lineHeight="1.25rem"
+      letterSpacing="-0.25px"
       compact
     />
     <TypeSample
       text="Headline Medium"
-      fontSize=layers.ref.spacing['4']
+      fontSize="1rem"
       fontWeight={400}
-      lineHeight=layers.ref.spacing['4']
-      letterSpacing=layers.ref.spacing['4']
+      lineHeight="1.25rem"
+      letterSpacing="-0.25px"
       compact
     />
     <TypeSample
@@ -75,21 +75,21 @@ const TypographyDocumentation = () => (
       fontSize="var(--md-sys-spacing-6)"
       fontWeight={400}
       lineHeight="var(--md-sys-spacing-8)"
-      letterSpacing=layers.ref.spacing['4']
+      letterSpacing={layers.ref.spacing['4']}
       compact
     />
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Title Styles</h2>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors['666666'] }}>
       Section titles and card headings.
     </p>
 
     <TypeSample
       text="Title Large"
-      fontSize=layers.ref.spacing['4']
+      fontSize={layers.ref.spacing['4']}
       fontWeight={500}
-      lineHeight=layers.ref.spacing['4']
-      letterSpacing=layers.ref.spacing['4']
+      lineHeight={layers.ref.spacing['4']}
+      letterSpacing={layers.ref.spacing['4']}
       compact
       bgColor="var(--md-sys-color-surfaceContainerLow)"
     />
@@ -104,34 +104,34 @@ const TypographyDocumentation = () => (
     />
     <TypeSample
       text="Title Small"
-      fontSize=layers.ref.spacing['4']
+      fontSize={layers.ref.spacing['4']}
       fontWeight={500}
-      lineHeight=layers.ref.spacing['4']
+      lineHeight={layers.ref.spacing['4']}
       letterSpacing="0.1px"
       compact
       bgColor="var(--md-sys-color-surfaceContainerLow)"
     />
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Body Styles</h2>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors['666'] }}>
       Body copy for main content and descriptions.
     </p>
 
     <div style={{ marginBottom: layers.ref.spacing['4'], padding: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surfaceContainerLowest)', borderRadius: 'var(--md-sys-spacing-2)' }}>
       <p style={{ margin: '0 0 6px 0', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>Body Large</p>
-      <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: sys.colors.666, fontFamily: 'monospace', marginBottom: 'var(--md-sys-spacing-3)' }}>
+      <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: sys.colors['666'], fontFamily: 'monospace', marginBottom: 'var(--md-sys-spacing-3)' }}>
         var(--md-sys-spacing-4) • Weight 400 • Line height var(--md-sys-spacing-6) • Letter spacing 0.5px
       </div>
-      <p style={{ margin: '0', fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', letterSpacing: '0.5px', color: sys.colors.333 }}>
+      <p style={{ margin: '0', fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', letterSpacing: '0.5px', color: sys.colors['333'] }}>
         This is a sample body large text. It&apos;s used for primary content and longer passages of text that need to be easily readable and comfortable to scan.
       </p>
     </div>
 
     <TypeSample
       text="Body Medium"
-      fontSize=layers.ref.spacing['4']
+      fontSize={layers.ref.spacing['4']}
       fontWeight={400}
-      lineHeight=layers.ref.spacing['4']
+      lineHeight={layers.ref.spacing['4']}
       letterSpacing="0.25px"
       compact
       bgColor="var(--md-sys-color-surfaceContainerLowest)"
@@ -147,15 +147,15 @@ const TypographyDocumentation = () => (
     />
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Label Styles</h2>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors['666'] }}>
       Labels for buttons, chips, and form fields.
     </p>
 
     <TypeSample
       text="Label Large"
-      fontSize=layers.ref.spacing['4']
+      fontSize={layers.ref.spacing['4']}
       fontWeight={500}
-      lineHeight=layers.ref.spacing['4']
+      lineHeight={layers.ref.spacing['4']}
       letterSpacing="0.1px"
       compact
       bgColor="var(--md-sys-color-surfaceContainerLow)"
@@ -171,7 +171,7 @@ const TypographyDocumentation = () => (
     />
     <TypeSample
       text="Label Small"
-      fontSize=layers.ref.spacing['4']
+      fontSize={layers.ref.spacing['4']}
       fontWeight={500}
       lineHeight="var(--md-sys-spacing-4)"
       letterSpacing="0.5px"
@@ -180,7 +180,7 @@ const TypographyDocumentation = () => (
     />
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Usage Guidelines</h2>
-    <ul style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', color: sys.colors.333, paddingLeft: layers.ref.spacing['4'] }}>
+    <ul style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', color: sys.colors['333'], paddingLeft: layers.ref.spacing['4'] }}>
       <li><strong>Display:</strong> Use for hero sections and major page titles</li>
       <li><strong>Headline:</strong> Use for section titles and subsection headings</li>
       <li><strong>Title:</strong> Use for card titles, dialog titles, and emphasis</li>
@@ -216,7 +216,7 @@ const TypeSample: React.FC<TypeSampleProps> = ({
     <p style={{ margin: '0 0 var(--md-sys-spacing-2) 0', fontSize, fontWeight, lineHeight, letterSpacing }}>
       {text}
     </p>
-    <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: sys.colors.666, fontFamily: 'monospace' }}>
+    <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: sys.colors['666'], fontFamily: 'monospace' }}>
       {fontSize} • Weight {fontWeight} • Line height {lineHeight}
       {letterSpacing !== layers.ref.spacing['4'] && ` • Letter spacing ${letterSpacing}`}
     </div>

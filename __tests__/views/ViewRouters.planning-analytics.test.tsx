@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import { renderWithM3Theme } from '../../src/test-utils';
+import { M3ThemeProvider } from '../../src/theme/theme';
+import { render } from '@testing-library/react';
 import { ViewRouter } from '../../src/components/views/ViewRouters';
 import { DEFAULT_TIMETABLE_SETTINGS } from '../../src/constants';
 
@@ -64,26 +65,42 @@ const analyticsProps = {
 
 describe('ViewRouter - Planning & Analytics renderers', () => {
   it('renders UdaPlanner when viewName is "uda"', () => {
-    const { unmount } = renderWithM3Theme(<ViewRouter viewName="uda" props={planningProps} />);
+    const { unmount } = render(
+      <M3ThemeProvider>
+        <ViewRouter viewName="uda" props={planningProps} />
+      </M3ThemeProvider>
+    );
     expect(screen.getByText(/Planner Progetti/)).toBeDefined();
     unmount();
   });
 
   it('renders UdaPlanner when viewName is "uda"', () => {
-    const { unmount } = renderWithM3Theme(<ViewRouter viewName="uda" props={planningProps} />);
+    const { unmount } = render(
+      <M3ThemeProvider>
+        <ViewRouter viewName="uda" props={planningProps} />
+      </M3ThemeProvider>
+    );
     expect(screen.getByText(/Planner Progetti/)).toBeDefined();
     unmount();
   });
 
   it('renders ReportisticaHub when viewName is "reportistica"', () => {
-    const { unmount } = renderWithM3Theme(<ViewRouter viewName="reportistica" props={analyticsProps} />);
+    const { unmount } = render(
+      <M3ThemeProvider>
+        <ViewRouter viewName="reportistica" props={analyticsProps} />
+      </M3ThemeProvider>
+    );
     const matches = screen.getAllByText(/Archivio Report|Centro Documentazione/);
     expect(matches.length).toBeGreaterThan(0);
     unmount();
   });
 
   it('renders ReportisticaHub when viewName is "reportistica"', () => {
-    const { unmount } = renderWithM3Theme(<ViewRouter viewName="reportistica" props={analyticsProps} />);
+    const { unmount } = render(
+      <M3ThemeProvider>
+        <ViewRouter viewName="reportistica" props={analyticsProps} />
+      </M3ThemeProvider>
+    );
     const matches = screen.getAllByText(/Archivio Report|Centro Documentazione/);
     expect(matches.length).toBeGreaterThan(0);
     unmount();

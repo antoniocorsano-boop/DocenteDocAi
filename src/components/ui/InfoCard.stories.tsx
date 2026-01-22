@@ -13,7 +13,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     title: {
       control: 'text',
@@ -29,7 +29,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'error', 'surface', 'elevated', 'tonal],
+      options: ['primary', 'secondary', 'tertiary', 'error', 'surface', 'elevated', 'tonal'],
       description: 'Card color variant',
     },
   },
@@ -279,6 +279,8 @@ export const Accessibility: Story = {
 
 // Import React for the Dismissible story
 import React from 'react';
+
+
 
 
 

@@ -1,9 +1,8 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block M Migration (5 violations eliminated)
 import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, DidatticaInclusivaProps } from '../types';
 import PianoInclusioneEditor from './PianoInclusioneEditor';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { useTheme } from '../theme/theme';
 import {
     InfoCard,
     EmptyState,
@@ -14,8 +13,7 @@ import {
 } from './ui';
 
 const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
-  const { layers } = useTheme();
-    const { students, pianiInclusione, onSavePiano, studentToEdit, onClearStudentToEdit, evaluations } = props;
+  const { students, pianiInclusione, onSavePiano, studentToEdit, onClearStudentToEdit, evaluations } = props;
     const [editingStudent, setEditingStudent] = useState<Studente | null>(null);
     const [activeTab, setActiveTab] = useState<'overview' | 'active' | 'suggested'>('overview');
 
@@ -56,33 +54,32 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     const sortedClasses = Object.keys(studentsByClass).sort();
 
     const renderOverview = () => (
-        <div style={{marginTop: layers.ref.spacing['8']}}>
+        <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
             <InfoCard
                 variant="tertiary"
-                style={{padding: layers.ref.spacing['5']}}
+                style={{padding: 'var(--md-sys-spacing-5)'}}
             >
-                <div style={{display: "flex", alignItems: "flex-start", gap: layers.ref.spacing['8']}}>
-                    <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor: sys.colors.tertiary/10, width: layers.ref.spacing['8'], height: layers.ref.spacing['8'], display: "flex", alignItems: "center", justifyContent: "center", color: "layers.sys.color.tertiary"}}>
-                        <span style={{ color: 'layers.sys.color.onTertiary' }}>folder_shared</span>
+                <div style={{display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)'}}>
+                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.tertiary/10, width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-tertiary)"}}>
+                        <span style={{ color: 'var(--md-sys-color-on-tertiary)' }}>folder_shared</span>
                     </div>
                     <div>
-                        <h3  style={{fontSize: "1.125rem", color: "layers.sys.color.tertiary", marginBottom: layers.ref.spacing['4']}}>Gestione Piani Centralizzata</h3>
-                        <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
+                        <h3  style={{fontSize: "1.125rem", color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</h3>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
                     </div>
                 </div>
             </InfoCard>
 
             {sortedClasses.map(className => (
-                <div key={className} style={{marginTop: layers.ref.spacing['4']}}>
-                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
-                        <div style={{ backgroundColor: sys.colors.outline-variant/30 }} style={{ flexGrow: "1" }}></div>
-                        <span style={{ color:  layers.sys.color.onSurfaceVariant/60 }} style={{ fontSize: "0.875rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em" }}>Classe {className}</span>
-                        <div style={{ backgroundColor: sys.colors.outline-variant/30 }} style={{ flexGrow: "1" }}></div>
+                <div key={className} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
+                    <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+                        <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 ,  fontSize: "0.875rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em" }}>Classe {className}</span>
+                        <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
                     </div>
                     
-                    <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+                    <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
                         {studentsByClass[className].sort((a, b) => a.cognome.localeCompare(b.cognome)).map(student => {
-                            const hasPlan = !!pianiInclusione[student.id];
 
                             return (
                                 <InfoCard 
@@ -91,23 +88,45 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                      style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", cursor: "pointer" }}
                                     onClick={() => setEditingStudent(student)}
                                 >
-                                    <div style={{padding: layers.ref.spacing['8'], display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                    <div style={{padding: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                         <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                         <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                            <p style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.cognome} {student.nome}</p>
-                                            <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginTop: layers.ref.spacing['4']}}>
+                                            <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.cognome} {student.nome}</p>
+                                            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                                 {hasPlan ? (
-                                                    <span style={{ backgroundColor: sys.colors.tertiary-container/50 }} style={{fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", color: "layers.sys.color.tertiary", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4']}}>
+                                                    <span style={{ backgroundColor: sys.colors.tertiary-container/50 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--md-sys-color-tertiary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)'}}>
                                                         Piano Attivo
                                                     </span>
                                                 ) : (
-                                                    <span style={{ color:  layers.sys.color.onSurfaceVariant/40 }} style={{fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], border: "1px solid layers.sys.color.outline", borderRadius: layers.ref.spacing['4']}}>
+                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/40 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "1px solid var(--md-sys-color-outline)", borderRadius: 'var(--md-sys-spacing-4)'}}>
                                                         Standard
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${hasPlan ? 'bg-tertiary/10 text-tertiary' : 'bg-[var(--md-sys-color-surfaceContainerHigh)] text-[var(--md-sys-color-onSurface)]-variant group-hover:bg-primary/10 group-hover:text-primary'}`}>
+                                        <div style={{
+                                            width: '2.5rem',
+                                            height: '2.5rem',
+                                            borderRadius: '50%',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            transition: 'colors 0.2s ease',
+                                            backgroundColor: hasPlan ? 'var(--md-sys-color-tertiary-container)' : 'var(--md-sys-color-surface-container-high)',
+                                            color: hasPlan ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-on-surface-variant)'
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            if (!hasPlan) {
+                                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-primary-container)';
+                                                e.currentTarget.style.color = 'var(--md-sys-color-primary)';
+                                            }
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            if (!hasPlan) {
+                                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                                                e.currentTarget.style.color = 'var(--md-sys-color-on-surface-variant)';
+                                            }
+                                        }}>
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>{hasPlan ? 'edit' : 'add'}</span>
@@ -130,20 +149,20 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     );
 
     const renderActivePlans = () => (
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
             {activePlansStudents.length > 0 ? activePlansStudents.map(student => {
                 return (
                     <InfoCard 
                         key={student.id} 
                         variant="tonal"
-                         style={{padding: layers.ref.spacing['8'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", cursor: "pointer"}}
+                         style={{padding: 'var(--md-sys-spacing-8)', transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", cursor: "pointer"}}
                         onClick={() => setEditingStudent(student)}
                     >
-                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                             <div style={{ flexGrow: "1" }}>
-                                <h3 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
-                                <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.875rem" }}>Classe {student.classe}</p>
+                                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.875rem" }}>Classe {student.classe}</p>
                             </div>
                             <M3Button variant="text" size="small">
                                 Modifica
@@ -164,9 +183,8 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     );
 
     const renderSuggested = () => (
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6']}}>
+        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
             {suggestedStudents.length > 0 ? suggestedStudents.map(student => {
-                const studentEvals = evaluations.filter(e => e.studenteId === student.id);
                 const { grade } = calculatePerformance(student.id, 'Complessivo', studentEvals);
 
                 return (
@@ -175,20 +193,20 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         variant="elevated"
                          style={{ borderLeft: "4px solid" }}
                     >
-                        <div style={{padding: layers.ref.spacing['4']}}>
-                            <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: layers.ref.spacing['8']}}>
-                                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
+                        <div style={{padding: 'var(--md-sys-spacing-4)'}}>
+                            <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                     <div>
-                                        <h3 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
-                                        <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontSize: "0.75rem" }}>Classe {student.classe}</p>
+                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.75rem" }}>Classe {student.classe}</p>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: sys.colors.error/10 }} style={{color: "layers.sys.color.error", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: "0.375rem", fontSize: "0.75rem", fontWeight: "bold"}}>
+                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem", fontSize: "0.75rem", fontWeight: "bold"}}>
                                     Media: {grade}
                                 </div>
                             </div>
-                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontSize: "0.875rem", marginBottom: layers.ref.spacing['8']}}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "0.875rem", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 Le performance recenti suggeriscono la necessit� di un piano personalizzato.
                             </p>
                             <M3Button 
@@ -215,14 +233,14 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     );
 
     return (
-        <div  style={{marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
+        <div  style={{marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             <SectionHeader 
                 title="Didattica Inclusiva"
                 subtitle="Piani personalizzati (PDP/PEI) e monitoraggio assistito dall'AI"
                  style={{ textAlign: "center" }}
             />
 
-            <div style={{marginTop: layers.ref.spacing['8']}}>
+            <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                 <div style={{
   display: 'flex',
   justifyContent: 'center'

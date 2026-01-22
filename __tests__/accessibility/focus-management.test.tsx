@@ -296,7 +296,7 @@ describe('Focus Management - ARIA Attributes', () => {
     );
 
     // Backdrop should not be announced to screen readers
-    const backdrop = document.querySelector('.bg-black\\/40');
+    const backdrop = document.querySelector('[aria-hidden="true"]');
     expect(backdrop).toHaveAttribute('aria-hidden', 'true');
   });
 });

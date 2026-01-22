@@ -8,7 +8,7 @@ import { PARTICIPATION_BADGES } from '../constants';
 
 interface ParticipationBadgePickerProps {
     anchorEl: HTMLElement | null;
-    onSelect: (badgeId: ParticipationBadge['id]) => void;
+    onSelect: (badgeId: ParticipationBadge['id']) => void;
     onClose: () => void;
 }
 

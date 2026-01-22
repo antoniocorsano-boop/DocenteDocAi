@@ -47,6 +47,9 @@ scripts/*.local.*
 .vercel
 .env*.local
 
+# Debug files
+archive/debug/*.json
+
 # Local Netlify folder
 .netlify
 

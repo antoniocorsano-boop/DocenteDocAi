@@ -1,7 +1,6 @@
 // Aura button for header (M3 icon button + glow)
 import * as React from 'react';
-import './nka.css';
-import './nka-responsive.css';
+// ...existing code...
 import { playNkaSound } from './sound';
 
 
@@ -35,7 +34,6 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
 
   return (
     <button
-      className="nka-aura-btn aura-glow"
       aria-label="Apri mappa neurale"
       tabIndex={0}
       onClick={handleClick}
@@ -56,9 +54,50 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
       }}
       aria-haspopup="dialog"
       aria-expanded="false"
+      style={{
+        background: 'var(--md-sys-color-primary)',
+        color: 'var(--md-sys-color-on-primary)',
+        border: 'none',
+        borderRadius: 'var(--md-sys-shape-corner-full)',
+        boxShadow: '0 0 0 4px var(--md-sys-color-primary-container)',
+        width: 48,
+        height: 48,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        outline: 'none',
+        cursor: 'pointer',
+        transition: 'box-shadow 0.2s',
+      }}
     >
-      <span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span>
-      {hasNewNode && <span className="nka-badge" aria-label="Nuovo nodo disponibile" />}
+      <span
+        aria-hidden="true"
+        style={{
+          fontFamily: 'Material Symbols Outlined',
+          fontSize: 28,
+          color: 'var(--md-sys-color-on-primary)',
+          filter: 'drop-shadow(0 0 8px var(--md-sys-color-primary))',
+          userSelect: 'none',
+        }}
+      >auto_awesome</span>
+      {hasNewNode && (
+        <span
+          aria-label="Nuovo nodo disponibile"
+          style={{
+            position: 'absolute',
+            top: 6,
+            right: 6,
+            width: 12,
+            height: 12,
+            borderRadius: '50%',
+            background: 'var(--md-sys-color-tertiary)',
+            boxShadow: '0 0 0 2px var(--md-sys-color-surface)',
+            border: '2px solid var(--md-sys-color-surface)',
+            display: 'inline-block',
+          }}
+        />
+      )}
     </button>
   );
 };

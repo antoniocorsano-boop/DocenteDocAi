@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, EvaluationModuleProps, Prova } from '../types';
 import AddProvaModal from './AddProvaModal';
@@ -6,12 +5,7 @@ import StudentProfile from './StudentProfile';
 import ExportModal from './ExportModal';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import UnifiedEvaluationModal from './UnifiedEvaluationModal';
-import { useTheme } from '../theme/theme';
-import { 
-
-    EmptyState, 
-    Avatar 
-} from './ui';
+import { M3Typography, EmptyState, Avatar } from './ui';
 
 type PendingProva = Omit<Valutazione, 'id' | 'studenteId' | 'voto'>;
 type ViewTab = 'grid' | 'summary' | 'risk';
@@ -22,7 +16,6 @@ const getProvaId = (prova: { data: string, argomento?: string, tipo: Valutazione
 };
 
 const getTestTypeIcon = (tipo: string) => {
-  const { layers } = useTheme();
     switch (tipo) {
         case 'Scritto': return 'edit_note';
         case 'Orale': return 'record_voice_over';
@@ -32,19 +25,19 @@ const getTestTypeIcon = (tipo: string) => {
     }
 };
 
-const EvaluationModule: React.FC<EvaluationModuleProps> = ({ 
-    students, 
-    evaluations, 
-    setEvaluations, 
-    competencyEvaluations, 
-    setCompetencyEvaluations, 
-    userClasses, 
-    settings, 
-    aiSettings, 
-    initialClass, 
-    initialStudentId, 
-    onClearInitialStudent, 
-    onOpenInclusionPlanEditor 
+const EvaluationModule: React.FC<EvaluationModuleProps> = ({
+    students,
+    evaluations,
+    setEvaluations,
+    competencyEvaluations,
+    setCompetencyEvaluations,
+    userClasses,
+    settings,
+    aiSettings,
+    initialClass,
+    initialStudentId,
+    onClearInitialStudent,
+    onOpenInclusionPlanEditor
 }) => {
     const [selectedClass, setSelectedClass] = useState<string>(initialClass || userClasses[0] || '1A');
     const [activeTab, setActiveTab] = useState<ViewTab>('grid');
@@ -58,6 +51,8 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     });
     const [editingUnified, setEditingUnified] = useState<{ student: Studente; prova: Prova } | null>(null);
     const [pendingProve, setPendingProve] = useState<PendingProva[]>([]);
+
+    // MD3 Theme tokens
 
     const { disciplines } = settings;
 
@@ -160,7 +155,6 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
         }
     };
 
-
     if (viewingStudent) {
         return <StudentProfile
             student={viewingStudent}
@@ -175,59 +169,153 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     }
 
     const renderEvaluationGrid = () => (
-        <div 
-             style={{border: "1px solid layers.sys.color.outline", borderRadius: 'calc(var(--shape-xl) * var(--sys-radius-multiplier))' }}
+        <div
+            style={{
+                border: '1px solid colors.outline',
+                borderRadius: 'shape.corner.medium'
+            }}
         >
-            <table >
+            <table>
                 <thead>
-                    <tr style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50 }}>
-                        <th style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/80 }} style={{borderBottom: "1px solid layers.sys.color.outline", borderRight: "1px solid layers.sys.color.outline"}}>
-                            <div  style={{paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "layers.sys.color.primary"}}>Studente</div>
+                    <tr style={{ backgroundColor: 'colors.surfaceContainerLow' }}>
+                        <th
+                            style={{
+                                backgroundColor: 'colors.surfaceContainerLow',
+                                borderBottom: '1px solid colors.outline',
+                                borderRight: '1px solid colors.outline',
+                                padding: 'spacing[4]'
+                            }}
+                        >
+                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'colors.primary' }}>Studente</M3Typography>
                         </th>
-                        <th  style={{textAlign: "center", width: layers.ref.spacing['16'], borderBottom: "1px solid layers.sys.color.outline", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "layers.sys.color.primary"}}>Media</th>
-                        <th  style={{textAlign: "center", width: layers.ref.spacing['16'], borderBottom: "1px solid layers.sys.color.outline", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "layers.sys.color.primary"}}>Trend</th>
+                        <th
+                            style={{
+                                textAlign: 'center',
+                                width: 'spacing[16]',
+                                borderBottom: '1px solid colors.outline',
+                                padding: 'spacing[4]'
+                            }}
+                        >
+                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'colors.primary' }}>Media</M3Typography>
+                        </th>
+                        <th
+                            style={{
+                                textAlign: 'center',
+                                width: 'spacing[16]',
+                                borderBottom: '1px solid colors.outline',
+                                padding: 'spacing[4]'
+                            }}
+                        >
+                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'colors.primary' }}>Trend</M3Typography>
+                        </th>
                         {prove.map(p => (
-                            <th key={p.id}  style={{textAlign: "center", borderBottom: "1px solid layers.sys.color.outline", padding: layers.ref.spacing['6']}}>
-                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%" }}>
-                                    <div style={{ backgroundColor: sys.colors.primary/10 }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], border: "1px solid layers.sys.color.outline"}}>
-                                        <span  style={{color: "layers.sys.color.primary"}}>{getTestTypeIcon(p.tipo)}</span>
-                                        <span  style={{fontWeight: "900", color: "layers.sys.color.primary"}}>{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</span>
+                            <th
+                                key={p.id}
+                                style={{
+                                    textAlign: 'center',
+                                    borderBottom: '1px solid colors.outline',
+                                    padding: 'spacing[6]'
+                                }}
+                            >
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                                    <div
+                                        style={{
+                                            backgroundColor: 'colors.primaryContainer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 'spacing[2]',
+                                            marginBottom: 'spacing[1]',
+                                            borderRadius: 'shape.corner.small',
+                                            border: '1px solid colors.outline',
+                                            padding: 'spacing[1]'
+                                        }}
+                                    >
+                                        <span style={{ color: 'colors.onPrimaryContainer', fontSize: 'typescale.headlineSmall.fontSize' }}>{getTestTypeIcon(p.tipo)}</span>
+                                        <M3Typography variant="label-small" style={{ fontWeight: '900', color: 'colors.onPrimaryContainer' }}>{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</M3Typography>
                                     </div>
-                                    <span style={{ color:  layers.sys.color.onPrimary }} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "-0.005em" }} title={p.titolo}>{p.titolo}</span>
+                                    <M3Typography
+                                        variant="body-small"
+                                        style={{
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            whiteSpace: 'nowrap',
+                                            fontWeight: 'bold',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: 'typescale.bodyLarge.tracking',
+                                            color: 'colors.onSurface'
+                                        }}
+                                        title={p.titolo}
+                                    >
+                                        {p.titolo}
+                                    </M3Typography>
                                 </div>
                             </th>
                         ))}
-                        {prove.length === 0 && <th style={{ color:  layers.sys.color.onSurfaceVariant }} style={{textAlign: "center", fontWeight: "normal", borderBottom: "1px solid layers.sys.color.outline"}}>Nessuna prova</th>}
+                        {prove.length === 0 && (
+                            <th style={{ color: 'colors.onSurfaceVariant', textAlign: 'center', fontWeight: 'normal', borderBottom: '1px solid colors.outline', padding: 'spacing[4]' }}>
+                                <M3Typography variant="body-medium">Nessuna prova</M3Typography>
+                            </th>
+                        )}
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
                     {filteredStudents.map(student => {
                         const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
-                        const trendClass = performance.trend === 'up' ? 'text-tertiary' : performance.trend === 'down' ? 'text-error' : 'text-[var(--md-sys-color-onSurface)]-variant';
                         const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
 
                         return (
-                            <tr key={student.id}  style={{ transition: "color 300ms" }}>
-                                <td style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/90 }} style={{borderRight: "1px solid layers.sys.color.outline"}}>
+                            <tr key={student.id} style={{ transition: 'color 300ms' }}>
+                                <td
+                                    style={{
+                                        backgroundColor: 'colors.surfaceContainerLow',
+                                        borderRight: '1px solid colors.outline',
+                                        padding: 'spacing[4]'
+                                    }}
+                                >
                                     <div
-                                         style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], cursor: "pointer"}}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 'spacing[3]',
+                                            cursor: 'pointer'
+                                        }}
                                         onClick={() => setViewingStudent(student)}
                                     >
-                                        <Avatar name={`${student.nome} ${student.cognome}`} size="sm"  style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} />
-                                        <div style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "bold", fontSize: "0.875rem", transition: "color 300ms" }}>
+                                        <Avatar name={`${student.nome} ${student.cognome}`} size="sm" style={{ transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)' }} />
+                                        <M3Typography variant="body-medium" style={{ fontWeight: 'bold', fontSize: 'typescale.bodyMedium.fontSize', transition: 'color 300ms', color: 'colors.onSurface' }}>
                                             {student.cognome} {student.nome}
-                                        </div>
+                                        </M3Typography>
                                     </div>
                                 </td>
-                                <td style={{ textAlign: "center", fontWeight: "900", fontSize: layers.ref.spacing['4'] }}>
+                                <td style={{ textAlign: 'center', fontWeight: '900', fontSize: 'spacing[4]', padding: 'spacing[4]' }}>
                                     {performance.grade ? (
-                                        <div className={`inline-flex items-center justify-center w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] ${parseFloat(performance.grade) < 6 ? 'bg-error/10 text-error' : 'bg-primary/10 text-primary'}`}>
+                                        <div
+                                            style={{
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                width: '24',
+                                                height: '24',
+                                                borderRadius: 'shape.corner.medium',
+                                                backgroundColor: parseFloat(performance.grade) < 6 ? 'colors.errorContainer' : 'colors.primaryContainer',
+                                                color: parseFloat(performance.grade) < 6 ? 'colors.onErrorContainer' : 'colors.onPrimaryContainer'
+                                            }}
+                                        >
                                             {performance.grade}
                                         </div>
                                     ) : '-'}
                                 </td>
-                                <td style={{ textAlign: "center" }}>
-                                    {performance.trend && <span className={`material-symbols-outlined ${trendClass} text-xl`}>{trendIcon}</span>}
+                                <td style={{ textAlign: 'center', padding: 'spacing[4]' }}>
+                                    {performance.trend && (
+                                        <span
+                                            style={{
+                                                fontSize: 'typescale.headlineMedium.fontSize',
+                                                color: performance.trend === 'up' ? 'colors.tertiary' : performance.trend === 'down' ? 'colors.error' : 'colors.onSurfaceVariant'
+                                            }}
+                                        >
+                                            {trendIcon}
+                                        </span>
+                                    )}
                                 </td>
                                 {prove.map(p => {
                                     const hasCompetencies = competencyEvaluations.some(ce => ce.studenteId === student.id && ce.provaId === p.id);
@@ -238,32 +326,75 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     return (
                                         <td
                                             key={p.id}
-                                             style={{textAlign: "center", cursor: "pointer", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", padding: layers.ref.spacing['8']}}
+                                            style={{
+                                                textAlign: 'center',
+                                                cursor: 'pointer',
+                                                transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                                padding: 'spacing[2]'
+                                            }}
                                             onClick={() => setEditingUnified({ student, prova: p })}
                                         >
                                             {voteValue ? (
-                                                <div className={`grade-badge-m3 ${isNegative ? 'bg-error text-on-error' : 'bg-secondary text-on-secondary'} w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center mx-auto font-black text-sm shadow-sm group-hover:scale-110 transition-transform`}>
+                                                <div
+                                                    style={{
+                                                        width: '24',
+                                                        height: '24',
+                                                        borderRadius: 'shape.corner.medium',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        margin: '0 auto',
+                                                        fontWeight: 'bold',
+                                                        fontSize: 'typescale.bodyMedium.fontSize',
+                                                        backgroundColor: isNegative ? 'colors.errorContainer' : 'colors.secondaryContainer',
+                                                        color: isNegative ? 'colors.onErrorContainer' : 'colors.onSecondaryContainer',
+                                                        boxShadow: 'elevation.level1'
+                                                    }}
+                                                >
                                                     {voteValue}
                                                 </div>
                                             ) : (
-                                                <div style={{ borderRadius: layers.ref.shape.corner.large }} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto" }}>
-                                                    <span style={{ color:  layers.sys.color.onSurfaceVariant/20 }} style={{ fontSize: "0.875rem" }}>add</span>
+                                                <div
+                                                    style={{
+                                                        width: 'spacing[4]',
+                                                        height: 'spacing[4]',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        margin: '0 auto',
+                                                        borderRadius: 'shape.corner.small',
+                                                        backgroundColor: 'colors.surfaceContainerHighest',
+                                                        border: '1px solid colors.outlineVariant'
+                                                    }}
+                                                >
+                                                    <span style={{ color: 'colors.onSurfaceVariant', fontSize: 'typescale.bodyMedium.fontSize' }}>add</span>
                                                 </div>
                                             )}
                                             {hasCompetencies && (
-                                                <span  style={{width: "0.5rem", height: "0.5rem", backgroundColor: "layers.sys.color.tertiary", borderRadius: layers.ref.spacing['4']}} title="Competenze valutate"></span>
+                                                <div
+                                                    style={{
+                                                        width: '16',
+                                                        height: '16',
+                                                        backgroundColor: 'colors.tertiary',
+                                                        borderRadius: 'shape.corner.small',
+                                                        margin: 'spacing[1] auto 0'
+                                                    }}
+                                                    title="Competenze valutate"
+                                                />
                                             )}
                                         </td>
-                                    )
+                                    );
                                 })}
-                                {prove.length === 0 && <td style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ textAlign: "center" }}>-</td>}
+                                {prove.length === 0 && <td style={{ color: 'colors.onSurfaceVariant', textAlign: 'center', padding: 'spacing[4]' }}>-</td>}
                             </tr>
-                        )
+                        );
                     })}
                     {filteredStudents.length === 0 && (
-                        <tr><td colSpan={prove.length + 3} style={{padding: layers.ref.spacing['8'], textAlign: "center"}}>
-                            <EmptyState title="Nessuno studente" description="Questa classe non ha studenti." icon="group_off" />
-                        </td></tr>
+                        <tr>
+                            <td colSpan={prove.length + 3} style={{ padding: 'spacing[2]', textAlign: 'center' }}>
+                                <EmptyState title="Nessuno studente" description="Questa classe non ha studenti." icon="group_off" />
+                            </td>
+                        </tr>
                     )}
                 </tbody>
             </table>
@@ -271,45 +402,74 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     );
 
     const renderSummaryView = () => (
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6']}}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'spacing[3]' }}>
             {filteredStudents.map(student => {
                 const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
-                const trendClass = performance.trend === 'up' ? 'text-tertiary' : performance.trend === 'down' ? 'text-error' : 'text-[var(--md-sys-color-onSurface)]-variant';
                 const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
                 const avg = parseFloat(performance.grade || '0');
                 const isInsufficient = avg > 0 && avg < 6;
 
                 return (
-                    <div 
-                        key={student.id} 
-                         style={{padding: layers.ref.spacing['6'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", cursor: "pointer"}}
+                    <div
+                        key={student.id}
+                        style={{
+                            padding: 'spacing[3]',
+                            transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                            cursor: 'pointer',
+                            borderRadius: 'shape.corner.medium',
+                            backgroundColor: 'colors.surfaceContainerLow',
+                            border: '1px solid colors.outlineVariant'
+                        }}
                         onClick={() => setViewingStudent(student)}
                     >
-                        <div style={{ backgroundColor: sys.colors.primary/5 }} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], transition: "transform 300ms" }}></div>
-                        
-                        <div  style={{ display: "flex", alignItems: "center" }}>
-                            <Avatar name={`${student.nome} ${student.cognome}`} size="lg"  />
-                            <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                <h3 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontSize: "1.125rem", letterSpacing: "-0.005em" }}>{student.cognome} {student.nome}</h3>
-                                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginTop: layers.ref.spacing['4']}}>
-                                    <div className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest ${isInsufficient ? 'bg-error/10 text-error border border-error/20' : 'bg-primary/10 text-primary border border-primary/20'}`}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
+                            <div style={{ flexGrow: '1', minWidth: '0' }}>
+                                <M3Typography variant="headline-small" style={{ fontWeight: '900', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', letterSpacing: 'typescale.headlineSmall.tracking', color: 'colors.onSurface' }}>
+                                    {student.cognome} {student.nome}
+                                </M3Typography>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'spacing[2]', marginTop: 'spacing[1]' }}>
+                                    <div
+                                        style={{
+                                            padding: 'spacing[1] spacing[2]',
+                                            borderRadius: 'shape.corner.full',
+                                            fontSize: 'typescale.bodySmall.fontSize',
+                                            fontWeight: '900',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '0.1em',
+                                            backgroundColor: isInsufficient ? 'colors.errorContainer' : 'colors.primaryContainer',
+                                            color: isInsufficient ? 'colors.onErrorContainer' : 'colors.onPrimaryContainer',
+                                            border: `1px solid ${isInsufficient ? 'colors.error' : 'colors.primary'}`
+                                        }}
+                                    >
                                         Media: {performance.grade || 'N/D'}
                                     </div>
                                     {performance.trend && (
-                                        <div className={`flex items-center gap-2.5 text-[10px] font-black uppercase tracking-widest ${trendClass}`}>
-                                            <span  style={{ fontSize: "0.875rem" }}>{trendIcon}</span>
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 'spacing[1]',
+                                                fontSize: 'typescale.labelSmall.fontSize',
+                                                fontWeight: '900',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '0.1em',
+                                                color: performance.trend === 'up' ? 'colors.tertiary' : performance.trend === 'down' ? 'colors.error' : 'colors.onSurfaceVariant'
+                                            }}
+                                        >
+                                            <span style={{ fontSize: 'typescale.bodyMedium.fontSize' }}>{trendIcon}</span>
                                             {performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
                                         </div>
                                     )}
                                 </div>
                             </div>
-                            <span style={{ color:  layers.sys.color.onSurfaceVariant/40 }} style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}>chevron_right</span>
+                            <span style={{ color: 'colors.onSurfaceVariant', transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)', fontSize: 'typescale.headlineMedium.fontSize' }}>chevron_right</span>
                         </div>
                     </div>
                 );
             })}
             {filteredStudents.length === 0 && (
-                <div >
+                <div>
                     <EmptyState title="Nessuno studente" description="Aggiungi studenti alla classe." icon="group_off" />
                 </div>
             )}
@@ -317,128 +477,299 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     );
 
     const renderRiskView = () => (
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'spacing[2]' }}>
             {atRiskStudents.length > 0 ? atRiskStudents.map(student => {
                 const { grade } = calculatePerformance(student.id, 'Complessivo', evaluations);
                 return (
                     <div
                         key={student.id}
-                         style={{ borderLeft: "4px solid" }}
+                        style={{
+                            borderLeft: '4px solid colors.error',
+                            borderRadius: 'shape.corner.medium',
+                            backgroundColor: 'colors.surfaceContainerLow'
+                        }}
                     >
-                        <div  style={{padding: layers.ref.spacing['8'], opacity: "0.1", transition: "opacity 300ms"}}>
-                            <span style={{ color: "layers.sys.color.error" }}>warning</span>
+                        <div style={{ padding: 'spacing[2]', opacity: '0.1', transition: 'opacity 300ms' }}>
+                            <span style={{ color: 'colors.error', fontSize: 'typescale.headlineMedium.fontSize' }}>warning</span>
                         </div>
 
-                        <div  style={{padding: layers.ref.spacing['6']}}>
-                            <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: layers.ref.spacing['6']}}>
-                                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                                    <Avatar name={`${student.nome} ${student.cognome}`} size="lg"  />
+                        <div style={{ padding: 'spacing[3]' }}>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 'spacing[3]' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'spacing[2]' }}>
+                                    <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
                                     <div>
-                                        <h3 style={{ color:  layers.sys.color.onPrimary, fontWeight: "900", fontSize: "1.125rem", letterSpacing: "-0.005em" }}>{student.cognome} {student.nome}</h3>
-                                        <p style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "900", textTransform: "uppercase", opacity: "0.6" }}>Classe {student.classe}</p>
+                                        <M3Typography variant="headline-small" style={{ fontWeight: '900', letterSpacing: 'typescale.headlineSmall.tracking', color: 'colors.onSurface' }}>
+                                            {student.cognome} {student.nome}
+                                        </M3Typography>
+                                        <M3Typography variant="body-small" style={{ fontWeight: '900', textTransform: 'uppercase', opacity: '0.6', color: 'colors.onSurfaceVariant' }}>
+                                            Classe {student.classe}
+                                        </M3Typography>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div style={{ backgroundColor: sys.colors.error/10, borderRadius: layers.ref.shape.corner.large }} style={{color: "layers.sys.color.error", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], fontSize: "0.75rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid layers.sys.color.outline", marginBottom: layers.ref.spacing['6'], display: "inline-block"}}>
+
+                            <div
+                                style={{
+                                    backgroundColor: 'colors.errorContainer',
+                                    color: 'colors.onErrorContainer',
+                                    padding: 'spacing[1] spacing[2]',
+                                    fontSize: 'typescale.bodySmall.fontSize',
+                                    fontWeight: '900',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.1em',
+                                    borderRadius: 'shape.corner.small',
+                                    border: '1px solid colors.outline',
+                                    marginBottom: 'spacing[3]',
+                                    display: 'inline-block'
+                                }}
+                            >
                                 Media insufficiente: {grade}
                             </div>
 
-                            <p style={{ color: layers.sys.color.onSurfaceVariant, marginBottom: layers.ref.spacing['8'], fontWeight: "500", lineHeight: "1.625" }}>
+                            <M3Typography variant="body-medium" style={{ color: 'colors.onSurfaceVariant', marginBottom: 'spacing[2]', fontWeight: '500', lineHeight: '1.625' }}>
                                 Situazione critica rilevata. È consigliata l&apos;attivazione di misure di recupero personalizzate.
-                            </p>
+                            </M3Typography>
 
-                            <div style={{display: "flex", gap: layers.ref.spacing['6']}}>
+                            <div style={{ display: 'flex', gap: 'spacing[3]' }}>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); onOpenInclusionPlanEditor(student); }}
-                                    style={{ backgroundColor: sys.colors.error, color: sys.colors.white, borderRadius: layers.ref.shape.corner.large, flexGrow: "1", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+                                    style={{
+                                        backgroundColor: 'colors.error',
+                                        color: 'colors.onError',
+                                        borderRadius: 'shape.corner.large',
+                                        flexGrow: '1',
+                                        fontWeight: '900',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.1em',
+                                        transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                        padding: 'spacing[2] spacing[3]',
+                                        border: 'none'
+                                    }}
                                 >
                                     Piano Inclusione
                                 </button>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); setViewingStudent(student); }}
-                                    style={{ backgroundColor:  layers.sys.color.surfaceContainerHighest/50, color:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+                                    style={{
+                                        backgroundColor: 'colors.surfaceContainerHighest',
+                                        color: 'colors.onSurface',
+                                        borderRadius: 'shape.corner.large',
+                                        fontWeight: '900',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.1em',
+                                        transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                        padding: 'spacing[2] spacing[3]',
+                                        border: 'none'
+                                    }}
                                 >
                                     Analizza
                                 </button>
                             </div>
                         </div>
                     </div>
-                )
+                );
             }) : (
-                <div >
-                    <div style={{ padding: layers.ref.spacing['4'], textAlign: "center" }}>
-                        <span style={{color: "layers.sys.color.tertiary", marginBottom: layers.ref.spacing['8'], opacity: "0.4"}}>verified_user</span>
-                        <h3 style={{ color: layers.sys.color.onPrimary, fontWeight: "900" }}>Nessuna criticit�</h3>
-                        <p style={{ color: layers.sys.color.onSurfaceVariant, marginTop: layers.ref.spacing['4'] }}>Tutti gli studenti mantengono una media sufficiente.</p>
-                    </div>
+                <div style={{ padding: 'spacing[4]', textAlign: 'center' }}>
+                    <span style={{ color: 'colors.tertiary', marginBottom: 'spacing[2]', opacity: '0.4', fontSize: 'typescale.displaySmall.fontSize' }}>verified_user</span>
+                    <M3Typography variant="headline-small" style={{ color: 'colors.onSurface', fontWeight: '900' }}>Nessuna criticità</M3Typography>
+                    <M3Typography variant="body-medium" style={{ color: 'colors.onSurfaceVariant', marginTop: 'spacing[1]' }}>
+                        Tutti gli studenti mantengono una media sufficiente.
+                    </M3Typography>
                 </div>
             )}
         </div>
     );
 
     return (
-        <div  style={{ maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%" }}>
-            <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start", gap: layers.ref.spacing['8']}}>
+        <div style={{ maxWidth: '100%', margin: '0 auto', width: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'spacing[2]' }}>
                 <div>
-                    <h1 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Registro Valutazioni</h1>
-                    <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontWeight: "500", marginTop: layers.ref.spacing['4'], opacity: "0.7"}}>Gestione voti, competenze e monitoraggio performance</p>
+                    <M3Typography variant="headline-large" style={{ fontWeight: '900', letterSpacing: 'typescale.headlineLarge.tracking', color: 'colors.onSurface' }}>
+                        Registro Valutazioni
+                    </M3Typography>
+                    <M3Typography variant="body-large" style={{ fontWeight: '500', marginTop: 'spacing[1]', opacity: '0.7', color: 'colors.onSurfaceVariant' }}>
+                        Gestione voti, competenze e monitoraggio performance
+                    </M3Typography>
                 </div>
 
-                <div style={{ borderRadius: ref.shape[2] }} style={{display: "flex", flexWrap: "wrap", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['6']}}>
-                    <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50, borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], border: "1px solid layers.sys.color.outline"}}>
-                        <span  style={{color: "layers.sys.color.primary", fontSize: "1.25rem"}}>class</span>
-                        <select 
-                            id="class-select" 
-                            value={selectedClass} 
-                            onChange={e => setSelectedClass(e.target.value)} 
-                            style={{ color:  layers.sys.color.onPrimary }} style={{ backgroundColor: "transparent", fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em", border: "none", cursor: "pointer" }}
+                <div
+                    style={{
+                        borderRadius: 'shape.corner.large',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                        gap: 'spacing[2]',
+                        padding: 'spacing[3]',
+                        backgroundColor: 'colors.surfaceContainerLow',
+                        border: '1px solid colors.outline'
+                    }}
+                >
+                    <div
+                        style={{
+                            backgroundColor: 'colors.surfaceContainerLow',
+                            borderRadius: 'shape.corner.large',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 'spacing[2]',
+                            padding: 'spacing[1] spacing[2]',
+                            border: '1px solid colors.outline'
+                        }}
+                    >
+                        <span style={{ color: 'colors.primary', fontSize: 'typescale.headlineSmall.fontSize' }}>class</span>
+                        <select
+                            id="class-select"
+                            value={selectedClass}
+                            onChange={e => setSelectedClass(e.target.value)}
+                            style={{
+                                color: 'colors.onSurface',
+                                backgroundColor: 'transparent',
+                                fontWeight: '900',
+                                fontSize: 'typescale.bodySmall.fontSize',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                border: 'none',
+                                cursor: 'pointer'
+                            }}
                         >
-                            {userClasses.map(c => <option key={c} value={c} style={{ color:  layers.sys.color.onPrimary }} style={{backgroundColor: "layers.sys.color.surface"}}>{c}</option>)}
+                            {userClasses.map(c => (
+                                <option
+                                    key={c}
+                                    value={c}
+                                    style={{
+                                        color: 'colors.onSurface',
+                                        backgroundColor: 'colors.surface'
+                                    }}
+                                >
+                                    {c}
+                                </option>
+                            ))}
                         </select>
                     </div>
-                    
-                    <div style={{display: "flex", gap: layers.ref.spacing['6']}}>
-                        <button onClick={() => setIsAddProvaModalOpen(true)} style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor: "layers.sys.color.primary", color: "layers.sys.color.on-primary", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                            <span  style={{ fontSize: "1.125rem" }}>add</span>
+
+                    <div style={{ display: 'flex', gap: 'spacing[3]' }}>
+                        <button
+                            onClick={() => setIsAddProvaModalOpen(true)}
+                            style={{
+                                borderRadius: 'shape.corner.large',
+                                backgroundColor: 'colors.primary',
+                                color: 'colors.onPrimary',
+                                fontWeight: '900',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'spacing[2]',
+                                padding: 'spacing[2] spacing[3]',
+                                border: 'none'
+                            }}
+                        >
+                            <span style={{ fontSize: 'typescale.headlineSmall.fontSize' }}>add</span>
                             Nuova Prova
                         </button>
-                        <button onClick={() => setIsExportModalOpen(true)} style={{ backgroundColor: layers.sys.color.surfaceContainerHighest, color: layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                            <span  style={{ fontSize: "1.125rem" }}>download</span>
+                        <button
+                            onClick={() => setIsExportModalOpen(true)}
+                            style={{
+                                backgroundColor: 'colors.surfaceContainerHighest',
+                                color: 'colors.onSurface',
+                                borderRadius: 'shape.corner.large',
+                                fontWeight: '900',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.1em',
+                                transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 'spacing[2]',
+                                padding: 'spacing[2] spacing[3]',
+                                border: 'none'
+                            }}
+                        >
+                            <span style={{ fontSize: 'typescale.headlineSmall.fontSize' }}>download</span>
                             Esporta
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div style={{ borderRadius: ref.shape[25] }} style={{border: "1px solid layers.sys.color.outline"}}>
-                <div style={{ backgroundColor: sys.colors.surface/30 }} style={{padding: layers.ref.spacing['8'], borderBottom: "1px solid layers.sys.color.outline"}}>
-                    <div  style={{display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "space-between", gap: layers.ref.spacing['6']}}>
+            <div
+                style={{
+                    borderRadius: 'shape.corner.large',
+                    border: '1px solid colors.outline',
+                    backgroundColor: 'colors.surface'
+                }}
+            >
+                <div
+                    style={{
+                        padding: 'spacing[2]',
+                        borderBottom: '1px solid colors.outline',
+                        backgroundColor: 'colors.surfaceContainerLow'
+                    }}
+                >
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'spacing[3]' }}>
                         <div>
-                            <h2 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Valutazione Unificata</h2>
-                            <p style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6", marginTop: layers.ref.spacing['4']}}>Griglia voti e competenze trasversali</p>
+                            <M3Typography variant="headline-medium" style={{ fontWeight: '900', letterSpacing: 'typescale.headlineMedium.tracking', color: 'colors.onSurface' }}>
+                                Valutazione Unificata
+                            </M3Typography>
+                            <M3Typography variant="body-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: '0.6', marginTop: 'spacing[1]', color: 'colors.onSurfaceVariant' }}>
+                                Griglia voti e competenze trasversali
+                            </M3Typography>
                         </div>
-                        <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50, padding: layers.ref.spacing['4'], borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", border: "1px solid layers.sys.color.outline"}}>
+                        <div
+                            style={{
+                                backgroundColor: 'colors.surfaceContainerLow',
+                                padding: 'spacing[1]',
+                                borderRadius: 'shape.corner.large',
+                                display: 'flex',
+                                border: '1px solid colors.outline'
+                            }}
+                        >
                             {[
                                 { id: 'grid', label: 'Griglia', icon: 'grid_on' },
                                 { id: 'summary', label: 'Riepilogo', icon: 'analytics' },
-                                { id: 'risk', label: 'Criticit�', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
+                                { id: 'risk', label: 'Criticità', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
                             ].map(tab => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as ViewTab)}
-                                    className={`flex items-center gap-8 px-6 py-4.5 rounded-[var(--md-sys-shape-corner-medium)] font-black text-[10px] uppercase tracking-widest transition-all relative ${
-                                        activeTab === tab.id 
-                                        ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level2)] shadow-primary/20' 
-                                        : 'text-[var(--md-sys-color-onSurface)]-variant hover:bg-[var(--md-sys-color-surfaceContainerHigh)]'
-                                    }`}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 'spacing[2]',
+                                        padding: 'spacing[2] spacing[3]',
+                                        borderRadius: 'shape.corner.medium',
+                                        fontWeight: '900',
+                                        fontSize: 'typescale.labelSmall.fontSize',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.1em',
+                                        transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                        backgroundColor: activeTab === tab.id ? 'colors.primary' : 'transparent',
+                                        color: activeTab === tab.id ? 'colors.onPrimary' : 'colors.onSurfaceVariant',
+                                        border: 'none',
+                                        position: 'relative'
+                                    }}
                                 >
-                                    <span  style={{ fontSize: "1.125rem" }}>{tab.icon}</span>
+                                    <span style={{ fontSize: 'typescale.headlineSmall.fontSize' }}>{tab.icon}</span>
                                     {tab.label}
                                     {tab.badge && (
-                                        <span style={{ backgroundColor: sys.colors.error, color: sys.colors.white, width: "1.25rem", height: "1.25rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                        <div
+                                            style={{
+                                                backgroundColor: 'colors.error',
+                                                color: 'colors.onError',
+                                                width: '20',
+                                                height: '20',
+                                                borderRadius: 'shape.corner.small',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                fontSize: 'typescale.bodySmall.fontSize',
+                                                fontWeight: 'bold',
+                                                position: 'absolute',
+                                                top: '-0.5rem',
+                                                right: '-0.5rem'
+                                            }}
+                                        >
                                             {tab.badge}
-                                        </span>
+                                        </div>
                                     )}
                                 </button>
                             ))}
@@ -446,7 +777,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     </div>
                 </div>
 
-                <div style={{padding: layers.ref.spacing['6']}}>
+                <div style={{ padding: 'spacing[3]' }}>
                     {activeTab === 'grid' && renderEvaluationGrid()}
                     {activeTab === 'summary' && renderSummaryView()}
                     {activeTab === 'risk' && renderRiskView()}

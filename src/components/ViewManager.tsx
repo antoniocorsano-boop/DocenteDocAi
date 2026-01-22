@@ -10,8 +10,6 @@ import ErrorBoundary from './ErrorBoundary';
 import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
 import { AppState, AppActions, View, Lezione, RegisterEntry, Studente, Competenza, Uda, Report } from '../types';
 import type { Modals } from '../types';
-import { useTheme } from '../theme/theme';
-
 interface ViewManagerProps {
     view: View;
     viewContext: unknown;
@@ -25,9 +23,7 @@ interface ViewManagerProps {
  * Implementa AuraView per transizioni fluide e layout Material 3 Hardened.
  */
 const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, actions, modals }) => {
-  const { layers } = useTheme();
-
-    // Destructure appState (now directly contains states from Zustand stores)
+  // Destructure appState (now directly contains states from Zustand stores)
     const {
         user, students, slots, dismissedSuggestions, installPrompt, settings,
         lessons, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, rubriche, pianiInclusione, giudizi, reportistica, draftRegister, finalizedRegister, aiSettings, themeState, backupState, driveSyncState, curricula, submissions,
@@ -129,7 +125,6 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                         handleNavigate('aula-session', { draftKey });
                                     }}
                                     onStartPlannedLesson={(classe, materia, slotKey, lesson) => {
-                                        const draftKey = `${classe}-${materia}-${slotKey}`;
                                         const newDraft: RegisterEntry = {
                                             id: draftKey,
                                             date: new Date().toISOString(),
@@ -370,18 +365,26 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                 <Component {...componentProps} />
                             </AuraView>
                         ) : (
-                            <div className={config.fullWidth ? 'w-full' : 'max-w-7xl mx-auto px-4'}>
-                                <Component {...componentProps} />
-                            </div>
+                                                        <div
+                                                            style={{
+                                                                width: config.fullWidth ? '100%' : '100%',
+                                                                maxWidth: config.fullWidth ? 'none' : '112rem', // 7xl = 112rem
+                                                                margin: config.fullWidth ? undefined : '0 auto',
+                                                                paddingLeft: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
+                                                                paddingRight: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
+                                                            }}
+                                                        >
+                                                            <Component {...componentProps} />
+                                                        </div>
                         );
                     }
 
                     // 404 Fallback
                     return (
                         <AuraView>
-                            <div style={{ padding: layers.ref.spacing['4'], textAlign: "center", opacity: "0.5" }}>
+                            <div style={{ padding: 'var(--md-sys-spacing-4)', textAlign: "center", opacity: "0.5" }}>
                                 <h2 >Vista "{view}" non trovata</h2>
-                                <button onClick={() => actions.handleNavigate('home')}  style={{marginTop: layers.ref.spacing['4']}}>
+                                <button onClick={() => actions.handleNavigate('home')}  style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                                     Torna alla Home
                                 </button>
                             </div>

@@ -14,20 +14,18 @@ exports[`DonutChart Story Snapshots > renders default story correctly 1`] = `
         transform="rotate(-90 100 100)"
       >
         <circle
-          class="donut-chart-segment"
           cx="100"
           cy="100"
           fill="transparent"
           r="80"
-          stroke="#000"
+          stroke="var(--md-sys-color-primary)"
           stroke-dasharray="502.6548245743669 502.6548245743669"
           stroke-dashoffset="502.6548245743669"
           stroke-width="20"
         />
       </g>
       <text
-        class="donut-chart-center-text"
-        fill="var(--md-sys-color-on-surface)"
+        fill="var(--md-sys-color-onSurface)"
         font-size="24"
         font-weight="bold"
         text-anchor="middle"
@@ -37,8 +35,7 @@ exports[`DonutChart Story Snapshots > renders default story correctly 1`] = `
         10
       </text>
       <text
-        class="donut-chart-center-label"
-        fill="var(--md-sys-color-on-surface-variant)"
+        fill="var(--md-sys-color-onSurface-variant)"
         font-size="12"
         text-anchor="middle"
         x="100"

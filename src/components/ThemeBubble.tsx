@@ -11,22 +11,22 @@ interface ThemeBubbleProps {
 }
 
 const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onClick }) => {
-    const { colors: themeColors, spacing, motion } = useTheme();
+    const { layers: { sys: { colors: themeColors }, ref: { spacing } } } = useTheme();
 
     return (
         <button
-            className={`m3-theme-card ${isSelected ? 'selected' : ''}`}
+            style={{
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
+                border: isSelected ? '2px solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline-variant)',
+                backgroundColor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
+                color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+                padding: 'var(--md-sys-spacing-4)',
+                cursor: 'pointer'
+            }}
             onClick={onClick}
             title={name}
             aria-label={`Seleziona tema ${name}`}
-            style={{
-                borderRadius: spacing.md,
-                transition: `all ${motion.durationShort4} ${motion.easingStandard}`,
-                border: isSelected ? `2px solid ${themeColors.primary}` : `1px solid ${themeColors.outlineVariant}`,
-                backgroundColor: themeColors.surfaceContainerLow,
-                padding: spacing.sm,
-                cursor: 'pointer'
-            }}
         >
             <div >
                 {/* Background (Primary) */}

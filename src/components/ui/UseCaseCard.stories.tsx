@@ -14,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     scenario: {
       control: 'text',
@@ -219,6 +219,8 @@ export const QuickStart: Story = {
     tip: 'AI-generated content is a starting point - always review and personalize for your students',
   },
 };
+
+
 
 
 

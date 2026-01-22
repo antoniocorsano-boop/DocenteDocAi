@@ -15,9 +15,6 @@ import TestGeneratorModal from './TestGeneratorModal';
 import TestPreviewModal from './TestPreviewModal';
 import Guidance from './Guidance';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField, AiThinkingGem } from './ui';
-import { useTheme } from '../theme/theme';
-
-
 type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation' | 'document' | 'image' | 'quiz';
 
 interface StudioAction {
@@ -46,8 +43,7 @@ const studioActions: StudioAction[] = [
 
 
 export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowledgeBase, aiSettings, onOpenCreateLesson, showToast, showGuidanceTips, onAiProcessing }) => {
-    const { layers } = useTheme();
-        const [selectedCorpusId, setSelectedCorpusId] = useState<string>('');
+    const [selectedCorpusId, setSelectedCorpusId] = useState<string>('');
         const [selectedFileIds, setSelectedFileIds] = useState<string[]>([]);
         const [isLoading, setIsLoading] = useState(false);
         const [loadingTaskName, setLoadingTaskName] = useState('');
@@ -192,7 +188,15 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         else if (action.id === 'quiz') setIsTestGeneratorOpen(true);
                         else runTask(action.id);
                     }}
-                    className={`studio-action-card ${action.variant}`}
+                    style={{
+                        // studio-action-card styles
+                        backgroundColor: 'var(--md-sys-color-surface-container)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: 'var(--md-sys-spacing-4)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
+                        cursor: 'pointer'
+                    }}
                     disabled={isLoading || (action.requiresContent && selectedFileIds.length === 0) || (action.id === 'image' && hasApiKey === false)}
                     title={(action.id === 'image' && hasApiKey === false) ? "API Key richiesta per la generazione di immagini." : (action.requiresContent && selectedFileIds.length === 0 ? "Seleziona almeno un documento per abilitare questa azione" : action.description)}
                 >
@@ -264,11 +268,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
 
             {/* Context Selection Card */}
             <div >
-                <h2  style={{marginBottom: layers.ref.spacing['8'], display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                    <span  style={{color: "layers.sys.color.primary"}}>folder_open</span>
+                <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                    <span  style={{color: "var(--md-sys-color-primary)"}}>folder_open</span>
                     1. Seleziona Contesto (Knowledge Base)
                 </h2>
-                <div style={{display: "flex", flexWrap: "wrap", gap: layers.ref.spacing['8'], alignItems: "flex-end", marginBottom: layers.ref.spacing['8']}}>
+                <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div  style={{ flexGrow: "1" }}>
                         <SelectField 
                             label="Filtra per Set di Documenti"
@@ -280,9 +284,9 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                             ]}
                         />
                     </div>
-                     <div  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                        <span style={{ color:  layers.sys.color.onSurfaceVariant }}>attachment</span>
-                        <p style={{ color:  layers.sys.color.onSurfaceVariant, fontWeight: "bold" }}>
+                     <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>attachment</span>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold" }}>
                             {selectedFileIds.length} file selezionati
                         </p>
                     </div>
@@ -295,20 +299,20 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                             <input type="checkbox" id={`studio-file-${entry.id}`} checked={selectedFileIds.includes(entry.id)} onChange={() => handleFileToggle(entry.id)} />
                             <label htmlFor={`studio-file-${entry.id}`} >
                                 {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
-                                <span  style={{color: "layers.sys.color.primary", fontSize: layers.ref.spacing['4']}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
+                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{entry.fileName}</span>
                             </label>
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontSize: "0.875rem", padding: layers.ref.spacing['8']}}>Nessun file disponibile in questo set.</p>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "0.875rem", padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
                     )}
                 </div>
             </div>
 
             {/* Loading State */}
             {isLoading && (
-                <div style={{ padding: layers.ref.spacing['4'] }} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ padding: 'var(--md-sys-spacing-4)' ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                     <AiThinkingGem size="large" text={loadingTaskName || "L'AI sta lavorando..."} />
                 </div>
             )}
@@ -318,24 +322,24 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                 <div >
                     {/* Generation Card */}
                     <div  style={{ height: "100%" }}>
-                        <div style={{marginBottom: layers.ref.spacing['8']}}>
-                            <h2  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                                <span  style={{color: "layers.sys.color.tertiary"}}>design_services</span>
+                        <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
+                            <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                                <span  style={{color: "var(--md-sys-color-tertiary)"}}>design_services</span>
                                 Generazione & Creatività
                             </h2>
-                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{marginTop: layers.ref.spacing['4']}}>Crea nuovi contenuti didattici.</p>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Crea nuovi contenuti didattici.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'generation'))}
                     </div>
 
                     {/* Analysis Card */}
                     <div  style={{ height: "100%" }}>
-                        <div style={{marginBottom: layers.ref.spacing['8']}}>
-                            <h2  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                                <span  style={{color: "layers.sys.color.secondary"}}>analytics</span>
+                        <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
+                            <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                                <span  style={{color: "var(--md-sys-color-secondary)"}}>analytics</span>
                                 Analisi & Sintesi
                             </h2>
-                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{marginTop: layers.ref.spacing['4']}}>Rielabora e comprendi i documenti.</p>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Rielabora e comprendi i documenti.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'analysis'))}
                     </div>

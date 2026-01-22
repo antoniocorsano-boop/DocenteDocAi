@@ -54,7 +54,9 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
         if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
             isDraggingRef.current = true;
             // Disable transition during drag for instant response
-            if (buttonRef.current) buttonRef.current// removed runtime mutation
+            if (buttonRef.current) {
+                // removed runtime mutation
+            }
         }
 
         if (isDraggingRef.current) {
@@ -79,7 +81,9 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
         window.removeEventListener('pointerup', handlePointerUp);
         
         // Re-enable transition (if any defined in CSS for other props)
-        if (buttonRef.current) buttonRef.current// removed runtime mutation
+        if (buttonRef.current) {
+            // removed runtime mutation
+        }
         
         dragStartRef.current = null;
         initialPosRef.current = null;

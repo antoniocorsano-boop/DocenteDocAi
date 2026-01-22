@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - M3BadgedIcon component with layered theme destructuring
 import React from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -17,26 +17,25 @@ const M3BadgedIcon: React.FC<M3BadgedIconProps> = ({
     size = 'md', 
     color = 'onSurface' 
 }) => {
-    const { layers } = useTheme();
-    const { sys, ref } = layers;
+    const { layers: { sys: { color: themeColor }, ref: { spacing, typography } } } = useTheme();
 
     const sizeMap = {
-        sm: { container: ref.typography.bodySmall.fontSize, badge: { fontSize: ref.typography.bodySmall.fontSize, padding: `${layers.ref.spacing['1']} ${layers.ref.spacing['1']}` } },
-        md: { container: ref.typography.bodyLarge.fontSize, badge: { fontSize: ref.typography.labelSmall.fontSize, padding: `${layers.ref.spacing['1']} ${layers.ref.spacing['1']}` } },
-        lg: { container: ref.typography.headlineSmall.fontSize, badge: { fontSize: ref.typography.bodyMedium.fontSize, padding: `${layers.ref.spacing['1']} ${layers.ref.spacing['1']}` } }
+        sm: { container: typography.bodySmall.fontSize, badge: { fontSize: typography.bodySmall.fontSize, padding: `${spacing[1]} ${spacing[1]}` } },
+        md: { container: typography.bodyLarge.fontSize, badge: { fontSize: typography.labelSmall.fontSize, padding: `${spacing[1]} ${spacing[1]}` } },
+        lg: { container: typography.headlineSmall.fontSize, badge: { fontSize: typography.bodyMedium.fontSize, padding: `${spacing[1]} ${spacing[1]}` } }
     };
 
     const colorMap = {
-        primary: sys.color.primary,
-        secondary: sys.color.secondary,
-        tertiary: sys.color.tertiary,
-        onSurface: sys.color.onSurface
+        primary: themeColor.primary,
+        secondary: themeColor.secondary,
+        tertiary: themeColor.tertiary,
+        onSurface: themeColor.onSurface
     };
 
     const badgeColorMap = {
-        primary: { bg: sys.color.primaryContainer, fg: sys.color.onPrimaryContainer },
-        secondary: { bg: sys.color.secondaryContainer, fg: sys.color.onSecondaryContainer },
-        error: { bg: sys.color.errorContainer, fg: sys.color.onErrorContainer }
+        primary: { bg: themeColor.primaryContainer, fg: themeColor.onPrimaryContainer },
+        secondary: { bg: themeColor.secondaryContainer, fg: themeColor.onSecondaryContainer },
+        error: { bg: themeColor.errorContainer, fg: themeColor.onErrorContainer }
     };
 
     return (
@@ -53,17 +52,17 @@ const M3BadgedIcon: React.FC<M3BadgedIconProps> = ({
             {badge !== undefined && badge !== null && (
                 <span style={{
                     position: 'absolute',
-                    top: `-${layers.ref.spacing['2']}`,
-                    right: `-${layers.ref.spacing['2']}`,
+                    top: `-${spacing[2]}`,
+                    right: `-${spacing[2]}`,
                     backgroundColor: badgeColorMap[badgeColor].bg,
                     color: badgeColorMap[badgeColor].fg,
-                    borderRadius: layers.ref.spacing['4'],
+                    borderRadius: spacing[4],
                     fontWeight: 'bold',
                     ...sizeMap[size].badge,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    minWidth: layers.ref.spacing['8']
+                    minWidth: spacing[8]
                 }}>
                     {typeof badge === 'number' && badge > 99 ? '99+' : badge}
                 </span>

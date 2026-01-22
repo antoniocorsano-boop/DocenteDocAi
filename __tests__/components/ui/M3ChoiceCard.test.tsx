@@ -28,17 +28,19 @@ describe('M3ChoiceCard', () => {
 
   it('applies selected styles when selected is true', () => {
     render(<M3ChoiceCard {...mockProps} selected={true} />);
-    
+
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('aria-pressed', 'true');
-    expect(button.className).toContain('bg-primary-container');
+    // Check that the background color is set to primary container when selected
+    expect(button.style.backgroundColor).toBe('var(--md-sys-color-primary-container)');
   });
 
   it('applies default styles when selected is false', () => {
     render(<M3ChoiceCard {...mockProps} selected={false} />);
-    
+
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('aria-pressed', 'false');
-    expect(button.className).toContain('bg-[var(--md-sys-color-surface-container)]/50');
+    // Check that the background color contains surface container when not selected
+    expect(button.style.backgroundColor).toContain('var(--md-sys-color-surface-container)');
   });
 });

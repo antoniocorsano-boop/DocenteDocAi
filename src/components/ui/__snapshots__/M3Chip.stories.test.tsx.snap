@@ -2,15 +2,14 @@
 
 exports[`M3Chip Story Snapshots > renders default story correctly 1`] = `
 <div>
-  <div
-    class="inline-flex items-center gap-[var(--md-sys-spacing-2)] rounded-[var(--md-sys-shape-corner-small)] px-[var(--md-sys-spacing-3)] py-[var(--md-sys-spacing-1)] transition-all duration-200"
+  <button
+    style="font-family: var(--md-sys-typescale-label-large-font); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-tracking); border-radius: var(--md-sys-shape-corner-small); transition: all var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard); outline: none; border: 1px solid var(--md-sys-color-secondary-container); background-color: var(--md-sys-color-secondary-container); cursor: pointer; color: var(--md-sys-color-on-secondary-container);"
   >
-    <button
-      class="text-[var(--md-sys-typescale-label-large)] font-[var(--md-sys-typescale-label-large-font)] leading-[var(--md-sys-typescale-label-large-line-height)] rounded-[var(--md-sys-shape-corner-small)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--md-sys-color-primary)] focus-visible:ring-offset-1 bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] border border-[var(--md-sys-color-secondary-container)] hover:bg-[var(--md-sys-color-secondary-container)]/80 active:bg-[var(--md-sys-color-secondary-container)]/60"
-      type="button"
+    <span
+      style="display: inline-flex; align-items: center; gap: var(--md-sys-spacing-2); border-radius: var(--md-sys-shape-corner-small); padding: var(--md-sys-spacing-2) var(--md-sys-spacing-3); transition: all var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard); opacity: 1; cursor: default; pointer-events: auto;"
     >
       Test Chip
-    </button>
-  </div>
+    </span>
+  </button>
 </div>
 `;

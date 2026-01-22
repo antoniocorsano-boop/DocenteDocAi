@@ -1,6 +1,5 @@
-// LEGACY - MD3 Non-compliant
-
-// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// MD3 Compliant - Migration completed for Block L
+// Replaced className violations with inline styles using MD3 tokens for grade indicators and competency levels
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -298,7 +297,18 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                 <M3ListItem
                                     key={ev.id}
                                     leadingElement={
-                                        <div className={`student-profile-grade-voto ${parseFloat(ev.voto) < 6 ? 'student-profile-grade-voto-low' : 'student-profile-grade-voto-normal'}`}>
+                                        <div style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: '2.5rem',
+                                            height: '2.5rem',
+                                            borderRadius: 'var(--md-sys-shape-corner-small)',
+                                            backgroundColor: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
+                                            color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)',
+                                            fontWeight: 'bold',
+                                            fontSize: 'var(--md-sys-typescale-label-large-size)'
+                                        }}>
                                             {ev.voto}
                                         </div>
                                     }
@@ -348,7 +358,21 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                         <p >{competenza.codice}</p>
                                         <h3 >{competenza.nome}</h3>
                                     </div>
-                                    <div className={`student-profile-competency-level ${levelColor}`}>
+                                    <div style={{
+                                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                        borderRadius: 'var(--md-sys-shape-corner-small)',
+                                        fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                        fontWeight: 'bold',
+                                        textAlign: 'center',
+                                        backgroundColor: levelColor.includes('advanced') ? 'var(--md-sys-color-tertiary-container)' :
+                                                        levelColor.includes('intermediate') ? 'var(--md-sys-color-secondary-container)' :
+                                                        levelColor.includes('basic') ? 'var(--md-sys-color-primary-container)' :
+                                                        'var(--md-sys-color-surface-container-highest)',
+                                        color: levelColor.includes('advanced') ? 'var(--md-sys-color-on-tertiary-container)' :
+                                               levelColor.includes('intermediate') ? 'var(--md-sys-color-on-secondary-container)' :
+                                               levelColor.includes('basic') ? 'var(--md-sys-color-on-primary-container)' :
+                                               'var(--md-sys-color-on-surface)'
+                                    }}>
                                         {level?.nome}
                                     </div>
                                 </div>

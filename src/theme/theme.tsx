@@ -3,7 +3,7 @@
 // @do-not-extend
 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { tokenLayers, TokenLayers, SysLayer, RefLayer, CompLayer, MotionLayer, ElevationLayer } from './tokens';
+import { tokenLayers, TokenLayers } from './tokens';
 
 // Type for preset overrides (partial token layers)
 export type PresetOverrides = Partial<TokenLayers>;
@@ -44,7 +44,7 @@ const [overrides, setOverrides] = useState<PresetOverrides>({});
     if (savedOverrides) {
       try {
         setOverrides(JSON.parse(savedOverrides));
-      } catch (e) {
+      } catch {
         console.warn('Failed to parse theme overrides from localStorage');
       }
     }
@@ -66,15 +66,15 @@ const [overrides, setOverrides] = useState<PresetOverrides>({});
   };
 
   // Function to merge token layers with overrides
-  const mergeLayers = <T extends Record<string, any>>(base: T, override?: Partial<T>): T => {
+  const mergeLayers = <T extends Record<string, unknown>>(base: T, override?: Partial<T>): T => {
     if (!override) return base;
     const merged = { ...base } as T;
     Object.keys(override).forEach(key => {
       if (override[key] !== undefined) {
         if (typeof override[key] === 'object' && override[key] !== null && typeof merged[key] === 'object' && merged[key] !== null) {
-          (merged as any)[key] = { ...(merged as any)[key], ...(override as any)[key] };
+          (merged as Record<string, unknown>)[key] = { ...(merged as Record<string, unknown>)[key] as Record<string, unknown>, ...(override as Record<string, unknown>)[key] as Record<string, unknown> };
         } else {
-          (merged as any)[key] = override[key];
+          (merged as Record<string, unknown>)[key] = override[key];
         }
       }
     });
@@ -92,7 +92,7 @@ const [overrides, setOverrides] = useState<PresetOverrides>({});
 
   // Verification function: Confirms all applied overrides exist in tokens.ts layers
   const verifyOverridesApplied = (): boolean => {
-    const checkLayer = <T extends Record<string, any>>(base: T, override?: Partial<T>): boolean => {
+    const checkLayer = <T extends Record<string, unknown>>(base: T, override?: Partial<T>): boolean => {
       if (!override) return true;
       return Object.keys(override).every(key => key in base);
     };
@@ -116,13 +116,13 @@ const [overrides, setOverrides] = useState<PresetOverrides>({});
       elevation: tokenLayers.elevation,
     };
 
-    const isEqual = (a: any, b: any): boolean => {
+    const isEqual = (a: unknown, b: unknown): boolean => {
       if (typeof a !== typeof b) return false;
       if (typeof a === 'object' && a !== null && b !== null) {
-        const keysA = Object.keys(a);
-        const keysB = Object.keys(b);
+        const keysA = Object.keys(a as Record<string, unknown>);
+        const keysB = Object.keys(b as Record<string, unknown>);
         if (keysA.length !== keysB.length) return false;
-          return keysA.every(key => isEqual(a[key], b[key]));
+          return keysA.every(key => isEqual((a as Record<string, unknown>)[key], (b as Record<string, unknown>)[key]));
       }
       return a === b;
     };

@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Progettazione Hub
 /**
  * ProgettazioneHub.tsx
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
@@ -15,8 +15,6 @@ import CompetencyManager from './CompetencyManager';
 import { TabGroup, M3ExpressiveCard } from './ui';
 import TimelineView from './TimelineView';
 import UdaDetailModal from './UdaDetailModal';
-import { useTheme } from '../theme/theme';
-
 interface ProgettazioneHubExtendedProps extends ProgettazioneHubProps {
     udas: Uda[]; // Ensure `udas` is defined
     settings: TimetableSettings;
@@ -52,8 +50,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
     driveSyncState,
     onConnectDrive
 }) => {
-  const { layers } = useTheme();
-    const [isPlanningWizardOpen, setIsPlanningWizardOpen] = useState(false);
+  const [isPlanningWizardOpen, setIsPlanningWizardOpen] = useState(false);
     const [isSmartImportOpen, setIsSmartImportOpen] = useState(false);
     const [isNotebookLMImportOpen, setIsNotebookLMImportOpen] = useState(false);
     const [isTemplateManagerOpen, setIsTemplateManagerOpen] = useState(false);
@@ -65,6 +62,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
     // Dragging / feedback state
     const [previewMessage] = useState<string | null>(null);
 
+    // MD3 Theme tokens
 
     useEffect(() => {
         if (initialAction === 'annual-planning') {
@@ -81,18 +79,18 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
     };
 
     return (
-        <div  style={{marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
+        <div  style={{marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             
             {/* Header */}
             <div  style={{ textAlign: "center" }}>
-                <h1 style={{fontWeight: "900", color: "layers.sys.color.primary", marginBottom: layers.ref.spacing['8']}}>Progettazione</h1>
-                <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ marginLeft: "auto", marginRight: "auto", fontWeight: "500" }}>
+                <h1 style={{fontWeight: "900", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>Progettazione</h1>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  marginLeft: "auto", marginRight: "auto", fontWeight: "500" }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>
             
             {/* Tab Navigation */}
-            <div style={{marginBottom: layers.ref.spacing['8']}}>
+            <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id: string) => setActiveTab(id as 'dashboard' | 'frameworks')}
@@ -111,12 +109,12 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                         icon="calendar_month"
                         title="Wizard Annuale"
                         description="Pianifica l'intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell'AI."
-                        color="var(--md-sys-color-primaryContainer)"
+                        color="var(--md-sys-color-primary-container)"
                         onClick={() => {
                             console.log('Audit: Opened Annual Planning Wizard');
                             setIsPlanningWizardOpen(true);
                         }}
-                        style={{marginBottom: layers.ref.spacing['8']}}
+                        style={{marginBottom: 'var(--md-sys-spacing-8)'}}
                     />
 
                     {/* 2. TIMELINE (GANTT 2.0 DYNAMIC) */}
@@ -132,7 +130,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                     />
 
                     {/* 3. BENTO GRID */}
-                    <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: layers.ref.spacing['8']}}>
+                    <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: 'var(--md-sys-spacing-8)'}}>
                         
                         <M3ExpressiveCard
                             icon="assignment"
@@ -162,7 +160,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="transform"
                             title="Importa & Ristruttura"
                             description="Converti vecchi file in documenti standard."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="colors.surfaceContainer"
                             onClick={() => {
                                 console.log('Audit: Opened Smart Import Modal');
                                 setIsSmartImportOpen(true);
@@ -176,7 +174,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="cloud_download"
                             title="Importa da NotebookLM"
                             description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="colors.surfaceContainer"
                             onClick={() => {
                                 console.log('Audit: Opened NotebookLM Import Modal');
                                 setIsNotebookLMImportOpen(true);
@@ -188,7 +186,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="folder_open"
                             title="Knowledge Base"
                             description="Archivio documenti."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="colors.surfaceContainer"
                             onClick={() => {
                                 console.log('Audit: Navigated to Knowledge Base');
                                 onNavigate('knowledge-base');
@@ -200,7 +198,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="description"
                             title="Template"
                             description="Gestisci i modelli per UDA e verifiche."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Opened Template Manager');
                                 setIsTemplateManagerOpen(true);
@@ -212,7 +210,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="history_edu"
                             title="Lezioni"
                             description="Piani di lezione."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Lessons');
                                 onNavigate('lessons');
@@ -224,7 +222,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="schema"
                             title="Rubriche"
                             description="Griglie valutazione."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Rubriche');
                                 onNavigate('rubriche');
@@ -236,7 +234,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="print"
                             title="Report"
                             description="Stampe & PDF."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Reportistica');
                                 onNavigate('reportistica');

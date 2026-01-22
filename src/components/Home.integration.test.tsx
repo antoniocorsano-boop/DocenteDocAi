@@ -8,8 +8,6 @@ import { useSettingsStore } from '../stores/useSettingsStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useStudentStore } from '../stores/useStudentStore';
-import { useTheme } from '../theme/theme';
-
 // Mocks per gli stores
 vi.mock('../stores/useSettingsStore');
 vi.mock('../stores/useAcademicStore');
@@ -19,19 +17,19 @@ vi.mock('../stores/useStudentStore');
 // Mock UI components (coerenti con i unit tests)
 vi.mock('./ui', () => ({
   ActionTile: ({ title, subtitle, onClick }: any) => (
-    <button onClick={onClick} aria-label={`${title} - ${subtitle}`} style={{padding: layers.ref.spacing['4']}}>
+    <button onClick={onClick} aria-label={`${title} - ${subtitle}`} style={{padding: 'var(--md-sys-spacing-4)'}}>
       {title}
     </button>
   ),
   M3ExpressiveCard: ({ title, description, children }: any) => (
-    <div style={{backgroundColor: 'layers.sys.color.surfaceContainerHigh', borderRadius: 'layers.ref.shape.corner.large'}}>
+    <div style={{backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)'}}>
       <div>{title}</div>
       <div>{description}</div>
       {children}
     </div>
   ),
   M3Button: ({ children, onClick, variant, 'aria-label': ariaLabel, ...props }: any) => (
-    <button onClick={onClick} data-variant={variant} aria-label={ariaLabel} {...props} style={{color: 'layers.sys.color.primary'}}>
+    <button onClick={onClick} data-variant={variant} aria-label={ariaLabel} {...props} style={{color: 'var(--md-sys-color-primary)'}}>
       {children}
     </button>
   ),
@@ -40,7 +38,7 @@ vi.mock('./ui', () => ({
     return React.createElement(Component, { 'data-testid': 'm3-typography', style: { ...style, fontSize: 'var(--md-sys-typescale-body-large-font-size)' } }, children);
   },
   M3HeroCard: ({ children, onClick }: any) => (
-    <div data-testid="m3-hero-card" onClick={onClick} style={{borderRadius: 'layers.ref.shape.corner.large'}}>
+    <div data-testid="m3-hero-card" onClick={onClick} style={{borderRadius: 'var(--md-sys-shape-corner-large)'}}>
       {children}
     </div>
   ),
@@ -69,7 +67,6 @@ vi.mock('./ui', () => ({
 
 // Default mock data
 const defaultMockStores = {
-  const { layers } = useTheme();
   settingsStore: { settings: { nomeInsegnante: 'Mario', cognomeInsegnante: 'Russo' } },
   systemStore: { activeSuggestion: null, dismissedSuggestions: new Set<string>(), suggestions: [] as any[] },
   academicStore: {

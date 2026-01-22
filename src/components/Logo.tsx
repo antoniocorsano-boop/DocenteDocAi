@@ -10,7 +10,7 @@ interface LogoProps {
   onHomeNavigate?: () => void;
 }
 
-const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, className, onHomeNavigate }) => {
+const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, onHomeNavigate }) => {
   const { chaosStage, actions } = useUIStore();
   const clickCount = useRef(0);
   const clickTimer = useRef<NodeJS.Timeout | null>(null);
@@ -69,12 +69,12 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, className, o
       
       {/* Overlay per le fasi di implosione e pace */}
       {(chaosStage === 'implosion' || chaosStage === 'peace') && document.body && ReactDOM.createPortal(
-        <div className={`universe-overlay ${chaosStage}`}></div>,
+        <div style={{ position: 'fixed', inset: 0, zIndex: 9999, backgroundColor: chaosStage === 'implosion' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-surface)', opacity: 0.7, pointerEvents: 'auto' }} data-chaos-stage={chaosStage}></div>,
         document.body
       )}
 
       <div 
-        className={`app-logo-container stage-${chaosStage} ${isAiThinking ? 'thinking' : '} ${className ? className : '}`.trim()} 
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'box-shadow 0.2s', boxShadow: isAiThinking ? '0 0 0 4px var(--md-sys-color-primary)' : undefined }} data-chaos-stage={chaosStage} data-ai-thinking={isAiThinking} 
         onClick={handleLogoClick}
       >
         <svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" >

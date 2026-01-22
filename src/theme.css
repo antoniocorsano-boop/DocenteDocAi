@@ -257,17 +257,17 @@
   /* ?? DO NOT USE - Use --md-sys-spacing-* instead */
   /* These tokens remain for backward compatibility only */
   /* See: UI_UNIFORMITY_AUDIT_POST_M3_MIGRATION.md (P2) */
-  --spacing-0: 0px;      /* ? --md-sys-spacing-0 */
-  --spacing-1: var(--md-sys-spacing-1);      /* ? --md-sys-spacing-1 */
-  --spacing-2: var(--md-sys-spacing-2);      /* ? --md-sys-spacing-2 */
-  --spacing-3: var(--md-sys-spacing-3);     /* ? --md-sys-spacing-3 */
-  --spacing-4: var(--md-sys-spacing-4);     /* ? --md-sys-spacing-4 */
-  --spacing-5: 20px;     /* ? --md-sys-spacing-5 */
-  --spacing-6: var(--md-sys-spacing-6);     /* ? --md-sys-spacing-6 */
-  --spacing-8: var(--md-sys-spacing-8);     /* ? --md-sys-spacing-8 */
-  --spacing-10: 40px;    /* ? --md-sys-spacing-10 */
-  --spacing-12: var(--md-sys-spacing-12);    /* ? --md-sys-spacing-12 */
-  --spacing-16: 64px;    /* ? --md-sys-spacing-16 */
+  --spacing-0: 0px; /* MIGRATED TO MD3 */      /* ? --md-sys-spacing-0 */
+  --spacing-1: var(--md-sys-spacing-1); /* MIGRATED TO MD3 */      /* ? --md-sys-spacing-1 */
+  --spacing-2: var(--md-sys-spacing-2); /* MIGRATED TO MD3 */      /* ? --md-sys-spacing-2 */
+  --spacing-3: var(--md-sys-spacing-3); /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-3 */
+  --spacing-4: var(--md-sys-spacing-4); /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-4 */
+  --spacing-5: 20px; /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-5 */
+  --spacing-6: var(--md-sys-spacing-6); /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-6 */
+  --spacing-8: var(--md-sys-spacing-8); /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-8 */
+  --spacing-10: 40px; /* MIGRATED TO MD3 */    /* ? --md-sys-spacing-10 */
+  --spacing-12: var(--md-sys-spacing-12); /* MIGRATED TO MD3 */    /* ? --md-sys-spacing-12 */
+  --spacing-16: 64px; /* MIGRATED TO MD3 */    /* ? --md-sys-spacing-16 */
 
   /* Spacing Tokens M3 - OFFICIAL (Use these) */
   --md-sys-spacing-0: 0px;
@@ -284,32 +284,32 @@
 
   /* Typography Scale M3 - Complete Token Definitions */
   /* Display Large */
-  --typography-display-large-fontSize: 57px;
-  --typography-display-large-fontFamily: 'Roboto Flex', sans-serif;
-  --typography-display-large-fontWeight: 400;
-  --typography-display-large-lineHeight: 64px;
-  --typography-display-large-letterSpacing: -0.25px;
+  --typography-display-large-fontSize: var(--md-sys-typescale-display-large-size); /* MIGRATED TO MD3 */
+  --typography-display-large-fontFamily: var(--md-sys-typescale-display-large-font); /* MIGRATED TO MD3 */
+  --typography-display-large-fontWeight: var(--md-sys-typescale-display-large-weight); /* MIGRATED TO MD3 */
+  --typography-display-large-lineHeight: var(--md-sys-typescale-display-large-line-height); /* MIGRATED TO MD3 */
+  --typography-display-large-letterSpacing: var(--md-sys-typescale-display-large-tracking); /* MIGRATED TO MD3 */
   
   /* Display Medium */
-  --typography-display-medium-fontSize: 45px;
-  --typography-display-medium-fontFamily: 'Roboto Flex', sans-serif;
-  --typography-display-medium-fontWeight: 400;
-  --typography-display-medium-lineHeight: 52px;
-  --typography-display-medium-letterSpacing: 0px;
+  --typography-display-medium-fontSize: var(--md-sys-typescale-display-medium-size); /* MIGRATED TO MD3 */
+  --typography-display-medium-fontFamily: var(--md-sys-typescale-display-medium-font); /* MIGRATED TO MD3 */
+  --typography-display-medium-fontWeight: var(--md-sys-typescale-display-medium-weight); /* MIGRATED TO MD3 */
+  --typography-display-medium-lineHeight: var(--md-sys-typescale-display-medium-line-height); /* MIGRATED TO MD3 */
+  --typography-display-medium-letterSpacing: var(--md-sys-typescale-display-medium-tracking); /* MIGRATED TO MD3 */
   
   /* Display Small */
-  --typography-display-small-fontSize: 36px;
-  --typography-display-small-fontFamily: 'Roboto Flex', sans-serif;
-  --typography-display-small-fontWeight: 400;
-  --typography-display-small-lineHeight: 44px;
-  --typography-display-small-letterSpacing: 0px;
+  --typography-display-small-fontSize: var(--md-sys-typescale-display-small-size); /* MIGRATED TO MD3 */
+  --typography-display-small-fontFamily: var(--md-sys-typescale-display-small-font); /* MIGRATED TO MD3 */
+  --typography-display-small-fontWeight: var(--md-sys-typescale-display-small-weight); /* MIGRATED TO MD3 */
+  --typography-display-small-lineHeight: var(--md-sys-typescale-display-small-line-height); /* MIGRATED TO MD3 */
+  --typography-display-small-letterSpacing: var(--md-sys-typescale-display-small-tracking); /* MIGRATED TO MD3 */
   
   /* Headline Large */
-  --typography-headline-large-fontSize: var(--md-sys-spacing-8);
-  --typography-headline-large-fontFamily: 'Roboto Flex', sans-serif;
-  --typography-headline-large-fontWeight: 400;
-  --typography-headline-large-lineHeight: 40px;
-  --typography-headline-large-letterSpacing: 0px;
+  --typography-headline-large-fontSize: var(--md-sys-typescale-headline-large-size); /* MIGRATED TO MD3 */
+  --typography-headline-large-fontFamily: var(--md-sys-typescale-headline-large-font); /* MIGRATED TO MD3 */
+  --typography-headline-large-fontWeight: var(--md-sys-typescale-headline-large-weight); /* MIGRATED TO MD3 */
+  --typography-headline-large-lineHeight: var(--md-sys-typescale-headline-large-line-height); /* MIGRATED TO MD3 */
+  --typography-headline-large-letterSpacing: var(--md-sys-typescale-headline-large-tracking); /* MIGRATED TO MD3 */
   
   /* Headline Medium */
   --typography-headline-medium-fontSize: 28px;
@@ -1089,7 +1089,7 @@ body {
   align-items: center;
   gap: var(--md-sys-spacing-2);
   padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
-  border-radius: 100px;
+  border-radius: var(--md-sys-shape-corner-extra-large);
   background: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface);
   border: 1px solid var(--md-sys-color-outline-variant);

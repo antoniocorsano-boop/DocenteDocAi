@@ -40,7 +40,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         if (enrichment) {
             onUpdateLesson({
                 ...lesson,
-                nota: (lesson.nota ? lesson.nota + '\n\n' : ') + '--- AI ENRICHMENT ---\n' + enrichment
+                nota: (lesson.nota ? lesson.nota + '\n\n' : '') + '--- AI ENRICHMENT ---\n' + enrichment
             });
         }
     } catch (error) {
@@ -82,17 +82,17 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   
   const handleExportDocx = async () => {
       const safeContent = sanitizeHTML(lesson.contenuto);
-      const safeObjectives = sanitizeHTML(lesson.obiettivi || ');
-      const safeContext = sanitizeHTML(lesson.contesto || ');
-      const safeHomework = sanitizeHTML(lesson.compiti || ');
-      const safeAdaptations = sanitizeHTML(lesson.adattamenti || ');
+      const safeObjectives = sanitizeHTML(lesson.obiettivi || '');
+      const safeContext = sanitizeHTML(lesson.contesto || '');
+      const safeHomework = sanitizeHTML(lesson.compiti || '');
+      const safeAdaptations = sanitizeHTML(lesson.adattamenti || '');
 
       let html = `<h1>Lezione: ${safeContent}</h1>`;
       html += `<p><strong>Classe:</strong> ${lesson.classe} | <strong>Materia:</strong> ${lesson.materia}</p>`;
       if (lesson.unitaDiApprendimento) html += `<p><strong>UDA:</strong> ${lesson.unitaDiApprendimento}</p>`;
       
       html += `<h2>Obiettivi</h2><p>${safeObjectives || 'Nessun obiettivo specificato.'}</p>`;
-      html += `<h2>Contenuti e Attività</h2><p>${safeContext || '}</p>`;
+      html += `<h2>Contenuti e Attività</h2><p>${safeContext || ''}</p>`;
       html += `<h2>Compiti</h2><p>${safeHomework || 'Nessun compito assegnato.'}</p>`;
       
       if (lesson.adattamenti) {
@@ -133,7 +133,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   const handleAddMaterials = (newMaterials: MaterialeDidattico[]) => {
       const updatedLesson = {
           ...lesson,
-          materialiDidattici: [...(lesson.materialiDidattici || []), ...newMaterials']
+          materialiDidattici: [...(lesson.materialiDidattici || []), ...newMaterials]
       };
       onUpdateLesson(updatedLesson);
       setIsMaterialPickerOpen(false);
@@ -181,7 +181,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   };
 
   const hue = generateHueFromString(lesson.materia || 'default');
-  const typeIcon = LESSON_TYPE_ICONS[lesson.tipoLezione || 'Teoria] || 'school';
+    const typeIcon = LESSON_TYPE_ICONS[lesson.tipoLezione || 'Teoria'] || 'school';
 
   return (
     <>
@@ -287,7 +287,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                     <div >
                                         <ul >
                                             {lesson.obiettivi.split('\n').filter(line => line.trim()).map((line, idx) => (
-                                                <li key={idx} >{line.replace(/^- /, ')}</li>
+                                                <li key={idx}>{line.replace(/^- /, '')}</li>
                                             ))}
                                         </ul>
                                     </div>
@@ -473,7 +473,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
             result={analysisResult} 
             onClose={() => setAnalysisResult(null)} 
             title={lesson.contenuto}
-            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || '}`}
+            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || ''}`}
           />
       )}
     </>

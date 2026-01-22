@@ -14,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     title: {
       control: 'text',
@@ -299,6 +299,8 @@ export const Accessibility: Story = {
     },
   },
 };
+
+
 
 
 

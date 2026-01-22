@@ -91,12 +91,14 @@ interface ClassPlanningData {
     udaList: string;
     kbContext: string;
     metodologie: string;
+    materia: string;
 }
 
 export const getClassPlanningPrompt = (data: ClassPlanningData): string => `
 TASK: Redigere il documento "Progettazione Disciplinare di Classe".
 
 **DATI DI INPUT:**
+- **Materia:** ${data.materia}
 - **Analisi Classe:** ${data.situazionePartenza}
 - **Statistiche:** ${data.studentiStats}
 - **Inclusione:** ${data.inclusioneStats}

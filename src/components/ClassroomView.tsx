@@ -1,5 +1,3 @@
-// LEGACY - MD3 Non-compliant
-// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ParticipationEntry } from '../types';
 import { PARTICIPATION_BADGES } from '../constants';
@@ -13,8 +11,7 @@ import QuickEvaluationModal from './QuickEvaluationModal';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import StudentProfile from './StudentProfile';
-import { TabGroup, M3Dialog, M3DialogContent, M3DialogActions, M3Button, Avatar } from './ui';
-import { useTheme } from '../theme/theme';
+import { TabGroup, M3Dialog, M3DialogContent, M3DialogActions, M3Button, Avatar, M3Typography } from './ui';
 
 type AttendanceStatus = 'presente' | 'assente' | 'ritardo';
 type ClassroomTab = 'register' | 'tools' | 'resources' | 'notes';
@@ -33,8 +30,8 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     onSaveOralEvaluation,
     onOpenLiveAssistant,
     settings,
+    aiSettings,
 }) => {
-  const { layers } = useTheme();
     const [activeTab, setActiveTab] = useState<ClassroomTab>('register');
     const [selectedStudentForActions, setSelectedStudentForActions] = useState<Studente | null>(null);
     const [quickEvalStudent, setQuickEvalStudent] = useState<Studente | null>(null);
@@ -186,45 +183,60 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     };
 
     return (
-        <div >
-            <div >
-                <button 
-                    onClick={onCloseView} 
-                    
+        <div style={{ maxWidth: '100%', margin: '0 auto', padding: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--md-sys-spacing-4)' }}>
+                <button
+                    onClick={onCloseView}
+                    style={{
+                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                        border: 'none',
+                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                        padding: 'var(--md-sys-spacing-2)',
+                        cursor: 'pointer',
+                        color: 'var(--md-sys-color-on-surface-variant)'
+                    }}
                     title="Torna indietro"
                     aria-label="Chiudi vista lezione e torna alla lista lezioni"
                 >
-                    <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}} aria-hidden="true">arrow_back</span>
+                    <span style={{ fontFamily: 'Material Symbols Outlined' }} aria-hidden="true">arrow_back</span>
                 </button>
 
-                <div >
-                    <div  aria-label={`Presenti: ${attendanceSummary.present}`}>
-                        <span  aria-hidden="true">group</span>
-                        <span>{attendanceSummary.present} PRES.</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }} aria-label="Presenti:">
+                        <span aria-hidden="true">group</span>
+                        <M3Typography variant="label-small">{attendanceSummary.present} PRES.</M3Typography>
                     </div>
-                    <div className={`classroom-view-absent-count ${attendanceSummary.absent > 0 ? 'classroom-view-absent-count-alert' : 'classroom-view-absent-count-normal'}`} aria-label={`Assenti: ${attendanceSummary.absent}`}>
-                        <span  aria-hidden="true">person_off</span>
-                        <span>{attendanceSummary.absent} ASS.</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', color: attendanceSummary.absent > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }} aria-label="Assenti:">
+                        <span aria-hidden="true">person_off</span>
+                        <M3Typography variant="label-small">{attendanceSummary.absent} ASS.</M3Typography>
                     </div>
                 </div>
 
-                <button 
-                    onClick={() => onFinalizeRegister(draftKey)} 
-                    
+                <button
+                    onClick={() => onFinalizeRegister(draftKey)}
+                    style={{
+                        backgroundColor: 'var(--md-sys-color-primary)',
+                        color: 'var(--md-sys-color-on-primary)',
+                        border: 'none',
+                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                        cursor: 'pointer',
+                        fontWeight: 'bold',
+                        textTransform: 'uppercase',
+                        letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'
+                    }}
                     title="Finalizza e chiudi registro"
                     aria-label="Salva e chiudi il registro di questa lezione"
                 >
-                    <span  aria-hidden="true">save</span> Fine
+                    <span aria-hidden="true">save</span> Fine
                 </button>
             </div>
 
-            <div >
-                <h2 >{lesson.materia}</h2>
-                <p >{lesson.contenuto || 'Lezione'}</p>
+            <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+                <M3Typography variant="headline-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-1)' }}>{lesson.materia}</M3Typography>
+                <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.contenuto || 'Lezione'}</M3Typography>
 
-                <div >
+                <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                     <TabGroup
                         activeTab={activeTab}
                         onTabChange={(id) => setActiveTab(id as ClassroomTab)}
@@ -239,33 +251,33 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 </div>
             </div>
 
-            <div >
+            <div style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
 
                 {activeTab === 'register' && (
-                    <div style={{marginTop: layers.ref.spacing['4']}}>
+                    <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                         {lesson.obiettivi && (
-                            <div style={{ backgroundColor:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline", marginBottom: layers.ref.spacing['8']}}>
-                                <p  style={{fontWeight: "bold", color: "layers.sys.color.primary", textTransform: "uppercase", marginBottom: layers.ref.spacing['8']}}>Obiettivi Didattici</p>
-                                <div style={{gap: layers.ref.spacing['2']}}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: '1px solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-8)' }}>
+                                <M3Typography variant="title-medium" style={{ fontWeight: 'bold', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-4)' }}>Obiettivi Didattici</M3Typography>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
                                     {lesson.obiettivi.split('\n').filter(o => o.trim()).map((obj, idx) => (
-                                        <label key={idx}  style={{display: "flex", alignItems: "flex-start", gap: layers.ref.spacing['6'], cursor: "pointer", padding: layers.ref.spacing['1'], borderRadius: "0.375rem"}}>
+                                        <label key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-3)', cursor: 'pointer', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>
                                             <input
                                                 type="checkbox"
                                                 checked={checkedObjectives[idx] || false}
                                                 onChange={(e) => handleObjectiveCheck(idx, e.target.checked)}
-                                                 style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'] }}
+                                                style={{ width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)' }}
                                             />
-                                            <span className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] leading-tight ${checkedObjectives[idx] ? 'line-through opacity-50' : 'text-[var(--md-sys-color-onSurface)]'}`}>
+                                            <M3Typography variant="body-medium" style={{ lineHeight: '1.5', color: checkedObjectives[idx] ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-surface)', textDecoration: checkedObjectives[idx] ? 'line-through' : 'none' }}>
                                                 {obj.replace(/^- /, '')}
-                                            </span>
+                                            </M3Typography>
                                         </label>
                                     ))}
                                 </div>
                             </div>
                         )}
 
-                        <div 
-                             style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}
+                        <div
+                            style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-4)' }}
                             ref={studentGridRef}
                             onKeyDown={handleStudentGridKeyDown}
                             role="grid"
@@ -279,12 +291,21 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 const isFocused = index === focusedStudentIndex && activeTab === 'register';
 
                                 return (
-                                    <div 
-                                        key={student.id} 
+                                    <div
+                                        key={student.id}
                                         onClick={() => setViewingStudentProfile(student)}
                                         onFocus={() => setFocusedStudentIndex(index)}
                                         tabIndex={isFocused ? 0 : -1}
-                                        className={`bg-[var(--md-sys-color-surfaceContainer)] rounded-[var(--md-sys-shape-corner-extra-large)] shadow-[var(--md-sys-elevation-level2)] border transition-all duration-300 hover:scale-[1.02] cursor-pointer ${isFocused ? 'focus-visible:ring-2 focus-visible:ring-primary outline-none ring-2 ring-primary' : 'border-[var(--md-sys-color-outline-variant)] hover:shadow-[var(--md-sys-elevation-level3)]'}`}
+                                        style={{
+                                            backgroundColor: 'var(--md-sys-color-surface-container)',
+                                            borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+                                            boxShadow: 'var(--md-sys-elevation-level2)',
+                                            border: '1px solid var(--md-sys-color-outline-variant)',
+                                            transition: 'all 300ms',
+                                            cursor: 'pointer',
+                                            outline: isFocused ? '2px solid var(--md-sys-color-primary)' : 'none',
+                                            outlineOffset: 'var(--md-sys-spacing-1)'
+                                        }}
                                         onKeyDown={e => {
                                             if (e.key === 'Enter' || e.key === ' ') {
                                                 setViewingStudentProfile(student);
@@ -292,93 +313,139 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             }
                                         }}
                                         role="gridcell"
-                                        aria-label={`${student.cognome} ${student.nome}, voto ${stat.grade || '-'}, presenze ${status}`}
+                                        aria-label={`${student.cognome}, voto, presenze`}
                                     >
-                                        <div style={{padding: layers.ref.spacing['6']}}>
-                                        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8'], alignItems: "center"}}>
-                                            {/* Column 1: Avatar + Name + Presence + BES/DSA */}
-                                            <div  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
-                                                <button
-                                                    onClick={(e) => { e.stopPropagation(); handleAttendanceToggle(student.id); }}
-                                                    className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center transition-colors flex-shrink-0 ${status === 'presente' ? 'bg-primaryContainer text-primary' :
-                                                            status === 'assente' ? 'bg-error-container text-error' : 'bg-tertiary-container text-tertiary'
-                                                        }`}
-                                                >
-                                                    <span >
-                                                        {status === 'presente' ? 'check' : status === 'assente' ? 'close' : 'schedule'}
-                                                    </span>
-                                                </button>
-                                                <Avatar name={`${student.nome} ${student.cognome}`} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], flexShrink: "0" }} />
-                                                <div style={{ minWidth: "0", flex: "1" }}>
-                                                    <h3 className={`m3-title-small font-bold truncate${status === 'assente' ? ' line-through' : ''}`}>
-                                                        {student.cognome} {student.nome}
-                                                    </h3>
-                                                    <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.classe}</p>
+                                        <div style={{ padding: 'var(--md-sys-spacing-3)' }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-4)', alignItems: 'center' }}>
+                                                {/* Column 1: Avatar + Name + Presence + BES/DSA */}
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                                                    <button
+                                                        onClick={(e) => { e.stopPropagation(); handleAttendanceToggle(student.id); }}
+                                                        style={{
+                                                            width: 'var(--md-sys-spacing-10)',
+                                                            height: 'var(--md-sys-spacing-10)',
+                                                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            backgroundColor: status === 'presente' ? 'var(--md-sys-color-primary-container)' : status === 'assente' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-tertiary-container)',
+                                                            color: status === 'presente' ? 'var(--md-sys-color-on-primary-container)' : status === 'assente' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-tertiary-container)',
+                                                            border: 'none',
+                                                            cursor: 'pointer',
+                                                            transition: 'all 300ms'
+                                                        }}
+                                                    >
+                                                        <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>
+                                                            {status === 'presente' ? 'check' : status === 'assente' ? 'close' : 'schedule'}
+                                                        </span>
+                                                    </button>
+                                                    <Avatar name={`${student.nome}`} size="md" />
+                                                    <div style={{ minWidth: 0, flex: 1 }}>
+                                                        <M3Typography variant="title-small" style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: status === 'assente' ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-surface)', textDecoration: status === 'assente' ? 'line-through' : 'none' }}>
+                                                            {student.cognome} {student.nome}
+                                                        </M3Typography>
+                                                        <M3Typography variant="body-small" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface-variant)' }}>{student.classe}</M3Typography>
+                                                    </div>
+                                                </div>
+
+                                                {/* Column 2: Average + Trend */}
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <M3Typography
+                                                        variant="title-large"
+                                                        style={{
+                                                            fontWeight: 'bold',
+                                                            color: parseFloat(stat.grade || '0') > 7 ? 'var(--md-sys-color-primary)' : parseFloat(stat.grade || '0') > 6 ? 'var(--md-sys-color-secondary)' : 'var(--md-sys-color-error)'
+                                                        }}
+                                                    >
+                                                        {stat.grade || '-'}
+                                                    </M3Typography>
+                                                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--md-sys-spacing-1)' }}>
+                                                        <span
+                                                            style={{
+                                                                fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                                                                color: stat.trend === 'up' ? 'var(--md-sys-color-tertiary)' : stat.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)'
+                                                            }}
+                                                        >
+                                                            {stat.trend === 'up' ? 'trending_up' : stat.trend === 'down' ? 'trending_down' : 'trending_flat'}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                {/* Column 3: Written Evals */}
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Scritti</M3Typography>
+                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold' }}>{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</M3Typography>
+                                                </div>
+
+                                                {/* Column 4: Oral Evals */}
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Orali</M3Typography>
+                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold' }}>{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</M3Typography>
+                                                </div>
+
+                                                {/* Column 5: Notes */}
+                                                <div style={{ textAlign: 'center' }}>
+                                                    {stat.notes ? (
+                                                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }} title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
+                                                    ) : (
+                                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-outline)' }}>-</M3Typography>
+                                                    )}
+                                                </div>
+
+                                                {/* Column 6: Homework + Participation */}
+                                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                                                    {hwStatus && (
+                                                        <div
+                                                            style={{
+                                                                padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
+                                                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                                                fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                                                                fontWeight: 'bold',
+                                                                textTransform: 'uppercase',
+                                                                letterSpacing: '0.1em',
+                                                                backgroundColor: hwStatus === 'missing' ? 'var(--md-sys-color-error-container)' : hwStatus === 'partial' ? 'var(--md-sys-color-surface-container)' : 'var(--md-sys-color-primary-container)',
+                                                                color: hwStatus === 'missing' ? 'var(--md-sys-color-on-error-container)' : hwStatus === 'partial' ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary-container)',
+                                                                border: '1px solid var(--md-sys-color-outline)'
+                                                            }}
+                                                        >
+                                                            {hwStatus === 'missing' ? 'No Compiti' : hwStatus === 'partial' ? 'Parziali' : 'OK'}
+                                                        </div>
+                                                    )}
+                                                    {badges.length > 0 && (
+                                                        <div
+                                                            style={{
+                                                                padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
+                                                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                                backgroundColor: 'var(--md-sys-color-secondary-container)',
+                                                                color: 'var(--md-sys-color-on-secondary-container)',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                gap: 'var(--md-sys-spacing-1)'
+                                                            }}
+                                                        >
+                                                            <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>star</span> {badges.length}
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                {/* Column 7: Actions */}
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <button
+                                                        onClick={(e) => { e.stopPropagation(); setSelectedStudentForActions(student); }}
+                                                        style={{
+                                                            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                                            border: 'none',
+                                                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                            padding: 'var(--md-sys-spacing-1)',
+                                                            cursor: 'pointer',
+                                                            color: 'var(--md-sys-color-on-surface-variant)'
+                                                        }}
+                                                        aria-label={`Azioni per ${student.cognome}`}
+                                                    >
+                                                        <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }} aria-hidden="true">more_vert</span>
+                                                    </button>
                                                 </div>
                                             </div>
-
-                                            {/* Column 2: Average + Trend */}
-                                            <div  style={{ textAlign: "center" }}>
-                                                <span className={`m3-title-large font-bold ${parseFloat(stat.grade || '0') > 7 ? 'text-primary' : parseFloat(stat.grade || '0') > 6 ? 'text-secondary' : 'text-error'}`}>
-                                                    {stat.grade || '-'}
-                                                </span>
-                                                <div style={{display: "flex", justifyContent: "center", marginTop: layers.ref.spacing['4']}}>
-                                                    <span className={`material-symbols-outlined m3-label-large ${stat.trend === 'up' ? 'animate-bounce text-tertiary' : stat.trend === 'down' ? 'animate-pulse text-error' : 'text-[var(--md-sys-color-onSurface)]-variant'}`}>
-                                                        {stat.trend === 'up' ? 'trending_up' : stat.trend === 'down' ? 'trending_down' : 'trending_flat'}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            {/* Column 3: Written Evals */}
-                                            <div  style={{ textAlign: "center" }}>
-                                                <span style={{ color:  layers.sys.color.onSurfaceVariant, display: "block" }}>Scritti</span>
-                                                <p style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "bold" }}>{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</p>
-                                            </div>
-
-                                            {/* Column 4: Oral Evals */}
-                                            <div  style={{ textAlign: "center" }}>
-                                                <span style={{ color:  layers.sys.color.onSurfaceVariant, display: "block" }}>Orali</span>
-                                                <p style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "bold" }}>{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</p>
-                                            </div>
-
-                                            {/* Column 5: Notes */}
-                                            <div  style={{ textAlign: "center" }}>
-                                                {stat.notes ? (
-                                                    <span  style={{color: "layers.sys.color.primary"}} title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
-                                                ) : (
-                                                    <span style={{ color: sys.colors.outline }}>-</span>
-                                                )}
-                                            </div>
-
-                                            {/* Column 6: Homework + Participation */}
-                                            <div  style={{display: "flex", flexDirection: "column", alignItems: "center", gap: layers.ref.spacing['4']}}>
-                                                {hwStatus && (
-                                                    <span className={`m3-label-small px-4 py-1 rounded-full border ${hwStatus === 'missing' ? 'border-error text-error bg-error-container' :
-                                                            hwStatus === 'partial' ? 'border-[var(--md-sys-color-outline)] text-[var(--md-sys-color-onSurface)]-variant bg-[var(--md-sys-color-surfaceContainer)]' : 'border-primary text-primary bg-primaryContainer'
-                                                        }`}>
-                                                        {hwStatus === 'missing' ? 'No Compiti' : hwStatus === 'partial' ? 'Parziali' : 'OK'}
-                                                    </span>
-                                                )}
-                                                {badges.length > 0 && (
-                                                    <span style={{ color: sys.colors.on-secondary-container }} style={{paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.secondary-container", display: "flex", alignItems: "center", gap: layers.ref.spacing['4']}}>
-                                                        <span >star</span> {badges.length}
-                                                    </span>
-                                                )}
-                                            </div>
-
-                                            {/* Column 7: Actions */}
-                                            <div  style={{ textAlign: "center" }}>
-                                                <button
-                                                    onClick={(e) => { e.stopPropagation(); setSelectedStudentForActions(student); }}
-                                                    style={{ color:  layers.sys.color.onSurfaceVariant }}
-                                                    aria-label={`Azioni per ${student.name}`}
-                                                >
-                                                    <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}} aria-hidden="true">more_vert</span>
-                                                </button>
-                                            </div>
-                                        </div>
                                         </div>
                                     </div>
                                 );
@@ -388,32 +455,91 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'notes' && (
-                    <div  style={{gap: layers.ref.spacing['4']}}>
-                        <div style={{ borderRadius: layers.ref.shape.corner.large }} style={{backgroundColor: "layers.sys.color.surface", padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
-                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: layers.ref.spacing['8']}}>
-                                <label >Note Pubbliche (Registro)</label>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
+                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-4)', border: '1px solid var(--md-sys-color-outline)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--md-sys-spacing-4)' }}>
+                                <M3Typography variant="title-medium">Note Pubbliche (Registro)</M3Typography>
                                 <VoiceNoteRecorder onTranscription={(text) => onUpdateDraftEntry(draftKey, { notes: (draftEntry.notes ? draftEntry.notes + '\n' : '') + text })} compact />
                             </div>
                             <textarea
                                 value={draftEntry.notes || ''}
                                 onChange={e => onUpdateDraftEntry(draftKey, { notes: e.target.value })}
-                                style={{ backgroundColor:  layers.sys.color.surfaceContainerLow }} style={{ width: "100%" }}
+                                style={{
+                                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                    border: '1px solid var(--md-sys-color-outline)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                    padding: 'var(--md-sys-spacing-2)',
+                                    width: '100%',
+                                    color: 'var(--md-sys-color-on-surface)',
+                                    fontFamily: 'inherit'
+                                }}
                                 rows={8}
                                 placeholder="Argomenti trattati, note disciplinari, promemoria..."
                             />
                         </div>
 
-                        <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: layers.ref.spacing['6']}}>
-                            <button onClick={() => setIsCopyModalOpen(true)}  style={{ width: "100%", justifyContent: "center" }}>
-                                <span  style={{ marginRight: "0.5rem" }}>content_copy</span>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--md-sys-spacing-3)' }}>
+                            <button
+                                onClick={() => setIsCopyModalOpen(true)}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                    color: 'var(--md-sys-color-on-surface)',
+                                    border: '1px solid var(--md-sys-color-outline)',
+                                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em'
+                                }}
+                            >
+                                <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>content_copy</span>
                                 Copia
                             </button>
-                            <button onClick={() => setIsShareInfoOpen(true)}  style={{ width: "100%", justifyContent: "center" }}>
-                                <span  style={{ marginRight: "0.5rem" }}>share</span>
+                            <button
+                                onClick={() => setIsShareInfoOpen(true)}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                    color: 'var(--md-sys-color-on-surface)',
+                                    border: '1px solid var(--md-sys-color-outline)',
+                                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em'
+                                }}
+                            >
+                                <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>share</span>
                                 Condividi
                             </button>
-                            <button onClick={handlePrintHomework}  style={{ width: "100%", justifyContent: "center" }}>
-                                <span  style={{ marginRight: "0.5rem" }}>assignment</span>
+                            <button
+                                onClick={handlePrintHomework}
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                    color: 'var(--md-sys-color-on-surface)',
+                                    border: '1px solid var(--md-sys-color-outline)',
+                                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                                    cursor: 'pointer',
+                                    fontWeight: 'bold',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em'
+                                }}
+                            >
+                                <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>assignment</span>
                                 Stampa Compiti (PDF)
                             </button>
                         </div>
@@ -421,129 +547,198 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'tools' && (
-                    <div >
+                    <div>
                         <ClassroomTools students={classStudents} studentAttendance={studentAttendance} />
                     </div>
                 )}
 
                 {activeTab === 'resources' && (
-                    <div  style={{gap: layers.ref.spacing['4']}}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                         {lesson.materialiDidattici && lesson.materialiDidattici.length > 0 ? (
-                            <div style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6']}}>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-3)' }}>
                                 {lesson.materialiDidattici.map(mat => (
-                                    <div key={mat.id} style={{ borderRadius: layers.ref.shape.corner.large }} style={{backgroundColor: "layers.sys.color.surface", padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline", display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], cursor: "pointer"}} onClick={() => handlePreviewMaterial(mat)}>
-                                        <div style={{ borderRadius: layers.ref.shape.corner.large, color: sys.colors.on-tertiary-container }} style={{width: "2.5rem", height: "2.5rem", backgroundColor: "layers.sys.color.tertiary-container", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                            <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>
+                                    <div
+                                        key={mat.id}
+                                        style={{
+                                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                                            backgroundColor: 'var(--md-sys-color-surface)',
+                                            padding: 'var(--md-sys-spacing-3)',
+                                            border: '1px solid var(--md-sys-color-outline)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 'var(--md-sys-spacing-3)',
+                                            cursor: 'pointer'
+                                        }}
+                                        onClick={() => handlePreviewMaterial(mat)}
+                                    >
+                                        <div
+                                            style={{
+                                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                                width: 'var(--md-sys-spacing-10)',
+                                                height: 'var(--md-sys-spacing-10)',
+                                                backgroundColor: 'var(--md-sys-color-tertiary-container)',
+                                                color: 'var(--md-sys-color-on-tertiary-container)',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }}
+                                        >
+                                            <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-title-medium-font-size)' }}>
                                                 {mat.type === 'link' ? 'link' : 'article'}
                                             </span>
                                         </div>
-                                        <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                            <p style={{ color: layers.sys.color.onSurfaceVariant }} style={{ fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{mat.label || mat.fileName}</p>
-                                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ textTransform: "uppercase" }}>{mat.type}</p>
+                                        <div style={{ flexGrow: 1, minWidth: 0 }}>
+                                            <M3Typography variant="body-medium" style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface)' }}>{mat.label || mat.fileName}</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', textTransform: 'uppercase' }}>{mat.type}</M3Typography>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <div style={{textAlign: "center", padding: layers.ref.spacing['8'], opacity: "0.6"}}>
-                                <span  style={{marginBottom: layers.ref.spacing['8']}}>folder_off</span>
-                                <p style={{ color: layers.sys.color.onSurfaceVariant }}>Nessun materiale.</p>
+                            <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)', opacity: 0.6 }}>
+                                <span style={{ marginBottom: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>folder_off</span>
+                                <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun materiale.</M3Typography>
                             </div>
                         )}
 
                         {lesson.adattamenti && (
-                            <div style={{ color: sys.colors.on-secondary-container, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], backgroundColor: "layers.sys.color.secondary-container"}}>
-                                <h3  style={{fontWeight: "bold", display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['8']}}>
-                                    <span style={{ color: layers.sys.color.onSecondaryContainer }}>accessibility_new</span>
+                            <div style={{ color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)' }}>
+                                <M3Typography variant="title-medium" style={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-2)' }}>
+                                    <span style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>accessibility_new</span>
                                     Inclusione
-                                </h3>
-                                <p style={{ color: layers.sys.color.onSecondaryContainer }} style={{ opacity: "0.9", whiteSpace: "pre-wrap" }}>{lesson.adattamenti}</p>
+                                </M3Typography>
+                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.9, whiteSpace: 'pre-wrap' }}>{lesson.adattamenti}</M3Typography>
                             </div>
                         )}
                     </div>
                 )}
             </div>
 
-            <div >
-                <button onClick={onOpenLiveAssistant} style={{ color: sys.colors.on-tertiary-container }} style={{backgroundColor: "layers.sys.color.tertiary-container"}}>
-                    <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>mic</span>
+            <div style={{ position: 'fixed', bottom: 'var(--md-sys-spacing-4)', right: 'var(--md-sys-spacing-4)' }}>
+                <button
+                    onClick={onOpenLiveAssistant}
+                    style={{
+                        backgroundColor: 'var(--md-sys-color-tertiary-container)',
+                        color: 'var(--md-sys-color-on-tertiary-container)',
+                        border: 'none',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: 'var(--md-sys-spacing-3)',
+                        cursor: 'pointer',
+                        boxShadow: 'var(--md-sys-elevation-level3)'
+                    }}
+                >
+                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>mic</span>
                 </button>
             </div>
 
             {selectedStudentForActions && (
                 <M3Dialog
                     onClose={() => setSelectedStudentForActions(null)}
-                    title={`${selectedStudentForActions.cognome} ${selectedStudentForActions.nome}`}
+                    title={`${selectedStudentForActions.cognome}`}
                     maxWidth="sm"
                     level={1}
                 >
                     <M3DialogContent>
-                        <div  style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['6'], borderBottom: "1px solid layers.sys.color.outline"}}>
-                            <Avatar name={`${selectedStudentForActions.nome} ${selectedStudentForActions.cognome}`} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'] }} />
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)', borderBottom: '1px solid var(--md-sys-color-outline)', paddingBottom: 'var(--md-sys-spacing-2)' }}>
+                            <Avatar name={`${selectedStudentForActions.nome}`} size="md" />
                             <div>
-                                <h3 style={{ color:  layers.sys.color.onPrimary }} style={{ fontSize: "1.125rem", fontWeight: "900" }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</h3>
-                                <p  style={{fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", color: "layers.sys.color.primary"}}>Azioni Rapide</p>
+                                <M3Typography variant="headline-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: '900', color: 'var(--md-sys-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>
+                                <M3Typography variant="body-small" style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--md-sys-color-primary)' }}>Azioni Rapide</M3Typography>
                             </div>
                         </div>
 
-                        <div style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: layers.ref.spacing['6'], marginBottom: layers.ref.spacing['8']}}>
-                            <button 
-                                onClick={() => { setQuickEvalStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} 
-                                style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor: sys.colors.primaryContainer/30 }} style={{display: "flex", flexDirection: "column", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['6'], transition: "color 300ms"}}
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-3)' }}>
+                            <button
+                                onClick={() => { setQuickEvalStudent(selectedStudentForActions); setSelectedStudentForActions(null); }}
+                                style={{
+                                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                                    backgroundColor: 'var(--md-sys-color-primary-container)',
+                                    border: 'none',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-3)',
+                                    cursor: 'pointer',
+                                    transition: 'all 300ms'
+                                }}
                             >
-                                <div  style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.primary", color: "layers.sys.color.on-primary", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
-                                    <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>grading</span>
+                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 300ms' }}>
+                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>grading</span>
                                 </div>
-                                <span  style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em", color: "layers.sys.color.primary"}}>Voto</span>
+                                <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--md-sys-color-on-primary-container)' }}>Voto</M3Typography>
                             </button>
-                            <button 
-                                onClick={() => { setObservationStudent(selectedStudentForActions); setSelectedStudentForActions(null); }} 
-                                style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor: sys.colors.secondary-container/30 }} style={{display: "flex", flexDirection: "column", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['6'], transition: "color 300ms"}}
+                            <button
+                                onClick={() => { setObservationStudent(selectedStudentForActions); setSelectedStudentForActions(null); }}
+                                style={{
+                                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                                    backgroundColor: 'var(--md-sys-color-secondary-container)',
+                                    border: 'none',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-3)',
+                                    cursor: 'pointer',
+                                    transition: 'all 300ms'
+                                }}
                             >
-                                <div  style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.secondary", color: "layers.sys.color.on-secondary", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
-                                    <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>visibility</span>
+                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 300ms' }}>
+                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>visibility</span>
                                 </div>
-                                <span  style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em", color: "layers.sys.color.secondary"}}>Osserva</span>
+                                <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--md-sys-color-on-secondary-container)' }}>Osserva</M3Typography>
                             </button>
-                            <button 
-                                onClick={() => { setViewingStudentProfile(selectedStudentForActions); setSelectedStudentForActions(null); }} 
-                                style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerHigh/50 }} style={{display: "flex", flexDirection: "column", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['6'], transition: "color 300ms"}}
+                            <button
+                                onClick={() => { setViewingStudentProfile(selectedStudentForActions); setSelectedStudentForActions(null); }}
+                                style={{
+                                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                                    backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                                    border: 'none',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-3)',
+                                    cursor: 'pointer',
+                                    transition: 'all 300ms'
+                                }}
                             >
-                                <div style={{ backgroundColor: sys.colors.onSurface-variant, color: sys.colors.surface }} style={{ width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
-                                    <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>person</span>
+                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-on-surface-variant)', color: 'var(--md-sys-color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 300ms' }}>
+                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>person</span>
                                 </div>
-                                <span style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em" }}>Profilo</span>
+                                <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Profilo</M3Typography>
                             </button>
                         </div>
 
-                        <div style={{marginBottom: layers.ref.spacing['6']}}>
-                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontWeight: "900", textTransform: "uppercase", marginBottom: layers.ref.spacing['6'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>Partecipazione</p>
-                            <div  style={{display: "flex", gap: layers.ref.spacing['8'], overflowX: "auto"}}>
+                        <div style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>
+                            <M3Typography variant="title-small" style={{ fontWeight: '900', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Partecipazione</M3Typography>
+                            <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', overflowX: 'auto' }}>
                                 {PARTICIPATION_BADGES.map(badge => (
                                     <button
                                         key={badge.id}
                                         onClick={() => handleParticipation(selectedStudentForActions.id, badge.id as ParticipationEntry["type"])}
-                                        style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh }} style={{border: "none", transition: "color 300ms", display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], color: badge.color }}
+                                        style={{
+                                            backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                            border: 'none',
+                                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                            padding: 'var(--md-sys-spacing-2)',
+                                            cursor: 'pointer',
+                                            transition: 'all 300ms',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 'var(--md-sys-spacing-1)',
+                                            color: badge.color
+                                        }}
                                     >
-                                        <span  style={{ fontSize: "1.125rem" }}>{badge.icon}</span>
-                                        <span style={{ fontSize: "0.75rem", fontWeight: "bold" }}>{badge.label}</span>
+                                        <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{badge.icon}</span>
+                                        <M3Typography variant="label-small" style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', fontWeight: 'bold' }}>{badge.label}</M3Typography>
                                     </button>
                                 ))}
                             </div>
                         </div>
 
                         <div>
-                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontWeight: "900", textTransform: "uppercase", marginBottom: layers.ref.spacing['6'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>Compiti</p>
+                            <M3Typography variant="title-small" style={{ fontWeight: '900', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Compiti</M3Typography>
                             <TabGroup
                                 tabs={[
                                     { id: 'completed', label: 'Svolti' },
@@ -552,7 +747,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 ]}
                                 activeTab={homeworkCheck[selectedStudentForActions.id] || 'default'}
                                 onTabChange={(id) => { handleHomeworkChange(selectedStudentForActions.id, id as HomeworkStatus); setSelectedStudentForActions(null); }}
-                                style={{ width: "100%" }}
+                                // style removed: width should be set on parent container if needed
                             />
                         </div>
                     </M3DialogContent>
@@ -574,8 +769,8 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
             {isShareInfoOpen && (
                 <ShareModal
-                    title={`Lezione: ${lesson.contenuto}`}
-                    text={`Argomento: ${lesson.contenuto}\nCompiti: ${lesson.compiti || 'Nessuno'}`}
+                    title="Lezione:"
+                    text="Argomento:\nCompiti:"
                     onClose={() => setIsShareInfoOpen(false)}
                 />
             )}
@@ -583,7 +778,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             {previewingMaterial && (
                 <DocumentViewerModal
                     title={previewingMaterial.fileName}
-                    htmlContent={previewingMaterial.htmlContent || `<pre>${previewingMaterial.content}</pre>`}
+                    htmlContent={typeof previewingMaterial.htmlContent === 'string' && previewingMaterial.htmlContent.trim() ? previewingMaterial.htmlContent : 'Contenuto non disponibile'}
                     onClose={() => setPreviewingMaterial(null)}
                 />
             )}
@@ -613,12 +808,13 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             )}
 
             {viewingStudentProfile && (
-                <div  style={{backgroundColor: "layers.sys.color.surface", overflowY: "auto"}}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface)', overflowY: 'auto', padding: 'var(--md-sys-spacing-4)' }}>
                     <StudentProfile
                         student={viewingStudentProfile}
                         evaluations={evaluations.filter(e => e.studenteId === viewingStudentProfile.id)}
                         competencyEvaluations={competencyEvaluations.filter(e => e.studenteId === viewingStudentProfile.id)}
                         settings={settings}
+                        aiSettings={aiSettings}
                         onBack={() => setViewingStudentProfile(null)}
                         onDeleteEvaluation={() => {/* Handle delete */ }}
                         register={[]}
@@ -631,11 +827,3 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 };
 
 export default ClassroomView;
-
-
-
-
-
-
-
-

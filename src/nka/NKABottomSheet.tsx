@@ -56,46 +56,146 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
   return (
     <>
       {/* Backdrop to close modal */}
-      <div 
-        className="nka-backdrop" 
+      <div
         onClick={onClose}
         role="presentation"
         aria-hidden="true"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.32)',
+          zIndex: 1000,
+        }}
       />
-      <div className="nka-bottom-sheet" role="dialog" aria-modal="true" aria-label="Mappa neurale">
-      <div className="nka-map-container">
-        <NKAForceMap nodes={nodes} onNodeSelect={handleNodeSelect} />
-        {/* List fallback for accessibility and actions */}
-        {nodes.map((node: NKANode) => (
-          <NKANodeCard key={node.id} node={node} onSelect={() => handleNodeSelect(node)} />
-        ))}
-      </div>
-      <button className="nka-close-btn" onClick={onClose} aria-label="Chiudi mappa neurale">×</button>
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mappa neurale"
+        style={{
+          position: 'fixed',
+          left: '50%',
+          bottom: 0,
+          transform: 'translateX(-50%)',
+          width: 'min(100vw, 600px)',
+          background: 'var(--md-sys-color-surface)',
+          borderTopLeftRadius: 'var(--md-sys-shape-corner-large)',
+          borderTopRightRadius: 'var(--md-sys-shape-corner-large)',
+          boxShadow: 'var(--md-sys-elevation3)',
+          zIndex: 1001,
+          padding: 'var(--md-sys-spacing-6) var(--md-sys-spacing-4) var(--md-sys-spacing-4) var(--md-sys-spacing-4)',
+          minHeight: 320,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--md-sys-spacing-4)',
+        }}
+      >
+        <div style={{ width: '100%', marginBottom: 'var(--md-sys-spacing-4)' }}>
+          <NKAForceMap nodes={nodes} onNodeSelect={handleNodeSelect} />
+          {/* List fallback for accessibility and actions */}
+          {nodes.map((node: NKANode) => (
+            <NKANodeCard key={node.id} node={node} onSelect={() => handleNodeSelect(node)} />
+          ))}
+        </div>
+        <button
+          onClick={onClose}
+          aria-label="Chiudi mappa neurale"
+          style={{
+            position: 'absolute',
+            top: 12,
+            right: 16,
+            background: 'none',
+            border: 'none',
+            color: 'var(--md-sys-color-on-surface-variant)',
+            fontSize: 28,
+            cursor: 'pointer',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
+            width: 40,
+            height: 40,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'background 0.2s',
+          }}
+        >×</button>
       {/* Wizard AI generativo */}
       {showWizard && selectedNode && (
-        <div className="nka-wizard-modal">
-          <h4>Wizard: {selectedNode.label}</h4>
+        <div
+          style={{
+            position: 'fixed',
+            left: '50%',
+            top: '10vh',
+            transform: 'translateX(-50%)',
+            background: 'var(--md-sys-color-surface-container)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            boxShadow: 'var(--md-sys-elevation2)',
+            padding: 'var(--md-sys-spacing-6)',
+            zIndex: 1100,
+            minWidth: 320,
+            maxWidth: 480,
+          }}
+        >
+          <h4 style={{ margin: 0, color: 'var(--md-sys-color-on-surface)' }}>Wizard: {selectedNode.label}</h4>
           {wizardLoading ? (
-            <div>Generazione wizard AI…</div>
+            <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Generazione wizard AI…</div>
           ) : (
-            <ul>
+            <ul style={{ padding: 0, margin: 'var(--md-sys-spacing-4) 0', listStyle: 'none' }}>
               {wizardSteps.map((step: NKAWizardStep) => (
-                <li key={step.id}>
-                  <strong>{step.title}</strong>
-                  <div>{step.description}</div>
-                  {step.actions.map((a: string) => <button key={a}>{a}</button>)}
+                <li key={step.id} style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>
+                  <strong style={{ color: 'var(--md-sys-color-primary)' }}>{step.title}</strong>
+                  <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{step.description}</div>
+                  {step.actions.map((a: string) => (
+                    <button
+                      key={a}
+                      style={{
+                        background: 'var(--md-sys-color-primary)',
+                        color: 'var(--md-sys-color-on-primary)',
+                        border: 'none',
+                        borderRadius: 'var(--md-sys-shape-corner-small)',
+                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+                        font: 'inherit',
+                        cursor: 'pointer',
+                        marginRight: 'var(--md-sys-spacing-2)',
+                        marginTop: 'var(--md-sys-spacing-2)',
+                      }}
+                    >{a}</button>
+                  ))}
                 </li>
               ))}
             </ul>
           )}
-          <button onClick={() => setShowWizard(false)}>Chiudi wizard</button>
+          <button
+            onClick={() => setShowWizard(false)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--md-sys-color-primary)',
+              fontSize: 18,
+              cursor: 'pointer',
+              marginTop: 'var(--md-sys-spacing-4)',
+            }}
+          >Chiudi wizard</button>
         </div>
       )}
       {/* Modalità gioco */}
       {showGame && (
         <GameMode nodes={nodes} />
       )}
-      <button onClick={() => setShowGame((g: boolean) => !g)} className="nka-game-btn">{showGame ? 'Nascondi' : 'Mostra'} Modalità Gioco</button>
+      <button
+        onClick={() => setShowGame((g: boolean) => !g)}
+        style={{
+          background: 'var(--md-sys-color-secondary)',
+          color: 'var(--md-sys-color-on-secondary)',
+          border: 'none',
+          borderRadius: 'var(--md-sys-shape-corner-medium)',
+          padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+          font: 'inherit',
+          cursor: 'pointer',
+          marginTop: 'var(--md-sys-spacing-4)',
+        }}
+      >{showGame ? 'Nascondi' : 'Mostra'} Modalità Gioco</button>
       </div>
     </>
   );

@@ -205,6 +205,7 @@ export const generateClassPlanningDocument = async (aiSettings: AiSettings, data
     udaList: string;
     kbContext: string;
     metodologie: string;
+    materia: string;
 }): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();

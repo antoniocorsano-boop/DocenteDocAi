@@ -14,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     name: {
       control: 'text',
@@ -26,7 +26,7 @@ const meta = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl],
+      options: ['sm', 'md', 'lg', 'xl'],
       description: 'Avatar size',
     },
   },
@@ -223,6 +223,8 @@ export const TwoCharInitials: Story = {
     },
   },
 };
+
+
 
 
 

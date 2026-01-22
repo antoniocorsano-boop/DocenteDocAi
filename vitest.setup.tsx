@@ -1,11 +1,12 @@
 import '@testing-library/jest-dom/vitest';
 import { vi } from 'vitest';
+import './src/theme.css';
 
 // Override the render function globally
 vi.mock('@testing-library/react', async () => {
   const actual = await vi.importActual('@testing-library/react');
   const { render: rtlRender } = actual as { render: (ui: React.ReactElement, options?: Record<string, unknown>) => unknown };
-  const { M3ThemeProvider } = await import('./src/theme/theme');
+  const { M3ThemeProvider } = await import('./src/theme/M3ThemeProvider');
   const React = await import('react');
 
   const renderWithTheme = (ui: React.ReactElement, options?: Record<string, unknown>) => {

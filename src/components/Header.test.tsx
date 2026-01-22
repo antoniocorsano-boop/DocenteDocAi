@@ -7,7 +7,7 @@ import { Header } from './Header';
 const baseProps = {
   showBackButton: true,
   onBack: vi.fn(),
-  user: { id: 'test-id', displayName: 'Mario Rossi', photoURL: ', email: 'test@example.com' },
+  user: { id: 'test-id', displayName: 'Mario Rossi', photoURL: '', email: 'test@example.com' },
   settings: {
     timeSlots: [],
     defaultView: 'home',
@@ -23,7 +23,7 @@ const baseProps = {
     email: 'test@example.com',
     nomeIstituto: 'Liceo Docente',
     cittaIstituto: 'Roma',
-    anniScolastici: ['2025-2026],
+    anniScolastici: ['2025-2026'],
     annoScolasticoCorrente: '2025-2026',
     activityStartDate: '2025-09-01',
     activityEndDate: '2026-06-30',
@@ -90,7 +90,7 @@ describe('Header M3 Expressive', () => {
     expect(header).toHaveAttribute('role', 'banner');
     expect(header).toHaveStyle({
       position: 'sticky',
-      backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
+      backgroundColor: 'var(--md-sys-color-surface-container-high)',
       display: 'flex'
     });
   });

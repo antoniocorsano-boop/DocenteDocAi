@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block M Migration (2 violations eliminated)
 
 // M3Expressive: QuickEvaluationModal - Quick student evaluation modal with M3 tokens
 import React, { useState } from 'react';
@@ -140,9 +140,33 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                     <label >Livello Raggiunto</label>
                     <div >
                         {selectedCompetenza.livelli.map(level => (
-                            <label key={level.id} className={`quick-evaluation-modal-level-option ${selectedLevelId === level.id ? 'selected' : ''}`}>
+                            <label key={level.id} style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: 'var(--md-sys-spacing-6)',
+                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                transition: 'all 0.2s ease',
+                                cursor: 'pointer',
+                                border: '1px solid transparent',
+                                backgroundColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary-container)' : 'transparent',
+                                borderColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary)' : 'transparent'
+                            }}
+                            onMouseEnter={(e) => {
+                                if (selectedLevelId !== level.id) {
+                                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                if (selectedLevelId !== level.id) {
+                                    e.currentTarget.style.backgroundColor = 'transparent';
+                                }
+                            }}>
                                 <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)}  required />
-                                <span className={`quick-evaluation-modal-level-text ${selectedLevelId === level.id ? 'selected' : ''}`}>{level.descrizione}</span>
+                                <span style={{
+                                    fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                    color: selectedLevelId === level.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+                                    fontWeight: selectedLevelId === level.id ? 700 : 'normal'
+                                }}>{level.descrizione}</span>
                             </label>
                         ))}
                     </div>

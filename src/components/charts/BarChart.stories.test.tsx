@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from '../ui/test-utils';
 // LEGACY - MD3 Non-compliant
 import React from 'react';
 import { render } from '@testing-library/react';
@@ -6,7 +6,7 @@ import BarChart from './BarChart';
 
 describe('BarChart Story Snapshots', () => {
   it('renders default story correctly', () => {
-    const { container } = renderWithM3Theme(<BarChart data={[{label: 'Test', value: 10}]} color=sys.colors.000 />);
+    const { container } = renderWithM3Theme(<BarChart data={[{label: 'Test', value: 10}]} color="var(--md-sys-color-primary)" />);
     expect(container).toMatchSnapshot();
   });
 });

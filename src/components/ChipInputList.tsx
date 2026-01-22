@@ -1,8 +1,6 @@
 // LEGACY - MD3 Non-compliant
 
 import React, { useState, useRef } from 'react';
-import { useTheme } from '../theme/theme';
-
 interface ChipInputListProps {
     items: string[];
     onAdd: (item: string) => void;
@@ -14,8 +12,7 @@ interface ChipInputListProps {
 }
 
 const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, placeholder, icon, label, variant = 'default' }) => {
-  const { layers } = useTheme();
-    const [newItem, setNewItem] = useState('');
+  const [newItem, setNewItem] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleAdd = () => {
@@ -42,27 +39,65 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
     };
 
     return (
-        <div style={{marginBottom: layers.ref.spacing['8']}}>
-             <div  style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: layers.ref.spacing['8']}}>
-                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6']}}>
-                    <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject' ? 'bg-tertiary-container text-tertiary' : 'bg-primaryContainer text-primary'}`}>
-                        <span  style={{ fontSize: "1.25rem" }}>{icon}</span>
+        <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
+             <div  style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                    <div style={{
+                        width: 'var(--md-sys-spacing-10)',
+                        height: 'var(--md-sys-spacing-10)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: 'var(--md-sys-elevation-level1)',
+                        transition: 'transform 0.2s ease',
+                        backgroundColor: variant === 'class' ? 'var(--md-sys-color-secondary-container)' :
+                                       variant === 'subject' ? 'var(--md-sys-color-tertiary-container)' :
+                                       'var(--md-sys-color-primary-container)',
+                        color: variant === 'class' ? 'var(--md-sys-color-on-secondary-container)' :
+                               variant === 'subject' ? 'var(--md-sys-color-on-tertiary-container)' :
+                               'var(--md-sys-color-on-primary-container)'
+                    }}>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            fontSize: 'var(--md-sys-spacing-5)',
+                            userSelect: 'none'
+                        }}>{icon}</span>
                     </div>
                     <div>
-                        <label style={{ color: layers.sys.color.onPrimary, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", display: "block" }}>
+                        <label style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", display: "block" }}>
                             {label}
                         </label>
-                        <span style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
                             {items.length} {items.length === 1 ? 'elemento' : 'elementi'} salvati
                         </span>
                     </div>
                 </div>
              </div>
              
-             <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
-                <div  style={{marginBottom: layers.ref.spacing['8']}}>
+             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+                <div  style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                     {items.map((item, index) => (
-                        <div key={index} className={`m3-expressive-chip variant-${variant} animate-in zoom-in-95 duration-200`}>
+                        <div key={index} style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                            backgroundColor: variant === 'class' ? 'var(--md-sys-color-secondary-container)' :
+                                           variant === 'subject' ? 'var(--md-sys-color-tertiary-container)' :
+                                           'var(--md-sys-color-primary-container)',
+                            color: variant === 'class' ? 'var(--md-sys-color-on-secondary-container)' :
+                                  variant === 'subject' ? 'var(--md-sys-color-on-tertiary-container)' :
+                                  'var(--md-sys-color-on-primary-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            fontSize: 'var(--md-sys-typescale-body-small-size)',
+                            fontWeight: 'var(--md-sys-typescale-body-small-weight)',
+                            lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
+                            animation: 'zoom-in-95 0.2s ease-out',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
                             <span>{item}</span>
                             <button 
                                 type="button"
@@ -70,20 +105,52 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                                 
                                 aria-label={`Rimuovi ${item}`}
                                 tabIndex={-1}
+                                style={{
+                                    border: 'none',
+                                    backgroundColor: 'transparent',
+                                    color: 'inherit',
+                                    cursor: 'pointer',
+                                    padding: 'var(--md-sys-spacing-1)',
+                                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    opacity: '0.7',
+                                    transition: 'opacity 0.2s ease'
+                                }}
                             >
-                                <span >close</span>
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
+                                    fontSize: 'var(--md-sys-spacing-3)',
+                                    userSelect: 'none'
+                                }}>close</span>
                             </button>
                         </div>
                     ))}
                     
                     {items.length === 0 && (
-                        <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontSize: "0.75rem", opacity: "0.4", paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>Nessun elemento aggiunto...</p>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "0.75rem", opacity: "0.4", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
                     )}
                 </div>
                 
                 {/* Integrated Input Area */}
-                <div  onClick={() => inputRef.current?.focus()}>
-                    <span  style={{ fontSize: "0.875rem", opacity: "0.4", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} aria-hidden="true">add_circle</span>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-3)',
+                    padding: 'var(--md-sys-spacing-3)',
+                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                    transition: 'border-color 0.2s ease'
+                }} onClick={() => inputRef.current?.focus()}>
+                    <span style={{
+                        fontFamily: 'Material Symbols Outlined',
+                        fontSize: 'var(--md-sys-spacing-4)',
+                        opacity: '0.6',
+                        transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                        color: 'var(--md-sys-color-on-surface-variant)'
+                    }} aria-hidden="true">add_circle</span>
                     <input 
                         ref={inputRef}
                         type="text" 
@@ -91,20 +158,44 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         onChange={e => setNewItem(e.target.value)}
                         aria-label={`Aggiungi nuovo ${label.toLowerCase()}`}
                         onKeyDown={handleKeyDown}
-                         style={{ flex: "1" }}
+                        style={{
+                            flex: '1',
+                            border: 'none',
+                            outline: 'none',
+                            backgroundColor: 'transparent',
+                            color: 'var(--md-sys-color-on-surface)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            fontFamily: 'var(--md-sys-typescale-body-large-font-family)'
+                        }}
                         placeholder={placeholder}
                         enterKeyHint="done"
                     />
                     <button 
                         type="button"
                         onClick={(e) => { e.stopPropagation(); handleAdd(); }}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${newItem.trim() ? 'bg-primary text-on-primary shadow-[var(--md-sys-elevation-level1)] scale-110' : 'bg-[var(--md-sys-color-surfaceContainerHigh)]est text-[var(--md-sys-color-onSurface)]-variant opacity-30'}`}
+                        style={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            backgroundColor: newItem.trim() ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-variant)',
+                            color: newItem.trim() ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                            border: 'none',
+                            width: 'var(--md-sys-spacing-8)',
+                            height: 'var(--md-sys-spacing-8)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: newItem.trim() ? 'pointer' : 'not-allowed',
+                            transition: 'all 0.2s ease'
+                        }}
                         disabled={!newItem.trim()}
                     >
-                        <span  style={{ fontSize: "0.875rem" }}>arrow_forward</span>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            fontSize: 'var(--md-sys-spacing-4)',
+                            userSelect: 'none'
+                        }}>arrow_forward</span>
                     </button>
                 </div>
-                <p style={{ color: layers.sys.color.onSurfaceVariant, opacity: "0.4", marginTop: layers.ref.spacing['3'], paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "bold" }}>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "bold" }}>
                     Premi Invio o usa la virgola per aggiungere più elementi
                 </p>
             </div>

@@ -14,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     label: {
       control: 'text',
@@ -368,7 +368,7 @@ export const CustomColors: Story = {
   render: () => {
     const [selected, setSelected] = useState<string>('1');
 
-    const colors = ['var(--md-sys-color-primary)', 'var(--md-sys-color-secondary)', 'var(--sys-tertiary)', 'var(--sys-error)', 'var(--md-sys-color-surface-variant)', 'var(--sys-outline)];
+    const colors = ['var(--md-sys-color-primary)', 'var(--md-sys-color-secondary)', 'var(--sys-tertiary)', 'var(--sys-error)', 'var(--md-sys-color-surface-variant)', 'var(--sys-outline)'];
 
     return (
       <div
@@ -402,6 +402,8 @@ export const CustomColors: Story = {
     },
   },
 };
+
+
 
 
 

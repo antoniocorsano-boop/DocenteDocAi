@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Updated for layered theme access
 /**
  * M3Popover - Material Design 3 Popover Component
  * 
@@ -60,8 +60,6 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useTheme } from '../../theme/theme';
-import { useTheme } from '../../theme/theme';
 
 export interface M3PopoverProps {
   /** Whether popover is open */
@@ -99,6 +97,9 @@ export interface M3PopoverProps {
   
   /** Custom styles */
   style?: React.CSSProperties;
+  
+  /** Custom className */
+  className?: string;
   
   /** Z-index */
   zIndex?: number;
@@ -190,11 +191,9 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
   maxWidth = 400,
   showBackdrop = true,
   style = {},
+  className,
   zIndex = 1300,
 }) => {
-  const { layers } = useTheme();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
   const popoverRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ top: 0, left: 0, transformOrigin: 'top left' });
   
@@ -294,12 +293,14 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Backdrop */}
       {showBackdrop && (
         <div
+          // eslint-disable-next-line design-system/no-classname
+          className="m3-popover__backdrop"
           style={{position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'layers.sys.color.scrim',
+            backgroundColor: 'var(--md-sys-color-scrim)',
             opacity: 'var(--md-sys-state-opacity-scrim)',
             cursor: 'pointer',
             zIndex: zIndex - 1,}}
@@ -311,6 +312,8 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Popover */}
       <div
         ref={popoverRef}
+        // eslint-disable-next-line design-system/no-classname
+        className={`m3-popover ${className || ''}`.trim()}
         style={{
           position: 'fixed',
           top: `${position.top}px`,
@@ -348,29 +351,35 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         {/* Header */}
         {(title || subtitle) && (
           <div
-            style={{padding: layers.ref.spacing['4'],
-              borderBottom: '1px solid  layers.sys.color.onPrimary',}}
+            style={{
+              padding: 'var(--md-sys-spacing-4)',
+              borderBottom: `1px solid var(--md-sys-color-on-primary)`
+            }}
           >
             {title && (
               <div
-                style={{fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
+                style={{
+                  fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
                   fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                   fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
-                  lineHeight: layers.ref.spacing['6'],
-                  margin: `0 0 ${layers.ref.spacing['1']} 0`,
-                  color: layers.sys.color.onSurface,}}
+                  lineHeight: 'var(--md-sys-spacing-6)',
+                  margin: `0 0 var(--md-sys-spacing-1) 0`,
+                  color: 'var(--md-sys-color-on-surface)'
+                }}
               >
                 {title}
               </div>
             )}
             {subtitle && (
               <div
-                style={{fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
+                style={{
+                  fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
                   fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                   fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
-                  lineHeight: layers.ref.spacing['4'],
+                  lineHeight: 'var(--md-sys-spacing-4)',
                   margin: 0,
-                  color: ' layers.sys.color.onSurfaceVariant',}}
+                  color: 'var(--md-sys-color-on-surface-variant)'
+                }}
               >
                 {subtitle}
               </div>
@@ -380,11 +389,13 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         
         {/* Content */}
         <div
-          // eslint-disable-next-line design-system/no-classname
+           
           
-          style={{padding: layers.ref.spacing['4'],
+          style={{
+            padding: 'var(--md-sys-spacing-4)',
             overflowY: 'auto',
-            maxHeight: 'min(25rem, 70vh)',}}
+            maxHeight: 'min(25rem, 70vh)'
+          }}
         >
           {children}
         </div>

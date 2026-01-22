@@ -2,15 +2,12 @@
 
 import React from 'react';
 import { Competenza, Livello } from '../types';
-import { useTheme } from '../theme/theme';
-
 interface CompetencyLevelsViewProps {
     competenze: Competenza[];
 }
 
 const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
-  const { layers } = useTheme();
-    const { nome, voto, descrizione } = livello;
+  const { nome, voto, descrizione } = livello;
     
     const getLevelStyle = (): string => {
         const lower = nome.toLowerCase();
@@ -32,8 +29,30 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
 
     const cardClass = getLevelStyle();
 
+    const cardStyle: React.CSSProperties = {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--md-sys-spacing-8)',
+        backgroundColor:
+            cardClass === 'level-avanzato' ? 'var(--md-sys-color-primary-container)' :
+            cardClass === 'level-intermedio' ? 'var(--md-sys-color-secondary-container)' :
+            cardClass === 'level-base' ? 'var(--md-sys-color-tertiary-container)' :
+            cardClass === 'level-iniziale' ? 'var(--md-sys-color-surface-container-low)' :
+            'var(--md-sys-color-surface)',
+        color:
+            cardClass === 'level-avanzato' ? 'var(--md-sys-color-on-primary-container)' :
+            cardClass === 'level-intermedio' ? 'var(--md-sys-color-on-secondary-container)' :
+            cardClass === 'level-base' ? 'var(--md-sys-color-on-tertiary-container)' :
+            cardClass === 'level-iniziale' ? 'var(--md-sys-color-on-surface-variant)' :
+            'var(--md-sys-color-on-surface)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        boxShadow: 'var(--md-sys-elevation-level-1)',
+        padding: 'var(--md-sys-spacing-8)',
+        marginBottom: 'var(--md-sys-spacing-8)'
+    };
+
     return (
-        <div className={`level-card ${cardClass}`}>
+        <div style={cardStyle}>
             <div >
                 <span  style={{ fontSize: "1.5rem" }}>
                     {cardClass === 'level-avanzato' ? 'workspace_premium' : 
@@ -43,11 +62,11 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
                 </span>
             </div>
             <div style={{ flexGrow: "1" }}>
-                <div style={{display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: layers.ref.spacing['4']}}>
-                    <h3 style={{ color: layers.sys.color.onSurface }} style={{ fontWeight: "bold" }}>{nome}</h3>
-                    <span style={{ backgroundColor: layers.sys.color.surfaceContainerHigh }} style={{paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: "0.375rem"}}>Valore: {voto}</span>
+                <div style={{display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 'var(--md-sys-spacing-4)'}}>
+                    <h3 style={{ color: 'var(--md-sys-color-on-surface)' ,  fontWeight: "bold" }}>{nome}</h3>
+                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem"}}>Valore: {voto}</span>
                 </div>
-                <p style={{ color: layers.sys.color.onSurfaceVariant }} style={{ opacity: "0.9" }}>{descrizione}</p>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.9" }}>{descrizione}</p>
             </div>
         </div>
     );
@@ -56,7 +75,7 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
 const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze }) => {
     
     return (
-        <div  style={{gap: layers.ref.spacing['6'], padding: layers.ref.spacing['8']}}>
+        <div  style={{gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)'}}>
             <div >
                 <div >
                     <h1 >Descrittori Competenze</h1>
@@ -68,9 +87,9 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
 
             {competenze.map(competenza => (
                 <div key={competenza.id} >
-                    <div  style={{marginBottom: layers.ref.spacing['8'], borderBottom: "1px solid layers.sys.color.outline"}}>
-                        <h2 style={{ color: "layers.sys.color.primary" }}>{competenza.nome}</h2>
-                        <span style={{ color:  layers.sys.color.onSurfaceVariant, backgroundColor:  layers.sys.color.surfaceContainerHigh }} style={{paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: "0.375rem"}}>
+                    <div  style={{marginBottom: 'var(--md-sys-spacing-8)', borderBottom: "1px solid var(--md-sys-color-outline)"}}>
+                        <h2 style={{ color: "var(--md-sys-color-primary)" }}>{competenza.nome}</h2>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem"}}>
                             {competenza.framework || 'Framework Standard'}
                         </span>
                     </div>

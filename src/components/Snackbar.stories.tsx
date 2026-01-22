@@ -14,14 +14,14 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   decorators: [
     (Story) => (
-      <div style={{ minHeight: layers.ref.spacing['4'], position: 'relative' }}>
+      <div style={{ minHeight: 'var(--md-sys-spacing-4)', position: 'relative' }}>
         <Story />
       </div>
     ),
-  '],
+  ],
 } satisfies Meta<typeof Snackbar>;
 
 export default meta;
@@ -63,6 +63,8 @@ export const Info: Story = {
     },
   },
 };
+
+
 
 
 

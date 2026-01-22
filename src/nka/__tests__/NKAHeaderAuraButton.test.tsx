@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from '../../test-utils';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import NKAHeaderAuraButton from '../NKAHeaderAuraButton';
@@ -9,7 +9,7 @@ describe('NKAHeaderAuraButton', () => {
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByLabelText('Apri mappa neurale')).toBeInTheDocument();
     expect(screen.getByText('auto_awesome')).toBeInTheDocument();
-    expect(screen.getByRole('button').querySelector('.nka-badge')).toBeTruthy();
+    expect(screen.getByLabelText('Nuovo nodo disponibile')).toBeInTheDocument();
   });
 
   it('calls onClick when clicked', () => {

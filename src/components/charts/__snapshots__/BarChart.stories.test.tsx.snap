@@ -13,8 +13,7 @@ exports[`BarChart Story Snapshots > renders default story correctly 1`] = `
     >
       <g>
         <rect
-          class="bar-chart-bar"
-          fill="#000"
+          fill="var(--md-sys-color-primary)"
           height="250"
           rx="4"
           width="495"
@@ -22,8 +21,7 @@ exports[`BarChart Story Snapshots > renders default story correctly 1`] = `
           y="0"
         />
         <text
-          class="chart-text"
-          fill="var(--md-sys-color-on-surface-variant)"
+          fill="var(--md-sys-color-onSurface-variant)"
           font-size="12"
           text-anchor="middle"
           x="247.5"

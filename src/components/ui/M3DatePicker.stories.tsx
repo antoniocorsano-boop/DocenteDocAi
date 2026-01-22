@@ -6,7 +6,7 @@ import M3DatePicker from './M3DatePicker';
 const meta = {
   title: 'M3/DatePicker',
   component: M3DatePicker,
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     label: {
       control: 'text',
@@ -158,6 +158,8 @@ export const States: Story = {
     </div>
   ),
 };
+
+
 
 
 

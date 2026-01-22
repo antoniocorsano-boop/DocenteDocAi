@@ -5,8 +5,6 @@ import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types
 import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface UdaExportModalProps {
     uda: Uda;
     competenze: Competenza[];
@@ -17,8 +15,7 @@ interface UdaExportModalProps {
 }
 
 export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze, settings, onClose, onSaveReport, aiSettings }) => {
-  const { layers } = useTheme();
-    const [docType, setDocType] = useState<'docente' | 'studente'>('docente');
+  const [docType, setDocType] = useState<'docente' | 'studente'>('docente');
     const [isExporting, setIsExporting] = useState(false);
     const [markdownReport, setMarkdownReport] = useState<string | null>(null);
 
@@ -94,7 +91,6 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             html += `<h2>Strumenti</h2><p>${uda.tools}</p>`;
 
             const blob = await generateHtmlDocxBlob(html, uda.title);
-            const fileName = `Progettazione_UDA_${uda.title.replace(/ /g, '_')}.docx`;
             saveAs(blob, fileName);
             onClose();
             
@@ -131,10 +127,10 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }}>
-                <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4']}}>
-                    <div style={{ backgroundColor: sys.colors.primaryContainer/10, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
-                        <p style={{ color: layers.sys.color.onPrimary }}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 }}>
+                <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
+                    <div style={{ backgroundColor: sys.colors.primaryContainer/10, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+                        <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
                             Stai esportando: <strong>{uda.title}</strong>
                         </p>
                     </div>
@@ -150,60 +146,60 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         fullWidth
                     />
 
-                    <div style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['6']}}>
+                    <div style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
                         <button 
                             onClick={handlePdfExport}
                             disabled={isExporting}
-                            style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['8'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid layers.sys.color.outline"}}
+                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid var(--md-sys-color-outline)" }}
                         >
-                            <div style={{ borderRadius: layers.ref.shape.corner.large, color: sys.colors.on-primaryContainer }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.primaryContainer", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
                                 <span  style={{ fontSize: "1.5rem" }}>picture_as_pdf</span>
                             </div>
                             <div>
                                 <p  style={{ fontWeight: "bold", fontSize: "1.125rem" }}>Esporta in PDF</p>
-                                <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Ideale per stampa e archiviazione</p>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Ideale per stampa e archiviazione</p>
                             </div>
                         </button>
 
                         <button 
                             onClick={handleDocxExport}
                             disabled={isExporting}
-                            style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['8'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid layers.sys.color.outline"}}
+                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid var(--md-sys-color-outline)" }}
                         >
-                            <div style={{ borderRadius: layers.ref.shape.corner.large, color: sys.colors.on-secondary-container }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.secondary-container", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-secondary-container, width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
                                 <span  style={{ fontSize: "1.5rem" }}>description</span>
                             </div>
                             <div>
                                 <p  style={{ fontWeight: "bold", fontSize: "1.125rem" }}>Esporta in Word</p>
-                                <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Per modifiche manuali successive</p>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per modifiche manuali successive</p>
                             </div>
                         </button>
 
                         <button 
                             onClick={handleAiReport}
                             disabled={isExporting}
-                            style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerLowest }} style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8'], padding: layers.ref.spacing['8'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid layers.sys.color.outline"}}
+                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left", border: "1px solid var(--md-sys-color-outline)"}}
                         >
-                            <div style={{ borderRadius: layers.ref.shape.corner.large, color: sys.colors.on-tertiary-container }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.tertiary-container", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-tertiary-container , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
                                 <span  style={{ fontSize: "1.5rem" }}>auto_awesome</span>
                             </div>
                             <div>
                                 <p  style={{ fontWeight: "bold", fontSize: "1.125rem" }}>Report con AI</p>
-                                <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Genera analisi e suggerimenti didattici</p>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Genera analisi e suggerimenti didattici</p>
                             </div>
                         </button>
                     </div>
 
                     {isExporting && (
-                        <div style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh, borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", alignItems: "center", justifyContent: "center", gap: layers.ref.spacing['6'], padding: layers.ref.spacing['8']}}>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)'}}>
                             <span >sync</span>
                             <span >Generazione in corso...</span>
                         </div>
                     )}
 
                     {markdownReport && (
-                        <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLowest, borderRadius: layers.ref.shape.corner.large }} style={{marginTop: layers.ref.spacing['4'], padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
-                            <h4  style={{marginBottom: layers.ref.spacing['8'], color: "layers.sys.color.tertiary"}}>Report AI Generato</h4>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+                            <h4  style={{marginBottom: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-tertiary)"}}>Report AI Generato</h4>
                             <div  style={{ overflowY: "auto" }}>
                                 {markdownReport}
                             </div>

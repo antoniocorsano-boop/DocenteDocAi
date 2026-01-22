@@ -5,7 +5,7 @@ import M3BadgedIcon from './M3BadgedIcon';
 const meta: Meta<typeof M3BadgedIcon> = {
   component: M3BadgedIcon,
   title: 'UI/Icons/M3BadgedIcon',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -35,7 +35,7 @@ const meta: Meta<typeof M3BadgedIcon> = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg],
+      options: ['sm', 'md', 'lg'],
       description: 'Icon size',
       table: {
         type: { summary: 'sm | md | lg' },
@@ -126,6 +126,8 @@ export const WarningBadge: Story = {
     color: 'text-[var(--md-sys-color-error)]',
   },
 };
+
+
 
 
 

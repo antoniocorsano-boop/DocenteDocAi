@@ -1,13 +1,9 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block G Migration (13 violations eliminated)
 
 import React, { useState } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../hooks/useTheme';
 import { Valutazione } from '../types';
 import { EVALUATION_TYPES } from '../constants';
 import { M3ChoiceCard, M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface AddProvaModalProps {
     disciplines: string[];
     onClose: () => void;
@@ -15,8 +11,7 @@ interface AddProvaModalProps {
 }
 
 const getTestTypeIcon = (tipo: string) => {
-  const { layers } = useTheme();
-    switch (tipo) {
+  switch (tipo) {
         case 'Scritto': return 'edit_note';
         case 'Orale': return 'record_voice_over';
         case 'Pratico': return 'build';
@@ -50,13 +45,17 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
             level={1}
         >
             <form id="add-prova-form" onSubmit={handleSubmit}>
-                <M3DialogContent style={{display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['6']}}>
-                    <p style={{fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                        fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
-                        lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
-                        letterSpacing: 'var(--md-sys-typescale-body-medium-letter-spacing)',
-                        color: 'layers.sys.color.onSurface-variant'}}>
+                <M3DialogContent style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--md-sys-spacing-6)'
+                }}>
+                    <p style={{
+                      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
+                      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                      color: 'var(--md-sys-color-on-surface-variant)'
+                    }}>
                         Stai creando una nuova colonna nella griglia di valutazione per la classe selezionata.
                     </p>
 
@@ -70,9 +69,11 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                         required
                     />
 
-                    <div style={{display: 'grid',
-                        gridTemplateColumns: '1fr',
-                        gap: layers.ref.spacing['8']}}>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr',
+                      gap: 'var(--md-sys-spacing-4)'
+                    }}>
                         <TextField
                             id="prova-data"
                             name="data"
@@ -95,23 +96,18 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                     </div>
 
                     <div>
-                        <label style={{fontFamily: 'var(--md-sys-typescale-label-small-font-family)',
-                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-                            lineHeight: 'var(--md-sys-typescale-label-small-line-height)',
-                            color: 'layers.sys.color.primary',
-                            fontWeight: '800',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.3em',
-                            paddingLeft: layers.ref.spacing['5'],
-                            paddingRight: layers.ref.spacing['5'],
-                            textAlign: 'left',
-                            opacity: 0.7,
-                            marginBottom: layers.ref.spacing['8'],
-                            display: 'block'}}>Tipo Prova</label>
-                        <div style={{display: 'flex',
-                            gap: layers.ref.spacing['8'],
-                            overflowX: 'auto',
-                            paddingBottom: layers.ref.spacing['2']}}>
+                        <label style={{
+                          fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                          fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+                          lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                          color: 'var(--md-sys-color-on-surface)',
+                          marginBottom: 'var(--md-sys-spacing-3)'
+                        }}>Tipo Prova</label>
+                        <div style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: 'var(--md-sys-spacing-4)'
+                        }}>
                             {EVALUATION_TYPES.map(t => (
                                 <M3ChoiceCard
                                     key={t}

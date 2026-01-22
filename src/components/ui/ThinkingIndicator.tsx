@@ -1,11 +1,7 @@
-// LEGACY - MD3 Non-compliant
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
+// MD3 Compliant - Updated for layered theme access
+// @md3-compliant
 
 import React from 'react';
-import { useTheme } from '../../theme/theme';
-import { useTheme } from '../../theme/theme';
 
 interface ThinkingIndicatorProps {
   message?: string;
@@ -16,94 +12,106 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
   message = "Pensando...",
   size = 'medium'
 }) => {
-  const { layers } = useTheme();
-  const { spacing, typography } = useTheme();
 
   const sizeStyles = {
     small: {
-      fontSize: typography.body2.fontSize,
-      lineHeight: typography.body2.lineHeight,
-      fontWeight: typography.body2.fontWeight
+      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)'
     },
     medium: {
-      fontSize: typography.body1.fontSize,
-      lineHeight: typography.body1.lineHeight,
-      fontWeight: typography.body1.fontWeight
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)'
     },
     large: {
-      fontSize: typography.heading2.fontSize,
-      lineHeight: typography.heading2.lineHeight,
-      fontWeight: typography.heading2.fontWeight
+      fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)'
     }
   };
 
   return (
     <div
-      style={{display: 'flex',
+      style={{
+        display: 'flex',
         alignItems: 'center',
-        gap: spacing[3],
-        padding: spacing[4],
-        borderRadius: 'layers.ref.shape.corner.medium',
-        backgroundColor: ' layers.sys.color.surfaceContainerLow',
+        gap: 'var(--md-sys-spacing-3)',
+        padding: 'var(--md-sys-spacing-4)',
+        borderRadius: 'var(--md-sys-shape-corner-medium)',
+        backgroundColor: 'var(--md-sys-color-surface-container-low)',
         opacity: 0.5,
-        border: '1px solid  layers.sys.color.onPrimary',
-        borderOpacity: 0.3}}
+        border: '1px solid var(--md-sys-color-on-primary)',
+        borderOpacity: 0.3
+      }}
     >
       {/* Animated dots */}
-      <div style={{ display: 'flex', gap: spacing[1] }}>
+      <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-1)' }}>
         <div
-          style={{width: layers.ref.spacing['2'],
-            height: layers.ref.spacing['2'],
-            backgroundColor: 'layers.sys.color.primary',
+          style={{
+            width: 'var(--md-sys-spacing-2)',
+            height: 'var(--md-sys-spacing-2)',
+            backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: '50%',
             animation: 'pulse 2s ease-in-out infinite',
-            animationDelay: '0ms'}}
+            animationDelay: '0ms'
+          }}
         />
         <div
-          style={{width: layers.ref.spacing['2'],
-            height: layers.ref.spacing['2'],
-            backgroundColor: 'layers.sys.color.primary',
+          style={{
+            width: 'var(--md-sys-spacing-2)',
+            height: 'var(--md-sys-spacing-2)',
+            backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: '50%',
             animation: 'pulse 2s ease-in-out infinite',
-            animationDelay: '150ms'}}
+            animationDelay: '150ms'
+          }}
         />
         <div
-          style={{width: layers.ref.spacing['2'],
-            height: layers.ref.spacing['2'],
-            backgroundColor: 'layers.sys.color.primary',
+          style={{
+            width: 'var(--md-sys-spacing-2)',
+            height: 'var(--md-sys-spacing-2)',
+            backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: '50%',
             animation: 'pulse 2s ease-in-out infinite',
-            animationDelay: '300ms'}}
+            animationDelay: '300ms'
+          }}
         />
       </div>
 
       {/* Message */}
       <span
-        style={{...sizeStyles[size],
-          color: ' layers.sys.color.onSurfaceVariant',
-          fontFamily: 'var(--md-sys-typescale-body-large-font-family)'}}
+        style={{
+          ...sizeStyles[size],
+          color: 'var(--md-sys-color-on-surface-variant)',
+          fontFamily: 'var(--md-sys-typescale-body-large-font-family)'
+        }}
       >
         {message}
       </span>
 
       {/* Optional AI icon */}
       <div
-        style={{width: layers.ref.spacing['8'],
-          height: layers.ref.spacing['8'],
+        style={{
+          width: 'var(--md-sys-spacing-8)',
+          height: 'var(--md-sys-spacing-8)',
           borderRadius: '50%',
-          backgroundColor: 'layers.sys.color.primary',
+          backgroundColor: 'var(--md-sys-color-primary)',
           opacity: 0.1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          marginLeft: 'auto'}}
+          marginLeft: 'auto'
+        }}
       >
         <span
-          style={{fontFamily: 'Material Symbols Outlined',
-            fontSize: typography.caption.fontSize,
-            color: 'layers.sys.color.primary',
-            fontWeight: typography.caption.fontWeight,
-            lineHeight: typography.caption.lineHeight}}
+          style={{
+            fontFamily: 'Material Symbols Outlined',
+            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+            color: 'var(--md-sys-color-primary)',
+            fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
+            lineHeight: 'var(--md-sys-typescale-body-small-line-height)'
+          }}
         >
           smart_toy
         </span>

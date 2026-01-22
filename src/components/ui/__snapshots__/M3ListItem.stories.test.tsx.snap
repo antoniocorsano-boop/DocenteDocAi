@@ -3,13 +3,13 @@
 exports[`M3ListItem Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    class="flex items-start gap-4 p-4 rounded-[var(--md-sys-shape-corner-medium)] transition-all min-h-[56px]  "
+    style="display: flex; align-items: flex-start; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-medium); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); min-height: var(--md-sys-spacing-12); cursor: default; background-color: transparent; outline: none; outline-offset: 0; border: medium; text-align: left; width: 100%;"
   >
     <div
-      class="flex-grow min-w-0 flex flex-col gap-0.5"
+      style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--md-sys-spacing-1);"
     >
       <div
-        class="text-[var(--md-sys-color-on-surface)] font-bold truncate text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)]"
+        style="color: var(--md-sys-color-on-surface); font-weight: var(--md-sys-typescale-body-large-font-weight); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--md-sys-typescale-body-large-font-size); line-height: var(--md-sys-typescale-body-large-line-height);"
       >
         Test
       </div>

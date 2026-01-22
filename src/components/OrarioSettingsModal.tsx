@@ -1,8 +1,6 @@
 // LEGACY - MD3 Non-compliant
 import React from 'react';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField, TabGroup } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface OrarioSettingsModalProps {
   tipo: 'lezione' | 'disp' | 'ricev';
   classe: string;
@@ -19,7 +17,6 @@ interface OrarioSettingsModalProps {
 const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({ 
   tipo, classe, materia, argomento, linkNotebook, userClasses, disciplines, onChange, onClose, onSave 
 }) => {
-  const { layers } = useTheme();
   const tabs = [
     { id: 'lezione', label: 'Lezione', icon: 'school' },
     { id: 'disp', label: 'Disp.', icon: 'camera_alt' },
@@ -33,10 +30,10 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
       maxWidth="md"
       level={2}
     >
-      <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }} style={{gap: layers.ref.spacing['6']}}>
-        <div style={{display: "flex", flexDirection: "column", gap: layers.ref.spacing['6']}}>
+      <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , gap: 'var(--md-sys-spacing-6)'}}>
+        <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
           <div>
-            <p  style={{marginBottom: layers.ref.spacing['6'], opacity: "0.7", textTransform: "uppercase", letterSpacing: "0.1em"}}>Tipologia Attività</p>
+            <p  style={{marginBottom: 'var(--md-sys-spacing-6)', opacity: "0.7", textTransform: "uppercase", letterSpacing: "0.1em"}}>Tipologia Attività</p>
             <TabGroup
               tabs={tabs}
               activeTab={tipo}
@@ -45,7 +42,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
             />
           </div>
 
-          <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+          <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
             <SelectField
               label="Classe"
               value={classe}
@@ -64,14 +61,14 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
 
           <TextField
             label="Argomento (opzionale)"
-            value={argomento || '}
+            value={argomento || ''}
             onChange={e => onChange('argomento', e.target.value)}
             fullWidth
           />
 
           <TextField
             label="Link ai notebook"
-            value={linkNotebook || '}
+            value={linkNotebook || ''}
             onChange={e => onChange('linkNotebook', e.target.value)}
             fullWidth
             placeholder="Incolla URL deliverable..."

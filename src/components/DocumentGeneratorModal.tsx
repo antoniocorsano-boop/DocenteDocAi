@@ -1,15 +1,12 @@
 // LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface DocumentGeneratorModalProps {
     onClose: () => void;
     onGenerate: (prompt: string) => void;
 }
 
 const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose, onGenerate }) => {
-  const { layers } = useTheme();
   const [prompt, setPrompt] = useState('');
 
     const handleSubmit = () => {
@@ -27,8 +24,8 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
             maxWidth="sm"
             level={1}
         >
-            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{gap: layers.ref.spacing['6']}}>
-                <M3DialogContent style={{gap: layers.ref.spacing['6']}}>
+            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{gap: 'var(--md-sys-spacing-6)'}}>
+                <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                     <TextArea
                         id="doc-generator-prompt"
                         label="Descrivi il documento che vuoi creare"
@@ -40,7 +37,7 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
                     />
                 </M3DialogContent>
 
-                <M3DialogActions style={{gap: layers.ref.spacing['6']}}>
+                <M3DialogActions style={{gap: 'var(--md-sys-spacing-6)'}}>
                     <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                     <M3Button type="button" onClick={handleSubmit} variant="filled">
                         <span  style={{ marginRight: "0.5rem" }}>auto_awesome</span>

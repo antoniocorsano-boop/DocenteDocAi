@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import { EventoCalendario, TipoEvento } from '../types';
 import { TextField, TextArea, M3ChoiceCard, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface EventModalProps {
     eventToEdit?: Partial<EventoCalendario>;
     onClose: () => void;
@@ -19,8 +17,7 @@ const eventTypes: { value: TipoEvento; label: string; icon: string }[] = [
 ];
 
 const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, onDelete }) => {
-  const { layers } = useTheme();
-    const [event, setEvent] = useState<Partial<EventoCalendario>>({
+  const [event, setEvent] = useState<Partial<EventoCalendario>>({
         data: new Date().toISOString().split('T')[0],
         tipo: 'impegno',
         ...eventToEdit
@@ -60,11 +57,11 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent style={{marginTop: layers.ref.spacing['8']}}>
-                <form id="event-modal-form" onSubmit={handleSubmit} style={{marginTop: layers.ref.spacing['8']}}>
+            <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
+                <form id="event-modal-form" onSubmit={handleSubmit} style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                     <div>
-                        <label style={{color: "layers.sys.color.primary", fontWeight: "900", textTransform: "uppercase", paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['8'], display: "block"}}>Tipo Evento</label>
-                        <div  style={{display: "flex", gap: layers.ref.spacing['6'], overflowX: "auto"}}>
+                        <label style={{color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-8)', display: "block"}}>Tipo Evento</label>
+                        <div  style={{display: "flex", gap: 'var(--md-sys-spacing-6)', overflowX: "auto"}}>
                             {eventTypes.map(t => (
                                 <M3ChoiceCard
                                     key={t.value}
@@ -88,7 +85,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                         autoFocus
                     />
 
-                    <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: layers.ref.spacing['8']}}>
+                    <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: 'var(--md-sys-spacing-8)'}}>
                         <TextField 
                             id="event-data-input"
                             name="event-data"

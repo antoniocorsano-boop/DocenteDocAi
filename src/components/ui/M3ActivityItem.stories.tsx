@@ -11,7 +11,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3ActivityItem> = {
   component: M3ActivityItem,
   title: 'UI/List Items/M3ActivityItem',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -42,8 +42,8 @@ export const Default: Story = {
   args: {
     children: (
       <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
-        <div style={{ backgroundColor: layers.sys.color.primary }} style={{ width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <span style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "500" }}>A</span>
+        <div style={{ backgroundColor: layers.sys.color.primary ,  width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span style={{ color:  layers.sys.color.onPrimary ,  fontWeight: "500" }}>A</span>
         </div>
         <div style={{ flex: "1" }}>
           <M3Typography variant="body-large" as="p" >
@@ -70,7 +70,7 @@ export const DocumentActivity: Story = {
   args: {
     children: (
       <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
-        <div style={{ backgroundColor: layers.sys.color.secondary }} style={{ width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ backgroundColor: layers.sys.color.secondary ,  width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--md-sys-color-on-secondary)">
             <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM16 18H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
           </svg>
@@ -112,7 +112,7 @@ export const UserActivity: Story = {
           </M3Typography>
         </div>
         <div style={{ display: "flex", gap: "var(--md-sys-spacing-2)" }}>
-          <button style={{ color: layers.sys.color.primary }} style={{ border: "1px solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "0.875rem" }}>
+          <button style={{ color: layers.sys.color.primary ,  border: "1px solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "0.875rem" }}>
             View Profile
           </button>
         </div>
@@ -120,6 +120,8 @@ export const UserActivity: Story = {
     ),
   },
 };
+
+
 
 
 

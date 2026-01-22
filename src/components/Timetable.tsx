@@ -1,16 +1,13 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Uses CSS custom properties for theming
 import React, { useState, useMemo } from 'react';
-import { useTheme } from '../theme/theme';
 import { Lezione, Slot, TimetableSettings } from '../types';
 import TimetableCell from './TimetableCell';
 import { DAYS_OF_WEEK } from '../constants';
 import Guidance from './Guidance';
 import { TabGroup, M3IconButton, M3Button, M3Typography } from './ui';
-import { useTheme } from '../theme/theme';
-
 // MD3 Pure: Migrated to inline styles using MD3 tokens for colors, spacing, typography, and motion
 // All timetable-* classes removed in favor of token-based styling
-// Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
+// Migration Status: ✅ MD3 Compliant (uses CSS custom properties)
 
 interface TimetableProps {
     slots: Record<string, Slot>;
@@ -24,8 +21,6 @@ interface TimetableProps {
 }
 
 export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons, settings, onEditSlot, onShowSlotActions, showGuidanceTips }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
   const daysToShow = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
   const todayIndex = (new Date().getDay() + 6) % 7; 
 
@@ -33,8 +28,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
   const [currentDayIndex, setCurrentDayIndex] = useState(Math.min(todayIndex, 5));
 
   const handleCellClick = (day: string, time: string) => {
-  const { layers } = useTheme();
-    const slotKey = `${day}-${time}`;
+  const slotKey = `${day}-${time}`;
     const slot = slots[slotKey];
     const lesson = slot?.lezioneId ? lessons[slot.lezioneId] : undefined;
     
@@ -60,27 +54,27 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
     return (
         <div style={{position: 'relative',
             minHeight: '100vh',
-            backgroundColor: 'layers.sys.color.surface',
-            padding: layers.ref.spacing['6'],
+            backgroundColor: 'var(--md-sys-color-surface)',
+            padding: 'var(--md-sys-spacing-6)',
             overflow: 'hidden'}}>
             {/* Aura Ornaments - MD3 decorative elements */}
             <div style={{position: 'absolute',
-                top: layers.ref.spacing['4'],
-                right: layers.ref.spacing['4'],
-                width: layers.ref.spacing['8'],
-                height: layers.ref.spacing['8'],
-                backgroundColor: 'layers.sys.color.primaryContainer',
-                borderRadius: 'layers.ref.shape.corner.full',
+                top: 'var(--md-sys-spacing-4)',
+                right: 'var(--md-sys-spacing-4)',
+                width: 'var(--md-sys-spacing-8)',
+                height: 'var(--md-sys-spacing-8)',
+                backgroundColor: 'var(--md-sys-color-primary)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.1,
                 filter: 'blur(40px)',
                 zIndex: 0}} />
             <div style={{position: 'absolute',
-                bottom: layers.ref.spacing['8'],
-                left: layers.ref.spacing['8'],
-                width: layers.ref.spacing['8'],
-                height: layers.ref.spacing['8'],
-                backgroundColor: 'layers.sys.color.secondary-container',
-                borderRadius: 'layers.ref.shape.corner.full',
+                bottom: 'var(--md-sys-spacing-8)',
+                left: 'var(--md-sys-spacing-8)',
+                width: 'var(--md-sys-spacing-8)',
+                height: 'var(--md-sys-spacing-8)',
+                backgroundColor: 'var(--md-sys-color-secondary)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.08,
                 filter: 'blur(30px)',
                 zIndex: 0}} />
@@ -89,42 +83,42 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 zIndex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: layers.ref.spacing['6'],
-                maxWidth: layers.ref.spacing['80'],
+                gap: 'var(--md-sys-spacing-6)',
+                maxWidth: 'var(--md-sys-spacing-80)',
                 margin: '0 auto'}}>
                 {/* HEADER: MD3 Command Island */}
                 <div style={{display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: layers.ref.spacing['6'],
-                    backgroundColor: 'layers.sys.color.surfaceContainerLow',
-                    borderRadius: 'layers.ref.shape.corner.extra-large',
-                    border: '1px solid layers.sys.color.outline-variant',
+                    padding: 'var(--md-sys-spacing-6)',
+                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                    borderRadius: 'var(--md-sys-shape-corner-extra)',
+                    border: '1px solid var(--md-sys-color-outline)-variant',
                     backdropFilter: 'blur(20px)',
-                    boxShadow: 'layers.sys.elevation.level2',
+                    boxShadow: 'var(--md-sys-elevation-level2)',
                     flexWrap: 'wrap',
-                    gap: layers.ref.spacing['4']}}>
+                    gap: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: layers.ref.spacing['4'],
+                        gap: 'var(--md-sys-spacing-4)',
                         minWidth: 0,
                         flex: 1}}>
-                        <div style={{width: layers.ref.spacing['8'],
-                            height: layers.ref.spacing['8'],
-                            borderRadius: 'layers.ref.shape.corner.large',
-                            backgroundColor: 'layers.sys.color.primaryContainer',
+                        <div style={{width: 'var(--md-sys-spacing-8)',
+                            height: 'var(--md-sys-spacing-8)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            backgroundColor: 'var(--md-sys-color-primary)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center'}}>
                             <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: layers.ref.spacing['6'],
-                                color: 'layers.sys.color.on-primaryContainer'}}>calendar_view_week</span>
+                                fontSize: 'var(--md-sys-spacing-6)',
+                                color: 'var(--md-sys-color-on)'}}>calendar_view_week</span>
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
-                            <M3Typography variant="headline-small" style={{color: 'layers.sys.color.onSurface',
+                            <M3Typography variant="headline-small" style={{color: 'var(--md-sys-color-on-surface)',
                                 fontWeight: 900,
                                 margin: 0}}>Il Mio Orario</M3Typography>
-                            <M3Typography variant="body-small" style={{color: 'layers.sys.color.onSurface-variant',
+                            <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface)',
                                 margin: 0,
                                 opacity: 0.8}}>Planning Settimanale</M3Typography>
                         </div>
@@ -133,11 +127,11 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     {/* FLOATING COMMAND ISLAND */}
                     <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: layers.ref.spacing['4'],
-                        backgroundColor: 'layers.sys.color.surfaceContainerHigh',
-                        padding: layers.ref.spacing['2'],
-                        borderRadius: 'layers.ref.shape.corner.large',
-                        border: '1px solid layers.sys.color.outline-variant',
+                        gap: 'var(--md-sys-spacing-4)',
+                        backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                        padding: 'var(--md-sys-spacing-2)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        border: '1px solid var(--md-sys-color-outline)-variant',
                         backdropFilter: 'blur(16px)'}}>
                         <TabGroup 
                             tabs={[
@@ -152,19 +146,19 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                         {viewMode === 'day' && (
                             <div style={{display: 'flex',
                                 alignItems: 'center',
-                                gap: layers.ref.spacing['2'],
-                                padding: `0 ${layers.ref.spacing['3']}`,
-                                margin: `0 ${layers.ref.spacing['2']}`,
-                                borderLeft: '1px solid layers.sys.color.outline-variant',
-                                borderRight: '1px solid layers.sys.color.outline-variant'}}>
+                                gap: 'var(--md-sys-spacing-2)',
+                                padding: `0 var(--md-sys-spacing-3)`,
+                                margin: `0 var(--md-sys-spacing-2)`,
+                                borderLeft: '1px solid var(--md-sys-color-outline)-variant',
+                                borderRight: '1px solid var(--md-sys-color-outline)-variant'}}>
                                 <M3IconButton 
                                     icon="chevron_left" 
                                     onClick={() => handleDayNav(-1)} 
                                     ariaLabel="Giorno precedente"
                                 />
-                                <M3Typography variant="label-large" style={{color: 'layers.sys.color.onSurface',
+                                <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 600,
-                                    minWidth: layers.ref.spacing['16'],
+                                    minWidth: 'var(--md-sys-spacing-16)',
                                     textAlign: 'center'}}>
                                     {visibleDays[0]}
                                 </M3Typography>
@@ -188,24 +182,24 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     </div>
                 </div>
 
-                <div style={{marginBottom: layers.ref.spacing['4']}}>
+                <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
                     <Guidance id="timetable-pro-tips-aura" icon="auto_awesome" title="Consiglio Rapido" isGloballyEnabled={showGuidanceTips}>
                         <p>Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.</p>
                     </Guidance>
                 </div>
                 
                 {/* MATRIX CONTAINER */}
-                <div style={{backgroundColor: 'layers.sys.color.surfaceContainerLow',
-                    borderRadius: 'layers.ref.shape.corner.extra-large',
-                    border: '1px solid layers.sys.color.outline-variant',
-                    padding: layers.ref.spacing['6'],
+                <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                    borderRadius: 'var(--md-sys-shape-corner-extra)',
+                    border: '1px solid var(--md-sys-color-outline)-variant',
+                    padding: 'var(--md-sys-spacing-6)',
                     backdropFilter: 'blur(20px)',
-                    boxShadow: 'layers.sys.elevation.level1',
+                    boxShadow: 'var(--md-sys-elevation-level1)',
                     overflow: 'auto'}}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
-                        minWidth: layers.ref.spacing['16']
+                        minWidth: 'var(--md-sys-spacing-16)'
                     }}>
                         <div style={{
                             display: 'grid',
@@ -217,14 +211,14 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                             border: '1px solid var(--md-sys-color-outline-variant)',
                             minWidth: '100%'
                         }}>
-                            <div style={{padding: layers.ref.spacing['3'],
-                                backgroundColor: 'layers.sys.color.surfaceContainerHighest',
-                                borderRadius: 'layers.ref.shape.corner.medium',
+                            <div style={{padding: 'var(--md-sys-spacing-3)',
+                                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                border: '1px solid layers.sys.color.outline-variant'}}>
-                                <M3Typography variant="label-large" style={{color: 'layers.sys.color.onSurface-variant',
+                                border: '1px solid var(--md-sys-color-outline)-variant'}}>
+                                <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 600,
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.1em'}}>ORA</M3Typography>
@@ -232,20 +226,20 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                             {visibleDays.map((day, idx) => (
                                 <div 
                                     key={day} 
-                                    style={{padding: layers.ref.spacing['3'],
+                                    style={{padding: 'var(--md-sys-spacing-3)',
                                         backgroundColor: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
-                                            ? 'layers.sys.color.primaryContainer' 
-                                            : 'layers.sys.color.surfaceContainerHighest',
-                                        borderRadius: idx === visibleDays.length - 1 ? 'layers.ref.shape.corner.medium' : 'layers.ref.shape.corner.medium 0 0 layers.ref.shape.corner.medium',
+                                            ? 'var(--md-sys-color-primary)'
+                                            : 'var(--md-sys-color-surface-container-high)',
+                                        borderRadius: idx === visibleDays.length - 1 ? 'var(--md-sys-shape-corner-medium)' : 'var(--md-sys-shape-corner-medium) 0 0 var(--md-sys-shape-corner-medium)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        border: '1px solid layers.sys.color.outline-variant',
-                                        borderLeft: idx === 0 ? '1px solid layers.sys.color.outline-variant' : 'none'}}
+                                        border: '1px solid var(--md-sys-color-outline)-variant',
+                                        borderLeft: idx === 0 ? '1px solid var(--md-sys-color-outline)-variant' : 'none'}}
                                 >
                                     <M3Typography variant="label-large" style={{color: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
-                                            ? 'layers.sys.color.on-primaryContainer' 
-                                            : 'layers.sys.color.onSurface-variant',
+                                            ? 'var(--md-sys-color-on)' 
+                                            : 'var(--md-sys-color-on-surface)',
                                         fontWeight: 600,
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.1em'}}>{day.substring(0, 3)}</M3Typography>
@@ -254,38 +248,38 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
 
                             {settings.timeSlots.map((time, timeIdx) => (
                                 <React.Fragment key={time}>
-                                    <div style={{padding: layers.ref.spacing['3'],
-                                        backgroundColor: 'layers.sys.color.surfaceContainerHighest',
-                                        borderRadius: timeIdx === settings.timeSlots.length - 1 ? '0 layers.ref.shape.corner.medium layers.ref.shape.corner.medium layers.ref.shape.corner.medium' : 'layers.ref.shape.corner.medium',
+                                    <div style={{padding: 'var(--md-sys-spacing-3)',
+                                        backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                        borderRadius: timeIdx === settings.timeSlots.length - 1 ? '0 var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium)' : 'var(--md-sys-shape-corner-medium)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        border: '1px solid layers.sys.color.outline-variant',
+                                        border: '1px solid var(--md-sys-color-outline)-variant',
                                         borderTop: 'none'}}>
-                                        <M3Typography variant="body-medium" style={{color: 'layers.sys.color.onSurface-variant',
+                                        <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface)',
                                             fontWeight: 500}}>{time}</M3Typography>
                                     </div>
                                     {visibleDays.map((day, dayIdx) => {
                                         const slotKey = `${day}-${time}`;
-                                        const slot = slots[slotKey];
-                                        const lesson = slot?.lezioneId ? lessons[slot.lezioneId] : undefined;
+                                        const currentSlot = slots[slotKey];
+                                        const lesson = currentSlot?.lezioneId ? lessons[currentSlot.lezioneId] : undefined;
                                         return (
                                             <div 
                                                 key={slotKey} 
                                                 style={{borderRadius: timeIdx === settings.timeSlots.length - 1 && dayIdx === visibleDays.length - 1 
-                                                        ? '0 layers.ref.shape.corner.medium layers.ref.shape.corner.medium 0' 
-                                                        : 'layers.ref.shape.corner.medium',
-                                                    border: '1px solid layers.sys.color.outline-variant',
+                                                        ? '0 var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0' 
+                                                        : 'var(--md-sys-shape-corner-medium)',
+                                                    border: '1px solid var(--md-sys-color-outline)-variant',
                                                     borderTop: 'none',
-                                                    borderLeft: dayIdx === 0 ? '1px solid layers.sys.color.outline-variant' : 'none',
+                                                    borderLeft: dayIdx === 0 ? '1px solid var(--md-sys-color-outline)-variant' : 'none',
                                                     overflow: 'hidden',
                                                     cursor: 'pointer',
-                                                    transition: `all ${layers.motion.duration.short} ${layers.motion.easing.standard}`,
-                                                    backgroundColor: 'layers.sys.color.surface'}}
+                                                    transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+                                                    backgroundColor: 'var(--md-sys-color-surface)'}}
                                                 onClick={() => handleCellClick(day, time)}
                                             >
                                                 <TimetableCell 
-                                                    slot={slot || { giorno: day, ora: time }} 
+                                                    slot={currentSlot || { giorno: day, ora: time }} 
                                                     lesson={lesson}
                                                     onClick={() => handleCellClick(day, time)}
                                                 />

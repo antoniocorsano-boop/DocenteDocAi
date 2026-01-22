@@ -1,9 +1,8 @@
-// LEGACY - MD3 Non-compliant
+// ✅ MD3 Compliant
 // M3Expressive: NotificationsPopover - Notifications display popover with M3 tokens
 import React from 'react';
 import { Notifica, View } from '../types';
 import { M3Button, M3Popover, M3Typography } from './ui';
-import { useTheme } from '../theme/theme';
 
 interface NotificationsPopoverProps {
     anchorEl: HTMLElement | null;
@@ -48,7 +47,6 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
     onNavigate,
     onOpenCircularAnalysis,
 }) => {
-    const { layers } = useTheme();
     const unreadCount = notifiche.filter(n => !n.letta).length;
     const sortedNotifiche = [...notifiche].sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
 
@@ -72,24 +70,24 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                 style={{
                     position: 'sticky',
                     top: 0,
-                    backgroundColor: layers.sys.color.surfaceContainerHigh,
-                    backdropFilter: `blur(${layers.ref.spacing['2']})`,
-                    padding: `${layers.ref.spacing['4']} ${layers.ref.spacing['6']}`,
-                    borderBottom: `1px solid ${layers.sys.color.outlineVariant}`,
+                    backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                    backdropFilter: `blur(${'var(--md-sys-spacing-2)'})`,
+                    padding: `${'var(--md-sys-spacing-4)'} ${'var(--md-sys-spacing-6)'}`,
+                    borderBottom: `1px solid ${'var(--md-sys-color-outline-variant)'}`,
                     zIndex: 10,
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    gap: layers.ref.spacing['4']}}
+                    gap: 'var(--md-sys-spacing-4)'}}
             >
                 <M3Typography
                     variant="body-medium"
                     style={{fontWeight: '500',
-                        color: 'layers.sys.color.onSurface'}}
+                        color: 'var(--md-sys-color-on-surface)'}}
                 >
                     Notifiche
                 </M3Typography>
-                <div style={{display: 'flex', alignItems: 'center', gap: layers.ref.spacing['2']}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)'}}>
                     {unreadCount > 0 && (
                         <M3Button
                             onClick={onMarkAllAsRead}
@@ -101,9 +99,9 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                     )}
                     <button
                         onClick={onClose}
-                        style={{minWidth: layers.ref.spacing['8'],
-                            width: layers.ref.spacing['8'],
-                            height: layers.ref.spacing['8'],
+                        style={{minWidth: 'var(--md-sys-spacing-8)',
+                            width: 'var(--md-sys-spacing-8)',
+                            height: 'var(--md-sys-spacing-8)',
                             padding: 0,
                             border: 'none',
                             backgroundColor: 'transparent',
@@ -111,28 +109,26 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: 'pointer',
-                            color: 'layers.sys.color.onSurface-variant',
-                            borderRadius: 'layers.ref.shape.corner.full',
-                            transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
-                        onMouseEnter={(e) => {
-                            e.currentTarget// removed runtime mutation
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
+                        onMouseEnter={() => {
+                            // Hover effect handled via CSS
                         }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget// removed runtime mutation
+                        onMouseLeave={() => {
+                            // Hover effect handled via CSS
                         }}
-                        onFocus={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                        onFocus={() => {
+                            // Focus effect handled via CSS
                         }}
-                        onBlur={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                        onBlur={() => {
+                            // Focus effect handled via CSS
                         }}
                         aria-label="Chiudi notifiche"
                     >
                         <span
                             style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: layers.ref.spacing['4'],
+                                fontSize: 'var(--md-sys-spacing-4)',
                                 color: 'inherit'}}
                         >
                             close
@@ -146,14 +142,14 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                 style={{maxHeight: 'min(70vh, 32rem)',
                     overflowY: 'auto',
                     overflowX: 'hidden',
-                    padding: layers.ref.spacing['2']}}
+                    padding: 'var(--md-sys-spacing-2)'}}
             >
                 {sortedNotifiche.length > 0 ? (
                     <div
                         style={{display: 'flex',
                             flexDirection: 'column',
-                            gap: layers.ref.spacing['2'],
-                            padding: layers.ref.spacing['2']}}
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-2)'}}
                     >
                         {sortedNotifiche.map(notifica => (
                             <div
@@ -191,41 +187,39 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                         ? 'var(--md-sys-color-surfaceContainer)'
                                         : 'var(--md-sys-color-surface-dim)';
                                 }}
-                                onFocus={(e) => {
-                                    e.currentTarget// removed runtime mutation
-                                    e.currentTarget// removed runtime mutation
+                                onFocus={() => {
+                                    // Focus effect handled via CSS
                                 }}
-                                onBlur={(e) => {
-                                    e.currentTarget// removed runtime mutation
-                                    e.currentTarget// removed runtime mutation
+                                onBlur={() => {
+                                    // Focus effect handled via CSS
                                 }}
                             >
                                 <div
                                     style={{display: 'flex',
-                                        gap: layers.ref.spacing['4'],
+                                        gap: 'var(--md-sys-spacing-4)',
                                         alignItems: 'flex-start'}}
                                 >
                                     {/* Icon */}
                                     <div
                                         style={{
-                                            width: `calc(${layers.ref.spacing['8']} + ${layers.ref.spacing['2']})`,
-                                            height: `calc(${layers.ref.spacing['8']} + ${layers.ref.spacing['2']})`,
-                                            borderRadius: layers.ref.shape.corner.medium,
+                                            width: 'calc(var(--md-sys-spacing-8) + var(--md-sys-spacing-2))',
+                                            height: 'calc(var(--md-sys-spacing-8) + var(--md-sys-spacing-2))',
+                                            borderRadius: 'var(--md-sys-shape-corner-medium)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                             backgroundColor: notifica.letta
-                                                ? 'layers.sys.color.surfaceContainerHigh'
-                                                : 'layers.sys.color.primary',
+                                                ? 'var(--md-sys-color-surface-container-high)'
+                                                : 'var(--md-sys-color-primary)',
                                             color: notifica.letta
-                                                ? 'layers.sys.color.onSurface-variant'
-                                                : 'layers.sys.color.on-primary',
-                                            transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`}}
+                                                ? 'var(--md-sys-color-on-surface-variant)'
+                                                : 'var(--md-sys-color-on-primary)',
+                                            transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
                                     >
                                         <span
                                             style={{fontFamily: 'Material Symbols Outlined',
-                                                fontSize: layers.ref.spacing['4'],
+                                                fontSize: 'var(--md-sys-spacing-4)',
                                                 color: 'inherit'}}
                                         >
                                             {notifica.type === 'circular' ? 'feed' : 'notifications'}
@@ -243,8 +237,8 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                             style={{display: 'flex',
                                                 justifyContent: 'space-between',
                                                 alignItems: 'flex-start',
-                                                gap: layers.ref.spacing['2'],
-                                                marginBottom: layers.ref.spacing['1']}}
+                                                gap: 'var(--md-sys-spacing-2)',
+                                                marginBottom: 'var(--md-sys-spacing-1)'}}
                                         >
                                             <M3Typography
                                                 variant="body-small"
@@ -254,31 +248,31 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                     whiteSpace: 'nowrap',
                                                     flex: 1,
                                                     color: notifica.letta
-                                                        ? 'layers.sys.color.onSurface-variant'
-                                                        : 'layers.sys.color.onSurface'}}
+                                                        ? 'var(--md-sys-color-on-surface-variant)'
+                                                        : 'var(--md-sys-color-on-surface)'}}
                                             >
                                                 {notifica.titolo}
                                             </M3Typography>
                                             {!notifica.letta && (
                                                 <div
-                                                    style={{width: layers.ref.spacing['2'],
-                                                        height: layers.ref.spacing['2'],
-                                                        borderRadius: 'layers.ref.shape.corner.full',
-                                                        backgroundColor: 'layers.sys.color.primary',
+                                                    style={{width: 'var(--md-sys-spacing-2)',
+                                                        height: 'var(--md-sys-spacing-2)',
+                                                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                                                        backgroundColor: 'var(--md-sys-color-primary)',
                                                         flexShrink: 0,
-                                                        marginTop: layers.ref.spacing['2']}}
+                                                        marginTop: 'var(--md-sys-spacing-2)'}}
                                                 />
                                             )}
                                         </div>
                                         <p
                                             style={{fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                                                color: 'layers.sys.color.onSurface-variant',
+                                                color: 'var(--md-sys-color-on-surface-variant)',
                                                 display: '-webkit-box',
                                                 overflow: 'hidden',
                                                 WebkitLineClamp: 2,
                                                 lineClamp: 2,
                                                 WebkitBoxOrient: 'vertical',
-                                                margin: `0 0 ${layers.ref.spacing['2']} 0`,
+                                                margin: `0 0 ${'var(--md-sys-spacing-2)'} 0`,
                                                 lineHeight: 'var(--md-sys-typescale-body-small-line-height)'}}
                                         >
                                             {notifica.messaggio}
@@ -310,9 +304,9 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                         <span
                                                             style={{
   fontFamily: 'Material Symbols Outlined',
-  fontSize: layers.ref.spacing['3'],
-  marginRight: layers.ref.spacing['1'],
-  color: 'layers.sys.color.primary'
+  fontSize: 'var(--md-sys-spacing-3)',
+  marginRight: 'var(--md-sys-spacing-1)',
+  color: 'var(--md-sys-color-primary)'
 }}
                                                         >
                                                             auto_awesome
@@ -334,24 +328,24 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: `${layers.ref.spacing['8']} ${layers.ref.spacing['6']}`,
-                            color: layers.sys.color.onSurfaceVariant}}
+                            padding: `${'var(--md-sys-spacing-8)'} ${'var(--md-sys-spacing-6)'}`,
+                            color: 'var(--md-sys-color-on-surface-variant)'}}
                     >
                         <div
-                            style={{width: layers.ref.spacing['12'],
-                                height: layers.ref.spacing['12'],
-                                borderRadius: 'layers.ref.shape.corner.full',
-                                backgroundColor: 'layers.sys.color.surfaceContainerHigh',
-                                color: 'layers.sys.color.onSurface-variant',
+                            style={{width: 'var(--md-sys-spacing-12)',
+                                height: 'var(--md-sys-spacing-12)',
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                                color: 'var(--md-sys-color-on-surface-variant)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                marginBottom: layers.ref.spacing['4']}}
+                                marginBottom: 'var(--md-sys-spacing-4)'}}
                         >
                             <span
                                 style={{
   fontFamily: 'Material Symbols Outlined',
-  fontSize: layers.ref.spacing['7'],
+  fontSize: 'var(--md-sys-spacing-7)',
   color: 'inherit'
 }}
                             >
@@ -360,7 +354,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                         </div>
                         <M3Typography
                             variant="body-medium"
-                            style={{color: 'layers.sys.color.onSurface-variant',
+                            style={{color: 'var(--md-sys-color-on-surface-variant)',
                                 textAlign: 'center'}}
                         >
                             Nessuna notifica

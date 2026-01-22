@@ -1,8 +1,7 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React, { useState, useMemo } from 'react';
 import { Lezione, RegisterEntry, Studente, Valutazione } from '../types';
 import { TabGroup, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
-import { useTheme } from '../theme/theme';
 
 interface CopyForRegisterModalProps {
     lesson: Lezione;
@@ -13,7 +12,6 @@ interface CopyForRegisterModalProps {
 }
 
 const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, entry, students, todaysEvaluations, onClose }) => {
-  const { layers } = useTheme();
     const [activeTab, setActiveTab] = useState<'text' | 'json'>('text');
     const [includeAbsents, setIncludeAbsents] = useState(true);
     const [includeGrades, setIncludeGrades] = useState(true);
@@ -55,7 +53,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             level={1}
         >
             <M3DialogContent >
-                <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                     <TabGroup 
                         tabs={[{ id: 'text', label: 'Manuale', icon: 'content_paste' }, { id: 'json', label: 'Bridge AI', icon: 'extension' }]}
                         activeTab={activeTab}
@@ -68,7 +66,14 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                 </div>
 
                 <div >
-                    <div style={{ padding: layers.ref.spacing['4'], backgroundColor:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large }} style={{display: "flex", flexWrap: "wrap", border: "1px solid layers.sys.color.outline"}}>
+                    <div style={{
+                        padding: 'var(--md-sys-spacing-4)',
+                        backgroundColor: 'var(--md-sys-color-on-primary)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        display: "flex",
+                        flexWrap: "wrap",
+                        border: "1px solid var(--md-sys-color-outline)"
+                    }}>
                         <label  style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
                             <input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)}  /> 
                             Assenti

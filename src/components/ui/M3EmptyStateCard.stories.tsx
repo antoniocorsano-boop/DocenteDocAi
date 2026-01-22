@@ -11,7 +11,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3EmptyStateCard> = {
   component: M3EmptyStateCard,
   title: 'UI/Cards/M3EmptyStateCard',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -81,7 +81,7 @@ export const WithIconAndAction: Story = {
         <M3Typography variant="body-medium" as="p" style={{ marginBottom: "var(--md-sys-spacing-4)" }}>
           Start by creating your first document to get organized.
         </M3Typography>
-        <button style={{ backgroundColor: layers.sys.color.primary, color:  layers.sys.color.onPrimary }} style={{ paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: layers.ref.spacing['4'] }}>
+        <button style={{ backgroundColor: layers.sys.color.primary, color:  layers.sys.color.onPrimary ,  paddingLeft: "var(--md-sys-spacing-4)", paddingRight: "var(--md-sys-spacing-4)", borderRadius: layers.ref.spacing['4'] }}>
           Create Document
         </button>
       </div>
@@ -104,6 +104,8 @@ export const Compact: Story = {
     ),
   },
 };
+
+
 
 
 

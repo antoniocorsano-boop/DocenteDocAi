@@ -49,9 +49,9 @@ describe('M3ExpressiveCard', () => {
     const { container } = render(<M3ExpressiveCard {...mockProps} color="secondary" />);
     const card = container.firstChild as HTMLElement;
     
-    // For glass cards, background is handled by CSS classes, not inline styles
-    // Check that the card has the expected structure and classes
-    expect(card).toHaveClass('aura-glass');
-    expect(card).toHaveClass('backdrop-blur-xl');
+    // Check that the card has the expected inline styles for secondary color
+    expect(card.style.backgroundColor).toBe('var(--md-sys-color-secondary-container)');
+    expect(card.style.backdropFilter).toBe('blur(10px)');
+    expect(card.style.border).toContain('var(--md-sys-color-outline-variant)');
   });
 });

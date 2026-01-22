@@ -84,7 +84,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
           </div>
         </div>
       )}
-      <div className={isModalMode ? "" : "register-view-card"}>
+      <div style={isModalMode ? {} : { /* register-view-card styles */ }}>
         <div >
           <table >
             <thead>

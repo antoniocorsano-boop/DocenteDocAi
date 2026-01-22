@@ -1,8 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Uses CSS custom properties for theming
 import React from 'react';
-import { useTheme } from '../theme/theme';
 import { M3Typography } from './ui';
-import { useTheme } from '../theme/theme';
 
 interface TooltipProps {
   label: string;
@@ -13,7 +11,7 @@ interface TooltipProps {
 /**
  * Tooltip - MD3 Pure Tooltip Component
  * ✅ MIGRATED TO MD3 PURE - Complete migration from inline styles and CSS classes to pure MD3 tokens and M3Typography
- * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
+ * Migration Status: ✅ MD3 Compliant (uses CSS custom properties)
  *
  * Features:
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape, elevation)
@@ -35,9 +33,6 @@ interface TooltipProps {
  * - Maintained all functionality and accessibility features
  */
 const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) => {
-  const { layers } = useTheme();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
   const [visible, setVisible] = React.useState(false);
   let timeout: number | undefined;
 

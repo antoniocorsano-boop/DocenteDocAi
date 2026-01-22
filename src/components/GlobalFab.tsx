@@ -66,7 +66,9 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
 
         if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
             isDraggingRef.current = true;
-            if (buttonRef.current) buttonRef.current// removed runtime mutation
+            if (buttonRef.current) {
+                // removed runtime mutation
+            }
         }
 
         if (isDraggingRef.current) {
@@ -89,7 +91,9 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
         window.removeEventListener('pointermove', handlePointerMove);
         window.removeEventListener('pointerup', handlePointerUp);
         
-        if (buttonRef.current) buttonRef.current// removed runtime mutation
+        if (buttonRef.current) {
+            // removed runtime mutation
+        }
         dragStartRef.current = null;
         initialPosRef.current = null;
     };

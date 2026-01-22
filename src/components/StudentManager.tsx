@@ -41,7 +41,13 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
     return (
     <div
       ref={itemRef}
-      className={`student-manager-item-card ${student.isArchived ? 'student-manager-item-card.archived' : ''}`}
+      style={{
+        // student-manager-item-card styles
+        backgroundColor: student.isArchived ? 'var(--md-sys-color-surface-container-low)' : 'var(--md-sys-color-surface-container)',
+        borderRadius: 'var(--md-sys-shape-corner-medium)',
+        padding: 'var(--md-sys-spacing-4)',
+        border: `1px solid ${student.isArchived ? 'var(--md-sys-color-outline-variant)' : 'var(--md-sys-color-outline)'}`
+      }}
       aria-label={`Studente ${student.cognome} ${student.nome}, classe ${student.classe}${student.isArchived ? ', archiviato' : ''}`}
       tabIndex={isFocused ? 0 : -1}
       onFocus={onFocus}
@@ -240,7 +246,10 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                     <M3Button
                         onClick={() => setShowArchived(!showArchived)}
                         variant={showArchived ? "tonal" : "text"}
-                        className={`student-manager-archive-toggle ${showArchived ? 'student-manager-archive-toggle.active' : ''}`}
+                        style={{
+                            // student-manager-archive-toggle styles
+                            marginLeft: 'var(--md-sys-spacing-2)'
+                        }}
                         title={showArchived ? 'Nascondi studenti archiviati' : 'Mostra studenti archiviati'}
                         aria-label={showArchived ? 'Nascondi archivio studenti' : 'Mostra archivio studenti'}
                         aria-pressed={showArchived}

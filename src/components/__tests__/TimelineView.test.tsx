@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from '../ui/test-utils';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -13,12 +13,12 @@ const mockUdas = [
     startDate: '2025-09-01',
     endDate: '2025-09-10',
     classe: '1A',
-    introduction: ',
+    introduction: '',
     phases: [],
-    finalProduct: ',
-    evaluation: '
+    finalProduct: '',
+    evaluation: ''
   }
-'];
+];
 
 const mockEvents: any[] = [];
 

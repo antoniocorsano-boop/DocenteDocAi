@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import { Rubrica, Criterio, Indicatore, Competenza } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, TextField, TextArea, EmptyState, SectionHeader } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface RubricEditorProps {
     rubricToEdit?: Rubrica;
     allCompetenze: Competenza[];
@@ -18,8 +16,7 @@ const createEmptyRubric = (): Rubrica => ({
 });
 
 const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze, onClose, onSave }) => {
-  const { layers } = useTheme();
-    const [rubrica, setRubrica] = useState<Rubrica>(
+  const [rubrica, setRubrica] = useState<Rubrica>(
         rubricToEdit ? { ...rubricToEdit } : createEmptyRubric()
     );
 
@@ -76,8 +73,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
             mode="fullscreen"
         >
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-                <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/30 }}>
-                    <div style={{padding: layers.ref.spacing['6'], gap: layers.ref.spacing['8']}}>
+                <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 }}>
+                    <div style={{padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-8)'}}>
                         <div >
                             <TextField 
                                 label="Titolo della Rubrica"
@@ -85,24 +82,36 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                 onChange={e => setRubrica({...rubrica, titolo: e.target.value})} 
                                 placeholder="Es. Rubrica per Prova Orale di Storia"
                                 required
-                                style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/50 }}
+                                style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/50 }}
                             />
                         </div>
                         
-                        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+                        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
                             {/* Sezione Selezione */}
-                            <div  style={{gap: layers.ref.spacing['4']}}>
+                            <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
                                 <SectionHeader title="Criteri di Competenza" icon="checklist" variant="primary" />
-                                 <div style={{ borderRadius: layers.ref.shape.corner.large }} style={{border: "1px solid layers.sys.color.outline", padding: layers.ref.spacing['8']}}>
+                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
                                     {allCompetenze.map(comp => (
-                                         <div key={comp.id}  style={{width: "100%", marginBottom: layers.ref.spacing['4']}}>
+                                         <div key={comp.id}  style={{width: "100%", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                             <input
                                                 type="checkbox"
                                                 id={`comp-check-${comp.id}`}
                                                 checked={rubrica.criteri.some(c => c.competenzaId === comp.id)}
                                                 onChange={() => handleCompetenzaToggle(comp)}
                                             />
-                                            <label htmlFor={`comp-check-${comp.id}`} className={`chip w-full justify-start !h-12 !rounded-[var(--md-sys-shape-corner-large)] ${rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'chip-selected' : ''}`}>
+                                            <label htmlFor={`comp-check-${comp.id}`} style={{
+                                                width: '100%',
+                                                justifyContent: 'flex-start',
+                                                height: '48px', // 12 * 4px
+                                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                gap: 'var(--md-sys-spacing-2)',
+                                                backgroundColor: rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
+                                                color: rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                                                border: `1px solid ${rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`
+                                            }}>
                                                 {rubrica.criteri.some(c => c.competenzaId === comp.id) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "bold", fontSize: "0.75rem" }}>{comp.nome}</span>
                                             </label>
@@ -112,23 +121,23 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                             </div>
 
                             {/* Sezione Descrittori */}
-                            <div  style={{gap: layers.ref.spacing['6']}}>
+                            <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
                                  <SectionHeader title="Definizione Descrittori" icon="edit_note" variant="secondary" />
                                  {rubrica.criteri.length > 0 ? rubrica.criteri.map(criterio => {
                                     const competenza = allCompetenze.find(c => c.id === criterio.competenzaId);
                                     if (!competenza) return null;
                                     return (
-                                        <InfoCard key={competenza.id} variant="elevated" style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50 }} style={{padding: layers.ref.spacing['6'], gap: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline"}}>
-                                            <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], marginBottom: layers.ref.spacing['8']}}>
-                                                <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor: sys.colors.secondary/10 }} style={{width: "2.5rem", height: "2.5rem", color: "layers.sys.color.secondary", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "0.875rem"}}>{competenza.codice.charAt(0)}</div>
-                                                <h4 style={{ color:  layers.sys.color.onPrimary }} style={{ fontWeight: "900" }}>{competenza.nome}</h4>
+                                        <InfoCard key={competenza.id} variant="elevated" style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)"}}>
+                                            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary/10 , width: "2.5rem", height: "2.5rem", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "0.875rem"}}>{competenza.codice.charAt(0)}</div>
+                                                <h4 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>{competenza.nome}</h4>
                                             </div>
                                             
-                                            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+                                            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
                                                 {competenza.livelli.map(level => {
                                                     const indicatore = criterio.indicatori.find(ind => ind.livelloId === level.id);
                                                     return (
-                                                        <div key={level.id} style={{gap: layers.ref.spacing['2']}}>
+                                                        <div key={level.id} style={{gap: 'var(--md-sys-spacing-2)'}}>
                                                             <TextArea 
                                                                 label={`Livello: ${level.nome}`} 
                                                                 value={indicatore?.descrizione || ''} 

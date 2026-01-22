@@ -9,8 +9,6 @@ import { Uda, Competenza, UdaPlannerProps } from '../types';
 import { UdaExportModal } from './UdaExportModal';
 import Guidance from './Guidance';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, TextArea, EmptyState } from './ui';
-import { useTheme } from '../theme/theme';
-
 const createNewUda = (): Uda => ({
     id: `uda-${Date.now()}`,
     title: '',
@@ -39,8 +37,7 @@ interface UdaEditorProps {
 }
 
 const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, onClose, competenze }) => {
-  const { layers } = useTheme();
-    const [currentUda, setCurrentUda] = useState<Uda>(udaProp === 'new' ? createNewUda() : { ...udaProp });
+  const [currentUda, setCurrentUda] = useState<Uda>(udaProp === 'new' ? createNewUda() : { ...udaProp });
     const [isCompetencyPickerOpen, setIsCompetencyPickerOpen] = useState(false);
 
     const handleFieldChange = (field: keyof Uda, value: unknown) => setCurrentUda(prev => ({ ...prev, [field]: value }));
@@ -220,15 +217,39 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                         <div 
                                             key={comp.id} 
                                             onClick={() => handleCompetencyToggle(comp.id)}
-                                            className={`uda-picker-item ${isSelected ? 'uda-picker-item-selected' : ''}`}
-                                        >
-                                            <div className={`uda-picker-checkbox ${isSelected ? 'uda-picker-checkbox-selected' : ''}`}>
-                                                {isSelected && <span >check</span>}
-                                            </div>
-                                            <div style={{ minWidth: "0" }}>
-                                                <p >{comp.codice}</p>
-                                                <p >{comp.nome}</p>
-                                            </div>
+                                                                                        style={{
+                                                                                            display: 'flex',
+                                                                                            alignItems: 'center',
+                                                                                            gap: 'var(--md-sys-spacing-4)',
+                                                                                            padding: 'var(--md-sys-spacing-6)',
+                                                                                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                                                            backgroundColor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
+                                                                                            border: isSelected ? '2px solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline)',
+                                                                                            fontWeight: isSelected ? 700 : 400,
+                                                                                            cursor: 'pointer',
+                                                                                            transition: 'all 200ms var(--md-sys-motion-easing-emphasized)',
+                                                                                        }}
+                                                                                >
+                                                                                        <div
+                                                                                            style={{
+                                                                                                width: '1.5rem',
+                                                                                                height: '1.5rem',
+                                                                                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                                                                                backgroundColor: isSelected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
+                                                                                                display: 'flex',
+                                                                                                alignItems: 'center',
+                                                                                                justifyContent: 'center',
+                                                                                                color: isSelected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-outline)',
+                                                                                                border: isSelected ? 'none' : '1px solid var(--md-sys-color-outline)',
+                                                                                                marginRight: 'var(--md-sys-spacing-4)',
+                                                                                            }}
+                                                                                        >
+                                                                                            {isSelected && <span>check</span>}
+                                                                                        </div>
+                                                                                        <div style={{ minWidth: '0' }}>
+                                                                                            <p style={{ fontWeight: 700, margin: 0 }}>{comp.codice}</p>
+                                                                                            <p style={{ margin: 0 }}>{comp.nome}</p>
+                                                                                        </div>
                                         </div>
                                     );
                                 })}
@@ -329,7 +350,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                         competenze={competenze}
                     />
                 ) : (
-                    <div  style={{paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4']}}>
+                    <div  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                         <div >
                             {udas.length > 0 ? (
                                 <div  style={{ overflowX: "auto" }}>

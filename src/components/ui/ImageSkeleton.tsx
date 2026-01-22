@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Updated for layered theme access
 import React from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -14,14 +14,13 @@ interface ImageSkeletonProps {
 const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
     aspectRatio = '16/9'
 }) => {
-  const { layers } = useTheme();
-  const { sys, ref } = layers;
+  const { layers: { sys: { color }, ref: { spacing, shape, typography } } } = useTheme();
 
     return (
     <div
         style={{
-            backgroundColor: layers.sys.color.surfaceContainerHigh,
-            borderRadius: layers.ref.shape.corner.small,
+            backgroundColor: color.surfaceContainerHigh,
+            borderRadius: shape.corner.small,
             animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             display: 'flex',
             alignItems: 'center',
@@ -33,15 +32,15 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: layers.ref.spacing['4'],
-            color: `color-mix(in srgb, ${layers.sys.color.onSurfaceVariant} 50%, transparent)`
+            gap: spacing[4],
+            color: `color-mix(in srgb, ${color.onSurfaceVariant} 50%, transparent)`
         }}>
             <span style={{
                 fontFamily: 'Material Symbols Outlined',
-                fontSize: ref.typography.displaySmall.fontSize
+                fontSize: typography.displaySmall.fontSize
             }}>image</span>
             <span style={{
-                fontSize: ref.typography.bodySmall.fontSize,
+                fontSize: typography.bodySmall.fontSize,
                 fontWeight: 500
             }}>Generazione immagine...</span>
         </div>

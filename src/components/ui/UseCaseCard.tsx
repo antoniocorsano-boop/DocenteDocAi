@@ -1,10 +1,9 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block G Migration (13 violations eliminated)
 // @legacy
 // @md3-noncompliant
 // @do-not-extend
 
 import React from 'react';
-import { useTheme } from '../../theme/M3ThemeProvider';
 
 interface UseCaseCardProps {
     scenario: string;
@@ -13,55 +12,49 @@ interface UseCaseCardProps {
 }
 
 const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
-    const { layers } = useTheme();
-    const {
-        sys: { color: { surface, primary, outline } },
-        ref: { spacing, shape: { corner: { medium } } }
-    } = layers;
-
     return (
         <div style={{
-            backgroundColor: surface,
-            borderRadius: medium,
-            padding: spacing[6],
-            border: `1px solid ${outline}`
+            backgroundColor: 'var(--md-sys-color-surface)',
+            borderRadius: 'var(--md-sys-shape-corner-medium)',
+            padding: 'var(--md-sys-spacing-6)',
+            border: '1px solid var(--md-sys-color-outline)'
         }}>
             <div style={{
                 display: "flex",
                 alignItems: "center",
-                gap: spacing[6],
-                marginBottom: spacing[8]
+                gap: 'var(--md-sys-spacing-6)',
+                marginBottom: 'var(--md-sys-spacing-8)'
             }}>
                 <div style={{
-                    borderRadius: medium,
-                    backgroundColor: primary,
-                    width: spacing[32],
-                    height: spacing[32],
+                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                    backgroundColor: 'var(--md-sys-color-primary)',
+                    width: 'var(--md-sys-spacing-32)',
+                    height: 'var(--md-sys-spacing-32)',
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: primary
+                    color: 'var(--md-sys-color-on-primary)'
                 }}>
                     <span style={{ fontSize: "1.125rem" }}>lightbulb</span>
                 </div>
                 <p style={{
-                    color: primary,
+                    color: 'var(--md-sys-color-primary)',
                     textTransform: "uppercase",
                     fontWeight: "900",
                     opacity: "0.7"
                 }}>Scenario</p>
             </div>
             <p style={{ lineHeight: "1.25" }}>"{scenario}"</p>
-            <ol style={{ marginTop: spacing[4] }}>
+            <ol style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                 {steps.map((step, i) => (
                     <li key={i} style={{
                         display: "flex",
-                        gap: spacing[8],
+                        gap: 'var(--md-sys-spacing-8)',
                         alignItems: "flex-start"
                     }}>
                         <span style={{
-                            backgroundColor: surface,
-                            color: primary,
+                            backgroundColor: 'var(--md-sys-color-surface)',
+                            color: 'var(--md-sys-color-primary)',
                             width: "1.5rem",
                             height: "1.5rem",
                             borderRadius: "9999px",
@@ -73,7 +66,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                             transition: "color 300ms"
                         }}>{i + 1}</span>
                         <p style={{
-                            color: outline,
+                            color: 'var(--md-sys-color-outline)',
                             fontWeight: "bold",
                             lineHeight: "1.625"
                         }} dangerouslySetInnerHTML={{ __html: step }}></p>
@@ -82,20 +75,20 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
             </ol>
             {tip && (
                 <div style={{
-                    backgroundColor: surface,
-                    borderRadius: medium,
+                    backgroundColor: 'var(--md-sys-color-surface)',
+                    borderRadius: 'var(--md-sys-shape-corner-medium)',
                     display: "flex",
-                    gap: spacing[8],
-                    padding: spacing[8],
+                    gap: 'var(--md-sys-spacing-8)',
+                    padding: 'var(--md-sys-spacing-8)',
                     fontSize: "0.875rem",
-                    border: `1px solid ${outline}`
+                    border: '1px solid var(--md-sys-color-outline)'
                 }}>
                     <span style={{
-                        color: primary,
+                        color: 'var(--md-sys-color-primary)',
                         fontWeight: "900"
                     }}>tips_and_updates</span>
                     <span style={{
-                        color: outline,
+                        color: 'var(--md-sys-color-outline)',
                         fontWeight: "bold",
                         opacity: "0.8"
                     }}>{tip}</span>

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { useTheme } from '../../theme/theme';
-import { useTheme } from '../../theme/theme';
 
 interface TableSkeletonProps {
     rows?: number;
@@ -16,8 +15,7 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
     rows = 3,
     columns = 3
 }) => {
-  const { layers } = useTheme();
-    const { spacing } = useTheme();
+  const { layers: { ref: { spacing } } } = useTheme();
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: spacing[2] }}>

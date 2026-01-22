@@ -5,7 +5,7 @@ import M3Button from './M3Button';
 const meta: Meta<typeof M3Button> = {
   component: M3Button,
   title: 'UI/Buttons/M3Button',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -17,7 +17,7 @@ const meta: Meta<typeof M3Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['filled', 'outlined', 'text', 'tonal', 'elevated],
+      options: ['filled', 'outlined', 'text', 'tonal', 'elevated'],
       description: 'Button style variant',
       table: {
         type: { summary: 'filled | outlined | text | tonal | elevated' },
@@ -26,7 +26,7 @@ const meta: Meta<typeof M3Button> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'error],
+      options: ['primary', 'secondary', 'error'],
       description: 'Button color',
       table: {
         type: { summary: 'primary | secondary | error' },
@@ -35,7 +35,7 @@ const meta: Meta<typeof M3Button> = {
     },
     size: {
       control: 'select',
-      options: ['small', 'medium', 'large],
+      options: ['small', 'medium', 'large'],
       description: 'Button size',
       table: {
         type: { summary: 'small | medium | large' },
@@ -172,6 +172,8 @@ export const FullWidth: Story = {
     layout: 'padded',
   },
 };
+
+
 
 
 

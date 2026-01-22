@@ -4,8 +4,6 @@ import React, { useState, useMemo } from 'react';
 import { AiSettings, CircularAnalysisResult, EventoCalendario } from '../types';
 import { analyzeCircularDocument } from '../services/aiService';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface CircolareAnalysisModalProps {
     url: string; // URL is passed for reference (to open in new tab), not for fetching
     title: string;
@@ -16,8 +14,7 @@ interface CircolareAnalysisModalProps {
 }
 
 const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) => {
-  const { layers } = useTheme();
-    const { url, onClose, aiSettings, onImportEvents, onSaveToKb } = props;
+  const { url, onClose, aiSettings, onImportEvents, onSaveToKb } = props;
 
     const [manualText, setManualText] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -115,15 +112,15 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                     {!result ? (
                         /* INPUT STATE */
                         <>
-                            <div style={{ backgroundColor: layers.sys.color.surfaceContainerHigh, padding: layers.ref.spacing['4'], borderRadius: layers.ref.shape.corner.large, border: "1px solid layers.sys.color.outline", display: "flex" }}>
-                                <span  style={{color: layers.sys.color.primary}}>info</span>
-                                <div style={{marginTop: layers.ref.spacing['4']}}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "1px solid var(--md-sys-color-outline)", display: "flex" }}>
+                                <span  style={{color: 'var(--md-sys-color-primary)'}}>info</span>
+                                <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                                     <h3  style={{ fontWeight: "bold" }}>Procedura Manuale (Privacy-Safe)</h3>
-                                    <p style={{ color:  layers.sys.color.onSurfaceVariant }}>L'AI analizza solo il testo che incolli qui. Non accediamo direttamente ai link per privacy.</p>
-                                    <ol style={{ color: layers.sys.color.onSurfaceVariant, gap: layers.ref.spacing['2'] }}>
+                                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>L'AI analizza solo il testo che incolli qui. Non accediamo direttamente ai link per privacy.</p>
+                                    <ol style={{ color: 'var(--md-sys-color-on-surface-variant)', gap: 'var(--md-sys-spacing-2)' }}>
                                         <li>
-                                            <a href={url} target="_blank" rel="noopener noreferrer"  style={{color: layers.sys.color.primary, fontWeight: "bold", display: "inline-flex", alignItems: "center", gap: layers.ref.spacing['4']}}>
-                                                Apri la circolare originale <span style={{ color: layers.sys.color.primary }}>open_in_new</span>
+                                            <a href={url} target="_blank" rel="noopener noreferrer"  style={{color: 'var(--md-sys-color-primary)', fontWeight: "bold", display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+                                                Apri la circolare originale <span style={{ color: 'var(--md-sys-color-primary)' }}>open_in_new</span>
                                             </a>
                                         </li>
                                         <li>Seleziona e copia il testo.</li>
@@ -144,7 +141,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                             />
 
                             {error && (
-                                <div style={{ padding: layers.ref.spacing['4'], color: layers.sys.color.onErrorContainer, borderRadius: layers.ref.shape.corner.large, display: "flex", alignItems: "center", backgroundColor: layers.sys.color.errorContainer, justifyContent: "center" }}>
+                                <div style={{ padding: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", backgroundColor: 'var(--md-sys-color-error-container)', justifyContent: "center" }}>
                                     <span >error</span>
                                     {error}
                                 </div>
@@ -153,47 +150,47 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                     ) : (
                         /* RESULT STATE */
                         <div >
-                            <div style={{ padding: layers.ref.spacing['4'], backgroundColor: layers.sys.color.secondaryContainer, color: layers.sys.color.onSecondaryContainer, borderRadius: layers.ref.shape.corner.large, border: "1px solid layers.sys.color.outline" }}>
+                            <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "1px solid var(--md-sys-color-outline)" }}>
                                 <h3  style={{ fontWeight: "bold", display: "flex", alignItems: "center" }}>
                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>summarize</span>
                                     Riepilogo AI
                                 </h3>
-                                <p style={{ color: layers.sys.color.onSecondaryContainer, opacity: "0.9", lineHeight: "1.625" }}>{result.summary}</p>
+                                <p style={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: "0.9", lineHeight: "1.625" }}>{result.summary}</p>
                             </div>
 
                             {result.events.length > 0 || result.deadlines.length > 0 ? (
-                                <div style={{ borderRadius: layers.ref.shape.corner.large, border: "1px solid layers.sys.color.outline" }}>
-                                    <div style={{ backgroundColor: layers.sys.color.surfaceContainerHigh, paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'], borderBottom: "1px solid layers.sys.color.outline", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <h4 style={{ color: layers.sys.color.onSurfaceVariant, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Eventi Rilevati</h4>
-                                        <span style={{ backgroundColor: layers.sys.color.primaryContainer, color: layers.sys.color.onPrimaryContainer, fontWeight: "bold", borderRadius: layers.ref.shape.corner.small }}>{result.events.length + result.deadlines.length}</span>
+                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', border: "1px solid var(--md-sys-color-outline)" }}>
+                                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderBottom: "1px solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                        <h4 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Eventi Rilevati</h4>
+                                        <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: "bold", borderRadius: 'var(--md-sys-shape-corner-small)' }}>{result.events.length + result.deadlines.length}</span>
                                     </div>
                                     <div >
                                         {result.events.map((e, i) => (
-                                            <div key={i} style={{ padding: layers.ref.spacing['4'], display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color 300ms" }}>
+                                            <div key={i} style={{ padding: 'var(--md-sys-spacing-4)', display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color 300ms" }}>
                                                 <div  style={{ display: "flex", alignItems: "center" }}>
-                                                    <span style={{ padding: layers.ref.spacing['2'], color: layers.sys.color.onPrimaryContainer, backgroundColor: layers.sys.color.primaryContainer, borderRadius: layers.ref.shape.corner.small }}>event</span>
+                                                    <span style={{ padding: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-primary)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>event</span>
                                                     <span  style={{ fontWeight: "500" }}>{e.titolo}</span>
                                                 </div>
-                                                <span style={{ backgroundColor: layers.sys.color.surfaceContainerHigh, borderRadius: "0.375rem", border: "1px solid layers.sys.color.outline" }}>{e.data}</span>
+                                                <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}>{e.data}</span>
                                             </div>
                                         ))}
                                         {result.deadlines.map((d, i) => (
-                                            <div key={`d-${i}`} style={{ padding: layers.ref.spacing['4'], backgroundColor: layers.sys.color.errorContainer, display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color 300ms" }}>
+                                            <div key={`d-${i}`} style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-error-container)', display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color 300ms" }}>
                                                 <div  style={{ display: "flex", alignItems: "center" }}>
-                                                    <span style={{ padding: layers.ref.spacing['2'], color: layers.sys.color.onErrorContainer, backgroundColor: layers.sys.color.errorContainer, borderRadius: layers.ref.shape.corner.small }}>flag</span>
-                                                    <span style={{ color: layers.sys.color.onErrorContainer, fontWeight: "500" }}>{d.title}</span>
+                                                    <span style={{ padding: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-error-container)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>flag</span>
+                                                    <span style={{ color: 'var(--md-sys-color-on-error-container)', fontWeight: "500" }}>{d.title}</span>
                                                 </div>
-                                                <span style={{ color: layers.sys.color.onErrorContainer, backgroundColor: layers.sys.color.errorContainer, borderRadius: "0.375rem" }}>{d.date}</span>
+                                                <span style={{ color: 'var(--md-sys-color-on-error-container)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: "0.375rem" }}>{d.date}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                             ) : (
-                                <div style={{ padding: layers.ref.spacing['4'], borderRadius: layers.ref.shape.corner.large, textAlign: "center" }}>
-                                    <span style={{ color: layers.sys.color.onSurfaceVariant }}>event_busy</span>
-                                    <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Nessun evento o scadenza rilevato nel testo.</p>
+                                <div style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center" }}>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>event_busy</span>
+                                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun evento o scadenza rilevato nel testo.</p>
                                 </div>
                             )}
                         </div>

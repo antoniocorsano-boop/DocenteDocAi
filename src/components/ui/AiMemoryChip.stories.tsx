@@ -14,7 +14,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     label: {
       control: 'text',
@@ -172,6 +172,8 @@ export const Interactive: Story = {
     },
   },
 };
+
+
 
 
 

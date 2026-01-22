@@ -1,4 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Migration completed
+// AiAdvisor.tsx - All styling uses MD3 tokens via style props
 
 import React, { useState } from 'react';
 import { AiSettings, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
@@ -64,52 +65,218 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
     };
 
     return (
-        <div >
-            <h2 >
-                <span >psychology</span>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--md-sys-spacing-6)',
+            padding: 'var(--md-sys-spacing-6)',
+            backgroundColor: 'var(--md-sys-color-surface-container-low)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            border: '1px solid var(--md-sys-color-outline-variant)'
+        }}>
+            <h2 style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--md-sys-spacing-3)',
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+                color: 'var(--md-sys-color-on-surface)',
+                margin: 0
+            }}>
+                <span style={{
+                    fontFamily: 'Material Symbols Outlined',
+                    fontSize: '1.5rem',
+                    color: 'var(--md-sys-color-primary)'
+                }}>psychology</span>
                 Consulente Didattico AI
             </h2>
-            <p >
+            <p style={{
+                color: 'var(--md-sys-color-on-surface-variant)',
+                fontSize: '0.875rem',
+                lineHeight: 1.5,
+                margin: 0
+            }}>
                 Seleziona uno studente (o l'intera classe) e un obiettivo. L'AI analizzerà i dati e proporrà attività personalizzate.
             </p>
 
-            <div >
-                <div >
-                    <label htmlFor="student-select-advisor" >Studente / Gruppo</label>
-                    <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} >
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--md-sys-spacing-4)',
+                padding: 'var(--md-sys-spacing-6)',
+                backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                border: '1px solid var(--md-sys-color-outline-variant)'
+            }}>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--md-sys-spacing-2)'
+                }}>
+                    <label htmlFor="student-select-advisor" style={{
+                        fontSize: '0.875rem',
+                        fontWeight: 'bold',
+                        color: 'var(--md-sys-color-on-surface)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em'
+                    }}>Studente / Gruppo</label>
+                    <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} style={{
+                        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                        backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                        color: 'var(--md-sys-color-on-surface)',
+                        border: '1px solid var(--md-sys-color-outline)',
+                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                        fontSize: '0.875rem',
+                        cursor: 'pointer'
+                    }}>
                         <option value="all">Tutta la classe</option>
                         {students.map(s => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
                     </select>
                 </div>
-                <div >
-                    <label >Tipo di Intervento</label>
-                    <div >
-                        <button type="button" onClick={() => setRequestType('recupero')} className={`ai-advisor-segmented-button ${requestType === 'recupero' ? 'active' : ''}`}>Recupero</button>
-                        <button type="button" onClick={() => setRequestType('potenziamento')} className={`ai-advisor-segmented-button ${requestType === 'potenziamento' ? 'active' : ''}`}>Potenziamento</button>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--md-sys-spacing-2)'
+                }}>
+                    <label style={{
+                        fontSize: '0.875rem',
+                        backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
+                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
+                        cursor: advisorStatus ? 'not-allowed' : 'pointer',
+                        letterSpacing: '0.05em'
+                    }}>Tipo di Intervento</label>
+                    <div style={{
+                        display: 'flex',
+                        gap: 'var(--md-sys-spacing-2)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        overflow: 'hidden',
+                        border: '1px solid var(--md-sys-color-outline-variant)'
+                    }}>
+                        <button
+                            type="button"
+                            onClick={() => setRequestType('recupero')}
+                            style={{
+                                flex: 1,
+                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                backgroundColor: requestType === 'recupero' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
+                                color: requestType === 'recupero' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                border: 'none',
+                                fontSize: '0.875rem',
+                                fontWeight: requestType === 'recupero' ? 'bold' : 'normal',
+                                transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                cursor: 'pointer',
+                                borderRadius: 0
+                            }}
+                        >Recupero</button>
+                        <button
+                            type="button"
+                            onClick={() => setRequestType('potenziamento')}
+                            style={{
+                                flex: 1,
+                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                backgroundColor: requestType === 'potenziamento' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
+                                color: requestType === 'potenziamento' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                border: 'none',
+                                fontSize: '0.875rem',
+                                fontWeight: requestType === 'potenziamento' ? 'bold' : 'normal',
+                                transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                cursor: 'pointer',
+                                borderRadius: 0
+                            }}
+                        >Potenziamento</button>
                     </div>
                 </div>
-                 <div >
-                    <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} >
+                 <div style={{
+                    display: 'flex',
+                    justifyContent: 'center'
+                }}>
+                    <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} style={{
+                        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
+                        backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
+                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
+                        fontWeight: 'bold',
+                        cursor: advisorStatus ? 'not-allowed' : 'pointer',
+                        transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--md-sys-spacing-2)'
+                    }}>
                         {advisorStatus ? <AiThinkingGem size="small" inline text="" /> : 'Genera Consiglio'}
                     </button>
                 </div>
             </div>
 
             {advisorStatus && (
-                 <div >
+                 <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    padding: 'var(--md-sys-spacing-4)',
+                    backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    border: '1px solid var(--md-sys-color-outline-variant)'
+                }}>
                     <AiThinkingGem size="medium" text={advisorStatus} />
                 </div>
             )}
-            {error && <p >{error}</p>}
+            {error && <p style={{
+                color: 'var(--md-sys-color-error)',
+                fontSize: '0.875rem',
+                backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)',
+                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                border: '1px solid var(--md-sys-color-error)',
+                margin: 0
+            }}>{error}</p>}
             {advice && (
-                <div >
-                    <h3 >Suggerimenti dell'AI:</h3>
-                    {advice.map((item, index) => (
-                        <div key={index} >
-                            <h4 >{item.titolo}</h4>
-                            <p >{item.descrizione}</p>
-                        </div>
-                    ))}
+                <div style={{
+                    backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    padding: 'var(--md-sys-spacing-6)'
+                }}>
+                    <h3 style={{
+                        fontSize: '1.125rem',
+                        fontWeight: 'bold',
+                        color: 'var(--md-sys-color-on-surface)',
+                        margin: '0 0 var(--md-sys-spacing-4) 0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--md-sys-spacing-2)'
+                    }}>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            fontSize: '1.125rem',
+                            color: 'var(--md-sys-color-primary)'
+                        }}>lightbulb</span>
+                        Suggerimenti dell'AI:
+                    </h3>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 'var(--md-sys-spacing-4)'
+                    }}>
+                        {advice.map((item, index) => (
+                            <div key={index} style={{
+                                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                padding: 'var(--md-sys-spacing-4)',
+                                border: '1px solid var(--md-sys-color-outline-variant)'
+                            }}>
+                                <h4 style={{
+                                    fontSize: '1rem',
+                                    fontWeight: 'bold',
+                                    color: 'var(--md-sys-color-on-surface)',
+                                    margin: '0 0 var(--md-sys-spacing-2) 0'
+                                }}>{item.titolo}</h4>
+                                <p style={{
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    fontSize: '0.875rem',
+                                    lineHeight: 1.5,
+                                    margin: 0
+                                }}>{item.descrizione}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>

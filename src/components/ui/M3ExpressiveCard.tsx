@@ -1,11 +1,49 @@
-// LEGACY - MD3 Non-compliant
+// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React, { useState } from 'react';
-import { useTheme } from '../../theme/theme';
 
-const isValidColor = (color: string): color is 'primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant' => {
-  const validColors: ('primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant')[] = ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant'];
-  return validColors.includes(color as 'primary' | 'secondary' | 'tertiary' | 'surface' | 'surfaceVariant');
-};
+// MD3 Token Constants - Direct CSS Variables
+const MD3_TOKENS = {
+  // Colors
+  primaryContainer: 'var(--md-sys-color-primary-container)',
+  onPrimaryContainer: 'var(--md-sys-color-on-primary-container)',
+  primary: 'var(--md-sys-color-primary)',
+  secondaryContainer: 'var(--md-sys-color-secondary-container)',
+  onSecondaryContainer: 'var(--md-sys-color-on-secondary-container)',
+  secondary: 'var(--md-sys-color-secondary)',
+  tertiaryContainer: 'var(--md-sys-color-tertiary-container)',
+  onTertiaryContainer: 'var(--md-sys-color-on-tertiary-container)',
+  tertiary: 'var(--md-sys-color-tertiary)',
+  surfaceContainerHigh: 'var(--md-sys-color-surface-container-high)',
+  onSurface: 'var(--md-sys-color-on-surface)',
+  surfaceContainerLow: 'var(--md-sys-color-surface-container-low)',
+  onSurfaceVariant: 'var(--md-sys-color-on-surface-variant)',
+  outlineVariant: 'var(--md-sys-color-outline-variant)',
+
+  // Shape
+  cornerLarge: 'var(--md-sys-shape-corner-large)',
+
+  // Spacing
+  spacing4: 'var(--md-sys-spacing-4)',
+  spacing8: 'var(--md-sys-spacing-8)',
+  spacing32: 'var(--md-sys-spacing-32)',
+
+  // Motion
+  durationShort2: 'var(--md-sys-motion-duration-short2)',
+  easingStandard: 'var(--md-sys-motion-easing-standard)',
+
+  // Elevation
+  elevation1: 'var(--md-sys-elevation-level1)',
+  elevation2: 'var(--md-sys-elevation-level2)',
+  elevation3: 'var(--md-sys-elevation-level3)',
+
+  // Typography
+  displaySmallFontSize: 'var(--md-sys-typescale-display-small-font-size)',
+  titleMediumFontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+  headlineSmallFontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+  headlineSmallFontFamily: 'var(--md-sys-typescale-headline-small-font-family)',
+  bodyLargeFontSize: 'var(--md-sys-typescale-body-large-font-size)',
+  bodyLargeFontFamily: 'var(--md-sys-typescale-body-large-font-family)',
+} as const;
 
 interface M3ExpressiveCardProps {
     icon: string;
@@ -31,15 +69,13 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
     ariaLabel,
 }) => {
   const [hovered, setHovered] = useState(false);
-  const { layers } = useTheme();
-  const { sys, ref, motion, elevation } = layers;
     const palette = {
-        primary: { bg: sys.color.primaryContainer, fg: sys.color.onPrimaryContainer, accent: sys.color.primary },
-        secondary: { bg: sys.color.secondaryContainer, fg: sys.color.onSecondaryContainer, accent: sys.color.secondary },
-        tertiary: { bg: sys.color.tertiaryContainer, fg: sys.color.onTertiaryContainer, accent: sys.color.tertiary },
-        surface: { bg: sys.color.surfaceContainerHigh, fg: sys.color.onSurface, accent: sys.color.primary },
-        surfaceVariant: { bg: sys.color.surfaceContainerLow, fg: sys.color.onSurfaceVariant, accent: sys.color.secondary }
-    }[color] || { bg: color, fg: 'inherit', accent: sys.color.primary };
+        primary: { bg: MD3_TOKENS.primaryContainer, fg: MD3_TOKENS.onPrimaryContainer, accent: MD3_TOKENS.primary },
+        secondary: { bg: MD3_TOKENS.secondaryContainer, fg: MD3_TOKENS.onSecondaryContainer, accent: MD3_TOKENS.secondary },
+        tertiary: { bg: MD3_TOKENS.tertiaryContainer, fg: MD3_TOKENS.onTertiaryContainer, accent: MD3_TOKENS.tertiary },
+        surface: { bg: MD3_TOKENS.surfaceContainerHigh, fg: MD3_TOKENS.onSurface, accent: MD3_TOKENS.primary },
+        surfaceVariant: { bg: MD3_TOKENS.surfaceContainerLow, fg: MD3_TOKENS.onSurfaceVariant, accent: MD3_TOKENS.secondary }
+    }[color] || { bg: color, fg: 'inherit', accent: MD3_TOKENS.primary };
 
     const isClickable = Boolean(onClick);
 
@@ -47,21 +83,18 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
         position: 'relative',
         backgroundColor: palette.bg,
         color: palette.fg,
-        border: `1px solid ${sys.color.outlineVariant}`,
-        borderRadius: ref.shape.corner.large,
-        padding: layers.ref.spacing['8'], // p-8
-        minHeight: layers.ref.spacing['8'],
+        border: `1px solid ${MD3_TOKENS.outlineVariant}`,
+        borderRadius: MD3_TOKENS.cornerLarge,
+        padding: MD3_TOKENS.spacing8,
+        minHeight: MD3_TOKENS.spacing8,
         display: 'flex',
         flexDirection: 'column',
         backdropFilter: 'blur(10px)',
         WebkitBackdropFilter: 'blur(10px)',
-        transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
+        transition: `all ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`,
         cursor: isClickable ? 'pointer' : 'default',
-        boxShadow: hovered ? elevation.level3 : elevation.level1,
+        boxShadow: hovered ? MD3_TOKENS.elevation3 : MD3_TOKENS.elevation1,
         outline: 'none',
-        // For focus
-        // outline: focused ? `2px solid ${sys.color.primary}` : 'none',
-        // outlineOffset: layers.ref.spacing['4'],
     };
 
     return (
@@ -88,12 +121,12 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     position: 'absolute',
                     top: '-4rem',
                     right: '-4rem',
-                    width: layers.ref.spacing['32'],
-                    height: layers.ref.spacing['32'],
+                    width: MD3_TOKENS.spacing32,
+                    height: MD3_TOKENS.spacing32,
                     filter: 'blur(3rem)',
                     pointerEvents: 'none',
                     opacity: 0.2,
-                    borderRadius: layers.ref.spacing['32'],
+                    borderRadius: MD3_TOKENS.spacing32,
                     background: `radial-gradient(circle, ${palette.accent}20 0%, transparent 70%)`
                 }}
             ></div>
@@ -108,21 +141,19 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     height: '0.25rem',
                     opacity: 0.6,
                     backgroundColor: palette.accent,
-                    borderTopLeftRadius: ref.shape.corner.large,
-                    borderTopRightRadius: ref.shape.corner.large
+                    borderTopLeftRadius: MD3_TOKENS.cornerLarge,
+                    borderTopRightRadius: MD3_TOKENS.cornerLarge
                 }}
             ></div>
 
-            <div style={{position: 'relative', zIndex: 10, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: layers.ref.spacing['4']}}>
+            <div style={{position: 'relative', zIndex: 10, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
                 <div style={{
                     width: '3.5rem',
                     height: '3.5rem',
-                    borderRadius: ref.shape.corner.large,
-                    background: 'linear-gradient(to bottom right, rgba(255,255,255,0.25), rgba(255,255,255,0.1))',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    boxShadow: elevation.level2,
-                    border: `1px solid rgba(255,255,255,0.2)`,
+                    borderRadius: MD3_TOKENS.cornerLarge,
+                    background: 'var(--md-sys-color-surface-container-high)',
+                    boxShadow: MD3_TOKENS.elevation2,
+                    border: `1px solid var(--md-sys-color-outline-variant)`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -130,7 +161,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 }}>
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: ref.typography.displaySmall.fontSize,
+                        fontSize: MD3_TOKENS.displaySmallFontSize,
                         opacity: 0.9,
                         userSelect: 'none',
                         fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
@@ -139,25 +170,24 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 {isClickable && (
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: ref.typography.titleMedium.fontSize,
-                        transition: `opacity ${motion.duration.short2} ${motion.easing.standard}`,
-                        // group-hover:opacity-70, but since no group, use hovered
+                        fontSize: MD3_TOKENS.titleMediumFontSize,
+                        transition: `opacity ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`,
                         opacity: hovered ? 0.7 : 0.5
                     }}>arrow_forward</span>
                 )}
             </div>
 
-            <div style={{position: 'relative', zIndex: 10, flexGrow: 1, display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4']}}>
+            <div style={{position: 'relative', zIndex: 10, flexGrow: 1, display: 'flex', flexDirection: 'column', gap: MD3_TOKENS.spacing4}}>
                 <h3 style={{
-                    fontSize: ref.typography.headlineSmall.fontSize,
-                    fontFamily: ref.typography.headlineSmall.fontFamily,
+                    fontSize: MD3_TOKENS.headlineSmallFontSize,
+                    fontFamily: MD3_TOKENS.headlineSmallFontFamily,
                     fontWeight: 'bold',
                     letterSpacing: '-0.005em',
                     lineHeight: '1.25'
                 }}>{title}</h3>
                 <p style={{
-                    fontSize: ref.typography.bodyLarge.fontSize,
-                    fontFamily: ref.typography.bodyLarge.fontFamily,
+                    fontSize: MD3_TOKENS.bodyLargeFontSize,
+                    fontFamily: MD3_TOKENS.bodyLargeFontFamily,
                     opacity: 0.8,
                     lineHeight: '1.625',
                     fontWeight: '500',
@@ -167,9 +197,9 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     overflow: 'hidden'
                 }}>{description}</p>
                 {children && <div style={{
-                    paddingTop: layers.ref.spacing['4'],
-                    marginTop: layers.ref.spacing['4'],
-                    borderTop: `1px solid rgba(255,255,255,0.1)`
+                    paddingTop: MD3_TOKENS.spacing4,
+                    marginTop: MD3_TOKENS.spacing4,
+                    borderTop: `1px solid var(--md-sys-color-outline-variant)`
                 }}>{children}</div>}
             </div>
         </div>

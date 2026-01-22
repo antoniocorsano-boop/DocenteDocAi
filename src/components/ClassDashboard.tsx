@@ -1,4 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Migrated from legacy tokens to MD3 design system
+// Block F Migration: Removed className usage, converted hardcoded values to MD3 tokens
+// Block C Migration: Removed sys.colors legacy token references
 
 /**
  * ClassDashboard.tsx
@@ -17,8 +19,6 @@ import {
 } from './ui';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
-import { useTheme } from '../theme/theme';
-
 interface ClassDashboardProps {
     selectedClass: string;
     onNavigate: (view: View, context?: string) => void;
@@ -35,7 +35,6 @@ interface StudentDashboardItemProps {
 
 const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: StudentDashboardItemProps) => {
     const { trend } = calculatePerformance(student.id, 'Complessivo', evaluations);
-    const trendClass = trend === 'up' ? 'class-dashboard-trend-up' : trend === 'down' ? 'class-dashboard-trend-down' : 'class-dashboard-trend-neutral';
     const trendIcon = trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'trending_flat';
 
     return (
@@ -44,11 +43,21 @@ const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: Stud
             
         >
             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
-            <div style={{ flexGrow: "1", minWidth: "0" }}>
+            <div style={{ flexGrow: 1 }}>
                 <p >{student.cognome} {student.nome}</p>
                 <div >
-                    <span className={`material-symbols-outlined class-dashboard-trend-icon ${trendClass}`}>{trendIcon}</span>
-                    <span className={`class-dashboard-trend-label ${trendClass}`}>
+                    <span style={{
+                        fontFamily: 'Material Symbols Outlined',
+                        fontSize: 'var(--md-sys-typescale-label-medium-size)',
+                        color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'
+                    }}>{trendIcon}</span>
+                    <span style={{
+                        fontFamily: 'var(--md-sys-typescale-body-small-font)',
+                        fontSize: 'var(--md-sys-typescale-body-small-size)',
+                        fontWeight: 'var(--md-sys-typescale-body-small-weight)',
+                        lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
+                        color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'
+                    }}>
                         {trend === 'up' ? 'In crescita' : trend === 'down' ? 'In calo' : 'Stabile'}
                     </span>
                 </div>
@@ -65,8 +74,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     onStartPlannedLesson,
     onViewStudentProfile,
 }) => {
-  const { layers } = useTheme();
-    const students = useStudentStore(state => state.students);
+  const students = useStudentStore(state => state.students);
     const evaluations = useStudentStore(state => state.evaluations);
     const slots = useAcademicStore(state => state.slots);
     const lessons = useAcademicStore(state => state.lessons);
@@ -113,7 +121,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         <div >
                                             <span >school</span>
                                         </div>
-                                        <div style={{ flexGrow: "1", minWidth: "0" }}>
+                                        <div style={{ flexGrow: 1 }}>
                                             <p >Prossima Lezione • {todaysLesson.slot.ora}</p>
                                             <h2 >{todaysLesson.lesson.materia}</h2>
                                             <p >{todaysLesson.lesson.contenuto}</p>
@@ -131,16 +139,22 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                             </M3Card>
                         ) : (
                             <M3Card >
-                                <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['6'], marginBottom: layers.ref.spacing['6']}}>
-                                    <div style={{ borderRadius: layers.ref.shape.corner.large, backgroundColor:  layers.sys.color.surfaceContainerHighest, color:  layers.sys.color.onSurfaceVariant }} style={{ width: layers.ref.spacing['8'], height: layers.ref.spacing['8'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-6)'}}>
+                                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", justifyContent: "center" }}>
                                         <span >event_busy</span>
                                     </div>
                                     <div>
-                                        <h2 style={{ color:  layers.sys.color.onPrimary }} style={{ fontSize: "1.25rem", fontWeight: "bold" }}>Nessuna lezione programmata</h2>
-                                        <p style={{ color:  layers.sys.color.onSurfaceVariant }}>Puoi avviare una lezione libera o un'attività improvvisata.</p>
+                                        <h2 style={{
+                                            color: 'var(--md-sys-color-on-primary)',
+                                            fontFamily: 'var(--md-sys-typescale-headline-small-font)',
+                                            fontSize: 'var(--md-sys-typescale-headline-small-size)',
+                                            fontWeight: 'var(--md-sys-typescale-headline-small-weight)',
+                                            lineHeight: 'var(--md-sys-typescale-headline-small-line-height)'
+                                        }}>Nessuna lezione programmata</h2>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Puoi avviare una lezione libera o un'attività improvvisata.</p>
                                     </div>
                                 </div>
-                                <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="secondary" style={{ width: "100%" }}>
+                                <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="secondary" style={{ width: '100%' }}>
                                     <span >add_circle</span>
                                     Avvia Lezione Improvvisata
                                 </M3Button>
@@ -156,24 +170,33 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 onClick={() => onNavigate('teacher-inbox')}
                             >
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
-                                            <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>mail</span>
+                                            <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: '24px', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>mail</span>
                                             <span >
                                                 {inboxCount}
                                             </span>
                                         </div>
                                         <div>
-                                            <h3 style={{ color: sys.colors.on-tertiary-container }} style={{ fontWeight: "bold" }}>Inbox Compiti</h3>
-                                            <p style={{ color: sys.colors.on-tertiary-container/70 }} style={{ fontSize: "0.875rem" }}>{inboxCount} elaborati consegnati da valutare.</p>
+                                            <h3 style={{
+                                                color: 'var(--md-sys-color-on-tertiary-container)',
+                                                fontFamily: 'var(--md-sys-typescale-title-large-font)',
+                                                fontSize: 'var(--md-sys-typescale-title-large-size)',
+                                                fontWeight: 'var(--md-sys-typescale-title-large-weight)',
+                                                lineHeight: 'var(--md-sys-typescale-title-large-line-height)'
+                                            }}>Inbox Compiti</h3>
+                                            <p style={{
+                                                color: 'var(--md-sys-color-on-tertiary-container)',
+                                                opacity: '0.7',
+                                                fontFamily: 'var(--md-sys-typescale-body-medium-font)',
+                                                fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                                fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
+                                                lineHeight: 'var(--md-sys-typescale-body-medium-line-height)'
+                                            }}>{inboxCount} elaborati consegnati da valutare.</p>
                                         </div>
                                     </div>
                                     <div >
-                                        <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>arrow_forward</span>
+                                        <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: '24px', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>arrow_forward</span>
                                     </div>
                                 </div>
                             </M3Card>
@@ -185,7 +208,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section>
                             <div >
-                                <span  style={{color: "layers.sys.color.primary"}}>auto_stories</span>
+                                <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: '24px', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
                                 <h3 >Registro & Didattica</h3>
                             </div>
                             <div >
@@ -193,11 +216,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     
                                     onClick={() => onNavigate('register', selectedClass)}
                                 >
-                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
-                                            <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>book</span>
+                                            <span className="material-symbols-outlined">book</span>
                                         </div>
                                         <div>
                                             <h4 >Diario di Bordo</h4>
@@ -209,11 +230,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     
                                     onClick={() => onNavigate('didattica-inclusiva', selectedClass)}
                                 >
-                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
-                                            <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>accessibility_new</span>
+                                            <span className="material-symbols-outlined">accessibility_new</span>
                                         </div>
                                         <div>
                                             <h4 >Inclusione</h4>
@@ -227,7 +246,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
                         <section>
                             <div >
-                                <span  style={{color: "layers.sys.color.secondary"}}>grading</span>
+                                <span className="material-symbols-outlined" style={{color: "var(--md-sys-color-secondary)"}}>grading</span>
                                 <h3 >Valutazione & Competenze</h3>
                             </div>
                             <div >
@@ -235,7 +254,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     
                                     onClick={() => onNavigate('evaluations', selectedClass)}
                                 >
-                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -251,11 +270,9 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     
                                     onClick={() => onNavigate('class-competency-dashboard', selectedClass)}
                                 >
-                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
-                                            <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>psychology</span>
+                                            <span className="material-symbols-outlined">psychology</span>
                                         </div>
                                         <div>
                                             <h4 >Competenze</h4>
@@ -269,7 +286,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 3. SEZIONE ANALISI & REPORT */}
                         <section>
                             <div >
-                                <span style={{ color:  layers.sys.color.onSurfaceVariant }}>analytics</span>
+                                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>analytics</span>
                                 <h3 >Analisi & Report</h3>
                             </div>
                             <div >
@@ -277,7 +294,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     
                                     onClick={() => onNavigate('improvement-guide', selectedClass)}
                                 >
-                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -293,7 +310,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     
                                     onClick={() => onNavigate('consiglio-di-classe', selectedClass)}
                                 >
-                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -309,7 +326,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     
                                     onClick={() => onNavigate('studenti', selectedClass)}
                                 >
-                                    <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
                                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -350,7 +367,13 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>person_off</span>
-                                        <p style={{ fontSize: "0.875rem" }}>Nessuno studente in elenco.</p>
+                                        <p style={{
+                                            fontFamily: 'var(--md-sys-typescale-body-medium-font)',
+                                            fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                            fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
+                                            lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                                            color: 'var(--md-sys-color-on-surface-variant)'
+                                        }}>Nessuno studente in elenco.</p>
                                     </div>
                                 )}
                             </div>

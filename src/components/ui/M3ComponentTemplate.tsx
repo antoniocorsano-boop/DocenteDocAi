@@ -1,8 +1,41 @@
-// LEGACY - MD3 Non-compliant
+// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React from 'react';
 import M3Typography from './M3Typography';
 import M3Button from './M3Button';
-import { useTheme } from '../../theme/theme';
+
+// MD3 Token Constants - Direct CSS Variables
+const MD3_TOKENS = {
+  // Colors
+  primaryContainer: 'var(--md-sys-color-primary-container)',
+  onPrimaryContainer: 'var(--md-sys-color-on-primary-container)',
+  primary: 'var(--md-sys-color-primary)',
+  secondaryContainer: 'var(--md-sys-color-secondary-container)',
+  onSecondaryContainer: 'var(--md-sys-color-on-secondary-container)',
+  secondary: 'var(--md-sys-color-secondary)',
+  tertiaryContainer: 'var(--md-sys-color-tertiary-container)',
+  onTertiaryContainer: 'var(--md-sys-color-on-tertiary-container)',
+  tertiary: 'var(--md-sys-color-tertiary)',
+
+  // Shape
+  cornerLarge: 'var(--md-sys-shape-corner-large)',
+  cornerFull: 'var(--md-sys-shape-corner-full)',
+
+  // Spacing
+  spacing2: 'var(--md-sys-spacing-2)',
+  spacing3: 'var(--md-sys-spacing-3)',
+  spacing4: 'var(--md-sys-spacing-4)',
+  spacing6: 'var(--md-sys-spacing-6)',
+
+  // Motion
+  durationShort2: 'var(--md-sys-motion-duration-short2)',
+  easingStandard: 'var(--md-sys-motion-easing-standard)',
+
+  // Elevation
+  elevation1: 'var(--md-sys-elevation-level1)',
+
+  // Typography
+  labelLargeFontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+} as const;
 
 /**
  * MD3 Component Template
@@ -65,27 +98,26 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
   onAction,
   'data-testid': dataTestId
 }) => {
-  const { layers } = useTheme();
   // Color mapping based on variant - using MD3 color roles
   const getVariantColors = () => {
     switch (variant) {
       case 'secondary':
         return {
-          background: 'var(--md-sys-color-secondary-container)',
-          onBackground: 'var(--md-sys-color-on-secondary-container)',
-          accent: 'var(--md-sys-color-secondary)'
+          background: MD3_TOKENS.secondaryContainer,
+          onBackground: MD3_TOKENS.onSecondaryContainer,
+          accent: MD3_TOKENS.secondary
         };
       case 'tertiary':
         return {
-          background: 'var(--md-sys-color-tertiary-container)',
-          onBackground: 'var(--md-sys-color-on-tertiary-container)',
-          accent: 'var(--md-sys-color-tertiary)'
+          background: MD3_TOKENS.tertiaryContainer,
+          onBackground: MD3_TOKENS.onTertiaryContainer,
+          accent: MD3_TOKENS.tertiary
         };
       default: // primary
         return {
-          background: 'var(--md-sys-color-primaryContainer)',
-          onBackground: 'var(--md-sys-color-on-primaryContainer)',
-          accent: 'var(--md-sys-color-primary)'
+          background: MD3_TOKENS.primaryContainer,
+          onBackground: MD3_TOKENS.onPrimaryContainer,
+          accent: MD3_TOKENS.primary
         };
     }
   };
@@ -100,19 +132,19 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
       style={{// Layout using flexbox with MD3 spacing tokens
         display: 'flex',
         flexDirection: 'column',
-        gap: layers.ref.spacing['3'],
+        gap: MD3_TOKENS.spacing3,
         backgroundColor: colors.background,
-        borderRadius: 'layers.ref.shape.corner.large',
-        padding: layers.ref.spacing['4'],
-        boxShadow: 'layers.sys.elevation.level1',
-        transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`
+        borderRadius: MD3_TOKENS.cornerLarge,
+        padding: MD3_TOKENS.spacing4,
+        boxShadow: MD3_TOKENS.elevation1,
+        transition: `all ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`
       }}
     >
       {/* Header section with icon and title */}
       <div
         style={{display: 'flex',
           alignItems: 'center',
-          gap: layers.ref.spacing['3']
+          gap: MD3_TOKENS.spacing3
         }}
       >
         {/* Optional leading icon */}
@@ -121,9 +153,9 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
             style={{display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              width: layers.ref.spacing['6'],
-              height: layers.ref.spacing['6'],
-              borderRadius: 'layers.ref.shape.corner.full',
+              width: MD3_TOKENS.spacing6,
+              height: MD3_TOKENS.spacing6,
+              borderRadius: MD3_TOKENS.cornerFull,
               backgroundColor: colors.accent,
               color: colors.onBackground
             }}
@@ -131,7 +163,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
           >
             <span
               style={{fontFamily: 'Material Symbols Outlined',
-                fontSize: layers.ref.spacing['4']
+                fontSize: MD3_TOKENS.spacing4
               }}
             >
               {leadingIcon}
@@ -143,7 +175,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
         <M3Typography
           variant="label-large"
           style={{color: colors.onBackground,
-            fontWeight: 'var(--md-sys-typescale-label-large-font-weight)'
+            fontWeight: MD3_TOKENS.labelLargeFontWeight
           }}
         >
           {title}
@@ -153,7 +185,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
       {/* Optional description section */}
       {description && (
         <div
-          style={{marginTop: layers.ref.spacing['2']}}
+          style={{marginTop: MD3_TOKENS.spacing2}}
         >
           {/* Description using M3Typography with body-medium variant */}
           <M3Typography
@@ -171,7 +203,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
       {/* Optional action section */}
       {actionLabel && onAction && (
         <div
-          style={{marginTop: layers.ref.spacing['4'], // Larger top margin for actions
+          style={{marginTop: MD3_TOKENS.spacing4, // Larger top margin for actions
             display: 'flex',
             justifyContent: 'flex-end'
           }}

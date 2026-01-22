@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block M Migration (3 violations eliminated)
 
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations. ✅ COMPLETED
 // ...existing code...
@@ -71,10 +71,35 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
             <div >
                 <div >
                     {frameworks.map(fw => (
-                        <button 
+                        <button
                             key={fw}
                             onClick={() => setActiveFramework(fw)}
-                            className={`competency-manager-framework-filter-button ${activeFramework === fw ? 'competency-manager-framework-filter-button.active' : 'competency-manager-framework-filter-button.inactive'}`}
+                            style={{
+                                padding: 'var(--md-sys-spacing-4)',
+                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                transition: 'background-color 0.2s ease',
+                                fontSize: '0.875rem',
+                                fontWeight: 500,
+                                display: 'flex',
+                                alignItems: 'center',
+                                whiteSpace: 'nowrap',
+                                background: activeFramework === fw ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface)',
+                                color: activeFramework === fw ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                                boxShadow: activeFramework === fw ? 'var(--md-sys-elevation-level1)' : 'none',
+                                border: activeFramework === fw ? 'none' : '1px solid transparent'
+                            }}
+                            onMouseEnter={(e) => {
+                                if (activeFramework !== fw) {
+                                    e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
+                                    e.currentTarget.style.borderColor = 'var(--md-sys-color-outline-variant)';
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                if (activeFramework !== fw) {
+                                    e.currentTarget.style.background = 'var(--md-sys-color-surface)';
+                                    e.currentTarget.style.borderColor = 'transparent';
+                                }
+                            }}
                         >
                             <span >{fw}</span>
                             {fw === 'DigCompEdu 2.2' && <span >smart_toy</span>}
@@ -88,18 +113,46 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                 {filteredCatalog.map(comp => {
                     const active = isCompetencyActive(comp.id);
                     return (
-                        <details 
-                            key={comp.id} 
-                            className={`competency-manager-competency-expansion-panel ${active ? 'competency-manager-competency-expansion-panel.active' : 'competency-manager-competency-expansion-panel.inactive'}`}
+                        <details
+                            key={comp.id}
+                            style={{
+                                transition: 'all 0.2s ease',
+                                borderColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
+                                background: active ? 'var(--md-sys-color-surface)' : 'var(--md-sys-color-surface-container-low)'
+                            }}
                         >
                             <summary >
-                                <div 
-                                    onClick={(e) => { 
+                                <div
+                                    onClick={(e) => {
                                         e.preventDefault(); // Prevent details toggle
-                                        e.stopPropagation(); 
-                                        toggleCompetency(comp); 
-                                    }} 
-                                    className={`competency-manager-competency-checkbox ${active ? 'competency-manager-competency-checkbox.active' : 'competency-manager-competency-checkbox.inactive'}`}
+                                        e.stopPropagation();
+                                        toggleCompetency(comp);
+                                    }}
+                                    style={{
+                                        width: '1.5rem',
+                                        height: '1.5rem',
+                                        borderRadius: 'var(--md-sys-shape-corner-small)',
+                                        borderWidth: '2px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        flexShrink: 0,
+                                        transition: 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease',
+                                        cursor: 'pointer',
+                                        background: active ? 'var(--md-sys-color-primary)' : 'transparent',
+                                        borderColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
+                                        color: active ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!active) {
+                                            e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!active) {
+                                            e.currentTarget.style.background = 'transparent';
+                                        }
+                                    }}
                                     title={active ? `Disattiva ${comp.nome}` : `Attiva ${comp.nome}`}
                                 >
                                     {active && <span >check</span>}

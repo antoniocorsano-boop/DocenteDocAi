@@ -1,6 +1,43 @@
-// LEGACY - MD3 Non-compliant
+// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React, { useState } from 'react';
-import { useTheme } from '../../theme/theme';
+
+// MD3 Token Constants - Direct CSS Variables
+const MD3_TOKENS = {
+  // Colors
+  primary: 'var(--md-sys-color-primary)',
+  onPrimary: 'var(--md-sys-color-on-primary)',
+  primaryContainer: 'var(--md-sys-color-primary-container)',
+  onPrimaryContainer: 'var(--md-sys-color-on-primary-container)',
+  outline: 'var(--md-sys-color-outline)',
+  outlineVariant: 'var(--md-sys-color-outline-variant)',
+  surfaceContainer: 'var(--md-sys-color-surface-container)',
+  surfaceContainerHigh: 'var(--md-sys-color-surface-container-high)',
+  surface: 'var(--md-sys-color-surface)',
+  onSurface: 'var(--md-sys-color-on-surface)',
+
+  // Shape
+  cornerExtraLarge: 'var(--md-sys-shape-corner-extra-large)',
+  cornerMedium: 'var(--md-sys-shape-corner-medium)',
+
+  // Spacing
+  spacing4: 'var(--md-sys-spacing-4)',
+  spacing6: 'var(--md-sys-spacing-6)',
+  spacing8: 'var(--md-sys-spacing-8)',
+  spacing12: 'var(--md-sys-spacing-12)',
+  spacing16: 'var(--md-sys-spacing-16)',
+
+  // Motion
+  durationShort2: 'var(--md-sys-motion-duration-short2)',
+  easingStandard: 'var(--md-sys-motion-easing-standard)',
+
+  // Elevation
+  elevation2: 'var(--md-sys-elevation-level2)',
+  elevation4: 'var(--md-sys-elevation-level4)',
+
+  // Typography
+  bodySmallFontSize: 'var(--md-sys-typescale-body-small-font-size)',
+  bodySmallFontFamily: 'var(--md-sys-typescale-body-small-font-family)',
+} as const;
 
 interface M3ChoiceCardProps {
     icon: string;
@@ -16,52 +53,50 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
     selected
 }) => {
     const [hovered, setHovered] = useState(false);
-    const { layers } = useTheme();
-    const { sys, ref, motion, elevation } = layers;
 
     const buttonStyle: React.CSSProperties = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: layers.ref.spacing['8'],
-        borderRadius: ref.shape.corner.extraLarge,
-        border: `2px solid ${selected ? sys.color.primary : hovered ? sys.color.outline : `${sys.color.outlineVariant}30`}`,
-        backgroundColor: selected ? sys.color.primaryContainer : hovered ? sys.color.surfaceContainerHigh : `${sys.color.surfaceContainer}80`,
-        color: selected ? sys.color.onPrimaryContainer : sys.color.onSurface,
-        boxShadow: selected ? elevation.level4 : 'none',
+        padding: MD3_TOKENS.spacing8,
+        borderRadius: MD3_TOKENS.cornerExtraLarge,
+        border: `2px solid ${selected ? MD3_TOKENS.primary : hovered ? MD3_TOKENS.outline : `${MD3_TOKENS.outlineVariant}30`}`,
+        backgroundColor: selected ? MD3_TOKENS.primaryContainer : hovered ? MD3_TOKENS.surfaceContainerHigh : `${MD3_TOKENS.surfaceContainer}80`,
+        color: selected ? MD3_TOKENS.onPrimaryContainer : MD3_TOKENS.onSurface,
+        boxShadow: selected ? MD3_TOKENS.elevation4 : 'none',
         transform: selected ? 'scale(1.05)' : 'none',
-        transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
-        gap: layers.ref.spacing['4'],
-        minWidth: layers.ref.spacing['16'], // Using spacing token instead of hardcoded px
+        transition: `all ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`,
+        gap: MD3_TOKENS.spacing4,
+        minWidth: MD3_TOKENS.spacing16,
         cursor: 'pointer',
         outline: 'none'
     };
 
     const iconContainerStyle: React.CSSProperties = {
-        width: layers.ref.spacing['12'],
-        height: layers.ref.spacing['12'],
-        borderRadius: ref.shape.corner.medium,
+        width: MD3_TOKENS.spacing12,
+        height: MD3_TOKENS.spacing12,
+        borderRadius: MD3_TOKENS.cornerMedium,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
-        backgroundColor: selected ? sys.color.primary : sys.color.surface,
-        color: selected ? sys.color.onPrimary : sys.color.primary,
-        boxShadow: selected ? elevation.level2 : 'none',
+        transition: `all ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`,
+        backgroundColor: selected ? MD3_TOKENS.primary : MD3_TOKENS.surface,
+        color: selected ? MD3_TOKENS.onPrimary : MD3_TOKENS.primary,
+        boxShadow: selected ? MD3_TOKENS.elevation2 : 'none',
         transform: hovered && !selected ? 'scale(1.1)' : 'none'
     };
 
     const iconStyle: React.CSSProperties = {
         fontFamily: 'Material Symbols Outlined',
-        fontSize: layers.ref.spacing['6'],
+        fontSize: MD3_TOKENS.spacing6,
         userSelect: 'none',
         fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
     };
 
     const labelStyle: React.CSSProperties = {
-        fontSize: ref.typography.bodySmall.fontSize,
-        fontFamily: ref.typography.bodySmall.fontFamily,
+        fontSize: MD3_TOKENS.bodySmallFontSize,
+        fontFamily: MD3_TOKENS.bodySmallFontFamily,
         fontWeight: '800',
         letterSpacing: '0.2em',
         textTransform: 'uppercase'

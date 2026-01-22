@@ -6,7 +6,7 @@ import M3Chip, { M3ChipProps } from './M3Chip';
 const meta: Meta<typeof M3Chip> = {
   component: M3Chip,
   title: 'UI/Layout/M3Chip',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -22,7 +22,7 @@ const meta: Meta<typeof M3Chip> = {
     },
     variant: {
       control: 'select',
-      options: ['filled', 'outlined', 'elevated],
+      options: ['filled', 'outlined', 'elevated'],
       description: 'Chip style variant',
     },
     disabled: {
@@ -101,7 +101,7 @@ export const Disabled: Story = {
 export const Group: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: layers.ref.spacing['4'] }}>
-      {['Mathematics', 'Italian', 'English', 'History].map((label, i) => (
+      {['Mathematics', 'Italian', 'English', 'History'].map((label, i) => (
         <M3Chip key={i} label={label} variant={i % 2 === 0 ? 'filled' : 'outlined'} />
       ))}
     </div>
@@ -113,7 +113,7 @@ export const Group: Story = {
  */
 export const DeletableGroup: Story = {
   render: () => {
-    const [chips, setChips] = useState(['Math', 'Science', 'Literature', 'History]);
+    const [chips, setChips] = useState(['Math', 'Science', 'Literature', 'History']);
 
     return (
       <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap' }}>
@@ -136,7 +136,7 @@ export const DeletableGroup: Story = {
 export const Tags: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: '31.25rem' }}>
-      {['Important', 'Draft', 'Review', 'Completed', 'Urgent].map((tag, i) => (
+      {['Important', 'Draft', 'Review', 'Completed', 'Urgent'].map((tag, i) => (
         <M3Chip key={i} label={tag} variant="elevated" />
       ))}
     </div>
@@ -148,10 +148,9 @@ export const Tags: Story = {
  */
 export const Filters: Story = {
   render: () => {
-    const [selected, setSelected] = useState<string[]>(['Math]);
+    const [selected, setSelected] = useState<string[]>(['Math']);
 
-    const filters = ['Math', 'Science', 'History', 'Geography', 'Languages];
-
+    const filters = ['Math', 'Science', 'History', 'Geography', 'Languages'];
     const toggleFilter = (filter: string) => {
       setSelected((prev) =>
         prev.includes(filter)
@@ -199,7 +198,7 @@ export const Filters: Story = {
  */
 export const ContextTags: Story = {
   render: () => {
-    const [contexts, setContexts] = useState(['Class 1A', 'Mathematics', 'Chapter 3]);
+    const [contexts, setContexts] = useState(['Class 1A', 'Mathematics', 'Chapter 3']);
 
     return (
       <div style={{ maxWidth: layers.ref.spacing['4'] }}>
@@ -224,13 +223,13 @@ export const ContextTags: Story = {
  */
 export const InputChips: Story = {
   render: () => {
-    const [input, setInput] = useState(');
-    const [chips, setChips] = useState<string[]>(['User1', 'User2]);
+    const [input, setInput] = useState('');
+    const [chips, setChips] = useState<string[]>(['User1', 'User2']);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && input.trim()) {
         setChips([...chips, input]);
-        setInput(');
+        setInput('');
       }
     };
 
@@ -342,6 +341,8 @@ export const Accessibility: Story = {
     },
   },
 };
+
+
 
 
 

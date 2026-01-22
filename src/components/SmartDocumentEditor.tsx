@@ -6,8 +6,6 @@ import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { sanitizeHTML } from '../utils/securityUtils';
 import { saveAs } from '../utils/documentUtils';
 import { AiThinkingGem } from './ui';
-import { useTheme } from '../theme/theme';
-
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation, and animations
 
 interface SmartDocumentEditorProps {
@@ -19,8 +17,7 @@ interface SmartDocumentEditorProps {
 }
 
 const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialContent, documentTitle, onClose, aiSettings, onSaveToKb }) => {
-  const { layers } = useTheme();
-    const editorRef = useRef<HTMLDivElement>(null);
+  const editorRef = useRef<HTMLDivElement>(null);
     const [isAiThinking, setIsAiThinking] = useState(false);
     const [aiMenuPosition, setAiMenuPosition] = useState<{top: number, left: number} | null>(null);
     const [selectedText, setSelectedText] = useState('');
@@ -114,7 +111,6 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
      * Robustly handles focus loss by using savedRange.
      */
     const insertHtmlAtCursor = useCallback((html: string) => {
-        const sel = window.getSelection();
         if (!sel) return;
 
         let range: Range | null = null;
@@ -216,7 +212,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             insertHtmlAtCursor(safeTable + '<p><br></p>'); 
             
         } catch (e: unknown) {
-            let message = 'Errore AI.';
+            let message = 'Errore AI. Riprova.';
             if (e instanceof Error) {
                 message = "Errore AI: " + e.message;
             }
@@ -234,7 +230,6 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             saveAs(blob, `${editorTitle.replace(/\s/g, '_')}.docx`);
         } catch (e: unknown) {
             console.error("Export error:", e);
-            let message = 'Errore esportazione DOCX. Riprova.';
             if (e instanceof Error) {
                 message = "Errore esportazione DOCX: " + e.message;
             }
@@ -277,7 +272,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
         const printWindow = window.open(', ', 'height=600,width=800');
         if (printWindow) {
             printWindow.document.write('<html><head><title>' + editorTitle + '</title>');
-            printWindow.document.write('<style>@import url(\'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap\'); body{font-family:\'Roboto\',sans-serif; padding: 20px;} table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ccc;padding:var(--md-sys-spacing-2);} h1,h2,h3{color:var(--md-sys-color-primary);}</style>'); // MD3 fix
+            printWindow.document.write("<style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body{font-family:'Roboto',sans-serif; padding: 20px;} table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ccc;padding: var(--md-sys-spacing-2);} h1,h2,h3{color: var(--md-sys-color-primary);}</style>"); // MD3 fix
             printWindow.document.write('</head><body>');
             printWindow.document.write(editorRef.current.innerHTML);
             printWindow.document.write('</body></html>');
@@ -309,7 +304,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                     <button onClick={() => execCmd('formatBlock', 'h2')}  title="Titolo" aria-label="Applica stile titolo"><span  aria-hidden="true">title</span></button>
                     <div ></div>
                     <button onClick={() => execCmd('insertUnorderedList')}  title="Elenco" aria-label="Inserisci elenco puntato"><span  aria-hidden="true">format_list_bulleted</span></button>
-                    <button onClick={handleAiTable}  style={{color: "layers.sys.color.primary"}} title="Tabella AI" aria-label="Genera tabella con AI"><span  aria-hidden="true">table_chart</span></button>
+                    <button onClick={handleAiTable}  style={{color: "var(--md-sys-color-primary)"}} title="Tabella AI" aria-label="Genera tabella con AI"><span  aria-hidden="true">table_chart</span></button>
                 </div>
 
                 <div >
@@ -320,7 +315,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                         <span >download</span> DOCX
                     </button>
                     <button onClick={handlePrint}  title="Stampa / PDF" aria-label="Stampa o salva come PDF">
-                        <span style={{ color: layers.sys.color.onSurfaceVariant }} aria-hidden="true">print</span>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }} aria-hidden="true">print</span>
                     </button>
                     {onSaveToKb && (
                         <button onClick={handleSave} >

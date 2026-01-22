@@ -1,7 +1,6 @@
 // LEGACY - MD3 Non-compliant
 import React from 'react';
 import { saveAs } from '../utils/documentUtils';
-import { useTheme } from '../theme/theme';
 import { 
 
     M3Dialog, 
@@ -19,9 +18,7 @@ interface ImageViewerModalProps {
 }
 
 const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, mimeType, onClose, onSaveToKb }) => {
-  const { layers } = useTheme();
-
-    const dataUrl = `data:${mimeType};base64,${imageData}`;
+  const dataUrl = `data:${mimeType};base64,${imageData}`;
 
     const handleDownload = () => {
         fetch(dataUrl)
@@ -41,20 +38,20 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
             onClose={onClose}
             maxWidth="lg"
         >
-            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }} style={{display: "flex", justifyContent: "center", alignItems: "center", padding: layers.ref.spacing['6']}}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , display: "flex", justifyContent: "center", alignItems: "center", padding: 'var(--md-sys-spacing-6)'}}>
                 <div >
                     <img 
                         src={dataUrl} 
                         alt={prompt} 
-                        style={{ borderRadius: layers.ref.shape.corner.large }} style={{maxWidth: "100%", border: "1px solid layers.sys.color.outline"}} 
+                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , maxWidth: "100%", border: "1px solid var(--md-sys-color-outline)"}} 
                     />
-                    <div style={{ backgroundColor: sys.colors.black/40, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], opacity: "0", transition: "opacity 300ms"}}>
-                        <p style={{ color: sys.colors.white }} style={{ fontSize: "0.75rem", fontWeight: "500" }}>"{prompt}"</p>
+                    <div style={{ backgroundColor: sys.colors.black/40, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', opacity: "0", transition: "opacity 300ms"}}>
+                        <p style={{ color: sys.colors.white ,  fontSize: "0.75rem", fontWeight: "500" }}>"{prompt}"</p>
                     </div>
                 </div>
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/80 }} style={{padding: layers.ref.spacing['6'], borderTop: "1px solid layers.sys.color.outline"}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/80 , padding: 'var(--md-sys-spacing-6)', borderTop: "1px solid var(--md-sys-color-outline)"}}>
                 <M3Button 
                     onClick={handleSave} 
                     variant="outlined" 

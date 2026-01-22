@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Uda, AiSettings, KnowledgeBaseEntry } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
 import { validateUdaVerticalCurriculum } from '../services/aiService';
-import { useTheme } from '../theme/theme';
-
 interface UdaDetailModalProps {
     uda: Uda;
     onClose: () => void;
@@ -14,8 +12,7 @@ interface UdaDetailModalProps {
 }
 
 const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, aiSettings, knowledgeBase }) => {
-  const { layers } = useTheme();
-    const [isValidating, setIsValidating] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
     const [validationResult, setValidationResult] = useState<string | null>(null);
 
     useEffect(() => {
@@ -54,37 +51,37 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
             onClose={handleClose}
             maxWidth="2xl"
         >
-            <M3DialogContent style={{ backgroundColor: sys.colors.surfaceContainerHigh/30 }} style={{padding: layers.ref.spacing['6'], gap: layers.ref.spacing['6']}}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)'}}>
                 {/* Metadata Chips */}
-                <div style={{display: "flex", flexWrap: "wrap", gap: layers.ref.spacing['2'], marginBottom: layers.ref.spacing['6']}}>
-                    <span style={{ backgroundColor: sys.colors.primary/10 }} style={{borderRadius: layers.ref.spacing['4'], color: "layers.sys.color.primary", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: layers.ref.spacing['1']}}>
+                <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-6)'}}>
+                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
                         <span  style={{ fontSize: "0.875rem" }}>school</span>
                         Classe {uda.classe}
                     </span>
-                    <span style={{ backgroundColor: sys.colors.secondary/10 }} style={{borderRadius: layers.ref.spacing['4'], color: "layers.sys.color.secondary", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: layers.ref.spacing['1']}}>
+                    <span style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-on-secondary-container)", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
                         <span  style={{ fontSize: "0.875rem" }}>menu_book</span>
                         {uda.materia}
                     </span>
-                    <span style={{ backgroundColor: sys.colors.tertiary/10 }} style={{borderRadius: layers.ref.spacing['4'], color: "layers.sys.color.tertiary", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: layers.ref.spacing['1']}}>
+                    <span style={{ backgroundColor: 'var(--md-sys-color-tertiary-container)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-on-tertiary-container)", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
                         <span  style={{ fontSize: "0.875rem" }}>event</span>
                         {new Date(uda.startDate!).toLocaleDateString()} - {new Date(uda.endDate!).toLocaleDateString()}
                     </span>
                 </div>
 
                 {/* AI Validation Section */}
-                <div style={{ backgroundColor: sys.colors.primaryContainer/10, borderRadius: layers.ref.shape.corner.large }} style={{border: "1px solid layers.sys.color.outline", padding: layers.ref.spacing['4'], gap: layers.ref.spacing['3']}}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-4)', gap: 'var(--md-sys-spacing-3)'}}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['2']}}>
-                            <span  style={{color: "layers.sys.color.primary"}}>verified</span>
-                            <span style={{fontSize: "0.875rem", fontWeight: "900", color: "layers.sys.color.onSurface", textTransform: "uppercase", letterSpacing: "0.1em"}}>Validazione Curricolo Verticale</span>
+                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-2)'}}>
+                            <span  style={{color: "var(--md-sys-color-primary)"}}>verified</span>
+                            <span style={{fontSize: "0.875rem", fontWeight: "900", color: "var(--md-sys-color-on-surface)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Validazione Curricolo Verticale</span>
                         </div>
                         <M3Button onClick={handleValidate} variant="secondary" disabled={isValidating} style={{ fontSize: "0.75rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                             {isValidating ? 'Validazione...' : 'Valida con AI'}
                         </M3Button>
                     </div>
                     {validationResult && (
-                        <div style={{ backgroundColor: sys.colors.surfaceContainerLow/50, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['4'], border: "1px solid layers.sys.color.outline"}}>
-                            <p  style={{fontSize: "0.875rem", color: "layers.sys.color.onSurface", lineHeight: "1.625"}}>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-4)', border: "1px solid var(--md-sys-color-outline)"}}>
+                            <p  style={{fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625"}}>
                                 {validationResult}
                             </p>
                         </div>
@@ -92,37 +89,37 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                 </div>
 
                 {/* Description */}
-                <InfoCard title="Introduzione" variant="elevated" style={{padding: layers.ref.spacing['4']}}>
-                    <p style={{color: "layers.sys.color.onSurface", lineHeight: "1.625"}}>
+                <InfoCard title="Introduzione" variant="elevated" style={{padding: 'var(--md-sys-spacing-4)'}}>
+                    <p style={{color: "var(--md-sys-color-on-surface)", lineHeight: "1.625"}}>
                         {uda.introduction}
                     </p>
                 </InfoCard>
 
                 {/* Phases Timeline */}
                 <div>
-                    <h3 style={{ color: sys.colors.onSurface-variant }} style={{fontSize: "0.875rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: layers.ref.spacing['2']}}>Fasi di Lavoro</h3>
-                    <div  style={{gap: layers.ref.spacing['3']}}>
+                    <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "0.875rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-2)'}}>Fasi di Lavoro</h3>
+                    <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
                         {uda.phases.map((phase) => (
                             <div key={phase.id} >
-                                <div  style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], borderRadius: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.primary"}}></div>
+                                <div  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)"}}></div>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                                    <h4 style={{fontWeight: "bold", color: "layers.sys.color.primary"}}>{phase.title}</h4>
-                                    <span style={{ color: sys.colors.on-secondary-container }} style={{fontSize: "0.75rem", fontWeight: "900", backgroundColor: "layers.sys.color.secondary-container", borderRadius: "0.375rem", textTransform: "uppercase"}}>{phase.duration}h</span>
+                                    <h4 style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{phase.title}</h4>
+                                    <span style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: "0.75rem", fontWeight: "900", backgroundColor: "var(--md-sys-color-secondary-container)", borderRadius: "0.375rem", textTransform: "uppercase"}}>{phase.duration}h</span>
                                 </div>
-                                <p  style={{fontSize: "0.875rem", color: "layers.sys.color.onSurface", fontWeight: "500"}}>{phase.description}</p>
-                                <p style={{ color: sys.colors.onSurface-variant }} style={{ fontSize: "0.75rem" }}>{phase.activities}</p>
+                                <p  style={{fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", fontWeight: "500"}}>{phase.description}</p>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "0.75rem" }}>{phase.activities}</p>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 {/* Additional Info Grid */}
-                <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['4']}}>
-                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" style={{padding: layers.ref.spacing['4']}}>
-                        <p style={{fontSize: "0.875rem", color: "layers.sys.color.onSurface"}}>{uda.finalProduct}</p>
+                <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-4)'}}>
+                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" style={{padding: 'var(--md-sys-spacing-4)'}}>
+                        <p style={{fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)"}}>{uda.finalProduct}</p>
                     </InfoCard>
-                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" style={{padding: layers.ref.spacing['4']}}>
-                        <p style={{fontSize: "0.875rem", color: "layers.sys.color.onSurface"}}>{uda.evaluation}</p>
+                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" style={{padding: 'var(--md-sys-spacing-4)'}}>
+                        <p style={{fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)"}}>{uda.evaluation}</p>
                     </InfoCard>
                 </div>
             </M3DialogContent>

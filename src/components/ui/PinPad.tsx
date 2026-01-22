@@ -13,8 +13,7 @@ interface PinPadProps {
  */
 
 const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
-    const { layers } = useTheme();
-    const { sys: { colors }, ref, motion, elevation } = layers;
+    const { layers: { sys: { color }, ref: { spacing, shape, typography }, elevation, motion } } = useTheme();
 
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'back'];
 
@@ -25,9 +24,9 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
         <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: layers.ref.spacing['4'],
-            maxWidth: layers.ref.spacing['64'], // Using calculated value instead of non-existent spacing token
-            margin: `${layers.ref.spacing['4']} auto 0`
+            gap: spacing[4],
+            maxWidth: spacing[64], // Using calculated value instead of non-existent spacing token
+            margin: `${spacing[4]} auto 0`
         }}>
             {keys.map((key, i) => {
                 if (key === '') return <div key={i}></div>;
@@ -41,15 +40,15 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                         onClick={onDelete}
                         aria-label="Cancella"
                         style={{
-                            width: layers.ref.spacing['12'],
-                            height: layers.ref.spacing['12'],
-                            borderRadius: ref.shape.large,
+                            width: spacing[12],
+                            height: spacing[12],
+                            borderRadius: shape.corner.large,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             transition: `all ${motion.duration.short1} ${motion.easing.standard}`,
                             border: 'none',
-                            backgroundColor: isHovered ? colors.surfaceContainerHigh : 'transparent',
+                            backgroundColor: isHovered ? color.surfaceContainerHigh : 'transparent',
                             cursor: 'pointer',
                             transform: isPressed ? 'scale(0.9)' : 'scale(1)'
                         }}
@@ -60,7 +59,7 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                     >
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: ref.typography.labelLarge.fontSize,
+                            fontSize: typography.labelLarge.fontSize,
                             fontWeight: 300
                         }}>backspace</span>
                     </button>
@@ -72,13 +71,13 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                         onClick={() => onInput(key)}
                         aria-label={`Cifra ${key}`}
                         style={{
-                            width: layers.ref.spacing['12'],
-                            height: layers.ref.spacing['12'],
-                            borderRadius: ref.shape.large,
-                            backgroundColor: isHovered ? colors.surface : colors.surfaceContainerLow,
-                            fontSize: ref.typography.labelLarge.fontSize,
+                            width: spacing[12],
+                            height: spacing[12],
+                            borderRadius: shape.corner.large,
+                            backgroundColor: isHovered ? color.surface : color.surfaceContainerLow,
+                            fontSize: typography.labelLarge.fontSize,
                             fontWeight: 800,
-                            border: `2px solid ${isHovered ? colors.primary : `color-mix(in srgb, ${colors.outlineVariant} 30%, transparent)`}`,
+                            border: `2px solid ${isHovered ? color.primary : `color-mix(in srgb, ${color.outlineVariant} 30%, transparent)`}`,
                             transition: `all ${motion.duration.short1} ${motion.easing.standard}`,
                             cursor: 'pointer',
                             display: 'flex',

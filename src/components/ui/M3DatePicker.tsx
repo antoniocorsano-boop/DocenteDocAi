@@ -1,10 +1,8 @@
-// LEGACY - MD3 Non-compliant
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
+// MD3 Compliant M3DatePicker Component
+// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, and colors
+// No useTheme() dependency - all styling uses direct MD3 CSS variables
 
 import React, { useId, useState } from 'react';
-import { useTheme } from '../../theme/theme';
 
 export type M3DatePickerProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
@@ -13,15 +11,13 @@ export type M3DatePickerProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const inputStyle: React.CSSProperties = {
-  const { layers } = useTheme();
-  const { layers } = useTheme();
   width: '100%',
   padding: 'var(--md-sys-spacing-3)',
   borderRadius: 'var(--md-sys-shape-corner-small)',
   border: '1px solid var(--md-sys-color-outline)',
   boxSizing: 'border-box',
-  backgroundColor: 'var(--md-sys-color-surfaceContainerHighest)',
-  color: 'var(--md-sys-color-onSurface)',
+  backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+  color: 'var(--md-sys-color-on-surface)',
   fontFamily: 'var(--md-sys-typescale-body-large-font)',
   fontSize: 'var(--md-sys-typescale-body-large-font-size)',
 };
@@ -29,7 +25,7 @@ const inputStyle: React.CSSProperties = {
 const inputFocusStyle: React.CSSProperties = {
   ...inputStyle,
   borderColor: 'var(--md-sys-color-primary)',
-  boxShadow: '0 0 0 2px var(--md-sys-color-primaryContainer)',
+  boxShadow: '0 0 0 2px var(--md-sys-color-primary-container)',
 };
 
 const inputErrorStyle: React.CSSProperties = {
@@ -42,7 +38,7 @@ const helperStyle: React.CSSProperties = {
   marginTop: 'var(--md-sys-spacing-1)',
   fontSize: 'var(--md-sys-typescale-body-small-font-size)',
   fontFamily: 'var(--md-sys-typescale-body-small-font)',
-  color: 'var(--md-sys-color-onSurface-variant)',
+  color: 'var(--md-sys-color-on-surface-variant)',
 };
 
 const errorStyle: React.CSSProperties = {
@@ -56,7 +52,6 @@ function M3DatePicker({
   error,
   id,
   style,
-  className,
   ...inputProps
 }: M3DatePickerProps): React.ReactElement {
   const autoId = useId();
@@ -72,16 +67,16 @@ function M3DatePicker({
   };
 
   return (
-    <div style={{ width: '100%' }} className={className}>
+    <div style={{ width: '100%' }}>
       {label ? (
-        <label 
-          htmlFor={inputId} 
-          style={{display: 'block', 
-            marginBottom: layers.ref.spacing['2'], 
+        <label
+          htmlFor={inputId}
+          style={{display: 'block',
+            marginBottom: 'var(--md-sys-spacing-2)', 
             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
             fontFamily: 'var(--md-sys-typescale-body-large-font)',
             fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-            color: ' layers.sys.color.onPrimary'}}
+            color: 'var(--md-sys-color-on-surface)'}}
         >
           {label}
         </label>

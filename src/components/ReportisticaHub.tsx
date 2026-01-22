@@ -10,7 +10,7 @@ import { Report, Studente, Lezione, Uda, TimetableSettings, Valutazione, Valutaz
 import { saveAs } from '../utils/documentUtils';
 import ArchivioReport from './ArchivioReport';
 import { UdaExportModal } from './UdaExportModal';
-import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob, viewPdfInNewTab, generatePdfBrochure } from '../utils/documentUtils';
+import { generateStudentProfilePdf, viewPdfInNewTab, generatePdfBrochure } from '../utils/documentUtils';
 import ConsiglioClasseWizard from './ConsiglioClasseWizard';
 import ClassPlanningWizard from './ClassPlanningWizard';
 import SmartDocumentEditor from './SmartDocumentEditor';
@@ -19,8 +19,6 @@ import { getDocumentTemplate } from '../utils/templateUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, ActionTile, SectionHeader, InfoCard, TabGroup, SelectField } from './ui';
 import { useUIStore } from '../stores/useUIStore';
 import BatchExportWizard from './BatchExportWizard';
-import { useTheme } from '../theme/theme';
-
 // --- TYPE DEFINITIONS FOR REGISTRY ---
 type DocPhase = 'avvio' | 'itinere' | 'valutazione' | 'chiusura';
 
@@ -56,8 +54,7 @@ interface ReportisticaHubProps {
 }
 
 const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
-  const { layers } = useTheme();
-    const [wizard, setWizard] = useState<'uda' | 'student' | 'lesson' | 'planning' | 'syllabus' | null>(null);
+  const [wizard, setWizard] = useState<'uda' | 'student' | 'lesson' | 'planning' | 'syllabus' | null>(null);
     const [isCouncilWizardOpen, setIsCouncilWizardOpen] = useState(false);
     const [activePhase, setActivePhase] = useState<DocPhase>('avvio');
     
@@ -179,7 +176,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         if (!lesson) return;
         setIsGenerating(true);
         try {
-            const blob = await generateLessonPdf(lesson);
             viewPdfInNewTab(blob);
         } catch (e) {
             console.error("Failed to generate lesson PDF:", e);
@@ -230,7 +226,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             else completedLessons.forEach(l => html += `<li>${l.contenuto}</li>`);
             html += `</ul>`;
             
-            const blob = await generateHtmlDocxBlob(html, `Programma Svolto ${selectedClass}`);
             saveAs(blob, `Programma_${selectedClass}_${selectedSubject}.docx`);
         } catch(e) {
              console.error("Errore generazione programma:", e);
@@ -457,7 +452,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                         onTabChange={(id) => setActivePhase(id as DocPhase)}
                     />
 
-                    <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8'], marginTop: layers.ref.spacing['4']}}>
+                    <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                         {activeTemplates.map(template => (
                             <ActionTile 
                                 key={template.id}
@@ -471,9 +466,9 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     </div>
                 </div>
 
-                <div style={{marginTop: layers.ref.spacing['4']}}>
+                <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                     <SectionHeader title="Documenti Recenti" icon="history" />
-                    <div style={{gap: layers.ref.spacing['3']}}>
+                    <div style={{gap: 'var(--md-sys-spacing-3)'}}>
                         {recentDocs.length > 0 ? recentDocs.map(doc => (
                             <InfoCard 
                                 key={doc.id}
@@ -482,14 +477,14 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                                 variant="surface"
                                 onClick={() => setViewingDoc(doc)}
                             >
-                                <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: layers.ref.spacing['4']}}>
+                                <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{ fontSize: "0.75rem", opacity: "0.7" }}>Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}</span>
                                     <M3Button variant="text" size="small" onClick={(e) => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</M3Button>
                                 </div>
                             </InfoCard>
                         )) : (
-                            <div style={{ borderRadius: layers.ref.shape.corner.large, padding: layers.ref.spacing['8'], textAlign: "center", opacity: "0.5" }}>
-                                <span style={{color: "layers.sys.color.onSurfaceVariant", marginBottom: layers.ref.spacing['8']}}>drafts</span>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "center", opacity: "0.5" }}>
+                                <span style={{color: "var(--md-sys-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)'}}>drafts</span>
                                 <p style={{ fontSize: "0.875rem" }}>Nessun documento generato di recente.</p>
                             </div>
                         )}
@@ -498,7 +493,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             </div>
 
             {/* --- ARCHIVE --- */}
-            <div style={{marginTop: layers.ref.spacing['4']}}>
+            <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                 <SectionHeader title="Archivio Report" icon="inventory_2" />
                 <ArchivioReport 
                     reportistica={props.reportistica} 

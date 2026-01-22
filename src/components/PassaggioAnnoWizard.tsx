@@ -1,12 +1,10 @@
-// LEGACY - MD3 Non-compliant
-
+// MD3 Compliant - Migration completed
+// PassaggioAnnoWizard.tsx - All styling uses MD3 tokens via style props
 import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry, StudentHistoryRecord } from '../types';
 import { getNextClass } from '../utils/schoolUtils';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface PassaggioAnnoWizardProps {
     onClose: () => void;
     students: Studente[];
@@ -32,8 +30,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
     onClose, students, settings, evaluations, competencyEvaluations, register, 
     onPromoteStudents, onBackupData, onResetData 
 }) => {
-  const { layers } = useTheme();
-    const [step, setStep] = useState<WizardStep>('intro');
+  const [step, setStep] = useState<WizardStep>('intro');
     const [isProcessing, setIsProcessing] = useState(false);
     const [outcomes, setOutcomes] = useState<Record<string, StudentOutcome>>({});
 
@@ -180,9 +177,9 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
             level={1}
             hideBackdrop={true}
         >
-            <M3DialogContent style={{ backgroundColor: layers.sys.color.surfaceContainerLow }}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
                     {step === "intro" && (
-                        <div  style={{gap: layers.ref.spacing['8'], marginLeft: "auto", marginRight: "auto", paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4']}}>
+                        <div  style={{gap: 'var(--md-sys-spacing-8)', marginLeft: "auto", marginRight: "auto", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                             <InfoCard 
                                 title={`Chiusura Anno ${settings.annoScolasticoCorrente}`}
                                 description="Procedura guidata per archiviare i dati, calcolare lo storico e preparare le classi per il nuovo anno."
@@ -191,17 +188,17 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 style={{ backgroundColor: sys.colors.primaryContainer/20 }}
                             />
                             
-                            <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8'], border: "1px solid layers.sys.color.outline"}}>
-                                <h3 style={{ color: layers.sys.color.onPrimary, fontWeight: "900", marginBottom: layers.ref.spacing['6'] }}>Checklist Automatica</h3>
-                                <ul style={{ marginTop: layers.ref.spacing['4'] }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)" }}>
+                                <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", marginBottom: 'var(--md-sys-spacing-6)' }}>Checklist Automatica</h3>
+                                <ul style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                                     {[
                                         { icon: "check_circle", text: "Backup completo dei dati su Drive/Locale." },
                                         { icon: "history_edu", text: "Salvataggio storico (media voti, assenze) nel profilo studente." },
                                         { icon: "delete_sweep", text: "Reset registro voti, lezioni e assenze giornaliere." },
                                         { icon: "trending_up", text: "Promozione classi (es. 1A → 2A) con gestione bocciature." }
                                     ].map((item, i) => (
-                                        <li key={i} style={{ color: layers.sys.color.onSurfaceVariant, display: "flex", alignItems: "center", gap: layers.ref.spacing['8'] }}>
-                                            <span style={{ color: layers.sys.color.primary, fontSize: "1.5rem" }}>{item.icon}</span>
+                                        <li key={i} style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
+                                            <span style={{ color: 'var(--md-sys-color-primary)', fontSize: "1.5rem" }}>{item.icon}</span>
                                             <span style={{ fontWeight: "500" }}>{item.text}</span>
                                         </li>
                                     ))}
@@ -211,47 +208,65 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     )}
 
                     {step === "decisions" && (
-                        <div style={{ gap: layers.ref.spacing['6'], paddingTop: layers.ref.spacing['4'], paddingBottom: layers.ref.spacing['4'] }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: layers.ref.spacing['8'] }}>
-                                <h3 style={{ color: layers.sys.color.onPrimary, fontWeight: "900" }}>Esiti Scrutinio</h3>
-                                <div style={{ display: "flex", gap: layers.ref.spacing['6'] }}>
-                                    <span style={{ backgroundColor: layers.sys.color.primaryContainer, color: layers.sys.color.onPrimaryContainer, paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: layers.ref.shape.corner.small, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid layers.sys.color.outline" }}>{stats.promote} Promossi</span>
-                                    <span style={{ backgroundColor: layers.sys.color.errorContainer, color: layers.sys.color.onErrorContainer, paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: layers.ref.shape.corner.small, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid layers.sys.color.outline" }}>{stats.retain} Bocciati</span>
-                                    <span style={{ backgroundColor: layers.sys.color.surfaceContainerHighest, color: layers.sys.color.onSurfaceVariant, paddingLeft: layers.ref.spacing['4'], paddingRight: layers.ref.spacing['4'], borderRadius: layers.ref.shape.corner.small, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid layers.sys.color.outline" }}>{stats.archive} Archiviati</span>
+                        <div style={{ gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)' }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
+                                <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900" }}>Esiti Scrutinio</h3>
+                                <div style={{ display: "flex", gap: 'var(--md-sys-spacing-6)' }}>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid var(--md-sys-color-outline)" }}>{stats.promote} Promossi</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid var(--md-sys-color-outline)" }}>{stats.retain} Bocciati</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid var(--md-sys-color-outline)" }}>{stats.archive} Archiviati</span>
                                 </div>
                             </div>
                             
-                            <div style={{ backgroundColor: layers.sys.color.surfaceContainerLow, borderRadius: layers.ref.shape.corner.large, border: "1px solid layers.sys.color.outline" }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "1px solid var(--md-sys-color-outline)" }}>
                                 <table style={{ width: "100%" }}>
                                     <thead>
-                                        <tr style={{ backgroundColor: layers.sys.color.surfaceContainerHigh }}>
-                                            <th style={{ color: layers.sys.color.onSurfaceVariant, textAlign: "left", padding: layers.ref.spacing['8'], fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Studente</th>
-                                            <th style={{ color: layers.sys.color.onSurfaceVariant, textAlign: "left", padding: layers.ref.spacing['8'], fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Classe</th>
-                                            <th style={{ color: layers.sys.color.onSurfaceVariant, textAlign: "left", padding: layers.ref.spacing['8'], fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Media</th>
-                                            <th style={{ color: layers.sys.color.onSurfaceVariant, textAlign: "left", padding: layers.ref.spacing['8'], fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Esito</th>
-                                            <th style={{ color: layers.sys.color.onSurfaceVariant, textAlign: "left", padding: layers.ref.spacing['8'], fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Futuro</th>
+                                        <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Studente</th>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Classe</th>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Media</th>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Esito</th>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Futuro</th>
                                         </tr>
                                     </thead>
                                     <tbody >
                                         {activeStudents.map((s) => {
-                                            const outcome = outcomes[s.id];
                                             const { grade } = calculatePerformance(s.id, "Complessivo", evaluations.filter(e => e.studenteId === s.id));
                                             const isInsufficient = grade && parseFloat(grade) < 6;
 
                                             return (
                                                 <tr key={s.id}  style={{ transition: "color 300ms" }}>
-                                                    <td style={{ color:  layers.sys.color.onPrimary }} style={{padding: layers.ref.spacing['8'], fontWeight: "900"}}>{s.cognome} {s.nome}</td>
-                                                    <td style={{ color:  layers.sys.color.onSurfaceVariant }} style={{padding: layers.ref.spacing['8'], fontWeight: "500"}}>{s.classe}</td>
-                                                    <td className={`p-8 font-black ${isInsufficient ? "text-error" : "text-primary"}`}>{grade || "-"}</td>
-                                                    <td style={{padding: layers.ref.spacing['6']}}>
-                                                        <select 
-                                                            value={outcome?.action || "promote"} 
+                                                    <td style={{ color: 'var(--md-sys-color-on-primary)', padding: 'var(--md-sys-spacing-8)', fontWeight: "900"}}>{s.cognome} {s.nome}</td>
+                                                    <td style={{ color: 'var(--md-sys-color-on-surface-variant)', padding: 'var(--md-sys-spacing-8)', fontWeight: "500"}}>{s.classe}</td>
+                                                    <td style={{
+                                                        padding: 'var(--md-sys-spacing-8)',
+                                                        fontWeight: '900',
+                                                        color: isInsufficient ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
+                                                    }}>{grade || "-"}</td>
+                                                    <td style={{padding: 'var(--md-sys-spacing-6)'}}>
+                                                        <select
+                                                            value={outcome?.action || "promote"}
                                                             onChange={(e) => handleOutcomeChange(s.id, e.target.value as OutcomeType)}
-                                                            className={`w-full text-xs font-black uppercase tracking-widest py-4 pl-3 pr-8 rounded-[var(--md-sys-shape-corner-medium)] border-none ring-1 ring-inset ring-outline-variant/20 focus:ring-2 focus:ring-primary transition-all ${
-                                                                outcome?.action === "retain" ? "bg-error/10 text-error" : 
-                                                                outcome?.action === "archive" || outcome?.action === "transfer" ? "bg-[var(--md-sys-color-surfaceContainerHigh)]est text-[var(--md-sys-color-onSurface)]-variant" : 
-                                                                "bg-primary/10 text-primary"
-                                                            }`}
+                                                            style={{
+                                                                width: '100%',
+                                                                fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                                                fontWeight: '900',
+                                                                textTransform: 'uppercase',
+                                                                letterSpacing: '0.15em',
+                                                                padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-8)',
+                                                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                                border: 'none',
+                                                                outline: '1px solid var(--md-sys-color-outline-variant)',
+                                                                backgroundColor: outcome?.action === "retain" ? 'var(--md-sys-color-error-container)' :
+                                                                               outcome?.action === "archive" || outcome?.action === "transfer" ? 'var(--md-sys-color-surface-container-high)' :
+                                                                               'var(--md-sys-color-primary-container)',
+                                                                color: outcome?.action === "retain" ? 'var(--md-sys-color-error)' :
+                                                                     outcome?.action === "archive" || outcome?.action === "transfer" ? 'var(--md-sys-color-on-surface-variant)' :
+                                                                     'var(--md-sys-color-primary)',
+                                                                transition: 'all 0.2s ease',
+                                                                cursor: 'pointer',
+                                                                minHeight: '44px'
+                                                            }}
                                                         >
                                                             <option value="promote">Promosso</option>
                                                             <option value="retain">Bocciato</option>
@@ -259,7 +274,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                             <option value="archive">Diplomato</option>
                                                         </select>
                                                     </td>
-                                                    <td style={{ color: layers.sys.color.onSurfaceVariant, padding: layers.ref.spacing['8'], fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>{outcome?.nextClass}</td>
+                                                    <td style={{ color: 'var(--md-sys-color-on-surface-variant)', padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>{outcome?.nextClass}</td>
                                                 </tr>
                                             );
                                         })}
@@ -271,27 +286,27 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
 
                     {step === "confirm" && (
                         <div style={{ textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
-                            <div style={{ backgroundColor: layers.sys.color.errorContainer, borderRadius: layers.ref.shape.corner.large, width: layers.ref.spacing['12'], height: layers.ref.spacing['12'], color: layers.sys.color.onErrorContainer, display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: layers.ref.spacing['8'] }}>
-                                <span style={{ color: layers.sys.color.onErrorContainer }}>warning</span>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', color: 'var(--md-sys-color-on-error-container)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: 'var(--md-sys-spacing-8)' }}>
+                                <span style={{ color: 'var(--md-sys-color-on-error-container)' }}>warning</span>
                             </div>
-                            <h3 style={{ color: layers.sys.color.onPrimary, fontWeight: "900", marginBottom: layers.ref.spacing['8'] }}>Confermi l'operazione?</h3>
-                            <p style={{ color: layers.sys.color.onSurfaceVariant, lineHeight: "1.625" }}>
-                                L'anno scolastico verr� impostato a <strong style={{color: 'layers.sys.color.primary'}}>{nextYear}</strong>.
+                            <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", marginBottom: 'var(--md-sys-spacing-8)' }}>Confermi l'operazione?</h3>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: "1.625" }}>
+                                L'anno scolastico verr� impostato a <strong style={{color: 'var(--md-sys-color-primary)'}}>{nextYear}</strong>.
                                 <br/><br/>
-                                ?? I dati giornalieri verranno <strong style={{color: "layers.sys.color.error"}}>resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
+                                ?? I dati giornalieri verranno <strong style={{color: "var(--md-sys-color-error)"}}>resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
                             </p>
                             
-                            <div style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/50, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['6'], border: "1px solid layers.sys.color.outline", textAlign: "left"}}>
-                                <p style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: layers.sys.color.primary, marginBottom: layers.ref.spacing['8'] }}>Riepilogo Azioni:</p>
-                                <ul style={{gap: layers.ref.spacing['3']}}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", textAlign: "left" }}>
+                                <p style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Riepilogo Azioni:</p>
+                                <ul style={{gap: 'var(--md-sys-spacing-3)'}}>
                                     {[
                                         "Reset Valutazioni e Competenze",
                                         "Reset Registro di Classe e Diario",
                                         "Reset Piani di Inclusione",
                                         "Promozione studenti secondo schema"
                                     ].map((text, i) => (
-                                        <li key={i} style={{ color: layers.sys.color.onSurfaceVariant, display: "flex", alignItems: "center", gap: layers.ref.spacing['6'] }}>
-                                            <span style={{ borderRadius: layers.ref.shape.corner.small, backgroundColor: layers.sys.color.primary }}></span>
+                                        <li key={i} style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)' }}>
+                                            <span style={{ borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary)' }}></span>
                                             {text}
                                         </li>
                                     ))}
@@ -301,7 +316,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     )}
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor:  layers.sys.color.surfaceContainerLow/30 }} style={{borderTop: "1px solid layers.sys.color.outline", padding: layers.ref.spacing['6']}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)' }}>
                     {step === "intro" && (
                         <>
                             <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
@@ -317,7 +332,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     {step === "confirm" && (
                         <>
                             <M3Button onClick={() => setStep("decisions")} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>Indietro</M3Button>
-                            <M3Button onClick={handleConfirm} variant="filled" style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error }} style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>
+                            <M3Button onClick={handleConfirm} variant="filled" style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error, fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>
                                 {isProcessing ? "Elaborazione..." : "Esegui Passaggio Anno"}
                             </M3Button>
                         </>

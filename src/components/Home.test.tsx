@@ -519,9 +519,9 @@ describe('Home Component', () => {
         />
       );
 
-      // Check for elements with CSS classes that apply border-radius
-      const cornerElements = container.querySelectorAll('[class*="card"], [class*="button"]');
-      expect(cornerElements.length).toBeGreaterThan(0);
+      // Check for M3 components that use corner radius tokens
+      const m3Cards = container.querySelectorAll('[data-testid="m3-card"], [data-testid="m3-expressive-card"], [data-testid="m3-hero-card"]');
+      expect(m3Cards.length).toBeGreaterThan(0);
     });
 
     it('should render M3Button components', () => {
@@ -548,7 +548,7 @@ describe('Home Component', () => {
         selector({
           settings: {
             nomeInsegnante: 'Professore',
-            cognomeInsegnante: ',
+            cognomeInsegnante: 'Rossi',
           },
         })
       );

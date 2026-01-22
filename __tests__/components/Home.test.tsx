@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { renderWithM3Theme } from '../../src/test-utils';
 import '@testing-library/jest-dom';
 import React from 'react';
 import Home from '../../src/components/Home';

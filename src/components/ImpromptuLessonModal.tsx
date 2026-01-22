@@ -1,6 +1,5 @@
 // LEGACY - MD3 Non-compliant
 import React, { useState, useEffect } from 'react';
-import { useTheme } from '../theme/theme';
 import { 
 
     M3Dialog, 
@@ -20,9 +19,8 @@ interface ImpromptuLessonModalProps {
 }
 
 const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, disciplines, onClose, onStart }) => {
-  const { layers } = useTheme();
-    const [materia, setMateria] = useState<string>(');
-    const [contenuto, setContenuto] = useState<string>(');
+  const [materia, setMateria] = useState<string>('');
+    const [contenuto, setContenuto] = useState<string>('');
 
     useEffect(() => {
         if (disciplines && disciplines.length > 0 && !materia) {
@@ -32,7 +30,7 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const selectedMateria = materia || (disciplines && disciplines.length > 0 ? disciplines[0] : ');
+        const selectedMateria = materia || (disciplines && disciplines.length > 0 ? disciplines[0] : '');
 
         if (!selectedMateria) {
             return;
@@ -50,14 +48,14 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
             maxWidth="md"
         >
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-                <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }} style={{padding: layers.ref.spacing['6'], gap: layers.ref.spacing['6']}}>
+                <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)'}}>
                     <SectionHeader 
                         title="Avvio Sessione"
                         subtitle={`Classe ${classe} • Configura i dettagli della lezione`}
                         variant="small"
                     />
 
-                    <div style={{marginTop: layers.ref.spacing['4']}}>
+                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <SelectField 
                             label="Materia" 
                             value={materia} 
@@ -80,7 +78,7 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
                     </div>
                 </M3DialogContent>
 
-                <M3DialogActions style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/80 }} style={{padding: layers.ref.spacing['6'], borderTop: "1px solid layers.sys.color.outline"}}>
+                <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/80 , padding: 'var(--md-sys-spacing-6)', borderTop: "1px solid var(--md-sys-color-outline)"}}>
                     <M3Button type="button" onClick={onClose} variant="text">
                         Annulla
                     </M3Button>

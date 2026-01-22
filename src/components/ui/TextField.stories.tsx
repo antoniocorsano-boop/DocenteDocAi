@@ -13,7 +13,7 @@ const meta = {
       },
     },
   },
-  tags: ['autodocs],
+  tags: ['autodocs'],
   argTypes: {
     label: {
       control: 'text',
@@ -49,7 +49,7 @@ const meta = {
     },
     type: {
       control: 'select',
-      options: ['text', 'email', 'password', 'number', 'tel', 'url],
+      options: ['text', 'email', 'password', 'number', 'tel', 'url'],
       description: 'Input type',
     },
   },
@@ -179,6 +179,8 @@ export const URLInput: Story = {
     leadingIcon: 'link',
   },
 };
+
+
 
 
 

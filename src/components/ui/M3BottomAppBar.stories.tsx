@@ -6,7 +6,7 @@ import M3BottomAppBar from './M3BottomAppBar';
 const meta: Meta<typeof M3BottomAppBar> = {
   component: M3BottomAppBar,
   title: 'UI/Layout/M3BottomAppBar',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -48,7 +48,7 @@ export const WithFAB: Story = {
       <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)', overflowY: 'auto' }}>
         <h1>Document List</h1>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-          {['Document 1', 'Document 2', 'Document 3].map((doc) => (
+          {['Document 1', 'Document 2', 'Document 3'].map((doc) => (
             <div key={doc} style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderRadius: 'var(--md-corner-medium)', boxShadow: 'var(--md-sys-elevation1)' }}>
               {doc}
             </div>
@@ -294,6 +294,8 @@ export const Accessibility: Story = {
     },
   },
 };
+
+
 
 
 

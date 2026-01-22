@@ -1,6 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - InfoCard component with layered theme destructuring
 import React from 'react';
-import { useTheme } from '../../theme/theme';
 import M3Card from './M3Card';
 import M3Typography from './M3Typography';
 
@@ -25,8 +24,6 @@ const InfoCard: React.FC<InfoCardProps> = ({
     children,
     onClick
 }) => {
-  const { layers } = useTheme();
-
     // Map variants to M3Card variants
     const getCardVariant = () => {
         switch (variant) {
@@ -52,7 +49,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: layers.ref.spacing['4']
+                gap: 'var(--md-sys-spacing-4)'
             }}>
                 {/* Header with icon and close button */}
                 {(icon || onClose) && (
@@ -63,10 +60,10 @@ const InfoCard: React.FC<InfoCardProps> = ({
                     }}>
                         {icon && (
                             <div style={{
-                                width: layers.comp.infoCard.iconContainerSize,
-                                height: layers.comp.infoCard.iconContainerSize,
-                                borderRadius: layers.ref.shape.large,
-                                backgroundColor: layers.sys.color.surfaceContainerHigh,
+                                width: 'var(--md-sys-spacing-12)', // infoCard.iconContainerSize
+                                height: 'var(--md-sys-spacing-12)', // infoCard.iconContainerSize
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                backgroundColor: 'var(--md-sys-color-surface-container-high)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center'
@@ -74,8 +71,8 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 <span
                                     style={{
                                         fontFamily: 'Material Symbols Outlined',
-                                        fontSize: layers.comp.infoCard.iconSize,
-                                        color: layers.sys.color.onSurfaceVariant
+                                        fontSize: 'var(--md-sys-spacing-6)', // infoCard.iconSize
+                                        color: 'var(--md-sys-color-on-surface-variant)'
                                     }}
                                 >
                                     {icon}
@@ -89,8 +86,8 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                     onClose();
                                 }}
                                 style={{
-                                    width: layers.comp.infoCard.buttonSize,
-                                    height: layers.comp.infoCard.buttonSize,
+                                    width: 'var(--md-sys-spacing-10)', // infoCard.buttonSize
+                                    height: 'var(--md-sys-spacing-10)', // infoCard.buttonSize
                                     borderRadius: '50%',
                                     backgroundColor: 'transparent',
                                     border: 'none',
@@ -98,7 +95,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     cursor: 'pointer',
-                                    color: layers.sys.color.onSurfaceVariant
+                                    color: 'var(--md-sys-color-on-surface-variant)'
                                 }}
                                 aria-label="Chiudi"
                             >
@@ -114,7 +111,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: layers.ref.spacing['3']
+                    gap: 'var(--md-sys-spacing-3)'
                 }}>
                     {title && (
                         <M3Typography variant="headline-small">
@@ -134,7 +131,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                     <div style={{
                         display: 'flex',
                         justifyContent: 'flex-end',
-                        marginTop: layers.ref.spacing['4']
+                        marginTop: 'var(--md-sys-spacing-4)'
                     }}>
                         {action}
                     </div>

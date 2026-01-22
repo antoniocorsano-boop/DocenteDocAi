@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Updated for layered theme access
 /**
  * M3Menu - Material Design 3 Menu Component
  * 
@@ -13,9 +13,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useTheme } from '../../theme/theme';
 import M3Popover from './M3Popover';
-import { useTheme } from '../../theme/theme';
 
 // ============================================================================
 // TYPES
@@ -68,6 +66,9 @@ export interface M3MenuProps {
   
   /** Z-index */
   zIndex?: number;
+  
+  /** Custom className */
+  className?: string;
 }
 
 // ============================================================================
@@ -83,10 +84,8 @@ export const M3Menu: React.FC<M3MenuProps> = ({
   minWidth = 200,
   maxWidth = 320,
   zIndex = 1300,
+  className,
 }) => {
-  const { layers } = useTheme();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   
@@ -159,7 +158,10 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       zIndex={zIndex}
       showBackdrop={false}
     >
-      <div role="menu" style={{ outline: 'none' }}>
+      <div role="menu"
+        // eslint-disable-next-line design-system/no-classname
+        className={`m3-menu ${className || ''}`.trim()}
+        style={{ outline: 'none' }}>
         {items.map((item, index) => (
           <React.Fragment key={item.key}>
             <button
@@ -169,10 +171,14 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               role="menuitem"
               onClick={handleItemClick.bind(null, index)}
               disabled={item.disabled}
-              style={{opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : '1',
+              // eslint-disable-next-line design-system/no-classname
+              className={item.variant === 'error' ? 'm3-menu-item--error' : undefined}
+              style={{
+                opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : '1',
                 cursor: item.disabled ? 'not-allowed' : 'pointer',
-                backgroundColor: focusedIndex === index ? ' layers.sys.color.surfaceContainerHigh' : 'transparent',
-                color: item.variant === 'error' ? 'layers.sys.color.error' : 'inherit'}}
+                backgroundColor: focusedIndex === index ? 'var(--md-sys-color-surface-container-high)' : 'transparent',
+                color: item.variant === 'error' ? 'var(--md-sys-color-error)' : 'inherit'
+              }}
               onMouseEnter={() => !item.disabled && setFocusedIndex(index)}
               onMouseLeave={() => setFocusedIndex(-1)}
               aria-disabled={item.disabled}
@@ -202,9 +208,13 @@ export const M3Menu: React.FC<M3MenuProps> = ({
             {item.divider && (
               <div
                 role="separator"
-                style={{height: layers.ref.spacing['1'],
-                  backgroundColor: layers.sys.color.outlineVariant,
-                  margin: `${layers.ref.spacing['1']} 0`}}
+                // eslint-disable-next-line design-system/no-classname
+                className="m3-menu__divider"
+                style={{
+                  height: 'var(--md-sys-spacing-1)',
+                  backgroundColor: 'var(--md-sys-color-outline-variant)',
+                  margin: 'var(--md-sys-spacing-1) 0'
+                }}
               ></div>
             )}
           </React.Fragment>

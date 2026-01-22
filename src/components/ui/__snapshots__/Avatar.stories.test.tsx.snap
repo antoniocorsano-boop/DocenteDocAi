@@ -3,7 +3,7 @@
 exports[`Avatar Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    class="relative flex-shrink-0 rounded-[var(--md-sys-shape-corner-extra-large)] overflow-hidden bg-primary-container text-on-primary-container flex items-center justify-center font-black w-12 h-12 text-sm "
+    style="position: relative; flex-shrink: 0; border-radius: var(--md-sys-shape-corner-extra-large); overflow: hidden; background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); display: flex; align-items: center; justify-content: center; font-weight: 900; width: var(--md-sys-spacing-10); height: var(--md-sys-spacing-10); font-size: var(--md-sys-typescale-body-small-font-size);"
   >
     <span>
       TU

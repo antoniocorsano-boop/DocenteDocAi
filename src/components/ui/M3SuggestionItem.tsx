@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - M3SuggestionItem component with layered theme destructuring
 import React, { useState } from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -15,22 +15,17 @@ const M3SuggestionItem: React.FC<M3SuggestionItemProps> = ({
   children,
   onClick
 }) => {
-  const { layers } = useTheme();
-  const {
-    sys: { color: { surfaceVariant, primary, outlineVariant } },
-    ref: { spacing, shape: { corner: { large } } },
-    motion: { duration: { short }, easing: { standard } }
-  } = layers;
+  const { layers: { sys: { color }, ref: { spacing, shape }, motion } } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      style={{backgroundColor: surfaceVariant,
+      style={{backgroundColor: color.surfaceVariant,
         opacity: isHovered && onClick ? 0.9 : 0.8,
         padding: spacing[4],
-        borderRadius: large,
-        border: `1px solid ${isHovered && onClick ? primary : outlineVariant}`,
-        transition: `border-color ${short} ${standard}`,
+        borderRadius: shape.corner.large,
+        border: `1px solid ${isHovered && onClick ? color.primary : color.outlineVariant}`,
+        transition: `border-color ${motion.duration.short} ${motion.easing.standard}`,
         cursor: onClick ? 'pointer' : 'default'}}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

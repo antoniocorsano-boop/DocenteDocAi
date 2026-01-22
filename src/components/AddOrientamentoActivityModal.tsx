@@ -1,10 +1,9 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block G Migration (13 violations eliminated)
+
 import React, { useState } from 'react';
 import { OrientamentoActivity } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField, TextArea } from './ui';
 import { UI_TEXT } from '../constants/ui-text';
-import { useTheme } from '../theme/theme';
-
 interface AddOrientamentoActivityModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -18,8 +17,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
     onSave,
     userClasses
 }) => {
-  const { layers } = useTheme();
-    const [activity, setActivity] = useState<Partial<OrientamentoActivity>>({
+  const [activity, setActivity] = useState<Partial<OrientamentoActivity>>({
         title: '',
         type: 'didattica',
         durationHours: 0,
@@ -42,14 +40,22 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
 
     return (
         <M3Dialog isOpen={isOpen} onClose={onClose} title="Nuova Attività di Orientamento">
-            <M3DialogContent  style={{gap: layers.ref.spacing['8']}}>
+            <M3DialogContent style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--md-sys-spacing-6)'
+            }}>
                 <TextField
                     label="Titolo Attività"
                     value={activity.title}
                     onChange={(e) => setActivity({ ...activity, title: e.target.value })}
                 />
                 
-                <div  style={{ display: "grid", gridTemplateColumns: "1fr" }}>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr',
+                  gap: 'var(--md-sys-spacing-4)'
+                }}>
                     <SelectField
                         label="Tipo"
                         value={activity.type}
@@ -82,9 +88,22 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                     rows={3}
                 />
 
-                <div style={{marginTop: layers.ref.spacing['4']}}>
-                    <label style={{ color:  layers.sys.color.onSurfaceVariant }}>Classi Coinvolte</label>
-                    <div  style={{ display: "flex", flexWrap: "wrap" }}>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'var(--md-sys-spacing-2)'
+                }}>
+                    <label style={{
+                      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
+                      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                      color: 'var(--md-sys-color-on-surface-variant)'
+                    }}>Classi Coinvolte</label>
+                    <div style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: 'var(--md-sys-spacing-3)'
+                    }}>
                         {userClasses.map(cls => (
                             <button
                                 key={cls}
@@ -96,11 +115,21 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                         setActivity({ ...activity, classes: [...classes, cls] });
                                     }
                                 }}
-                                className={`px-8 py-4 rounded-full text-xs font-bold transition-all ${
-                                    activity.classes?.includes(cls)
-                                        ? 'bg-primary text-on-primary'
-                                        : 'bg-[var(--md-sys-color-surfaceContainerHigh)] text-[var(--md-sys-color-onSurface)]-variant'
-                                }`}
+                                style={{
+                                  padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+                                  borderRadius: 'var(--md-sys-shape-corner-full)',
+                                  fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                                  fontWeight: '700',
+                                  transition: 'all 0.2s ease',
+                                  border: 'none',
+                                  cursor: 'pointer',
+                                  backgroundColor: activity.classes?.includes(cls)
+                                    ? 'var(--md-sys-color-primary)'
+                                    : 'var(--md-sys-color-surface-container-high)',
+                                  color: activity.classes?.includes(cls)
+                                    ? 'var(--md-sys-color-on-primary)'
+                                    : 'var(--md-sys-color-on-surface-variant)'
+                                }}
                             >
                                 {cls}
                             </button>

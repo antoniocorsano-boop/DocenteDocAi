@@ -1,7 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - AiThinkingGem component with direct MD3 tokens
 import React from 'react';
-import { useTheme } from '../../theme/theme';
-import { useTheme } from '../../theme/theme';
 
 interface AiThinkingGemProps {
     size?: 'small' | 'medium' | 'large';
@@ -10,27 +8,24 @@ interface AiThinkingGemProps {
 }
 
 const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, inline = false }) => {
-    const { layers } = useTheme();
-    const {
-        sys: { color: { primary, primaryContainer } },
-        ref: { spacing, typescale: { labelLarge } }
-    } = layers;
-
+    // MD3 token-based sizing
     const sizeMap = {
-        small: { width: 32, height: 32, icon: 16 },
-        medium: { width: 56, height: 56, icon: 28 },
-        large: { width: 90, height: 90, icon: 44 }
+        small: { width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', icon: 'var(--md-sys-typescale-title-small-font-size)' },
+        medium: { width: 'var(--md-sys-spacing-14)', height: 'var(--md-sys-spacing-14)', icon: 'var(--md-sys-typescale-title-large-font-size)' },
+        large: { width: 'var(--md-sys-spacing-22)', height: 'var(--md-sys-spacing-22)', icon: 'var(--md-sys-typescale-display-medium-font-size)' }
     };
 
     const dim = sizeMap[size];
 
     return (
         <div
-            style={{display: 'flex',
+            style={{
+                display: 'flex',
                 flexDirection: inline ? 'row' : 'column',
-                gap: spacing['8'],
+                gap: 'var(--md-sys-spacing-8)',
                 alignItems: 'center',
-                justifyContent: 'center'}}
+                justifyContent: 'center'
+            }}
         >
             <div
                 style={{
@@ -44,30 +39,34 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
             >
                 {/* Aura Ring */}
                 <div
-                    style={{position: 'absolute',
+                    style={{
+                        position: 'absolute',
                         top: 0,
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        borderRadius: '50%',
-                        background: primaryContainer,
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        background: 'var(--md-sys-color-surface-container-high)',
                         transform: 'scale(1.2)',
                         animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        opacity: 0.4}}
+                        opacity: 0.4
+                    }}
                 />
 
                 {/* Rotating Thinking Ring */}
                 <div
-                    style={{position: 'absolute',
+                    style={{
+                        position: 'absolute',
                         top: 0,
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        borderRadius: '50%',
-                        background: `conic-gradient(from 0deg, transparent 0%, ${primary} 50%, #6750A4 100%)`, // Using tertiary color value
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        background: `conic-gradient(from 0deg, transparent 0%, var(--md-sys-color-primary) 50%, var(--md-sys-color-tertiary) 100%)`,
                         maskImage: 'radial-gradient(closest-side, transparent 78%, black 82%)',
                         WebkitMaskImage: 'radial-gradient(closest-side, transparent 78%, black 82%)',
-                        animation: 'spin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite'}}
+                        animation: 'spin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite'
+                    }}
                 />
 
                 {/* The Core Gem */}
@@ -83,10 +82,12 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                     }}
                 >
                     <span
-                        style={{fontFamily: 'Material Symbols Outlined',
+                        style={{
+                            fontFamily: 'Material Symbols Outlined',
                             fontSize: dim.icon,
-                            color: primary,
-                            fontWeight: 300}}
+                            color: 'var(--md-sys-color-primary)',
+                            fontWeight: 300
+                        }}
                     >
                         diamond
                     </span>
@@ -94,15 +95,17 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
             </div>
             {text && (
                 <p
-                    style={{fontFamily: labelLarge.fontFamily,
-                        fontSize: labelLarge.fontSize,
-                        fontWeight: labelLarge.fontWeight,
-                        lineHeight: labelLarge.lineHeight,
-                        color: primary,
-                        letterSpacing: '0.15em',
+                    style={{
+                        fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
+                        fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                        fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+                        lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+                        color: 'var(--md-sys-color-primary)',
+                        letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
                         textTransform: 'uppercase',
                         animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        margin: 0}}
+                        margin: 0
+                    }}
                 >
                     {text}
                 </p>

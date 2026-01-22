@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Batch Document Export Wizard
 import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, Uda, TimetableSettings, AiSettings, Valutazione, ValutazioneCompetenza, DocumentTemplate } from '../types';
 import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob } from '../utils/documentUtils';
@@ -8,8 +8,6 @@ import { useUIStore } from '../stores/useUIStore';
 import TemplateManager from './TemplateManager';
 import JSZip from 'jszip';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
-import { useTheme } from '../theme/theme';
-
 // Type guards migliorati
 const isStudent = (data: unknown): data is Studente => {
   return (
@@ -68,7 +66,6 @@ interface BatchExportWizardProps {
 }
 
 const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
-  const { layers } = useTheme();
   const [selectedDocuments, setSelectedDocuments] = useState<BatchDocument[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState<{ current: number; total: number; currentDoc: string } | null>(null);
@@ -274,27 +271,27 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
       <M3DialogContent>
           {/* Progress Bar durante generazione */}
           {progress && (
-            <div style={{ backgroundColor:  layers.sys.color.onPrimary, borderRadius: layers.ref.shape.corner.large }} style={{padding: layers.ref.spacing['8']}}>
-              <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: layers.ref.spacing['8']}}>
+            <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)'}}>
+              <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <span  style={{ fontWeight: "500" }}>Generazione in corso...</span>
-                <span style={{ color:  layers.sys.color.onSurfaceVariant }}>{progress.current}/{progress.total}</span>
+                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{progress.current}/{progress.total}</span>
               </div>
-              <div style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh }} style={{width: "100%", borderRadius: layers.ref.spacing['4'], height: "0.5rem", marginBottom: layers.ref.spacing['8']}}>
+              <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , width: "100%", borderRadius: 'var(--md-sys-spacing-4)', height: "0.5rem", marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div
-                   style={{backgroundColor: "layers.sys.color.primary", height: "0.5rem", borderRadius: layers.ref.spacing['4'], transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", width: `${(progress.current / progress.total) * 100}%` }}
+                   style={{backgroundColor: "primary", height: "0.5rem", borderRadius: 'var(--md-sys-spacing-4)', transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", width: `${(progress.current / progress.total) * 100}%` }}
                 ></div>
               </div>
-              <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
+              <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
             </div>
           )}
 
           {/* Controlli selezione */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{display: "flex", alignItems: "center", gap: layers.ref.spacing['8']}}>
+            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
               <span  style={{ fontWeight: "500" }}>
                 Selezionati: {selectedDocuments.length} di {availableDocuments.length}
               </span>
-              <div style={{display: "flex", gap: layers.ref.spacing['8']}}>
+              <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                 <M3Button onClick={selectAll} variant="text"  disabled={isGenerating}>
                   Seleziona Tutto
                 </M3Button>
@@ -318,26 +315,30 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           </div>
 
           {/* Lista documenti raggruppati */}
-          <div  style={{gap: layers.ref.spacing['4'], overflowY: "auto"}}>
+          <div  style={{gap: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
             {Object.entries(groupedDocuments).map(([groupName, docs]) => (
               <div key={groupName}>
-                <h3 style={{ color:  layers.sys.color.onSurfaceVariant }} style={{fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: layers.ref.spacing['8']}}>
+                <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {groupName} ({docs.length})
                 </h3>
-                <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: layers.ref.spacing['8']}}>
+                <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
                   {docs.map(doc => {
                     const isSelected = selectedDocuments.some(d => d.id === doc.id);
                     return (
                       <div
                         key={doc.id}
-                        className={`p-6 border rounded-[var(--md-sys-shape-corner-small)] cursor-pointer transition-all ${
-                          isSelected
-                            ? 'border-primary bg-primaryContainer/20'
-                            : 'border-[var(--md-sys-color-outline-variant)] hover:border-primary/50'
-                        }`}
+                        style={{
+                          padding: 'var(--md-sys-spacing-6)',
+                          border: isSelected ? '2px solid primary' : '1px solid outlineVariant',
+                          borderRadius: 'var(--md-sys-shape-corner-small)',
+                          cursor: isGenerating ? 'not-allowed' : 'pointer',
+                          transition: 'all 0.2s ease',
+                          backgroundColor: isSelected ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+                          opacity: isGenerating ? 0.6 : 1
+                        }}
                         onClick={() => !isGenerating && toggleDocumentSelection(doc.id)}
                       >
-                        <div style={{display: "flex", alignItems: "flex-start", gap: layers.ref.spacing['6']}}>
+                        <div style={{display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)'}}>
                           <input
                             type="checkbox"
                             checked={isSelected}
@@ -348,10 +349,18 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                           />
                           <div style={{ flex: "1", minWidth: "0" }}>
                             <p  style={{ fontWeight: "500", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</p>
-                            <p style={{ color:  layers.sys.color.onSurfaceVariant }} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
-                            <span className={`inline-block px-4 py-0.5 m3-label-small rounded-full mt-4 ${
-                              doc.format === 'pdf' ? 'bg-error-container text-on-error-container' : 'bg-primaryContainer text-on-primaryContainer'
-                            }`}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
+                            <span style={{
+                              display: 'inline-block',
+                              padding: 'spacing.1 spacing.4',
+                              marginTop: 'var(--md-sys-spacing-4)',
+                              borderRadius: 'var(--md-sys-shape-corner-full)',
+                              fontSize: 'labelSmall.size',
+                              fontWeight: 'labelSmall.weight',
+                              lineHeight: 'labelSmall.lineHeight',
+                              backgroundColor: doc.format === 'pdf' ? 'errorContainer' : 'primaryContainer',
+                              color: doc.format === 'pdf' ? 'onErrorContainer' : 'onPrimaryContainer'
+                            }}>
                               {doc.format.toUpperCase()}
                             </span>
                           </div>

@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { M3Dialog, M3DialogContent, PinPad, M3Button } from './ui';
-import { useTheme } from '../theme/theme';
-
 interface PinPadModalProps {
     title: string;
     correctPin: string;
@@ -12,8 +10,7 @@ interface PinPadModalProps {
 }
 
 const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess, onCancel }) => {
-  const { layers } = useTheme();
-    const [pin, setPin] = useState('');
+  const [pin, setPin] = useState('');
     const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -49,30 +46,36 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent style={{ backgroundColor:  layers.sys.color.surfaceContainerHigh/30 }} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%" }}>
-                <div style={{textAlign: "center", marginBottom: layers.ref.spacing['8']}}>
-                    <div style={{ color: sys.colors.on-primaryContainer }} style={{width: layers.ref.spacing['4'], height: layers.ref.spacing['4'], backgroundColor: "layers.sys.color.primaryContainer", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: layers.ref.spacing['8']}}>
-                        <span style={{ color: layers.sys.color.primary }}>lock</span>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%" }}>
+                <div style={{textAlign: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                    <div style={{ color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                        <span style={{ color: 'var(--md-sys-color-primary)' }}>lock</span>
                     </div>
-                    <p style={{ color: layers.sys.color.onSurfaceVariant }} style={{marginTop: layers.ref.spacing['4']}}>Inserisci il PIN docente per uscire</p>
+                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Inserisci il PIN docente per uscire</p>
                 </div>
 
                 {/* PIN Display */}
-                <div style={{display: "flex", justifyContent: "center", gap: layers.ref.spacing['8'], marginBottom: layers.ref.spacing['8']}}>
+                <div style={{display: "flex", justifyContent: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                     {[0, 1, 2, 3].map((i) => (
                         <div 
                             key={i}
-                            className={`w-4 h-4 rounded-full transition-all duration-200 ${
-                                i < pin.length 
-                                    ? (error ? 'bg-error scale-125' : 'bg-primary scale-110') 
-                                    : 'bg-[var(--md-sys-color-surfaceContainerHigh)]est border border-[var(--md-sys-color-outline)]'
-                            }`}
+                            style={{
+                                width: '16px', // w-4 = 1rem = 16px
+                                height: '16px', // h-4 = 1rem = 16px
+                                borderRadius: '50%', // rounded-full
+                                transition: 'all 0.2s', // transition-all duration-200
+                                backgroundColor: i < pin.length 
+                                    ? (error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)')
+                                    : 'var(--md-sys-color-surface-container-high)',
+                                border: i >= pin.length ? `1px solid var(--md-sys-color-outline)` : 'none',
+                                transform: i < pin.length ? `scale(${error ? 1.25 : 1.1})` : 'scale(1)'
+                            }}
                         />
                     ))}
                 </div>
 
                 {error && (
-                    <p  style={{color: "layers.sys.color.error", textAlign: "center", fontSize: "0.875rem", fontWeight: "bold", marginBottom: layers.ref.spacing['8']}}>PIN Errato</p>
+                    <p  style={{color: "var(--md-sys-color-error)", textAlign: "center", fontSize: "0.875rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>PIN Errato</p>
                 )}
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />

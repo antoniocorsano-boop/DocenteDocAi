@@ -1,6 +1,8 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant M3Button Component
+// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
+// No useTheme() dependency - all styling uses direct MD3 CSS variables
+
 import React, { ButtonHTMLAttributes } from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface M3ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'filled' | 'outlined' | 'text' | 'tonal' | 'elevated';
@@ -23,25 +25,62 @@ const M3Button: React.FC<M3ButtonProps> = ({
   title,
   ...props
 }) => {
-  // Use theme layers correctly
-  const { layers } = useTheme();
-  const { sys: { colors }, ref, motion, elevation } = layers;
+  // Extract aria-label from props to handle it properly
+  const { 'aria-label': ariaLabel, ...otherProps } = props;
+  // MD3 Token mapping - no useTheme() dependency
+  // Color tokens
+  const primary = 'var(--md-sys-color-primary)';
+  const onPrimary = 'var(--md-sys-color-on-primary)';
+  const outline = 'var(--md-sys-color-outline)';
+  const secondaryContainer = 'var(--md-sys-color-secondary-container)';
+  const onSecondaryContainer = 'var(--md-sys-color-on-secondary-container)';
+  const surfaceContainerLow = 'var(--md-sys-color-surface-container-low)';
+
+  // Elevation tokens
+  const elevation1 = 'var(--md-sys-elevation-level1)';
+  const elevation2 = 'var(--md-sys-elevation-level2)';
+
+  // Spacing tokens
+  const spacing4 = 'var(--md-sys-spacing-4)';
+  const spacing6 = 'var(--md-sys-spacing-6)';
+  const spacing10 = 'var(--md-sys-spacing-10)';
+  const spacing12 = 'var(--md-sys-spacing-12)';
+
+  // Shape tokens
+  const shapeSmall = 'var(--md-sys-shape-corner-small)';
+  const shapeMedium = 'var(--md-sys-shape-corner-medium)';
+  const shapeLarge = 'var(--md-sys-shape-corner-large)';
+
+  // Typography tokens
+  const labelMediumFontSize = 'var(--md-sys-typescale-label-medium-font-size)';
+  const labelMediumFontWeight = 'var(--md-sys-typescale-label-medium-font-weight)';
+  const labelMediumLineHeight = 'var(--md-sys-typescale-label-medium-line-height)';
+  const labelMediumLetterSpacing = 'var(--md-sys-typescale-label-medium-letter-spacing)';
+
+  const labelLargeFontSize = 'var(--md-sys-typescale-label-large-font-size)';
+  const labelLargeFontWeight = 'var(--md-sys-typescale-label-large-font-weight)';
+  const labelLargeLineHeight = 'var(--md-sys-typescale-label-large-line-height)';
+  const labelLargeLetterSpacing = 'var(--md-sys-typescale-label-large-letter-spacing)';
+
+  // Motion tokens
+  const durationShort2 = 'var(--md-sys-motion-duration-short2)';
+  const easingStandard = 'var(--md-sys-motion-easing-standard)';
 
   // Base style
   const baseStyle: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
+    transition: `all ${durationShort2} ${easingStandard}`,
     outline: 'none',
-    borderRadius: ref.shape.medium,
+    borderRadius: shapeMedium,
     cursor: disabled ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.38 : 1,
     pointerEvents: disabled ? 'none' : 'auto',
     border: 'none',
     textDecoration: 'none',
     width: fullWidth ? '100%' : 'auto',
-    gap: layers.ref.spacing['4']
+    gap: spacing4
   };
 
   // Variant styles
@@ -49,36 +88,36 @@ const M3Button: React.FC<M3ButtonProps> = ({
     switch (variant) {
       case 'filled':
         return {
-          backgroundColor: colors.primary,
-          color: colors.onPrimary,
-          boxShadow: elevation.level1
+          backgroundColor: primary,
+          color: onPrimary,
+          boxShadow: elevation1
         };
       case 'outlined':
         return {
           backgroundColor: 'transparent',
-          color: colors.primary,
-          border: `1px solid ${colors.outline}`
+          color: primary,
+          border: `1px solid ${outline}`
         };
       case 'text':
         return {
           backgroundColor: 'transparent',
-          color: colors.primary
+          color: primary
         };
       case 'tonal':
         return {
-          backgroundColor: colors.secondaryContainer,
-          color: colors.onSecondaryContainer
+          backgroundColor: secondaryContainer,
+          color: onSecondaryContainer
         };
       case 'elevated':
         return {
-          backgroundColor: colors.surfaceContainerLow,
-          color: colors.primary,
-          boxShadow: elevation.level2
+          backgroundColor: surfaceContainerLow,
+          color: primary,
+          boxShadow: elevation2
         };
       default:
         return {
-          backgroundColor: colors.primary,
-          color: colors.onPrimary
+          backgroundColor: primary,
+          color: onPrimary
         };
     }
   };
@@ -88,34 +127,34 @@ const M3Button: React.FC<M3ButtonProps> = ({
     switch (size) {
       case 'small':
         return {
-          height: layers.ref.spacing['10'],
-          padding: `0 ${layers.ref.spacing['4']}`,
-          borderRadius: ref.shape.small,
-          fontSize: ref.typography.labelMedium.fontSize,
-          fontWeight: ref.typography.labelMedium.fontWeight,
-          lineHeight: ref.typography.labelMedium.lineHeight,
-          letterSpacing: ref.typography.labelMedium.letterSpacing
+          height: spacing10,
+          padding: `0 ${spacing4}`,
+          borderRadius: shapeSmall,
+          fontSize: labelMediumFontSize,
+          fontWeight: labelMediumFontWeight,
+          lineHeight: labelMediumLineHeight,
+          letterSpacing: labelMediumLetterSpacing
         };
       case 'large':
         return {
-          height: layers.ref.spacing['12'],
-          padding: `0 ${layers.ref.spacing['6']}`,
-          borderRadius: ref.shape.large,
-          fontSize: ref.typography.labelLarge.fontSize,
-          fontWeight: ref.typography.labelLarge.fontWeight,
-          lineHeight: ref.typography.labelLarge.lineHeight,
-          letterSpacing: ref.typography.labelLarge.letterSpacing
+          height: spacing12,
+          padding: `0 ${spacing6}`,
+          borderRadius: shapeLarge,
+          fontSize: labelLargeFontSize,
+          fontWeight: labelLargeFontWeight,
+          lineHeight: labelLargeLineHeight,
+          letterSpacing: labelLargeLetterSpacing
         };
       default:
         // medium
         return {
-          height: layers.ref.spacing['10'],
-          padding: `0 ${layers.ref.spacing['4']}`,
-          borderRadius: ref.shape.medium,
-          fontSize: ref.typography.labelLarge.fontSize,
-          fontWeight: ref.typography.labelLarge.fontWeight,
-          lineHeight: ref.typography.labelLarge.lineHeight,
-          letterSpacing: ref.typography.labelLarge.letterSpacing
+          height: spacing10,
+          padding: `0 ${spacing4}`,
+          borderRadius: shapeMedium,
+          fontSize: labelLargeFontSize,
+          fontWeight: labelLargeFontWeight,
+          lineHeight: labelLargeLineHeight,
+          letterSpacing: labelLargeLetterSpacing
         };
     }
   };
@@ -128,13 +167,13 @@ const M3Button: React.FC<M3ButtonProps> = ({
 
   return (
     <button
-      {...props}
+      {...otherProps}
       type={type}
       disabled={disabled}
       onClick={onClick}
       title={title}
       style={combinedStyle}
-      aria-label={title || (typeof children === 'string' ? children : undefined)}
+      aria-label={ariaLabel || title || (typeof children === 'string' ? children : undefined)}
     >
       {startIcon && (
         <span
@@ -142,8 +181,8 @@ const M3Button: React.FC<M3ButtonProps> = ({
             flexShrink: 0,
             display: 'flex',
             alignItems: 'center',
-            minWidth: layers.ref.spacing['6'],
-            minHeight: layers.ref.spacing['6']
+            minWidth: spacing6,
+            minHeight: spacing6
           }}
         >
           {startIcon}
@@ -154,10 +193,10 @@ const M3Button: React.FC<M3ButtonProps> = ({
           style={{
             flex: '1 1 auto',
             textAlign: 'center',
-            fontSize: ref.typography.labelLarge.fontSize,
-            fontWeight: ref.typography.labelLarge.fontWeight,
-            lineHeight: ref.typography.labelLarge.lineHeight,
-            letterSpacing: ref.typography.labelLarge.letterSpacing,
+            fontSize: labelLargeFontSize,
+            fontWeight: labelLargeFontWeight,
+            lineHeight: labelLargeLineHeight,
+            letterSpacing: labelLargeLetterSpacing,
             color: combinedStyle.color
           }}
         >
@@ -170,8 +209,8 @@ const M3Button: React.FC<M3ButtonProps> = ({
             flexShrink: 0,
             display: 'flex',
             alignItems: 'center',
-            minWidth: layers.ref.spacing['4'],
-            minHeight: layers.ref.spacing['4']
+            minWidth: spacing4,
+            minHeight: spacing4
           }}
         >
           {endIcon}

@@ -3,20 +3,18 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { useUIStore } from '../stores/useUIStore';
 import { M3Typography } from './ui';
-import { useTheme } from '../theme/theme';
-
-const SNACKBAR_COLORS = (layers: any) => ({
+const SNACKBAR_COLORS = () => ({
   success: {
-    bg: layers.sys.color.primary,
-    color: layers.sys.color.onPrimary
+    bg: 'var(--md-sys-color-primary)',
+    color: 'var(--md-sys-color-on-primary)'
   },
   error: {
-    bg: layers.sys.color.error,
-    color: layers.sys.color.onError
+    bg: 'var(--md-sys-color-error)',
+    color: 'var(--md-sys-color-on-error)'
   },
   info: {
-    bg: layers.sys.color.surfaceContainerHighest,
-    color: layers.sys.color.onSurface
+    bg: 'var(--md-sys-color-surface-container-high)',
+    color: 'var(--md-sys-color-on-surface)'
   }
 });
 
@@ -45,8 +43,8 @@ const SNACKBAR_COLORS = (layers: any) => ({
  * - Maintained all functionality and accessibility features
  */
 const Snackbar: React.FC = () => {
-  const { layers } = useTheme();
-  const { sys: { color: { primary } } } = layers;
+  // MD3 Token mapping - no useTheme() dependency
+  const primary = 'var(--md-sys-color-primary)';
   const [isFocused, setIsFocused] = useState(false);
   const { toast, clearToast } = useUIStore(state => ({
     toast: state.modals.toast,
@@ -54,7 +52,7 @@ const Snackbar: React.FC = () => {
   }));
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const snackbarColors = SNACKBAR_COLORS(layers);
+  // Removed unused variable snackbarColors
 
   const handleClose = () => {
     if (timeoutRef.current) {
@@ -103,22 +101,22 @@ const Snackbar: React.FC = () => {
     <div
       style={{position: 'fixed',
         left: '50%',
-        bottom: layers.ref.spacing['8'],
+        bottom: 'var(--md-sys-spacing-8)',
         transform: 'translateX(-50%)',
-        minWidth: layers.ref.spacing['14'], // 220px approx
+        minWidth: 'var(--md-sys-spacing-14)', // 220px approx
         maxWidth: '90vw',
-        padding: `${layers.ref.spacing['3']} ${layers.ref.spacing['5']} ${layers.ref.spacing['3']} ${layers.ref.spacing['4']}` , // 0.9rem 1.5rem 0.9rem 1.1rem
-        borderRadius: layers.ref.shape.corner.medium,
-        boxShadow: layers.sys.elevation.level3,
+        padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-5) var(--md-sys-spacing-3) var(--md-sys-spacing-4)` , // 0.9rem 1.5rem 0.9rem 1.1rem
+        borderRadius: 'var(--md-sys-shape-corner-medium)',
+        boxShadow: 'var(--md-sys-elevation-level3)',
         display: 'flex',
         alignItems: 'center',
-        gap: layers.ref.spacing['3'], // 0.7rem
+        gap: 'var(--md-sys-spacing-3)', // 0.7rem
         backgroundColor: bg,
         color: color,
         zIndex: 3000,
-        animation: 'snackbar-in 0.22s layers.motion.easing.expressive both',
+        animation: 'snackbar-in 0.22s var(--md-sys-motion-easing-expressive) both',
         outline: isFocused ? `2px solid ${primary}` : 'none',
-        outlineOffset: isFocused ? layers.ref.spacing['2'] : '0'}}
+        outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'}}
       role="status"
       aria-live="polite"
       tabIndex={0}
@@ -127,7 +125,7 @@ const Snackbar: React.FC = () => {
     >
       <span
         style={{fontFamily: 'Material Symbols Outlined',
-          fontSize: layers.ref.spacing['4'],
+          fontSize: 'var(--md-sys-spacing-4)',
           color: 'inherit',
           flexShrink: 0}}
         aria-hidden="true"
@@ -149,29 +147,29 @@ const Snackbar: React.FC = () => {
         style={{backgroundColor: 'transparent',
           border: 'none',
           color: 'inherit',
-          fontSize: layers.ref.spacing['5'], // 1.3rem approx
-          marginLeft: layers.ref.spacing['2'], // 0.5rem
-          borderRadius: 'layers.ref.shape.corner.full',
+          fontSize: 'var(--md-sys-spacing-5)', // 1.3rem approx
+          marginLeft: 'var(--md-sys-spacing-2)', // 0.5rem
+          borderRadius: 'var(--md-sys-shape-corner-full)',
           cursor: 'pointer',
-          padding: layers.ref.spacing['1'], // 0.2rem
+          padding: 'var(--md-sys-spacing-1)', // 0.2rem
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: `all ${layers.motion.duration.short2} ${layers.motion.easing.standard}`,
+          transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
           flexShrink: 0}}
-        onMouseEnter={(e) => {
-          e.currentTarget// removed runtime mutation
+        onMouseEnter={() => {
+          // removed runtime mutation
         }}
-        onMouseLeave={(e) => {
-          e.currentTarget// removed runtime mutation
+        onMouseLeave={() => {
+          // removed runtime mutation
         }}
-        onFocus={(e) => {
-          e.currentTarget// removed runtime mutation
-          e.currentTarget// removed runtime mutation
+        onFocus={() => {
+          // removed runtime mutation
+          // removed runtime mutation
         }}
-        onBlur={(e) => {
-          e.currentTarget// removed runtime mutation
-          e.currentTarget// removed runtime mutation
+        onBlur={() => {
+          // removed runtime mutation
+          // removed runtime mutation
         }}
         aria-label="Chiudi notifica"
       >

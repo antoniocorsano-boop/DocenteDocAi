@@ -37,7 +37,9 @@ export default defineConfig([
       "**/*.test.tsx",
       "**/*.test.ts",
       "**/*.spec.tsx",
-      "**/*.spec.ts"
+      "**/*.spec.ts",
+      "**/src_backup/**",
+      "**/archive/**"
     ]
   },
   { 

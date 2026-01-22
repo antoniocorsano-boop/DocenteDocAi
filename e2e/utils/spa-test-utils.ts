@@ -73,7 +73,7 @@ export class SPANavigationHelper {
   /**
    * Aspetta che la navigazione sia completata
    */
-  async waitForNavigationComplete(timeout = 10000): Promise<void> {
+  async waitForNavigationComplete(): Promise<void> {
     // Aspetta che eventuali transizioni siano finite
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForTimeout(300);
@@ -102,7 +102,15 @@ export class SPAStateHelper {
       hasText: /scheduleOrario|Orario|Pianifica|progetta|Progetta|Design|classi|Classi|Students|settings|Impostazioni/i
     });
 
-    await expect(navButtons.first()).toBeVisible({ timeout });
+    try {
+      await expect(navButtons.first()).toBeVisible({ timeout });
+    } catch (e) {
+      await this.page.screenshot({ path: `test-results/verifyLoggedInState-fail.png`, fullPage: true });
+      const bodyText = await this.page.evaluate(() => document.body.innerText);
+       
+      console.error('verifyLoggedInState: navButtons not visible. Body text:', bodyText);
+      throw e;
+    }
 
     // Verifica che non ci sia onboarding (opzionale, potrebbe non esserci)
     const onboarding = this.page.locator('[data-testid="onboarding"], .onboarding');
@@ -114,7 +122,7 @@ export class SPAStateHelper {
   /**
    * Inietta dati di test nell'applicazione
    */
-  async injectTestData(testData: any): Promise<void> {
+  async injectTestData(testData: unknown): Promise<void> {
     await this.page.evaluate((data) => {
       // Inietta dati nel localStorage/IndexedDB come farebbe l'app
       localStorage.setItem('test-mode', 'true');
@@ -156,7 +164,7 @@ export class SPAStateHelper {
       }).catch(() => {
         // Ignora errori di evaluate
       });
-    } catch (e) {
+    } catch {
       // Fallback: solo goto
       await this.page.goto('http://localhost:5173', { waitUntil: 'domcontentloaded' });
     }

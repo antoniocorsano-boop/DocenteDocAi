@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from './test-utils';
 // LEGACY - MD3 Non-compliant
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
@@ -282,7 +282,7 @@ describe('M3Menu', () => {
     
     await waitFor(() => {
       // Button should have focus-like styling
-      expect((secondButton as HTMLElement).style.backgroundColor).toBe('var(--md-sys-color-surfaceContainerHigh)');
+      expect((secondButton as HTMLElement).style.backgroundColor).toBe('var(--md-sys-color-surface-container-high)');
     });
   });
 
@@ -316,7 +316,7 @@ describe('M3Menu', () => {
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.minWidth).toBe(layers.ref.spacing['4']);
+    expect(popover.style.minWidth).toBe('300px');
   });
 
   it('applies custom maxWidth', () => {
@@ -331,7 +331,7 @@ describe('M3Menu', () => {
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.maxWidth).toBe(layers.ref.spacing['4']);
+    expect(popover.style.maxWidth).toBe('250px');
   });
 
   it('applies custom className', () => {
@@ -341,7 +341,7 @@ describe('M3Menu', () => {
         anchorEl={anchorEl}
         onClose={vi.fn()}
         items={defaultItems}
-        
+        className="custom-menu"
       />
     );
     

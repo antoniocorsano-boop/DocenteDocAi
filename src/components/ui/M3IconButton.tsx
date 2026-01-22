@@ -1,6 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Migrated to direct CSS custom properties
 import React, { useState } from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface M3IconButtonProps {
   icon: string;
@@ -25,28 +24,26 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
 }) => {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
-  const { layers } = useTheme();
-  const { sys, ref, motion } = layers;
   // Size styles using MD3 spacing tokens
   const getSizeStyles = (): React.CSSProperties => {
     switch (size) {
       case 'small':
         return {
-          width: layers.ref.spacing['8'],
-          height: layers.ref.spacing['8'],
-          fontSize: ref.typography.labelLarge.fontSize
+          width: 'var(--md-sys-spacing-8)',
+          height: 'var(--md-sys-spacing-8)',
+          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
         };
       case 'large':
         return {
-          width: layers.ref.spacing['12'],
-          height: layers.ref.spacing['12'],
-          fontSize: ref.typography.headlineSmall.fontSize
+          width: 'var(--md-sys-spacing-12)',
+          height: 'var(--md-sys-spacing-12)',
+          fontSize: 'var(--md-sys-typescale-headline-small-font-size)'
         };
       default: // medium
         return {
-          width: layers.ref.spacing['10'],
-          height: layers.ref.spacing['10'],
-          fontSize: ref.typography.labelLarge.fontSize
+          width: 'var(--md-sys-spacing-10)',
+          height: 'var(--md-sys-spacing-10)',
+          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
         };
     }
   };
@@ -56,24 +53,24 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     switch (variant) {
       case 'filled':
         return {
-          backgroundColor: sys.color.primaryContainer,
-          color: sys.color.onPrimaryContainer
+          backgroundColor: 'var(--md-sys-color-primary-container)',
+          color: 'var(--md-sys-color-on-primary-container)'
         };
       case 'tonal':
         return {
-          backgroundColor: sys.color.secondaryContainer,
-          color: sys.color.onSecondaryContainer
+          backgroundColor: 'var(--md-sys-color-secondary-container)',
+          color: 'var(--md-sys-color-on-secondary-container)'
         };
       case 'outlined':
         return {
-          backgroundColor: hovered ? sys.color.surfaceVariant : 'transparent',
-          color: sys.color.onSurface,
-          border: `1px solid ${sys.color.outline}`
+          backgroundColor: hovered ? 'var(--md-sys-color-surface-variant)' : 'transparent',
+          color: 'var(--md-sys-color-on-surface)',
+          border: `1px solid var(--md-sys-color-outline)`
         };
       default: // standard
         return {
-          backgroundColor: hovered ? sys.color.surfaceVariant : 'transparent',
-          color: sys.color.onSurfaceVariant
+          backgroundColor: hovered ? 'var(--md-sys-color-surface-variant)' : 'transparent',
+          color: 'var(--md-sys-color-on-surface-variant)'
         };
     }
   };
@@ -83,18 +80,18 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: ref.shape.corner.full,
-    transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
-    outline: focused ? `2px solid ${sys.color.primary}` : 'none',
-    outlineOffset: focused ? layers.ref.spacing['2'] : '0',
+    borderRadius: 'var(--md-sys-shape-corner-full)',
+    transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+    outline: focused ? `2px solid var(--md-sys-color-primary)` : 'none',
+    outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
     border: 'none',
     cursor: disabled ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.38 : (hovered && (variant === 'filled' || variant === 'tonal') ? 0.8 : 1),
     pointerEvents: disabled ? 'none' : 'auto',
-    fontFamily: ref.typography.labelLarge.fontFamily,
-    fontWeight: ref.typography.labelLarge.fontWeight,
-    lineHeight: ref.typography.labelLarge.lineHeight,
-    letterSpacing: ref.typography.labelLarge.letterSpacing,
+    fontFamily: 'var(--md-sys-typescale-font-family)',
+    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+    letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
     ...getSizeStyles(),
     ...getVariantStyles()
   };

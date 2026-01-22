@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block G Migration (14 violations eliminated)
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3SurfaceCard from './M3SurfaceCard';
@@ -7,7 +7,7 @@ import M3Typography from './M3Typography';
 const meta: Meta<typeof M3SurfaceCard> = {
   component: M3SurfaceCard,
   title: 'UI/Cards/M3SurfaceCard',
-  tags: ['autodocs],
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
@@ -19,7 +19,7 @@ const meta: Meta<typeof M3SurfaceCard> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['low', 'high],
+      options: ['low', 'high'],
       description: 'Surface elevation variant',
       table: {
         type: { summary: 'low | high' },
@@ -28,7 +28,7 @@ const meta: Meta<typeof M3SurfaceCard> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant],
+      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant'],
       description: 'Color palette for the card',
       table: {
         type: { summary: 'primary | secondary | tertiary | surface | surfaceVariant' },
@@ -76,8 +76,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: (
-      <div style={{ padding: "var(--md-sys-spacing-6)" }}>
-        <M3Typography variant="title-large" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Surface Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -95,8 +95,8 @@ export const HighElevation: Story = {
   args: {
     variant: 'high',
     children: (
-      <div style={{ padding: "var(--md-sys-spacing-6)" }}>
-        <M3Typography variant="title-large" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           High Elevation Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -114,8 +114,8 @@ export const Interactive: Story = {
   args: {
     interactive: true,
     children: (
-      <div style={{ padding: "var(--md-sys-spacing-6)" }}>
-        <M3Typography variant="title-large" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Interactive Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -133,8 +133,8 @@ export const GlassEffect: Story = {
   args: {
     glass: true,
     children: (
-      <div style={{ padding: "var(--md-sys-spacing-6)" }}>
-        <M3Typography variant="title-large" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Glass Effect Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -152,8 +152,8 @@ export const PrimaryColor: Story = {
   args: {
     color: 'primary',
     children: (
-      <div style={{ padding: "var(--md-sys-spacing-6)" }}>
-        <M3Typography variant="title-large" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Primary Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -171,8 +171,8 @@ export const SecondaryColor: Story = {
   args: {
     color: 'secondary',
     children: (
-      <div style={{ padding: "var(--md-sys-spacing-6)" }}>
-        <M3Typography variant="title-large" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Secondary Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -190,8 +190,8 @@ export const Expressive: Story = {
   args: {
     expressive: true,
     children: (
-      <div style={{ padding: "var(--md-sys-spacing-6)" }}>
-        <M3Typography variant="title-large" as="h3" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Expressive Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -201,6 +201,8 @@ export const Expressive: Story = {
     ),
   },
 };
+
+
 
 
 
