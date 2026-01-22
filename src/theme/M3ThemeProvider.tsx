@@ -39,10 +39,10 @@ const defaultTheme: MD3Theme = {
   layers: {
     sys: {
       color: {
-        primary: '#1976d2', // Esempio, usa var(--md-sys-color-primary) se definito
-        surface: '#ffffff',
-        onPrimary: '#ffffff',
-        onSurface: '#000000',
+          primary: 'var(--md-sys-color-primary)',
+          surface: 'var(--md-sys-color-surface)',
+          onPrimary: 'var(--md-sys-color-on-primary)',
+          onSurface: 'var(--md-sys-color-on-surface)',
       },
       typography: {
         'body-large': {

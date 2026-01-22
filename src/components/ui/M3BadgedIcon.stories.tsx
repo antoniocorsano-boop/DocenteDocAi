@@ -35,7 +35,7 @@ const meta: Meta<typeof M3BadgedIcon> = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg],
+      options: ['sm', 'md', 'lg'],
       description: 'Icon size',
       table: {
         type: { summary: 'sm | md | lg' },

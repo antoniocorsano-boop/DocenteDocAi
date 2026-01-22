@@ -235,7 +235,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 }}
                                 onMouseEnter={(e) => {
                                     if (selectedCurriculumId !== curr.id) {
-                                        e.currentTarget.style.background = 'rgba(var(--md-sys-color-surface-container-high-rgb), 0.5)';
+                                        e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
                                     }
                                 }}
                                 onMouseLeave={(e) => {
@@ -259,7 +259,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     }}
                                     onMouseEnter={(e) => {
                                         if (selectedCurriculumId === curr.id) {
-                                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                                            e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
                                         } else {
                                             e.currentTarget.style.opacity = '1';
                                         }

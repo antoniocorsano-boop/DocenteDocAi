@@ -156,11 +156,9 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     width: '3.5rem',
                     height: '3.5rem',
                     borderRadius: MD3_TOKENS.cornerLarge,
-                    background: 'linear-gradient(to bottom right, rgba(255,255,255,0.25), rgba(255,255,255,0.1))',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
+                    background: 'var(--md-sys-color-surface-container-high)',
                     boxShadow: MD3_TOKENS.elevation2,
-                    border: `1px solid rgba(255,255,255,0.2)`,
+                    border: `1px solid var(--md-sys-color-outline-variant)`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -206,7 +204,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 {children && <div style={{
                     paddingTop: MD3_TOKENS.spacing4,
                     marginTop: MD3_TOKENS.spacing4,
-                    borderTop: `1px solid rgba(255,255,255,0.1)`
+                    borderTop: `1px solid var(--md-sys-color-outline-variant)`
                 }}>{children}</div>}
             </div>
         </div>

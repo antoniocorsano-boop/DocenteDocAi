@@ -181,7 +181,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                                 if (error) setError('');
                             }}
                             placeholder="Es. 'Un gatto astronauta fluttua nello spazio, inseguendo un gomitolo di lana cosmico'..."
-                            containerClassName="flex-grow"
+                            // removed non-MD3 containerClassName
                              style={{ height: "100%" }}
                             label="Descrizione Video"
                         />

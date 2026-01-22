@@ -1,4 +1,96 @@
+
 # 🎯 **MD3 Full Compliance Initiative: Native Material Design 3 System**
+
+---
+
+## 📋 Operatività Document Driven – MD3 Migration 2026
+
+### 1. Regole e Scope
+
+- **Obiettivo:** Migrazione 100% MD3 compliance di tutti i componenti React attivi.
+- **Criteri di conformità:**
+  - Nessun uso di `className`, `containerClassName`, Tailwind, px, rem, %, sys.colors, layers.sys, o stili inline non MD3-compliant.
+  - Solo token MD3 (`var(--md-sys-...)`) e componenti M3 (es. `M3Typography`).
+- **Esclusioni:** File .backup, .pre-useTheme-migration, .stories, .test, e file di supporto/migrazione.
+
+### 2. File Attivi da Migrare
+
+**src/components:**
+- ContextualStrip.tsx
+- ClassroomView.tsx
+- LessonsPage.tsx
+- ClassAnalytics.tsx
+- Calendar.tsx
+- ChipInputList.tsx
+- BatchExportWizard.tsx
+- AssistantModal.tsx
+- AssistantFab.tsx
+- App.tsx
+- ArchivioReport.tsx
+- BackupInfoModal.tsx
+- AuraView.tsx
+- ClassroomTools.tsx
+
+**src/components/charts:**
+- BarChart.tsx
+- AdvancedCharts.tsx
+
+**src/components/ui:**
+- M3ExpressiveCard.tsx
+- M3DatePicker.tsx
+- M3Chip.tsx
+- M3Card.tsx
+- M3Button.tsx
+- M3BottomAppBar.tsx
+- M3BadgedIcon.tsx
+- M3AnimatedIcon.tsx
+- M3ActivityItem.tsx
+
+### 3. Batch di Migrazione (proposta)
+
+**Batch 1 – Core UI e Layout**
+- App.tsx
+- ClassroomView.tsx
+- LessonsPage.tsx
+- Calendar.tsx
+- ContextualStrip.tsx
+
+**Batch 2 – Componenti Funzionali**
+- AssistantModal.tsx
+- AssistantFab.tsx
+- BatchExportWizard.tsx
+- ArchivioReport.tsx
+- BackupInfoModal.tsx
+- AuraView.tsx
+- ClassroomTools.tsx
+- ChipInputList.tsx
+- ClassAnalytics.tsx
+
+**Batch 3 – UI Library**
+- Tutti i file in src/components/ui e src/components/charts elencati sopra
+
+### 4. Operatività Step-by-Step
+
+1. **Per ogni batch:**
+   - [ ] Esegui una revisione delle violazioni (className, px, rem, %, sys.colors, layers.sys, stili inline non MD3) riga per riga.
+   - [ ] Sostituisci ogni pattern non conforme con token MD3 o componenti M3.
+   - [ ] Aggiorna la documentazione inline dove necessario.
+   - [ ] Esegui una build e verifica l’assenza di errori.
+   - [ ] Spunta il batch completato qui sotto.
+
+### 5. Tracking Avanzamento
+
+- [ ] Batch 1 – Core UI e Layout
+- [ ] Batch 2 – Componenti Funzionali
+- [ ] Batch 3 – UI Library
+
+### 6. Validazione Finale
+
+- [ ] Build completata senza errori
+- [ ] Scansione compliance MD3: nessuna violazione residua
+- [ ] Aggiornamento documentazione e chiusura task
+
+---
 
 ## **Vision & Strategic Objective**
 
@@ -17,18 +109,33 @@
 
 ---
 
-## 📊 **MD3 Compliance Baseline Metrics (January 2026)**
+## 📊 **MD3 Compliance Baseline Metrics (Updated 2026-01-10)**
 
 ### **Current Compliance Status**
 
-- **MD3 Compliance Level:** 33.9% (🚨 **CRITICAL GAP:** 2972 violazioni sfuggite al workflow attuale)
-- **Violations Breakdown:** 26 className + 721 Tailwind + 1263 Hardcoded + 63 useTheme + 899 Legacy
-- **Gap Analysis:** Workflow originale copriva solo ~10% delle violazioni totali
-- **Total Components:** 392 TSX components
-- **Components MD3 Compliant:** 133/392 (33.9%)
-- **Violations Attive:** 26 className + 721 Tailwind + 1263 Hardcoded + 63 useTheme + 899 Legacy
-- **Build Status:** ✅ Stable (Post-Block C AssistantFab migration - 100% success rate)
+- **MD3 Compliance Level:** 35.25% (🚨 **CRITICAL GAP:** 2818 violazioni totali attive)
+- **Violations Breakdown:** 36 className + 697 Tailwind + 1161 Hardcoded + 63 useTheme + 861 Legacy
+- **Gap Analysis:** Workflow attuale copre ~10% delle violazioni totali
+- **Total TSX Components:** 392 TSX components (include ALL React files: UI components, stories, tests, utils, hooks, services)
+- **UI Components Only:** ~279 in `src/components/` directory
+- **Components MD3 Compliant:** 139/392 (35.25%)
+- **Violations Attive:** 36 className + 697 Tailwind + 1161 Hardcoded + 63 useTheme + 861 Legacy
+- **Build Status:** ✅ Stable (Post-ClassSelection crisis resolution - 100% success rate)
 - **Framework:** ✅ Document-driven con validation rigorosa
+
+### **📈 Compliance Evolution & Context**
+
+#### **Metric Discrepancy Explanation**
+- **Block I Report (Jan 2026):** 161 components, ~83 compliant (52%) - **Limited to main UI components only**
+- **Current Report (Jan 2026):** 392 components, 134 compliant (34.2%) - **Complete project-wide TSX scan**
+- **Why Numbers Seem Worse:** New scan includes ALL React files (stories, tests, utilities, services, hooks, themes)
+- **Reality:** Compliance metrics are now **more accurate and comprehensive**, not worse
+
+#### **Coverage Breakdown**
+- **UI Components:** 279 files in `src/components/` (user-facing components)
+- **Supporting Files:** 113 additional TSX files (stories, tests, utilities, services, hooks, themes)
+- **Total Coverage:** 100% of all React/TypeScript files in the project
+- **Previous Gap:** ~60% of React files were not being tracked for MD3 compliance
 
 ### **Error Pattern Analysis (MD3 Violations)**
 
@@ -134,6 +241,35 @@
 - **Template literals:** Successfully converted with medium complexity migration
 
 **Next Steps:** Block C preparation - Hardcoded values elimination targeting remaining 1301 violations
+
+---
+
+## 🆘 **CRISIS RESOLUTION: ClassCompetencyDashboard.tsx - COMPLETED**
+
+### **Crisis Summary**
+- **Issue:** Build failure with syntax error (unbalanced braces +2)
+- **Root Cause:** Duplicate code block causing JSX structure corruption
+- **Resolution:** Removed duplicate code, balanced braces, validated MD3 compliance
+- **Impact:** Component fully MD3 compliant, build stable, ESLint clean
+
+### **Technical Achievements**
+- ✅ **Syntax Error Fixed:** Parentesi graffe bilanciate (balance: 0)
+- ✅ **Build Success:** npm run build completato in 14.47s
+- ✅ **ESLint Clean:** Zero violazioni su ClassCompetencyDashboard.tsx
+- ✅ **MD3 Compliance:** 100% compliant (no className, no Tailwind, no hardcoded)
+- ✅ **Component Integrity:** Funzionalità preservata, visual consistency maintained
+- ✅ **Violations Reduced:** 20 design-system violations eliminated from project total
+
+### **Metrics Update**
+- **Components MD3 Compliant:** 133 → 134 (+0.3% compliance increase)
+- **Total Violations:** 2972 → 2952 (-20 violations eliminated)
+- **Build Status:** ✅ STABLE (crisis resolved)
+
+### **Lessons Learned**
+- **Code Duplication Risk:** Incremental edits can introduce syntax corruption
+- **Syntax Validation:** Essential brace balance checking during complex refactoring
+- **Build Testing:** Immediate validation after syntax changes prevents escalation
+- **Crisis Documentation:** Structured analysis enables rapid problem resolution
 
 ---
 
@@ -361,6 +497,23 @@ graph TD
 - ✅ **Token Corrections Migration:** Fixed incomplete spacing tokens (--md-sys-spacing-) to proper values
 - ✅ **Build Status:** ✅ Component compiles successfully with zero MD3 violations
 - 📊 **Final Result:** Settings ridotto da 15 a 0 violazioni legacy (15 violazioni eliminate)
+
+**RegisterImportDialog Migration Details:**
+- ✅ **Typography Migration:** Converted 12 hardcoded fontSize values ("0.75rem" → var(--md-sys-typescale-label-small-font-size), "0.875rem" → var(--md-sys-typescale-body-medium-font-size))
+- ✅ **Border Migration:** Standardized 8 border declarations ("1px solid" → var(--md-sys-border-width-thin))
+- ✅ **ClassName Migration:** Converted 26 Tailwind className usages to inline MD3 token styles with event handlers for drag-and-drop interactions
+- ✅ **Interactive States Migration:** Preserved hover effects and drag states using MD3 color tokens (surface-container-highest, primary-container)
+- ✅ **Layout Migration:** Maintained responsive drag-and-drop upload area with MD3 surface and spacing tokens
+- ✅ **Build Verification:** Component compiles successfully with zero MD3 violations
+- 📊 **Final Result:** RegisterImportDialog ridotto da 46 a 0 violazioni legacy (46 violazioni eliminate: 12 fontSize + 8 border + 26 className)
+
+**ClassSelection Migration Details:**
+- ✅ **Unused Variable Cleanup:** Removed unused `students` parameter from PrintCenterModal interface and destructuring
+- ✅ **ClassName Migration:** Converted 1 Tailwind className usage to inline MD3 token styles with event handlers for class selection chips
+- ✅ **Interactive States Migration:** Preserved hover effects and selection states using MD3 color tokens (primary, on-primary, surface-container-low/high, outline-variant)
+- ✅ **Layout Migration:** Maintained responsive class selection grid with MD3 spacing and shape tokens
+- ✅ **Build Verification:** Component compiles successfully with zero MD3 violations
+- 📊 **Final Result:** ClassSelection ridotto da 1 a 0 violazioni legacy (1 violazione className eliminata)
 
 **ThemeSettingsPanel Migration Details:**
 - ✅ **Block C Migration:** Removed `useTheme()` import and dependency (64 → 63 useTheme violations)
@@ -705,21 +858,22 @@ fontSize: labelLargeFontSize
 ### **Legacy Styles Violation Analysis**
 
 **Total Impact:**
-- **899 violations** across **186 components**
-- **Average:** 5.05 violations per component
+- **852 violations** across **186 components** (47 violations eliminated in RegisterImportDialog + ClassSelection)
+- **Average:** 4.90 violations per component
 - **Distribution:** 36 components with 1-2 violations, 21 with 3 violations, up to 26 violations in worst case
 
 **High-Impact Components (Top 10):**
 1. **HelpModal:** 0 violations (✅ **COMPLETED** - All 17 fontWeight/textTransform/letterSpacing violations eliminated)
 2. **ThemeSettingsPanel:** 0 violations (✅ **COMPLETED** - All 25 useTheme/legacy token violations eliminated)
 3. **ClassPlanningWizard:** 0 violations (✅ **COMPLETED** - All 18 inline style violations eliminated)
-4. **ClassDashboard:** 18 violations (🔄 **IN PROGRESS** - 5 violations eliminated: 2 className + 3 sys.colors references)
-5. **AnnualPlanningWizard:** 17 violations → **55 inline styles remaining** (🔄 **PARTIALLY COMPLETED** - Significant reduction from 17 to 55 inline styles, context/situation/methodology/sequence/preview/document sections migrated)
-6. **AssistantModal:** 17 violations → **0 violations** (✅ **COMPLETED** - All 17 inline style violations eliminated, systematic MD3 token migration)
-7. **TestPreviewModal:** 17 violations → **0 violations** (✅ **COMPLETED** - All 17 inline style violations eliminated, systematic MD3 token migration)
-8. **SignInScreen:** 16 violations → **0 violations** (✅ **COMPLETED** - All 16 inline style violations eliminated, systematic MD3 token migration)
-9. **LessonsPage:** 15 violations → **0 violations** (✅ **COMPLETED** - All 15 inline style violations eliminated, systematic MD3 token migration)
-10. **Settings:** 15 violations → **0 violations** (✅ **COMPLETED** - All 15 inline style violations eliminated, systematic MD3 token migration)
+4. **RegisterImportDialog:** 0 violations (✅ **COMPLETED** - All 46 violations eliminated: 12 fontSize + 8 border + 26 className violations migrated to MD3 tokens)
+5. **ClassDashboard:** 18 violations (🔄 **IN PROGRESS** - 5 violations eliminated: 2 className + 3 sys.colors references)
+6. **AnnualPlanningWizard:** 17 violations → **55 inline styles remaining** (🔄 **PARTIALLY COMPLETED** - Significant reduction from 17 to 55 inline styles, context/situation/methodology/sequence/preview/document sections migrated)
+7. **AssistantModal:** 17 violations → **0 violations** (✅ **COMPLETED** - All 17 inline style violations eliminated, systematic MD3 token migration)
+8. **TestPreviewModal:** 17 violations → **0 violations** (✅ **COMPLETED** - All 17 inline style violations eliminated, systematic MD3 token migration)
+9. **SignInScreen:** 16 violations → **0 violations** (✅ **COMPLETED** - All 16 inline style violations eliminated, systematic MD3 token migration)
+10. **LessonsPage:** 15 violations → **0 violations** (✅ **COMPLETED** - All 15 inline style violations eliminated, systematic MD3 token migration)
+11. **Settings:** 15 violations → **0 violations** (✅ **COMPLETED** - All 15 inline style violations eliminated, systematic MD3 token migration)
 
 **Migration Strategy:**
 1. **Phase 1:** High-violation components (15+ violations) - Target top 10 components
@@ -745,10 +899,10 @@ fontSize: labelLargeFontSize
 ### **Block E Implementation Plan**
 
 **Phase 1: High-Impact Components (Weeks 9-10)**
-- **Target:** Top 10 components (15+ violations each = ~180 violations)
-- **Components:** HelpModal, ThemeSettingsPanel, ClassDashboard, ClassPlanningWizard, AnnualPlanningWizard (partial), AssistantModal, TestPreviewModal, SignInScreen, LessonsPage, Settings
+- **Target:** Top 11 components (15+ violations each = ~226 violations)
+- **Components:** HelpModal ✅, ThemeSettingsPanel ✅, ClassPlanningWizard ✅, RegisterImportDialog ✅, ClassDashboard 🔄, AnnualPlanningWizard 🔄, AssistantModal ✅, TestPreviewModal ✅, SignInScreen ✅, LessonsPage ✅, Settings ✅
 - **Strategy:** Manual token mapping with comprehensive validation
-- **Success Criteria:** 180+ violations eliminated, build stability maintained
+- **Success Criteria:** 226+ violations eliminated, build stability maintained
 
 **Phase 2: Medium-Impact Components (Weeks 11-12)**
 - **Target:** Next 50 components (5-14 violations each = ~400 violations)

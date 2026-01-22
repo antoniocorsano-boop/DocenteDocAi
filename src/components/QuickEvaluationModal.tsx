@@ -148,7 +148,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                                 transition: 'all 0.2s ease',
                                 cursor: 'pointer',
                                 border: '1px solid transparent',
-                                backgroundColor: selectedLevelId === level.id ? 'rgba(var(--md-sys-color-primary-container-rgb), 0.3)' : 'transparent',
+                                backgroundColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary-container)' : 'transparent',
                                 borderColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary)' : 'transparent'
                             }}
                             onMouseEnter={(e) => {

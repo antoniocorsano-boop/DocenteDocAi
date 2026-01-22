@@ -17,13 +17,13 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
     }
   };
   return (
-    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-6)'}}>
-      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", backgroundColor: "var(--md-sys-color-surface)", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", textAlign: "center"}}>
-        <div style={{ color: sys.colors.on-error-container , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: 'var(--md-sys-spacing-6)'}}>
-          <span style={{ color: sys.colors.4xl }}>dizzy</span>
+    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-6)'}}>
+      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "100%", backgroundColor: "var(--md-sys-color-surface)", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", textAlign: "center"}}>
+        <div style={{ color: 'var(--md-sys-color-on-error-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: 'var(--md-sys-spacing-6)'}}>
+          <span style={{ color: 'var(--md-sys-color-on-error)' }}>dizzy</span>
         </div>
-        <h1 style={{ color: sys.colors.[var(--md-sys-typescale-headline-small)], color: 'var(--md-sys-color-on-primary)' , fontWeight: "900", marginBottom: 'var(--md-sys-spacing-2)'}}>Qualcosa è andato storto</h1>
-        <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-6)'}}>
+        <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", marginBottom: 'var(--md-sys-spacing-2)'}}>Qualcosa è andato storto</h1>
+        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-6)'}}>
           Si è verificato un errore imprevisto nell'interfaccia. Non preoccuparti, i tuoi dati sono al sicuro nel database locale.
         </p>
         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-4)', textAlign: "left", marginBottom: 'var(--md-sys-spacing-6)'}}>

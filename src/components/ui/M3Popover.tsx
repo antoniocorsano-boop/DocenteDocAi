@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Updated for layered theme access
 /**
  * M3Popover - Material Design 3 Popover Component
  * 
@@ -60,7 +60,6 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useTheme } from '../../theme/theme';
 import { useTheme } from '../../theme/theme';
 
 export interface M3PopoverProps {
@@ -192,9 +191,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
   style = {},
   zIndex = 1300,
 }) => {
-  const { layers } = useTheme();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
+  const { layers: { sys: { color }, ref: { spacing } } } = useTheme();
   const popoverRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ top: 0, left: 0, transformOrigin: 'top left' });
   
@@ -299,7 +296,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'layers.sys.color.scrim',
+            backgroundColor: color.scrim,
             opacity: 'var(--md-sys-state-opacity-scrim)',
             cursor: 'pointer',
             zIndex: zIndex - 1,}}
@@ -348,29 +345,35 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         {/* Header */}
         {(title || subtitle) && (
           <div
-            style={{padding: layers.ref.spacing['4'],
-              borderBottom: '1px solid  layers.sys.color.onPrimary',}}
+            style={{
+              padding: spacing[4],
+              borderBottom: `1px solid ${color.onPrimary}`
+            }}
           >
             {title && (
               <div
-                style={{fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
+                style={{
+                  fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
                   fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                   fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
-                  lineHeight: layers.ref.spacing['6'],
-                  margin: `0 0 ${layers.ref.spacing['1']} 0`,
-                  color: layers.sys.color.onSurface,}}
+                  lineHeight: spacing[6],
+                  margin: `0 0 ${spacing[1]} 0`,
+                  color: color.onSurface
+                }}
               >
                 {title}
               </div>
             )}
             {subtitle && (
               <div
-                style={{fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
+                style={{
+                  fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
                   fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                   fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
-                  lineHeight: layers.ref.spacing['4'],
+                  lineHeight: spacing[4],
                   margin: 0,
-                  color: ' layers.sys.color.onSurfaceVariant',}}
+                  color: color.onSurfaceVariant
+                }}
               >
                 {subtitle}
               </div>
@@ -382,9 +385,11 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         <div
           // eslint-disable-next-line design-system/no-classname
           
-          style={{padding: layers.ref.spacing['4'],
+          style={{
+            padding: spacing[4],
             overflowY: 'auto',
-            maxHeight: 'min(25rem, 70vh)',}}
+            maxHeight: 'min(25rem, 70vh)'
+          }}
         >
           {children}
         </div>

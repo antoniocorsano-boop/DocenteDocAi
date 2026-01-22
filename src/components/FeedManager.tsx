@@ -16,7 +16,7 @@ interface FeedManagerProps {
 }
 
 const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToast }) => {
-    const [pageUrl, setPageUrl] = useState(');
+    const [pageUrl, setPageUrl] = useState('');
     
     const handleAddSource = async () => {
         if (!pageUrl.trim()) return;
@@ -42,7 +42,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                 title: title || 'Fonte Sconosciuta',
             };
             setSources(prev => [...prev.filter(s => s.pageUrl !== correctedUrl), newSource]);
-            setPageUrl(');
+            setPageUrl('');
             showToast(`Fonte "${title}" aggiunta con successo!`, 'success');
         } catch (error: unknown) {
             console.error("Error adding feed source:", error);

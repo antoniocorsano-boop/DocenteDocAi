@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - M3AnimatedIcon component with layered theme destructuring
 import React from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -13,22 +13,21 @@ const M3AnimatedIcon: React.FC<M3AnimatedIconProps> = ({
     color = 'onSurface', 
     size = 'md' 
 }) => {
-    const { layers } = useTheme();
-    const { sys, ref } = layers;
+    const { layers: { sys: { color: themeColor }, ref: { typography } } } = useTheme();
 
     const sizeMap = {
-        sm: ref.typography.bodySmall.fontSize,
-        md: ref.typography.bodyLarge.fontSize,
-        lg: ref.typography.headlineSmall.fontSize,
-        xl: ref.typography.headlineMedium.fontSize
+        sm: typography.bodySmall.fontSize,
+        md: typography.bodyLarge.fontSize,
+        lg: typography.headlineSmall.fontSize,
+        xl: typography.headlineMedium.fontSize
     };
 
     const colorMap = {
-        primary: sys.color.primary,
-        secondary: sys.color.secondary,
-        tertiary: sys.color.tertiary,
-        surface: sys.color.surface,
-        onSurface: sys.color.onSurface
+        primary: themeColor.primary,
+        secondary: themeColor.secondary,
+        tertiary: themeColor.tertiary,
+        surface: themeColor.surface,
+        onSurface: themeColor.onSurface
     };
 
     return (

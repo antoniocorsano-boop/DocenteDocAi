@@ -12,7 +12,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 // TODO: Replace [ComponentName] with your actual component
-const ComponentName = (props: any) => <div>Replace with your component</div>;
+const ComponentName = () => <div>Replace with your component</div>;
 
 const meta = {
   title: 'MD3 Components/[ComponentName]',
@@ -41,7 +41,7 @@ const meta = {
       description: 'Click handler'
     }
   }
-} satisfies Meta<typeof [ComponentName]>;
+} satisfies Meta<typeof ComponentName>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -161,8 +161,6 @@ interface ModalPortalProps {
 const ModalPortal: React.FC<ModalPortalProps> = ({
   id,
   level,
-  backdropZIndex,
-  modalZIndex,
   children,
 }) => {
   // Find or create container

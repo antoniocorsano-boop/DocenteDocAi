@@ -24,7 +24,7 @@ const meta: Meta<typeof M3AnimatedIcon> = {
     },
     animation: {
       control: 'select',
-      options: ['spin', 'pulse', 'bounce', 'fade],
+      options: ['spin', 'pulse', 'bounce', 'fade'],
       description: 'Animation type',
       table: {
         type: { summary: 'spin | pulse | bounce | fade' },
@@ -40,7 +40,7 @@ const meta: Meta<typeof M3AnimatedIcon> = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl],
+      options: ['sm', 'md', 'lg', 'xl'],
       description: 'Icon size',
       table: {
         type: { summary: 'sm | md | lg | xl' },

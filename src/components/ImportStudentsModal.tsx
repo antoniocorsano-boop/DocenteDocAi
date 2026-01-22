@@ -194,7 +194,34 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 
                                 <div
                                     {...getRootProps()}
-                                    className={`relative flex flex-col items-center justify-center p-8 h-48 rounded-[var(--md-sys-shape-corner-large)] border-2 border-dashed transition-all cursor-pointer ${isLoading ? 'opacity-50 pointer-events-none' : ''} ${isDragActive ? 'border-primary bg-primaryContainer/10' : 'border-[var(--md-sys-color-outline-variant)]/50 hover:border-primary/50 hover:bg-[var(--md-sys-color-surfaceContainerHigh)]'}`}
+                                    style={{
+                                        position: 'relative',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        padding: 'var(--md-sys-spacing-8)',
+                                        height: '192px', // 48 * 4px = 192px
+                                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                                        border: `2px dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                        transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
+                                        cursor: 'pointer',
+                                        opacity: isLoading ? 0.5 : 1,
+                                        pointerEvents: isLoading ? 'none' : 'auto',
+                                        backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!isDragActive && !isLoading) {
+                                            e.currentTarget.style.borderColor = 'var(--md-sys-color-primary)';
+                                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!isDragActive && !isLoading) {
+                                            e.currentTarget.style.borderColor = 'var(--md-sys-color-outline-variant)';
+                                            e.currentTarget.style.backgroundColor = 'transparent';
+                                        }
+                                    }}
                                 >
                                     <input {...getInputProps()} />
                                     {isLoading ? (

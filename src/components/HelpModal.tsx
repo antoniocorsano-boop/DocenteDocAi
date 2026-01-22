@@ -41,7 +41,7 @@ const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boole
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
                         color: 'var(--md-sys-color-primary)',
-                        fontSize: 'var(--md-sys-typescale-title-medium-size)'
+                        fontSize: 'var(--md-sys-typescale--font-size)'
                     }}>{icon}</span>
                     <M3Typography variant="title-medium">{title}</M3Typography>
                 </div>
@@ -90,7 +90,7 @@ const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }>
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
                         color: 'var(--md-sys-color-primary)',
-                        fontSize: 'var(--md-sys-typescale-body-small-size)',
+                        fontSize: 'var(--md-sys-typescale--font-size)',
                         marginTop: 'var(--md-sys-spacing-1)',
                         flexShrink: 0
                     }}>check_circle</span>
@@ -405,7 +405,7 @@ const DigitalTeacherManual = () => {
                     <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>Versione 4.1.0 - M3 Expressive Edition</M3Typography>
                 </div>
                 <M3Button onClick={downloadManual} variant="outlined" style={{
-                    fontSize: 'var(--md-sys-typescale-label-large-size)',
+                    fontSize: 'var(--md-sys-typescale--font-size)',
                     letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                     textTransform: 'uppercase'
                 }}>
@@ -501,7 +501,7 @@ const DigitalTeacherManual = () => {
                         }}>
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--md-sys-typescale-title-medium-size)'
+                                fontSize: 'var(--md-sys-typescale--font-size)'
                             }}>admin_panel_settings</span>
                             Per il Dirigente
                         </M3Typography>
@@ -526,7 +526,7 @@ const DigitalTeacherManual = () => {
                         }}>
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--md-sys-typescale-title-medium-size)'
+                                fontSize: 'var(--md-sys-typescale--font-size)'
                             }}>engineering</span>
                             Per l'Animatore Digitale
                         </M3Typography>
@@ -584,7 +584,7 @@ const VocalAssistantGuideContent = () => (
                     }}>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--md-sys-typescale-body-large-size)'
+                            fontSize: 'var(--md-sys-typescale--font-size)'
                         }}>record_voice_over</span>
                         {section.title}
                     </M3Typography>
@@ -595,7 +595,7 @@ const VocalAssistantGuideContent = () => (
                     }}>
                         {section.commands.map((cmd, cIdx) => (
                             <li key={cIdx} style={{
-                                fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                fontSize: 'var(--md-sys-typescale--font-size)',
                                 color: 'var(--md-sys-color-on-surface)',
                                 backgroundColor: 'var(--md-sys-color-surface-container-high)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
@@ -711,7 +711,7 @@ const TechnicalSpecs = () => (
                             flexShrink: 0
                         }}>check_circle</span>
                         <span style={{
-                            fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                            fontSize: 'var(--md-sys-typescale--font-size)',
                             lineHeight: "1.625"
                         }} dangerouslySetInnerHTML={{ __html: spec }}></span>
                     </li>
@@ -744,7 +744,7 @@ const NormativaContent: React.FC = () => (
                 gap: 'var(--md-sys-spacing-3)'
             }}>
                 <li style={{
-                    fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                    fontSize: 'var(--md-sys-typescale--font-size)',
                     display: "flex",
                     alignItems: "flex-start",
                     gap: 'var(--md-sys-spacing-2)'
@@ -752,14 +752,14 @@ const NormativaContent: React.FC = () => (
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
                         color: 'var(--md-sys-color-primary)',
-                        fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                        fontSize: 'var(--md-sys-typescale--font-size)',
                         marginTop: 'var(--md-sys-spacing-1)',
                         flexShrink: 0
                     }}>shield</span>
                     Non esiste un server centrale di OrarioDoc che legge i tuoi dati.
                 </li>
                 <li style={{
-                    fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                    fontSize: 'var(--md-sys-typescale--font-size)',
                     display: "flex",
                     alignItems: "flex-start",
                     gap: 'var(--md-sys-spacing-2)'
@@ -767,14 +767,14 @@ const NormativaContent: React.FC = () => (
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
                         color: 'var(--md-sys-color-primary)',
-                        fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                        fontSize: 'var(--md-sys-typescale--font-size)',
                         marginTop: 'var(--md-sys-spacing-1)',
                         flexShrink: 0
                     }}>devices</span>
                     Tutto viene salvato nel tuo dispositivo (IndexedDB).
                 </li>
                 <li style={{
-                    fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                    fontSize: 'var(--md-sys-typescale--font-size)',
                     display: "flex",
                     alignItems: "flex-start",
                     gap: 'var(--md-sys-spacing-2)'
@@ -782,7 +782,7 @@ const NormativaContent: React.FC = () => (
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
                         color: 'var(--md-sys-color-primary)',
-                        fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                        fontSize: 'var(--md-sys-typescale--font-size)',
                         marginTop: 'var(--md-sys-spacing-1)',
                         flexShrink: 0
                     }}>cloud_done</span>
@@ -831,7 +831,7 @@ const FaqContent = () => (
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
                             transition: "transform 300ms",
-                            fontSize: 'var(--md-sys-typescale-title-medium-size)'
+                            fontSize: 'var(--md-sys-typescale--font-size)'
                         }}>expand_more</span>
                     </summary>
                     <div style={{
@@ -839,7 +839,7 @@ const FaqContent = () => (
                         fontFamily: 'var(--md-sys-typescale-body-medium-font)',
                         opacity: "0.8",
                         lineHeight: "1.625",
-                        fontSize: 'var(--md-sys-typescale-body-medium-size)'
+                        fontSize: 'var(--md-sys-typescale--font-size)'
                     }} dangerouslySetInnerHTML={{ __html: faq.a }}></div>
                 </details>
             ))}
@@ -868,8 +868,8 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 }}>
                     <div style={{
                         transition: "transform 300ms",
-                        width: "2.5rem",
-                        height: "2.5rem",
+                        width: 'var(--md-sys-sizing-icon-large)',
+                        height: 'var(--md-sys-sizing-icon-large)',
                         borderRadius: 'var(--md-sys-shape-corner-medium)',
                         color: 'var(--md-sys-color-primary)',
                         display: "flex",
@@ -893,7 +893,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 <M3Typography variant="button-primary" style={{
                     color: 'var(--md-sys-color-primary)',
                     flexShrink: "0",
-                    fontSize: 'var(--md-sys-typescale-label-large-size)'
+                    fontSize: 'var(--md-sys-typescale--font-size)'
                 }}>v4.1.0</M3Typography>
             </div>
             <M3Typography variant="body-medium" style={{
@@ -918,7 +918,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                     >
                         <span style={{
                             marginRight: 'var(--md-sys-spacing-2)',
-                            fontSize: 'var(--md-sys-typescale-body-small-size)'
+                            fontSize: 'var(--md-sys-typescale--font-size)'
                         }}>arrow_forward</span>
                         Vai alla funzione
                     </M3Button>
@@ -1000,7 +1000,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 </div>
                  <div style={{ width: '100%' }}>
                      <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" style={{
-                         fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                         fontSize: 'var(--md-sys-typescale--font-size)',
                          textTransform: "uppercase",
                          letterSpacing: "0.1em",
                          marginTop: 'var(--md-sys-spacing-4)'
@@ -1101,7 +1101,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
         <div style={{marginTop: 'var(--md-sys-spacing-6)'}}>
           <div style={{
             borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-            fontSize: 'var(--md-sys-typescale-body-medium-size)',
+            fontSize: 'var(--md-sys-typescale--font-size)',
             padding: 'var(--md-sys-spacing-4)',
             backgroundColor: 'var(--md-sys-color-surface-container-low)'
           }}>
@@ -1158,7 +1158,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
 
       <M3DialogActions>
         <M3Button onClick={onClose} variant="text" disabled={isGenerating} style={{
-          fontSize: 'var(--md-sys-typescale-label-large-size)',
+          fontSize: 'var(--md-sys-typescale--font-size)',
           textTransform: "uppercase",
           letterSpacing: "0.1em"
         }}>Chiudi</M3Button>

@@ -22,7 +22,7 @@ const meta = {
     },
     mode: {
       control: 'select',
-      options: ['modal', 'fullscreen],
+      options: ['modal', 'fullscreen'],
       description: 'Dialog display mode',
     },
     backdropClickable: {
@@ -31,7 +31,7 @@ const meta = {
     },
     maxWidth: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl', '2xl],
+      options: ['sm', 'md', 'lg', 'xl', '2xl'],
       description: 'Maximum width constraint',
     },
     level: {
@@ -60,7 +60,6 @@ export const Default: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-           }
           >
             Open Dialog
           </button>
@@ -94,7 +93,6 @@ export const WithHeadline: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-           }
           >
             Open Dialog
           </button>
@@ -119,15 +117,11 @@ export const WithButtons: Story = {
     title: 'Confirm Action',
     children: 'Are you sure you want to proceed? This action cannot be undone.',
     buttons: (
-      <div}>
-        <button
-         }
-        >
+      <div>
+        <button>
           Cancel
         </button>
-        <button
-         }
-        >
+        <button>
           Confirm
         </button>
       </div>

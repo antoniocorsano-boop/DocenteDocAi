@@ -1,9 +1,11 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Fully migrated to MD3 tokens
+// @md3-compliant
+// @migrated
+
 import React, { SelectHTMLAttributes } from 'react';
 import M3Typography from './M3Typography';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useTheme } from '../../hooks/useTheme';
-import { useTheme } from '../../theme/theme';
 
 interface SelectFieldProps extends SelectHTMLAttributes<HTMLSelectElement> {
     label: string;
@@ -25,22 +27,22 @@ const SelectField: React.FC<SelectFieldProps> = ({
     children,
     ...props
 }) => {
-    const { layers } = useTheme();
+    // Removed: const { layers } = useTheme();
     const describedBy = error && errorMessage ? `${props.id}-error` : undefined;
 
     return (
         <div
             style={{display: 'flex',
                 flexDirection: 'column',
-                gap: layers.ref.spacing['2'],
+                gap: 'var(--md-sys-spacing-2)',
                 width: fullWidth ? '100%' : 'auto',
-                marginBottom: layers.ref.spacing['4']}}
+                marginBottom: 'var(--md-sys-spacing-4)'}}
         >
             <M3Typography
                 variant="label-large"
                 as="label"
                 htmlFor={props.id}
-                style={{color: ' layers.sys.color.onSurfaceVariant'}}
+                style={{color: 'var(--md-sys-color-on-surface-variant)'}}
             >
                 {label}
             </M3Typography>
@@ -48,22 +50,22 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 style={{position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
-                    backgroundColor: layers.sys.color.surfaceContainerHighest,
-                    border: `1px solid ${layers.sys.color.outline}`,
-                    borderRadius: layers.ref.shape.corner.large,
-                    padding: `${layers.ref.spacing['3']} ${layers.ref.spacing['4']}`,
+                    backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                    border: `1px solid var(--md-sys-color-outline)`,
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                     transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
                     boxShadow: error
-                        ? `0 0 0 2px color-mix(in srgb, ${layers.sys.color.error} 12%, transparent)`
+                        ? `0 0 0 2px color-mix(in srgb, var(--md-sys-color-error) 12%, transparent)`
                         : 'none',
-                    borderColor: error ? layers.sys.color.error : layers.sys.color.outline}}
+                    borderColor: error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'}}
             >
                 <select
                     {...props}
                     style={{flex: 1,
                         border: 'none',
                         backgroundColor: 'transparent',
-                        color: ' layers.sys.color.onPrimary',
+                        color: 'var(--md-sys-color-on-surface)',
                         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                         fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
@@ -81,12 +83,12 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 <span
                     style={{fontFamily: 'Material Symbols Outlined',
                         position: 'absolute',
-                        right: layers.ref.spacing['2'],
+                        right: 'var(--md-sys-spacing-2)',
                         top: '50%',
                         transform: 'translateY(-50%)',
                         pointerEvents: 'none',
-                        color: ' layers.sys.color.onSurfaceVariant',
-                        fontSize: layers.ref.spacing['4'],
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                        fontSize: 'var(--md-sys-spacing-4)',
                         transition: 'color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)'}}
                     aria-hidden="true"
                 >
@@ -96,11 +98,11 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
                             position: 'absolute',
-                            left: layers.ref.spacing['2'],
+                            left: 'var(--md-sys-spacing-2)',
                             top: '50%',
                             transform: 'translateY(-50%)',
-                            color: 'layers.sys.color.error',
-                            fontSize: layers.ref.spacing['4']}}
+                            color: 'var(--md-sys-color-error)',
+                            fontSize: 'var(--md-sys-spacing-4)'}}
                         aria-hidden="true"
                     >
                         error
@@ -112,12 +114,12 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     id={describedBy}
                     style={{display: 'flex',
                         alignItems: 'center',
-                        gap: layers.ref.spacing['1'],
-                        marginTop: layers.ref.spacing['1']}}
+                        gap: 'var(--md-sys-spacing-1)',
+                        marginTop: 'var(--md-sys-spacing-1)'}}
                 >
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
-                            color: 'layers.sys.color.error',
+                            color: 'var(--md-sys-color-error)',
                             fontSize: 'var(--md-sys-typescale-body-small-font-size)'}}
                         aria-hidden="true"
                     >
@@ -125,7 +127,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     </span>
                     <M3Typography
                         variant="body-small"
-                        style={{color: 'layers.sys.color.error'}}
+                        style={{color: 'var(--md-sys-color-error)'}}
                     >
                         {errorMessage}
                     </M3Typography>

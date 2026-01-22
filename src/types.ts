@@ -1217,6 +1217,7 @@ export interface ClassroomViewProps {
     onOpenLiveAssistant: () => void;
     setStudentProfileContext?: (student: Studente | null) => void;
     onNavigate: (view: View, context?: NavigationParams) => void;
+    aiSettings: AiSettings;
 }
 
 export interface LessonsPageProps {

@@ -11,10 +11,10 @@ interface LineChartProps {
 }
 
 export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 }) => {
-  const { layers } = useTheme();
+  const { layers: { sys: { color: themeColor }, ref: { spacing } } } = useTheme();
 
     if (data.length === 0) {
-        return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", opacity: "0.5", color: layers.sys.color.onSurfaceVariant }}>Nessun dato disponibile.</div>;
+        return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", opacity: "0.5", color: themeColor.onSurfaceVariant }}>Nessun dato disponibile.</div>;
     }
 
     const padding = 30;
@@ -53,8 +53,8 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
         <div  style={{ width: "100%", height }}>
             <svg viewBox={`0 0 ${width} ${height}`}  style={{ width: "100%", height: "100%" }}>
                 {/* Grids */}
-                <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke={layers.sys.color.outlineVariant} strokeWidth="1" />
-                <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke={layers.sys.color.outlineVariant} strokeWidth="1" />
+                <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke={themeColor.outlineVariant} strokeWidth="1" />
+                <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke={themeColor.outlineVariant} strokeWidth="1" />
                 
                 {/* Area Fill (Only if > 1 point) */}
                 {data.length > 1 && <path d={areaPathD} fill={color} fillOpacity="0.1" />}
@@ -84,7 +84,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
                         cy={getY(point.value)}
                         r="4"
                         fill={color}
-                        stroke={layers.sys.color.surface}
+                        stroke={themeColor.surface}
                         strokeWidth="2"
                     />
                 ))}
@@ -92,7 +92,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
                 {/* Labels (X Axis) */}
                 {data.map((point, i) => (
                     (data.length < 8 || i === 0 || i === data.length - 1 || i % Math.ceil(data.length / 5) === 0) && (
-                        <text key={i} x={getX(i)} y={height - 5} fontSize="10" textAnchor="middle" fill={layers.sys.color.onSurfaceVariant}>
+                        <text key={i} x={getX(i)} y={height - 5} fontSize="10" textAnchor="middle" fill={themeColor.onSurfaceVariant}>
                             {point.label}
                         </text>
                     )
@@ -110,10 +110,10 @@ interface RadarChartProps {
 }
 
 export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 }) => {
-    const { layers } = useTheme();
+    const { layers: { sys: { color: themeColor }, ref: { spacing } } } = useTheme();
 
     if (data.length === 0) {
-        return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: layers.ref.spacing['4'], opacity: "0.5", color: layers.sys.color.onSurfaceVariant }}>Dati competenze non disponibili.</div>;
+        return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: spacing[4], opacity: "0.5", color: themeColor.onSurfaceVariant }}>Dati competenze non disponibili.</div>;
     }
 
     const center = size / 2;
@@ -151,7 +151,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                             return `${x},${y}`;
                         }).join(' ')}
                         fill="none"
-                        stroke={layers.sys.color.outlineVariant}
+                        stroke={themeColor.outlineVariant}
                         strokeWidth="1"
                         strokeDasharray="4 4"
                     />
@@ -160,7 +160,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                 {/* Axis Lines */}
                 {data.map((_, i) => {
                     const { x, y } = getCoordinates(maxValue, i);
-                    return <line key={i} x1={center} y1={center} x2={x} y2={y} stroke={layers.sys.color.outlineVariant} strokeWidth="1" />;
+                    return <line key={i} x1={center} y1={center} x2={x} y2={y} stroke={themeColor.outlineVariant} strokeWidth="1" />;
                 })}
 
                 {/* Data Polygon */}
@@ -186,7 +186,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                                 textAnchor="middle"
                                 dominantBaseline="middle"
                                 fontSize="10"
-                                fill={layers.sys.color.onSurface}
+                                fill={themeColor.onSurface}
                                 style={{ fontWeight: "500" }}
                             >
                                 {d.axis}

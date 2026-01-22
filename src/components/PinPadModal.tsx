@@ -59,11 +59,17 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                     {[0, 1, 2, 3].map((i) => (
                         <div 
                             key={i}
-                            className={`w-4 h-4 rounded-full transition-all duration-200 ${
-                                i < pin.length 
-                                    ? (error ? 'bg-error scale-125' : 'bg-primary scale-110') 
-                                    : 'bg-[var(--md-sys-color-surfaceContainerHigh)]est border border-[var(--md-sys-color-outline)]'
-                            }`}
+                            style={{
+                                width: '16px', // w-4 = 1rem = 16px
+                                height: '16px', // h-4 = 1rem = 16px
+                                borderRadius: '50%', // rounded-full
+                                transition: 'all 0.2s', // transition-all duration-200
+                                backgroundColor: i < pin.length 
+                                    ? (error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)')
+                                    : 'var(--md-sys-color-surface-container-high)',
+                                border: i >= pin.length ? `1px solid var(--md-sys-color-outline)` : 'none',
+                                transform: i < pin.length ? `scale(${error ? 1.25 : 1.1})` : 'scale(1)'
+                            }}
                         />
                     ))}
                 </div>

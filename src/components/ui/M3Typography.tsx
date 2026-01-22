@@ -136,6 +136,7 @@ const M3Typography: React.FC<M3TypographyProps> = ({
 };
 
 export default M3Typography;
+export { M3Typography };
 
 
 

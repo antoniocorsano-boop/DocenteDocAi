@@ -179,7 +179,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             padding: 'var(--md-sys-spacing-2) 0', // 8px top/bottom
 
             // Shape
-            borderRadius: 'var(--md-sys-shape-corner-medium)', // 12px
+            borderRadius: 'var(--md-sys-shape-corner-extra-large)', // 32px
 
             // State colors - default
             color: 'var(--md-sys-color-onSurface-variant)',

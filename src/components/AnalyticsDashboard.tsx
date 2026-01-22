@@ -123,7 +123,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
         flexDirection: 'column',
         gap: 'var(--md-sys-spacing-6)',
         overflowY: 'auto',
-        maxHeight: '80vh'}}>
+        maxHeight: 'var(--md-sys-spacing-80)'}}>
           {/* GDPR Notice */}
           <div style={{backgroundColor: 'var(--md-sys-color-tertiary-container)',
             opacity: 'var(--md-sys-state-layer-opacity-hover)',
@@ -142,7 +142,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   variant="label-small"
                   style={{color: 'var(--md-sys-color-on-tertiary-container)',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.2em',
+                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.2em)',
                     marginBottom: 'var(--md-sys-spacing-4)',
                     display: 'block'}}
                 >
@@ -175,7 +175,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               animation: 'fade-in 0.3s ease-out'}}>
               {/* Metriche Principali */}
               <div style={{display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-32), 1fr))',
                 gap: 'var(--md-sys-spacing-8)'}}>
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',

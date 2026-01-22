@@ -179,7 +179,6 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         { id: 'homework', label: 'Compiti', icon: 'assignment', badge: pendingHomework.length || undefined },
                         { id: 'materials', label: 'Materiali', icon: 'folder' }
                     ]}
-                     style={{ marginLeft: "auto", marginRight: "auto" }}
                 />
             </div>
 
@@ -188,7 +187,12 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 {activeTab === 'feed' && (
                     <div  style={{gap: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
                         {feedItems.length > 0 ? feedItems.map((item) => (
-                            <M3ExpressiveCard key={item.id} style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-6)'}}>
+                            <M3ExpressiveCard 
+                                key={item.id}
+                                icon="feed"
+                                title={item.title}
+                                description={item.content}
+                            >
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                         <span style={{ backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.1, fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", borderRadius: 'var(--md-sys-spacing-4)'}}>
@@ -199,7 +203,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 </div>
                                 <M3Typography variant="headline-medium" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "900", letterSpacing: "-0.005em" }}>{item.content}</M3Typography>
                                 {item.homework && (
-                                    <div style={{ backgroundColor: 'var(--md-sys-color-tertiary)', opacity: 0.05, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", gap: 'var(--md-sys-spacing-3)'}}>
+                                    <div style={{ backgroundColor: 'var(--md-sys-color-tertiary)', opacity: 0.05, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)"}}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-tertiary)"}}>
                                             <span  style={{ fontSize: "1.125rem" }}>home_work</span>
                                             <span style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Compito per casa</span>
@@ -239,7 +243,12 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                             />
                             <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                                 {pendingHomework.map(lesson => (
-                                    <M3ExpressiveCard key={lesson.id}  style={{padding: 'var(--md-sys-spacing-8)'}}>
+                                    <M3ExpressiveCard 
+                                        key={lesson.id}
+                                        icon="assignment"
+                                        title={lesson.materia}
+                                        description={lesson.contenuto}
+                                    >
                                         <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                             <div style={{gap: 'var(--md-sys-spacing-1)'}}>
                                                 <M3Typography variant="headline-small" style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>{lesson.materia}</M3Typography>
@@ -306,7 +315,12 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 {activeTab === 'materials' && (
                      <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
                         {kb.map(entry => (
-                            <M3ExpressiveCard key={entry.id}  style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 'var(--md-sys-spacing-8)', transition: "transform 300ms", cursor: "pointer"}}>
+                            <M3ExpressiveCard 
+                                key={entry.id}
+                                icon={entry.fileName.endsWith('.pdf') ? 'picture_as_pdf' : 'description'}
+                                title={entry.fileName}
+                                description={''}
+                            >
                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.1, width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "color 300ms"}}>
                                     <span style={{ color: 'var(--md-sys-color-secondary)' }}>
                                         {entry.fileName.endsWith('.pdf') ? 'picture_as_pdf' : 'description'}

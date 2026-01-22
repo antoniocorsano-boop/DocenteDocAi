@@ -172,7 +172,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
-                                            <span className="material-symbols-outlined">mail</span>
+                                            <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: '24px', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>mail</span>
                                             <span >
                                                 {inboxCount}
                                             </span>
@@ -196,7 +196,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         </div>
                                     </div>
                                     <div >
-                                        <span className="material-symbols-outlined">arrow_forward</span>
+                                        <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: '24px', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>arrow_forward</span>
                                     </div>
                                 </div>
                             </M3Card>
@@ -208,7 +208,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section>
                             <div >
-                                <span className="material-symbols-outlined" style={{color: "var(--md-sys-color-primary)"}}>auto_stories</span>
+                                <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: '24px', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
                                 <h3 >Registro & Didattica</h3>
                             </div>
                             <div >

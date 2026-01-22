@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 const TypographyDocumentation = () => (
   <div style={{ padding: 'var(--md-sys-spacing-6)', fontFamily: 'var(--font-family)' }}>
     <h1 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: 'var(--md-sys-spacing-4)' }}>Typography System</h1>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
       Material Design 3 typography scales with clear hierarchy for readability and visual consistency.
     </p>
 
@@ -29,7 +29,7 @@ const TypographyDocumentation = () => (
 
     <TypeSample
       text="Display Large"
-      fontSize=layers.ref.spacing['4']
+      fontSize="var(--md-sys-spacing-4)"
       fontWeight={400}
       lineHeight=layers.ref.spacing['4']
       letterSpacing="-0.25px"
@@ -50,7 +50,7 @@ const TypographyDocumentation = () => (
     />
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Headline Styles</h2>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: '#666' }}>
       Prominent headings for content sections.
     </p>
 

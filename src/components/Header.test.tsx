@@ -7,7 +7,7 @@ import { Header } from './Header';
 const baseProps = {
   showBackButton: true,
   onBack: vi.fn(),
-  user: { id: 'test-id', displayName: 'Mario Rossi', photoURL: ', email: 'test@example.com' },
+  user: { id: 'test-id', displayName: 'Mario Rossi', photoURL: 'test-photo.jpg', email: 'test@example.com' },
   settings: {
     timeSlots: [],
     defaultView: 'home',

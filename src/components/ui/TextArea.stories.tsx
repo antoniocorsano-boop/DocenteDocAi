@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - migrated
 import type { Meta, StoryObj } from '@storybook/react';
 import TextArea from './TextArea';
 

@@ -1,6 +1,7 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Updated for layered theme access
 
 import React, { useState, useMemo } from 'react';
+import { useTheme } from '../theme/theme';
 import { 
     Studente, 
     OrientamentoActivity, 
@@ -40,6 +41,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     onUpdateStudentState,
     showToast
 }) => {
+  const { layers: { sys, ref } } = useTheme();
   const [selectedClass, setSelectedClass] = useState<string>(userClasses[0] || '');
     const [activeTab, setActiveTab] = useState<'activities' | 'students'>('activities');
     const [isAddActivityModalOpen, setIsAddActivityModalOpen] = useState(false);
@@ -223,8 +225,8 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 </InfoCard>
             </div>
 
-            <div style={{ borderRadius: ref.shape[25] , border: "1px solid var(--md-sys-color-outline)"}}>
-                <div style={{ backgroundColor: sys.colors.surface/30 , display: "flex", borderBottom: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
+            <div style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' , border: "1px solid var(--md-sys-color-outline)"}}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container)' , display: "flex", borderBottom: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
                     <button 
                         onClick={() => setActiveTab('activities')}
                         style={{color: 'var(--md-sys-color-on-primary)'}}

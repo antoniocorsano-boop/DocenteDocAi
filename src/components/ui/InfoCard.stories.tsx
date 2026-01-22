@@ -29,7 +29,7 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'error', 'surface', 'elevated', 'tonal],
+      options: ['primary', 'secondary', 'tertiary', 'error', 'surface', 'elevated', 'tonal'],
       description: 'Card color variant',
     },
   },

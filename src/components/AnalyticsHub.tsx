@@ -126,7 +126,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-25), 1fr))',
                         gap: 'var(--md-sys-spacing-4)'
                     }}
                 >
@@ -220,7 +220,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                         fontWeight: '700',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.1em'
+                        letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
                     }}
                 >
                     <h2
@@ -229,7 +229,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                             fontWeight: '700',
                             textTransform: 'uppercase',
-                            letterSpacing: '0.1em'
+                            letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
                         }}
                     >
                         {chartType === 'trend' && 'Andamento Temporale'}
@@ -258,7 +258,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
                 <div
                     style={{
-                        flexGrow: '1',
+                        flexGrow: 1,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -303,13 +303,13 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                     <div
                                         style={{
                                             backgroundColor: 'var(--md-sys-color-primary-container)',
-                                            width: '2.5rem',
-                                            height: '2.5rem',
+                                            width: 'var(--md-sys-spacing-10)',
+                                            height: 'var(--md-sys-spacing-10)',
                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            flexShrink: '0'
+                                            flexShrink: 0
                                         }}
                                     >
                                         <span

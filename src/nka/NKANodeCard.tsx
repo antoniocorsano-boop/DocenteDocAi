@@ -1,7 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope, @typescript-eslint/explicit-module-boundary-types */
 // Card for a single NKA node (M3 Card, shape override)
+
 import React from 'react';
 import { NKANode } from './types';
+import { M3Typography } from '../components/ui/M3Typography';
 
 interface NKANodeCardProps {
   node: NKANode;
@@ -11,10 +13,19 @@ interface NKANodeCardProps {
 function NKANodeCard({ node, onSelect }: NKANodeCardProps): React.ReactElement {
   return (
     <div
-      className={`nka-node-card nka-shape-${node.shape}`}
       style={{
-        background: `var(--md-sys-color-primary${node.color})`,
-        boxShadow: `var(--md-sys-elevation${node.elevation})`,
+        background: 'var(--md-sys-color-surface-container)',
+        boxShadow: 'var(--md-sys-elevation1)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        padding: 'var(--md-sys-spacing-4)',
+        marginBottom: 'var(--md-sys-spacing-4)',
+        minWidth: 220,
+        outline: 'none',
+        cursor: 'pointer',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--md-sys-spacing-2)',
+        transition: 'box-shadow 0.2s',
       }}
       tabIndex={0}
       role="button"
@@ -28,11 +39,30 @@ function NKANodeCard({ node, onSelect }: NKANodeCardProps): React.ReactElement {
         }
       }}
     >
-      <div className="nka-node-label">{node.label}</div>
-      <div className="nka-node-depth" id={`nka-node-depth-${node.id}`}>Profondità {Math.round(node.depth * 100)}%</div>
-      <div className="nka-node-actions">
+      <M3Typography variant="title-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>{node.label}</M3Typography>
+      <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }} id={`nka-node-depth-${node.id}`}>
+        Profondità {Math.round(node.depth * 100)}%
+      </M3Typography>
+      <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-2)' }}>
         {node.actions.map((action: string) => (
-          <button key={action} className="nka-action-btn" tabIndex={0} aria-label={action}>{action}</button>
+          <button
+            key={action}
+            tabIndex={0}
+            aria-label={action}
+            style={{
+              background: 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-on-primary)',
+              border: 'none',
+              borderRadius: 'var(--md-sys-shape-corner-small)',
+              padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+              font: 'inherit',
+              cursor: 'pointer',
+              boxShadow: 'var(--md-sys-elevation0)',
+              transition: 'background 0.2s',
+            }}
+          >
+            <M3Typography variant="label-large">{action}</M3Typography>
+          </button>
         ))}
       </div>
     </div>

@@ -13,12 +13,12 @@ const mockUdas = [
     startDate: '2025-09-01',
     endDate: '2025-09-10',
     classe: '1A',
-    introduction: ',
+    introduction: '',
     phases: [],
-    finalProduct: ',
-    evaluation: '
+    finalProduct: '',
+    evaluation: ''
   }
-'];
+];
 
 const mockEvents: any[] = [];
 

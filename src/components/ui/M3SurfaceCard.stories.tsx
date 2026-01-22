@@ -19,7 +19,7 @@ const meta: Meta<typeof M3SurfaceCard> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['low', 'high],
+      options: ['low', 'high'],
       description: 'Surface elevation variant',
       table: {
         type: { summary: 'low | high' },
@@ -28,7 +28,7 @@ const meta: Meta<typeof M3SurfaceCard> = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant],
+      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant'],
       description: 'Color palette for the card',
       table: {
         type: { summary: 'primary | secondary | tertiary | surface | surfaceVariant' },
@@ -133,8 +133,8 @@ export const GlassEffect: Story = {
   args: {
     glass: true,
     children: (
-      <div}>
-        <M3Typography variant="title-large" as="h3"}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Glass Effect Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -152,8 +152,8 @@ export const PrimaryColor: Story = {
   args: {
     color: 'primary',
     children: (
-      <div}>
-        <M3Typography variant="title-large" as="h3"}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Primary Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -171,8 +171,8 @@ export const SecondaryColor: Story = {
   args: {
     color: 'secondary',
     children: (
-      <div}>
-        <M3Typography variant="title-large" as="h3"}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Secondary Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -190,8 +190,8 @@ export const Expressive: Story = {
   args: {
     expressive: true,
     children: (
-      <div}>
-        <M3Typography variant="title-large" as="h3"}>
+      <div>
+        <M3Typography variant="title-large" as="h3">
           Expressive Card
         </M3Typography>
         <M3Typography variant="body-medium" as="p">

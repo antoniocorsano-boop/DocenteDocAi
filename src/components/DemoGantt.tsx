@@ -67,7 +67,13 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
       aria-label={`Sposta UDA ${title}`}
       aria-grabbed={keyboardDrag || isDragging}
       aria-pressed={keyboardDrag}
-      className={`gantt-bar ${isDragging ? 'gantt-bar-dragging' : '} ${keyboardDrag ? 'gantt-bar-keyboard-dragging' : '}`}
+      style={{
+        '--gantt-bar-transform': visualTransform,
+        backgroundColor: isDragging ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
+        boxShadow: isDragging ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
+        borderRadius: 'var(--md-sys-shape-corner-medium)',
+        border: '1px solid var(--md-sys-color-outline)',
+      }}
       onKeyDown={handleKeyDown}
       style={{
         '--gantt-bar-transform': visualTransform,
@@ -88,7 +94,7 @@ const GanttColumn: React.FC<GanttColumnProps> = ({ col, children }) => {
   return (
     <div
       ref={setNodeRef}
-      className={`gantt-col ${isOver ? 'gantt-col-over' : '}`}
+      className={`gantt-col ${isOver ? 'gantt-col-over' : ''}`}
     >
       {children}
     </div>
@@ -108,12 +114,12 @@ export const DemoGantt: React.FC = () => {
     ],
   });
 
-  const [liveMessage, setLiveMessage] = React.useState(');
+  const [liveMessage, setLiveMessage] = React.useState('');
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (over && String(over.id).startsWith('col-')) {
-      const newCol = parseInt(String(over.id).replace('col-', '));
+      const newCol = parseInt(String(over.id).replace('col-', ''));
       setState((prev) => ({
         bars: prev.bars.map((b) =>
           b.id === active.id ? { ...b, col: newCol } : b

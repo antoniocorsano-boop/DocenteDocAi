@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { M3ThemeProvider } from '../../src/theme/theme';
 import React from 'react';
 import SlotActionModal from '../../src/components/SlotActionModal';
 import { Slot, Lezione } from '../../src/types';
@@ -31,12 +32,14 @@ describe('SlotActionModal', () => {
 
   it('renders correctly with lesson details', () => {
     render(
-      <SlotActionModal
-        slot={mockSlot}
-        lesson={mockLesson}
-        isDraftExisting={false}
-        {...mockHandlers}
-      />
+      <M3ThemeProvider>
+        <SlotActionModal
+          slot={mockSlot}
+          lesson={mockLesson}
+          isDraftExisting={false}
+          {...mockHandlers}
+        />
+      </M3ThemeProvider>
     );
 
     expect(screen.getByText('Lezione Programmata')).toBeInTheDocument();
@@ -49,12 +52,14 @@ describe('SlotActionModal', () => {
 
   it('calls onStart when "Avvia Aula" is clicked', () => {
     render(
-      <SlotActionModal
-        slot={mockSlot}
-        lesson={mockLesson}
-        isDraftExisting={false}
-        {...mockHandlers}
-      />
+      <M3ThemeProvider>
+        <SlotActionModal
+          slot={mockSlot}
+          lesson={mockLesson}
+          isDraftExisting={false}
+          {...mockHandlers}
+        />
+      </M3ThemeProvider>
     );
 
     const startBtn = screen.getByText('Avvia Aula');
@@ -64,12 +69,14 @@ describe('SlotActionModal', () => {
 
   it('shows "Torna in Aula" when isDraftExisting is true', () => {
     render(
-      <SlotActionModal
-        slot={mockSlot}
-        lesson={mockLesson}
-        isDraftExisting={true}
-        {...mockHandlers}
-      />
+      <M3ThemeProvider>
+        <SlotActionModal
+          slot={mockSlot}
+          lesson={mockLesson}
+          isDraftExisting={true}
+          {...mockHandlers}
+        />
+      </M3ThemeProvider>
     );
 
     expect(screen.getByText('Torna in Aula')).toBeInTheDocument();
@@ -77,12 +84,14 @@ describe('SlotActionModal', () => {
 
   it('calls onEdit when "Modifica" is clicked', () => {
     render(
-      <SlotActionModal
-        slot={mockSlot}
-        lesson={mockLesson}
-        isDraftExisting={false}
-        {...mockHandlers}
-      />
+      <M3ThemeProvider>
+        <SlotActionModal
+          slot={mockSlot}
+          lesson={mockLesson}
+          isDraftExisting={false}
+          {...mockHandlers}
+        />
+      </M3ThemeProvider>
     );
 
     const editBtn = screen.getByText('Modifica');
@@ -92,12 +101,14 @@ describe('SlotActionModal', () => {
 
   it('calls onView when the hero card is clicked', () => {
     render(
-      <SlotActionModal
-        slot={mockSlot}
-        lesson={mockLesson}
-        isDraftExisting={false}
-        {...mockHandlers}
-      />
+      <M3ThemeProvider>
+        <SlotActionModal
+          slot={mockSlot}
+          lesson={mockLesson}
+          isDraftExisting={false}
+          {...mockHandlers}
+        />
+      </M3ThemeProvider>
     );
 
     const heroCard = screen.getByLabelText('Vedi dettagli lezione');

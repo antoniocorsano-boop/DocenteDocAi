@@ -47,8 +47,8 @@ const mainMenuItems: MenuItemDef[] = [
 const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
   const isViewActive = (item: MenuItemDef) => {
     const parentMap: Partial<Record<View, View[]>> = {
-      'progettazione-hub': ['knowledge-base', 'studio', 'lessons', 'uda', 'rubriche', 'reportistica', 'didattica-inclusiva', 'curriculum-manager],
-      'aula': ['evaluations', 'register', 'studenti', 'improvement-guide', 'consiglio-di-classe', 'class-competency-dashboard', 'analytics', 'teacher-inbox],
+      'progettazione-hub': ['knowledge-base', 'studio', 'lessons', 'uda', 'rubriche', 'reportistica', 'didattica-inclusiva', 'curriculum-manager'],
+      'aula': ['evaluations', 'register', 'studenti', 'improvement-guide', 'consiglio-di-classe', 'class-competency-dashboard', 'analytics', 'teacher-inbox'],
     };
     return currentView === item.id || (parentMap[item.id]?.includes(currentView));
   }
@@ -63,13 +63,13 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
         minHeight: 'var(--md-sys-spacing-16)', // 64px minimum touch target
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         boxShadow: 'var(--md-sys-elevation-level1)',
-        borderTop: '1px solid var(--md-sys-color-outline)-variant',
+          borderTop: '1px solid var(--md-sys-color-outline-variant)',
         zIndex: 100,
         position: 'fixed',
         bottom: 0,
         left: 0,
         right: 0,
-        padding: 'var(--md-sys-spacing-1) 0' // 4px top/bottom padding}}
+        padding: 'var(--md-sys-spacing-1) 0', // 4px top/bottom padding
       aria-label="Navigazione principale"
       role="navigation"
     >
@@ -80,10 +80,10 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
             key={item.id}
             onClick={() => onNavigate(item.id, null)}
             style={{backgroundColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-low)',
-              color: active ? 'var(--md-sys-color-on)' : 'var(--md-sys-color-on-surface)',
+              color: active ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
               borderRadius: 'var(--md-sys-shape-corner-medium)',
               outline: 'none',
-              padding: 'var(--md-sys-spacing-1)' var(--md-sys-spacing-2), // 4px 8px
+              padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', // 4px 8px
               minWidth: 'var(--md-sys-spacing-14)', // 56px minimum touch target
               display: 'flex',
               flexDirection: 'column',

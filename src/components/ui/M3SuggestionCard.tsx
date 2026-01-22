@@ -1,6 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface M3SuggestionCardProps {
   children: React.ReactNode;
@@ -15,21 +14,18 @@ const M3SuggestionCard: React.FC<M3SuggestionCardProps> = ({
   children,
   variant = 'active'
 }) => {
-  const { layers } = useTheme();
-  const { sys, ref } = layers;
-
   const baseStyles: React.CSSProperties = {
-    backgroundColor: `color-mix(in srgb, ${sys.color.surfaceVariant} 80%, transparent)`,
-    padding: layers.ref.spacing['6'],
-    borderRadius: ref.shape.corner.extraLarge
+    backgroundColor: `color-mix(in srgb, var(--md-sys-color-surface-variant) 80%, transparent)`,
+    padding: 'var(--md-sys-spacing-6)',
+    borderRadius: 'var(--md-sys-shape-corner-extra-large)'
   };
 
   const variantStyles: React.CSSProperties = variant === 'active'
     ? {
-        borderLeft: `4px solid ${sys.color.primary}`
+        borderLeft: `4px solid var(--md-sys-color-primary)`
       }
     : {
-        border: `1px solid color-mix(in srgb, ${sys.color.outlineVariant} 30%, transparent)`
+        border: `1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)`
       };
 
   return (

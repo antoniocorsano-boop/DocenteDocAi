@@ -19,8 +19,8 @@ interface ImpromptuLessonModalProps {
 }
 
 const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, disciplines, onClose, onStart }) => {
-  const [materia, setMateria] = useState<string>(');
-    const [contenuto, setContenuto] = useState<string>(');
+  const [materia, setMateria] = useState<string>('');
+    const [contenuto, setContenuto] = useState<string>('');
 
     useEffect(() => {
         if (disciplines && disciplines.length > 0 && !materia) {
@@ -30,7 +30,7 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const selectedMateria = materia || (disciplines && disciplines.length > 0 ? disciplines[0] : ');
+        const selectedMateria = materia || (disciplines && disciplines.length > 0 ? disciplines[0] : '');
 
         if (!selectedMateria) {
             return;

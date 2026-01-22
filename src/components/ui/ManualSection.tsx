@@ -18,19 +18,18 @@ const ManualSection: React.FC<ManualSectionProps> = ({
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const [summaryHovered, setSummaryHovered] = useState(false);
     const [iconHovered, setIconHovered] = useState(false);
-    const { layers } = useTheme();
-    const { sys, ref, motion, elevation } = layers;
+    const { layers: { sys: { color }, ref: { spacing, shape, typography }, elevation, motion } } = useTheme();
 
     return (
         <details
             style={{
                 border: 'none',
-                backgroundColor: sys.color.surfaceContainerLow,
+                backgroundColor: color.surfaceContainerLow,
                 opacity: 0.5,
                 backdropFilter: 'blur(4px)',
                 WebkitBackdropFilter: 'blur(4px)',
-                borderRadius: ref.shape.corner.large,
-                marginBottom: layers.ref.spacing['4'],
+                borderRadius: shape.corner.large,
+                marginBottom: spacing[4],
                 overflow: 'hidden',
                 transition: `all ${motion.duration.medium2} ${motion.easing.standard}`
             }}
@@ -39,8 +38,8 @@ const ManualSection: React.FC<ManualSectionProps> = ({
         >
             <summary
                 style={{
-                    padding: `${layers.ref.spacing['4']} ${layers.ref.spacing['4']}`,
-                    backgroundColor: summaryHovered ? sys.color.surfaceContainerHigh : 'transparent',
+                    padding: `${spacing[4]} ${spacing[4]}`,
+                    backgroundColor: summaryHovered ? color.surfaceContainerHigh : 'transparent',
                     opacity: summaryHovered ? 0.8 : undefined,
                     cursor: 'pointer',
                     listStyle: 'none',
@@ -52,12 +51,12 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                 onMouseEnter={() => setSummaryHovered(true)}
                 onMouseLeave={() => setSummaryHovered(false)}
             >
-                <div style={{ display: 'flex', alignItems: 'center', gap: layers.ref.spacing['4'] }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: spacing[4] }}>
                     <div
                         style={{
-                            padding: layers.ref.spacing['6'],
-                            borderRadius: ref.shape.corner.large,
-                            backgroundColor: sys.color.surfaceContainerHigh,
+                            padding: spacing[6],
+                            borderRadius: shape.corner.large,
+                            backgroundColor: color.surfaceContainerHigh,
                             boxShadow: elevation.level1,
                             transform: iconHovered ? 'scale(1.1)' : 'scale(1)',
                             transition: `transform ${motion.duration.short3} ${motion.easing.standard}`
@@ -68,10 +67,10 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                         <span
                             style={{
                                 fontFamily: 'Material Symbols Outlined',
-                                fontSize: ref.typography.headlineSmall.fontSize,
-                                fontWeight: ref.typography.headlineSmall.fontWeight,
-                                lineHeight: ref.typography.headlineSmall.lineHeight,
-                                color: sys.color.onSurfaceVariant
+                                fontSize: typography.headlineSmall.fontSize,
+                                fontWeight: typography.headlineSmall.fontWeight,
+                                lineHeight: typography.headlineSmall.lineHeight,
+                                color: color.onSurfaceVariant
                             }}
                         >
                             {icon}
@@ -79,10 +78,10 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                     </div>
                     <h3
                         style={{
-                            fontSize: ref.typography.headlineMedium.fontSize,
+                            fontSize: typography.headlineMedium.fontSize,
                             fontWeight: '900',
-                            lineHeight: ref.typography.headlineMedium.lineHeight,
-                            letterSpacing: ref.typography.headlineMedium.letterSpacing,
+                            lineHeight: typography.headlineMedium.lineHeight,
+                            letterSpacing: typography.headlineMedium.letterSpacing,
                             margin: 0
                         }}
                     >
@@ -91,22 +90,24 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                 </div>
                 <div
                     style={{
-                        width: layers.ref.spacing['8'],
-                        height: layers.ref.spacing['8'],
+                        width: spacing[8],
+                        height: spacing[8],
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: sys.color.outlineVariant,
+                        backgroundColor: color.outlineVariant,
                         opacity: 0.2,
                         transition: `transform ${motion.duration.medium2} ${motion.easing.emphasized}`,
                         transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
                     }}
                 >
                     <span
-                        style={{fontFamily: 'Material Symbols Outlined',
+                        style={{
+                            fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            color: ' layers.sys.color.onPrimary'}}
+                            color: color.onPrimary
+                        }}
                     >
                         expand_more
                     </span>

@@ -365,9 +365,17 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                 <Component {...componentProps} />
                             </AuraView>
                         ) : (
-                            <div className={config.fullWidth ? 'w-full' : 'max-w-7xl mx-auto px-4'}>
-                                <Component {...componentProps} />
-                            </div>
+                                                        <div
+                                                            style={{
+                                                                width: config.fullWidth ? '100%' : '100%',
+                                                                maxWidth: config.fullWidth ? 'none' : '112rem', // 7xl = 112rem
+                                                                margin: config.fullWidth ? undefined : '0 auto',
+                                                                paddingLeft: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
+                                                                paddingRight: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
+                                                            }}
+                                                        >
+                                                            <Component {...componentProps} />
+                                                        </div>
                         );
                     }
 

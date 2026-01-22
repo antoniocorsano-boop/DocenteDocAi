@@ -1,7 +1,7 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Uses CSS custom properties for theming
 // MD3 Pure: Migrated to inline styles using MD3 tokens for voice recorder button states and interactions
 // All voice-note-recorder-* classes removed in favor of token-based styling
-// Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
+// Migration Status: ✅ MD3 Compliant (uses CSS custom properties)
 
 import React, { useState, useRef, useEffect } from 'react';
 import { getGoogleAIClient } from '../services/aiClient.ts';
@@ -11,8 +11,6 @@ interface VoiceNoteRecorderProps {
 }
 
 const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, compact = false }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const theme = useTheme();
     const [isRecording, setIsRecording] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [audioLevel, setAudioLevel] = useState(0);

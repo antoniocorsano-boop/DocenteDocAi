@@ -20,7 +20,7 @@ const meta: Meta<typeof ThinkingIndicator> = {
       description: 'The message to display during thinking state'
     },
     size: {
-      control: { type: 'select', options: ['small', 'medium', 'large] },
+      control: { type: 'select', options: ['small', 'medium', 'large'] },
       description: 'Size variant of the indicator'
     }
   }

@@ -158,10 +158,18 @@ test.describe('SPA Navigation Example - Best Practices', () => {
       await performQuickLogin(page);
 
       // Wait for login to complete and navigation to appear
-      await page.waitForFunction(() => {
-        return !!document.querySelector('[role="navigation"], nav') &&
-               !!document.querySelector('.app-shell-container');
-      }, { timeout: 20000 });
+      try {
+        await page.waitForFunction(() => {
+          return !!document.querySelector('[role="navigation"], nav') &&
+                 !!document.querySelector('.app-shell-container');
+        }, { timeout: 20000 });
+      } catch (e) {
+        await page.screenshot({ path: 'test-results/login-waitForFunction-fail.png', fullPage: true });
+        const bodyText = await page.evaluate(() => document.body.innerText);
+        // eslint-disable-next-line no-console
+        console.error('Login waitForFunction failed. Body text:', bodyText);
+        throw e;
+      }
 
       console.log('[LOGIN] Login completed successfully');
     } else {
@@ -169,37 +177,69 @@ test.describe('SPA Navigation Example - Best Practices', () => {
     }
 
     // Verify we're in the main app interface
-    await expect(page.locator('.app-shell-container')).toBeVisible({ timeout: 10000 });
+    try {
+      await expect(page.locator('.app-shell-container')).toBeVisible({ timeout: 10000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/app-shell-container-fail.png', fullPage: true });
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('App shell container not visible. Body text:', bodyText);
+      throw e;
+    }
 
     // Step 3: Navigate to Timetable
     console.log('[NAVIGATION] Starting navigation to Timetable');
 
     // Find and click the "Orario" button in NavigationRail
     const orarioButton = page.getByRole('button', { name: /Orario|Pianifica/i }).first();
-    await expect(orarioButton).toBeVisible({ timeout: 10000 });
+    try {
+      await expect(orarioButton).toBeVisible({ timeout: 10000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/orario-button-fail.png', fullPage: true });
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('Orario button not visible. Body text:', bodyText);
+      throw e;
+    }
 
     console.log('[NAVIGATION] Clicking Orario button');
-    await page.getByRole('button', { name: /Orario|Pianifica/i }).first().click();
+    await orarioButton.click();
 
     // Wait for Timetable content to load (DOM-based detection, no URL change)
     console.log('[NAVIGATION] Waiting for Timetable content to appear');
-    await page.waitForFunction(() => {
-      return !!(
-        // Check for timetable-specific content
-        document.querySelector('h1, h2, h3')?.textContent?.includes('Orario') ||
-        document.querySelector('*')?.textContent?.includes('Il Mio Orario') ||
-        document.querySelector('*')?.textContent?.includes('Planning Settimanale') ||
-        // Check for day names that appear in timetable
-        document.querySelector('*')?.textContent?.includes('Lunedì') ||
-        document.querySelector('*')?.textContent?.includes('Martedì')
-      );
-    }, { timeout: 20000 }); // Increased timeout for navigation
+    try {
+      await page.waitForFunction(() => {
+        return !!(
+          // Check for timetable-specific content
+          document.querySelector('h1, h2, h3')?.textContent?.includes('Orario') ||
+          document.querySelector('*')?.textContent?.includes('Il Mio Orario') ||
+          document.querySelector('*')?.textContent?.includes('Planning Settimanale') ||
+          // Check for day names that appear in timetable
+          document.querySelector('*')?.textContent?.includes('Lunedì') ||
+          document.querySelector('*')?.textContent?.includes('Martedì')
+        );
+      }, { timeout: 20000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/timetable-waitForFunction-fail.png', fullPage: true });
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('Timetable waitForFunction failed. Body text:', bodyText);
+      throw e;
+    }
 
     console.log('[NAVIGATION] Timetable navigation completed');
 
     // Verify Timetable elements are visible
-    await expect(page.getByText('Il Mio Orario')).toBeVisible({ timeout: 5000 });
-    await expect(page.getByText('Planning Settimanale')).toBeVisible({ timeout: 5000 });
+    try {
+      await expect(page.getByText('Il Mio Orario')).toBeVisible({ timeout: 5000 });
+      await expect(page.getByText('Planning Settimanale')).toBeVisible({ timeout: 5000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/timetable-elements-fail.png', fullPage: true });
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('Timetable elements not visible. Body text:', bodyText);
+      throw e;
+    }
 
     console.log('[VERIFICATION] Timetable elements verified');
 
@@ -208,19 +248,35 @@ test.describe('SPA Navigation Example - Best Practices', () => {
 
     // First: Click "Progetta" to go to progettazione-hub view
     const progettaButton = page.getByRole('button', { name: /Progetta|Progett/i }).first();
-    await expect(progettaButton).toBeVisible({ timeout: 10000 });
+    try {
+      await expect(progettaButton).toBeVisible({ timeout: 10000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/progetta-button-fail.png', fullPage: true });
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('Progetta button not visible. Body text:', bodyText);
+      throw e;
+    }
 
     console.log('[NAVIGATION] Clicking Progetta button');
-    await page.getByRole('button', { name: /Progetta|Progett/i }).first().click();
+    await progettaButton.click();
 
     // Wait for progettazione-hub view to load
-    await page.waitForFunction(() => {
-      return !!(
-        document.querySelector('h1, h2')?.textContent?.includes('Progettazione') ||
-        document.querySelector('*')?.textContent?.includes('Progettazione') ||
-        document.querySelector('.planning, .progettazione')
-      );
-    }, { timeout: 15000 });
+    try {
+      await page.waitForFunction(() => {
+        return !!(
+          document.querySelector('h1, h2')?.textContent?.includes('Progettazione') ||
+          document.querySelector('*')?.textContent?.includes('Progettazione') ||
+          document.querySelector('.planning, .progettazione')
+        );
+      }, { timeout: 15000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/progettazione-waitForFunction-fail.png', fullPage: true });
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('Progettazione waitForFunction failed. Body text:', bodyText);
+      throw e;
+    }
 
     console.log('[NAVIGATION] Progettazione hub loaded');
 
@@ -229,31 +285,55 @@ test.describe('SPA Navigation Example - Best Practices', () => {
 
     // Second: Click "Knowledge Base" card within the view
     const kbCard = page.getByRole('button', { name: /Knowledge Base/ }).first();
-    await expect(kbCard).toBeVisible({ timeout: 10000 });
+    try {
+      await expect(kbCard).toBeVisible({ timeout: 10000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/kb-card-fail.png', fullPage: true });
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('Knowledge Base card not visible. Body text:', bodyText);
+      throw e;
+    }
 
     console.log('[NAVIGATION] Clicking Knowledge Base card');
     await kbCard.click();
 
     // Wait for Knowledge Base content to load
     console.log('[NAVIGATION] Waiting for Knowledge Base content to appear');
-    await page.waitForFunction(() => {
-      return !!(
-        // Check for Knowledge Base title
-        document.querySelector('h1, h2')?.textContent?.includes('Knowledge Base') ||
-        // Check for Knowledge Base specific elements
-        document.querySelector('button')?.textContent?.includes('Carica Documenti') ||
-        document.querySelector('*')?.textContent?.includes('Archivio fonti') ||
-        // Check for folder grid or file list
-        document.querySelector('.knowledge-base-folder-grid, .knowledge-base-file-list')
-      );
-    }, { timeout: 25000 }); // Increased timeout for KB navigation
+    try {
+      await page.waitForFunction(() => {
+        return !!(
+          // Check for Knowledge Base title
+          document.querySelector('h1, h2')?.textContent?.includes('Knowledge Base') ||
+          // Check for Knowledge Base specific elements
+          document.querySelector('button')?.textContent?.includes('Carica Documenti') ||
+          document.querySelector('*')?.textContent?.includes('Archivio fonti') ||
+          // Check for folder grid or file list
+          document.querySelector('.knowledge-base-folder-grid, .knowledge-base-file-list')
+        );
+      }, { timeout: 25000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/kb-waitForFunction-fail.png', fullPage: true });
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('Knowledge Base waitForFunction failed. Body text:', bodyText);
+      throw e;
+    }
 
     console.log('[NAVIGATION] Knowledge Base navigation completed');
 
     // Step 5: Verify Knowledge Base elements are visible
-    await expect(page.getByText('Knowledge Base')).toBeVisible({ timeout: 5000 });
-    await expect(page.getByText('Carica Documenti')).toBeVisible({ timeout: 5000 });
-    await expect(page.getByText('Archivio fonti')).toBeVisible({ timeout: 5000 });
+    try {
+      await expect(page.getByText('Knowledge Base')).toBeVisible({ timeout: 5000 });
+      await expect(page.getByText('Carica Documenti')).toBeVisible({ timeout: 5000 });
+      await expect(page.getByText('Archivio fonti')).toBeVisible({ timeout: 5000 });
+    } catch (e) {
+      await page.screenshot({ path: 'test-results/kb-elements-fail.png', fullPage: true });
+      const bodyText = await page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('Knowledge Base elements not visible. Body text:', bodyText);
+      throw e;
+    }
 
     console.log('[VERIFICATION] Knowledge Base elements verified');
     console.log('[TEST] SPA navigation test completed successfully');

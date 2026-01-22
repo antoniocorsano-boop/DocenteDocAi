@@ -32,7 +32,7 @@ const meta: Meta<typeof M3Typography> = {
     },
     as: {
       control: 'select',
-      options: ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6],
+      options: ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
       description: 'HTML element to render as',
       table: {
         type: { summary: 'div | span | p | h1 | h2 | h3 | h4 | h5 | h6' },

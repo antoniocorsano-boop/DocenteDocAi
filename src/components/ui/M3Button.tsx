@@ -25,6 +25,8 @@ const M3Button: React.FC<M3ButtonProps> = ({
   title,
   ...props
 }) => {
+  // Extract aria-label from props to handle it properly
+  const { 'aria-label': ariaLabel, ...otherProps } = props;
   // MD3 Token mapping - no useTheme() dependency
   // Color tokens
   const primary = 'var(--md-sys-color-primary)';
@@ -165,13 +167,13 @@ const M3Button: React.FC<M3ButtonProps> = ({
 
   return (
     <button
-      {...props}
+      {...otherProps}
       type={type}
       disabled={disabled}
       onClick={onClick}
       title={title}
       style={combinedStyle}
-      aria-label={title || (typeof children === 'string' ? children : undefined)}
+      aria-label={ariaLabel || title || (typeof children === 'string' ? children : undefined)}
     >
       {startIcon && (
         <span

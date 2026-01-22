@@ -44,7 +44,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
   return (
     <div
       style={{
-        borderRadius: 'var(--md-sys-shape-corner-large)',
+        borderRadius: 'var(--md-sys-shape-corner-extra-large)',
         padding: 'var(--md-sys-spacing-8)',
         outline: 'none'
       }}

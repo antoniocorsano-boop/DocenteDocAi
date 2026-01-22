@@ -94,7 +94,18 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                 <div >
                     <label >Tipi di Domande</label>
                     <div >
-                        <label className={`test-generator-modal-question-type-chip ${questionTypes.includes('multiple_choice') ? 'selected' : ''}`}>
+                        <label style={{
+                            // test-generator-modal-question-type-chip styles
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            backgroundColor: questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
+                            color: questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                            border: `1px solid ${questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
+                            cursor: 'pointer'
+                        }}>
                             <input
                                 type="checkbox"
                                 style={{ display: "none" }}
@@ -105,7 +116,18 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                             <span >Scelta Multipla</span>
                         </label>
 
-                        <label className={`test-generator-modal-question-type-chip ${questionTypes.includes('true_false') ? 'selected' : ''}`}>
+                        <label style={{
+                            // test-generator-modal-question-type-chip styles
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            backgroundColor: questionTypes.includes('true_false') ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
+                            color: questionTypes.includes('true_false') ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                            border: `1px solid ${questionTypes.includes('true_false') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
+                            cursor: 'pointer'
+                        }}>
                             <input
                                 type="checkbox"
                                 style={{ display: "none" }}

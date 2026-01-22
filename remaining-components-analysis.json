@@ -1,0 +1,175 @@
+{
+  "analysis_date": "2026-01-19",
+  "phase": "MD3 Migration Phase 1 - Remaining Components Analysis",
+  "total_violations_estimated": 143,
+  "total_components_estimated": 50,
+  "data_source": "eslint_output.txt analysis",
+
+  "components_by_priority": {
+    "critical": [
+      {
+        "name": "HelpModal.tsx",
+        "path": "src/components/HelpModal.tsx",
+        "violations_count": 63,
+        "violation_types": ["design-system/no-classname", "design-system/no-tailwind-classes"],
+        "sections": ["ManualSection", "UseCaseCard", "SetupGuide", "MainModal"],
+        "complexity": "high",
+        "blocks_commits": true,
+        "estimated_effort": "2-3 days"
+      }
+    ],
+    "high": [
+      {
+        "name": "AiAdvisor.tsx",
+        "path": "src/components/AiAdvisor.tsx",
+        "violations_count": 25,
+        "violation_types": ["design-system/no-classname"],
+        "pattern": "multiple divs with layout classes",
+        "complexity": "medium",
+        "estimated_effort": "1 day"
+      },
+      {
+        "name": "AddSourceModal.tsx",
+        "path": "src/components/AddSourceModal.tsx",
+        "violations_count": 20,
+        "violation_types": ["design-system/no-classname", "design-system/no-tailwind-classes"],
+        "pattern": "form layout with grid/flex",
+        "complexity": "medium",
+        "estimated_effort": "1 day"
+      },
+      {
+        "name": "AddProvaModal.tsx",
+        "path": "src/components/AddProvaModal.tsx",
+        "violations_count": 15,
+        "violation_types": ["design-system/no-classname", "design-system/no-tailwind-classes"],
+        "pattern": "complex form with multiple sections",
+        "complexity": "medium",
+        "estimated_effort": "1 day"
+      },
+      {
+        "name": "AddOrientamentoActivityModal.tsx",
+        "path": "src/components/AddOrientamentoActivityModal.tsx",
+        "violations_count": 15,
+        "violation_types": ["design-system/no-classname", "design-system/no-tailwind-classes"],
+        "pattern": "form layout with spacing",
+        "complexity": "medium",
+        "estimated_effort": "1 day"
+      },
+      {
+        "name": "AddStudentModal.tsx",
+        "path": "src/components/AddStudentModal.tsx",
+        "violations_count": 10,
+        "violation_types": ["design-system/no-classname", "design-system/no-tailwind-classes"],
+        "pattern": "basic form layout",
+        "complexity": "low",
+        "estimated_effort": "0.5 days"
+      },
+      {
+        "name": "AiEventParserModal.tsx",
+        "path": "src/components/AiEventParserModal.tsx",
+        "violations_count": 10,
+        "violation_types": ["design-system/no-classname", "design-system/no-tailwind-classes"],
+        "pattern": "AI modal with form elements",
+        "complexity": "medium",
+        "estimated_effort": "1 day"
+      }
+    ],
+    "medium": [
+      {
+        "name": "UnifiedEvaluationModal.tsx",
+        "path": "src/components/UnifiedEvaluationModal.tsx",
+        "violations_count": 5,
+        "violation_types": ["design-system/no-classname"],
+        "pattern": "span with inline className",
+        "complexity": "low",
+        "estimated_effort": "0.5 days"
+      },
+      {
+        "name": "UdaPlanner.tsx",
+        "path": "src/components/UdaPlanner.tsx",
+        "violations_count": 5,
+        "violation_types": ["design-system/no-classname"],
+        "pattern": "picker items with conditional classes",
+        "complexity": "low",
+        "estimated_effort": "0.5 days"
+      },
+      {
+        "name": "TimetableCell.tsx",
+        "path": "src/components/TimetableCell.tsx",
+        "violations_count": 5,
+        "violation_types": ["design-system/no-classname"],
+        "pattern": "calendar cells with multiple classes",
+        "complexity": "low",
+        "estimated_effort": "0.5 days"
+      },
+      {
+        "name": "ViewLoadingPlaceholder.tsx",
+        "path": "src/components/ViewLoadingPlaceholder.tsx",
+        "violations_count": 3,
+        "violation_types": ["design-system/no-classname"],
+        "pattern": "loading placeholder with flex layout",
+        "complexity": "low",
+        "estimated_effort": "0.25 days"
+      },
+      {
+        "name": "VideoAnalysisModal.tsx",
+        "path": "src/components/VideoAnalysisModal.tsx",
+        "violations_count": 2,
+        "violation_types": ["design-system/no-classname"],
+        "pattern": "container className prop",
+        "complexity": "low",
+        "estimated_effort": "0.25 days"
+      }
+    ],
+    "low": {
+      "estimated_count": 35,
+      "pattern": "utility components with 1-2 violations each",
+      "typical_violations": ["className prop forwarding", "simple layout classes"],
+      "estimated_total_effort": "2-3 days",
+      "batch_migration_candidate": true
+    }
+  },
+
+  "migration_patterns": {
+    "spacing": {
+      "classes": ["space-y-4", "space-y-6", "space-y-8", "gap-4", "gap-6", "gap-8", "p-6", "m-4"],
+      "md3_mapping": "marginBottom: 'var(--md-sys-spacing-X)'",
+      "frequency": "high"
+    },
+    "flexbox": {
+      "classes": ["flex", "flex-col", "items-center", "justify-center", "flex-wrap"],
+      "md3_mapping": "display: 'flex', flexDirection: 'column'",
+      "frequency": "high"
+    },
+    "grid": {
+      "classes": ["grid", "grid-cols-1", "grid-cols-2", "grid-cols-3"],
+      "md3_mapping": "display: 'grid', gridTemplateColumns: 'repeat(X, 1fr)'",
+      "frequency": "medium"
+    },
+    "colors": {
+      "classes": ["text-primary", "bg-surface", "border-outline", "text-on-surface"],
+      "md3_mapping": "color: 'var(--md-sys-color-primary)'",
+      "frequency": "medium"
+    },
+    "typography": {
+      "classes": ["text-xl", "text-lg", "font-medium", "font-bold"],
+      "md3_mapping": "fontSize: 'var(--md-sys-typescale-headline-small-size)'",
+      "frequency": "low"
+    }
+  },
+
+  "migration_strategy": {
+    "phase1_focus": "manual migration for complex components",
+    "phase2_focus": "batch migration for simple patterns",
+    "estimated_completion": "2026-02-02",
+    "risks": ["complex components may take longer", "visual regressions possible"],
+    "success_criteria": ["0 ESLint violations", "build passes", "no functional regressions"]
+  },
+
+  "progress_tracking": {
+    "start_date": "2026-01-20",
+    "daily_target": "migrate 5-10 components per day",
+    "weekly_milestones": ["week1: core components done", "week2: all components migrated"],
+    "reporting": "daily progress updates in migration-progress.json"
+  }
+}

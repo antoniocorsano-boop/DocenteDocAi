@@ -1,6 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React, { useState } from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface M3ListItemProps {
     headline: React.ReactNode;
@@ -22,10 +21,32 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
     children 
 }) => {
     const [hovered, setHovered] = useState(false);
-    const [focused, setFocused] = useState(false);
-    const { layers } = useTheme();
-    const { sys, ref, motion } = layers;
-    const isClickable = Boolean(onClick);
+    const isClickable = !!onClick;
+
+    // MD3 CSS Variables - Direct token usage (no useTheme dependency)
+    const surfaceContainerHigh = 'var(--md-sys-color-surface-container-high)';
+    const primary = 'var(--md-sys-color-primary)';
+    const onSurface = 'var(--md-sys-color-on-surface)';
+    const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
+    const spacing1 = 'var(--md-sys-spacing-1)';
+    const spacing4 = 'var(--md-sys-spacing-4)';
+    const spacing8 = 'var(--md-sys-spacing-8)';
+    const spacing12 = 'var(--md-sys-spacing-12)';
+    const cornerMedium = 'var(--md-sys-shape-corner-medium)';
+    const durationShort2 = 'var(--md-sys-motion-duration-short2)';
+    const easingStandard = 'var(--md-sys-motion-easing-standard)';
+    const bodyMediumFontSize = 'var(--md-sys-typescale-body-medium-font-size)';
+    const bodyMediumFontWeight = 'var(--md-sys-typescale-body-medium-font-weight)';
+    const bodyMediumLineHeight = 'var(--md-sys-typescale-body-medium-line-height)';
+    const titleMediumFontSize = 'var(--md-sys-typescale-title-medium-font-size)';
+    const titleMediumFontWeight = 'var(--md-sys-typescale-title-medium-font-weight)';
+    const titleMediumLineHeight = 'var(--md-sys-typescale-title-medium-line-height)';
+    const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
+    const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
+    const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
+    const bodySmallFontSize = 'var(--md-sys-typescale-body-small-font-size)';
+    const bodySmallFontWeight = 'var(--md-sys-typescale-body-small-font-weight)';
+    const bodySmallLineHeight = 'var(--md-sys-typescale-body-small-line-height)';
     
     return (
         <div
@@ -41,15 +62,15 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
             style={{
                 display: 'flex',
                 alignItems: 'flex-start',
-                gap: layers.ref.spacing['4'],
-                padding: layers.ref.spacing['4'],
-                borderRadius: ref.shape.corner.medium,
-                transition: `all ${motion.duration.short2} ${motion.easing.standard}`,
-                minHeight: layers.ref.spacing['12'],
+                gap: spacing4,
+                padding: spacing4,
+                borderRadius: cornerMedium,
+                transition: `all ${durationShort2} ${easingStandard}`,
+                minHeight: spacing12,
                 cursor: isClickable ? 'pointer' : 'default',
-                backgroundColor: (hovered || focused) && isClickable ? sys.color.surfaceContainerHigh : 'transparent',
-                outline: focused && isClickable ? `2px solid ${sys.color.primary}` : 'none',
-                outlineOffset: focused ? layers.ref.spacing['2'] : '0',
+                backgroundColor: (hovered || focused) && isClickable ? surfaceContainerHigh : 'transparent',
+                outline: focused && isClickable ? `2px solid ${primary}` : 'none',
+                outlineOffset: focused ? '0.5rem' : '0',
                 border: 'none',
                 textAlign: 'left',
                 width: '100%'
@@ -67,44 +88,44 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
                 if (isClickable) setFocused(false);
             }}
         >
-            {leadingElement && <div style={{flexShrink: 0, marginTop: layers.ref.spacing['1']}}>{leadingElement}</div>}
-            <div style={{flexGrow: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['1']}}>
+            {leadingElement && <div style={{flexShrink: 0, marginTop: spacing1}}>{leadingElement}</div>}
+            <div style={{flexGrow: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: spacing1}}>
                 <div style={{
-                    color: 'var(--md-sys-color-onSurface)',
+                    color: onSurface,
                     fontWeight: 'bold',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
                     ...(headlineSize === 'small' && {
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                        fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
-                        lineHeight: 'var(--md-sys-typescale-body-medium-line-height)'
+                        fontSize: bodyMediumFontSize,
+                        fontWeight: bodyMediumFontWeight,
+                        lineHeight: bodyMediumLineHeight
                     }),
                     ...(headlineSize === 'large' && {
-                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                        fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
-                        lineHeight: 'var(--md-sys-typescale-title-medium-line-height)'
+                        fontSize: titleMediumFontSize,
+                        fontWeight: titleMediumFontWeight,
+                        lineHeight: titleMediumLineHeight
                     }),
                     ...(headlineSize === 'medium' && {
-                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                        lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
+                        fontSize: bodyLargeFontSize,
+                        fontWeight: bodyLargeFontWeight,
+                        lineHeight: bodyLargeLineHeight
                     })
                 }}>
                     {headline}
                 </div>
                 {supportingText && (
-                    <div style={{fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                        fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
-                        lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
-                        color: ' layers.sys.color.onSurfaceVariant',
+                    <div style={{fontSize: bodySmallFontSize,
+                        fontWeight: bodySmallFontWeight,
+                        lineHeight: bodySmallLineHeight,
+                        color: onSurfaceVariant,
                         opacity: 0.8}}>
                         {supportingText}
                     </div>
                 )}
                 {children}
             </div>
-            {trailingElement && <div style={{flexShrink: 0, display: 'flex', alignItems: 'center', gap: layers.ref.spacing['8'], alignSelf: 'center'}}>{trailingElement}</div>}
+            {trailingElement && <div style={{flexShrink: 0, display: 'flex', alignItems: 'center', gap: spacing8, alignSelf: 'center'}}>{trailingElement}</div>}
         </div>
     );
 };

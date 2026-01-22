@@ -49,7 +49,7 @@ const meta = {
     },
     type: {
       control: 'select',
-      options: ['text', 'email', 'password', 'number', 'tel', 'url],
+      options: ['text', 'email', 'password', 'number', 'tel', 'url'],
       description: 'Input type',
     },
   },

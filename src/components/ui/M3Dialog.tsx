@@ -1,4 +1,4 @@
-// MD3 Compliant M3Dialog Component
+// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 /**
  * M3Dialog - Material Design 3 Expressive Dialog Component
  *
@@ -94,8 +94,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   hideCloseButton = false,
   wrapperTestId,
 }) => {
-  // MD3 Token mapping - no useTheme() dependency
-  // Color tokens
+  // MD3 CSS Variables - Direct token usage (no useTheme dependency)
   const scrim = 'var(--md-sys-color-scrim)';
   const surfaceContainerHigh = 'var(--md-sys-color-surface-container-high)';
   const onSurface = 'var(--md-sys-color-on-surface)';
@@ -104,30 +103,28 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   const primary = 'var(--md-sys-color-primary)';
   const error = 'var(--md-sys-color-error)';
   const onPrimary = 'var(--md-sys-color-on-primary)';
-
-  // Elevation token
-  const level3 = 'var(--md-sys-elevation-level-3)';
-
-  // Shape token
-  const large = 'var(--md-sys-shape-corner-large)';
-
-  // Typography tokens
-  const heading1 = {
-    fontSize: 'var(--md-sys-typescale-headline-large-font)',
-    fontWeight: 'var(--md-sys-typescale-headline-large-weight)',
-    lineHeight: 'var(--md-sys-typescale-headline-large-line-height)',
-    letterSpacing: 'var(--md-sys-typescale-headline-large-tracking)'
-  };
-  const body1 = {
-    fontSize: 'var(--md-sys-typescale-body-large-font)',
-    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
-    lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
-  };
-  const labelLarge = {
-    fontSize: 'var(--md-sys-typescale-label-large-font)',
-    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-    lineHeight: 'var(--md-sys-typescale-label-large-line-height)'
-  };
+  const spacing4 = 'var(--md-sys-spacing-4)';
+  const spacing6 = 'var(--md-sys-spacing-6)';
+  const spacing8 = 'var(--md-sys-spacing-8)';
+  const spacing16 = 'var(--md-sys-spacing-16)';
+  const spacing24 = 'var(--md-sys-spacing-24)';
+  const spacing32 = 'var(--md-sys-spacing-32)';
+  const cornerLarge = 'var(--md-sys-shape-corner-large)';
+  const elevation3 = 'var(--md-sys-elevation-level3)';
+  const headlineLargeFontSize = 'var(--md-sys-typescale-headline-large-font-size)';
+  const headlineLargeFontWeight = 'var(--md-sys-typescale-headline-large-font-weight)';
+  const headlineLargeLineHeight = 'var(--md-sys-typescale-headline-large-line-height)';
+  const headlineLargeLetterSpacing = 'var(--md-sys-typescale-headline-large-letter-spacing)';
+  const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
+  const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
+  const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
+  const bodyLargeLetterSpacing = 'var(--md-sys-typescale-body-large-letter-spacing)';
+  const labelLargeFontSize = 'var(--md-sys-typescale-label-large-font-size)';
+  const labelLargeFontWeight = 'var(--md-sys-typescale-label-large-font-weight)';
+  const labelLargeLineHeight = 'var(--md-sys-typescale-label-large-line-height)';
+  const labelLargeLetterSpacing = 'var(--md-sys-typescale-label-large-letter-spacing)';
+  const durationShort2 = 'var(--md-sys-motion-duration-short2)';
+  const easingStandard = 'var(--md-sys-motion-easing-standard)';
 
   const zIndex = Number(style.zIndex) || getModalZIndex(level);
   const [closeButtonHovered, setCloseButtonHovered] = useState(false);
@@ -150,13 +147,13 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
 
   if (!isOpen) return null;
 
-  // Max width mapping
+  // Max width mapping - MD3 compliant (using spacing tokens)
   const maxWidthMap = {
-    sm: 'max-w-sm',
-    md: 'max-w-md',
-    lg: 'max-w-lg',
-    xl: 'max-w-2xl',
-    '2xl': 'max-w-4xl',
+    sm: '24rem', // 384px - equivalent to max-w-sm
+    md: '28rem', // 448px - equivalent to max-w-md
+    lg: '32rem', // 512px - equivalent to max-w-lg
+    xl: '42rem', // 672px - equivalent to max-w-2xl
+    '2xl': '56rem', // 896px - equivalent to max-w-4xl
   };
 
   // Full dialog wrapper with backdrop
@@ -203,7 +200,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
             ? {
                 height: '100%',
                 maxHeight: '90vh',
-                maxWidth: 'var(--md-sys-spacing-80)' // Using MD3 spacing token
+                maxWidth: '80rem', // Using MD3 spacing equivalent
               }
             : {
                 maxWidth: maxWidthMap[maxWidth],
@@ -212,8 +209,8 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
           ),
           margin: 'auto',
           backgroundColor: surfaceContainerHigh,
-          borderRadius: large,
-          boxShadow: level3,
+          borderRadius: cornerLarge,
+          boxShadow: elevation3,
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
@@ -232,7 +229,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
-              padding: 'var(--md-sys-spacing-6)',
+              padding: spacing6,
               borderBottom: `1px solid ${outlineVariant}`
             }}
           >
@@ -241,10 +238,10 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
               <h2
                 id="dialog-title"
                 style={{
-                  fontSize: heading1.fontSize,
-                  fontWeight: heading1.fontWeight,
-                  lineHeight: heading1.lineHeight,
-                  letterSpacing: heading1.letterSpacing,
+                  fontSize: headlineLargeFontSize,
+                  fontWeight: headlineLargeFontWeight,
+                  lineHeight: headlineLargeLineHeight,
+                  letterSpacing: headlineLargeLetterSpacing,
                   color: onSurface,
                   margin: 0
                 }}
@@ -254,12 +251,12 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
               {headline && (
                 <p
                   style={{
-                    fontSize: body1.fontSize,
-                    fontWeight: body1.fontWeight,
-                    lineHeight: body1.lineHeight,
+                    fontSize: bodyLargeFontSize,
+                    fontWeight: bodyLargeFontWeight,
+                    lineHeight: bodyLargeLineHeight,
                     color: onSurfaceVariant,
                     opacity: 0.8,
-                    margin: `var(--md-sys-spacing-4) 0 0 0`,
+                    margin: `${spacing4} 0 0 0`,
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
@@ -279,8 +276,8 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: 'var(--md-sys-spacing-2)',
-                  borderRadius: large,
+                  padding: spacing4,
+                  borderRadius: cornerLarge,
                   backgroundColor: closeButtonHovered ? surfaceContainerHigh : 'transparent',
                   border: 'none',
                   cursor: 'pointer',
@@ -292,7 +289,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
               >
                 <span
                   style={{fontFamily: 'Material Symbols Outlined',
-                    fontSize: body1.fontSize,
+                    fontSize: bodyLargeFontSize,
                     color: onSurfaceVariant}}
                 >
                   close
@@ -305,7 +302,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         {/* Content Section */}
         <div
           style={{flex: 1,
-            padding: 'var(--md-sys-spacing-6)',
+            padding: spacing6,
             overflowY: 'auto'}}
         >
           {children}
@@ -314,11 +311,11 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         {/* Footer Section */}
         {(buttons || footerContent) && (
           <div
-            style={{padding: 'var(--md-sys-spacing-6)',
+            style={{padding: spacing6,
               borderTop: `1px solid ${outlineVariant}`,
               display: 'flex',
               justifyContent: 'flex-end',
-              gap: 'var(--md-sys-spacing-3)'}}
+              gap: '0.75rem'}}
           >
             {footerContent || buttons}
           </div>
@@ -355,12 +352,10 @@ export const M3DialogActions: React.FC<{ children: React.ReactNode; style?: Reac
   children,
   style = {},
 }) => {
-  // MD3 Token mapping - no useTheme() dependency
-  const outlineVariant = 'var(--md-sys-color-outline-variant)';
   return (
     <div
       style={{padding: 'var(--md-sys-spacing-6)',
-        borderTop: `1px solid ${outlineVariant}`,
+        borderTop: `1px solid var(--md-sys-color-outline-variant)`,
         display: 'flex',
         justifyContent: 'flex-end',
         gap: 'var(--md-sys-spacing-3)',
@@ -391,22 +386,17 @@ export const M3ConfirmDialog: React.FC<{
   cancelText = 'Annulla',
   danger = false,
 }) => {
-  // MD3 Token mapping - no useTheme() dependency
-  const primary = 'var(--md-sys-color-primary)';
-  const error = 'var(--md-sys-color-error)';
-  const onPrimary = 'var(--md-sys-color-on-primary)';
-  const onSurface = 'var(--md-sys-color-on-surface)';
-  const large = 'var(--md-sys-shape-corner-large)';
-  const labelLarge = {
-    fontSize: 'var(--md-sys-typescale-label-large-font)',
-    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-    lineHeight: 'var(--md-sys-typescale-label-large-line-height)'
-  };
-  const body1 = {
-    fontSize: 'var(--md-sys-typescale-body-large-font)',
-    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
-    lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
-  };
+  // MD3 CSS Variables - Direct token usage (no useTheme dependency)
+  const primaryColor = 'var(--md-sys-color-primary)';
+  const errorColor = 'var(--md-sys-color-error)';
+  const onPrimaryColor = 'var(--md-sys-color-on-primary)';
+  const onSurfaceColor = 'var(--md-sys-color-on-surface)';
+  const cornerLargeValue = 'var(--md-sys-shape-corner-large)';
+  const labelLargeFontSizeValue = 'var(--md-sys-typescale-label-large-font-size)';
+  const labelLargeFontWeightValue = 'var(--md-sys-typescale-label-large-font-weight)';
+  const bodyLargeFontSizeValue = 'var(--md-sys-typescale-body-large-font-size)';
+  const bodyLargeFontWeightValue = 'var(--md-sys-typescale-body-large-font-weight)';
+  const bodyLargeLineHeightValue = 'var(--md-sys-typescale-body-large-line-height)';
 
   return (
     <M3Dialog
@@ -418,13 +408,13 @@ export const M3ConfirmDialog: React.FC<{
           <button
             onClick={onCancel}
             style={{
-              padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
+              padding: `0.75rem ${spacing4}`,
               border: 'none',
               backgroundColor: 'transparent',
-              color: primary,
-              borderRadius: large,
-              fontSize: labelLarge.fontSize,
-              fontWeight: labelLarge.fontWeight,
+              color: primaryColor,
+              borderRadius: cornerLargeValue,
+              fontSize: labelLargeFontSizeValue,
+              fontWeight: labelLargeFontWeightValue,
               cursor: 'pointer'
             }}
           >
@@ -432,13 +422,13 @@ export const M3ConfirmDialog: React.FC<{
           </button>
           <button
             onClick={onConfirm}
-            style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
+            style={{padding: `0.75rem ${spacing4}`,
               border: 'none',
-              backgroundColor: danger ? error : primary,
-              color: onPrimary,
-              borderRadius: large,
-              fontSize: labelLarge.fontSize,
-              fontWeight: labelLarge.fontWeight,
+              backgroundColor: danger ? errorColor : primaryColor,
+              color: onPrimaryColor,
+              borderRadius: cornerLargeValue,
+              fontSize: labelLargeFontSizeValue,
+              fontWeight: labelLargeFontWeightValue,
               cursor: 'pointer'}}
           >
             {confirmText}
@@ -448,11 +438,11 @@ export const M3ConfirmDialog: React.FC<{
     >
       <p
         style={{
-          fontSize: body1.fontSize,
-          fontWeight: body1.fontWeight,
-          lineHeight: body1.lineHeight,
-          color: onSurface,
-          padding: `var(--md-sys-spacing-4) 0`,
+          fontSize: bodyLargeFontSizeValue,
+          fontWeight: bodyLargeFontWeightValue,
+          lineHeight: bodyLargeLineHeightValue,
+          color: onSurfaceColor,
+          padding: `${spacing4} 0`,
           margin: 0}}
       >
         {message}

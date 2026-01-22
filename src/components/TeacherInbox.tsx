@@ -74,8 +74,13 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                 <div 
                                     key={sub.id}
                                     onClick={() => setSelectedSubmission(sub)}
-                                    className={`teacher-inbox-submission-item ${isSelected ? 'teacher-inbox-submission-item.selected' : ''}`}
-                                    style={{borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)'}}
+                                    style={{
+                                        borderRadius: 'var(--md-sys-shape-corner-small)',
+                                        transition: 'var(--md-easing-standard)',
+                                        backgroundColor: isSelected ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
+                                        padding: 'var(--md-sys-spacing-3)',
+                                        cursor: 'pointer'
+                                    }}
                                 >
                                     <Avatar name={`${studentInfo.name} ${studentInfo.surname}`} size="sm" />
                                     <div >

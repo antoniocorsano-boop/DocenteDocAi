@@ -79,7 +79,7 @@ export const EvaluationViewsRenderer: React.FC<{
         case 'class-competency-dashboard':
             return (
                 <ClassCompetencyDashboard
-                    selectedClass={props.selectedClass || '}
+                    selectedClass={props.selectedClass || 'default-class'}
                     students={props.students}
                     competencyEvaluations={props.competencyEvals}
                     settings={props.settings}

@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+import { test, expect } from 'vitest';
 import { useTheme } from '../src/theme/M3ThemeProvider';
 import { M3ThemeProvider } from '../src/theme/M3ThemeProvider';
 
@@ -33,6 +34,9 @@ test('token MD3 sono accessibili', () => {
   const primaryColor = result.current.layers.sys.color.primary;
   const spacing4 = result.current.layers.ref.spacing[4]; // Assumi array o oggetto
 
-  expect(primaryColor).toMatch(/^#[0-9a-f]{6}$/); // Hex valido
+  // Accetta sia hex che token CSS custom property
+  expect(
+    /^#[0-9a-f]{6}$/.test(primaryColor) || primaryColor.startsWith('var(--md-sys-color-primary)')
+  ).toBe(true);
   expect(spacing4).toBeGreaterThan(0); // Valore numerico
 });

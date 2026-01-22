@@ -21,8 +21,8 @@ export const M3Button: React.FC<M3ButtonProps> = ({
   variant = 'filled', 
   size = 'medium', 
   style: customStyle = {}, 
-  'aria-label': ariaLabel, 
-  type = 'button' 
+  type = 'button',
+  'aria-label': ariaLabel
 }) => { 
   // MD3 Token mapping - no useTheme() dependency
   // Variant tokens using direct MD3 CSS variables
@@ -62,7 +62,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
     color,
     border,
     boxShadow,
-    borderRadius: 'var(--md-sys-shape-corner-medium)',
+    borderRadius: 'var(--md-sys-shape-corner-extra-large)',
     cursor: disabled ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.38 : 1,
     transition: 'all var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard)',
@@ -85,19 +85,8 @@ export const M3Button: React.FC<M3ButtonProps> = ({
       style={buttonStyle}
       onClick={onClick}
       disabled={disabled}
-      aria-label={ariaLabel || (typeof children === 'string' ? children : 'Button')}
-      onMouseEnter={(e) => {
-        // Hover effects handled by CSS :hover pseudo-class
-      }}
-      onMouseLeave={(e) => {
-        // Hover effects handled by CSS :hover pseudo-class
-      }}
-      onFocus={(e) => {
-        // Focus effects handled by CSS :focus pseudo-class
-      }}
-      onBlur={(e) => {
-        // Focus effects handled by CSS :focus pseudo-class
-      }}
+      aria-label={ariaLabel ? ariaLabel : (typeof children === 'string' ? children : 'Button')}
+      // Hover and focus effects handled by CSS pseudo-classes
     >
       {children}
     </button>

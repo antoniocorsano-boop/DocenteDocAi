@@ -10,7 +10,7 @@ import { Report, Studente, Lezione, Uda, TimetableSettings, Valutazione, Valutaz
 import { saveAs } from '../utils/documentUtils';
 import ArchivioReport from './ArchivioReport';
 import { UdaExportModal } from './UdaExportModal';
-import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob, viewPdfInNewTab, generatePdfBrochure } from '../utils/documentUtils';
+import { generateStudentProfilePdf, viewPdfInNewTab, generatePdfBrochure } from '../utils/documentUtils';
 import ConsiglioClasseWizard from './ConsiglioClasseWizard';
 import ClassPlanningWizard from './ClassPlanningWizard';
 import SmartDocumentEditor from './SmartDocumentEditor';

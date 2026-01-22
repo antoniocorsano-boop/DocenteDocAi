@@ -29,7 +29,7 @@ describe('DemoGantt keyboard accessibility', () => {
     // Live region should announce final status
     const lives = await findAllByRole('status');
     // Cerca la live region con il testo atteso
-    expect(lives.some(live => /colonna 2/.test(live.textContent || '))).toBe(true);
+    expect(lives.some(live => /colonna 2/.test(live.textContent || ''))).toBe(true);
   });
 });
 

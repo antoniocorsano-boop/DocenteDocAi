@@ -13,9 +13,9 @@ interface CompetencyEvaluationModalProps {
 }
 
 const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ student, competenza, settings, aiSettings, onClose, onSave }) => {
-  const [selectedMateria, setSelectedMateria] = useState<string>((settings.disciplines && settings.disciplines[0]) || ');
-    const [selectedLevelId, setSelectedLevelId] = useState<string>(');
-    const [nota, setNota] = useState<string>(');
+  const [selectedMateria, setSelectedMateria] = useState<string>((settings.disciplines && settings.disciplines[0]) || '');
+    const [selectedLevelId, setSelectedLevelId] = useState<string>('');
+    const [nota, setNota] = useState<string>('');
     const [isGeneratingNote, setIsGeneratingNote] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -65,13 +65,19 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
         >
             <form onSubmit={handleSubmit} >
                 <M3DialogContent >
-                    <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>{student.cognome} {student.nome} - {competenza.nome}</p>
+                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>{student.cognome} {student.nome} - {competenza.nome}</p>
 
                     <div>
                         <label >Livello Raggiunto</label>
                         <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                             {competenza.livelli.map(level => (
-                                <div key={level.id} className={`p-12 rounded-[var(--md-sys-shape-corner-large)] border-2 ${selectedLevelId === level.id ? 'border-primary bg-primaryContainer' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surfaceContainer)]'}`}>
+                                <div key={level.id} style={{
+                                    padding: 'var(--md-sys-spacing-12)',
+                                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                                    border: selectedLevelId === level.id ? '2px solid var(--md-sys-color-primary)' : '2px solid var(--md-sys-color-outline-variant)',
+                                    backgroundColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
+                                    cursor: 'pointer'
+                                }}>
                                     <label style={{ display: "flex", alignItems: "flex-start", cursor: "pointer" }}>
                                         <input 
                                             type="radio" 
@@ -87,7 +93,12 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                                 <span >{level.nome}</span>
                                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Voto: {level.voto}</span>
                                             </div>
-                                            <p className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] mt-8 ${selectedLevelId === level.id ? 'text-on-primaryContainer' : 'text-[var(--md-sys-color-onSurface)]-variant'}`}>{level.descrizione}</p>
+                                                                                        <p style={{
+                                                                                            fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                                                                            fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
+                                                                                            marginTop: 'var(--md-sys-spacing-8)',
+                                                                                            color: selectedLevelId === level.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)'
+                                                                                        }}>{level.descrizione}</p>
                                         </div>
                                     </label>
                                 </div>
@@ -119,9 +130,9 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                     title="Genera nota con AI"
                                 >
                                     {isGeneratingNote ? (
-                                        <span style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)] }}>sync</span>
+                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>sync</span>
                                     ) : (
-                                        <span style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)] }}>auto_awesome</span>
+                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>auto_awesome</span>
                                     )}
                                     <span >{isGeneratingNote ? 'Generando...' : 'Suggerisci nota'}</span>
                                 </M3Button>

@@ -70,8 +70,8 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 }}>
                 {/* Aura Ornaments */}
-                <div style={{ backgroundColor: sys.colors.primary/5 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
-                <div style={{ backgroundColor: sys.colors.secondary/5 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
+                <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 0.05, borderRadius: 'var(--md-sys-spacing-4)' }} />
+                <div style={{ backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.05, borderRadius: 'var(--md-sys-spacing-4)' }} />
 
                 <div  style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center" }}>
@@ -97,7 +97,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
 
                     <div >
                         <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
-                            <div style={{ backgroundColor: sys.colors.primary/10 ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)',  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
                                 <span  style={{color: "var(--md-sys-color-primary)", fontSize: "1.125rem"}}>verified</span>
                             </div>
                             <h3  style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Competenze Valutate</h3>
@@ -143,10 +143,14 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                             
                                                         />
                                                         <div style={{borderRadius: 'var(--md-sys-shape-corner-full)'}}>
-                                                            {isSelected && <div style={{ backgroundColor: sys.colors.on-primary ,  width: "0.5rem", height: "0.5rem", borderRadius: 'var(--md-sys-spacing-4)' }} />}
+                                                            {isSelected && <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', width: '0.5rem', height: '0.5rem', borderRadius: 'var(--md-sys-spacing-4)' }} />}
                                                         </div>
                                                         <div>
-                                                            <span className={`text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] font-black block ${isSelected ? 'text-on-primaryContainer' : 'text-[var(--md-sys-color-onSurface)]'}`}>{level.nome}</span>
+                                                            <span style={{
+                                                              color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+                                                              fontWeight: 900,
+                                                              display: 'block',
+                                                            }}>{level.nome}</span>
                                                             <p style={{fontSize: 'var(--md-sys-typescale-body-small-font-size)', fontWeight: 'var(--md-sys-typescale-body-small-font-weight)'}}>{level.descrizione}</p>
                                                         </div>
                                                     </label>

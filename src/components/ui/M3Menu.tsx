@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Updated for layered theme access
 /**
  * M3Menu - Material Design 3 Menu Component
  * 
@@ -15,7 +15,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTheme } from '../../theme/theme';
 import M3Popover from './M3Popover';
-import { useTheme } from '../../theme/theme';
 
 // ============================================================================
 // TYPES
@@ -84,9 +83,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
   maxWidth = 320,
   zIndex = 1300,
 }) => {
-  const { layers } = useTheme();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
+  const { layers: { sys: { color }, ref: { spacing } } } = useTheme();
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   
@@ -171,8 +168,8 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               disabled={item.disabled}
               style={{opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : '1',
                 cursor: item.disabled ? 'not-allowed' : 'pointer',
-                backgroundColor: focusedIndex === index ? ' layers.sys.color.surfaceContainerHigh' : 'transparent',
-                color: item.variant === 'error' ? 'layers.sys.color.error' : 'inherit'}}
+                backgroundColor: focusedIndex === index ? color.surfaceContainerHigh : 'transparent',
+                color: item.variant === 'error' ? color.error : 'inherit'}}
               onMouseEnter={() => !item.disabled && setFocusedIndex(index)}
               onMouseLeave={() => setFocusedIndex(-1)}
               aria-disabled={item.disabled}
@@ -202,9 +199,11 @@ export const M3Menu: React.FC<M3MenuProps> = ({
             {item.divider && (
               <div
                 role="separator"
-                style={{height: layers.ref.spacing['1'],
-                  backgroundColor: layers.sys.color.outlineVariant,
-                  margin: `${layers.ref.spacing['1']} 0`}}
+                style={{
+                  height: spacing[1],
+                  backgroundColor: color.outlineVariant,
+                  margin: `${spacing[1]} 0`
+                }}
               ></div>
             )}
           </React.Fragment>

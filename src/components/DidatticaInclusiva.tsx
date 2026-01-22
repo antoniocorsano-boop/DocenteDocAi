@@ -112,12 +112,12 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             transition: 'colors 0.2s ease',
-                                            backgroundColor: hasPlan ? 'rgba(var(--md-sys-color-tertiary-rgb), 0.1)' : 'var(--md-sys-color-surface-container-high)',
+                                            backgroundColor: hasPlan ? 'var(--md-sys-color-tertiary-container)' : 'var(--md-sys-color-surface-container-high)',
                                             color: hasPlan ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-on-surface-variant)'
                                         }}
                                         onMouseEnter={(e) => {
                                             if (!hasPlan) {
-                                                e.currentTarget.style.backgroundColor = 'rgba(var(--md-sys-color-primary-rgb), 0.1)';
+                                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-primary-container)';
                                                 e.currentTarget.style.color = 'var(--md-sys-color-primary)';
                                             }
                                         }}

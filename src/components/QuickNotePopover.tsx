@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import { M3Popover, TextField, M3Button } from './ui';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
-import { useTheme } from '../theme/theme';
 
 interface QuickNotePopoverProps {
     anchorEl: HTMLElement | null;
@@ -14,8 +13,6 @@ interface QuickNotePopoverProps {
 }
 
 const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialValue, onSave, onClose }) => {
-  const { layers } = useTheme();
-  const { layers } = useTheme();
     const [note, setNote] = useState(initialValue);
 
     const handleSave = () => {

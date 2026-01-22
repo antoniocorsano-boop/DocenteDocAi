@@ -188,7 +188,7 @@ describe("BatchExportWizard", () => {
 
     render(<BatchExportWizard {...mockProps} />);
 
-    const documentDiv = screen.getByText("Profilo Rossi Mario").closest('.cursor-pointer');
+    const documentDiv = screen.getByText("Profilo Rossi Mario").parentElement?.parentElement;
     const checkbox = screen.getByLabelText("Seleziona Profilo Rossi Mario");
     expect(checkbox).not.toBeChecked();
 
@@ -218,7 +218,7 @@ describe("BatchExportWizard", () => {
 
     render(<BatchExportWizard {...mockProps} />);
 
-    const documentDiv = screen.getByText("Profilo Rossi Mario").closest('.cursor-pointer');
+    const documentDiv = screen.getByText("Profilo Rossi Mario").parentElement?.parentElement;
     const checkbox = screen.getByLabelText("Seleziona Profilo Rossi Mario");
     fireEvent.click(documentDiv!);
     expect(checkbox).toBeChecked();
@@ -247,7 +247,7 @@ describe("BatchExportWizard", () => {
 
     render(<BatchExportWizard {...mockProps} />);
 
-    const documentDiv = screen.getByText("Profilo Rossi Mario").closest('.cursor-pointer');
+    const documentDiv = screen.getByText("Profilo Rossi Mario").parentElement?.parentElement;
     fireEvent.click(documentDiv!);
 
     const generateButton = screen.getByText("Genera 1 Documenti");

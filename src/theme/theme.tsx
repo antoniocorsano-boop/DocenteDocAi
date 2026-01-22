@@ -3,7 +3,7 @@
 // @do-not-extend
 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { tokenLayers, TokenLayers, SysLayer, RefLayer, CompLayer, MotionLayer, ElevationLayer } from './tokens';
+import { tokenLayers, TokenLayers } from './tokens';
 
 // Type for preset overrides (partial token layers)
 export type PresetOverrides = Partial<TokenLayers>;

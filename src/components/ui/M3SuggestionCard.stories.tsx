@@ -23,7 +23,8 @@ const meta: Meta<typeof M3SuggestionCard> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['active', 'empty],
+      options: ['active', 'empty'],
+        options: ['active', 'empty'],
       description: 'Card variant',
       table: {
         type: { summary: 'active | empty' },
@@ -58,11 +59,11 @@ export const Active: Story = {
         <M3Typography variant="body-medium" as="p"}>
           Consider adding more interactive elements to engage your students during the lesson.
         </M3Typography>
-        <div}>
-          <button}>
+        <div>
+          <button>
             Apply
           </button>
-          <button}>
+          <button>
             Dismiss
           </button>
         </div>
@@ -94,7 +95,7 @@ export const Empty: Story = {
             />
           </svg>
         </div>
-        <M3Typography variant="title-medium" as="h3"}>
+        <M3Typography variant="title-medium" as="h3">
           No suggestions available
         </M3Typography>
         <M3Typography variant="body-medium" as="p">
@@ -116,7 +117,7 @@ export const CodeSuggestion: Story = {
         <M3Typography variant="title-medium" as="h3"}>
           Code Optimization
         </M3Typography>
-        <M3Typography variant="body-medium" as="p"}>
+        <M3Typography variant="body-medium" as="p">
           Consider using early returns to improve code readability:
         </M3Typography>
         <div}>

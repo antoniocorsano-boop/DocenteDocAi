@@ -61,14 +61,14 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
 
           <TextField
             label="Argomento (opzionale)"
-            value={argomento || '}
+            value={argomento || ''}
             onChange={e => onChange('argomento', e.target.value)}
             fullWidth
           />
 
           <TextField
             label="Link ai notebook"
-            value={linkNotebook || '}
+            value={linkNotebook || ''}
             onChange={e => onChange('linkNotebook', e.target.value)}
             fullWidth
             placeholder="Incolla URL deliverable..."

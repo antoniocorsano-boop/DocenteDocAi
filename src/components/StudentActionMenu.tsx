@@ -1,5 +1,4 @@
-// LEGACY - MD3 Non-compliant
-
+// MD3 Compliant - Uses CSS custom properties for theming
 /* M3Expressive - StudentActionMenu Component */
 
 import React, { useMemo } from 'react';
@@ -19,7 +18,7 @@ interface StudentActionMenuProps {
 /**
  * StudentActionMenu - MD3 Pure Student Actions Component
  * ✅ MIGRATED TO MD3 PURE - Complete migration from legacy CSS classes to pure MD3 tokens and M3Typography
- * Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
+ * Migration Status: ✅ MD3 Compliant (uses CSS custom properties)
  *
  * Features:
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
@@ -49,8 +48,6 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
     onAddEvaluation,
     onViewProfile,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const theme = useTheme();
     const { grade, trend } = useMemo(
         () => calculatePerformance(student.id, 'Complessivo', evaluations),
         [student.id, evaluations]
@@ -221,7 +218,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
             >
                 <M3Typography
                     variant="body-small"
-                    style={{margin: 'var(--md-sys-spacing-3)' var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4),
+                    style={{margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
                         textTransform: 'uppercase',
                         color: 'var(--md-sys-color-on-surface)',
                         letterSpacing: '0.5px',

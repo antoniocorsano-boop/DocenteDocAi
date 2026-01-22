@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Progettazione Hub
 /**
  * ProgettazioneHub.tsx
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
@@ -62,6 +62,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
     // Dragging / feedback state
     const [previewMessage] = useState<string | null>(null);
 
+    // MD3 Theme tokens
 
     useEffect(() => {
         if (initialAction === 'annual-planning') {
@@ -108,7 +109,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                         icon="calendar_month"
                         title="Wizard Annuale"
                         description="Pianifica l'intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell'AI."
-                        color="var(--md-sys-color-primaryContainer)"
+                        color="var(--md-sys-color-primary-container)"
                         onClick={() => {
                             console.log('Audit: Opened Annual Planning Wizard');
                             setIsPlanningWizardOpen(true);
@@ -159,7 +160,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="transform"
                             title="Importa & Ristruttura"
                             description="Converti vecchi file in documenti standard."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="colors.surfaceContainer"
                             onClick={() => {
                                 console.log('Audit: Opened Smart Import Modal');
                                 setIsSmartImportOpen(true);
@@ -173,7 +174,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="cloud_download"
                             title="Importa da NotebookLM"
                             description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="colors.surfaceContainer"
                             onClick={() => {
                                 console.log('Audit: Opened NotebookLM Import Modal');
                                 setIsNotebookLMImportOpen(true);
@@ -185,7 +186,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="folder_open"
                             title="Knowledge Base"
                             description="Archivio documenti."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="colors.surfaceContainer"
                             onClick={() => {
                                 console.log('Audit: Navigated to Knowledge Base');
                                 onNavigate('knowledge-base');
@@ -197,7 +198,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="description"
                             title="Template"
                             description="Gestisci i modelli per UDA e verifiche."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Opened Template Manager');
                                 setIsTemplateManagerOpen(true);
@@ -209,7 +210,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="history_edu"
                             title="Lezioni"
                             description="Piani di lezione."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Lessons');
                                 onNavigate('lessons');
@@ -221,7 +222,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="schema"
                             title="Rubriche"
                             description="Griglie valutazione."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Rubriche');
                                 onNavigate('rubriche');
@@ -233,7 +234,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({
                             icon="print"
                             title="Report"
                             description="Stampe & PDF."
-                            color="var(--md-sys-color-surfaceContainer)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Reportistica');
                                 onNavigate('reportistica');

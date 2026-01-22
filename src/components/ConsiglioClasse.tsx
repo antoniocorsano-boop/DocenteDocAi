@@ -9,7 +9,7 @@ import {
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';
-import { generateCouncilTablePdf, generateHtmlDocxBlob } from '../utils/documentUtils';
+import { generateCouncilTablePdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 interface ConsiglioClasseProps {
   selectedClass: string;
@@ -214,7 +214,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             // FIX: Ensure string conversion in template literal for periodo
             saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.docx`);
 
-        } catch (e) {
+        } catch {
             console.error("Error exporting DOCX:", errorMsg);
             alert("Errore durante la generazione del file Word.");
         } finally {
@@ -223,7 +223,6 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     };
 
     const hasStudentChanged = (studentId: string): boolean => {
-        // FIX: Ensure string conversion in template literal key prefix
         const keyPrefix = `${String(studentId)}-${String(periodo)}-${String(annoScolasticoCorrente)}-`;
         return Array.from(changedCells).some((cellKey: string) => cellKey.startsWith(keyPrefix));
     };

@@ -4,7 +4,6 @@
 import React from 'react';
 import { M3Popover } from './ui';
 import { EventoCalendario } from '../types';
-import { useTheme } from '../theme/theme';
 
 interface EventActionPopoverProps {
     event: EventoCalendario;
@@ -15,7 +14,6 @@ interface EventActionPopoverProps {
 }
 
 const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl, onClose, onEdit, onDelete }) => {
-  const { layers } = useTheme();
     const handleEdit = () => {
         onEdit(event);
         onClose();

@@ -154,10 +154,15 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
             }
     
             const lessonContext = {
-                contenuto: argomento,
-                classe: classe,
+                lesson: {
+                    id: 'ai-adaptations-preview',
+                    classe: classe,
+                    materia: materia,
+                    contenuto: argomento,
+                    svolta: false
+                }
             };
-    
+
             const adaptations = await generateInclusivityAdaptations(aiSettings, lessonContext, pianiInclusionePerClasse);
             
             setAdattamenti(prev => prev ? `${prev}\n${adaptations}` : adaptations);
@@ -220,7 +225,17 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                 onChange={e => setObiettivi(e.target.value)}
                                 rows={5}
                                 placeholder="Elenco obiettivi didattici per la lezione..."
-                                containerClassName="shadow-inner !bg-[var(--md-sys-color-surfaceContainerLow)]est"
+                                style={{ 
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)', 
+                                    backgroundColor: 'var(--md-sys-color-surface-container-low)', 
+                                    padding: 'var(--md-sys-spacing-6)',
+                                    border: '1px solid var(--md-sys-color-outline)',
+                                    transition: 'border-color 300ms',
+                                    fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                    lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                }}
                             />
                             {matchingCurriculum && !obiettivi && (
                                 <p  style={{fontSize: "0.75rem", color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
@@ -239,7 +254,21 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                             key={key}
                                             type="button"
                                             onClick={() => setSelectedSlotKey(prev => prev === key ? '' : key)}
-                                            className={`chip !h-12 !px-8 ${selectedSlotKey === key ? 'chip-selected border-primary' : 'bg-[var(--md-sys-color-surfaceContainerHigh)]'}`}
+                                            style={{
+                                                height: '3rem',
+                                                padding: '0 var(--md-sys-spacing-8)',
+                                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                                border: selectedSlotKey === key ? '2px solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline)',
+                                                backgroundColor: selectedSlotKey === key ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
+                                                color: selectedSlotKey === key ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                                                fontWeight: selectedSlotKey === key ? 700 : 500,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 'var(--md-sys-spacing-8)',
+                                                margin: 'var(--md-sys-spacing-4) 0',
+                                                cursor: 'pointer',
+                                                transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+                                            }}
                                         >
                                             {selectedSlotKey === key && <span  style={{ fontSize: "1.25rem" }}>check</span>}
                                             <span  style={{ fontSize: "0.75rem" }}>{slot.giorno} {slot.ora}</span>
@@ -274,7 +303,17 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                 onChange={(e) => setAdattamenti(e.target.value)} 
                                 rows={4}
                                 placeholder="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
-                                containerClassName="shadow-inner !bg-[var(--md-sys-color-surfaceContainerLow)]est"
+                                style={{ 
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)', 
+                                    backgroundColor: 'var(--md-sys-color-surface-container-low)', 
+                                    padding: 'var(--md-sys-spacing-6)',
+                                    border: '1px solid var(--md-sys-color-outline)',
+                                    transition: 'border-color 300ms',
+                                    fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                    lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                }}
                             ></TextArea>
                         </div>
                     </M3DialogContent>

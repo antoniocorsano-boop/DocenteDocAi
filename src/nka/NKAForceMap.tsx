@@ -93,9 +93,22 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
   // Respect reducedMotion: skip animation if true (placeholder)
 
   return (
-    <svg ref={svgRef} width={width} height={height} className="nka-force-map" aria-label="Mappa neurale">
+    <svg
+      ref={svgRef}
+      width={width}
+      height={height}
+      aria-label="Mappa neurale"
+      style={{
+        background: 'var(--md-sys-color-surface)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        boxShadow: 'var(--md-sys-elevation1)',
+        display: 'block',
+        margin: '0 auto',
+        outline: 'none',
+      }}
+    >
       {loading && (
-        <text x={width/2} y={height/2} textAnchor="middle" fontSize="1.1rem" fill="var(--md-sys-color-onSurface-variant)">
+        <text x={width/2} y={height/2} textAnchor="middle" fontSize="1.1rem" fill="var(--md-sys-color-on-surface-variant)">
           Calcolo disposizione AI…
         </text>
       )}

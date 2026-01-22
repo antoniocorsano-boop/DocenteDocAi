@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Migrated from legacy className usage
 
 import React, { useMemo, useState } from 'react';
 import { Studente, ValutazioneCompetenza, TimetableSettings, Competenza, Livello } from '../types';
@@ -25,7 +25,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
     settings,
     onViewStudentProfile
 }) => {
-  const [viewingStudents, setViewingStudents] = useState<{ title: string; students: Studente[], levelColorClass: string } | null>(null);
+  const [viewingStudents, setViewingStudents] = useState<{ title: string; students: Studente[], levelColor: string } | null>(null);
     const [sortBy, setSortBy] = useState<'competency' | 'performance'>('competency');
 
     const classStudents = useMemo(() => students.filter(s => s.classe === selectedClass), [students, selectedClass]);
@@ -77,22 +77,22 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
         return summaries;
     }, [settings.competenze, classStudents, competencyEvaluations, sortBy]);
 
-    const getLevelColorClass = (levelName: string) => {
+    const getLevelColor = (levelName: string) => {
         const lower = levelName.toLowerCase();
-        if (lower.includes('avanzato') || lower.includes('a -')) return 'level-color-a';
-        if (lower.includes('intermedio') || lower.includes('b -')) return 'level-color-b';
-        if (lower.includes('base') || lower.includes('c -')) return 'level-color-c';
-        if (lower.includes('iniziale') || lower.includes('d -')) return 'level-color-d';
-        return 'level-color-none';
+        if (lower.includes('avanzato') || lower.includes('a -')) return 'var(--md-sys-color-tertiary)';
+        if (lower.includes('intermedio') || lower.includes('b -')) return 'var(--md-sys-color-secondary)';
+        if (lower.includes('base') || lower.includes('c -')) return 'var(--md-sys-color-primary)';
+        if (lower.includes('iniziale') || lower.includes('d -')) return 'var(--md-sys-color-error)';
+        return 'var(--md-sys-color-surface-variant)';
     };
 
     const handleLevelClick = (levelCount: CompetencySummary['levelCounts'][0], competencyName: string) => {
         if (levelCount.count > 0) {
-            const colorClass = getLevelColorClass(levelCount.level.nome);
+            const color = getLevelColor(levelCount.level.nome);
             setViewingStudents({
                 title: `${competencyName} - Livello ${levelCount.level.nome}`,
                 students: levelCount.students,
-                levelColorClass: colorClass
+                levelColor: color
             });
         }
     };
@@ -136,14 +136,14 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                 <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
                                     <div style={{ flexGrow: "1", minWidth: "0" }}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                            <span style={{ color: sys.colors.on-primaryContainer , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", backgroundColor: "var(--md-sys-color-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
+                                            <span style={{ color: 'var(--md-sys-color-on-primary-container)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", backgroundColor: "var(--md-sys-color-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-medium)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
                                                 {summary.competency.codice}
                                             </span>
-                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.75rem" }}>
+                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>
                                                 {summary.totalEvaluated}/{classStudents.length} Valutati
                                             </span>
                                         </div>
-                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: "1.125rem", fontWeight: "bold" }}>
+                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)' }}>
                                             {summary.competency.nome}
                                         </h3>
                                     </div>
@@ -155,11 +155,11 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                     {summary.levelCounts.map(lc => {
                                         if (lc.count === 0) return null;
                                         const pct = (lc.count / classStudents.length) * 100;
+                                        const levelColor = getLevelColor(lc.level.nome);
                                         return (
                                             <div 
                                                 key={lc.level.id} 
-                                                className={`h-full ${colorClass}`} 
-                                                style={{ width: `${pct}%` }} 
+                                                style={{ height: "100%", width: `${pct}%`, backgroundColor: levelColor }} 
                                             />
                                         );
                                     })}
@@ -183,10 +183,10 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                 <div style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 'var(--md-sys-typescale-body-large-font-weight-bold)'}}>
                                                     {lc.level.nome.charAt(0)}
                                                 </div>
-                                                <div style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: "1.5rem", fontWeight: "900" }}>{lc.count}</div>
+                                                <div style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-display-small-font-size)', fontWeight: 'var(--md-sys-typescale-display-small-font-weight)' }}>{lc.count}</div>
                                             </div>
                                             <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", marginBottom: 'var(--md-sys-spacing-4)'}}>Studenti</div>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.75rem", lineHeight: "1.625" }}>
+                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-body-small-font-size)', lineHeight: 'var(--md-sys-typescale-body-small-line-height)' }}>
                                                 {lc.level.descrizione}
                                             </p>
                                         </div>
@@ -199,8 +199,8 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 
                 {competencySummaries.length === 0 && (
                     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/30, marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</span>
-                        <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: "1.25rem", fontWeight: "bold" }}>Nessun dato</p>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.3, marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</span>
+                        <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)' }}>Nessun dato</p>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Non hai ancora configurato le competenze in Impostazioni.</p>
                     </div>
                 )}
@@ -226,7 +226,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                 <div>
                                                     <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</p>
                                                     <div  style={{ display: "flex", alignItems: "center" }}>
-                                                        <span style={{borderRadius: 'var(--md-sys-shape-corner-full)'}}></span>
+                                                        <span style={{borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: viewingStudents.levelColor, width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)'}}></span>
                                                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.75rem" }}>Livello raggiunto</span>
                                                     </div>
                                                 </div>

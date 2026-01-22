@@ -1,7 +1,6 @@
-// LEGACY - MD3 Non-compliant
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
+// MD3 Compliant - CategoryCard component with layered theme destructuring
+// @md3-compliant
+// @ready-for-extension
 
 /**
  * CategoryCard Component - MD3 Pure Migration
@@ -9,8 +8,8 @@
  * Interactive category selection card with Material Design 3 token-based styling.
  * Supports selection states, hover effects, and accessibility features.
  *
- * @version 2.0.0 - MD3 Pure Migration
- * @since 2026-01-11
+ * @version 2.1.0 - MD3 Layered Destructuring
+ * @since 2026-01-20
  */
 
 import React, { useState } from 'react';
@@ -37,8 +36,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 }) => {
     const [hovered, setHovered] = useState(false);
     const [focused, setFocused] = useState(false);
-    const { layers } = useTheme();
-    const { sys, ref, motion, elevation } = layers;
+    const { layers: { sys: { color: themeColor }, ref: { spacing, shape }, motion, elevation } } = useTheme();
 
     return (
     <div
@@ -56,21 +54,21 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: layers.ref.spacing['4'],
-            padding: layers.ref.spacing['6'],
-            borderRadius: ref.shape.corner.large,
-            border: isSelected ? `2px solid ${sys.color.primary}` : `1px solid ${sys.color.outlineVariant}`,
+            gap: spacing[4],
+            padding: spacing[6],
+            borderRadius: shape.corner.large,
+            border: isSelected ? `2px solid ${themeColor.primary}` : `1px solid ${themeColor.outlineVariant}`,
             backgroundColor: isSelected
-                ? sys.color.primaryContainer
-                : (hovered && !isSelected ? sys.color.surfaceContainerHigh : sys.color.surfaceContainer),
+                ? themeColor.primaryContainer
+                : (hovered && !isSelected ? themeColor.surfaceContainerHigh : themeColor.surfaceContainer),
             boxShadow: isSelected
                 ? elevation.level3
                 : elevation.level1,
             cursor: 'pointer',
             transition: `all ${motion.duration.medium} ${motion.easing.standard}`,
             transform: isSelected ? 'scale(1.02)' : (hovered && !isSelected ? 'scale(1.01)' : 'scale(1)'),
-            outline: focused ? `2px solid ${sys.color.primary}` : 'none',
-            outlineOffset: focused ? layers.ref.spacing['2'] : '0'
+            outline: focused ? `2px solid ${themeColor.primary}` : 'none',
+            outlineOffset: focused ? spacing[2] : '0'
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -79,17 +77,17 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     >
         <div
             style={{
-                width: layers.ref.spacing['8'],
-                height: layers.ref.spacing['8'],
-                borderRadius: ref.shape.corner.medium,
+                width: spacing[8],
+                height: spacing[8],
+                borderRadius: shape.corner.medium,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: isSelected
-                    ? sys.color.primary
+                    ? themeColor.primary
                     : `${color}20`,
                 color: isSelected
-                    ? sys.color.onPrimary
+                    ? themeColor.onPrimary
                     : color,
                 transition: `all ${motion.duration.medium} ${motion.easing.standard}`,
                 transform: hovered && !isSelected ? 'rotate(6deg) scale(1.1)' : 'rotate(0deg) scale(1)'
@@ -97,14 +95,14 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         >
             <span style={{
                 fontFamily: 'Material Symbols Outlined',
-                fontSize: layers.ref.spacing['6']
+                fontSize: spacing[6]
             }}>{icon}</span>
         </div>
         <div style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: layers.ref.spacing['4']
+            gap: spacing[4]
         }}>
             <M3Typography
                 variant="label-large"
@@ -112,7 +110,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                     textAlign: 'center',
                     fontWeight: 900,
                     letterSpacing: '-0.025em',
-                    color: sys.color.onSurface,
+                    color: themeColor.onSurface,
                     margin: 0
                 }}
             >
@@ -123,10 +121,10 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                     variant="body-small"
                     style={{
                         textAlign: 'center',
-                        color: sys.color.onSurfaceVariant,
+                        color: themeColor.onSurfaceVariant,
                         opacity: 0.7,
                         lineHeight: 1.3,
-                        padding: `0 ${layers.ref.spacing['4']}`,
+                        padding: `0 ${spacing[4]}`,
                         display: '-webkit-box',
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: 'vertical',

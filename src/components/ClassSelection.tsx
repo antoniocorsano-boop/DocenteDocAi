@@ -189,11 +189,10 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
 const PrintCenterModal: React.FC<{ 
     userClasses: string[]; 
     onClose: () => void;
-    students: Studente[];
     evaluations: Valutazione[];
     competencyEvaluations: ValutazioneCompetenza[];
     settings: TimetableSettings;
-}> = ({ userClasses, onClose, students, evaluations, competencyEvaluations, settings }) => {
+}> = ({ userClasses, onClose, evaluations, competencyEvaluations, settings }) => {
     const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
     const [periodo, setPeriodo] = useState<PeriodoValutazione>('primo-quadrimestre');
     const [isProcessing, setIsProcessing] = useState(false);
@@ -256,11 +255,35 @@ const PrintCenterModal: React.FC<{
                                 <div 
                                     key={c} 
                                     onClick={() => toggleClass(c)}
-                                    className={`px-4 py-4 rounded-full border cursor-pointer transition-all flex items-center gap-8 ${
-                                        selectedClasses.includes(c) 
-                                            ? 'bg-primary text-on-primary border-primary' 
-                                            : 'bg-[var(--md-sys-color-surfaceContainerLow)] text-[var(--md-sys-color-onSurface)]-variant border-[var(--md-sys-color-outline-variant)] hover:bg-[var(--md-sys-color-surfaceContainerHigh)]'
-                                    }`}
+                                    style={{
+                                        padding: 'var(--md-sys-spacing-4)',
+                                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                                        border: 'var(--md-sys-border-width-thin) solid',
+                                        cursor: 'pointer',
+                                        transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: 'var(--md-sys-spacing-8)',
+                                        backgroundColor: selectedClasses.includes(c) 
+                                            ? 'var(--md-sys-color-primary)' 
+                                            : 'var(--md-sys-color-surface-container-low)',
+                                        color: selectedClasses.includes(c) 
+                                            ? 'var(--md-sys-color-on-primary)' 
+                                            : 'var(--md-sys-color-on-surface-variant)',
+                                        borderColor: selectedClasses.includes(c) 
+                                            ? 'var(--md-sys-color-primary)' 
+                                            : 'var(--md-sys-color-outline-variant)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (!selectedClasses.includes(c)) {
+                                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                                        }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (!selectedClasses.includes(c)) {
+                                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)';
+                                        }
+                                    }}
                                 >
                                     {selectedClasses.includes(c) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
                                     Classe {c}

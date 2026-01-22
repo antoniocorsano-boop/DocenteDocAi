@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Piano Inclusione Editor
 import React, { useState } from 'react';
 import { PianoInclusione, PianoInclusioneEditorProps } from '../types';
 import { getPIPSuggestion } from '../services/aiService';
@@ -184,7 +184,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                                 {loadingSection === `obj-${materia}` ? (
                                                     <AiThinkingGem size="small" inline />
                                                 ) : (
-                                                    <span style={{ color: sys.colors.primary/70 ,  fontSize: "0.875rem" }}>auto_awesome</span>
+                                                    <span style={{ color: 'var(--md-sys-color-primary)' ,  fontSize: "0.875rem" }}>auto_awesome</span>
                                                 )}
                                             </M3Button>
                                         </div>

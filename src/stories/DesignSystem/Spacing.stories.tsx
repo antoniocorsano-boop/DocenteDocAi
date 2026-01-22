@@ -5,12 +5,12 @@ import type { Meta, StoryObj } from '@storybook/react';
 const SpacingDocumentation = () => (
   <div style={{ padding: 'var(--md-sys-spacing-6)', fontFamily: 'var(--font-family)' }}>
     <h1 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: 'var(--md-sys-spacing-4)' }}>Spacing System</h1>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
       Consistent spacing scale for margins, padding, and gaps to create rhythm and visual balance.
     </p>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Spacing Scale</h2>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: '#666' }}>
       The spacing system uses an var(--md-sys-spacing-2) base unit, enabling flexible and predictable layouts.
     </p>
 
@@ -28,7 +28,7 @@ const SpacingDocumentation = () => (
         { value: layers.ref.spacing['4'], description: 'Extra large spacing (5 units)' },
         { value: 'var(--md-sys-spacing-12)', description: 'Extra extra large spacing (6 units)' },
         { value: layers.ref.spacing['4'], description: 'Largest spacing (8 units)' },
-      '].map((space) => (
+      ].map((space) => (
         <SpacingSwatch key={space.value} value={space.value} description={space.description} />
       ))}
     </div>
@@ -50,11 +50,11 @@ const SpacingDocumentation = () => (
           { useCase: 'Component Gap', spacing: 'var(--md-sys-spacing-2) - var(--md-sys-spacing-4)', example: 'Internal element spacing' },
           { useCase: 'Grid Gap', spacing: 'var(--md-sys-spacing-4) - var(--md-sys-spacing-6)', example: 'Between grid items' },
           { useCase: 'List Item Padding', spacing: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', example: 'Vertical var(--md-sys-spacing-3), horizontal var(--md-sys-spacing-4)' },
-        '].map((row, idx) => (
+        ].map((row, idx) => (
           <tr key={idx} style={{ borderBottom: '1px solid var(--md-sys-color-outline-variant)' }}>
             <td style={{ padding: 'var(--md-sys-spacing-3)' }}><strong>{row.useCase}</strong></td>
             <td style={{ padding: 'var(--md-sys-spacing-3)' }}><code>{row.spacing}</code></td>
-            <td style={{ padding: 'var(--md-sys-spacing-3)', color: sys.colors.666 }}>{row.example}</td>
+            <td style={{ padding: 'var(--md-sys-spacing-3)', color: '#666' }}>{row.example}</td>
           </tr>
         ))}
       </tbody>

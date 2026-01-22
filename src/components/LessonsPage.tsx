@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Lezione, LessonsPageProps, CurriculumSubject, TimetableSettings } from '../types';
+import { Lezione, LessonsPageProps, CurriculumSubject, TimetableSettings, Uda } from '../types';
 import { generateLessonSequenceForClass } from '../services/aiService';
 // import LessonView from './LessonView';
 import IdeaGeneratorModal from './IdeaGeneratorModal';
@@ -16,7 +16,7 @@ interface LessonsPageExtendedProps extends LessonsPageProps {
     settings?: TimetableSettings; // Added optional settings prop
 }
 
-const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowledgeBase, userClasses, onViewLesson, onAddLessons, onStartClassroom, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula = [], settings }) => {
+const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowledgeBase, userClasses, onViewLesson, onAddLessons, onStartClassroom, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula = [], settings }) => {
     const [error, setError] = useState('');
     const [selectedUdaIds, setSelectedUdaIds] = useState<string[]>([]);
     const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
@@ -67,7 +67,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
         setIsLoadingModalOpen(true);
         setError('');
         try {
-            const selectedUdas = udas.filter(u => selectedUdaIds.includes(u.id));
+            const selectedUdas = uda.filter((u: Uda) => selectedUdaIds.includes(u.id));
 
             // Filter KB Content
             const kbText = knowledgeBase
@@ -132,9 +132,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
         }, [lessons, filterClass, filterUda]);
 
     const filteredUdas = useMemo(() => {
-        if (!filterClass) return udas;
-        return udas.filter(u => u.classe === filterClass);
-    }, [udas, filterClass]);
+        if (!filterClass) return uda;
+        return uda.filter((u: Uda) => u.classe === filterClass);
+    }, [uda, filterClass]);
 
 
     return (
@@ -247,10 +247,10 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                             {/* Centralized Selection Container */}
                             <div style={{
                                 marginTop: 'var(--md-sys-spacing-3)',
-                                maxHeight: '200px',
+                                maxHeight: 'var(--md-sys-spacing-40)',
                                 overflowY: 'auto'
                             }}>
-                                {udas.length > 0 ? udas.map(uda => (
+                                {uda.length > 0 ? uda.map((uda: Uda) => (
                                     <div key={uda.id} style={{
                                         display: 'flex',
                                         alignItems: 'center',
@@ -284,7 +284,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                 padding: 'var(--md-sys-spacing-2)',
                                 border: '1px solid var(--md-sys-color-outline-variant)',
                                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                                maxHeight: '200px',
+                                maxHeight: 'var(--md-sys-spacing-40)',
                                 overflowY: 'auto'
                             }}>
                                 {userClasses.map(c => (
@@ -332,7 +332,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                 padding: 'var(--md-sys-spacing-2)',
                                 border: '1px solid var(--md-sys-color-outline-variant)',
                                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                                maxHeight: '200px',
+                                maxHeight: 'var(--md-sys-spacing-40)',
                                 overflowY: 'auto'
                             }}>
                                 {knowledgeBase.map(kb => (
@@ -476,7 +476,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, udas, knowle
                                 cursor: 'pointer'
                             }}>
                                 <option value="">Tutte le UDA</option>
-                                {filteredUdas.map(u => <option key={u.id} value={u.title}>{u.title}</option>)}
+                                {filteredUdas.map((u: Uda) => <option key={u.id} value={u.title}>{u.title}</option>)}
                             </select>
                         </div>
                         {(filterClass || filterUda) && (

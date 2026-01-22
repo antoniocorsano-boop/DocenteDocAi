@@ -548,7 +548,7 @@ describe('Home Component', () => {
         selector({
           settings: {
             nomeInsegnante: 'Professore',
-            cognomeInsegnante: ',
+            cognomeInsegnante: 'Rossi',
           },
         })
       );

@@ -94,11 +94,19 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                             <td key={`${cls}-${subj}`} >
                                                 <button 
                                                     onClick={() => toggleAssignment(cls, subj)}
-                                                    className={`teaching-assignment-matrix-toggle-button ${isActive ? 'active' : '}`}
+                                                    style={{
+                                                        backgroundColor: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
+                                                        color: isActive ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                                        border: `1px solid var(--md-sys-color-outline)`,
+                                                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                        padding: 'var(--md-sys-spacing-2)',
+                                                        cursor: 'pointer',
+                                                        transition: 'background 0.2s, color 0.2s'
+                                                    }}
                                                     title={isActive ? `Rimuovi ${subj} da ${cls}` : `Assegna ${subj} a ${cls}`}
                                                     aria-label={`${subj} in ${cls}: ${isActive ? 'Assegnato' : 'Non assegnato'}`}
                                                 >
-                                                    <span className={`material-symbols-outlined teaching-assignment-matrix-toggle-icon ${isActive ? 'active' : '}`}>
+                                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: '24px', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)' }}>
                                                         {isActive ? 'check_circle' : 'add_circle'}
                                                     </span>
                                                 </button>
@@ -118,7 +126,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                 const [openClass, setOpenClass] = useState<string | null>(classes[0] || null);
 
                 useEffect(() => {
-                    if (!classes.includes(openClass || ')) {
+                    if (!classes.includes(openClass || '')) {
                         setOpenClass(classes[0] || null);
                     }
                 }, [classes, openClass]);
@@ -156,7 +164,16 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                         <button
                                                             key={subj}
                                                             onClick={() => toggleAssignment(cls, subj)}
-                                                            className={`teaching-assignment-matrix-mobile-chip ${isActive ? 'active' : '}`}
+                                                            style={{
+                                                                backgroundColor: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
+                                                                color: isActive ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                                                border: `1px solid var(--md-sys-color-outline)`,
+                                                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                                padding: 'var(--md-sys-spacing-2)',
+                                                                margin: 'var(--md-sys-spacing-2)',
+                                                                cursor: 'pointer',
+                                                                transition: 'background 0.2s, color 0.2s'
+                                                            }}
                                                         >
                                                             {isActive && <span >check</span>}
                                                             <span >{subj}</span>

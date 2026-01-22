@@ -1,7 +1,6 @@
 // LEGACY - MD3 Non-compliant
 import React from 'react';
 import { Lezione, Slot } from '../types';
-import { generateHueFromString } from '../utils/colorUtils';
 import { LESSON_TYPE_ICONS } from '../constants';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, and animations
@@ -9,7 +8,6 @@ import { LESSON_TYPE_ICONS } from '../constants';
 interface TimetableCellProps {
     slot: Slot;
     lesson?: Lezione;
-    className?: string;
     onClick?: () => void;
 }
 
@@ -20,15 +18,6 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
   const isRicevimento = lesson?.tipoLezione === 'Ricevimento' || materia === 'Ricevimento';
   const hasContent = !!classe || isDisposition || isRicevimento;
   
-  let customStyle: React.CSSProperties = {};
-  if (isDisposition) {
-      customStyle = { backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--sys-on-secondary-container)' };
-  } else if (isRicevimento) {
-      customStyle = { backgroundColor: 'var(--sys-tertiary-container)', color: 'var(--sys-on-tertiary-container)' };
-  } else if (classe) {
-      const hue = generateHueFromString(classe);
-      customStyle = { '--slot-hue': hue } as React.CSSProperties;
-  }
   
     const isDone = lesson?.svolta;
     const hasAi = !!lesson?.externalLink;
@@ -37,7 +26,19 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
     if (!hasContent) {
         return (
             <div
-                className={`timetable-cell timetable-cell-empty ${className || ''}`}
+                style={{
+                    // timetable-cell timetable-cell-empty styles
+                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    borderRadius: 'var(--md-sys-shape-corner-small)',
+                    padding: 'var(--md-sys-spacing-2)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '60px',
+                    cursor: 'pointer'
+                }}
                 onClick={onClick}
                 role="button"
                 aria-label={`Aggiungi lezione a ${slot.giorno} ${slot.ora}`}
@@ -61,11 +62,23 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, className, 
 
     return (
         <div
-            className={`timetable-cell timetable-cell-content ${isDone ? 'is-done' : ''} ${isDisposition ? 'timetable-cell-disposition' : ''} ${isRicevimento ? 'timetable-cell-ricevimento' : ''} ${className || ''}`}
-            style={customStyle}
+            style={{
+                // timetable-cell timetable-cell-content styles
+                backgroundColor: isDisposition ? 'var(--md-sys-color-tertiary-container)' : isRicevimento ? 'var(--md-sys-color-secondary-container)' : isDone ? 'var(--md-sys-color-surface-container)' : 'var(--md-sys-color-surface-container-high)',
+                border: `1px solid ${isDone ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
+                borderRadius: 'var(--md-sys-shape-corner-small)',
+                padding: 'var(--md-sys-spacing-2)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '60px',
+                cursor: 'pointer',
+                opacity: isDone ? 0.7 : 1
+            }}
             onClick={onClick}
             role="button"
-            aria-label={`Slot ${slot.giorno} ${slot.ora}${classe ? `, classe ${classe}` : '}${materia ? `, materia ${materia}` : '}`}
+            aria-label={`Slot ${slot.giorno} ${slot.ora}${classe ? `, classe ${classe}` : ''}${materia ? `, materia ${materia}` : ''}`}
             tabIndex={0}
             onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {

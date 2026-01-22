@@ -26,7 +26,7 @@ const meta = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg', 'xl],
+      options: ['sm', 'md', 'lg', 'xl'],
       description: 'Avatar size',
     },
   },

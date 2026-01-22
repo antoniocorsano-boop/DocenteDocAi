@@ -1,13 +1,10 @@
-// LEGACY - MD3 Non-compliant
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
+// MD3 Compliant - Fully migrated to MD3 tokens
+// @md3-compliant
+// @migrated
 
 import React, { InputHTMLAttributes, useState } from 'react';
 import M3Typography from './M3Typography';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../hooks/useTheme';
-import { useTheme } from '../../theme/theme';
+// ...existing code...
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
@@ -35,7 +32,7 @@ const TextField: React.FC<TextFieldProps> = ({
     value,
     ...props
 }) => {
-    const { layers } = useTheme();
+    // Removed: const { layers } = useTheme();
     const [isFocused, setIsFocused] = useState(false);
     const describedBy = error && errorMessage ? `${props.id}-error` : undefined;
     const hasValue = value !== undefined && value !== '';
@@ -46,9 +43,9 @@ const TextField: React.FC<TextFieldProps> = ({
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: layers.ref.spacing['2'],
+                gap: 'var(--md-sys-spacing-2)',
                 width: fullWidth ? '100%' : 'auto',
-                marginBottom: layers.ref.spacing['4']
+                marginBottom: 'var(--md-sys-spacing-4)'
             }}
         >
             <div
@@ -56,24 +53,24 @@ const TextField: React.FC<TextFieldProps> = ({
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: layers.ref.spacing['2'],
+                    gap: 'var(--md-sys-spacing-2)',
                     backgroundColor: variant === 'filled'
-                        ? layers.sys.color.surfaceContainerHighest
+                        ? 'var(--md-sys-color-surface-container-high)'
                         : 'transparent',
-                    border: `1px solid ${layers.sys.color.outline}`,
-                    borderRadius: layers.ref.shape.corner.large,
-                    padding: `${layers.ref.spacing['3']} ${layers.ref.spacing['4']}`,
+                    border: `1px solid var(--md-sys-color-outline)`,
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                     transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
                     boxShadow: error
-                        ? `0 0 0 2px color-mix(in srgb, ${layers.sys.color.error} 12%, transparent)`
+                        ? `0 0 0 2px color-mix(in srgb, var(--md-sys-color-error) 12%, transparent)`
                         : isFocused
-                        ? `0 0 0 2px color-mix(in srgb, ${layers.sys.color.primary} 12%, transparent)`
+                        ? `0 0 0 2px color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent)`
                         : 'none',
                     borderColor: error
-                        ? layers.sys.color.error
+                        ? 'var(--md-sys-color-error)'
                         : isFocused
-                        ? layers.sys.color.primary
-                        : layers.sys.color.outline
+                        ? 'var(--md-sys-color-primary)'
+                        : 'var(--md-sys-color-outline)'
                 }}
             >
                 {leadingIcon && (
@@ -81,10 +78,10 @@ const TextField: React.FC<TextFieldProps> = ({
                         style={{
                             fontFamily: 'Material Symbols Outlined',
                             color: isFocused
-                                ? layers.sys.color.primary
-                                : `color-mix(in srgb, ${layers.sys.color.onSurfaceVariant}, var(--md-sys-state-opacity-disabled))`,
+                                ? 'var(--md-sys-color-primary)'
+                                : `color-mix(in srgb, var(--md-sys-color-on-surface-variant), var(--md-sys-state-opacity-disabled))`,
                             transition: 'color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
-                            fontSize: layers.ref.spacing['4']
+                            fontSize: 'var(--md-sys-spacing-4)'
                         }}
                         aria-hidden="true"
                     >
@@ -94,11 +91,11 @@ const TextField: React.FC<TextFieldProps> = ({
                 <div style={{ flex: 1, position: 'relative' }}>
                     <M3Typography
                         variant="label-large"
-                        as="label"
-                        htmlFor={props.id}
+                        as="span"
+                        // htmlFor removed: not valid for span
                         style={{
                             position: 'absolute',
-                            top: isLabelFloating ? layers.ref.spacing['1'] : '50%',
+                            top: isLabelFloating ? 'var(--md-sys-spacing-1)' : '50%',
                             left: 0,
                             transform: isLabelFloating
                                 ? 'translateY(0) scale(0.75)'
@@ -106,8 +103,8 @@ const TextField: React.FC<TextFieldProps> = ({
                             transformOrigin: 'top left',
                             transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
                             color: isFocused
-                                ? layers.sys.color.primary
-                                : layers.sys.color.onSurfaceVariant,
+                                ? 'var(--md-sys-color-primary)'
+                                : 'var(--md-sys-color-on-surface-variant)',
                             pointerEvents: 'none',
                             zIndex: 1
                         }}
@@ -122,14 +119,14 @@ const TextField: React.FC<TextFieldProps> = ({
                             width: '100%',
                             border: 'none',
                             backgroundColor: 'transparent',
-                            color: layers.sys.color.onSurface,
+                            color: 'var(--md-sys-color-on-surface)',
                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                             fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                             lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                             letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                             outline: 'none',
-                            paddingTop: isLabelFloating ? layers.ref.spacing['2'] : 0,
+                            paddingTop: isLabelFloating ? 'var(--md-sys-spacing-2)' : 0,
                             transition: 'padding-top 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)'
                         }}
                         placeholder=""
@@ -150,8 +147,8 @@ const TextField: React.FC<TextFieldProps> = ({
                     <span
                         style={{
                             fontFamily: 'Material Symbols Outlined',
-                            color: layers.sys.color.error,
-                            fontSize: layers.ref.spacing['4']
+                            color: 'var(--md-sys-color-error)',
+                            fontSize: 'var(--md-sys-spacing-4)'
                         }}
                         aria-hidden="true"
                     >
@@ -164,13 +161,13 @@ const TextField: React.FC<TextFieldProps> = ({
                     id={describedBy}
                     style={{display: 'flex',
                         alignItems: 'center',
-                        gap: layers.ref.spacing['1'],
-                        marginTop: layers.ref.spacing['1']}}
+                        gap: 'var(--md-sys-spacing-1)',
+                        marginTop: 'var(--md-sys-spacing-1)'}}
                 >
                     <span
                         style={{
                             fontFamily: 'Material Symbols Outlined',
-                            color: layers.sys.color.error,
+                            color: 'var(--md-sys-color-error)',
                             fontSize: 'var(--md-sys-typescale-body-small-font-size)'
                         }}
                         aria-hidden="true"
@@ -179,7 +176,7 @@ const TextField: React.FC<TextFieldProps> = ({
                     </span>
                     <M3Typography
                         variant="body-small"
-                        style={{color: layers.sys.color.error}}
+                        style={{color: 'var(--md-sys-color-error)'}}
                     >
                         {errorMessage}
                     </M3Typography>

@@ -59,7 +59,26 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
              <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
                 <div  style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                     {items.map((item, index) => (
-                        <div key={index} className={`m3-expressive-chip variant-${variant} animate-in zoom-in-95 duration-200`}>
+                        <div key={index} style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                            backgroundColor: variant === 'class' ? 'var(--md-sys-color-secondary-container)' :
+                                           variant === 'subject' ? 'var(--md-sys-color-tertiary-container)' :
+                                           'var(--md-sys-color-primary-container)',
+                            color: variant === 'class' ? 'var(--md-sys-color-on-secondary-container)' :
+                                  variant === 'subject' ? 'var(--md-sys-color-on-tertiary-container)' :
+                                  'var(--md-sys-color-on-primary-container)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            fontSize: 'var(--md-sys-typescale-body-small-size)',
+                            fontWeight: 'var(--md-sys-typescale-body-small-weight)',
+                            lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
+                            animation: 'zoom-in-95 0.2s ease-out',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            border: '1px solid var(--md-sys-color-outline-variant)'
+                        }}>
                             <span>{item}</span>
                             <button 
                                 type="button"

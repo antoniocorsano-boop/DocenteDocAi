@@ -1,5 +1,5 @@
-// LEGACY - MD3 Non-compliant
-
+// MD3 Compliant - Migration completed
+// PassaggioAnnoWizard.tsx - All styling uses MD3 tokens via style props
 import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry, StudentHistoryRecord } from '../types';
 import { getNextClass } from '../utils/schoolUtils';
@@ -238,16 +238,35 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                 <tr key={s.id}  style={{ transition: "color 300ms" }}>
                                                     <td style={{ color: 'var(--md-sys-color-on-primary)', padding: 'var(--md-sys-spacing-8)', fontWeight: "900"}}>{s.cognome} {s.nome}</td>
                                                     <td style={{ color: 'var(--md-sys-color-on-surface-variant)', padding: 'var(--md-sys-spacing-8)', fontWeight: "500"}}>{s.classe}</td>
-                                                    <td className={`p-8 font-black ${isInsufficient ? "text-error" : "text-primary"}`}>{grade || "-"}</td>
+                                                    <td style={{
+                                                        padding: 'var(--md-sys-spacing-8)',
+                                                        fontWeight: '900',
+                                                        color: isInsufficient ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
+                                                    }}>{grade || "-"}</td>
                                                     <td style={{padding: 'var(--md-sys-spacing-6)'}}>
-                                                        <select 
-                                                            value={outcome?.action || "promote"} 
+                                                        <select
+                                                            value={outcome?.action || "promote"}
                                                             onChange={(e) => handleOutcomeChange(s.id, e.target.value as OutcomeType)}
-                                                            className={`w-full text-xs font-black uppercase tracking-widest py-4 pl-3 pr-8 rounded-[var(--md-sys-shape-corner-medium)] border-none ring-1 ring-inset ring-outline-variant/20 focus:ring-2 focus:ring-primary transition-all ${
-                                                                outcome?.action === "retain" ? "bg-error/10 text-error" : 
-                                                                outcome?.action === "archive" || outcome?.action === "transfer" ? "bg-[var(--md-sys-color-surfaceContainerHigh)]est text-[var(--md-sys-color-onSurface)]-variant" : 
-                                                                "bg-primary/10 text-primary"
-                                                            }`}
+                                                            style={{
+                                                                width: '100%',
+                                                                fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                                                fontWeight: '900',
+                                                                textTransform: 'uppercase',
+                                                                letterSpacing: '0.15em',
+                                                                padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-8)',
+                                                                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                                border: 'none',
+                                                                outline: '1px solid var(--md-sys-color-outline-variant)',
+                                                                backgroundColor: outcome?.action === "retain" ? 'var(--md-sys-color-error-container)' :
+                                                                               outcome?.action === "archive" || outcome?.action === "transfer" ? 'var(--md-sys-color-surface-container-high)' :
+                                                                               'var(--md-sys-color-primary-container)',
+                                                                color: outcome?.action === "retain" ? 'var(--md-sys-color-error)' :
+                                                                     outcome?.action === "archive" || outcome?.action === "transfer" ? 'var(--md-sys-color-on-surface-variant)' :
+                                                                     'var(--md-sys-color-primary)',
+                                                                transition: 'all 0.2s ease',
+                                                                cursor: 'pointer',
+                                                                minHeight: '44px'
+                                                            }}
                                                         >
                                                             <option value="promote">Promosso</option>
                                                             <option value="retain">Bocciato</option>

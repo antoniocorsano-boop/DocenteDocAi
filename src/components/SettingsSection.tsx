@@ -1,36 +1,122 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant SettingsSection Component
+// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
+// No className or Tailwind dependencies - all styling uses direct MD3 CSS variables
 
 import React from 'react';
+
 interface SettingsSectionProps {
     title: string;
     subtitle?: string;
     icon: string;
     children: React.ReactNode;
-    className?: string;
+    style?: React.CSSProperties;
     variant?: 'surface' | 'primary' | 'secondary' | 'tertiary';
 }
 
-const SettingsSection: React.FC<SettingsSectionProps> = ({ title, subtitle, icon, children, , variant = 'surface' }) => {
-  // Mappatura colori intestazione basata sulla variante
-    let iconClass = 'bg-[var(--md-sys-color-surfaceContainerHigh)] text-[var(--md-sys-color-onSurface)]-variant';
-    let textClass = 'text-[var(--md-sys-color-onSurface)]';
+const SettingsSection: React.FC<SettingsSectionProps> = ({
+    title,
+    subtitle,
+    icon,
+    children,
+    style: customStyle = {},
+    variant = 'surface'
+}) => {
+    // MD3 Token mapping for variants - using direct MD3 CSS variables
+    let iconBackgroundColor = 'var(--md-sys-color-surface-container-high)';
+    let iconColor = 'var(--md-sys-color-on-surface-variant)';
+    let titleColor = 'var(--md-sys-color-on-surface)';
 
-    if (variant === 'primary') { iconClass = 'bg-primaryContainer text-on-primaryContainer'; textClass = 'text-primary'; }
-    if (variant === 'secondary') { iconClass = 'bg-secondary-container text-on-secondary-container'; textClass = 'text-secondary'; }
-    if (variant === 'tertiary') { iconClass = 'bg-tertiary-container text-on-tertiary-container'; textClass = 'text-tertiary'; }
+    if (variant === 'primary') {
+        iconBackgroundColor = 'var(--md-sys-color-primary-container)';
+        iconColor = 'var(--md-sys-color-on-primary-container)';
+        titleColor = 'var(--md-sys-color-primary)';
+    } else if (variant === 'secondary') {
+        iconBackgroundColor = 'var(--md-sys-color-secondary-container)';
+        iconColor = 'var(--md-sys-color-on-secondary-container)';
+        titleColor = 'var(--md-sys-color-secondary)';
+    } else if (variant === 'tertiary') {
+        iconBackgroundColor = 'var(--md-sys-color-tertiary-container)';
+        iconColor = 'var(--md-sys-color-on-tertiary-container)';
+        titleColor = 'var(--md-sys-color-tertiary)';
+    }
+
+    const sectionStyle: React.CSSProperties = {
+        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+        borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+        border: '1px solid var(--md-sys-color-outline-variant)',
+        overflow: 'hidden',
+        marginBottom: 'var(--md-sys-spacing-6)',
+        boxShadow: 'var(--md-sys-elevation-level1)',
+        ...customStyle
+    };
+
+    const headerStyle: React.CSSProperties = {
+        backgroundColor: 'var(--md-sys-color-surface)',
+        opacity: 0.5,
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--md-sys-spacing-8)',
+        padding: 'var(--md-sys-spacing-5)',
+        borderBottom: '1px solid var(--md-sys-color-outline)'
+    };
+
+    const iconContainerStyle: React.CSSProperties = {
+        width: '2.5rem',
+        height: '2.5rem',
+        borderRadius: 'var(--md-sys-shape-corner-medium)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        backgroundColor: iconBackgroundColor,
+        color: iconColor
+    };
+
+    const iconStyle: React.CSSProperties = {
+        fontSize: '1.5rem'
+    };
+
+    const textContainerStyle: React.CSSProperties = {
+        flexGrow: 1,
+        minWidth: 0
+    };
+
+    const titleStyle: React.CSSProperties = {
+        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+        color: titleColor,
+        fontFamily: 'var(--md-sys-typescale-font-family)',
+        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+        lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
+    };
+
+    const subtitleStyle: React.CSSProperties = {
+        color: 'var(--md-sys-color-on-surface-variant)',
+        opacity: 0.8,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        fontFamily: 'var(--md-sys-typescale-font-family)',
+        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+        lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+        fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)'
+    };
+
+    const contentStyle: React.CSSProperties = {
+        padding: 'var(--md-sys-spacing-5)'
+    };
 
     return (
-        <section className={`bg-[var(--md-sys-color-surfaceContainerLow)] rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)] overflow-hidden mb-6 shadow-[var(--md-sys-elevation-level1)] ${className}`}>
-            <div style={{ backgroundColor: sys.colors.surface/50 , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-5)', borderBottom: "1px solid var(--md-sys-color-outline)"}}>
-                <div className={`w-10 h-10 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center flex-shrink-0 ${iconClass}`}>
-                    <span  style={{ fontSize: "1.5rem" }}>{icon}</span>
+        <section style={sectionStyle}>
+            <div style={headerStyle}>
+                <div style={iconContainerStyle}>
+                    <span style={iconStyle}>{icon}</span>
                 </div>
-                <div style={{ flexGrow: "1", minWidth: "0" }}>
-                    <h3 style={{fontWeight: 'var(--md-sys-typescale-body-large-font-weight-bold)'}}>{title}</h3>
-                    {subtitle && <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.8", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{subtitle}</p>}
+                <div style={textContainerStyle}>
+                    <h3 style={titleStyle}>{title}</h3>
+                    {subtitle && <p style={subtitleStyle}>{subtitle}</p>}
                 </div>
             </div>
-            <div  style={{padding: 'var(--md-sys-spacing-5)'}}>
+            <div style={contentStyle}>
                 {children}
             </div>
         </section>

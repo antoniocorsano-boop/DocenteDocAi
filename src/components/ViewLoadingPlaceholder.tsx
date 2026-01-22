@@ -17,11 +17,19 @@ interface ViewLoadingPlaceholderProps {
  * Default loading placeholder - shown while view code is loading
  */
 export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({ 
-  message = 'Caricamento vista...', 
-   
+  message = 'Caricamento vista...'
 }) => {
   return (
-    <div className={`flex flex-col items-center justify-center min-h-[60vh] gap-6 ${className}`}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '60vh',
+        gap: 'var(--md-sys-spacing-6)'
+      }}
+    >
       <AiThinkingGem size="large" text={message} />
     </div>
   );

@@ -43,28 +43,28 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
                justifyContent: "center",
                gap: 'var(--md-sys-spacing-4)', 
                cursor: "pointer", 
-               borderBottom: "1px solid var(--md-sys-color-outline)", 
+               borderBottom: "1px solid var(--md-sys-color-outline)",
                zIndex: Z_INDEX.notification.banner
              }}
             onClick={onAction}
             role="button"
             aria-label={actionLabel || 'Apri suggerimento'}
         >
-            <span style={{ fontSize: "1.25rem" }} aria-hidden="true">??</span>
-            <span style={{ 
+            <span style={{ fontSize: "var(--md-sys-typescale-title-medium-size)" }} aria-hidden="true">??</span>
+            <span style={{
                 color: 'var(--md-sys-color-on-primary-container)',
-                fontWeight: "bold", 
-                flex: "1", 
-                fontSize: "0.875rem", 
-                overflow: "hidden", 
-                textOverflow: "ellipsis", 
-                whiteSpace: "nowrap" 
+                fontWeight: "bold",
+                flex: "1",
+                fontSize: "var(--md-sys-typescale-body-medium-size)",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap"
             }}>
                 {message || 'Hai un suggerimento!'}
             </span>
-              <button  style={{fontSize: "0.75rem", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+              <button  style={{fontSize: "var(--md-sys-typescale-label-large-size)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
                 {actionLabel}
-                <span  style={{ fontSize: "0.875rem" }}>north_east</span>
+                <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>north_east</span>
             </button>
         </div>
     );
@@ -79,7 +79,6 @@ import VideoAnalysisModal from './VideoAnalysisModal';
 import CircolareAnalysisModal from './CircolareAnalysisModal';
 import LoadingModal from './LoadingModal';
 import { NKABottomSheet, useNKAStore } from '../nka';
-import { useTheme } from '../theme/theme';
 
 /**
  * App.tsx - Il core del Presentation Layer.
@@ -535,10 +534,17 @@ export const App: React.FC = () => {
         );
     } catch (err) {
         // Fallback visibile: errore di caricamento o runtime
-        return <div style={{color: 'red', padding: 'var(--md-sys-spacing-8)', fontFamily: 'monospace', background: 'var(--md-sys-color-surface-variant)', fontSize: '1.2rem', whiteSpace: 'pre-wrap'}}>
+        return <div style={{
+            color: 'var(--md-sys-color-error)',
+            padding: 'var(--md-sys-spacing-8)',
+            background: 'var(--md-sys-color-surface-variant)',
+            fontSize: 'var(--md-sys-typescale-title-large-size)',
+            whiteSpace: 'pre-wrap',
+            fontFamily: 'var(--md-sys-typescale-title-large-font-family, inherit)'
+        }}>
             <b>ERRORE FATALE:</b> {String(err)}
             <br />
-            <span>Controlla la console per dettagli tecnici.</span>
+            <span style={{fontSize: 'var(--md-sys-typescale-body-medium-size)'}}>Controlla la console per dettagli tecnici.</span>
         </div>;
     }
 };

@@ -256,7 +256,7 @@ export const NoBackdrop: Story = {
           minWidth={180}
         >
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {['Copy', 'Paste', 'Delete].map((action) => (
+            {['Copy', 'Paste', 'Delete'].map((action) => (
               <button
                 key={action}
                 onClick={() => {

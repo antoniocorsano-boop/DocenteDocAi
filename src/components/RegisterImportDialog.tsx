@@ -137,16 +137,40 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             </p>
                         </div>
 
-                        <div 
-                            {...getRootProps()} 
-                            className={`
-                                border-2 border-dashed rounded-[var(--md-sys-shape-corner-large)] p-12 flex flex-col items-center justify-center gap-8 transition-all
-                                ${isDragActive ? 'border-primary bg-primary/5 scale-[0.98]' : 'border-[var(--md-sys-color-outline-variant)] bg-[var(--md-sys-color-surfaceContainerLow)] hover:bg-[var(--md-sys-color-surfaceContainerHigh)]'}
-                                ${isLoading ? 'opacity-50 cursor-wait' : 'cursor-pointer'}
-                            `}
+                        <div
+                            {...getRootProps()}
+                            style={{
+                                border: isDragActive ? 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-primary)' : 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline-variant)',
+                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                padding: 'var(--md-sys-spacing-12)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: 'var(--md-sys-spacing-8)',
+                                transition: 'all 0.2s ease',
+                                backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
+                                transform: isDragActive ? 'scale(0.98)' : 'none',
+                                opacity: isLoading ? 0.5 : 1,
+                                cursor: isLoading ? 'wait' : 'pointer'
+                            }}
+                            onMouseEnter={(e) => {
+                                if (!isDragActive && !isLoading) {
+                                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                if (!isDragActive && !isLoading) {
+                                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)';
+                                }
+                            }}
                         >
                             <input {...getInputProps()} />
-                            <span className={`material-symbols-outlined text-5xl ${isDragActive ? 'text-primary' : 'text-[var(--md-sys-color-onSurface)]-variant'}`}>
+                            <span style={{
+                                fontFamily: 'Material Symbols Outlined',
+                                fontSize: 'var(--md-sys-typescale-display-small-font-size)',
+                                color: isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
+                            }}>
                                 {isLoading ? 'sync' : 'upload_file'}
                             </span>
                             <div style={{ textAlign: "center" }}>
@@ -179,33 +203,33 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <InfoCard title="Dati Studente" icon="person">
                                 <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                     <div>
-                                        <label style={{display: "block", fontSize: "0.75rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Cognome *</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Cognome *</label>
                                         <select 
                                             value={mapping.cognome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, cognome: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: "0.875rem"}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: "0.75rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Nome *</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Nome *</label>
                                         <select 
                                             value={mapping.nome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, nome: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: "0.875rem"}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: "0.75rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Classe</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Classe</label>
                                         <select 
                                             value={mapping.classe}
                                             onChange={(e) => setMapping(prev => ({ ...prev, classe: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: "0.875rem"}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -217,33 +241,33 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <InfoCard title="Dati Valutazioni (Opzionale)" icon="grade" variant="secondary">
                                 <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                     <div>
-                                        <label style={{display: "block", fontSize: "0.75rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Voto</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Voto</label>
                                         <select 
                                             value={mapping.voto}
                                             onChange={(e) => setMapping(prev => ({ ...prev, voto: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: "0.875rem"}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: "0.75rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Data</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Data</label>
                                         <select 
                                             value={mapping.data}
                                             onChange={(e) => setMapping(prev => ({ ...prev, data: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: "0.875rem"}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: "0.75rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Materia</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Materia</label>
                                         <select 
                                             value={mapping.materia}
                                             onChange={(e) => setMapping(prev => ({ ...prev, materia: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: "0.875rem"}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -308,9 +332,9 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         <M3Button 
                             variant="text" 
                             onClick={() => setStep('mapping')}
-                             style={{ width: "100%", fontSize: "0.75rem" }}
+                             style={{ width: "100%", fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
                         >
-                            <span  style={{ marginRight: "0.5rem", fontSize: "0.875rem" }}>settings_backup_restore</span>
+                            <span  style={{ marginRight: "0.5rem", fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>settings_backup_restore</span>
                             Modifica Mappatura Manuale
                         </M3Button>
 

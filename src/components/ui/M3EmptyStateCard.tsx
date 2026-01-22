@@ -1,6 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface M3EmptyStateCardProps {
   children: React.ReactNode;
@@ -13,15 +12,12 @@ interface M3EmptyStateCardProps {
 const M3EmptyStateCard: React.FC<M3EmptyStateCardProps> = ({
   children
 }) => {
-  const { layers } = useTheme();
-  const { sys, ref } = layers;
-
   return (
     <div style={{
-      backgroundColor: `color-mix(in srgb, ${sys.color.surfaceVariant} 80%, transparent)`,
-      padding: layers.ref.spacing['8'],
-      borderRadius: ref.shape.corner.extraLarge,
-      border: `1px solid color-mix(in srgb, ${sys.color.outlineVariant} 30%, transparent)`,
+      backgroundColor: `color-mix(in srgb, var(--md-sys-color-surface-variant) 80%, transparent)`,
+      padding: 'var(--md-sys-spacing-8)',
+      borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+      border: `1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)`,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',

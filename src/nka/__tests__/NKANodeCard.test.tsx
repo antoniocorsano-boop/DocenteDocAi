@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from '../../test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -29,7 +29,7 @@ describe('NKANodeCard', () => {
     const onSelect = vi.fn();
     renderWithM3Theme(<NKANodeCard node={node} onSelect={onSelect} />);
     // The first button-like element is the card itself
-    const [cardButton'] = screen.getAllByRole('button');
+    const [cardButton] = screen.getAllByRole('button');
     fireEvent.click(cardButton);
     expect(onSelect).toHaveBeenCalled();
   });

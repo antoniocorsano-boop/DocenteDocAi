@@ -108,9 +108,25 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     {useKb && knowledgeBase.length > 0 && (
                         <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "1fr", border: "1px solid var(--md-sys-color-outline)", overflowY: "auto"}}>
                             {knowledgeBase.map(k => (
-                                <label key={k.id} className={`flex items-center gap-8 p-12 rounded-[var(--md-sys-shape-corner-large)] border transition-all cursor-pointer ${selectedKbIds.includes(k.id) ? 'bg-primary/10 border-primary/30' : 'bg-[var(--md-sys-color-surfaceContainerHigh)]/30 border-[var(--md-sys-color-outline-variant)]/10'}`}>
+                                <label key={k.id} style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'var(--md-sys-spacing-8)',
+                                    padding: 'var(--md-sys-spacing-12)',
+                                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                                    border: selectedKbIds.includes(k.id) ? '2px solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline-variant)',
+                                    backgroundColor: selectedKbIds.includes(k.id) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
+                                    transition: 'all 0.2s ease',
+                                    cursor: 'pointer',
+                                    marginBottom: 'var(--md-sys-spacing-2)'
+                                }}>
                                     <input type="checkbox" checked={selectedKbIds.includes(k.id)} onChange={() => handleKbToggle(k.id)} style={{ display: "none" }} />
-                                    <span className={`material-symbols-outlined text-sm ${selectedKbIds.includes(k.id) ? 'text-primary' : 'text-[var(--md-sys-color-onSurface)]-variant'}`}>
+                                    <span style={{
+                                        fontFamily: 'Material Symbols Outlined',
+                                        fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                        color: selectedKbIds.includes(k.id) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                                        userSelect: 'none'
+                                    }}>
                                         {selectedKbIds.includes(k.id) ? 'check_box' : 'check_box_outline_blank'}
                                     </span>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.fileName}</span>

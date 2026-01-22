@@ -217,15 +217,39 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                         <div 
                                             key={comp.id} 
                                             onClick={() => handleCompetencyToggle(comp.id)}
-                                            className={`uda-picker-item ${isSelected ? 'uda-picker-item-selected' : ''}`}
-                                        >
-                                            <div className={`uda-picker-checkbox ${isSelected ? 'uda-picker-checkbox-selected' : ''}`}>
-                                                {isSelected && <span >check</span>}
-                                            </div>
-                                            <div style={{ minWidth: "0" }}>
-                                                <p >{comp.codice}</p>
-                                                <p >{comp.nome}</p>
-                                            </div>
+                                                                                        style={{
+                                                                                            display: 'flex',
+                                                                                            alignItems: 'center',
+                                                                                            gap: 'var(--md-sys-spacing-4)',
+                                                                                            padding: 'var(--md-sys-spacing-6)',
+                                                                                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                                                            backgroundColor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
+                                                                                            border: isSelected ? '2px solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline)',
+                                                                                            fontWeight: isSelected ? 700 : 400,
+                                                                                            cursor: 'pointer',
+                                                                                            transition: 'all 200ms var(--md-sys-motion-easing-emphasized)',
+                                                                                        }}
+                                                                                >
+                                                                                        <div
+                                                                                            style={{
+                                                                                                width: '1.5rem',
+                                                                                                height: '1.5rem',
+                                                                                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                                                                                backgroundColor: isSelected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
+                                                                                                display: 'flex',
+                                                                                                alignItems: 'center',
+                                                                                                justifyContent: 'center',
+                                                                                                color: isSelected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-outline)',
+                                                                                                border: isSelected ? 'none' : '1px solid var(--md-sys-color-outline)',
+                                                                                                marginRight: 'var(--md-sys-spacing-4)',
+                                                                                            }}
+                                                                                        >
+                                                                                            {isSelected && <span>check</span>}
+                                                                                        </div>
+                                                                                        <div style={{ minWidth: '0' }}>
+                                                                                            <p style={{ fontWeight: 700, margin: 0 }}>{comp.codice}</p>
+                                                                                            <p style={{ margin: 0 }}>{comp.nome}</p>
+                                                                                        </div>
                                         </div>
                                     );
                                 })}

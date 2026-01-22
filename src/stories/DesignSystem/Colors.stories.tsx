@@ -6,43 +6,43 @@ import type { Meta, StoryObj } from '@storybook/react';
 const ColorDocumentation = () => (
   <div style={{ padding: 'var(--md-sys-spacing-6)', fontFamily: 'var(--font-family)' }}>
     <h1 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: 'var(--md-sys-spacing-4)' }}>Material Design 3 Color System</h1>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
       The design system uses an expressive color palette based on Material Design 3 (Aura theme) with carefully selected colors for accessibility and visual hierarchy.
     </p>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Primary Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Primary" token="--md-sys-color-primary" hex=sys.colors.6750A4 />
-      <ColorSwatch name="Primary Container" token="--md-sys-color-primaryContainer" hex=sys.colors.EADDFF />
-      <ColorSwatch name="On Primary" token="--md-sys-color-on-primary" hex=sys.colors.FFFFFF border />
+      <ColorSwatch name="Primary" token="--md-sys-color-primary" hex="var(--md-sys-color-primary)" />
+      <ColorSwatch name="Primary Container" token="--md-sys-color-primaryContainer" hex="var(--md-sys-color-primaryContainer)" />
+      <ColorSwatch name="On Primary" token="--md-sys-color-on-primary" hex="#FFFFFF" border />
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Secondary Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Secondary" token="--md-sys-color-secondary" hex=sys.colors.625B71 />
-      <ColorSwatch name="Secondary Container" token="--md-sys-color-secondary-container" hex=sys.colors.E8DEF8 />
-      <ColorSwatch name="On Secondary" token="--sys-on-secondary" hex=sys.colors.FFFFFF border />
+      <ColorSwatch name="Secondary" token="--md-sys-color-secondary" hex="var(--md-sys-color-secondary)" />
+      <ColorSwatch name="Secondary Container" token="--md-sys-color-secondary-container" hex="var(--md-sys-color-secondary-container)" />
+      <ColorSwatch name="On Secondary" token="--sys-on-secondary" hex="#FFFFFF" border />
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Tertiary Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Tertiary" token="--sys-tertiary" hex=sys.colors.7D5260 />
-      <ColorSwatch name="Tertiary Container" token="--sys-tertiary-container" hex=sys.colors.FFD8E4 />
-      <ColorSwatch name="On Tertiary" token="--sys-on-tertiary" hex=sys.colors.FFFFFF border />
+      <ColorSwatch name="Tertiary" token="--sys-tertiary" hex="var(--md-sys-color-tertiary)" />
+      <ColorSwatch name="Tertiary Container" token="--sys-tertiary-container" hex="var(--md-sys-color-tertiary-container)" />
+      <ColorSwatch name="On Tertiary" token="--sys-on-tertiary" hex="#FFFFFF" border />
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Semantic Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Error" token="--sys-error" hex=sys.colors.B3261E />
-      <ColorSwatch name="Warning" token="--sys-warning" hex=sys.colors.E65100 />
-      <ColorSwatch name="On Error" token="--sys-on-error" hex=sys.colors.FFFFFF border />
+      <ColorSwatch name="Error" token="--sys-error" hex="#B3261E" />
+      <ColorSwatch name="Warning" token="--sys-warning" hex="#E65100" />
+      <ColorSwatch name="On Error" token="--sys-on-error" hex="#FFFFFF" border />
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Surface & Background Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Background" token="--sys-background" hex=sys.colors.FDFBFF border />
-      <ColorSwatch name="Surface" token="--md-sys-color-surface" hex=sys.colors.FDFBFF border />
-      <ColorSwatch name="On Background" token="--sys-on-background" hex=sys.colors.1C1B1F />
+      <ColorSwatch name="Background" token="--sys-background" hex="#FDFBFF" border />
+      <ColorSwatch name="Surface" token="--md-sys-color-surface" hex="#FDFBFF" border />
+      <ColorSwatch name="On Background" token="--sys-on-background" hex="#1C1B1F" />
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Surface Containers (Elevation)</h2>
@@ -50,11 +50,11 @@ const ColorDocumentation = () => (
       Elevation levels for layered surfaces:
     </p>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Lowest" token="--md-sys-color-surfaceContainerLowest" hex=sys.colors.FFFFFF border small />
-      <ColorSwatch name="Low" token="--md-sys-color-surfaceContainerLow" hex=sys.colors.F7F2FA border small />
-      <ColorSwatch name="Default" token="--md-sys-color-surfaceContainer" hex=sys.colors.F3EDF7 border small />
-      <ColorSwatch name="High" token="--md-sys-color-surfaceContainerHigh" hex=sys.colors.ECE6F0 border small />
-      <ColorSwatch name="Highest" token="--md-sys-color-surfaceContainerHighest" hex=sys.colors.E6E0E9 border small />
+      <ColorSwatch name="Lowest" token="--md-sys-color-surfaceContainerLowest" hex="#FFFFFF" border small />
+      <ColorSwatch name="Low" token="--md-sys-color-surfaceContainerLow" hex="#F7F2FA" border small />
+      <ColorSwatch name="Default" token="--md-sys-color-surfaceContainer" hex="#F3EDF7" border small />
+      <ColorSwatch name="High" token="--md-sys-color-surfaceContainerHigh" hex="#ECE6F0" border small />
+      <ColorSwatch name="Highest" token="--md-sys-color-surfaceContainerHighest" hex="#E6E0E9" border small />
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Outline & Accessibility</h2>
@@ -64,7 +64,7 @@ const ColorDocumentation = () => (
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Usage Guidelines</h2>
-    <ul style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', color: sys.colors.333, paddingLeft: layers.ref.spacing['4'] }}>
+    <ul style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', color: '#333', paddingLeft: layers.ref.spacing['4'] }}>
       <li>Use <strong>Primary</strong> colors for main actions and focus states</li>
       <li>Use <strong>Secondary</strong> for supporting elements and toggles</li>
       <li>Use <strong>Tertiary</strong> for alternate accent colors</li>

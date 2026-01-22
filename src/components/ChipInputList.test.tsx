@@ -8,7 +8,7 @@ describe('ChipInputList', () => {
   it('renders label and icon', () => {
     renderWithM3Theme(
       <ChipInputList
-        items={['A', 'B]}
+        items={['A', 'B']}
         onAdd={() => {}}
         onRemove={() => {}}
         placeholder="Aggiungi"

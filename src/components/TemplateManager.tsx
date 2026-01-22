@@ -176,7 +176,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                 <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                                   <M3Button
                                     variant="text"
-                                    
+                                    onClick={() => setEditingTemplate(template)}
                                     title={`Modifica template ${template.name}`}
                                   >
                                     <span >edit</span>
@@ -199,7 +199,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                               )}
 
                               <div style={{fontSize: "0.75rem", color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                {template.createdAt.toLocaleDateString('it-IT')}
+                                {new Date(template.createdAt).toLocaleDateString('it-IT')}
                               </div>
 
                               {onApplyTemplate && (

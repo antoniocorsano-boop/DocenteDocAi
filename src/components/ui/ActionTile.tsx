@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Updated for layered theme access
 /**
  * ActionTile Component - MD3 Compliant
  *
@@ -35,40 +35,39 @@ const ActionTile: React.FC<ActionTileProps> = ({
 }) => {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
-  const { layers } = useTheme();
-  const { sys, ref, elevation, motion } = layers;
+  const { layers: { sys: { colors }, ref: { spacing, shape }, elevation, motion } } = useTheme();
     // MD3 color mapping for variants
     const getVariantColors = () => {
         switch (variant) {
             case 'primary':
                 return {
-                    background: sys.color.primaryContainer,
-                    iconColor: sys.color.onPrimaryContainer,
-                    iconBg: sys.color.primary
+                    background: colors.primaryContainer,
+                    iconColor: colors.onPrimaryContainer,
+                    iconBg: colors.primary
                 };
             case 'secondary':
                 return {
-                    background: sys.color.secondaryContainer,
-                    iconColor: sys.color.onSecondaryContainer,
-                    iconBg: sys.color.secondary
+                    background: colors.secondaryContainer,
+                    iconColor: colors.onSecondaryContainer,
+                    iconBg: colors.secondary
                 };
             case 'tertiary':
                 return {
-                    background: sys.color.tertiaryContainer,
-                    iconColor: sys.color.onTertiaryContainer,
-                    iconBg: sys.color.tertiary
+                    background: colors.tertiaryContainer,
+                    iconColor: colors.onTertiaryContainer,
+                    iconBg: colors.tertiary
                 };
             case 'surface':
             default:
                 return {
-                    background: sys.color.surface,
-                    iconColor: sys.color.onSurface,
-                    iconBg: sys.color.surfaceVariant
+                    background: colors.surface,
+                    iconColor: colors.onSurface,
+                    iconBg: colors.surfaceVariant
                 };
         }
     };
 
-    const colors = getVariantColors();
+    const variantColors = getVariantColors();
 
     return (
         <button
@@ -77,13 +76,13 @@ const ActionTile: React.FC<ActionTileProps> = ({
             aria-label={ariaLabel || `${title}${subtitle ? ` - ${subtitle}` : ''}`}
             type="button"
             style={{
-                backgroundColor: colors.background,
-                borderRadius: ref.shape.corner.large,
-                padding: layers.ref.spacing['4'],
+                backgroundColor: variantColors.background,
+                borderRadius: shape.corner.large,
+                padding: spacing[4],
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                gap: layers.ref.spacing['4'],
+                gap: spacing[4],
                 border: 'none',
                 cursor: 'pointer',
                 position: 'relative',
@@ -91,10 +90,10 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 textAlign: 'left',
                 boxShadow: hovered ? elevation.level2 : elevation.level1,
                 transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
-                minHeight: layers.ref.spacing['12'],
+                minHeight: spacing[12],
                 width: '100%',
-                outline: focused ? `2px solid ${sys.color.primary}` : 'none',
-                outlineOffset: focused ? layers.ref.spacing['2'] : '0',
+                outline: focused ? `2px solid ${colors.primary}` : 'none',
+                outlineOffset: focused ? spacing[2] : '0',
                 transition: `box-shadow ${motion.duration.short2} ${motion.easing.standard}, transform ${motion.duration.short2} ${motion.easing.standard}`
             }}
             onMouseEnter={() => setHovered(true)}
@@ -105,25 +104,25 @@ const ActionTile: React.FC<ActionTileProps> = ({
             {/* Icon Container */}
             <div
                 style={{
-                    width: layers.ref.spacing['8'],
-                    height: layers.ref.spacing['8'],
-                    borderRadius: ref.shape.corner.large,
+                    width: spacing[8],
+                    height: spacing[8],
+                    borderRadius: shape.corner.large,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: layers.ref.spacing['6'],
-                    backgroundColor: colors.iconBg,
-                    color: colors.iconColor,
+                    fontSize: spacing[6],
+                    backgroundColor: variantColors.iconBg,
+                    color: variantColors.iconColor,
                     flexShrink: 0,
                     boxShadow: elevation.level1,
-                    border: `1px solid ${sys.color.outlineVariant}`,
+                    border: `1px solid ${colors.outlineVariant}`,
                     transition: `box-shadow ${motion.duration.short2} ${motion.easing.standard}`
                 }}
             >
                 <span
                     style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: layers.ref.spacing['6']
+                        fontSize: spacing[6]
                     }}
                 >
                     {icon}

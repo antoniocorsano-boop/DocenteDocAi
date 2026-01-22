@@ -16,10 +16,10 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
   const [activeTab, setActiveTab] = useState<'kb' | 'file' | 'link'>('kb');
     const [materials, setMaterials] = useState<MaterialeDidattico[]>(currentMaterials);
 
-    const [searchTerm, setSearchTerm] = useState(');
+    const [searchTerm, setSearchTerm] = useState('');
     const [isUploading, setIsUploading] = useState(false);
-    const [linkLabel, setLinkLabel] = useState(');
-    const [linkUrl, setLinkUrl] = useState(');
+    const [linkLabel, setLinkLabel] = useState('');
+    const [linkUrl, setLinkUrl] = useState('');
 
     const filteredKb = useMemo(() => {
         return knowledgeBase.filter(entry =>
@@ -78,8 +78,8 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
             url: correctedUrl,
         };
         setMaterials(prev => [...prev, newLink]);
-        setLinkLabel(');
-        setLinkUrl(');
+        setLinkLabel('');
+        setLinkUrl('');
     };
 
     const handleRemoveMaterial = (id: string) => {
@@ -152,7 +152,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
 }}>
                                                     {isSelected ? 'check_circle' : 'description'}
                                                 </span>
-                                                <span style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)] ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: "1" }}>{entry.fileName}</span>
+                                                <span style={{ color: 'var(--md-sys-color-on-surface)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: "1" }}>{entry.fileName}</span>
                                             </div>
                                         )
                                     })}
@@ -173,8 +173,8 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 } ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[var(--md-sys-color-surfaceContainer)]'}`}
                             >
                                 <input {...getInputProps()} />
-                                <div style={{ backgroundColor: sys.colors.primary/10 , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                    <span style={{ color: sys.colors.3xl , color: "var(--md-sys-color-primary)"}}>upload_file</span>
+                                <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 0.1, width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                                    <span style={{ color: 'var(--md-sys-color-primary)' }}>upload_file</span>
                                 </div>
                                 <p >Trascina qui i file</p>
                                 <p  style={{opacity: "0.7", marginTop: 'var(--md-sys-spacing-4)'}}>oppure clicca per sfogliare</p>
@@ -204,7 +204,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                     </div>
 
                     {/* Right: Selected */}
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)/50 , padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
+                        <div style={{ backgroundColor: 'rgba(247,242,250,0.5)', padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <h3 >Selezionati</h3>
                             <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", fontSize: "0.75rem", fontWeight: "bold"}}>

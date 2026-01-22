@@ -24,7 +24,7 @@ const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>
                     Per evitare la perdita dei dati in caso di problemi al dispositivo (guasti, smarrimento, pulizia cache del browser), è fortemente consigliato attivare il backup su Google Drive.
                 </p>
-                <ul style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color: 'var(--md-sys-color-on-surface-variant)' , gap: 'var(--md-sys-spacing-4)'}}>
+                <ul style={{ color: 'var(--md-sys-color-on-surface-variant)', gap: 'var(--md-sys-spacing-4)'}}>
                     <li>
                         **Bring Your Own Cloud (BYOC):** Il backup avviene sul **tuo account Google Drive personale o istituzionale**. L'app non salva nulla su server di terzi.
                     </li>
@@ -37,7 +37,7 @@ const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
                 </ul>
 
                 <h3  style={{color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-8)'}}>Sincronizzazione Automatica e Manuale</h3>
-                <ul style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color: 'var(--md-sys-color-on-surface-variant)' , gap: 'var(--md-sys-spacing-4)'}}>
+                <ul style={{ color: 'var(--md-sys-color-on-surface-variant)', gap: 'var(--md-sys-spacing-4)'}}>
                     <li>
                         **Manuale:** Puoi eseguire un backup o ripristino in qualsiasi momento tramite i pulsanti "Backup Ora" e "Ripristina".
                     </li>

@@ -1,13 +1,13 @@
 {
-  "compliance": 33.9,
+  "compliance": 34.95,
   "totalComponents": 392,
-  "compliantComponents": 133,
+  "compliantComponents": 137,
   "violations": {
     "className": 39,
-    "tailwind": 732,
-    "hardcoded": 1257,
+    "tailwind": 697,
+    "hardcoded": 1161,
     "useTheme": 63,
-    "legacyStyles": 944
+    "legacyStyles": 873
   },
   "components": [
     {
@@ -429,15 +429,15 @@
     {
       "name": "ClassCompetencyDashboard",
       "path": "src\\components\\ClassCompetencyDashboard.tsx",
-      "compliant": false,
+      "compliant": true,
       "violations": {
         "className": 0,
-        "tailwind": 7,
-        "hardcoded": 10,
+        "tailwind": 0,
+        "hardcoded": 0,
         "useTheme": 0,
-        "legacyStyles": 3
+        "legacyStyles": 0
       },
-      "totalViolations": 20
+      "totalViolations": 0
     },
     {
       "name": "ClassDashboard",
@@ -806,15 +806,15 @@
     {
       "name": "EvaluationModule",
       "path": "src\\components\\EvaluationModule.tsx",
-      "compliant": false,
+      "compliant": true,
       "violations": {
         "className": 0,
-        "tailwind": 4,
-        "hardcoded": 48,
+        "tailwind": 0,
+        "hardcoded": 0,
         "useTheme": 0,
-        "legacyStyles": 10
+        "legacyStyles": 0
       },
-      "totalViolations": 62
+      "totalViolations": 0
     },
     {
       "name": "EventActionPopover",
@@ -962,15 +962,15 @@
     {
       "name": "HelpModal",
       "path": "src\\components\\HelpModal.tsx",
-      "compliant": false,
+      "compliant": true,
       "violations": {
-        "className": 11,
-        "tailwind": 19,
-        "hardcoded": 13,
+        "className": 0,
+        "tailwind": 0,
+        "hardcoded": 0,
         "useTheme": 0,
-        "legacyStyles": 15
+        "legacyStyles": 0
       },
-      "totalViolations": 58
+      "totalViolations": 0
     },
     {
       "name": "Home.integration.test",
@@ -1651,15 +1651,15 @@
     {
       "name": "Settings",
       "path": "src\\components\\Settings.tsx",
-      "compliant": false,
+      "compliant": true,
       "violations": {
         "className": 0,
-        "tailwind": 5,
-        "hardcoded": 41,
+        "tailwind": 0,
+        "hardcoded": 0,
         "useTheme": 0,
-        "legacyStyles": 15
+        "legacyStyles": 0
       },
-      "totalViolations": 61
+      "totalViolations": 0
     },
     {
       "name": "SettingsSection",

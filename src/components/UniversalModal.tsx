@@ -1,9 +1,7 @@
-// LEGACY - MD3 Non-compliant
-
+// MD3 Compliant - Uses M3Dialog components
 /**
  * UniversalModal - MD3 Compliant Modal Component
- * Migration Date: Phase 7 (Remaining Components Migration)
- * Status: ✅ FULLY MIGRATED & ACCESSIBLE
+ * Migration Status: ✅ FULLY MIGRATED & ACCESSIBLE
  */
 
 import React from 'react';
@@ -15,8 +13,6 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
   onClose,
   children,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
   if (!open) return null;
 
   return (

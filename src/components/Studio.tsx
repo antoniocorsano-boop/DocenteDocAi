@@ -188,7 +188,15 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         else if (action.id === 'quiz') setIsTestGeneratorOpen(true);
                         else runTask(action.id);
                     }}
-                    className={`studio-action-card ${action.variant}`}
+                    style={{
+                        // studio-action-card styles
+                        backgroundColor: 'var(--md-sys-color-surface-container)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: 'var(--md-sys-spacing-4)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
+                        cursor: 'pointer'
+                    }}
                     disabled={isLoading || (action.requiresContent && selectedFileIds.length === 0) || (action.id === 'image' && hasApiKey === false)}
                     title={(action.id === 'image' && hasApiKey === false) ? "API Key richiesta per la generazione di immagini." : (action.requiresContent && selectedFileIds.length === 0 ? "Seleziona almeno un documento per abilitare questa azione" : action.description)}
                 >

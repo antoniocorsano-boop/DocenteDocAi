@@ -29,8 +29,30 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
 
     const cardClass = getLevelStyle();
 
+    const cardStyle: React.CSSProperties = {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--md-sys-spacing-8)',
+        backgroundColor:
+            cardClass === 'level-avanzato' ? 'var(--md-sys-color-primary-container)' :
+            cardClass === 'level-intermedio' ? 'var(--md-sys-color-secondary-container)' :
+            cardClass === 'level-base' ? 'var(--md-sys-color-tertiary-container)' :
+            cardClass === 'level-iniziale' ? 'var(--md-sys-color-surface-container-low)' :
+            'var(--md-sys-color-surface)',
+        color:
+            cardClass === 'level-avanzato' ? 'var(--md-sys-color-on-primary-container)' :
+            cardClass === 'level-intermedio' ? 'var(--md-sys-color-on-secondary-container)' :
+            cardClass === 'level-base' ? 'var(--md-sys-color-on-tertiary-container)' :
+            cardClass === 'level-iniziale' ? 'var(--md-sys-color-on-surface-variant)' :
+            'var(--md-sys-color-on-surface)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        boxShadow: 'var(--md-sys-elevation-level-1)',
+        padding: 'var(--md-sys-spacing-8)',
+        marginBottom: 'var(--md-sys-spacing-8)'
+    };
+
     return (
-        <div className={`level-card ${cardClass}`}>
+        <div style={cardStyle}>
             <div >
                 <span  style={{ fontSize: "1.5rem" }}>
                     {cardClass === 'level-avanzato' ? 'workspace_premium' : 

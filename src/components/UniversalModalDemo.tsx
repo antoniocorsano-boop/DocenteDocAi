@@ -18,7 +18,7 @@ const UniversalModalDemo: React.FC = () => {
         title="Esempio di Modale Universale"
         onClose={() => setOpen(false)}
       >
-        <p style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)], color: 'var(--md-sys-color-on-primary)' }}>
+        <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
           Questo è un esempio di contenuto per il nuovo modale accessibile e responsive.<br />
           Premi <b>ESC</b> o clicca fuori dal modale per chiudere.
         </p>

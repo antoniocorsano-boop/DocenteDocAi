@@ -97,6 +97,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
         if (editorRef.current) {
             editorRef.current.focus();
             // Update saved range after modification
+            const sel = window.getSelection();
             if (sel && sel.rangeCount > 0) {
                 savedRange.current = sel.getRangeAt(0).cloneRange();
             }
@@ -211,6 +212,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             insertHtmlAtCursor(safeTable + '<p><br></p>'); 
             
         } catch (e: unknown) {
+            let message = 'Errore AI. Riprova.';
             if (e instanceof Error) {
                 message = "Errore AI: " + e.message;
             }
@@ -238,7 +240,9 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
     const handleCopyForGoogleDocs = useCallback(() => {
          if (!editorRef.current) return;
          
+         const range = document.createRange();
          range.selectNode(editorRef.current);
+         const selection = window.getSelection();
          
          if(selection) {
             selection.removeAllRanges();

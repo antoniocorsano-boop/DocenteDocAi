@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from '../../test-utils';
 import { render, screen, fireEvent } from '@testing-library/react';
 import NKABottomSheet from '../NKABottomSheet';
 import { NKANode } from '../types';
@@ -7,8 +7,8 @@ import { vi } from "vitest";
 describe('NKABottomSheet', () => {
   const nodes: NKANode[] = [
     { id: '1', label: 'Nodo 1', color: '80', elevation: 1, depth: 0.5, shape: "circle", actions: [] },
-    { id: '2', label: 'Nodo 2', color: '90', elevation: 2, depth: 0.7, shape: "pill", actions: [] },
-  '];
+    { id: '2', label: 'Nodo 2', color: '90', elevation: 2, depth: 0.7, shape: "pill", actions: [] }
+  ];
 
   it('renders when open and calls onNodeSelect', () => {
     const onNodeSelect = vi.fn();
@@ -17,8 +17,7 @@ describe('NKABottomSheet', () => {
     );
     expect(screen.getAllByText('Nodo 1').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Nodo 2').length).toBeGreaterThan(0);
-    const node2Elements = screen.getAllByLabelText('Nodo 2');
-    const node2Card = node2Elements.find(el => el.className && (el as HTMLElement).className.toString().includes('nka-node-card')) as HTMLElement;
+    const node2Card = screen.getByLabelText('Nodo 2', { selector: '[aria-describedby*="nka-node-depth-"]' });
     expect(node2Card).toBeDefined();
     fireEvent.click(node2Card); // Click second node card
     expect(onNodeSelect).toHaveBeenCalled();

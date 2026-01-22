@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Uses CSS custom properties for theming
 import React, { useState, useMemo } from 'react';
 import { Lezione, Slot, TimetableSettings } from '../types';
 import TimetableCell from './TimetableCell';
@@ -7,7 +7,7 @@ import Guidance from './Guidance';
 import { TabGroup, M3IconButton, M3Button, M3Typography } from './ui';
 // MD3 Pure: Migrated to inline styles using MD3 tokens for colors, spacing, typography, and motion
 // All timetable-* classes removed in favor of token-based styling
-// Migration Date: Phase 7 (Remaining Components Migration) - useTheme compliance
+// Migration Status: ✅ MD3 Compliant (uses CSS custom properties)
 
 interface TimetableProps {
     slots: Record<string, Slot>;
@@ -21,8 +21,6 @@ interface TimetableProps {
 }
 
 export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons, settings, onEditSlot, onShowSlotActions, showGuidanceTips }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useTheme();
   const daysToShow = ['Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
   const todayIndex = (new Date().getDay() + 6) % 7; 
 
@@ -262,6 +260,9 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                             fontWeight: 500}}>{time}</M3Typography>
                                     </div>
                                     {visibleDays.map((day, dayIdx) => {
+                                        const slotKey = `${day}-${time}`;
+                                        const currentSlot = slots[slotKey];
+                                        const lesson = currentSlot?.lezioneId ? lessons[currentSlot.lezioneId] : undefined;
                                         return (
                                             <div 
                                                 key={slotKey} 
@@ -278,7 +279,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                                 onClick={() => handleCellClick(day, time)}
                                             >
                                                 <TimetableCell 
-                                                    slot={slot || { giorno: day, ora: time }} 
+                                                    slot={currentSlot || { giorno: day, ora: time }} 
                                                     lesson={lesson}
                                                     onClick={() => handleCellClick(day, time)}
                                                 />

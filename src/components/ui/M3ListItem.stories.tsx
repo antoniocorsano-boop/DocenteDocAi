@@ -14,7 +14,7 @@ const meta = {
     },
     headlineSize: {
       control: 'select',
-      options: ['small', 'medium', 'large],
+      options: ['small', 'medium', 'large'],
       description: 'Size variant for headline',
     },
     supportingText: {

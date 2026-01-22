@@ -102,7 +102,15 @@ export class SPAStateHelper {
       hasText: /scheduleOrario|Orario|Pianifica|progetta|Progetta|Design|classi|Classi|Students|settings|Impostazioni/i
     });
 
-    await expect(navButtons.first()).toBeVisible({ timeout });
+    try {
+      await expect(navButtons.first()).toBeVisible({ timeout });
+    } catch (e) {
+      await this.page.screenshot({ path: `test-results/verifyLoggedInState-fail.png`, fullPage: true });
+      const bodyText = await this.page.evaluate(() => document.body.innerText);
+      // eslint-disable-next-line no-console
+      console.error('verifyLoggedInState: navButtons not visible. Body text:', bodyText);
+      throw e;
+    }
 
     // Verifica che non ci sia onboarding (opzionale, potrebbe non esserci)
     const onboarding = this.page.locator('[data-testid="onboarding"], .onboarding');

@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { useUIStore } from '../stores/useUIStore';
 import { M3Typography } from './ui';
-const SNACKBAR_COLORS = (layers: any) => ({
+const SNACKBAR_COLORS = () => ({
   success: {
     bg: 'var(--md-sys-color-primary)',
     color: 'var(--md-sys-color-on-primary)'
@@ -43,7 +43,8 @@ const SNACKBAR_COLORS = (layers: any) => ({
  * - Maintained all functionality and accessibility features
  */
 const Snackbar: React.FC = () => {
-  const { sys: { color: { primary } } } = layers;
+  // MD3 Token mapping - no useTheme() dependency
+  const primary = 'var(--md-sys-color-primary)';
   const [isFocused, setIsFocused] = useState(false);
   const { toast, clearToast } = useUIStore(state => ({
     toast: state.modals.toast,
@@ -51,7 +52,7 @@ const Snackbar: React.FC = () => {
   }));
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const snackbarColors = SNACKBAR_COLORS(layers);
+  // Removed unused variable snackbarColors
 
   const handleClose = () => {
     if (timeoutRef.current) {

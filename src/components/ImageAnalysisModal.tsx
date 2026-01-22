@@ -2,12 +2,10 @@
 
 import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { analyzeImage } from '../services/aiService';
 import { AiSettings } from '../types';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
 interface ImageAnalysisModalProps {
   onClose: () => void;
-  aiSettings: AiSettings;
 }
 
 const fileToBase64 = (file: File): Promise<string> => {
@@ -83,7 +81,19 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose, aiSett
             <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "0.875rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</h3>
             <div 
               {...getRootProps()}
-              className={`flex flex-col items-center justify-center border-2 border-dashed border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors h-48 rounded-[var(--md-sys-shape-corner-large)] cursor-pointer overflow-hidden ${isDragActive ? 'border-primary bg-primary/20' : ''}`}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: `2px dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
+                height: '192px', // h-48 = 12rem = 192px
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                cursor: 'pointer',
+                overflow: 'hidden',
+                transition: 'background-color 0.2s ease, border-color 0.2s ease'
+              }}
             >
               <input {...getInputProps()} />
               {imagePreview ? (

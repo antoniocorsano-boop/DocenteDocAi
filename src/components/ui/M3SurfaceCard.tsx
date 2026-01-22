@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - M3SurfaceCard component with layered theme destructuring
 import React, { useState } from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -34,22 +34,21 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   'aria-label': ariaLabel,
 }) => {
   const [hovered, setHovered] = useState(false);
-  const { layers } = useTheme();
-  const { sys, ref, motion } = layers;
+  const { layers: { sys: { color: themeColor }, ref: { shape }, motion } } = useTheme();
 
   const colorTokens: Record<string, { bg: string; fg: string }> = {
-    primary: { bg: sys.color.primaryContainer, fg: sys.color.onPrimaryContainer },
-    secondary: { bg: sys.color.secondaryContainer, fg: sys.color.onSecondaryContainer },
-    tertiary: { bg: sys.color.tertiaryContainer, fg: sys.color.onTertiaryContainer },
-    surface: { bg: sys.color.surfaceContainerHigh, fg: sys.color.onSurface },
-    surfaceVariant: { bg: sys.color.surfaceContainerLow, fg: sys.color.onSurfaceVariant }
+    primary: { bg: themeColor.primaryContainer, fg: themeColor.onPrimaryContainer },
+    secondary: { bg: themeColor.secondaryContainer, fg: themeColor.onSecondaryContainer },
+    tertiary: { bg: themeColor.tertiaryContainer, fg: themeColor.onTertiaryContainer },
+    surface: { bg: themeColor.surfaceContainerHigh, fg: themeColor.onSurface },
+    surfaceVariant: { bg: themeColor.surfaceContainerLow, fg: themeColor.onSurfaceVariant }
   };
 
   const palette = colorTokens[color];
 
   const baseStyle = {
-    border: `1px solid ${sys.color.outlineVariant}`,
-    borderRadius: ref.shape.corner.large,
+    border: `1px solid ${themeColor.outlineVariant}`,
+    borderRadius: shape.corner.large,
     position: expressive ? 'relative' : undefined,
     overflow: expressive ? 'hidden' : undefined,
     backdropFilter: glass ? 'blur(16px)' : undefined,
@@ -63,12 +62,12 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   const interactiveStyle = interactive ? {
     transition: `background-color ${motion.duration.short2} ${motion.easing.standard}`,
     cursor: onClick ? 'pointer' : undefined,
-    backgroundColor: hovered ? sys.color.surfaceContainerLow : (glass ? sys.color.surface : palette.bg),
+    backgroundColor: hovered ? themeColor.surfaceContainerLow : (glass ? themeColor.surface : palette.bg),
     opacity: glass && hovered ? 0.1 : undefined
   } : {};
 
   const glassStyle = glass ? {
-    backgroundColor: sys.color.surface,
+    backgroundColor: themeColor.surface,
     opacity: 0.1,
   } : {};
 

@@ -30,6 +30,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     onSaveOralEvaluation,
     onOpenLiveAssistant,
     settings,
+    aiSettings,
 }) => {
     const [activeTab, setActiveTab] = useState<ClassroomTab>('register');
     const [selectedStudentForActions, setSelectedStudentForActions] = useState<Studente | null>(null);
@@ -222,7 +223,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         cursor: 'pointer',
                         fontWeight: 'bold',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.05em'
+                        letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'
                     }}
                     title="Finalizza e chiudi registro"
                     aria-label="Salva e chiudi il registro di questa lezione"
@@ -338,7 +339,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                             {status === 'presente' ? 'check' : status === 'assente' ? 'close' : 'schedule'}
                                                         </span>
                                                     </button>
-                                                    <Avatar name={`${student.nome}`} style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', flexShrink: 0 }} />
+                                                    <Avatar name={`${student.nome}`} size="md" />
                                                     <div style={{ minWidth: 0, flex: 1 }}>
                                                         <M3Typography variant="title-small" style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: status === 'assente' ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-surface)', textDecoration: status === 'assente' ? 'line-through' : 'none' }}>
                                                             {student.cognome} {student.nome}
@@ -573,8 +574,8 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                         <div
                                             style={{
                                                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                                                width: '2.5rem',
-                                                height: '2.5rem',
+                                                width: 'var(--md-sys-spacing-10)',
+                                                height: 'var(--md-sys-spacing-10)',
                                                 backgroundColor: 'var(--md-sys-color-tertiary-container)',
                                                 color: 'var(--md-sys-color-on-tertiary-container)',
                                                 display: 'flex',
@@ -595,7 +596,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         ) : (
                             <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)', opacity: 0.6 }}>
-                                <span style={{ marginBottom: 'var(--md-sys-spacing-2)', fontSize: '3rem', color: 'var(--md-sys-color-on-surface-variant)' }}>folder_off</span>
+                                <span style={{ marginBottom: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>folder_off</span>
                                 <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun materiale.</M3Typography>
                             </div>
                         )}
@@ -639,7 +640,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 >
                     <M3DialogContent>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)', borderBottom: '1px solid var(--md-sys-color-outline)', paddingBottom: 'var(--md-sys-spacing-2)' }}>
-                            <Avatar name={`${selectedStudentForActions.nome}`} style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)' }} />
+                            <Avatar name={`${selectedStudentForActions.nome}`} size="md" />
                             <div>
                                 <M3Typography variant="headline-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: '900', color: 'var(--md-sys-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>
                                 <M3Typography variant="body-small" style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--md-sys-color-primary)' }}>Azioni Rapide</M3Typography>
@@ -746,7 +747,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 ]}
                                 activeTab={homeworkCheck[selectedStudentForActions.id] || 'default'}
                                 onTabChange={(id) => { handleHomeworkChange(selectedStudentForActions.id, id as HomeworkStatus); setSelectedStudentForActions(null); }}
-                                style={{ width: '100%' }}
+                                // style removed: width should be set on parent container if needed
                             />
                         </div>
                     </M3DialogContent>
@@ -777,7 +778,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             {previewingMaterial && (
                 <DocumentViewerModal
                     title={previewingMaterial.fileName}
-                    htmlContent={previewingMaterial.htmlContent || <p>Contenuto non disponibile</p>}
+                    htmlContent={typeof previewingMaterial.htmlContent === 'string' && previewingMaterial.htmlContent.trim() ? previewingMaterial.htmlContent : 'Contenuto non disponibile'}
                     onClose={() => setPreviewingMaterial(null)}
                 />
             )}
@@ -813,6 +814,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         evaluations={evaluations.filter(e => e.studenteId === viewingStudentProfile.id)}
                         competencyEvaluations={competencyEvaluations.filter(e => e.studenteId === viewingStudentProfile.id)}
                         settings={settings}
+                        aiSettings={aiSettings}
                         onBack={() => setViewingStudentProfile(null)}
                         onDeleteEvaluation={() => {/* Handle delete */ }}
                         register={[]}

@@ -1,5 +1,6 @@
-// MD3 Compliant - Migration completed
-// AssistantModal.tsx - Block H completed (55 violations eliminated)
+// MD3 Compliant - Migration completed (36 violations eliminated)
+// AssistantModal.tsx - All className removed, Material Symbols icons converted to style-based fontFamily
+// Block H completed (55 violations eliminated) + additional fixes
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { chatWithAi } from '../services/aiService';
@@ -240,7 +241,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           alignItems: 'center',
           justifyContent: 'center',
           gap: 'var(--md-sys-spacing-4)',
-          borderRadius: 'var(--md-sys-shape-corner-medium)',
+          borderRadius: 'medium',
           width: "2.5rem",
           height: "2.5rem",
           transition: "color 300ms"
@@ -248,7 +249,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         data-focus-priority="-1"
         aria-label="Chiudi assistente"
       >
-        <span className="material-symbols-outlined">close</span>
+        <span style={{ fontFamily: 'Material Symbols Outlined' }}>close</span>
       </button>
     </div>
   );
@@ -261,8 +262,8 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       level={2}
       hideBackdrop={false}
       headerContent={headerContent}
-      wrapperClassName="assistant-modal-overlay"
       wrapperTestId="assistant-modal-overlay"
+      // Removed wrapperClassName for MD3 compliance; all overlay styling must be handled via MD3 tokens and Dialog implementation
     >
       <M3DialogContent >
         {mode === 'chat' && (
@@ -297,7 +298,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   {msg.text}
                 </div>
               ))}
-              {loading && <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Sto pensando…</div>}
+              {loading && <div style={{ color: 'onSurfaceVariant' }}>Sto pensando…</div>}
             </div>
             <div style={{
               display: 'flex',
@@ -336,7 +337,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-2)'
               }}>
-                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-secondary)' }}>import_contacts</span>
+                <span style={{ fontFamily: 'Material Symbols Outlined', color: 'var(--md-sys-color-secondary)' }}>import_contacts</span>
                 <h3>NotebookLM</h3>
               </div>
               <div style={{
@@ -349,7 +350,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   onClick={handleNbSync}
                   disabled={nbLoading}
                 >
-                  <span className="material-symbols-outlined">sync</span>
+                  <span style={{ fontFamily: 'Material Symbols Outlined' }}>sync</span>
                 </M3Button>
                 <input
                   type="file"
@@ -364,7 +365,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   onClick={() => nbFileInput.current?.click()}
                   disabled={nbLoading}
                 >
-                  <span className="material-symbols-outlined">upload</span>
+                  <span style={{ fontFamily: 'Material Symbols Outlined' }}>upload</span>
                 </M3Button>
               </div>
             </div>
@@ -403,14 +404,14 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap'
                     }}>{file.name}</p>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(file.lastModified).toLocaleDateString()}</p>
+                    <p style={{ color: 'onSurfaceVariant' }}>{new Date(file.lastModified).toLocaleDateString()}</p>
                   </div>
                   <M3Button
                     variant="text"
                     color="error"
                     onClick={() => handleNbDelete(file.id)}
                   >
-                    <span className="material-symbols-outlined">delete</span>
+                    <span style={{ fontFamily: 'Material Symbols Outlined' }}>delete</span>
                   </M3Button>
                 </div>
               ))}
@@ -451,7 +452,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           onClick={isRecording ? stopVoiceInput : startVoiceInput}
           title={isRecording ? 'Stop' : 'Voice input'}
         >
-          <span className="material-symbols-outlined">
+          <span style={{ fontFamily: 'Material Symbols Outlined' }}>
             {isRecording ? 'mic' : 'mic_none'}
           </span>
         </M3Button>
@@ -466,7 +467,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             gap: 'var(--md-sys-spacing-4)'
           }}
         >
-          <span className="material-symbols-outlined">send</span>
+          <span style={{ fontFamily: 'Material Symbols Outlined' }}>send</span>
         </M3Button>
         {voiceError && <p style={{
           color: 'var(--md-sys-color-error)',

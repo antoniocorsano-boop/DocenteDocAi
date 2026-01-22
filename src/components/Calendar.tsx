@@ -134,6 +134,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
         
         const dates: Date[] = [];
         for (let i = 0; i < 7; i++) {
+            const d = new Date(startOfWeek);
             d.setDate(startOfWeek.getDate() + i);
             dates.push(d);
         }
@@ -238,7 +239,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                         <div 
                             key={i} 
                             style={{
-                                minHeight: '100px',
+                                minHeight: 'var(--md-sys-spacing-25)',
                                 padding: 'var(--md-sys-spacing-2)',
                                 borderRight: '1px solid var(--md-sys-color-outline-variant)',
                                 borderBottom: '1px solid var(--md-sys-color-outline-variant)',
@@ -271,8 +272,8 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                width: '28px',
-                                height: '28px',
+                                width: 'var(--md-sys-spacing-7)',
+                                height: 'var(--md-sys-spacing-7)',
                                 fontSize: 'var(--typography-body-medium-fontSize)',
                                 fontWeight: isToday ? 700 : 500,
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
@@ -286,7 +287,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                     <div 
                                         key={ev.id || idx} 
                                         style={{
-                                            padding: '2px var(--md-sys-spacing-2)',
+                                            padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
                                             fontSize: 'var(--md-sys-typescale-body-small-size)',
                                             fontWeight: 500,
                                             borderRadius: 'var(--md-sys-shape-corner-extra-small)',
@@ -339,7 +340,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 fontWeight: 700,
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 textTransform: 'uppercase',
-                                letterSpacing: '0.5px',
+                                letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.5px)',
                                 marginBottom: 'var(--md-sys-spacing-1)'
                             }}>
                                 {DAYS_SHORT[i]}
@@ -353,8 +354,8 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                width: '28px',
-                                height: '28px'
+                                width: 'var(--md-sys-spacing-7)',
+                                height: 'var(--md-sys-spacing-7)'
                             }}>
                                 {date.getDate()}
                             </div>
@@ -370,7 +371,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                         </div>
                         <div >
                             {weekDates.map((date, dayIndex) => {
-                                const dayEvents = events.filter(e => {
+                                const dayEvents = eventi.filter(e => {
                                     const eventDate = new Date(e.data);
                                     return eventDate.toDateString() === date.toDateString() &&
                                            e.oraInizio &&
@@ -383,7 +384,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                             <div 
                                                 key={ev.id || idx} 
                                                 style={{
-                                                    padding: '2px var(--md-sys-spacing-2)',
+                                                    padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
                                                     fontSize: 'var(--md-sys-typescale-body-small-size)',
                                                     fontWeight: 500,
                                                     borderRadius: 'var(--md-sys-shape-corner-extra-small)',

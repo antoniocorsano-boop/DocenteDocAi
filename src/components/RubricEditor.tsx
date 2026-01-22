@@ -99,7 +99,19 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                 checked={rubrica.criteri.some(c => c.competenzaId === comp.id)}
                                                 onChange={() => handleCompetenzaToggle(comp)}
                                             />
-                                            <label htmlFor={`comp-check-${comp.id}`} className={`chip w-full justify-start !h-12 !rounded-[var(--md-sys-shape-corner-large)] ${rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'chip-selected' : ''}`}>
+                                            <label htmlFor={`comp-check-${comp.id}`} style={{
+                                                width: '100%',
+                                                justifyContent: 'flex-start',
+                                                height: '48px', // 12 * 4px
+                                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                gap: 'var(--md-sys-spacing-2)',
+                                                backgroundColor: rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
+                                                color: rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                                                border: `1px solid ${rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`
+                                            }}>
                                                 {rubrica.criteri.some(c => c.competenzaId === comp.id) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "bold", fontSize: "0.75rem" }}>{comp.nome}</span>
                                             </label>

@@ -188,7 +188,26 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
         return (
             <div >
                 <div >
-                    <div className={`operations-center-process-icon-large operations-center-process-icon-large.${selectedProcess.variant}`}>
+                    <div style={{
+                        width: '80px',
+                        height: '80px',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: selectedProcess.variant === 'primary' ? 'var(--md-sys-color-primary-container)' :
+                                       selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-secondary-container)' :
+                                       selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-tertiary-container)' :
+                                       'var(--md-sys-color-surface-container-high)',
+                        color: selectedProcess.variant === 'primary' ? 'var(--md-sys-color-on-primary-container)' :
+                              selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-on-secondary-container)' :
+                              selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-on-tertiary-container)' :
+                              'var(--md-sys-color-on-surface)',
+                        fontSize: '40px',
+                        margin: '0 auto var(--md-sys-spacing-4) auto',
+                        boxShadow: 'var(--md-sys-elevation-level2)',
+                        transition: 'all 0.3s ease'
+                    }}>
                         <span >{selectedProcess.icon}</span>
                     </div>
                     <h2 >{selectedProcess.title}</h2>

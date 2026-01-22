@@ -20,7 +20,7 @@ interface CorpusChatProps {
 
 const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, knowledgeBase, setCorpora }) => {
   const [messages, setMessages] = useState<ChatMessage[]>(corpus.chatHistory || []);
-    const [chatInput, setChatInput] = useState('); // FIX: Define chatInput
+    const [chatInput, setChatInput] = useState(''); // FIX: Define chatInput
     const [isLoading, setIsLoading] = useState(false); // FIX: Consistent naming with isLoading
     
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -52,7 +52,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
         const userMessage: ChatMessage = { role: 'user', text };
         const updatedHistory = [...messages, userMessage]; // FIX: Define updatedHistory
         setMessages(updatedHistory);
-        setChatInput(');
+        setChatInput('');
         setIsLoading(true);
 
         try {
@@ -82,22 +82,12 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
     }
 
     return (
-        <div style={{display: 'flex',
-            flexDirection: 'column',
-            height: '100vh',
-            backgroundColor: 'var(--md-sys-color-surface)',
-            margin: '0 auto'}}>
-            <div style={{display: 'flex',
-                alignItems: 'center',
-                padding: 'var(--md-sys-spacing-4)',
-                backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                borderBottom: `1px solid ${var(--md-sys-color-outline)Variant}`,
-                gap: 'var(--md-sys-spacing-3)'}}>
-                <M3IconButton 
-                    icon="arrow_back" 
-                    onClick={onClose} 
-                    ariaLabel="Torna alla lista"
-                />
+        <div style={{display: 'flex'}}>
+            <M3IconButton 
+                icon="arrow_back" 
+                onClick={onClose} 
+                ariaLabel="Torna alla lista"
+            />
                 <div style={{display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-3)',
@@ -154,7 +144,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             padding: 'var(--md-sys-spacing-3)',
                             borderRadius: `var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small)`,
                             backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                            border: `1px solid ${var(--md-sys-color-outline)Variant}`}}>
+                            border: '1px solid var(--md-sys-color-outline-variant)'}}>
                             <div style={{display: 'flex',
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-2)'}}>
@@ -191,7 +181,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
             </div>
 
             <div style={{padding: 'var(--md-sys-spacing-4)',
-                borderTop: `1px solid ${var(--md-sys-color-outline)Variant}`,
+                borderTop: '1px solid var(--md-sys-color-outline-variant)',
                 backgroundColor: 'var(--md-sys-color-surface-container-low)'}}>
                 <div style={{display: 'flex',
                     gap: 'var(--md-sys-spacing-2)',
@@ -203,7 +193,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             gap: 'var(--md-sys-spacing-2)',
                             padding: 'var(--md-sys-spacing-3)',
                             backgroundColor: 'var(--md-sys-color-secondary-container)',
-                            border: `1px solid ${var(--md-sys-color-outline)Variant}`,
+                            border: '1px solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
                             transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,

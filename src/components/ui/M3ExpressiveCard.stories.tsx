@@ -22,7 +22,7 @@ const meta = {
     },
     color: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant],
+      options: ['primary', 'secondary', 'tertiary', 'surface', 'surfaceVariant'],
       description: 'Color variant',
     },
     onClick: {

@@ -5,7 +5,6 @@
 
 import React, { useState } from 'react';
 import M3Typography from './M3Typography';
-import { useTheme } from '../../theme/theme';
 
 interface Tab {
     id: string;
@@ -35,15 +34,24 @@ const TabGroup: React.FC<TabGroupProps> = ({
     variant = 'primary',
     isIconOnly = false
 }) => {
-    const { layers } = useTheme();
-    const {
-        sys: { color: { primary, onPrimary, secondary, onSecondary, tertiary, onTertiary, surfaceContainerLow, surfaceContainerHigh, onSurfaceVariant, error, onError, outlineVariant } },
-        ref: { spacing, shape: { corner: { full } }, typescale: { labelSmall } },
-        motion: { duration: { short4 }, easing: { standard } },
-        elevation: { level1 }
-    } = layers;
     const [hoveredTabs, setHoveredTabs] = useState<Record<string, boolean>>({});
     const [focusedTabs, setFocusedTabs] = useState<Record<string, boolean>>({});
+
+    // Define variant colors based on the variant prop - MD3 tokens
+    const variantColors = {
+        primary: {
+            activeBg: 'var(--md-sys-color-primary)',
+            activeText: 'var(--md-sys-color-on-primary)'
+        },
+        secondary: {
+            activeBg: 'var(--md-sys-color-secondary)',
+            activeText: 'var(--md-sys-color-on-secondary)'
+        },
+        tertiary: {
+            activeBg: 'var(--md-sys-color-tertiary)',
+            activeText: 'var(--md-sys-color-on-tertiary)'
+        }
+    }[variant];
 
     const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
         let newIndex = -1;
@@ -70,12 +78,14 @@ const TabGroup: React.FC<TabGroupProps> = ({
         <div
             role="tablist"
             aria-label="Sezioni di navigazione"
-            style={{display: 'flex',
-                backgroundColor: surfaceContainerLow,
-                padding: spacing['1'],
-                borderRadius: full,
-                border: `1px solid ${outlineVariant}`,
-                gap: spacing['1']}}
+            style={{
+                display: 'flex',
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                padding: 'var(--md-sys-spacing-1)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
+                border: `1px solid var(--md-sys-color-outline-variant)`,
+                gap: 'var(--md-sys-spacing-1)'
+            }}
         >
             {tabs.map((tab, index) => {
                 const isActive = activeTab === tab.id;
@@ -94,27 +104,28 @@ const TabGroup: React.FC<TabGroupProps> = ({
                         tabIndex={isActive ? 0 : -1}
                         style={{
                             position: 'relative',
-                            padding: `${spacing['2']} ${spacing['4']}`,
-                            borderRadius: full,
+                            padding: `${'var(--md-sys-spacing-2)'} ${'var(--md-sys-spacing-4)'}`,
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
                             border: 'none',
                             backgroundColor: isActive
                                 ? variantColors.activeBg
-                                : (isHovered && !isActive ? surfaceContainerHigh : 'transparent'),
+                                : (isHovered && !isActive ? 'var(--md-sys-color-surface-container-high)' : 'transparent'),
                             color: isActive
                                 ? variantColors.activeText
-                                : onSurfaceVariant,
-                            fontSize: labelSmall.fontSize,
-                            fontWeight: labelSmall.fontWeight,
+                                : 'var(--md-sys-color-on-surface-variant)',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.5px',
                             cursor: 'pointer',
-                            transition: `all ${short4} ${standard}`,
-                            boxShadow: isActive ? level1 : 'none',
+                            transition: `all ${'var(--md-sys-motion-duration-short4)'} ${'var(--md-sys-motion-easing-standard)'}`,
+                            boxShadow: isActive ? 'var(--md-sys-elevation-level1)' : 'none',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: spacing['2'],
-                            outline: isFocused ? `2px solid ${primary}` : 'none',
-                            outlineOffset: isFocused ? layers.ref.spacing['2'] : '0'}}
+                            gap: 'var(--md-sys-spacing-2)',
+                            outline: isFocused ? '2px solid var(--md-sys-color-primary)' : 'none',
+                            outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'
+                        }}
                         onMouseEnter={() => setHoveredTabs(prev => ({ ...prev, [tab.id]: true }))}
                         onMouseLeave={() => setHoveredTabs(prev => ({ ...prev, [tab.id]: false }))}
                         onFocus={() => setFocusedTabs(prev => ({ ...prev, [tab.id]: true }))}
@@ -122,8 +133,10 @@ const TabGroup: React.FC<TabGroupProps> = ({
                     >
                         {tab.icon && (
                             <span
-                                style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: labelSmall.fontSize}}
+                                style={{
+                                    fontFamily: 'Material Symbols Outlined',
+                                    fontSize: 'var(--md-sys-typescale-label-small-font-size)'
+                                }}
                                 aria-hidden="true"
                             >
                                 {tab.icon}
@@ -146,14 +159,14 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    minWidth: spacing['4'],
-                                    height: spacing['4'],
-                                    padding: `0 ${spacing['1']}`,
-                                    borderRadius: full,
-                                    backgroundColor: error,
-                                    color: onError,
-                                    fontSize: labelSmall.fontSize,
-                                    fontWeight: labelSmall.fontWeight,
+                                    minWidth: 'var(--md-sys-spacing-4)',
+                                    height: 'var(--md-sys-spacing-4)',
+                                    padding: `0 ${'var(--md-sys-spacing-1)'}`,
+                                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                                    backgroundColor: 'var(--md-sys-color-error)',
+                                    color: 'var(--md-sys-color-on-error)',
+                                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                                    fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
                                     lineHeight: 1
                                 }}
                                 aria-label={`${tab.badge} elementi`}
@@ -169,9 +182,9 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                     left: '50%',
                                     transform: 'translateX(-50%)',
                                     width: '60%',
-                                    height: layers.ref.spacing['2'],
+                                    height: 'var(--md-sys-spacing-2)',
                                     backgroundColor: variantColors.activeBg,
-                                    borderRadius: layers.ref.spacing['2']
+                                    borderRadius: 'var(--md-sys-spacing-2)'
                                 }}
                                 aria-hidden="true"
                             />

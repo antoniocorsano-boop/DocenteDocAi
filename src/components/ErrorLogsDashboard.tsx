@@ -7,8 +7,8 @@ interface ErrorLogsDashboardProps {
 
 const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
   const [logs, setLogs] = useState<ErrorLog[]>([]);
-  const [filterType, setFilterType] = useState<ErrorLog['type] | 'all'>('all');
-  const [filterSeverity, setFilterSeverity] = useState<ErrorLog['severity] | 'all'>('all');
+  const [filterType, setFilterType] = useState<ErrorLog['type'] | 'all'>('all');
+  const [filterSeverity, setFilterSeverity] = useState<ErrorLog['severity'] | 'all'>('all');
   const [stats, setStats] = useState(errorLogger.getErrorStats());
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
     }
   };
 
-  const getSeverityColor = (severity: ErrorLog['severity]) => {
+  const getSeverityColor = (severity: ErrorLog['severity']) => {
     switch (severity) {
       case 'error':
         return 'text-error bg-error/10';
@@ -53,8 +53,8 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
     }
   };
 
-  const getTypeIcon = (type: ErrorLog['type]) => {
-    const icons: Record<ErrorLog['type], string> = {
+  const getTypeIcon = (type: ErrorLog['type']) => {
+    const icons: Record<ErrorLog['type'], string> = {
       navigation: 'directions',
       ai: 'psychology',
       analytics: 'analytics',
@@ -70,7 +70,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
         <h1 >Error Logs Dashboard</h1>
         {onClose && (
-          <button onClick={onClose} style={{ color: sys.colors.[var(--md-sys-typescale-headline-small)] ,  cursor: "pointer" }}>
+          <button onClick={onClose} style={{ color: 'var(--md-sys-color-on-surface)', cursor: "pointer" }}>
             close
           </button>
         )}
@@ -84,15 +84,15 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
         </div>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Errors</div>
-          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-error)"}}>{stats.bySeverity['error] || 0}</div>
+          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-error)"}}>{stats.bySeverity['error'] || 0}</div>
         </div>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Warnings</div>
-          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-warning)"}}>{stats.bySeverity['warning] || 0}</div>
+          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-warning)"}}>{stats.bySeverity['warning'] || 0}</div>
         </div>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Infos</div>
-          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{stats.bySeverity['info] || 0}</div>
+          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{stats.bySeverity['info'] || 0}</div>
         </div>
       </div>
 
@@ -103,10 +103,10 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           {Object.entries(stats.byType).map(([type, count]) => (
             <div key={type} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)'}}>
               <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                <span >{getTypeIcon(type as ErrorLog['type])}</span>
+                <span >{getTypeIcon(type as ErrorLog['type'])}</span>
                 <span style={{ textTransform: "capitalize" }}>{type}</span>
               </div>
-              <div style={{ color: sys.colors.[var(--md-sys-typescale-headline-small)] , fontWeight: "bold", color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)'}}>{count}</div>
+              <div style={{ fontWeight: "bold", color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)'}}>{count}</div>
             </div>
           ))}
         </div>
@@ -118,7 +118,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           <label style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Tipo:</label>
           <select
             value={filterType}
-            onChange={(e) => setFilterType((e.target as HTMLSelectElement).value as ErrorLog['type] | 'all')}
+            onChange={(e) => setFilterType((e.target as HTMLSelectElement).value as ErrorLog['type'] | 'all')}
              style={{borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
           >
             <option value="all">Tutti</option>
@@ -135,7 +135,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           <label style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Severity:</label>
           <select
             value={filterSeverity}
-            onChange={(e) => setFilterSeverity((e.target as HTMLSelectElement).value as ErrorLog['severity] | 'all')}
+            onChange={(e) => setFilterSeverity((e.target as HTMLSelectElement).value as ErrorLog['severity'] | 'all')}
              style={{borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
           >
             <option value="all">Tutti</option>
@@ -191,7 +191,16 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                       </span>
                     </td>
                     <td style={{padding: 'var(--md-sys-spacing-5)'}}>
-                      <span className={`inline-flex items-center gap-4 px-4 py-1 rounded m3-label-small font-medium capitalize ${getSeverityColor(log.severity)}`}>
+                      <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 'var(--md-sys-spacing-4)',
+                        padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-1)',
+                        borderRadius: 'var(--md-sys-shape-corner-small)',
+                        fontWeight: '500',
+                        textTransform: 'capitalize',
+                        backgroundColor: getSeverityColor(log.severity)
+                      }}>
                         {log.severity}
                       </span>
                     </td>

@@ -52,6 +52,8 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     const [editingUnified, setEditingUnified] = useState<{ student: Studente; prova: Prova } | null>(null);
     const [pendingProve, setPendingProve] = useState<PendingProva[]>([]);
 
+    // MD3 Theme tokens
+
     const { disciplines } = settings;
 
     const filteredStudents = useMemo(() => {
@@ -169,67 +171,67 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     const renderEvaluationGrid = () => (
         <div
             style={{
-                border: '1px solid var(--md-sys-color-outline)',
-                borderRadius: 'var(--md-sys-shape-corner-medium)'
+                border: '1px solid colors.outline',
+                borderRadius: 'shape.corner.medium'
             }}
         >
             <table>
                 <thead>
-                    <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+                    <tr style={{ backgroundColor: 'colors.surfaceContainerLow' }}>
                         <th
                             style={{
-                                backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                borderBottom: '1px solid var(--md-sys-color-outline)',
-                                borderRight: '1px solid var(--md-sys-color-outline)',
-                                padding: 'var(--md-sys-spacing-4)'
+                                backgroundColor: 'colors.surfaceContainerLow',
+                                borderBottom: '1px solid colors.outline',
+                                borderRight: '1px solid colors.outline',
+                                padding: 'spacing[4]'
                             }}
                         >
-                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)' }}>Studente</M3Typography>
+                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'colors.primary' }}>Studente</M3Typography>
                         </th>
                         <th
                             style={{
                                 textAlign: 'center',
-                                width: 'var(--md-sys-spacing-16)',
-                                borderBottom: '1px solid var(--md-sys-color-outline)',
-                                padding: 'var(--md-sys-spacing-4)'
+                                width: 'spacing[16]',
+                                borderBottom: '1px solid colors.outline',
+                                padding: 'spacing[4]'
                             }}
                         >
-                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)' }}>Media</M3Typography>
+                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'colors.primary' }}>Media</M3Typography>
                         </th>
                         <th
                             style={{
                                 textAlign: 'center',
-                                width: 'var(--md-sys-spacing-16)',
-                                borderBottom: '1px solid var(--md-sys-color-outline)',
-                                padding: 'var(--md-sys-spacing-4)'
+                                width: 'spacing[16]',
+                                borderBottom: '1px solid colors.outline',
+                                padding: 'spacing[4]'
                             }}
                         >
-                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)' }}>Trend</M3Typography>
+                            <M3Typography variant="label-large" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'colors.primary' }}>Trend</M3Typography>
                         </th>
                         {prove.map(p => (
                             <th
                                 key={p.id}
                                 style={{
                                     textAlign: 'center',
-                                    borderBottom: '1px solid var(--md-sys-color-outline)',
-                                    padding: 'var(--md-sys-spacing-6)'
+                                    borderBottom: '1px solid colors.outline',
+                                    padding: 'spacing[6]'
                                 }}
                             >
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
                                     <div
                                         style={{
-                                            backgroundColor: 'var(--md-sys-color-primary-container)',
+                                            backgroundColor: 'colors.primaryContainer',
                                             display: 'flex',
                                             alignItems: 'center',
-                                            gap: 'var(--md-sys-spacing-2)',
-                                            marginBottom: 'var(--md-sys-spacing-1)',
-                                            borderRadius: 'var(--md-sys-shape-corner-small)',
-                                            border: '1px solid var(--md-sys-color-outline)',
-                                            padding: 'var(--md-sys-spacing-1)'
+                                            gap: 'spacing[2]',
+                                            marginBottom: 'spacing[1]',
+                                            borderRadius: 'shape.corner.small',
+                                            border: '1px solid colors.outline',
+                                            padding: 'spacing[1]'
                                         }}
                                     >
-                                        <span style={{ color: 'var(--md-sys-color-on-primary-container)', fontSize: '1.125rem' }}>{getTestTypeIcon(p.tipo)}</span>
-                                        <M3Typography variant="label-small" style={{ fontWeight: '900', color: 'var(--md-sys-color-on-primary-container)' }}>{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</M3Typography>
+                                        <span style={{ color: 'colors.onPrimaryContainer', fontSize: 'typescale.headlineSmall.fontSize' }}>{getTestTypeIcon(p.tipo)}</span>
+                                        <M3Typography variant="label-small" style={{ fontWeight: '900', color: 'colors.onPrimaryContainer' }}>{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</M3Typography>
                                     </div>
                                     <M3Typography
                                         variant="body-small"
@@ -239,8 +241,8 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                             whiteSpace: 'nowrap',
                                             fontWeight: 'bold',
                                             textTransform: 'uppercase',
-                                            letterSpacing: '-0.005em',
-                                            color: 'var(--md-sys-color-on-surface)'
+                                            letterSpacing: 'typescale.bodyLarge.tracking',
+                                            color: 'colors.onSurface'
                                         }}
                                         title={p.titolo}
                                     >
@@ -250,7 +252,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             </th>
                         ))}
                         {prove.length === 0 && (
-                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: 'center', fontWeight: 'normal', borderBottom: '1px solid var(--md-sys-color-outline)', padding: 'var(--md-sys-spacing-4)' }}>
+                            <th style={{ color: 'colors.onSurfaceVariant', textAlign: 'center', fontWeight: 'normal', borderBottom: '1px solid colors.outline', padding: 'spacing[4]' }}>
                                 <M3Typography variant="body-medium">Nessuna prova</M3Typography>
                             </th>
                         )}
@@ -265,50 +267,50 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             <tr key={student.id} style={{ transition: 'color 300ms' }}>
                                 <td
                                     style={{
-                                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                        borderRight: '1px solid var(--md-sys-color-outline)',
-                                        padding: 'var(--md-sys-spacing-4)'
+                                        backgroundColor: 'colors.surfaceContainerLow',
+                                        borderRight: '1px solid colors.outline',
+                                        padding: 'spacing[4]'
                                     }}
                                 >
                                     <div
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
-                                            gap: 'var(--md-sys-spacing-3)',
+                                            gap: 'spacing[3]',
                                             cursor: 'pointer'
                                         }}
                                         onClick={() => setViewingStudent(student)}
                                     >
                                         <Avatar name={`${student.nome} ${student.cognome}`} size="sm" style={{ transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)' }} />
-                                        <M3Typography variant="body-medium" style={{ fontWeight: 'bold', fontSize: '0.875rem', transition: 'color 300ms', color: 'var(--md-sys-color-on-surface)' }}>
+                                        <M3Typography variant="body-medium" style={{ fontWeight: 'bold', fontSize: 'typescale.bodyMedium.fontSize', transition: 'color 300ms', color: 'colors.onSurface' }}>
                                             {student.cognome} {student.nome}
                                         </M3Typography>
                                     </div>
                                 </td>
-                                <td style={{ textAlign: 'center', fontWeight: '900', fontSize: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)' }}>
+                                <td style={{ textAlign: 'center', fontWeight: '900', fontSize: 'spacing[4]', padding: 'spacing[4]' }}>
                                     {performance.grade ? (
                                         <div
                                             style={{
                                                 display: 'inline-flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                width: '2.5rem',
-                                                height: '2.5rem',
-                                                borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                                backgroundColor: parseFloat(performance.grade) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
-                                                color: parseFloat(performance.grade) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)'
+                                                width: '24',
+                                                height: '24',
+                                                borderRadius: 'shape.corner.medium',
+                                                backgroundColor: parseFloat(performance.grade) < 6 ? 'colors.errorContainer' : 'colors.primaryContainer',
+                                                color: parseFloat(performance.grade) < 6 ? 'colors.onErrorContainer' : 'colors.onPrimaryContainer'
                                             }}
                                         >
                                             {performance.grade}
                                         </div>
                                     ) : '-'}
                                 </td>
-                                <td style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)' }}>
+                                <td style={{ textAlign: 'center', padding: 'spacing[4]' }}>
                                     {performance.trend && (
                                         <span
                                             style={{
-                                                fontSize: '1.5rem',
-                                                color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)'
+                                                fontSize: 'typescale.headlineMedium.fontSize',
+                                                color: performance.trend === 'up' ? 'colors.tertiary' : performance.trend === 'down' ? 'colors.error' : 'colors.onSurfaceVariant'
                                             }}
                                         >
                                             {trendIcon}
@@ -328,25 +330,25 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                                 textAlign: 'center',
                                                 cursor: 'pointer',
                                                 transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-                                                padding: 'var(--md-sys-spacing-2)'
+                                                padding: 'spacing[2]'
                                             }}
                                             onClick={() => setEditingUnified({ student, prova: p })}
                                         >
                                             {voteValue ? (
                                                 <div
                                                     style={{
-                                                        width: '2.5rem',
-                                                        height: '2.5rem',
-                                                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                                        width: '24',
+                                                        height: '24',
+                                                        borderRadius: 'shape.corner.medium',
                                                         display: 'flex',
                                                         alignItems: 'center',
                                                         justifyContent: 'center',
                                                         margin: '0 auto',
                                                         fontWeight: 'bold',
-                                                        fontSize: '0.875rem',
-                                                        backgroundColor: isNegative ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-secondary-container)',
-                                                        color: isNegative ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-secondary-container)',
-                                                        boxShadow: 'var(--md-sys-elevation-level1)'
+                                                        fontSize: 'typescale.bodyMedium.fontSize',
+                                                        backgroundColor: isNegative ? 'colors.errorContainer' : 'colors.secondaryContainer',
+                                                        color: isNegative ? 'colors.onErrorContainer' : 'colors.onSecondaryContainer',
+                                                        boxShadow: 'elevation.level1'
                                                     }}
                                                 >
                                                     {voteValue}
@@ -354,28 +356,28 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                             ) : (
                                                 <div
                                                     style={{
-                                                        width: 'var(--md-sys-spacing-4)',
-                                                        height: 'var(--md-sys-spacing-4)',
+                                                        width: 'spacing[4]',
+                                                        height: 'spacing[4]',
                                                         display: 'flex',
                                                         alignItems: 'center',
                                                         justifyContent: 'center',
                                                         margin: '0 auto',
-                                                        borderRadius: 'var(--md-sys-shape-corner-small)',
-                                                        backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                                        border: '1px solid var(--md-sys-color-outline-variant)'
+                                                        borderRadius: 'shape.corner.small',
+                                                        backgroundColor: 'colors.surfaceContainerHighest',
+                                                        border: '1px solid colors.outlineVariant'
                                                     }}
                                                 >
-                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.875rem' }}>add</span>
+                                                    <span style={{ color: 'colors.onSurfaceVariant', fontSize: 'typescale.bodyMedium.fontSize' }}>add</span>
                                                 </div>
                                             )}
                                             {hasCompetencies && (
                                                 <div
                                                     style={{
-                                                        width: '0.5rem',
-                                                        height: '0.5rem',
-                                                        backgroundColor: 'var(--md-sys-color-tertiary)',
-                                                        borderRadius: 'var(--md-sys-shape-corner-small)',
-                                                        margin: 'var(--md-sys-spacing-1) auto 0'
+                                                        width: '16',
+                                                        height: '16',
+                                                        backgroundColor: 'colors.tertiary',
+                                                        borderRadius: 'shape.corner.small',
+                                                        margin: 'spacing[1] auto 0'
                                                     }}
                                                     title="Competenze valutate"
                                                 />
@@ -383,13 +385,13 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                         </td>
                                     );
                                 })}
-                                {prove.length === 0 && <td style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: 'center', padding: 'var(--md-sys-spacing-4)' }}>-</td>}
+                                {prove.length === 0 && <td style={{ color: 'colors.onSurfaceVariant', textAlign: 'center', padding: 'spacing[4]' }}>-</td>}
                             </tr>
                         );
                     })}
                     {filteredStudents.length === 0 && (
                         <tr>
-                            <td colSpan={prove.length + 3} style={{ padding: 'var(--md-sys-spacing-2)', textAlign: 'center' }}>
+                            <td colSpan={prove.length + 3} style={{ padding: 'spacing[2]', textAlign: 'center' }}>
                                 <EmptyState title="Nessuno studente" description="Questa classe non ha studenti." icon="group_off" />
                             </td>
                         </tr>
@@ -400,7 +402,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     );
 
     const renderSummaryView = () => (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-3)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'spacing[3]' }}>
             {filteredStudents.map(student => {
                 const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
                 const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
@@ -411,33 +413,33 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     <div
                         key={student.id}
                         style={{
-                            padding: 'var(--md-sys-spacing-3)',
+                            padding: 'spacing[3]',
                             transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
                             cursor: 'pointer',
-                            borderRadius: 'var(--md-sys-shape-corner-medium)',
-                            backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                            border: '1px solid var(--md-sys-color-outline-variant)'
+                            borderRadius: 'shape.corner.medium',
+                            backgroundColor: 'colors.surfaceContainerLow',
+                            border: '1px solid colors.outlineVariant'
                         }}
                         onClick={() => setViewingStudent(student)}
                     >
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
                             <div style={{ flexGrow: '1', minWidth: '0' }}>
-                                <M3Typography variant="headline-small" style={{ fontWeight: '900', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', letterSpacing: '-0.005em', color: 'var(--md-sys-color-on-surface)' }}>
+                                <M3Typography variant="headline-small" style={{ fontWeight: '900', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', letterSpacing: 'typescale.headlineSmall.tracking', color: 'colors.onSurface' }}>
                                     {student.cognome} {student.nome}
                                 </M3Typography>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-1)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'spacing[2]', marginTop: 'spacing[1]' }}>
                                     <div
                                         style={{
-                                            padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
-                                            borderRadius: 'var(--md-sys-shape-corner-full)',
-                                            fontSize: '0.75rem',
+                                            padding: 'spacing[1] spacing[2]',
+                                            borderRadius: 'shape.corner.full',
+                                            fontSize: 'typescale.bodySmall.fontSize',
                                             fontWeight: '900',
                                             textTransform: 'uppercase',
                                             letterSpacing: '0.1em',
-                                            backgroundColor: isInsufficient ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
-                                            color: isInsufficient ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)',
-                                            border: `1px solid ${isInsufficient ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'}`
+                                            backgroundColor: isInsufficient ? 'colors.errorContainer' : 'colors.primaryContainer',
+                                            color: isInsufficient ? 'colors.onErrorContainer' : 'colors.onPrimaryContainer',
+                                            border: `1px solid ${isInsufficient ? 'colors.error' : 'colors.primary'}`
                                         }}
                                     >
                                         Media: {performance.grade || 'N/D'}
@@ -447,21 +449,21 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                             style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                gap: 'var(--md-sys-spacing-1)',
-                                                fontSize: '0.625rem',
+                                                gap: 'spacing[1]',
+                                                fontSize: 'typescale.labelSmall.fontSize',
                                                 fontWeight: '900',
                                                 textTransform: 'uppercase',
                                                 letterSpacing: '0.1em',
-                                                color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)'
+                                                color: performance.trend === 'up' ? 'colors.tertiary' : performance.trend === 'down' ? 'colors.error' : 'colors.onSurfaceVariant'
                                             }}
                                         >
-                                            <span style={{ fontSize: '0.875rem' }}>{trendIcon}</span>
+                                            <span style={{ fontSize: 'typescale.bodyMedium.fontSize' }}>{trendIcon}</span>
                                             {performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
                                         </div>
                                     )}
                                 </div>
                             </div>
-                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)', transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)', fontSize: '1.5rem' }}>chevron_right</span>
+                            <span style={{ color: 'colors.onSurfaceVariant', transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)', fontSize: 'typescale.headlineMedium.fontSize' }}>chevron_right</span>
                         </div>
                     </div>
                 );
@@ -475,31 +477,31 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     );
 
     const renderRiskView = () => (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-2)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'spacing[2]' }}>
             {atRiskStudents.length > 0 ? atRiskStudents.map(student => {
                 const { grade } = calculatePerformance(student.id, 'Complessivo', evaluations);
                 return (
                     <div
                         key={student.id}
                         style={{
-                            borderLeft: '4px solid var(--md-sys-color-error)',
-                            borderRadius: 'var(--md-sys-shape-corner-medium)',
-                            backgroundColor: 'var(--md-sys-color-surface-container-low)'
+                            borderLeft: '4px solid colors.error',
+                            borderRadius: 'shape.corner.medium',
+                            backgroundColor: 'colors.surfaceContainerLow'
                         }}
                     >
-                        <div style={{ padding: 'var(--md-sys-spacing-2)', opacity: '0.1', transition: 'opacity 300ms' }}>
-                            <span style={{ color: 'var(--md-sys-color-error)', fontSize: '1.5rem' }}>warning</span>
+                        <div style={{ padding: 'spacing[2]', opacity: '0.1', transition: 'opacity 300ms' }}>
+                            <span style={{ color: 'colors.error', fontSize: 'typescale.headlineMedium.fontSize' }}>warning</span>
                         </div>
 
-                        <div style={{ padding: 'var(--md-sys-spacing-3)' }}>
-                            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 'var(--md-sys-spacing-3)' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                        <div style={{ padding: 'spacing[3]' }}>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 'spacing[3]' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'spacing[2]' }}>
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
                                     <div>
-                                        <M3Typography variant="headline-small" style={{ fontWeight: '900', letterSpacing: '-0.005em', color: 'var(--md-sys-color-on-surface)' }}>
+                                        <M3Typography variant="headline-small" style={{ fontWeight: '900', letterSpacing: 'typescale.headlineSmall.tracking', color: 'colors.onSurface' }}>
                                             {student.cognome} {student.nome}
                                         </M3Typography>
-                                        <M3Typography variant="body-small" style={{ fontWeight: '900', textTransform: 'uppercase', opacity: '0.6', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                        <M3Typography variant="body-small" style={{ fontWeight: '900', textTransform: 'uppercase', opacity: '0.6', color: 'colors.onSurfaceVariant' }}>
                                             Classe {student.classe}
                                         </M3Typography>
                                     </div>
@@ -508,39 +510,39 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
 
                             <div
                                 style={{
-                                    backgroundColor: 'var(--md-sys-color-error-container)',
-                                    color: 'var(--md-sys-color-on-error-container)',
-                                    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
-                                    fontSize: '0.75rem',
+                                    backgroundColor: 'colors.errorContainer',
+                                    color: 'colors.onErrorContainer',
+                                    padding: 'spacing[1] spacing[2]',
+                                    fontSize: 'typescale.bodySmall.fontSize',
                                     fontWeight: '900',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.1em',
-                                    borderRadius: 'var(--md-sys-shape-corner-small)',
-                                    border: '1px solid var(--md-sys-color-outline)',
-                                    marginBottom: 'var(--md-sys-spacing-3)',
+                                    borderRadius: 'shape.corner.small',
+                                    border: '1px solid colors.outline',
+                                    marginBottom: 'spacing[3]',
                                     display: 'inline-block'
                                 }}
                             >
                                 Media insufficiente: {grade}
                             </div>
 
-                            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-2)', fontWeight: '500', lineHeight: '1.625' }}>
+                            <M3Typography variant="body-medium" style={{ color: 'colors.onSurfaceVariant', marginBottom: 'spacing[2]', fontWeight: '500', lineHeight: '1.625' }}>
                                 Situazione critica rilevata. È consigliata l&apos;attivazione di misure di recupero personalizzate.
                             </M3Typography>
 
-                            <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
+                            <div style={{ display: 'flex', gap: 'spacing[3]' }}>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); onOpenInclusionPlanEditor(student); }}
                                     style={{
-                                        backgroundColor: 'var(--md-sys-color-error)',
-                                        color: 'var(--md-sys-color-on-error)',
-                                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                                        backgroundColor: 'colors.error',
+                                        color: 'colors.onError',
+                                        borderRadius: 'shape.corner.large',
                                         flexGrow: '1',
                                         fontWeight: '900',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.1em',
                                         transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-                                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                        padding: 'spacing[2] spacing[3]',
                                         border: 'none'
                                     }}
                                 >
@@ -549,14 +551,14 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 <button
                                     onClick={(e) => { e.stopPropagation(); setViewingStudent(student); }}
                                     style={{
-                                        backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                        color: 'var(--md-sys-color-on-surface)',
-                                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                                        backgroundColor: 'colors.surfaceContainerHighest',
+                                        color: 'colors.onSurface',
+                                        borderRadius: 'shape.corner.large',
                                         fontWeight: '900',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.1em',
                                         transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-                                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                        padding: 'spacing[2] spacing[3]',
                                         border: 'none'
                                     }}
                                 >
@@ -567,10 +569,10 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     </div>
                 );
             }) : (
-                <div style={{ padding: 'var(--md-sys-spacing-4)', textAlign: 'center' }}>
-                    <span style={{ color: 'var(--md-sys-color-tertiary)', marginBottom: 'var(--md-sys-spacing-2)', opacity: '0.4', fontSize: '3rem' }}>verified_user</span>
-                    <M3Typography variant="headline-small" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: '900' }}>Nessuna criticità</M3Typography>
-                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>
+                <div style={{ padding: 'spacing[4]', textAlign: 'center' }}>
+                    <span style={{ color: 'colors.tertiary', marginBottom: 'spacing[2]', opacity: '0.4', fontSize: 'typescale.displaySmall.fontSize' }}>verified_user</span>
+                    <M3Typography variant="headline-small" style={{ color: 'colors.onSurface', fontWeight: '900' }}>Nessuna criticità</M3Typography>
+                    <M3Typography variant="body-medium" style={{ color: 'colors.onSurfaceVariant', marginTop: 'spacing[1]' }}>
                         Tutti gli studenti mantengono una media sufficiente.
                     </M3Typography>
                 </div>
@@ -580,49 +582,49 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
 
     return (
         <div style={{ maxWidth: '100%', margin: '0 auto', width: '100%' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-2)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'spacing[2]' }}>
                 <div>
-                    <M3Typography variant="headline-large" style={{ fontWeight: '900', letterSpacing: '-0.005em', color: 'var(--md-sys-color-on-surface)' }}>
+                    <M3Typography variant="headline-large" style={{ fontWeight: '900', letterSpacing: 'typescale.headlineLarge.tracking', color: 'colors.onSurface' }}>
                         Registro Valutazioni
                     </M3Typography>
-                    <M3Typography variant="body-large" style={{ fontWeight: '500', marginTop: 'var(--md-sys-spacing-1)', opacity: '0.7', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <M3Typography variant="body-large" style={{ fontWeight: '500', marginTop: 'spacing[1]', opacity: '0.7', color: 'colors.onSurfaceVariant' }}>
                         Gestione voti, competenze e monitoraggio performance
                     </M3Typography>
                 </div>
 
                 <div
                     style={{
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        borderRadius: 'shape.corner.large',
                         display: 'flex',
                         flexWrap: 'wrap',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-2)',
-                        padding: 'var(--md-sys-spacing-3)',
-                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                        border: '1px solid var(--md-sys-color-outline)'
+                        gap: 'spacing[2]',
+                        padding: 'spacing[3]',
+                        backgroundColor: 'colors.surfaceContainerLow',
+                        border: '1px solid colors.outline'
                     }}
                 >
                     <div
                         style={{
-                            backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            backgroundColor: 'colors.surfaceContainerLow',
+                            borderRadius: 'shape.corner.large',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
-                            border: '1px solid var(--md-sys-color-outline)'
+                            gap: 'spacing[2]',
+                            padding: 'spacing[1] spacing[2]',
+                            border: '1px solid colors.outline'
                         }}
                     >
-                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: '1.25rem' }}>class</span>
+                        <span style={{ color: 'colors.primary', fontSize: 'typescale.headlineSmall.fontSize' }}>class</span>
                         <select
                             id="class-select"
                             value={selectedClass}
                             onChange={e => setSelectedClass(e.target.value)}
                             style={{
-                                color: 'var(--md-sys-color-on-surface)',
+                                color: 'colors.onSurface',
                                 backgroundColor: 'transparent',
                                 fontWeight: '900',
-                                fontSize: '0.75rem',
+                                fontSize: 'typescale.bodySmall.fontSize',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
                                 border: 'none',
@@ -634,8 +636,8 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     key={c}
                                     value={c}
                                     style={{
-                                        color: 'var(--md-sys-color-on-surface)',
-                                        backgroundColor: 'var(--md-sys-color-surface)'
+                                        color: 'colors.onSurface',
+                                        backgroundColor: 'colors.surface'
                                     }}
                                 >
                                     {c}
@@ -644,45 +646,45 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                         </select>
                     </div>
 
-                    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
+                    <div style={{ display: 'flex', gap: 'spacing[3]' }}>
                         <button
                             onClick={() => setIsAddProvaModalOpen(true)}
                             style={{
-                                borderRadius: 'var(--md-sys-shape-corner-large)',
-                                backgroundColor: 'var(--md-sys-color-primary)',
-                                color: 'var(--md-sys-color-on-primary)',
+                                borderRadius: 'shape.corner.large',
+                                backgroundColor: 'colors.primary',
+                                color: 'colors.onPrimary',
                                 fontWeight: '900',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
                                 transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-2)',
-                                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                gap: 'spacing[2]',
+                                padding: 'spacing[2] spacing[3]',
                                 border: 'none'
                             }}
                         >
-                            <span style={{ fontSize: '1.125rem' }}>add</span>
+                            <span style={{ fontSize: 'typescale.headlineSmall.fontSize' }}>add</span>
                             Nuova Prova
                         </button>
                         <button
                             onClick={() => setIsExportModalOpen(true)}
                             style={{
-                                backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                color: 'var(--md-sys-color-on-surface)',
-                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                backgroundColor: 'colors.surfaceContainerHighest',
+                                color: 'colors.onSurface',
+                                borderRadius: 'shape.corner.large',
                                 fontWeight: '900',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.1em',
                                 transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-2)',
-                                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                gap: 'spacing[2]',
+                                padding: 'spacing[2] spacing[3]',
                                 border: 'none'
                             }}
                         >
-                            <span style={{ fontSize: '1.125rem' }}>download</span>
+                            <span style={{ fontSize: 'typescale.headlineSmall.fontSize' }}>download</span>
                             Esporta
                         </button>
                     </div>
@@ -691,34 +693,34 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
 
             <div
                 style={{
-                    borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: '1px solid var(--md-sys-color-outline)',
-                    backgroundColor: 'var(--md-sys-color-surface)'
+                    borderRadius: 'shape.corner.large',
+                    border: '1px solid colors.outline',
+                    backgroundColor: 'colors.surface'
                 }}
             >
                 <div
                     style={{
-                        padding: 'var(--md-sys-spacing-2)',
-                        borderBottom: '1px solid var(--md-sys-color-outline)',
-                        backgroundColor: 'var(--md-sys-color-surface-container-low)'
+                        padding: 'spacing[2]',
+                        borderBottom: '1px solid colors.outline',
+                        backgroundColor: 'colors.surfaceContainerLow'
                     }}
                 >
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'spacing[3]' }}>
                         <div>
-                            <M3Typography variant="headline-medium" style={{ fontWeight: '900', letterSpacing: '-0.005em', color: 'var(--md-sys-color-on-surface)' }}>
+                            <M3Typography variant="headline-medium" style={{ fontWeight: '900', letterSpacing: 'typescale.headlineMedium.tracking', color: 'colors.onSurface' }}>
                                 Valutazione Unificata
                             </M3Typography>
-                            <M3Typography variant="body-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: '0.6', marginTop: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                            <M3Typography variant="body-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: '0.6', marginTop: 'spacing[1]', color: 'colors.onSurfaceVariant' }}>
                                 Griglia voti e competenze trasversali
                             </M3Typography>
                         </div>
                         <div
                             style={{
-                                backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                padding: 'var(--md-sys-spacing-1)',
-                                borderRadius: 'var(--md-sys-shape-corner-large)',
+                                backgroundColor: 'colors.surfaceContainerLow',
+                                padding: 'spacing[1]',
+                                borderRadius: 'shape.corner.large',
                                 display: 'flex',
-                                border: '1px solid var(--md-sys-color-outline)'
+                                border: '1px solid colors.outline'
                             }}
                         >
                             {[
@@ -732,34 +734,34 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     style={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: 'var(--md-sys-spacing-2)',
-                                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
-                                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                        gap: 'spacing[2]',
+                                        padding: 'spacing[2] spacing[3]',
+                                        borderRadius: 'shape.corner.medium',
                                         fontWeight: '900',
-                                        fontSize: '0.625rem',
+                                        fontSize: 'typescale.labelSmall.fontSize',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.1em',
                                         transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-                                        backgroundColor: activeTab === tab.id ? 'var(--md-sys-color-primary)' : 'transparent',
-                                        color: activeTab === tab.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                                        backgroundColor: activeTab === tab.id ? 'colors.primary' : 'transparent',
+                                        color: activeTab === tab.id ? 'colors.onPrimary' : 'colors.onSurfaceVariant',
                                         border: 'none',
                                         position: 'relative'
                                     }}
                                 >
-                                    <span style={{ fontSize: '1.125rem' }}>{tab.icon}</span>
+                                    <span style={{ fontSize: 'typescale.headlineSmall.fontSize' }}>{tab.icon}</span>
                                     {tab.label}
                                     {tab.badge && (
                                         <div
                                             style={{
-                                                backgroundColor: 'var(--md-sys-color-error)',
-                                                color: 'var(--md-sys-color-on-error)',
-                                                width: '1.25rem',
-                                                height: '1.25rem',
-                                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                backgroundColor: 'colors.error',
+                                                color: 'colors.onError',
+                                                width: '20',
+                                                height: '20',
+                                                borderRadius: 'shape.corner.small',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                fontSize: '0.75rem',
+                                                fontSize: 'typescale.bodySmall.fontSize',
                                                 fontWeight: 'bold',
                                                 position: 'absolute',
                                                 top: '-0.5rem',
@@ -775,7 +777,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     </div>
                 </div>
 
-                <div style={{ padding: 'var(--md-sys-spacing-3)' }}>
+                <div style={{ padding: 'spacing[3]' }}>
                     {activeTab === 'grid' && renderEvaluationGrid()}
                     {activeTab === 'summary' && renderSummaryView()}
                     {activeTab === 'risk' && renderRiskView()}
