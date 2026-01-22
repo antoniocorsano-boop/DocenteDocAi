@@ -53,7 +53,7 @@ export const Active: Story = {
     variant: 'active',
     children: (
       <div>
-        <M3Typography variant="title-medium" as="h3"}>
+        <M3Typography variant="title-medium" as="h3">
           AI Suggestion
         </M3Typography>
         <M3Typography variant="body-medium" as="p"}>

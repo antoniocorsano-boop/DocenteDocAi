@@ -2,7 +2,6 @@
 // @md3-compliant
 
 import React from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface ThinkingIndicatorProps {
   message?: string;
@@ -13,23 +12,22 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
   message = "Pensando...",
   size = 'medium'
 }) => {
-  const { layers: { sys: { color }, ref: { spacing, shape, typography } } } = useTheme();
 
   const sizeStyles = {
     small: {
-      fontSize: typography.bodyMedium.fontSize,
-      lineHeight: typography.bodyMedium.lineHeight,
-      fontWeight: typography.bodyMedium.fontWeight
+      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)'
     },
     medium: {
-      fontSize: typography.bodyLarge.fontSize,
-      lineHeight: typography.bodyLarge.lineHeight,
-      fontWeight: typography.bodyLarge.fontWeight
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)'
     },
     large: {
-      fontSize: typography.headlineSmall.fontSize,
-      lineHeight: typography.headlineSmall.lineHeight,
-      fontWeight: typography.headlineSmall.fontWeight
+      fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)'
     }
   };
 
@@ -38,22 +36,22 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: spacing[3],
-        padding: spacing[4],
-        borderRadius: shape.corner.medium,
-        backgroundColor: color.surfaceContainerLow,
+        gap: 'var(--md-sys-spacing-3)',
+        padding: 'var(--md-sys-spacing-4)',
+        borderRadius: 'var(--md-sys-shape-corner-medium)',
+        backgroundColor: 'var(--md-sys-color-surface-container-low)',
         opacity: 0.5,
-        border: `1px solid ${color.onPrimary}`,
+        border: '1px solid var(--md-sys-color-on-primary)',
         borderOpacity: 0.3
       }}
     >
       {/* Animated dots */}
-      <div style={{ display: 'flex', gap: spacing[1] }}>
+      <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-1)' }}>
         <div
           style={{
-            width: spacing[2],
-            height: spacing[2],
-            backgroundColor: color.primary,
+            width: 'var(--md-sys-spacing-2)',
+            height: 'var(--md-sys-spacing-2)',
+            backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: '50%',
             animation: 'pulse 2s ease-in-out infinite',
             animationDelay: '0ms'
@@ -61,9 +59,9 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         />
         <div
           style={{
-            width: spacing[2],
-            height: spacing[2],
-            backgroundColor: color.primary,
+            width: 'var(--md-sys-spacing-2)',
+            height: 'var(--md-sys-spacing-2)',
+            backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: '50%',
             animation: 'pulse 2s ease-in-out infinite',
             animationDelay: '150ms'
@@ -71,9 +69,9 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         />
         <div
           style={{
-            width: spacing[2],
-            height: spacing[2],
-            backgroundColor: color.primary,
+            width: 'var(--md-sys-spacing-2)',
+            height: 'var(--md-sys-spacing-2)',
+            backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: '50%',
             animation: 'pulse 2s ease-in-out infinite',
             animationDelay: '300ms'
@@ -85,7 +83,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
       <span
         style={{
           ...sizeStyles[size],
-          color: color.onSurfaceVariant,
+          color: 'var(--md-sys-color-on-surface-variant)',
           fontFamily: 'var(--md-sys-typescale-body-large-font-family)'
         }}
       >
@@ -95,10 +93,10 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
       {/* Optional AI icon */}
       <div
         style={{
-          width: spacing[8],
-          height: spacing[8],
+          width: 'var(--md-sys-spacing-8)',
+          height: 'var(--md-sys-spacing-8)',
           borderRadius: '50%',
-          backgroundColor: color.primary,
+          backgroundColor: 'var(--md-sys-color-primary)',
           opacity: 0.1,
           display: 'flex',
           alignItems: 'center',
@@ -109,10 +107,10 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         <span
           style={{
             fontFamily: 'Material Symbols Outlined',
-            fontSize: typography.bodySmall.fontSize,
-            color: color.primary,
-            fontWeight: typography.bodySmall.fontWeight,
-            lineHeight: typography.bodySmall.lineHeight
+            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+            color: 'var(--md-sys-color-primary)',
+            fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
+            lineHeight: 'var(--md-sys-typescale-body-small-line-height)'
           }}
         >
           smart_toy

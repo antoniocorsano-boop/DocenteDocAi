@@ -473,7 +473,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
             result={analysisResult} 
             onClose={() => setAnalysisResult(null)} 
             title={lesson.contenuto}
-            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || '}`}
+            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || ''}`}
           />
       )}
     </>

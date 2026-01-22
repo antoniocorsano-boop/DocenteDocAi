@@ -135,7 +135,6 @@ export const WithButtons: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-           }
           >
             Open Dialog
           </button>

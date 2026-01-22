@@ -21,6 +21,7 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
     children 
 }) => {
     const [hovered, setHovered] = useState(false);
+    const [focused, setFocused] = useState(false);
     const isClickable = !!onClick;
 
     // MD3 CSS Variables - Direct token usage (no useTheme dependency)

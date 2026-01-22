@@ -46,7 +46,7 @@ const ColorDocumentation = () => (
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Surface Containers (Elevation)</h2>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: layers.ref.spacing['4'], marginBottom: 'var(--md-sys-spacing-4)', color: sys.colors.666 }}>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', marginBottom: 'var(--md-sys-spacing-4)', color: '#666' }}>
       Elevation levels for layered surfaces:
     </p>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-6)' }}>

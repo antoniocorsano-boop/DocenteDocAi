@@ -45,7 +45,7 @@ describe('ChipInputList', () => {
     const onRemove = vi.fn();
     renderWithM3Theme(
       <ChipInputList
-        items={['X]}
+        items={['X']}
         onAdd={() => {}}
         onRemove={onRemove}
         placeholder="Aggiungi"

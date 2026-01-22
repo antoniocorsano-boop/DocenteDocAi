@@ -236,8 +236,8 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                 style={{ borderRadius: 'calc(var(--shape-l) * var(--sys-radius-multiplier))' }}
                             >
                                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
-                                    <span style={{ backgroundColor: sys.colors.primary/10 , fontWeight: "900", color: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', border: "1px solid var(--md-sys-color-outline)", textTransform: "uppercase", letterSpacing: "0.1em"}}>{item.time}</span>
-                                    {item.type === 'lesson' && <span style={{ color: sys.colors.[9px], color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "900", textTransform: "uppercase", opacity: "0.5" }}>Lezione</span>}
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', fontWeight: "900", color: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', border: "1px solid var(--md-sys-color-outline)", textTransform: "uppercase", letterSpacing: "0.1em"}}>{item.time}</span>
+                                    {item.type === 'lesson' && <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "900", textTransform: "uppercase", opacity: "0.5" }}>Lezione</span>}
                                 </div>
                                 <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900", transition: "color 300ms" }}>{item.title}</h3>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "500", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</p>

@@ -220,18 +220,16 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             gap: 'var(--md-sys-spacing-2)',
                             padding: 'var(--md-sys-spacing-3)',
                             backgroundColor: 'var(--md-sys-color-tertiary-container)',
-                            border: `1px solid ${var(--md-sys-color-outline)Variant}`,
+                            border: '1px solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
                             transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                             textDecoration: 'none'}}
                         onMouseEnter={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                            // removed runtime mutation
                         }}
                         onMouseLeave={(e) => {
-                            e.currentTarget// removed runtime mutation
-                            e.currentTarget// removed runtime mutation
+                            // removed runtime mutation
                         }}
                     >
                         <span style={{

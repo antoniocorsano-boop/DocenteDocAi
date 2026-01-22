@@ -25,7 +25,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
     : { value: total, label: 'Totale' };
 
   return (
-    <div style={{ position: 'relative', width: layers.ref.spacing['4'], height: layers.ref.spacing['4'] }}>
+    <div style={{ position: 'relative', width: 200, height: 200 }}>
       <svg width="200" height="200" viewBox="0 0 200 200">
         <g transform="rotate(-90 100 100)">
           {data.map((item, index) => {

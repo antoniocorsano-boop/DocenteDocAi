@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from '../ui/test-utils';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';

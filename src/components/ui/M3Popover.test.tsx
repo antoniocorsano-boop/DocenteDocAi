@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from './test-utils';
 // LEGACY - MD3 Non-compliant
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
@@ -187,7 +187,7 @@ describe('M3Popover', () => {
         open={true}
         anchorEl={anchorEl}
         onClose={vi.fn()}
-        
+        className="custom-class"
       >
         Content
       </M3Popover>
@@ -203,14 +203,14 @@ describe('M3Popover', () => {
         open={true}
         anchorEl={anchorEl}
         onClose={vi.fn()}
-        style={{ padding: layers.ref.spacing['4'] }}
+        style={{ padding: 24 }}
       >
         Content
       </M3Popover>
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.padding).toBe(layers.ref.spacing['4']);
+    expect(popover.style.padding).toBe('24px');
   });
 
   it('applies custom minWidth', () => {
@@ -226,7 +226,7 @@ describe('M3Popover', () => {
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.minWidth).toBe(layers.ref.spacing['4']);
+    expect(popover.style.minWidth).toBe('300px');
   });
 
   it('applies custom zIndex', () => {

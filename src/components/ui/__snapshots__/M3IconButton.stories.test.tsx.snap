@@ -4,13 +4,13 @@ exports[`M3IconButton Story Snapshots > renders default story correctly 1`] = `
 <div>
   <button
     aria-label="Test button"
-    class="inline-flex items-center justify-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-variant)] focus:ring-[var(--md-sys-color-primary)] w-10 h-10"
+    style="display: inline-flex; align-items: center; justify-content: center; border-radius: var(--md-sys-shape-corner-full); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); outline: none; outline-offset: 0; border: medium; cursor: pointer; opacity: 1; pointer-events: auto; font-family: var(--md-sys-typescale-font-family); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing); width: var(--md-sys-spacing-10); height: var(--md-sys-spacing-10); font-size: var(--md-sys-typescale-label-large-font-size); background-color: transparent; color: var(--md-sys-color-on-surface-variant);"
     title="Test button"
     type="button"
   >
     <span
       aria-hidden="true"
-      class="material-symbols-outlined select-none text-xl"
+      style="font-family: "Material Symbols Outlined"; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"
     >
       test-icon
     </span>

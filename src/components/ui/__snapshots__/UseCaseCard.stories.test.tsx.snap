@@ -3,46 +3,46 @@
 exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    class="bg-surface/80 backdrop-blur-md p-6 rounded-[var(--md-sys-shape-corner-extra-large)] border border-[var(--md-sys-color-outline-variant)]/30 shadow-sm hover:shadow-[var(--md-sys-elevation-level1)] transition-shadow"
+    style="background-color: var(--md-sys-color-surface); border-radius: var(--md-sys-shape-corner-medium); padding: var(--md-sys-spacing-6); border: 1px solid var(--md-sys-color-outline);"
   >
     <div
-      class="flex items-center gap-6 mb-8"
+      style="display: flex; align-items: center; gap: var(--md-sys-spacing-6); margin-bottom: var(--md-sys-spacing-8);"
     >
       <div
-        class="w-8 h-8 rounded-[var(--md-sys-shape-corner-small)] bg-primary/10 flex items-center justify-center text-primary"
+        style="border-radius: var(--md-sys-shape-corner-medium); background-color: var(--md-sys-color-primary); width: var(--md-sys-spacing-32); height: var(--md-sys-spacing-32); display: flex; align-items: center; justify-content: center; color: var(--md-sys-color-on-primary);"
       >
         <span
-          class="material-symbols-outlined text-lg"
+          style="font-size: 1.125rem;"
         >
           lightbulb
         </span>
       </div>
       <p
-        class="m3-label-small text-primary uppercase font-black tracking-[0.2em] opacity-70"
+        style="color: var(--md-sys-color-primary); text-transform: uppercase; font-weight: 900; opacity: 0.7;"
       >
         Scenario
       </p>
     </div>
     <p
-      class="m3-title-large font-extrabold mb-5 leading-tight italic"
+      style="line-height: 1.25;"
     >
       "
       Test
       "
     </p>
     <ol
-      class="space-y-4"
+      style="margin-top: var(--md-sys-spacing-4);"
     >
       <li
-        class="flex gap-8 items-start group"
+        style="display: flex; gap: var(--md-sys-spacing-8); align-items: flex-start;"
       >
         <span
-          class="w-6 h-6 rounded-full bg-[var(--md-sys-color-surface-container-high)]est flex items-center justify-center text-[10px] font-black flex-shrink-0 mt-0.5 group-hover:bg-primary group-hover:text-on-primary transition-colors"
+          style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-primary); width: 1.5rem; height: 1.5rem; border-radius: 9999px; display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; transition: color 300ms;"
         >
           1
         </span>
         <p
-          class="text-[var(--md-sys-typescale-body-medium)] font-[var(--md-sys-typescale-body-medium-font)] text-[var(--md-sys-color-on-surface)]-variant font-bold leading-relaxed"
+          style="color: var(--md-sys-color-outline); font-weight: bold; line-height: 1.625;"
         >
           Step 1
         </p>

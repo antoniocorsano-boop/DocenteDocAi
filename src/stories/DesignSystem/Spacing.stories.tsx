@@ -64,7 +64,7 @@ const SpacingDocumentation = () => (
 
     <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-3)' }}>Cards & Containers</h3>
     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainer)', borderRadius: 'var(--md-sys-spacing-2)', border: '1px solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-4)' }}>
-      <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: sys.colors.666, marginBottom: 'var(--md-sys-spacing-2)' }}>
+      <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: '#666', marginBottom: 'var(--md-sys-spacing-2)' }}>
         <strong>Card Padding: var(--md-sys-spacing-4)</strong>
       </div>
       <div style={{ padding: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)', borderRadius: 'var(--md-sys-spacing-1)', fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>

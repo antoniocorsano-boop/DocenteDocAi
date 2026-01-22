@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from '../ui/test-utils';
 // LEGACY - MD3 Non-compliant
 import React from 'react';
 import { render } from '@testing-library/react';

@@ -4,49 +4,41 @@ exports[`ActionTile Story Snapshots > renders default story correctly 1`] = `
 <div>
   <button
     aria-label="Test Action - Test subtitle"
-    class="m3-transition-standard "
-    style="background-color: var(--md-sys-color-surface); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-8); display: flex; flex-direction: row; align-items: center; gap: var(--md-sys-spacing-4); border: medium; cursor: pointer; position: relative; overflow: hidden; text-align: left; box-shadow: var(--md-sys-elevation-level1); min-height: 80px; width: 100%; outline: none;"
+    style="background-color: var(--md-sys-color-surface); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-4); display: flex; flex-direction: row; align-items: center; gap: var(--md-sys-spacing-4); border: medium; cursor: pointer; position: relative; overflow: hidden; text-align: left; box-shadow: var(--md-sys-elevation-level1); transform: translateY(0); min-height: var(--md-sys-spacing-12); width: 100%; outline: none; outline-offset: 0; transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
     type="button"
   >
     <div
-      class="m3-transition-standard"
-      style="width: 56px; height: 56px; border-radius: var(--md-sys-shape-corner-large); display: flex; align-items: center; justify-content: center; font-size: 28px; background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface); flex-shrink: 0; box-shadow: var(--md-sys-elevation-level1); border: 1px solid var(--md-sys-color-outline-variant);"
+      style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-large); display: flex; align-items: center; justify-content: center; font-size: var(--md-sys-spacing-6); background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface); flex-shrink: 0; box-shadow: var(--md-sys-elevation-level1); border: 1px solid var(--md-sys-color-outline-variant); transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
     >
       <span
-        class="material-symbols-outlined"
-        style="font-size: 28px;"
+        style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-spacing-6);"
       />
     </div>
     <div
-      style="flex-grow: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; gap: var(--md-sys-spacing-1);"
+      style="flex-grow: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; gap: var(--md-sys-spacing-2);"
     >
       <span
-        class=""
-        style="color: var(--md-sys-color-on-surface); font-family: var(--md-sys-typescale-title-medium-font-family); font-size: var(--md-sys-typescale-title-medium-font-size); font-weight: var(--md-sys-typescale-title-medium-font-weight); line-height: var(--md-sys-typescale-title-medium-line-height); letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0px;"
+        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-title-medium-font-size); font-weight: var(--md-sys-typescale-title-medium-font-weight); line-height: var(--md-sys-typescale-title-medium-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); color: var(--md-sys-color-on-surface); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0px;"
       >
         Test Action
       </span>
       <span
-        class=""
-        style="color: var(--md-sys-color-on-surface-variant); font-family: var(--md-sys-typescale-label-medium-font-family); font-size: var(--md-sys-typescale-label-medium-font-size); font-weight: var(--md-sys-typescale-label-medium-font-weight); line-height: var(--md-sys-typescale-label-medium-line-height); letter-spacing: 0.08em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0px; text-transform: uppercase;"
+        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-label-medium-font-size); font-weight: var(--md-sys-typescale-label-medium-font-weight); line-height: var(--md-sys-typescale-label-medium-line-height); letter-spacing: 0.08em; color: var(--md-sys-color-on-surface-variant); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0px; text-transform: uppercase;"
       >
         Test subtitle
       </span>
     </div>
     <div
-      class="m3-transition-standard"
-      style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface-variant); flex-shrink: 0;"
+      style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--md-sys-color-surface-variant); color: var(--md-sys-color-on-surface-variant); flex-shrink: 0; transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
     >
       <span
-        class="material-symbols-outlined m3-transition-transform"
-        style="font-size: 20px;"
+        style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-spacing-6); transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);"
       >
         chevron_right
       </span>
     </div>
     <div
-      class="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent -translate-x-full group-hover:translate-x-full m3-transition-slow pointer-events-none"
-      style="position: absolute; inset: 0; background: linear-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent); transform: translateX(-100%); pointer-events: none;"
+      style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background: linear-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent); transform: translateX(-100%); pointer-events: none; transition: transform 600ms var(--md-sys-motion-easing-standard);"
     />
   </button>
 </div>

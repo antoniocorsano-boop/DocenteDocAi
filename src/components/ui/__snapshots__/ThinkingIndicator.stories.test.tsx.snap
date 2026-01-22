@@ -3,34 +3,31 @@
 exports[`ThinkingIndicator Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    class="flex items-center gap-3 p-4 rounded-[var(--md-sys-shape-corner-medium)] bg-[var(--md-sys-color-surface-container-low)]/50 border border-[var(--md-sys-color-outline-variant)]/30 "
+    style="display: flex; align-items: center; gap: var(--md-sys-spacing-3); padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-medium); background-color: var(--md-sys-color-surface-container-low); opacity: 0.5; border: 1px solid var(--md-sys-color-on-primary);"
   >
     <div
-      class="flex gap-1"
+      style="display: flex; gap: var(--md-sys-spacing-1);"
     >
       <div
-        class="w-2 h-2 bg-primary rounded-full animate-pulse"
-        style="animation-delay: 0ms;"
+        style="width: var(--md-sys-spacing-2); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: 50%; animation: pulse 2s ease-in-out infinite; animation-delay: 0ms;"
       />
       <div
-        class="w-2 h-2 bg-primary rounded-full animate-pulse"
-        style="animation-delay: 150ms;"
+        style="width: var(--md-sys-spacing-2); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: 50%; animation: pulse 2s ease-in-out infinite; animation-delay: 150ms;"
       />
       <div
-        class="w-2 h-2 bg-primary rounded-full animate-pulse"
-        style="animation-delay: 300ms;"
+        style="width: var(--md-sys-spacing-2); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: 50%; animation: pulse 2s ease-in-out infinite; animation-delay: 300ms;"
       />
     </div>
     <span
-      class="m3-thinking-indicator text-base text-[var(--md-sys-color-on-surface)]-variant"
+      style="font-size: var(--md-sys-typescale-body-large-font-size); line-height: var(--md-sys-typescale-body-large-line-height); font-weight: var(--md-sys-typescale-body-large-font-weight); color: var(--md-sys-color-on-surface-variant); font-family: var(--md-sys-typescale-body-large-font-family);"
     >
       Pensando...
     </span>
     <div
-      class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center ml-auto"
+      style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: 50%; background-color: var(--md-sys-color-primary); opacity: 0.1; display: flex; align-items: center; justify-content: center; margin-left: auto;"
     >
       <span
-        class="material-symbols-outlined text-primary text-sm"
+        style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-typescale-body-small-font-size); color: var(--md-sys-color-primary); font-weight: var(--md-sys-typescale-body-small-font-weight); line-height: var(--md-sys-typescale-body-small-line-height);"
       >
         smart_toy
       </span>

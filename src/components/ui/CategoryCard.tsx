@@ -1,4 +1,4 @@
-// MD3 Compliant - CategoryCard component with layered theme destructuring
+// MD3 Compliant - CategoryCard component migrated to CSS variables
 // @md3-compliant
 // @ready-for-extension
 
@@ -8,13 +8,12 @@
  * Interactive category selection card with Material Design 3 token-based styling.
  * Supports selection states, hover effects, and accessibility features.
  *
- * @version 2.1.0 - MD3 Layered Destructuring
- * @since 2026-01-20
+ * @version 2.2.0 - CSS Variables Migration
+ * @since 2026-01-22
  */
 
 import React, { useState } from 'react';
 import M3Typography from './M3Typography';
-import { useTheme } from '../../theme/theme';
 
 interface CategoryCardProps {
     id: string;
@@ -36,7 +35,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 }) => {
     const [hovered, setHovered] = useState(false);
     const [focused, setFocused] = useState(false);
-    const { layers: { sys: { color: themeColor }, ref: { spacing, shape }, motion, elevation } } = useTheme();
 
     return (
     <div
@@ -54,21 +52,21 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: spacing[4],
-            padding: spacing[6],
-            borderRadius: shape.corner.large,
-            border: isSelected ? `2px solid ${themeColor.primary}` : `1px solid ${themeColor.outlineVariant}`,
+            gap: 'var(--md-sys-spacing-4)',
+            padding: 'var(--md-sys-spacing-6)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            border: isSelected ? '2px solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline-variant)',
             backgroundColor: isSelected
-                ? themeColor.primaryContainer
-                : (hovered && !isSelected ? themeColor.surfaceContainerHigh : themeColor.surfaceContainer),
+                ? 'var(--md-sys-color-primary-container)'
+                : (hovered && !isSelected ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-surface-container)'),
             boxShadow: isSelected
-                ? elevation.level3
-                : elevation.level1,
+                ? 'var(--md-sys-elevation-level3)'
+                : 'var(--md-sys-elevation-level1)',
             cursor: 'pointer',
-            transition: `all ${motion.duration.medium} ${motion.easing.standard}`,
+            transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
             transform: isSelected ? 'scale(1.02)' : (hovered && !isSelected ? 'scale(1.01)' : 'scale(1)'),
-            outline: focused ? `2px solid ${themeColor.primary}` : 'none',
-            outlineOffset: focused ? spacing[2] : '0'
+            outline: focused ? '2px solid var(--md-sys-color-primary)' : 'none',
+            outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0'
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -77,32 +75,32 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     >
         <div
             style={{
-                width: spacing[8],
-                height: spacing[8],
-                borderRadius: shape.corner.medium,
+                width: 'var(--md-sys-spacing-8)',
+                height: 'var(--md-sys-spacing-8)',
+                borderRadius: 'var(--md-sys-shape-corner-medium)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: isSelected
-                    ? themeColor.primary
+                    ? 'var(--md-sys-color-primary)'
                     : `${color}20`,
                 color: isSelected
-                    ? themeColor.onPrimary
+                    ? 'var(--md-sys-color-on-primary)'
                     : color,
-                transition: `all ${motion.duration.medium} ${motion.easing.standard}`,
+                transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                 transform: hovered && !isSelected ? 'rotate(6deg) scale(1.1)' : 'rotate(0deg) scale(1)'
             }}
         >
             <span style={{
                 fontFamily: 'Material Symbols Outlined',
-                fontSize: spacing[6]
+                fontSize: 'var(--md-sys-spacing-6)'
             }}>{icon}</span>
         </div>
         <div style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: spacing[4]
+            gap: 'var(--md-sys-spacing-4)'
         }}>
             <M3Typography
                 variant="label-large"
@@ -110,7 +108,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                     textAlign: 'center',
                     fontWeight: 900,
                     letterSpacing: '-0.025em',
-                    color: themeColor.onSurface,
+                    color: 'var(--md-sys-color-on-surface)',
                     margin: 0
                 }}
             >
@@ -121,10 +119,10 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                     variant="body-small"
                     style={{
                         textAlign: 'center',
-                        color: themeColor.onSurfaceVariant,
+                        color: 'var(--md-sys-color-on-surface-variant)',
                         opacity: 0.7,
                         lineHeight: 1.3,
-                        padding: `0 ${spacing[4]}`,
+                        padding: '0 var(--md-sys-spacing-4)',
                         display: '-webkit-box',
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: 'vertical',

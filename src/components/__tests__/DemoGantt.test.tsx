@@ -1,4 +1,4 @@
-import { renderWithM3Theme } from '../test-utils';
+import { renderWithM3Theme } from '../ui/test-utils';
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';

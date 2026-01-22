@@ -52,6 +52,7 @@ function M3DatePicker({
   error,
   id,
   style,
+  className,
   ...inputProps
 }: M3DatePickerProps): React.ReactElement {
   const autoId = useId();
@@ -67,7 +68,7 @@ function M3DatePicker({
   };
 
   return (
-    <div style={{ width: '100%', ...(className ? {} : {}) }}>
+    <div style={{ width: '100%' }}>
       {label ? (
         <label
           htmlFor={inputId}

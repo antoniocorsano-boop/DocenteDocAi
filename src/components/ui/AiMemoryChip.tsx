@@ -1,6 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Migrated to CSS variables
 import React, { useState } from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface AiMemoryChipProps {
     label: string;
@@ -8,23 +7,22 @@ interface AiMemoryChipProps {
 
 const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
     const [hovered, setHovered] = useState(false);
-    const { layers: { sys: { color }, ref: { spacing, shape, typography }, motion } } = useTheme();
 
     return (
         <div
             style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: spacing[4],
-                padding: `${spacing[2]} ${spacing[2]}`,
-                minHeight: spacing[8],
+                gap: 'var(--md-sys-spacing-4)',
+                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-2)',
+                minHeight: 'var(--md-sys-spacing-8)',
                 opacity: hovered ? 1 : 0.6,
-                transition: `opacity ${motion.duration.short2} ${motion.easing.standard}`,
+                transition: 'opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                 userSelect: 'none',
                 cursor: 'help',
-                backgroundColor: color.tertiaryContainer,
-                borderRadius: shape.corner.full,
-                border: `1px solid ${color.tertiary}`
+                backgroundColor: 'var(--md-sys-color-tertiary-container)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
+                border: '1px solid var(--md-sys-color-tertiary)'
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -35,8 +33,8 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             <span
                 style={{
                     fontFamily: 'Material Symbols Outlined',
-                    fontSize: typography.caption.fontSize,
-                    color: color.tertiary,
+                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                    color: 'var(--md-sys-color-tertiary)',
                     fontWeight: 'bold',
                     animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
                 }}
@@ -45,9 +43,9 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             </span>
             <span
                 style={{
-                    fontSize: typography.caption.fontSize,
+                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                     fontWeight: '800',
-                    color: color.tertiary,
+                    color: 'var(--md-sys-color-tertiary)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.15em'
                 }}

@@ -4,20 +4,20 @@ exports[`M3ChoiceCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <button
     aria-pressed="false"
-    class="flex flex-col items-center justify-center p-8 md:p-8 rounded-[var(--md-sys-shape-corner-extra-large)] md:rounded-4xl border-2 transition-all gap-8 md:gap-8 min-w-[100px] md:min-w-[140px] group border-[var(--md-sys-color-outline-variant)]/30 bg-[var(--md-sys-color-surface-container)]/50 hover:border-[var(--md-sys-color-outline)] hover:bg-[var(--md-sys-color-surface-container-high)] "
+    style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-extra-large); border: 2px solid var(--md-sys-color-outline-variant)30; background-color: var(--md-sys-color-surface-container)80; color: var(--md-sys-color-on-surface); box-shadow: none; transform: none; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); gap: var(--md-sys-spacing-4); min-width: var(--md-sys-spacing-16); cursor: pointer; outline: none;"
     type="button"
   >
     <div
-      class="w-10 h-10 md:w-16 md:h-16 rounded-[var(--md-sys-shape-corner-medium)] flex items-center justify-center transition-all bg-surface text-primary group-hover:scale-110"
+      style="width: var(--md-sys-spacing-12); height: var(--md-sys-spacing-12); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); background-color: var(--md-sys-color-surface); color: var(--md-sys-color-primary); box-shadow: none; transform: none;"
     >
       <span
-        class="material-symbols-outlined text-2xl md:text-4xl"
+        style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-spacing-6); user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"
       >
         test
       </span>
     </div>
     <span
-      class="text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.1em] md:tracking-[0.2em]"
+      style="font-size: var(--md-sys-typescale-body-small-font-size); font-family: var(--md-sys-typescale-body-small-font-family); font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;"
     >
       Test
     </span>

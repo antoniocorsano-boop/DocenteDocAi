@@ -216,7 +216,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 <div key={material.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)"}}>
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
                                         <span  style={{color: "var(--md-sys-color-primary)"}}>{getMaterialIcon(material)}</span>
-                                        <span style={{ color: sys.colors.[var(--md-sys-typescale-body-medium)] ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{getMaterialLabel(material)}</span>
+                                        <span style={{ color: 'var(--md-sys-color-on-surface)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{getMaterialLabel(material)}</span>
                                     </div>
                                     <M3Button 
                                         onClick={() => handleRemoveMaterial(material.id)} 

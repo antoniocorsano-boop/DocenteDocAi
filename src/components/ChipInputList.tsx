@@ -42,8 +42,27 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
              <div  style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                    <div style={`w-10 h-10 rounded-[var(--md-sys-shape-corner-large)] flex items-center justify-center shadow-[var(--md-sys-elevation-level1)] transition-transform hover:scale-110 ${variant === 'class' ? 'bg-secondary-container text-secondary' : variant === 'subject'  ? {backgroundColor: 'var(--md-sys-color-tertiary-container)', color: 'var(--md-sys-color-tertiary)'} : {color: 'var(--md-sys-color-primary)'}}`}>
-                        <span  style={{ fontSize: "1.25rem" }}>{icon}</span>
+                    <div style={{
+                        width: 'var(--md-sys-spacing-10)',
+                        height: 'var(--md-sys-spacing-10)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: 'var(--md-sys-elevation-level1)',
+                        transition: 'transform 0.2s ease',
+                        backgroundColor: variant === 'class' ? 'var(--md-sys-color-secondary-container)' :
+                                       variant === 'subject' ? 'var(--md-sys-color-tertiary-container)' :
+                                       'var(--md-sys-color-primary-container)',
+                        color: variant === 'class' ? 'var(--md-sys-color-on-secondary-container)' :
+                               variant === 'subject' ? 'var(--md-sys-color-on-tertiary-container)' :
+                               'var(--md-sys-color-on-primary-container)'
+                    }}>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            fontSize: 'var(--md-sys-spacing-5)',
+                            userSelect: 'none'
+                        }}>{icon}</span>
                     </div>
                     <div>
                         <label style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", display: "block" }}>
@@ -86,8 +105,25 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                                 
                                 aria-label={`Rimuovi ${item}`}
                                 tabIndex={-1}
+                                style={{
+                                    border: 'none',
+                                    backgroundColor: 'transparent',
+                                    color: 'inherit',
+                                    cursor: 'pointer',
+                                    padding: 'var(--md-sys-spacing-1)',
+                                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    opacity: '0.7',
+                                    transition: 'opacity 0.2s ease'
+                                }}
                             >
-                                <span >close</span>
+                                <span style={{
+                                    fontFamily: 'Material Symbols Outlined',
+                                    fontSize: 'var(--md-sys-spacing-3)',
+                                    userSelect: 'none'
+                                }}>close</span>
                             </button>
                         </div>
                     ))}
@@ -98,8 +134,23 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                 </div>
                 
                 {/* Integrated Input Area */}
-                <div  onClick={() => inputRef.current?.focus()}>
-                    <span  style={{ fontSize: "0.875rem", opacity: "0.4", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }} aria-hidden="true">add_circle</span>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-3)',
+                    padding: 'var(--md-sys-spacing-3)',
+                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    backgroundColor: 'var(--md-sys-color-surface-container-highest)',
+                    transition: 'border-color 0.2s ease'
+                }} onClick={() => inputRef.current?.focus()}>
+                    <span style={{
+                        fontFamily: 'Material Symbols Outlined',
+                        fontSize: 'var(--md-sys-spacing-4)',
+                        opacity: '0.6',
+                        transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                        color: 'var(--md-sys-color-on-surface-variant)'
+                    }} aria-hidden="true">add_circle</span>
                     <input 
                         ref={inputRef}
                         type="text" 
@@ -107,17 +158,41 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         onChange={e => setNewItem(e.target.value)}
                         aria-label={`Aggiungi nuovo ${label.toLowerCase()}`}
                         onKeyDown={handleKeyDown}
-                         style={{ flex: "1" }}
+                        style={{
+                            flex: '1',
+                            border: 'none',
+                            outline: 'none',
+                            backgroundColor: 'transparent',
+                            color: 'var(--md-sys-color-on-surface)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            fontFamily: 'var(--md-sys-typescale-body-large-font-family)'
+                        }}
                         placeholder={placeholder}
                         enterKeyHint="done"
                     />
                     <button 
                         type="button"
                         onClick={(e) => { e.stopPropagation(); handleAdd(); }}
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', color: 'var(--md-sys-color-on-primary)'}}
+                        style={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            backgroundColor: newItem.trim() ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-variant)',
+                            color: newItem.trim() ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                            border: 'none',
+                            width: 'var(--md-sys-spacing-8)',
+                            height: 'var(--md-sys-spacing-8)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: newItem.trim() ? 'pointer' : 'not-allowed',
+                            transition: 'all 0.2s ease'
+                        }}
                         disabled={!newItem.trim()}
                     >
-                        <span  style={{ fontSize: "0.875rem" }}>arrow_forward</span>
+                        <span style={{
+                            fontFamily: 'Material Symbols Outlined',
+                            fontSize: 'var(--md-sys-spacing-4)',
+                            userSelect: 'none'
+                        }}>arrow_forward</span>
                     </button>
                 </div>
                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "bold" }}>

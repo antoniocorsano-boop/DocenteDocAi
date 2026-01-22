@@ -73,11 +73,8 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
         boxShadow: isDragging ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         border: '1px solid var(--md-sys-color-outline)',
-      }}
-      onKeyDown={handleKeyDown}
-      style={{
-        '--gantt-bar-transform': visualTransform,
       } as React.CSSProperties}
+      onKeyDown={handleKeyDown}
     >
       <div>{title}{keyboardDrag ? ` — col ${targetCol + 1}` : null}</div>
     </div>
@@ -95,6 +92,12 @@ const GanttColumn: React.FC<GanttColumnProps> = ({ col, children }) => {
     <div
       ref={setNodeRef}
       className={`gantt-col ${isOver ? 'gantt-col-over' : ''}`}
+      style={{
+        backgroundColor: isOver ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
+        borderRadius: 'var(--md-sys-shape-corner-medium)',
+        padding: 'var(--md-sys-spacing-2)',
+        minHeight: '200px'
+      }}
     >
       {children}
     </div>

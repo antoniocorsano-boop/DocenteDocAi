@@ -51,25 +51,25 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
             onClose={handleClose}
             maxWidth="2xl"
         >
-            <M3DialogContent style={{ backgroundColor: sys.colors.surfaceContainerHigh/30 , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)'}}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)'}}>
                 {/* Metadata Chips */}
                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-6)'}}>
-                    <span style={{ backgroundColor: sys.colors.primary/10 , borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
+                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
                         <span  style={{ fontSize: "0.875rem" }}>school</span>
                         Classe {uda.classe}
                     </span>
-                    <span style={{ backgroundColor: sys.colors.secondary/10 , borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-secondary)", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
+                    <span style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-on-secondary-container)", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
                         <span  style={{ fontSize: "0.875rem" }}>menu_book</span>
                         {uda.materia}
                     </span>
-                    <span style={{ backgroundColor: sys.colors.tertiary/10 , borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-tertiary)", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
+                    <span style={{ backgroundColor: 'var(--md-sys-color-tertiary-container)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-on-tertiary-container)", fontSize: "0.75rem", fontWeight: "bold", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
                         <span  style={{ fontSize: "0.875rem" }}>event</span>
                         {new Date(uda.startDate!).toLocaleDateString()} - {new Date(uda.endDate!).toLocaleDateString()}
                     </span>
                 </div>
 
                 {/* AI Validation Section */}
-                <div style={{ backgroundColor: sys.colors.primaryContainer/10, borderRadius: 'var(--md-sys-shape-corner-large)' , border: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-4)', gap: 'var(--md-sys-spacing-3)'}}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-4)', gap: 'var(--md-sys-spacing-3)'}}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-2)'}}>
                             <span  style={{color: "var(--md-sys-color-primary)"}}>verified</span>
@@ -80,7 +80,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                         </M3Button>
                     </div>
                     {validationResult && (
-                        <div style={{ backgroundColor: sys.colors.surfaceContainerLow/50, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-4)', border: "1px solid var(--md-sys-color-outline)"}}>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-4)', border: "1px solid var(--md-sys-color-outline)"}}>
                             <p  style={{fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625"}}>
                                 {validationResult}
                             </p>
@@ -97,17 +97,17 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
 
                 {/* Phases Timeline */}
                 <div>
-                    <h3 style={{ color: sys.colors.onSurface-variant , fontSize: "0.875rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-2)'}}>Fasi di Lavoro</h3>
+                    <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "0.875rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-2)'}}>Fasi di Lavoro</h3>
                     <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
                         {uda.phases.map((phase) => (
                             <div key={phase.id} >
                                 <div  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)"}}></div>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                                     <h4 style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{phase.title}</h4>
-                                    <span style={{ color: sys.colors.on-secondary-container , fontSize: "0.75rem", fontWeight: "900", backgroundColor: "var(--md-sys-color-secondary)", borderRadius: "0.375rem", textTransform: "uppercase"}}>{phase.duration}h</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: "0.75rem", fontWeight: "900", backgroundColor: "var(--md-sys-color-secondary-container)", borderRadius: "0.375rem", textTransform: "uppercase"}}>{phase.duration}h</span>
                                 </div>
                                 <p  style={{fontSize: "0.875rem", color: "var(--md-sys-color-on-surface)", fontWeight: "500"}}>{phase.description}</p>
-                                <p style={{ color: sys.colors.onSurface-variant ,  fontSize: "0.75rem" }}>{phase.activities}</p>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "0.75rem" }}>{phase.activities}</p>
                             </div>
                         ))}
                     </div>

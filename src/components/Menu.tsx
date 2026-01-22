@@ -70,8 +70,8 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
         left: 0,
         right: 0,
         padding: 'var(--md-sys-spacing-1) 0', // 4px top/bottom padding
-      aria-label="Navigazione principale"
-      role="navigation"
+        aria-label="Navigazione principale",
+        role="navigation"
     >
       {mainMenuItems.map(item => {
         const active = isViewActive(item);
