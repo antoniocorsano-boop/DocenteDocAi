@@ -293,7 +293,6 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Backdrop */}
       {showBackdrop && (
         <div
-          className="m3-popover__backdrop"
           style={{position: 'fixed',
             top: 0,
             left: 0,
@@ -311,7 +310,6 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Popover */}
       <div
         ref={popoverRef}
-        className={`m3-popover ${className || ''}`.trim()}
         style={{
           position: 'fixed',
           top: `${position.top}px`,

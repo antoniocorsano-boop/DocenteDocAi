@@ -89,7 +89,7 @@ const SpacingDocumentation = () => (
           fontFamily: 'inherit',
         }}
       />
-      <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: sys.colors.999, marginTop: 'var(--md-sys-spacing-1)' }}>
+      <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: '#999', marginTop: 'var(--md-sys-spacing-1)' }}>
         Padding: var(--md-sys-spacing-3) vertical, var(--md-sys-spacing-4) horizontal
       </div>
     </div>

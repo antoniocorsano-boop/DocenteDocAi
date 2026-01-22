@@ -63,7 +63,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
         minHeight: 'var(--md-sys-spacing-16)', // 64px minimum touch target
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         boxShadow: 'var(--md-sys-elevation-level1)',
-          borderTop: '1px solid var(--md-sys-color-outline-variant)',
+        borderTop: '1px solid var(--md-sys-color-outline-variant)',
         zIndex: 100,
         position: 'fixed',
         bottom: 0,

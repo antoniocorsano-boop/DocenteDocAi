@@ -59,8 +59,8 @@ const ColorDocumentation = () => (
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Outline & Accessibility</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Outline" token="--sys-outline" hex=sys.colors.79747E />
-      <ColorSwatch name="Outline Variant" token="--md-sys-color-outline-variant" hex=sys.colors.C4C7C5 border />
+      <ColorSwatch name="Outline" token="--sys-outline" hex="#79747E" />
+      <ColorSwatch name="Outline Variant" token="--md-sys-color-outline-variant" hex="#C4C7C5" border />
     </div>
 
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Usage Guidelines</h2>

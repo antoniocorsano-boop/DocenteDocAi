@@ -31,7 +31,7 @@ const TypographyDocumentation = () => (
       text="Display Large"
       fontSize="var(--md-sys-spacing-4)"
       fontWeight={400}
-      lineHeight=layers.ref.spacing['4']
+      lineHeight="1.25rem"
       letterSpacing="-0.25px"
     />
     <TypeSample

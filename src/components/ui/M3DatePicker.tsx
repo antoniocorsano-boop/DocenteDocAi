@@ -52,7 +52,6 @@ function M3DatePicker({
   error,
   id,
   style,
-  className,
   ...inputProps
 }: M3DatePickerProps): React.ReactElement {
   const autoId = useId();

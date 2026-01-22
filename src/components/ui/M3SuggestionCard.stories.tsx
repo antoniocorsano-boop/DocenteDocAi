@@ -56,7 +56,7 @@ export const Active: Story = {
         <M3Typography variant="title-medium" as="h3">
           AI Suggestion
         </M3Typography>
-        <M3Typography variant="body-medium" as="p"}>
+        <M3Typography variant="body-medium" as="p">
           Consider adding more interactive elements to engage your students during the lesson.
         </M3Typography>
         <div>

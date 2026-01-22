@@ -248,8 +248,8 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
             </div>
 
             {/* --- MAGIC BOTTOM BAR (Floating) --- */}
-            <div style={{ backgroundColor: sys.colors.gradient-to-t , padding: 'var(--md-sys-spacing-6)'}}>
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)/80, borderRadius: ref.shape[25], padding: 'var(--md-sys-spacing-4)' , marginLeft: "auto", marginRight: "auto", border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-6)'}}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.8, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)' , marginLeft: "auto", marginRight: "auto", border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                     
                     <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}>
                         <span  style={{ fontSize: "1.5rem" }}>settings</span>

@@ -173,7 +173,6 @@ export const Fullscreen: Story = {
         {!isOpen && (
           <button
             onClick={() => setIsOpen(true)}
-           }
           >
             Open Fullscreen
           </button>
