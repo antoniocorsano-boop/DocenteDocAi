@@ -11,10 +11,10 @@ export type M3DatePickerProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const inputStyle: React.CSSProperties = {
-  width: '100%',
+  width: 'var(--md-sys-percent-100)',
   padding: 'var(--md-sys-spacing-3)',
   borderRadius: 'var(--md-sys-shape-corner-small)',
-  border: '1px solid var(--md-sys-color-outline)',
+  border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
   boxSizing: 'border-box',
   backgroundColor: 'var(--md-sys-color-surface-container-highest)',
   color: 'var(--md-sys-color-on-surface)',
@@ -25,13 +25,13 @@ const inputStyle: React.CSSProperties = {
 const inputFocusStyle: React.CSSProperties = {
   ...inputStyle,
   borderColor: 'var(--md-sys-color-primary)',
-  boxShadow: '0 0 0 2px var(--md-sys-color-primary-container)',
+  boxShadow: `0 0 0 var(--md-sys-spacing-2) var(--md-sys-color-primary-container)`,
 };
 
 const inputErrorStyle: React.CSSProperties = {
   ...inputStyle,
   borderColor: 'var(--md-sys-color-error)',
-  boxShadow: '0 0 0 2px var(--md-sys-color-error-container)',
+  boxShadow: `0 0 0 var(--md-sys-spacing-2) var(--md-sys-color-error-container)`,
 };
 
 const helperStyle: React.CSSProperties = {
@@ -67,7 +67,7 @@ function M3DatePicker({
   };
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: 'var(--md-sys-percent-100)' }}>
       {label ? (
         <label
           htmlFor={inputId}

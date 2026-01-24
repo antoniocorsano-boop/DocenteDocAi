@@ -47,9 +47,9 @@ const defaultTheme: MD3Theme = {
       typography: {
         'body-large': {
           fontFamily: 'Roboto, sans-serif',
-          fontSize: '16px',
+          fontSize: 'var(--md-sys-typescale-body-large-font-size)',
           fontWeight: '400',
-          lineHeight: '24px',
+          lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
         },
       },
     },
@@ -57,8 +57,8 @@ const defaultTheme: MD3Theme = {
       spacing: [0, 4, 8, 16, 24, 32, 48, 64], // Valori numerici
       shape: {
         corner: {
-          full: '9999px',
-          medium: '8px',
+          full: 'var(--md-sys-shape-corner-full)',
+          medium: 'var(--md-sys-shape-corner-medium)',
         },
       },
     },

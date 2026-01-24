@@ -62,7 +62,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 style={{
                     textTransform: 'uppercase',
                     letterSpacing: '0.5em',
-                    color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) 40%, transparent)`
+                    color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-40), transparent)`
                 }}
             >
                 {title}
@@ -72,7 +72,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                     variant="body-small"
                     style={{
                         marginTop: 'var(--md-sys-spacing-2)',
-                        color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) 60%, transparent)`
+                        color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent)`
                     }}
                 >
                     {subtitle}

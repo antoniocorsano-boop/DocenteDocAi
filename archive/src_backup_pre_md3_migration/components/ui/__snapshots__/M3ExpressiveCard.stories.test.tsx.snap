@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`M3ExpressiveCard Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    class="border rounded-[var(--md-sys-shape-corner-large)] bg-[var(--md-sys-color-surface-container-low)]/50  aura-glass backdrop-blur-xl border-white/10 relative overflow-hidden p-8 md:p-12 transition-all duration-300 flex flex-col min-h-[160px] md:min-h-[180px]  "
+    style="color: var(--md-sys-color-on-surface); border-radius: calc(var(--shape-xl) * var(--sys-radius-multiplier));"
+  >
+    <div
+      class="absolute -top-16 -right-16 w-40 h-40 opacity-20 blur-3xl rounded-full pointer-events-none"
+      style="background: radial-gradient(circle, var(--md-sys-color-primary)20 0%, transparent 70%);"
+    />
+    <div
+      class="absolute top-0 left-0 right-0 h-1 rounded-t-xl opacity-60"
+      style="background-color: var(--md-sys-color-primary);"
+    />
+    <div
+      class="flex items-start justify-between mb-6 relative z-10"
+    >
+      <div
+        class="w-14 h-14 rounded-[var(--md-sys-shape-corner-large)] bg-gradient-to-br from-white/25 to-white/10 backdrop-blur-md flex items-center justify-center shadow-[var(--md-sys-elevation-level2)] border border-white/20 flex-shrink-0"
+      >
+        <span
+          class="material-symbols-outlined m3-icon-lg opacity-90"
+        >
+          test-icon
+        </span>
+      </div>
+    </div>
+    <div
+      class="flex-grow relative z-10 space-y-3"
+    >
+      <h3
+        class="text-[var(--md-sys-typescale-headline-small)] font-[var(--md-sys-typescale-headline-small-font)] font-bold tracking-tight leading-tight"
+      >
+        Test Title
+      </h3>
+      <p
+        class="text-[var(--md-sys-typescale-body-large)] font-[var(--md-sys-typescale-body-large-font)] opacity-80 leading-relaxed font-medium line-clamp-3"
+      >
+        Test description
+      </p>
+    </div>
+  </div>
+</div>
+`;

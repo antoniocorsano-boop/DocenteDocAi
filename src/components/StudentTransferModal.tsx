@@ -1,4 +1,4 @@
-// MD3 Compliant - Block G Migration (12 violations eliminated)
+// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 
 import React, { useState } from 'react';
 import { Studente, StudentHistoryRecord } from '../types';
@@ -73,7 +73,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.3 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', opacity: 0.1, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: '1px solid var(--md-sys-color-outline)' }}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', opacity: 0.1, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
                         <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
                             Gestisci lo spostamento di <strong>{student.cognome} {student.nome}</strong>
                         </p>
@@ -87,11 +87,11 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                         activeTab={mode}
                         onTabChange={(id) => setMode(id as 'change_class' | 'transfer_out')}
                         variant="secondary"
-                        style={{ width: '100%' }}
+                        style={{ width: 'var(--md-sys-percent-100)' }}
                     />
 
                     {mode === 'change_class' ? (
-                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: '1px solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
                             <h3 style={{ color: 'var(--md-sys-color-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Nuova Destinazione</h3>
 
                             {!isCustomClass ? (
@@ -129,7 +129,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                             )}
                         </div>
                     ) : (
-                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', opacity: 0.1, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: '1px solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', opacity: 0.1, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
                             <h3 style={{ color: 'var(--md-sys-color-error)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Motivazione Uscita</h3>
                             <SelectField
                                 label="Esito"

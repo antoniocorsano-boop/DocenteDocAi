@@ -125,7 +125,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 <option value="sidi">SIDI (Anagrafe Studenti)</option>
                             </SelectField>
                             
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary-container/30 , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary-container/30 , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span  style={{color: "var(--md-sys-color-secondary)"}}>info</span>
                                 <p style={{ color: sys.colors.on-secondary-container }}>
                                     {RegisterService.getExportGuidance(provider)}
@@ -207,7 +207,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.cognome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, cognome: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -218,7 +218,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.nome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, nome: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -229,7 +229,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.classe}
                                             onChange={(e) => setMapping(prev => ({ ...prev, classe: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -245,7 +245,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.voto}
                                             onChange={(e) => setMapping(prev => ({ ...prev, voto: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -256,7 +256,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.data}
                                             onChange={(e) => setMapping(prev => ({ ...prev, data: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -267,7 +267,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         <select 
                                             value={mapping.materia}
                                             onChange={(e) => setMapping(prev => ({ ...prev, materia: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -282,13 +282,13 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <table style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: "100%" }}>
                                 <thead>
                                     <tr>
-                                        {rawData.headers.map(h => <th key={h}  style={{border: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-1)', textAlign: "left", backgroundColor: "var(--md-sys-color-surface)"}}>{h}</th>)}
+                                        {rawData.headers.map(h => <th key={h}  style={{border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-1)', textAlign: "left", backgroundColor: "var(--md-sys-color-surface)"}}>{h}</th>)}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {rawData.data.slice(0, 3).map((row, i) => (
                                         <tr key={i}>
-                                            {rawData.headers.map(h => <td key={h}  style={{border: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-1)'}}>{String(row[h] || '')}</td>)}
+                                            {rawData.headers.map(h => <td key={h}  style={{border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-1)'}}>{String(row[h] || '')}</td>)}
                                         </tr>
                                     ))}
                                 </tbody>
@@ -321,7 +321,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <InfoCard title="Classi rilevate" icon="class" variant="secondary">
                                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                                     {Array.from(new Set(result.students.map(s => s.classe))).map(c => (
-                                        <span key={c} style={{ color: sys.colors.on-secondary-container , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "bold"}}>
+                                        <span key={c} style={{ color: sys.colors.on-secondary-container , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "bold"}}>
                                             {c}
                                         </span>
                                     ))}
@@ -334,7 +334,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             onClick={() => setStep('mapping')}
                              style={{ width: "100%", fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
                         >
-                            <span  style={{ marginRight: "0.5rem", fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>settings_backup_restore</span>
+                            <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>settings_backup_restore</span>
                             Modifica Mappatura Manuale
                         </M3Button>
 

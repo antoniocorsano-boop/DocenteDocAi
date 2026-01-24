@@ -69,18 +69,18 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
             <M3DialogActions  style={{ paddingTop: "0" }}>
                  {onSaveToKb && (
                     <M3Button onClick={handleSave} variant="outlined" >
-                        <span  style={{ marginRight: "0.5rem" }}>save</span>
+                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>save</span>
                         Salva in KB
                     </M3Button>
                 )}
                 <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                 <M3Button onClick={handleCopyToClipboard} variant="tonal">
-                     <span  style={{ marginRight: "0.5rem" }}>{copyStatus === 'copied' ? 'check' : 'content_copy'}</span>
+                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>{copyStatus === 'copied' ? 'check' : 'content_copy'}</span>
                     {copyStatus === 'copied' ? 'Copiato!' : 'Copia Testo'}
                 </M3Button>
                 {onOpenCreateLesson && (
                     <M3Button onClick={handleCreateLesson} variant="filled">
-                         <span  style={{ marginRight: "0.5rem" }}>add_task</span>
+                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_task</span>
                         Crea Lezione
                     </M3Button>
                 )}

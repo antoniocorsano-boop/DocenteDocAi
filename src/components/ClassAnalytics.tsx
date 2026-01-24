@@ -54,8 +54,8 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
         >
             <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                 <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)"}}>
-                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: "1.125rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Media Voti per Classe</h3>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Media Voti per Classe</h3>
                         <div style={{
   display: 'flex',
   justifyContent: 'center'
@@ -66,30 +66,30 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)'}}>Dati insufficienti per generare il grafico.</p>
                             )}
                         </div>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "0.75rem", marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-small-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
                             Confronto della media aritmetica dei voti di tutti gli studenti per ogni classe.
                         </p>
                     </div>
 
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: "1.125rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Situazione Globale</h3>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", alignItems: "center"}}>
+                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Situazione Globale</h3>
                         <DonutChart data={globalStats} />
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "0.75rem", marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-small-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
                             Proporzione di studenti con media sufficiente vs insufficiente su tutte le classi.
                         </p>
                     </div>
                 </div>
                 
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)"}}>
-                     <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: "1.125rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Dettaglio Numerico</h3>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                     <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Dettaglio Numerico</h3>
                      <div style={{ overflowX: "auto" }}>
                          <table  style={{ width: "100%", textAlign: "left" }}>
                              <thead>
-                                 <tr  style={{borderBottom: "1px solid var(--md-sys-color-outline)"}}>
-                                     <th style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontSize: "0.875rem", fontWeight: "bold"}}>Classe</th>
-                                     <th style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontSize: "0.875rem", fontWeight: "bold"}}>Studenti</th>
-                                     <th style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontSize: "0.875rem", fontWeight: "bold"}}>Media Classe</th>
-                                     <th style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontSize: "0.875rem", fontWeight: "bold"}}>Verifiche Svolte</th>
+                                 <tr  style={{borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                                     <th style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: "bold"}}>Classe</th>
+                                     <th style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: "bold"}}>Studenti</th>
+                                     <th style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: "bold"}}>Media Classe</th>
+                                     <th style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: "bold"}}>Verifiche Svolte</th>
                                  </tr>
                              </thead>
                              <tbody>
@@ -98,7 +98,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                                      const avg = classPerformanceData.find(d => d.label === c)?.value || '-';
                                      const evalsCount = evaluations.filter(e => students.find(s => s.id === e.studenteId)?.classe === c).length;
                                      return (
-                                         <tr key={c}  style={{borderBottom: "1px solid var(--md-sys-color-outline)", transition: "color 300ms"}}>
+                                         <tr key={c}  style={{borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color 300ms"}}>
                                              <td style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontWeight: "bold"}}>{c}</td>
                                              <td style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>{sCount}</td>
                                              <td style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>{avg}</td>

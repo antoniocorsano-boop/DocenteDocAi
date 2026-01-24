@@ -1,7 +1,4 @@
-// MD3 Compliant - Block I Migration (7 violations eliminated)
-// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
-// ...existing code...
+// MD3 Compliant - Block J Migration Complete (5 violations eliminated)
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import '../modules.css';
 import { EventoCalendario, AiSettings } from '../types';
@@ -176,7 +173,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                         backgroundColor: 'var(--md-sys-color-surface)',
                         padding: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                        border: `1px solid var(--md-sys-color-outline)`
+                        border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
                     }}>
                         <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" >
                             <span style={{
@@ -241,15 +238,15 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                             style={{
                                 minHeight: 'var(--md-sys-spacing-25)',
                                 padding: 'var(--md-sys-spacing-2)',
-                                borderRight: '1px solid var(--md-sys-color-outline-variant)',
-                                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                                borderRight: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                                borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                 background: !isCurrentMonth ? 'var(--md-sys-color-surface-container-lowest)' : 'var(--md-sys-color-surface)',
                                 opacity: !isCurrentMonth ? 0.5 : 1,
                                 cursor: 'pointer',
                                 transition: 'background-color var(--motion-duration-short) var(--motion-easing-standard)',
                                 ...(isFocused ? {
-                                    outline: '2px solid var(--md-sys-color-primary)',
-                                    outlineOffset: '2px'
+                                    outline: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)',
+                                    outlineOffset: 'var(--md-sys-border-width-thick)'
                                 } : {})
                             }}
                             role="gridcell"
@@ -333,14 +330,14 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                         <div key={i} style={{
                             padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-2)',
                             textAlign: 'center',
-                            borderRight: i < 6 ? '1px solid var(--md-sys-color-outline-variant)' : 'none'
+                            borderRight: i < 6 ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none'
                         }}>
                             <div style={{
                                 fontSize: 'var(--typography-label-small-fontSize)',
                                 fontWeight: 700,
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 textTransform: 'uppercase',
-                                letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.5px)',
+                                letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                                 marginBottom: 'var(--md-sys-spacing-1)'
                             }}>
                                 {DAYS_SHORT[i]}
@@ -461,7 +458,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                     display: 'flex',
                                     gap: 'var(--md-sys-spacing-4)',
                                     padding: 'var(--md-sys-spacing-4)',
-                                    borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                                    borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                     cursor: 'pointer',
                                     transition: 'background-color var(--motion-duration-short) var(--motion-easing-standard), transform var(--motion-duration-short) var(--motion-easing-standard)',
                                     background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
@@ -503,8 +500,8 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             ) : (
                 <div style={{gap: 'var(--md-sys-spacing-6)'}}>
                     {Object.entries(agendaGroups).map(([date, evts]) => (
-                        <div key={date} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/20, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
-                            <div  style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-6)', borderBottom: "1px solid var(--md-sys-color-outline)"}}>
+                        <div key={date} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/20, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                            <div  style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-6)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                 {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
                             </div>
                             <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
@@ -515,7 +512,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                             display: 'flex',
                                             gap: 'var(--md-sys-spacing-4)',
                                             padding: 'var(--md-sys-spacing-4)',
-                                            borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                                            borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                             cursor: 'pointer',
                                             transition: 'background-color var(--motion-duration-short) var(--motion-easing-standard)',
                                             background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 

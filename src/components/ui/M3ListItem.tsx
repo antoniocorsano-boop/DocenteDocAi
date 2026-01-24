@@ -70,11 +70,11 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
                 minHeight: spacing12,
                 cursor: isClickable ? 'pointer' : 'default',
                 backgroundColor: (hovered || focused) && isClickable ? surfaceContainerHigh : 'transparent',
-                outline: focused && isClickable ? `2px solid ${primary}` : 'none',
-                outlineOffset: focused ? '0.5rem' : '0',
+                outline: focused && isClickable ? `var(--md-sys-border-width-thick) solid ${primary}` : 'none',
+                outlineOffset: focused ? 'var(--md-sys-spacing-8)' : 'var(--md-sys-spacing-0)',
                 border: 'none',
                 textAlign: 'left',
-                width: '100%'
+                width: 'var(--md-sys-percent-100)'
             }}
             onMouseEnter={() => {
                 if (isClickable) setHovered(true);
@@ -119,8 +119,7 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
                     <div style={{fontSize: bodySmallFontSize,
                         fontWeight: bodySmallFontWeight,
                         lineHeight: bodySmallLineHeight,
-                        color: onSurfaceVariant,
-                        opacity: 0.8}}>
+                        color: onSurfaceVariant}}>
                         {supportingText}
                     </div>
                 )}

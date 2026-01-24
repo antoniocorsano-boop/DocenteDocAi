@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { TextField, M3Button, M3Card, M3Typography } from './ui';
 import Logo from './Logo';
 import { UserProfile } from '../types';
+import { USER_METRICS } from '../constants/metrics';
 
 interface SignInScreenProps {
   onSignInSuccess: (profile: UserProfile) => void;
@@ -41,7 +42,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           textAlign: 'center',
           paddingLeft: 'var(--md-sys-spacing-4)',
           paddingRight: 'var(--md-sys-spacing-4)',
-          borderBottom: '1px solid var(--md-sys-color-outline)'
+          borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
         }}
       >
         {/* Background gradient animation - MOVED BELOW CONTENT */}
@@ -56,7 +57,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
             width: 'var(--md-sys-spacing-4)',
             height: 'var(--md-sys-spacing-4)',
             marginBottom: 'var(--md-sys-spacing-6)',
-            border: '1px solid var(--md-sys-color-outline)'
+            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
           }}
         >
           <Logo />
@@ -137,7 +138,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '0.75rem',
+              fontSize: 'var(--md-sys-spacing-3)',
               fontWeight: 'bold',
               color: 'var(--md-sys-color-on-primary)'
             }}>P</div>
@@ -149,7 +150,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '0.75rem',
+              fontSize: 'var(--md-sys-spacing-3)',
               fontWeight: 'bold',
               color: 'var(--md-sys-color-on-secondary)'
             }}>R</div>
@@ -161,7 +162,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '0.75rem',
+              fontSize: 'var(--md-sys-spacing-3)',
               fontWeight: 'bold',
               color: 'var(--md-sys-color-on-tertiary)'
             }}>M</div>
@@ -204,7 +205,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 padding: 'var(--md-sys-spacing-4)',
-                border: '1px solid var(--md-sys-color-outline)'
+                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
               }}>
                 <div style={{
                   display: 'flex',
@@ -240,7 +241,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 padding: 'var(--md-sys-spacing-4)',
-                border: '1px solid var(--md-sys-color-outline)'
+                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
               }}>
                 <div style={{
                   display: 'flex',
@@ -283,7 +284,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 padding: 'var(--md-sys-spacing-4)',
-                border: '1px solid var(--md-sys-color-outline)'
+                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
               }}>
                 <div style={{
                   display: 'flex',
@@ -331,7 +332,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
             <div style={{
               borderRadius: 'var(--md-sys-shape-corner-large)',
               padding: 'var(--md-sys-spacing-6)',
-              border: '1px solid var(--md-sys-color-outline)'
+              border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
             }}>
               <div style={{
                 display: 'flex',
@@ -363,7 +364,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
             <div style={{
               borderRadius: 'var(--md-sys-shape-corner-large)',
               padding: 'var(--md-sys-spacing-6)',
-              border: '1px solid var(--md-sys-color-outline)'
+              border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
             }}>
               <div style={{
                 display: 'flex',
@@ -407,7 +408,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
               <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Lezioni Generate</div>
             </div>
             <div style={{ textAlign: "center" }}>
-              <div  style={{color: 'var(--md-sys-color-tertiary)', fontWeight: "900"}}>95%</div>
+              <div  style={{color: 'var(--md-sys-color-tertiary)', fontWeight: "900"}}>{USER_METRICS.USER_SATISFACTION}</div>
               <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Soddisfazione</div>
             </div>
             <div style={{ textAlign: "center" }}>
@@ -421,7 +422,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
       {/* Login Section */}
       <section
         id="login-section"
-         style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderTop: "1px solid var(--md-sys-color-outline)"}}
+         style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderTop: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}
       >
         <div  style={{ marginLeft: "auto", marginRight: "auto" }}>
           <M3Typography variant="headline-medium" style={{ textAlign: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
@@ -455,7 +456,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           }}>
             <div style={{
               flexGrow: 1,
-              borderTop: '1px solid var(--md-sys-color-outline)'
+              borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
             }} />
             <span style={{
               color: 'var(--md-sys-color-on-surface-variant)',
@@ -467,7 +468,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
             </span>
             <div style={{
               flexGrow: 1,
-              borderTop: '1px solid var(--md-sys-color-outline)'
+              borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
             }} />
           </div>
 
@@ -516,7 +517,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
 
           {/* Footer */}
           <footer style={{ textAlign: 'center' }}>
-            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "var(--md-sys-spacing-3)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em" }}>
               v4.0.0-rc1 • PWA Offline-First
             </M3Typography>
           </footer>

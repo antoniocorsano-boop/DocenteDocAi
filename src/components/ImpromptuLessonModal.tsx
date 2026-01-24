@@ -87,7 +87,7 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
                         variant="filled"
                         disabled={!materia || !contenuto.trim()}
                     >
-                        <span  style={{ marginRight: "0.5rem" }}>door_open</span>
+                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>door_open</span>
                         Avvia Aula
                     </M3Button>
                 </M3DialogActions>

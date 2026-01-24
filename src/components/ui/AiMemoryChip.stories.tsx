@@ -97,7 +97,7 @@ export const InContext: Story = {
           current learning objectives...
         </p>
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
         <AiMemoryChip label="Student Level" />
         <AiMemoryChip label="Learning Goals" />
         <AiMemoryChip label="Progress Data" />
@@ -154,7 +154,7 @@ export const Interactive: Story = {
         cursor: 'help',
       }}
     >
-      <p style={{ fontSize: '0.9rem', color: 'var(--md-sys-color-onSurface-variant)' }}>
+      <p style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-onSurface-variant)' }}>
         Hover over the chips to see what context the AI system is using:
       </p>
       <AiMemoryChip label="Student Learning Profile" />

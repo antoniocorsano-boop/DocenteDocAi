@@ -37,7 +37,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                     textTransform: 'uppercase'
                 }}>{label}</span>
                 <span style={{
-                    fontSize: '1.125rem',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     fontWeight: '900',
                     color: 'var(--md-sys-color-primary)'
                 }}>{value}/4</span>
@@ -50,7 +50,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                 {[1, 2, 3, 4].map((i) => (
                     <button key={i} type="button" onClick={() => onChange(i)} style={{
                         flex: 1,
-                        height: '3.5rem',
+                        height: 'var(--md-sys-spacing-14)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         display: 'flex',
                         alignItems: 'center',
@@ -62,7 +62,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                         boxShadow: i <= value ? 'var(--md-sys-elevation-level1)' : 'none',
                         transform: i <= value ? 'scale(1.05)' : 'scale(1)'
                     }}>
-                        <span  style={{ fontSize: "1.5rem" }}>{i <= value ? 'star' : 'star_outline'}</span>
+                        <span  style={{ fontSize: "var(--md-sys-spacing-6)" }}>{i <= value ? 'star' : 'star_outline'}</span>
                     </button>
                 ))}
             </div>
@@ -89,7 +89,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                 }}>
                     <h3 style={{
                         color: 'var(--md-sys-color-on-primary)',
-                        fontSize: '1.25rem',
+                        fontSize: 'var(--md-sys-spacing-5)',
                         fontWeight: 'bold'
                     }}>{student.cognome} {student.nome}</h3>
                 </div>

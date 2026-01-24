@@ -210,9 +210,9 @@ export const ref: RefLayer = {
 // Component layer: Component-specific overrides
 export const comp: CompLayer = {
   infoCard: {
-    iconContainerSize: '48px',
-    iconSize: '24px',
-    buttonSize: '40px',
+    iconContainerSize: 'var(--md-sys-spacing-12)',
+    iconSize: 'var(--md-sys-spacing-6)',
+    buttonSize: 'var(--md-sys-spacing-10)',
   },
 };
 

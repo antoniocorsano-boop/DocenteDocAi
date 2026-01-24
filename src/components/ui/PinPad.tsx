@@ -77,7 +77,7 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                             backgroundColor: isHovered ? color.surface : color.surfaceContainerLow,
                             fontSize: typography.labelLarge.fontSize,
                             fontWeight: 800,
-                            border: `2px solid ${isHovered ? color.primary : `color-mix(in srgb, ${color.outlineVariant} 30%, transparent)`}`,
+                            border: `var(--md-sys-border-width-thick) solid ${isHovered ? color.primary : `color-mix(in srgb, ${color.outlineVariant} var(--md-sys-percent-30), transparent)`}`,
                             transition: `all ${motion.duration.short1} ${motion.easing.standard}`,
                             cursor: 'pointer',
                             display: 'flex',

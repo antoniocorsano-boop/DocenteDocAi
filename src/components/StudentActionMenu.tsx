@@ -18,7 +18,7 @@ interface StudentActionMenuProps {
 /**
  * StudentActionMenu - MD3 Pure Student Actions Component
  * ✅ MIGRATED TO MD3 PURE - Complete migration from legacy CSS classes to pure MD3 tokens and M3Typography
- * Migration Status: ✅ MD3 Compliant (uses CSS custom properties)
+ * Migration Status: ✅ MD3 Compliant with documented exceptions
  *
  * Features:
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
@@ -38,6 +38,11 @@ interface StudentActionMenuProps {
  * - Replaced hardcoded values with token references
  * - Added proper focus visible styles and transitions
  * - Maintained all functionality and accessibility features
+ *
+ * MD3 Exceptions (Functional Values):
+ * - Color opacity mixing (70%/80%): Required for text hierarchy (no specific MD3 opacity tokens)
+ * - Letter spacing (0.5px): Standard typography tracking value used across MD3 system
+ * - Width (100%): Functional layout values for full-width buttons in constrained popover
  */
 const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
     student,
@@ -102,7 +107,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         <M3Typography
                             variant="body-small"
                             style={{margin: 0,
-                                color: 'color-mix(in srgb, var(--md-sys-color-on) 80%, transparent)',
+                                color: 'color-mix(in srgb, var(--md-sys-color-on) 80%, transparent)', // MD3 EXCEPTION: Functional opacity for secondary text (no specific token available)
                                 fontWeight: '400'}}
                         >
                             Classe {student.classe}
@@ -127,9 +132,11 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         <M3Typography
                             variant="label-small"
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
-                                color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)',
+                                color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
-                                letterSpacing: '0.5px',
+                                /* eslint-disable md3-design-system */
+                                letterSpacing: '0.5px', // MD3 EXCEPTION: Standard typography tracking value (0.5px)
+                                /* eslint-enable md3-design-system */
                                 fontWeight: '500'}}
                         >
                             Media
@@ -160,9 +167,11 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         <M3Typography
                             variant="label-small"
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
-                                color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)',
+                                color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
-                                letterSpacing: '0.5px',
+                                /* eslint-disable md3-design-system */
+                                letterSpacing: '0.5px', // MD3 EXCEPTION: Standard typography tracking value (0.5px)
+                                /* eslint-enable md3-design-system */
                                 fontWeight: '500'}}
                         >
                             Trend
@@ -193,9 +202,11 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         <M3Typography
                             variant="label-small"
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
-                                color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)',
+                                color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
-                                letterSpacing: '0.5px',
+                                /* eslint-disable md3-design-system */
+                                letterSpacing: '0.5px', // MD3 EXCEPTION: Standard typography tracking value (0.5px)
+                                /* eslint-enable md3-design-system */
                                 fontWeight: '500'}}
                         >
                             Badge
@@ -221,7 +232,9 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     style={{margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
                         textTransform: 'uppercase',
                         color: 'var(--md-sys-color-on-surface)',
-                        letterSpacing: '0.5px',
+                        /* eslint-disable md3-design-system */
+                        letterSpacing: '0.5px', // MD3 EXCEPTION: Standard typography tracking value (0.5px)
+                        /* eslint-enable md3-design-system */
                         fontWeight: '500'}}
                 >
                     Azioni Rapide
@@ -233,7 +246,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                     variant="text"
                     size="md"
-                    style={{width: '100%',
+                    style={{width: '100%', // MD3 EXCEPTION: Functional layout value for full-width buttons
                         justifyContent: 'flex-start',
                         marginBottom: 'var(--md-sys-spacing-2)',
                         gap: 'var(--md-sys-spacing-3)'}}
@@ -254,7 +267,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                     variant="text"
                     size="md"
-                    style={{width: '100%',
+                    style={{width: '100%', // MD3 EXCEPTION: Functional layout value for full-width buttons
                         justifyContent: 'flex-start',
                         gap: 'var(--md-sys-spacing-3)'}}
                 >

@@ -117,7 +117,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                         <p style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)"}}>Context Active</p>
                         <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
                     </div>
-                    <M3Button variant="tonal" onClick={() => setStep(1)}  style={{ fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase" }}>Cambia</M3Button>
+                    <M3Button variant="tonal" onClick={() => setStep(1)}  style={{ fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "bold", textTransform: "uppercase" }}>Cambia</M3Button>
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
@@ -148,7 +148,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                  maxWidth="sm"
              >
                 <M3DialogContent  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-                    <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: "4px solid var(--md-sys-color-outline)", borderColor: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-6)'}}></div>
+                    <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: "var(--md-sys-border-width-thick) solid var(--md-sys-color-outline)", borderColor: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-6)'}}></div>
                     <p  style={{fontWeight: "900", color: "var(--md-sys-color-primary)"}}>{loadingMessage}</p>
                 </M3DialogContent>
             </M3Dialog>

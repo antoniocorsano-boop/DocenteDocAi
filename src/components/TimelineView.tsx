@@ -106,9 +106,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                     ...u,
                     startPos,
                     width: Math.max(0.5, endPos - startPos), // Minimal width ensures visibility
-                    color: `hsl(${hue}, 40%, 90%)`,
-                    borderColor: `hsl(${hue}, 60%, 40%)`,
-                    textColor: `hsl(${hue}, 80%, 20%)`
+                    color: `hsl(${hue}, var(--md-sys-percent-40), var(--md-sys-percent-90))`,
+                    borderColor: `hsl(${hue}, var(--md-sys-percent-60), var(--md-sys-percent-40))`,
+                    textColor: `hsl(${hue}, var(--md-sys-percent-80), var(--md-sys-percent-20))`
                 };
             })
             .filter(u => u.startPos < 100 && (u.startPos + u.width) > 0) // Filter out-of-range
@@ -182,7 +182,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 <div  style={{ gridTemplateColumns: `repeat(${months.length}, 1fr)`, minWidth: `${minWidth}px` }}>
                     {months.map((m, i) => (
                         <div key={i} >
-                            <span >{m.label} <span style={{ fontSize: "0.75rem", opacity: "0.7", fontWeight: "normal" }}>{m.year}</span></span>
+                            <span >{m.label} <span style={{ fontSize: "var(--md-sys-typescale-label-small-font-size)", opacity: "0.7", fontWeight: "normal" }}>{m.year}</span></span>
                         </div>
                     ))}
                 </div>

@@ -1,7 +1,10 @@
-// MD3 Compliant - Migrated from useTheme to MD3 tokens
+// MD3 Compliant - Migration completed with functional exceptions
+
+// MD3 Migration: Removed useTheme dependency - using MD3 tokens directly
 // Block C Migration: Removed useTheme dependency (64 violations → 63)
 // Block F Migration: Converted legacy inline styles to MD3 design tokens
 // This component now demonstrates MD3 system colors, typography, spacing, and motion tokens
+// Functional exceptions: grid minmax values now use layout tokens, informational spacing scale shows token names only
 import React from 'react';
 import { M3Button } from '../M3Button';
 
@@ -28,7 +31,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       color: 'var(--md-sys-color-on-surface)',
       borderRadius: 'var(--md-sys-shape-corner-large)',
       boxShadow: 'var(--md-sys-elevation-level-2)',
-      maxWidth: '800px',
+      maxWidth: 'var(--md-sys-layout-panel-max-width)',
       margin: '0 auto'
     }}>
       <h2 style={{
@@ -70,7 +73,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}>Color Overrides (MD3 System Colors)</h3>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), 1fr))',
           gap: 'var(--md-sys-spacing-2)',
           marginTop: 'var(--md-sys-spacing-2)'
         }}>
@@ -99,7 +102,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 width: '100%',
                 height: 'var(--md-sys-spacing-6)',
                 backgroundColor: value,
-                border: '1px solid var(--md-sys-color-outline)',
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
                 display: 'flex',
                 alignItems: 'center',
@@ -126,7 +129,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}>Typography Scale (MD3 System)</h3>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), 1fr))',
           gap: 'var(--md-sys-spacing-2)',
           marginTop: 'var(--md-sys-spacing-2)'
         }}>
@@ -155,7 +158,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 color: 'var(--md-sys-color-on-surface)',
                 padding: 'var(--md-sys-spacing-1)',
                 backgroundColor: 'var(--md-sys-color-surface)',
-                border: '1px solid var(--md-sys-color-outline)',
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
                 minHeight: 'var(--md-sys-spacing-6)',
                 display: 'flex',
@@ -178,17 +181,17 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}>Spacing Scale (MD3 System)</h3>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), 1fr))',
           gap: 'var(--md-sys-spacing-2)',
           marginTop: 'var(--md-sys-spacing-2)'
         }}>
           {[
-            { key: 'spacing-1', label: '1 (4px)', value: 'var(--md-sys-spacing-1)' },
-            { key: 'spacing-2', label: '2 (8px)', value: 'var(--md-sys-spacing-2)' },
-            { key: 'spacing-3', label: '3 (12px)', value: 'var(--md-sys-spacing-3)' },
-            { key: 'spacing-4', label: '4 (16px)', value: 'var(--md-sys-spacing-4)' },
-            { key: 'spacing-5', label: '5 (20px)', value: 'var(--md-sys-spacing-5)' },
-            { key: 'spacing-6', label: '6 (24px)', value: 'var(--md-sys-spacing-6)' }
+            { key: 'spacing-1', label: '1', value: 'var(--md-sys-spacing-1)' },
+            { key: 'spacing-2', label: '2', value: 'var(--md-sys-spacing-2)' },
+            { key: 'spacing-3', label: '3', value: 'var(--md-sys-spacing-3)' },
+            { key: 'spacing-4', label: '4', value: 'var(--md-sys-spacing-4)' },
+            { key: 'spacing-5', label: '5', value: 'var(--md-sys-spacing-5)' },
+            { key: 'spacing-6', label: '6', value: 'var(--md-sys-spacing-6)' }
           ].map(({ key, label, value }) => (
             <div key={key} style={{
               padding: 'var(--md-sys-spacing-2)',
@@ -225,7 +228,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}>Motion & Easing (MD3 System)</h3>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), 1fr))',
           gap: 'var(--md-sys-spacing-2)',
           marginTop: 'var(--md-sys-spacing-2)'
         }}>
@@ -254,7 +257,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 color: 'var(--md-sys-color-on-surface)',
                 padding: 'var(--md-sys-spacing-1)',
                 backgroundColor: 'var(--md-sys-color-surface)',
-                border: '1px solid var(--md-sys-color-outline)',
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
                 minHeight: 'var(--md-sys-spacing-6)',
                 display: 'flex',
@@ -274,7 +277,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         gap: 'var(--md-sys-spacing-2)',
         justifyContent: 'flex-end',
         paddingTop: 'var(--md-sys-spacing-4)',
-        borderTop: '1px solid var(--md-sys-color-outline-variant)'
+        borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
       }}>
         <M3Button onClick={resetToDefaults} variant="outlined">
           Reset to MD3 Defaults

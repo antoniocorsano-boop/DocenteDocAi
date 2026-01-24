@@ -280,7 +280,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             backgroundColor: 'var(--md-sys-color-surface-container-high)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--md-sys-spacing-6)',
-                            border: '1px solid var(--md-sys-color-outline)',
+                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                             width: '100%',
                             marginLeft: 'auto',
                             marginRight: 'auto'

@@ -103,19 +103,19 @@ const Snackbar: React.FC = () => {
         left: '50%',
         bottom: 'var(--md-sys-spacing-8)',
         transform: 'translateX(-50%)',
-        minWidth: 'var(--md-sys-spacing-14)', // 220px approx
+        minWidth: 'var(--md-sys-spacing-14)',
         maxWidth: '90vw',
-        padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-5) var(--md-sys-spacing-3) var(--md-sys-spacing-4)` , // 0.9rem 1.5rem 0.9rem 1.1rem
+        padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-5) var(--md-sys-spacing-3) var(--md-sys-spacing-4)` ,
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         boxShadow: 'var(--md-sys-elevation-level3)',
         display: 'flex',
         alignItems: 'center',
-        gap: 'var(--md-sys-spacing-3)', // 0.7rem
+        gap: 'var(--md-sys-spacing-3)',
         backgroundColor: bg,
         color: color,
         zIndex: 3000,
         animation: 'snackbar-in 0.22s var(--md-sys-motion-easing-expressive) both',
-        outline: isFocused ? `2px solid ${primary}` : 'none',
+        outline: isFocused ? `var(--md-sys-border-width-normal) solid ${primary}` : 'none',
         outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'}}
       role="status"
       aria-live="polite"
@@ -147,11 +147,11 @@ const Snackbar: React.FC = () => {
         style={{backgroundColor: 'transparent',
           border: 'none',
           color: 'inherit',
-          fontSize: 'var(--md-sys-spacing-5)', // 1.3rem approx
-          marginLeft: 'var(--md-sys-spacing-2)', // 0.5rem
+          fontSize: 'var(--md-sys-spacing-5)',
+          marginLeft: 'var(--md-sys-spacing-2)',
           borderRadius: 'var(--md-sys-shape-corner-full)',
           cursor: 'pointer',
-          padding: 'var(--md-sys-spacing-1)', // 0.2rem
+          padding: 'var(--md-sys-spacing-1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

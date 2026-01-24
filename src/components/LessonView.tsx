@@ -187,8 +187,8 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
     <>
       <style>{`
         .lesson-icon-dynamic {
-          background-color: hsl(${hue}, 80%, 90%);
-          color: hsl(${hue}, 60%, 30%);
+          background-color: hsl(${hue}, var(--md-sys-percent-80), var(--md-sys-percent-90));
+          color: hsl(${hue}, var(--md-sys-percent-60), var(--md-sys-percent-30));
         }
       `}</style>
       <M3Dialog

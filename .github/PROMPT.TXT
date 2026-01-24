@@ -1,0 +1,8 @@
+Refactor this file according to DocenteDoc AI MD3 policy.
+
+Scope:
+- STEP 1 only: remove hardcoded values
+- Use only MD3 tokens
+- Do NOT change layout or behavior
+- Do NOT introduce className
+- If a token is missing, stop and report it

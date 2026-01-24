@@ -14,6 +14,9 @@ const ACTIONS: Array<{ key: AssistantMode; label: string; icon: string; descript
   { key: 'backup', label: 'Backup & Drive', icon: 'cloud_sync', description: 'Backup e sincronizzazione' },
 ];
 
+const ACTION_ITEM_HEIGHT = 80; // Height per action item in pixels
+const FAB_HEIGHT = 64; // FAB button height in pixels
+
 type AssistantMode = 'chat' | 'docs' | 'tools' | 'backup';
 
 const AssistantFab: React.FC<AssistantFabProps> = () => {
@@ -85,7 +88,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
     // Calcola la posizione del FAB e la finestra
     if (fabRef.current) {
       const rect = fabRef.current.getBoundingClientRect();
-      const actionsHeight = ACTIONS.length * 80 + 64; // 80px per azione, 64px FAB
+      const actionsHeight = ACTIONS.length * ACTION_ITEM_HEIGHT + FAB_HEIGHT; // ACTION_ITEM_HEIGHT per azione, FAB_HEIGHT FAB
       // Se c'è spazio sopra, apri verso l'alto, altrimenti verso il basso
       if (rect.top > actionsHeight) {
         setMenuDirection('up');
@@ -297,28 +300,28 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           inset: 0;
           background: var(--md-sys-color-scrim);
           z-index: 1198;
-          backdrop-filter: blur(2px);
+          backdrop-filter: blur(var(--md-sys-blur-small));
         }
         .assistant-fab-sheet {
           position: fixed;
           inset: auto spacing[3] spacing[3];
-          /* On mobile, ensure it's above the bottom nav (64px + spacing[3] margin) */
-          bottom: calc(var(--bottom-nav-height, 64px) + spacing[3]);
+          /* On mobile, ensure it's above the bottom nav (var(--md-sys-spacing-16) + spacing[3] margin) */
+          bottom: calc(var(--bottom-nav-height, var(--md-sys-spacing-16)) + spacing[3]);
           right: 0;
           left: 0;
           margin: 0 auto;
-          max-width: 520px;
+          max-width: var(--md-sys-spacing-32);
           background: 'var(--md-sys-color-surface)';
           border-radius: shape.corner.extraLarge;
-          padding: 1.1rem 1.5rem 1.5rem;
+          padding: var(--md-sys-spacing-4) var(--md-sys-spacing-6) var(--md-sys-spacing-6);
           box-shadow: 'var(--md-sys-elevation-level-3)';
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: var(--md-sys-spacing-4);
           z-index: 1199;
           animation: assistant-sheet-enter 0.25s ease-out;
         }
-        @media (min-width: 600px) {
+        @media (min-width: var(--breakpoint-compact)) {
           .assistant-fab-sheet {
             bottom: 'var(--md-sys-spacing-6)';
           }
@@ -327,14 +330,14 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          gap: 1rem;
+          gap: var(--md-sys-spacing-4);
         }
         .assistant-fab-sheet-close {
-          width: 40px;
-          height: 40px;
+          width: var(--md-sys-spacing-10);
+          height: var(--md-sys-spacing-10);
           border-radius: 'var(--md-sys-shape-corner-full)';
           border: none;
-          background: 'colors.surfaceVariant';
+          background: var(--md-sys-color-surface-variant);
           display: flex;
           align-items: center;
           justify-content: center;

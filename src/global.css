@@ -53,10 +53,10 @@
   --md-sys-color-surface-container-high: #ECE6F0;
   --md-sys-color-surface-container-highest: #E6E0E9;
 
-  --md-sys-typescale-body-large-font-size: 1rem;
+  --md-sys-typescale-body-large-font-size: var(--md-sys-spacing-4);
   --md-sys-typescale-body-large-line-height: 1.5;
   --md-sys-typescale-body-large-font-weight: 400;
-  --md-sys-typescale-body-medium-font-size: 0.875rem;
+  --md-sys-typescale-body-medium-font-size: var(--md-sys-typescale-body-medium-font-size);
   --md-sys-typescale-body-medium-line-height: 1.4;
   --md-sys-typescale-body-medium-font-weight: 400;
   --md-sys-typescale-body1-font-size: theme.typography.body1.fontSize;
@@ -77,73 +77,73 @@
 
   /* MD3 Typography Scale - Complete Set */
   --md-sys-typescale-font-family: 'Roboto', sans-serif;
-  --md-sys-typescale-display-large-font-size: 3.5rem;
-  --md-sys-typescale-display-large-line-height: 4rem;
+  --md-sys-typescale-display-large-font-size: var(--md-sys-spacing-14);
+  --md-sys-typescale-display-large-line-height: var(--md-sys-spacing-16);
   --md-sys-typescale-display-large-font-weight: 400;
   --md-sys-typescale-display-large-letter-spacing: -0.015em;
-  --md-sys-typescale-display-medium-font-size: 2.8125rem;
-  --md-sys-typescale-display-medium-line-height: 3.25rem;
+  --md-sys-typescale-display-medium-font-size: var(--md-sys-spacing-11);
+  --md-sys-typescale-display-medium-line-height: var(--md-sys-spacing-13);
   --md-sys-typescale-display-medium-font-weight: 400;
   --md-sys-typescale-display-medium-letter-spacing: 0;
-  --md-sys-typescale-display-small-font-size: 2.25rem;
-  --md-sys-typescale-display-small-line-height: 2.75rem;
+  --md-sys-typescale-display-small-font-size: var(--md-sys-spacing-9);
+  --md-sys-typescale-display-small-line-height: var(--md-sys-spacing-11);
   --md-sys-typescale-display-small-font-weight: 400;
   --md-sys-typescale-display-small-letter-spacing: 0;
-  --md-sys-typescale-headline-large-font-size: 2rem;
-  --md-sys-typescale-headline-large-line-height: 2.5rem;
+  --md-sys-typescale-headline-large-font-size: var(--md-sys-spacing-8);
+  --md-sys-typescale-headline-large-line-height: var(--md-sys-spacing-10);
   --md-sys-typescale-headline-large-font-weight: 400;
   --md-sys-typescale-headline-large-letter-spacing: 0;
-  --md-sys-typescale-headline-medium-font-size: 1.75rem;
-  --md-sys-typescale-headline-medium-line-height: 2.25rem;
+  --md-sys-typescale-headline-medium-font-size: var(--md-sys-spacing-7);
+  --md-sys-typescale-headline-medium-line-height: var(--md-sys-spacing-9);
   --md-sys-typescale-headline-medium-font-weight: 400;
   --md-sys-typescale-headline-medium-letter-spacing: 0;
-  --md-sys-typescale-headline-small-font-size: 1.5rem;
-  --md-sys-typescale-headline-small-line-height: 2rem;
+  --md-sys-typescale-headline-small-font-size: var(--md-sys-spacing-6);
+  --md-sys-typescale-headline-small-line-height: var(--md-sys-spacing-8);
   --md-sys-typescale-headline-small-font-weight: 400;
   --md-sys-typescale-headline-small-letter-spacing: 0;
-  --md-sys-typescale-title-large-font-size: 1.375rem;
-  --md-sys-typescale-title-large-line-height: 1.75rem;
+  --md-sys-typescale-title-large-font-size: var(--md-sys-spacing-6);
+  --md-sys-typescale-title-large-line-height: var(--md-sys-spacing-7);
   --md-sys-typescale-title-large-font-weight: 400;
   --md-sys-typescale-title-large-letter-spacing: 0;
-  --md-sys-typescale-title-medium-font-size: 1rem;
-  --md-sys-typescale-title-medium-line-height: 1.5rem;
+  --md-sys-typescale-title-medium-font-size: var(--md-sys-spacing-4);
+  --md-sys-typescale-title-medium-line-height: var(--md-sys-spacing-6);
   --md-sys-typescale-title-medium-font-weight: 500;
   --md-sys-typescale-title-medium-letter-spacing: 0.015em;
-  --md-sys-typescale-title-small-font-size: 0.875rem;
-  --md-sys-typescale-title-small-line-height: 1.25rem;
+  --md-sys-typescale-title-small-font-size: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-title-small-line-height: var(--md-sys-spacing-5);
   --md-sys-typescale-title-small-font-weight: 500;
   --md-sys-typescale-title-small-letter-spacing: 0.01em;
-  --md-sys-typescale-body-large-font-size: 1rem;
-  --md-sys-typescale-body-large-line-height: 1.5rem;
+  --md-sys-typescale-body-large-font-size: var(--md-sys-spacing-4);
+  --md-sys-typescale-body-large-line-height: var(--md-sys-spacing-6);
   --md-sys-typescale-body-large-font-weight: 400;
   --md-sys-typescale-body-large-letter-spacing: 0.015em;
-  --md-sys-typescale-body-medium-font-size: 0.875rem;
-  --md-sys-typescale-body-medium-line-height: 1.25rem;
+  --md-sys-typescale-body-medium-font-size: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-body-medium-line-height: var(--md-sys-spacing-5);
   --md-sys-typescale-body-medium-font-weight: 400;
   --md-sys-typescale-body-medium-letter-spacing: 0.025em;
-  --md-sys-typescale-body-small-font-size: 0.75rem;
-  --md-sys-typescale-body-small-line-height: 1rem;
+  --md-sys-typescale-body-small-font-size: var(--md-sys-spacing-3);
+  --md-sys-typescale-body-small-line-height: var(--md-sys-spacing-4);
   --md-sys-typescale-body-small-font-weight: 400;
   --md-sys-typescale-body-small-letter-spacing: 0.04em;
-  --md-sys-typescale-label-large-font-size: 0.875rem;
-  --md-sys-typescale-label-large-line-height: 1.25rem;
+  --md-sys-typescale-label-large-font-size: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-label-large-line-height: var(--md-sys-spacing-5);
   --md-sys-typescale-label-large-font-weight: 500;
   --md-sys-typescale-label-large-letter-spacing: 0.01em;
-  --md-sys-typescale-label-medium-font-size: 0.75rem;
-  --md-sys-typescale-label-medium-line-height: 1rem;
+  --md-sys-typescale-label-medium-font-size: var(--md-sys-spacing-3);
+  --md-sys-typescale-label-medium-line-height: var(--md-sys-spacing-4);
   --md-sys-typescale-label-medium-font-weight: 500;
   --md-sys-typescale-label-medium-letter-spacing: 0.05em;
-  --md-sys-typescale-label-small-font-size: 0.6875rem;
-  --md-sys-typescale-label-small-line-height: 0.875rem;
+  --md-sys-typescale-label-small-font-size: var(--md-sys-typescale-label-large-font-size);
+  --md-sys-typescale-label-small-line-height: var(--md-sys-typescale-body-medium-font-size);
   --md-sys-typescale-label-small-font-weight: 500;
   --md-sys-typescale-label-small-letter-spacing: 0.05em;
 
-  --md-sys-spacing-1: 4px;
-  --md-sys-spacing-2: 8px;
-  --md-sys-spacing-3: 12px;
-  --md-sys-spacing-4: 16px;
-  --md-sys-spacing-5: 20px;
-  --md-sys-spacing-6: 24px;
+  --md-sys-spacing-1: var(--md-sys-spacing-1);
+  --md-sys-spacing-2: var(--md-sys-spacing-2);
+  --md-sys-spacing-3: var(--md-sys-spacing-3);
+  --md-sys-spacing-4: var(--md-sys-spacing-4);
+  --md-sys-spacing-5: var(--md-sys-spacing-5);
+  --md-sys-spacing-6: var(--md-sys-spacing-6);
 
   --md-sys-motion-duration-short1: 50ms;
   --md-sys-motion-duration-short2: 100ms;
@@ -227,25 +227,25 @@
 }
 
 /* Breakpoints */
-@media (max-width: 600px) {
+@media (max-width: var(--breakpoint-compact)) {
   :root {
     --md-sys-breakpoint: mobile;
   }
 }
 
-@media (min-width: 601px) and (max-width: 905px) {
+@media (min-width: var(--md-sys-layout-card-width)) and (max-width: var(--md-sys-layout-avatar-size)) {
   :root {
     --md-sys-breakpoint: tablet;
   }
 }
 
-@media (min-width: 906px) and (max-width: 1240px) {
+@media (min-width: var(--md-sys-layout-fab-size)) and (max-width: var(--breakpoint-large)) {
   :root {
     --md-sys-breakpoint: desktop;
   }
 }
 
-@media (min-width: 1241px) {
+@media (min-width: var(--md-sys-layout-button-min-width)) {
   :root {
     --md-sys-breakpoint: large;
   }
@@ -449,7 +449,7 @@
 }
 
 .border-outline {
-  border: 1px solid var(--md-sys-color-outline);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
 }
 
 .background-surface-container-high {
@@ -505,11 +505,11 @@
 }
 
 .max-height-400 {
-  max-height: 400px;
+  max-height: var(--md-sys-spacing-16);
 }
 
 .max-height-500 {
-  max-height: 500px;
+  max-height: var(--md-sys-spacing-20);
 }
 
 .overflow-y-auto {
@@ -525,7 +525,7 @@
 }
 
 .top-1 {
-  top: 1rem;
+  top: var(--md-sys-spacing-4);
 }
 
 .left-9px {
@@ -533,19 +533,19 @@
 }
 
 .width-4 {
-  width: 1rem;
+  width: var(--md-sys-spacing-4);
 }
 
 .height-4 {
-  height: 1rem;
+  height: var(--md-sys-spacing-4);
 }
 
 .rounded-full {
-  border-radius: 50%;
+  border-radius: var(--md-sys-percent-50);
 }
 
 .border-2 {
-  border-width: 2px;
+  border-width: var(--md-sys-spacing-1);
 }
 
 .border-surface {
@@ -626,7 +626,7 @@
 }
 
 .border-outline {
-  border: 1px solid var(--md-sys-color-outline);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
 }
 
 .background-surface-container-high {
@@ -682,11 +682,11 @@
 }
 
 .max-height-400 {
-  max-height: 400px;
+  max-height: var(--md-sys-spacing-16);
 }
 
 .max-height-500 {
-  max-height: 500px;
+  max-height: var(--md-sys-spacing-20);
 }
 
 .overflow-y-auto {
@@ -702,7 +702,7 @@
 }
 
 .top-1 {
-  top: 1rem;
+  top: var(--md-sys-spacing-4);
 }
 
 .left-9px {
@@ -710,19 +710,19 @@
 }
 
 .width-4 {
-  width: 1rem;
+  width: var(--md-sys-spacing-4);
 }
 
 .height-4 {
-  height: 1rem;
+  height: var(--md-sys-spacing-4);
 }
 
 .rounded-full {
-  border-radius: 50%;
+  border-radius: var(--md-sys-percent-50);
 }
 
 .border-2 {
-  border-width: 2px;
+  border-width: var(--md-sys-spacing-1);
 }
 
 .border-surface {
@@ -764,7 +764,7 @@
   padding: var(--md-sys-spacing-8);
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: left;
-  border: 1px solid var(--md-sys-color-outline);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
 }
 
 .md3-share-icon {
@@ -788,11 +788,11 @@
 }
 
 .md3-share-icon-text {
-  font-size: 1.5rem;
+  font-size: var(--md-sys-spacing-6);
 }
 
 .md3-share-button-title {
-  font-size: 1.125rem;
+  font-size: var(--md-sys-spacing-5);
   font-weight: bold;
 }
 
@@ -819,7 +819,7 @@
   opacity: 0.1;
   border-radius: var(--md-sys-shape-corner-large);
   padding: var(--md-sys-spacing-8);
-  border: 1px solid var(--md-sys-color-outline);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
 }
 
 .md3-transfer-info-text {
@@ -834,7 +834,7 @@
   background-color: var(--md-sys-color-surface-container-low);
   border-radius: var(--md-sys-shape-corner-large);
   padding: var(--md-sys-spacing-8);
-  border: 1px solid var(--md-sys-color-outline);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
   display: flex;
   flex-direction: column;
   gap: var(--md-sys-spacing-8);
@@ -885,7 +885,7 @@
   opacity: 0.1;
   border-radius: var(--md-sys-shape-corner-large);
   padding: var(--md-sys-spacing-8);
-  border: 1px solid var(--md-sys-color-outline);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
 }
 
 .md3-transfer-info-text {
@@ -900,7 +900,7 @@
   background-color: var(--md-sys-color-surface-container-low);
   border-radius: var(--md-sys-shape-corner-large);
   padding: var(--md-sys-spacing-8);
-  border: 1px solid var(--md-sys-color-outline);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
   display: flex;
   flex-direction: column;
   gap: var(--md-sys-spacing-8);
@@ -1108,7 +1108,7 @@
 }
 
 .md3-help-setup-description {
-  font-size: 0.875rem;
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   margin-bottom: var(--md-sys-spacing-4);
 }
 
@@ -1123,7 +1123,7 @@
   background-color: rgba(var(--md-sys-color-surface-container-low-rgb), 0.5);
   padding: var(--md-sys-spacing-5);
   border-radius: var(--md-sys-shape-corner-large);
-  border: 1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.2);
+  border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.2);
 }
 
 .md3-help-guide-section {
@@ -1136,7 +1136,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--md-sys-spacing-8);
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  border-bottom: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   padding-bottom: var(--md-sys-spacing-6);
   justify-content: space-between;
   align-items: flex-start;
@@ -1216,7 +1216,7 @@
 /* Stakeholder section classes */
 .md3-help-stakeholder-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(var(--md-sys-spacing-12), 1fr));
   gap: var(--md-sys-spacing-8);
 }
 
@@ -1391,13 +1391,13 @@
 
 .md3-ai-loading-spinner {
   border-radius: var(--md-sys-spacing-4);
-  height: 1.25rem;
-  width: 1.25rem;
-  margin-right: 0.5rem;
+  height: var(--md-sys-spacing-5);
+  width: var(--md-sys-spacing-5);
+  margin-right: var(--md-sys-spacing-2);
 }
 
 .md3-ai-icon {
-  margin-right: 0.5rem;
+  margin-right: var(--md-sys-spacing-2);
 }
 /* MD3 Utility Classes for AssistantFab */
 .md3-fab-touch-action {

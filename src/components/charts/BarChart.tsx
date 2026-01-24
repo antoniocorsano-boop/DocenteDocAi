@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 
+const LABEL_SPACE = 80; // Space reserved for labels in pixels
+
 interface ChartData {
   label: string;
   value: number;
@@ -75,7 +77,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
         <svg width="100%" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
             {data.map((d, i) => {
                 const yPos = i * rowHeight;
-                const barLength = (d.value / maxValue) * (chartWidth - 80); // 80px for labels
+                const barLength = (d.value / maxValue) * (chartWidth - LABEL_SPACE); // LABEL_SPACE for labels
                 return (
                     <g key={d.label}>
                          <text

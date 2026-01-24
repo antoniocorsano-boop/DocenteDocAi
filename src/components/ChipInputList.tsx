@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 
 import React, { useState, useRef } from 'react';
 interface ChipInputListProps {
@@ -75,7 +75,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                 </div>
              </div>
              
-             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'}}>
                 <div  style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                     {items.map((item, index) => (
                         <div key={index} style={{
@@ -96,7 +96,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                             animation: 'zoom-in-95 0.2s ease-out',
                             cursor: 'pointer',
                             transition: 'all 0.2s ease',
-                            border: '1px solid var(--md-sys-color-outline-variant)'
+                            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
                         }}>
                             <span>{item}</span>
                             <button 
@@ -129,7 +129,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     ))}
                     
                     {items.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "0.75rem", opacity: "0.4", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-small-font-size)', opacity: "0.4", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
                     )}
                 </div>
                 
@@ -139,7 +139,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-3)',
                     padding: 'var(--md-sys-spacing-3)',
-                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                     transition: 'border-color 0.2s ease'

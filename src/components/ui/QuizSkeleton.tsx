@@ -25,7 +25,7 @@ const QuizSkeleton: React.FC<QuizSkeletonProps> = ({
                             backgroundColor: ' layers.sys.color.surfaceContainerHigh',
                             borderRadius: 'layers.ref.shape.corner.small',
                             animation: 'pulse 2s ease-in-out infinite',
-                            width: '85%'}}
+                            width: 'var(--md-sys-percent-85)'}}
                     />
 
                     {/* Answer options skeleton */}
@@ -38,7 +38,7 @@ const QuizSkeleton: React.FC<QuizSkeletonProps> = ({
                                     backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
                                     borderRadius: 'var(--md-sys-shape-corner-small)',
                                     animation: 'pulse 2s ease-in-out infinite',
-                                    width: '70%',
+                                    width: 'var(--md-sys-percent-70)',
                                     animationDelay: `${(i * 4 + j) * 0.05}s`
                                 }}
                             />

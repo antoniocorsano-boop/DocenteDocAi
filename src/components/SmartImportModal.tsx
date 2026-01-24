@@ -79,13 +79,13 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             {...getRootProps()}
                             style={{
                                 width: '100%',
-                                maxWidth: '36rem',
-                                height: '20rem',
+                                maxWidth: 'calc(var(--md-sys-spacing-20) * 7.2)',
+                                height: 'calc(var(--md-sys-spacing-20) * 4)',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                border: `2px dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                border: `var(--md-sys-border-width-thick) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                                 backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
                                 transition: 'all var(--md-sys-motion-easing-emphasized)',
@@ -96,13 +96,13 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                         >
                             <input {...getInputProps()} />
                             <div style={{
-                                width: '5rem',
-                                height: '5rem',
-                                borderRadius: '50%',
+                                width: 'var(--md-sys-spacing-20)',
+                                height: 'var(--md-sys-spacing-20)',
+                                borderRadius: 'var(--md-sys-percent-50)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                marginBottom: '1.5rem',
+                                marginBottom: 'var(--md-sys-spacing-6)',
                                 boxShadow: 'var(--md-sys-elevation-level1)',
                                 backgroundColor: isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
                                 color: isDragActive ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)'
@@ -115,24 +115,24 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     borderRadius: 'var(--md-sys-spacing-4)',
-                                    fontSize: '0.75rem',
-                                    border: '1px solid var(--md-sys-color-outline)',
+                                    fontSize: 'var(--md-sys-spacing-3)',
+                                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                     padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)'
                                 }}>.PDF</span>
                                 <span style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     borderRadius: 'var(--md-sys-spacing-4)',
-                                    fontSize: '0.75rem',
-                                    border: '1px solid var(--md-sys-color-outline)',
+                                    fontSize: 'var(--md-sys-spacing-3)',
+                                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                     padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)'
                                 }}>.DOCX</span>
                                 <span style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     borderRadius: 'var(--md-sys-spacing-4)',
-                                    fontSize: '0.75rem',
-                                    border: '1px solid var(--md-sys-color-outline)',
+                                    fontSize: 'var(--md-sys-spacing-3)',
+                                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                     padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)'
                                 }}>.TXT</span>
                             </div>
@@ -151,7 +151,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                 {step === 'processing' && (
                     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', gap: 'var(--md-sys-spacing-8)'}}>
                         <div >
-                            <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: '4px solid var(--md-sys-color-outline)', borderColor: 'var(--md-sys-color-primary)'}}></div>
+                            <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: 'var(--md-sys-color-primary)'}}></div>
                             <div  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <span style={{color: 'var(--md-sys-color-primary)', fontFamily: 'Material Symbols Outlined'}}>auto_awesome</span>
                             </div>
@@ -172,12 +172,12 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             flexDirection: 'column',
                             height: '100%',
                             minHeight: '0',
-                            border: '1px solid var(--md-sys-color-outline)'
+                            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                         }}>
                             <div style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                 padding: 'var(--md-sys-spacing-8)',
-                                borderBottom: '1px solid var(--md-sys-color-outline)',
+                                borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-8)'
@@ -190,7 +190,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 flexGrow: '1',
                                 padding: 'var(--md-sys-spacing-6)',
                                 overflowY: 'auto',
-                                fontSize: '0.75rem',
+                                fontSize: 'var(--md-sys-spacing-3)',
                                 whiteSpace: 'pre-wrap',
                                 lineHeight: '1.625'
                             }}>
@@ -211,7 +211,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             <div style={{
                                 backgroundColor: 'var(--md-sys-color-surface)',
                                 padding: 'var(--md-sys-spacing-8)',
-                                borderBottom: '1px solid var(--md-sys-color-outline)',
+                                borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-8)',

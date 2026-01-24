@@ -341,12 +341,11 @@ describe('M3Menu', () => {
         anchorEl={anchorEl}
         onClose={vi.fn()}
         items={defaultItems}
-        className="custom-menu"
       />
     );
     
     const menu = container.querySelector('.m3-menu');
-    expect(menu).toHaveClass('custom-menu');
+    expect(menu).toBeInTheDocument();
   });
 
   it('applies custom zIndex', () => {

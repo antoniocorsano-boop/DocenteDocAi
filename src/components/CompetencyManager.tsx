@@ -78,7 +78,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                 padding: 'var(--md-sys-spacing-4)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 transition: 'background-color 0.2s ease',
-                                fontSize: '0.875rem',
+                                fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                 fontWeight: 500,
                                 display: 'flex',
                                 alignItems: 'center',
@@ -129,10 +129,10 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                         toggleCompetency(comp);
                                     }}
                                     style={{
-                                        width: '1.5rem',
-                                        height: '1.5rem',
+                                        width: 'var(--md-sys-spacing-7)',
+                                        height: 'var(--md-sys-spacing-7)',
                                         borderRadius: 'var(--md-sys-shape-corner-small)',
-                                        borderWidth: '2px',
+                                        borderWidth: 'var(--md-sys-border-width-normal)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',

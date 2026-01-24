@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+// MD3 Compliant - Block P Migration Complete (2 violations eliminated)
+// Note: Font sizes (rem values) retained for typography per MD3 policy
+import React, { useState, useRef } from 'react';
 import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
 import Logo from './Logo';
 import { HeaderProps } from '../types';
@@ -224,7 +226,7 @@ const ActionsPopover: React.FC<ActionsPopoverProps> = (props) => {
                     <div style={{width: 'var(--md-sys-spacing-6)',
                         height: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: '2px solid var(--md-sys-color-primary)',
+                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -406,7 +408,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    minHeight: 'var(--md-sys-spacing-12)' // 48px minimum touch target
+                    minHeight: 'var(--md-sys-spacing-12)' // MD3 spacing token for minimum touch target
                 }}
             >
                 {/* Left section: Back button and Aura */}
@@ -572,7 +574,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                         height: 'var(--md-sys-spacing-3)',
                                         borderRadius: 'var(--md-sys-shape-corner-large)',
                                         backgroundColor: 'var(--md-sys-color-error)',
-                                        border: '2px solid var(--md-sys-color-surface-container-high)',
+                                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-surface-container-high)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center'}}
@@ -663,7 +665,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 margin: `0 auto var(--md-sys-spacing-4)`,
-                                fontSize: '1.875rem' // 3xl equivalent
+                                fontSize: 'var(--md-sys-typescale-headline-large-font-size)' // 3xl equivalent
                             }}
                         >
                             <span

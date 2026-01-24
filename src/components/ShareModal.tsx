@@ -71,7 +71,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             padding: 'var(--md-sys-spacing-8)',
                             transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
                             textAlign: 'left',
-                            border: '1px solid var(--md-sys-color-outline)'
+                            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                         }}
                     >
                         <div style={{
@@ -85,10 +85,10 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             color: 'var(--md-sys-color-on-secondary-container)',
                             backgroundColor: 'var(--md-sys-color-secondary-container)'
                         }}>
-                            <span style={{ fontSize: '1.5rem' }}>share</span>
+                            <span style={{ fontSize: 'var(--md-sys-spacing-6)' }}>share</span>
                         </div>
                         <div>
-                            <p style={{ fontSize: '1.125rem', fontWeight: 'bold' }}>Condividi via...</p>
+                            <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'bold' }}>Condividi via...</p>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>WhatsApp, Email, Drive</p>
                         </div>
                     </button>
@@ -104,7 +104,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             padding: 'var(--md-sys-spacing-8)',
                             transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
                             textAlign: 'left',
-                            border: '1px solid var(--md-sys-color-outline)'
+                            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                         }}
                     >
                         <div style={{
@@ -118,10 +118,10 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             color: 'var(--md-sys-color-on-tertiary-container)',
                             backgroundColor: 'var(--md-sys-color-tertiary-container)'
                         }}>
-                            <span style={{ fontSize: '1.5rem' }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
+                            <span style={{ fontSize: 'var(--md-sys-spacing-6)' }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
                         </div>
                         <div>
-                            <p style={{ fontSize: '1.125rem', fontWeight: 'bold' }}>{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</p>
+                            <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'bold' }}>{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</p>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per registro elettronico o Padlet</p>
                         </div>
                     </button>

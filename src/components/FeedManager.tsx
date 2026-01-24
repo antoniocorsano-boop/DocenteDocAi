@@ -106,7 +106,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         disabled={true} 
                         
                     >
-                        <span  style={{ marginRight: "0.5rem" }}>add_link</span>
+                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_link</span>
                         Aggiungi
                     </M3Button>
                 </div>

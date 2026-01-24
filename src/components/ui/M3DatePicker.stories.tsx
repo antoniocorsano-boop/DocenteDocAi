@@ -107,7 +107,7 @@ export const Full: Story = {
  */
 export const FormExample: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', maxWidth: layers.ref.spacing['4'] }}>
       <M3DatePicker
         label="Start Date"
         helperText="Project starts on this date"
@@ -131,25 +131,25 @@ export const States: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4'] }}>
       <div>
-        <h3 style={{ margin: '0 0 1rem 0', fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.6 }}>DEFAULT</h3>
+        <h3 style={{ margin: '0 0 var(--md-sys-spacing-4) 0', fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.6 }}>DEFAULT</h3>
         <M3DatePicker label="Normal" />
       </div>
       <div>
-        <h3 style={{ margin: '0 0 1rem 0', fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.6 }}>WITH HELPER</h3>
+        <h3 style={{ margin: '0 0 var(--md-sys-spacing-4) 0', fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.6 }}>WITH HELPER</h3>
         <M3DatePicker
           label="Date Input"
           helperText="Select a date from calendar"
         />
       </div>
       <div>
-        <h3 style={{ margin: '0 0 1rem 0', fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.6 }}>ERROR STATE</h3>
+        <h3 style={{ margin: '0 0 var(--md-sys-spacing-4) 0', fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.6 }}>ERROR STATE</h3>
         <M3DatePicker
           label="Invalid Date"
           error="This date has passed"
         />
       </div>
       <div>
-        <h3 style={{ margin: '0 0 1rem 0', fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.6 }}>DISABLED</h3>
+        <h3 style={{ margin: '0 0 var(--md-sys-spacing-4) 0', fontSize: 'var(--md-sys-typescale-body-small-size)', opacity: 0.6 }}>DISABLED</h3>
         <M3DatePicker
           label="Disabled"
           disabled

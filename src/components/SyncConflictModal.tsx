@@ -23,7 +23,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
             maxWidth="sm"
             level={2}
         >
-            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
+            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) var(--md-sys-percent-30), transparent)' }}>
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                         {/* LOCAL CARD */}
@@ -31,7 +31,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                     style={{
                                                         padding: 'var(--md-sys-spacing-8)',
                                                         borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                                                        border: '1px solid var(--md-sys-color-outline)',
+                                                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                                         display: 'flex',
                                                         justifyContent: 'space-between',
                                                         alignItems: 'center',
@@ -43,11 +43,11 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                     }}
                                                 >
                             <div>
-                                <p style={{fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
-                                    <span style={{ fontSize: "0.875rem", fontFamily: 'Material Symbols Outlined' }}>devices</span>
+                                <p style={{fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+                                    <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontFamily: 'Material Symbols Outlined' }}>devices</span>
                                     Dati Locali (Attuali)
                                 </p>
-                                <p style={{ color: 'var(--md-sys-color-on-primary)', fontSize: "0.875rem", fontWeight: "900" }}>
+                                <p style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: "900" }}>
                                     {localDate ? localDate.toLocaleString() : 'Nessun dato'}
                                 </p>
                             </div>
@@ -66,7 +66,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                     style={{
                                                         padding: 'var(--md-sys-spacing-8)',
                                                         borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                                                        border: '1px solid var(--md-sys-color-outline)',
+                                                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                                         display: 'flex',
                                                         justifyContent: 'space-between',
                                                         alignItems: 'center',
@@ -78,11 +78,11 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                     }}
                                                 >
                             <div>
-                                <p style={{fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
-                                    <span style={{ fontSize: "0.875rem", fontFamily: 'Material Symbols Outlined' }}>cloud</span>
+                                <p style={{fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+                                    <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontFamily: 'Material Symbols Outlined' }}>cloud</span>
                                     Cloud (Drive)
                                 </p>
-                                <p  style={{fontSize: "0.875rem", fontWeight: "900", color: "var(--md-sys-color-primary)"}}>
+                                <p  style={{fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: "900", color: "var(--md-sys-color-primary)"}}>
                                     {remoteDate.toLocaleString()}
                                 </p>
                             </div>
@@ -99,7 +99,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
             <M3DialogActions>
                 <M3Button onClick={onIgnore} variant="text">Mantieni Dati Locali</M3Button>
                 <M3Button onClick={onRestore} variant="filled">
-                    <span style={{ marginRight: "0.5rem", fontFamily: 'Material Symbols Outlined' }}>download</span>
+                    <span style={{ marginRight: 'var(--md-sys-spacing-2)', fontFamily: 'Material Symbols Outlined' }}>download</span>
                     Sincronizza dal Cloud
                 </M3Button>
             </M3DialogActions>

@@ -56,7 +56,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate, dismissSuggestion }) => {
     const metrics = useMemo(() => ({
         studenti: students?.length || 24,
         verificheOggi: 2,
-        presenze: '98%'
+        presenze: 'var(--md-sys-percent-95)'
     }), [students?.length]);
     const recentActivities: RecentActivity[] = [];
     const nextLesson = useMemo(() => {

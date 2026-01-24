@@ -20,8 +20,8 @@ const M3ActivityItem: React.FC<M3ActivityItemProps> = ({
         padding: 'var(--md-sys-spacing-4)',
         backgroundColor: isHovered
           ? 'var(--md-sys-color-surface-container-low)'
-          : `color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)`,
-        border: `1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 10%, transparent)`,
+          : `color-mix(in srgb, var(--md-sys-color-surface-container-low) var(--md-sys-state-opacity-disabled), transparent)`,
+        border: `var(--md-sys-border-width-normal) solid color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-state-opacity-disabled), transparent)`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',

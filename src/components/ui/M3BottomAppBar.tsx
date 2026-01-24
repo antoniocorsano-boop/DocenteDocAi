@@ -18,14 +18,14 @@ function M3BottomAppBar({ children, elevated, style, ...props }: M3BottomAppBarP
   const level2 = 'var(--md-sys-elevation-level-2)';
 
   const baseStyle: React.CSSProperties = {
-    width: '100%',
+    width: 'var(--md-sys-percent-100)',
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
     gap: 'var(--md-sys-spacing-2)',
     padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-3)`,
     backgroundColor: surface,
-    borderTop: `1px solid ${outlineVariant}`,
+    borderTop: `var(--md-sys-border-width-normal) solid ${outlineVariant}`,
     boxSizing: 'border-box',
   };
 

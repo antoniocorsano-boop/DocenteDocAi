@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// ✅ MD3 Native Compliant - Migrated to direct MD3 tokens
 
 import React, { useState, useEffect } from 'react';
 // Load Google GenAI dynamically to avoid bundling it in the main chunk
@@ -139,7 +139,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
 
         if (!hasApiKey) {
             return (
-                <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", border: "1px solid var(--md-sys-color-outline)", marginLeft: "auto", marginRight: "auto" }}>
+                <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", marginLeft: "auto", marginRight: "auto" }}>
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-primary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>vpn_key</span>
                     </div>
@@ -158,9 +158,9 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
         }
 
         return (
-            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)', height: "100%", padding: 'var(--md-sys-spacing-8)'}}>
+            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)', height: "var(--md-sys-percent-100)", padding: 'var(--md-sys-spacing-8)'}}>
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)' }}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)' }}>
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -182,21 +182,21 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             }}
                             placeholder="Es. 'Un gatto astronauta fluttua nello spazio, inseguendo un gomitolo di lana cosmico'..."
                             // removed non-MD3 containerClassName
-                             style={{ height: "100%" }}
+                             style={{ height: "var(--md-sys-percent-100)" }}
                             label="Descrizione Video"
                         />
                     </div>
 
                     {error && (
-                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', fontSize: "0.875rem", fontWeight: "bold", border: "1px solid var(--md-sys-color-outline)" }}>
-                            <span  style={{ fontSize: "1.25rem" }}>error</span>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: "bold", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}>
+                            <span  style={{ fontSize: 'var(--md-sys-spacing-5)' }}>error</span>
                             {error}
                         </div>
                     )}
                 </div>
 
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)' }}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)' }}>
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -208,7 +208,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                         </div>
                     </div>
 
-                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', flexGrow: "1", border: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-8)' }}>
+                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', flexGrow: "1", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-8)' }}>
                         {isLoading ? (
                             <div style={{ textAlign: "center" }}>
                                 <div style={{ marginBottom: 'var(--md-sys-spacing-8)' }}>
@@ -221,9 +221,9 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>Questa operazione pu� richiedere alcuni minuti.</p>
                             </div>
                         ) : generatedVideoUrl ? (
-                            <div  style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
-                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', flexGrow: "1", backgroundColor: "black", border: "1px solid var(--md-sys-color-outline)" }}>
-                                    <video src={generatedVideoUrl} controls autoPlay loop  style={{ width: "100%", height: "100%" }}></video>
+                            <div  style={{ width: "var(--md-sys-percent-100)", height: "var(--md-sys-percent-100)", display: "flex", flexDirection: "column" }}>
+                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', flexGrow: "1", backgroundColor: "black", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}>
+                                    <video src={generatedVideoUrl} controls autoPlay loop  style={{ width: "var(--md-sys-percent-100)", height: "var(--md-sys-percent-100)" }}></video>
                                 </div>
                                 <div style={{marginTop: 'var(--md-sys-spacing-6)', display: "flex", justifyContent: "center"}}>
                                     <M3Button 
@@ -282,12 +282,12 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             mode="fullscreen"
             hideBackdrop={true}
         >
-            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', height: "100%" }}>
+            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', height: "var(--md-sys-percent-100)" }}>
                 {/* Aura Ornaments */}
                 <div style={{ backgroundColor: 'var(--md-sys-color-primary)', borderRadius: 'var(--md-sys-shape-corner-small)' }} />
                 <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-small)', animationDelay: '2s' }} />
                 
-                <div  style={{ height: "100%", overflowY: "auto" }}>
+                <div  style={{ height: "var(--md-sys-percent-100)", overflowY: "auto" }}>
                     {renderContent()}
                 </div>
             </div>

@@ -24,7 +24,7 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
     >
       <M3DialogContent style={{backgroundColor: 'var(--md-sys-color-surface-container-high)',
         opacity: 0.3,
-        backdropFilter: 'blur(4px)'}}>
+        backdropFilter: 'blur(var(--md-sys-blur-small))'}}>
         {children}
       </M3DialogContent>
       <M3DialogActions>

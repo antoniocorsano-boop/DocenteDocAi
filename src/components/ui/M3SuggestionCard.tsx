@@ -15,17 +15,17 @@ const M3SuggestionCard: React.FC<M3SuggestionCardProps> = ({
   variant = 'active'
 }) => {
   const baseStyles: React.CSSProperties = {
-    backgroundColor: `color-mix(in srgb, var(--md-sys-color-surface-variant) 80%, transparent)`,
+    backgroundColor: `color-mix(in srgb, var(--md-sys-color-surface-variant) var(--md-sys-percent-80), transparent)`,
     padding: 'var(--md-sys-spacing-6)',
     borderRadius: 'var(--md-sys-shape-corner-extra-large)'
   };
 
   const variantStyles: React.CSSProperties = variant === 'active'
     ? {
-        borderLeft: `4px solid var(--md-sys-color-primary)`
+        borderLeft: `var(--md-sys-spacing-1) solid var(--md-sys-color-primary)`
       }
     : {
-        border: `1px solid color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)`
+        border: `var(--md-sys-border-width-normal) solid color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-percent-30), transparent)`
       };
 
   return (

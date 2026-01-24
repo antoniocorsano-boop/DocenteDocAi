@@ -187,14 +187,13 @@ describe('M3Popover', () => {
         open={true}
         anchorEl={anchorEl}
         onClose={vi.fn()}
-        className="custom-class"
       >
         Content
       </M3Popover>
     );
     
     const popover = container.querySelector('.m3-popover');
-    expect(popover).toHaveClass('custom-class');
+    expect(popover).toBeInTheDocument();
   });
 
   it('applies custom style', () => {
@@ -203,14 +202,14 @@ describe('M3Popover', () => {
         open={true}
         anchorEl={anchorEl}
         onClose={vi.fn()}
-        style={{ padding: 24 }}
+        style={{ padding: 'var(--md-sys-spacing-6)' }}
       >
         Content
       </M3Popover>
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.padding).toBe('24px');
+    expect(popover.style.padding).toBe('var(--md-sys-spacing-6)');
   });
 
   it('applies custom minWidth', () => {

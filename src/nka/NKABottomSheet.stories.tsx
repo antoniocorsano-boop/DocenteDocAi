@@ -68,24 +68,24 @@ export const Interactive: Story = {
     const [selectedNode, setSelectedNode'] = React.useState<NKANode | null>(null);
 
     return (
-      <div style={{ padding: '2rem' }}>
+      <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
         <button
           onClick={() => setOpen(true)}
           style={{
-            padding: '1rem 2rem',
+            padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-8)',
             background: 'var(--md-sys-color-primary)',
             color: 'var(--md-sys-color-on-primary)',
             border: 'none',
             borderRadius: 'var(--md-sys-spacing-6)',
             cursor: 'pointer',
-            fontSize: '1rem',
+            fontSize: 'var(--md-sys-typescale-body-large-size)',
             fontWeight: 600,
           }}
         >
           Open Knowledge Map
         </button>
         {selectedNode && (
-          <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--md-sys-color-surfaceContainer)', borderRadius: 'var(--md-sys-spacing-2)' }}>
+          <div style={{ marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)', background: 'var(--md-sys-color-surfaceContainer)', borderRadius: 'var(--md-sys-spacing-2)' }}>
             <strong>Selected Node:</strong> {selectedNode.label}
           </div>
         )}

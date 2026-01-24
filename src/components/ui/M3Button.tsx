@@ -75,11 +75,11 @@ const M3Button: React.FC<M3ButtonProps> = ({
     outline: 'none',
     borderRadius: shapeMedium,
     cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 0.38 : 1,
+    opacity: disabled ? 'var(--md-sys-state-opacity-disabled)' : 1,
     pointerEvents: disabled ? 'none' : 'auto',
     border: 'none',
     textDecoration: 'none',
-    width: fullWidth ? '100%' : 'auto',
+    width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
     gap: spacing4
   };
 
@@ -96,7 +96,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
         return {
           backgroundColor: 'transparent',
           color: primary,
-          border: `1px solid ${outline}`
+          border: `var(--md-sys-border-width-normal) solid ${outline}`
         };
       case 'text':
         return {

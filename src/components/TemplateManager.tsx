@@ -1,5 +1,5 @@
-// MD3 Compliant
-// Migrated to full MD3 compliance: replaced layers.* with var(--md-sys-*) tokens, removed className, used M3Typography for text, ensured ESLint passes.
+// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
+// Note: minmax(calc(var(--md-sys-spacing-20) * 3.5), 1fr) used for functional grid layout with MD3 spacing token
 import React, { useState, useMemo } from 'react';
 import { DocumentTemplate } from '../types';
 import { useSystemStore } from '../stores/useSystemStore';
@@ -105,13 +105,13 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                 <div style={{display: "flex", gap: 'var(--md-sys-spacing-16)'}}>
                   <div style={{ flex: 1 }}>
                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', padding: 'var(--md-sys-spacing-8)'}}>
-                      <span style={{color: 'var(--md-sys-color-on-surface-variant)', fontSize: "1.5rem"}}>search</span>
+                      <span style={{color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-title-medium-font-size)'}}>search</span>
                       <input
                         type="text"
                         placeholder="Cerca template..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        style={{border: "none", backgroundColor: "transparent", width: "100%", color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typography-body-large-font-size)', outline: "none"}}
+                        style={{border: "none", backgroundColor: "transparent", width: 'var(--md-sys-percent-100)', color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typography-body-large-font-size)', outline: "none"}}
                       />
                     </div>
                   </div>
@@ -120,7 +120,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                     variant="filled"
                     style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
                   >
-                    <span  style={{ marginRight: "0.5rem" }}>add</span>
+                    <span  style={{ marginRight: 'var(--md-sys-spacing-2)' }}>add</span>
                     Nuovo Template
                   </M3Button>
                 </div>
@@ -157,7 +157,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                           subtitle={`${groupTemplates.length} template disponibili`}
                           style={{marginBottom: 'var(--md-sys-spacing-16)'}}
                         />
-                        <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 'var(--md-sys-spacing-16)'}}>
+                        <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(calc(var(--md-sys-spacing-20) * 3.5), 1fr))", gap: 'var(--md-sys-spacing-16)'}}>
                           {groupTemplates.map(template => (
                             <InfoCard
                               key={template.id}
@@ -198,7 +198,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                 </M3Typography>
                               )}
 
-                              <div style={{fontSize: "0.75rem", color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)'}}>
+                              <div style={{fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)'}}>
                                 {new Date(template.createdAt).toLocaleDateString('it-IT')}
                               </div>
 

@@ -224,7 +224,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                                                                             padding: 'var(--md-sys-spacing-6)',
                                                                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                                                             backgroundColor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
-                                                                                            border: isSelected ? '2px solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline)',
+                                                                                            border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                                                                             fontWeight: isSelected ? 700 : 400,
                                                                                             cursor: 'pointer',
                                                                                             transition: 'all 200ms var(--md-sys-motion-easing-emphasized)',
@@ -232,15 +232,15 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                                                                 >
                                                                                         <div
                                                                                             style={{
-                                                                                                width: '1.5rem',
-                                                                                                height: '1.5rem',
+                                                                                                width: 'var(--md-sys-spacing-6)',
+                                                                                                height: 'var(--md-sys-spacing-6)',
                                                                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                                                                                 backgroundColor: isSelected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
                                                                                                 display: 'flex',
                                                                                                 alignItems: 'center',
                                                                                                 justifyContent: 'center',
                                                                                                 color: isSelected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-outline)',
-                                                                                                border: isSelected ? 'none' : '1px solid var(--md-sys-color-outline)',
+                                                                                                border: isSelected ? 'none' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                                                                                 marginRight: 'var(--md-sys-spacing-4)',
                                                                                             }}
                                                                                         >
@@ -256,7 +256,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             </div>
                         </M3DialogContent>
                         <M3DialogActions >
-                            <M3Button onClick={handlePickerClose} variant="primary" style={{ width: "100%" }}>Conferma Selezione</M3Button>
+                            <M3Button onClick={handlePickerClose} variant="primary" style={{ width: "var(--md-sys-percent-100)" }}>Conferma Selezione</M3Button>
                         </M3DialogActions>
                     </M3Dialog>
                 )}

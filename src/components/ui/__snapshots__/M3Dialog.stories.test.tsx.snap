@@ -16,10 +16,10 @@ exports[`M3Dialog Story Snapshots > renders default story correctly 1`] = `
       aria-labelledby="dialog-title"
       aria-modal="true"
       role="dialog"
-      style="width: 100%; max-width: 32rem; max-height: 90vh; margin: auto; background-color: var(--md-sys-color-surface-container-high); border-radius: var(--md-sys-shape-corner-large); box-shadow: var(--md-sys-elevation-level3); display: flex; flex-direction: column; position: relative; z-index: 1401;"
+      style="width: var(--md-sys-percent-100); max-width: var(--md-sys-spacing-32); max-height: var(--md-sys-percent-90); margin: auto; background-color: var(--md-sys-color-surface-container-high); border-radius: var(--md-sys-shape-corner-large); box-shadow: var(--md-sys-elevation-level3); display: flex; flex-direction: column; position: relative; z-index: 1401;"
     >
       <div
-        style="display: flex; justify-content: space-between; align-items: flex-start; padding: var(--md-sys-spacing-6); border-bottom: 1px solid var(--md-sys-color-outline-variant);"
+        style="display: flex; justify-content: space-between; align-items: flex-start; padding: var(--md-sys-spacing-6); border-bottom: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant);"
       >
         <div>
           <h2

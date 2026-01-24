@@ -24,7 +24,7 @@ const DocumentSkeleton: React.FC<DocumentSkeletonProps> = ({
             backgroundColor: color.surfaceContainerHigh,
             borderRadius: shape.corner.small,
             animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            width: '70%'
+            width: 'var(--md-sys-percent-70)'
         }} />
 
         {/* Content lines skeleton */}
@@ -36,7 +36,7 @@ const DocumentSkeleton: React.FC<DocumentSkeletonProps> = ({
                     backgroundColor: color.surfaceContainerHigh,
                     borderRadius: shape.corner.full,
                     animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    width: i === lines - 1 ? '60%' : '100%',
+                    width: i === lines - 1 ? 'var(--md-sys-percent-60)' : 'var(--md-sys-percent-100)',
                     animationDelay: `${i * 0.1}s`
                 }}
             />

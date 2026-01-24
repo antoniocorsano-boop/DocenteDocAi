@@ -42,7 +42,7 @@ export const WithContent: Story = {
   args: {
     children: (
       <div>
-        <h3 style={{ marginTop: 0, marginBottom: '0.5rem' }}>Card Title</h3>
+        <h3 style={{ marginTop: 0, marginBottom: 'var(--md-sys-spacing-2)' }}>Card Title</h3>
         <p style={{ marginBottom: 0 }}>
           This card demonstrates the M3 Card component with richer content and multiple elements.
         </p>

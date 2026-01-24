@@ -25,15 +25,15 @@ type Story = StoryObj<typeof meta>;
  */
 export const Basic: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: layers.ref.spacing['4'], backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
       <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)', overflowY: 'auto' }}>
         <h1>Main Content</h1>
         <p>This is the main content area above the bottom app bar.</p>
       </div>
       <M3BottomAppBar>
         <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)' }}>Home</button>
-        <button style={{ padding: '0.75rem 1rem' }}>Browse</button>
-        <button style={{ padding: '0.75rem 1rem' }}>Create</button>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)' }}>Browse</button>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)' }}>Create</button>
       </M3BottomAppBar>
     </div>
   ),
@@ -44,7 +44,7 @@ export const Basic: Story = {
  */
 export const WithFAB: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: layers.ref.spacing['4'], backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
       <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)', overflowY: 'auto' }}>
         <h1>Document List</h1>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -56,20 +56,20 @@ export const WithFAB: Story = {
         </div>
       </div>
       <M3BottomAppBar>
-        <button style={{ padding: '0.75rem 1rem' }}>📝 Draft</button>
-        <button style={{ padding: '0.75rem 1rem' }}>📁 Folder</button>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)' }}>📝 Draft</button>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)' }}>📁 Folder</button>
         <button
           style={{
             position: 'absolute',
             bottom: 'var(--md-sys-spacing-6)',
             right: 'var(--md-sys-spacing-4)',
-            width: layers.ref.spacing['4'],
-            height: layers.ref.spacing['4'],
-            borderRadius: '50%',
+            width: 'var(--md-sys-spacing-4)',
+            height: 'var(--md-sys-spacing-4)',
+            borderRadius: 'var(--md-sys-percent-50)',
             backgroundColor: 'var(--md-sys-color-primary)',
             color: 'var(--md-sys-color-on-primary)',
             border: 'none',
-            fontSize: '1.5rem',
+            fontSize: 'var(--md-sys-typescale-headline-medium-size)',
             cursor: 'pointer',
             boxShadow: 'var(--md-sys-elevation1)',
           }}
@@ -87,12 +87,12 @@ export const WithFAB: Story = {
  */
 export const Navigation: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: layers.ref.spacing['4'], backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
       <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)' }}>
         <h1>🏠 Home</h1>
         <p>Home screen content</p>
       </div>
-      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'var(--md-sys-color-surface)', borderTop: '1px solid var(--md-sys-color-outline-variant)' }}>
+      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'var(--md-sys-color-surface)', borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)' }}>
         {[
           { icon: '🏠', label: 'Home' },
           { icon: '📚', label: 'Library' },
@@ -105,15 +105,15 @@ export const Navigation: Story = {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '0.25rem',
+              gap: 'var(--md-sys-spacing-1)',
               backgroundColor: 'transparent',
               border: 'none',
               cursor: 'pointer',
               padding: 'var(--md-sys-spacing-3)',
-              fontSize: '0.75rem',
+              fontSize: 'var(--md-sys-typescale-body-small-size)',
             }}
           >
-            <div style={{ fontSize: '1.5rem' }}>{item.icon}</div>
+            <div style={{ fontSize: 'var(--md-sys-typescale-headline-medium-size)' }}>{item.icon}</div>
             {item.label}
           </button>
         ))}
@@ -127,12 +127,12 @@ export const Navigation: Story = {
  */
 export const DocumentEditing: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: layers.ref.spacing['4'], backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
       <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface)' }}>
         <h1>Document Title</h1>
         <p>Document content here...</p>
       </div>
-      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderTop: '1px solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
+      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
         <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
           💾 Save
         </button>
@@ -152,12 +152,12 @@ export const DocumentEditing: Story = {
  */
 export const ClassroomToolbar: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: layers.ref.spacing['4'], backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
       <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)' }}>
         <h1>Class 1A - Mathematics</h1>
         <p>24 Students</p>
       </div>
-      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--md-sys-color-surface)', borderTop: '1px solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
+      <M3BottomAppBar style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--md-sys-color-surface)', borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
         <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)' }}>
           <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
             👥 Roster
@@ -173,11 +173,11 @@ export const ClassroomToolbar: Story = {
           style={{
             width: 'var(--md-sys-spacing-12)',
             height: 'var(--md-sys-spacing-12)',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-percent-50)',
             backgroundColor: 'var(--md-sys-color-primary)',
             color: 'var(--md-sys-color-on-primary)',
             border: 'none',
-            fontSize: '1.2rem',
+            fontSize: 'var(--md-sys-typescale-body-large-size)',
             cursor: 'pointer',
           }}
           title="New announcement"
@@ -194,16 +194,16 @@ export const ClassroomToolbar: Story = {
  */
 export const ExtendedLabel: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: layers.ref.spacing['4'], backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
       <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)' }}>
         <h1>Content View</h1>
       </div>
-      <M3BottomAppBar style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderTop: '1px solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
+      <M3BottomAppBar style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
         <button
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.5rem',
+            gap: 'var(--md-sys-spacing-2)',
             padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
             backgroundColor: 'var(--md-sys-color-primary)',
             color: 'var(--md-sys-color-on-primary)',
@@ -225,7 +225,7 @@ export const ExtendedLabel: Story = {
  */
 export const Accessibility: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', height: layers.ref.spacing['4'], backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)' }}>
       <div style={{ flex: 1, padding: 'var(--md-sys-spacing-8)' }}>
         <h1>Accessible Bottom App Bar</h1>
         <p>Content above the navigation bar</p>
@@ -237,7 +237,7 @@ export const Accessibility: Story = {
           display: 'flex',
           justifyContent: 'space-around',
           backgroundColor: 'var(--md-sys-color-surface)',
-          borderTop: '1px solid var(--md-sys-color-outline-variant)',
+          borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
         }}
       >
         {[
@@ -253,15 +253,15 @@ export const Accessibility: Story = {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '0.25rem',
+              gap: 'var(--md-sys-spacing-1)',
               backgroundColor: 'transparent',
               border: 'none',
-              padding: '0.75rem 1rem',
+              padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
               cursor: 'pointer',
-              fontSize: '0.75rem',
+              fontSize: 'var(--md-sys-typescale-body-small-size)',
             }}
           >
-            <div style={{ fontSize: '1.5rem' }}>{item.icon}</div>
+            <div style={{ fontSize: 'var(--md-sys-typescale-headline-medium-size)' }}>{item.icon}</div>
             {item.label}
           </button>
         ))}

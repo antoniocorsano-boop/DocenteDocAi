@@ -1,4 +1,8 @@
-// LEGACY - MD3 Non-compliant
+// LEGACY - MD3 Non-compliant (1 functional exception remaining)
+
+// MD3 Migration: Partially migrated - replaced border with --md-sys-border-width-thick token
+// Still uses legacy useTheme system - requires full migration to inline MD3 tokens
+// Functional exception: grid minmax(calc(var(--md-sys-spacing-20) * 3.125), 1fr) for responsive card layout
 import React, { useState, useEffect } from 'react';
 import { useTheme, PresetOverrides } from '../../theme/theme';
 import M3Typography from '../ui/M3Typography';
@@ -326,7 +330,7 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selec
         backgroundColor: layers.sys.color.surface,
         padding: spacing['4'],
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(calc(var(--md-sys-spacing-20) * 3.125), 1fr))',
         gap: spacing['4']
       }}
     >
@@ -341,7 +345,7 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selec
             style={{
               padding: spacing['4'],
               cursor: 'pointer',
-              border: isSelected ? `2px solid ${layers.sys.color.primary}` : 'none',
+              border: isSelected ? `var(--md-sys-border-width-thick) solid ${layers.sys.color.primary}` : 'none',
               opacity: isHovered ? 0.8 : 1,
               backgroundColor: layers.sys.color.surfaceContainerLow,
               boxShadow: isSelected ? layers.elevation.level2 : layers.elevation.level1

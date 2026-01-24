@@ -17,7 +17,7 @@ export const DEFAULT_TEMPLATES: DocumentTemplate[] = [
     content: {
       header: getStyledHeader('Profilo dello Studente'),
       footer: getStyledFooter('Generato con DocenteDoc AI - {{data}}'),
-      customCss: '.student-info { margin-bottom: 20px; } .grade-table { width: 100%; border-collapse: collapse; }'
+      customCss: '.student-info { margin-bottom: var(--md-sys-spacing-5); } .grade-table { width: 100%; border-collapse: collapse; }'
     }
   },
   {
@@ -54,7 +54,7 @@ export const DEFAULT_TEMPLATES: DocumentTemplate[] = [
       customConclusion: 'La valutazione terrà conto del processo e del prodotto finale.'
     },
     content: {
-      header: '<h1 style="text-transform: uppercase; border-bottom: 2px solid #333;">Unità di Apprendimento</h1>',
+      header: '<h1 style="text-transform: uppercase; border-bottom: var(--md-sys-border-width-thick) solid var(--md-sys-color-on-surface);">Unità di Apprendimento</h1>',
       footer: '<p style="text-align: right;">Pagina {{page_number}}</p>'
     }
   }

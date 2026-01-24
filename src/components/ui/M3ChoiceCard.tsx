@@ -61,7 +61,7 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
         justifyContent: 'center',
         padding: MD3_TOKENS.spacing8,
         borderRadius: MD3_TOKENS.cornerExtraLarge,
-        border: `2px solid ${selected ? MD3_TOKENS.primary : hovered ? MD3_TOKENS.outline : `${MD3_TOKENS.outlineVariant}30`}`,
+        border: `var(--md-sys-border-width-thick) solid ${selected ? MD3_TOKENS.primary : hovered ? MD3_TOKENS.outline : `${MD3_TOKENS.outlineVariant}30`}`,
         backgroundColor: selected ? MD3_TOKENS.primaryContainer : hovered ? MD3_TOKENS.surfaceContainerHigh : `${MD3_TOKENS.surfaceContainer}80`,
         color: selected ? MD3_TOKENS.onPrimaryContainer : MD3_TOKENS.onSurface,
         boxShadow: selected ? MD3_TOKENS.elevation4 : 'none',

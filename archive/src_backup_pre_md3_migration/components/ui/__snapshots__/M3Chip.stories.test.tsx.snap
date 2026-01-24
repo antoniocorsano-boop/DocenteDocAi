@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`M3Chip Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    class="inline-flex items-center gap-[var(--md-sys-spacing-2)] rounded-[var(--md-sys-shape-corner-small)] px-[var(--md-sys-spacing-3)] py-[var(--md-sys-spacing-1)] transition-all duration-200"
+  >
+    <button
+      class="text-[var(--md-sys-typescale-label-large)] font-[var(--md-sys-typescale-label-large-font)] leading-[var(--md-sys-typescale-label-large-line-height)] rounded-[var(--md-sys-shape-corner-small)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--md-sys-color-primary)] focus-visible:ring-offset-1 bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] border border-[var(--md-sys-color-secondary-container)] hover:bg-[var(--md-sys-color-secondary-container)]/80 active:bg-[var(--md-sys-color-secondary-container)]/60"
+      type="button"
+    >
+      Test Chip
+    </button>
+  </div>
+</div>
+`;

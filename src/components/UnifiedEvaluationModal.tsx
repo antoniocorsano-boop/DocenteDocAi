@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// ✅ MD3 Native Compliant - Migrated to direct MD3 tokens
 
 import React, { useState, useMemo } from 'react';
 import type { Studente, Prova, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
@@ -74,7 +74,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                 <div style={{ backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.05, borderRadius: 'var(--md-sys-spacing-4)' }} />
 
                 <div  style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center" }}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center" }}>
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                             <span style={{ color: 'var(--md-sys-color-on-primary)' }}>{getTestTypeIcon(prova.tipo)}</span>
                         </div>
@@ -97,8 +97,8 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
 
                     <div >
                         <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
-                            <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)',  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: "1.125rem"}}>verified</span>
+                            <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-10), transparent)',  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>verified</span>
                             </div>
                             <h3  style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Competenze Valutate</h3>
                         </div>
@@ -108,7 +108,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                 {relevantCompetencies.map((competenza, idx) => (
                                     <div 
                                         key={competenza.id} 
-                                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", animationDelay: `${idx * 100}ms` }}
+                                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", animationDelay: `${idx * 100}ms` }}
                                     >
                                         <h4  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', fontWeight: "900", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                                             {competenza.nome}
@@ -143,7 +143,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                             
                                                         />
                                                         <div style={{borderRadius: 'var(--md-sys-shape-corner-full)'}}>
-                                                            {isSelected && <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', width: '0.5rem', height: '0.5rem', borderRadius: 'var(--md-sys-spacing-4)' }} />}
+                                                            {isSelected && <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-2)', height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)' }} />}
                                                         </div>
                                                         <div>
                                                             <span style={{
@@ -169,7 +169,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , borderTop: "1px solid var(--md-sys-color-outline)"}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , borderTop: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button onClick={handleSubmit} variant="primary" icon="save">Salva Valutazione</M3Button>
             </M3DialogActions>

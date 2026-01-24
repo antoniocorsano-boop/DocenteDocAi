@@ -9,11 +9,11 @@ exports[`TextArea Story Snapshots > renders default story correctly 1`] = `
       style="color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-typescale-label-large-font-size); font-family: var(--md-sys-typescale-label-large-font-family); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing); margin-bottom: var(--md-sys-spacing-2);"
     />
     <div
-      style="position: relative; display: flex; align-items: flex-start; background-color: var(--md-sys-color-surface-container-highest); border: 1px solid var(--md-sys-color-outline); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1); min-height: var(--md-sys-spacing-12);"
+      style="position: relative; display: flex; align-items: flex-start; background-color: var(--md-sys-color-surface-container-highest); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard); min-height: var(--md-sys-spacing-12);"
     >
       <textarea
         rows="3"
-        style="flex: 1 1 0%; border: medium; background-color: transparent; color: var(--md-sys-color-on-surface); font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font-family); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); outline: none; resize: none; width: 100%; min-height: var(--md-sys-spacing-12);"
+        style="flex: 1 1 0%; border: medium; background-color: transparent; color: var(--md-sys-color-on-surface); font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font-family); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); outline: none; resize: none; width: var(--md-sys-percent-100); min-height: var(--md-sys-spacing-12);"
       />
     </div>
   </div>

@@ -4,7 +4,7 @@ exports[`M3ChoiceCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <button
     aria-pressed="false"
-    style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-extra-large); border: 2px solid var(--md-sys-color-outline-variant)30; background-color: var(--md-sys-color-surface-container)80; color: var(--md-sys-color-on-surface); box-shadow: none; transform: none; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); gap: var(--md-sys-spacing-4); min-width: var(--md-sys-spacing-16); cursor: pointer; outline: none;"
+    style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-extra-large); border: var(--md-sys-border-width-thick) solid var(--md-sys-color-outline-variant)30; background-color: var(--md-sys-color-surface-container)80; color: var(--md-sys-color-on-surface); box-shadow: none; transform: none; transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); gap: var(--md-sys-spacing-4); min-width: var(--md-sys-spacing-16); cursor: pointer; outline: none;"
     type="button"
   >
     <div

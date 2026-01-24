@@ -23,9 +23,23 @@ const MD3_TOKENS = {
   cornerLarge: 'var(--md-sys-shape-corner-large)',
 
   // Spacing
+  spacing1: 'var(--md-sys-spacing-1)',
   spacing4: 'var(--md-sys-spacing-4)',
   spacing8: 'var(--md-sys-spacing-8)',
+  spacing14: 'var(--md-sys-spacing-14)',
+  spacing16: 'var(--md-sys-spacing-16)',
   spacing32: 'var(--md-sys-spacing-32)',
+
+  // Blur
+  blurLarge: 'var(--md-sys-blur-large)',
+  blur48: 'var(--md-sys-blur-48)',
+
+  // Border Width
+  borderWidthNormal: 'var(--md-sys-border-width-normal)',
+
+  // Percentages
+  percent0: 'var(--md-sys-percent-0)',
+  percent70: 'var(--md-sys-percent-70)',
 
   // Motion
   durationShort2: 'var(--md-sys-motion-duration-short2)',
@@ -83,14 +97,14 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
         position: 'relative',
         backgroundColor: palette.bg,
         color: palette.fg,
-        border: `1px solid ${MD3_TOKENS.outlineVariant}`,
+        border: `${MD3_TOKENS.borderWidthNormal} solid ${MD3_TOKENS.outlineVariant}`,
         borderRadius: MD3_TOKENS.cornerLarge,
         padding: MD3_TOKENS.spacing8,
         minHeight: MD3_TOKENS.spacing8,
         display: 'flex',
         flexDirection: 'column',
-        backdropFilter: 'blur(10px)',
-        WebkitBackdropFilter: 'blur(10px)',
+        backdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
+        WebkitBackdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
         transition: `all ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`,
         cursor: isClickable ? 'pointer' : 'default',
         boxShadow: hovered ? MD3_TOKENS.elevation3 : MD3_TOKENS.elevation1,
@@ -119,15 +133,15 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             <div
                 style={{
                     position: 'absolute',
-                    top: '-4rem',
-                    right: '-4rem',
+                    top: `-${MD3_TOKENS.spacing16}`,
+                    right: `-${MD3_TOKENS.spacing16}`,
                     width: MD3_TOKENS.spacing32,
                     height: MD3_TOKENS.spacing32,
-                    filter: 'blur(3rem)',
+                    filter: `blur(${MD3_TOKENS.blur48})`,
                     pointerEvents: 'none',
                     opacity: 0.2,
                     borderRadius: MD3_TOKENS.spacing32,
-                    background: `radial-gradient(circle, ${palette.accent}20 0%, transparent 70%)`
+                    background: `radial-gradient(circle, ${palette.accent}20 ${MD3_TOKENS.percent0}, transparent ${MD3_TOKENS.percent70})`
                 }}
             ></div>
 
@@ -138,7 +152,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     top: 0,
                     left: 0,
                     right: 0,
-                    height: '0.25rem',
+                    height: MD3_TOKENS.spacing1,
                     opacity: 0.6,
                     backgroundColor: palette.accent,
                     borderTopLeftRadius: MD3_TOKENS.cornerLarge,
@@ -148,12 +162,12 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
 
             <div style={{position: 'relative', zIndex: 10, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
                 <div style={{
-                    width: '3.5rem',
-                    height: '3.5rem',
+                    width: MD3_TOKENS.spacing14,
+                    height: MD3_TOKENS.spacing14,
                     borderRadius: MD3_TOKENS.cornerLarge,
                     background: 'var(--md-sys-color-surface-container-high)',
                     boxShadow: MD3_TOKENS.elevation2,
-                    border: `1px solid var(--md-sys-color-outline-variant)`,
+                    border: `${MD3_TOKENS.borderWidthNormal} solid var(--md-sys-color-outline-variant)`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -199,7 +213,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 {children && <div style={{
                     paddingTop: MD3_TOKENS.spacing4,
                     marginTop: MD3_TOKENS.spacing4,
-                    borderTop: `1px solid var(--md-sys-color-outline-variant)`
+                    borderTop: `${MD3_TOKENS.borderWidthNormal} solid var(--md-sys-color-outline-variant)`
                 }}>{children}</div>}
             </div>
         </div>

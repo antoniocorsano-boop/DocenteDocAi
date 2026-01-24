@@ -75,12 +75,12 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                     <M3Button variant="filled" onClick={handleAnalyze} disabled={isLoading || !manualText.trim()}>
                         {isLoading ? (
                             <>
-                                <span  style={{ marginRight: "0.5rem" }}>progress_activity</span>
+                                <span  style={{ marginRight: 'var(--md-sys-spacing-2)' }}>progress_activity</span>
                                 Analisi...
                             </>
                         ) : (
                             <>
-                                <span  style={{ marginRight: "0.5rem" }}>auto_awesome</span>
+                                <span  style={{ marginRight: 'var(--md-sys-spacing-2)' }}>auto_awesome</span>
                                 Analizza Testo
                             </>
                         )}
@@ -92,7 +92,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                 <>
                     <M3Button variant="text" onClick={() => setResult(null)}>Indietro</M3Button>
                     <M3Button variant="filled" onClick={handleImport}>
-                        <span  style={{ marginRight: "0.5rem" }}>save</span>
+                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>save</span>
                         Salva Eventi e Note
                     </M3Button>
                 </>
@@ -112,7 +112,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                     {!result ? (
                         /* INPUT STATE */
                         <>
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "1px solid var(--md-sys-color-outline)", display: "flex" }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex" }}>
                                 <span  style={{color: 'var(--md-sys-color-primary)'}}>info</span>
                                 <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                                     <h3  style={{ fontWeight: "bold" }}>Procedura Manuale (Privacy-Safe)</h3>
@@ -150,7 +150,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                     ) : (
                         /* RESULT STATE */
                         <div >
-                            <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "1px solid var(--md-sys-color-outline)" }}>
+                            <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                 <h3  style={{ fontWeight: "bold", display: "flex", alignItems: "center" }}>
                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -161,8 +161,8 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                             </div>
 
                             {result.events.length > 0 || result.deadlines.length > 0 ? (
-                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', border: "1px solid var(--md-sys-color-outline)" }}>
-                                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderBottom: "1px solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+                                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                         <h4 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Eventi Rilevati</h4>
                                         <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: "bold", borderRadius: 'var(--md-sys-shape-corner-small)' }}>{result.events.length + result.deadlines.length}</span>
                                     </div>
@@ -173,7 +173,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                                                     <span style={{ padding: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-primary)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>event</span>
                                                     <span  style={{ fontWeight: "500" }}>{e.titolo}</span>
                                                 </div>
-                                                <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)" }}>{e.data}</span>
+                                                <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-small)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{e.data}</span>
                                             </div>
                                         ))}
                                         {result.deadlines.map((d, i) => (
@@ -182,7 +182,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                                                     <span style={{ padding: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-error-container)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>flag</span>
                                                     <span style={{ color: 'var(--md-sys-color-on-error-container)', fontWeight: "500" }}>{d.title}</span>
                                                 </div>
-                                                <span style={{ color: 'var(--md-sys-color-on-error-container)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: "0.375rem" }}>{d.date}</span>
+                                                <span style={{ color: 'var(--md-sys-color-on-error-container)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>{d.date}</span>
                                             </div>
                                         ))}
                                     </div>

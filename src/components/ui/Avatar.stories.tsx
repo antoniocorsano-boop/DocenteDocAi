@@ -181,7 +181,7 @@ export const TeamGroup: Story = {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '1.5rem',
+        gap: 'var(--md-sys-spacing-6)',
         padding: layers.ref.spacing['4'],
       }}
     >

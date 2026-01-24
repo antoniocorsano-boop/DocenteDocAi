@@ -48,7 +48,7 @@ function M3ButtonGroup({
     switch (variant) {
       case 'outlined':
         return {
-          border: `1px solid ${outline}`,
+          border: `var(--md-sys-border-width-normal) solid ${outline}`,
           borderRadius: small
         };
       case 'elevated':
@@ -66,7 +66,7 @@ function M3ButtonGroup({
   };
 
   const flexDirection = direction === 'vertical' ? 'column' : 'row';
-  const width = fullWidth ? '100%' : 'auto';
+  const width = fullWidth ? 'var(--md-sys-percent-100)' : 'auto';
 
   return (
     <div

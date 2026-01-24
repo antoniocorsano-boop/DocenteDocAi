@@ -42,7 +42,7 @@ const Avatar: React.FC<AvatarProps> = ({ name, src, size = 'md' }) => {
         ...sizeStyles[size]
     }}>
         {src ? (
-            <img src={src} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={src} alt={name} style={{ width: 'var(--md-sys-percent-100)', height: 'var(--md-sys-percent-100)', objectFit: 'cover' }} />
         ) : (
             <span>{initials}</span>
         )}

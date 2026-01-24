@@ -303,7 +303,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             border: '1px solid var(--md-sys-color-outline-variant)',
                                             transition: 'all 300ms',
                                             cursor: 'pointer',
-                                            outline: isFocused ? '2px solid var(--md-sys-color-primary)' : 'none',
+                                            outline: isFocused ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)' : 'none',
                                             outlineOffset: 'var(--md-sys-spacing-1)'
                                         }}
                                         onKeyDown={e => {

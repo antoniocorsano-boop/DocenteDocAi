@@ -59,7 +59,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
                 <section >
-                    <h2 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                    <h2 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         In Arrivo (Tutte le classi)
                     </h2>
                     <div >
@@ -237,7 +237,7 @@ const PrintCenterModal: React.FC<{
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.875rem", fontWeight: "500" }}>Periodo</label>
+                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Periodo</label>
                         <TabGroup
                             tabs={[
                                 { id: 'primo-quadrimestre', label: '1Q' },
@@ -249,7 +249,7 @@ const PrintCenterModal: React.FC<{
                     </div>
 
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.875rem", fontWeight: "500" }}>Classi</label>
+                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Classi</label>
                         <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                             {userClasses.map(c => (
                                 <div 
@@ -285,7 +285,7 @@ const PrintCenterModal: React.FC<{
                                         }
                                     }}
                                 >
-                                    {selectedClasses.includes(c) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
+                                    {selectedClasses.includes(c) && <span  style={{ fontSize: "var(--md-sys-typescale-headline-small-size)" }}>check</span>}
                                     Classe {c}
                                 </div>
                             ))}

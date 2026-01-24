@@ -189,8 +189,8 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
             <div >
                 <div >
                     <div style={{
-                        width: '80px',
-                        height: '80px',
+                        width: 'var(--md-sys-spacing-20)',
+                        height: 'var(--md-sys-spacing-20)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         display: 'flex',
                         alignItems: 'center',
@@ -203,7 +203,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                               selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-on-secondary-container)' :
                               selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-on-tertiary-container)' :
                               'var(--md-sys-color-on-surface)',
-                        fontSize: '40px',
+                        fontSize: 'var(--md-sys-spacing-10)',
                         margin: '0 auto var(--md-sys-spacing-4) auto',
                         boxShadow: 'var(--md-sys-elevation-level2)',
                         transition: 'all 0.3s ease'

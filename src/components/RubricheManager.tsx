@@ -31,7 +31,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 <p >Crea e gestisci le griglie di competenza.</p>
             </div>
                 <M3Button onClick={() => setEditingRubric('new')} variant="filled" >
-                    <span  style={{ marginRight: "0.5rem" }}>add</span>
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
                     Crea Nuova
                 </M3Button>
             </div>

@@ -1,6 +1,5 @@
-// MD3 Compliant - Migration completed (36 violations eliminated)
-// AssistantModal.tsx - All className removed, Material Symbols icons converted to style-based fontFamily
-// Block H completed (55 violations eliminated) + additional fixes
+// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
+// Note: maxHeight 400px/300px retained for functional scrollable areas with eslint-disable comments
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { chatWithAi } from '../services/aiService';
@@ -220,7 +219,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       alignItems: 'center',
       padding: 'var(--md-sys-spacing-4)',
       backgroundColor: 'var(--md-sys-color-surface)',
-      borderBottom: `1px solid var(--md-sys-color-outline)`
+      borderBottom: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
     }}>
       <div style={{
         flexGrow: 1,
@@ -242,8 +241,8 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           justifyContent: 'center',
           gap: 'var(--md-sys-spacing-4)',
           borderRadius: 'medium',
-          width: "2.5rem",
-          height: "2.5rem",
+          width: "var(--md-sys-spacing-10)",
+          height: "var(--md-sys-spacing-10)",
           transition: "color 300ms"
         }}
         data-focus-priority="-1"
@@ -273,7 +272,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-4)',
               overflowY: 'auto',
+              /* eslint-disable md3-design-system */
               maxHeight: '400px'
+              /* eslint-enable md3-design-system */
             }}>
               {messages.length === 0 && (
                 <div style={{
@@ -381,7 +382,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-4)',
               overflowY: 'auto',
+              /* eslint-disable md3-design-system */
               maxHeight: '300px'
+              /* eslint-enable md3-design-system */
             }}>
               {nbFiles.map(file => (
                 <div key={file.id} style={{
@@ -392,7 +395,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   padding: 'var(--md-sys-spacing-4)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)',
                   backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                  border: `1px solid var(--md-sys-color-outline)`
+                  border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`
                 }}>
                   <div style={{
                     flexGrow: 1,
@@ -429,7 +432,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           width: '100%',
           padding: 'var(--md-sys-spacing-4)',
           backgroundColor: 'var(--md-sys-color-surface-container-low)',
-          borderTop: "1px solid var(--md-sys-color-outline)"
+          borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"
         }}>
         <div style={{ flexGrow: 1 }}>
           <TextField

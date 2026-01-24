@@ -47,12 +47,12 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   const palette = colorTokens[color];
 
   const baseStyle = {
-    border: `1px solid ${themeColor.outlineVariant}`,
+    border: `var(--md-sys-border-width-normal) solid ${themeColor.outlineVariant}`,
     borderRadius: shape.corner.large,
     position: expressive ? 'relative' : undefined,
     overflow: expressive ? 'hidden' : undefined,
-    backdropFilter: glass ? 'blur(16px)' : undefined,
-    WebkitBackdropFilter: glass ? 'blur(16px)' : undefined, // Safari support
+    backdropFilter: glass ? 'blur(var(--md-sys-blur-large))' : undefined,
+    WebkitBackdropFilter: glass ? 'blur(var(--md-sys-blur-large))' : undefined, // Safari support
   };
 
   const variantStyle = variant === 'low'

@@ -7,6 +7,10 @@ import { AI_PROFILES } from '../constants';
 import { ThemeService } from '../services/ThemeService';
 import { useDebounce } from './useDebounce';
 
+// MD3 compliant percentage values
+const MD3_SATURATION_HIGH = 70;
+const MD3_LIGHTNESS_HIGH = 80;
+
 interface UseSettingsLogicProps {
     settings: TimetableSettings;
     onSaveSettings: (s: TimetableSettings) => void;
@@ -99,7 +103,7 @@ export const useSettingsLogic = ({
                         id: `${cls}-${subj}-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
                         classId: cls,
                         subjectId: subj,
-                        color: `hsl(${hue}, 70%, 80%)`,
+                        color: `hsl(${hue}, ${MD3_SATURATION_HIGH}%, ${MD3_LIGHTNESS_HIGH}%)`,
                         hoursPerWeek: 2
                     });
                     addedCount++;
@@ -168,7 +172,7 @@ export const useSettingsLogic = ({
                 id: crypto.randomUUID(),
                 classId: cls,
                 subjectId: subj,
-                color: `hsl(${hue}, 70%, 80%)`,
+                color: `hsl(${hue}, ${MD3_SATURATION_HIGH}%, ${MD3_LIGHTNESS_HIGH}%)`,
                 hoursPerWeek: 4
             });
         }

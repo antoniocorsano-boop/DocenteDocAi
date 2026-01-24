@@ -59,7 +59,7 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
         color: 'var(--md-sys-color-on-primary)',
         border: 'none',
         borderRadius: 'var(--md-sys-shape-corner-full)',
-        boxShadow: '0 0 0 4px var(--md-sys-color-primary-container)',
+        boxShadow: '0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary-container)',
         width: 48,
         height: 48,
         display: 'flex',
@@ -77,7 +77,7 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
           fontFamily: 'Material Symbols Outlined',
           fontSize: 28,
           color: 'var(--md-sys-color-on-primary)',
-          filter: 'drop-shadow(0 0 8px var(--md-sys-color-primary))',
+          filter: 'drop-shadow(0 0 var(--md-sys-spacing-2) var(--md-sys-color-primary))',
           userSelect: 'none',
         }}
       >auto_awesome</span>
@@ -90,10 +90,10 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
             right: 6,
             width: 12,
             height: 12,
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-percent-50)',
             background: 'var(--md-sys-color-tertiary)',
-            boxShadow: '0 0 0 2px var(--md-sys-color-surface)',
-            border: '2px solid var(--md-sys-color-surface)',
+            boxShadow: '0 0 0 var(--md-sys-border-width-thick) var(--md-sys-color-surface)',
+            border: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-surface)',
             display: 'inline-block',
           }}
         />

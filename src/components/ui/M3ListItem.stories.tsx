@@ -118,7 +118,7 @@ export const WithTrailingElement: Story = {
           backgroundColor: 'var(--md-sys-color-error)',
           color: 'white',
           borderRadius: 'var(--md-sys-spacing-3)',
-          padding: '2px var(--md-sys-spacing-2)',
+          padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
           fontSize: 'var(--md-sys-typescale-body-small-size)',
           fontWeight: 'bold',
         }}

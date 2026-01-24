@@ -17,7 +17,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
             backgroundColor: 'var(--md-sys-color-surface)',
             borderRadius: 'var(--md-sys-shape-corner-medium)',
             padding: 'var(--md-sys-spacing-6)',
-            border: '1px solid var(--md-sys-color-outline)'
+            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
         }}>
             <div style={{
                 display: "flex",
@@ -35,7 +35,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                     justifyContent: "center",
                     color: 'var(--md-sys-color-on-primary)'
                 }}>
-                    <span style={{ fontSize: "1.125rem" }}>lightbulb</span>
+                    <span style={{ fontSize: 'var(--md-sys-typescale-title-medium-font-size)' }}>lightbulb</span>
                 </div>
                 <p style={{
                     color: 'var(--md-sys-color-primary)',
@@ -55,9 +55,9 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                         <span style={{
                             backgroundColor: 'var(--md-sys-color-surface)',
                             color: 'var(--md-sys-color-primary)',
-                            width: "1.5rem",
-                            height: "1.5rem",
-                            borderRadius: "9999px",
+                            width: 'var(--md-sys-spacing-6)',
+                            height: 'var(--md-sys-spacing-6)',
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
@@ -68,7 +68,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                         <p style={{
                             color: 'var(--md-sys-color-outline)',
                             fontWeight: "bold",
-                            lineHeight: "1.625"
+                            lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
                         }} dangerouslySetInnerHTML={{ __html: step }}></p>
                     </li>
                 ))}
@@ -80,8 +80,8 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                     display: "flex",
                     gap: 'var(--md-sys-spacing-8)',
                     padding: 'var(--md-sys-spacing-8)',
-                    fontSize: "0.875rem",
-                    border: '1px solid var(--md-sys-color-outline)'
+                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                 }}>
                     <span style={{
                         color: 'var(--md-sys-color-primary)',

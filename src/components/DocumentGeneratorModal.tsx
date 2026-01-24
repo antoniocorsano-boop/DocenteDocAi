@@ -40,7 +40,7 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
                 <M3DialogActions style={{gap: 'var(--md-sys-spacing-6)'}}>
                     <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                     <M3Button type="button" onClick={handleSubmit} variant="filled">
-                        <span  style={{ marginRight: "0.5rem" }}>auto_awesome</span>
+                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span>
                         Genera Documento
                     </M3Button>
                 </M3DialogActions>

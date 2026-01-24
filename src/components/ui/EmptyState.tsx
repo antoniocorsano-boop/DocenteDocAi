@@ -26,10 +26,10 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         justifyContent: 'center',
         padding: 'var(--md-sys-spacing-8)',
         textAlign: 'center',
-        backgroundColor: `color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)`,
-        backdropFilter: 'blur(4px)',
+        backgroundColor: `color-mix(in srgb, var(--md-sys-color-surface-container-low) var(--md-sys-state-opacity-50), transparent)`,
+        backdropFilter: 'blur(var(--md-sys-blur-small))',
         borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-        border: `2px dashed color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)`
+        border: `var(--md-sys-border-width-normal) dashed color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-state-opacity-30), transparent)`
     }}>
         <div style={{
             width: 'var(--md-sys-spacing-16)',
@@ -40,7 +40,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             marginBottom: 'var(--md-sys-spacing-4)',
-            color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) 30%, transparent)`,
+            color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-30), transparent)`,
             boxShadow: 'var(--md-sys-elevation-level1)'
         }}>
             <span style={{
@@ -59,7 +59,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         <p style={{
             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
             fontFamily: 'var(--md-sys-typescale-font-family)',
-            color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) 60%, transparent)`,
+            color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-60), transparent)`,
             maxWidth: 'var(--md-sys-spacing-16)',
             margin: `var(--md-sys-spacing-4) auto 0`,
             fontWeight: 700,

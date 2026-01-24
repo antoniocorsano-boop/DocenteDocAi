@@ -2,33 +2,33 @@
 .dialog-container {
   width: 100vw;
   max-width: 95vw;
-  min-width: 320px;
+  min-width: var(--md-sys-layout-grid-min);
   box-sizing: border-box;
   margin: 0 auto;
   border-radius: var(--md-sys-shape-corner-large);
-  background: var(--md-sys-color-surface, #fff);
-  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-8) rgba(0,0,0,0.18);
+  background: var(--md-sys-color-surface, var(--md-sys-color-surface-container-high));
+  box-shadow: var(--md-sys-elevation-level3);
   max-height: 90vh;
   overflow-y: auto;
   padding: 0;
   display: flex;
   flex-direction: column;
 }
-@media (min-width: 600px) {
+@media (min-width: var(--breakpoint-compact)) {
   .dialog-container {
-    max-width: 600px;
+    max-width: var(--breakpoint-compact);
     border-radius: var(--md-sys-shape-corner-large);
   }
 }
-@media (min-width: 900px) {
+@media (min-width: var(--md-sys-layout-card-min-height)) {
   .dialog-container {
-    max-width: 800px;
+    max-width: var(--md-sys-layout-card-min-height);
     border-radius: var(--md-sys-shape-corner-extra-large);
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: var(--content-max-width)) {
   .dialog-container {
-    max-width: 950px;
+    max-width: var(--md-sys-layout-popup-min-width);
     border-radius: var(--md-sys-shape-corner-extra-large);
   }
 }

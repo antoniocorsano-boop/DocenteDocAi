@@ -15,8 +15,8 @@
  */
 :focus-visible {
   /* Primary focus outline */
-  outline: 2px solid var(--md-sys-color-primary, #6750a4);
-  outline-offset: 2px;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
 }
 
 /**
@@ -25,8 +25,8 @@
  */
 @media (forced-colors: active) {
   :focus-visible {
-    outline: 2px solid CanvasText;
-    outline-offset: 2px;
+    outline: var(--md-sys-spacing-1) solid CanvasText;
+    outline-offset: var(--md-sys-spacing-1);
   }
 }
 
@@ -36,9 +36,9 @@
  */
 @media (prefers-contrast: more) {
   :focus-visible {
-    outline: 3px solid var(--md-sys-color-primary, #6750a4);
-    outline-offset: 3px;
-    box-shadow: 0 0 0 var(--md-sys-spacing-1) rgba(103, 80, 164, 0.15);
+    outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+    outline-offset: var(--md-sys-spacing-1);
+    box-shadow: 0 0 0 var(--md-sys-spacing-1) color-mix(in srgb, var(--md-sys-color-primary) 15%, transparent);
   }
 }
 
@@ -62,8 +62,8 @@ select:focus,
  */
 button:focus-visible,
 [role="button"]:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary, #6750a4);
-  outline-offset: 2px;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
 }
 
 /**
@@ -73,18 +73,18 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary, #6750a4);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
   outline-offset: 0;
-  box-shadow: inset 0 0 0 2px var(--md-sys-color-primary, #6750a4);
+  box-shadow: inset 0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary);
 }
 
 /**
  * Link focus styles
  */
 a:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary, #6750a4);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  border-radius: var(--md-sys-spacing-1);
 }
 
 /**
@@ -94,8 +94,8 @@ a:focus-visible {
 .MuiIconButton-root:focus-visible,
 .MuiMenuItem-root:focus-visible,
 .MuiListItem-root:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary, #6750a4);
-  outline-offset: 2px;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
 }
 
 /**
@@ -104,7 +104,7 @@ a:focus-visible {
  */
 @media (prefers-color-scheme: dark) {
   :focus-visible {
-    outline-color: var(--md-sys-color-primary, #b0a1d9);
+    outline-color: var(--md-sys-color-primary);
   }
   
   @media (forced-colors: active) {
@@ -119,7 +119,7 @@ a:focus-visible {
  */
 @media (prefers-color-scheme: light) {
   :focus-visible {
-    outline-color: var(--md-sys-color-primary, #6750a4);
+    outline-color: var(--md-sys-color-primary);
   }
 }
 
@@ -150,8 +150,8 @@ a:focus-visible {
 @media (hover: none) and (pointer: coarse) {
   /* Keep focus indicators visible on touch devices */
   :focus-visible {
-    outline: 2px solid var(--md-sys-color-primary, #6750a4);
-    outline-offset: 2px;
+    outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+    outline-offset: var(--md-sys-spacing-1);
   }
 }
 
@@ -160,10 +160,10 @@ a:focus-visible {
  * Made to stand out for keyboard users
  */
 .skip-link:focus-visible {
-  outline: 3px solid var(--md-sys-color-primary, #6750a4);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
   outline-offset: var(--md-sys-spacing-1);
-  top: 10px;
-  box-shadow: 0 2px var(--md-sys-spacing-2) rgba(0, 0, 0, 0.15);
+  top: var(--md-sys-spacing-3);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
 }
 
 /**
@@ -173,18 +173,18 @@ a:focus-visible {
 [role="listbox"] li:focus-visible,
 [role="menubar"] li:focus-visible,
 [role="menu"] li:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary, #6750a4);
-  outline-offset: -2px;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: -var(--md-sys-spacing-1);
   background-color: var(--md-sys-color-primary, transparent);
-  background-color: rgba(103, 80, 164, 0.12);
+  background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
 }
 
 /**
  * Ensure focus indicators work with Material 3 design
  */
 .m3-button:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary, #6750a4);
-  outline-offset: 2px;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
 }
 
 

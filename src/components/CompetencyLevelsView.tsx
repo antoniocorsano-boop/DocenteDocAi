@@ -54,7 +54,7 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
     return (
         <div style={cardStyle}>
             <div >
-                <span  style={{ fontSize: "1.5rem" }}>
+                <span  style={{ fontSize: "var(--md-sys-typescale-headline-medium-size)" }}>
                     {cardClass === 'level-avanzato' ? 'workspace_premium' : 
                      cardClass === 'level-intermedio' ? 'star' :
                      cardClass === 'level-base' ? 'verified' :
@@ -64,7 +64,7 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
             <div style={{ flexGrow: "1" }}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 'var(--md-sys-spacing-4)'}}>
                     <h3 style={{ color: 'var(--md-sys-color-on-surface)' ,  fontWeight: "bold" }}>{nome}</h3>
-                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem"}}>Valore: {voto}</span>
+                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-3)"}}>Valore: {voto}</span>
                 </div>
                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.9" }}>{descrizione}</p>
             </div>
@@ -89,7 +89,7 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
                 <div key={competenza.id} >
                     <div  style={{marginBottom: 'var(--md-sys-spacing-8)', borderBottom: "1px solid var(--md-sys-color-outline)"}}>
                         <h2 style={{ color: "var(--md-sys-color-primary)" }}>{competenza.nome}</h2>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem"}}>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-3)"}}>
                             {competenza.framework || 'Framework Standard'}
                         </span>
                     </div>

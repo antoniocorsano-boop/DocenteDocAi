@@ -198,7 +198,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                         { icon: "trending_up", text: "Promozione classi (es. 1A → 2A) con gestione bocciature." }
                                     ].map((item, i) => (
                                         <li key={i} style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
-                                            <span style={{ color: 'var(--md-sys-color-primary)', fontSize: "1.5rem" }}>{item.icon}</span>
+                                            <span style={{ color: 'var(--md-sys-color-primary)', fontSize: "var(--md-sys-spacing-6)" }}>{item.icon}</span>
                                             <span style={{ fontWeight: "500" }}>{item.text}</span>
                                         </li>
                                     ))}
@@ -265,7 +265,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                                      'var(--md-sys-color-primary)',
                                                                 transition: 'all 0.2s ease',
                                                                 cursor: 'pointer',
-                                                                minHeight: '44px'
+                                                                minHeight: 'var(--md-sys-spacing-11)'
                                                             }}
                                                         >
                                                             <option value="promote">Promosso</option>
@@ -319,20 +319,20 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
             <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)' }}>
                     {step === "intro" && (
                         <>
-                            <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
-                            <M3Button onClick={() => setStep("decisions")} variant="filled"  style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Scrutinio</M3Button>
+                            <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
+                            <M3Button onClick={() => setStep("decisions")} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Scrutinio</M3Button>
                         </>
                     )}
                     {step === "decisions" && (
                         <>
-                            <M3Button onClick={() => setStep("intro")} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Indietro</M3Button>
-                            <M3Button onClick={() => setStep("confirm")} variant="filled"  style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>Conferma Esiti</M3Button>
+                            <M3Button onClick={() => setStep("intro")} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Indietro</M3Button>
+                            <M3Button onClick={() => setStep("confirm")} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Conferma Esiti</M3Button>
                         </>
                     )}
                     {step === "confirm" && (
                         <>
-                            <M3Button onClick={() => setStep("decisions")} variant="text" style={{ fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>Indietro</M3Button>
-                            <M3Button onClick={handleConfirm} variant="filled" style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error, fontWeight: "900", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>
+                            <M3Button onClick={() => setStep("decisions")} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>Indietro</M3Button>
+                            <M3Button onClick={handleConfirm} variant="filled" style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error, fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>
                                 {isProcessing ? "Elaborazione..." : "Esegui Passaggio Anno"}
                             </M3Button>
                         </>

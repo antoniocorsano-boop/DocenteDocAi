@@ -1,0 +1,8 @@
+{
+  "audit": {
+    "description": "Legacy component audit for design system migration",
+    "components": [],
+    "issues": [],
+    "recommendations": []
+  }
+}

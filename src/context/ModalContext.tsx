@@ -346,10 +346,14 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
         style={{
           position: 'absolute',
           inset: 0,
-          backdropFilter: 'blur(4px)',
+          backdropFilter: 'blur(var(--md-sys-spacing-1))',
           animation: 'modal-fade-in 0.3s ease-out',
           zIndex: 1,
-          backgroundColor: `rgba(0, 0, 0, ${backdropOpacity === 'light' ? '0.2' : backdropOpacity === 'medium' ? '0.4' : '0.6'})`,
+          backgroundColor: backdropOpacity === 'light'
+            ? 'color-mix(in srgb, var(--md-sys-color-scrim) var(--md-sys-backdrop-light), transparent)'
+            : backdropOpacity === 'medium'
+            ? 'color-mix(in srgb, var(--md-sys-color-scrim) var(--md-sys-backdrop-medium), transparent)'
+            : 'color-mix(in srgb, var(--md-sys-color-scrim) var(--md-sys-backdrop-dark), transparent)',
           cursor: backdropClickable ? 'pointer' : 'default'
         }}
         onClick={backdropClickable ? onBackdropClick : undefined}

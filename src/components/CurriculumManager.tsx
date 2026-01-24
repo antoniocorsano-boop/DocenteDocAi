@@ -1,4 +1,4 @@
-// MD3 Compliant - Block M Migration (5 violations eliminated)
+// MD3 Compliant - Block M Migration (9 violations eliminated)
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations. ✅ COMPLETED
 // ...existing code...
 import React, { useState } from 'react';
@@ -137,9 +137,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             {nucleo.objectives.map((obj, oIdx) => (
                                 <div key={obj.id} >
                                     <span style={{
-                                        width: '0.625rem',
-                                        height: '0.625rem',
-                                        borderRadius: '50%',
+                                        width: 'var(--md-sys-spacing-2)',
+                                        height: 'var(--md-sys-spacing-2)',
+                                        borderRadius: 'var(--md-sys-percent-50)',
                                         flexShrink: 0,
                                         background: obj.type === 'skill' ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-secondary)'
                                     }}></span>
@@ -175,7 +175,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 variant="tonal"
                                 
                             >
-                                <span  style={{ marginRight: "0.5rem" }}>add</span> Aggiungi Obiettivo
+                                <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span> Aggiungi Obiettivo
                             </M3Button>
                         </div>
                     </InfoCard>
@@ -188,7 +188,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     variant="outlined"
                     
                 >
-                    <span  style={{ marginRight: "0.5rem" }}>add_circle</span> Nuovo Nucleo Fondante
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</span> Nuovo Nucleo Fondante
                 </M3Button>
             </div>
         );
@@ -253,7 +253,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     variant="text"
                                     style={{
                                         minWidth: 0,
-                                        padding: '0.25rem',
+                                        padding: 'var(--md-sys-spacing-1)',
                                         color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-error)',
                                         opacity: selectedCurriculumId === curr.id ? 1 : 0
                                     }}
@@ -270,7 +270,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                         }
                                     }}
                                 >
-                                    <span  style={{ fontSize: "0.875rem" }}>delete</span>
+                                    <span  style={{ fontSize: "var(--md-sys-typescale-label-medium-font-size)" }}>delete</span>
                                 </M3Button>
                             </div>
                         ))}
@@ -298,7 +298,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                      />
                                     {activeTab === 'editor' && (
                                         <M3Button onClick={() => setIsImporting(true)} variant="tonal" >
-                                            <span  style={{ marginRight: "0.5rem" }}>auto_awesome</span> AI Import
+                                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span> AI Import
                                         </M3Button>
                                     )}
                                 </div>

@@ -74,7 +74,7 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, onHomeNaviga
       )}
 
       <div 
-        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'box-shadow 0.2s', boxShadow: isAiThinking ? '0 0 0 4px var(--md-sys-color-primary)' : undefined }} data-chaos-stage={chaosStage} data-ai-thinking={isAiThinking} 
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'box-shadow 0.2s', boxShadow: isAiThinking ? '0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary)' : undefined }} data-chaos-stage={chaosStage} data-ai-thinking={isAiThinking} 
         onClick={handleLogoClick}
       >
         <svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" >

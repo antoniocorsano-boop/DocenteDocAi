@@ -89,18 +89,18 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                 Percorsi Veloci
             </M3Typography>
             <div style={{display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-workflow-card-min-width), 1fr))',
                 gap: 'var(--md-sys-spacing-6)'}}>
                 {workflows.map((workflow) => (
                     <div key={workflow.id} style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                         borderRadius: 'var(--md-sys-shape-corner-extra)',
-                        border: '1px solid var(--md-sys-color-outline)-variant',
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                         overflow: 'hidden',
-                        backdropFilter: 'blur(20px)',
+                        backdropFilter: 'blur(var(--md-sys-blur-20))',
                         boxShadow: 'var(--md-sys-elevation-level1)',
                         transition: `all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
                         <details  style={{
-                            width: '100%'
+                            width: 'var(--md-sys-percent-100)'
                         }}>
                             <summary style={{display: 'flex',
                                 alignItems: 'center',
@@ -109,7 +109,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                 cursor: 'pointer',
                                 listStyle: 'none',
                                 backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                                borderBottom: '1px solid var(--md-sys-color-outline)-variant',
+                                borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                 transition: `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}>
                                 <div style={{
                                     width: 'var(--md-sys-spacing-4)',
@@ -148,7 +148,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                             </summary>
                             <div style={{padding: 'var(--md-sys-spacing-5)',
                                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                borderTop: '1px solid var(--md-sys-color-outline)-variant'}}>
+                                borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'}}>
                                 <ol style={{margin: 0,
                                     paddingLeft: 'var(--md-sys-spacing-5)',
                                     marginBottom: 'var(--md-sys-spacing-5)',
@@ -164,7 +164,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                             <div style={{
                                                 width: 'var(--md-sys-spacing-4)',
                                                 height: 'var(--md-sys-spacing-4)',
-                                                borderRadius: '50%',
+                                                borderRadius: 'var(--md-sys-percent-50)',
                                                 backgroundColor: `var(--md-sys-color-${workflow.themeColor}-container)`,
                                                 color: `var(--md-sys-color-on-${workflow.themeColor}-container)`,
                                                 display: 'flex',
@@ -186,7 +186,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                 <button
                                     onClick={() => handleAction(workflow)}
                                     style={{
-                                        width: '100%',
+                                        width: 'var(--md-sys-percent-100)',
                                         padding: 'var(--md-sys-spacing-4)',
                                         borderRadius: 'var(--md-sys-shape-corner-large)',
                                         border: 'none',

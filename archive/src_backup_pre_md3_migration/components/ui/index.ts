@@ -1,0 +1,41 @@
+// LEGACY - MD3 Non-compliant
+export { default as M3SurfaceCard } from './M3SurfaceCard';
+export { default as M3ExpressiveCard } from './M3ExpressiveCard';
+export { default as M3Button } from './M3Button';
+export { default as TextField } from './TextField';
+export { default as SelectField } from './SelectField';
+export { default as TextArea } from './TextArea';
+export { default as AiMemoryChip } from './AiMemoryChip';
+export { default as ActionTile } from './ActionTile';
+export { default as InfoCard } from './InfoCard';
+export { default as SectionHeader } from './SectionHeader';
+export { default as TabGroup } from './TabGroup';
+export { default as PinPad } from './PinPad';
+export { default as M3ChoiceCard } from './M3ChoiceCard';
+export { default as CategoryCard } from './CategoryCard';
+export { default as EmptyState } from './EmptyState';
+export { default as ManualSection } from './ManualSection';
+export { default as UseCaseCard } from './UseCaseCard';
+export { default as M3Card } from './M3Card';
+export { default as M3Dialog, M3DialogContent, M3DialogActions, M3ConfirmDialog } from './M3Dialog';
+export { default as M3ListItem } from './M3ListItem';
+export { default as M3IconButton } from './M3IconButton';
+export { default as M3AnimatedIcon } from './M3AnimatedIcon';
+export { default as M3BadgedIcon } from './M3BadgedIcon';
+export { default as M3Popover } from './M3Popover';
+export { default as M3Menu } from './M3Menu';
+export { default as DocumentSkeleton } from './DocumentSkeleton';
+export { default as TableSkeleton } from './TableSkeleton';
+export { default as ImageSkeleton } from './ImageSkeleton';
+export { default as QuizSkeleton } from './QuizSkeleton';
+export { default as Avatar } from './Avatar';
+export { default as AiThinkingGem } from './AiThinkingGem';
+export { default as ThinkingIndicator } from './ThinkingIndicator';
+export { default as M3HeroCard } from './M3HeroCard';
+export { default as M3SuggestionCard } from './M3SuggestionCard';
+export { default as M3SuggestionItem } from './M3SuggestionItem';
+export { default as M3ActivityItem } from './M3ActivityItem';
+export { default as M3EmptyStateCard } from './M3EmptyStateCard';
+export { default as M3Typography } from './M3Typography';
+
+

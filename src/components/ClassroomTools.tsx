@@ -71,7 +71,7 @@ const TimerWidget: React.FC = () => {
                     style={{
                       padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
                       borderRadius: 'var(--md-sys-shape-corner-large)',
-                      border: isActive ? '1px solid var(--md-sys-color-outline)' : 'none',
+                      border: isActive ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' : 'none',
                       backgroundColor: isActive ? 'transparent' : 'var(--md-sys-color-primary)',
                       color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-primary)',
                       fontSize: 'var(--md-sys-typescale-label-large-size)',
@@ -81,10 +81,10 @@ const TimerWidget: React.FC = () => {
                       gap: 'var(--md-sys-spacing-2)',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
-                      minHeight: '44px'
+                      minHeight: 'var(--md-sys-spacing-11)'
                     }}
                 >
-                    <span  style={{ marginRight: "0.5rem" }}>{isActive ? 'pause' : 'play_arrow'}</span>
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>{isActive ? 'pause' : 'play_arrow'}</span>
                     {isActive ? 'Pausa' : 'Avvia'}
                 </button>
             </div>
@@ -135,7 +135,7 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
                         padding: 'var(--md-sys-spacing-4)',
                         backgroundColor: 'var(--md-sys-color-surface-container-high)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                         animation: isSelecting ? 'pulse 0.1s infinite' : 'none',
                         transform: isSelecting ? 'scale(1.05)' : 'scale(1)',
                         transition: 'all 0.3s ease'

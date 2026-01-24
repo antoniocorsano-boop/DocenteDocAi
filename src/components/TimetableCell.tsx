@@ -29,14 +29,14 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
                 style={{
                     // timetable-cell timetable-cell-empty styles
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                     borderRadius: 'var(--md-sys-shape-corner-small)',
                     padding: 'var(--md-sys-spacing-2)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    minHeight: '60px',
+                    minHeight: 'var(--md-sys-layout-timetable-cell-min-height)',
                     cursor: 'pointer'
                 }}
                 onClick={onClick}
@@ -65,14 +65,14 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
             style={{
                 // timetable-cell timetable-cell-content styles
                 backgroundColor: isDisposition ? 'var(--md-sys-color-tertiary-container)' : isRicevimento ? 'var(--md-sys-color-secondary-container)' : isDone ? 'var(--md-sys-color-surface-container)' : 'var(--md-sys-color-surface-container-high)',
-                border: `1px solid ${isDone ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
+                border: `var(--md-sys-border-width-normal) solid ${isDone ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
                 borderRadius: 'var(--md-sys-shape-corner-small)',
                 padding: 'var(--md-sys-spacing-2)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                minHeight: '60px',
+                minHeight: 'var(--md-sys-layout-timetable-cell-min-height)',
                 cursor: 'pointer',
                 opacity: isDone ? 0.7 : 1
             }}

@@ -106,7 +106,7 @@ function M3ProgressBar({
         display: 'flex',
         flexDirection: 'column',
         gap: spacing1,
-        width: '100%'
+        width: 'var(--md-sys-percent-100)'
       }}
     >
       {(label || showValue) && (
@@ -125,7 +125,7 @@ function M3ProgressBar({
       )}
       <div
         style={{
-          width: '100%',
+          width: 'var(--md-sys-percent-100)',
           height: barSize.height,
           backgroundColor: surfaceVariant,
           borderRadius: barSize.borderRadius,
@@ -140,7 +140,7 @@ function M3ProgressBar({
         <div
           style={{
             width: `${percentage}%`,
-            height: '100%',
+            height: 'var(--md-sys-percent-100)',
             backgroundColor: getColor(),
             transition: 'width 0.3s ease'
           }}

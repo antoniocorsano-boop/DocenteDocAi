@@ -1,0 +1,85 @@
+/**
+ * SkipLink Styles
+ * 
+ * Visual styling for skip-to-content link.
+ * Only visible when focused (keyboard navigation).
+ * Visible in high contrast mode.
+ */
+
+.skip-link {
+  /* Position absolutely to hide offscreen */
+  position: absolute;
+  top: -40px;
+  left: 0;
+  z-index: 9999;
+  
+  /* Styling */
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
+  background-color: var(--md-sys-color-primary, #6750a4);
+  color: var(--md-sys-color-on-primary, #fff);
+  text-decoration: none;
+  font-size: theme.typography.body2.fontSize;
+  font-weight: 500;
+  border-radius: var(--md-sys-shape-corner-small);
+  
+  /* Focus styles */
+  &:focus,
+  &:focus-visible {
+    top: 10px;
+    outline: 2px solid var(--md-sys-color-primary, #6750a4);
+    outline-offset: 2px;
+  }
+  
+  /* Keyboard focus visible */
+  &:focus-visible {
+    top: 10px;
+    box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.25);
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: more) {
+    background-color: var(--md-sys-color-primary, #000);
+    color: var(--md-sys-color-on-primary, #fff);
+    border: 2px solid currentColor;
+    
+    &:focus,
+    &:focus-visible {
+      outline-width: 3px;
+      outline-offset: 3px;
+    }
+  }
+  
+  /* Forced colors mode (Windows High Contrast) */
+  @media (forced-colors: active) {
+    border: 2px solid CanvasText;
+    background-color: Canvas;
+    color: CanvasText;
+  }
+  
+  /* Hover state */
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+/* Alternative: Visually hidden but screen-reader accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* For skip links that should always be visible */
+.skip-link-visible {
+  position: static;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+

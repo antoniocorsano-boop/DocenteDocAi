@@ -272,7 +272,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
         const printWindow = window.open(', ', 'height=600,width=800');
         if (printWindow) {
             printWindow.document.write('<html><head><title>' + editorTitle + '</title>');
-            printWindow.document.write("<style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body{font-family:'Roboto',sans-serif; padding: 20px;} table{border-collapse:collapse;width:100%;} th,td{border:1px solid #ccc;padding: var(--md-sys-spacing-2);} h1,h2,h3{color: var(--md-sys-color-primary);}</style>"); // MD3 fix
+            printWindow.document.write("<style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body{font-family:'Roboto',sans-serif; padding: var(--md-sys-spacing-5);} table{border-collapse:collapse;width:100%;} th,td{border: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant);padding: var(--md-sys-spacing-2);} h1,h2,h3{color: var(--md-sys-color-primary);}</style>"); // MD3 fix
             printWindow.document.write('</head><body>');
             printWindow.document.write(editorRef.current.innerHTML);
             printWindow.document.write('</body></html>');

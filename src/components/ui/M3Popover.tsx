@@ -323,7 +323,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
           zIndex,
           transformOrigin: position.transformOrigin,
           backgroundColor: 'var(--md-sys-color-surfaceContainer)',
-          border: '1px solid var(--md-sys-color-outline-variant)',
+          border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
           borderRadius: 'var(--md-sys-shape-corner-large)',
           boxShadow: 'var(--md-sys-elevation-level2)',
           ...style,
@@ -353,7 +353,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
           <div
             style={{
               padding: 'var(--md-sys-spacing-4)',
-              borderBottom: `1px solid var(--md-sys-color-on-primary)`
+              borderBottom: `var(--md-sys-border-width-normal) solid var(--md-sys-color-on-primary)`
             }}
           >
             {title && (
@@ -394,7 +394,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
           style={{
             padding: 'var(--md-sys-spacing-4)',
             overflowY: 'auto',
-            maxHeight: 'min(25rem, 70vh)'
+            maxHeight: 'min(var(--md-sys-spacing-20), 70vh)'
           }}
         >
           {children}

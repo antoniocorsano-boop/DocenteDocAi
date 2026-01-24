@@ -62,7 +62,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Attivit� di Orientamento</h3>
                 <M3Button onClick={() => setIsAddActivityModalOpen(true)} variant="filled">
-                    <span  style={{ marginRight: "0.5rem" }}>add</span>
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
                     Nuova Attivit�
                 </M3Button>
             </div>

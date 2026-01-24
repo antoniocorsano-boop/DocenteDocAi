@@ -1,6 +1,4 @@
-// LEGACY - MD3 Non-compliant
-// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
+// MD3 Compliant - Block J Migration Complete (1 violation eliminated)
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, KnowledgeBaseEntry } from '../types';
@@ -46,7 +44,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
         backgroundColor: student.isArchived ? 'var(--md-sys-color-surface-container-low)' : 'var(--md-sys-color-surface-container)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         padding: 'var(--md-sys-spacing-4)',
-        border: `1px solid ${student.isArchived ? 'var(--md-sys-color-outline-variant)' : 'var(--md-sys-color-outline)'}`
+        border: `var(--md-sys-border-width-normal) solid ${student.isArchived ? 'var(--md-sys-color-outline-variant)' : 'var(--md-sys-color-outline)'}`
       }}
       aria-label={`Studente ${student.cognome} ${student.nome}, classe ${student.classe}${student.isArchived ? ', archiviato' : ''}`}
       tabIndex={isFocused ? 0 : -1}

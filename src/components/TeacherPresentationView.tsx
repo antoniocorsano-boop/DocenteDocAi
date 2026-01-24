@@ -1,4 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block J Migration Complete (6 violations eliminated)
+// Note: minHeight: "100vh" retained for functional full viewport height (no exact MD3 token available)
 import React from 'react';
 import Logo from './Logo';
 import { View } from '../types';
@@ -9,7 +10,7 @@ interface TeacherPresentationViewProps {
 
 const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNavigate }) => {
   return (
-        <div  style={{minHeight: "100vh", width: "100%", backgroundColor: "var(--md-sys-color-surface)"}}>
+        <div  style={{minHeight: "100vh", width: 'var(--md-sys-percent-100)', backgroundColor: "var(--md-sys-color-surface)"}}>
             {/* Aura Ornaments */}
             <div style={{ backgroundColor: sys.colors.primary/5 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
             <div style={{ backgroundColor: sys.colors.tertiary/5 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
@@ -17,13 +18,13 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
             <div  style={{padding: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
                 
                 {/* Slide 1: Intro */}
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.3, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "center", border: "1px solid var(--md-sys-color-outline)", gap: 'var(--md-sys-spacing-8)' }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.3, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "center", border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)' }}>
                     <div  style={{display: "inline-block", marginBottom: 'var(--md-sys-spacing-8)'}}>
                         <Logo title="DocenteDoc AI" />
                     </div>
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em", lineHeight: "1.25" }}>Il Tuo Copilota Didattico</h1>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "1.25rem", fontWeight: "500", opacity: "0.8", marginLeft: "auto", marginRight: "auto", lineHeight: "1.625" }}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "500", opacity: "0.8", marginLeft: "auto", marginRight: "auto", lineHeight: "1.625" }}>
                             Tecnologia, Privacy e Innovazione al servizio dell'insegnamento.
                             Riduci il carico burocratico, aumenta l'efficacia didattica e riscopri la passione per l'insegnamento.
                         </p>
@@ -113,10 +114,10 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 </div>
 
                 {/* Slide 6: Call to Action */}
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, borderRadius: ref.shape[6], padding: 'var(--md-sys-spacing-4)' , textAlign: "center", border: "1px solid var(--md-sys-color-outline)", gap: 'var(--md-sys-spacing-8)'}}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, borderRadius: ref.shape[6], padding: 'var(--md-sys-spacing-4)' , textAlign: "center", border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)'}}>
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em" }}>Insegna Meglio, Vivi Meglio.</h2>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "1.125rem", fontWeight: "500", opacity: "0.8", marginLeft: "auto", marginRight: "auto", lineHeight: "1.625" }}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-title-medium-font-size)', fontWeight: "500", opacity: "0.8", marginLeft: "auto", marginRight: "auto", lineHeight: "1.625" }}>
                             DocenteDoc AI è stato creato per semplificare la tua vita professionale, garantendo sicurezza e innovazione.
                             Esplora subito il tuo copilota didattico e trasforma il tuo modo di insegnare.
                         </p>
@@ -127,8 +128,8 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                          style={{ transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                            <span style={{ fontSize: "1.25rem", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Subito!</span>
-                            <span  style={{ fontSize: "1.5rem", transition: "transform 300ms" }}>arrow_forward</span>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Subito!</span>
+                            <span  style={{ fontSize: 'var(--md-sys-typescale-title-medium-font-size)', transition: "transform 300ms" }}>arrow_forward</span>
                         </div>
                     </M3Button>
                 </div>

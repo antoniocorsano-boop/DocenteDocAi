@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AiMemoryChip Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    aria-label="Contesto AI: Test Context"
+    class="flex items-center gap-2 px-3 py-1.5 min-h-[var(--md-sys-spacing-8)] opacity-60 hover:opacity-100 transition-opacity select-none cursor-help bg-tertiary-container/20 rounded-full border border-tertiary/10"
+    role="note"
+    title="Contesto utilizzato dall'AI"
+  >
+    <span
+      class="material-symbols-outlined text-sm text-tertiary font-bold animate-pulse"
+    >
+      psychology
+    </span>
+    <span
+      class="text-xs font-extrabold text-tertiary uppercase tracking-widest"
+    >
+      Test Context
+    </span>
+  </div>
+</div>
+`;

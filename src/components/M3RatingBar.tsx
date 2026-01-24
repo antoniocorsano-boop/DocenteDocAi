@@ -34,7 +34,7 @@ export default function M3RatingBar({
       role="group"
       aria-disabled={disabled}
       aria-readonly={readonly}
-      style={{ display: 'inline-flex', gap: '0.25rem', alignItems: 'center' }}
+      style={{ display: 'inline-flex', gap: 'var(--md-sys-spacing-1)', alignItems: 'center' }}
     >
       {Array.from({ length: max }).map((_, index) => {
         const filled = index + 1 <= clampedValue;

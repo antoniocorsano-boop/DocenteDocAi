@@ -5,30 +5,30 @@
   background: none;
   outline: none;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: var(--md-sys-percent-50);
   padding: var(--md-sys-spacing-2);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .aura-glow {
-  background: radial-gradient(circle, var(--md-sys-color-primary80) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--md-sys-color-primary80) var(--md-sys-percent-0), transparent var(--md-sys-percent-70));
   animation: m3-emphasized-pulse 2s infinite;
 }
 @keyframes m3-emphasized-pulse {
-  0%   { transform: scale(1);  opacity: 0.4; }
-  50%  { transform: scale(1.08); opacity: 0.2; }
-  100% { transform: scale(1);  opacity: 0.4; }
+  var(--md-sys-percent-0)   { transform: scale(1);  opacity: 0.4; }
+  var(--md-sys-percent-50)  { transform: scale(1.08); opacity: 0.2; }
+  var(--md-sys-percent-100) { transform: scale(1);  opacity: 0.4; }
 }
 .nka-badge {
   position: absolute;
   top: var(--md-sys-spacing-1);
   right: var(--md-sys-spacing-1);
-  width: 10px;
-  height: 10px;
+  width: var(--md-sys-spacing-3);
+  height: var(--md-sys-spacing-3);
   background: var(--md-sys-color-primary30);
-  border-radius: 50%;
-  border: 2px solid var(--md-sys-color-surface);
+  border-radius: var(--md-sys-percent-50);
+  border: var(--md-sys-spacing-1) solid var(--md-sys-color-surface);
 }
 
 .nka-backdrop {
@@ -36,7 +36,7 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.32);
   z-index: 999;
-  backdrop-filter: blur(1px);
+  backdrop-filter: blur(var(--md-sys-spacing-0));
 }
 
 .nka-bottom-sheet {

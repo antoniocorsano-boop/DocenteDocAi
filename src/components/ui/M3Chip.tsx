@@ -56,7 +56,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       case 'outlined':
         baseStyles.backgroundColor = surface;
         baseStyles.color = onSurfaceVariant;
-        baseStyles.border = `2px solid ${outline}`;
+        baseStyles.border = `var(--md-sys-border-width-thick) solid ${outline}`;
         if (isHovered || isFocused) {
           baseStyles.borderColor = onSurfaceVariant;
         }
@@ -64,7 +64,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       case 'elevated':
         baseStyles.backgroundColor = surface;
         baseStyles.color = onSurfaceVariant;
-        baseStyles.border = `1px solid ${surfaceVariant}`;
+        baseStyles.border = `var(--md-sys-border-width-normal) solid ${surfaceVariant}`;
         baseStyles.boxShadow = level1;
         if (isHovered || isFocused) {
           baseStyles.boxShadow = level2;
@@ -73,7 +73,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       default: // filled
         baseStyles.backgroundColor = secondaryContainer;
         baseStyles.color = onSecondaryContainer;
-        baseStyles.border = `1px solid ${secondaryContainer}`;
+        baseStyles.border = `var(--md-sys-border-width-normal) solid ${secondaryContainer}`;
         break;
     }
 

@@ -51,7 +51,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                         id="event-text"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                        style={{ width: "100%" }}
+                        style={{ width: 'var(--md-sys-percent-100)' }}
                         rows={10}
                         placeholder="Es. 'Si comunica che il consiglio della classe 3A è convocato per il giorno 15/10/2024 alle ore 15:30...'"
                         disabled={isLoading}
@@ -65,12 +65,12 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                 <M3Button variant="filled" onClick={handleParse} type="button" disabled={isLoading || !text.trim()}>
                     {isLoading ? (
                         <>
-                            <div style={{ borderRadius: 'var(--md-sys-spacing-4)', height: '1.25rem', width: '1.25rem', marginRight: '0.5rem' }}></div>
+                            <div style={{ borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-typescale-title-large-font-size)', width: 'var(--md-sys-typescale-title-large-font-size)', marginRight: 'var(--md-sys-spacing-2)' }}></div>
                             Analisi in corso...
                         </>
                     ) : (
                         <>
-                            <span style={{ marginRight: '0.5rem' }}>auto_awesome</span>
+                            <span style={{ marginRight: 'var(--md-sys-spacing-2)' }}>auto_awesome</span>
                             Analizza Testo
                         </>
                     )}

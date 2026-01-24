@@ -37,9 +37,9 @@ const SpacingDocumentation = () => (
     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--md-sys-typescale-body-medium-size)', marginBottom: 'var(--md-sys-spacing-8)' }}>
       <thead>
         <tr style={{ backgroundColor: 'var(--md-sys-color-surfaceContainer)', textAlign: 'left' }}>
-          <th style={{ padding: 'var(--md-sys-spacing-3)', borderBottom: '2px solid var(--md-sys-color-outline-variant)' }}>Use Case</th>
-          <th style={{ padding: 'var(--md-sys-spacing-3)', borderBottom: '2px solid var(--md-sys-color-outline-variant)' }}>Spacing</th>
-          <th style={{ padding: 'var(--md-sys-spacing-3)', borderBottom: '2px solid var(--md-sys-color-outline-variant)' }}>Example</th>
+          <th style={{ padding: 'var(--md-sys-spacing-3)', borderBottom: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-outline-variant)' }}>Use Case</th>
+          <th style={{ padding: 'var(--md-sys-spacing-3)', borderBottom: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-outline-variant)' }}>Spacing</th>
+          <th style={{ padding: 'var(--md-sys-spacing-3)', borderBottom: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-outline-variant)' }}>Example</th>
         </tr>
       </thead>
       <tbody>
@@ -51,7 +51,7 @@ const SpacingDocumentation = () => (
           { useCase: 'Grid Gap', spacing: 'var(--md-sys-spacing-4) - var(--md-sys-spacing-6)', example: 'Between grid items' },
           { useCase: 'List Item Padding', spacing: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', example: 'Vertical var(--md-sys-spacing-3), horizontal var(--md-sys-spacing-4)' },
         ].map((row, idx) => (
-          <tr key={idx} style={{ borderBottom: '1px solid var(--md-sys-color-outline-variant)' }}>
+          <tr key={idx} style={{ borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
             <td style={{ padding: 'var(--md-sys-spacing-3)' }}><strong>{row.useCase}</strong></td>
             <td style={{ padding: 'var(--md-sys-spacing-3)' }}><code>{row.spacing}</code></td>
             <td style={{ padding: 'var(--md-sys-spacing-3)', color: '#666' }}>{row.example}</td>
@@ -63,7 +63,7 @@ const SpacingDocumentation = () => (
     <h2 style={{ fontSize: layers.ref.spacing['4'], fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: layers.ref.spacing['4'], marginBottom: layers.ref.spacing['4'] }}>Padding Patterns</h2>
 
     <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-3)' }}>Cards & Containers</h3>
-    <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainer)', borderRadius: 'var(--md-sys-spacing-2)', border: '1px solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-4)' }}>
+    <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainer)', borderRadius: 'var(--md-sys-spacing-2)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-4)' }}>
       <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: '#666', marginBottom: 'var(--md-sys-spacing-2)' }}>
         <strong>Card Padding: var(--md-sys-spacing-4)</strong>
       </div>
@@ -83,7 +83,7 @@ const SpacingDocumentation = () => (
         style={{
           width: '100%',
           padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-          border: '1px solid var(--md-sys-color-outline)',
+          border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
           borderRadius: 'var(--md-sys-spacing-1)',
           fontSize: 'var(--md-sys-typescale-body-medium-size)',
           fontFamily: 'inherit',

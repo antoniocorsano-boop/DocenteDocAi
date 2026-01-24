@@ -72,14 +72,14 @@
 .mb-16 {
   margin-bottom: var(--spacing-16);
 }
-.max-w-25rem {
-  max-width: 25rem;
+.max-w-var(--md-sys-spacing-20) {
+  max-width: var(--md-sys-spacing-20);
 }
-.max-w-31-25rem {
-  max-width: 31.25rem;
+.max-w-31-var(--md-sys-spacing-20) {
+  max-width: 31.var(--md-sys-spacing-20);
 }
-.max-w-300px {
-  max-width: 300px;
+.max-w-var(--md-sys-spacing-12) {
+  max-width: var(--md-sys-spacing-12);
 }
 .bg-surface {
   background-color: var(--md-sys-color-surface);
@@ -115,7 +115,7 @@
   cursor: pointer;
 }
 .border-outline-variant {
-  border-top: 1px solid var(--md-sys-color-outline-variant);
+  border-top: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
 }
 .transition-all {
   transition: all var(--motion-duration-medium2) var(--motion-easing-standard);

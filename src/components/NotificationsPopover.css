@@ -6,7 +6,7 @@
   background-color: var(--md-sys-color-surface-container-high);
   backdrop-filter: blur(var(--md-sys-spacing-2));
   padding: var(--md-sys-spacing-4) var(--md-sys-spacing-6);
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  border-bottom: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   z-index: 10;
   display: flex;
   justify-content: space-between;
@@ -33,7 +33,7 @@
 }
 
 .notifications-popover-content {
-  max-height: min(70vh, 32rem);
+  max-height: min(70vh, var(--md-sys-spacing-16));
   overflow-y: auto;
   overflow-x: hidden;
   padding: var(--md-sys-spacing-2);
@@ -54,12 +54,12 @@
 
 .notifications-popover-card-read {
   background-color: var(--md-sys-color-surface-container);
-  border: 1px solid var(--md-sys-color-outline-variant);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
 }
 
 .notifications-popover-card-unread {
   background-color: var(--md-sys-color-surface-dim);
-  border: 1px solid var(--md-sys-color-primary);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-primary);
 }
 
 .notifications-popover-card-row {
@@ -121,7 +121,7 @@
 .notifications-popover-card-dot {
   width: var(--md-sys-spacing-2);
   height: var(--md-sys-spacing-2);
-  border-radius: 50%;
+  border-radius: var(--md-sys-shape-corner-full);
   background-color: var(--md-sys-color-primary);
   flex-shrink: 0;
   margin-top: var(--md-sys-spacing-2);

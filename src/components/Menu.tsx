@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block Q Migration Complete (0 violations - comments only)
 import React from 'react';
 import { View } from '../types';
 import { M3Typography } from './ui';
@@ -60,7 +60,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
         justifyContent: 'space-around',
         alignItems: 'center',
         width: '100%',
-        minHeight: 'var(--md-sys-spacing-16)', // 64px minimum touch target
+        minHeight: 'var(--md-sys-spacing-16)', // minimum touch target
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         boxShadow: 'var(--md-sys-elevation-level1)',
         borderTop: '1px solid var(--md-sys-color-outline-variant)',
@@ -83,8 +83,8 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
               color: active ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
               borderRadius: 'var(--md-sys-shape-corner-medium)',
               outline: 'none',
-              padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', // 4px 8px
-              minWidth: 'var(--md-sys-spacing-14)', // 56px minimum touch target
+              padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', // compact padding
+              minWidth: 'var(--md-sys-spacing-14)', // minimum touch target
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -117,10 +117,10 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
             type="button"
           >
             <div
-              style={{marginBottom: 'var(--md-sys-spacing-1)', // 2px spacing
+              style={{marginBottom: 'var(--md-sys-spacing-1)', // compact spacing
                 backgroundColor: active ? 'var(--md-sys-color-primary)' : 'transparent',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                padding: 'var(--md-sys-spacing-2)', // 6px padding for icon container
+                padding: 'var(--md-sys-spacing-2)', // icon container padding
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -140,7 +140,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
               style={{fontWeight: '900', // font-black equivalent
                 textTransform: 'uppercase',
                 letterSpacing: '0.2em',
-                marginTop: 'var(--md-sys-spacing-1)', // 2px
+                marginTop: 'var(--md-sys-spacing-1)', // compact margin
                 color: active ? 'var(--md-sys-color-on)' : 'var(--md-sys-color-on-surface)',
                 transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
             >

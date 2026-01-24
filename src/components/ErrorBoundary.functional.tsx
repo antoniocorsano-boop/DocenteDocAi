@@ -31,7 +31,7 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
         </div>
         <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-3)'}}>
           <button onClick={resetErrorBoundary}  style={{ width: "100%", justifyContent: "center" }}>
-            <span  style={{ marginRight: "0.5rem" }}>refresh</span> Ricarica App
+            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>refresh</span> Ricarica App
           </button>
           <button onClick={handleHardReset}  style={{ width: "100%", justifyContent: "center" }}>
             Reset Totale (Emergenza)

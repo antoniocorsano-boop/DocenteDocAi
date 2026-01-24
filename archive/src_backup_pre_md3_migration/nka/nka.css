@@ -1,0 +1,118 @@
+/* NKA custom styles (M3-compliant overrides only) */
+.nka-aura-btn {
+  position: relative;
+  border: none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: var(--md-sys-spacing-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aura-glow {
+  background: radial-gradient(circle, var(--md-sys-color-primary80) 0%, transparent 70%);
+  animation: m3-emphasized-pulse 2s infinite;
+}
+@keyframes m3-emphasized-pulse {
+  0%   { transform: scale(1);  opacity: 0.4; }
+  50%  { transform: scale(1.08); opacity: 0.2; }
+  100% { transform: scale(1);  opacity: 0.4; }
+}
+.nka-badge {
+  position: absolute;
+  top: var(--md-sys-spacing-1);
+  right: var(--md-sys-spacing-1);
+  width: 10px;
+  height: 10px;
+  background: var(--md-sys-color-primary30);
+  border-radius: 50%;
+  border: 2px solid var(--md-sys-color-surface);
+}
+
+.nka-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 999;
+  backdrop-filter: blur(1px);
+}
+
+.nka-bottom-sheet {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: var(--md-sys-color-surface-container-lowest);
+  box-shadow: var(--md-sys-elevation3);
+  border-radius: var(--md-sys-shape-corner-large) var(--md-sys-spacing-6) 0 0;
+  z-index: 1000;
+  min-height: 40vh;
+  padding: var(--md-sys-spacing-4);
+  animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1);
+}
+
+.nka-close-btn {
+  position: absolute;
+  top: var(--md-sys-spacing-2);
+  right: var(--md-sys-spacing-4);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+}
+.nka-node-card {
+  margin: var(--md-sys-spacing-3) 0;
+  padding: var(--md-sys-spacing-4);
+  background: var(--md-sys-color-surface);
+  box-shadow: var(--md-sys-elevation1);
+  border-radius: var(--md-sys-shape-corner-large);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: box-shadow 0.2s;
+}
+.nka-shape-circle {
+  border-radius: 50%;
+}
+.nka-shape-pill {
+  border-radius: 999px;
+}
+.nka-node-label {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.nka-node-depth {
+  font-size: 0.95rem;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-bottom: var(--md-sys-spacing-2);
+}
+.nka-node-actions {
+  display: flex;
+  gap: var(--md-sys-spacing-2);
+}
+.nka-action-btn {
+  background: none;
+  border: none;
+  color: var(--md-sys-color-primary);
+  font-weight: 500;
+  cursor: pointer;
+  padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
+  border-radius: var(--md-sys-shape-corner-small);
+  transition: background 0.2s;
+}
+.nka-action-btn:hover {
+  background: var(--md-sys-color-primary10);
+}
+.nka-settings-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md-sys-spacing-1);
+  margin: var(--md-sys-spacing-4) 0;
+}
+.nka-settings-subtitle {
+  font-size: 0.95rem;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+

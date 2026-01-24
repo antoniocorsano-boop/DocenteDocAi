@@ -51,7 +51,7 @@ const M3Card: React.FC<M3CardProps> = ({
   const getPaddingStyles = (): string => {
     switch (padding) {
       case 'none':
-        return '0';
+        return 'var(--md-sys-spacing-0)';
       case 'small':
         return 'var(--md-sys-spacing-4)';
       case 'large':
@@ -68,7 +68,7 @@ const M3Card: React.FC<M3CardProps> = ({
         return {
           backgroundColor: surface,
           boxShadow: 'none',
-          border: `1px solid ${outlineVariant}`
+          border: `var(--md-sys-border-width-normal) solid ${outlineVariant}`
         };
       case 'filled':
         return {
@@ -91,8 +91,8 @@ const M3Card: React.FC<M3CardProps> = ({
     borderRadius: large,
     transition: isClickable ? `box-shadow ${short2} ${standard}` : undefined,
     cursor: isClickable ? 'pointer' : undefined,
-    outline: focused && isClickable ? `2px solid ${primary}` : 'none',
-    outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
+    outline: focused && isClickable ? `var(--md-sys-border-width-thick) solid ${primary}` : 'none',
+    outlineOffset: focused ? 'var(--md-sys-spacing-2)' : 'var(--md-sys-spacing-0)',
     ...getVariantStyles(),
     ...style
   };

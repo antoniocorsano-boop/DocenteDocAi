@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block J Migration Complete (2 violations eliminated)
 
 import React, { useState } from 'react';
 import { QuestionType } from '../types';
@@ -103,7 +103,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             backgroundColor: questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
                             color: questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
-                            border: `1px solid ${questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
+                            border: `var(--md-sys-border-width-normal) solid ${questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
                             cursor: 'pointer'
                         }}>
                             <input
@@ -125,7 +125,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             backgroundColor: questionTypes.includes('true_false') ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
                             color: questionTypes.includes('true_false') ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
-                            border: `1px solid ${questionTypes.includes('true_false') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
+                            border: `var(--md-sys-border-width-normal) solid ${questionTypes.includes('true_false') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
                             cursor: 'pointer'
                         }}>
                             <input

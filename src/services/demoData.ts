@@ -1,4 +1,5 @@
 import { KnowledgeBaseEntry, Studente, Uda, Lezione, Slot, Valutazione, ValutazioneCompetenza, EventoCalendario, Rubrica, PianoInclusione } from '../types'; // FIX: Updated import path to types
+import { COMPENSATORY_MEASURES } from '../constants/demoData';
 
 // --- STUDENTS (Classe 3A - Eterogenea) ---
 const students: Studente[] = [
@@ -190,7 +191,7 @@ const pianiInclusione: Record<string, PianoInclusione> = {
         id: 's5',
         puntiDiForza: 'Buona capacità logica, interesse per le attività pratiche e laboratoriali.',
         areeDiIntervento: 'Difficoltà nella produzione scritta estesa e nell\'organizzazione autonoma dello studio.',
-        misureCompensative: 'Mappe concettuali durante le verifiche, uso del PC, tempi aggiuntivi (30%).',
+        misureCompensative: `${COMPENSATORY_MEASURES.CONCEPT_MAPS}, ${COMPENSATORY_MEASURES.COMPUTER_USE}, ${COMPENSATORY_MEASURES.EXTRA_TIME_30}.`,
         misureDispensative: 'Lettura ad alta voce in classe, copiatura dalla lavagna, presa appunti.',
         criteriValutazionePersonalizzati: 'Valutazione focalizzata sui contenuti più che sulla forma ortografica. Prove orali a compensazione.'
     },

@@ -7,7 +7,7 @@ exports[`M3RatingBar Story Snapshots > renders default story correctly 1`] = `
     aria-label="rating"
     aria-readonly="false"
     role="group"
-    style="display: inline-flex; gap: 0.25rem; align-items: center;"
+    style="display: inline-flex; gap: var(--md-sys-spacing-1); align-items: center;"
   >
     <button
       aria-pressed="true"

@@ -43,7 +43,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     const sectionStyle: React.CSSProperties = {
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-        border: '1px solid var(--md-sys-color-outline-variant)',
+        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
         overflow: 'hidden',
         marginBottom: 'var(--md-sys-spacing-6)',
         boxShadow: 'var(--md-sys-elevation-level1)',
@@ -57,12 +57,12 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
         alignItems: 'center',
         gap: 'var(--md-sys-spacing-8)',
         padding: 'var(--md-sys-spacing-5)',
-        borderBottom: '1px solid var(--md-sys-color-outline)'
+        borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
     };
 
     const iconContainerStyle: React.CSSProperties = {
-        width: '2.5rem',
-        height: '2.5rem',
+        width: 'var(--md-sys-spacing-10)',
+        height: 'var(--md-sys-spacing-10)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         display: 'flex',
         alignItems: 'center',
@@ -73,7 +73,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     };
 
     const iconStyle: React.CSSProperties = {
-        fontSize: '1.5rem'
+        fontSize: 'var(--md-sys-spacing-6)'
     };
 
     const textContainerStyle: React.CSSProperties = {

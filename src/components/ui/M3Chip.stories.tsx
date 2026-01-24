@@ -135,7 +135,7 @@ export const DeletableGroup: Story = {
  */
 export const Tags: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: '31.25rem' }}>
+    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: '100%' }}>
       {['Important', 'Draft', 'Review', 'Completed', 'Urgent'].map((tag, i) => (
         <M3Chip key={i} label={tag} variant="elevated" />
       ))}
@@ -177,7 +177,7 @@ export const Filters: Story = {
                 border: 'none',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 cursor: 'pointer',
-                fontSize: '0.9rem',
+                fontSize: 'var(--md-sys-typescale-body-medium-size)',
                 fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
               }}
             >
@@ -185,7 +185,7 @@ export const Filters: Story = {
             </button>
           ))}
         </div>
-        <p style={{ fontSize: '0.9rem', color: 'var(--md-sys-color-onSurface-variant)' }}>
+        <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--md-sys-color-onSurface-variant)' }}>
           Selected: {selected.join(', ')}
         </p>
       </div>
@@ -248,7 +248,7 @@ export const InputChips: Story = {
             style={{
               width: '100%',
               padding: 'var(--md-sys-spacing-3)',
-              border: '1px solid var(--md-sys-color-outline-variant)',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
               borderRadius: 'var(--md-sys-shape-corner-medium)',
               boxSizing: 'border-box',
             }}
@@ -286,7 +286,7 @@ export const StatusChips: Story = {
             style={{
               width: 'var(--md-sys-spacing-3)',
               height: 'var(--md-sys-spacing-3)',
-              borderRadius: '50%',
+              borderRadius: 'var(--md-sys-percent-50)',
               backgroundColor: status.color,
             }}
           />

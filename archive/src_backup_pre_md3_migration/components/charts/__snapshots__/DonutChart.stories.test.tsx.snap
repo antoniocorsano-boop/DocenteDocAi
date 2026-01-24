@@ -1,0 +1,52 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DonutChart Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    style="position: relative; width: 200px; height: 200px;"
+  >
+    <svg
+      height="200"
+      viewBox="0 0 200 200"
+      width="200"
+    >
+      <g
+        transform="rotate(-90 100 100)"
+      >
+        <circle
+          class="donut-chart-segment"
+          cx="100"
+          cy="100"
+          fill="transparent"
+          r="80"
+          stroke="#000"
+          stroke-dasharray="502.6548245743669 502.6548245743669"
+          stroke-dashoffset="502.6548245743669"
+          stroke-width="20"
+        />
+      </g>
+      <text
+        class="donut-chart-center-text"
+        fill="var(--md-sys-color-on-surface)"
+        font-size="24"
+        font-weight="bold"
+        text-anchor="middle"
+        x="100"
+        y="95"
+      >
+        10
+      </text>
+      <text
+        class="donut-chart-center-label"
+        fill="var(--md-sys-color-on-surface-variant)"
+        font-size="12"
+        text-anchor="middle"
+        x="100"
+        y="115"
+      >
+        Totale
+      </text>
+    </svg>
+  </div>
+</div>
+`;

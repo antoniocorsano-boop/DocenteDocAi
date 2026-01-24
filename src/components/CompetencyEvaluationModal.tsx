@@ -74,7 +74,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                 <div key={level.id} style={{
                                     padding: 'var(--md-sys-spacing-12)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                                    border: selectedLevelId === level.id ? '2px solid var(--md-sys-color-primary)' : '2px solid var(--md-sys-color-outline-variant)',
+                                    border: selectedLevelId === level.id ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                     backgroundColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
                                     cursor: 'pointer'
                                 }}>

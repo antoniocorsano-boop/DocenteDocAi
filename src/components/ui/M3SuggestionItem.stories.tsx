@@ -70,7 +70,7 @@ export const WithIconAndAction: Story = {
             Consider using visual aids for better engagement
           </M3Typography>
         </div>
-        <button style={{ color: layers.sys.color.primary ,  border: "1px solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "0.875rem", transition: "color 300ms" }}>
+        <button style={{ color: layers.sys.color.primary ,  border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "var(--md-sys-typescale-body-small-font-size)", transition: "color 300ms" }}>
           Apply
         </button>
       </div>
@@ -100,8 +100,8 @@ export const SuggestionList: Story = {
             onClick={() => {}}
           >
             <div style={{ display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-3)" }}>
-              <div style={{ backgroundColor: layers.sys.color.secondary ,  width: "1.5rem", height: "1.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
-                <span style={{ color:  layers.sys.color.onPrimary ,  fontSize: "0.75rem", fontWeight: "500" }}>
+              <div style={{ backgroundColor: layers.sys.color.secondary ,  width: "var(--md-sys-spacing-6)", height: "var(--md-sys-spacing-6)", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
+                <span style={{ color:  layers.sys.color.onPrimary ,  fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "500" }}>
                   {index + 1}
                 </span>
               </div>

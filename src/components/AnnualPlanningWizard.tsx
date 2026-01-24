@@ -1,5 +1,4 @@
-// MD3 Compliant - Migration completed
-// AnnualPlanningWizard.tsx - All styling uses MD3 tokens via style props
+// MD3 Compliant - Block J Migration Complete (5 violations eliminated)
 
 import React, { useState, useMemo } from 'react';
 import {
@@ -337,7 +336,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 justifyContent: 'center',
                                 backgroundColor: isDone ? 'var(--md-sys-color-primary)' : isActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
                                 color: isDone ? 'var(--md-sys-color-on-primary)' : isActive ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
-                                border: `2px solid ${isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                border: `var(--md-sys-border-width-thick) solid ${isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 fontWeight: 'bold',
                                 transition: 'all 0.2s ease'
                             }}
@@ -352,7 +351,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <div
                                 style={{
                                     width: 'var(--md-sys-spacing-8)',
-                                    height: '2px',
+                                    height: 'var(--md-sys-border-width-thick)',
                                     backgroundColor: isDone ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
                                     marginTop: 'var(--md-sys-spacing-2)',
                                     transition: 'background-color 0.2s ease'
@@ -382,31 +381,31 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div>
                                         <label htmlFor="wizard-select-class">Classe Target</label>
-                                        <select id="wizard-select-class" name="wizard-select-class" value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ width: '100%' }} title="Seleziona la classe per la programmazione">
+                                        <select id="wizard-select-class" name="wizard-select-class" value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ width: 'var(--md-sys-percent-100)' }} title="Seleziona la classe per la programmazione">
                                             {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                                         </select>
                                     </div>
                                     <div>
                                         <label htmlFor="wizard-select-subject">Materia</label>
-                                        <select id="wizard-select-subject" name="wizard-select-subject" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} style={{ width: '100%' }} title="Seleziona la materia">
+                                        <select id="wizard-select-subject" name="wizard-select-subject" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} style={{ width: 'var(--md-sys-percent-100)' }} title="Seleziona la materia">
                                             {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `1px solid var(--md-sys-color-outline)` }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)` }}>
                                 <h4 style={{ marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
                                     <span style={{ fontFamily: 'Material Symbols Outlined', color: 'var(--md-sys-color-secondary)' }}>folder_open</span>
                                     Documenti di Riferimento (KB)
                                 </h4>
-                                <div style={{ maxHeight: '180px', overflowY: 'auto' }}>
+                                <div style={{ maxHeight: 'var(--md-sys-layout-popup-min-width)', overflowY: 'auto' }}>
                                     {recommendedFiles.length > 0 ? recommendedFiles.map(kb => (
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
                                             <label htmlFor={`kb-annual-${kb.id}`} style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'flex-start', cursor: 'pointer' }} title={kb.fileName}>
-                                                {selectedKbFiles.includes(kb.id) && <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: '1rem' }}>check</span>}
-                                                <span style={{ fontFamily: 'Material Symbols Outlined', color: 'var(--md-sys-color-primary)', marginRight: "0.5rem" }}>description</span>
+                                                {selectedKbFiles.includes(kb.id) && <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>check</span>}
+                                                <span style={{ fontFamily: 'Material Symbols Outlined', color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</span>
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                             </label>
                                         </div>
@@ -429,7 +428,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         style={{
                                             padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-3)`,
                                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                                            border: `1px solid ${situationTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                            border: `var(--md-sys-border-width-thin) solid ${situationTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                             backgroundColor: situationTags.includes(tag) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
                                             color: situationTags.includes(tag) ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                             cursor: 'pointer',
@@ -461,7 +460,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'methodology' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <h3>3. Obiettivi e Metodologie</h3>
-                            <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `1px solid var(--md-sys-color-outline)` }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)` }}>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <label htmlFor="wizard-methodology-text">Strategie Didattiche</label>
                                     <M3Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Suggerisci metodologie adatte al contesto">
@@ -488,9 +487,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     </button>
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--md-sys-spacing-2)' }}>
-                                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-2)', border: "1px solid var(--md-sys-color-outline)" }}>
+                                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-2)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                         <label htmlFor="wizard-hours-per-week">Ore/Sett:</label>
-                                        <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} style={{ width: "2.5rem", backgroundColor: "transparent", textAlign: "center", fontWeight: "bold", borderBottom: "1px solid var(--md-sys-color-outline)" }} title="Ore settimanali di lezione" />
+                                        <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} style={{ width: "var(--md-sys-spacing-10)", backgroundColor: "transparent", textAlign: "center", fontWeight: "bold", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }} title="Ore settimanali di lezione" />
                                     </div>
                                     <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Genera lista UDA dai documenti KB">
                                         {planGenerationStatus ? <AiThinkingGem size="small" inline text={planGenerationStatus} /> : 'Genera da KB'}
@@ -508,21 +507,21 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 />
                             )}
 
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)" }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                 <div style={{ flexGrow: 1 }}>
                                     <label htmlFor="wizard-new-uda-title">Titolo UDA</label>
                                     <input id="wizard-new-uda-title" name="wizard-new-uda-title" type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} style={{ width: '100%' }} onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
                                 </div>
-                                <div style={{ width: '4rem' }}>
+                                <div style={{ width: 'var(--md-sys-spacing-16)' }}>
                                     <label htmlFor="wizard-new-uda-hours">Ore</label>
                                     <input id="wizard-new-uda-hours" name="wizard-new-uda-hours" type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} style={{ width: '100%' }} />
                                 </div>
                                 <M3Button variant="filled" onClick={addUdaToPlan} style={{ marginBottom: 'var(--md-sys-spacing-4)' }} title="Aggiungi alla lista">Aggiungi</M3Button>
                             </div>
                             {planGenerationStatus ? <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", justifyContent: "center" }}><AiThinkingGem size="medium" text={planGenerationStatus} /></div> : (
-                                <div style={{ gap: 'var(--md-sys-spacing-3)', overflowY: "auto", maxHeight: '400px' }}>
+                                <div style={{ gap: 'var(--md-sys-spacing-3)', overflowY: "auto", maxHeight: 'calc(var(--md-sys-spacing-2) * 50)' }}>
                                     {plannedUdas.map((uda, idx) => (
-                                        <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)" }}>
+                                        <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                             <span style={{ fontFamily: 'Material Symbols Outlined', color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare (futuro)">drag_indicator</span>
 
                                             <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
@@ -535,14 +534,14 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "0.8" }}>{uda.topic || uda.title}</p>
                                             </div>
 
-                                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-surface-container-low)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "1px solid var(--md-sys-color-outline)" }}>
+                                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-surface-container-low)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                                 <input
                                                     id={`wizard-uda-hours-${uda.id}`}
                                                     name={`wizard-uda-hours-${uda.id}`}
                                                     type="number"
                                                     value={uda.hours}
                                                     onChange={e => updateUdaHours(uda.id, parseInt(e.target.value))}
-                                                    style={{ padding: 'var(--md-sys-spacing-4)', width: "2.5rem", textAlign: "center", backgroundColor: "transparent", fontWeight: "bold", border: "none" }}
+                                                    style={{ padding: 'var(--md-sys-spacing-4)', width: "var(--md-sys-spacing-10)", textAlign: "center", backgroundColor: "transparent", fontWeight: "bold", border: "none" }}
                                                     title="Modifica ore stimate"
                                                 />
                                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>ore</span>
@@ -574,10 +573,10 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     <input id="wizard-term2-end" name="wizard-term2-end" type="date" value={term2End} onChange={e => setTerm2End(e.target.value)} style={{ width: '100%' }} />
                                 </div>
                             </div>
-                            <div style={{ gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', overflowY: "auto", maxHeight: '400px' }}>
+                            <div style={{ gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', overflowY: "auto", maxHeight: 'calc(var(--md-sys-spacing-2) * 50)' }}>
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} style={{ position: "relative", paddingLeft: 'var(--md-sys-spacing-6)' }}>
-                                        <div style={{ position: 'absolute', left: '-9px', top: '0.25rem', width: '1rem', height: '1rem', borderRadius: '50%', borderWidth: '2px', borderColor: 'var(--md-sys-color-outline-variant)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
+                                        <div style={{ position: 'absolute', left: '-9px', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: '50%', borderWidth: 'var(--md-sys-border-width-thin)', borderColor: 'var(--md-sys-color-outline-variant)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
                                         <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.025em", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
                                         <h4 style={{ fontWeight: "500", color: 'var(--md-sys-color-on-surface)' }}>{item.uda.title}</h4>
                                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{item.uda.hours} ore</p>

@@ -1,4 +1,4 @@
-// MD3 Compliant - Batch Document Export Wizard
+// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, Uda, TimetableSettings, AiSettings, Valutazione, ValutazioneCompetenza, DocumentTemplate } from '../types';
 import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob } from '../utils/documentUtils';
@@ -276,9 +276,9 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                 <span  style={{ fontWeight: "500" }}>Generazione in corso...</span>
                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{progress.current}/{progress.total}</span>
               </div>
-              <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , width: "100%", borderRadius: 'var(--md-sys-spacing-4)', height: "0.5rem", marginBottom: 'var(--md-sys-spacing-8)'}}>
+              <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , width: 'var(--md-sys-percent-100)', borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div
-                   style={{backgroundColor: "primary", height: "0.5rem", borderRadius: 'var(--md-sys-spacing-4)', transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", width: `${(progress.current / progress.total) * 100}%` }}
+                   style={{backgroundColor: "primary", height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)', transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", width: `${(progress.current / progress.total) * 100}%` }}
                 ></div>
               </div>
               <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
@@ -329,7 +329,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                         key={doc.id}
                         style={{
                           padding: 'var(--md-sys-spacing-6)',
-                          border: isSelected ? '2px solid primary' : '1px solid outlineVariant',
+                          border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                           borderRadius: 'var(--md-sys-shape-corner-small)',
                           cursor: isGenerating ? 'not-allowed' : 'pointer',
                           transition: 'all 0.2s ease',

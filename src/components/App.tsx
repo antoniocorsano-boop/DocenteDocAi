@@ -1,3 +1,5 @@
+// MD3 Compliant - Block J Migration Complete (1 violation eliminated)
+
 import AssistantModal from './AssistantModal';
 import '../font-setup';
 import * as React from 'react';
@@ -43,7 +45,7 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
                justifyContent: "center",
                gap: 'var(--md-sys-spacing-4)', 
                cursor: "pointer", 
-               borderBottom: "1px solid var(--md-sys-color-outline)",
+               borderBottom: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)",
                zIndex: Z_INDEX.notification.banner
              }}
             onClick={onAction}

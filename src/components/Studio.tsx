@@ -193,7 +193,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         backgroundColor: 'var(--md-sys-color-surface-container)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         padding: 'var(--md-sys-spacing-4)',
-                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                         transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
                         cursor: 'pointer'
                     }}
@@ -298,14 +298,14 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         <div key={entry.id} >
                             <input type="checkbox" id={`studio-file-${entry.id}`} checked={selectedFileIds.includes(entry.id)} onChange={() => handleFileToggle(entry.id)} />
                             <label htmlFor={`studio-file-${entry.id}`} >
-                                {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: "1.125rem" }}>check</span>}
+                                {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: 'var(--md-sys-typescale-title-medium-font-size)' }}>check</span>}
                                 <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{entry.fileName}</span>
                             </label>
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "0.875rem", padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-medium-font-size)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
                     )}
                 </div>
             </div>
@@ -321,7 +321,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             {!isLoading && (
                 <div >
                     {/* Generation Card */}
-                    <div  style={{ height: "100%" }}>
+                    <div  style={{ height: 'var(--md-sys-percent-100)' }}>
                         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                             <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-tertiary)"}}>design_services</span>
@@ -333,7 +333,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     </div>
 
                     {/* Analysis Card */}
-                    <div  style={{ height: "100%" }}>
+                    <div  style={{ height: 'var(--md-sys-percent-100)' }}>
                         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                             <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-secondary)"}}>analytics</span>

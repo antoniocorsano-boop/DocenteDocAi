@@ -478,14 +478,14 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                                 onClick={() => setViewingDoc(doc)}
                             >
                                 <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 'var(--md-sys-spacing-4)'}}>
-                                    <span style={{ fontSize: "0.75rem", opacity: "0.7" }}>Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}</span>
+                                    <span style={{ fontSize: "var(--md-sys-typescale-body-small-size)", opacity: "0.7" }}>Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}</span>
                                     <M3Button variant="text" size="small" onClick={(e) => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</M3Button>
                                 </div>
                             </InfoCard>
                         )) : (
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "center", opacity: "0.5" }}>
                                 <span style={{color: "var(--md-sys-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)'}}>drafts</span>
-                                <p style={{ fontSize: "0.875rem" }}>Nessun documento generato di recente.</p>
+                                <p style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>Nessun documento generato di recente.</p>
                             </div>
                         )}
                     </div>

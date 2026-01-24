@@ -94,7 +94,7 @@ export const WithIconAndAction: Story = {
  */
 export const Compact: Story = {
   args: {
-    className: 'min-h-[200px]',
+    className: 'min-h-[calc(var(--md-sys-spacing-16)*3.125)]',
     children: (
       <div>
         <M3Typography variant="title-medium" as="h4">

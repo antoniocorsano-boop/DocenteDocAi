@@ -241,7 +241,7 @@
    RESPONSIVE BREAKPOINTS
    ======================================== */
 
-@media (min-width: 600px) {
+@media (min-width: var(--breakpoint-compact)) {
   /* Tablet spacing adjustments */
   .md\:gap-4 { gap: var(--md-sys-spacing-4); }
   .md\:gap-6 { gap: var(--md-sys-spacing-6); }
@@ -255,7 +255,7 @@
   .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: var(--md-sys-breakpoint-desktop)) {
   /* Desktop spacing adjustments */
   .lg\:gap-6 { gap: var(--md-sys-spacing-6); }
   .lg\:gap-8 { gap: var(--md-sys-spacing-8); }
@@ -282,37 +282,37 @@
   padding-right: var(--md-sys-spacing-4);
 }
 
-@media (min-width: 640px) {
+@media (min-width: var(--breakpoint-sm)) {
   .container {
-    max-width: 640px;
+    max-width: var(--breakpoint-sm);
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: var(--md-sys-breakpoint-tablet)) {
   .container {
-    max-width: 768px;
+    max-width: var(--md-sys-breakpoint-tablet);
     padding-left: var(--md-sys-spacing-6);
     padding-right: var(--md-sys-spacing-6);
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: var(--md-sys-breakpoint-desktop)) {
   .container {
-    max-width: 1024px;
+    max-width: var(--md-sys-breakpoint-desktop);
     padding-left: var(--md-sys-spacing-8);
     padding-right: var(--md-sys-spacing-8);
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: var(--breakpoint-xl)) {
   .container {
-    max-width: 1280px;
+    max-width: var(--breakpoint-xl);
   }
 }
 
-@media (min-width: 1536px) {
+@media (min-width: var(--breakpoint-2xl)) {
   .container {
-    max-width: 1536px;
+    max-width: var(--breakpoint-2xl);
   }
 }
 

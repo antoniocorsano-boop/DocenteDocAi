@@ -56,14 +56,14 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
       zIndex: 3000,
       backgroundColor: 'var(--md-sys-color-inverse-surface)',
       color: 'var(--md-sys-color-inverse-onSurface)',
-      padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', // 0.38em 1em approx
-      borderRadius: 'var(--md-sys-shape-corner-small)', // 8px
+      padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+      borderRadius: 'var(--md-sys-shape-corner-small)',
       boxShadow: 'var(--md-sys-elevation-level1)',
       whiteSpace: 'pre',
       pointerEvents: 'none',
-      opacity: 0.97,
+      opacity: 'var(--md-sys-state-opacity-tooltip)',
       animation: 'tooltip-in 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) both',
-      maxWidth: 'var(--md-sys-spacing-16)', // 200px approx
+      maxWidth: 'var(--md-sys-spacing-16)',
       wordWrap: 'break-word'
     };
 
@@ -71,32 +71,32 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
       case 'top':
         return {
           ...baseStyle,
-          left: '50%',
-          bottom: '120%',
+          left: 'var(--md-sys-percent-50)',
+          bottom: 'var(--md-sys-percent-120)',
           transform: 'translateX(-50%)',
           marginBottom: 'var(--md-sys-spacing-2)'
         };
       case 'bottom':
         return {
           ...baseStyle,
-          left: '50%',
-          top: '120%',
+          left: 'var(--md-sys-percent-50)',
+          top: 'var(--md-sys-percent-120)',
           transform: 'translateX(-50%)',
           marginTop: 'var(--md-sys-spacing-2)'
         };
       case 'left':
         return {
           ...baseStyle,
-          right: '120%',
-          top: '50%',
+          right: 'var(--md-sys-percent-120)',
+          top: 'var(--md-sys-percent-50)',
           transform: 'translateY(-50%)',
           marginRight: 'var(--md-sys-spacing-2)'
         };
       case 'right':
         return {
           ...baseStyle,
-          left: '120%',
-          top: '50%',
+          left: 'var(--md-sys-percent-120)',
+          top: 'var(--md-sys-percent-50)',
           transform: 'translateY(-50%)',
           marginLeft: 'var(--md-sys-spacing-2)'
         };
@@ -115,7 +115,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
               transform: ${position === 'top' || position === 'bottom' ? 'translateX(-50%) scale(0.98)' : 'translateY(-50%) scale(0.98)'};
             }
             to {
-              opacity: 0.97;
+              opacity: var(--md-sys-state-opacity-tooltip);
               transform: ${position === 'top' || position === 'bottom' ? 'translateX(-50%) scale(1)' : 'translateY(-50%) scale(1)'};
             }
           }

@@ -19,8 +19,8 @@
 }
 
 .m3-interactive-button:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary);
-  outline-offset: 2px;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
   background-color: var(--md-sys-color-surface-container-highest);
 }
 
@@ -37,18 +37,18 @@
 
 .m3-interactive-card:hover {
   /* M3 token replacement: rgba(0, 0, 0, 0.1) → var(--md-sys-color-shadow) */
-  box-shadow: 0px 2px var(--md-sys-spacing-1) var(--md-sys-color-shadow);
-  transform: translateY(-1px);
+  box-shadow: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-color-shadow);
+  transform: translateY(-var(--md-sys-spacing-0));
 }
 
 .m3-interactive-card:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary);
-  outline-offset: 2px;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
 }
 
 .m3-interactive-card:active {
   transform: translateY(0);
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) color-mix(in srgb, var(--md-sys-color-shadow) 8%, transparent);
 }
 
 /* Close button variant - circular icon buttons */
@@ -64,8 +64,8 @@
 }
 
 .m3-interactive-close:focus-visible {
-  outline: 2px solid var(--md-sys-color-primary);
-  outline-offset: 2px;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
 }
 
 .m3-interactive-close:active {

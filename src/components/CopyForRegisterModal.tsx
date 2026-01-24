@@ -100,7 +100,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             <M3DialogActions  style={{ paddingTop: "0" }}>
                 <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                 <M3Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="filled" >
-                    <span  style={{ marginRight: "0.5rem" }}>content_copy</span> COPIA
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>content_copy</span> COPIA
                 </M3Button>
             </M3DialogActions>
         </M3Dialog>

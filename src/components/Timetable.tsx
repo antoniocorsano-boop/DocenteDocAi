@@ -66,7 +66,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 backgroundColor: 'var(--md-sys-color-primary)',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.1,
-                filter: 'blur(40px)',
+                filter: 'blur(var(--md-sys-blur-40))',
                 zIndex: 0}} />
             <div style={{position: 'absolute',
                 bottom: 'var(--md-sys-spacing-8)',
@@ -76,7 +76,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 backgroundColor: 'var(--md-sys-color-secondary)',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.08,
-                filter: 'blur(30px)',
+                filter: 'blur(var(--md-sys-blur-30))',
                 zIndex: 0}} />
 
             <div style={{position: 'relative',
@@ -93,8 +93,8 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     padding: 'var(--md-sys-spacing-6)',
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     borderRadius: 'var(--md-sys-shape-corner-extra)',
-                    border: '1px solid var(--md-sys-color-outline)-variant',
-                    backdropFilter: 'blur(20px)',
+                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                    backdropFilter: 'blur(var(--md-sys-blur-20))',
                     boxShadow: 'var(--md-sys-elevation-level2)',
                     flexWrap: 'wrap',
                     gap: 'var(--md-sys-spacing-4)'}}>
@@ -131,8 +131,8 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                         backgroundColor: 'var(--md-sys-color-surface-container-high)',
                         padding: 'var(--md-sys-spacing-2)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: '1px solid var(--md-sys-color-outline)-variant',
-                        backdropFilter: 'blur(16px)'}}>
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                        backdropFilter: 'blur(var(--md-sys-blur-16))'}}>
                         <TabGroup 
                             tabs={[
                                 {id:'week', label:'Settimana', icon:'view_week'}, 
@@ -149,8 +149,8 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 gap: 'var(--md-sys-spacing-2)',
                                 padding: `0 var(--md-sys-spacing-3)`,
                                 margin: `0 var(--md-sys-spacing-2)`,
-                                borderLeft: '1px solid var(--md-sys-color-outline)-variant',
-                                borderRight: '1px solid var(--md-sys-color-outline)-variant'}}>
+                                borderLeft: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                                borderRight: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'}}>
                                 <M3IconButton 
                                     icon="chevron_left" 
                                     onClick={() => handleDayNav(-1)} 
@@ -191,9 +191,9 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 {/* MATRIX CONTAINER */}
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     borderRadius: 'var(--md-sys-shape-corner-extra)',
-                    border: '1px solid var(--md-sys-color-outline)-variant',
+                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                     padding: 'var(--md-sys-spacing-6)',
-                    backdropFilter: 'blur(20px)',
+                    backdropFilter: 'blur(var(--md-sys-blur-20))',
                     boxShadow: 'var(--md-sys-elevation-level1)',
                     overflow: 'auto'}}>
                     <div style={{
@@ -203,13 +203,13 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     }}>
                         <div style={{
                             display: 'grid',
-                            gridTemplateColumns: viewMode === 'day' ? '120px 1fr' : `120px repeat(${visibleDays.length}, 1fr)`,
+                            gridTemplateColumns: viewMode === 'day' ? 'var(--md-sys-layout-120) 1fr' : `var(--md-sys-layout-120) repeat(${visibleDays.length}, 1fr)`,
                             gap: 'var(--md-sys-spacing-1)',
                             backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--md-sys-spacing-4)',
-                            border: '1px solid var(--md-sys-color-outline-variant)',
-                            minWidth: '100%'
+                            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                            minWidth: 'var(--md-sys-percent-100)'
                         }}>
                             <div style={{padding: 'var(--md-sys-spacing-3)',
                                 backgroundColor: 'var(--md-sys-color-surface-container-high)',
@@ -217,7 +217,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                border: '1px solid var(--md-sys-color-outline)-variant'}}>
+                                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'}}>
                                 <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 600,
                                     textTransform: 'uppercase',
@@ -234,9 +234,8 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        border: '1px solid var(--md-sys-color-outline)-variant',
-                                        borderLeft: idx === 0 ? '1px solid var(--md-sys-color-outline)-variant' : 'none'}}
-                                >
+                                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                                        borderLeft: idx === 0 ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)' : 'none'}}>
                                     <M3Typography variant="label-large" style={{color: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
                                             ? 'var(--md-sys-color-on)' 
                                             : 'var(--md-sys-color-on-surface)',
@@ -254,7 +253,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        border: '1px solid var(--md-sys-color-outline)-variant',
+                                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                         borderTop: 'none'}}>
                                         <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface)',
                                             fontWeight: 500}}>{time}</M3Typography>
@@ -269,9 +268,9 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                                 style={{borderRadius: timeIdx === settings.timeSlots.length - 1 && dayIdx === visibleDays.length - 1 
                                                         ? '0 var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0' 
                                                         : 'var(--md-sys-shape-corner-medium)',
-                                                    border: '1px solid var(--md-sys-color-outline)-variant',
+                                                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                                     borderTop: 'none',
-                                                    borderLeft: dayIdx === 0 ? '1px solid var(--md-sys-color-outline)-variant' : 'none',
+                                                    borderLeft: dayIdx === 0 ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)' : 'none',
                                                     overflow: 'hidden',
                                                     cursor: 'pointer',
                                                     transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,

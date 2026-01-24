@@ -41,7 +41,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         opacity: 0.5,
-        border: '1px solid var(--md-sys-color-on-primary)',
+        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-on-primary)',
         borderOpacity: 0.3
       }}
     >
@@ -52,7 +52,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             width: 'var(--md-sys-spacing-2)',
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-percent-50)',
             animation: 'pulse 2s ease-in-out infinite',
             animationDelay: '0ms'
           }}
@@ -62,7 +62,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             width: 'var(--md-sys-spacing-2)',
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-percent-50)',
             animation: 'pulse 2s ease-in-out infinite',
             animationDelay: '150ms'
           }}
@@ -72,7 +72,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             width: 'var(--md-sys-spacing-2)',
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-percent-50)',
             animation: 'pulse 2s ease-in-out infinite',
             animationDelay: '300ms'
           }}
@@ -95,7 +95,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         style={{
           width: 'var(--md-sys-spacing-8)',
           height: 'var(--md-sys-spacing-8)',
-          borderRadius: '50%',
+          borderRadius: 'var(--md-sys-percent-50)',
           backgroundColor: 'var(--md-sys-color-primary)',
           opacity: 0.1,
           display: 'flex',

@@ -63,29 +63,29 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                             backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--md-sys-spacing-6)',
-                            border: "1px solid var(--md-sys-color-outline)"
+                            border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"
                         }}>
                             <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-primary)"}}>monitoring</span>
                                 Andamento Didattico
                             </h2>
                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-6)'}}>
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', flex: "1", border: "1px solid var(--md-sys-color-outline)"}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "block", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: "bold" }}>Media Generale</span>
+                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', flex: "1", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "block", fontSize: "var(--md-sys-typescale-body-large-size)", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: "bold" }}>Media Generale</span>
                                     <span style={{
-                                        fontSize: '2.25rem',
+                                        fontSize: 'var(--md-sys-typescale-display-small-size)',
                                         fontWeight: 'bold',
                                         color: parseFloat(performance.grade || '0') < 6 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
                                     }}>
                                         {performance.grade || '-'}
                                     </span>
                                 </div>
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', flex: "1", border: "1px solid var(--md-sys-color-outline)"}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "block", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: "bold" }}>Trend</span>
+                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', flex: "1", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "block", fontSize: "var(--md-sys-typescale-body-large-size)", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: "bold" }}>Trend</span>
                                     <div style={{display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 'var(--md-sys-spacing-4)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                         <span style={{
                                             fontFamily: 'Material Symbols Outlined',
-                                            fontSize: '2.25rem',
+                                            fontSize: 'var(--md-sys-typescale-display-small-size)',
                                             color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline-variant)'
                                         }}>
                                             {performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat'}
@@ -104,7 +104,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                             backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--md-sys-spacing-6)',
-                            border: "1px solid var(--md-sys-color-outline)"
+                            border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"
                         }}>
                             <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-secondary)"}}>history</span>
@@ -112,13 +112,13 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                             </h2>
                             <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                                 {evaluations.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()).slice(0, 5).map(ev => (
-                                    <div key={ev.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", transition: "color 300ms"}}>
+                                    <div key={ev.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color 300ms"}}>
                                         <div>
                                             <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{ev.materia}</p>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.75rem" }}>{new Date(ev.data).toLocaleDateString()}</p>
+                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)" }}>{new Date(ev.data).toLocaleDateString()}</p>
                                         </div>
                                         <span style={{
-                                            fontSize: '1.125rem',
+                                            fontSize: 'var(--md-sys-typescale-headline-small-size)',
                                             fontWeight: 'bold',
                                             color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
                                         }}>
@@ -132,7 +132,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
 
                     {/* Right Column: Competencies & Notes */}
                     <div style={{gap: 'var(--md-sys-spacing-6)'}}>
-                        <div data-testid="m3-card" style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)"}}>
+                        <div data-testid="m3-card" style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                             <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-tertiary)"}}>verified</span>
                                 Competenze Trasversali
@@ -144,7 +144,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                                             backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary-container) 10%, transparent)',
                                             borderRadius: 'var(--md-sys-shape-corner-large)',
                                             padding: 'var(--md-sys-spacing-8)',
-                                            border: "1px solid var(--md-sys-color-outline)"
+                                            border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"
                                         }}>
                                             <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                                 <h4 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{comp.name}</h4>
@@ -154,7 +154,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                                                     border: "none"
                                                 }}>{comp.level}</span>
                                             </div>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.875rem" }}>{comp.desc}</p>
+                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-size)" }}>{comp.desc}</p>
                                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 , marginTop: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "0.1em"}}>Rilevato il {new Date(comp.date).toLocaleDateString()}</p>
                                         </div>
                                     ))
@@ -167,33 +167,33 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                             </div>
                         </div>
 
-                        <div data-testid="m3-card" style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)"}}>
+                        <div data-testid="m3-card" style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                             <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-primary)"}}>info</span>
                                 Informazioni Studente
                             </h2>
                             <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
                                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)'}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.75rem", textTransform: "uppercase", fontWeight: "bold" }}>Classe</span>
-                                    <p style={{ fontSize: "1.125rem", fontWeight: "bold" }}>{student.classe}</p>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>Classe</span>
+                                    <p style={{ fontSize: "var(--md-sys-typescale-headline-small-size)", fontWeight: "bold" }}>{student.classe}</p>
                                 </div>
                                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)'}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.75rem", textTransform: "uppercase", fontWeight: "bold" }}>Bisogni</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>Bisogni</span>
                                     <div style={{display: "flex", gap: 'var(--md-sys-spacing-4)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                         {student.hasBES && <span style={{
                                             backgroundColor: 'var(--md-sys-color-tertiary)',
-                                            width: "0.75rem",
-                                            height: "0.75rem",
+                                            width: "var(--md-sys-spacing-3)",
+                                            height: "var(--md-sys-spacing-3)",
                                             borderRadius: 'var(--md-sys-spacing-4)'
                                         }} title="BES"></span>}
                                         {student.hasDSA && <span style={{
                                             backgroundColor: 'var(--md-sys-color-error)',
-                                            width: "0.75rem",
-                                            height: "0.75rem",
+                                            width: "var(--md-sys-spacing-3)",
+                                            height: "var(--md-sys-spacing-3)",
                                             borderRadius: 'var(--md-sys-spacing-4)'
                                         }} title="DSA"></span>}
-                                        {student.has104 && <span style={{width: "0.75rem", height: "0.75rem", borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)"}} title="L.104"></span>}
-                                        {!student.hasBES && !student.hasDSA && !student.has104 && <span style={{ fontSize: "0.875rem" }}>-</span>}
+                                        {student.has104 && <span style={{width: "var(--md-sys-spacing-3)", height: "var(--md-sys-spacing-3)", borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)"}} title="L.104"></span>}
+                                        {!student.hasBES && !student.hasDSA && !student.has104 && <span style={{ fontSize: "var(--md-sys-typescale-body-large-size)" }}>-</span>}
                                     </div>
                                 </div>
                             </div>

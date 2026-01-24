@@ -62,9 +62,9 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         right: 0,
                         bottom: 0,
                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                        background: `conic-gradient(from 0deg, transparent 0%, var(--md-sys-color-primary) 50%, var(--md-sys-color-tertiary) 100%)`,
-                        maskImage: 'radial-gradient(closest-side, transparent 78%, black 82%)',
-                        WebkitMaskImage: 'radial-gradient(closest-side, transparent 78%, black 82%)',
+                        background: `conic-gradient(from 0deg, transparent var(--md-sys-percent-0), var(--md-sys-color-primary) var(--md-sys-percent-50), var(--md-sys-color-tertiary) var(--md-sys-percent-100))`,
+                        maskImage: 'radial-gradient(closest-side, transparent var(--md-sys-percent-78), black var(--md-sys-percent-82))',
+                        WebkitMaskImage: 'radial-gradient(closest-side, transparent var(--md-sys-percent-78), black var(--md-sys-percent-82))',
                         animation: 'spin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite'
                     }}
                 />
@@ -74,8 +74,8 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                     style={{
                         position: 'relative',
                         zIndex: 10,
-                        width: '100%',
-                        height: '100%',
+                        width: 'var(--md-sys-percent-100)',
+                        height: 'var(--md-sys-percent-100)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'

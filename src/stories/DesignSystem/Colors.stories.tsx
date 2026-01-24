@@ -94,7 +94,7 @@ const ColorSwatch: React.FC<ColorSwatchProps> = ({ name, token, hex, border = fa
         borderRadius: 'var(--md-sys-spacing-2)',
         marginBottom: 'var(--md-sys-spacing-2)',
         boxShadow: 'var(--md-sys-elevation1)',
-        border: border ? '2px solid var(--md-sys-color-outline-variant)' : 'none',
+        border: border ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-outline-variant)' : 'none',
       }}
     />
     <strong style={{ fontSize: small ? 'var(--md-sys-spacing-3)' : layers.ref.spacing['4'] }}>{name}</strong>

@@ -121,7 +121,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                     <div key={index} style={{display: 'flex',
                         justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start',
                         marginBottom: 'var(--md-sys-spacing-2)'}}>
-                        <div style={{maxWidth: '70%',
+                        <div style={{maxWidth: 'var(--md-sys-percent-70)',
                             padding: 'var(--md-sys-spacing-3)',
                             borderRadius: msg.role === 'user' 
                                 ? `var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-large)`
@@ -141,7 +141,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                      <div style={{display: 'flex',
                         justifyContent: 'flex-start',
                         marginBottom: 'var(--md-sys-spacing-2)'}}>
-                        <div style={{maxWidth: '70%',
+                        <div style={{maxWidth: 'var(--md-sys-percent-70)',
                             padding: 'var(--md-sys-spacing-3)',
                             borderRadius: `var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small)`,
                             backgroundColor: 'var(--md-sys-color-surface-container-high)',
@@ -149,7 +149,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             <div style={{display: 'flex',
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-2)'}}>
-                                <div style={{borderRadius: '50%'}} />
+                                <div style={{borderRadius: 'var(--md-sys-percent-50)'}} />
                                 <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
                                     margin: 0}}>Sto pensando...</M3Typography>
                             </div>

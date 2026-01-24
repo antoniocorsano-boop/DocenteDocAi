@@ -65,7 +65,7 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
         return {
           backgroundColor: hovered ? 'var(--md-sys-color-surface-variant)' : 'transparent',
           color: 'var(--md-sys-color-on-surface)',
-          border: `1px solid var(--md-sys-color-outline)`
+          border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
         };
       default: // standard
         return {
@@ -82,7 +82,7 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     justifyContent: 'center',
     borderRadius: 'var(--md-sys-shape-corner-full)',
     transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-    outline: focused ? `2px solid var(--md-sys-color-primary)` : 'none',
+    outline: focused ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
     outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
     border: 'none',
     cursor: disabled ? 'not-allowed' : 'pointer',

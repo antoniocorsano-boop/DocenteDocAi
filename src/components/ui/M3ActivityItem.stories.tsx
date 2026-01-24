@@ -42,7 +42,7 @@ export const Default: Story = {
   args: {
     children: (
       <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
-        <div style={{ backgroundColor: layers.sys.color.primary ,  width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ backgroundColor: layers.sys.color.primary ,  width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
           <span style={{ color:  layers.sys.color.onPrimary ,  fontWeight: "500" }}>A</span>
         </div>
         <div style={{ flex: "1" }}>
@@ -70,7 +70,7 @@ export const DocumentActivity: Story = {
   args: {
     children: (
       <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
-        <div style={{ backgroundColor: layers.sys.color.secondary ,  width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ backgroundColor: layers.sys.color.secondary ,  width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--md-sys-color-on-secondary)">
             <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM16 18H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
           </svg>
@@ -101,7 +101,7 @@ export const UserActivity: Story = {
         <img
           src="https://via.placeholder.com/40x40/6750a4/ffffff?text=U"
           alt="User avatar"
-          style={{ width: "2.5rem", height: "2.5rem", borderRadius: layers.ref.spacing['4'] }}
+          style={{ width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: layers.ref.spacing['4'] }}
         />
         <div style={{ flex: "1" }}>
           <M3Typography variant="body-large" as="p" >
@@ -112,7 +112,7 @@ export const UserActivity: Story = {
           </M3Typography>
         </div>
         <div style={{ display: "flex", gap: "var(--md-sys-spacing-2)" }}>
-          <button style={{ color: layers.sys.color.primary ,  border: "1px solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "0.875rem" }}>
+          <button style={{ color: layers.sys.color.primary ,  border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "var(--md-sys-typescale-body-medium-size)" }}>
             View Profile
           </button>
         </div>

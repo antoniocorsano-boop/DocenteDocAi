@@ -108,7 +108,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             <div style={{ backgroundColor: sys.colors.primary/10 , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
               <span style={{ color: 'var(--md-sys-color-primary)' }}>cloud_off</span>
             </div>
-            <h3 style={{fontSize: "1.25rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</h3>
+            <h3 style={{fontSize: "var(--md-sys-typescale-headline-small-font-size)", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</h3>
             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>
               Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
             </p>
@@ -124,7 +124,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             {step === 'select' && !loading && !error && (
               <>
                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Seleziona i materiali da importare nella Knowledge Base.</p>
-                <div  style={{overflowY: "auto", border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <div  style={{overflowY: "auto", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {files.length === 0 && <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>Nessun file trovato.</div>}
                   {files.map(f => (
                     <label key={f.id}  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderBottom: "1px solid var(--md-sys-color-outline)", cursor: "pointer"}}>
@@ -144,7 +144,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Catalogazione materiali importati:</p>
             <div  style={{gap: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
               {imported.map(entry => (
-                <div key={entry.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", borderRadius: "0.375rem"}}>
+                <div key={entry.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)"}}>
                   <div style={{fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>{entry.fileName}</div>
                   <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)'}}>
                     <input  placeholder="Materia (opzionale)" value={catalogData[entry.id]?.materia || ''} onChange={e => handleCatalogChange(entry.id, 'materia', e.target.value)} />

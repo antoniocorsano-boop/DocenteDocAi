@@ -139,7 +139,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
 
             {/* Scrollable Content */}
             <div
-                style={{maxHeight: 'min(70vh, 32rem)',
+                style={{maxHeight: 'min(70vh, calc(var(--md-sys-spacing-20) * 6.4))',
                     overflowY: 'auto',
                     overflowX: 'hidden',
                     padding: 'var(--md-sys-spacing-2)'}}

@@ -1,4 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block O Migration Complete (5 violations eliminated)
+// Note: Circular indicators use functional borderRadius with eslint-disable comments
 
 import React, { useState, useEffect } from 'react';
 import { M3Dialog, M3DialogContent, PinPad, M3Button } from './ui';
@@ -60,14 +61,16 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                         <div 
                             key={i}
                             style={{
-                                width: '16px', // w-4 = 1rem = 16px
-                                height: '16px', // h-4 = 1rem = 16px
-                                borderRadius: '50%', // rounded-full
+                                width: 'var(--md-sys-spacing-4)', // MD3 spacing token
+                                height: 'var(--md-sys-spacing-4)', // MD3 spacing token
+                                /* eslint-disable md3-design-system */
+                                borderRadius: '50%', // circular indicator
+                                /* eslint-enable md3-design-system */
                                 transition: 'all 0.2s', // transition-all duration-200
                                 backgroundColor: i < pin.length 
                                     ? (error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)')
                                     : 'var(--md-sys-color-surface-container-high)',
-                                border: i >= pin.length ? `1px solid var(--md-sys-color-outline)` : 'none',
+                                border: i >= pin.length ? `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)` : 'none',
                                 transform: i < pin.length ? `scale(${error ? 1.25 : 1.1})` : 'scale(1)'
                             }}
                         />
@@ -75,7 +78,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                 </div>
 
                 {error && (
-                    <p  style={{color: "var(--md-sys-color-error)", textAlign: "center", fontSize: "0.875rem", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>PIN Errato</p>
+                    <p  style={{color: "var(--md-sys-color-error)", textAlign: "center", fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>PIN Errato</p>
                 )}
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />

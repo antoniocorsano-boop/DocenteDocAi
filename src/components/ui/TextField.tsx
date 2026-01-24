@@ -44,7 +44,7 @@ const TextField: React.FC<TextFieldProps> = ({
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--md-sys-spacing-2)',
-                width: fullWidth ? '100%' : 'auto',
+                width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
                 marginBottom: 'var(--md-sys-spacing-4)'
             }}
         >
@@ -57,14 +57,14 @@ const TextField: React.FC<TextFieldProps> = ({
                     backgroundColor: variant === 'filled'
                         ? 'var(--md-sys-color-surface-container-high)'
                         : 'transparent',
-                    border: `1px solid var(--md-sys-color-outline)`,
+                    border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`,
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                     transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
                     boxShadow: error
-                        ? `0 0 0 2px color-mix(in srgb, var(--md-sys-color-error) 12%, transparent)`
+                        ? `0 0 0 var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-12), transparent)`
                         : isFocused
-                        ? `0 0 0 2px color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent)`
+                        ? `0 0 0 var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-12), transparent)`
                         : 'none',
                     borderColor: error
                         ? 'var(--md-sys-color-error)'
@@ -95,7 +95,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         // htmlFor removed: not valid for span
                         style={{
                             position: 'absolute',
-                            top: isLabelFloating ? 'var(--md-sys-spacing-1)' : '50%',
+                            top: isLabelFloating ? 'var(--md-sys-spacing-1)' : 'var(--md-sys-percent-50)',
                             left: 0,
                             transform: isLabelFloating
                                 ? 'translateY(0) scale(0.75)'
@@ -116,7 +116,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         value={value}
                         data-testid={dataTestId}
                         style={{
-                            width: '100%',
+                            width: 'var(--md-sys-percent-100)',
                             border: 'none',
                             backgroundColor: 'transparent',
                             color: 'var(--md-sys-color-on-surface)',

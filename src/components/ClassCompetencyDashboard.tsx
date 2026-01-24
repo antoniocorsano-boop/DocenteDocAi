@@ -130,7 +130,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 {competencySummaries.map(summary => {
                     const notEvaluatedCount = classStudents.length - summary.totalEvaluated;
                     return (
-                        <details key={summary.competency.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "1px solid var(--md-sys-color-outline)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"}}>
+                        <details key={summary.competency.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"}}>
                             <summary  style={{padding: 'var(--md-sys-spacing-8)', cursor: "pointer"}}>
                                 {/* Custom Header Content */}
                                 <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
@@ -151,7 +151,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                 </div>
 
                                 {/* Visual Progress Bar */}
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: "0.5rem", width: "100%", borderRadius: 'var(--md-sys-spacing-4)', display: "flex" }}>
+                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: 'var(--md-sys-spacing-2)', width: "100%", borderRadius: 'var(--md-sys-spacing-4)', display: "flex" }}>
                                     {summary.levelCounts.map(lc => {
                                         if (lc.count === 0) return null;
                                         const pct = (lc.count / classStudents.length) * 100;
@@ -219,7 +219,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                         <div 
                                             key={student.id} 
                                             onClick={() => { setViewingStudents(null); onViewStudentProfile(student); }} 
-                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", cursor: "pointer", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"}}
+                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", cursor: "pointer", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"}}
                                         >
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                                 <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
@@ -227,7 +227,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                     <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</p>
                                                     <div  style={{ display: "flex", alignItems: "center" }}>
                                                         <span style={{borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: viewingStudents.levelColor, width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)'}}></span>
-                                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "0.75rem" }}>Livello raggiunto</span>
+                                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)" }}>Livello raggiunto</span>
                                                     </div>
                                                 </div>
                                             </div>

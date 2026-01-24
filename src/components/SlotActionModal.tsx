@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Migration completed
 
 import React from 'react';
 import { Slot, Lezione } from '../types';
@@ -87,8 +87,8 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                     onClick={onStart} 
                     style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left"}}
                 >
-                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: colors.onPrimaryContainer , width: "2.5rem", height: "2.5rem", backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
-                        <span  style={{ fontSize: "1.25rem" }}>door_open</span>
+                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: colors.onPrimaryContainer , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms"}}>
+                        <span  style={{ fontSize: "var(--md-sys-spacing-5)" }}>door_open</span>
                     </div>
                     <div style={{ minWidth: "0" }}>
                         <p  style={{ fontWeight: "bold", fontSize: 'var(--md-sys-spacing-3)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</p>
@@ -100,8 +100,8 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                     onClick={onEdit} 
                     style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: colors.onSecondaryContainer , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-secondary)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", textAlign: "left"}}
                 >
-                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', width: "2.5rem", height: "2.5rem", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
-                        <span  style={{ fontSize: "1.25rem" }}>edit</span>
+                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform 300ms" }}>
+                        <span  style={{ fontSize: "var(--md-sys-spacing-5)" }}>edit</span>
                     </div>
                     <div style={{ minWidth: "0" }}>
                         <p  style={{ fontWeight: "bold", fontSize: 'var(--md-sys-spacing-3)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>Modifica</p>

@@ -3,7 +3,7 @@
  * 
  * Material Design 3 Expressive Navigation Rail component
  * Features:
- * - 80px width vertical navigation
+ * - var(--md-sys-spacing-20) width vertical navigation
  * - Icon + label stacked layout
  * - Smooth 0.3s transitions
  * - Responsive: collapses to bottom nav on mobile
@@ -22,11 +22,11 @@
   right: 0;
   bottom: 0;
   width: 100%;
-  height: 64px;
+  height: var(--md-sys-spacing-16);
   
   /* Appearance */
-  background: var(--md-sys-color-surface, #fefbff);
-  border-top: 1px solid var(--md-sys-color-outline-variant, rgba(28, 27, 31, 0.12));
+  background: var(--md-sys-color-surface);
+  border-top: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   border-right: none;
   
   /* Layout behavior */
@@ -49,17 +49,17 @@
   -webkit-backdrop-filter: var(--glass-blur);
 }
 
-/* Desktop: Vertical rail (>=600px) */
-@media (min-width: 600px) {
+/* Desktop: Vertical rail (>=var(--breakpoint-compact)) */
+@media (min-width: var(--breakpoint-compact)) {
   .m3-navigation-rail {
     top: 0;
     bottom: 0;
     left: 0;
     right: auto;
-    width: var(--nav-rail-width, 80px);
+    width: var(--nav-rail-width, var(--md-sys-spacing-20));
     height: 100%;
     border-top: none;
-    border-right: 1px solid var(--md-sys-color-outline-variant, rgba(28, 27, 31, 0.12));
+    border-right: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     flex-direction: column;
     justify-content: flex-start;
   }
@@ -75,7 +75,7 @@
   align-items: center;
 }
 
-@media (min-width: 600px) {
+@media (min-width: var(--breakpoint-compact)) {
   .m3-navigation-rail__container {
     flex-direction: column;
     gap: var(--spacing-2, var(--md-sys-spacing-2));
@@ -104,15 +104,15 @@
   gap: var(--spacing-1, var(--md-sys-spacing-1)); /* var(--md-sys-spacing-1) gap between icon and label */
   
   /* Size */
-  width: 56px;
-  min-height: 56px;
+  width: var(--md-sys-layout-fab-size);
+  min-height: var(--md-sys-layout-fab-size);
   padding: var(--spacing-2, var(--md-sys-spacing-2)) 0;
   
   /* Shape */
   border-radius: var(--shape-m, var(--md-sys-spacing-4));
   
   /* State colors - default */
-  color: var(--md-sys-color-on-surface-variant, #49454f);
+  color: var(--md-sys-color-on-surface-variant);
   background: transparent;
   
   /* Transition */
@@ -124,26 +124,26 @@
 
 /* Hover state */
 .m3-navigation-rail__item:hover {
-  background: rgba(25, 118, 210, 0.08); /* Primary with 8% opacity */
+  background: rgba(var(--md-sys-color-primary-rgb), 0.08);
 }
 
 /* Focus state (keyboard navigation) */
 .m3-navigation-rail__item:focus-visible {
-  background: rgba(25, 118, 210, 0.12);
-  outline: 2px solid var(--md-sys-color-primary, #1976d2);
-  outline-offset: 2px;
+  background: rgba(var(--md-sys-color-primary-rgb), 0.12);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
 }
 
 /* Active state */
 .m3-navigation-rail__item.active {
-  background: var(--md-sys-color-primary-container, rgba(25, 118, 210, 0.1));
-  color: var(--md-sys-color-primary, #1976d2);
-  box-shadow: 0 2px var(--md-sys-spacing-2) rgba(25, 118, 210, 0.1);
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-primary);
+  box-shadow: var(--md-sys-elevation-1);
 }
 
 /* Active hover */
 .m3-navigation-rail__item.active:hover {
-  background: rgba(25, 118, 210, 0.14);
+  background: rgba(var(--md-sys-color-primary-rgb), 0.14);
 }
 
 /* ============================================================================
@@ -157,7 +157,7 @@
   justify-content: center;
   width: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
   height: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
-  border-radius: 50%;
+  border-radius: var(--md-sys-percent-50);
   @apply m3-transition-color;
 }
 
@@ -182,7 +182,7 @@
 /* Google Expressive Pill Indicator */
 [data-visual-style="expressive"] .m3-navigation-rail__item.active .m3-navigation-rail__icon-container {
   background: var(--md-sys-color-primary-container);
-  width: calc(64px * var(--sys-font-scale, 1));
+  width: calc(var(--md-sys-spacing-16) * var(--sys-font-scale, 1));
   height: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
   border-radius: calc(var(--md-sys-spacing-4) * var(--sys-font-scale, 1));
   color: var(--md-sys-color-on-primary-container);
@@ -207,8 +207,8 @@
   padding: 0 var(--md-sys-spacing-1);
   
   /* Appearance */
-  background: var(--sys-error, #ba1a1a);
-  color: var(--sys-on-error, #ffffff);
+  background: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
   border-radius: var(--md-sys-shape-corner-small);
   
   /* Typography */
@@ -243,7 +243,7 @@
   /* Typography handled by .m3-label-medium class */
   font-size: var(--md-sys-spacing-3);
   font-weight: 500;
-  letter-spacing: 0.5px;
+  letter-spacing: var(--md-sys-border-width-thin);
   text-align: center;
   color: inherit;
   
@@ -251,25 +251,25 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 56px;
+  max-width: var(--md-sys-layout-fab-size);
 }
 
 /* ============================================================================
-   RESPONSIVE: TABLET (600px - 1023px)
+   RESPONSIVE: TABLET (var(--breakpoint-compact) - var(--breakpoint-compact))
    ============================================================================ */
 
-@media (min-width: 600px) and (max-width: 1023px) {
+@media (min-width: var(--breakpoint-compact)) and (max-width: var(--breakpoint-compact)) {
   /* Optionally keep rail but adjust if needed */
   .m3-navigation-rail {
-    width: 72px; /* Slightly narrower on tablets */
+    width: var(--md-sys-spacing-18); /* Slightly narrower on tablets */
   }
   
   .m3-navigation-rail__item {
-    width: 52px;
+    width: var(--md-sys-spacing-13);
   }
   
   .m3-navigation-rail__label {
-    font-size: 11px;
+    font-size: var(--md-sys-typescale-label-large-font-size);
   }
 }
 
@@ -280,11 +280,11 @@
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .m3-navigation-rail {
-    border-right-width: 2px;
+    border-right-width: var(--md-sys-spacing-1);
   }
   
   .m3-navigation-rail__item:focus-visible {
-    outline-width: 3px;
+    outline-width: var(--md-sys-spacing-1);
   }
 }
 
@@ -302,16 +302,16 @@
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   .m3-navigation-rail {
-    background: var(--md-sys-color-surface, #1c1b1f);
-    border-right-color: var(--md-sys-color-outline-variant, rgba(228, 225, 229, 0.12));
+    background: var(--md-sys-color-surface);
+    border-right-color: var(--md-sys-color-outline-variant);
   }
   
   .m3-navigation-rail__item {
-    color: var(--md-sys-color-on-surface-variant, #cac4cf);
+    color: var(--md-sys-color-on-surface-variant);
   }
   
   .m3-navigation-rail__item.active {
-    background: var(--md-sys-color-primary-container, rgba(25, 118, 210, 0.2));
+    background: var(--md-sys-color-primary-container);
   }
 }
 

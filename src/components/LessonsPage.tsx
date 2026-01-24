@@ -628,7 +628,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             padding: 'var(--md-sys-spacing-8)',
                             backgroundColor: 'var(--md-sys-color-surface-container-low)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: '2px dashed var(--md-sys-color-outline-variant)'
+                            border: 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline-variant)'
                         }}>
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',

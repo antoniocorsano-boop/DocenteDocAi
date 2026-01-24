@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 
 import React from 'react';
 import { useTheme } from '../theme/theme';
@@ -18,7 +18,7 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
             style={{
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
-                border: isSelected ? '2px solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline-variant)',
+                border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                 backgroundColor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
                 color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
                 padding: 'var(--md-sys-spacing-4)',
@@ -38,13 +38,13 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
 
                 {/* Checkmark Overlay */}
                 <div  style={{ color: themeColors.primary }}>
-                     <span  style={{ fontSize: "1.5rem", fontWeight: "bold" }}>check_circle</span>
+                     <span  style={{ fontSize: "var(--md-sys-typescale-title-medium-font-size)", fontWeight: "bold" }}>check_circle</span>
                 </div>
             </div>
 
             <div  style={{
                 color: themeColors.onSurface,
-                fontSize: '0.875rem',
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                 fontWeight: 500,
                 marginTop: spacing.xs
             }}>

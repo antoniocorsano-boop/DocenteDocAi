@@ -15,6 +15,22 @@ const loadMammoth = async () => await import('mammoth');
 const loadDocx = async () => await import('docx');
 const loadJsPdf = async () => await import('jspdf');
 
+// MD3 compliant PDF colors (normalized 0-1 range)
+const PDF_COLOR_GRAY_DARK = [0.4, 0.4, 0.4] as const;
+const PDF_COLOR_PURPLE_LIGHT = [0.4, 0.3, 0.65] as const;
+const PDF_COLOR_GRAY_LIGHT = [0.8, 0.8, 0.8] as const;
+const PDF_COLOR_CREAM = [0.95, 0.95, 0.98] as const;
+const PDF_COLOR_GRAY_MEDIUM = [0.5, 0.5, 0.5] as const;
+const PDF_COLOR_BLACK = [0, 0, 0] as const;
+const PDF_COLOR_BLUE_LIGHT = [0, 0, 1] as const;
+const PDF_COLOR_GREEN_LIGHT = [0.2, 0.5, 0.2] as const;
+const PDF_COLOR_RED_LIGHT = [0.5, 0.1, 0.1] as const;
+const PDF_COLOR_BLUE_DARK = [0.1, 0.1, 0.4] as const;
+const PDF_COLOR_GREEN_LEVEL_A = [0.8, 0.9, 0.8] as const;
+const PDF_COLOR_YELLOW_LEVEL_B = [0.9, 0.9, 0.8] as const;
+const PDF_COLOR_ORANGE_LEVEL_C = [1, 0.9, 0.8] as const;
+const PDF_COLOR_RED_LEVEL_D = [1, 0.8, 0.8] as const;
+
 // --- NATIVE SAVEAS IMPLEMENTATION ---
 export const saveAs = (blob: Blob | string, name: string): void => {
     try {
@@ -348,9 +364,9 @@ export const generateHomeworkPdf = async (lesson: Lezione, settings: TimetableSe
     const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
 
     // --- Header ---
-    drawTextSafe(ctx, settings.nomeIstituto || 'Istituto Scolastico', { isBold: true, size: 10, color: rgb(0.4, 0.4, 0.4) });
-    drawTextSafe(ctx, 'SCHEDA COMPITI & MATERIALI', { isBold: true, size: 22, color: rgb(0.4, 0.3, 0.65) }); // Primary Brand Color
-    ctx.page.drawLine({ start: { x: 50, y: ctx.y + 10 }, end: { x: width - 50, y: ctx.y + 10 }, thickness: 2, color: rgb(0.8, 0.8, 0.8) });
+    drawTextSafe(ctx, settings.nomeIstituto || 'Istituto Scolastico', { isBold: true, size: 10, color: rgb(...PDF_COLOR_GRAY_DARK) });
+    drawTextSafe(ctx, 'SCHEDA COMPITI & MATERIALI', { isBold: true, size: 22, color: rgb(...PDF_COLOR_PURPLE_LIGHT) }); // Primary Brand Color
+    ctx.page.drawLine({ start: { x: 50, y: ctx.y + 10 }, end: { x: width - 50, y: ctx.y + 10 }, thickness: 2, color: rgb(...PDF_COLOR_GRAY_LIGHT) });
     ctx.y -= 20;
 
     // --- Lesson Meta ---
@@ -376,19 +392,19 @@ export const generateHomeworkPdf = async (lesson: Lezione, settings: TimetableSe
     
     ctx.page.drawRectangle({
         x: 40, y: ctx.y - 100, width: width - 80, height: 120,
-        color: rgb(0.95, 0.95, 0.98), // Light purple bg
-        borderColor: rgb(0.4, 0.3, 0.65),
+        color: rgb(...PDF_COLOR_CREAM), // Light purple bg
+        borderColor: rgb(...PDF_COLOR_PURPLE_LIGHT),
         borderWidth: 1
     });
     
     ctx.y -= 20;
-    drawTextSafe(ctx, 'COMPITI PER CASA', { isBold: true, size: 14, color: rgb(0.4, 0.3, 0.65), indent: 10 });
+    drawTextSafe(ctx, 'COMPITI PER CASA', { isBold: true, size: 14, color: rgb(...PDF_COLOR_PURPLE_LIGHT), indent: 10 });
     ctx.y -= 10;
     
     if (lesson.compiti) {
         drawTextSafe(ctx, lesson.compiti, { size: 12, maxWidth: width - 120, indent: 10 });
     } else {
-        drawTextSafe(ctx, 'Nessun compito specifico assegnato.', { size: 12, indent: 10, color: rgb(0.5, 0.5, 0.5) });
+        drawTextSafe(ctx, 'Nessun compito specifico assegnato.', { size: 12, indent: 10, color: rgb(...PDF_COLOR_GRAY_MEDIUM) });
     }
     
     // Reset Y after box (approximate manual spacing since we drew box blindly)
@@ -402,7 +418,7 @@ export const generateHomeworkPdf = async (lesson: Lezione, settings: TimetableSe
             const type = mat.type === 'link' ? '(Link)' : mat.type === 'kb' ? '(Documento KB)' : '(File)';
             drawTextSafe(ctx, `• ${label} ${type}`, { indent: 10 });
             if (mat.type === 'link' && mat.url) {
-                drawTextSafe(ctx, mat.url, { indent: 25, size: 9, color: rgb(0, 0, 1) });
+                drawTextSafe(ctx, mat.url, { indent: 25, size: 9, color: rgb(...PDF_COLOR_BLUE_LIGHT) });
             }
         });
     }
@@ -411,10 +427,10 @@ export const generateHomeworkPdf = async (lesson: Lezione, settings: TimetableSe
     ctx.y -= 40;
     addNewPageIfNeeded(ctx, 100);
     
-    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(0.8, 0.8, 0.8), dashArray: [5, 5] });
+    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(...PDF_COLOR_GRAY_LIGHT), dashArray: [5, 5] });
     ctx.y -= 20;
-    drawTextSafe(ctx, 'Spazio Studente / Note Famiglia:', { size: 10, color: rgb(0.5, 0.5, 0.5) });
-    ctx.page.drawRectangle({ x: 50, y: ctx.y - 60, width: width - 100, height: 60, borderWidth: 1, borderColor: rgb(0.8, 0.8, 0.8) });
+    drawTextSafe(ctx, 'Spazio Studente / Note Famiglia:', { size: 10, color: rgb(...PDF_COLOR_GRAY_MEDIUM) });
+    ctx.page.drawRectangle({ x: 50, y: ctx.y - 60, width: width - 100, height: 60, borderWidth: 1, borderColor: rgb(...PDF_COLOR_GRAY_LIGHT) });
 
     const pdfBytes = await pdfDoc.save();
     return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
@@ -468,12 +484,12 @@ export const generateCertificazioneCompetenzePdf = async (student: Studente, com
         ctx.page.drawText(cleanTextForWinAnsi(item.competencyName), { x: col1X, y: ctx.y, font, size: 10, maxWidth: 280 });
         
         // Draw Level Badge
-        const levelBoxColor = item.level === 'A' ? rgb(0.8, 0.9, 0.8) : item.level === 'B' ? rgb(0.9, 0.9, 0.8) : item.level === 'C' ? rgb(1, 0.9, 0.8) : rgb(1, 0.8, 0.8);
+        const levelBoxColor = item.level === 'A' ? rgb(...PDF_COLOR_GREEN_LEVEL_A) : item.level === 'B' ? rgb(...PDF_COLOR_YELLOW_LEVEL_B) : item.level === 'C' ? rgb(...PDF_COLOR_ORANGE_LEVEL_C) : rgb(...PDF_COLOR_RED_LEVEL_D);
         ctx.page.drawRectangle({ x: col2X - 5, y: ctx.y - 2, width: 30, height: 14, color: levelBoxColor });
-        ctx.page.drawText(item.level, { x: col2X + 5, y: ctx.y + 2, font: boldFont, size: 10, color: rgb(0,0,0) });
+        ctx.page.drawText(item.level, { x: col2X + 5, y: ctx.y + 2, font: boldFont, size: 10, color: rgb(...PDF_COLOR_BLACK) });
         
         ctx.y -= 25;
-        ctx.page.drawLine({ start: { x: col1X, y: ctx.y + 20 }, end: { x: width - 50, y: ctx.y + 20 }, thickness: 0.5, color: rgb(0.8, 0.8, 0.8) });
+        ctx.page.drawLine({ start: { x: col1X, y: ctx.y + 20 }, end: { x: width - 50, y: ctx.y + 20 }, thickness: 0.5, color: rgb(...PDF_COLOR_GRAY_LIGHT) });
     });
 
     // Legend
@@ -508,11 +524,11 @@ export const generateUdaPdf = async (uda: Uda, allCompetenze: Competenza[], sett
     const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
 
     // Header
-    drawTextSafe(ctx, settings.nomeIstituto || 'Istituto Scolastico', { isBold: true, size: 10, color: rgb(0.4, 0.4, 0.4) });
+    drawTextSafe(ctx, settings.nomeIstituto || 'Istituto Scolastico', { isBold: true, size: 10, color: rgb(...PDF_COLOR_GRAY_DARK) });
     const title = docType === 'docente' ? `PROGETTAZIONE UDA: ${uda.title}` : `GUIDA AL PROGETTO: ${uda.title}`;
-    drawTextSafe(ctx, title, { isBold: true, size: 18, color: rgb(0.2, 0.2, 0.6) });
+    drawTextSafe(ctx, title, { isBold: true, size: 18, color: rgb(...PDF_COLOR_BLUE_DARK) });
     ctx.y -= 10;
-    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(0.8, 0.8, 0.8) });
+    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(...PDF_COLOR_GRAY_LIGHT) });
     ctx.y -= 20;
 
     // Info
@@ -545,7 +561,7 @@ export const generateUdaPdf = async (uda: Uda, allCompetenze: Competenza[], sett
         ctx.y -= 5;
         drawTextSafe(ctx, `Fase ${idx + 1}: ${phase.title} (${phase.duration})`, { isBold: true, size: 12 });
         drawTextSafe(ctx, `Descrizione: ${phase.description}`, { indent: 10, maxWidth: width - 110 });
-        drawTextSafe(ctx, `Attività: ${phase.activities}`, { indent: 10, maxWidth: width - 110, size: 10, color: rgb(0.3, 0.3, 0.3) });
+        drawTextSafe(ctx, `Attività: ${phase.activities}`, { indent: 10, maxWidth: width - 110, size: 10, color: rgb(...PDF_COLOR_GRAY_MEDIUM) });
     });
 
     // Evaluation (only for docente)
@@ -571,9 +587,9 @@ export const generateLessonPdf = async (lesson: Lezione): Promise<Blob> => {
     const { width, height } = page.getSize();
     const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
 
-    drawTextSafe(ctx, 'RELAZIONE DI LEZIONE', { isBold: true, size: 18, color: rgb(0.2, 0.5, 0.2) });
+    drawTextSafe(ctx, 'RELAZIONE DI LEZIONE', { isBold: true, size: 18, color: rgb(...PDF_COLOR_GREEN_LIGHT) });
     ctx.y -= 10;
-    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(0.8, 0.8, 0.8) });
+    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(...PDF_COLOR_GRAY_LIGHT) });
     ctx.y -= 20;
 
     drawTextSafe(ctx, `Classe: ${lesson.classe} | Materia: ${lesson.materia}`, { size: 12, isBold: true });
@@ -610,9 +626,9 @@ export const generateStudentProfilePdf = async (student: Studente, evaluations: 
     const { width, height } = page.getSize();
     const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
 
-    drawTextSafe(ctx, 'PROFILO STUDENTE', { isBold: true, size: 20, color: rgb(0.1, 0.3, 0.5) });
+    drawTextSafe(ctx, 'PROFILO STUDENTE', { isBold: true, size: 20, color: rgb(...PDF_COLOR_BLUE_LIGHT) });
     ctx.y -= 10;
-    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(0.8, 0.8, 0.8) });
+    ctx.page.drawLine({ start: { x: 50, y: ctx.y }, end: { x: width - 50, y: ctx.y }, thickness: 1, color: rgb(...PDF_COLOR_GRAY_LIGHT) });
     ctx.y -= 20;
 
     drawTextSafe(ctx, `${student.cognome} ${student.nome}`, { isBold: true, size: 16 });
@@ -651,7 +667,7 @@ export const generatePdfBrochure = async (content: BrochureContent): Promise<Blo
     const { width, height } = page.getSize();
     const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
 
-    drawTextSafe(ctx, content.brochureTitle, { isBold: true, size: 24, color: rgb(0.5, 0.1, 0.1), align: 'center' });
+    drawTextSafe(ctx, content.brochureTitle, { isBold: true, size: 24, color: rgb(...PDF_COLOR_RED_LIGHT), align: 'center' });
     ctx.y -= 20;
     drawTextSafe(ctx, content.introduction, { maxWidth: width - 100 });
     ctx.y -= 20;
@@ -755,7 +771,7 @@ export const generateFullAppGuidePdf = async (
     const { width, height } = page.getSize();
     const ctx: PdfContext = { doc: pdfDoc, page, y: height - 50, font, boldFont, width, height, margin: 50, fontSize: 11 };
 
-    drawTextSafe(ctx, 'GUIDA COMPLETA DOCENTEDOC AI', { isBold: true, size: 22, color: rgb(0.1, 0.1, 0.4), align: 'center' });
+    drawTextSafe(ctx, 'GUIDA COMPLETA DOCENTEDOC AI', { isBold: true, size: 22, color: rgb(...PDF_COLOR_BLUE_DARK), align: 'center' });
     ctx.y -= 20;
 
     if (essayContent) {

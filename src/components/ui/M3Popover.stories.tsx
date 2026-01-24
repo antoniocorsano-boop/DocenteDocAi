@@ -213,7 +213,7 @@ export const ScrollableContent: Story = {
                   color: 'var(--md-sys-color-onSurface)',
                   fontSize: 'var(--md-sys-typescale-body-medium-size)',
                   transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
-                  borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                  borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                 }}
                 onMouseEnter={() => {
                   // removed runtime mutation

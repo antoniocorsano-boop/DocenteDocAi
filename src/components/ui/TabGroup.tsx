@@ -83,7 +83,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 padding: 'var(--md-sys-spacing-1)',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                border: `1px solid var(--md-sys-color-outline-variant)`,
+                border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)`,
                 gap: 'var(--md-sys-spacing-1)'
             }}
         >
@@ -116,14 +116,14 @@ const TabGroup: React.FC<TabGroupProps> = ({
                             fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                             fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
                             textTransform: 'uppercase',
-                            letterSpacing: '0.5px',
+                            letterSpacing: 'var(--md-sys-typescale-label-small-letter-spacing)',
                             cursor: 'pointer',
                             transition: `all ${'var(--md-sys-motion-duration-short4)'} ${'var(--md-sys-motion-easing-standard)'}`,
                             boxShadow: isActive ? 'var(--md-sys-elevation-level1)' : 'none',
                             display: 'flex',
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-2)',
-                            outline: isFocused ? '2px solid var(--md-sys-color-primary)' : 'none',
+                            outline: isFocused ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'none',
                             outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'
                         }}
                         onMouseEnter={() => setHoveredTabs(prev => ({ ...prev, [tab.id]: true }))}
@@ -147,7 +147,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                 variant="label-small"
                                 style={{
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.5px'
+                                    letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
                             >
                                 {tab.label}
@@ -178,10 +178,10 @@ const TabGroup: React.FC<TabGroupProps> = ({
                             <div
                                 style={{
                                     position: 'absolute',
-                                    bottom: '-1px',
-                                    left: '50%',
+                                    bottom: 'calc(var(--md-sys-spacing-1) * -1)',
+                                    left: 'var(--md-sys-percent-50)',
                                     transform: 'translateX(-50%)',
-                                    width: '60%',
+                                    width: 'var(--md-sys-percent-60)',
                                     height: 'var(--md-sys-spacing-2)',
                                     backgroundColor: variantColors.activeBg,
                                     borderRadius: 'var(--md-sys-spacing-2)'

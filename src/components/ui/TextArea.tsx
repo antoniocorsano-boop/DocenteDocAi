@@ -28,7 +28,7 @@ const TextArea: React.FC<TextAreaProps> = ({
             style={{display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--md-sys-spacing-2)',
-                width: fullWidth ? '100%' : 'auto',
+                width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
                 marginBottom: 'var(--md-sys-spacing-4)'}}
         >
             <label
@@ -49,10 +49,10 @@ const TextArea: React.FC<TextAreaProps> = ({
                     display: 'flex',
                     alignItems: 'flex-start',
                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                    border: `1px solid ${error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'}`,
+                    border: `var(--md-sys-border-width-normal) solid ${error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'}`,
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                    transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    transition: `all var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard)`,
                     minHeight: 'var(--md-sys-spacing-12)'
                 }}
             >
@@ -69,7 +69,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                         letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                         outline: 'none',
                         resize: 'none',
-                        width: '100%',
+                        width: 'var(--md-sys-percent-100)',
                         minHeight: 'var(--md-sys-spacing-12)'}}
                     aria-label={label}
                     aria-invalid={error ? 'true' : undefined}

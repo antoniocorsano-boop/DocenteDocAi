@@ -89,8 +89,8 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 boxShadow: hovered ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
                 transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
                 minHeight: 'var(--md-sys-spacing-12)',
-                width: '100%',
-                outline: focused ? `2px solid var(--md-sys-color-primary)` : 'none',
+                width: 'var(--md-sys-percent-100)',
+                outline: focused ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
                 outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
                 transition: `box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
             }}
@@ -113,7 +113,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     color: variantColors.iconColor,
                     flexShrink: 0,
                     boxShadow: 'var(--md-sys-elevation-level1)',
-                    border: `1px solid var(--md-sys-color-outline-variant)`,
+                    border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)`,
                     transition: `box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
                 }}
             >
@@ -170,7 +170,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 style={{
                     width: 'var(--md-sys-spacing-8)',
                     height: 'var(--md-sys-spacing-8)',
-                    borderRadius: '50%',
+                    borderRadius: 'var(--md-sys-percent-50)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -200,7 +200,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     right: 0,
                     bottom: 0,
                     background: `linear-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent)`,
-                    transform: hovered ? 'translateX(100%)' : 'translateX(-100%)',
+                    transform: hovered ? 'translateX(var(--md-sys-percent-100))' : 'translateX(calc(var(--md-sys-percent-100) * -1))',
                     pointerEvents: 'none',
                     transition: `transform 600ms var(--md-sys-motion-easing-standard)`
                 }}

@@ -484,18 +484,18 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     <div
                         key={student.id}
                         style={{
-                            borderLeft: '4px solid colors.error',
-                            borderRadius: 'shape.corner.medium',
-                            backgroundColor: 'colors.surfaceContainerLow'
+                            borderLeft: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-error)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            backgroundColor: 'var(--md-sys-color-surface-container-low)'
                         }}
                     >
-                        <div style={{ padding: 'spacing[2]', opacity: '0.1', transition: 'opacity 300ms' }}>
-                            <span style={{ color: 'colors.error', fontSize: 'typescale.headlineMedium.fontSize' }}>warning</span>
+                        <div style={{ padding: 'var(--md-sys-spacing-2)', opacity: '0.1', transition: 'opacity 300ms' }}>
+                            <span style={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-headline-medium-font-size)' }}>warning</span>
                         </div>
 
-                        <div style={{ padding: 'spacing[3]' }}>
-                            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 'spacing[3]' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 'spacing[2]' }}>
+                        <div style={{ padding: 'var(--md-sys-spacing-3)' }}>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 'var(--md-sys-spacing-3)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
                                     <div>
                                         <M3Typography variant="headline-small" style={{ fontWeight: '900', letterSpacing: 'typescale.headlineSmall.tracking', color: 'colors.onSurface' }}>
@@ -764,8 +764,8 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                                 fontSize: 'typescale.bodySmall.fontSize',
                                                 fontWeight: 'bold',
                                                 position: 'absolute',
-                                                top: '-0.5rem',
-                                                right: '-0.5rem'
+                                                top: 'calc(-1 * var(--md-sys-spacing-2))',
+                                                right: 'calc(-1 * var(--md-sys-spacing-2))'
                                             }}
                                         >
                                             {tab.badge}

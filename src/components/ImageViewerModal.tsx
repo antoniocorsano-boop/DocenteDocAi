@@ -43,10 +43,10 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                     <img 
                         src={dataUrl} 
                         alt={prompt} 
-                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , maxWidth: "100%", border: "1px solid var(--md-sys-color-outline)"}} 
+                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , maxWidth: "var(--md-sys-percent-100)", border: "1px solid var(--md-sys-color-outline)"}} 
                     />
                     <div style={{ backgroundColor: sys.colors.black/40, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', opacity: "0", transition: "opacity 300ms"}}>
-                        <p style={{ color: sys.colors.white ,  fontSize: "0.75rem", fontWeight: "500" }}>"{prompt}"</p>
+                        <p style={{ color: sys.colors.white ,  fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "500" }}>"{prompt}"</p>
                     </div>
                 </div>
             </M3DialogContent>
@@ -57,7 +57,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                     variant="outlined" 
                     
                 >
-                    <span  style={{ marginRight: "0.5rem" }}>save</span>
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>save</span>
                     Salva in Knowledge Base
                 </M3Button>
                 <M3Button 
@@ -70,7 +70,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                     onClick={handleDownload} 
                     variant="filled"
                 >
-                    <span  style={{ marginRight: "0.5rem" }}>download</span>
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>download</span>
                     Scarica
                 </M3Button>
             </M3DialogActions>

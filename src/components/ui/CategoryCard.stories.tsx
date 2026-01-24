@@ -162,7 +162,7 @@ export const Interactive: Story = {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '1.5rem',
+          gap: 'var(--md-sys-spacing-6)',
           padding: layers.ref.spacing['4'],
         }}
       >
@@ -261,7 +261,7 @@ export const Grid: Story = {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '1.5rem',
+        gap: 'var(--md-sys-spacing-6)',
         padding: layers.ref.spacing['4'],
       }}
     >
@@ -301,7 +301,7 @@ export const CompactSelection: Story = {
     id: '0',
     label: 'Cat 1',
     icon: 'category',
-    color: 'hsl(0, 70%, 60%)',
+    color: 'hsl(0, 0.7, 0.6)',
     isSelected: false,
     onClick: () => {},
   },
@@ -320,7 +320,7 @@ export const CompactSelection: Story = {
           id={String(i)}
           label={`Cat ${i + 1}`}
           icon="category"
-          color={`hsl(${(i * 30) % 360}, 70%, 60%)`}
+          color={`hsl(${(i * 30) % 360}, 0.7, 0.6)`}
           isSelected={i === 2}
           onClick={() => {}}
         />
@@ -375,7 +375,7 @@ export const CustomColors: Story = {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1.5rem',
+          gap: 'var(--md-sys-spacing-6)',
           padding: layers.ref.spacing['4'],
         }}
       >

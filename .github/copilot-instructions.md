@@ -1,123 +1,54 @@
-# ✅ DocenteDoc AI – Copilot Instructions (MD3 Compliant)
+# Copilot Instructions — DocenteDoc AI
 
-**VINCOLANTE – Material Design 3 è OBBLIGATORIO**
+This repository follows **Material Design 3 (MD3)** as the **only design system**.
 
-Data ultimo allineamento: 22 gennaio 2026
+## STRICT RULES (DO NOT VIOLATE)
 
-## REGOLA FONDAMENTALE
+* Never use `className` in production code
+* Never use hardcoded values (`px`, `rem`, `%`, `hex`, `rgba`)
+* Always use MD3 tokens (`var(--md-sys-*)`)
+* Never introduce custom CSS utilities
 
-Material Design 3 (MD3) è il **singolo source of truth** per design. Tutti i colori, tipografia, spacing, shape ed elevation devono derivare da token MD3 (`var(--md-sys-*)`). Le eccezioni sono documentate e giustificate.
+## EXPRESSIVE STYLE
 
-## PROIBITO (Blocca immediatamente)
+* Expressive is **opt-in only**
+* Use expressive variants only on approved components
+* Never apply expressive styles to:
 
-- ❌ `className` – Vietato categoricamente (usa `style` con token MD3)
-- ❌ Tailwind CSS o utility CSS – Vietato per colori, tipografia, spacing, shadow
-- ❌ CSS legacy o design-system precedenti – Vietato
-- ❌ Valori hardcoded (px, rem, %, hex, rgba) – Vietato, eccetto eccezioni documentate
-- ❌ `style` senza token MD3 – Vietato
-- ❌ Test che non wrappano componenti con `M3ThemeProvider` – Vietato
-- ❌ Bypass di CI o regression test – Vietato
-- ❌ Introduzione di nuove varianti design senza token MD3 – Vietato
+  * navigation
+  * critical forms
+  * admin workflows
 
-## CONSENTITO (Solo questo)
+## COMPONENT USAGE
 
-- ✅ `style` inline con token MD3: `var(--md-sys-color-primary)`
-- ✅ `M3Typography` per TUTTO il testo visibile
-- ✅ Componenti M3 esistenti (M3Button, M3Card, M3Dialog, etc.)
-- ✅ Stati interattivi con token MD3 (hover, focus, active)
-- ✅ ARIA solo su nodi DOM reali
-- ✅ Pattern WAI-ARIA corretti
-- ✅ Focus visibile e token-based
-- ✅ Eccezioni documentate (vedi sotto)
+* Prefer existing MD3 wrapper components
+* Modify components at the design-system level, not locally
+* If unsure, reuse or extend an existing MD3 component
 
-## ECCEZIONI DOCUMENTATE (Consentite)
+## GOVERNANCE
 
-### 1. Palette Avatar (`src/utils/colorUtils.ts`)
-- **Cosa**: Colori hex hardcoded per generazione avatar
-- **Perché**: Accessibilità - contrasto garantito Dark Text on Light Background
-- **Regola**: NON usare per styling componenti, solo per avatar
-- **Documento**: `docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5`
+* Every layout fix is a design system fix
+* If a token does not exist, propose adding it
+* Exceptions must be documented
 
-### 2. Box-Shadow RGBA (`src/layout.css`)
-- **Cosa**: `rgba(0, 0, 0, 0.1)` per elevation shadows
-- **Perché**: Valori standard MD3 per box-shadow
-- **Regola**: Usare solo valori MD3 standard, non custom
+Follow `DESIGN_SYSTEM_POLICY.md` as the source of truth.
 
-### 3. Inline Styles Minori
-- **Cosa**: `font-size: 0.9em` in generazione HTML dinamica
-- **Perché**: Impatto minimo, generazione contenuto dinamico
-- **Regola**: Evitare quando possibile, preferire classi
+## MD3 REMEDIATION WORKFLOW (OBBLIGATORIO)
 
-## ACCESSIBILITÀ (Obbligatoria)
+Quando Copilot lavora su DocenteDoc AI:
 
-- ARIA labels obbligatorie su tutti i controlli interattivi
-- Focus indicator visibili con token MD3
-- Keyboard navigation completa
-- Touch targets >= 44px
-- Error messages accessibili con M3Typography
+### STEP 1 – HARD VIOLATIONS
+Copilot DEVE:
+- eliminare qualsiasi valore hardcoded (px, rem, %, hex, rgba)
+- sostituirli esclusivamente con token MD3 (`--md-sys-*`)
+- NON modificare il layout visivo
 
-## TESTING (Vincolante)
+Copilot NON DEVE:
+- introdurre nuovi token senza dichiararlo
+- cambiare spacing o dimensioni percepite
 
-- Tutti i test devono wrappano componenti che usano `useTheme()` con `M3ThemeProvider`
-- `vitest run` deve sempre passare – blocco PR se fallisce
-- `playwright test` deve sempre passare – blocco PR se fallisce
-- Regressione visiva deve bloccare la PR
+### STEP 2 – STRUCTURAL CLEANUP
+(solo se richiesto esplicitamente)
 
-## CI AWARENESS
-
-- Qualsiasi PR che introduce `className` viene bloccata automaticamente
-- Qualsiasi PR che reintroduce utility CSS viene bloccata automaticamente
-- Qualsiasi PR che fallisce `vitest run` viene bloccata automaticamente
-- Qualsiasi PR che fallisce `playwright test` viene bloccata automaticamente
-- Qualsiasi regressione visiva blocca la PR
-- Qualsiasi violazione eccezioni non documentate blocca la PR
-
-## PATTERN OBBLIGATORIO
-
-```tsx
-// ✅ CORRETTO - Usa token MD3
-<div
-  style={{
-    backgroundColor: 'var(--md-sys-color-surface)',
-    padding: 'var(--md-sys-spacing-4)',
-    borderRadius: 'var(--md-sys-shape-corner-medium)',
-    fontSize: 'var(--md-sys-typescale-body-large-size)'
-  }}
->
-  <M3Typography variant="body-large">
-    Testo accessibile
-  </M3Typography>
-</div>
-
-// ✅ CORRETTO - Eccezione documentata per avatar
-const avatarColors = getAvatarColors(userId); // Usa palette hardcoded
-
-// ❌ VIETATO - BLOCCA LA PR
-<div className="bg-blue-500 p-4 rounded">
-  <span>Testo non accessibile</span>
-</div>
-
-// ❌ VIETATO - BLOCCA LA PR (hardcoded non eccezione)
-<div style={{ backgroundColor: '#ff0000', fontSize: '14px' }}>
-  <span>Testo</span>
-</div>
-```
-
-## DECISIONI ARCHITETTUREALI
-
-- MD3 è il singolo source of truth per design
-- Eccezioni solo se documentate e giustificate (accessibilità, standard MD3)
-- Violazioni richiedono rollback immediato
-- Reviewers devono bloccare PR non conformi
-- Nuovo codice deve seguire pattern MD3 senza eccezioni
-
-## REPORT E MONITORAGGIO
-
-- **[Piano Allineamento MD3](MD3_Alignment_Plan.md)** - Strategia
-- **[Report Analisi](MD3_Analysis_Report.md)** - Risultati scansione
-- **[Report Finale](MD3_Alignment_Final_Report.md)** - Stato attuale
-- **Lint Rules**: `design-system/no-hardcoded-colors` attivo
-- **Build Status**: ✅ Verde dopo allineamento
-
-**RICORDA**: MD3 è obbligatorio. Eccezioni sono rare e documentate. Qualsiasi dubbio? Consulta i report di allineamento.</content>
-<parameter name="filePath">c:\Users\anton\DocenteDocAI-Flowise\docentedoc-ai\.github\copilot-instructions.md
+### STEP 3 – EXPRESSIVE / MOTION
+(solo se richiesto esplicitamente)

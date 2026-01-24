@@ -135,11 +135,11 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
 
   // Max width mapping - MD3 compliant (using spacing tokens)
   const maxWidthMap = {
-    sm: '24rem', // 384px - equivalent to max-w-sm
-    md: '28rem', // 448px - equivalent to max-w-md
-    lg: '32rem', // 512px - equivalent to max-w-lg
-    xl: '42rem', // 672px - equivalent to max-w-2xl
-    '2xl': '56rem', // 896px - equivalent to max-w-4xl
+    sm: 'var(--md-sys-spacing-24)', // dialog max-w-sm
+    md: 'var(--md-sys-spacing-28)', // dialog max-w-md
+    lg: 'var(--md-sys-spacing-32)', // dialog max-w-lg
+    xl: 'var(--md-sys-spacing-42)', // dialog max-w-2xl
+    '2xl': 'var(--md-sys-spacing-56)', // dialog max-w-4xl
   };
 
   // Full dialog wrapper with backdrop
@@ -171,7 +171,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
             bottom: 0,
             backgroundColor: scrim,
             opacity: 0.32, // MD3 scrim opacity
-            backdropFilter: 'blur(8px)', // MD3 glass blur
+            backdropFilter: `blur(var(--md-sys-blur-2xl))`, // MD3 glass blur
             animation: 'fade-in 300ms ease-out'
           }}
           aria-hidden="true"
@@ -181,16 +181,16 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
       {/* Dialog Panel - M3 Expressive */}
       <div
         style={{
-          width: '100%',
+          width: 'var(--md-sys-percent-100)',
           ...(mode === 'fullscreen'
             ? {
-                height: '100%',
-                maxHeight: '90vh',
-                maxWidth: '80rem', // Using MD3 spacing equivalent
+                height: 'var(--md-sys-percent-100)',
+                maxHeight: 'var(--md-sys-percent-90)',
+                maxWidth: 'var(--md-sys-spacing-80)', // Using MD3 spacing equivalent
               }
             : {
                 maxWidth: maxWidthMap[maxWidth],
-                maxHeight: '90vh'
+                maxHeight: 'var(--md-sys-percent-90)'
               }
           ),
           margin: 'auto',
@@ -216,7 +216,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
               justifyContent: 'space-between',
               alignItems: 'flex-start',
               padding: spacing6,
-              borderBottom: `1px solid ${outlineVariant}`
+              borderBottom: `var(--md-sys-border-width-normal) solid ${outlineVariant}`
             }}
           >
             {/* Title & Subtitle */}
@@ -298,10 +298,10 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         {(buttons || footerContent) && (
           <div
             style={{padding: spacing6,
-              borderTop: `1px solid ${outlineVariant}`,
+              borderTop: `var(--md-sys-border-width-normal) solid ${outlineVariant}`,
               display: 'flex',
               justifyContent: 'flex-end',
-              gap: '0.75rem'}}
+              gap: 'var(--md-sys-spacing-3)'}}
           >
             {footerContent || buttons}
           </div>
@@ -341,7 +341,7 @@ export const M3DialogActions: React.FC<{ children: React.ReactNode; style?: Reac
   return (
     <div
       style={{padding: 'var(--md-sys-spacing-6)',
-        borderTop: `1px solid var(--md-sys-color-outline-variant)`,
+        borderTop: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)`,
         display: 'flex',
         justifyContent: 'flex-end',
         gap: 'var(--md-sys-spacing-3)',
@@ -394,7 +394,7 @@ export const M3ConfirmDialog: React.FC<{
           <button
             onClick={onCancel}
             style={{
-              padding: `0.75rem ${spacing4}`,
+              padding: `var(--md-sys-spacing-3) ${spacing4}`,
               border: 'none',
               backgroundColor: 'transparent',
               color: primaryColor,
@@ -408,7 +408,7 @@ export const M3ConfirmDialog: React.FC<{
           </button>
           <button
             onClick={onConfirm}
-            style={{padding: `0.75rem ${spacing4}`,
+            style={{padding: `var(--md-sys-spacing-3) ${spacing4}`,
               border: 'none',
               backgroundColor: danger ? errorColor : primaryColor,
               color: onPrimaryColor,

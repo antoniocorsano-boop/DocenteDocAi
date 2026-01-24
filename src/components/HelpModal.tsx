@@ -1,4 +1,4 @@
-// HelpModal.tsx - Block H completed (63 violations eliminated)
+// HelpModal.tsx - Block H completed (70 violations eliminated)
 import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
@@ -104,7 +104,7 @@ const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }>
                 padding: 'var(--md-sys-spacing-3)',
                 backgroundColor: 'var(--md-sys-color-secondary-container)',
                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                borderLeft: `4px solid var(--md-sys-color-secondary)`
+                borderLeft: `var(--md-sys-border-width-medium) solid var(--md-sys-color-secondary)`
             }}>
                 <span style={{
                     fontFamily: 'Material Symbols Outlined',
@@ -301,7 +301,7 @@ const SetupGuide = () => (
             backgroundColor: 'var(--md-sys-color-primary-container)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             padding: 'var(--md-sys-spacing-4)',
-            border: `2px solid var(--md-sys-color-primary)`
+            border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)`
         }}>
             <M3Typography variant="title-medium" style={{
                 color: 'var(--md-sys-color-on-primary-container)',
@@ -329,7 +329,7 @@ const SetupGuide = () => (
             backgroundColor: 'var(--md-sys-color-primary-container)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             padding: 'var(--md-sys-spacing-4)',
-            border: `2px solid var(--md-sys-color-primary)`
+            border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)`
         }}>
             <M3Typography variant="title-medium" style={{
                 color: 'var(--md-sys-color-on-primary-container)',
@@ -357,7 +357,7 @@ const SetupGuide = () => (
             backgroundColor: 'var(--md-sys-color-primary-container)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             padding: 'var(--md-sys-spacing-4)',
-            border: `2px solid var(--md-sys-color-primary)`
+            border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)`
         }}>
             <M3Typography variant="title-medium" style={{
                 color: 'var(--md-sys-color-on-primary-container)',
@@ -481,7 +481,7 @@ const DigitalTeacherManual = () => {
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
                     gap: 'var(--md-sys-spacing-4)',
-                    '@media (max-width: 768px)': {
+                    '@media (max-width: var(--md-sys-breakpoint-tablet))': {
                         gridTemplateColumns: '1fr'
                     }
                 }}>
@@ -631,7 +631,7 @@ const UserGuide = () => (
             <div style={{
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                borderLeft: "4px solid var(--md-sys-color-primary)",
+                borderLeft: "var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)",
                 padding: 'var(--md-sys-spacing-4)'
             }}>
                 <M3Typography variant="button-primary" style={{
@@ -645,7 +645,7 @@ const UserGuide = () => (
             <div style={{
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                borderLeft: "4px solid var(--md-sys-color-secondary)",
+                borderLeft: "var(--md-sys-border-width-medium) solid var(--md-sys-color-secondary)",
                 padding: 'var(--md-sys-spacing-4)'
             }}>
                 <M3Typography variant="button-primary" style={{
@@ -659,7 +659,7 @@ const UserGuide = () => (
             <div style={{
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                borderLeft: "4px solid var(--md-sys-color-tertiary)",
+                borderLeft: "var(--md-sys-border-width-medium) solid var(--md-sys-color-tertiary)",
                 padding: 'var(--md-sys-spacing-4)'
             }}>
                 <M3Typography variant="button-primary" style={{
@@ -673,7 +673,7 @@ const UserGuide = () => (
             <div style={{
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                borderLeft: "4px solid var(--md-sys-color-error)",
+                borderLeft: "var(--md-sys-border-width-medium) solid var(--md-sys-color-error)",
                 padding: 'var(--md-sys-spacing-4)'
             }}>
                 <M3Typography variant="button-primary" style={{

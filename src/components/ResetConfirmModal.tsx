@@ -38,7 +38,7 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
                 />
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "1px solid var(--md-sys-color-outline)" }}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button 
                     onClick={onConfirm} 

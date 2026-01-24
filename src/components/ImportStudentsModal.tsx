@@ -183,7 +183,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                             download="modello_studenti.csv"
                                             
                                         >
-                                            <span  style={{ fontSize: "0.875rem", marginRight: "0.5rem" }}>download</span>
+                                            <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)", marginRight: "var(--md-sys-spacing-2)" }}>download</span>
                                             Scarica Modello
                                         </a>
                                     }
@@ -201,9 +201,9 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         padding: 'var(--md-sys-spacing-8)',
-                                        height: '192px', // 48 * 4px = 192px
+                                        height: 'var(--md-sys-layout-dropzone-height)', // Dropzone height
                                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                                        border: `2px dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                        border: `var(--md-sys-border-width-thin) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                         transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
                                         cursor: 'pointer',
                                         opacity: isLoading ? 0.5 : 1,
@@ -225,7 +225,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 >
                                     <input {...getInputProps()} />
                                     {isLoading ? (
-                                        <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: "2.5rem", width: "2.5rem", borderColor: "var(--md-sys-color-primary)"}}></div>
+                                        <div  style={{borderRadius: 'var(--md-sys-shape-corner-full)', height: "var(--md-sys-spacing-10)", width: "var(--md-sys-spacing-10)", borderColor: "var(--md-sys-color-primary)"}}></div>
                                     ) : (
                                         <>
                                             <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
@@ -247,14 +247,14 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                                 style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", cursor: "pointer"}}
                                             >
                                                 <span style={{ backgroundColor: sys.colors.primaryContainer/30, borderRadius: 'var(--md-sys-shape-corner-large)' , color: "var(--md-sys-color-primary)", padding: 'var(--md-sys-spacing-8)', transition: "color 300ms"}}>description</span>
-                                                <span style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: "0.875rem", fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: "1" }}>{entry.fileName}</span>
+                                                <span style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: "1" }}>{entry.fileName}</span>
                                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.5", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}>chevron_right</span>
                                             </div>
                                         ))
                                     ) : (
                                         <div style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 'var(--md-sys-spacing-8)', opacity: "0.6"}}>
                                             <span style={{ color: "var(--md-sys-color-primary)" }}>folder_off</span>
-                                            <p style={{ fontSize: "0.875rem" }}>Nessun file nella Knowledge Base.</p>
+                                            <p style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>Nessun file nella Knowledge Base.</p>
                                         </div>
                                     )}
                                 </div>
@@ -266,7 +266,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>error</span>
-                                <p style={{ fontSize: "0.875rem", fontWeight: "500" }}>{error}</p>
+                                <p style={{ fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>{error}</p>
                             </div>
                         )}
 
@@ -336,8 +336,8 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         <div>
                             <h4  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Anteprima Dati (Prime 3 righe)</h4>
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowX: "auto", border: "1px solid var(--md-sys-color-outline)"}}>
-                                <table style={{ width: "100%", fontSize: "0.875rem", textAlign: "left" }}>
-                                    <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "0.75rem", textTransform: "uppercase", fontWeight: "bold" }}>
+                                <table style={{ width: "100%", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
+                                    <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
                                         <tr>
                                             {csvHeaders.map(h => <th key={h}  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', whiteSpace: "nowrap"}}>{h}</th>)}
                                         </tr>
@@ -367,8 +367,8 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         />
 
                         {targetClass === 'AUTO' && (
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", fontSize: "0.875rem", display: "flex", gap: 'var(--md-sys-spacing-6)', alignItems: "flex-start"}}>
-                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: "1.25rem"}}>info</span>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)", fontSize: "var(--md-sys-typescale-body-medium-size)", display: "flex", gap: 'var(--md-sys-spacing-6)', alignItems: "flex-start"}}>
+                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: "var(--md-sys-typescale-title-small-size)"}}>info</span>
                                 <div>
                                     <p style={{ color: 'var(--md-sys-color-on-primary)' , fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Nota Importante</p>
                                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</p>
@@ -377,8 +377,8 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         )}
 
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowY: "auto", border: "1px solid var(--md-sys-color-outline)"}}>
-                            <table style={{ width: "100%", fontSize: "0.875rem", textAlign: "left" }}>
-                                <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "0.75rem", textTransform: "uppercase", fontWeight: "bold" }}>
+                            <table style={{ width: "100%", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
+                                <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
                                     <tr>
                                         <th  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Cognome</th>
                                         <th  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nome</th>
@@ -390,7 +390,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         <tr key={index}  style={{backgroundColor: "var(--md-sys-color-surface)", transition: "color 300ms"}}>
                                             <td style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontWeight: "bold"}}>{student.cognome}</td>
                                             <td style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>{student.nome}</td>
-                                            <td  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}><span style={{ color: sys.colors.on-primaryContainer , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", fontWeight: "900", fontSize: "0.75rem"}}>{student.classe}</span></td>
+                                            <td  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}><span style={{ color: sys.colors.on-primaryContainer , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)"}}>{student.classe}</span></td>
                                         </tr>
                                     ))}
                                 </tbody>

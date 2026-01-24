@@ -49,7 +49,7 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
                                 animation: 'pulse 2s ease-in-out infinite',
                                 flex: 1,
                                 animationDelay: `${(rowIndex * columns + colIndex) * 0.05}s`,
-                                width: Math.random() > 0.5 ? '100%' : '80%'
+                                width: Math.random() > 0.5 ? 'var(--md-sys-percent-100)' : 'var(--md-sys-percent-80)'
                             }}
                         />
                     ))}

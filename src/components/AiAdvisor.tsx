@@ -72,27 +72,27 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
             padding: 'var(--md-sys-spacing-6)',
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
-            border: '1px solid var(--md-sys-color-outline-variant)'
+            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
         }}>
             <h2 style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',
-                fontSize: '1.5rem',
+                fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
                 fontWeight: 'bold',
                 color: 'var(--md-sys-color-on-surface)',
                 margin: 0
             }}>
                 <span style={{
                     fontFamily: 'Material Symbols Outlined',
-                    fontSize: '1.5rem',
+                    fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
                     color: 'var(--md-sys-color-primary)'
                 }}>psychology</span>
                 Consulente Didattico AI
             </h2>
             <p style={{
                 color: 'var(--md-sys-color-on-surface-variant)',
-                fontSize: '0.875rem',
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                 lineHeight: 1.5,
                 margin: 0
             }}>
@@ -106,7 +106,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 padding: 'var(--md-sys-spacing-6)',
                 backgroundColor: 'var(--md-sys-color-surface-container-high)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                border: '1px solid var(--md-sys-color-outline-variant)'
+                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
             }}>
                 <div style={{
                     display: 'flex',
@@ -114,7 +114,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     gap: 'var(--md-sys-spacing-2)'
                 }}>
                     <label htmlFor="student-select-advisor" style={{
-                        fontSize: '0.875rem',
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                         fontWeight: 'bold',
                         color: 'var(--md-sys-color-on-surface)',
                         textTransform: 'uppercase',
@@ -124,9 +124,9 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                         padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
                         backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                         color: 'var(--md-sys-color-on-surface)',
-                        border: '1px solid var(--md-sys-color-outline)',
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                         borderRadius: 'var(--md-sys-shape-corner-medium)',
-                        fontSize: '0.875rem',
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                         cursor: 'pointer'
                     }}>
                         <option value="all">Tutta la classe</option>
@@ -139,7 +139,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     gap: 'var(--md-sys-spacing-2)'
                 }}>
                     <label style={{
-                        fontSize: '0.875rem',
+                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                         backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
                         color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
                         cursor: advisorStatus ? 'not-allowed' : 'pointer',
@@ -150,7 +150,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                         gap: 'var(--md-sys-spacing-2)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         overflow: 'hidden',
-                        border: '1px solid var(--md-sys-color-outline-variant)'
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
                     }}>
                         <button
                             type="button"
@@ -161,7 +161,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                                 backgroundColor: requestType === 'recupero' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
                                 color: requestType === 'recupero' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 border: 'none',
-                                fontSize: '0.875rem',
+                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: requestType === 'recupero' ? 'bold' : 'normal',
                                 transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
                                 cursor: 'pointer',
@@ -177,7 +177,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                                 backgroundColor: requestType === 'potenziamento' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
                                 color: requestType === 'potenziamento' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 border: 'none',
-                                fontSize: '0.875rem',
+                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: requestType === 'potenziamento' ? 'bold' : 'normal',
                                 transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
                                 cursor: 'pointer',
@@ -213,29 +213,29 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     padding: 'var(--md-sys-spacing-4)',
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: '1px solid var(--md-sys-color-outline-variant)'
+                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
                 }}>
                     <AiThinkingGem size="medium" text={advisorStatus} />
                 </div>
             )}
             {error && <p style={{
                 color: 'var(--md-sys-color-error)',
-                fontSize: '0.875rem',
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                 backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)',
                 padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                border: '1px solid var(--md-sys-color-error)',
+                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-error)',
                 margin: 0
             }}>{error}</p>}
             {advice && (
                 <div style={{
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                     padding: 'var(--md-sys-spacing-6)'
                 }}>
                     <h3 style={{
-                        fontSize: '1.125rem',
+                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
                         fontWeight: 'bold',
                         color: 'var(--md-sys-color-on-surface)',
                         margin: '0 0 var(--md-sys-spacing-4) 0',
@@ -245,7 +245,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     }}>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: '1.125rem',
+                            fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
                             color: 'var(--md-sys-color-primary)'
                         }}>lightbulb</span>
                         Suggerimenti dell'AI:
@@ -260,17 +260,17 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                 borderRadius: 'var(--md-sys-shape-corner-large)',
                                 padding: 'var(--md-sys-spacing-4)',
-                                border: '1px solid var(--md-sys-color-outline-variant)'
+                                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
                             }}>
                                 <h4 style={{
-                                    fontSize: '1rem',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     fontWeight: 'bold',
                                     color: 'var(--md-sys-color-on-surface)',
                                     margin: '0 0 var(--md-sys-spacing-2) 0'
                                 }}>{item.titolo}</h4>
                                 <p style={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
-                                    fontSize: '0.875rem',
+                                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                     lineHeight: 1.5,
                                     margin: 0
                                 }}>{item.descrizione}</p>

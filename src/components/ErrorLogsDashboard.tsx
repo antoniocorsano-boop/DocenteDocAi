@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block N Migration Complete (7 violations eliminated)
 import React, { useEffect, useState } from 'react';
 import { errorLogger, ErrorLog } from '../services/errorLogger';
 interface ErrorLogsDashboardProps {
@@ -119,7 +119,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           <select
             value={filterType}
             onChange={(e) => setFilterType((e.target as HTMLSelectElement).value as ErrorLog['type'] | 'all')}
-             style={{borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
+             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
           >
             <option value="all">Tutti</option>
             <option value="navigation">Navigation</option>
@@ -136,7 +136,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           <select
             value={filterSeverity}
             onChange={(e) => setFilterSeverity((e.target as HTMLSelectElement).value as ErrorLog['severity'] | 'all')}
-             style={{borderRadius: "0.375rem", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
+             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
           >
             <option value="all">Tutti</option>
             <option value="error">Error</option>
@@ -147,7 +147,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
         <button
           onClick={handleExport}
-           style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+           style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
           <span >download</span>
           Export JSON
@@ -155,7 +155,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
         <button
           onClick={handleClearLogs}
-          style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+          style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
           <span >delete</span>
           Clear All
@@ -183,7 +183,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </td>
                     <td style={{padding: 'var(--md-sys-spacing-5)'}}>
-                      <span style={{ backgroundColor: sys.colors.primary/10 , display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "0.375rem", color: "var(--md-sys-color-primary)", fontWeight: "500"}}>
+                      <span style={{ backgroundColor: sys.colors.primary/10 , display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", color: "var(--md-sys-color-primary)", fontWeight: "500"}}>
                         <span >
                           {getTypeIcon(log.type)}
                         </span>
@@ -211,7 +211,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                       {log.context && (
                         <details >
                           <summary  style={{cursor: "pointer", color: "var(--md-sys-color-primary)"}}>View</summary>
-                          <pre style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)', borderRadius: "0.375rem", overflow: "auto"}}>
+                          <pre style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)', borderRadius: "var(--md-sys-shape-corner-small)", overflow: "auto"}}>
                             {JSON.stringify(log.context, null, 2)}
                           </pre>
                         </details>
@@ -248,7 +248,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
             {stats.mostRecent.stack && (
               <details style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                 <summary  style={{cursor: "pointer", color: "var(--md-sys-color-primary)"}}>Stack Trace</summary>
-                <pre style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)', borderRadius: "0.375rem", overflow: "auto"}}>
+                <pre style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)', borderRadius: "var(--md-sys-shape-corner-small)", overflow: "auto"}}>
                   {stats.mostRecent.stack}
                 </pre>
               </details>

@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SelectField Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    class=""
+    style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-2); width: auto; margin-bottom: var(--md-sys-spacing-4);"
+  >
+    <label
+      class=""
+      style="color: var(--md-sys-color-on-surface-variant); font-family: var(--md-sys-typescale-label-large-font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing);"
+    >
+      Test
+    </label>
+    <div
+      style="position: relative; display: flex; align-items: center; background-color: var(--md-sys-color-surface-container-highest); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: none; border-color: var(--md-sys-color-outline);"
+    >
+      <select
+        aria-label="Test"
+        style="flex: 1 1 0%; border: medium; background-color: transparent; color: var(--md-sys-color-on-surface); font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font-family); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); outline: none; appearance: none; cursor: pointer;"
+      >
+        <option>
+          Test
+        </option>
+      </select>
+      <span
+        aria-hidden="true"
+        class="material-symbols-outlined"
+        style="position: absolute; right: var(--md-sys-spacing-2); top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);"
+      >
+        expand_more
+      </span>
+    </div>
+  </div>
+</div>
+`;

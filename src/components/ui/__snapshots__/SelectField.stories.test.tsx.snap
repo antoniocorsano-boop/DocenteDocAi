@@ -23,7 +23,7 @@ exports[`SelectField Story Snapshots > renders default story correctly 1`] = `
       </select>
       <span
         aria-hidden="true"
-        style="font-family: "Material Symbols Outlined"; position: absolute; right: var(--md-sys-spacing-2); top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);"
+        style="font-family: "Material Symbols Outlined"; position: absolute; right: var(--md-sys-spacing-2); top: var(--md-sys-percent-50); transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);"
       >
         expand_more
       </span>

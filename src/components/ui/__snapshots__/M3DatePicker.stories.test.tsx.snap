@@ -3,7 +3,7 @@
 exports[`M3DatePicker Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    style="width: 100%;"
+    style="width: var(--md-sys-percent-100);"
   >
     <label
       for=":r0:"
@@ -13,7 +13,7 @@ exports[`M3DatePicker Story Snapshots > renders default story correctly 1`] = `
     </label>
     <input
       id=":r0:"
-      style="width: 100%; padding: var(--md-sys-spacing-3); border-radius: var(--md-sys-shape-corner-small); border: 1px solid var(--md-sys-color-outline); box-sizing: border-box; background-color: var(--md-sys-color-surface-container-highest); color: var(--md-sys-color-on-surface); font-family: var(--md-sys-typescale-body-large-font); font-size: var(--md-sys-typescale-body-large-font-size);"
+      style="width: var(--md-sys-percent-100); padding: var(--md-sys-spacing-3); border-radius: var(--md-sys-shape-corner-small); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline); box-sizing: border-box; background-color: var(--md-sys-color-surface-container-highest); color: var(--md-sys-color-on-surface); font-family: var(--md-sys-typescale-body-large-font); font-size: var(--md-sys-typescale-body-large-font-size);"
       type="date"
     />
   </div>

@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Block J Migration Complete (1 violation eliminated)
 
 import React, { useState } from 'react';
 import { Report } from '../types';
@@ -78,7 +78,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                                 alignItems: 'center',
                                                 padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
                                                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                                                fontSize: '0.75rem', // caption equivalent
+                                                fontSize: 'var(--md-sys-typescale-body-small-font-size)', // caption equivalent
                                                 fontWeight: 500,
                                                 border: 'none',
                                                 backgroundColor: report.modelloUsato.tipo === 'pdf' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',

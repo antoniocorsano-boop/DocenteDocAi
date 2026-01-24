@@ -1,10 +1,11 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant - Migration completed with functional exceptions
 
 // MD3 Pure: Complete migration to inline styles using MD3 tokens for all settings interface and interactions
-// All legacy CSS classes removed in favor of token-based styling - 100% MD3 compliant
+// All legacy CSS classes removed in favor of token-based styling - MD3 compliant
 // Migration completed: interface_experience, profile, ai_didattica, ai_suggestions, cloud, debug_logging, advanced sections
-// Settings.tsx: Migrated from 15 inline style violations to 0 violations
-// All styles now use MD3 design tokens and semantic color/spacing/elevation system
+// Settings.tsx: Migrated with functional exceptions for layout percentages and specific dimensions
+// All styles now use MD3 design tokens and semantic color/spacing/elevation system where exact matches exist
+// Functional exceptions: width/height percentages (100%, 50%, 20%, 10%), grid minmax(calc(var(--md-sys-spacing-20) * 2.5), 1fr) for responsive layout
 import React, { useRef, useState, useEffect } from 'react';
 import { SettingsProps } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
@@ -1403,7 +1404,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                                 value={assignment.hoursPerWeek}
                                                                                 onChange={e => updateAssignmentHours(assignment.classId, subj, parseInt(e.target.value) || 1)}
                                                                                 style={{width: 'var(--md-sys-spacing-4)',
-                                                                                    padding: '2px 4px',
+                                                                                    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-1)',
                                                                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                                                                     borderRadius: 'var(--md-sys-shape-corner-small)',
                                                                                     backgroundColor: 'var(--md-sys-color-surface)',
@@ -1693,7 +1694,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         )}
                     </div>
                     <div style={{display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(calc(var(--md-sys-spacing-20) * 2.5), 1fr))',
                         gap: 'var(--md-sys-spacing-4)',
                         marginTop: 'var(--md-sys-spacing-4)'}}>
                         <M3Button onClick={onExportData} variant="tonal">

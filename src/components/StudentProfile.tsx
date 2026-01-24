@@ -1,5 +1,4 @@
-// MD3 Compliant - Migration completed for Block L
-// Replaced className violations with inline styles using MD3 tokens for grade indicators and competency levels
+// MD3 Compliant - Block J Migration Complete (2 violations eliminated)
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -301,8 +300,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            width: '2.5rem',
-                                            height: '2.5rem',
+                                            width: 'var(--md-sys-spacing-10)',
+                                            height: 'var(--md-sys-spacing-10)',
                                             borderRadius: 'var(--md-sys-shape-corner-small)',
                                             backgroundColor: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
                                             color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)',

@@ -22,7 +22,7 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
                 cursor: 'help',
                 backgroundColor: 'var(--md-sys-color-tertiary-container)',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                border: '1px solid var(--md-sys-color-tertiary)'
+                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-tertiary)'
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}

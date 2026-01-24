@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0');
-@import './design-system/chip-expressive.css';
+@import './design-system/chip-expressive.css'; */
 
 :root {
   --font-family: 'Roboto Flex', sans-serif;
-  --header-height: 64px;
-  --bottom-nav-height: 64px;
-  --nav-rail-width: 80px;
+  --header-height: var(--md-sys-spacing-16);
+  --bottom-nav-height: var(--md-sys-spacing-16);
+  --nav-rail-width: var(--md-sys-spacing-20);
 
   /* --- PALETTE M3 EXPRESSIVE (AURA) --- */
   --md-sys-color-primary: #6750A4;
@@ -47,6 +47,11 @@
   --sys-on-tertiary-container: #31111D;
   /* DEPRECATED: Use --md-sys-color-on-tertiary-container-rgb */
   --sys-on-tertiary-container-rgb: 49, 17, 29;
+
+  /* --- BACKDROP OPACITY TOKENS --- */
+  --md-sys-backdrop-light: 0.2;
+  --md-sys-backdrop-medium: 0.4;
+  --md-sys-backdrop-dark: 0.6;
 
   /* DEPRECATED: Use --md-sys-color-background */
   --sys-background: #FDFBFF;
@@ -97,10 +102,10 @@
   --sys-on-warning-rgb: 255, 255, 255;
 
   /* Glassmorphism Presentation Layer - Default Aura */
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-blur-px: 30px;
+  --glass-bg: rgba(var(--md-sys-color-surface-rgb), var(--sys-glass-opacity));
+  --glass-blur-px: var(--md-sys-blur-xl);
   --glass-blur: blur(var(--glass-blur-px));
-  --glass-border: 1px solid rgba(255, 255, 255, 0.4);
+  --glass-border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.3);
 
   /* ===========================================
      M3 EXPRESSIVE - WARM COLOR VARIANTS (PHASE 2)
@@ -147,7 +152,220 @@
   --z-modal: 1400;
   --z-toast: 2000;
   --z-tooltip: 3000;
-}
+
+  /* ===========================================
+     MD3 SPACING SCALE (Expressive Philosophy)
+     =========================================== */
+  --md-sys-spacing-0: 0px;
+  --md-sys-spacing-1: 4px;      /* Extra small */
+  --md-sys-spacing-2: 8px;      /* Small */
+  --md-sys-spacing-3: 12px;     /* Compact */
+  --md-sys-spacing-4: 16px;     /* Medium (default) */
+  --md-sys-spacing-5: 20px;     /* Medium-large */
+  --md-sys-spacing-6: 24px;     /* Large */
+  --md-sys-spacing-7: 28px;     /* Extra large */
+  --md-sys-spacing-8: 32px;     /* 2x large */
+  --md-sys-spacing-9: 36px;
+  --md-sys-spacing-10: 40px;    /* 3x large */
+  --md-sys-spacing-11: 44px;
+  --md-sys-spacing-12: 48px;    /* Section gap */
+  --md-sys-spacing-13: 52px;
+  --md-sys-spacing-14: 56px;
+  --md-sys-spacing-15: 60px;
+  --md-sys-spacing-16: 64px;    /* Page section */
+  --md-sys-spacing-17: 68px;
+  --md-sys-spacing-18: 72px;
+  --md-sys-spacing-19: 76px;
+  --md-sys-spacing-20: 80px;
+  --md-sys-spacing-24: 96px; /* 384px - dialog max-w-sm */
+  --md-sys-spacing-28: 112px; /* 448px - dialog max-w-md */
+  --md-sys-spacing-32: 128px; /* 512px - dialog max-w-lg */
+  --md-sys-spacing-42: 168px; /* 672px - dialog max-w-2xl */
+  --md-sys-spacing-56: 224px; /* 896px - dialog max-w-4xl */
+  --md-sys-spacing-80: 320px; /* 1280px - dialog fullscreen max */
+
+  /* ===========================================
+     MD3 BLUR/ELEVATION SCALE (Expressive)
+     =========================================== */
+  --md-sys-blur-small: var(--md-sys-spacing-1);
+  --md-sys-blur-medium: var(--md-sys-spacing-2);
+  --md-sys-blur-large: var(--md-sys-spacing-4);
+  --md-sys-blur-xl: var(--md-sys-spacing-6);
+  --md-sys-blur-2xl: var(--md-sys-spacing-8);
+  --md-sys-blur-20: var(--md-sys-spacing-5);
+  --md-sys-blur-16: var(--md-sys-spacing-4);
+  --md-sys-blur-25: 25px;
+  --md-sys-blur-30: 30px;
+  --md-sys-blur-40: var(--md-sys-spacing-10);
+  --md-sys-blur-48: var(--md-sys-spacing-12);
+  --md-sys-blur-120: var(--md-sys-layout-popup-min-width);
+  --md-sys-blur-150: var(--md-sys-layout-grid-min);
+
+  /* ===========================================
+     MD3 ELEVATION SCALE (Expressive - Box Shadows)
+     =========================================== */
+  --md-sys-elevation-0: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.0);
+  --md-sys-elevation-1: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.15), var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-2: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-blur-medium) var(--md-sys-spacing-1) rgba(0, 0, 0, 0.15), var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-3: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-2) var(--md-sys-spacing-1) rgba(0, 0, 0, 0.15), var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-4: var(--md-sys-spacing-0) var(--md-sys-blur-medium) var(--md-sys-spacing-3) var(--md-sys-spacing-1) rgba(0, 0, 0, 0.15), var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-5: var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-3) var(--md-sys-blur-medium) rgba(0, 0, 0, 0.15), var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3);
+
+  /* ===========================================
+     MD3 BORDER RADIUS SCALE (Expressive)
+     =========================================== */
+  --md-sys-radius-0: var(--md-sys-spacing-0);
+  --md-sys-radius-1: var(--md-sys-spacing-1);
+  --md-sys-radius-2: var(--md-sys-spacing-2);
+  --md-sys-radius-3: var(--md-sys-spacing-3);
+  --md-sys-radius-4: var(--md-sys-spacing-4);
+  --md-sys-radius-5: var(--md-sys-spacing-5);
+  --md-sys-radius-6: var(--md-sys-spacing-6);
+  --md-sys-radius-7: var(--md-sys-spacing-7);
+  --md-sys-radius-full: var(--md-sys-radius-full);
+
+  /* ===========================================
+     MD3 TYPOGRAPHY SCALE (Expressive - Complete)
+     =========================================== */
+  /* Display */
+  --md-sys-typescale-display-large-font-size: var(--md-sys-spacing-14); /* var(--md-sys-layout-fab-size) */
+  --md-sys-typescale-display-large-line-height: var(--md-sys-spacing-16);
+  --md-sys-typescale-display-large-font-weight: 400;
+  --md-sys-typescale-display-large-tracking: -0.25px;
+  --md-sys-typescale-display-medium-font-size: var(--md-sys-spacing-11); /* var(--md-sys-typescale-display-medium-font-size) */
+  --md-sys-typescale-display-medium-line-height: var(--md-sys-spacing-13);
+  --md-sys-typescale-display-medium-font-weight: 400;
+  --md-sys-typescale-display-medium-tracking: 0px;
+  --md-sys-typescale-display-small-font-size: var(--md-sys-layout-avatar-size);
+  --md-sys-typescale-display-small-line-height: var(--md-sys-spacing-11);
+  --md-sys-typescale-display-small-font-weight: 400;
+  --md-sys-typescale-display-small-tracking: 0px;
+
+  /* Headline */
+  --md-sys-typescale-headline-large-font-size: var(--md-sys-spacing-8);
+  --md-sys-typescale-headline-large-line-height: var(--md-sys-spacing-10);
+  --md-sys-typescale-headline-large-font-weight: 400;
+  --md-sys-typescale-headline-large-tracking: 0px;
+  --md-sys-typescale-headline-medium-font-size: var(--md-sys-spacing-7);
+  --md-sys-typescale-headline-medium-line-height: var(--md-sys-layout-avatar-size);
+  --md-sys-typescale-headline-medium-font-weight: 400;
+  --md-sys-typescale-headline-medium-tracking: 0px;
+  --md-sys-typescale-headline-small-font-size: var(--md-sys-spacing-6);
+  --md-sys-typescale-headline-small-line-height: var(--md-sys-spacing-8);
+  --md-sys-typescale-headline-small-font-weight: 400;
+  --md-sys-typescale-headline-small-tracking: 0px;
+
+  /* Title */
+  --md-sys-typescale-title-large-font-size: var(--md-sys-spacing-6); /* var(--md-sys-typescale-title-large-font-size) */
+  --md-sys-typescale-title-large-line-height: var(--md-sys-spacing-7);
+  --md-sys-typescale-title-large-font-weight: 400;
+  --md-sys-typescale-title-large-tracking: 0px;
+  --md-sys-typescale-title-medium-font-size: var(--md-sys-spacing-5); /* var(--md-sys-typescale-title-medium-font-size) */
+  --md-sys-typescale-title-medium-line-height: var(--md-sys-spacing-6);
+  --md-sys-typescale-title-medium-font-weight: 500;
+  --md-sys-typescale-title-medium-tracking: 0px;
+  --md-sys-typescale-title-small-font-size: var(--md-sys-typescale-body-medium-font-size); /* var(--md-sys-typescale-body-medium-font-size) */
+  --md-sys-typescale-title-small-line-height: var(--md-sys-spacing-5);
+  --md-sys-typescale-title-small-font-weight: 500;
+  --md-sys-typescale-title-small-tracking: 0px;
+
+  /* Body */
+  --md-sys-typescale-body-large-font-size: var(--md-sys-spacing-4); /* var(--md-sys-spacing-4) */
+  --md-sys-typescale-body-large-line-height: 1.625; /* 26px */
+  --md-sys-typescale-body-large-font-weight: 400;
+  --md-sys-typescale-body-large-tracking: 0px;
+  --md-sys-typescale-body-medium-font-size: var(--md-sys-spacing-4); /* 16px */
+  --md-sys-typescale-body-medium-line-height: var(--md-sys-spacing-5);
+  --md-sys-typescale-body-medium-font-weight: 400;
+  --md-sys-typescale-body-medium-tracking: 0px;
+  --md-sys-typescale-body-small-font-size: var(--md-sys-spacing-3);
+  --md-sys-typescale-body-small-line-height: var(--md-sys-spacing-4);
+  --md-sys-typescale-body-small-font-weight: 400;
+  --md-sys-typescale-body-small-tracking: 0px;
+
+  /* Label */
+  --md-sys-typescale-label-large-font-size: var(--md-sys-typescale-body-medium-font-size); /* var(--md-sys-typescale-body-medium-font-size) */
+  --md-sys-typescale-label-large-line-height: var(--md-sys-spacing-5);
+  --md-sys-typescale-label-large-font-weight: 500;
+  --md-sys-typescale-label-large-tracking: 0.5px;
+  --md-sys-typescale-label-medium-font-size: var(--md-sys-spacing-3);
+  --md-sys-typescale-label-medium-line-height: var(--md-sys-spacing-4);
+  --md-sys-typescale-label-medium-font-weight: 500;
+  --md-sys-typescale-label-medium-tracking: 0.5px;
+  --md-sys-typescale-label-small-font-size: var(--md-sys-spacing-3); /* var(--md-sys-spacing-3) */
+  --md-sys-typescale-label-small-line-height: var(--md-sys-spacing-4);
+  --md-sys-typescale-label-small-font-weight: 500;
+  --md-sys-typescale-label-small-tracking: 0.5px;
+
+  /* ===========================================
+     MD3 LAYOUT TOKENS (Expressive - Common Dimensions)
+     =========================================== */
+  --md-sys-layout-grid-min: 150px;
+  --md-sys-layout-grid-min-wide: 200px;
+  --md-sys-layout-card-width: var(--md-sys-layout-card-width);
+  --md-sys-layout-card-min-height: var(--md-sys-layout-card-min-height);
+  --md-sys-layout-avatar-size: var(--md-sys-layout-avatar-size);
+  --md-sys-layout-fab-size: var(--md-sys-layout-fab-size);
+  --md-sys-layout-button-min-width: var(--md-sys-layout-button-min-width);
+  --md-sys-layout-popup-min-width: var(--md-sys-layout-popup-min-width);
+  --md-sys-layout-panel-max-width: 800px;
+  --md-sys-layout-dropzone-height: 192px;
+  --md-sys-layout-timetable-cell-min-height: var(--md-sys-spacing-15);
+  --md-sys-layout-workflow-card-min-width: var(--md-sys-spacing-12);
+  --md-sys-layout-120: var(--md-sys-layout-popup-min-width);
+
+  /* ===========================================
+     MD3 PERCENTAGE TOKENS (Expressive - Common Values)
+     =========================================== */
+  --md-sys-percent-0: 0%;
+  --md-sys-percent-8: 8%;
+  --md-sys-percent-10: 10%;
+  --md-sys-percent-12: 12%;
+  --md-sys-percent-20: 20%;
+  --md-sys-percent-25: 25%;
+  --md-sys-percent-30: 30%;
+  --md-sys-percent-33: 33.333333%;
+  --md-sys-percent-40: 40%;
+  --md-sys-percent-50: 50%;
+  --md-sys-percent-60: 60%;
+  --md-sys-percent-66: 66.666667%;
+  --md-sys-percent-70: 70%;
+  --md-sys-percent-75: 75%;
+  --md-sys-percent-78: 78%;
+  --md-sys-percent-80: 80%;
+  --md-sys-percent-82: 82%;
+  --md-sys-percent-85: 85%;
+  --md-sys-percent-90: 90%;
+  --md-sys-percent-95: 95%;
+  --md-sys-percent-96: 96%;
+  --md-sys-percent-100: 100%;
+  --md-sys-percent-200: 200%;
+
+  /* ===========================================
+     MD3 BREAKPOINT TOKENS (Expressive - Responsive Design)
+     =========================================== */
+  --md-sys-breakpoint-mobile: 600px;
+  --md-sys-breakpoint-tablet: 768px;
+  --md-sys-breakpoint-desktop: 1024px;
+  --md-sys-breakpoint-large: 1440px;
+  --md-sys-percent-120: 120%;
+
+  /* ===========================================
+     MD3 FILTER TOKENS (Expressive - Visual Effects)
+     =========================================== */
+  --md-sys-filter-grayscale-100: grayscale(100%);
+
+  /* ===========================================
+     MD3 BORDER WIDTH TOKENS (Expressive)
+     =========================================== */
+  --md-sys-border-width-thin: 0.var(--md-sys-spacing-2);
+  --md-sys-border-width-normal: var(--md-sys-spacing-0);
+  --md-sys-border-width-thick: var(--md-sys-spacing-1);
+
+  /* ===========================================
+     MD3 SPECIAL TOKENS (Expressive - Edge Cases)
+     =========================================== */
+  --md-sys-special-viewport-height: calc(var(--md-sys-spacing-15) - var(--md-sys-border-width-thin)); /* var(--md-sys-special-viewport-height) - anti-scrollbar */
 
 /* --- VISUAL STYLES OVERRIDES --- */
 
@@ -155,14 +373,14 @@
 [data-visual-style="aura"] {
   --glass-bg: rgba(var(--md-sys-color-surface-rgb), var(--sys-glass-opacity));
   --glass-blur: blur(var(--glass-blur-px));
-  --glass-border: 1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.3);
+  --glass-border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.3);
 }
 
 /* Flat Style (Material 3 Standard) */
 [data-visual-style="flat"] {
   --glass-bg: var(--md-sys-color-surface);
   --glass-blur: none;
-  --glass-border: 1px solid var(--md-sys-color-outline-variant);
+  --glass-border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   --sys-glass-opacity: 1;
 }
 
@@ -181,8 +399,8 @@
   --md-sys-color-primary: #007AFF;
   --md-sys-color-primary-rgb: 0, 122, 255;
   --glass-bg: rgba(var(--md-sys-color-surface-rgb), 0.7);
-  --glass-blur: blur(25px) saturate(180%);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+  --glass-blur: blur(var(--md-sys-blur-xl)) saturate(180%);
+  --glass-border: var(--md-sys-spacing-0) solid rgba(255, 255, 255, 0.2);
   --sys-radius-multiplier: 0.8;
   --sys-glass-opacity: 0.7;
 }
@@ -193,8 +411,8 @@
   --md-sys-color-primary: #0078D4;
   --md-sys-color-primary-rgb: 0, 120, 212;
   --glass-bg: rgba(var(--md-sys-color-surface-rgb), 0.85);
-  --glass-blur: blur(20px);
-  --glass-border: 1px solid rgba(var(--md-sys-color-outline-variant-rgb), 0.4);
+  --glass-blur: blur(var(--md-sys-blur-20));
+  --glass-border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.4);
   --sys-radius-multiplier: 0.4; /* Windows uses smaller radii (4-var(--md-sys-spacing-2)) */
   --sys-glass-opacity: 0.85;
 }
@@ -202,7 +420,7 @@
 /* Google Expressive Style */
 [data-visual-style="expressive"] {
   --font-family: 'Roboto Flex', sans-serif;
-  --sys-radius-multiplier: 1.2; /* Extra rounded shapes (28px -> 34px) */
+  --sys-radius-multiplier: 1.2; /* Extra rounded shapes (var(--md-sys-spacing-7) -> var(--md-sys-layout-avatar-size)) */
   --md-sys-color-primary: #1a73e8; /* Google Blue */
   --md-sys-color-primary-rgb: 26, 115, 232;
   --md-sys-color-surface-container-high: #f1f3f4;
@@ -229,12 +447,10 @@
   --md-sys-color-outline-variant: #FFFFFF;
   --md-sys-color-surface-container: #000000;
   --md-sys-color-on-surface: #FFFFFF;
-}
 
-:root {
   /* Layout Metrics Presentation Layer */
-  --header-height: 64px;
-  --content-max-width: 1200px;
+  --header-height: var(--md-sys-spacing-16);
+  --content-max-width: var(--content-max-width);
   --content-padding: var(--md-sys-spacing-4);
   --content-padding-md: var(--md-sys-spacing-6);
 
@@ -257,30 +473,30 @@
   /* ?? DO NOT USE - Use --md-sys-spacing-* instead */
   /* These tokens remain for backward compatibility only */
   /* See: UI_UNIFORMITY_AUDIT_POST_M3_MIGRATION.md (P2) */
-  --spacing-0: 0px; /* MIGRATED TO MD3 */      /* ? --md-sys-spacing-0 */
+  --spacing-0: var(--md-sys-spacing-0); /* MIGRATED TO MD3 */      /* ? --md-sys-spacing-0 */
   --spacing-1: var(--md-sys-spacing-1); /* MIGRATED TO MD3 */      /* ? --md-sys-spacing-1 */
   --spacing-2: var(--md-sys-spacing-2); /* MIGRATED TO MD3 */      /* ? --md-sys-spacing-2 */
   --spacing-3: var(--md-sys-spacing-3); /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-3 */
   --spacing-4: var(--md-sys-spacing-4); /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-4 */
-  --spacing-5: 20px; /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-5 */
+  --spacing-5: var(--md-sys-spacing-5); /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-5 */
   --spacing-6: var(--md-sys-spacing-6); /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-6 */
   --spacing-8: var(--md-sys-spacing-8); /* MIGRATED TO MD3 */     /* ? --md-sys-spacing-8 */
-  --spacing-10: 40px; /* MIGRATED TO MD3 */    /* ? --md-sys-spacing-10 */
+  --spacing-10: var(--md-sys-spacing-10); /* MIGRATED TO MD3 */    /* ? --md-sys-spacing-10 */
   --spacing-12: var(--md-sys-spacing-12); /* MIGRATED TO MD3 */    /* ? --md-sys-spacing-12 */
-  --spacing-16: 64px; /* MIGRATED TO MD3 */    /* ? --md-sys-spacing-16 */
+  --spacing-16: var(--md-sys-spacing-16); /* MIGRATED TO MD3 */    /* ? --md-sys-spacing-16 */
 
   /* Spacing Tokens M3 - OFFICIAL (Use these) */
-  --md-sys-spacing-0: 0px;
+  --md-sys-spacing-0: var(--md-sys-spacing-0);
   --md-sys-spacing-1: var(--md-sys-spacing-1);      /* Extra small */
   --md-sys-spacing-2: var(--md-sys-spacing-2);      /* Small */
   --md-sys-spacing-3: var(--md-sys-spacing-3);     /* Compact */
   --md-sys-spacing-4: var(--md-sys-spacing-4);     /* Medium (default) */
-  --md-sys-spacing-5: 20px;     /* Medium-large */
+  --md-sys-spacing-5: var(--md-sys-spacing-5);     /* Medium-large */
   --md-sys-spacing-6: var(--md-sys-spacing-6);     /* Large */
   --md-sys-spacing-8: var(--md-sys-spacing-8);     /* Extra large */
-  --md-sys-spacing-10: 40px;    /* 2x large */
+  --md-sys-spacing-10: var(--md-sys-spacing-10);    /* 2x large */
   --md-sys-spacing-12: var(--md-sys-spacing-12);    /* Section gap */
-  --md-sys-spacing-16: 64px;    /* Page section */
+  --md-sys-spacing-16: var(--md-sys-spacing-16);    /* Page section */
 
   /* Typography Scale M3 - Complete Token Definitions */
   /* Display Large */
@@ -312,53 +528,53 @@
   --typography-headline-large-letterSpacing: var(--md-sys-typescale-headline-large-tracking); /* MIGRATED TO MD3 */
   
   /* Headline Medium */
-  --typography-headline-medium-fontSize: 28px;
+  --typography-headline-medium-fontSize: var(--md-sys-spacing-7);
   --typography-headline-medium-fontFamily: 'Roboto Flex', sans-serif;
   --typography-headline-medium-fontWeight: 400;
-  --typography-headline-medium-lineHeight: 36px;
-  --typography-headline-medium-letterSpacing: 0px;
+  --typography-headline-medium-lineHeight: var(--md-sys-layout-avatar-size);
+  --typography-headline-medium-letterSpacing: var(--md-sys-spacing-0);
   
   /* Headline Small */
   --typography-headline-small-fontSize: var(--md-sys-spacing-6);
   --typography-headline-small-fontFamily: 'Roboto Flex', sans-serif;
   --typography-headline-small-fontWeight: 400;
   --typography-headline-small-lineHeight: var(--md-sys-spacing-8);
-  --typography-headline-small-letterSpacing: 0px;
+  --typography-headline-small-letterSpacing: var(--md-sys-spacing-0);
   
   /* Title Large */
-  --typography-title-large-fontSize: 22px;
+  --typography-title-large-fontSize: var(--md-sys-typescale-title-large-font-size);
   --typography-title-large-fontFamily: 'Roboto Flex', sans-serif;
   --typography-title-large-fontWeight: 400;
-  --typography-title-large-lineHeight: 28px;
-  --typography-title-large-letterSpacing: 0px;
+  --typography-title-large-lineHeight: var(--md-sys-spacing-7);
+  --typography-title-large-letterSpacing: var(--md-sys-spacing-0);
   
   /* Title Medium */
   --typography-title-medium-fontSize: var(--md-sys-spacing-4);
   --typography-title-medium-fontFamily: 'Roboto Flex', sans-serif;
   --typography-title-medium-fontWeight: 500;
   --typography-title-medium-lineHeight: var(--md-sys-spacing-6);
-  --typography-title-medium-letterSpacing: 0.15px;
+  --typography-title-medium-letterSpacing: var(--md-sys-border-width-thin);
   
   /* Title Small */
-  --typography-title-small-fontSize: 14px;
+  --typography-title-small-fontSize: var(--md-sys-typescale-body-medium-font-size);
   --typography-title-small-fontFamily: 'Roboto Flex', sans-serif;
   --typography-title-small-fontWeight: 500;
-  --typography-title-small-lineHeight: 20px;
-  --typography-title-small-letterSpacing: 0.1px;
+  --typography-title-small-lineHeight: var(--md-sys-spacing-5);
+  --typography-title-small-letterSpacing: 0.var(--md-sys-spacing-0);
   
   /* Body Large */
   --typography-body-large-fontSize: var(--md-sys-spacing-4);
   --typography-body-large-fontFamily: 'Roboto Flex', sans-serif;
   --typography-body-large-fontWeight: 400;
   --typography-body-large-lineHeight: var(--md-sys-spacing-6);
-  --typography-body-large-letterSpacing: 0.5px;
+  --typography-body-large-letterSpacing: var(--md-sys-border-width-thin);
   
   /* Body Medium */
-  --typography-body-medium-fontSize: 14px;
+  --typography-body-medium-fontSize: var(--md-sys-typescale-body-medium-font-size);
   --typography-body-medium-fontFamily: 'Roboto Flex', sans-serif;
   --typography-body-medium-fontWeight: 400;
-  --typography-body-medium-lineHeight: 20px;
-  --typography-body-medium-letterSpacing: 0.25px;
+  --typography-body-medium-lineHeight: var(--md-sys-spacing-5);
+  --typography-body-medium-letterSpacing: 0.var(--md-sys-blur-25);
   
   /* Body Small */
   --typography-body-small-fontSize: var(--md-sys-spacing-3);
@@ -367,49 +583,49 @@
   --typography-body-small-lineHeight: var(--md-sys-spacing-4);
   --typography-body-small-letterSpacing: 0.var(--md-sys-spacing-1);
   /* Label Large */
-  --typography-label-large-fontSize: 14px;
+  --typography-label-large-fontSize: var(--md-sys-typescale-body-medium-font-size);
   --typography-label-large-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-large-fontWeight: 500;
-  --typography-label-large-lineHeight: 20px;
-  --typography-label-large-letterSpacing: 0.1px;
+  --typography-label-large-lineHeight: var(--md-sys-spacing-5);
+  --typography-label-large-letterSpacing: 0.var(--md-sys-spacing-0);
   
   /* Label Medium */
   --typography-label-medium-fontSize: var(--md-sys-spacing-3);
   --typography-label-medium-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-medium-fontWeight: 500;
   --typography-label-medium-lineHeight: var(--md-sys-spacing-4);
-  --typography-label-medium-letterSpacing: 0.5px;
+  --typography-label-medium-letterSpacing: var(--md-sys-border-width-thin);
   
   /* Label Small */
-  --typography-label-small-fontSize: 11px;
+  --typography-label-small-fontSize: var(--md-sys-typescale-label-large-font-size);
   --typography-label-small-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-small-fontWeight: 500;
   --typography-label-small-lineHeight: var(--md-sys-spacing-4);
-  --typography-label-small-letterSpacing: 0.5px;
+  --typography-label-small-letterSpacing: var(--md-sys-border-width-thin);
 
   /* Forme M3 - LEGACY (DEPRECATED) */
   /* ?? DO NOT USE - Use --md-sys-shape-corner-* instead */
   /* Maintained for backward compatibility only */
-  --shape-none: 0px;              /* ? --md-sys-shape-corner-none */
+  --shape-none: var(--md-sys-spacing-0);              /* ? --md-sys-shape-corner-none */
   --shape-xs: var(--md-sys-spacing-1);                /* ? --md-sys-shape-corner-small (var(--md-sys-spacing-2)) */
   --shape-s: var(--md-sys-spacing-3);                /* ? --md-sys-shape-corner-medium */
   --shape-m: var(--md-sys-spacing-4);                /* ? --md-sys-shape-corner-large */
-  --shape-l: var(--md-sys-spacing-6);                /* ?? NON-STANDARD - use var(--md-sys-spacing-4) or 28px */
+  --shape-l: var(--md-sys-spacing-6);                /* ?? NON-STANDARD - use var(--md-sys-spacing-4) or var(--md-sys-spacing-7) */
   --shape-xl: var(--md-sys-spacing-8);               /* ? --md-sys-shape-corner-extra-large */
-  --shape-full: 9999px;           /* ? --md-sys-shape-corner-full */
+  --shape-full: var(--md-sys-radius-full);           /* ? --md-sys-shape-corner-full */
 
   /* Elevazione & Ombre */
-  --elevation-1: 0px var(--md-sys-spacing-1) var(--md-sys-spacing-3) rgba(103, 80, 164, 0.04);
-  --elevation-2: 0px var(--md-sys-spacing-2) var(--md-sys-spacing-6) rgba(103, 80, 164, 0.08);
-  --elevation-3: 0px var(--md-sys-spacing-4) var(--md-sys-spacing-12) rgba(103, 80, 164, 0.12);
+  --elevation-1: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-3) rgba(103, 80, 164, 0.04);
+  --elevation-2: var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-6) rgba(103, 80, 164, 0.08);
+  --elevation-3: var(--md-sys-spacing-0) var(--md-sys-spacing-4) var(--md-sys-spacing-12) color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
 
   /* MD3 Elevation Levels (Official) */
   --md-sys-elevation-level0: none;
-  --md-sys-elevation-level1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-  --md-sys-elevation-level2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
-  --md-sys-elevation-level3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px var(--md-sys-spacing-1) var(--md-sys-spacing-2) 3px rgba(0, 0, 0, 0.15);
-  --md-sys-elevation-level4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px var(--md-sys-spacing-1) rgba(0, 0, 0, 0.15);
-  --md-sys-elevation-level5: 0px var(--md-sys-spacing-1) var(--md-sys-spacing-1) 0px rgba(0, 0, 0, 0.3), 0px var(--md-sys-spacing-2) var(--md-sys-spacing-3) 6px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level1: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3), var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level2: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3), var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-blur-medium) var(--md-sys-spacing-1) rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level3: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3), var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-2) var(--md-sys-spacing-1) rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level4: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3), var(--md-sys-spacing-0) var(--md-sys-blur-medium) var(--md-sys-spacing-3) var(--md-sys-spacing-1) rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-level5: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3), var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-3) var(--md-sys-blur-medium) rgba(0, 0, 0, 0.15);
 
   --aura-gradient: linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%);
   
@@ -436,16 +652,16 @@
   --motion-duration-long4: 600ms;
   
   /* Icon Size Tokens */
-  --icon-size-small: 20px;        /* Extra small icons (compact UI) */
+  --icon-size-small: var(--md-sys-spacing-5);        /* Extra small icons (compact UI) */
   --icon-size-medium: var(--md-sys-spacing-6);       /* Medium icons (M3 default) */
   --icon-size-large: var(--md-sys-spacing-8);        /* Large icons (prominent) */
   --icon-size-xl: var(--md-sys-spacing-12);           /* Extra large (hero displays) */
   
   /* Icon Tailwind Classes (for convenience) */
-  --icon-small: text-sm;          /* 14px base */
-  --icon-medium: text-lg;         /* 18px base */
+  --icon-small: text-sm;          /* var(--md-sys-typescale-body-medium-font-size) base */
+  --icon-medium: text-lg;         /* var(--md-sys-typescale-title-medium-font-size) base */
   --icon-default: text-2xl;       /* var(--md-sys-spacing-6) base */
-  --icon-large: text-4xl;         /* 36px base */
+  --icon-large: text-4xl;         /* var(--md-sys-layout-avatar-size) base */
   --icon-xl: text-6xl;            /* var(--md-sys-spacing-12) base */
   
   /* Backward compatibility */
@@ -495,18 +711,19 @@
   /* Numeric corner helpers used in stories/demos */
   --md-corner-4: var(--md-sys-spacing-1);
   --md-corner-8: var(--md-sys-spacing-2);
-}
 
   /* Official M3 Shape Corner Tokens */
-  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-none: var(--md-sys-spacing-0);
   --md-sys-shape-corner-small: var(--md-sys-spacing-2);
   --md-sys-shape-corner-medium: var(--md-sys-spacing-3);
   --md-sys-shape-corner-large: var(--md-sys-spacing-4);
   --md-sys-shape-corner-extra-large: var(--md-sys-spacing-8);
-  --md-sys-shape-corner-full: 9999px;
+  --md-sys-shape-corner-full: var(--md-sys-radius-full);
 
   /* M3 State Opacity Tokens */
   --md-sys-state-opacity-disabled: 0.38;
+  --md-sys-state-opacity-tooltip: 0.97;
+}
 
 .theme-dark {
   --md-sys-color-primary: #D0BCFF;
@@ -520,7 +737,7 @@
   --md-sys-color-surface-container-highest: #36343B;
   --aura-gradient: linear-gradient(145deg, #141218 0%, #25232A 100%);
   --glass-bg: rgba(20, 18, 24, 0.8);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  --glass-border: var(--md-sys-spacing-0) solid rgba(255, 255, 255, 0.1);
 }
 
 body {
@@ -545,7 +762,7 @@ body {
 @keyframes aura-slide-up {
   from {
     opacity: 0;
-    transform: translateY(20px) scale(0.98);
+    transform: translateY(var(--md-sys-spacing-5)) scale(0.98);
   }
 
   to {
@@ -570,7 +787,7 @@ body {
   }
 
   to {
-    transform: translateX(200%) skewX(-15deg);
+    transform: translateX(var(--md-sys-percent-200)) skewX(-15deg);
   }
 }
 
@@ -582,17 +799,17 @@ body {
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  var(--md-sys-percent-50) { opacity: 0.5; }
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-var(--md-sys-spacing-1)); }
+  var(--md-sys-percent-50) { transform: translateY(-var(--md-sys-spacing-1)); }
 }
 
 @keyframes fade {
   0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+  var(--md-sys-percent-50) { opacity: 1; }
 }
 
 .animate-spin {
@@ -621,13 +838,13 @@ body {
   100% {
     transform: scale(1);
     opacity: 0.4;
-    filter: blur(140px);
+    filter: blur(var(--md-sys-layout-card-min-height));
   }
 
-  50% {
+  var(--md-sys-percent-50) {
     transform: scale(1.15);
     opacity: 0.6;
-    filter: blur(160px);
+    filter: blur(var(--md-sys-layout-card-width));
   }
 }
 
@@ -642,8 +859,8 @@ body {
     transform: translateY(0);
   }
 
-  50% {
-    transform: translateY(-10px);
+  var(--md-sys-percent-50) {
+    transform: translateY(-var(--md-sys-spacing-3));
   }
 }
 
@@ -653,7 +870,7 @@ body {
 
 @keyframes aura-slide-up {
   from {
-    transform: translateY(20px) scale(0.95);
+    transform: translateY(var(--md-sys-spacing-5)) scale(0.95);
     opacity: 0;
   }
 
@@ -784,8 +1001,8 @@ body {
   background: var(--md-sys-color-surface-container);
   border-radius: var(--md-sys-shape-corner-large);
   padding: var(--md-sys-spacing-6);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  border: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: 0 var(--md-sys-spacing-0) var(--md-sys-spacing-1) 0 color-mix(in srgb, var(--md-sys-color-shadow) 10%, transparent), 0 var(--md-sys-spacing-0) var(--md-sys-spacing-1) 0 color-mix(in srgb, var(--md-sys-color-shadow) 6%, transparent);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   transition: all 0.3s var(--motion-easing-standard);
   position: relative;
   overflow: hidden;
@@ -814,19 +1031,19 @@ body {
 }
 
 .m3-card:hover {
-  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-shadow) 12%, transparent);
   border-color: var(--sys-outline);
 }
 
 .m3-card-elevated {
   background: var(--md-sys-color-surface-container-low);
-  box-shadow: 0 3px var(--md-sys-spacing-2) 0 rgba(103, 80, 164, 0.12);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-2) 0 color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
   border: none;
 }
 
 .m3-card-outlined {
   background: transparent;
-  border: 2px solid var(--md-sys-color-outline-variant);
+  border: var(--md-sys-spacing-1) solid var(--md-sys-color-outline-variant);
 }
 
 /* M3 Button Components */
@@ -835,9 +1052,9 @@ body {
   color: var(--md-sys-color-on-primary);
   border: none;
   border-radius: var(--md-sys-shape-corner-large);
-  padding: calc(10px * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  padding: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
   font-weight: 500;
-  font-size: calc(14px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
   transition: all 0.2s var(--motion-easing-standard);
 }
@@ -845,7 +1062,7 @@ body {
 .m3-button-filled:hover {
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
-  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 rgba(103, 80, 164, 0.15);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-primary) 15%, transparent);
 }
 
 .m3-button-filled:active {
@@ -857,16 +1074,16 @@ body {
   color: var(--sys-on-error);
   border: none;
   border-radius: var(--md-sys-shape-corner-large);
-  padding: calc(10px * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  padding: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
   font-weight: 500;
-  font-size: calc(14px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
   transition: all 0.2s var(--motion-easing-standard);
 }
 
 .m3-button-error:hover {
   background: color-mix(in srgb, var(--sys-error), black 10%);
-  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 rgba(179, 38, 30, 0.15);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-error) 15%, transparent);
 }
 
 .m3-button-tonal {
@@ -874,9 +1091,9 @@ body {
   color: var(--sys-on-secondary-container);
   border: none;
   border-radius: var(--md-sys-shape-corner-large);
-  padding: calc(10px * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  padding: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
   font-weight: 500;
-  font-size: calc(14px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
   transition: all 0.2s var(--motion-easing-standard);
 }
@@ -884,17 +1101,17 @@ body {
 .m3-button-tonal:hover {
   background: var(--md-sys-color-secondary);
   color: var(--sys-on-secondary);
-  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 rgba(98, 91, 113, 0.15);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-outline-variant) 15%, transparent);
 }
 
 .m3-button-outlined {
   background: transparent;
-  border: 2px solid var(--sys-outline);
+  border: var(--md-sys-spacing-1) solid var(--sys-outline);
   color: var(--md-sys-color-primary);
   border-radius: var(--md-sys-shape-corner-large);
   padding: calc(var(--md-sys-spacing-2) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
   font-weight: 500;
-  font-size: calc(14px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
   transition: all 0.2s var(--motion-easing-standard);
 }
@@ -910,7 +1127,7 @@ body {
   color: var(--md-sys-color-primary);
   padding: calc(var(--md-sys-spacing-2) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1));
   font-weight: 500;
-  font-size: calc(14px * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
   border-radius: var(--md-sys-shape-corner-small);
   transition: all 0.2s var(--motion-easing-standard);
@@ -964,16 +1181,16 @@ body {
   position: relative;
   background: var(--md-sys-color-surface-container-high);
   border-radius: var(--md-sys-shape-corner-extra-large);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 var(--md-sys-spacing-5) var(--md-sys-blur-25) -var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-shadow) 10%, transparent), 0 var(--md-sys-spacing-3) var(--md-sys-spacing-3) -var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-shadow) 4%, transparent);
   z-index: var(--z-modal);
   overflow: hidden;
   animation: zoom-in-95 0.3s var(--motion-easing-standard) forwards;
-  border: 1px solid var(--md-sys-color-outline-variant);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
 }
 
 .modal-panel-header {
   padding: var(--md-sys-spacing-6);
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  border-bottom: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -987,12 +1204,12 @@ body {
 .modal-panel-content {
   padding: var(--md-sys-spacing-6);
   overflow-y: auto;
-  max-height: calc(90vh - 120px);
+  max-height: calc(90vh - var(--md-sys-layout-popup-min-width));
 }
 
 .modal-panel-footer {
   padding: var(--md-sys-spacing-6);
-  border-top: 1px solid var(--md-sys-color-outline-variant);
+  border-top: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   display: flex;
   justify-content: flex-end;
   gap: var(--md-sys-spacing-3);
@@ -1039,7 +1256,7 @@ body {
   align-items: center;
   gap: var(--md-sys-spacing-2);
   background: var(--md-sys-color-surface-container-highest);
-  border: 1px solid var(--md-sys-color-outline);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
   border-radius: var(--md-sys-shape-corner-large);
   padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
   transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -1047,12 +1264,12 @@ body {
 
 .m3-field-wrapper:focus-within {
   border-color: var(--md-sys-color-primary);
-  box-shadow: 0 0 0 2px var(--md-sys-color-primary)/12;
+  box-shadow: 0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary)/12;
 }
 
 .m3-field-wrapper.error {
   border-color: var(--md-sys-color-error);
-  box-shadow: 0 0 0 2px var(--md-sys-color-error)/12;
+  box-shadow: 0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-error)/12;
 }
 
 .m3-field-input,
@@ -1092,7 +1309,7 @@ body {
   border-radius: var(--md-sys-shape-corner-extra-large);
   background: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface);
-  border: 1px solid var(--md-sys-color-outline-variant);
+  border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   font-size: var(--typography-label-large-fontSize);
   font-weight: 500;
   transition: all 0.2s var(--motion-easing-standard);
@@ -1123,7 +1340,7 @@ body {
   gap: var(--md-sys-spacing-1);
   padding: var(--md-sys-spacing-3) var(--md-sys-spacing-1);
   background: var(--md-sys-color-surface);
-  border-right: 1px solid var(--md-sys-color-outline-variant);
+  border-right: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   z-index: var(--z-nav);
   width: fit-content;
 }
@@ -1188,36 +1405,36 @@ body {
 .m3-p-2 { padding: var(--md-sys-spacing-2); }      /* var(--md-sys-spacing-2) */
 .m3-p-3 { padding: var(--md-sys-spacing-3); }      /* var(--md-sys-spacing-3) */
 .m3-p-4 { padding: var(--md-sys-spacing-4); }      /* var(--md-sys-spacing-4) */
-.m3-p-5 { padding: var(--md-sys-spacing-5); }      /* 20px */
+.m3-p-5 { padding: var(--md-sys-spacing-5); }      /* var(--md-sys-spacing-5) */
 .m3-p-6 { padding: var(--md-sys-spacing-6); }      /* var(--md-sys-spacing-6) */
 .m3-p-8 { padding: var(--md-sys-spacing-8); }      /* var(--md-sys-spacing-8) */
-.m3-p-10 { padding: var(--md-sys-spacing-10); }    /* 40px */
+.m3-p-10 { padding: var(--md-sys-spacing-10); }    /* var(--md-sys-spacing-10) */
 .m3-p-12 { padding: var(--md-sys-spacing-12); }    /* var(--md-sys-spacing-12) */
-.m3-p-16 { padding: var(--md-sys-spacing-16); }    /* 64px */
+.m3-p-16 { padding: var(--md-sys-spacing-16); }    /* var(--md-sys-spacing-16) */
 
 /* Margin utilities */
 .m3-m-1 { margin: var(--md-sys-spacing-1); }       /* var(--md-sys-spacing-1) */
 .m3-m-2 { margin: var(--md-sys-spacing-2); }       /* var(--md-sys-spacing-2) */
 .m3-m-3 { margin: var(--md-sys-spacing-3); }       /* var(--md-sys-spacing-3) */
 .m3-m-4 { margin: var(--md-sys-spacing-4); }       /* var(--md-sys-spacing-4) */
-.m3-m-5 { margin: var(--md-sys-spacing-5); }       /* 20px */
+.m3-m-5 { margin: var(--md-sys-spacing-5); }       /* var(--md-sys-spacing-5) */
 .m3-m-6 { margin: var(--md-sys-spacing-6); }       /* var(--md-sys-spacing-6) */
 .m3-m-8 { margin: var(--md-sys-spacing-8); }       /* var(--md-sys-spacing-8) */
-.m3-m-10 { margin: var(--md-sys-spacing-10); }     /* 40px */
+.m3-m-10 { margin: var(--md-sys-spacing-10); }     /* var(--md-sys-spacing-10) */
 .m3-m-12 { margin: var(--md-sys-spacing-12); }     /* var(--md-sys-spacing-12) */
-.m3-m-16 { margin: var(--md-sys-spacing-16); }     /* 64px */
+.m3-m-16 { margin: var(--md-sys-spacing-16); }     /* var(--md-sys-spacing-16) */
 
 /* Gap utilities (for flexbox/grid) */
 .m3-gap-1 { gap: var(--md-sys-spacing-1); }         /* var(--md-sys-spacing-1) */
 .m3-gap-2 { gap: var(--md-sys-spacing-2); }         /* var(--md-sys-spacing-2) */
 .m3-gap-3 { gap: var(--md-sys-spacing-3); }         /* var(--md-sys-spacing-3) */
 .m3-gap-4 { gap: var(--md-sys-spacing-4); }         /* var(--md-sys-spacing-4) */
-.m3-gap-5 { gap: var(--md-sys-spacing-5); }         /* 20px */
+.m3-gap-5 { gap: var(--md-sys-spacing-5); }         /* var(--md-sys-spacing-5) */
 .m3-gap-6 { gap: var(--md-sys-spacing-6); }         /* var(--md-sys-spacing-6) */
 .m3-gap-8 { gap: var(--md-sys-spacing-8); }         /* var(--md-sys-spacing-8) */
-.m3-gap-10 { gap: var(--md-sys-spacing-10); }       /* 40px */
+.m3-gap-10 { gap: var(--md-sys-spacing-10); }       /* var(--md-sys-spacing-10) */
 .m3-gap-12 { gap: var(--md-sys-spacing-12); }       /* var(--md-sys-spacing-12) */
-.m3-gap-16 { gap: var(--md-sys-spacing-16); }       /* 64px */
+.m3-gap-16 { gap: var(--md-sys-spacing-16); }       /* var(--md-sys-spacing-16) */
 
 /* Directional padding utilities */
 .m3-px-1 { padding-left: var(--md-sys-spacing-1); padding-right: var(--md-sys-spacing-1); }
@@ -1268,3 +1485,6 @@ body {
 }
 
 
+
+
+}

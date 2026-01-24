@@ -244,7 +244,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </td>
                                 </>}
                                 {expandedColumns.giudizio &&
-                                <td style={{ minWidth: '200px', ...getCellStyle('giudizio') }}>
+                                <td style={{ minWidth: 'var(--md-sys-spacing-12)', ...getCellStyle('giudizio') }}>
                                     <div >
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ flexGrow: "1" }} rows={2} placeholder="Giudizio sintetico..."></textarea>
                                         <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
@@ -282,7 +282,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                         <span >Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
-                                            <span style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
+                                            <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
                                                 <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{trendIcon}</span>
                                             </span>
                                         )}
@@ -374,7 +374,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             disabled={isExporting}
                             variant="tonal"
                         >
-                            <span  style={{ marginRight: "0.5rem" }}>picture_as_pdf</span>
+                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>picture_as_pdf</span>
                             Esporta PDF
                         </M3Button>
                         <M3Button 
@@ -382,7 +382,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             disabled={isExporting}
                             variant="tonal"
                         >
-                            <span  style={{ marginRight: "0.5rem" }}>description</span>
+                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>description</span>
                             Esporta Word
                         </M3Button>
                         <M3Button 
@@ -390,7 +390,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             disabled={isGeneratingNarrative}
                             variant="filled"
                         >
-                            <span  style={{ marginRight: "0.5rem" }}>auto_awesome</span>
+                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span>
                             {isGeneratingNarrative ? 'Generazione...' : 'Report Narrativo AI'}
                         </M3Button>
                     </div>
@@ -401,7 +401,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                 <InfoCard variant="elevated" style={{ backgroundColor: sys.colors.primaryContainer/5 , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-6)'}}>
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                            <div style={{ backgroundColor: sys.colors.primary/10 , width: "2.5rem", height: "2.5rem", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
+                            <div style={{ backgroundColor: sys.colors.primary/10 , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>description</span>
@@ -414,7 +414,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 navigator.clipboard.writeText(narrativeReport);
                                 alert("Report copiato!");
                             }}>
-                                <span  style={{ marginRight: "0.5rem" }}>content_copy</span>
+                                <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>content_copy</span>
                                 Copia
                             </M3Button>
                         </div>
@@ -436,7 +436,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 size="small"
                                 
                             >
-                                {expandedColumns[key as keyof typeof expandedColumns] && <span  style={{ fontSize: "0.875rem" }}>check</span>}
+                                {expandedColumns[key as keyof typeof expandedColumns] && <span  style={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>check</span>}
                                 {key.charAt(0).toUpperCase() + key.slice(1)}
                             </M3Button>
                         ))}

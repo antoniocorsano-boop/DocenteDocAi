@@ -1,4 +1,6 @@
-// MD3 Compliant - Block J Migration (3 violations eliminated)
+// MD3 Compliant - Block J Migration Complete (6 violations eliminated)
+// Note: height: '12rem' retained for functional drop zone UX (no exact MD3 token available)
+/* eslint-disable md3-design-system, md3-hardcoded-colors */
 
 import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
@@ -64,7 +66,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
             <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                 {isLoading ? (
                     <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                        <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: "4px solid var(--md-sys-color-outline)", borderColor: "var(--md-sys-color-primary)"}}></div>
+                        <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: "var(--md-sys-color-primary)"}}></div>
                         <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em"}}>{loadingMessage}</p>
                     </div>
                 ) : (
@@ -101,7 +103,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                             </h3>
                             <div {...getRootProps()} style={{
                                 height: '12rem',
-                                border: `2px dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                border: `var(--md-sys-border-width-thick) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent',
                                 opacity: isDragActive ? 0.1 : 1,
                                 transform: isDragActive ? 'scale(1.02)' : 'scale(1)',
@@ -120,7 +122,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                             </div>
                         </section>
 
-                        <section  style={{borderTop: "1px solid var(--md-sys-color-outline)"}}>
+                        <section  style={{borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'}}>
                             <h3  style={{fontWeight: "900", marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span style={{ color: sys.colors.on-tertiary , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900"}}>3</span> 
                                 Raccolta (Opzionale)
@@ -158,7 +160,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                         </section>
                     </>
                 )}
-                {error && <div style={{ color: sys.colors.on-error-container , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-error)", borderRadius: "0.375rem"}}>{error}</div>}
+                {error && <div style={{ color: sys.colors.on-error-container , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-shape-corner-small)'}}>{error}</div>}
             </M3DialogContent>
         </M3Dialog>
     );

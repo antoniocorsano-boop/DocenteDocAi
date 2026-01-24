@@ -130,7 +130,7 @@ export const WithChildren: Story = {
     icon: 'auto_awesome',
     variant: 'primary',
     children: (
-      <ul style={{ marginTop: layers.ref.spacing['4'], paddingLeft: '1.5rem' }}>
+      <ul style={{ marginTop: layers.ref.spacing['4'], paddingLeft: 'var(--md-sys-spacing-6)' }}>
         <li>Interactive lessons</li>
         <li>Real-time feedback</li>
         <li>Adaptive learning paths</li>
@@ -158,7 +158,7 @@ export const WithAction: Story = {
     action: (
       <button
         style={{
-          padding: '0.5rem 1rem',
+          padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
           background: 'var(--md-sys-color-primary)',
           color: 'white',
           border: 'none',
@@ -195,7 +195,7 @@ export const Dismissible: Story = {
 
 export const Multiple: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: layers.ref.spacing['4'] }}>
       <InfoCard
         title="Welcome Back"
         description="You have 3 new assignments to review"
@@ -227,7 +227,7 @@ export const Dashboard: Story = {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(2, 1fr)',
-        gap: '1.5rem',
+        gap: 'var(--md-sys-spacing-6)',
         padding: layers.ref.spacing['4'],
       }}
     >

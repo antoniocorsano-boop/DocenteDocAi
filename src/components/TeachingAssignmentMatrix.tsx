@@ -27,7 +27,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
             // Aggiungi
             // Genera un colore coerente per la materia
             const hue = generateHueFromString(subjectId);
-            const color = `hsl(${hue}, 70%, 80%)`;
+            const color = `hsl(${hue}, var(--md-sys-percent-70), var(--md-sys-percent-80))`;
             
             const newAssignment: TeachingAssignment = {
                 id: `${classId}-${subjectId}`,
@@ -97,7 +97,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                     style={{
                                                         backgroundColor: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
                                                         color: isActive ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
-                                                        border: `1px solid var(--md-sys-color-outline)`,
+                                                        border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`,
                                                         borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                         padding: 'var(--md-sys-spacing-2)',
                                                         cursor: 'pointer',
@@ -106,7 +106,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                     title={isActive ? `Rimuovi ${subj} da ${cls}` : `Assegna ${subj} a ${cls}`}
                                                     aria-label={`${subj} in ${cls}: ${isActive ? 'Assegnato' : 'Non assegnato'}`}
                                                 >
-                                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: '24px', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)' }}>
+                                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--md-sys-spacing-6)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)' }}>
                                                         {isActive ? 'check_circle' : 'add_circle'}
                                                     </span>
                                                 </button>
@@ -167,7 +167,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                             style={{
                                                                 backgroundColor: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
                                                                 color: isActive ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
-                                                                border: `1px solid var(--md-sys-color-outline)`,
+                                                                border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`,
                                                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                                 padding: 'var(--md-sys-spacing-2)',
                                                                 margin: 'var(--md-sys-spacing-2)',

@@ -2,8 +2,8 @@
 .nka-bottom-sheet {
   position: fixed;
   left: 0; right: 0; bottom: 0;
-  background: var(--md-sys-color-surface-container-lowest, #fff);
-  box-shadow: var(--md-sys-elevation3, 0 2px var(--md-sys-spacing-2) rgba(0,0,0,0.07));
+  background: var(--md-sys-color-surface-container-lowest);
+  box-shadow: var(--md-sys-elevation3);
   border-radius: var(--md-sys-shape-corner-large) var(--md-sys-spacing-6) 0 0;
   z-index: 1000;
   min-height: 40vh;
@@ -14,8 +14,8 @@
   animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1);
 }
 .nka-map-container {
-  width: 100%;
-  max-width: 600px;
+  width: var(--md-sys-percent-100);
+  max-width: var(--breakpoint-compact);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -24,12 +24,12 @@
 .nka-wizard-modal {
   position: fixed;
   left: 0; right: 0; bottom: 0;
-  background: var(--md-sys-color-surface, #fff);
-  box-shadow: var(--md-sys-elevation3, 0 2px var(--md-sys-spacing-2) rgba(0,0,0,0.07));
+  background: var(--md-sys-color-surface);
+  box-shadow: var(--md-sys-elevation3);
   border-radius: var(--md-sys-shape-corner-large) var(--md-sys-spacing-6) 0 0;
   z-index: 1100;
   width: 100vw;
-  max-width: 600px;
+  max-width: var(--breakpoint-compact);
   margin: 0 auto;
   padding: theme.spacing['5'] var(--md-sys-spacing-4) var(--md-sys-spacing-8) var(--md-sys-spacing-4);
   min-height: 30vh;
@@ -39,7 +39,7 @@
   flex-direction: column;
   gap: var(--md-sys-spacing-4);
 }
-@media (max-width: 600px) {
+@media (max-width: var(--breakpoint-compact)) {
   .nka-bottom-sheet, .nka-wizard-modal {
     border-radius: var(--md-sys-shape-corner-medium) var(--md-sys-spacing-4) 0 0;
     padding: var(--md-sys-spacing-3) var(--md-sys-spacing-1) var(--md-sys-spacing-6) var(--md-sys-spacing-1);

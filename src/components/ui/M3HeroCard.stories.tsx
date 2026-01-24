@@ -61,7 +61,7 @@ export const Default: Story = {
  */
 export const WithBackground: Story = {
   args: {
-    className: 'bg-gradient-to-br from-primary/20 to-secondary/20 min-h-[400px] flex items-center',
+    className: 'bg-gradient-to-br from-primary/20 to-secondary/20 min-h-[calc(var(--md-sys-spacing-16)*6.25)] flex items-center',
     children: (
       <div style={{ color: sys.colors.white ,  marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
         <M3Typography variant="display-medium" as="h1" style={{ marginBottom: "var(--md-sys-spacing-4)" }}>
@@ -74,7 +74,7 @@ export const WithBackground: Story = {
           <button  style={{ backgroundColor: "white", color: "var(--md-sys-color-primary)", borderRadius: layers.ref.spacing['4'], fontWeight: "500" }}>
             Get Started
           </button>
-          <button style={{ color: sys.colors.white ,  border: "1px solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontWeight: "500" }}>
+          <button style={{ color: sys.colors.white ,  border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontWeight: "500" }}>
             Learn More
           </button>
         </div>
