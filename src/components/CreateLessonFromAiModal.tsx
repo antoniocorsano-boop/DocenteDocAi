@@ -215,7 +215,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                          style={{ textTransform: "uppercase", letterSpacing: "0.1em", borderRadius: 'var(--md-sys-shape-corner-medium)' }}
                                         title="Seleziona dal curricolo"
                                     >
-                                        <span  style={{ /* eslint-disable md3-design-system */ fontSize: "1rem" /* eslint-enable md3-design-system */ }}>library_add</span>
+                                        <span  style={{  fontSize: "1rem"  }}>library_add</span>
                                         Curricolo
                                     </M3Button>
                                 )}
@@ -240,7 +240,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                             />
                             {matchingCurriculum && !obiettivi && (
                                 <p  style={{fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
-                                    <span  style={{ /* eslint-disable md3-design-system */ fontSize: "1rem" /* eslint-enable md3-design-system */ }}>info</span> 
+                                    <span  style={{  fontSize: "1rem"  }}>info</span> 
                                     Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
                                 </p>
                             )}
@@ -271,7 +271,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                                 transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                             }}
                                         >
-                                            {selectedSlotKey === key && <span  style={{ /* eslint-disable md3-design-system */ fontSize: "1rem" /* eslint-enable md3-design-system */ }}>check</span>}
+                                            {selectedSlotKey === key && <span  style={{  fontSize: "1rem"  }}>check</span>}
                                             <span  style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>{slot.giorno} {slot.ora}</span>
                                         </button>
                                     ))}
@@ -293,7 +293,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     {isAdaptationsLoading ? (
                                         <AiThinkingGem size="small" inline text="Suggerisco..." />
                                     ) : (
-                                        <span  style={{ /* eslint-disable md3-design-system */ fontSize: "1rem" /* eslint-enable md3-design-system */ }}>auto_awesome</span>
+                                        <span  style={{  fontSize: "1rem"  }}>auto_awesome</span>
                                     )}
                                     {isAdaptationsLoading ? '' : 'Suggerisci con AI'}
                                 </M3Button>
@@ -343,7 +343,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                             <details key={nucleo.id}  open>
                                 <summary >
                                     <span style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900" }}>{nucleo.title}</span>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', /* eslint-disable md3-design-system */ fontSize: "1rem" /* eslint-enable md3-design-system */ }}>expand_more</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "1rem"  }}>expand_more</span>
                                 </summary>
                                 <div style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-3)', backgroundColor: "var(--md-sys-color-surface)"}}>
                                     {nucleo.objectives.map(obj => (
@@ -353,7 +353,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                             onClick={() => handleAddObjective(obj.text)}
                                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "100%", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color 300ms", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
                                         >
-                                            <span  style={{color: "var(--md-sys-color-primary)", /* eslint-disable md3-design-system */ fontSize: "1rem" /* eslint-enable md3-design-system */, transition: "transform 300ms"}}>add_circle</span>
+                                            <span  style={{color: "var(--md-sys-color-primary)",  fontSize: "1rem" , transition: "transform 300ms"}}>add_circle</span>
                                             <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "500" }}>{obj.text}</span>
                                         </button>
                                     ))}
@@ -372,6 +372,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
 };
 
 export { CreateLessonFromAiModal };
+
 
 
 

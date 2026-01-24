@@ -63,9 +63,9 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                             style={{
                                 width: 'var(--md-sys-spacing-4)', // MD3 spacing token
                                 height: 'var(--md-sys-spacing-4)', // MD3 spacing token
-                                /* eslint-disable md3-design-system */
+                                
                                 borderRadius: '50%', // circular indicator
-                                /* eslint-enable md3-design-system */
+                                
                                 transition: 'all 0.2s', // transition-all duration-200
                                 backgroundColor: i < pin.length 
                                     ? (error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)')
@@ -92,6 +92,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
 };
 
 export default PinPadModal;
+
 
 
 

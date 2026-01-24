@@ -149,9 +149,9 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                     <p  style={{color: "var(--md-sys-color-primary)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7"}}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
                 </div>
                 <button onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", border: "1px solid var(--md-sys-color-outline)"}}>
-                    {/* eslint-disable md3-design-system */}
+                    {}
                     <span  style={{ fontSize: "1rem" }}>bolt</span>
-                    {/* eslint-enable md3-design-system */}
+                    {}
                 </button>
             </div>
 
@@ -202,7 +202,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                     </div>
                                     {item.actionLabel && (
                                         <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"}}>
-                                            {item.actionLabel} {/* eslint-disable md3-design-system */}<span  style={{ marginLeft: "var(--md-sys-spacing-2)", fontSize: "1rem" }}>arrow_forward</span>{/* eslint-enable md3-design-system */}
+                                            {item.actionLabel} {}<span  style={{ marginLeft: "var(--md-sys-spacing-2)", fontSize: "1rem" }}>arrow_forward</span>{}
                                         </button>
                                     )}
                                 </div>
@@ -254,9 +254,9 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.8, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)' , marginLeft: "auto", marginRight: "auto", border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                     
                     <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}>
-                        {/* eslint-disable md3-design-system */}
+                        {}
                         <span  style={{ fontSize: "1rem" }}>settings</span>
-                        {/* eslint-enable md3-design-system */}
+                        {}
                     </button>
 
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, color: 'var(--md-sys-color-on-surface-variant)'/60 , flexGrow: "1", borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-font-size)", fontWeight: "bold", border: "1px solid var(--md-sys-color-outline)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)"}} onClick={onOpenLiveAssistant}>
@@ -266,9 +266,9 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                     <VoiceNoteRecorder onTranscription={(text) => handleAddNote({ note: text })} compact />
                     
                     <button onClick={() => actions.handleNavigate('progettazione-hub')}  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", display: "flex", alignItems: "center", justifyContent: "center"}}>
-                        {/* eslint-disable md3-design-system */}
+                        {}
                         <span  style={{ fontSize: "1rem" }}>add</span>
-                        {/* eslint-enable md3-design-system */}
+                        {}
                     </button>
                 </div>
             </div>
@@ -278,6 +278,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
 };
 
 export default React.memo(FlowMode);
+
 
 
 

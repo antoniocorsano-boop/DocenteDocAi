@@ -9,3 +9,4 @@ const renderWithM3Theme = (ui: React.ReactElement, options?: Omit<RenderOptions,
 // Esporta anche render normale se necessario
 export { render };
 export { renderWithM3Theme };
+

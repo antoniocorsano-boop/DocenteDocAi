@@ -272,9 +272,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-4)',
               overflowY: 'auto',
-              /* eslint-disable md3-design-system */
+              
               maxHeight: '400px'
-              /* eslint-enable md3-design-system */
+              
             }}>
               {messages.length === 0 && (
                 <div style={{
@@ -382,9 +382,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-4)',
               overflowY: 'auto',
-              /* eslint-disable md3-design-system */
+              
               maxHeight: '300px'
-              /* eslint-enable md3-design-system */
+              
             }}>
               {nbFiles.map(file => (
                 <div key={file.id} style={{
@@ -483,6 +483,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
 }
 
 export default AssistantModal;
+
 
 
 

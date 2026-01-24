@@ -56,7 +56,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
     return (
       <div >
         <div >
-          <span  style={{ /* eslint-disable md3-design-system */ fontSize: "0.875rem" /* eslint-enable md3-design-system */ }}>check_circle</span>
+          <span  style={{  fontSize: "0.875rem"  }}>check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
       </div>
@@ -70,9 +70,9 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
       marginBottom: 'var(--md-sys-spacing-6)'
     }}>
       <div style={{
-        /* eslint-disable md3-design-system */
+        
         maxWidth: '85%',
-        /* eslint-enable md3-design-system */
+        
         padding: 'var(--md-sys-spacing-4)',
         borderRadius: 'var(--md-sys-shape-corner-large)',
         fontSize: 'var(--md-sys-typescale-body-small-size)',
@@ -287,10 +287,10 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
         <button
           onClick={isConnected ? stopSession : startSession}
           style={{
-            /* eslint-disable md3-design-system */
+            
             width: '80px',
             height: '80px',
-            /* eslint-enable md3-design-system */
+            
             borderRadius: 'var(--md-sys-shape-corner-small)',
             display: 'flex',
             alignItems: 'center',
@@ -321,6 +321,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
 };
 
 export default LiveAssistant;
+
 
 
 

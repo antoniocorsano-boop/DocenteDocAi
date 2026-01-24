@@ -134,9 +134,9 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
                                 color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
-                                /* eslint-disable md3-design-system */
+                                
                                 letterSpacing: '0.5px', // MD3 EXCEPTION: Standard typography tracking value (0.5px)
-                                /* eslint-enable md3-design-system */
+                                
                                 fontWeight: '500'}}
                         >
                             Media
@@ -169,9 +169,9 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
                                 color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
-                                /* eslint-disable md3-design-system */
+                                
                                 letterSpacing: '0.5px', // MD3 EXCEPTION: Standard typography tracking value (0.5px)
-                                /* eslint-enable md3-design-system */
+                                
                                 fontWeight: '500'}}
                         >
                             Trend
@@ -204,9 +204,9 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
                                 color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
-                                /* eslint-disable md3-design-system */
+                                
                                 letterSpacing: '0.5px', // MD3 EXCEPTION: Standard typography tracking value (0.5px)
-                                /* eslint-enable md3-design-system */
+                                
                                 fontWeight: '500'}}
                         >
                             Badge
@@ -232,9 +232,9 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     style={{margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
                         textTransform: 'uppercase',
                         color: 'var(--md-sys-color-on-surface)',
-                        /* eslint-disable md3-design-system */
+                        
                         letterSpacing: '0.5px', // MD3 EXCEPTION: Standard typography tracking value (0.5px)
-                        /* eslint-enable md3-design-system */
+                        
                         fontWeight: '500'}}
                 >
                     Azioni Rapide
@@ -286,6 +286,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
 };
 
 export default StudentActionMenu;
+
 
 
 

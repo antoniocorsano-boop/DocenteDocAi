@@ -827,3 +827,4 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 };
 
 export default ClassroomView;
+

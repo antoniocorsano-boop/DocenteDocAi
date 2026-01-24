@@ -332,9 +332,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             style={{
                                 width: 'var(--md-sys-spacing-10)',
                                 height: 'var(--md-sys-spacing-10)',
-                                /* eslint-disable md3-design-system */
+                                
                                 borderRadius: '50%',
-                                /* eslint-enable md3-design-system */
+                                
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -415,7 +415,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
                                             <label htmlFor={`kb-annual-${kb.id}`} style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: "flex-start", cursor: 'pointer' }} title={kb.fileName}>
-                                                {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined" style={{ /* eslint-disable md3-design-system */ fontSize: '1rem' /* eslint-enable md3-design-system */ }}>check</span>}
+                                                {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined" style={{  fontSize: '1rem'  }}>check</span>}
                                                 <span style={{ color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</span>
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                             </label>
@@ -610,14 +610,14 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <div style={{ gap: 'var(--md-sys-spacing-8)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', overflowY: "auto", paddingRight: 'var(--md-sys-spacing-4)', maxHeight: 'var(--md-sys-spacing-24)' }}>
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} style={{ position: 'relative' }}>
-                                        <div style={{ position: 'absolute', left: '-11px', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)', /* eslint-disable md3-design-system */ borderRadius: '50%' /* eslint-enable md3-design-system */, border: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-surface-container-low)', boxShadow: 'var(--md-sys-elevation-level-1)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
+                                        <div style={{ position: 'absolute', left: '-11px', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)',  borderRadius: '50%' , border: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-surface-container-low)', boxShadow: 'var(--md-sys-elevation-level-1)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                             <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)' }}>
                                                 {new Date(item.start).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })} - {new Date(item.end).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}
                                             </p>
                                             <h4 style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>{item.uda.title}</h4>
                                             <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
-                                                <span className="material-symbols-outlined" style={{ /* eslint-disable md3-design-system */ fontSize: "0.875rem" /* eslint-enable md3-design-system */ }}>schedule</span>
+                                                <span className="material-symbols-outlined" style={{  fontSize: "0.875rem"  }}>schedule</span>
                                                 <span>{item.uda.hours} ore stimate</span>
                                             </div>
                                         </div>
@@ -670,6 +670,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 };
 
 export default AnnualPlanningWizard;
+
 
 
 

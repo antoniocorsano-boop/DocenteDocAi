@@ -565,9 +565,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           width: 'var(--md-sys-spacing-4)',
                           height: 'var(--md-sys-spacing-4)',
                           backgroundColor: 'var(--md-sys-color-on-primary)',
-                          /* eslint-disable md3-design-system */
+                          
                           borderRadius: '50%',
-                          /* eslint-enable md3-design-system */
+                          
                           transition: 'left 0.2s ease'}}></div>
                       </div>
                     </div>
@@ -785,3 +785,4 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 };
 
 export default AnalyticsDashboard;
+

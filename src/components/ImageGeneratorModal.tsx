@@ -52,14 +52,14 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                     borderTop: '1px solid var(--md-sys-color-outline)',
                     paddingTop: '0'
                 }}>
-                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", /* eslint-disable md3-design-system */ fontSize: "0.75rem" /* eslint-enable md3-design-system */, textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
+                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "0.75rem" , textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
                     <M3Button 
                         onClick={handleSubmit} 
                         variant="filled" 
                         disabled={!prompt.trim()}
-                         style={{ fontWeight: "900", /* eslint-disable md3-design-system */ fontSize: "0.75rem" /* eslint-enable md3-design-system */, textTransform: "uppercase", letterSpacing: "0.1em" }}
+                         style={{ fontWeight: "900",  fontSize: "0.75rem" , textTransform: "uppercase", letterSpacing: "0.1em" }}
                     >
-                        <span  style={{ /* eslint-disable md3-design-system */ marginRight: "0.5rem", fontSize: "0.875rem" /* eslint-enable md3-design-system */ }}>auto_awesome</span>
+                        <span  style={{  marginRight: "0.5rem", fontSize: "0.875rem"  }}>auto_awesome</span>
                         Genera Immagine
                     </M3Button>
                 </M3DialogActions>
@@ -69,6 +69,7 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
 };
 
 export default ImageGeneratorModal;
+
 
 
 

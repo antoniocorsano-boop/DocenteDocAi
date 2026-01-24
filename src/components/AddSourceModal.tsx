@@ -1,6 +1,6 @@
 // MD3 Compliant - Block J Migration Complete (6 violations eliminated)
 // Note: height: '12rem' retained for functional drop zone UX (no exact MD3 token available)
-/* eslint-disable md3-design-system, md3-hardcoded-colors */
+
 
 import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
@@ -167,6 +167,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
 };
 
 export default AddSourceModal;
+
 
 
 

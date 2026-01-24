@@ -65,7 +65,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         <span style={{ color: 'var(--md-sys-color-on-tertiary)' }}>folder_shared</span>
                     </div>
                     <div>
-                        <h3  style={{/* eslint-disable md3-design-system */ fontSize: "1.125rem" /* eslint-enable md3-design-system */, color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</h3>
+                        <h3  style={{ fontSize: "1.125rem" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</h3>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
                     </div>
                 </div>
@@ -108,9 +108,9 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                         <div style={{
                                             width: 'var(--md-sys-spacing-10)',
                                             height: 'var(--md-sys-spacing-10)',
-                                            /* eslint-disable md3-design-system */
+                                            
                                             borderRadius: '50%',
-                                            /* eslint-enable md3-design-system */
+                                            
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
@@ -202,10 +202,10 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                     <div>
                                         <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  /* eslint-disable md3-design-system */ fontSize: "0.75rem" /* eslint-enable md3-design-system */ }}>Classe {student.classe}</p>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "0.75rem"  }}>Classe {student.classe}</p>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', /* eslint-disable md3-design-system */ borderRadius: "0.375rem", fontSize: "0.75rem" /* eslint-enable md3-design-system */, fontWeight: "bold"}}>
+                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)',  borderRadius: "0.375rem", fontSize: "0.75rem" , fontWeight: "bold"}}>
                                     Media: {grade}
                                 </div>
                             </div>
@@ -281,6 +281,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
 };
 
 export default DidatticaInclusiva;
+
 
 
 

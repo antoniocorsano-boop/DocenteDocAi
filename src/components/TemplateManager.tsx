@@ -234,3 +234,4 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
 */
 
 export default TemplateManager;
+

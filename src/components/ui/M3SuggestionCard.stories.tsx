@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Block G Migration (14 violations eliminated)
+// MD3 Compliant - Block G Migration (14 violations eliminated)
 // @legacy
 // @md3-noncompliant
 // @do-not-extend
@@ -72,3 +72,4 @@ export const CodeSuggestion: Story = {
     ),
   },
 };
+
