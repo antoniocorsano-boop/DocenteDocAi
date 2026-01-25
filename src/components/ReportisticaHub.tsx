@@ -410,112 +410,112 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
     };
 
     return (
-        <section
-            style={{
-                boxShadow: 'var(--md-sys-elevation-level1)',
-                padding: 'var(--md-sys-spacing-8)',
-                margin: 'var(--md-sys-spacing-8) auto 0 auto',
-                maxWidth: 'var(--md-sys-layout-max-width, 100vw)',
-                width: '100%'
-            }}
-        >
-            {/* HEADER */}
-            <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--md-sys-spacing-6)' }}>
-                <div>
-                    <M3Typography variant="headline-medium">Reportistica & Documenti</M3Typography>
-                    <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-                        Genera documentazione didattica, verbali e reportistica avanzata.
-                    </M3Typography>
-                </div>
-                <M3Button
-                    variant="tonal"
-                    aria-label="Export Massivo"
-                    startIcon={<span className="material-symbols-outlined">folder_zip</span>}
-                    onClick={() => setIsBatchExportOpen(true)}
-                >
-                    Export Massivo
-                </M3Button>
-            </header>
+        <>
+            <section
+                style={{
+                    boxShadow: 'var(--md-sys-elevation-level1)',
+                    padding: 'var(--md-sys-spacing-8)',
+                    margin: 'var(--md-sys-spacing-8) auto 0 auto',
+                    maxWidth: 'var(--md-sys-layout-max-width, 100vw)',
+                    width: '100%'
+                }}
+            >
+                {/* HEADER */}
+                <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--md-sys-spacing-6)' }}>
+                    <div>
+                        <M3Typography variant="headline-medium">Reportistica & Documenti</M3Typography>
+                        <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                            Genera documentazione didattica, verbali e reportistica avanzata.
+                        </M3Typography>
+                    </div>
+                    <M3Button
+                        variant="tonal"
+                        aria-label="Export Massivo"
+                        startIcon={<span className="material-symbols-outlined">folder_zip</span>}
+                        onClick={() => setIsBatchExportOpen(true)}
+                    >
+                        Export Massivo
+                    </M3Button>
+                </header>
 
-            {/* QUICK ACTIONS / RECENT */}
-            <section>
-                <SectionHeader
-                    title="Documentazione Didattica"
-                    subtitle="Seleziona la fase dell'anno scolastico"
-                    icon="auto_stories"
-                />
-                <TabGroup
-                    tabs={[
-                        { id: 'avvio', label: 'Avvio Anno', icon: 'rocket_launch' },
-                        { id: 'itinere', label: 'In Itinere', icon: 'trending_up' },
-                        { id: 'valutazione', label: 'Valutazione', icon: 'fact_check' },
-                        { id: 'chiusura', label: 'Chiusura', icon: 'task_alt' }
-                    ]}
-                    activeTab={activePhase}
-                    onTabChange={(id) => setActivePhase(id as DocPhase)}
-                />
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)' }}>
-                    {activeTemplates.map(template => (
-                        <ActionTile
-                            key={template.id}
-                            title={template.title}
-                            subtitle={template.subtitle}
-                            icon={template.icon}
-                            variant={template.variant}
-                            onClick={template.action}
-                        />
-                    ))}
-                </div>
-            </section>
+                {/* QUICK ACTIONS / RECENT */}
+                <section>
+                    <SectionHeader
+                        title="Documentazione Didattica"
+                        subtitle="Seleziona la fase dell'anno scolastico"
+                        icon="auto_stories"
+                    />
+                    <TabGroup
+                        tabs={[
+                            { id: 'avvio', label: 'Avvio Anno', icon: 'rocket_launch' },
+                            { id: 'itinere', label: 'In Itinere', icon: 'trending_up' },
+                            { id: 'valutazione', label: 'Valutazione', icon: 'fact_check' },
+                            { id: 'chiusura', label: 'Chiusura', icon: 'task_alt' }
+                        ]}
+                        activeTab={activePhase}
+                        onTabChange={(id) => setActivePhase(id as DocPhase)}
+                    />
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)' }}>
+                        {activeTemplates.map(template => (
+                            <ActionTile
+                                key={template.id}
+                                title={template.title}
+                                subtitle={template.subtitle}
+                                icon={template.icon}
+                                variant={template.variant}
+                                onClick={template.action}
+                            />
+                        ))}
+                    </div>
+                </section>
 
-            <section style={{ marginTop: 'var(--md-sys-spacing-8)' }}>
-                <SectionHeader title="Documenti Recenti" icon="history" />
-                <div style={{ gap: 'var(--md-sys-spacing-3)' }}>
-                    {recentDocs.length > 0 ? recentDocs.map(doc => (
-                        <InfoCard
-                            key={doc.id}
-                            title={doc.fileName.replace('.html', '')}
-                            icon="description"
-                            variant="surface"
-                            onClick={() => setViewingDoc(doc)}
-                        >
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'var(--md-sys-spacing-4)' }}>
-                                <M3Typography variant="body-small" style={{ opacity: 0.7 }}>
-                                    Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}
-                                </M3Typography>
-                                <M3Button variant="text" size="small" aria-label="Modifica documento" onClick={e => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</M3Button>
+                <section style={{ marginTop: 'var(--md-sys-spacing-8)' }}>
+                    <SectionHeader title="Documenti Recenti" icon="history" />
+                    <div style={{ gap: 'var(--md-sys-spacing-3)' }}>
+                        {recentDocs.length > 0 ? recentDocs.map(doc => (
+                            <InfoCard
+                                key={doc.id}
+                                title={doc.fileName.replace('.html', '')}
+                                icon="description"
+                                variant="surface"
+                                onClick={() => setViewingDoc(doc)}
+                            >
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'var(--md-sys-spacing-4)' }}>
+                                    <M3Typography variant="body-small" style={{ opacity: 0.7 }}>
+                                        Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}
+                                    </M3Typography>
+                                    <M3Button variant="text" size="small" aria-label="Modifica documento" onClick={e => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</M3Button>
+                                </div>
+                            </InfoCard>
+                        )) : (
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: 'center', opacity: 0.5 }}>
+                                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>drafts</span>
+                                <M3Typography variant="body-medium">Nessun documento generato di recente.</M3Typography>
                             </div>
-                        </InfoCard>
-                    )) : (
-                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: 'center', opacity: 0.5 }}>
-                            <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>drafts</span>
-                            <M3Typography variant="body-medium">Nessun documento generato di recente.</M3Typography>
-                        </div>
-                    )}
-                </div>
-            </section>
+                        )}
+                    </div>
+                </section>
 
-            {/* ARCHIVE */}
-            <section style={{ marginTop: 'var(--md-sys-spacing-8)' }}>
-                <SectionHeader title="Archivio Report" icon="inventory_2" />
-                <ArchivioReport
-                    reportistica={props.reportistica}
-                    onDeleteReport={props.onDeleteReport}
-                    onSaveReportToKb={report => {
-                        props.onAddKbEntry({
-                            id: `report-${Date.now()}`,
-                            fileName: report.file.name,
-                            content: report.file.content,
-                            category: 'Report',
-                            tags: ['AI', 'Report', report.contesto.tipo]
-                        });
-                    }}
-                />
+                {/* ARCHIVE */}
+                <section style={{ marginTop: 'var(--md-sys-spacing-8)' }}>
+                    <SectionHeader title="Archivio Report" icon="inventory_2" />
+                    <ArchivioReport
+                        reportistica={props.reportistica}
+                        onDeleteReport={props.onDeleteReport}
+                        onSaveReportToKb={report => {
+                            props.onAddKbEntry({
+                                id: `report-${Date.now()}`,
+                                fileName: report.file.name,
+                                content: report.file.content,
+                                category: 'Report',
+                                tags: ['AI', 'Report', report.contesto.tipo]
+                            });
+                        }}
+                    />
+                </section>
             </section>
-
             {/* --- MODALS & WIZARDS --- */}
             {renderWizardOverlay()}
-
             {isCouncilWizardOpen && (
                 <ConsiglioClasseWizard
                     onClose={() => setIsCouncilWizardOpen(false)}
@@ -528,7 +528,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     onSaveReport={props.onSaveReport}
                 />
             )}
-
             {wizard === 'planning' && (
                 <ClassPlanningWizard
                     onClose={() => setWizard(null)}
@@ -544,7 +543,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     pianiInclusione={props.pianiInclusione}
                 />
             )}
-
             {udaForReport && (
                 <UdaExportModal
                     onClose={() => setUdaForReport(null)}
@@ -555,7 +553,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     aiSettings={props.aiSettings}
                 />
             )}
-
             {isBatchExportOpen && (
                 <BatchExportWizard
                     onClose={() => setIsBatchExportOpen(false)}
@@ -569,7 +566,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     userClasses={props.userClasses}
                 />
             )}
-
             {/* --- SMART EDITOR OVERLAY --- */}
             {editorOpen && (
                 <SmartDocumentEditor
@@ -589,7 +585,6 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     }}
                 />
             )}
-
             {/* --- DOCUMENT VIEWER --- */}
             {viewingDoc && (
                 <DocumentViewerModal
@@ -607,7 +602,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     }}
                 />
             )}
-        </section>
+        </>
     );
 };
 
