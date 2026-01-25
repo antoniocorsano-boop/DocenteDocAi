@@ -1,4 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Gold Compliant
+// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
+// Audit: gennaio 2026
 import React, { useState, useMemo } from 'react';
 import { Slot, Lezione, TimetableSettings, AiSettings, Uda, KnowledgeBaseEntry, PianoInclusione, Studente } from '../types';
 import { M3ChoiceCard, InfoCard, SectionHeader, M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField, TextArea } from './ui';

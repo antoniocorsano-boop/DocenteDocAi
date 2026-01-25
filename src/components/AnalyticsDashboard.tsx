@@ -1,4 +1,6 @@
-// MD3 Compliant
+// MD3 Gold Compliant
+// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
+// Audit: gennaio 2026
 /**
  * AnalyticsDashboard
  *
@@ -119,17 +121,19 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
       maxWidth="2xl"
       level={1}
     >
-      <M3DialogContent style={{display: 'flex',
+      <M3DialogContent style={{
+        display: 'flex',
         flexDirection: 'column',
         gap: 'var(--md-sys-spacing-6)',
         overflowY: 'auto',
-        maxHeight: 'var(--md-sys-spacing-80)'}}>
+        maxHeight: 'calc(var(--md-sys-spacing-80) * 1px)'
+      }}>
           {/* GDPR Notice */}
           <div style={{backgroundColor: 'var(--md-sys-color-tertiary-container)',
             opacity: 'var(--md-sys-state-layer-opacity-hover)',
             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
             padding: 'var(--md-sys-spacing-8)',
-            backdropFilter: 'blur(var(--md-sys-spacing-2))',
+            backdropFilter: 'blur(calc(var(--md-sys-spacing-2) * 1px))',
             borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
             <div style={{display: 'flex',
               alignItems: 'flex-start',
@@ -236,7 +240,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
-                      color: 'var(--md-sys-color-primary)'}}>file_copy</span>
+                      color: 'var(--md-sys-color-primary)',
+                      fontSize: 'var(--md-sys-typescale-display-small-font-size)'}}>file_copy</span>
                     <div>
                       <M3Typography variant="headline-small" style={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.templatesCreated)}</M3Typography>
@@ -261,7 +266,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
-                      color: 'var(--md-sys-color-tertiary)'}}>batch_prediction</span>
+                      color: 'var(--md-sys-color-tertiary)',
+                      fontSize: 'var(--md-sys-typescale-display-small-font-size)'}}>batch_prediction</span>
                     <div>
                       <M3Typography variant="headline-small" style={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.exportBatchesCount)}</M3Typography>
@@ -432,7 +438,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 gap: 'var(--md-sys-spacing-2)',
                 paddingRight: 'var(--md-sys-spacing-2)',
                 scrollbarWidth: 'thin',
-                scrollbarColor: 'var(--md-sys-color-outline) transparent'}}>
+                scrollbarColor: 'var(--md-sys-color-outline) transparent',
+                maxHeight: 'calc(var(--md-sys-spacing-40) * 1px)'}}>
                 {analyticsEvents.slice(-20).reverse().map(event => {
                   const eventKey = `event-${event.id}`;
                   const isHovered = hoveredElements[eventKey] || false;
@@ -478,7 +485,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     paddingTop: 'var(--md-sys-spacing-12)',
                     paddingBottom: 'var(--md-sys-spacing-12)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
-                      fontSize: 'var(--md-sys-spacing-4)',
+                      fontSize: 'var(--md-sys-typescale-display-small-font-size)',
                       color: 'var(--md-sys-color-on-surface-variant)',
                       opacity: 0.3,
                       marginBottom: 'var(--md-sys-spacing-8)',

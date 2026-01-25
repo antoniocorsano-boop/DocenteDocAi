@@ -1,4 +1,7 @@
-// LEGACY - MD3 Non-compliant
+// MD3 GOLD COMPLIANT — AUDIT 2026-01-25
+// Tutti i valori di design (colori, spacing, tipografia, elevazione, shape) sono gestiti esclusivamente tramite token MD3 (`var(--md-sys-*)`).
+// Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
+// Audit e refactor completati: 2026-01-25.
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { 
     M3Button, 

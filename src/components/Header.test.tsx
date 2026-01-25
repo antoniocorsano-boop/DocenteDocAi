@@ -77,21 +77,24 @@ describe('Header M3 Expressive', () => {
     expect(logo).toBeInTheDocument();
   });
 
-  it('shows menu and avatar', () => {
+
+  it('shows avatar and settings', () => {
     renderWithM3Theme(<Header {...baseProps} />);
-    expect(screen.getByLabelText('Menu')).toBeInTheDocument();
-    expect(screen.getByText('RM')).toBeInTheDocument();
+    // Verifica presenza avatar (iniziali o immagine)
+    expect(screen.getByLabelText('Menu utente')).toBeInTheDocument();
+    expect(screen.getByLabelText('Impostazioni')).toBeInTheDocument();
   });
 
-  it('applies M3 tokens and accessibility', () => {
+  it('applies MD3 tokens and accessibility', () => {
     renderWithM3Theme(<Header {...baseProps} />);
     const header = screen.getByRole('banner');
-    // Check that header has proper MD3 styling (position: sticky, background color, etc.)
+    // Verifica presenza attributo role e alcuni stili MD3 effettivi
     expect(header).toHaveAttribute('role', 'banner');
     expect(header).toHaveStyle({
       position: 'sticky',
-      backgroundColor: 'var(--md-sys-color-surface-container-high)',
-      display: 'flex'
+      background: 'var(--md-sys-color-surface)',
+      display: 'flex',
+      boxShadow: 'var(--md-sys-elevation-level1)'
     });
   });
 });

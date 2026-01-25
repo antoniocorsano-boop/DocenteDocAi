@@ -1,4 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Gold Compliant
+// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
+// Audit: gennaio 2026
 import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types';
 import { TextField, SelectField, M3Button, Avatar } from './ui';

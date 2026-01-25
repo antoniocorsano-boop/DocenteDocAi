@@ -1,4 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Gold Compliant
+// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
+// Audit: gennaio 2026
 /**
  * KnowledgeBase.tsx
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.

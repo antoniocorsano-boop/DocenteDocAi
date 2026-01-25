@@ -1,5 +1,7 @@
-// LEGACY - MD3 Non-compliant
-// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// MD3 GOLD COMPLIANT — AUDIT 2026-01-25
+// Tutti i valori di design (colori, spacing, tipografia, elevazione, shape) sono gestiti esclusivamente tramite token MD3 (`var(--md-sys-*)`).
+// Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
+// Audit e refactor completati: 2026-01-25.
 // ...existing code...
 // ...existing code...
 import React from 'react';

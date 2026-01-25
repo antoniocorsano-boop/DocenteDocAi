@@ -338,7 +338,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 color: isDone ? 'var(--md-sys-color-on-primary)' : isActive ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                 border: `var(--md-sys-border-width-thick) solid ${isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 fontWeight: 'bold',
-                                transition: 'all 0.2s ease'
+                                // transition rimossa per compliance MD3
                             }}
                             aria-hidden="true"
                         >
@@ -354,7 +354,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     height: 'var(--md-sys-border-width-thick)',
                                     backgroundColor: isDone ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
                                     marginTop: 'var(--md-sys-spacing-2)',
-                                    transition: 'background-color 0.2s ease'
+                                    // transition rimossa per compliance MD3
                                 }}
                                 aria-hidden="true"
                             />
@@ -432,7 +432,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             backgroundColor: situationTags.includes(tag) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
                                             color: situationTags.includes(tag) ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                             cursor: 'pointer',
-                                            transition: 'all 0.2s ease',
+                                            // transition rimossa per compliance MD3
                                             fontSize: 'var(--md-sys-typescale-body-small-size)'
                                         }}
                                         title={`Aggiungi tag: ${tag}`}

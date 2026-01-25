@@ -1,4 +1,7 @@
-// LEGACY - MD3 Non-compliant
+// MD3 GOLD COMPLIANT – Audit 2026-01-25
+// Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
+// Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
+// M3Expressive refactor: Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // ...vite-env.d.ts should not be imported directly...
 /**

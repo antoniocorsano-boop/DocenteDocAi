@@ -14,6 +14,7 @@ interface M3SurfaceCardProps {
   role?: string;
   tabIndex?: number;
   'aria-label'?: string;
+  style?: React.CSSProperties; // MD3 compatibility shim
 }
 
 /**
@@ -32,24 +33,29 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   role,
   tabIndex,
   'aria-label': ariaLabel,
+  // elevation prop removed (was unused)
+  style,
 }) => {
   const [hovered, setHovered] = useState(false);
-  const { layers: { sys: { color: themeColor }, ref: { shape }, motion } } = useTheme();
+  const { layers } = useTheme();
+  const themeColor = layers.sys.colors;
+  const shape = layers.ref.shape;
+  const motion = layers.motion;
 
   const colorTokens: Record<string, { bg: string; fg: string }> = {
     primary: { bg: themeColor.primaryContainer, fg: themeColor.onPrimaryContainer },
     secondary: { bg: themeColor.secondaryContainer, fg: themeColor.onSecondaryContainer },
-    tertiary: { bg: themeColor.tertiaryContainer, fg: themeColor.onTertiaryContainer },
+    tertiary: { bg: themeColor.tertiary, fg: themeColor.onTertiary },
     surface: { bg: themeColor.surfaceContainerHigh, fg: themeColor.onSurface },
     surfaceVariant: { bg: themeColor.surfaceContainerLow, fg: themeColor.onSurfaceVariant }
   };
 
   const palette = colorTokens[color];
 
-  const baseStyle = {
+  const baseStyle: React.CSSProperties = {
     border: `var(--md-sys-border-width-normal) solid ${themeColor.outlineVariant}`,
-    borderRadius: shape.corner.large,
-    position: expressive ? 'relative' : undefined,
+    borderRadius: shape.large,
+    position: expressive ? ('relative' as React.CSSProperties['position']) : undefined,
     overflow: expressive ? 'hidden' : undefined,
     backdropFilter: glass ? 'blur(var(--md-sys-blur-large))' : undefined,
     WebkitBackdropFilter: glass ? 'blur(var(--md-sys-blur-large))' : undefined, // Safari support
@@ -77,6 +83,7 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
     ...interactiveStyle,
     ...glassStyle,
     color: palette.fg,
+    ...style,
   };
 
   return (
@@ -89,6 +96,7 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
       role={role}
       tabIndex={tabIndex}
       aria-label={ariaLabel}
+      // elevation prop intentionally ignored for MD3 compatibility
     >
       {children}
     </div>

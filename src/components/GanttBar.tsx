@@ -1,4 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Gold Compliant
+// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
+// Audit: gennaio 2026
 import React from 'react';
 import { Uda } from '../types';
 

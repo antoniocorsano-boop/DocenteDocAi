@@ -1,4 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Gold Compliant
+// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
+// Audit: gennaio 2026
 // M3Expressive: LoadingModal - Loading indicator modal with M3 tokens
 import React from 'react';
 import { M3Dialog, M3DialogContent } from './ui';

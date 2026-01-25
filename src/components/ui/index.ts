@@ -1,5 +1,6 @@
 // LEGACY - MD3 Non-compliant
 export { default as M3SurfaceCard } from './M3SurfaceCard';
+export { default as M3Surface } from './M3SurfaceCard';
 export { default as M3ExpressiveCard } from './M3ExpressiveCard';
 export { default as M3Button } from './M3Button';
 export { default as TextField } from './TextField';

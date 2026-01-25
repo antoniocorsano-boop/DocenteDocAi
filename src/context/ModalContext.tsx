@@ -154,8 +154,9 @@ const [stack, setStack] = useState<ModalInstance[]>([]);
       container.style.position = 'fixed';
       container.style.top = '0';
       container.style.left = '0';
-      container.style.width = '100%';
-      container.style.height = '100%';
+      // MD3 Exception: overlay/modal root must fill viewport, no MD3 token available
+      container.style.width = '100%'; // Exception documented
+      container.style.height = '100%'; // Exception documented
       container.style.pointerEvents = 'auto'; // Allow interactions when modals are present
       container.style.zIndex = Z_INDEX.modal.backdrop.toString(); // Use semantic z-index
       document.body.appendChild(container);
@@ -346,7 +347,8 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
         style={{
           position: 'absolute',
           inset: 0,
-          backdropFilter: 'blur(var(--md-sys-spacing-1))',
+          // MD3 Exception: backdrop blur, no token available
+          backdropFilter: 'blur(var(--md-sys-spacing-1))', // Exception documented
           animation: 'modal-fade-in 0.3s ease-out',
           zIndex: 1,
           backgroundColor: backdropOpacity === 'light'
@@ -366,8 +368,9 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
         style={{
           position: 'relative',
           zIndex: 10,
-          width: '100%',
-          height: '100%',
+          // MD3 Exception: modal content wrapper must fill container, no token available
+          width: '100%', // Exception documented
+          height: '100%', // Exception documented
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

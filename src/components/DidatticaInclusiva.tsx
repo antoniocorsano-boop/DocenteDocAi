@@ -236,47 +236,51 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     );
 
     return (
-        <div  style={{marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
-            <SectionHeader 
-                title="Didattica Inclusiva"
-                subtitle="Piani personalizzati (PDP/PEI) e monitoraggio assistito dall'AI"
-                 style={{ textAlign: "center" }}
-            />
-
-            <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                <div style={{
-  display: 'flex',
-  justifyContent: 'center'
-}}>
-                    <TabGroup
-                        activeTab={activeTab}
-                        onTabChange={(id) => setActiveTab(id)}
-                        variant="primary"
-                        tabs={[
-                            { id: 'overview', label: 'Panoramica', icon: 'grid_view' },
-                            { id: 'active', label: 'Piani Attivi', icon: 'description', badge: activePlansStudents.length > 0 ? activePlansStudents.length : undefined },
-                            { id: 'suggested', label: 'Da Attenzionare', icon: 'warning', badge: suggestedStudents.length > 0 ? suggestedStudents.length : undefined }
-                        ]}
+                <section
+                    style={{
+                        background: 'var(--md-sys-color-surface)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        boxShadow: 'var(--md-sys-elevation-level1)',
+                        padding: 'var(--md-sys-spacing-8)',
+                        margin: 'var(--md-sys-spacing-8) auto 0 auto',
+                        maxWidth: 1000,
+                        width: '100%'
+                    }}
+                >
+                    <SectionHeader
+                        title="Didattica Inclusiva"
+                        subtitle="Piani personalizzati (PDP/PEI) e monitoraggio assistito dall'AI"
+                        style={{ textAlign: 'center' }}
                     />
-                </div>
-
-                <div >
-                    {activeTab === 'overview' && renderOverview()}
-                    {activeTab === 'active' && renderActivePlans()}
-                    {activeTab === 'suggested' && renderSuggested()}
-                </div>
-            </div>
-
-            {editingStudent && (
-                <PianoInclusioneEditor
-                    {...props}
-                    student={editingStudent}
-                    existingPiano={pianiInclusione[editingStudent.id]}
-                    onClose={handleCloseEditor}
-                    onSave={onSavePiano}
-                />
-            )}
-        </div>
+                    <div style={{ marginTop: 'var(--md-sys-spacing-8)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <TabGroup
+                                activeTab={activeTab}
+                                onTabChange={id => setActiveTab(id)}
+                                variant="primary"
+                                tabs={[
+                                    { id: 'overview', label: 'Panoramica', icon: 'grid_view' },
+                                    { id: 'active', label: 'Piani Attivi', icon: 'description', badge: activePlansStudents.length > 0 ? activePlansStudents.length : undefined },
+                                    { id: 'suggested', label: 'Da Attenzionare', icon: 'warning', badge: suggestedStudents.length > 0 ? suggestedStudents.length : undefined }
+                                ]}
+                            />
+                        </div>
+                        <div style={{ marginTop: 'var(--md-sys-spacing-8)' }}>
+                            {activeTab === 'overview' && renderOverview()}
+                            {activeTab === 'active' && renderActivePlans()}
+                            {activeTab === 'suggested' && renderSuggested()}
+                        </div>
+                    </div>
+                    {editingStudent && (
+                        <PianoInclusioneEditor
+                            {...props}
+                            student={editingStudent}
+                            existingPiano={pianiInclusione[editingStudent.id]}
+                            onClose={handleCloseEditor}
+                            onSave={onSavePiano}
+                        />
+                    )}
+                </section>
     );
 };
 

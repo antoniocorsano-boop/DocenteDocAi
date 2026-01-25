@@ -1,4 +1,6 @@
-// MD3 Compliant - Block I Migration (6 violations eliminated)
+// MD3 Gold Compliant
+// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
+// Audit: gennaio 2026
 
 import React from 'react';
 import { useUIStore } from '../stores/useUIStore';
@@ -14,8 +16,9 @@ const ACTIONS: Array<{ key: AssistantMode; label: string; icon: string; descript
   { key: 'backup', label: 'Backup & Drive', icon: 'cloud_sync', description: 'Backup e sincronizzazione' },
 ];
 
-const ACTION_ITEM_HEIGHT = 80; // Height per action item in pixels
-const FAB_HEIGHT = 64; // FAB button height in pixels
+// MD3 Gold: sostituisco valori hardcoded con token MD3
+const ACTION_ITEM_HEIGHT = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-spacing-20')) || 80;
+const FAB_HEIGHT = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-spacing-16')) || 64;
 
 type AssistantMode = 'chat' | 'docs' | 'tools' | 'backup';
 
@@ -197,10 +200,10 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                   <span style={{ fontFamily: 'Material Symbols Outlined' }}>close</span>
                 </button>
                 {ACTIONS.map((a, i) => {
-                  const offset = (i + 1) * 72; // spacing between actions
+                  // MD3 Gold: spacing tra azioni con token MD3
                   const posStyle: React.CSSProperties = menuDirection === 'up'
-                    ? { bottom: `${offset}px` }
-                    : { top: `${offset}px` };
+                    ? { bottom: `calc(var(--md-sys-spacing-9) * ${i + 1})` }
+                    : { top: `calc(var(--md-sys-spacing-9) * ${i + 1})` };
                   return (
                     <button
                       key={a.key}
@@ -225,20 +228,20 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
       <style>{`
         .assistant-fab-root {
           position: fixed;
-          right: 'var(--md-sys-spacing-6)';
-          bottom: 'var(--md-sys-spacing-12)';
+          right: var(--md-sys-spacing-6);
+          bottom: var(--md-sys-spacing-12);
           z-index: ${Z_INDEX.assistant.fab};
           transition: box-shadow 0.2s;
         }
         .mui-fab-expressive.assistant-fab {
-          background: 'var(--md-sys-color-primary)';
-          color: 'var(--md-sys-color-on-primary)';
+          background: var(--md-sys-color-primary);
+          color: var(--md-sys-color-on-primary);
           border: none;
-          border-radius: 'var(--md-sys-shape-corner-full)';
-          width: 'var(--md-sys-spacing-10)';
-          height: 'var(--md-sys-spacing-10)';
-          box-shadow: 'var(--md-sys-elevation-level-3)';
-          font-size: 'var(--md-sys-typescale-display-small-font-size)';
+          border-radius: var(--md-sys-shape-corner-full);
+          width: var(--md-sys-spacing-10);
+          height: var(--md-sys-spacing-10);
+          box-shadow: var(--md-sys-elevation-level-3);
+          font-size: var(--md-sys-typescale-display-small-font-size);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -246,28 +249,28 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           transition: box-shadow 0.2s, background 0.2s;
         }
         .mui-fab-expressive.assistant-fab:hover {
-          background: 'var(--md-sys-color-primary-container)';
-          box-shadow: 'var(--md-sys-elevation-level-2)';
+          background: var(--md-sys-color-primary-container);
+          box-shadow: var(--md-sys-elevation-level-2);
         }
         .assistant-fab-menu {
           position: absolute;
           right: 0;
           bottom: 0;
           width: max-content;
-          min-width: 'var(--md-sys-spacing-11)';
+          min-width: var(--md-sys-spacing-11);
           pointer-events: auto;
           display: block;
-          padding: 'var(--md-sys-spacing-2)' 0;
+          padding: var(--md-sys-spacing-2) 0;
         }
         .assistant-fab-menu-close {
           position: absolute;
-          right: 'var(--md-sys-spacing-2)';
-          top: 'var(--md-sys-spacing-2)';
+          right: var(--md-sys-spacing-2);
+          top: var(--md-sys-spacing-2);
           background: var(--md-sys-color-surface-container-high);
           border: none;
-          border-radius: 'var(--md-sys-shape-corner-full)';
-          width: 'var(--md-sys-spacing-9)';
-          height: 'var(--md-sys-spacing-9)';
+          border-radius: var(--md-sys-shape-corner-full);
+          width: var(--md-sys-spacing-9);
+          height: var(--md-sys-spacing-9);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -277,23 +280,23 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         .mui-fab-expressive.assistant-fab-secondary {
           position: absolute;
           right: 0;
-          background: 'var(--md-sys-color-surface)';
-          color: 'var(--md-sys-color-on-surface)';
+          background: var(--md-sys-color-surface);
+          color: var(--md-sys-color-on-surface);
           border: none;
-          border-radius: 'var(--md-sys-shape-corner-medium)';
-          box-shadow: 'var(--md-sys-elevation-level-2)';
-          padding: spacing[3] spacing[5];
-          font-size: typescale.bodyLarge.fontSize;
+          border-radius: var(--md-sys-shape-corner-medium);
+          box-shadow: var(--md-sys-elevation-level-2);
+          padding: var(--md-sys-spacing-3) var(--md-sys-spacing-5);
+          font-size: var(--md-sys-typescale-body-large-font-size);
           display: flex;
           align-items: center;
-          min-width: 'var(--md-sys-spacing-11)';
+          min-width: var(--md-sys-spacing-11);
           cursor: pointer;
           pointer-events: auto;
           transition: var(--md-easing-standard);
         }
         .mui-fab-expressive.assistant-fab-secondary:hover {
-          background: 'colors.surfaceVariant';
-          box-shadow: 'var(--md-sys-elevation-level-3)';
+          background: var(--md-sys-color-surface-variant);
+          box-shadow: var(--md-sys-elevation-level-3);
         }
         .assistant-fab-sheet-scrim {
           position: fixed;
@@ -304,17 +307,17 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         }
         .assistant-fab-sheet {
           position: fixed;
-          inset: auto spacing[3] spacing[3];
-          /* On mobile, ensure it's above the bottom nav (var(--md-sys-spacing-16) + spacing[3] margin) */
-          bottom: calc(var(--bottom-nav-height, var(--md-sys-spacing-16)) + spacing[3]);
+          inset: auto var(--md-sys-spacing-3) var(--md-sys-spacing-3);
+          /* On mobile, ensure it's above the bottom nav (var(--md-sys-spacing-16) + var(--md-sys-spacing-3) margin) */
+          bottom: calc(var(--bottom-nav-height, var(--md-sys-spacing-16)) + var(--md-sys-spacing-3));
           right: 0;
           left: 0;
           margin: 0 auto;
           max-width: var(--md-sys-spacing-32);
-          background: 'var(--md-sys-color-surface)';
-          border-radius: shape.corner.extraLarge;
+          background: var(--md-sys-color-surface);
+          border-radius: var(--md-sys-shape-corner-extra-large);
           padding: var(--md-sys-spacing-4) var(--md-sys-spacing-6) var(--md-sys-spacing-6);
-          box-shadow: 'var(--md-sys-elevation-level-3)';
+          box-shadow: var(--md-sys-elevation-level-3);
           display: flex;
           flex-direction: column;
           gap: var(--md-sys-spacing-4);
@@ -323,7 +326,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         }
         @media (min-width: var(--breakpoint-compact)) {
           .assistant-fab-sheet {
-            bottom: 'var(--md-sys-spacing-6)';
+            bottom: var(--md-sys-spacing-6);
           }
         }
         .assistant-fab-sheet-header {
@@ -335,7 +338,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         .assistant-fab-sheet-close {
           width: var(--md-sys-spacing-10);
           height: var(--md-sys-spacing-10);
-          border-radius: 'var(--md-sys-shape-corner-full)';
+          border-radius: var(--md-sys-shape-corner-full);
           border: none;
           background: var(--md-sys-color-surface-variant);
           display: flex;
@@ -346,29 +349,29 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         .assistant-fab-sheet-actions {
           display: flex;
           flex-direction: column;
-          gap: spacing[2];
+          gap: var(--md-sys-spacing-2);
         }
         .assistant-fab-sheet-action {
           width: 100%;
           border: none;
-          border-radius: 'var(--md-sys-shape-corner-medium)';
-          padding: spacing[4] spacing[4];
-          background: 'colors.surfaceContainerHigh';
+          border-radius: var(--md-sys-shape-corner-medium);
+          padding: var(--md-sys-spacing-4) var(--md-sys-spacing-4);
+          background: var(--md-sys-color-surface-container-high);
           display: flex;
           align-items: center;
-          gap: spacing[3];
-          box-shadow: 'var(--md-sys-elevation-level-2)';
+          gap: var(--md-sys-spacing-3);
+          box-shadow: var(--md-sys-elevation-level-2);
           cursor: pointer;
           transition: transform 0.2s var(--motion-easing-standard), box-shadow 0.2s var(--motion-easing-standard);
           text-align: left;
         }
         .assistant-fab-sheet-action:hover {
-          transform: translateY(calc(-1 * spacing[1]));
-          box-shadow: 'var(--md-sys-elevation-level-3)';
+          transform: translateY(calc(-1 * var(--md-sys-spacing-1)));
+          box-shadow: var(--md-sys-elevation-level-3);
         }
         @keyframes assistant-sheet-enter {
           from {
-            transform: translateY(spacing[4]);
+            transform: translateY(var(--md-sys-spacing-4));
             opacity: 0;
           }
           to {

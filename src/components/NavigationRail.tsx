@@ -116,23 +116,30 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
     })
   };
 
-  const itemsContainerStyle: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    padding: 'var(--md-sys-spacing-2) 0', // Vertical padding
-    width: '100%',
-    alignItems: 'center',
-
-    // Desktop overrides
-    ...(isMobile ? {} : {
-      flexDirection: 'column',
-      gap: 'var(--md-sys-spacing-2)', // Item gap
-      paddingTop: 'var(--md-sys-spacing-4)', // Top padding
-      paddingBottom: 'var(--md-sys-spacing-4)', // Bottom padding
-      justifyContent: 'flex-start',
-    })
-  };
+  const itemsContainerStyle: React.CSSProperties = isMobile
+    ? {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        width: '100%',
+        paddingTop: 'var(--md-sys-spacing-2)',
+        paddingBottom: 'var(--md-sys-spacing-2)',
+        paddingLeft: 0,
+        paddingRight: 0,
+      }
+    : {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: '100%',
+        gap: 'var(--md-sys-spacing-2)',
+        paddingTop: 'var(--md-sys-spacing-4)',
+        paddingBottom: 'var(--md-sys-spacing-4)',
+        paddingLeft: 0,
+        paddingRight: 0,
+      };
 
   return (
     <>

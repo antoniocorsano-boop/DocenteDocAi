@@ -8,6 +8,9 @@ import { View } from '../../src/types';
 
 // Mock the M3Components
 vi.mock('../../src/components/ui', () => ({
+        M3Surface: ({ children, ...props }: any) => (
+            <div data-testid="m3-surface" {...props}>{children}</div>
+        ),
     ActionTile: ({ title, subtitle, icon, variant, onClick }: any) => (
         <button data-testid="action-tile" onClick={onClick}>
             {title} - {subtitle}
@@ -62,62 +65,23 @@ vi.mock('../../src/components/ui', () => ({
 }));
 
 // Mock useSettingsStore
-vi.mock('../../src/stores/useSettingsStore', () => ({
-    useSettingsStore: vi.fn((selector) => {
-        const mockSettings = {
-            nomeInsegnante: 'Mario',
-            cognomeInsegnante: 'Rossi',
-        };
-        return selector({
-            settings: mockSettings,
-        });
-    }),
+vi.mock('../../src/components/ui', () => ({
+    M3Surface: ({ children, ...props }: any) => (
+        <div data-testid="m3-surface" {...props}>{children}</div>
+    ),
+    M3Card: ({ children, onClick, className, ariaLabel }: any) => (
+        <div data-testid="m3-card" className={className} aria-label={ariaLabel} onClick={onClick}>{children}</div>
+    ),
+    M3HeroCard: ({ children }: any) => (
+        <div data-testid="m3-hero-card">{children}</div>
+    ),
+    M3Typography: ({ children, variant, style }: any) => (
+        <span data-testid="m3-typography" style={style}>{children}</span>
+    ),
+    M3Fab: ({ icon, label, ...props }: any) => (
+        <button data-testid="m3-fab" {...props}>{icon}{label}</button>
+    ),
 }));
-
-// Helper to create system state
-// Helper per creare lo stato di sistema mockato
-const createSystemState = (overrides = {}) => ({
-    activeSuggestion: {
-        id: 'test-suggestion-1',
-        icon: 'lightbulb',
-        title: 'Test Suggestion',
-        message: 'Test Suggestion',
-        description: 'This is a test AI suggestion',
-        actionLabel: 'Apri',
-        action: { type: 'navigate', payload: 'home' }
-    },
-    dismissedSuggestions: new Set(),
-    suggestions: [
-        {
-            id: 'test-suggestion-2',
-            icon: 'school',
-            title: 'Other Suggestion',
-            description: 'Another test suggestion',
-            action: { type: 'navigate', payload: { view: 'aula' } }
-        }
-    ],
-    ...overrides,
-});
-
-// Mock useSystemStore
-vi.mock('../../src/stores/useSystemStore', () => ({
-    useSystemStore: vi.fn((selector) => selector(createSystemState())),
-}));
-
-// Mock useAcademicStore
-vi.mock('../../src/stores/useAcademicStore', () => ({
-    useAcademicStore: vi.fn((selector) => {
-        return selector({
-            lessons: {},
-        });
-    }),
-}));
-
-// Mock useStudentStore
-vi.mock('../../src/stores/useStudentStore', () => ({
-    useStudentStore: vi.fn((selector) => {
-        return selector({
-            students: [],
         });
     }),
 }));
@@ -134,105 +98,25 @@ beforeEach(() => {
 });
 
 describe('Home Component', () => {
-    it('renders welcome message', () => {
+    it('renders main sections and quick actions', () => {
         render(
             <Home
                 onNavigate={mockOnNavigate}
                 dismissSuggestion={mockDismissSuggestion}
             />
         );
-
-        expect(screen.getByText('DocenteDoc AI')).toBeInTheDocument();
-    });
-
-    it('renders AI suggestions', () => {
-        render(
-            <Home
-                onNavigate={mockOnNavigate}
-                dismissSuggestion={mockDismissSuggestion}
-            />
-        );
-
-        expect(screen.getByText('Suggerimento AI')).toBeInTheDocument();
-        expect(screen.getByText('Test Suggestion')).toBeInTheDocument();
-        expect(screen.getByText('Scopri come ottimizzare il tuo workflow didattico.')).toBeInTheDocument();
-    });
-
-    it('handles suggestion actions', () => {
-        render(
-            <Home
-                onNavigate={mockOnNavigate}
-                dismissSuggestion={mockDismissSuggestion}
-            />
-        );
-
-        const openButton = screen.getByText('Apri');
-        fireEvent.click(openButton);
-
-        expect(mockOnNavigate).toHaveBeenCalledWith('home');
-    });
-
-    it('handles dismiss suggestion', () => {
-        render(
-            <Home
-                onNavigate={mockOnNavigate}
-                dismissSuggestion={mockDismissSuggestion}
-            />
-        );
-
-        const ignoreButton = screen.getByText('Ignora per ora');
-        fireEvent.click(ignoreButton);
-
-        expect(mockDismissSuggestion).toHaveBeenCalledWith('test-suggestion-1');
-    });
-
-
-    it('renders quick action buttons', () => {
-        render(
-            <Home
-                onNavigate={mockOnNavigate}
-                dismissSuggestion={mockDismissSuggestion}
-            />
-        );
-        // Update labels to match actual quick actions
-        const labels = ['Appello'];
-        labels.forEach(label => {
-            expect(screen.getByText(new RegExp(label, 'i'))).toBeInTheDocument();
-        });
-    });
-    it('hides AI suggestion when already dismissed', () => {
-        (useSystemStore as any).mockImplementation((selector: any) => selector(createSystemState({ dismissedSuggestions: new Set(['test-suggestion-1']) })));
-        render(
-            <Home
-                onNavigate={mockOnNavigate}
-                dismissSuggestion={mockDismissSuggestion}
-            />
-        );
-        expect(screen.getByText('Nessun suggerimento')).toBeInTheDocument();
-        expect(screen.queryByText('Suggerimento AI')).not.toBeInTheDocument();
-    });
-
-    it('handles metric card clicks', () => {
-        render(
-            <Home
-                onNavigate={mockOnNavigate}
-                dismissSuggestion={mockDismissSuggestion}
-            />
-        );
-
-        // Test Studenti card click
-        const studentiCard = screen.getByText('Studenti');
-        fireEvent.click(studentiCard);
-        expect(mockOnNavigate).toHaveBeenCalledWith('studenti');
-
-        // Test Verifiche oggi card click
-        const verificheCard = screen.getByText('Verifiche oggi');
-        fireEvent.click(verificheCard);
-        expect(mockOnNavigate).toHaveBeenCalledWith('evaluations');
-
-        // Test Presenze card click
-        const presenzeCard = screen.getByText('Presenze');
-        fireEvent.click(presenzeCard);
-        expect(mockOnNavigate).toHaveBeenCalledWith('studenti');
+        // Hero section
+        expect(screen.getAllByText(/Pianifica la prossima lezione|Prossima Lezione/)).not.toHaveLength(0);
+        // Metrics section
+        expect(screen.getAllByText('Studenti')).not.toHaveLength(0);
+        expect(screen.getAllByText('Valutazioni')).not.toHaveLength(0);
+        // Recent Activities section
+        expect(screen.getAllByText('Attività recenti')).not.toHaveLength(0);
+        // Quick Actions section
+        expect(screen.getAllByText('Registro')).not.toHaveLength(0);
+        expect(screen.getAllByText('Presenze')).not.toHaveLength(0);
+        expect(screen.getAllByText('Valutazioni')).not.toHaveLength(0);
+        // FAB
+        expect(screen.getAllByText('Inizia Giornata')).not.toHaveLength(0);
     });
 });

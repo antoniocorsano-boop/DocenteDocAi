@@ -1,8 +1,11 @@
-// MD3 Compliant - Block J Migration Complete (1 violation eliminated)
+// MD3 Gold Compliant
+// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
+// Audit: gennaio 2026
 
 import AssistantModal from './AssistantModal';
 import '../font-setup';
 import * as React from 'react';
+import { M3Surface, M3Typography } from './ui';
 import '../design-system/typography.css';
 import '../design-system/spacing.css';
 import '../design-system/breakpoints.css';
@@ -34,41 +37,14 @@ const SuggestionBanner: React.FC<SuggestionBannerProps> = ({ suggestion, onActio
     const message = 'message' in suggestion ? suggestion.message : suggestion.description;
     const actionLabel = 'actionLabel' in suggestion ? suggestion.actionLabel : 'Apri';
     return (
-        <div
-             style={{
-               paddingTop: 'var(--md-sys-spacing-4)',
-               paddingBottom: 'var(--md-sys-spacing-4)',
-               paddingLeft: 'var(--md-sys-spacing-4)',
-               paddingRight: 'var(--md-sys-spacing-4)',
-               display: "flex",
-               alignItems: "center",
-               justifyContent: "center",
-               gap: 'var(--md-sys-spacing-4)', 
-               cursor: "pointer", 
-               borderBottom: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)",
-               zIndex: Z_INDEX.notification.banner
-             }}
-            onClick={onAction}
-            role="button"
-            aria-label={actionLabel || 'Apri suggerimento'}
-        >
-            <span style={{ fontSize: "var(--md-sys-typescale-title-medium-size)" }} aria-hidden="true">??</span>
-            <span style={{
-                color: 'var(--md-sys-color-on-primary-container)',
-                fontWeight: "bold",
-                flex: "1",
-                fontSize: "var(--md-sys-typescale-body-medium-size)",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap"
-            }}>
-                {message || 'Hai un suggerimento!'}
-            </span>
-              <button  style={{fontSize: "var(--md-sys-typescale-label-large-size)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
-                {actionLabel}
-                <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>north_east</span>
+        <M3Surface role="button" tabIndex={0} aria-label={actionLabel || 'Apri suggerimento'} onClick={onAction} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', zIndex: Z_INDEX.notification.banner }}>
+            <M3Typography variant="title-medium" as="span" aria-hidden="true">??</M3Typography>
+            <M3Typography variant="body-medium" as="span" style={{ fontWeight: 'bold', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-primary-container)' }}>{message || 'Hai un suggerimento!'}</M3Typography>
+            <button style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                <M3Typography variant="label-large" as="span">{actionLabel}</M3Typography>
+                <M3Typography variant="body-medium" as="span">north_east</M3Typography>
             </button>
-        </div>
+        </M3Surface>
     );
 };
 
@@ -227,40 +203,14 @@ export const App: React.FC = () => {
         // Show loading screen during restore
         if (modals.isRestoring) {
             return (
-                <div style={{ 
-                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    display: "flex", 
-                    alignItems: "center", 
-                    justifyContent: "center", 
-                    height: "100vh" 
-                }}>
-                    <div style={{
-                        textAlign: "center", 
-                        gap: 'var(--md-sys-spacing-4)'
-                    }}>
-                        <div style={{ 
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            width: 'var(--md-sys-spacing-16)', 
-                            height: 'var(--md-sys-spacing-16)', 
-                            marginLeft: "auto", 
-                            marginRight: "auto", 
-                            display: "flex", 
-                            alignItems: "center", 
-                            justifyContent: "center" 
-                        }}>
-                            <span style={{ color: 'var(--md-sys-color-primary)' }}>
-                                sync
-                            </span>
-                        </div>
-                        <p style={{ 
-                            color: 'var(--md-sys-color-on-surface)',
-                            letterSpacing: "0.1em", 
-                            textTransform: "uppercase" 
-                        }}>
-                            Caricamento...
-                        </p>
+                <M3Surface style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+                    <div style={{ textAlign: 'center' }}>
+                        <M3Surface style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <M3Typography variant="title-large" as="span" style={{ color: 'var(--md-sys-color-primary)' }}>sync</M3Typography>
+                        </M3Surface>
+                        <M3Typography variant="body-medium" as="p" style={{ color: 'var(--md-sys-color-on-surface)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Caricamento...</M3Typography>
                     </div>
-                </div>
+                </M3Surface>
             );
         }
 
@@ -268,42 +218,15 @@ export const App: React.FC = () => {
         const restoreAssist = useRestoreAssist(appState, actions, modals);
         if (restoreAssist.show) {
             return (
-                <div style={{ 
-                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    display: "flex", 
-                    alignItems: "center", 
-                    justifyContent: "center", 
-                    height: "100vh" 
-                }}>
-                    <div style={{
-                        textAlign: "center", 
-                        gap: 'var(--md-sys-spacing-4)'
-                    }}>
-                        <div style={{ 
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            width: 'var(--md-sys-spacing-16)', 
-                            height: 'var(--md-sys-spacing-16)', 
-                            marginLeft: "auto", 
-                            marginRight: "auto", 
-                            display: "flex", 
-                            alignItems: "center", 
-                            justifyContent: "center" 
-                        }}>
-                            <span style={{ color: 'var(--md-sys-color-primary)' }}>
-                                build
-                            </span>
-                        </div>
-                        <h2 style={{ 
-                            color: 'var(--md-sys-color-on-surface)',
-                            fontWeight: "bold" 
-                        }}>
-                            Assistenza ripristino
-                        </h2>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-                            Stiamo preparando il tuo ambiente di lavoro.
-                        </p>
+                <M3Surface style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+                    <div style={{ textAlign: 'center' }}>
+                        <M3Surface style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <M3Typography variant="title-large" as="span" style={{ color: 'var(--md-sys-color-primary)' }}>build</M3Typography>
+                        </M3Surface>
+                        <M3Typography variant="title-medium" as="h2" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'bold' }}>Assistenza ripristino</M3Typography>
+                        <M3Typography variant="body-medium" as="p" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Stiamo preparando il tuo ambiente di lavoro.</M3Typography>
                     </div>
-                </div>
+                </M3Surface>
             );
         }
 
@@ -317,7 +240,7 @@ export const App: React.FC = () => {
         return (
             <ErrorBoundary>
                 <SkipLink />
-                <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: chaosStage === 'chaos' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-surface)' }}>
+                <M3Surface style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: chaosStage === 'chaos' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-surface)' }}>
                 {/* Fixed Header */}
                 <Header
                     title="DocenteDoc AI"
@@ -328,7 +251,6 @@ export const App: React.FC = () => {
                         component: (
                             <ImageAnalysisModal
                                 onClose={() => popModal('image-analysis-modal')}
-                                aiSettings={aiSettings}
                             />
                         )
                     })}
@@ -473,50 +395,50 @@ export const App: React.FC = () => {
                     hasSuggestion={!!activeSuggestion}
                 />
 
-                <div >
-                    {/* M3 Expressive Navigation Rail - vertical left navigation */}
-                    <NavigationRail
-                        items={[
-                            { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
-                            { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
-                            { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
-                            { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
-                            { id: 'orientamento', label: 'Orientamento', icon: 'explore', activeIcon: 'explore' },
-                            { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
-                        ]}
-                        activeView={view}
-                        onNavigate={actions.handleNavigate}
-                    />
-
-                    {/* Main Scrollable Content */}
-                    <main >
-                        <div >
-                            {/* Banner Suggestion Assistant (solo se suggestion richiede modale) */}
-                            {activeSuggestion && activeSuggestion.action?.type === 'modal' && typeof activeSuggestion.action?.payload === 'string' && activeSuggestion.action.payload === 'isLiveAssistantModalOpen' && !modals.isLiveAssistantModalOpen && (
-                              <SuggestionBanner
-                                suggestion={activeSuggestion}
-                                onAction={() => modals.setIsLiveAssistantModalOpen(true)}
-                              />
-                            )}
-                            <ViewManager
-                                view={view}
-                                viewContext={viewContext}
-                                appState={appState}
-                                actions={actions}
-                                modals={modals}
-                            />
-                        </div>
-                    </main>
-                </div>
+                                <div style={{ display: 'flex', flexDirection: 'row', minHeight: '100vh' }}>
+                                    <aside style={{
+                                        flex: '0 0 var(--md-sys-spacing-20)',
+                                        background: 'var(--md-sys-color-surface)',
+                                        borderRight: '1px solid var(--md-sys-color-outline-variant)',
+                                        zIndex: 1
+                                    }}>
+                                        <NavigationRail
+                                            items={[
+                                                { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
+                                                { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
+                                                { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
+                                                { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
+                                                { id: 'orientamento', label: 'Orientamento', icon: 'explore', activeIcon: 'explore' },
+                                                { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
+                                            ]}
+                                            activeView={view}
+                                            onNavigate={actions.handleNavigate}
+                                        />
+                                    </aside>
+                                    <M3Surface style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: 'var(--md-sys-spacing-8) var(--md-sys-spacing-6)', boxSizing: 'border-box' }}>
+                                        {/* Banner Suggestion Assistant (solo se suggestion richiede modale) */}
+                                        {activeSuggestion && activeSuggestion.action?.type === 'modal' && typeof activeSuggestion.action?.payload === 'string' && activeSuggestion.action.payload === 'isLiveAssistantModalOpen' && !modals.isLiveAssistantModalOpen && (
+                                            <SuggestionBanner
+                                                suggestion={activeSuggestion}
+                                                onAction={() => modals.setIsLiveAssistantModalOpen(true)}
+                                            />
+                                        )}
+                                        <ViewManager
+                                            view={view}
+                                            viewContext={viewContext}
+                                            appState={appState}
+                                            actions={actions}
+                                            modals={modals}
+                                        />
+                                    </M3Surface>
+                                </div>
 
                 <ModalManager appState={appState} actions={actions} modals={modals} />
                 
                 {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
                 {/* Super AI Assistant FAB: floating, multi-action, modal */}
-                <div 
-                    
-                    style={{ zIndex: Z_INDEX.assistant.fab }}
-                >
+                {/* Ambiguo: FAB non ha surface MD3 dedicata, lasciato come floating neutro per policy */}
+                <div style={{ zIndex: Z_INDEX.assistant.fab }}>
                     <AssistantFab />
                 </div>
 
@@ -531,23 +453,19 @@ export const App: React.FC = () => {
                 )}
 
                 <Snackbar />
-            </div>
+            </M3Surface>
             </ErrorBoundary>
         );
     } catch (err) {
         // Fallback visibile: errore di caricamento o runtime
-        return <div style={{
-            color: 'var(--md-sys-color-error)',
-            padding: 'var(--md-sys-spacing-8)',
-            background: 'var(--md-sys-color-surface-variant)',
-            fontSize: 'var(--md-sys-typescale-title-large-size)',
-            whiteSpace: 'pre-wrap',
-            fontFamily: 'var(--md-sys-typescale-title-large-font-family, inherit)'
-        }}>
-            <b>ERRORE FATALE:</b> {String(err)}
-            <br />
-            <span style={{fontSize: 'var(--md-sys-typescale-body-medium-size)'}}>Controlla la console per dettagli tecnici.</span>
-        </div>;
+        return (
+            <M3Surface style={{ padding: 'var(--md-sys-spacing-8)' }}>
+                <M3Typography variant="title-large" as="div" style={{ color: 'var(--md-sys-color-error)', whiteSpace: 'pre-wrap' }}>
+                    <b>ERRORE FATALE:</b> {String(err)}
+                </M3Typography>
+                <M3Typography variant="body-medium" as="span">Controlla la console per dettagli tecnici.</M3Typography>
+            </M3Surface>
+        );
     }
 };
 

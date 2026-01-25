@@ -1,4 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Gold Compliant
+// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
+// Audit: gennaio 2026
 import React, { useState } from 'react';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
 interface DocumentGeneratorModalProps {
