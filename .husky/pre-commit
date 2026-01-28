@@ -43,3 +43,101 @@ if [ -n "$STAGED_FILES" ]; then
 else
     echo "ℹ️  No TSX/TS components staged - skipping MD3 compliance check"
 fi
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PHASE 4 - STEP 4: Z-INDEX GOVERNANCE ENFORCEMENT
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo ""
+echo "🔍 Running MD3 Z-INDEX Governance Audit..."
+
+node ./scripts/md3-zindex-audit.cjs
+
+ZINDEX_EXIT_CODE=$?
+
+if [ $ZINDEX_EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo "❌ MD3 Z-INDEX GOVERNANCE FAILED"
+    echo "🚫 COMMIT BLOCKED: Numeric z-index values detected"
+    echo ""
+    echo "📖 All z-index must use MD3 tokens: var(--md-sys-z-*)"
+    echo "📘 See: docs/MD3_Z_INDEX_GOVERNANCE.md"
+    exit 1
+fi
+
+echo "✅ Z-INDEX Governance check passed!"
+echo ""
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PHASE 5 - MOTION & DURATION GOVERNANCE ENFORCEMENT
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo "🔍 Running MD3 MOTION Governance Audit..."
+
+node ./scripts/md3-motion-audit.cjs
+
+MOTION_EXIT_CODE=$?
+
+if [ $MOTION_EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo "❌ MD3 MOTION GOVERNANCE FAILED"
+    echo "🚫 COMMIT BLOCKED: Hardcoded motion/duration values detected"
+    echo ""
+    echo "📖 All motion must use MD3 tokens: var(--md-sys-motion-*)"
+    echo "📘 See: docs/MD3_MOTION_GOVERNANCE.md"
+    exit 1
+fi
+
+echo "✅ MOTION Governance check passed!"
+echo ""
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PHASE 6 - COMPONENT CONTRACT ENFORCEMENT
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo "🔍 Running MD3 COMPONENT CONTRACT Audit..."
+
+node ./scripts/md3-component-contract-audit.cjs
+
+COMPONENT_EXIT_CODE=$?
+
+if [ $COMPONENT_EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo "❌ MD3 COMPONENT CONTRACT FAILED"
+    echo "🚫 COMMIT BLOCKED: Component-level violations detected"
+    echo ""
+    echo "📖 Components must not use inline styles or forbidden props"
+    echo "📘 See: docs/MD3_COMPONENT_CONTRACTS.md"
+    exit 1
+fi
+
+echo "✅ COMPONENT CONTRACT check passed!"
+echo ""
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PHASE 7 - THEME & TOKEN ENFORCEMENT
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo "🔍 Running MD3 THEME Audit..."
+
+node ./scripts/md3-theme-audit.cjs
+
+THEME_EXIT_CODE=$?
+
+if [ $THEME_EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo "❌ MD3 THEME GOVERNANCE FAILED"
+    echo "🚫 COMMIT BLOCKED: Hardcoded theme values detected"
+    echo ""
+    echo "📖 All colors, spacing, typography must use MD3 tokens"
+    echo "📘 See: MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md"
+    exit 1
+fi
+
+echo "✅ THEME Governance check passed!"
+echo ""
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PRE-COMMIT SUMMARY
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "✅ ALL MD3 GOVERNANCE CHECKS PASSED"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "🔒 Commit is MD3 COMPLIANT — proceeding..."
+echo ""

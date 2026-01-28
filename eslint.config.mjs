@@ -10,6 +10,10 @@ import enforceTokenUsage from "./eslint-rules/enforce-token-usage.js";
 import noNewCssFiles from "./eslint-rules/no-new-css-files.js";
 import noClassname from "./eslint-rules/no-classname.js";
 import noTailwindClasses from "./eslint-rules/no-tailwind-classes.js";
+import noHardcodedLayoutValues from "./eslint-rules/no-hardcoded-layout-values.js";
+import noNumericZindex from "./eslint-rules/no-numeric-zindex.js";
+import noHardcodedMotionValues from "./eslint-rules/no-hardcoded-motion-values.mjs";
+import noInvalidComponentProps from "./eslint-rules/no-invalid-component-props.mjs";
 
 export default defineConfig([
   {
@@ -108,16 +112,24 @@ export default defineConfig([
           'enforce-token-usage': enforceTokenUsage,
           'no-new-css-files': noNewCssFiles,
           'no-classname': noClassname,
-          'no-tailwind-classes': noTailwindClasses
+          'no-tailwind-classes': noTailwindClasses,
+          'no-hardcoded-layout-values': noHardcodedLayoutValues,
+          'no-numeric-zindex': noNumericZindex,
+          'no-hardcoded-motion-values': noHardcodedMotionValues,
+          'no-invalid-component-props': noInvalidComponentProps
         }
       }
     },
     rules: {
       'design-system/no-hardcoded-colors': 'error',
-      'design-system/enforce-token-usage': 'warn',
+      'design-system/enforce-token-usage': 'error',
       'design-system/no-new-css-files': 'warn',
       'design-system/no-classname': 'error',
       'design-system/no-tailwind-classes': 'error',
+      'design-system/no-hardcoded-layout-values': 'error',
+      'design-system/no-numeric-zindex': 'error',
+      'design-system/no-hardcoded-motion-values': 'error',
+      'design-system/no-invalid-component-props': 'error',
       // MUI restriction removed - migration complete (Phase 3, 2026-01-06)
       // Previously blocked @mui/material, @emotion/react, @emotion/styled
       // All components now use custom M3 implementation (see PHASE_3_MIGRATION_COMPLETE.md)

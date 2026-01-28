@@ -152,6 +152,8 @@
   --z-modal: 1400;
   --z-toast: 2000;
   --z-tooltip: 3000;
+  --z-assistant-fab: 1300;
+  --z-assistant-modal: 2200;
 
   /* ===========================================
      MD3 SPACING SCALE (Expressive Philosophy)
@@ -183,6 +185,24 @@
   --md-sys-spacing-42: 168px; /* 672px - dialog max-w-2xl */
   --md-sys-spacing-56: 224px; /* 896px - dialog max-w-4xl */
   --md-sys-spacing-80: 320px; /* 1280px - dialog fullscreen max */
+
+  /* Flex values */
+  --md-sys-flex-none: 0 0 auto;
+  --md-sys-flex-auto: 1 1 auto;
+  --md-sys-flex-grow: 1 0 auto;
+
+  /* Grid fractional units */
+  --md-sys-grid-fr-1: 1fr;
+  --md-sys-grid-fr-2: 2fr;
+  --md-sys-grid-fr-3: 3fr;
+  --md-sys-grid-fr-4: 4fr;
+
+  /* Viewport units */
+  --md-sys-viewport-height-full: 100vh;
+  --md-sys-viewport-width-full: 100vw;
+
+  /* Margin auto */
+  --md-sys-margin-auto: auto;
 
   /* ===========================================
      MD3 BLUR/ELEVATION SCALE (Expressive)
@@ -222,7 +242,7 @@
   --md-sys-radius-5: var(--md-sys-spacing-5);
   --md-sys-radius-6: var(--md-sys-spacing-6);
   --md-sys-radius-7: var(--md-sys-spacing-7);
-  --md-sys-radius-full: var(--md-sys-radius-full);
+  --md-sys-radius-full: 9999px;
 
   /* ===========================================
      MD3 TYPOGRAPHY SCALE (Expressive - Complete)
@@ -302,17 +322,17 @@
      =========================================== */
   --md-sys-layout-grid-min: 150px;
   --md-sys-layout-grid-min-wide: 200px;
-  --md-sys-layout-card-width: var(--md-sys-layout-card-width);
-  --md-sys-layout-card-min-height: var(--md-sys-layout-card-min-height);
-  --md-sys-layout-avatar-size: var(--md-sys-layout-avatar-size);
-  --md-sys-layout-fab-size: var(--md-sys-layout-fab-size);
-  --md-sys-layout-button-min-width: var(--md-sys-layout-button-min-width);
-  --md-sys-layout-popup-min-width: var(--md-sys-layout-popup-min-width);
+  --md-sys-layout-card-width: 300px;
+  --md-sys-layout-card-min-height: 200px;
+  --md-sys-layout-avatar-size: 40px;
+  --md-sys-layout-fab-size: 56px;
+  --md-sys-layout-button-min-width: 64px;
+  --md-sys-layout-popup-min-width: 120px;
   --md-sys-layout-panel-max-width: 800px;
   --md-sys-layout-dropzone-height: 192px;
   --md-sys-layout-timetable-cell-min-height: var(--md-sys-spacing-15);
   --md-sys-layout-workflow-card-min-width: var(--md-sys-spacing-12);
-  --md-sys-layout-120: var(--md-sys-layout-popup-min-width);
+  --md-sys-layout-120: 120px;
 
   /* ===========================================
      MD3 PERCENTAGE TOKENS (Expressive - Common Values)
@@ -358,14 +378,16 @@
   /* ===========================================
      MD3 BORDER WIDTH TOKENS (Expressive)
      =========================================== */
-  --md-sys-border-width-thin: 0.var(--md-sys-spacing-2);
-  --md-sys-border-width-normal: var(--md-sys-spacing-0);
-  --md-sys-border-width-thick: var(--md-sys-spacing-1);
+  --md-sys-border-width-none: 0px;
+  --md-sys-border-width-thin: 1px;
+  --md-sys-border-width-normal: 1px;
+  --md-sys-border-width-medium: 2px;
+  --md-sys-border-width-thick: 4px;
 
   /* ===========================================
      MD3 SPECIAL TOKENS (Expressive - Edge Cases)
      =========================================== */
-  --md-sys-special-viewport-height: calc(var(--md-sys-spacing-15) - var(--md-sys-border-width-thin)); /* var(--md-sys-special-viewport-height) - anti-scrollbar */
+  --md-sys-special-viewport-height: calc(var(--md-sys-spacing-15) - var(--md-sys-border-width-thin));
 
 /* --- VISUAL STYLES OVERRIDES --- */
 
@@ -553,55 +575,55 @@
   --typography-title-medium-fontFamily: 'Roboto Flex', sans-serif;
   --typography-title-medium-fontWeight: 500;
   --typography-title-medium-lineHeight: var(--md-sys-spacing-6);
-  --typography-title-medium-letterSpacing: var(--md-sys-border-width-thin);
+  --typography-title-medium-letterSpacing: 0.1px;
   
   /* Title Small */
   --typography-title-small-fontSize: var(--md-sys-typescale-body-medium-font-size);
   --typography-title-small-fontFamily: 'Roboto Flex', sans-serif;
   --typography-title-small-fontWeight: 500;
   --typography-title-small-lineHeight: var(--md-sys-spacing-5);
-  --typography-title-small-letterSpacing: 0.var(--md-sys-spacing-0);
+  --typography-title-small-letterSpacing: 0px;
   
   /* Body Large */
   --typography-body-large-fontSize: var(--md-sys-spacing-4);
   --typography-body-large-fontFamily: 'Roboto Flex', sans-serif;
   --typography-body-large-fontWeight: 400;
   --typography-body-large-lineHeight: var(--md-sys-spacing-6);
-  --typography-body-large-letterSpacing: var(--md-sys-border-width-thin);
+  --typography-body-large-letterSpacing: 0.5px;
   
   /* Body Medium */
   --typography-body-medium-fontSize: var(--md-sys-typescale-body-medium-font-size);
   --typography-body-medium-fontFamily: 'Roboto Flex', sans-serif;
   --typography-body-medium-fontWeight: 400;
   --typography-body-medium-lineHeight: var(--md-sys-spacing-5);
-  --typography-body-medium-letterSpacing: 0.var(--md-sys-blur-25);
+  --typography-body-medium-letterSpacing: 0.5px;
   
   /* Body Small */
   --typography-body-small-fontSize: var(--md-sys-spacing-3);
   --typography-body-small-fontFamily: 'Roboto Flex', sans-serif;
   --typography-body-small-fontWeight: 400;
   --typography-body-small-lineHeight: var(--md-sys-spacing-4);
-  --typography-body-small-letterSpacing: 0.var(--md-sys-spacing-1);
+  --typography-body-small-letterSpacing: 0.4px;
   /* Label Large */
   --typography-label-large-fontSize: var(--md-sys-typescale-body-medium-font-size);
   --typography-label-large-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-large-fontWeight: 500;
   --typography-label-large-lineHeight: var(--md-sys-spacing-5);
-  --typography-label-large-letterSpacing: 0.var(--md-sys-spacing-0);
+  --typography-label-large-letterSpacing: 0.5px;
   
   /* Label Medium */
   --typography-label-medium-fontSize: var(--md-sys-spacing-3);
   --typography-label-medium-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-medium-fontWeight: 500;
   --typography-label-medium-lineHeight: var(--md-sys-spacing-4);
-  --typography-label-medium-letterSpacing: var(--md-sys-border-width-thin);
+  --typography-label-medium-letterSpacing: 0.5px;
   
   /* Label Small */
   --typography-label-small-fontSize: var(--md-sys-typescale-label-large-font-size);
   --typography-label-small-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-small-fontWeight: 500;
   --typography-label-small-lineHeight: var(--md-sys-spacing-4);
-  --typography-label-small-letterSpacing: var(--md-sys-border-width-thin);
+  --typography-label-small-letterSpacing: 0.5px;
 
   /* Forme M3 - LEGACY (DEPRECATED) */
   /* ?? DO NOT USE - Use --md-sys-shape-corner-* instead */
@@ -630,26 +652,58 @@
   --aura-gradient: linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%);
   
   /* Motion Tokens M3 Expressive */
-  /* Easing Curves */
-  --motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --motion-easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
-  --motion-easing-accelerate: cubic-bezier(0.4, 0, 1, 1);
-  --motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
-  --motion-easing-expressive: cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     MD3 MOTION SYSTEM — GOVERNANCE TOKENS (FASE 5)
+     Definiti secondo Material Design 3 Motion Principles
+     https://m3.material.io/styles/motion/overview
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+  /* --- MD3 DURATION TOKENS ---
+     Semantic naming aligned to M3 motion patterns
+     short:      quick micro-interactions (hover, ripple, chip)
+     medium:     standard UI transitions (dialog, card, tooltip)
+     long:       emphasized motion (drawer, navigation, modal)
+     extra-long: decorative/hero animations (page transitions)
+  */
+  --md-sys-motion-duration-short: 100ms;      /* Micro-interactions */
+  --md-sys-motion-duration-medium: 250ms;     /* Standard transitions */
+  --md-sys-motion-duration-long: 400ms;       /* Emphasized motion */
+  --md-sys-motion-duration-extra-long: 600ms; /* Hero animations */
+
+  /* --- MD3 EASING TOKENS ---
+     Aligned to Material Design 3 easing specifications
+     standard:     general-purpose, balanced motion
+     emphasized:   exaggerated deceleration (enters/exits)
+     decelerated:  gentle slowdown (entrances)
+     accelerated:  quick exit (disappearances)
+  */
+  --md-sys-motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);     /* Standard easing */
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);     /* Emphasized (M3 signature) */
+  --md-sys-motion-easing-decelerated: cubic-bezier(0, 0, 0.2, 1);    /* Deceleration curve */
+  --md-sys-motion-easing-accelerated: cubic-bezier(0.4, 0, 1, 1);    /* Acceleration curve */
+
+  /* --- LEGACY TOKENS (DEPRECATED) ---
+     Maintained for backward compatibility during Phase 5 migration
+     ⚠️ DO NOT USE IN NEW CODE — WILL BE REMOVED IN PHASE 6
+  */
+  --motion-easing-standard: var(--md-sys-motion-easing-standard);
+  --motion-easing-decelerate: var(--md-sys-motion-easing-decelerated);
+  --motion-easing-accelerate: var(--md-sys-motion-easing-accelerated);
+  --motion-easing-emphasized: var(--md-sys-motion-easing-emphasized);
+  --motion-easing-expressive: cubic-bezier(0.34, 1.56, 0.64, 1); /* Non-MD3 expressive (opt-in only) */
   
-  /* Duration Tokens (milliseconds) */
-  --motion-duration-short1: 50ms;
-  --motion-duration-short2: 100ms;
-  --motion-duration-short3: 150ms;
-  --motion-duration-short4: 200ms;
-  --motion-duration-medium1: 250ms;
-  --motion-duration-medium2: 300ms;
-  --motion-duration-medium3: 350ms;
-  --motion-duration-medium4: 400ms;
-  --motion-duration-long1: 450ms;
-  --motion-duration-long2: 500ms;
-  --motion-duration-long3: 550ms;
-  --motion-duration-long4: 600ms;
+  --motion-duration-short1: var(--md-sys-motion-duration-short);
+  --motion-duration-short2: var(--md-sys-motion-duration-short);
+  --motion-duration-short3: var(--md-sys-motion-duration-medium);
+  --motion-duration-short4: var(--md-sys-motion-duration-medium);
+  --motion-duration-medium1: var(--md-sys-motion-duration-medium);
+  --motion-duration-medium2: var(--md-sys-motion-duration-long);
+  --motion-duration-medium3: var(--md-sys-motion-duration-long);
+  --motion-duration-medium4: var(--md-sys-motion-duration-long);
+  --motion-duration-long1: var(--md-sys-motion-duration-long);
+  --motion-duration-long2: var(--md-sys-motion-duration-extra-long);
+  --motion-duration-long3: var(--md-sys-motion-duration-extra-long);
+  --motion-duration-long4: var(--md-sys-motion-duration-extra-long);
   
   /* Icon Size Tokens */
   --icon-size-small: var(--md-sys-spacing-5);        /* Extra small icons (compact UI) */

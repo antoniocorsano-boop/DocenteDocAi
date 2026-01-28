@@ -1,0 +1,255 @@
+name: MD3 CI/CD Gate — PHASE 7
+
+on:
+  push:
+    branches: [ main, develop, feature/** ]
+    paths:
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+      - 'src/**/*.css'
+      - 'src/**/*.jsx'
+      - 'src/**/*.js'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+      - 'src/**/*.css'
+      - 'src/**/*.jsx'
+      - 'src/**/*.js'
+
+jobs:
+  md3-audit:
+    name: MD3 Governance Audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🎨 Run MD3 Theme Audit
+        id: theme-audit
+        run: npm run md3:theme:audit
+        continue-on-error: true
+
+      - name: 🎬 Run MD3 Motion Audit
+        id: motion-audit
+        run: npm run md3:motion:audit
+        continue-on-error: true
+
+      - name: 🧩 Run MD3 Component Contract Audit
+        id: component-audit
+        run: npm run md3:component:audit
+        continue-on-error: true
+
+      - name: 📊 Generate Audit Summary
+        if: always()
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >> $GITHUB_STEP_SUMMARY
+          echo "# 🔒 MD3 Governance Audit Report" >> $GITHUB_STEP_SUMMARY
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.theme-audit.outcome }}" == "success" ]; then
+            echo "✅ **Theme Audit**: PASSED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Theme Audit**: FAILED" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ steps.motion-audit.outcome }}" == "success" ]; then
+            echo "✅ **Motion Audit**: PASSED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Motion Audit**: FAILED" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ steps.component-audit.outcome }}" == "success" ]; then
+            echo "✅ **Component Contract Audit**: PASSED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Component Contract Audit**: FAILED" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📋 Detailed Reports" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Violation reports have been generated and uploaded as artifacts." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📖 Documentation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- [MD3 Governance Contract](MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md)" >> $GITHUB_STEP_SUMMARY
+          echo "- [MD3 Motion Governance](docs/MD3_MOTION_GOVERNANCE.md)" >> $GITHUB_STEP_SUMMARY
+          echo "- [MD3 Component Contracts](docs/MD3_COMPONENT_CONTRACTS.md)" >> $GITHUB_STEP_SUMMARY
+
+      - name: 📤 Upload Theme Violations Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: theme-violations
+          path: audit/theme-violations.json
+          if-no-files-found: ignore
+
+      - name: 📤 Upload Motion Violations Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: motion-violations
+          path: audit/motion-violations.json
+          if-no-files-found: ignore
+
+      - name: 📤 Upload Component Violations Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: component-violations
+          path: reports/md3-component-contract-violations.json
+          if-no-files-found: ignore
+
+      - name: 💬 Comment PR with Audit Results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            let body = '## 🔒 MD3 Governance Audit Report\n\n';
+            
+            const themeAudit = '${{ steps.theme-audit.outcome }}';
+            const motionAudit = '${{ steps.motion-audit.outcome }}';
+            const componentAudit = '${{ steps.component-audit.outcome }}';
+            
+            const allPassed = themeAudit === 'success' && motionAudit === 'success' && componentAudit === 'success';
+            
+            if (allPassed) {
+              body += '### ✅ ALL AUDITS PASSED\n\n';
+              body += 'This PR is **MD3 COMPLIANT** and can be merged.\n\n';
+            } else {
+              body += '### ❌ VIOLATIONS DETECTED\n\n';
+              body += 'This PR **BLOCKS MERGE** due to MD3 governance violations.\n\n';
+            }
+            
+            body += '#### Audit Results:\n\n';
+            body += `- ${themeAudit === 'success' ? '✅' : '❌'} **Theme Audit** (colors, spacing, typography)\n`;
+            body += `- ${motionAudit === 'success' ? '✅' : '❌'} **Motion Audit** (transitions, animations)\n`;
+            body += `- ${componentAudit === 'success' ? '✅' : '❌'} **Component Contract Audit** (inline styles, props)\n\n`;
+            
+            if (!allPassed) {
+              body += '#### 🛠️ How to Fix:\n\n';
+              body += '1. Download violation reports from workflow artifacts\n';
+              body += '2. Review violations in detail\n';
+              body += '3. Replace hardcoded values with MD3 tokens (`var(--md-sys-*)`)\n';
+              body += '4. Run local audits: `npm run md3:audit:all`\n';
+              body += '5. Commit fixes and push\n\n';
+              
+              body += '#### 📖 Documentation:\n\n';
+              body += '- [MD3 Governance Contract](../blob/main/MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md)\n';
+              body += '- [MD3 Motion Governance](../blob/main/docs/MD3_MOTION_GOVERNANCE.md)\n';
+              body += '- [MD3 Component Contracts](../blob/main/docs/MD3_COMPONENT_CONTRACTS.md)\n\n';
+            }
+            
+            body += '---\n';
+            body += '*This check is enforced by the MD3 CI/CD Gate (Phase 7)*';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: 🚫 Block Merge on Violations
+        if: |
+          steps.theme-audit.outcome != 'success' ||
+          steps.motion-audit.outcome != 'success' ||
+          steps.component-audit.outcome != 'success'
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🚫 CI/CD BLOCKED — MD3 VIOLATIONS DETECTED"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "One or more MD3 audits failed. This PR cannot be merged until all"
+          echo "violations are resolved."
+          echo ""
+          echo "Download the violation reports from workflow artifacts to see details."
+          echo ""
+          exit 1
+
+  md3-tests:
+    name: MD3 Test Suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🧪 Run MD3 Motion Governance Tests
+        run: npm test -- md3-motion-governance.test.ts --run
+
+      - name: 🧪 Run MD3 Component Contracts Tests
+        run: npm test -- md3-component-contracts.test.tsx --run
+
+      - name: 🧪 Run MD3 Expressive Validation Tests
+        run: npm test -- md3-expressive-validation.test.tsx --run
+
+      - name: 📊 Generate Test Summary
+        if: always()
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >> $GITHUB_STEP_SUMMARY
+          echo "# ✅ MD3 Test Suite Results" >> $GITHUB_STEP_SUMMARY
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "All MD3 governance tests have been executed." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "These tests validate:" >> $GITHUB_STEP_SUMMARY
+          echo "- Motion token usage" >> $GITHUB_STEP_SUMMARY
+          echo "- Component contract compliance" >> $GITHUB_STEP_SUMMARY
+          echo "- Expressive style opt-in behavior" >> $GITHUB_STEP_SUMMARY
+
+  build-validation:
+    name: Build Validation
+    runs-on: ubuntu-latest
+    needs: [md3-audit, md3-tests]
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build Application
+        run: npm run build
+
+      - name: ✅ Build Success
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ BUILD SUCCESSFUL — MD3 COMPLIANT"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

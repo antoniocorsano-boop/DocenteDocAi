@@ -21,7 +21,7 @@ import type {
     EventoCalendario
 } from '../types';
 import ArchivioReport from './ArchivioReport';
-import { UdaExportModal } from './UdaExportModal';
+import UdaExportModal from './UdaExportModal';
 import { generateStudentProfilePdf, viewPdfInNewTab, generatePdfBrochure, saveAs } from '../utils/documentUtils';
 import ConsiglioClasseWizard from './ConsiglioClasseWizard';
 import ClassPlanningWizard from './ClassPlanningWizard';
@@ -514,8 +514,8 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     />
                 </section>
             </section>
-            {/* --- MODALS & WIZARDS --- */}
-            {renderWizardOverlay()}
+        {/* --- MODALS & WIZARDS --- */}
+        {renderWizardOverlay()}
             {isCouncilWizardOpen && (
                 <ConsiglioClasseWizard
                     onClose={() => setIsCouncilWizardOpen(false)}

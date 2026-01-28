@@ -1,0 +1,124 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   MD3 Z-INDEX GOVERNANCE SYSTEM
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   
+   RULES (NON-NEGOTIABLE):
+   1. These are the ONLY z-index values allowed in the application
+   2. Components MUST reference these tokens via var()
+   3. Direct numeric z-index is FORBIDDEN (enforced by ESLint)
+   4. Any new layer MUST be added here first
+   5. Do NOT modify values without architectural review
+   
+   LAYER PHILOSOPHY:
+   - Base: 0 (document flow)
+   - Content: 1-99 (elevated content, cards)
+   - Navigation: 100-199 (persistent UI, headers, rails)
+   - Interactive: 200-399 (dropdowns, menus, popovers)
+   - Overlay: 400-599 (modal backdrops, drawers)
+   - Modal: 600-899 (dialogs, full-screen modals)
+   - Critical: 900-999 (toasts, tooltips, alerts)
+   - System: 1000+ (dev tools, debug overlays - avoid in production)
+   
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:root {
+  /* ═══════════════════════════════════════════════════════
+     BASE LAYER (0-99)
+     ═══════════════════════════════════════════════════════ */
+  
+  --md-sys-z-base: 0;
+  --md-sys-z-content: 1;
+  --md-sys-z-raised: 10;
+  --md-sys-z-card-elevated: 20;
+  
+  /* ═══════════════════════════════════════════════════════
+     NAVIGATION LAYER (100-199)
+     ═══════════════════════════════════════════════════════ */
+  
+  --md-sys-z-header: 100;
+  --md-sys-z-app-bar: 100;
+  --md-sys-z-navigation: 100;
+  --md-sys-z-nav-rail: 100;
+  --md-sys-z-bottom-nav: 110;
+  --md-sys-z-sticky: 120;
+  
+  /* ═══════════════════════════════════════════════════════
+     INTERACTIVE LAYER (200-399)
+     ═══════════════════════════════════════════════════════ */
+  
+  --md-sys-z-dropdown: 200;
+  --md-sys-z-menu: 250;
+  --md-sys-z-popover: 300;
+  --md-sys-z-autocomplete: 350;
+  
+  /* ═══════════════════════════════════════════════════════
+     OVERLAY LAYER (400-599)
+     ═══════════════════════════════════════════════════════ */
+  
+  --md-sys-z-overlay: 400;
+  --md-sys-z-drawer: 450;
+  --md-sys-z-modal-backdrop: 500;
+  --md-sys-z-bottom-sheet: 550;
+  
+  /* ═══════════════════════════════════════════════════════
+     MODAL LAYER (600-899)
+     ═══════════════════════════════════════════════════════ */
+  
+  --md-sys-z-modal: 600;
+  --md-sys-z-dialog: 600;
+  --md-sys-z-modal-elevated: 650;
+  --md-sys-z-fullscreen-modal: 700;
+  
+  /* ═══════════════════════════════════════════════════════
+     CRITICAL UI LAYER (900-999)
+     ═══════════════════════════════════════════════════════ */
+  
+  --md-sys-z-toast: 900;
+  --md-sys-z-snackbar: 900;
+  --md-sys-z-tooltip: 950;
+  --md-sys-z-notification: 960;
+  
+  /* ═══════════════════════════════════════════════════════
+     FLOATING ACTIONS (1100-1299)
+     ═══════════════════════════════════════════════════════ */
+  
+  --md-sys-z-fab: 1200;
+  --md-sys-z-assistant-fab: 1300;
+  
+  /* ═══════════════════════════════════════════════════════
+     ASSISTANT/AI LAYER (2000-2999)
+     ═══════════════════════════════════════════════════════ */
+  
+  --md-sys-z-assistant-modal: 2200;
+  --md-sys-z-ai-overlay: 2100;
+  
+  /* ═══════════════════════════════════════════════════════
+     SYSTEM/DEBUG (avoid in production)
+     ═══════════════════════════════════════════════════════ */
+  
+  --md-sys-z-debug: 9000;
+  --md-sys-z-dev-tools: 9500;
+  --md-sys-z-max: 9999;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   USAGE EXAMPLES (CORRECT)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   
+   ✅ CORRECT:
+   .modal {
+     z-index: var(--md-sys-z-modal);
+   }
+   
+   ✅ CORRECT (TypeScript):
+   style={{ zIndex: 'var(--md-sys-z-tooltip)' }}
+   
+   ❌ FORBIDDEN:
+   .modal {
+     z-index: 600;
+   }
+   
+   ❌ FORBIDDEN (TypeScript):
+   style={{ zIndex: 1200 }}
+   
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

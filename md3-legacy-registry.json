@@ -1,0 +1,61 @@
+{
+  "version": "1.0.0",
+  "description": "MD3 Legacy Files Registry — Files documented for remediation but not blocking CI/CD",
+  "lastUpdated": "2026-01-28",
+  "legacyFiles": [
+    {
+      "path": "src/components/legacy/**",
+      "reason": "Legacy components scheduled for migration",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md"
+    },
+    {
+      "path": "src/components/FlowMode.tsx",
+      "reason": "Partial migration: motion tokens migrated (16 violations fixed), layout violations remain (require manual refactoring)",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "remainingViolations": 24,
+      "violationType": "layout (width: 100%, height: 100%, fontSize: 1rem, margin: auto)"
+    },
+    {
+      "path": "src/components/ClassroomView.tsx",
+      "reason": "Partial migration: motion tokens migrated (6 violations fixed), layout violations remain (require manual refactoring)",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "remainingViolations": 6,
+      "violationType": "layout"
+    }
+  ],
+  "legacyPatterns": [
+    {
+      "pattern": ".*\\.legacy\\.(tsx|ts|css)$",
+      "reason": "Files marked with .legacy extension"
+    },
+    {
+      "pattern": "src/archive/.*",
+      "reason": "Archived files"
+    }
+  ],
+  "exemptions": [
+    {
+      "file": "src/theme.css",
+      "reason": "Token definition file — contains source values by design",
+      "permanent": true
+    },
+    {
+      "file": "index.css",
+      "reason": "Root CSS — contains MD3 token initialization",
+      "permanent": true
+    },
+    {
+      "file": "src/global-styles.css",
+      "reason": "Global theme setup",
+      "permanent": true
+    }
+  ],
+  "monitoring": {
+    "reportWarnings": true,
+    "blockOnNewViolations": true,
+    "allowLegacyExpansion": false
+  }
+}

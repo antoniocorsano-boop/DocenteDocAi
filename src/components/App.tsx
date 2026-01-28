@@ -5,19 +5,15 @@
 import AssistantModal from './AssistantModal';
 import '../font-setup';
 import * as React from 'react';
-import { M3Surface } from './ui';
 import '../design-system/typography.css';
 import '../design-system/spacing.css';
 import '../design-system/breakpoints.css';
 import '../design-system/accessibility-focus.css';
 import AssistantFab from './AssistantFab';
 import { useAppEngine } from '../hooks/useAppEngine';
-import { Header } from './Header';
-import NavigationRail from './NavigationRail';
 import ViewManager from './ViewManager';
 import { ModalManager } from './ModalManager';
 import PassaggioAnnoWizard from './PassaggioAnnoWizard';
-import { Z_INDEX } from '../design-system/zIndex';
 import Snackbar from './Snackbar';
 import ErrorBoundary from './ErrorBoundary';
 import { AppLayout } from './AppLayout.md3';
@@ -65,65 +61,44 @@ const App: React.FC = () => {
     const handleCloseModal = () => setOpenModal(null);
 
     return (
-        <AppLayout>
+        <AppLayout
+            view={view}
+            onNavigate={actions.handleNavigate}
+            user={user}
+            settings={appState.settings}
+            notifiche={notifiche}
+            setNotifiche={actions.setNotifiche}
+            onBack={actions.handleBack}
+            onOpenImageAnalysis={handleOpenImageAnalysis}
+            onOpenVideoAnalysis={handleOpenVideoAnalysis}
+            onOpenHelp={handleOpenHelp}
+            onOpenCircularAnalysis={handleOpenCircularAnalysis}
+            isAiProcessing={isGlobalAiLoading}
+            installPrompt={installPrompt}
+            onInstallApp={actions.handleInstallApp}
+            onOpenOperations={() => setOpenModal('operations-center')}
+            hasSuggestion={!!activeSuggestion}
+        >
             <ErrorBoundary>
-                <M3Surface style={{ background: 'var(--md-sys-color-surface)' }}>
-                    <Header
-                        title="DocenteDoc AI"
-                        showBackButton={view !== 'home'}
-                        onBack={actions.handleBack}
-                        onOpenImageAnalysis={handleOpenImageAnalysis}
-                        onOpenVideoAnalysis={handleOpenVideoAnalysis}
-                        onOpenHelp={handleOpenHelp}
-                        user={user}
-                        settings={appState.settings}
-                        notifiche={notifiche}
-                        setNotifiche={actions.setNotifiche}
-                        onOpenCircularAnalysis={handleOpenCircularAnalysis}
-                        onNavigate={actions.handleNavigate}
-                        isAiProcessing={isGlobalAiLoading}
-                        installPrompt={installPrompt}
-                        onInstallApp={actions.handleInstallApp}
-                        onOpenOperations={() => setOpenModal('operations-center')}
-                        hasSuggestion={!!activeSuggestion}
-                    />
-                    <div style={{ display: 'flex', flex: 1, minHeight: 0, background: 'var(--md-sys-color-surface)' }}>
-                        <aside style={{ flex: '0 0 var(--md-sys-spacing-20)', background: 'var(--md-sys-color-surface)', borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
-                            <NavigationRail
-                                items={[
-                                    { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
-                                    { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
-                                    { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
-                                    { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
-                                    { id: 'orientamento', label: 'Orientamento', icon: 'explore', activeIcon: 'explore' },
-                                    { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
-                                ]}
-                                activeView={view}
-                                onNavigate={actions.handleNavigate}
-                            />
-                        </aside>
-                        <M3Surface style={{ flex: 1, display: 'flex', flexDirection: 'column', boxSizing: 'border-box', background: 'var(--md-sys-color-surface-container)' }}>
-                            <ViewManager
-                                view={view}
-                                viewContext={viewContext}
-                                appState={appState}
-                                actions={actions}
-                                modals={modals}
-                            />
-                        </M3Surface>
-                    </div>
-                    <ModalManager appState={appState} actions={actions} modals={modals} />
-                    {/* Modal rendering */}
-                    {openModal === 'image-analysis-modal' && (
+                <ViewManager
+                    view={view}
+                    viewContext={viewContext}
+                    appState={appState}
+                    actions={actions}
+                    modals={modals}
+                />
+                <ModalManager appState={appState} actions={actions} modals={modals} />
+                {/* Modal rendering */}
+                {openModal === 'image-analysis-modal' && (
                         <ImageAnalysisModal onClose={handleCloseModal} />
                     )}
-                    {openModal === 'video-analysis-modal' && (
+                {openModal === 'video-analysis-modal' && (
                         <VideoAnalysisModal onClose={handleCloseModal} />
                     )}
-                    {openModal === 'help-modal' && (
+                {openModal === 'help-modal' && (
                         <HelpModal onClose={handleCloseModal} onNavigate={actions.handleNavigate} aiSettings={aiSettings} setIsLoadingModalOpen={modals.setIsLoadingModalOpen} setLoadingModalMessage={modals.setLoadingModalMessage} />
                     )}
-                    {openModal === 'circular-analysis-modal' && circularAnalysisPayload && (
+                {openModal === 'circular-analysis-modal' && circularAnalysisPayload && (
                         <CircolareAnalysisModal
                             url={circularAnalysisPayload.url}
                             title={circularAnalysisPayload.title}
@@ -133,7 +108,7 @@ const App: React.FC = () => {
                             onSaveToKb={handleSaveToKb}
                         />
                     )}
-                    {openModal === 'operations-center' && (
+                {openModal === 'operations-center' && (
                         <OperationsCenter
                             onClose={handleCloseModal}
                             onNavigate={actions.handleNavigate}
@@ -162,7 +137,7 @@ const App: React.FC = () => {
                             onBackupData={actions.handleExportData}
                         />
                     )}
-                    {openModal === 'year-transition-wizard' && (
+                {openModal === 'year-transition-wizard' && (
                         <PassaggioAnnoWizard
                             onClose={handleCloseModal}
                             students={appState.students}
@@ -175,17 +150,14 @@ const App: React.FC = () => {
                             onResetData={actions.handleResetYearData}
                         />
                     )}
-                    {openModal === 'assistant-modal' && (
+                {openModal === 'assistant-modal' && (
                         <AssistantModal open={true} onClose={handleCloseModal} mode={assistantMode} aiSettings={aiSettings} context={{ view, viewContext }} />
                     )}
-                    {openModal === 'nka-map-modal' && (
+                {openModal === 'nka-map-modal' && (
                         <NKABottomSheet open={true} nodes={nkaStore.nodes} onClose={handleCloseModal} onNodeSelect={() => {}} />
                     )}
-                    {/* FAB flottante sopra il menu, sempre visibile e con z-index massimo */}
-                    <div style={{ zIndex: Z_INDEX.assistant.fab }}>
-                        <AssistantFab />
-                    </div>
-                    {modals.isLiveAssistantModalOpen && (
+                <AssistantFab />
+                {modals.isLiveAssistantModalOpen && (
                         <AssistantModal
                             open={true}
                             onClose={() => modals.setIsLiveAssistantModalOpen?.(false)}
@@ -194,11 +166,11 @@ const App: React.FC = () => {
                             context={{ view, viewContext }}
                         />
                     )}
-                    <Snackbar />
-                </M3Surface>
+                <Snackbar />
             </ErrorBoundary>
         </AppLayout>
     );
 };
 
+export { App };
 export default App;
