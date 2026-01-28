@@ -27,6 +27,7 @@ import {
     SectionHeader,
     AiThinkingGem 
 } from './ui';
+import '../design-system/md3-utilities.css';
 import { useUIStore } from '../stores/useUIStore';
 interface AnnualPlanningWizardProps {
     onClose: () => void;
@@ -377,7 +378,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             level={1}
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-4)' }}>
-                <div style={{ width: '100%', marginLeft: "auto", marginRight: "auto", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>
+                <div className="md3-container-centered">
                     {renderStepIndicator()}
 
                     {step === 'context' && (
@@ -392,13 +393,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div>
                                         <label>Classe Target</label>
-                                        <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ width: '100%' }} title="Seleziona la classe per la programmazione">
+                                        <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} className="md3-width-full" title="Seleziona la classe per la programmazione">
                                             {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                                         </select>
                                     </div>
                                     <div>
                                         <label>Materia</label>
-                                        <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} style={{ width: '100%' }} title="Seleziona la materia">
+                                        <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} className="md3-width-full" title="Seleziona la materia">
                                             {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                                         </select>
                                     </div>
@@ -414,7 +415,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     {recommendedFiles.length > 0 ? recommendedFiles.map(kb => (
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
-                                            <label htmlFor={`kb-annual-${kb.id}`} style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: "flex-start", cursor: 'pointer' }} title={kb.fileName}>
+                                            <label htmlFor={`kb-annual-${kb.id}`} className="md3-label-row" title={kb.fileName}>
                                                 {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined" style={{  fontSize: '1rem'  }}>check</span>}
                                                 <span style={{ color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</span>
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
@@ -460,16 +461,16 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 </div>
                                 <div style={{ marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <label>Note Aggiuntive</label>
-                                    <textarea style={{ width: '100%' }} rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
+                                    <textarea className="md3-field-full" rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
                                 </div>
-                                <M3Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant="tonal" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }} title="Usa l'AI per scrivere l'analisi">
+                                <M3Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant="tonal" className="md3-width-full md3-flex-center" style={{ gap: 'var(--md-sys-spacing-4)' }} title="Usa l'AI per scrivere l'analisi">
                                     {isGeneratingSituation ? <AiThinkingGem size="small" inline text="Analisi..." /> : 'Genera Analisi con AI'}
                                 </M3Button>
                             </InfoCard>
 
                             {situationText && (
                                 <InfoCard title="Testo Analisi" icon="description" style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
-                                    <textarea style={{ width: '100%' }} rows={6} value={situationText} onChange={e => setSituationText(e.target.value)} />
+                                    <textarea className="md3-field-full" rows={6} value={situationText} onChange={e => setSituationText(e.target.value)} />
                                 </InfoCard>
                             )}
                         </div>
@@ -490,7 +491,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         {isGeneratingMethodology ? <AiThinkingGem size="small" inline /> : <><span style={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</span> Suggerisci</>}
                                     </M3Button>
                                 </div>
-                                <textarea style={{ width: '100%' }} rows={8} value={methodology} onChange={e => setMethodology(e.target.value)} />
+                                <textarea className="md3-field-full" rows={8} value={methodology} onChange={e => setMethodology(e.target.value)} />
                             </InfoCard>
                         </div>
                     )}
@@ -529,11 +530,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end" }}>
                                     <div style={{ flexGrow: 1 }}>
                                         <label>Titolo UDA</label>
-                                        <input type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} style={{ width: '100%' }} onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
+                                        <input type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} className="md3-field-full" onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
                                     </div>
                                     <div style={{ width: 'var(--md-sys-spacing-16)' }}>
                                         <label>Ore</label>
-                                        <input type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} style={{ width: '100%' }} />
+                                        <input type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} className="md3-field-full" />
                                     </div>
                                     <M3Button onClick={addUdaToPlan} variant="filled" style={{ marginBottom: 'var(--md-sys-spacing-4)' }} title="Aggiungi alla lista">Aggiungi</M3Button>
                                 </div>
@@ -598,11 +599,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div>
                                         <label>Fine 1° Periodo</label>
-                                        <input type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} style={{ width: '100%' }} />
+                                        <input type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} className="md3-field-full" />
                                     </div>
                                     <div>
                                         <label>Termine Lezioni</label>
-                                        <input type="date" value={term2End} onChange={e => setTerm2End(e.target.value)} style={{ width: '100%' }} />
+                                        <input type="date" value={term2End} onChange={e => setTerm2End(e.target.value)} className="md3-field-full" />
                                     </div>
                                 </div>
                             </InfoCard>
