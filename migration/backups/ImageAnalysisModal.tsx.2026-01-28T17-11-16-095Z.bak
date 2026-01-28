@@ -76,7 +76,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
       maxWidth="2xl"
       hideBackdrop={true}
     >
-      <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
+      <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "grid", gridTemplateColumns: "1fr" }}>
         {/* Left Panel: Upload and Prompt */}
         <div style={{ padding: 'var(--md-sys-spacing-4)', borderRight: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column" }}>
           <div>
@@ -94,7 +94,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 cursor: 'pointer',
                 overflow: 'hidden',
-                transition: 'background-color 0.2s var(--md-sys-motion-easing-standard), border-color 0.2s ease'
+                transition: 'background-color 0.2s ease, border-color 0.2s ease'
               }}
             >
               <input {...getInputProps()} />

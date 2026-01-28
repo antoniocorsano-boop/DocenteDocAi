@@ -1,0 +1,99 @@
+{
+  "total": 15,
+  "success": 13,
+  "failed": 0,
+  "skipped": 2,
+  "totalViolationsFixed": 86,
+  "details": [
+    {
+      "file": "src\\components\\Settings.tsx",
+      "success": true,
+      "violationsFixed": 10,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\Settings.tsx.2026-01-28T17-10-46-154Z.bak"
+    },
+    {
+      "file": "src\\components\\ClassroomView.tsx",
+      "success": true,
+      "violationsFixed": 10,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\ClassroomView.tsx.2026-01-28T17-10-50-300Z.bak"
+    },
+    {
+      "file": "src\\components\\LessonsPage.tsx",
+      "success": true,
+      "violationsFixed": 3,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\LessonsPage.tsx.2026-01-28T17-10-54-320Z.bak"
+    },
+    {
+      "file": "src\\components\\AnnualPlanningWizard.tsx",
+      "success": true,
+      "violationsFixed": 8,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\AnnualPlanningWizard.tsx.2026-01-28T17-10-58-324Z.bak"
+    },
+    {
+      "file": "src\\components\\RegisterImportDialog.tsx",
+      "success": true,
+      "violationsFixed": 9,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\RegisterImportDialog.tsx.2026-01-28T17-11-02-279Z.bak"
+    },
+    {
+      "file": "src\\components\\SmartImportModal.tsx",
+      "success": true,
+      "violationsFixed": 1,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\SmartImportModal.tsx.2026-01-28T17-11-06-040Z.bak"
+    },
+    {
+      "file": "src\\components\\EvaluationModule.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\charts\\BarChart.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\ChipInputList.tsx",
+      "success": true,
+      "violationsFixed": 6,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\ChipInputList.tsx.2026-01-28T17-11-09-449Z.bak"
+    },
+    {
+      "file": "src\\components\\HelpModal.tsx",
+      "success": true,
+      "violationsFixed": 8,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\HelpModal.tsx.2026-01-28T17-11-12-716Z.bak"
+    },
+    {
+      "file": "src\\components\\ImageAnalysisModal.tsx",
+      "success": true,
+      "violationsFixed": 6,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\ImageAnalysisModal.tsx.2026-01-28T17-11-16-095Z.bak"
+    },
+    {
+      "file": "src\\components\\AssistantModal.tsx",
+      "success": true,
+      "violationsFixed": 2,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\AssistantModal.tsx.2026-01-28T17-11-19-539Z.bak"
+    },
+    {
+      "file": "src\\components\\ClassPlanningWizard.tsx",
+      "success": true,
+      "violationsFixed": 7,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\ClassPlanningWizard.tsx.2026-01-28T17-11-22-784Z.bak"
+    },
+    {
+      "file": "src\\components\\ConsiglioClasse.tsx",
+      "success": true,
+      "violationsFixed": 4,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\ConsiglioClasse.tsx.2026-01-28T17-11-27-000Z.bak"
+    },
+    {
+      "file": "src\\components\\CreateLessonFromAiModal.tsx",
+      "success": true,
+      "violationsFixed": 12,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\CreateLessonFromAiModal.tsx.2026-01-28T17-11-30-667Z.bak"
+    }
+  ]
+}
