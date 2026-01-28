@@ -134,6 +134,20 @@ const TOKEN_MAPPINGS = {
         'shape.corner.extraLarge': 'var(--md-sys-shape-corner-extra-large)',
         'shape.corner.full': 'var(--md-sys-shape-corner-full)',
     },
+    
+    // PATTERN 7: Layout patterns → MD3 utilities
+    layout: {
+        "width: '100%'": "className=\"md3-width-full\"",
+        'width: "100%"': 'className="md3-width-full"',
+        "width: '50%'": "className=\"md3-width-half\"",
+        'width: "50%"': 'className="md3-width-half"',
+        "display: 'flex', flexDirection: 'row'": "className=\"md3-flex-row\"",
+        'display: "flex", flexDirection: "row"': 'className="md3-flex-row"',
+        "display: 'flex', flexDirection: 'column'": "className=\"md3-flex-column\"",
+        'display: "flex", flexDirection: "column"': 'className="md3-flex-column"',
+        "margin: '0 auto'": "className=\"md3-margin-auto\"",
+        'margin: "0 auto"': 'className="md3-margin-auto"',
+    },
 };
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -229,6 +243,28 @@ function detectViolations(content, filePath) {
                 type: 'pseudoTokenShape',
                 pattern: pseudoToken,
                 replacement: TOKEN_MAPPINGS.shape[pseudoToken],
+                line: content.substring(0, match.index).split('\n').length,
+                context: extractContext(content, match.index),
+            });
+        }
+    });
+    
+    // PATTERN 7: Layout patterns (width, margin, flex patterns)
+    // Detect hardcoded layout values that can be replaced with MD3 utilities
+    const layoutPatterns = [
+        { regex: /width:\s*['"]100%['"]/g, type: 'layoutWidth100', replacement: 'className="md3-width-full"' },
+        { regex: /width:\s*['"]50%['"]/g, type: 'layoutWidth50', replacement: 'className="md3-width-half"' },
+        { regex: /margin:\s*['"]0\s+auto['"]/g, type: 'layoutMarginAuto', replacement: 'className="md3-margin-auto"' },
+    ];
+    
+    layoutPatterns.forEach(({ regex, type, replacement }) => {
+        let match;
+        regex.lastIndex = 0;
+        while ((match = regex.exec(content)) !== null) {
+            violations.push({
+                type: type,
+                pattern: match[0],
+                replacement: replacement,
                 line: content.substring(0, match.index).split('\n').length,
                 context: extractContext(content, match.index),
             });

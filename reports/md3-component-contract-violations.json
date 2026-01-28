@@ -1,27 +1,23 @@
 {
-  "timestamp": "2026-01-28T16:27:38.982Z",
-  "totalViolations": 318,
+  "timestamp": "2026-01-28T16:36:05.669Z",
+  "totalViolations": 316,
   "totalFiles": 107,
   "scannedFiles": 253,
   "typeBreakdown": {
-    "inlineStyleMotion": 124,
+    "inlineStyleMotion": 111,
     "inlineStyleLayout": 149,
     "forbiddenProps": 17,
     "inlineStyleZIndex": 13,
     "hardcodedSizeProps": 2,
-    "classNameUtilities": 13
+    "classNameUtilities": 24
   },
   "topViolators": [
     {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "count": 12
+      "file": "src\\components\\Settings.tsx",
+      "count": 22
     },
     {
       "file": "src\\components\\ClassroomView.tsx",
-      "count": 12
-    },
-    {
-      "file": "src\\components\\Settings.tsx",
       "count": 12
     },
     {
@@ -91,6 +87,10 @@
     {
       "file": "src\\components\\charts\\AdvancedCharts.tsx",
       "count": 4
+    },
+    {
+      "file": "src\\components\\FlowMode.tsx",
+      "count": 4
     }
   ],
   "violations": [
@@ -144,14 +144,6 @@
     },
     {
       "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 176,
-      "type": "inlineStyleMotion",
-      "match": "style={{display: 'flex',\r\n              flexDirection: 'column',\r\n              gap: 'var(--md-sys-s",
-      "context": "<div style={{display: 'flex',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
       "line": 420,
       "type": "inlineStyleMotion",
       "match": "style={{display: 'flex',\r\n              flexDirection: 'column',\r\n              gap: 'var(--md-sys-s",
@@ -164,78 +156,6 @@
       "type": "inlineStyleMotion",
       "match": "style={{display: 'flex',\r\n              flexDirection: 'column',\r\n              gap: 'var(--md-sys-s",
       "context": "<div style={{display: 'flex',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 524,
-      "type": "inlineStyleMotion",
-      "match": "style={{display: 'flex',\r\n                    alignItems: 'center',\r\n                    justifyCont",
-      "context": "<label style={{display: 'flex',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 563,
-      "type": "inlineStyleMotion",
-      "match": "style={{width: 'var(--md-sys-spacing-4)',\r\n                        height: 'var(--md-sys-spacing-6)'",
-      "context": "<div style={{width: 'var(--md-sys-spacing-4)',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 569,
-      "type": "inlineStyleMotion",
-      "match": "style={{position: 'absolute',\r\n                          top: 'var(--md-sys-spacing-4)',\r\n          ",
-      "context": "<div style={{position: 'absolute',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 585,
-      "type": "inlineStyleMotion",
-      "match": "style={{display: 'flex',\r\n                        alignItems: 'center',\r\n                        jus",
-      "context": "<label style={{display: 'flex',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 627,
-      "type": "inlineStyleMotion",
-      "match": "style={{width: 'var(--md-sys-spacing-4)',\r\n                            height: 'var(--md-sys-spacing",
-      "context": "<div style={{width: 'var(--md-sys-spacing-4)',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 633,
-      "type": "inlineStyleMotion",
-      "match": "style={{position: 'absolute',\r\n                              top: 'var(--md-sys-spacing-4)',\r\n      ",
-      "context": "<div style={{position: 'absolute',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 645,
-      "type": "inlineStyleMotion",
-      "match": "style={{display: 'flex',\r\n                        alignItems: 'center',\r\n                        jus",
-      "context": "<label style={{display: 'flex',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 687,
-      "type": "inlineStyleMotion",
-      "match": "style={{width: 'var(--md-sys-spacing-4)',\r\n                            height: 'var(--md-sys-spacing",
-      "context": "<div style={{width: 'var(--md-sys-spacing-4)',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\AnalyticsDashboard.tsx",
-      "line": 693,
-      "type": "inlineStyleMotion",
-      "match": "style={{position: 'absolute',\r\n                              top: 'var(--md-sys-spacing-4)',\r\n      ",
-      "context": "<div style={{position: 'absolute',",
       "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
     },
     {
@@ -866,25 +786,9 @@
       "file": "src\\components\\ConsiglioClasseWizard.tsx",
       "line": 124,
       "type": "inlineStyleLayout",
-      "match": "style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: \"all 300ms cubic-bezier(0.4",
-      "context": "<button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: \"all 300ms cubic-bezier(0.4, 0, 0.2, 1)\",",
+      "match": "style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: \"all var(--md-sys-motion-du",
+      "context": "<button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: \"all var(--md-sys-motion-duration-medium-",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ConsiglioClasseWizard.tsx",
-      "line": 124,
-      "type": "inlineStyleMotion",
-      "match": "style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: \"all 300ms",
-      "context": "<button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: \"all 300ms cubic-bezier(0.4, 0, 0.2, 1)\",",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
-    },
-    {
-      "file": "src\\components\\ConsiglioClasseWizard.tsx",
-      "line": 125,
-      "type": "inlineStyleMotion",
-      "match": "style={{ transition: \"transform 300ms",
-      "context": "<div ><span  style={{ transition: \"transform 300ms\" }}>picture_as_pdf</span></div>",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
     },
     {
       "file": "src\\components\\CopyForRegisterModal.tsx",
@@ -1848,99 +1752,179 @@
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 657,
+      "line": 658,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "style={{width: '100%',",
+      "context": "style={{width: '100%', ...}} className='md3-width-full' />",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 693,
+      "line": 687,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "style={{width: '100%',",
+      "context": "style={{width: '100%', ...}} className='md3-width-full' />",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 729,
+      "line": 716,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "style={{width: '100%',",
+      "context": "style={{width: '100%', ...}} className='md3-width-full' />",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 1253,
+      "line": 1233,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "style={{width: '100%',",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 1283,
+      "line": 1255,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "<table style={{width: '100%',",
+      "context": "<table style={{width: '100%', ...}} className='md3-width-full'>",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 1536,
+      "line": 1504,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "style={{width: '100%',",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 1582,
+      "line": 1546,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "<div style={{width: '100%',",
+      "context": "<div style={{width: '100%', ...}} className='md3-width-full'>",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 1786,
+      "line": 1745,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "style={{width: '100%',",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 1808,
+      "line": 1765,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "style={{width: '100%',",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 1825,
+      "line": 1780,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "style={{width: '100%',",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 1900,
+      "line": 1851,
       "type": "inlineStyleLayout",
       "match": "style={{width: '100%",
-      "context": "style={{width: '100%',",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
     },
     {
       "file": "src\\components\\Settings.tsx",
-      "line": 126,
-      "type": "inlineStyleMotion",
-      "match": "style={{padding: 'var(--md-sys-spacing-6)',\r\n                    paddingTop: 'var(--md-sys-spacing-2",
-      "context": "style={{padding: 'var(--md-sys-spacing-6)',",
-      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
+      "line": 658,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "style={{width: '100%', ...}} className='md3-width-full' />",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 687,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "style={{width: '100%', ...}} className='md3-width-full' />",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 716,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "style={{width: '100%', ...}} className='md3-width-full' />",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1233,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1255,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "<table style={{width: '100%', ...}} className='md3-width-full'>",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1504,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1546,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "<div style={{width: '100%', ...}} className='md3-width-full'>",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1745,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1765,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1780,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1851,
+      "type": "classNameUtilities",
+      "match": "className='md3-width-",
+      "context": "style={{width: '100%', ...}} className='md3-width-full'",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
     },
     {
       "file": "src\\components\\ShareModal.tsx",
