@@ -1,0 +1,129 @@
+{
+  "total": 20,
+  "success": 2,
+  "failed": 0,
+  "skipped": 18,
+  "totalViolationsFixed": 8,
+  "details": [
+    {
+      "file": "src\\components\\ClassPlanningWizard.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\FlowMode.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\AnalyticsDashboard.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\ClassroomView.tsx",
+      "success": true,
+      "violationsFixed": 6,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\ClassroomView.tsx.2026-01-28T16-14-45-474Z.bak"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\HelpModal.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\LessonsPage.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\AnnualPlanningWizard.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\RegisterImportDialog.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\CreateLessonFromAiModal.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\ImportStudentsModal.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\SmartImportModal.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\ClassCompetencyDashboard.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\EvaluationModule.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\StudentClassroomView.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\charts\\BarChart.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\ChipInputList.tsx",
+      "success": true,
+      "violationsFixed": 2,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\ChipInputList.tsx.2026-01-28T16-14-49-289Z.bak"
+    },
+    {
+      "file": "src\\components\\ImageAnalysisModal.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\SlotActionModal.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    },
+    {
+      "file": "src\\components\\UdaExportModal.tsx",
+      "success": true,
+      "violationsFixed": 0,
+      "skipped": true
+    }
+  ]
+}
