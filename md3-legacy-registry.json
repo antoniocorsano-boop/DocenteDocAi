@@ -66,6 +66,27 @@
       "tracked": true,
       "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
       "violationType": "layout"
+    },
+    {
+      "path": "src/components/ClassroomView.tsx",
+      "reason": "Partial migration: motion tokens migrated (18 violations fixed total across 3 batches), layout violations remain",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "violationType": "layout"
+    },
+    {
+      "path": "src/components/ChipInputList.tsx",
+      "reason": "Partial migration: motion tokens migrated (2 violations fixed), layout violations remain",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "violationType": "layout"
+    },
+    {
+      "path": "src/components/UdaExportModal.tsx",
+      "reason": "Partial migration: motion tokens migrated (6 violations fixed), inline style violations remain",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "violationType": "inline styles"
     }
   ],
   "legacyPatterns": [
