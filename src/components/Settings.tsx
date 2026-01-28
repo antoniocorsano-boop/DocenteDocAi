@@ -655,7 +655,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         type="range" min="0" max="100" step="5"
                                         value={themeState.glassBlur || 30}
                                         onChange={e => handleThemeChange('glassBlur', parseInt(e.target.value))}
-                                        style={{width: '100%', ...}} className='md3-width-full' />
+                                        className='md3-width-full' />
                                 </div>
                                 <div style={{display: 'flex',
                                     flexDirection: 'column',
@@ -684,7 +684,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         type="range" min="0.8" max="1.4" step="0.1"
                                         value={themeState.fontScale || 1}
                                         onChange={e => handleThemeChange('fontScale', parseFloat(e.target.value))}
-                                        style={{width: '100%', ...}} className='md3-width-full' />
+                                        className='md3-width-full' />
                                 </div>
                                 <div style={{display: 'flex',
                                     flexDirection: 'column',
@@ -713,7 +713,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         type="range" min="-50" max="50" step="5"
                                         value={themeState.contrastLevel || 0}
                                         onChange={e => handleThemeChange('contrastLevel', parseInt(e.target.value))}
-                                        style={{width: '100%', ...}} className='md3-width-full' />
+                                         className='md3-width-full' />
                                 </div>
                                 <div style={{display: 'flex',
                                     flexDirection: 'column',
@@ -1230,7 +1230,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             value={newSubjectName}
                                             onChange={e => setNewSubjectName(e.target.value)}
                                             onKeyDown={e => e.key === 'Enter' && handleAddSubject()}
-                                            style={{width: '100%', ...}} className='md3-width-full'
+                                             className='md3-width-full'
                                     />
                                     </div>
                                     <M3Button
@@ -1252,7 +1252,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 borderRadius: 'var(--md-sys-shape-corner-large)',
                                 border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                 overflowX: 'auto'}}>
-                                <table style={{width: '100%', ...}} className='md3-width-full'>
+                                <table  className='md3-width-full'>
                                     <thead>
                                         <tr style={{backgroundColor: 'var(--md-sys-color-surface-container-high)'}}>
                                             <th style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
@@ -1501,7 +1501,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 } }
                                 disabled={dismissedSuggestions.size === 0}
                                 variant="text"
-                                style={{width: '100%', ...}} className='md3-width-full'
+                                 className='md3-width-full'
                             >
                                 Riattiva Tutti i Suggerimenti
                             </M3Button>
@@ -1543,7 +1543,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     {storageInfo.used}MB / {storageInfo.total}MB
                                 </M3Typography>
                             </div>
-                            <div style={{width: '100%', ...}} className='md3-width-full'>
+                            <div  className='md3-width-full'>
                                 <div style={{
                                     width: `${storageInfo.percent}%`,
                                     height: '100%',
@@ -1742,7 +1742,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info');
                                     } }
                                     variant="tonal"
-                                    style={{width: '100%', ...}} className='md3-width-full'
+                                     className='md3-width-full'
                                 >
                                     <span style={{fontFamily: 'Material Symbols Outlined',
                                         fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
@@ -1762,7 +1762,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         showToast('Log esportati in JSON', 'success');
                                     } }
                                     variant="tonal"
-                                    style={{width: '100%', ...}} className='md3-width-full'
+                                     className='md3-width-full'
                                 >
                                     <span style={{fontFamily: 'Material Symbols Outlined',
                                         fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
@@ -1777,7 +1777,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         }
                                     } }
                                     variant="text"
-                                    style={{width: '100%', ...}} className='md3-width-full'
+                                     className='md3-width-full'
                                 >
                                     <span style={{fontFamily: 'Material Symbols Outlined',
                                         fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
@@ -1848,7 +1848,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <M3Button
                             onClick={() => setIsResetModalOpen(true)}
                             variant="filled"
-                            style={{width: '100%', ...}} className='md3-width-full'
+                             className='md3-width-full'
                         >
                             <span style={{fontFamily: 'Material Symbols Outlined',
                                 marginRight: 'var(--md-sys-spacing-4)',
@@ -1903,6 +1903,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 };
 
 export default Settings;
+
 
 
 
