@@ -164,7 +164,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                 )}
 
                 {step === 'result' && (
-                    <div  style={{display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-6)', height: '100%', minHeight: '0'}}>
+                    <div  style={{display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-6)', height: '100%', minHeight: '0'}}>
                         <div style={{
                             backgroundColor: 'var(--md-sys-color-surface-container-low)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',

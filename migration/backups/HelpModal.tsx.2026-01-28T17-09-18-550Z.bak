@@ -482,7 +482,7 @@ const DigitalTeacherManual = () => {
                     gridTemplateColumns: '1fr 1fr',
                     gap: 'var(--md-sys-spacing-4)',
                     '@media (max-width: var(--md-sys-breakpoint-tablet))': {
-                        gridTemplateColumns: 'var(--md-sys-grid-fr-1)'
+                        gridTemplateColumns: '1fr'
                     }
                 }}>
                     <div style={{
@@ -564,7 +564,7 @@ const VocalAssistantGuideContent = () => (
         
         <div style={{
             display: "grid",
-            gridTemplateColumns: "var(--md-sys-grid-fr-1)",
+            gridTemplateColumns: "1fr",
             gap: 'var(--md-sys-spacing-8)'
         }}>
             {vocalAssistantGuideData.sections.map((section, idx) => (
@@ -624,7 +624,7 @@ const UserGuide = () => (
         <M3Typography variant="headline-small">Guida Rapida al Flusso di Lavoro</M3Typography>
         <div style={{
             display: "grid",
-            gridTemplateColumns: "var(--md-sys-grid-fr-1)",
+            gridTemplateColumns: "1fr",
             gap: 'var(--md-sys-spacing-8)',
             marginTop: 'var(--md-sys-spacing-6)'
         }}>
@@ -848,7 +848,7 @@ const FaqContent = () => (
 );
 
 const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
-    const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_relvar(--md-sys-motion-easing-standard)s" }) => (
+    const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_releases" }) => (
         <div style={{
             transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)",
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
@@ -932,7 +932,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
             
             <div style={{
                 display: "grid",
-                gridTemplateColumns: "var(--md-sys-grid-fr-1)",
+                gridTemplateColumns: "1fr",
                 gap: 'var(--md-sys-spacing-6)'
             }}>
                 <ImprovementCard title="Design M3 Expressive" actionView="settings" icon="palette">
@@ -1077,7 +1077,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
   }
 
   const tabs = [
-    { id: 'improvements', label: 'Novità', icon: 'new_relvar(--md-sys-motion-easing-standard)s' },
+    { id: 'improvements', label: 'Novità', icon: 'new_releases' },
     { id: 'manual', label: 'Manuale', icon: 'auto_stories' },
     { id: 'setup', label: 'Setup', icon: 'settings' },
     { id: 'guide', label: 'Flusso', icon: 'account_tree' },

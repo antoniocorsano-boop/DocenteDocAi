@@ -151,7 +151,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 gap: 'var(--md-sys-spacing-8)',
-                                transition: 'all var(--md-sys-motion-duration-short-4) ease',
+                                transition: 'all 0.2s ease',
                                 backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
                                 transform: isDragActive ? 'scale(0.98)' : 'none',
                                 opacity: isLoading ? 0.5 : 1,
