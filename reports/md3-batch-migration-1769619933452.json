@@ -1,0 +1,39 @@
+{
+  "total": 5,
+  "success": 5,
+  "failed": 0,
+  "skipped": 0,
+  "totalViolationsFixed": 62,
+  "details": [
+    {
+      "file": "src\\components\\Settings.tsx",
+      "success": true,
+      "violationsFixed": 15,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\Settings.tsx.2026-01-28T17-05-14-774Z.bak"
+    },
+    {
+      "file": "src\\components\\ClassroomView.tsx",
+      "success": true,
+      "violationsFixed": 14,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\ClassroomView.tsx.2026-01-28T17-05-18-696Z.bak"
+    },
+    {
+      "file": "src\\components\\LessonsPage.tsx",
+      "success": true,
+      "violationsFixed": 13,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\LessonsPage.tsx.2026-01-28T17-05-22-942Z.bak"
+    },
+    {
+      "file": "src\\components\\AnnualPlanningWizard.tsx",
+      "success": true,
+      "violationsFixed": 8,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\AnnualPlanningWizard.tsx.2026-01-28T17-05-26-403Z.bak"
+    },
+    {
+      "file": "src\\components\\RegisterImportDialog.tsx",
+      "success": true,
+      "violationsFixed": 12,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\RegisterImportDialog.tsx.2026-01-28T17-05-29-936Z.bak"
+    }
+  ]
+}

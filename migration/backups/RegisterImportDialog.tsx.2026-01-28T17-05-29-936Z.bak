@@ -202,7 +202,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             subtitle="Associa le colonne del tuo file ai campi di DocenteDoc AI"
                         />
 
-                        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
+                        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
                             <InfoCard title="Dati Studente" icon="person">
                                 <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                     <div>
@@ -307,7 +307,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <h3  style={{ fontWeight: "900" }}>Dati pronti per l&apos;importazione</h3>
                         </div>
 
-                        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
+                        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
                             <InfoCard title="Riepilogo" icon="analytics">
                                 <ul style={{gap: 'var(--md-sys-spacing-2)'}}>
                                     <li style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>

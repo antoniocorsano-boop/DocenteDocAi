@@ -1,0 +1,21 @@
+{
+  "total": 2,
+  "success": 2,
+  "failed": 0,
+  "skipped": 0,
+  "totalViolationsFixed": 25,
+  "details": [
+    {
+      "file": "src\\components\\Settings.tsx",
+      "success": true,
+      "violationsFixed": 14,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\Settings.tsx.2026-01-28T17-05-53-287Z.bak"
+    },
+    {
+      "file": "src\\components\\ClassroomView.tsx",
+      "success": true,
+      "violationsFixed": 11,
+      "backupPath": "C:\\Users\\anton\\DocenteDocAI-Flowise\\docentedoc-ai\\migration\\backups\\ClassroomView.tsx.2026-01-28T17-05-57-255Z.bak"
+    }
+  ]
+}

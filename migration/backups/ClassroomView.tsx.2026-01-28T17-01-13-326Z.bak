@@ -277,7 +277,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         )}
 
                         <div
-                            style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-4)' }}
+                            style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-4)' }}
                             ref={studentGridRef}
                             onKeyDown={handleStudentGridKeyDown}
                             role="grid"
@@ -316,7 +316,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                         aria-label={`${student.cognome}, voto, presenze`}
                                     >
                                         <div style={{ padding: 'var(--md-sys-spacing-3)' }}>
-                                            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-4)', alignItems: 'center' }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-4)', alignItems: 'center' }}>
                                                 {/* Column 1: Avatar + Name + Presence + BES/DSA */}
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                                     <button
@@ -555,7 +555,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 {activeTab === 'resources' && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                         {lesson.materialiDidattici && lesson.materialiDidattici.length > 0 ? (
-                            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-3)' }}>
                                 {lesson.materialiDidattici.map(mat => (
                                     <div
                                         key={mat.id}
@@ -647,7 +647,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, var(--md-sys-grid-fr-1))', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-3)' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-3)' }}>
                             <button
                                 onClick={() => { setQuickEvalStudent(selectedStudentForActions); setSelectedStudentForActions(null); }}
                                 style={{

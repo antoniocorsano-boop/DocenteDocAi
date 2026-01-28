@@ -102,12 +102,19 @@ const TOKEN_MAPPINGS = {
         '200ms': 'var(--md-sys-motion-duration-short-4)',
         '300ms': 'var(--md-sys-motion-duration-medium-4)',
         '400ms': 'var(--md-sys-motion-duration-long-1)',
+        '0.2s': 'var(--md-sys-motion-duration-short-4)',
+        '0.3s': 'var(--md-sys-motion-duration-medium-4)',
+        '500ms': 'var(--md-sys-motion-duration-long-2)',
+        '0.5s': 'var(--md-sys-motion-duration-long-2)',
     },
     
     // PATTERN 4: Hardcoded easing functions
     easing: {
         'cubic-bezier(0.4, 0, 0.2, 1)': 'var(--md-sys-motion-easing-emphasized)',
         'cubic-bezier(0.2, 0, 0, 1)': 'var(--md-sys-motion-easing-standard)',
+        'ease': 'var(--md-sys-motion-easing-standard)',
+        'ease-out': 'var(--md-sys-motion-easing-emphasized)',
+        'ease-in': 'var(--md-sys-motion-easing-decelerated)',
     },
     
     // PATTERN 5: Pseudo-token typography
@@ -147,6 +154,29 @@ const TOKEN_MAPPINGS = {
         'display: "flex", flexDirection: "column"': 'className="md3-flex-column"',
         "margin: '0 auto'": "className=\"md3-margin-auto\"",
         'margin: "0 auto"': 'className="md3-margin-auto"',
+    },
+    
+    // PATTERN 8: Grid fr units
+    grid: {
+        '1fr': 'var(--md-sys-grid-fr-1)',
+        '2fr': 'var(--md-sys-grid-fr-2)',
+        '3fr': 'var(--md-sys-grid-fr-3)',
+    },
+    
+    // PATTERN 9: Viewport units
+    viewport: {
+        '100vh': 'var(--md-sys-viewport-height-100)',
+        '60vh': 'var(--md-sys-viewport-height-60)',
+        '50vh': 'var(--md-sys-viewport-height-50)',
+    },
+    
+    // PATTERN 10: Hardcoded rem units (common spacing)
+    rem: {
+        '1rem': 'var(--md-sys-spacing-4)',  // 16px
+        '1.5rem': 'var(--md-sys-spacing-6)', // 24px
+        '2rem': 'var(--md-sys-spacing-8)',  // 32px
+        '3rem': 'var(--md-sys-spacing-12)', // 48px
+        '12rem': 'var(--md-sys-spacing-48)', // assuming exists
     },
 };
 
@@ -191,10 +221,10 @@ function detectViolations(content, filePath) {
     });
     
     // PATTERN 3: Hardcoded motion durations
-    const motionRegex = /transition:\s*['"](?:all\s+)?(\d+)ms/g;
+    const motionRegex = /transition:\s*['"](?:all\s+)?(\d+(?:\.\d+)?(?:ms|s))/g;
     let match;
     while ((match = motionRegex.exec(content)) !== null) {
-        const duration = `${match[1]}ms`;
+        const duration = match[1];
         if (TOKEN_MAPPINGS.motion[duration]) {
             violations.push({
                 type: 'hardcodedMotionDuration',
@@ -207,9 +237,9 @@ function detectViolations(content, filePath) {
     }
     
     // PATTERN 4: Hardcoded easing functions
-    const easingRegex = /cubic-bezier\(([^)]+)\)/g;
+    const easingRegex = /(cubic-bezier\(([^)]+)\)|ease(?:-in|-out)?)/g;
     while ((match = easingRegex.exec(content)) !== null) {
-        const fullEasing = `cubic-bezier(${match[1]})`;
+        const fullEasing = match[1];
         if (TOKEN_MAPPINGS.easing[fullEasing]) {
             violations.push({
                 type: 'hardcodedEasing',
@@ -270,6 +300,51 @@ function detectViolations(content, filePath) {
             });
         }
     });
+    
+    // PATTERN 8: Grid fr units
+    const gridRegex = /(\d+)fr/g;
+    while ((match = gridRegex.exec(content)) !== null) {
+        const frValue = `${match[1]}fr`;
+        if (TOKEN_MAPPINGS.grid[frValue]) {
+            violations.push({
+                type: 'hardcodedGridFr',
+                pattern: frValue,
+                replacement: TOKEN_MAPPINGS.grid[frValue],
+                line: content.substring(0, match.index).split('\n').length,
+                context: extractContext(content, match.index),
+            });
+        }
+    }
+    
+    // PATTERN 9: Viewport units
+    const viewportRegex = /(\d+)vh/g;
+    while ((match = viewportRegex.exec(content)) !== null) {
+        const vhValue = `${match[1]}vh`;
+        if (TOKEN_MAPPINGS.viewport[vhValue]) {
+            violations.push({
+                type: 'hardcodedViewport',
+                pattern: vhValue,
+                replacement: TOKEN_MAPPINGS.viewport[vhValue],
+                line: content.substring(0, match.index).split('\n').length,
+                context: extractContext(content, match.index),
+            });
+        }
+    }
+    
+    // PATTERN 10: Hardcoded rem units
+    const remRegex = /([\d.]+)rem/g;
+    while ((match = remRegex.exec(content)) !== null) {
+        const remValue = `${match[1]}rem`;
+        if (TOKEN_MAPPINGS.rem[remValue]) {
+            violations.push({
+                type: 'hardcodedRem',
+                pattern: remValue,
+                replacement: TOKEN_MAPPINGS.rem[remValue],
+                line: content.substring(0, match.index).split('\n').length,
+                context: extractContext(content, match.index),
+            });
+        }
+    }
     
     return violations;
 }
@@ -352,6 +427,20 @@ function applyTransformations(content, violations) {
                 simpleTransition200Regex,
                 'transition: "$1 var(--md-sys-motion-duration-short-4)"'
             );
+        }
+        
+        // Pattern 8-10: Replace unquoted values in style properties
+        if (violation.type === 'hardcodedGridFr' || violation.type === 'hardcodedViewport' || violation.type === 'hardcodedRem') {
+            // Replace unquoted values like 1fr, 60vh, 12rem in style objects
+            const unquotedPattern = new RegExp(`(?<!['"])${violation.pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?!['"])`, 'g');
+            transformed = transformed.replace(unquotedPattern, violation.replacement);
+        }
+        
+        // Pattern 3-4: Handle unquoted motion values
+        if (violation.type === 'hardcodedMotionDuration' || violation.type === 'hardcodedEasing') {
+            // Replace unquoted values in transition properties
+            const unquotedMotionPattern = new RegExp(`(?<!['"])${violation.pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?!['"])`, 'g');
+            transformed = transformed.replace(unquotedMotionPattern, violation.replacement);
         }
     });
     

@@ -647,7 +647,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, var(--md-sys-grid-fr-1))', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-3)' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-3)' }}>
                             <button
                                 onClick={() => { setQuickEvalStudent(selectedStudentForActions); setSelectedStudentForActions(null); }}
                                 style={{
