@@ -32,6 +32,7 @@ import React, { useState, useMemo } from 'react';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SelectField, M3Typography } from './ui';
+import '../design-system/md3-utilities.css';
 
 interface AnalyticsDashboardProps {
   onClose: () => void;
@@ -176,8 +177,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             <div style={{display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-6)',
-              animation: 'fade-in 0.3s ease-out'}}>
-              {/* Metriche Principali */}
+              animation: `fade-in var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)`}}>
               <div style={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-32), 1fr))',
                 gap: 'var(--md-sys-spacing-8)'}}>
@@ -449,7 +449,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       padding: 'var(--md-sys-spacing-6)',
                       border: `var(--md-sys-border-width-thin) solid ${isHovered ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)'}`,
                       borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                      transition: 'border-color 0.2s ease'}}
+                      transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}
                     onMouseEnter={() => setHoveredElements(prev => ({ ...prev, [eventKey]: true }))}
                     onMouseLeave={() => setHoveredElements(prev => ({ ...prev, [eventKey]: false }))}>
                       <div style={{
@@ -527,7 +527,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     padding: 'var(--md-sys-spacing-6)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     cursor: 'pointer',
-                    transition: 'background-color 0.2s ease'}}
+                    transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}
                   onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': true }))}
                   onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': false }))}>
                     <div>
@@ -565,8 +565,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         backgroundColor: analyticsSettings.enabled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
                         borderRadius: 'var(--md-sys-spacing-3)',
                         position: 'relative',
-                        transition: 'background-color 0.2s ease'}}>
-                        <div style={{position: 'absolute',
+                        transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}>
                           top: 'var(--md-sys-spacing-4)',
                           left: analyticsSettings.enabled ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
                           width: 'var(--md-sys-spacing-4)',
@@ -575,7 +574,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           
                           borderRadius: '50%',
                           
-                          transition: 'left 0.2s ease'}}></div>
+                          transition: `left var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}></div>
                       </div>
                     </div>
                   </label>
@@ -588,7 +587,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         padding: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         cursor: 'pointer',
-                        transition: 'background-color 0.2s ease'}}
+                        transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}
                       onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': true }))}
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': false }))}>
                         <div>
@@ -629,7 +628,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             backgroundColor: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
                             borderRadius: 'var(--md-sys-spacing-3)',
                             position: 'relative',
-                            transition: 'background-color 0.2s ease'}}>
+                            transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}>
                             <div style={{position: 'absolute',
                               top: 'var(--md-sys-spacing-4)',
                               left: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
@@ -637,7 +636,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               height: 'var(--md-sys-spacing-4)',
                               backgroundColor: 'var(--md-sys-color-on-primary)',
                               borderRadius: '50%',
-                              transition: 'left 0.2s ease'}}></div>
+                              transition: `left var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}></div>
                           </div>
                         </div>
                       </label>
@@ -648,7 +647,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         padding: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         cursor: 'pointer',
-                        transition: 'background-color 0.2s ease'}}
+                        transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}
                       onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': true }))}
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': false }))}>
                         <div>
@@ -689,7 +688,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             backgroundColor: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
                             borderRadius: 'var(--md-sys-spacing-3)',
                             position: 'relative',
-                            transition: 'background-color 0.2s ease'}}>
+                            transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}>
                             <div style={{position: 'absolute',
                               top: 'var(--md-sys-spacing-4)',
                               left: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
@@ -697,7 +696,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               height: 'var(--md-sys-spacing-4)',
                               backgroundColor: 'var(--md-sys-color-on-primary)',
                               borderRadius: '50%',
-                              transition: 'left 0.2s ease'}}></div>
+                              transition: `left var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}></div>
                           </div>
                         </div>
                       </label>
