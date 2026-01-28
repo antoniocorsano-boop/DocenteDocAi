@@ -11,7 +11,7 @@
     },
     {
       "path": "src/components/FlowMode.tsx",
-      "reason": "Partial migration: motion tokens migrated (16 violations fixed), layout violations remain (require manual refactoring)",
+      "reason": "Partial migration: motion tokens migrated (16 violations fixed), layout violations remain",
       "tracked": true,
       "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
       "remainingViolations": 24,
@@ -19,10 +19,52 @@
     },
     {
       "path": "src/components/ClassroomView.tsx",
-      "reason": "Partial migration: motion tokens migrated (6 violations fixed), layout violations remain (require manual refactoring)",
+      "reason": "Partial migration: motion tokens migrated (12 violations fixed total), layout violations remain",
       "tracked": true,
       "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
       "remainingViolations": 6,
+      "violationType": "layout"
+    },
+    {
+      "path": "src/components/HelpModal.tsx",
+      "reason": "Partial migration: motion tokens migrated (4 violations fixed), layout violations remain",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "violationType": "layout"
+    },
+    {
+      "path": "src/components/CreateLessonFromAiModal.tsx",
+      "reason": "Partial migration: motion tokens migrated (2 violations fixed), layout violations remain",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "violationType": "layout"
+    },
+    {
+      "path": "src/components/ImportStudentsModal.tsx",
+      "reason": "Partial migration: motion tokens migrated (4 violations fixed), layout violations remain",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "violationType": "layout"
+    },
+    {
+      "path": "src/components/ClassCompetencyDashboard.tsx",
+      "reason": "Partial migration: motion tokens migrated (4 violations fixed), layout violations remain",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "violationType": "layout"
+    },
+    {
+      "path": "src/components/EvaluationModule.tsx",
+      "reason": "Partial migration: pseudo-tokens migrated (5 violations fixed), some inline styles remain",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
+      "violationType": "inline styles"
+    },
+    {
+      "path": "src/components/StudentClassroomView.tsx",
+      "reason": "Partial migration: motion tokens migrated (2 violations fixed), layout violations remain",
+      "tracked": true,
+      "migrationPlan": "MD3_CLEANUP_EXECUTION_PLAN.md",
       "violationType": "layout"
     }
   ],

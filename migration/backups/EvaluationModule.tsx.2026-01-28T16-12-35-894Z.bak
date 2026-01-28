@@ -513,15 +513,15 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     {tab.badge && (
                                         <div
                                             style={{
-                                                backgroundColor: 'var(--md-sys-color-error)',
-                                                color: 'var(--md-sys-color-on-error)',
+                                                backgroundColor: 'colors.error',
+                                                color: 'colors.onError',
                                                 width: '20',
                                                 height: '20',
-                                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                borderRadius: 'shape.corner.small',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                                fontSize: 'typescale.bodySmall.fontSize',
                                                 fontWeight: 'bold',
                                                 position: 'absolute',
                                                 top: 'calc(-1 * var(--md-sys-spacing-2))',
@@ -537,7 +537,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     </div>
                 </div>
 
-                <div style={{ padding: 'var(--md-sys-spacing-3)' }}>
+                <div style={{ padding: 'spacing[3]' }}>
                     {activeTab === 'grid' && renderEvaluationGrid()}
                     {activeTab === 'summary' && renderSummaryView()}
                     {activeTab === 'risk' && renderRiskView()}
