@@ -1,21 +1,17 @@
 {
-  "timestamp": "2026-01-28T16:20:24.500Z",
-  "totalViolations": 327,
+  "timestamp": "2026-01-28T16:27:38.982Z",
+  "totalViolations": 318,
   "totalFiles": 107,
   "scannedFiles": 253,
   "typeBreakdown": {
     "inlineStyleMotion": 124,
-    "inlineStyleLayout": 161,
+    "inlineStyleLayout": 149,
     "forbiddenProps": 17,
     "inlineStyleZIndex": 13,
     "hardcodedSizeProps": 2,
-    "classNameUtilities": 10
+    "classNameUtilities": 13
   },
   "topViolators": [
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "count": 14
-    },
     {
       "file": "src\\components\\AnalyticsDashboard.tsx",
       "count": 12
@@ -66,6 +62,10 @@
     },
     {
       "file": "src\\components\\AssistantModal.tsx",
+      "count": 5
+    },
+    {
+      "file": "src\\components\\ClassPlanningWizard.tsx",
       "count": 5
     },
     {
@@ -616,103 +616,7 @@
     },
     {
       "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 380,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<div style={{ width: '100%', marginLeft: \"auto\", marginRight: \"auto\", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' ",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 395,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ width: '100%' }} title=\"Seleziona la classe per la programmazi",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 401,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} style={{ width: '100%' }} title=\"Seleziona la materia\">",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 417,
-      "type": "inlineStyleLayout",
-      "match": "style={{ display: 'flex', flexDirection: 'row', width: '100%",
-      "context": "<label htmlFor={`kb-annual-${kb.id}`} style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: \"flex-start\", cursor: 'pointer' }",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 463,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<textarea style={{ width: '100%' }} rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder=\"Dettagli specifici ",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 465,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<M3Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant=\"tonal\" style={{ width: '100%', display: 'flex', alignItems: 'cen",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 472,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<textarea style={{ width: '100%' }} rows={6} value={situationText} onChange={e => setSituationText(e.target.value)} />",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 493,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<textarea style={{ width: '100%' }} rows={8} value={methodology} onChange={e => setMethodology(e.target.value)} />",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 532,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<input type=\"text\" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} style={{ width: '100%' }} onKeyDown={e => e.key === 'Enter' && a",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 536,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<input type=\"number\" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} style={{ width: '100%' }} />",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 601,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<input type=\"date\" value={term1End} onChange={e => setTerm1End(e.target.value)} style={{ width: '100%' }} />",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 605,
-      "type": "inlineStyleLayout",
-      "match": "style={{ width: '100%",
-      "context": "<input type=\"date\" value={term2End} onChange={e => setTerm2End(e.target.value)} style={{ width: '100%' }} />",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
-    },
-    {
-      "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 356,
+      "line": 357,
       "type": "inlineStyleMotion",
       "match": "style={{\r\n                                    width: 'var(--md-sys-spacing-8)',\r\n                   ",
       "context": "style={{",
@@ -720,11 +624,35 @@
     },
     {
       "file": "src\\components\\ClassPlanningWizard.tsx",
-      "line": 549,
+      "line": 550,
       "type": "inlineStyleMotion",
       "match": "style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-",
       "context": "<div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: \"",
       "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
+    },
+    {
+      "file": "src\\components\\ClassPlanningWizard.tsx",
+      "line": 396,
+      "type": "classNameUtilities",
+      "match": "className=\"md3-width-",
+      "context": "<select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} className=\"md3-width-full\" title=\"Seleziona la classe per la programmaz",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\ClassPlanningWizard.tsx",
+      "line": 402,
+      "type": "classNameUtilities",
+      "match": "className=\"md3-width-",
+      "context": "<select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} className=\"md3-width-full\" title=\"Seleziona la materia\">",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\ClassPlanningWizard.tsx",
+      "line": 466,
+      "type": "classNameUtilities",
+      "match": "className=\"md3-width-",
+      "context": "<M3Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant=\"tonal\" className=\"md3-width-full md3-flex-center\" style={{ gap: ",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
     },
     {
       "file": "src\\components\\ClassroomTools.tsx",
