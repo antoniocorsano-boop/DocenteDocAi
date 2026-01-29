@@ -19,7 +19,7 @@ if [ -n "$STAGED_FILES" ]; then
     echo "$STAGED_FILES" | tr ' ' '\n' > "$TEMP_FILE"
 
     # Run MD3 expressive audit script (update path if needed)
-    node ./scripts/audit-md3-expressive.cjs
+    node ./scripts/md3/audit-md3-expressive.cjs
 
     SCAN_EXIT_CODE=$?
 
@@ -50,7 +50,7 @@ fi
 echo ""
 echo "🔍 Running MD3 Z-INDEX Governance Audit..."
 
-node ./scripts/md3-zindex-audit.cjs
+node ./scripts/md3/md3-zindex-audit.cjs
 
 ZINDEX_EXIT_CODE=$?
 
@@ -71,7 +71,7 @@ echo ""
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo "🔍 Running MD3 MOTION Governance Audit..."
 
-node ./scripts/md3-motion-audit.cjs
+node ./scripts/md3/md3-motion-audit.cjs
 
 MOTION_EXIT_CODE=$?
 
@@ -93,7 +93,7 @@ echo ""
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo "🔍 Running MD3 COMPONENT CONTRACT Audit..."
 
-node ./scripts/md3-component-contract-audit.cjs
+node ./scripts/md3/md3-component-contract-audit.cjs
 
 COMPONENT_EXIT_CODE=$?
 
@@ -115,7 +115,7 @@ echo ""
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo "🔍 Running MD3 THEME Audit..."
 
-node ./scripts/md3-theme-audit.cjs
+node ./scripts/md3/md3-theme-audit.cjs
 
 THEME_EXIT_CODE=$?
 

@@ -1,0 +1,12 @@
+{
+  "mode": "auto",
+  "strategy": "most_violations_first",
+  "batchSize": 1,
+  "rules": [
+    "no-inline-styles",
+    "no-legacy-classes",
+    "use-md3-tokens",
+    "use-m3-typography",
+    "no-hardcoded-colors"
+  ]
+}
